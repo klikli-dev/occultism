@@ -78,6 +78,8 @@ public class BookGenerator implements DataProvider {
 
         var advancedCategory = this.makeAdvancedCategory(helper).withSortNumber(sortNum++);
 
+        var storageCategory = this.makeStorageCategory(helper).withSortNumber(sortNum++);
+
         var ritualsCategory = this.makeRitualsCategory(helper).withSortNumber(sortNum++);
 
         var summoningRitualsCategory = this.makeSummoningRitualsSubcategory(helper).withSortNumber(sortNum++);
@@ -102,7 +104,8 @@ public class BookGenerator implements DataProvider {
                         possessionRitualsCategory.build(),
                         craftingRitualsCategory.build(),
                         familiarRitualsCategory.build(),
-                        advancedCategory.build()
+                        advancedCategory.build(),
+                        storageCategory.build()
                 )
                 .withCraftingTexture(this.modLoc("textures/gui/book/crafting_textures.png"))
                 .withGenerateBookItem(false)
@@ -2351,7 +2354,7 @@ public class BookGenerator implements DataProvider {
                 "___________________________",
                 "_______d_____h_____________",
                 "___________________________",
-                "___9_0_____________________",
+                "___9_0___z_________________",
                 "___________________________",
                 "_______f_a____g____________",
                 "___________________________",
@@ -2376,8 +2379,11 @@ public class BookGenerator implements DataProvider {
         var craftDjinniMiner = this.makeCraftDjinniMinerEntry(helper, entryHelper, 'x');
         craftDjinniMiner.withParent(BookEntryParentModel.builder().withEntryId(craftFoliotMiner.id).build());
 
+        var craftStorageSystem = this.makeCraftStorageSystemEntry(helper, entryHelper, 'z');
+        craftStorageSystem.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+
         var craftDimensionalMatrix = this.makeCraftDimensionalMatrixEntry(helper, entryHelper, 'a');
-        craftDimensionalMatrix.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        craftDimensionalMatrix.withParent(BookEntryParentModel.builder().withEntryId(craftStorageSystem.id).build());
         var craftStorageControllerBase = this.makeCraftStorageControllerBaseEntry(helper, entryHelper, 'n');
         craftStorageControllerBase.withParent(BookEntryParentModel.builder().withEntryId(craftDimensionalMatrix.id).build());
         var craftStabilizerTier1 = this.makeCraftStabilizerTier1Entry(helper, entryHelper, 'i');
@@ -2413,6 +2419,7 @@ public class BookGenerator implements DataProvider {
                 .withEntries(
                         overview.build(),
                         returnToRituals.build(),
+                        craftStorageSystem.build(),
                         craftDimensionalMatrix.build(),
                         craftDimensionalMineshaft.build(),
                         craftInfusedPickaxe.build(),
@@ -2448,6 +2455,25 @@ public class BookGenerator implements DataProvider {
                 .withLocation(entryHelper.get(icon))
                 .withPages(
                         intro
+                );
+    }
+
+    private BookEntryModel.Builder makeCraftStorageSystemEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("craft_storage_system");
+
+        helper.page("spotlight");
+        var spotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismBlocks.STORAGE_CONTROLLER.get()))
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon("minecraft:chest")
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        spotlight
                 );
     }
 
@@ -3760,6 +3786,131 @@ public class BookGenerator implements DataProvider {
                         ritual,
                         description
                 );
+    }
+
+    private BookCategoryModel.Builder makeStorageCategory(BookLangHelper helper) {
+        helper.category("storage");
+
+        var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
+        entryHelper.setMap(
+                "___________________________",
+                "___________________________",
+                "___________________________",
+                "_____0_c___________________",
+                "___________________________",
+                "___________________________",
+                "___________________________"
+                );
+
+        //TODO: in crafting rituals cat, create entry that explains that this cat has the full rpcoiess
+
+        var overview = this.makeStorageOverviewEntry(helper, entryHelper, '0');
+
+        helper.category("storage");
+        var storageController = this.makeStorageControllerEntry(helper, entryHelper, 'c');
+        storageController.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+
+//        helper.category("crafting_rituals"); //re-use existing entries
+//        var craftStabilizerTier1 = this.makeCraftStabilizerTier1Entry(helper, entryHelper, 'i');
+//        craftStabilizerTier1.withParent(BookEntryParentModel.builder().withEntryId(craftStorageControllerBase.id).build());
+//        var craftStabilizerTier2 = this.makeCraftStabilizerTier2Entry(helper, entryHelper, 'j');
+//        craftStabilizerTier2.withParent(BookEntryParentModel.builder().withEntryId(craftStabilizerTier1.id).build());
+//        var craftStabilizerTier3 = this.makeCraftStabilizerTier3Entry(helper, entryHelper, 'k');
+//        craftStabilizerTier3.withParent(BookEntryParentModel.builder().withEntryId(craftStabilizerTier2.id).build());
+//        var craftStabilizerTier4 = this.makeCraftStabilizerTier4Entry(helper, entryHelper, 'l');
+//        craftStabilizerTier4.withParent(BookEntryParentModel.builder().withEntryId(craftStabilizerTier3.id).build());
+//
+//        var craftStableWormhole = this.makeCraftStableWormholeEntry(helper, entryHelper, 'm');
+//        craftStableWormhole.withParent(BookEntryParentModel.builder().withEntryId(craftStorageControllerBase.id).build());
+//        var craftStorageRemote = this.makeCraftStorageRemoteEntry(helper, entryHelper, 'o');
+//        craftStorageRemote.withParent(BookEntryParentModel.builder().withEntryId(craftStableWormhole.id).build());
+//        helper.category("storage");
+
+        return BookCategoryModel.builder()
+                .withId(this.modLoc(helper.category))
+                .withName(helper.categoryName())
+                .withIcon("minecraft:chest")
+                .withEntries(
+                        overview.build(),
+                        storageController.build()
+                );
+    }
+
+    private BookEntryModel.Builder makeStorageOverviewEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("overview");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("intro2");
+        var intro2 = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon("minecraft:chest")
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        intro2
+                );
+    }
+
+
+    private BookEntryModel.Builder makeStorageControllerEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("storage_controller");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("usage");
+        var usage = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("usage2");
+        var usage2 = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("matrix_ritual");
+        var matrixRitual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("rituals/craft_dimensional_matrix"))
+                .build();
+
+        helper.page("base_ritual");
+        var baseRitual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("rituals/craft_storage_controller_base"))
+                .build();
+
+        helper.page("recipe");
+        var recipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/storage_controller"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon("minecraft:chest")
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        usage,
+                        usage2,
+                        matrixRitual,
+                        baseRitual,
+                        recipe
+                        );
     }
 
     private BookModel add(BookModel bookModel) {

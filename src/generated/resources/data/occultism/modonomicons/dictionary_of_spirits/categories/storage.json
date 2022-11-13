@@ -1,8 +1,8 @@
 {
   "background": "modonomicon:textures/gui/dark_slate_seamless.png",
   "entry_textures": "modonomicon:textures/gui/entry_textures.png",
-  "icon": "occultism:pentacle",
-  "name": "book.occultism.dictionary_of_spirits.pentacles.name",
+  "icon": "minecraft:chest",
+  "name": "book.occultism.dictionary_of_spirits.storage.name",
   "show_category_button": true,
-  "sort_number": 9
+  "sort_number": 3
 }

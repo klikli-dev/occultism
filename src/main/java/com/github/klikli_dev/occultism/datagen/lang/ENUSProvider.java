@@ -26,15 +26,20 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
+import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class ENUSProvider extends LanguageProvider {
@@ -683,6 +688,7 @@ public class ENUSProvider extends LanguageProvider {
         this.addCraftingRitualsCategory(helper);
         this.addPossessionRitualsCategory(helper);
         this.addFamiliarRitualsCategory(helper);
+        this.addStorageCategory(helper);
         this.addAdvancedCategory(helper);
     }
 
@@ -2245,6 +2251,15 @@ public class ENUSProvider extends LanguageProvider {
                         Binding rituals infuse spirits into items, where their powers are used for one specific purpose. The created items can act like simple empowering enchantments, or fulfill complex tasks to aid the summoner.
                            """);
 
+        helper.entry("craft_storage_system");
+        this.add(helper.entryName(), "Magic Storage");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        The following entries show only the rituals related to the Magic Storage system. For full step-by-step instructions on building the storage system, see the [Magic Storage](category://storage) category.
+                           """.formatted(COLOR_PURPLE));
+
         helper.entry("craft_dimensional_matrix");
         this.add(helper.entryName(), "Dimensional Matrix");
 
@@ -2953,6 +2968,69 @@ public class ENUSProvider extends LanguageProvider {
                         **Upgrade Behaviour**\\
                         Cannot be upgraded by the blacksmith familiar.
                            """.formatted(COLOR_PURPLE));
+
+    }
+
+    private void addStorageCategory(BookLangHelper helper) {
+        helper.category("storage");
+        this.add(helper.categoryName(), "Magic Storage");
+
+        helper.entry("overview");
+        this.add(helper.entryName(), "Magic Storage");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Magic Storage");
+        this.add(helper.pageText(),
+                """
+                        Every summoner knows the problem: There are just too many occult paraphernalia lying around. The solution is simple, yet elegant: Magic Storage!
+                        \\
+                        \\
+                        Using Spirits able to access storage dimensions it is possible to create almost unlimited storage space.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("intro2");
+        this.add(helper.pageText(),
+                """
+                        Follow the steps shown in this category to get your own storage system!
+                        The steps related to storage in [Summoning Rituals](category://summoning_rituals/) show only the rituals, while here **all required steps** including crafting are shown.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.entry("storage_controller");
+        this.add(helper.entryName(), "Storage Actuator");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Storage Actuator");
+        this.add(helper.pageText(),
+                """
+                        The [](item://occultism:storage_controller) consists of a [Dimensional Matrix](entry://summoning_rituals/craft_dimensional_matrix) inhabited by a [#](%1$s)Djinni[#]() that creates and manages a storage dimension, and a [Base](entry://summoning_rituals/craft_storage_controller_base) infused with a [#](%1$s)Foliot[#]() that moves items in and out of the storage dimension.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("usage");
+        this.add(helper.pageTitle(), "Usage");
+        this.add(helper.pageText(),
+                """
+                        After crafting the [](item://occultism:storage_controller) (see following pages), place it in the world and right-click it with an empty hand. This will open the GUI of the storage controller, from there on it will work like a big shulker box.\\
+                        Breaking the storage controller will store all contained items in the dropped item, you will not lose anything.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("usage2");
+        this.add(helper.pageText(),
+                """
+                        The storage controller by default provides **128** slots (_You will learn later how to increase that_). Each slot can hold up to **1024** items, even items that usually have smaller stack sizes or are not stackable at all.\\
+                        The only exception are items with unique properties ("NBT data"), such as damaged equipment, which cannot stack at all and will take up a full slot.
+                        
+                        **Note:** Slot amount and slot size can be configured in the "occultism-server.toml" config file.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("matrix_ritual");
+        //no text
+
+        helper.page("base_ritual");
+        //no text
+
+        helper.page("recipe");
+        //no text
+
 
     }
 

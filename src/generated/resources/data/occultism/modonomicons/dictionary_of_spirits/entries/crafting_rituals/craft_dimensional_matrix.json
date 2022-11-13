@@ -28,7 +28,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:crafting_rituals/overview",
+      "entry": "occultism:crafting_rituals/craft_storage_system",
       "line_enabled": true,
       "line_reversed": false
     }
