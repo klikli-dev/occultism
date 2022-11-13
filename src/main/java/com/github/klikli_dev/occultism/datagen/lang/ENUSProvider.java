@@ -3009,18 +3009,45 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Usage");
         this.add(helper.pageText(),
                 """
-                        After crafting the [](item://occultism:storage_controller) (see following pages), place it in the world and right-click it with an empty hand. This will open the GUI of the storage controller, from there on it will work like a big shulker box.\\
-                        Breaking the storage controller will store all contained items in the dropped item, you will not lose anything.
+                        After crafting the [](item://occultism:storage_controller) (see following pages), place it in the world and right-click it with an empty hand. This will open the GUI of the storage controller, from there on it will work much like a very big shulker box.
                         """.formatted(COLOR_PURPLE));
 
-        helper.page("usage2");
+        helper.page("safety");
+        this.add(helper.pageTitle(), "Safety first!");
         this.add(helper.pageText(),
                 """
-                        The storage controller by default provides **128** slots (_You will learn later how to increase that_). Each slot can hold up to **1024** items, even items that usually have smaller stack sizes or are not stackable at all.\\
-                        The only exception are items with unique properties ("NBT data"), such as damaged equipment, which cannot stack at all and will take up a full slot.
-                        
-                        **Note:** Slot amount and slot size can be configured in the "occultism-server.toml" config file.
+                        Breaking the storage controller will store all contained items in the dropped item, you will not lose anything.
+                        The same applies to breaking or replacing Storage Stabilizers (you will learn about these later). 
+                        \\
+                        \\
+                        Like in a shulker box, your items are safe!
                         """.formatted(COLOR_PURPLE));
+
+
+        helper.page("size");
+        this.add(helper.pageTitle(), "So much storage!");
+        this.add(helper.pageText(),
+                """
+                        The storage controller by default provides **128** slots (_You will learn later how to increase that_). Each slot can hold up to **1024** items, even items that usually have smaller stack sizes or are not stackable at all.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("unique_items");
+        this.add(helper.pageTitle(), "Unique Items");
+        this.add(helper.pageText(),
+                """
+                        The only exception to the increased stack size are **items with unique properties** ("NBT data"), such as damaged equipment, which cannot stack at all and will take up a full slot. For optimal storage results you should limit the amount of these items in your system.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("config");
+        this.add(helper.pageTitle(), "Configurablity");
+        this.add(helper.pageText(),
+                """
+                        Slot amount and slot size can be configured in the "[#](%1$s)occultism-server.toml[#]()" config file in the save directory of your world.
+                        \\
+                        \\
+                        Increasing slot size does not impact performance, increasing slot amount (by a lot) can have a negative impact on performance.
+                        """.formatted(COLOR_PURPLE));
+
 
         helper.page("matrix_ritual");
         //no text

@@ -2354,11 +2354,11 @@ public class BookGenerator implements DataProvider {
                 "___________________________",
                 "_______d_____h_____________",
                 "___________________________",
-                "___9_0___z_________________",
+                "___9_0_____________________",
                 "___________________________",
-                "_______f_a____g____________",
+                "_______f_z_a__g____________",
                 "___________________________",
-                "_________n_m_o_____________",
+                "___________n_m_o___________",
                 "___________________________",
                 "___________i_j_k_l_________",
                 "___________________________"
@@ -3878,8 +3878,27 @@ public class BookGenerator implements DataProvider {
                 .withText(helper.pageText())
                 .build();
 
-        helper.page("usage2");
-        var usage2 = BookTextPageModel.builder()
+        helper.page("safety");
+        var safety = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("size");
+        var size = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("unique_items");
+        var uniqueItems = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("config");
+        var config = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
 
@@ -3906,7 +3925,10 @@ public class BookGenerator implements DataProvider {
                 .withPages(
                         intro,
                         usage,
-                        usage2,
+                        safety,
+                        size,
+                        uniqueItems,
+                        config,
                         matrixRitual,
                         baseRitual,
                         recipe

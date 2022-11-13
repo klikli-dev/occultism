@@ -27,8 +27,32 @@
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.usage2.text",
-      "title": "",
+      "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.safety.text",
+      "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.safety.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.size.text",
+      "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.size.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.unique_items.text",
+      "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.unique_items.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.config.text",
+      "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.config.title",
       "use_markdown_in_title": false
     },
     {
