@@ -85,8 +85,9 @@
       "anchor": "",
       "border": true,
       "images": [
-        "occultism:textures/gui/book/rod_detected.png",
-        "occultism:textures/gui/book/rod_close.png"
+        "occultism:textures/gui/book/rod_far.png",
+        "occultism:textures/gui/book/rod_mid.png",
+        "occultism:textures/gui/book/rod_near.png"
       ],
       "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.divination_rod_screenshots.text",
       "title": ""

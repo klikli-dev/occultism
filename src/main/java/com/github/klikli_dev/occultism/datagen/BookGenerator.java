@@ -396,8 +396,9 @@ public class BookGenerator implements DataProvider {
         helper.page("divination_rod_screenshots");
         var divinationRodScreenshots = BookImagePageModel.builder()
                 .withImages(
-                        this.modLoc("textures/gui/book/rod_detected.png"),
-                        this.modLoc("textures/gui/book/rod_close.png")
+                        this.modLoc("textures/gui/book/rod_far.png"),
+                        this.modLoc("textures/gui/book/rod_mid.png"),
+                        this.modLoc("textures/gui/book/rod_near.png")
                 )
                 .withText(helper.pageText())
                 .build();
@@ -2347,9 +2348,9 @@ public class BookGenerator implements DataProvider {
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
         entryHelper.setMap(
                 "___________________________",
-                "_______b_e_x_c_____________",
+                "_______b_e_x_p_q___________",
                 "___________________________",
-                "_______d_____h_____________",
+                "_______d_h_c_______________",
                 "___________________________",
                 "___9_0_____________________",
                 "___________________________",
@@ -2375,7 +2376,10 @@ public class BookGenerator implements DataProvider {
         craftFoliotMiner.withParent(BookEntryParentModel.builder().withEntryId(craftDimensionalMineshaft.id).build());
         var craftDjinniMiner = this.makeCraftDjinniMinerEntry(helper, entryHelper, 'x');
         craftDjinniMiner.withParent(BookEntryParentModel.builder().withEntryId(craftFoliotMiner.id).build());
-
+        var craftAfritMiner = this.makeCraftAfritMinerEntry(helper, entryHelper, 'p');
+        craftAfritMiner.withParent(BookEntryParentModel.builder().withEntryId(craftDjinniMiner.id).build());
+        var craftMaridMiner = this.makeCraftMaridMinerEntry(helper, entryHelper, 'q');
+        craftMaridMiner.withParent(BookEntryParentModel.builder().withEntryId(craftAfritMiner.id).build());
         var craftDimensionalMatrix = this.makeCraftDimensionalMatrixEntry(helper, entryHelper, 'a');
         craftDimensionalMatrix.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
         var craftStorageControllerBase = this.makeCraftStorageControllerBaseEntry(helper, entryHelper, 'n');
@@ -2418,6 +2422,8 @@ public class BookGenerator implements DataProvider {
                         craftInfusedPickaxe.build(),
                         craftFoliotMiner.build(),
                         craftDjinniMiner.build(),
+                        craftAfritMiner.build(),
+                        craftMaridMiner.build(),
                         craftOtherworldGoggles.build(),
                         craftSatchel.build(),
                         craftSoulGem.build(),
@@ -2758,6 +2764,56 @@ public class BookGenerator implements DataProvider {
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
                 .withName(helper.entryName())
                 .withIcon(OccultismItems.MINER_DJINNI_ORES.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        spotlight,
+                        ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeCraftAfritMinerEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("craft_afrit_deeps");
+
+        helper.page("spotlight");
+        var spotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.MINER_AFRIT_DEEPS.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/craft_miner_afrit_deeps"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.MINER_AFRIT_DEEPS.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        spotlight,
+                        ritual
+                );
+    }
+
+    private BookEntryModel.Builder makeCraftMaridMinerEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("craft_marid_master");
+
+        helper.page("spotlight");
+        var spotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.MINER_MARID_MASTER.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/craft_miner_marid_master"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.MINER_MARID_MASTER.getId().toString())
                 .withLocation(entryHelper.get(icon))
                 .withPages(
                         spotlight,
