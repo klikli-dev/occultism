@@ -30,6 +30,7 @@ import com.github.klikli_dev.occultism.common.misc.StorageControllerCraftingInve
 import com.github.klikli_dev.occultism.network.MessageUpdateLinkedMachines;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
+import com.github.klikli_dev.occultism.util.BlockEntityUtil;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -124,6 +125,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     @Override
     public boolean stillValid(Player entityPlayer) {
         IStorageController storageController = this.getStorageController();
+
         //stillValid is constantly called, so we use it to send
         //stack updates every 40 ticks.
         if (storageController != null && !entityPlayer.level.isClientSide &&
@@ -133,6 +135,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
                     new MessageUpdateLinkedMachines(this.getStorageController().getLinkedMachines()));
         }
 
+        //close container if storage controller block is destroyed ( -> if it is null here, this check is a bit different from the wormhole, because getStorageController() already handles that)
         return storageController != null && this.getStorageRemote() != ItemStack.EMPTY;
     }
 
