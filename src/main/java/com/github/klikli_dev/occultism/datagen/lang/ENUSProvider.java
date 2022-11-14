@@ -33,6 +33,7 @@ import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import net.minecraft.Util;
@@ -3091,6 +3092,14 @@ public class ENUSProvider extends LanguageProvider {
                         Increasing slot size does not impact performance, increasing slot amount (by a lot) can have a negative impact on performance.
                         """.formatted(COLOR_PURPLE));
 
+        helper.page("mods");
+        this.add(helper.pageTitle(), "Interaction with Mods");
+        this.add(helper.pageText(),
+                """
+                        For other mods the storage controller behaves like a shulker box, anything that can interact with vanilla chests and shulker boxes can interact with the storage controller.
+                        Devices that count storage contents may have trouble with the stack sizes, if you run into this issue have your server admin set [this option](https://github.com/klikli-dev/occultism/issues/221#issuecomment-944904459).
+                        """.formatted(COLOR_PURPLE));
+
 
         helper.page("matrix_ritual");
         //no text
@@ -3099,9 +3108,49 @@ public class ENUSProvider extends LanguageProvider {
         //no text
 
         helper.page("recipe");
+        this.add(helper.pageText(),
+                """
+                        This is the actual block that works as a storage, make sure to craft it!
+                        Placing just the [](item://occultism:storage_controller_base) from the previous step won't work.
+                        """.formatted(COLOR_PURPLE));
         //no text
 
 
+        helper.entry("storage_stabilizer");
+        this.add(helper.entryName(), "Extending Storage");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        Storage Stabilizers increase the storage space in the storage dimension of the storage actuator. The higher the tier of the stabilizer, the more additional storage slots it provides. The following entries will show you how to craft each tier.
+                        \\
+                        \\
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("upgrade");
+        this.add(helper.pageTitle(), "Upgrading");
+        this.add(helper.pageText(),
+                """
+                       It is **safe to destroy a storage stabilizer** to upgrade it. The items in the [Storage Actuator](entry://storage/storage_controller) will not be lost or dropped - you simply cannot add new items until you add enough storage stabilizers to have free slots again.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("build_instructions");
+        this.add(helper.pageTitle(), "Build Instructions");
+        this.add(helper.pageText(),
+                """
+                        Storage controllers need to point at the [Dimensional Matrix](entry://crafting_rituals/craft_dimensional_matrix), that means **one block above the [Storage Actuator](entry://storage/storage_controller)**. 
+                        \\
+                        \\
+                        They can be **up to 5 blocks away** from the Dimensional Matrix, and need to be in a straight line of sight. See the next page for a possible very simple setup.
+                        """.formatted(COLOR_PURPLE));
+
+
+        helper.page("demo");
+        this.add(helper.pageTitle(), "Storage Stabilizer Setup");
+        this.add(helper.pageText(),
+                """
+                        **Note:** You do not need all 4 stabilizers, even one will increase your storage.
+                        """.formatted(COLOR_PURPLE));
     }
 
     private void addAdvancements() {

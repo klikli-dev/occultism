@@ -34,7 +34,7 @@
       "title2": ""
     },
     {
-      "type": "occultism:ritual_recipe",
+      "type": "modonomicon:crafting_recipe",
       "anchor": "",
       "recipe_id_1": "occultism:crafting/goggles",
       "text": "",

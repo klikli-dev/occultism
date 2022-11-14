@@ -1,0 +1,68 @@
+{
+  "type": "modonomicon:dense",
+  "mapping": {
+    "0": {
+      "type": "modonomicon:block",
+      "block": "occultism:storage_controller"
+    },
+    "o": {
+      "type": "modonomicon:display",
+      "display": "occultism:otherstone"
+    },
+    "1": {
+      "type": "modonomicon:tag",
+      "display": "occultism:storage_stabilizer_tier1[facing=west]",
+      "tag": "#occultism:storage_stabilizer[facing=west]"
+    },
+    "2": {
+      "type": "modonomicon:tag",
+      "display": "occultism:storage_stabilizer_tier1[facing=north]",
+      "tag": "#occultism:storage_stabilizer[facing=north]"
+    },
+    "3": {
+      "type": "modonomicon:tag",
+      "display": "occultism:storage_stabilizer_tier1[facing=east]",
+      "tag": "#occultism:storage_stabilizer[facing=east]"
+    },
+    "4": {
+      "type": "modonomicon:tag",
+      "display": "occultism:storage_stabilizer_tier1[facing=south]",
+      "tag": "#occultism:storage_stabilizer[facing=south]"
+    }
+  },
+  "pattern": [
+    [
+      "____o____",
+      "____1____",
+      "_________",
+      "_________",
+      "o4_____2o",
+      "_________",
+      "_________",
+      "____3____",
+      "____o____"
+    ],
+    [
+      "____o____",
+      "_________",
+      "_________",
+      "_________",
+      "o___0___o",
+      "_________",
+      "_________",
+      "_________",
+      "____o____"
+    ],
+    [
+      "___ooo___",
+      "__ooooo__",
+      "_ooooooo_",
+      "ooooooooo",
+      "ooooooooo",
+      "ooooooooo",
+      "_ooooooo_",
+      "__ooooo__",
+      "___ooo___"
+    ]
+  ]
+}

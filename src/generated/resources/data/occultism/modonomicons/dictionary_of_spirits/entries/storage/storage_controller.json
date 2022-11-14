@@ -56,6 +56,14 @@
       "use_markdown_in_title": false
     },
     {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.mods.text",
+      "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.mods.title",
+      "use_markdown_in_title": false
+    },
+    {
       "type": "occultism:ritual_recipe",
       "anchor": "",
       "recipe_id_1": "occultism:ritual/craft_dimensional_matrix",
@@ -75,7 +83,7 @@
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
       "recipe_id_1": "occultism:crafting/storage_controller",
-      "text": "",
+      "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.recipe.text",
       "title1": "",
       "title2": ""
     }

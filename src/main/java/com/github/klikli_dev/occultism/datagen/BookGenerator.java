@@ -822,7 +822,7 @@ public class BookGenerator implements DataProvider {
                 .build();
 
         helper.page("recipe");
-        var recipe = BookRitualRecipePageModel.builder()
+        var recipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/goggles"))
                 .build();
 
@@ -3851,15 +3851,18 @@ public class BookGenerator implements DataProvider {
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
         entryHelper.setMap(
                 "___________________________",
+                "_________w_r_______________",
                 "___________________________",
+                "_____0_c_s_1_2_3_4___________",
                 "___________________________",
-                "_____0_c___________________",
-                "___________________________",
-                "___________________________",
+                "_________d_________________",
                 "___________________________"
                 );
 
-        //TODO: in crafting rituals cat, create entry that explains that this cat has the full rpcoiess
+        //storage controller -> stabilizers
+        //                   -> wormhole -> remote
+        //                   -> autocrafting
+
 
         var overview = this.makeStorageOverviewEntry(helper, entryHelper, '0');
 
@@ -3867,21 +3870,24 @@ public class BookGenerator implements DataProvider {
         var storageController = this.makeStorageControllerEntry(helper, entryHelper, 'c');
         storageController.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
 
-//        helper.category("crafting_rituals"); //re-use existing entries
-//        var craftStabilizerTier1 = this.makeCraftStabilizerTier1Entry(helper, entryHelper, 'i');
-//        craftStabilizerTier1.withParent(BookEntryParentModel.builder().withEntryId(craftStorageControllerBase.id).build());
-//        var craftStabilizerTier2 = this.makeCraftStabilizerTier2Entry(helper, entryHelper, 'j');
-//        craftStabilizerTier2.withParent(BookEntryParentModel.builder().withEntryId(craftStabilizerTier1.id).build());
-//        var craftStabilizerTier3 = this.makeCraftStabilizerTier3Entry(helper, entryHelper, 'k');
-//        craftStabilizerTier3.withParent(BookEntryParentModel.builder().withEntryId(craftStabilizerTier2.id).build());
-//        var craftStabilizerTier4 = this.makeCraftStabilizerTier4Entry(helper, entryHelper, 'l');
-//        craftStabilizerTier4.withParent(BookEntryParentModel.builder().withEntryId(craftStabilizerTier3.id).build());
+         var storageStabilizer = this.makeStorageStabilizerEntry(helper, entryHelper, 's');
+        storageStabilizer.withParent(BookEntryParentModel.builder().withEntryId(storageController.id).build());
+
+        helper.category("crafting_rituals"); //re-use existing entries
+        var craftStabilizerTier1 = this.makeCraftStabilizerTier1Entry(helper, entryHelper, '1');
+        craftStabilizerTier1.withParent(BookEntryParentModel.builder().withEntryId(storageStabilizer.id).build());
+        var craftStabilizerTier2 = this.makeCraftStabilizerTier2Entry(helper, entryHelper, '2');
+        craftStabilizerTier2.withParent(BookEntryParentModel.builder().withEntryId(craftStabilizerTier1.id).build());
+        var craftStabilizerTier3 = this.makeCraftStabilizerTier3Entry(helper, entryHelper, '3');
+        craftStabilizerTier3.withParent(BookEntryParentModel.builder().withEntryId(craftStabilizerTier2.id).build());
+        var craftStabilizerTier4 = this.makeCraftStabilizerTier4Entry(helper, entryHelper, '4');
+        craftStabilizerTier4.withParent(BookEntryParentModel.builder().withEntryId(craftStabilizerTier3.id).build());
 //
 //        var craftStableWormhole = this.makeCraftStableWormholeEntry(helper, entryHelper, 'm');
 //        craftStableWormhole.withParent(BookEntryParentModel.builder().withEntryId(craftStorageControllerBase.id).build());
 //        var craftStorageRemote = this.makeCraftStorageRemoteEntry(helper, entryHelper, 'o');
 //        craftStorageRemote.withParent(BookEntryParentModel.builder().withEntryId(craftStableWormhole.id).build());
-//        helper.category("storage");
+       helper.category("storage");
 
         return BookCategoryModel.builder()
                 .withId(this.modLoc(helper.category))
@@ -3889,7 +3895,12 @@ public class BookGenerator implements DataProvider {
                 .withIcon("minecraft:chest")
                 .withEntries(
                         overview.build(),
-                        storageController.build()
+                        storageController.build(),
+                        storageStabilizer.build(),
+                        craftStabilizerTier1.build(),
+                        craftStabilizerTier2.build(),
+                        craftStabilizerTier3.build(),
+                        craftStabilizerTier4.build()
                 );
     }
 
@@ -3918,7 +3929,6 @@ public class BookGenerator implements DataProvider {
                         intro2
                 );
     }
-
 
     private BookEntryModel.Builder makeStorageControllerEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("storage_controller");
@@ -3959,6 +3969,12 @@ public class BookGenerator implements DataProvider {
                 .withText(helper.pageText())
                 .build();
 
+        helper.page("mods");
+        var mods = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
         helper.page("matrix_ritual");
         var matrixRitual = BookRitualRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("ritual/craft_dimensional_matrix"))
@@ -3972,6 +3988,7 @@ public class BookGenerator implements DataProvider {
         helper.page("recipe");
         var recipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/storage_controller"))
+                .withText(helper.pageText())
                 .build();
 
         return BookEntryModel.builder()
@@ -3986,10 +4003,51 @@ public class BookGenerator implements DataProvider {
                         size,
                         uniqueItems,
                         config,
+                        mods,
                         matrixRitual,
                         baseRitual,
                         recipe
                         );
+    }
+
+    private BookEntryModel.Builder makeStorageStabilizerEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("storage_stabilizer");
+
+        helper.page("spotlight");
+        var spotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER1.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("upgrade");
+        var upgrade = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("build_instructions");
+        var buildInstructions = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("demo");
+        var demo = BookMultiblockPageModel.builder()
+                .withMultiblockId(this.modLoc("storage_stabilizer_demo"))
+                .withMultiblockName(helper.pageTitle())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismBlocks.STORAGE_CONTROLLER.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        spotlight,
+                        upgrade,
+                        buildInstructions,
+                        demo
+                );
     }
 
     private BookModel add(BookModel bookModel) {
