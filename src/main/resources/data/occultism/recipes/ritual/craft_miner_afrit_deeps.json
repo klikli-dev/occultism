@@ -1,0 +1,35 @@
+{
+  "type": "occultism:ritual",
+  "ritual_type": "occultism:craft_miner_spirit",
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_afrit"
+  },
+  "pentacle_id": "occultism:craft_afrit",
+  "duration": 120,
+  "ritual_dummy": {
+    "item": "occultism:ritual_dummy/craft_miner_afrit_deeps"
+  },
+  "ingredients": [
+    {
+      "item": "occultism:magic_lamp_empty"
+    },
+    {
+      "item": "occultism:iesnium_pickaxe"
+    },
+    {
+      "item": "occultism:spirit_attuned_crystal"
+    },
+    {
+      "item": "occultism:afrit_essence"
+    },
+    {
+      "item": "minecraft:echo_shard"
+    },
+    {
+      "item": "minecraft:crying_obsidian"
+    }
+  ],
+  "result": {
+    "item": "occultism:miner_afrit_deeps"
+  }
+}
