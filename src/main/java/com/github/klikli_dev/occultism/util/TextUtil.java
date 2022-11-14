@@ -52,8 +52,9 @@ public class TextUtil {
     //TheBoo: Ambassador to E6 and many many contributions
     //Legiaseth: Tried to overload the storage system with nbt. Genius contraption using create to auto-create as much nbt as possible. Love it.
     //Vallen: Did a Bit-By-Bit Video! https://www.youtube.com/watch?v=kAKzzJ_yiC8
-    //Vemerion: Various (awesome!) familiar-related content
-    private static final String[] EASTER_EGGS = {"KliKli", "Xalmas", "Toastbroat", "Najlitarvan", "TheBoo", "Ridanisaurus", "Legiaseth", "Vallen", "Vemerion"};
+    //Vemerion: Sooo many new familiars! <3
+    //Eqis: the long-awaited additional spirit miner tiers
+    private static final String[] EASTER_EGGS = {"KliKli", "Xalmas", "Toastbroat", "Najlitarvan", "TheBoo", "Ridanisaurus", "Legiaseth", "Vallen", "Vemerion", "Eqis"};
     private static final String[] SYLLABLE2 = {"air", "ir", "mi", "sor", "mee", "clo", "red", "cra", "ark", "arc", "miri", "lori", "cres", "mur", "zer", "marac", "zoir", "slamar", "salmar", "urak", "tim"};
     private static final String[] SYLLABLE3 = {"d", "ed", "ark", "arc", "es", "er", "der", "tron", "med", "ure", "zur", "cred", "mur", "aeus"};
     private static final Random random = new Random();
