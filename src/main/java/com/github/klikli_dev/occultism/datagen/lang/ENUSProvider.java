@@ -114,6 +114,8 @@ public class ENUSProvider extends LanguageProvider {
         this.add(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get().getDescriptionId() + ".tooltip", "%s will mine random blocks in the mining dimension.");
         this.add(OccultismItems.MINER_DJINNI_ORES.get().getDescriptionId() + ".tooltip", "%s will mine random ores in the mining dimension.");
         this.add(OccultismItems.MINER_DEBUG_UNSPECIALIZED.get().getDescriptionId() + ".tooltip", "Debug Miner will mine random blocks in the mining dimension.");
+        this.add(OccultismItems.MINER_AFRIT_DEEPS.get().getDescriptionId() + ".tooltip", "%s will mine random ores and deepslate ores in the mining dimension.");
+        this.add(OccultismItems.MINER_MARID_MASTER.get().getDescriptionId() + ".tooltip", "%s will mine random ores, deepslate ores and rare ores in the mining dimension.");
         this.add(OccultismItems.SOUL_GEM_ITEM.get().getDescriptionId() + ".tooltip_filled", "Contains a captured %s.");
         this.add(OccultismItems.SOUL_GEM_ITEM.get().getDescriptionId() + ".tooltip_empty", "Use on a creature to capture it.");
         this.add(OccultismItems.SATCHEL.get().getDescriptionId() + ".tooltip", "%s is bound to this satchel.");
@@ -198,6 +200,8 @@ public class ENUSProvider extends LanguageProvider {
         this.addItem(OccultismItems.MINER_FOLIOT_UNSPECIALIZED, "Miner Foliot");
         this.addItem(OccultismItems.MINER_DJINNI_ORES, "Ore Miner Djinni");
         this.addItem(OccultismItems.MINER_DEBUG_UNSPECIALIZED, "Debug Miner");
+        this.addItem(OccultismItems.MINER_AFRIT_DEEPS, "Deep Ore Miner Afrit");
+        this.addItem(OccultismItems.MINER_MARID_MASTER, "Master Miner Marid");
         this.addItem(OccultismItems.SOUL_GEM_ITEM, "Soul Gem");
         this.add(OccultismItems.SOUL_GEM_ITEM.get().getDescriptionId() + "_empty", "Empty Soul Gem");
         this.addItem(OccultismItems.SATCHEL, "Surprisingly Substantial Satchel");
@@ -555,14 +559,27 @@ public class ENUSProvider extends LanguageProvider {
         this.add("ritual.occultism.craft_infused_pickaxe.started", "Started binding djinni into pickaxe.");
         this.add("ritual.occultism.craft_infused_pickaxe.finished", "Successfully bound djinni into pickaxe.");
         this.add("ritual.occultism.craft_infused_pickaxe.interrupted", "Binding of djinni interrupted.");
+
         this.add("ritual.occultism.craft_miner_foliot_unspecialized.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.craft_miner_foliot_unspecialized.started", "Started summoning foliot into magic lamp.");
         this.add("ritual.occultism.craft_miner_foliot_unspecialized.finished", "Successfully summoned foliot into magic lamp.");
         this.add("ritual.occultism.craft_miner_foliot_unspecialized.interrupted", "Summoning of foliot interrupted.");
+
         this.add("ritual.occultism.craft_miner_djinni_ores.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.craft_miner_djinni_ores.started", "Started summoning djinni into magic lamp.");
         this.add("ritual.occultism.craft_miner_djinni_ores.finished", "Successfully summoned djinni into magic lamp.");
         this.add("ritual.occultism.craft_miner_djinni_ores.interrupted", "Summoning of djinni interrupted.");
+
+        this.add("ritual.occultism.craft_miner_afrit_deeps.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.craft_miner_afrit_deeps.started", "Started summoning afrit into magic lamp.");
+        this.add("ritual.occultism.craft_miner_afrit_deeps.finished", "Successfully summoned afrit into magic lamp.");
+        this.add("ritual.occultism.craft_miner_afrit_deeps.interrupted", "Summoning of afrit interrupted.");
+
+        this.add("ritual.occultism.craft_miner_marid_master.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.craft_miner_marid_master.started", "Started summoning marid into magic lamp.");
+        this.add("ritual.occultism.craft_miner_marid_master.finished", "Successfully summoned marid into magic lamp.");
+        this.add("ritual.occultism.craft_miner_marid_master.interrupted", "Summoning of marid interrupted.");
+
         this.add("ritual.occultism.craft_satchel.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.craft_satchel.started", "Started binding foliot into satchel.");
         this.add("ritual.occultism.craft_satchel.finished", "Successfully bound foliot into satchel.");
@@ -1656,6 +1673,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageText(),
                 """
                         - [Storage Stabilizer Tier 3](entry://crafting_rituals/craft_stabilizer_tier3)
+                        - [Afrit Deep Ore Miner](entry://crafting_rituals/craft_afrit_miner)
                         """.formatted(COLOR_PURPLE));
 
         helper.entry("craft_marid");
@@ -1678,6 +1696,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageText(),
                 """
                         - [Storage Stabilizer Tier 4](entry://crafting_rituals/craft_stabilizer_tier4)
+                        - [Marid Master Miner](entry://crafting_rituals/craft_marid_miner)
                         """.formatted(COLOR_PURPLE));
     }
 
@@ -2435,6 +2454,30 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("ritual");
         //no text
 
+        helper.entry("craft_afrit_miner");
+        this.add(helper.entryName(), "Afrit Miner");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        The [#](%1$s)Afrit[#]() miner harvests ores, like djinni miners, and additionally mines deepslate ores. This miner is faster and more efficient than the djinnis, thus damaging the magic lamp even more slowly.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_marid_miner");
+        this.add(helper.entryName(), "Marid Miner");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        The [#](%1$s)Marid[#]() miner is the most powerful miner spirit, it has the fasted mining speed and best magic lamp preservation. Unlike other miner spirits they also can mine the rarest ores, such as [](item://minecraft:ancient_debris) and [](item://occultism:iesnium_ore).
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
         helper.entry("craft_satchel");
         this.add(helper.entryName(), "Surprisingly Substantial Satchel");
 
@@ -3136,10 +3179,16 @@ public class ENUSProvider extends LanguageProvider {
         this.add("item.occultism.ritual_dummy.craft_infused_lenses.tooltip", "These lenses are used to craft spectacles that give thee ability to see beyond the physical world.");
         this.add("item.occultism.ritual_dummy.craft_infused_pickaxe", "Ritual: Craft Infused Pickaxe");
         this.add("item.occultism.ritual_dummy.craft_infused_pickaxe.tooltip", "Infuse a Pickaxe.");
+
         this.add("item.occultism.ritual_dummy.craft_miner_djinni_ores", "Ritual: Summon Djinni Ore Miner");
         this.add("item.occultism.ritual_dummy.craft_miner_djinni_ores.tooltip", "Summon Djinni Ore Miner into a magic lamp.");
         this.add("item.occultism.ritual_dummy.craft_miner_foliot_unspecialized", "Ritual: Summon Foliot Miner");
         this.add("item.occultism.ritual_dummy.craft_miner_foliot_unspecialized.tooltip", "Summon Foliot Miner into a magic lamp.");
+        this.add("item.occultism.ritual_dummy.craft_miner_afrit_deeps", "Ritual: Summon Afrit Deep Ore Miner");
+        this.add("item.occultism.ritual_dummy.craft_miner_afrit_deeps.tooltip", "Summon Afrit Deep Ore Miner into a magic lamp.");
+        this.add("item.occultism.ritual_dummy.craft_miner_marid_master", "Ritual: Summon Marid Master Miner");
+        this.add("item.occultism.ritual_dummy.craft_miner_marid_master.tooltip", "Summon Marid Master Miner into a magic lamp.");
+
         this.add("item.occultism.ritual_dummy.craft_satchel", "Ritual: Craft Surprisingly Substantial Satchel");
         this.add("item.occultism.ritual_dummy.craft_satchel.tooltip", "This satchels allows to store more items than it's size would indicate, making it a practical traveller's companion.");
         this.add("item.occultism.ritual_dummy.craft_soul_gem", "Ritual: Craft Soul Gem");

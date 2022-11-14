@@ -152,7 +152,8 @@ public class OccultismServerConfig {
     public static class DimensionalMineshaftSettings {
         public final MinerSpiritSettings minerFoliotUnspecialized;
         public final MinerSpiritSettings minerDjinniOres;
-
+        public final MinerSpiritSettings minerAfritDeeps;
+        public final MinerSpiritSettings minerMaridMaster;
         public DimensionalMineshaftSettings(ForgeConfigSpec.Builder builder) {
             builder.comment("Dimensional Mineshaft Settings").push("dimensional_mineshaft");
 
@@ -161,6 +162,12 @@ public class OccultismServerConfig {
 
             this.minerDjinniOres =
                     new MinerSpiritSettings("miner_djinni_ores", builder, 300, 1, 400);
+
+            this.minerAfritDeeps =
+                    new MinerSpiritSettings("miner_afrit_deeps", builder, 200, 1, 800);
+
+            this.minerMaridMaster =
+                    new MinerSpiritSettings("miner_marid_master", builder, 100, 1, 1600);
 
             builder.pop();
         }
