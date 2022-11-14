@@ -30,6 +30,7 @@ import com.github.klikli_dev.occultism.common.misc.StorageControllerCraftingInve
 import com.github.klikli_dev.occultism.network.MessageUpdateLinkedMachines;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
+import com.github.klikli_dev.occultism.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
@@ -127,6 +128,10 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
 
         //close container if wormhole block is destroyed
         if (level.getBlockEntity(wormholePosition) != this.stableWormhole)
+            return false;
+
+        //close container if storage controller block is destroyed
+        if (BlockEntityUtil.get(level, this.stableWormhole.getLinkedStorageControllerPosition()) != this.storageController)
             return false;
 
         //send stack updates on a slow tick while interacting
