@@ -2772,7 +2772,7 @@ public class BookGenerator implements DataProvider {
     }
 
     private BookEntryModel.Builder makeCraftAfritMinerEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("craft_afrit_deeps");
+        helper.entry("craft_afrit_miner");
 
         helper.page("spotlight");
         var spotlight = BookSpotlightPageModel.builder()
@@ -2797,7 +2797,7 @@ public class BookGenerator implements DataProvider {
     }
 
     private BookEntryModel.Builder makeCraftMaridMinerEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("craft_marid_master");
+        helper.entry("craft_marid_miner");
 
         helper.page("spotlight");
         var spotlight = BookSpotlightPageModel.builder()

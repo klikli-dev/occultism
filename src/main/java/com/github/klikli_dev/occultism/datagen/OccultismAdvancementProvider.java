@@ -254,6 +254,8 @@ public class OccultismAdvancementProvider implements DataProvider {
         this.addRitualHidden(root, "craft_infused_pickaxe");
         this.addRitualHidden(root, "craft_miner_djinni_ores");
         this.addRitualHidden(root, "craft_miner_foliot_unspecialized");
+        this.addRitualHidden(root, "craft_miner_afrit_deeps");
+        this.addRitualHidden(root, "craft_miner_marid_master");
         this.addRitualHidden(root, "craft_satchel");
         this.addRitualHidden(root, "craft_soul_gem");
         this.addRitualHidden(root, "craft_stabilizer_tier1");
