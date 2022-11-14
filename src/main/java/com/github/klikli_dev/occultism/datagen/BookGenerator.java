@@ -3853,16 +3853,11 @@ public class BookGenerator implements DataProvider {
                 "___________________________",
                 "_________w_r_______________",
                 "___________________________",
-                "_____0_c_s_1_2_3_4___________",
+                "_____0_c___s_1_2_3_4________",
                 "___________________________",
                 "_________d_________________",
                 "___________________________"
                 );
-
-        //storage controller -> stabilizers
-        //                   -> wormhole -> remote
-        //                   -> autocrafting
-
 
         var overview = this.makeStorageOverviewEntry(helper, entryHelper, '0');
 
@@ -3877,17 +3872,41 @@ public class BookGenerator implements DataProvider {
         var craftStabilizerTier1 = this.makeCraftStabilizerTier1Entry(helper, entryHelper, '1');
         craftStabilizerTier1.withParent(BookEntryParentModel.builder().withEntryId(storageStabilizer.id).build());
         var craftStabilizerTier2 = this.makeCraftStabilizerTier2Entry(helper, entryHelper, '2');
-        craftStabilizerTier2.withParent(BookEntryParentModel.builder().withEntryId(craftStabilizerTier1.id).build());
+        craftStabilizerTier2.withParent(BookEntryParentModel.builder().withEntryId(
+                new ResourceLocation(
+                        craftStabilizerTier1.id.getNamespace(),
+                        "storage/" + craftStabilizerTier1.id.getPath()
+                )
+        ).build());
         var craftStabilizerTier3 = this.makeCraftStabilizerTier3Entry(helper, entryHelper, '3');
-        craftStabilizerTier3.withParent(BookEntryParentModel.builder().withEntryId(craftStabilizerTier2.id).build());
+        craftStabilizerTier3.withParent(BookEntryParentModel.builder().withEntryId(
+                new ResourceLocation(
+                        craftStabilizerTier2.id.getNamespace(),
+                        "storage/" + craftStabilizerTier2.id.getPath()
+                )
+        ).build());
         var craftStabilizerTier4 = this.makeCraftStabilizerTier4Entry(helper, entryHelper, '4');
-        craftStabilizerTier4.withParent(BookEntryParentModel.builder().withEntryId(craftStabilizerTier3.id).build());
-//
-//        var craftStableWormhole = this.makeCraftStableWormholeEntry(helper, entryHelper, 'm');
-//        craftStableWormhole.withParent(BookEntryParentModel.builder().withEntryId(craftStorageControllerBase.id).build());
-//        var craftStorageRemote = this.makeCraftStorageRemoteEntry(helper, entryHelper, 'o');
-//        craftStorageRemote.withParent(BookEntryParentModel.builder().withEntryId(craftStableWormhole.id).build());
-       helper.category("storage");
+        craftStabilizerTier4.withParent(BookEntryParentModel.builder().withEntryId(
+                new ResourceLocation(
+                        craftStabilizerTier3.id.getNamespace(),
+                        "storage/" + craftStabilizerTier3.id.getPath()
+                )
+        ).build());
+
+        var craftStableWormhole = this.makeCraftStableWormholeEntry(helper, entryHelper, 'w');
+        craftStableWormhole.withParent(BookEntryParentModel.builder().withEntryId(storageController.id).build());
+        var craftStorageRemote = this.makeCraftStorageRemoteEntry(helper, entryHelper, 'r');
+        craftStorageRemote.withParent(BookEntryParentModel.builder().withEntryId(
+                new ResourceLocation(
+                        craftStableWormhole.id.getNamespace(),
+                        "storage/" + craftStableWormhole.id.getPath()
+                )
+        ).build());
+
+        var summonManageMachine = this.makeSummonManageMachineEntry(helper, entryHelper, 'd');
+        summonManageMachine.withParent(BookEntryParentModel.builder().withEntryId(storageController.id).build());
+
+        helper.category("storage");
 
         return BookCategoryModel.builder()
                 .withId(this.modLoc(helper.category))
@@ -3900,7 +3919,10 @@ public class BookGenerator implements DataProvider {
                         craftStabilizerTier1.build(),
                         craftStabilizerTier2.build(),
                         craftStabilizerTier3.build(),
-                        craftStabilizerTier4.build()
+                        craftStabilizerTier4.build(),
+                        craftStableWormhole.build(),
+                        craftStorageRemote.build(),
+                        summonManageMachine.build()
                 );
     }
 
@@ -3934,8 +3956,8 @@ public class BookGenerator implements DataProvider {
         helper.entry("storage_controller");
 
         helper.page("intro");
-        var intro = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
+        var intro = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismBlocks.STORAGE_CONTROLLER.get()))
                 .withText(helper.pageText())
                 .build();
 

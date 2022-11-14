@@ -1,0 +1,53 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:storage",
+  "description": "",
+  "hide_while_locked": false,
+  "icon": "minecraft:lever",
+  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.summon_manage_machine.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.summon_manage_machine.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.summon_manage_machine.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.summon_manage_machine.tutorial.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.summon_manage_machine.tutorial2.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:ritual/summon_djinni_manage_machine",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:storage/storage_controller",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": -4,
+  "y": 2
+}

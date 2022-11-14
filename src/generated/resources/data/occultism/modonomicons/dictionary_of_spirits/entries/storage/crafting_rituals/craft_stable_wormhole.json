@@ -4,22 +4,22 @@
   "category": "occultism:storage",
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:storage_stabilizer_tier4",
-  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_stabilizer_tier4.name",
+  "icon": "occultism:stable_wormhole",
+  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_stable_wormhole.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
       "item": {
-        "item": "occultism:storage_stabilizer_tier4"
+        "item": "occultism:stable_wormhole"
       },
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_stabilizer_tier4.spotlight.text",
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_stable_wormhole.spotlight.text",
       "title": ""
     },
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
-      "recipe_id_1": "occultism:ritual/craft_stabilizer_tier4",
+      "recipe_id_1": "occultism:ritual/craft_stable_wormhole",
       "text": "",
       "title1": "",
       "title2": ""
@@ -28,11 +28,11 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:storage/crafting_rituals/craft_stabilizer_tier3",
+      "entry": "occultism:storage/storage_controller",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
-  "x": 6,
-  "y": 0
+  "x": -4,
+  "y": -2
 }

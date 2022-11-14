@@ -3138,7 +3138,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Build Instructions");
         this.add(helper.pageText(),
                 """
-                        Storage controllers need to point at the [Dimensional Matrix](entry://crafting_rituals/craft_dimensional_matrix), that means **one block above the [Storage Actuator](entry://storage/storage_controller)**. 
+                        Storage controllers need to point at the [Dimensional Matrix](entry://crafting_rituals/craft_dimensional_matrix), that means **one block above the [Storage Actuator](entry://storage/storage_controller)**.
                         \\
                         \\
                         They can be **up to 5 blocks away** from the Dimensional Matrix, and need to be in a straight line of sight. See the next page for a possible very simple setup.

@@ -8,12 +8,13 @@
   "name": "book.occultism.dictionary_of_spirits.storage.storage_controller.name",
   "pages": [
     {
-      "type": "modonomicon:text",
+      "type": "modonomicon:spotlight",
       "anchor": "",
-      "show_title_separator": true,
+      "item": {
+        "item": "occultism:storage_controller"
+      },
       "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.intro.title",
-      "use_markdown_in_title": false
+      "title": ""
     },
     {
       "type": "modonomicon:text",

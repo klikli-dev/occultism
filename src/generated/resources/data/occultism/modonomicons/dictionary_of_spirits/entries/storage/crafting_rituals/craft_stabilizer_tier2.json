@@ -28,11 +28,11 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:crafting_rituals/craft_stabilizer_tier1",
+      "entry": "occultism:storage/crafting_rituals/craft_stabilizer_tier1",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
-  "x": 0,
+  "x": 2,
   "y": 0
 }
