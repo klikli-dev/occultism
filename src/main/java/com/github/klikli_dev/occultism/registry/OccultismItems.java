@@ -258,19 +258,26 @@ public class OccultismItems {
     public static final RegistryObject<MinerSpiritItem> MINER_DEBUG_UNSPECIALIZED =
             ITEMS.register("miner_debug_unspecialized",
                     () -> new MinerSpiritItem(defaultProperties().durability(10000), () -> 100, () -> 10, () -> 10000));
-    public static final RegistryObject<MinerSpiritItem> MINER_FOLIOT_UNSPECIALIZED =
-            ITEMS.register("miner_foliot_unspecialized",
-                    () -> new MinerSpiritItem(defaultProperties()
-                            .durability(1000),
-                            Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.maxMiningTime,
-                            Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.rollsPerOperation,
-                            Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.durability));
+    public static final RegistryObject<MinerSpiritItem> MINER_FOLIOT_UNSPECIALIZED = ITEMS.register("miner_foliot_unspecialized",
+            () -> new MinerSpiritItem(defaultProperties().durability(1000),
+                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.maxMiningTime,
+                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.rollsPerOperation,
+                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.durability));
     public static final RegistryObject<MinerSpiritItem> MINER_DJINNI_ORES = ITEMS.register("miner_djinni_ores",
-            () -> new MinerSpiritItem(defaultProperties().durability(400)
-                    , Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.maxMiningTime,
+            () -> new MinerSpiritItem(defaultProperties().durability(400),
+                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.maxMiningTime,
                     Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.rollsPerOperation,
                     Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.durability));
-
+    public static final RegistryObject<MinerSpiritItem> MINER_AFRIT_DEEPS = ITEMS.register("miner_afrit_deeps",
+            () -> new MinerSpiritItem(defaultProperties().durability(800),
+                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerAfritDeeps.maxMiningTime,
+                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerAfritDeeps.rollsPerOperation,
+                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerAfritDeeps.durability));
+    public static final RegistryObject<MinerSpiritItem> MINER_MARID_MASTER = ITEMS.register("miner_marid_master",
+            () -> new MinerSpiritItem(defaultProperties().durability(1600),
+                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerMaridMaster.maxMiningTime,
+                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerMaridMaster.rollsPerOperation,
+                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerMaridMaster.durability));
 
     //JEI Dummy Items
     public static final RegistryObject<DummyTooltipItem> JEI_DUMMY_NONE = ITEMS.register(
@@ -352,8 +359,10 @@ public class OccultismItems {
         ITEMS.register("ritual_dummy/craft_dimensional_mineshaft", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/craft_infused_lenses", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/craft_infused_pickaxe", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/craft_miner_afrit_deeps", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/craft_miner_djinni_ores", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/craft_miner_foliot_unspecialized", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/craft_miner_marid_master", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/craft_satchel", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/craft_soul_gem", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/craft_familiar_ring", () -> new DummyTooltipItem(defaultProperties()));
