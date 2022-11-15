@@ -910,13 +910,13 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Use of the Rod");
         this.add(helper.pageText(),
                 """
-                        Shift-right-click a block to attune the rod to the corresponding Otherworld block.
+                        [#](%1$s)Shift-right-click[#]() a block to attune the rod to the corresponding Otherworld block.
                         - [](item://minecraft:andesite): [](item://occultism:otherstone)
                         - [](item://minecraft:oak_wood):  [](item://occultism:otherworld_log)
                         - [](item://minecraft:oak_leaves): [](item://occultism:otherworld_leaves)
                         - [](item://minecraft:netherrack): [](item://occultism:iesnium_ore)
 
-                        Then right-click and hold until the rod animation finishes.""");
+                        Then [#](%1$s)right-click[#]() and hold until the rod animation finishes.""".formatted(COLOR_PURPLE));
 
         helper.page("how_to_use2");
         this.add(helper.pageText(),
@@ -1040,10 +1040,9 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("golden_sacrificial_bowl");
         this.add(helper.pageText(),
                 """
-                        This special sacrificial bowl is used to activate the ritual by right-clicking it with the activation item,
+                        This special sacrificial bowl is used to activate the ritual by [#](%1$s)right-clicking[#]() it with the activation item,
                         usually a book of binding, once everything has been set up and you are ready to start.
-                             """);
-
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("golden_sacrificial_bowl_recipe");
         //no text
@@ -1133,12 +1132,11 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("start_ritual");
         this.add(helper.pageText(),
                 """
-                        Finally, right-click the golden sacrificial bowl with the **bound** book of binding you created and wait until the crusher spawns.
+                        Finally, [#](%1$s)right-click[#]() the golden sacrificial bowl with the **bound** book of binding you created and wait until the crusher spawns.
                         \\
                         \\
                         Now all that remains is to drop appropriate ores near the crusher and wait for it to turn it into dust.
                           """.formatted(COLOR_PURPLE));
-
 
         helper.entry("brush");
         this.add(helper.entryName(), "Brush");
@@ -1148,8 +1146,8 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Next Steps");
         this.add(helper.pageText(),
                 """
-                        Chalk is a pain to clean up, by right-clicking with a brush you can remove it from the world much more easily.
-                          """);
+                        Chalk is a pain to clean up, by [#](%1$s)right-clicking[#]() with a brush you can remove it from the world much more easily.
+                          """.formatted(COLOR_PURPLE));
 
         helper.page("brushRecipe");
         //no text
@@ -1167,6 +1165,58 @@ public class ENUSProvider extends LanguageProvider {
                         \\
                         See also the [Disclaimer Entry](entry://occultism:dictionary_of_spirits/getting_started/intro).
                           """);
+
+        helper.entry("books_of_calling");
+        this.add(helper.entryName(), "Books of Calling");
+        this.add(helper.entryDescription(), "Telling your spirits what to do");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Books of Calling");
+        this.add(helper.pageText(),
+                """
+                       Books of Calling allow to control a summoned spirit, and to store it to prevent essence decay or move it more easily. 
+                       \\
+                       \\
+                       Only spirits that require precise instructions - such as a work area or drop-off storage - come with a book of calling.
+                       """);
+
+        helper.page("usage");
+        this.add(helper.pageTitle(), "Usage");
+        this.add(helper.pageText(),
+                """
+                       - [#](%1$s)Right-click[#]() air to open the configuration screen
+                       - [#](%1$s)Shift-right-click[#]() a block to apply the action selected in the configuration screen
+                       - [#](%1$s)Shift-right-click[#]() a spirit to capture it (must be of the same type)
+                       - [#](%1$s)Right-click[#]() with a book with a captured spirit to release it
+                       """.formatted(COLOR_PURPLE));
+
+        helper.page("obtaining");
+        this.add(helper.pageTitle(), "How to obtain Books of Calling");
+        this.add(helper.pageText(),
+                """
+                       If a summoned spirit supports the use of a Book of Calling, the summoning ritual will automatically spawn a book in the world alongside the spirit.
+                       \\
+                       \\
+                       If you **lose the book**, there are also crafting recipes that just provide the book (without summoning a spirit).
+                       """.formatted(COLOR_PURPLE));
+
+        helper.page("obtaining2");
+        this.add(helper.pageText(),
+                """
+                       The recipes can be found in this book or via JEI.
+                       \\
+                       \\
+                       [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
+                       """.formatted(COLOR_PURPLE));
+
+        helper.page("storage");
+        this.add(helper.pageTitle(), "Storing Spirits");
+        this.add(helper.pageText(),
+                """
+                       To store spirits that do not have a fitting book of calling, you can use a [Soul Gem](entry://crafting_rituals/craft_soul_gem).
+                       Soul gems are much more versatile and allow to store almost all types of entities even animals and monsters, but not players or bosses.
+                       """);
+
     }
 
     private void addPentaclesCategory(BookLangHelper helper) {
@@ -1772,9 +1822,9 @@ public class ENUSProvider extends LanguageProvider {
                         - Place a golden bowl.
                         - Place sacrificial bowls.
                         - Put ingredients in bowls.
-                        - Right-click the golden bowl with the activation item.
+                        - [#](%1$s)Right-click[#]()the golden bowl with the activation item.
                         - *Optional: Perform a sacrifice close to the center of the pentacle.*
-                        """);
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("additional_requirements");
         this.add(helper.pageTitle(), "Additional Requirements");
@@ -1928,6 +1978,13 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("ritual");
         //no text
 
+        helper.page("book_of_calling");
+        this.add(helper.pageText(),
+                """
+                        If you lose the book of calling, you can craft a new one.
+                        [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
+                        """.formatted(COLOR_PURPLE));
+
         helper.entry("summon_transport_items");
         this.add(helper.entryName(), "Summon Foliot Transporter");
 
@@ -1952,6 +2009,13 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("ritual");
         //no text
 
+        helper.page("book_of_calling");
+        this.add(helper.pageText(),
+                """
+                        If you lose the book of calling, you can craft a new one.
+                        [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
+                        """.formatted(COLOR_PURPLE));
+
         helper.entry("summon_cleaner");
         this.add(helper.entryName(), "Summon Foliot Janitor");
 
@@ -1972,6 +2036,13 @@ public class ENUSProvider extends LanguageProvider {
 
         helper.page("ritual");
         //no text
+
+        helper.page("book_of_calling");
+        this.add(helper.pageText(),
+                """
+                        If you lose the book of calling, you can craft a new one.
+                        [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("summon_manage_machine");
         this.add(helper.entryName(), "Summon Djinni Machine Operator");
@@ -2002,6 +2073,13 @@ public class ENUSProvider extends LanguageProvider {
                         \\
                         For an easy start, make sure to view the short [Tutorial Video](https://gyazo.com/237227ba3775e143463b31bdb1b06f50)!
                           """);
+
+        helper.page("book_of_calling");
+        this.add(helper.pageText(),
+                """
+                        If you lose the book of calling, you can craft a new one.
+                        [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("trade_spirits");
         this.add(helper.entryName(), "Trade Spirits");
@@ -2530,12 +2608,13 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Usage");
         this.add(helper.pageText(),
                 """
-                        To capture an entity, right-click it with the soul gem. \\
-                        Right-click again to release the entity.
+                        To capture an entity, [#](%1$s)right-click[#]() it with the soul gem. \\
+                        [#](%1$s)Right-click[#]() again to release the entity.
                         \\
                         \\
                         Bosses cannot be captured.
                                """.formatted(COLOR_PURPLE));
+
 
         helper.page("ritual");
         //no text
@@ -2553,7 +2632,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Usage");
         this.add(helper.pageText(),
                 """
-                        To use a [](item://occultism:familiar_ring), simply capture a summoned (and tamed) familiar by right-clicking it, and then wear the ring as [#](%1$s)Curio[#]() to make use of the effects the familiar provides.
+                        To use a [](item://occultism:familiar_ring), simply capture a summoned (and tamed) familiar by [#](%1$s)right-clicking[#]() it, and then wear the ring as [#](%1$s)Curio[#]() to make use of the effects the familiar provides.
                         \\
                         \\
                         When released from a familiar ring, the spirit will recognize the person releasing them as their new master.
@@ -2690,7 +2769,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Upgrading Familiars");
         this.add(helper.pageText(),
                 """
-                        To upgrade other familiars the blacksmith needs to be given iron ingots or blocks by right-clicking it.
+                        To upgrade other familiars the blacksmith needs to be given iron ingots or blocks by [#](%1$s)right-clicking[#]() it.
                         \\
                         \\
                         Upgraded familiars provide additional effects.
@@ -2875,9 +2954,8 @@ public class ENUSProvider extends LanguageProvider {
                         \\
                         \\
                         **Upgrade Behaviour**\\
-                        When upgraded by a blacksmith familiar, it can find blocks for its master. Right-click it with a block to tell it what to look for.
+                        When upgraded by a blacksmith familiar, it can find blocks for its master. [#](%1$s)Right-click[#]() it with a block to tell it what to look for.
                            """.formatted(COLOR_PURPLE));
-
 
         helper.entry("familiar_guardian");
         this.add(helper.entryName(), "Guardian Familiar");
@@ -3059,7 +3137,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Usage");
         this.add(helper.pageText(),
                 """
-                        After crafting the [](item://occultism:storage_controller) (see following pages), place it in the world and right-click it with an empty hand. This will open the GUI of the storage controller, from there on it will work much like a very big shulker box.
+                        After crafting the [](item://occultism:storage_controller) (see following pages), place it in the world and [#](%1$s)right-click[#]() it with an empty hand. This will open the GUI of the storage controller, from there on it will work much like a very big shulker box.
                         """.formatted(COLOR_PURPLE));
 
         helper.page("safety");

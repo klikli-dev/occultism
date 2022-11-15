@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BookGenerator implements DataProvider {
+    //region Boilerplate
     private final DataGenerator generator;
     private final Map<ResourceLocation, BookModel> bookModels;
     protected String modid;
@@ -68,6 +69,53 @@ public class BookGenerator implements DataProvider {
         var dictionaryOfSpirits = this.makeDictionaryOfSpirits();
         this.add(dictionaryOfSpirits);
     }
+
+    private BookModel add(BookModel bookModel) {
+        if (this.bookModels.containsKey(bookModel.getId()))
+            throw new IllegalStateException("Duplicate book " + bookModel.getId());
+        this.bookModels.put(bookModel.getId(), bookModel);
+        return bookModel;
+    }
+
+    @Override
+    public void run(CachedOutput cache) throws IOException {
+        Path folder = this.generator.getOutputFolder();
+        this.start();
+
+        for (var bookModel : this.bookModels.values()) {
+            Path bookPath = getPath(folder, bookModel);
+            try {
+                DataProvider.saveStable(cache, bookModel.toJson(), bookPath);
+            } catch (IOException exception) {
+                Occultism.LOGGER.error("Couldn't save book {}", bookPath, exception);
+            }
+
+            for (var bookCategoryModel : bookModel.getCategories()) {
+                Path bookCategoryPath = getPath(folder, bookCategoryModel);
+                try {
+                    DataProvider.saveStable(cache, bookCategoryModel.toJson(), bookCategoryPath);
+                } catch (IOException exception) {
+                    Occultism.LOGGER.error("Couldn't save book category {}", bookCategoryPath, exception);
+                }
+
+                for (var bookEntryModel : bookCategoryModel.getEntries()) {
+                    Path bookEntryPath = getPath(folder, bookEntryModel);
+                    try {
+                        DataProvider.saveStable(cache, bookEntryModel.toJson(), bookEntryPath);
+                    } catch (IOException exception) {
+                        Occultism.LOGGER.error("Couldn't save book entry {}", bookEntryPath, exception);
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public String getName() {
+        return "Books: " + Occultism.MODID;
+    }
+
+    //endregion
 
     private BookModel makeDictionaryOfSpirits() {
         var helper = ModonomiconAPI.get().getLangHelper(this.modid);
@@ -115,18 +163,19 @@ public class BookGenerator implements DataProvider {
         return demoBook;
     }
 
+    //region Getting Started
     private BookCategoryModel.Builder makeGettingStartedCategory(BookLangHelper helper) {
         helper.category("getting_started");
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
         entryHelper.setMap(
-                "____________________",
-                "______i_______p_____", //p=pentaclePrep, C=Chalks
+                "________________B___",
+                "______i_______p_____", //p=pentaclePrep, C=Chalks, B=brush
                 "____________________",
                 "______d_f_t_r___R_N_", //d=demonsDream, f=SpiritFire, r=divinationRod, R=ritualPrep, N=Next Steps
                 "____________________",
-                "________e_____b_B___", //e=thirdEye, b=books of binding, B=book of calling
-                "____________________"
+                "________e_____b_____", //e=thirdEye, b=books of binding, C=book of calling
+                "________________C___"
         );
 
         //TODO: getting started
@@ -154,7 +203,7 @@ public class BookGenerator implements DataProvider {
         divinationRodEntry.withParent(BookEntryParentModel.builder().withEntryId(spiritFireEntry.id).build());
 
         var candleEntry = this.makeCandleEntry(helper, entryHelper, 't');
-        candleEntry.withParent(BookEntryParentModel.builder().withEntryId(divinationRodEntry.id).build());
+        candleEntry.withParent(BookEntryParentModel.builder().withEntryId(spiritFireEntry.id).build());
 
         var pentaclePrepEntry = this.makeRitualPrepEntry(helper, entryHelper, 'p');
         pentaclePrepEntry.withParent(BookEntryParentModel.builder().withEntryId(divinationRodEntry.id).build());
@@ -174,24 +223,27 @@ public class BookGenerator implements DataProvider {
         var nextStepsEntry = this.makeNextStepsEntry(helper, entryHelper, 'N');
         nextStepsEntry.withParent(BookEntryParentModel.builder().withEntryId(ritualEntry.id).build());
 
-        //TODO: book of calling entry her e
-
-
+        var booksOfCalling = this.makeBooksOfCallingEntry(helper, entryHelper, 'C');
+        booksOfCalling.withParent(BookEntryParentModel.builder().withEntryId(booksOfBinding.id).build());
 
         return BookCategoryModel.builder()
-                .withId(this.modLoc("getting_started"))
+                .withId(this.modLoc(helper.category))
                 .withName(helper.categoryName())
                 .withIcon(OccultismItems.DICTIONARY_OF_SPIRITS_ICON.getId().toString())
-                .withEntry(introEntry.build())
-                .withEntry(demonsDreamEntry.build())
-                .withEntry(spiritFireEntry.build())
-                .withEntries(thirdEyeEntry.build())
-                .withEntries(divinationRodEntry.build())
-                .withEntries(candleEntry.build())
-                .withEntries(pentaclePrepEntry.build())
-                .withEntries(booksOfBinding.build())
-                .withEntries(ritualEntry.build())
-                .withEntries(nextStepsEntry.build());
+                .withEntries(
+                        introEntry.build(),
+                        demonsDreamEntry.build(),
+                        spiritFireEntry.build(),
+                        thirdEyeEntry.build(),
+                        divinationRodEntry.build(),
+                        candleEntry.build(),
+                        pentaclePrepEntry.build(),
+                        booksOfBinding.build(),
+                        ritualEntry.build(),
+                        brushEntry.build(),
+                        nextStepsEntry.build(),
+                        booksOfCalling.build()
+                );
     }
 
     private BookEntryModel.Builder makeIntroEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
@@ -564,12 +616,12 @@ public class BookGenerator implements DataProvider {
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
-                .withText(helper.pageText()) 
+                .withText(helper.pageText())
                 .build();
 
         helper.page("intro2");
         var intro2 = BookTextPageModel.builder()
-                .withText(helper.pageText()) 
+                .withText(helper.pageText())
                 .build();
 
         helper.page("purified_ink_recipe");
@@ -623,6 +675,53 @@ public class BookGenerator implements DataProvider {
                         bookOfBindingDjinniRecipe,
                         bookOfBindingAfritRecipe,
                         bookOfBindingMaritRecipe
+                );
+    }
+
+    private BookEntryModel.Builder makeBooksOfCallingEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("books_of_calling");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("usage");
+        var usage = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("obtaining");
+        var obtaining = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("obtaining2");
+        var obtaining2 = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("storage");
+        var storage = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        usage,
+                        obtaining,
+                        obtaining2,
+                        storage
                 );
     }
 
@@ -715,7 +814,9 @@ public class BookGenerator implements DataProvider {
                 .withLocation(entryHelper.get(icon))
                 .withPages(text);
     }
+    //endregion
 
+    //region Advanced
     private BookCategoryModel.Builder makeAdvancedCategory(BookLangHelper helper) {
         helper.category("advanced");
 
@@ -808,45 +909,9 @@ public class BookGenerator implements DataProvider {
                         afritEssenceSpotlight
                 );
     }
+    //endregion
 
-    private BookEntryModel.Builder makeCraftOtherworldGogglesEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("craft_otherworld_goggles");
-
-        helper.page("goggles_spotlight");
-        var gogglesSpotlight = BookSpotlightPageModel.builder()
-                .withItem(Ingredient.of(OccultismItems.OTHERWORLD_GOGGLES.get()))
-                .withText(helper.pageText())
-                .build();
-
-        helper.page("lenses_spotlight");
-        var lensesSpotlight = BookSpotlightPageModel.builder()
-                .withItem(Ingredient.of(OccultismItems.LENSES.get()))
-                .withText(helper.pageText())
-                .build();
-
-        helper.page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/craft_infused_lenses"))
-                .build();
-
-        helper.page("recipe");
-        var recipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/goggles"))
-                .build();
-
-        return BookEntryModel.builder()
-                .withId(this.modLoc(helper.category + "/" + helper.entry))
-                .withName(helper.entryName())
-                .withIcon(OccultismItems.OTHERWORLD_GOGGLES.getId().toString())
-                .withLocation(entryHelper.get(icon))
-                .withPages(
-                        gogglesSpotlight,
-                        lensesSpotlight,
-                        ritual,
-                        recipe
-                );
-    }
-
+    //region Pentacles
     private BookCategoryModel.Builder makePentaclesCategory(BookLangHelper helper) {
         helper.category("pentacles");
 
@@ -1548,7 +1613,9 @@ public class BookGenerator implements DataProvider {
                         uses
                 );
     }
+    //endregion
 
+    //region Rituals
     private BookCategoryModel.Builder makeRitualsCategory(BookLangHelper helper) {
         helper.category("rituals");
 
@@ -1718,7 +1785,9 @@ public class BookGenerator implements DataProvider {
                 .withCategoryToOpen(this.modLoc("rituals"))
                 .withLocation(entryHelper.get(icon));
     }
+    //endregion
 
+    //region Summoning Rituals
     private BookCategoryModel.Builder makeSummoningRitualsSubcategory(BookLangHelper helper) {
         helper.category("summoning_rituals");
 
@@ -1986,6 +2055,12 @@ public class BookGenerator implements DataProvider {
                 .withRecipeId1(this.modLoc("ritual/summon_foliot_lumberjack"))
                 .build();
 
+        helper.page("book_of_calling");
+        var bookOfCalling = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/book_of_calling_foliot_lumberjack"))
+                .withText(helper.pageText())
+                .build();
+
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
                 .withName(helper.entryName())
@@ -1994,7 +2069,8 @@ public class BookGenerator implements DataProvider {
                 .withLocation(entryHelper.get(icon))
                 .withPages(
                         intro,
-                        ritual
+                        ritual,
+                        bookOfCalling
                 );
     }
 
@@ -2012,10 +2088,15 @@ public class BookGenerator implements DataProvider {
                 .withText(helper.pageText())
                 .build();
 
-
         helper.page("ritual");
         var ritual = BookRitualRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("ritual/summon_foliot_transport_items"))
+                .build();
+
+        helper.page("book_of_calling");
+        var bookOfCalling = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/book_of_calling_foliot_transport_items"))
+                .withText(helper.pageText())
                 .build();
 
         return BookEntryModel.builder()
@@ -2026,7 +2107,8 @@ public class BookGenerator implements DataProvider {
                 .withPages(
                         intro,
                         intro2,
-                        ritual
+                        ritual,
+                        bookOfCalling
                 );
     }
 
@@ -2049,6 +2131,12 @@ public class BookGenerator implements DataProvider {
                 .withRecipeId1(this.modLoc("ritual/summon_foliot_cleaner"))
                 .build();
 
+        helper.page("book_of_calling");
+        var bookOfCalling = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/book_of_calling_foliot_cleaner"))
+                .withText(helper.pageText())
+                .build();
+
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
                 .withName(helper.entryName())
@@ -2057,7 +2145,8 @@ public class BookGenerator implements DataProvider {
                 .withPages(
                         intro,
                         intro2,
-                        ritual
+                        ritual,
+                        bookOfCalling
                 );
     }
 
@@ -2085,6 +2174,11 @@ public class BookGenerator implements DataProvider {
                 .withRecipeId1(this.modLoc("ritual/summon_djinni_manage_machine"))
                 .build();
 
+        helper.page("book_of_calling");
+        var bookOfCalling = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/book_of_calling_djinni_manage_machine"))
+                .withText(helper.pageText())
+                .build();
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -2095,7 +2189,8 @@ public class BookGenerator implements DataProvider {
                         intro,
                         tutorial,
                         tutorial2,
-                        ritual
+                        ritual,
+                        bookOfCalling
                 );
     }
 
@@ -2352,7 +2447,9 @@ public class BookGenerator implements DataProvider {
                         ritual
                 );
     }
+    //endregion
 
+    //region Crafting Rituals
     private BookCategoryModel.Builder makeCraftingRitualsSubcategory(BookLangHelper helper) {
         helper.category("crafting_rituals");
 
@@ -2945,6 +3042,46 @@ public class BookGenerator implements DataProvider {
                 );
     }
 
+    private BookEntryModel.Builder makeCraftOtherworldGogglesEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("craft_otherworld_goggles");
+
+        helper.page("goggles_spotlight");
+        var gogglesSpotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.OTHERWORLD_GOGGLES.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("lenses_spotlight");
+        var lensesSpotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.LENSES.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/craft_infused_lenses"))
+                .build();
+
+        helper.page("recipe");
+        var recipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/goggles"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.OTHERWORLD_GOGGLES.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        gogglesSpotlight,
+                        lensesSpotlight,
+                        ritual,
+                        recipe
+                );
+    }
+    //endregion
+
+    //region Possession Rituals
     private BookCategoryModel.Builder makePossessionRitualsSubcategory(BookLangHelper helper) {
         helper.category("possession_rituals");
 
@@ -3142,7 +3279,9 @@ public class BookGenerator implements DataProvider {
                         description
                 );
     }
+    //endregion
 
+    //region Familiar Rituals
     private BookCategoryModel.Builder makeFamiliarRitualsSubcategory(BookLangHelper helper) {
         helper.category("familiar_rituals");
 
@@ -3852,7 +3991,9 @@ public class BookGenerator implements DataProvider {
                         description
                 );
     }
+    //endregion
 
+    //region Storage
     private BookCategoryModel.Builder makeStorageCategory(BookLangHelper helper) {
         helper.category("storage");
 
@@ -3865,7 +4006,7 @@ public class BookGenerator implements DataProvider {
                 "___________________________",
                 "_________d_________________",
                 "___________________________"
-                );
+        );
 
         var overview = this.makeStorageOverviewEntry(helper, entryHelper, '0');
 
@@ -3873,7 +4014,7 @@ public class BookGenerator implements DataProvider {
         var storageController = this.makeStorageControllerEntry(helper, entryHelper, 'c');
         storageController.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
 
-         var storageStabilizer = this.makeStorageStabilizerEntry(helper, entryHelper, 's');
+        var storageStabilizer = this.makeStorageStabilizerEntry(helper, entryHelper, 's');
         storageStabilizer.withParent(BookEntryParentModel.builder().withEntryId(storageController.id).build());
 
         helper.category("crafting_rituals"); //re-use existing entries
@@ -4037,7 +4178,7 @@ public class BookGenerator implements DataProvider {
                         matrixRitual,
                         baseRitual,
                         recipe
-                        );
+                );
     }
 
     private BookEntryModel.Builder makeStorageStabilizerEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
@@ -4079,49 +4220,5 @@ public class BookGenerator implements DataProvider {
                         demo
                 );
     }
-
-    private BookModel add(BookModel bookModel) {
-        if (this.bookModels.containsKey(bookModel.getId()))
-            throw new IllegalStateException("Duplicate book " + bookModel.getId());
-        this.bookModels.put(bookModel.getId(), bookModel);
-        return bookModel;
-    }
-
-    @Override
-    public void run(CachedOutput cache) throws IOException {
-        Path folder = this.generator.getOutputFolder();
-        this.start();
-
-        for (var bookModel : this.bookModels.values()) {
-            Path bookPath = getPath(folder, bookModel);
-            try {
-                DataProvider.saveStable(cache, bookModel.toJson(), bookPath);
-            } catch (IOException exception) {
-                Occultism.LOGGER.error("Couldn't save book {}", bookPath, exception);
-            }
-
-            for (var bookCategoryModel : bookModel.getCategories()) {
-                Path bookCategoryPath = getPath(folder, bookCategoryModel);
-                try {
-                    DataProvider.saveStable(cache, bookCategoryModel.toJson(), bookCategoryPath);
-                } catch (IOException exception) {
-                    Occultism.LOGGER.error("Couldn't save book category {}", bookCategoryPath, exception);
-                }
-
-                for (var bookEntryModel : bookCategoryModel.getEntries()) {
-                    Path bookEntryPath = getPath(folder, bookEntryModel);
-                    try {
-                        DataProvider.saveStable(cache, bookEntryModel.toJson(), bookEntryPath);
-                    } catch (IOException exception) {
-                        Occultism.LOGGER.error("Couldn't save book entry {}", bookEntryPath, exception);
-                    }
-                }
-            }
-        }
-    }
-
-    @Override
-    public String getName() {
-        return "Books: " + Occultism.MODID;
-    }
+    //endregion
 }

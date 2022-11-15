@@ -30,6 +30,14 @@
       "text": "",
       "title1": "",
       "title2": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:crafting/book_of_calling_foliot_transport_items",
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.book_of_calling.text",
+      "title1": "",
+      "title2": ""
     }
   ],
   "parents": [

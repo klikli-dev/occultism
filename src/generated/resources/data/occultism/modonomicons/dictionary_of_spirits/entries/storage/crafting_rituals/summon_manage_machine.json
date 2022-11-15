@@ -38,6 +38,14 @@
       "text": "",
       "title1": "",
       "title2": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:crafting/book_of_calling_djinni_manage_machine",
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.summon_manage_machine.book_of_calling.text",
+      "title1": "",
+      "title2": ""
     }
   ],
   "parents": [
