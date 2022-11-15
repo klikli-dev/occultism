@@ -1049,7 +1049,7 @@ public class ENUSProvider extends LanguageProvider {
         //no text
 
 
-        helper.entry("ritual_book");
+        helper.entry("books_of_binding");
         this.add(helper.entryName(), "Books of Binding");
         this.add(helper.entryDescription(), "Or how to identify your spirit");
 
@@ -1060,6 +1060,12 @@ public class ENUSProvider extends LanguageProvider {
                         To call forth a spirit, a [#](%1$s)Book of Binding[#]() must be used in the ritual.
                         There is a type of book corresponding to each type (or tier) of spirit.
                         To identify a spirit to summon, it's name must be written in the [#](%1$s)Book of Binding[#](), resulting in a [#](%1$s)Bound Book of Binding[#]() that can be used in the ritual.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("intro2");
+        this.add(helper.pageText(),
+                """
+                        **Note:** *The spirit names are eye candy only*, that means they are not relevant for the recipe. As long as you have the right spirit type in your book of binding it can be used.
                          """.formatted(COLOR_PURPLE));
 
         helper.page("purified_ink_recipe");

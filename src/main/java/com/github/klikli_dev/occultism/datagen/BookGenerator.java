@@ -120,13 +120,13 @@ public class BookGenerator implements DataProvider {
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
         entryHelper.setMap(
-                "___________________",
-                "______i_____p______", //p=pentaclePrep, C=Chalks
-                "___________________",
-                "______d_f_r___R_N__", //d=demonsDream, f=SpiritFire, r=divinationRod, R=ritualPrep, N=Next Steps
-                "___________________",
-                "________e___b______", //e=thirdEye, b=ritualBook
-                "___________________"
+                "____________________",
+                "______i_______p_____", //p=pentaclePrep, C=Chalks
+                "____________________",
+                "______d_f_t_r___R_N_", //d=demonsDream, f=SpiritFire, r=divinationRod, R=ritualPrep, N=Next Steps
+                "____________________",
+                "________e_____b_B___", //e=thirdEye, b=books of binding, B=book of calling
+                "____________________"
         );
 
         //TODO: getting started
@@ -160,19 +160,23 @@ public class BookGenerator implements DataProvider {
         pentaclePrepEntry.withParent(BookEntryParentModel.builder().withEntryId(divinationRodEntry.id).build());
         pentaclePrepEntry.withParent(BookEntryParentModel.builder().withEntryId(candleEntry.id).build());
 
-        var ritualBookEntry = this.makeRitualBookEntry(helper, entryHelper, 'b');
-        ritualBookEntry.withParent(BookEntryParentModel.builder().withEntryId(divinationRodEntry.id).build());
+        var booksOfBinding = this.makeBooksOfBindingEntry(helper, entryHelper, 'b');
+        booksOfBinding.withParent(BookEntryParentModel.builder().withEntryId(divinationRodEntry.id).build());
 
         var ritualEntry = this.makeRitualEntry(helper, entryHelper, 'R');
         ritualEntry
                 .withParent(BookEntryParentModel.builder().withEntryId(pentaclePrepEntry.id).build())
-                .withParent(BookEntryParentModel.builder().withEntryId(ritualBookEntry.id).build());
+                .withParent(BookEntryParentModel.builder().withEntryId(booksOfBinding.id).build());
 
         var brushEntry = this.makeBrushEntry(helper, entryHelper, 'B');
         brushEntry.withParent(BookEntryParentModel.builder().withEntryId(pentaclePrepEntry.id).build());
 
         var nextStepsEntry = this.makeNextStepsEntry(helper, entryHelper, 'N');
         nextStepsEntry.withParent(BookEntryParentModel.builder().withEntryId(ritualEntry.id).build());
+
+        //TODO: book of calling entry her e
+
+
 
         return BookCategoryModel.builder()
                 .withId(this.modLoc("getting_started"))
@@ -185,7 +189,7 @@ public class BookGenerator implements DataProvider {
                 .withEntries(divinationRodEntry.build())
                 .withEntries(candleEntry.build())
                 .withEntries(pentaclePrepEntry.build())
-                .withEntries(ritualBookEntry.build())
+                .withEntries(booksOfBinding.build())
                 .withEntries(ritualEntry.build())
                 .withEntries(nextStepsEntry.build());
     }
@@ -476,7 +480,6 @@ public class BookGenerator implements DataProvider {
                 );
     }
 
-
     private BookEntryModel.Builder makeRitualPrepEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("ritual_prep");
 
@@ -555,13 +558,18 @@ public class BookGenerator implements DataProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeRitualBookEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("ritual_book");
+    private BookEntryModel.Builder makeBooksOfBindingEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("books_of_binding");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
-                .withText(helper.pageText()) //talk about book of binding, and bound book of binding
+                .withText(helper.pageText()) 
+                .build();
+
+        helper.page("intro2");
+        var intro2 = BookTextPageModel.builder()
+                .withText(helper.pageText()) 
                 .build();
 
         helper.page("purified_ink_recipe");
@@ -608,6 +616,7 @@ public class BookGenerator implements DataProvider {
                 .withLocation(entryHelper.get(icon))
                 .withPages(
                         intro,
+                        intro2,
                         purifiedInkRecipe,
                         bookOfBindingFoliotRecipe,
                         bookOfBindingBoundFoliotRecipe,
@@ -688,7 +697,6 @@ public class BookGenerator implements DataProvider {
                         brushRecipe
                 );
     }
-
 
     private BookEntryModel.Builder makeNextStepsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("next_steps");

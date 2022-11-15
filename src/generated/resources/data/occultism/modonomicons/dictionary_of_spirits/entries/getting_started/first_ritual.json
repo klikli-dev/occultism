@@ -59,11 +59,11 @@
     },
     {
       "draw_arrow": true,
-      "entry": "occultism:getting_started/ritual_book",
+      "entry": "occultism:getting_started/books_of_binding",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
-  "x": 5,
+  "x": 6,
   "y": 0
 }
