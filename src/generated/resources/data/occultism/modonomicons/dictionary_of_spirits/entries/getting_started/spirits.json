@@ -1,0 +1,20 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:getting_started",
+  "category_to_open": "occultism:spirits",
+  "description": "",
+  "hide_while_locked": false,
+  "icon": "occultism:textures/gui/book/spirits.png",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.spirits.name",
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:getting_started/first_ritual",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 7,
+  "y": 2
+}

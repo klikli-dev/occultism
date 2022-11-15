@@ -700,6 +700,7 @@ public class ENUSProvider extends LanguageProvider {
                 """);
 
         this.addGettingStartedCategory(helper);
+        this.addSpiritsCategory(helper);
         this.addPentaclesCategory(helper);
         this.addRitualsCategory(helper);
         this.addSummoningRitualsCategory(helper);
@@ -1216,6 +1217,70 @@ public class ENUSProvider extends LanguageProvider {
                        To store spirits that do not have a fitting book of calling, you can use a [Soul Gem](entry://crafting_rituals/craft_soul_gem).
                        Soul gems are much more versatile and allow to store almost all types of entities even animals and monsters, but not players or bosses.
                        """);
+
+        helper.entry("spirits");
+        this.add(helper.entryName(), "Spirits");
+        this.add(helper.entryDescription(), "Learn more about Spirits.");
+    }
+
+    private void addSpiritsCategory(BookLangHelper helper) {
+        helper.category("spirits");
+        this.add(helper.categoryName(), "Pentacles");
+
+        helper.entry("return_to_getting_started");
+        this.add(helper.entryName(), "Return to getting started");
+
+        helper.entry("overview");
+        this.add(helper.entryName(), "On Spirits");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "On Spirits");
+        this.add(helper.pageText(),
+                """
+                       [#](%1$s)Spirit[#](), commonly referred to also as [#](%1$s)Demon[#](), is a general term for a variety of supernatural entities usually residing in [#](%1$s)The Other Place[#](), a plane of existence entirely separate from our own. When in our world they can take a variety of forms, ranging from arbitrary shapes referred to as the [#](%1$s)Chosen Form[#]() to the inhabiting of objects or living beings.
+                       """.formatted(COLOR_PURPLE));
+
+        helper.page("tiers");
+        this.add(helper.pageTitle(), "Types of Spirits");
+        this.add(helper.pageText(),
+                """
+                      There are four major "ranks" of spirits identified by researchers, but there are a myriad spirits below and in between these ranks, and some great entities of terrible power, referred to only as [#](%1$s)Greater Spirits[#](), that are beyond classification.
+                       """.formatted(COLOR_PURPLE));
+
+        helper.page("foliot");
+        this.add(helper.pageTitle(), "Foliot");
+        this.add(helper.pageText(),
+                """
+                      The lowest identified class of spirit. Equipped with some intelligence and a modicum of power they are most often used for manual labor or minor artifacts.
+                       """.formatted(COLOR_PURPLE));
+
+        helper.page("djinni");
+        this.add(helper.pageTitle(), "Djinni");
+        this.add(helper.pageText(),
+                """
+                      The most commonly summoned class. There is a great variety of Djinni, differing both in intelligence and power. Djinni can be used for a variety of task, ranging from higher artifacts over possession of living beings to carrying out tasks in their Chosen Form.
+                       """.formatted(COLOR_PURPLE));
+
+        helper.page("afrit");
+        this.add(helper.pageTitle(), "Afrit");
+        this.add(helper.pageText(),
+                """
+                      Even more powerful than Djinni, Afrit are used for the creation of major artifacts and the possession of powerful beings.
+                       """.formatted(COLOR_PURPLE));
+
+        helper.page("marid");
+        this.add(helper.pageTitle(), "Marid");
+        this.add(helper.pageText(),
+                """
+                      The strongest identified class of spirits. Due to their power and vast intellect attempting a summoning is extremely dangerous and usually only carried out by the most experienced summoners, and even then usually in groups.
+                       """.formatted(COLOR_PURPLE));
+
+        helper.page("greater_spirits");
+        this.add(helper.pageTitle(), "Greater Spirits");
+        this.add(helper.pageText(),
+                """
+                      Spirits of power so great it is beyond measure. No summons have been attempted in living memory, and records of summonings in ancient times are mostly considered apocryphal.
+                       """.formatted(COLOR_PURPLE));
 
     }
 

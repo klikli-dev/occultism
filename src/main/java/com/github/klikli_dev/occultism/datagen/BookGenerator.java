@@ -123,6 +123,7 @@ public class BookGenerator implements DataProvider {
 
         int sortNum = 1;
         var gettingStartedCategory = this.makeGettingStartedCategory(helper).withSortNumber(sortNum++);
+        var spiritsCategory = this.makeSpiritsSubcategory(helper).withSortNumber(sortNum++);
 
         var advancedCategory = this.makeAdvancedCategory(helper).withSortNumber(sortNum++);
 
@@ -146,13 +147,14 @@ public class BookGenerator implements DataProvider {
                 .withTooltip(helper.bookTooltip())
                 .withCategories(
                         gettingStartedCategory.build(),
+                        spiritsCategory.build(),
+                        advancedCategory.build(),
                         pentaclesCategory.build(),
                         ritualsCategory.build(),
                         summoningRitualsCategory.build(),
                         possessionRitualsCategory.build(),
                         craftingRitualsCategory.build(),
                         familiarRitualsCategory.build(),
-                        advancedCategory.build(),
                         storageCategory.build()
                 )
                 .withCraftingTexture(this.modLoc("textures/gui/book/crafting_textures.png"))
@@ -169,13 +171,15 @@ public class BookGenerator implements DataProvider {
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
         entryHelper.setMap(
-                "________________B___",
-                "______i_______p_____", //p=pentaclePrep, C=Chalks, B=brush
-                "____________________",
-                "______d_f_t_r___R_N_", //d=demonsDream, f=SpiritFire, r=divinationRod, R=ritualPrep, N=Next Steps
-                "____________________",
-                "________e_____b_____", //e=thirdEye, b=books of binding, C=book of calling
-                "________________C___"
+                "______________B___",
+                "__________________",
+                "______i_t___p___N_", //p=pentaclePrep, C=Chalks, B=brush
+                "__________________",
+                "______d_f_r___R___", //d=demonsDream, f=SpiritFire, r=divinationRod, R=ritual, N=Next Steps
+                "__________________",
+                "________e___b___S_", //e=thirdEye, b=books of binding, S=Spirits
+                "__________________",
+                "______________C___" //C=book of calling
         );
 
         //TODO: getting started
@@ -226,6 +230,9 @@ public class BookGenerator implements DataProvider {
         var booksOfCalling = this.makeBooksOfCallingEntry(helper, entryHelper, 'C');
         booksOfCalling.withParent(BookEntryParentModel.builder().withEntryId(booksOfBinding.id).build());
 
+        var spiritsSubcategory = this.makeSpiritsSubcategoryEntry(helper, entryHelper, 'S');
+        spiritsSubcategory.withParent(BookEntryParentModel.builder().withEntryId(ritualEntry.id).build());
+
         return BookCategoryModel.builder()
                 .withId(this.modLoc(helper.category))
                 .withName(helper.categoryName())
@@ -242,7 +249,8 @@ public class BookGenerator implements DataProvider {
                         ritualEntry.build(),
                         brushEntry.build(),
                         nextStepsEntry.build(),
-                        booksOfCalling.build()
+                        booksOfCalling.build(),
+                        spiritsSubcategory.build()
                 );
     }
 
@@ -814,6 +822,126 @@ public class BookGenerator implements DataProvider {
                 .withLocation(entryHelper.get(icon))
                 .withPages(text);
     }
+
+    private BookEntryModel.Builder makeSpiritsSubcategoryEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("spirits");
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon("occultism:textures/gui/book/spirits.png")
+                .withCategoryToOpen(this.modLoc("spirits"))
+                .withLocation(entryHelper.get(icon));
+    }
+
+    //endregion
+
+    //region Spirits
+
+    private BookCategoryModel.Builder makeSpiritsSubcategory(BookLangHelper helper) {
+        helper.category("spirits");
+
+        var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
+        entryHelper.setMap(
+                "___________________________",
+                "___________________________",
+                "___________________________",
+                "___________________________",
+                "___<_0_____________________",
+                "___________________________",
+                "___________________________",
+                "___________________________",
+                "___________________________"
+        );
+
+        var overview = this.makeSpiritsOverviewEnttry(helper, entryHelper, '0');
+        var returnToGettingStarted = this.makeReturnToGettingStartedEntry(helper, entryHelper, '<');
+        returnToGettingStarted.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        returnToGettingStarted.withCondition(BookTrueConditionModel.builder().build());
+
+        return BookCategoryModel.builder()
+                .withId(this.modLoc(helper.category))
+                .withName(helper.categoryName())
+                .withIcon("occultism:textures/gui/book/spirits.png")
+                .withShowCategoryButton(false)
+                .withEntries(
+                        overview.build(),
+                        returnToGettingStarted.build()
+                );
+    }
+
+    private BookEntryModel.Builder makeReturnToGettingStartedEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("return_to_getting_started");
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon(OccultismItems.DICTIONARY_OF_SPIRITS_ICON.getId().toString())
+                .withCategoryToOpen(this.modLoc("getting_started"))
+                .withLocation(entryHelper.get(icon));
+    }
+
+    private BookEntryModel.Builder makeSpiritsOverviewEnttry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("overview");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("tiers");
+        var tiers = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("foliot");
+        var foliot = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("djinni");
+        var djinni = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("afrit");
+        var afrit = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("marid");
+        var marid = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("greater_spirits");
+        var greaterSpirits = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withIcon("occultism:textures/gui/book/spirits.png")
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        tiers,
+                        foliot,
+                        djinni,
+                        afrit,
+                        marid,
+                        greaterSpirits
+                );
+    }
+
     //endregion
 
     //region Advanced
