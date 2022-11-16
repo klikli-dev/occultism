@@ -845,19 +845,29 @@ public class BookGenerator implements DataProvider {
         entryHelper.setMap(
                 "___________________________",
                 "___________________________",
+                "___<_0_n_u_w_______________",
                 "___________________________",
-                "___________________________",
-                "___<_0_____________________",
-                "___________________________",
-                "___________________________",
+                "_____d_____________________",
                 "___________________________",
                 "___________________________"
         );
 
-        var overview = this.makeSpiritsOverviewEnttry(helper, entryHelper, '0');
+        var overview = this.makeSpiritsOverviewEntry(helper, entryHelper, '0');
         var returnToGettingStarted = this.makeReturnToGettingStartedEntry(helper, entryHelper, '<');
         returnToGettingStarted.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
         returnToGettingStarted.withCondition(BookTrueConditionModel.builder().build());
+
+        var essenceDecay = this.makeEssenceDecayEntry(helper, entryHelper, 'd');
+        essenceDecay.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+
+        var trueNames = this.makeTrueNamesEntry(helper, entryHelper, 'n');
+        trueNames.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+
+        var unboundSpirits = this.makeUnboundSpiritsEntry(helper, entryHelper, 'u');
+        unboundSpirits.withParent(BookEntryParentModel.builder().withEntryId(trueNames.id).build());
+
+        var wildHunt = this.makeWildHuntEntry(helper, entryHelper, 'w');
+        wildHunt.withParent(BookEntryParentModel.builder().withEntryId(unboundSpirits.id).build());
 
         return BookCategoryModel.builder()
                 .withId(this.modLoc(helper.category))
@@ -866,7 +876,11 @@ public class BookGenerator implements DataProvider {
                 .withShowCategoryButton(false)
                 .withEntries(
                         overview.build(),
-                        returnToGettingStarted.build()
+                        returnToGettingStarted.build(),
+                        trueNames.build(),
+                        essenceDecay.build(),
+                        unboundSpirits.build(),
+                        wildHunt.build()
                 );
     }
 
@@ -881,11 +895,17 @@ public class BookGenerator implements DataProvider {
                 .withLocation(entryHelper.get(icon));
     }
 
-    private BookEntryModel.Builder makeSpiritsOverviewEnttry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+    private BookEntryModel.Builder makeSpiritsOverviewEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("overview");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("shapes");
+        var shapes = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
@@ -929,16 +949,154 @@ public class BookGenerator implements DataProvider {
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
                 .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
                 .withIcon("occultism:textures/gui/book/spirits.png")
                 .withLocation(entryHelper.get(icon))
                 .withPages(
                         intro,
+                        shapes,
                         tiers,
                         foliot,
                         djinni,
                         afrit,
                         marid,
                         greaterSpirits
+                );
+    }
+
+    private BookEntryModel.Builder makeEssenceDecayEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("essence_decay");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("countermeasures");
+        var countermeasures = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("affected_spirits");
+        var affectedSpirits = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(ForgeRegistries.ITEMS.getKey(Items.ROTTEN_FLESH).toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        countermeasures,
+                        affectedSpirits
+                );
+    }
+
+    private BookEntryModel.Builder makeTrueNamesEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("true_names");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("finding_names");
+        var findingNames = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("using_names");
+        var usingNames = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(ForgeRegistries.ITEMS.getKey(Items.WRITABLE_BOOK).toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        findingNames,
+                        usingNames
+                );
+    }
+
+    private BookEntryModel.Builder makeUnboundSpiritsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("unbound_spirits");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("unbound");
+        var unbound = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("unbound2");
+        var unbound2 = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("essence");
+        var essence = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon("occultism:textures/gui/book/unbound_spirits.png")
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        unbound,
+                        unbound2,
+                        essence
+                );
+    }
+
+    private BookEntryModel.Builder makeWildHuntEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("wild_hunt");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("wither_skull");
+        var witherSkull = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon("occultism:textures/gui/book/wild_hunt.png")
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        witherSkull
                 );
     }
 

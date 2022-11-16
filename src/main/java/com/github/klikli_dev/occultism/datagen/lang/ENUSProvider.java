@@ -1219,7 +1219,7 @@ public class ENUSProvider extends LanguageProvider {
                        """);
 
         helper.entry("spirits");
-        this.add(helper.entryName(), "Spirits");
+        this.add(helper.entryName(), "About Spirits");
         this.add(helper.entryDescription(), "Learn more about Spirits.");
     }
 
@@ -1237,7 +1237,14 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "On Spirits");
         this.add(helper.pageText(),
                 """
-                       [#](%1$s)Spirit[#](), commonly referred to also as [#](%1$s)Demon[#](), is a general term for a variety of supernatural entities usually residing in [#](%1$s)The Other Place[#](), a plane of existence entirely separate from our own. When in our world they can take a variety of forms, ranging from arbitrary shapes referred to as the [#](%1$s)Chosen Form[#]() to the inhabiting of objects or living beings.
+                       [#](%1$s)Spirit[#](), commonly referred to also as [#](%1$s)Demon[#](), is a general term for a variety of supernatural entities usually residing in [#](%1$s)The Other Place[#](), a plane of existence entirely separate from our own.
+                       """.formatted(COLOR_PURPLE));
+
+        helper.page("shapes");
+        this.add(helper.pageTitle(), "Shapes");
+        this.add(helper.pageText(),
+                """
+                     When in our world Spirits can take a variety of forms, by morphing their essence into [#](%1$s)Chosen Forms[#](). Alternatively, they can inhabit objects or even living beings.
                        """.formatted(COLOR_PURPLE));
 
         helper.page("tiers");
@@ -1281,6 +1288,108 @@ public class ENUSProvider extends LanguageProvider {
                 """
                       Spirits of power so great it is beyond measure. No summons have been attempted in living memory, and records of summonings in ancient times are mostly considered apocryphal.
                        """.formatted(COLOR_PURPLE));
+
+        helper.entry("true_names");
+        this.add(helper.entryName(), "True Names");
+        this.add(helper.entryDescription(), "How to call spirits.");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "True Names");
+        this.add(helper.pageText(),
+                """
+                      To summon a spirit the magician needs to know their [#](%1$s)True Name[#](). By calling the true naming during the summoning ritual the Spirit is drawn forth from [#](%1$s)The Other Place[#]() and forced to do the summoners bidding.
+                       """.formatted(COLOR_PURPLE));
+
+        helper.page("finding_names");
+        this.add(helper.pageTitle(), "Finding Names");
+        this.add(helper.pageText(),
+                """
+                       In ancient summoners had to research and experiment to find [#](%1$s)True Names[#](). Some spirits can be convinced to share their knowledge of true names of other demons, either by promising a swift return to [#](%1$s)The Other Place[#](), or by more ... *persuasive* measures.
+                       """.formatted(COLOR_PURPLE));
+
+
+        helper.page("using_names");
+        this.add(helper.pageTitle(), "Using Names to Summon a Spirit");
+        this.add(helper.pageText(),
+                """
+                      For your convenience, in this work you will find the known names of spirits of all 4 ranks, as well as some beyond that. To summon a spirit, copy their name from this book into the appropriate book of binding, then use this bound book of binding to activate a ritual.
+                       """.formatted(COLOR_PURPLE));
+
+        helper.entry("essence_decay");
+        this.add(helper.entryName(), "Essence Decay");
+        this.add(helper.entryDescription(), "Even the immortal are not immune to time.");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Essence Decay");
+        this.add(helper.pageText(),
+                """
+                         When residing in our plane of existence, spirits experience [#](%1$s)Essence Decay[#](), the slow rot of their "body". The more powerful the spirit, the slower the decay, but only the most powerful can stop it entirely. Once fully decayed they are returned to [#](%1$s)The Other Place[#]() and can only be re-summoned once fully recovered.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("countermeasures");
+        this.add(helper.pageTitle(), "Countermeasures");
+        this.add(helper.pageText(),
+                """
+                         The summoner can slow or even stop essence decay by binding the spirit into an object, or summoning it into a living being. Additionally the pentacle used can influence the effects of essence decay to a degree.
+                         """.formatted(COLOR_PURPLE));
+
+
+        helper.page("affected_spirits");
+        this.add(helper.pageTitle(), "Affected Spirits");
+        this.add(helper.pageText(),
+                """
+                   Only tier 1 spirits are affected by essence decay, by default. All higher tiers are immune and will not despawn. Modpacks may modify this behaviour.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.entry("unbound_spirits");
+        this.add(helper.entryName(), "Unbound Spirits");
+        this.add(helper.entryDescription(), "Try not to lose your spirits!");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Unbound Spirits");
+        this.add(helper.pageText(),
+                """
+                         Generally spirits are summoned [#](%1$s)bound[#](), which refers to any condition that keeps them under control of the summoner. A side effect of binding spells is that part of the spirit remains in [#](%1$s)The Other Place[#](), robbing them of large portions of the power, but at the same time also protecting their essence from foreign access in this world.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("unbound");
+        this.add(helper.pageTitle(), "Forego the Leash");
+        this.add(helper.pageText(),
+                """
+                         In order to access a spirit's essence, or unleash it's full destructive power, it needs to be summoned [#](%1$s)unbound[#](). Unbound summonings use pentacles that are intentionally incomplete or unstable, allowing to call on the spirit, but not putting any constraints on it. As a result these summonings are incredibly dangerous, but often there is no way around them.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("unbound2");
+        this.add(helper.pageTitle(), "Beware!");
+        this.add(helper.pageText(),
+                """
+                         The lack of restraints when summoning spirits unbound makes these rituals incredibly dangerous, but you may find that the rewards are worth the risk - and often there is no way around them to achieve certain results.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("essence");
+        this.add(helper.pageTitle(), "Spirit Essence");
+        this.add(helper.pageText(),
+                """
+                         Unbound summonings are the only way to obtain [Afrit Essence](entry://summoning_rituals/afrit_essence), a powerful substance required for crafting [](item://occultism:chalk_red) which is used for the most powerful binding pentacles.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.entry("wild_hunt");
+        this.add(helper.entryName(), "The Wild Hunt");
+        this.add(helper.entryDescription(), "You better watch out, you better not cry ...");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "The Wild Hunt");
+        this.add(helper.pageText(),
+                """
+                         A group of legendary Greater Spirits, usually appearing in the form of wither skeletons, with their skeleton minions. The Greater Spirits are bound to their minions in such fashion that they are virtually invulnerable until their minions have been sent back to [#](%1$s)The Other Place[#]().
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("wither_skull");
+        this.add(helper.pageTitle(), "Wither Skeleton Skulls");
+        this.add(helper.pageText(),
+                """
+                         While it is incredibly dangerous to call on the Wild Hunt, some summoners have been known to do so for quick access to the rare wither skeleton skulls they are known to leave behind. Summoning the wild hunt is described in detail on the page on obtaining [Wither Skeleton Skulls](entry://summoning_rituals/wither_skull).
+                         """.formatted(COLOR_PURPLE));
 
     }
 

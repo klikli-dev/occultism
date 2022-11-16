@@ -1,0 +1,45 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:spirits",
+  "description": "book.occultism.dictionary_of_spirits.spirits.essence_decay.description",
+  "hide_while_locked": false,
+  "icon": "minecraft:rotten_flesh",
+  "name": "book.occultism.dictionary_of_spirits.spirits.essence_decay.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.spirits.essence_decay.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.spirits.essence_decay.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.spirits.essence_decay.countermeasures.text",
+      "title": "book.occultism.dictionary_of_spirits.spirits.essence_decay.countermeasures.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.spirits.essence_decay.affected_spirits.text",
+      "title": "book.occultism.dictionary_of_spirits.spirits.essence_decay.affected_spirits.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:spirits/overview",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": -8,
+  "y": 1
+}

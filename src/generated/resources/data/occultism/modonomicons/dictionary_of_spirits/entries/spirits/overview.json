@@ -2,7 +2,7 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "occultism:spirits",
-  "description": "",
+  "description": "book.occultism.dictionary_of_spirits.spirits.overview.description",
   "hide_while_locked": false,
   "icon": "occultism:textures/gui/book/spirits.png",
   "name": "book.occultism.dictionary_of_spirits.spirits.overview.name",
@@ -13,6 +13,14 @@
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.spirits.overview.intro.text",
       "title": "book.occultism.dictionary_of_spirits.spirits.overview.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.spirits.overview.shapes.text",
+      "title": "book.occultism.dictionary_of_spirits.spirits.overview.shapes.title",
       "use_markdown_in_title": false
     },
     {
@@ -65,5 +73,5 @@
     }
   ],
   "x": -8,
-  "y": 0
+  "y": -1
 }
