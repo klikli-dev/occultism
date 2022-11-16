@@ -1249,6 +1249,24 @@ public class BookGenerator implements DataProvider {
         var craftMarid = this.makeCraftMaridEntry(helper, entryHelper, 'm');
         craftMarid.withParent(BookEntryParentModel.builder().withEntryId(craftAfrit.id).build());
 
+        //add true condition to all entries to enable them by default
+        overview.withCondition(BookTrueConditionModel.builder().build());
+        paraphernalia.withCondition(BookTrueConditionModel.builder().build());
+        chalkUses.withCondition(BookTrueConditionModel.builder().build());
+        summonFoliot.withCondition(BookTrueConditionModel.builder().build());
+        summonDjinni.withCondition(BookTrueConditionModel.builder().build());
+        summonWildAfrit.withCondition(BookTrueConditionModel.builder().build());
+        summonAfrit.withCondition(BookTrueConditionModel.builder().build());
+        summonMarid.withCondition(BookTrueConditionModel.builder().build());
+        summonWildGreaterSpirit.withCondition(BookTrueConditionModel.builder().build());
+        possessFoliot.withCondition(BookTrueConditionModel.builder().build());
+        possessDjinni.withCondition(BookTrueConditionModel.builder().build());
+        possessAfrit.withCondition(BookTrueConditionModel.builder().build());
+        craftFoliot.withCondition(BookTrueConditionModel.builder().build());
+        craftDjinni.withCondition(BookTrueConditionModel.builder().build());
+        craftAfrit.withCondition(BookTrueConditionModel.builder().build());
+        craftMarid.withCondition(BookTrueConditionModel.builder().build());
+
         return BookCategoryModel.builder()
                 .withId(this.modLoc("pentacles"))
                 .withName(helper.categoryName())
@@ -1931,6 +1949,14 @@ public class BookGenerator implements DataProvider {
         var familiars = this.makeFamiliarRitualsSubcategoryEntry(helper, entryHelper, 'f');
         familiars.withParent(BookEntryParentModel.builder().withEntryId(sacrifice.id).build());
 
+        //enable all entries by default
+        itemUse.withCondition(BookTrueConditionModel.builder().build());
+        sacrifice.withCondition(BookTrueConditionModel.builder().build());
+        summoning.withCondition(BookTrueConditionModel.builder().build());
+        possession.withCondition(BookTrueConditionModel.builder().build());
+        crafting.withCondition(BookTrueConditionModel.builder().build());
+        familiars.withCondition(BookTrueConditionModel.builder().build());
+
         return BookCategoryModel.builder()
                 .withId(this.modLoc(helper.category))
                 .withName(helper.categoryName())
@@ -2140,6 +2166,26 @@ public class BookGenerator implements DataProvider {
 
         var witherSkull = this.makeWitherSkullEntry(helper, entryHelper, 'm');
         witherSkull.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+
+        //add true condition to all entries to enable them by default
+        overview.withCondition(BookTrueConditionModel.builder().build());
+        summonT1Crusher.withCondition(BookTrueConditionModel.builder().build());
+        summonT2Crusher.withCondition(BookTrueConditionModel.builder().build());
+        summonT3Crusher.withCondition(BookTrueConditionModel.builder().build());
+        summonT4Crusher.withCondition(BookTrueConditionModel.builder().build());
+        summonLumberjack.withCondition(BookTrueConditionModel.builder().build());
+        summonTransportItems.withCondition(BookTrueConditionModel.builder().build());
+        summonCleaner.withCondition(BookTrueConditionModel.builder().build());
+        summonManageMachine.withCondition(BookTrueConditionModel.builder().build());
+        tradeSpirits.withCondition(BookTrueConditionModel.builder().build());
+        summonOtherworldSaplingTrader.withCondition(BookTrueConditionModel.builder().build());
+        summonOtherstoneTrader.withCondition(BookTrueConditionModel.builder().build());
+        summonWildParrot.withCondition(BookTrueConditionModel.builder().build());
+        summonWildOtherworldBird.withCondition(BookTrueConditionModel.builder().build());
+        weatherMagic.withCondition(BookTrueConditionModel.builder().build());
+        timeMagic.withCondition(BookTrueConditionModel.builder().build());
+        afritEssence.withCondition(BookTrueConditionModel.builder().build());
+        witherSkull.withCondition(BookTrueConditionModel.builder().build());
 
         return BookCategoryModel.builder()
                 .withId(this.modLoc(helper.category))
@@ -2761,7 +2807,6 @@ public class BookGenerator implements DataProvider {
         returnToRituals.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
         returnToRituals.withCondition(BookTrueConditionModel.builder().build());
 
-
         var craftInfusedPickaxe = this.makeCraftInfusedPickaxeEntry(helper, entryHelper, 'd');
         craftInfusedPickaxe.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
         var craftDimensionalMineshaft = this.makeCraftDimensionalMineshaftEntry(helper, entryHelper, 'b');
@@ -2806,6 +2851,28 @@ public class BookGenerator implements DataProvider {
         craftSoulGem.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
         var craftFamiliarRing = this.makeCraftFamiliarRingEntry(helper, entryHelper, 'c');
         craftFamiliarRing.withParent(BookEntryParentModel.builder().withEntryId(craftSoulGem.id).build());
+
+        //add true condition to all entries to enable them by default
+        overview.withCondition(BookTrueConditionModel.builder().build());
+        craftInfusedPickaxe.withCondition(BookTrueConditionModel.builder().build());
+        craftDimensionalMineshaft.withCondition(BookTrueConditionModel.builder().build());
+        craftFoliotMiner.withCondition(BookTrueConditionModel.builder().build());
+        craftDjinniMiner.withCondition(BookTrueConditionModel.builder().build());
+        craftAfritMiner.withCondition(BookTrueConditionModel.builder().build());
+        craftMaridMiner.withCondition(BookTrueConditionModel.builder().build());
+        craftStorageSystem.withCondition(BookTrueConditionModel.builder().build());
+        craftDimensionalMatrix.withCondition(BookTrueConditionModel.builder().build());
+        craftStorageControllerBase.withCondition(BookTrueConditionModel.builder().build());
+        craftStabilizerTier1.withCondition(BookTrueConditionModel.builder().build());
+        craftStabilizerTier2.withCondition(BookTrueConditionModel.builder().build());
+        craftStabilizerTier3.withCondition(BookTrueConditionModel.builder().build());
+        craftStabilizerTier4.withCondition(BookTrueConditionModel.builder().build());
+        craftStableWormhole.withCondition(BookTrueConditionModel.builder().build());
+        craftStorageRemote.withCondition(BookTrueConditionModel.builder().build());
+        craftOtherworldGoggles.withCondition(BookTrueConditionModel.builder().build());
+        craftSatchel.withCondition(BookTrueConditionModel.builder().build());
+        craftSoulGem.withCondition(BookTrueConditionModel.builder().build());
+        craftFamiliarRing.withCondition(BookTrueConditionModel.builder().build());
 
         return BookCategoryModel.builder()
                 .withId(this.modLoc(helper.category))
@@ -3405,6 +3472,15 @@ public class BookGenerator implements DataProvider {
         afritEssence.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
         helper.category("possession_rituals");
 
+        //add true condition to all entries to enable them by default
+        overview.withCondition(BookTrueConditionModel.builder().build());
+        possessEnderman.withCondition(BookTrueConditionModel.builder().build());
+        possessEndermite.withCondition(BookTrueConditionModel.builder().build());
+        possessGhast.withCondition(BookTrueConditionModel.builder().build());
+        possessSkeleton.withCondition(BookTrueConditionModel.builder().build());
+        possessWitherSkeleton.withCondition(BookTrueConditionModel.builder().build());
+        afritEssence.withCondition(BookTrueConditionModel.builder().build());
+
         return BookCategoryModel.builder()
                 .withId(this.modLoc(helper.category))
                 .withName(helper.categoryName())
@@ -3623,6 +3699,26 @@ public class BookGenerator implements DataProvider {
         familiarParrot.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
         var familiarShubNiggurath = this.makeFamiliarShubNiggurathEntry(helper, entryHelper, 'Y');
         familiarShubNiggurath.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+
+        //add true condition to all entries to enable them by default
+        overview.withCondition(BookTrueConditionModel.builder().build());
+        familiarBat.withCondition(BookTrueConditionModel.builder().build());
+        familiarBeaver.withCondition(BookTrueConditionModel.builder().build());
+        familiarBeholder.withCondition(BookTrueConditionModel.builder().build());
+        familiarBlacksmith.withCondition(BookTrueConditionModel.builder().build());
+        familiarChimera.withCondition(BookTrueConditionModel.builder().build());
+        familiarCthulhu.withCondition(BookTrueConditionModel.builder().build());
+        familiarDeer.withCondition(BookTrueConditionModel.builder().build());
+        familiarDevil.withCondition(BookTrueConditionModel.builder().build());
+        familiarDragon.withCondition(BookTrueConditionModel.builder().build());
+        familiarFairy.withCondition(BookTrueConditionModel.builder().build());
+        familiarGreedy.withCondition(BookTrueConditionModel.builder().build());
+        familiarGuardian.withCondition(BookTrueConditionModel.builder().build());
+        familiarHeadlessRatman.withCondition(BookTrueConditionModel.builder().build());
+        familiarMummy.withCondition(BookTrueConditionModel.builder().build());
+        familiarOtherworldBird.withCondition(BookTrueConditionModel.builder().build());
+        familiarParrot.withCondition(BookTrueConditionModel.builder().build());
+        familiarShubNiggurath.withCondition(BookTrueConditionModel.builder().build());
 
         return BookCategoryModel.builder()
                 .withId(this.modLoc(helper.category))

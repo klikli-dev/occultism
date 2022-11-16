@@ -1356,7 +1356,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Forego the Leash");
         this.add(helper.pageText(),
                 """
-                         In order to access a spirit's essence, or unleash it's full destructive power, it needs to be summoned [#](%1$s)unbound[#](). Unbound summonings use pentacles that are intentionally incomplete or unstable, allowing to call on the spirit, but not putting any constraints on it. As a result these summonings are incredibly dangerous, but often there is no way around them.
+                         In order to access a spirit's essence, or unleash it's full destructive power, it needs to be summoned [#](%1$s)unbound[#](). Unbound summonings use pentacles that are intentionally incomplete or unstable, allowing to call on the spirit, but not putting any constraints on it.
                          """.formatted(COLOR_PURPLE));
 
         helper.page("unbound2");
