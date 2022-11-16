@@ -280,6 +280,7 @@ public class BookGenerator implements DataProvider {
                 .withDescription(helper.entryDescription())
                 .withIcon(OccultismItems.DICTIONARY_OF_SPIRITS_ICON.getId().toString())
                 .withLocation(entryHelper.get(icon))
+                .withEntryBackground(0, 1)
                 .withPages(intro, intro2, recipe);
     }
 
@@ -892,6 +893,7 @@ public class BookGenerator implements DataProvider {
                 .withName(helper.entryName())
                 .withIcon(OccultismItems.DICTIONARY_OF_SPIRITS_ICON.getId().toString())
                 .withCategoryToOpen(this.modLoc("getting_started"))
+                .withEntryBackground(1, 2)
                 .withLocation(entryHelper.get(icon));
     }
 
@@ -952,6 +954,7 @@ public class BookGenerator implements DataProvider {
                 .withDescription(helper.entryDescription())
                 .withIcon("occultism:textures/gui/book/spirits.png")
                 .withLocation(entryHelper.get(icon))
+                .withEntryBackground(0, 1)
                 .withPages(
                         intro,
                         shapes,
@@ -1203,16 +1206,14 @@ public class BookGenerator implements DataProvider {
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
         entryHelper.setMap(
-                "___________________________",
-                "___________________________",
-                "__p___a___b___c___d___e___f", //paraphernalia, summon foliot, summon djinni, summon wild afrit, summon afrit, summon marid, summon wild greater spirit
-                "___________________________",
-                "___________________________",
-                "__o_______g___h___i_________", //overview, possess foliot, possess djinni, possess afrit
-                "___________________________",
-                "___________________________",
-                "__u___j___k___l___m________" //uses of chalks, craft foliot, craft djinni, craft afrit, craft marid
-        );
+                "____________________",
+                "__p_a_b_c_d_e_f_____", //paraphernalia, summon foliot, summon djinni, summon wild afrit, summon afrit, summon marid, summon wild greater spirit
+                "____________________",
+                "__o___g_h_i_________", //overview, possess foliot, possess djinni, possess afrit
+                "____________________",
+                "__u_j_k_l_m_________", //uses of chalks, craft foliot, craft djinni, craft afrit, craft marid
+                "____________________"
+                );
 
         var overview = this.makePentaclesOverviewEntry(helper, entryHelper, 'o');
         var paraphernalia = this.makeParaphernaliaEntry(helper, entryHelper, 'p');
@@ -1354,6 +1355,7 @@ public class BookGenerator implements DataProvider {
                 .withName(helper.entryName())
                 .withIcon(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.getId().toString())
                 .withLocation(entryHelper.get(icon))
+                .withEntryBackground(0, 1)
                 .withPages(
                         intro1,
                         intro2,
@@ -1998,6 +2000,7 @@ public class BookGenerator implements DataProvider {
                 .withName(helper.entryName())
                 .withIcon("occultism:textures/gui/book/robe.png")
                 .withLocation(entryHelper.get(icon))
+                .withEntryBackground(0, 1)
                 .withPages(
                         intro,
                         steps,
@@ -2095,6 +2098,7 @@ public class BookGenerator implements DataProvider {
                 .withName(helper.entryName())
                 .withIcon("occultism:textures/gui/book/robe.png")
                 .withCategoryToOpen(this.modLoc("rituals"))
+                .withEntryBackground(1, 2)
                 .withLocation(entryHelper.get(icon));
     }
     //endregion
@@ -2230,6 +2234,7 @@ public class BookGenerator implements DataProvider {
                 .withName(helper.entryName())
                 .withIcon("occultism:textures/gui/book/summoning.png")
                 .withLocation(entryHelper.get(icon))
+                .withEntryBackground(0, 1)
                 .withPages(
                         intro
                 );
@@ -2918,6 +2923,7 @@ public class BookGenerator implements DataProvider {
                 .withName(helper.entryName())
                 .withIcon("occultism:textures/gui/book/infusion.png")
                 .withLocation(entryHelper.get(icon))
+                .withEntryBackground(0, 1)
                 .withPages(
                         intro
                 );
@@ -3512,6 +3518,7 @@ public class BookGenerator implements DataProvider {
                 .withName(helper.entryName())
                 .withIcon("occultism:textures/gui/book/possession.png")
                 .withLocation(entryHelper.get(icon))
+                .withEntryBackground(0, 1)
                 .withPages(
                         intro
                 );
@@ -3774,6 +3781,7 @@ public class BookGenerator implements DataProvider {
                 .withName(helper.entryName())
                 .withIcon("occultism:textures/gui/book/parrot.png")
                 .withLocation(entryHelper.get(icon))
+                .withEntryBackground(0, 1)
                 .withPages(
                         intro,
                         ring,
@@ -4434,6 +4442,7 @@ public class BookGenerator implements DataProvider {
                 )
         ).build());
 
+        helper.category("summoning_rituals"); //re-use existing entries
         var summonManageMachine = this.makeSummonManageMachineEntry(helper, entryHelper, 'd');
         summonManageMachine.withParent(BookEntryParentModel.builder().withEntryId(storageController.id).build());
 
@@ -4477,6 +4486,7 @@ public class BookGenerator implements DataProvider {
                 .withName(helper.entryName())
                 .withIcon("minecraft:chest")
                 .withLocation(entryHelper.get(icon))
+                .withEntryBackground(0, 1)
                 .withPages(
                         intro,
                         intro2

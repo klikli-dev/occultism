@@ -5,21 +5,21 @@
   "description": "",
   "hide_while_locked": false,
   "icon": "minecraft:lever",
-  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.summon_manage_machine.name",
+  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.name",
   "pages": [
     {
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.summon_manage_machine.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.summon_manage_machine.intro.title",
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.intro.title",
       "use_markdown_in_title": false
     },
     {
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.summon_manage_machine.tutorial.text",
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.tutorial.text",
       "title": "",
       "use_markdown_in_title": false
     },
@@ -27,7 +27,7 @@
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.summon_manage_machine.tutorial2.text",
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.tutorial2.text",
       "title": "",
       "use_markdown_in_title": false
     },
@@ -43,7 +43,7 @@
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
       "recipe_id_1": "occultism:crafting/book_of_calling_djinni_manage_machine",
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.summon_manage_machine.book_of_calling.text",
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.book_of_calling.text",
       "title1": "",
       "title2": ""
     }
