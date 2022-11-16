@@ -26,21 +26,15 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
-import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class ENUSProvider extends LanguageProvider {
@@ -700,6 +694,7 @@ public class ENUSProvider extends LanguageProvider {
                 """);
 
         this.addGettingStartedCategory(helper);
+        this.addGettingStartedCategoryPart2(helper);
         this.addSpiritsCategory(helper);
         this.addPentaclesCategory(helper);
         this.addRitualsCategory(helper);
@@ -708,7 +703,6 @@ public class ENUSProvider extends LanguageProvider {
         this.addPossessionRitualsCategory(helper);
         this.addFamiliarRitualsCategory(helper);
         this.addStorageCategory(helper);
-        this.addAdvancedCategory(helper);
     }
 
     private void addGettingStartedCategory(BookLangHelper helper) {
@@ -1013,7 +1007,7 @@ public class ENUSProvider extends LanguageProvider {
                 """
                         For pentacles, only the color of chalk is relevant, not the glyph/sign.
                         For decorative purposes you can repeatedly click a block to cycle through glyphs.
-                        For other chalks see [Chalks](entry://occultism:dictionary_of_spirits/advanced/chalks).
+                        For other chalks see [Chalks](entry://occultism:dictionary_of_spirits/getting_started/chalks).
                             """);
 
         helper.page("burnt_otherstone_recipe");
@@ -1942,12 +1936,10 @@ public class ENUSProvider extends LanguageProvider {
                         """.formatted(COLOR_PURPLE));
     }
 
-    private void addAdvancedCategory(BookLangHelper helper) {
-        helper.category("advanced");
-        this.add(helper.categoryName(), "Advanced");
-
+    private void addGettingStartedCategoryPart2(BookLangHelper helper) {
+        //no call to helper.category, because we're still in getting started
         helper.entry("chalks");
-        this.add(helper.entryName(), "Chalks");
+        this.add(helper.entryName(), "More Chalks");
         this.add(helper.entryDescription(), "Better chalks for better rituals!");
 
         helper.page("intro");

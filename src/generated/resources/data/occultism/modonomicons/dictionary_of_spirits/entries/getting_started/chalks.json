@@ -1,18 +1,18 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "occultism:advanced",
-  "description": "book.occultism.dictionary_of_spirits.advanced.chalks.description",
+  "category": "occultism:getting_started",
+  "description": "book.occultism.dictionary_of_spirits.getting_started.chalks.description",
   "hide_while_locked": false,
   "icon": "occultism:chalk_gold",
-  "name": "book.occultism.dictionary_of_spirits.advanced.chalks.name",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.chalks.name",
   "pages": [
     {
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.advanced.chalks.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.advanced.chalks.intro.title",
+      "text": "book.occultism.dictionary_of_spirits.getting_started.chalks.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.chalks.intro.title",
       "use_markdown_in_title": false
     },
     {
@@ -69,10 +69,18 @@
       "item": {
         "item": "occultism:afrit_essence"
       },
-      "text": "book.occultism.dictionary_of_spirits.advanced.chalks.afrit_essence.text",
+      "text": "book.occultism.dictionary_of_spirits.getting_started.chalks.afrit_essence.text",
       "title": ""
     }
   ],
-  "x": 1,
-  "y": -4
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:getting_started/first_ritual",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 5,
+  "y": 0
 }

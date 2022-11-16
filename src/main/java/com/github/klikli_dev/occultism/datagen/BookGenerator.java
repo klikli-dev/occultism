@@ -125,8 +125,6 @@ public class BookGenerator implements DataProvider {
         var gettingStartedCategory = this.makeGettingStartedCategory(helper).withSortNumber(sortNum++);
         var spiritsCategory = this.makeSpiritsSubcategory(helper).withSortNumber(sortNum++);
 
-        var advancedCategory = this.makeAdvancedCategory(helper).withSortNumber(sortNum++);
-
         var storageCategory = this.makeStorageCategory(helper).withSortNumber(sortNum++);
 
         var ritualsCategory = this.makeRitualsCategory(helper).withSortNumber(sortNum++);
@@ -148,7 +146,6 @@ public class BookGenerator implements DataProvider {
                 .withCategories(
                         gettingStartedCategory.build(),
                         spiritsCategory.build(),
-                        advancedCategory.build(),
                         pentaclesCategory.build(),
                         ritualsCategory.build(),
                         summoningRitualsCategory.build(),
@@ -171,15 +168,15 @@ public class BookGenerator implements DataProvider {
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
         entryHelper.setMap(
-                "______________B___",
-                "__________________",
-                "______i_t___p___N_", //p=pentaclePrep, C=Chalks, B=brush
-                "__________________",
-                "______d_f_r___R___", //d=demonsDream, f=SpiritFire, r=divinationRod, R=ritual, N=Next Steps
-                "__________________",
-                "________e___b___S_", //e=thirdEye, b=books of binding, S=Spirits
-                "__________________",
-                "______________C___" //C=book of calling
+                "______________B________", //B=brush
+                "_______________________",
+                "______i_t___p___N______", //p=pentaclePrep,  N=Next Steps
+                "_______________________",
+                "______d_f_r___R_c______", //d=demonsDream, f=SpiritFire, r=divinationRod, R=ritual, c=chalks
+                "_______________________",
+                "________e___b___S______", //e=thirdEye, b=books of binding, S=Spirits
+                "_______________________",
+                "______________C________" //C=book of calling
         );
 
         //TODO: getting started
@@ -233,6 +230,22 @@ public class BookGenerator implements DataProvider {
         var spiritsSubcategory = this.makeSpiritsSubcategoryEntry(helper, entryHelper, 'S');
         spiritsSubcategory.withParent(BookEntryParentModel.builder().withEntryId(ritualEntry.id).build());
 
+        //TODO:
+        //      golden chalk from the crusher
+        //      otherworld goggles
+        //      infused pickaxe
+        //      iesnium
+        //      iesnium pickaxe
+        //      magic lamp
+        //      spirit miner
+        //      dimensional mineshaft
+        //      familiars
+        //      possessed mobs
+        //      spirit storage -> autocrafting
+
+        var chalksEntry = this.makeChalksEntry(helper, entryHelper, 'c');
+        chalksEntry.withParent(BookEntryParentModel.builder().withEntryId(ritualEntry.id).build());
+
         return BookCategoryModel.builder()
                 .withId(this.modLoc(helper.category))
                 .withName(helper.categoryName())
@@ -250,7 +263,8 @@ public class BookGenerator implements DataProvider {
                         brushEntry.build(),
                         nextStepsEntry.build(),
                         booksOfCalling.build(),
-                        spiritsSubcategory.build()
+                        spiritsSubcategory.build(),
+                        chalksEntry.build()
                 );
     }
 
@@ -835,6 +849,69 @@ public class BookGenerator implements DataProvider {
                 .withLocation(entryHelper.get(icon));
     }
 
+    private BookEntryModel.Builder makeChalksEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("chalks");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("impure_gold_chalk_recipe");
+        var impureGoldChalkRecipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/chalk_gold_impure"))
+                .build();
+
+        helper.page("gold_chalk_recipe");
+        var goldChalkRecipe = BookSpiritFireRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("spirit_fire/chalk_gold"))
+                .build();
+
+        helper.page("impure_purple_chalk_recipe");
+        var impurePurpleChalkRecipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/chalk_purple_impure"))
+                .build();
+
+        helper.page("purple_chalk_recipe");
+        var purpleChalkRecipe = BookSpiritFireRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("spirit_fire/chalk_purple"))
+                .build();
+
+        helper.page("impure_red_chalk_recipe");
+        var impureRedChalkRecipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/chalk_red_impure"))
+                .build();
+
+        helper.page("red_chalk_recipe");
+        var redChalkRecipe = BookSpiritFireRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("spirit_fire/chalk_red"))
+                .build();
+
+        helper.page("afrit_essence");
+        var afritEssenceSpotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.AFRIT_ESSENCE.get()))
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(OccultismItems.CHALK_GOLD.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        impureGoldChalkRecipe,
+                        goldChalkRecipe,
+                        impurePurpleChalkRecipe,
+                        purpleChalkRecipe,
+                        impureRedChalkRecipe,
+                        redChalkRecipe,
+                        afritEssenceSpotlight
+                );
+    }
+
     //endregion
 
     //region Spirits
@@ -1103,101 +1180,6 @@ public class BookGenerator implements DataProvider {
                 );
     }
 
-    //endregion
-
-    //region Advanced
-    private BookCategoryModel.Builder makeAdvancedCategory(BookLangHelper helper) {
-        helper.category("advanced");
-
-        var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
-        entryHelper.setMap(
-                "_____________________",
-                "_____________________",
-                "___________c_________", //c=chalks
-                "_____________________",
-                "_____________________",
-                "_____________________",
-                "_____________________",
-                "_____________________",
-                "_____________________",
-                "_____________________",
-                "_____________________",
-                "_____________________",
-                "_____________________"
-        );
-
-
-        var chalksEntry = this.makeChalksEntry(helper, entryHelper, 'c');
-
-        return BookCategoryModel.builder()
-                .withId(this.modLoc(helper.category))
-                .withName(helper.categoryName())
-                .withIcon(OccultismItems.OTHERWORLD_GOGGLES.getId().toString())
-                .withEntry(chalksEntry.build());
-    }
-
-    private BookEntryModel.Builder makeChalksEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("chalks");
-
-        helper.page("intro");
-        var intro = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
-                .build();
-
-        helper.page("impure_gold_chalk_recipe");
-        var impureGoldChalkRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/chalk_gold_impure"))
-                .build();
-
-        helper.page("gold_chalk_recipe");
-        var goldChalkRecipe = BookSpiritFireRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("spirit_fire/chalk_gold"))
-                .build();
-
-        helper.page("impure_purple_chalk_recipe");
-        var impurePurpleChalkRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/chalk_purple_impure"))
-                .build();
-
-        helper.page("purple_chalk_recipe");
-        var purpleChalkRecipe = BookSpiritFireRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("spirit_fire/chalk_purple"))
-                .build();
-
-        helper.page("impure_red_chalk_recipe");
-        var impureRedChalkRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/chalk_red_impure"))
-                .build();
-
-        helper.page("red_chalk_recipe");
-        var redChalkRecipe = BookSpiritFireRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("spirit_fire/chalk_red"))
-                .build();
-
-        helper.page("afrit_essence");
-        var afritEssenceSpotlight = BookSpotlightPageModel.builder()
-                .withItem(Ingredient.of(OccultismItems.AFRIT_ESSENCE.get()))
-                .withText(helper.pageText())
-                .build();
-
-        return BookEntryModel.builder()
-                .withId(this.modLoc(helper.category + "/" + helper.entry))
-                .withName(helper.entryName())
-                .withDescription(helper.entryDescription())
-                .withIcon(OccultismItems.CHALK_GOLD.getId().toString())
-                .withLocation(entryHelper.get(icon))
-                .withPages(
-                        intro,
-                        impureGoldChalkRecipe,
-                        goldChalkRecipe,
-                        impurePurpleChalkRecipe,
-                        purpleChalkRecipe,
-                        impureRedChalkRecipe,
-                        redChalkRecipe,
-                        afritEssenceSpotlight
-                );
-    }
     //endregion
 
     //region Pentacles
