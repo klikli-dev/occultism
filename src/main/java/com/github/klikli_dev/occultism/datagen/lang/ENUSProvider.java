@@ -26,11 +26,13 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
+import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.contents.TranslatableContents;
@@ -1169,48 +1171,48 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Books of Calling");
         this.add(helper.pageText(),
                 """
-                       Books of Calling allow to control a summoned spirit, and to store it to prevent essence decay or move it more easily. 
-                       \\
-                       \\
-                       Only spirits that require precise instructions - such as a work area or drop-off storage - come with a book of calling.
-                       """);
+                        Books of Calling allow to control a summoned spirit, and to store it to prevent essence decay or move it more easily. 
+                        \\
+                        \\
+                        Only spirits that require precise instructions - such as a work area or drop-off storage - come with a book of calling.
+                        """);
 
         helper.page("usage");
         this.add(helper.pageTitle(), "Usage");
         this.add(helper.pageText(),
                 """
-                       - [#](%1$s)Right-click[#]() air to open the configuration screen
-                       - [#](%1$s)Shift-right-click[#]() a block to apply the action selected in the configuration screen
-                       - [#](%1$s)Shift-right-click[#]() a spirit to capture it (must be of the same type)
-                       - [#](%1$s)Right-click[#]() with a book with a captured spirit to release it
-                       """.formatted(COLOR_PURPLE));
+                        - [#](%1$s)Right-click[#]() air to open the configuration screen
+                        - [#](%1$s)Shift-right-click[#]() a block to apply the action selected in the configuration screen
+                        - [#](%1$s)Shift-right-click[#]() a spirit to capture it (must be of the same type)
+                        - [#](%1$s)Right-click[#]() with a book with a captured spirit to release it
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("obtaining");
         this.add(helper.pageTitle(), "How to obtain Books of Calling");
         this.add(helper.pageText(),
                 """
-                       If a summoned spirit supports the use of a Book of Calling, the summoning ritual will automatically spawn a book in the world alongside the spirit.
-                       \\
-                       \\
-                       If you **lose the book**, there are also crafting recipes that just provide the book (without summoning a spirit).
-                       """.formatted(COLOR_PURPLE));
+                        If a summoned spirit supports the use of a Book of Calling, the summoning ritual will automatically spawn a book in the world alongside the spirit.
+                        \\
+                        \\
+                        If you **lose the book**, there are also crafting recipes that just provide the book (without summoning a spirit).
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("obtaining2");
         this.add(helper.pageText(),
                 """
-                       The recipes can be found in this book or via JEI.
-                       \\
-                       \\
-                       [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
-                       """.formatted(COLOR_PURPLE));
+                        The recipes can be found in this book or via JEI.
+                        \\
+                        \\
+                        [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("storage");
         this.add(helper.pageTitle(), "Storing Spirits");
         this.add(helper.pageText(),
                 """
-                       To store spirits that do not have a fitting book of calling, you can use a [Soul Gem](entry://crafting_rituals/craft_soul_gem).
-                       Soul gems are much more versatile and allow to store almost all types of entities even animals and monsters, but not players or bosses.
-                       """);
+                        To store spirits that do not have a fitting book of calling, you can use a [Soul Gem](entry://crafting_rituals/craft_soul_gem).
+                        Soul gems are much more versatile and allow to store almost all types of entities even animals and monsters, but not players or bosses.
+                        """);
 
         helper.entry("spirits");
         this.add(helper.entryName(), "About Spirits");
@@ -1231,57 +1233,57 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "On Spirits");
         this.add(helper.pageText(),
                 """
-                       [#](%1$s)Spirit[#](), commonly referred to also as [#](%1$s)Demon[#](), is a general term for a variety of supernatural entities usually residing in [#](%1$s)The Other Place[#](), a plane of existence entirely separate from our own.
-                       """.formatted(COLOR_PURPLE));
+                        [#](%1$s)Spirit[#](), commonly referred to also as [#](%1$s)Demon[#](), is a general term for a variety of supernatural entities usually residing in [#](%1$s)The Other Place[#](), a plane of existence entirely separate from our own.
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("shapes");
         this.add(helper.pageTitle(), "Shapes");
         this.add(helper.pageText(),
                 """
-                     When in our world Spirits can take a variety of forms, by morphing their essence into [#](%1$s)Chosen Forms[#](). Alternatively, they can inhabit objects or even living beings.
-                       """.formatted(COLOR_PURPLE));
+                        When in our world Spirits can take a variety of forms, by morphing their essence into [#](%1$s)Chosen Forms[#](). Alternatively, they can inhabit objects or even living beings.
+                          """.formatted(COLOR_PURPLE));
 
         helper.page("tiers");
         this.add(helper.pageTitle(), "Types of Spirits");
         this.add(helper.pageText(),
                 """
-                      There are four major "ranks" of spirits identified by researchers, but there are a myriad spirits below and in between these ranks, and some great entities of terrible power, referred to only as [#](%1$s)Greater Spirits[#](), that are beyond classification.
-                       """.formatted(COLOR_PURPLE));
+                        There are four major "ranks" of spirits identified by researchers, but there are a myriad spirits below and in between these ranks, and some great entities of terrible power, referred to only as [#](%1$s)Greater Spirits[#](), that are beyond classification.
+                         """.formatted(COLOR_PURPLE));
 
         helper.page("foliot");
         this.add(helper.pageTitle(), "Foliot");
         this.add(helper.pageText(),
                 """
-                      The lowest identified class of spirit. Equipped with some intelligence and a modicum of power they are most often used for manual labor or minor artifacts.
-                       """.formatted(COLOR_PURPLE));
+                        The lowest identified class of spirit. Equipped with some intelligence and a modicum of power they are most often used for manual labor or minor artifacts.
+                         """.formatted(COLOR_PURPLE));
 
         helper.page("djinni");
         this.add(helper.pageTitle(), "Djinni");
         this.add(helper.pageText(),
                 """
-                      The most commonly summoned class. There is a great variety of Djinni, differing both in intelligence and power. Djinni can be used for a variety of task, ranging from higher artifacts over possession of living beings to carrying out tasks in their Chosen Form.
-                       """.formatted(COLOR_PURPLE));
+                        The most commonly summoned class. There is a great variety of Djinni, differing both in intelligence and power. Djinni can be used for a variety of task, ranging from higher artifacts over possession of living beings to carrying out tasks in their Chosen Form.
+                         """.formatted(COLOR_PURPLE));
 
         helper.page("afrit");
         this.add(helper.pageTitle(), "Afrit");
         this.add(helper.pageText(),
                 """
-                      Even more powerful than Djinni, Afrit are used for the creation of major artifacts and the possession of powerful beings.
-                       """.formatted(COLOR_PURPLE));
+                        Even more powerful than Djinni, Afrit are used for the creation of major artifacts and the possession of powerful beings.
+                         """.formatted(COLOR_PURPLE));
 
         helper.page("marid");
         this.add(helper.pageTitle(), "Marid");
         this.add(helper.pageText(),
                 """
-                      The strongest identified class of spirits. Due to their power and vast intellect attempting a summoning is extremely dangerous and usually only carried out by the most experienced summoners, and even then usually in groups.
-                       """.formatted(COLOR_PURPLE));
+                        The strongest identified class of spirits. Due to their power and vast intellect attempting a summoning is extremely dangerous and usually only carried out by the most experienced summoners, and even then usually in groups.
+                         """.formatted(COLOR_PURPLE));
 
         helper.page("greater_spirits");
         this.add(helper.pageTitle(), "Greater Spirits");
         this.add(helper.pageText(),
                 """
-                      Spirits of power so great it is beyond measure. No summons have been attempted in living memory, and records of summonings in ancient times are mostly considered apocryphal.
-                       """.formatted(COLOR_PURPLE));
+                        Spirits of power so great it is beyond measure. No summons have been attempted in living memory, and records of summonings in ancient times are mostly considered apocryphal.
+                         """.formatted(COLOR_PURPLE));
 
         helper.entry("true_names");
         this.add(helper.entryName(), "True Names");
@@ -1291,23 +1293,26 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "True Names");
         this.add(helper.pageText(),
                 """
-                      To summon a spirit the magician needs to know their [#](%1$s)True Name[#](). By calling the true naming during the summoning ritual the Spirit is drawn forth from [#](%1$s)The Other Place[#]() and forced to do the summoners bidding.
-                       """.formatted(COLOR_PURPLE));
+                        To summon a spirit the magician needs to know their [#](%1$s)True Name[#](). By calling the true naming during the summoning ritual the Spirit is drawn forth from [#](%1$s)The Other Place[#]() and forced to do the summoners bidding.
+                        \\
+                        \\
+                        *It should be noted, that it does not matter which spirit name is used in summoning, only the spirit tier is relevant.*
+                         """.formatted(COLOR_PURPLE));
 
         helper.page("finding_names");
         this.add(helper.pageTitle(), "Finding Names");
         this.add(helper.pageText(),
                 """
-                       In ancient summoners had to research and experiment to find [#](%1$s)True Names[#](). Some spirits can be convinced to share their knowledge of true names of other demons, either by promising a swift return to [#](%1$s)The Other Place[#](), or by more ... *persuasive* measures.
-                       """.formatted(COLOR_PURPLE));
+                        In ancient summoners had to research and experiment to find [#](%1$s)True Names[#](). Some spirits can be convinced to share their knowledge of true names of other demons, either by promising a swift return to [#](%1$s)The Other Place[#](), or by more ... *persuasive* measures.
+                        """.formatted(COLOR_PURPLE));
 
 
         helper.page("using_names");
         this.add(helper.pageTitle(), "Using Names to Summon a Spirit");
         this.add(helper.pageText(),
                 """
-                      For your convenience, in this work you will find the known names of spirits of all 4 ranks, as well as some beyond that. To summon a spirit, copy their name from this book into the appropriate book of binding, then use this bound book of binding to activate a ritual.
-                       """.formatted(COLOR_PURPLE));
+                        For your convenience, in this work you will find the known names of spirits of all 4 ranks, as well as some beyond that. To summon a spirit, copy their name from this book into the appropriate book of binding, then use this bound book of binding to activate a ritual.
+                         """.formatted(COLOR_PURPLE));
 
         helper.entry("essence_decay");
         this.add(helper.entryName(), "Essence Decay");
@@ -1317,23 +1322,23 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Essence Decay");
         this.add(helper.pageText(),
                 """
-                         When residing in our plane of existence, spirits experience [#](%1$s)Essence Decay[#](), the slow rot of their "body". The more powerful the spirit, the slower the decay, but only the most powerful can stop it entirely. Once fully decayed they are returned to [#](%1$s)The Other Place[#]() and can only be re-summoned once fully recovered.
-                         """.formatted(COLOR_PURPLE));
+                        When residing in our plane of existence, spirits experience [#](%1$s)Essence Decay[#](), the slow rot of their "body". The more powerful the spirit, the slower the decay, but only the most powerful can stop it entirely. Once fully decayed they are returned to [#](%1$s)The Other Place[#]() and can only be re-summoned once fully recovered.
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("countermeasures");
         this.add(helper.pageTitle(), "Countermeasures");
         this.add(helper.pageText(),
                 """
-                         The summoner can slow or even stop essence decay by binding the spirit into an object, or summoning it into a living being. Additionally the pentacle used can influence the effects of essence decay to a degree.
-                         """.formatted(COLOR_PURPLE));
+                        The summoner can slow or even stop essence decay by binding the spirit into an object, or summoning it into a living being. Additionally the pentacle used can influence the effects of essence decay to a degree.
+                        """.formatted(COLOR_PURPLE));
 
 
         helper.page("affected_spirits");
         this.add(helper.pageTitle(), "Affected Spirits");
         this.add(helper.pageText(),
                 """
-                   Only tier 1 spirits are affected by essence decay, by default. All higher tiers are immune and will not despawn. Modpacks may modify this behaviour.
-                         """.formatted(COLOR_PURPLE));
+                        Only tier 1 spirits are affected by essence decay, by default. All higher tiers are immune and will not despawn. Modpacks may modify this behaviour.
+                              """.formatted(COLOR_PURPLE));
 
         helper.entry("unbound_spirits");
         this.add(helper.entryName(), "Unbound Spirits");
@@ -1343,29 +1348,29 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Unbound Spirits");
         this.add(helper.pageText(),
                 """
-                         Generally spirits are summoned [#](%1$s)bound[#](), which refers to any condition that keeps them under control of the summoner. A side effect of binding spells is that part of the spirit remains in [#](%1$s)The Other Place[#](), robbing them of large portions of the power, but at the same time also protecting their essence from foreign access in this world.
-                         """.formatted(COLOR_PURPLE));
+                        Generally spirits are summoned [#](%1$s)bound[#](), which refers to any condition that keeps them under control of the summoner. A side effect of binding spells is that part of the spirit remains in [#](%1$s)The Other Place[#](), robbing them of large portions of the power, but at the same time also protecting their essence from foreign access in this world.
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("unbound");
         this.add(helper.pageTitle(), "Forego the Leash");
         this.add(helper.pageText(),
                 """
-                         In order to access a spirit's essence, or unleash it's full destructive power, it needs to be summoned [#](%1$s)unbound[#](). Unbound summonings use pentacles that are intentionally incomplete or unstable, allowing to call on the spirit, but not putting any constraints on it.
-                         """.formatted(COLOR_PURPLE));
+                        In order to access a spirit's essence, or unleash it's full destructive power, it needs to be summoned [#](%1$s)unbound[#](). Unbound summonings use pentacles that are intentionally incomplete or unstable, allowing to call on the spirit, but not putting any constraints on it.
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("unbound2");
         this.add(helper.pageTitle(), "Beware!");
         this.add(helper.pageText(),
                 """
-                         The lack of restraints when summoning spirits unbound makes these rituals incredibly dangerous, but you may find that the rewards are worth the risk - and often there is no way around them to achieve certain results.
-                         """.formatted(COLOR_PURPLE));
+                        The lack of restraints when summoning spirits unbound makes these rituals incredibly dangerous, but you may find that the rewards are worth the risk - and often there is no way around them to achieve certain results.
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("essence");
         this.add(helper.pageTitle(), "Spirit Essence");
         this.add(helper.pageText(),
                 """
-                         Unbound summonings are the only way to obtain [Afrit Essence](entry://summoning_rituals/afrit_essence), a powerful substance required for crafting [](item://occultism:chalk_red) which is used for the most powerful binding pentacles.
-                         """.formatted(COLOR_PURPLE));
+                        Unbound summonings are the only way to obtain [Afrit Essence](entry://summoning_rituals/afrit_essence), a powerful substance required for crafting [](item://occultism:chalk_red) which is used for the most powerful binding pentacles.
+                        """.formatted(COLOR_PURPLE));
 
         helper.entry("wild_hunt");
         this.add(helper.entryName(), "The Wild Hunt");
@@ -1375,15 +1380,15 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "The Wild Hunt");
         this.add(helper.pageText(),
                 """
-                         A group of legendary Greater Spirits, usually appearing in the form of wither skeletons, with their skeleton minions. The Greater Spirits are bound to their minions in such fashion that they are virtually invulnerable until their minions have been sent back to [#](%1$s)The Other Place[#]().
-                         """.formatted(COLOR_PURPLE));
+                        A group of legendary Greater Spirits, usually appearing in the form of wither skeletons, with their skeleton minions. The Greater Spirits are bound to their minions in such fashion that they are virtually invulnerable until their minions have been sent back to [#](%1$s)The Other Place[#]().
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("wither_skull");
         this.add(helper.pageTitle(), "Wither Skeleton Skulls");
         this.add(helper.pageText(),
                 """
-                         While it is incredibly dangerous to call on the Wild Hunt, some summoners have been known to do so for quick access to the rare wither skeleton skulls they are known to leave behind. Summoning the wild hunt is described in detail on the page on obtaining [Wither Skeleton Skulls](entry://summoning_rituals/wither_skull).
-                         """.formatted(COLOR_PURPLE));
+                        While it is incredibly dangerous to call on the Wild Hunt, some summoners have been known to do so for quick access to the rare wither skeleton skulls they are known to leave behind. Summoning the wild hunt is described in detail on the page on obtaining [Wither Skeleton Skulls](entry://summoning_rituals/wither_skull).
+                        """.formatted(COLOR_PURPLE));
 
     }
 
@@ -1482,6 +1487,12 @@ public class ENUSProvider extends LanguageProvider {
                 """
                         Crystals increase the binding power of the pentacle, allowing a permanent binding of the spirit into an item or living being.
                         """);
+
+        helper.page("gem_recipe");
+        //no text
+
+        helper.page("crystal_recipe");
+        //no text
 
         helper.page("skeleton_skull");
         this.add(helper.pageText(),
@@ -1962,6 +1973,26 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageText(),
                 """
                         To obtain the essence of an [#](%1$s)Afrit[#]() for [](item://occultism:chalk_red) you need to [summon and kill an Unbound Afrit](entry://summoning_rituals/afrit_essence).
+                        """.formatted(COLOR_PURPLE));
+
+        helper.entry("otherworld_goggles");
+        this.add(helper.entryName(), "Otherworld Goggles");
+        this.add(helper.entryDescription(), "Say no to drugs!");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        The [](item://occultism:otherworld_goggles) are what advanced summoners use to see the [#](%1$s)Otherworld[#](), to avoid the negative side effects of [](entry://occultism:dictionary_of_spirits/getting_started/demons_dream).
+                        \\
+                        \\
+                        Making your first pair of these is seen by many as a rite of passage.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("crafting");
+        this.add(helper.pageTitle(), "Crafting Goggles");
+        this.add(helper.pageText(),
+                """
+                        Crafting these goggles is a multi-step process described in detail in the Entry about [Crafting Otherworld Goggles](entry://crafting_rituals/craft_otherworld_goggles).
                         """.formatted(COLOR_PURPLE));
     }
 
@@ -2582,17 +2613,40 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("goggles_spotlight");
         this.add(helper.pageText(),
                 """
-                        The [](item://occultism:otherworld_goggles) give the wearer permanent [#](%1$s)Third Eye[#](), allowing to view even blocks hidden from those partaking of [](entry://occultism:dictionary_of_spirits/getting_started/demons_dream) They will, however, not give the ability to harvest otherworld materials, for this special tools or the use of Demon's Dream is required, depending on the type of material.
+                        The [](item://occultism:otherworld_goggles) give the wearer permanent [#](%1$s)Third Eye[#](), allowing to view even blocks hidden from those partaking of [Demon's Dream](entry://occultism:dictionary_of_spirits/getting_started/demons_dream).
+                        \\
+                        \\
+                        This elegantly solves the general issue of summoners being in a drugged haze, causing all sorts of havoc.
                         """.formatted(COLOR_PURPLE));
+
+        helper.page("goggles_more");
+        this.add(helper.pageText(),
+                """
+                        The Goggles will, however, not give the ability to harvest otherworld materials. That means when wearing goggles, an [Infused Pick](), or even better, an [Iesnium Pick]() needs to be used to break blocks in order to obtain their Otherworld variants.
+                        """.formatted(COLOR_PURPLE));
+
+        //TODO: Link to infused and iesnium pick
 
         helper.page("lenses_spotlight");
         this.add(helper.pageText(),
                 """
-                        Otherworld Goggles make use of a [#](%1$s)Foliot[#]() bound into the lenses. The Foliot shares it's ability to view higher planes with the wearer, thus allowing them to see otherworld materials. The required summoning is relatively simple, making crafting these goggles a common apprentice summoner task.
+                        Otherworld Goggles make use of a [#](%1$s)Foliot[#]() bound into the lenses. The Foliot shares it's ability to view higher planes with the wearer, thus allowing them to see Otherworld materials.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.page("lenses_more");
+        this.add(helper.pageTitle(), "Crafting Lenses");
+        this.add(helper.pageText(),
+                """
+                        Summoning a spirit into the lenses used to craft goggles is one of the first of the more complex rituals apprentice summoners usually attempt, showing that their skills are progressing beyond the basics.
                         """.formatted(COLOR_PURPLE));
 
+        helper.page("lenses_recipe");
+        //no text
 
         helper.page("ritual");
+        //no text
+
+        helper.page("goggles_recipe");
         //no text
 
         helper.entry("craft_storage_controller_base");
@@ -3393,8 +3447,8 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Upgrading");
         this.add(helper.pageText(),
                 """
-                       It is **safe to destroy a storage stabilizer** to upgrade it. The items in the [Storage Actuator](entry://storage/storage_controller) will not be lost or dropped - you simply cannot add new items until you add enough storage stabilizers to have free slots again.
-                        """.formatted(COLOR_PURPLE));
+                        It is **safe to destroy a storage stabilizer** to upgrade it. The items in the [Storage Actuator](entry://storage/storage_controller) will not be lost or dropped - you simply cannot add new items until you add enough storage stabilizers to have free slots again.
+                         """.formatted(COLOR_PURPLE));
 
         helper.page("build_instructions");
         this.add(helper.pageTitle(), "Build Instructions");

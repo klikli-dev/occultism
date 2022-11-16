@@ -168,11 +168,11 @@ public class BookGenerator implements DataProvider {
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
         entryHelper.setMap(
-                "______________B________", //B=brush
+                "______________B_______O", //B=brush, //O= tier 2 otherworld materials
                 "_______________________",
-                "______i_t___p___N______", //p=pentaclePrep,  N=Next Steps
+                "______i_t___p___N___g__", //p=pentaclePrep,  N=Next Steps, g=goggles
                 "_______________________",
-                "______d_f_r___R_c______", //d=demonsDream, f=SpiritFire, r=divinationRod, R=ritual, c=chalks
+                "______d_f_r___R___c_I__", //d=demonsDream, f=SpiritFire, r=divinationRod, R=ritual, c=chalks, I=infused pick
                 "_______________________",
                 "________e___b___S______", //e=thirdEye, b=books of binding, S=Spirits
                 "_______________________",
@@ -231,8 +231,8 @@ public class BookGenerator implements DataProvider {
         spiritsSubcategory.withParent(BookEntryParentModel.builder().withEntryId(ritualEntry.id).build());
 
         //TODO:
-        //      golden chalk from the crusher
-        //      otherworld goggles
+        //      spirit attuned gem -> crystal
+        //      tier 2 otherworld materials
         //      infused pickaxe
         //      iesnium
         //      iesnium pickaxe
@@ -245,6 +245,9 @@ public class BookGenerator implements DataProvider {
 
         var chalksEntry = this.makeChalksEntry(helper, entryHelper, 'c');
         chalksEntry.withParent(BookEntryParentModel.builder().withEntryId(ritualEntry.id).build());
+
+        var otherworldGoggles = this.makeOtherworldGogglesEntry(helper, entryHelper, 'g');
+        otherworldGoggles.withParent(BookEntryParentModel.builder().withEntryId(chalksEntry.id).build());
 
         return BookCategoryModel.builder()
                 .withId(this.modLoc(helper.category))
@@ -264,7 +267,8 @@ public class BookGenerator implements DataProvider {
                         nextStepsEntry.build(),
                         booksOfCalling.build(),
                         spiritsSubcategory.build(),
-                        chalksEntry.build()
+                        chalksEntry.build(),
+                        otherworldGoggles.build()
                 );
     }
 
@@ -912,6 +916,33 @@ public class BookGenerator implements DataProvider {
                 );
     }
 
+    private BookEntryModel.Builder makeOtherworldGogglesEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("otherworld_goggles");
+
+        helper.page("spotlight");
+        var spotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.OTHERWORLD_GOGGLES.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("crafting");
+        var crafting = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(OccultismItems.OTHERWORLD_GOGGLES.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        spotlight,
+                        crafting
+                );
+    }
+
     //endregion
 
     //region Spirits
@@ -1195,7 +1226,7 @@ public class BookGenerator implements DataProvider {
                 "____________________",
                 "__u_j_k_l_m_________", //uses of chalks, craft foliot, craft djinni, craft afrit, craft marid
                 "____________________"
-                );
+        );
 
         var overview = this.makePentaclesOverviewEntry(helper, entryHelper, 'o');
         var paraphernalia = this.makeParaphernaliaEntry(helper, entryHelper, 'p');
@@ -1372,6 +1403,16 @@ public class BookGenerator implements DataProvider {
                 .withItem(Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()))
                 .build();
 
+        helper.page("gem_recipe");
+        var gemRecipe = BookSpiritFireRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("spirit_fire/spirit_attuned_gem"))
+                .build();
+
+        helper.page("crystal_recipe");
+        var crystalRecipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/spirit_attuned_crystal"))
+                .build();
+
         helper.page("skeleton_skull");
         var skeletonSkull = BookSpotlightPageModel.builder()
                 .withText(helper.pageText())
@@ -1387,6 +1428,8 @@ public class BookGenerator implements DataProvider {
                         intro,
                         candle,
                         crystal,
+                        gemRecipe,
+                        crystalRecipe,
                         skeletonSkull
                 );
     }
@@ -3405,10 +3448,26 @@ public class BookGenerator implements DataProvider {
                 .withText(helper.pageText())
                 .build();
 
+        helper.page("goggles_more");
+        var gogglesMore = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
+
         helper.page("lenses_spotlight");
         var lensesSpotlight = BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(OccultismItems.LENSES.get()))
                 .withText(helper.pageText())
+                .build();
+
+        helper.page("lenses_more");
+        var lensesMore = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("lenses_recipe");
+        var lensesRecipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/lenses"))
                 .build();
 
         helper.page("ritual");
@@ -3416,8 +3475,8 @@ public class BookGenerator implements DataProvider {
                 .withRecipeId1(this.modLoc("ritual/craft_infused_lenses"))
                 .build();
 
-        helper.page("recipe");
-        var recipe = BookCraftingRecipePageModel.builder()
+        helper.page("goggles_recipe");
+        var gogglesRecipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/goggles"))
                 .build();
 
@@ -3428,9 +3487,12 @@ public class BookGenerator implements DataProvider {
                 .withLocation(entryHelper.get(icon))
                 .withPages(
                         gogglesSpotlight,
+                        gogglesMore,
                         lensesSpotlight,
+                        lensesMore,
+                        lensesRecipe,
                         ritual,
-                        recipe
+                        gogglesRecipe
                 );
     }
     //endregion
