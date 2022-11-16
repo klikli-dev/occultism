@@ -19,6 +19,22 @@
       "use_markdown_in_title": false
     },
     {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.magic_lamp.text",
+      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.magic_lamp.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:crafting/magic_lamp_empty",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
       "type": "modonomicon:spotlight",
       "anchor": "",
       "item": {

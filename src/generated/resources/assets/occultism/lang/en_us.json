@@ -117,6 +117,8 @@
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_ring.usage.title": "Usage",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.intro.text": "Miner spirits use [](item://occultism:dimensional_mineshaft) to acquire resources from other dimensions. They are summoned and bound into magic lamps, which they can leave only through the mineshaft. The magic lamp degrades over time, once it breaks the spirit is released back to [#](ad03fc)The Other Place[#]().\n",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.intro.title": "Foliot Miner",
+  "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.magic_lamp.text": "To summon miner spirits, you first need to craft a [](item://occultism:magic_lamp_empty) to hold them. The key ingredient for that is [Iesnium]().\n",
+  "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.magic_lamp.title": "Magic Lamp",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.name": "Foliot Miner",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.spotlight.text": "The [#](ad03fc)Foliot[#]() miner harvests block without much aim and returns anything it finds. The mining process is quite slow, due to this the Foliot expends only minor amounts of energy, damaging the lamp it is housed in slowly over time.\n",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_infused_pickaxe.name": "Infused Pickaxe",

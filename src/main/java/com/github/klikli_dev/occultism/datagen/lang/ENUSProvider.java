@@ -2712,6 +2712,18 @@ public class ENUSProvider extends LanguageProvider {
                         Miner spirits use [](item://occultism:dimensional_mineshaft) to acquire resources from other dimensions. They are summoned and bound into magic lamps, which they can leave only through the mineshaft. The magic lamp degrades over time, once it breaks the spirit is released back to [#](%1$s)The Other Place[#]().
                         """.formatted(COLOR_PURPLE));
 
+        helper.page("magic_lamp");
+        this.add(helper.pageTitle(), "Magic Lamp");
+        this.add(helper.pageText(),
+                """
+                        To summon miner spirits, you first need to craft a [](item://occultism:magic_lamp_empty) to hold them. The key ingredient for that is [Iesnium]().
+                        """.formatted(COLOR_PURPLE));
+
+        //TODO: link to [Iesnium](entry://getting_started/iesnium) or appropriate starting entry
+
+        helper.page("magic_lamp_recipe");
+        //no text
+
         helper.page("spotlight");
         this.add(helper.pageText(),
                 """

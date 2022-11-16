@@ -3214,6 +3214,17 @@ public class BookGenerator implements DataProvider {
                 .withText(helper.pageText())
                 .build();
 
+        helper.page("magic_lamp");
+        var lamp = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("magic_lamp_recipe");
+        var lampRecipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/magic_lamp_empty"))
+                .build();
+
         helper.page("spotlight");
         var spotlight = BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get()))
@@ -3232,6 +3243,8 @@ public class BookGenerator implements DataProvider {
                 .withLocation(entryHelper.get(icon))
                 .withPages(
                         intro,
+                        lamp,
+                        lampRecipe,
                         spotlight,
                         ritual
                 );
