@@ -10,11 +10,11 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:getting_started/first_ritual",
+      "entry": "occultism:getting_started/grey_particles",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
-  "x": 5,
-  "y": 2
+  "x": 6,
+  "y": 4
 }

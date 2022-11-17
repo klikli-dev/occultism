@@ -16,28 +16,44 @@
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:image",
+      "type": "modonomicon:multiblock",
       "anchor": "",
-      "border": true,
-      "images": [
-        "occultism:textures/gui/book/bowl_placement.png"
-      ],
-      "text": "",
-      "title": ""
+      "multiblock_id": "occultism:summon_foliot",
+      "multiblock_name": "",
+      "show_visualize_button": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.multiblock.text"
     },
     {
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.bowl_text.text",
-      "title": "",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.bowl_text.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:image",
+      "anchor": "",
+      "border": true,
+      "images": [
+        "occultism:textures/gui/book/bowl_placement.png"
+      ],
+      "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.bowl_placement.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.ritual_text.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.ritual_text.title",
       "use_markdown_in_title": false
     },
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
       "recipe_id_1": "occultism:ritual/summon_foliot_crusher",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.ritual_recipe.text",
+      "text": "",
       "title1": "",
       "title2": ""
     },
@@ -46,14 +62,14 @@
       "anchor": "",
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.start_ritual.text",
-      "title": "",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.start_ritual.title",
       "use_markdown_in_title": false
     }
   ],
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:getting_started/ritual_prep",
+      "entry": "occultism:getting_started/ritual_prep_bowl",
       "line_enabled": true,
       "line_reversed": false
     },
@@ -64,6 +80,6 @@
       "line_reversed": false
     }
   ],
-  "x": 3,
+  "x": 4,
   "y": 0
 }

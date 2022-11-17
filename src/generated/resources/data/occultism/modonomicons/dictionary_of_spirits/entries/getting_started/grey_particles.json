@@ -2,17 +2,17 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "occultism:getting_started",
-  "description": "book.occultism.dictionary_of_spirits.getting_started.next_steps.description",
+  "description": "book.occultism.dictionary_of_spirits.getting_started.grey_particles.description",
   "hide_while_locked": false,
-  "icon": "occultism:soul_gem",
-  "name": "book.occultism.dictionary_of_spirits.getting_started.next_steps.name",
+  "icon": "minecraft:gray_dye",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.grey_particles.name",
   "pages": [
     {
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.next_steps.text.text",
-      "title": "book.occultism.dictionary_of_spirits.getting_started.next_steps.text.title",
+      "text": "book.occultism.dictionary_of_spirits.getting_started.grey_particles.text.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.grey_particles.text.title",
       "use_markdown_in_title": false
     }
   ],
@@ -25,5 +25,5 @@
     }
   ],
   "x": 4,
-  "y": -4
+  "y": 4
 }

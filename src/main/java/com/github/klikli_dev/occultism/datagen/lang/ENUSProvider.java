@@ -26,17 +26,19 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
+import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.*;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class ENUSProvider extends LanguageProvider {
@@ -988,28 +990,25 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("white_candle_recipe");
         //no text
 
-
-        helper.entry("ritual_prep");
-        this.add(helper.entryName(), "Ritual Preparations");
-        this.add(helper.entryDescription(), "Things to do before your first ritual.");
+        helper.entry("ritual_prep_chalk");
+        this.add(helper.entryName(), "Ritual Preparations: Chalks");
+        this.add(helper.entryDescription(), "Signs to find them, Signs to bring them all, and in the darkness bind them.");
 
         helper.page("intro");
-        this.add(helper.pageTitle(), "Ritual Preparations");
+        this.add(helper.pageTitle(), "Ritual Preparations: Chalks");
         this.add(helper.pageText(),
                 """
-                        To summon spirits from the [#](%1$s)Other Place[#]() in relative safety,
+                        To summon spirits from the [#](%1$s)Other Place[#]() in *relative* safety,
                         you need to draw a fitting pentacle using chalk to contain their powers.
-                        Furthermore, you need [Sacrificial Bowls](item://occultism:sacrificial_bowl)
-                        to sacrifice fitting items to attract the spirit.
                          """.formatted(COLOR_PURPLE));
-
 
         helper.page("white_chalk");
         this.add(helper.pageText(),
                 """
-                        For pentacles, only the color of chalk is relevant, not the glyph/sign.
-                        For decorative purposes you can repeatedly click a block to cycle through glyphs.
-                        For other chalks see [Chalks](entry://occultism:dictionary_of_spirits/getting_started/chalks).
+                        White chalk is used to draw the most basic pentacles, such as for our first ritual.
+                        \\
+                        \\
+                        More powerful summonings require appropriate more advanced chalk, see [Chalks](entry://occultism:dictionary_of_spirits/getting_started/chalks) for more information.
                             """);
 
         helper.page("burnt_otherstone_recipe");
@@ -1024,10 +1023,22 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("white_chalk_recipe");
         //no text
 
-        helper.page("sacrificial_bowl");
+        helper.page("usage");
+        this.add(helper.pageTitle(), "Usage");
         this.add(helper.pageText(),
                 """
-                        These bowls are used to sacrifice items as part of a ritual and you will need a handful of them.
+                        Right-click on a block with the chalk to draw a single glyph. For decorative purposes you can repeatedly click a block to cycle through glyphs. The shown glyph does not matter for the ritual, only the color.
+                         """.formatted(COLOR_PURPLE));
+
+        helper.entry("ritual_prep_bowl");
+        this.add(helper.entryName(), "Ritual Preparations: Sacrificial Bowls");
+        this.add(helper.entryDescription(), "There is no power without sacrifice.");
+
+        helper.page("sacrificial_bowl");
+        this.add(helper.pageTitle(), "Ritual Preparations: Sacrificial Bowls");
+        this.add(helper.pageText(),
+                """
+                        These bowls are used to place the items we will sacrifice as part of a ritual and you will need a handful of them.
                         Note: Their exact placement in the ritual does not matter - just keep them within 8 blocks of the pentacle center!
                              """);
 
@@ -1037,13 +1048,13 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("golden_sacrificial_bowl");
         this.add(helper.pageText(),
                 """
-                        This special sacrificial bowl is used to activate the ritual by [#](%1$s)right-clicking[#]() it with the activation item,
-                        usually a book of binding, once everything has been set up and you are ready to start.
+                        Once everything has been set up and you are ready to start, this special sacrificial bowl is used to activate the ritual by [#](%1$s)right-clicking[#]() it with the activation item,
+                        usually a [Book of Binding](entry://getting_started/books_of_binding).
                              """.formatted(COLOR_PURPLE));
+
 
         helper.page("golden_sacrificial_bowl_recipe");
         //no text
-
 
         helper.entry("books_of_binding");
         this.add(helper.entryName(), "Books of Binding");
@@ -1095,41 +1106,55 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.entryName(), "First Ritual");
         this.add(helper.entryDescription(), "We're actually getting started now!");
 
+
         helper.page("intro");
         this.add(helper.pageTitle(), "The Ritual (tm)");
         this.add(helper.pageText(),
                 """
                         These pages will walk the gentle reader through the process of the [first ritual](entry://summoning_rituals/summon_crusher_t1) step by step.
-                        We start by placing the golden sacrificial bowl and drawing the appropriate pentacle, [Aviar's Circle](entry://pentacles/summon_foliot).
+                        \\
+                        We **start** by placing the [](item://occultism:golden_sacrificial_bowl) and drawing the appropriate pentacle, [Aviar's Circle](entry://pentacles/summon_foliot) as seen on the left around it.
+                          """.formatted(COLOR_PURPLE));
+
+        helper.page("multiblock");
+        this.add(helper.pageText(),
+                """
+                        Only the color and location of the chalk marks is relevant, not the glyph/sign.
+                          """.formatted(COLOR_PURPLE));
+
+        helper.page("bowl_text");
+        this.add(helper.pageTitle(), "Sacrificial Bowls");
+        this.add(helper.pageText(),
+                """
+                        Next, place *at least* 4 [Sacrificial Bowls](item://occultism:sacrificial_bowl) close to the pentacle.
                         \\
                         \\
-                        Next, place four sacrificial bowls close to the pentacle.
+                        They must be placed **anywhere** within 8 blocks of the central [](item://occultism:golden_sacrificial_bowl). **The exact location does not matter.**
                           """.formatted(COLOR_PURPLE));
 
 
         helper.page("bowl_placement");
-        //no text
-
-        helper.page("bowl_text");
         this.add(helper.pageText(),
                 """
-                        [Sacrificial Bowls](item://occultism:sacrificial_bowl) must be placed **anywhere** within 8 blocks of the central [](item://occultism:golden_sacrificial_bowl). **The exact location does not matter.**
-                        \\
-                        \\
-                        Now it is time to place the ingredients you see on the next page in the (regular, not golden) sacrificial bowls.
+                        Possible locations for the sacrificial bowls.
+                          """.formatted(COLOR_PURPLE));
+
+
+        helper.page("ritual_text");
+        this.add(helper.pageTitle(), "Placing Ingredients");
+        this.add(helper.pageText(),
+                """
+                        Now it is time to place the ingredients you see on the next page in the (regular, not golden) sacrificial bowls. The ingredients will be consumed from the bowls as the ritual progresses.
                           """.formatted(COLOR_PURPLE));
 
         helper.page("ritual_recipe");
-        this.add(helper.pageText(),
-                """
-                        This page will show the ritual recipe in the future. For now refer to the Old Edition to look up the "Summon Foliot Crusher" ritual recipe.
-                          """.formatted(COLOR_PURPLE));
         //no text
 
         helper.page("start_ritual");
+        this.add(helper.pageTitle(), "Let there be ... spirits!");
         this.add(helper.pageText(),
                 """
-                        Finally, [#](%1$s)right-click[#]() the golden sacrificial bowl with the **bound** book of binding you created and wait until the crusher spawns.
+                        Finally, [#](%1$s)right-click[#]() the [](item://occultism:golden_sacrificial_bowl) with the **bound** book of binding you created before and wait until the crusher spawns.
                         \\
                         \\
                         Now all that remains is to drop appropriate ores near the crusher and wait for it to turn it into dust.
@@ -1161,6 +1186,20 @@ public class ENUSProvider extends LanguageProvider {
                         \\
                         \\
                         See also the [Disclaimer Entry](entry://occultism:dictionary_of_spirits/getting_started/intro).
+                          """);
+
+        helper.entry("grey_particles");
+        this.add(helper.entryName(), "Grey particles?");
+        this.add(helper.entryDescription(), "What to do when a ritual seems stuck!");
+
+        helper.page("text");
+        this.add(helper.pageTitle(), "Ritual stuck?");
+        this.add(helper.pageText(),
+                """
+                        If a ritual appears stuck - no items being consumed - you should see grey particles around the [](item://occultism:golden_sacrificial_bowl). If this is the case the ritual requires you to either [use a specific item](entry://rituals/item_use) or [sacrifice a specific mob](entry://rituals/sacrifice).
+                        \\
+                        \\
+                        Find the ritual in the [Rituals](category://rituals) category and check for instructions.
                           """);
 
         helper.entry("books_of_calling");
@@ -1957,7 +1996,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "More Chalks");
         this.add(helper.pageText(),
                 """
-                        For more advanced rituals the basic [White Chalk](entry://occultism:dictionary_of_spirits/getting_started/ritual_prep@white_chalk) is not sufficient. Instead chalks made from more arcane materials are required.
+                        For more advanced rituals the basic [White Chalk](entry://occultism:dictionary_of_spirits/getting_started/ritual_prep_chalk) is not sufficient. Instead chalks made from more arcane materials are required.
                         """);
 
         helper.page("gold_chalk_recipe");

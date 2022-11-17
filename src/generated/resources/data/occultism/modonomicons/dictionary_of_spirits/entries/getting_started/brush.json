@@ -27,11 +27,11 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:getting_started/ritual_prep",
+      "entry": "occultism:getting_started/ritual_prep_chalk",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
-  "x": 3,
+  "x": 0,
   "y": -4
 }

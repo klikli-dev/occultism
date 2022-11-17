@@ -78,11 +78,11 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:getting_started/divination_rod",
+      "entry": "occultism:getting_started/candle",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
-  "x": 1,
+  "x": 0,
   "y": 2
 }
