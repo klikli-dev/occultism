@@ -161,22 +161,24 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
     @Override
     protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
         ItemStack stack = playerIn.getItemInHand(hand);
-        Item item = stack.getItem();
         boolean isInTransformationBiome = this.isInTransformationBiome(playerIn) || this.isInTransformationBiome(this);
         if (this.isTransformItem(stack) && playerIn == this.getFamiliarOwner()) {
             if (isInTransformationBiome) {
-                if (!this.level.isClientSide)
-                    stack.shrink(1);
+
                 if (stack.is(Tags.Items.DYES_BLACK))
                     this.setBlack(true);
-                else if (item == Items.ENDER_EYE)
+                else if (stack.getItem() == Items.ENDER_EYE)
                     this.setRedEyes(true);
-                else if (item == Items.FLINT)
+                else if (stack.getItem() == Items.FLINT)
                     this.setEvilHorns(true);
                 if (this.shouldTransform()) {
                     OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.SHUB_NIGGURATH_SUMMON);
                     this.transform();
                 }
+
+                if (!this.level.isClientSide) //do this down here because shrink will erase item info and cause checks to fail
+                    stack.shrink(1);
+
                 return InteractionResult.sidedSuccess(this.level.isClientSide);
             } else {
                 this.shakeHeadTimer = 20;
