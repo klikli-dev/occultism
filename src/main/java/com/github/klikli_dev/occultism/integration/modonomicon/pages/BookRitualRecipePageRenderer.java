@@ -64,7 +64,7 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
     @Override
     public Style getClickedComponentStyleAt(double pMouseX, double pMouseY) {
         var textStyle = super.getClickedComponentStyleAt(pMouseX, pMouseY);
-        if (pMouseX > 0 && pMouseY > 0 && textStyle == null) {
+        if (pMouseX > 0 && pMouseY > 0 && textStyle == null && this.page.getRecipe1() != null) {
 
             int recipeX = X;
             int recipeY = Y;
@@ -216,7 +216,7 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
             var text = I18n.get(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_JOB,
                     I18n.get("job." + recipe.getSpiritJobType().toString().replace(":", ".")));
 
-            int y = recipeY - 1;
+            int y = recipeY + 130;
             int x = recipeX;
             int maxWidth = BookContentScreen.MAX_TITLE_WIDTH - 15; //account for the ritual dummy icon, 10 is a magic constant
             var scale =  Math.min(1.0f, (float) maxWidth / (float) this.font.width(text));
@@ -226,7 +226,7 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
                 poseStack.scale(scale, scale, scale);
             }
 
-            this.drawScaledStringNoShadow(poseStack, text,  x - 15, y + 130, 0x3366CC , scale);
+            this.drawScaledStringNoShadow(poseStack, text,  x - 15, y, 0x3366CC , scale);
 
             poseStack.popPose();
         }

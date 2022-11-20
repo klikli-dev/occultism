@@ -1,8 +1,12 @@
 {
   "background": "modonomicon:textures/gui/dark_slate_seamless.png",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "occultism:getting_started/intro"
+  },
   "entry_textures": "modonomicon:textures/gui/entry_textures.png",
   "icon": "occultism:textures/gui/book/robe.png",
   "name": "book.occultism.dictionary_of_spirits.rituals.name",
   "show_category_button": true,
-  "sort_number": 3
+  "sort_number": 4
 }

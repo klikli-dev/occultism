@@ -2,6 +2,9 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "occultism:summoning_rituals",
+  "condition": {
+    "type": "modonomicon:true"
+  },
   "description": "",
   "hide_while_locked": false,
   "icon": "occultism:brush",
@@ -28,6 +31,14 @@
       "anchor": "",
       "recipe_id_1": "occultism:ritual/summon_foliot_cleaner",
       "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:crafting/book_of_calling_foliot_cleaner",
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_cleaner.book_of_calling.text",
       "title1": "",
       "title2": ""
     }

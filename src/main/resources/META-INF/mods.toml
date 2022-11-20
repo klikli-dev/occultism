@@ -42,12 +42,6 @@ versionRange = "[1.19.2-1.8.0,)"
 side = "BOTH"
 
 [[dependencies.occultism]]
-modId = "patchouli"
-mandatory = true
-versionRange = "[1.19-74,)"
-side = "BOTH"
-
-[[dependencies.occultism]]
 modId = "curios"
 mandatory = true
 versionRange = "[1.19-5.1.0.4,)"

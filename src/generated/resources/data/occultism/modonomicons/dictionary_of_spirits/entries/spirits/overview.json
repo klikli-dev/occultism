@@ -1,0 +1,77 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 1,
+  "category": "occultism:spirits",
+  "description": "book.occultism.dictionary_of_spirits.spirits.overview.description",
+  "hide_while_locked": false,
+  "icon": "occultism:textures/gui/book/spirits.png",
+  "name": "book.occultism.dictionary_of_spirits.spirits.overview.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.spirits.overview.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.spirits.overview.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.spirits.overview.shapes.text",
+      "title": "book.occultism.dictionary_of_spirits.spirits.overview.shapes.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.spirits.overview.tiers.text",
+      "title": "book.occultism.dictionary_of_spirits.spirits.overview.tiers.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.spirits.overview.foliot.text",
+      "title": "book.occultism.dictionary_of_spirits.spirits.overview.foliot.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.spirits.overview.djinni.text",
+      "title": "book.occultism.dictionary_of_spirits.spirits.overview.djinni.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.spirits.overview.afrit.text",
+      "title": "book.occultism.dictionary_of_spirits.spirits.overview.afrit.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.spirits.overview.marid.text",
+      "title": "book.occultism.dictionary_of_spirits.spirits.overview.marid.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.spirits.overview.greater_spirits.text",
+      "title": "book.occultism.dictionary_of_spirits.spirits.overview.greater_spirits.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "x": -8,
+  "y": -1
+}

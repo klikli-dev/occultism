@@ -1,0 +1,8 @@
+{
+  "background": "modonomicon:textures/gui/dark_slate_seamless.png",
+  "entry_textures": "modonomicon:textures/gui/entry_textures.png",
+  "icon": "occultism:textures/gui/book/spirits.png",
+  "name": "book.occultism.dictionary_of_spirits.spirits.name",
+  "show_category_button": false,
+  "sort_number": 2
+}

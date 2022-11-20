@@ -2,6 +2,9 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "occultism:pentacles",
+  "condition": {
+    "type": "modonomicon:true"
+  },
   "description": "",
   "hide_while_locked": false,
   "icon": "occultism:pentacle",
@@ -40,6 +43,6 @@
       "line_reversed": false
     }
   ],
-  "x": 5,
-  "y": 1
+  "x": 0,
+  "y": 0
 }

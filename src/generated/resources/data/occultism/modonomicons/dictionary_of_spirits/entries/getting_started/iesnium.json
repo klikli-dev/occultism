@@ -1,0 +1,62 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:getting_started",
+  "description": "book.occultism.dictionary_of_spirits.getting_started.iesnium.description",
+  "hide_while_locked": false,
+  "icon": "occultism:iesnium_ore",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.iesnium.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "occultism:iesnium_ore"
+      },
+      "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.spotlight.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.where.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.iesnium.where.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.how.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.iesnium.how.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.processing.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.iesnium.processing.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.uses.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.iesnium.uses.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:getting_started/infused_pickaxe",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 9,
+  "y": -2
+}

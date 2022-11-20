@@ -1,0 +1,38 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:storage",
+  "description": "",
+  "hide_while_locked": false,
+  "icon": "occultism:storage_stabilizer_tier4",
+  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_stabilizer_tier4.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "occultism:storage_stabilizer_tier4"
+      },
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_stabilizer_tier4.spotlight.text",
+      "title": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:ritual/craft_stabilizer_tier4",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:storage/crafting_rituals/craft_stabilizer_tier3",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 6,
+  "y": 0
+}

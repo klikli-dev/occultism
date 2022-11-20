@@ -1,7 +1,10 @@
 {
   "background_u_index": 0,
-  "background_v_index": 0,
+  "background_v_index": 1,
   "category": "occultism:pentacles",
+  "condition": {
+    "type": "modonomicon:true"
+  },
   "description": "",
   "hide_while_locked": false,
   "icon": "occultism:spirit_attuned_crystal",
@@ -82,6 +85,6 @@
       "use_markdown_in_title": false
     }
   ],
-  "x": -11,
-  "y": 1
+  "x": -8,
+  "y": 0
 }

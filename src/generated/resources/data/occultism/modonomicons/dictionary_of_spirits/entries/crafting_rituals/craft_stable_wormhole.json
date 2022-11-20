@@ -2,6 +2,9 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "occultism:crafting_rituals",
+  "condition": {
+    "type": "modonomicon:true"
+  },
   "description": "",
   "hide_while_locked": false,
   "icon": "occultism:stable_wormhole",
@@ -33,6 +36,6 @@
       "line_reversed": false
     }
   ],
-  "x": -2,
+  "x": 0,
   "y": 3
 }

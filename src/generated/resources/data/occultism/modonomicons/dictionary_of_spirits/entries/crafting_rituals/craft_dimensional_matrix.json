@@ -2,6 +2,9 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "occultism:crafting_rituals",
+  "condition": {
+    "type": "modonomicon:true"
+  },
   "description": "",
   "hide_while_locked": false,
   "icon": "occultism:dimensional_matrix",
@@ -28,11 +31,11 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:crafting_rituals/overview",
+      "entry": "occultism:crafting_rituals/craft_storage_system",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
-  "x": -4,
+  "x": -2,
   "y": 1
 }
