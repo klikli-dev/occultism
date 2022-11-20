@@ -168,17 +168,22 @@ public class BookGenerator implements DataProvider {
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
         entryHelper.setMap(
-                "____________B_____N_____P_______", //B=brush, P=iesnium pick
+                "____________B_____N_____P___D___",
                 "________________________________",
-                "______i_r___ç_b_____g_I_O_______", //i=intro, r=divinationRod, ç = chalk, b=bowls,  N=Next Steps, g=goggles, O= tier 2 otherworld materials
+                "______i_r___ç_b_____g_I_O_l_M___",
                 "________________________________",
-                "______d_f_c_____R___a___________", //d=demonsDream, f=SpiritFire, c=candle, R=ritual, a=advancedChalks, I=infused pick
+                "______d_f_c_____R___a___________",
                 "________________________________",
-                "________e___ạ_______m___________", //e=thirdEye, ạ=books of binding, m=more_rituals
+                "________e___ạ_______m___________",
                 "________________________________",
-                "______________C___p_S___________" //C=book of calling, p=grey particles, S=spirits
+                "______________C___p_S___________"
         );
-
+        //B=brush, N=Next Steps, P=iesnium pick
+        //i=intro, r=divinationRod, ç = chalk, b=bowls, g=goggles,  I=infused pick O= tier 2 otherworld materials
+        //  l=lamps, M=miner, D=Dim Mineshaft
+        //d=demonsDream, f=SpiritFire, c=candle, R=ritual, a=advancedChalks,
+        //e=thirdEye, ạ=books of binding, m=more_rituals
+        //C=book of calling, p=grey particles, S=spirits
         //TODO: post getting started:
         //  sapling trader -> maybe from spirit fire AND first ritual
         //  lumberjack -> somewhere after first ritual
@@ -186,9 +191,6 @@ public class BookGenerator implements DataProvider {
 
 
         //TODO:
-        //      magic lamp (should link from iesnium)
-        //      spirit miner
-        //      dimensional mineshaft
         //      familiars
         //      possessed mobs
         //      spirit storage -> autocrafting
@@ -258,6 +260,15 @@ public class BookGenerator implements DataProvider {
         var iesniumPickaxe = this.makeIesniumPickaxeEntry(helper, entryHelper, 'P');
         iesniumPickaxe.withParent(BookEntryParentModel.builder().withEntryId(iesnium.id).build());
 
+        var magicLampsEntry = this.makeMagicLampsEntry(helper, entryHelper, 'l');
+        magicLampsEntry.withParent(BookEntryParentModel.builder().withEntryId(iesnium.id).build());
+
+        var spiritMinersEntry = this.makeSpiritMinersEntry(helper, entryHelper, 'M');
+        spiritMinersEntry.withParent(BookEntryParentModel.builder().withEntryId(magicLampsEntry.id).build());
+
+        var mineshaftEntry = this.makeMineshaftEntry(helper, entryHelper, 'D');
+        mineshaftEntry.withParent(BookEntryParentModel.builder().withEntryId(spiritMinersEntry.id).build());
+
         return BookCategoryModel.builder()
                 .withId(this.modLoc(helper.category))
                 .withName(helper.categoryName())
@@ -283,7 +294,10 @@ public class BookGenerator implements DataProvider {
                         otherworldGoggles.build(),
                         infusedPickaxe.build(),
                         iesnium.build(),
-                        iesniumPickaxe.build()
+                        iesniumPickaxe.build(),
+                        magicLampsEntry.build(),
+                        spiritMinersEntry.build(),
+                        mineshaftEntry.build()
                 );
     }
 
@@ -1158,6 +1172,88 @@ public class BookGenerator implements DataProvider {
                 );
     }
 
+    private BookEntryModel.Builder makeMagicLampsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("magic_lamps");
+
+        helper.page("spotlight");
+        var spotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.MAGIC_LAMP_EMPTY.get()))
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("crafting");
+        var crafting = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/magic_lamp_empty"))
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(OccultismItems.MAGIC_LAMP_EMPTY.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        spotlight,
+                        crafting
+                );
+    }
+
+    private BookEntryModel.Builder makeSpiritMinersEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("spirit_miners");
+
+        helper.page("spotlight");
+        var spotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get()))
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("crafting");
+        var crafting = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        spotlight,
+                        crafting
+                );
+    }
+
+    private BookEntryModel.Builder makeMineshaftEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("mineshaft");
+
+        helper.page("spotlight");
+        var spotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismBlocks.DIMENSIONAL_MINESHAFT.get()))
+                .withText(helper.pageText())
+                .build();
+
+        helper.page("crafting");
+        var crafting = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(OccultismBlocks.DIMENSIONAL_MINESHAFT.getId().toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        spotlight,
+                        crafting
+                );
+    }
 
     //endregion
 

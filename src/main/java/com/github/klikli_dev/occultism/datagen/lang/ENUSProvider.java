@@ -33,6 +33,7 @@ import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.contents.TranslatableContents;
@@ -1351,6 +1352,56 @@ public class ENUSProvider extends LanguageProvider {
 
         helper.page("crafting");
         //no text
+
+        helper.entry("magic_lamps");
+        this.add(helper.entryName(), "Magic Lamps");
+        this.add(helper.entryDescription(), "Three wishes? Close, but not quite..");
+
+        helper.page("spotlight");
+        this.add(helper.pageTitle(), "Magic Lamps");
+        this.add(helper.pageText(),
+                """
+                   Magic Lamps can be used to keep spirits safe from [#](%1$s)Essence Decay[#](), while still having access to some of their powers. Most commonly they are used to access a [#](%1$s)Mining Dimension[#]() and act as (*lag free*) [#](%1$s)Void Miners[#]().
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("crafting");
+        //no text
+
+        helper.entry("spirit_miners");
+        this.add(helper.entryName(), "Spirit Miners");
+        this.add(helper.entryDescription(), "It's Free Real Estate (-> Resources)");
+
+        helper.page("spotlight");
+        this.add(helper.pageTitle(), "Spirit Miners");
+        this.add(helper.pageText(),
+                """
+                   By summoning a spirit into a Magic Lamp and placing it in a [Dimensional Mineshaft (see next step)](entry://getting_started/mineshaft) it can be made to mine for you in a [#](%1$s)Mining Dimension[#](). This is a great way to get resources without having to go mining in the overworld (or other dimesions) yourself.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("crafting");
+        this.add(helper.pageTitle(), "Crafting");
+        this.add(helper.pageText(),
+                """
+                   See [Foliot Miner](entry://crafting_rituals/craft_foliot_miner) and the subsequent entries for information on how to craft spirit miners.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.entry("mineshaft");
+        this.add(helper.entryName(), "Dimensional Mineshaft");
+        this.add(helper.entryDescription(), "Ethically questionable, but very profitable");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                   This block acts as a portal, for spirits only, to the [#](%1$s)Mining Dimension[#](). Place a Magic Lamp with a Miner Spirit in it, to make it mine for you.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("crafting");
+        this.add(helper.pageTitle(), "Crafting");
+        this.add(helper.pageText(),
+                """
+                   See [Dimensional Mineshaft](entry://crafting_rituals/craft_dimensional_mineshaft) in the [Binding Rituals](category://crafting_rituals) Category.
+                        """.formatted(COLOR_PURPLE));
+
     }
 
     private void addSpiritsCategory(BookLangHelper helper) {
@@ -2723,7 +2774,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Operation");
         this.add(helper.pageText(),
                 """
-                        The dimensional mineshaft will discard any items it cannot store, so it is important to regularly empty the mineshaft, either manually, with hoppers or using a transporter spirit. Spirits in lamps can be inserted from the top, all other sides can be used to extract items.
+                        The dimensional mineshaft will discard any items it cannot store, so it is important to regularly empty the mineshaft, either manually, with hoppers or using a transporter spirit. Spirits in lamps can be **inserted** from the top, all other sides can be used to **extract** items.
                            """.formatted(COLOR_PURPLE));
 
 

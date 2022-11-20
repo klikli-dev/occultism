@@ -1,0 +1,38 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:getting_started",
+  "description": "book.occultism.dictionary_of_spirits.getting_started.spirit_miners.description",
+  "hide_while_locked": false,
+  "icon": "occultism:miner_foliot_unspecialized",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.spirit_miners.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "occultism:miner_foliot_unspecialized"
+      },
+      "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_miners.spotlight.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.spirit_miners.spotlight.title"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_miners.crafting.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.spirit_miners.crafting.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:getting_started/magic_lamps",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 12,
+  "y": -2
+}

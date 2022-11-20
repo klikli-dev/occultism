@@ -4,29 +4,7 @@
   "category": "occultism:getting_started",
   "sortnum": 5,
   "pages": [
-    {
-      "type": "text",
-      "text": "If you started here - you took a wrong turn! First open up the \"Dictionary of Spirits\" (not this book - which is the \"Old Edition\") and go through the Getting Started section to do your first ritual.."
-    },
-    {
-      "type": "text",
-      "text": "Now that you have successfully summoned your first spirit it's time to look at your next steps as a magician and start to plan for the long term."
-    },
-    {
-      "type": "text",
-      "title": "Craft Golden Chalk",
-      "text": "Obtain gold dust and glowstone dust and craft golden chalk for infusion and possession rituals."
-    },
-    {
-      "type": "text",
-      "title": "Craft Otherworld Goggles",
-      "text": "Prevent an Demon's Dream addiction by switching to $(l:rituals/crafting/craft_otherworld_goggles)Otherworld Goggles$(/l) for Third Eye vision. Additional benefit: You can now see higher tier Otherworld materials such as ores."
-    },
-    {
-      "type": "text",
-      "title": "Infuse Pickaxe",
-      "text": "$(l:rituals/crafting/craft_infused_pickaxe)Infuse a pickaxe$(/l) to harvest Otherworld ores. The logical next step is to craft an $(item)Iesnium Pickaxe$() for the same effect, but with a higher durability. See more on $(l:misc/iesnium)Iesnium$(/l)."
-    },
+
     {
       "type": "text",
       "title": "Summon Familiars",

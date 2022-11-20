@@ -1,0 +1,38 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:getting_started",
+  "description": "book.occultism.dictionary_of_spirits.getting_started.mineshaft.description",
+  "hide_while_locked": false,
+  "icon": "occultism:dimensional_mineshaft",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.mineshaft.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "occultism:dimensional_mineshaft"
+      },
+      "text": "book.occultism.dictionary_of_spirits.getting_started.mineshaft.spotlight.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.mineshaft.crafting.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.mineshaft.crafting.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:getting_started/spirit_miners",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 12,
+  "y": -4
+}
