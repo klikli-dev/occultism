@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
+import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
@@ -1106,7 +1107,6 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.entryName(), "First Ritual");
         this.add(helper.entryDescription(), "We're actually getting started now!");
 
-
         helper.page("intro");
         this.add(helper.pageTitle(), "The Ritual (tm)");
         this.add(helper.pageText(),
@@ -1177,20 +1177,6 @@ public class ENUSProvider extends LanguageProvider {
         helper.entry("more_rituals");
         this.add(helper.entryName(), "More Rituals");
         this.add(helper.entryDescription(), "Ready for new challenges?");
-
-        helper.entry("next_steps");
-        this.add(helper.entryName(), "Next Steps");
-        this.add(helper.entryDescription(), "To infinity, and beyond!");
-
-        helper.page("text");
-        this.add(helper.pageTitle(), "Next Steps");
-        this.add(helper.pageText(),
-                """
-                        For Now, please refer to the Old Edition's Getting Started section to learn more about next steps.
-                        \\
-                        \\
-                        See also the [Disclaimer Entry](entry://occultism:dictionary_of_spirits/getting_started/intro).
-                          """);
 
         helper.entry("grey_particles");
         this.add(helper.entryName(), "Grey particles?");
@@ -1402,6 +1388,88 @@ public class ENUSProvider extends LanguageProvider {
                    See [Dimensional Mineshaft](entry://crafting_rituals/craft_dimensional_mineshaft) in the [Binding Rituals](category://crafting_rituals) Category.
                         """.formatted(COLOR_PURPLE));
 
+        helper.entry("storage");
+        this.add(helper.entryName(), "Magic Storage");
+        this.add(helper.entryDescription(), "Looking for much much much more storage? Look no further!");
+
+        helper.entry("possession_rituals");
+        this.add(helper.entryName(), "Possession Rituals");
+        this.add(helper.entryDescription(), "A different way to get rare drops ...");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Possession Rituals");
+        this.add(helper.pageText(),
+                """
+                   Possessed mobs are controlled by spirits, allowing the summoner to determine some of their properties. They usually have **high drop rates** for rare drops, but are generally harder to kill.
+                   \\
+                   \\
+                   You probably will want to start by summoning a [Possessed Endermite](entry://possession_rituals/possess_endermite) to get [](item://minecraft:endstone) to craft [Advanced Chalks](entry://getting_started/chalks).
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("more");
+        this.add(helper.pageTitle(), "More Information");
+        this.add(helper.pageText(),
+                """
+                   To find out more about Possession Rituals, see the [Possession Rituals](category://possession_rituals) Category.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_rituals");
+        this.add(helper.entryName(), "Familiar Rituals");
+        this.add(helper.entryDescription(), "Personal helpers that provide buffs or fight for you");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Familiar Rituals");
+        this.add(helper.pageText(),
+                """
+                   Familiars provide a variety of bonus effects, such as feather falling, water breathing, jump boosts and more, and may also assist you in combat.
+                   \\
+                   \\
+                   Store them in a [Familiar Ring](entry://crafting_rituals/craft_familiar_ring) to equip them as a curio.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("more");
+        this.add(helper.pageTitle(), "More Information");
+        this.add(helper.pageText(),
+                """
+                   To find more about Familiars, see the [Familiar Rituals](category://familiar_rituals) Category.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.entry("summoning_rituals");
+        this.add(helper.entryName(), "Summoning Rituals");
+        this.add(helper.entryDescription(), "Spirit helpers for your daily work life");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Summoning Rituals");
+        this.add(helper.pageText(),
+                """
+                   Summoning Rituals allow you to summon spirits to work for you. Unlike familiars, they are not personally bound to you, meaning they will not follow you around, but they will perform various work tasks for you. In fact the first ritual you performed, the [Foliot Crusher](entry://getting_started/first_ritual), was a summoning ritual.
+                        """.formatted(COLOR_PURPLE));
+
+
+        helper.page("more");
+        this.add(helper.pageTitle(), "More Information");
+        this.add(helper.pageText(),
+                """
+                   To find more about Summoning Rituals, see the [Summoning Rituals](category://summoning_rituals) Category.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.entry("crafting_rituals");
+        this.add(helper.entryName(), "Infusion Rituals");
+        this.add(helper.entryDescription(), "Infuse spirits into items to create powerful tools");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Infusion Rituals");
+        this.add(helper.pageText(),
+                """
+                   Infusion rituals are all about crafting powerful items, by binding ("infusing") spirits into objects.The spirits will provide special functionality to the items.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("more");
+        this.add(helper.pageTitle(), "More Information");
+        this.add(helper.pageText(),
+                """
+                   To find more about Infusing items, see the [Infusion Rituals](category://crafting_rituals) Category.
+                        """.formatted(COLOR_PURPLE));
     }
 
     private void addSpiritsCategory(BookLangHelper helper) {
@@ -2145,10 +2213,19 @@ public class ENUSProvider extends LanguageProvider {
                         For more advanced rituals the basic [White Chalk](entry://occultism:dictionary_of_spirits/getting_started/ritual_prep_chalk) is not sufficient. Instead chalks made from more arcane materials are required.
                         """);
 
+
         helper.page("gold_chalk_recipe");
         //no text
 
+        helper.page("impure_purple_chalk_recipe");
+        this.add(helper.pageText(),
+                """
+                   You do not need to visit the [#](%1$s)The End[#]() to obtain Endstone. You can summon a [Possessed Endermite](entry://possession_rituals/possess_endermite) which has a high chance to drop it.
+                        """.formatted(COLOR_PURPLE));
         helper.page("purple_chalk_recipe");
+        //no text
+
+        helper.page("impure_red_chalk_recipe");
         //no text
 
         helper.page("red_chalk_recipe");
