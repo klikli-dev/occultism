@@ -1,6 +1,6 @@
 {
-  "background_u_index": 0,
-  "background_v_index": 0,
+  "background_u_index": 1,
+  "background_v_index": 1,
   "category": "occultism:getting_started",
   "category_to_open": "occultism:storage",
   "description": "book.occultism.dictionary_of_spirits.getting_started.storage.description",

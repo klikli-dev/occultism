@@ -925,6 +925,7 @@ public class BookGenerator implements DataProvider {
                 .withDescription(helper.entryDescription())
                 .withIcon("occultism:textures/gui/book/robe.png")
                 .withLocation(entryHelper.get(icon))
+                .withEntryBackground(1, 1) //silver background and wavey entry shape
                 .withCategoryToOpen(this.modLoc("rituals"));
     }
 
@@ -954,6 +955,7 @@ public class BookGenerator implements DataProvider {
                 .withName(helper.entryName())
                 .withIcon("occultism:textures/gui/book/spirits.png")
                 .withCategoryToOpen(this.modLoc("spirits"))
+                .withEntryBackground(1, 1) //silver background and wavey entry shape
                 .withLocation(entryHelper.get(icon));
     }
 
@@ -1254,9 +1256,9 @@ public class BookGenerator implements DataProvider {
                 .withDescription(helper.entryDescription())
                 .withIcon(OccultismBlocks.STORAGE_CONTROLLER.getId().toString())
                 .withLocation(entryHelper.get(icon))
+                .withEntryBackground(1, 1) //silver background and wavey entry shape
                 .withCategoryToOpen(this.modLoc("storage"));
     }
-
 
     private BookEntryModel.Builder makePossessionRitualsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("possession_rituals");
@@ -1279,6 +1281,7 @@ public class BookGenerator implements DataProvider {
                 .withDescription(helper.entryDescription())
                 .withIcon("occultism:textures/gui/book/possession.png")
                 .withLocation(entryHelper.get(icon))
+                .withEntryBackground(1, 1) //silver background and wavey entry shape
                 .withPages(
                         intro,
                         more
@@ -1306,6 +1309,7 @@ public class BookGenerator implements DataProvider {
                 .withDescription(helper.entryDescription())
                 .withIcon("occultism:textures/gui/book/parrot.png")
                 .withLocation(entryHelper.get(icon))
+                .withEntryBackground(1, 1) //silver background and wavey entry shape
                 .withPages(
                         intro,
                         more
@@ -1333,6 +1337,7 @@ public class BookGenerator implements DataProvider {
                 .withDescription(helper.entryDescription())
                 .withIcon("occultism:textures/gui/book/summoning.png")
                 .withLocation(entryHelper.get(icon))
+                .withEntryBackground(1, 1) //silver background and wavey entry shape
                 .withPages(
                         intro,
                         more
@@ -1360,6 +1365,7 @@ public class BookGenerator implements DataProvider {
                 .withDescription(helper.entryDescription())
                 .withIcon("occultism:textures/gui/book/infusion.png")
                 .withLocation(entryHelper.get(icon))
+                .withEntryBackground(1, 1) //silver background and wavey entry shape
                 .withPages(
                         intro,
                         more
@@ -2502,6 +2508,7 @@ public class BookGenerator implements DataProvider {
                 .withName(helper.entryName())
                 .withIcon("occultism:textures/gui/book/summoning.png")
                 .withCategoryToOpen(this.modLoc("summoning_rituals"))
+                .withEntryBackground(1, 1) //silver background and wavey entry shape
                 .withLocation(entryHelper.get(icon));
     }
 
@@ -2513,6 +2520,7 @@ public class BookGenerator implements DataProvider {
                 .withName(helper.entryName())
                 .withIcon("occultism:textures/gui/book/possession.png")
                 .withCategoryToOpen(this.modLoc("possession_rituals"))
+                .withEntryBackground(1, 1) //silver background and wavey entry shape
                 .withLocation(entryHelper.get(icon));
     }
 
@@ -2524,6 +2532,7 @@ public class BookGenerator implements DataProvider {
                 .withName(helper.entryName())
                 .withIcon("occultism:textures/gui/book/infusion.png")
                 .withCategoryToOpen(this.modLoc("crafting_rituals"))
+                .withEntryBackground(1, 1) //silver background and wavey entry shape
                 .withLocation(entryHelper.get(icon));
     }
 
@@ -2535,6 +2544,7 @@ public class BookGenerator implements DataProvider {
                 .withName(helper.entryName())
                 .withIcon("occultism:textures/gui/book/parrot.png")
                 .withCategoryToOpen(this.modLoc("familiar_rituals"))
+                .withEntryBackground(1, 1) //silver background and wavey entry shape
                 .withLocation(entryHelper.get(icon));
     }
 
