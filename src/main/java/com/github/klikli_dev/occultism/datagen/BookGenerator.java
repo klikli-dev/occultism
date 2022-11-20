@@ -168,20 +168,20 @@ public class BookGenerator implements DataProvider {
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
         entryHelper.setMap(
-                "____________B___________P___D___",
-                "________________________________",
-                "______i_r___ç_b_____g_I_O_l_M___",
-                "________________________________",
-                "______d_f_c_____R___a_s_________",
-                "________________________________",
-                "______e_____ạ_______m___________",
-                "________________________________",
-                "______________C___p_S___w_x_y_z_"
+                "______________B___________P___D___",
+                "__________________________________",
+                "______i___r___ç_b_____g_I_O_l_M___",
+                "__________________________________",
+                "______d___f_c_____R___a_s_________",
+                "__________________________________",
+                "______e_h_____ạ_______m___________",
+                "__________________________________",
+                "________________C___p_S___w_x_y_z_"
         );
         //B=brush, N=Next Steps, P=iesnium pick
         //i=intro, r=divinationRod, ç = chalk, b=bowls, g=goggles,  I=infused pick O= tier 2 otherworld materials
         //  l=lamps, M=miner, D=Dim Mineshaft
-        //d=demonsDream, f=SpiritFire, c=candle, R=ritual, a=advancedChalks,
+        //d=demonsDream, h=healing, f=SpiritFire, c=candle, R=ritual, a=advancedChalks,
         //e=thirdEye, ạ=books of binding, m=more ritual, s=storage
         //C=book of calling, p=grey particles, S=spirits, w=possession, x=familiars, y=summoning, z=crafting
         //TODO: post getting started:
@@ -197,6 +197,9 @@ public class BookGenerator implements DataProvider {
 
         var spiritFireEntry = this.makeSpiritFireEntry(helper, entryHelper, 'f');
         spiritFireEntry.withParent(BookEntryParentModel.builder().withEntryId(demonsDreamEntry.id).build());
+
+        var healingSpiritsEntry = this.makeHealingSpiritsEntry(helper, entryHelper, 'h');
+        healingSpiritsEntry.withParent(BookEntryParentModel.builder().withEntryId(demonsDreamEntry.id).build());
 
         var thirdEyeEntry = this.makeThirdEyeEntry(helper, entryHelper, 'e');
         thirdEyeEntry.withParent(BookEntryParentModel.builder().withEntryId(demonsDreamEntry.id).build());
@@ -281,6 +284,7 @@ public class BookGenerator implements DataProvider {
                         demonsDreamEntry.build(),
                         spiritFireEntry.build(),
                         thirdEyeEntry.build(),
+                        healingSpiritsEntry.build(),
                         divinationRodEntry.build(),
                         candleEntry.build(),
                         ritualPrepChalkEntry.build(),
@@ -447,6 +451,26 @@ public class BookGenerator implements DataProvider {
                         otherworldSaplingNaturalRecipe,
                         otherworldAshesRecipe,
                         gemRecipe
+                );
+    }
+
+    private BookEntryModel.Builder makeHealingSpiritsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("healing_spirits");
+
+        helper.page("spotlight");
+        var spotlight = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.DATURA.get()))
+                .withText(helper.pageText())
+                .build();
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(ForgeRegistries.ITEMS.getKey(Items.SPLASH_POTION).toString())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        spotlight
                 );
     }
 

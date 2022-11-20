@@ -860,6 +860,18 @@ public class ENUSProvider extends LanguageProvider {
                         but more valuable materials require special tools.
                                 """.formatted(DEMONS_DREAM));
 
+        helper.entry("healing_spirits");
+        this.add(helper.entryName(), "Healing Spirits");
+        this.add(helper.entryDescription(), "Fix up your spirit!");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        Right-click a spirit with [](item://occultism:datura) to heal it. 
+                        \\
+                        \\
+                        This will work on **Familiars**, **Summoned Spirits** and also **Possessed Mobs**.
+                        """);
 
         helper.entry("divination_rod");
         this.add(helper.entryName(), "Divination Rod");
