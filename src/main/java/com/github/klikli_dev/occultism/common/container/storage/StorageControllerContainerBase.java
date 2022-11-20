@@ -207,7 +207,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
     protected void findRecipeForMatrix() {
-        //TODO: if there are issues, set up a copy of this based on WorkBenchContainer func_217066_a / updateCraftingResult
+        //NOTE: if there are issues, set up a copy of this based on WorkBenchContainer func_217066_a / updateCraftingResult
         //      and call it onCraftingMatrixChanged(). Send slot packet!
         if (!this.player.level.isClientSide) {
             this.currentRecipe = null;

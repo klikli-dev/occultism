@@ -192,11 +192,6 @@ public class BookGenerator implements DataProvider {
         //d=demonsDream, h=healing, f=SpiritFire, c=candle, R=ritual, a=advancedChalks,
         //e=thirdEye, ạ=books of binding, m=more ritual, s=storage
         //C=book of calling, p=grey particles, S=spirits, w=possession, x=familiars, y=summoning, z=crafting
-        //TODO: post getting started:
-        //  sapling trader -> maybe from spirit fire AND first ritual
-        //  lumberjack -> somewhere after first ritual
-        //  transporter -> somewhere after first ritual
-
 
         var introEntry = this.makeIntroEntry(helper, entryHelper, 'i');
 

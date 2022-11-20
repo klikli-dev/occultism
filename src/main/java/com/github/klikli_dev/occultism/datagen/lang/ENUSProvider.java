@@ -2868,10 +2868,8 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("spotlight");
         this.add(helper.pageText(),
                 """
-                        Otherworld ores usually can only be mined with Otherworld metal tools. The [](item://occultism:infused_pickaxe) is a makeshift solution to this Chicken-and-Egg problem. Brittle spirit attuned gems house a [#](%1$s)Djinni[#]() that allows harvesting the ores, but the durability is extremely low.
+                        Otherworld ores usually can only be mined with Otherworld metal tools. The [](item://occultism:infused_pickaxe) is a makeshift solution to this Chicken-and-Egg problem. Brittle spirit attuned gems house a [#](%1$s)Djinni[#]() that allows harvesting the ores, but the durability is extremely low. A more durable version is the [Iesnium Pickaxe](entry://getting_started/iesnium_pickaxe).
                            """.formatted(COLOR_PURPLE));
-
-        //TODO: link to page about iesnium pick
 
         helper.page("ritual");
         //no text
@@ -2891,10 +2889,8 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("goggles_more");
         this.add(helper.pageText(),
                 """
-                        The Goggles will, however, not give the ability to harvest otherworld materials. That means when wearing goggles, an [Infused Pick](), or even better, an [Iesnium Pick]() needs to be used to break blocks in order to obtain their Otherworld variants.
+                        The Goggles will, however, not give the ability to harvest otherworld materials. That means when wearing goggles, an [Infused Pick](entry://getting_started/infused_pickaxe), or even better, an [Iesnium Pick](entry://getting_started/iesnium_pickaxe) needs to be used to break blocks in order to obtain their Otherworld variants.
                         """.formatted(COLOR_PURPLE));
-
-        //TODO: Link to infused and iesnium pick
 
         helper.page("lenses_spotlight");
         this.add(helper.pageText(),
@@ -3031,10 +3027,8 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Magic Lamp");
         this.add(helper.pageText(),
                 """
-                        To summon miner spirits, you first need to craft a [](item://occultism:magic_lamp_empty) to hold them. The key ingredient for that is [Iesnium]().
+                        To summon miner spirits, you first need to craft a [Magic Lamp](entry://getting_started/magic_lamps) to hold them. The key ingredient for that is [Iesnium](entry://getting_started/iesnium).
                         """.formatted(COLOR_PURPLE));
-
-        //TODO: link to [Iesnium](entry://getting_started/iesnium) or appropriate starting entry
 
         helper.page("magic_lamp_recipe");
         //no text
@@ -4038,12 +4032,6 @@ public class ENUSProvider extends LanguageProvider {
         this.add("dialog.occultism.mummy.kapow", "KAPOW!");
     }
 
-    private void addPatchouli() {
-        this.add("book.occultism.name", "Dictionary of Spirits (Old Edition)");
-        this.add("pentacle.occultism.craft_djinni", "Strigeor's Higher Binding");
-        this.add("pentacle.occultism.craft_foliot", "Eziveus' Spectral Compulsion");
-    }
-
     private void addModonomiconIntegration() {
         this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_ITEM_USE, "Item to use:");
         this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SUMMON, "Summon: %s");
@@ -4078,7 +4066,6 @@ public class ENUSProvider extends LanguageProvider {
         this.addRitualDummies();
         this.addDialogs();
         this.addPentacles();
-        this.addPatchouli(); //TODO: remove once no longer needed
         this.addModonomiconIntegration();
     }
 }
