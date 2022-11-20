@@ -288,7 +288,6 @@ public class PentacleProvider implements DataProvider {
         this.toSerialize.put(rl.getPath(), json);
     }
 
-    //TODO: convert to modo multiblock
     @Override
     public void run(CachedOutput cache) throws IOException {
         Path folder = this.generator.getOutputFolder();

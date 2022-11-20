@@ -108,10 +108,6 @@ repositories {
         url = "https://repo.repsy.io/mvn/klikli-dev/mods"
     }
     maven {
-        name = "Patchouli Maven"
-        url = 'https://maven.blamejared.com'
-    }
-    maven {
         name = "Progwm16 maven - JEI"
         url = 'https://dvs1.progwml6.com/files/maven'
     }
@@ -154,8 +150,6 @@ dependencies {
 
     compileOnly fg.deobf("com.klikli_dev:modonomicon:${modonomicon_mc_version}-${modonomicon_version}") //we build against full jar because we NEED IT ALL
     runtimeOnly fg.deobf("com.klikli_dev:modonomicon:${modonomicon_mc_version}-${modonomicon_version}")
-
-    implementation fg.deobf("vazkii.patchouli:Patchouli:1.19-75")
 
     //runtime only helper mods for dev env, placed in ./runtime-mods, example: Hwyla-forge-1.10.11-B78_1.16.2.jar
     //runtimeOnly fg.deobf("ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2")

@@ -13,6 +13,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryParentModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookModel;
+import com.klikli_dev.modonomicon.api.datagen.book.condition.BookEntryReadConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookTrueConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.*;
 import net.minecraft.data.CachedOutput;
@@ -135,6 +136,13 @@ public class BookGenerator implements DataProvider {
         var familiarRitualsCategory = this.makeFamiliarRitualsSubcategory(helper).withSortNumber(sortNum++);
 
         var pentaclesCategory = this.makePentaclesCategory(helper).withSortNumber(sortNum++);
+
+        var introReadCondition = BookEntryReadConditionModel.builder()
+                .withEntry(this.modLoc("getting_started/intro")).build();
+
+        storageCategory.withCondition(introReadCondition);
+        ritualsCategory.withCondition(introReadCondition);
+        pentaclesCategory.withCondition(introReadCondition);
 
         //https://tinyurl.com/occultism-graph
 
@@ -321,16 +329,12 @@ public class BookGenerator implements DataProvider {
                 .withText(helper.pageText())
                 .build();
 
-        helper.page("intro2");
-        var intro2 = BookTextPageModel.builder()
+        helper.page("help");
+        var help = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
 
-        helper.page("recipe");
-        var recipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/dictionary_of_spirits_old_edition"))
-                .withText(helper.pageText())
-                .build();
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -339,7 +343,10 @@ public class BookGenerator implements DataProvider {
                 .withIcon(OccultismItems.DICTIONARY_OF_SPIRITS_ICON.getId().toString())
                 .withLocation(entryHelper.get(icon))
                 .withEntryBackground(0, 1)
-                .withPages(intro, intro2, recipe);
+                .withPages(
+                        intro,
+                        help
+                );
     }
 
     private BookEntryModel.Builder makeDemonsDreamEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {

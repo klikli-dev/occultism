@@ -692,11 +692,7 @@ public class ENUSProvider extends LanguageProvider {
         var helper = ModonomiconAPI.get().getLangHelper(Occultism.MODID);
         helper.book("dictionary_of_spirits");
         this.add(helper.bookName(), "Dictionary of Spirits");
-        this.add(helper.bookTooltip(), """
-                This book aims to introduce the novice reader to the most common summoning rituals and equip them with a list of spirits and their names.
-                The authors advise caution in the summoning of the listed entities.
-                For help or to give feedback please join us in Discord https://invite.gg/klikli.
-                """);
+        this.add(helper.bookTooltip(), "An introduction to the spirit world.");
 
         this.addGettingStartedCategory(helper);
         this.addGettingStartedCategoryPart2(helper);
@@ -715,27 +711,25 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.categoryName(), "Getting Started");
 
         helper.entry("intro");
-        this.add(helper.entryName(), "Disclaimer!");
+        this.add(helper.entryName(), "About");
         this.add(helper.entryDescription(), "About using the Dictionary of Spirits");
 
         helper.page("intro");
-        this.add(helper.pageTitle(), "Important Information");
+        this.add(helper.pageTitle(), "About");
         this.add(helper.pageText(),
                 """
-                        Occultism is transitioning from Patchouli to Modonomicon as in-game documentation.
-                        \\
-                        \\
-                        Currently only the "getting started" section is available in Modonomicon, for all other content you need to refer back to the Patchouli book
-                        titled "Dictionary of Spirits (Old Edition)".
-                        """);
+                    This book aims to introduce the novice reader to the most common summoning rituals and equip them with a list of spirit names to summon.
+                    The authors advise caution in the summoning of the listed entities and does not take responsibility for any harm caused.
+                    """);
 
-        helper.page("intro2");
+        helper.page("help");
+        this.add(helper.pageTitle(), "Getting Help");
         this.add(helper.pageText(),
                 """
-                        For now, to look up recipes, pentacle shapes, ritual information and basically everything after "getting started", please open the Old Edition.
+                        If you run into any trouble while playing Occultism, please join our Discord server and ask for help.
                         \\
                         \\
-                        Over time more and more content will be available directly here in the Modonomicon version.
+                        [Join us at https://invite.gg/klikli](https://invite.gg/klikli)
                         """);
 
         helper.page("recipe");
@@ -1258,230 +1252,6 @@ public class ENUSProvider extends LanguageProvider {
         helper.entry("spirits");
         this.add(helper.entryName(), "About Spirits");
         this.add(helper.entryDescription(), "Learn more about Spirits.");
-
-        helper.entry("infused_pickaxe");
-        this.add(helper.entryName(), "Infused Pickaxe");
-        this.add(helper.entryDescription(), "Tackling Otherworld Ores");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        Beyond [](item://occultism:otherworld_log) and [](item://occultism:otherstone) there are also otherworld materials that require special tools to harvest. 
-                        \\
-                        \\
-                        This pickaxe is rather brittle, but it will do the job.
-                        """);
-
-        helper.page("gem_recipe");
-        this.add(helper.pageText(),
-                """
-                        These gems, when infused with a spirit, can be used to interact with Otherword materials and are the key to crafting the pickaxe.
-                        """);
-
-        helper.page("head_recipe");
-        //no text
-
-        helper.page("crafting");
-        this.add(helper.pageTitle(), "Crafting");
-        this.add(helper.pageText(),
-                """
-                        After preparing the raw materials, the pickaxe needs to be infused with a spirit.
-                        \\
-                        \\
-                        Follow the instructions at [Craft Infuse Pickaxe](entry://crafting_rituals/craft_infused_pickaxe)
-                        """.formatted(COLOR_PURPLE));
-
-        helper.entry("iesnium");
-        this.add(helper.entryName(), "Iesnium Ore");
-        this.add(helper.entryDescription(), "Myterious metals ...");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                   This is a rare metal that, to the naked eye, looks like [](item://minecraft:netherrack) and cannot be mined with a regular pickaxe.
-                   \\
-                   \\
-                   When mined with the correct tools, it can be used to craft powerful items (you will learn more about that later).
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("where");
-        this.add(helper.pageTitle(), "Where to find it");
-        this.add(helper.pageText(),
-                """
-                   Like Netherrack, Iesnium can be found in the Nether. In order to **see** it, you need to wear [Otherworld Goggles](entry://getting_started/otherworld_goggles).
-                   \\
-                   \\
-                   To make searching for it simpler, attune a [Divination Rod](entry://getting_started/divination_rod) to it and righ-click and hold in the nether until it highlights a nearby block, which will hold the ore.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("how");
-        this.add(helper.pageTitle(), "How to mine it");
-        this.add(helper.pageText(),
-                """
-                   Iesnium can only be mined with the [Infused Pickaxe](entry://getting_started/infused_pickaxe) or an [](item://occultism:iesnium_pickaxe) (about which you will learn later).
-                   \\
-                   \\
-                   After identifying a block that holds Iesnium, you can mine it with the pickaxe you created in the previous step.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("processing");
-        this.add(helper.pageTitle(), "Processing");
-        this.add(helper.pageText(),
-                """
-                   Iesnium Ore, after mining, can be smelted directly into ingots, or placed down. When placed, it will not turn back into it's netherrack form. Consequently it can also be mined with any pickaxe then. This visible form of the Ore, when mined, will drop [](item://occultism:raw_iesnium).
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("uses");
-        this.add(helper.pageTitle(), "Uses");
-        this.add(helper.pageText(),
-                """
-                   Iesnium can be used to craft an improved pickaxe, spirit lamps, and other powerful items. Follow the progress in this book to learn more about it.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.entry("iesnium_pickaxe");
-        this.add(helper.entryName(), "Iesnium Pickaxe");
-        this.add(helper.entryDescription(), "A more durable otherworld-appropriate pickaxe");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                   Like the [Infused Pickaxe](entry://getting_started/infused_pickaxe), this pickaxe can be used to mine Tier 2 Otherworld Materials such as [](item://occultism:iesnium_ore). As it is made from metal, instead of brittle [](item://occultism:spirit_attuned_gem), it is very durable and can be used for a long time.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("crafting");
-        //no text
-
-        helper.entry("magic_lamps");
-        this.add(helper.entryName(), "Magic Lamps");
-        this.add(helper.entryDescription(), "Three wishes? Close, but not quite..");
-
-        helper.page("spotlight");
-        this.add(helper.pageTitle(), "Magic Lamps");
-        this.add(helper.pageText(),
-                """
-                   Magic Lamps can be used to keep spirits safe from [#](%1$s)Essence Decay[#](), while still having access to some of their powers. Most commonly they are used to access a [#](%1$s)Mining Dimension[#]() and act as (*lag free*) [#](%1$s)Void Miners[#]().
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("crafting");
-        //no text
-
-        helper.entry("spirit_miners");
-        this.add(helper.entryName(), "Spirit Miners");
-        this.add(helper.entryDescription(), "It's Free Real Estate (-> Resources)");
-
-        helper.page("spotlight");
-        this.add(helper.pageTitle(), "Spirit Miners");
-        this.add(helper.pageText(),
-                """
-                   By summoning a spirit into a Magic Lamp and placing it in a [Dimensional Mineshaft (see next step)](entry://getting_started/mineshaft) it can be made to mine for you in a [#](%1$s)Mining Dimension[#](). This is a great way to get resources without having to go mining in the overworld (or other dimesions) yourself.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("crafting");
-        this.add(helper.pageTitle(), "Crafting");
-        this.add(helper.pageText(),
-                """
-                   See [Foliot Miner](entry://crafting_rituals/craft_foliot_miner) and the subsequent entries for information on how to craft spirit miners.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.entry("mineshaft");
-        this.add(helper.entryName(), "Dimensional Mineshaft");
-        this.add(helper.entryDescription(), "Ethically questionable, but very profitable");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                   This block acts as a portal, for spirits only, to the [#](%1$s)Mining Dimension[#](). Place a Magic Lamp with a Miner Spirit in it, to make it mine for you.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("crafting");
-        this.add(helper.pageTitle(), "Crafting");
-        this.add(helper.pageText(),
-                """
-                   See [Dimensional Mineshaft](entry://crafting_rituals/craft_dimensional_mineshaft) in the [Binding Rituals](category://crafting_rituals) Category.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.entry("storage");
-        this.add(helper.entryName(), "Magic Storage");
-        this.add(helper.entryDescription(), "Looking for much much much more storage? Look no further!");
-
-        helper.entry("possession_rituals");
-        this.add(helper.entryName(), "Possession Rituals");
-        this.add(helper.entryDescription(), "A different way to get rare drops ...");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Possession Rituals");
-        this.add(helper.pageText(),
-                """
-                   Possessed mobs are controlled by spirits, allowing the summoner to determine some of their properties. They usually have **high drop rates** for rare drops, but are generally harder to kill.
-                   \\
-                   \\
-                   You probably will want to start by summoning a [Possessed Endermite](entry://possession_rituals/possess_endermite) to get [](item://minecraft:end_stone) to craft [Advanced Chalks](entry://getting_started/chalks).
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("more");
-        this.add(helper.pageTitle(), "More Information");
-        this.add(helper.pageText(),
-                """
-                   To find out more about Possession Rituals, see the [Possession Rituals](category://possession_rituals) Category.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.entry("familiar_rituals");
-        this.add(helper.entryName(), "Familiar Rituals");
-        this.add(helper.entryDescription(), "Personal helpers that provide buffs or fight for you");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Familiar Rituals");
-        this.add(helper.pageText(),
-                """
-                   Familiars provide a variety of bonus effects, such as feather falling, water breathing, jump boosts and more, and may also assist you in combat.
-                   \\
-                   \\
-                   Store them in a [Familiar Ring](entry://crafting_rituals/craft_familiar_ring) to equip them as a curio.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("more");
-        this.add(helper.pageTitle(), "More Information");
-        this.add(helper.pageText(),
-                """
-                   To find more about Familiars, see the [Familiar Rituals](category://familiar_rituals) Category.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.entry("summoning_rituals");
-        this.add(helper.entryName(), "Summoning Rituals");
-        this.add(helper.entryDescription(), "Spirit helpers for your daily work life");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Summoning Rituals");
-        this.add(helper.pageText(),
-                """
-                   Summoning Rituals allow you to summon spirits to work for you. Unlike familiars, they are not personally bound to you, meaning they will not follow you around, but they will perform various work tasks for you. In fact the first ritual you performed, the [Foliot Crusher](entry://getting_started/first_ritual), was a summoning ritual.
-                        """.formatted(COLOR_PURPLE));
-
-
-        helper.page("more");
-        this.add(helper.pageTitle(), "More Information");
-        this.add(helper.pageText(),
-                """
-                   To find more about Summoning Rituals, see the [Summoning Rituals](category://summoning_rituals) Category.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.entry("crafting_rituals");
-        this.add(helper.entryName(), "Infusion Rituals");
-        this.add(helper.entryDescription(), "Infuse spirits into items to create powerful tools");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Infusion Rituals");
-        this.add(helper.pageText(),
-                """
-                   Infusion rituals are all about crafting powerful items, by binding ("infusing") spirits into objects.The spirits will provide special functionality to the items.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("more");
-        this.add(helper.pageTitle(), "More Information");
-        this.add(helper.pageText(),
-                """
-                   To find more about Infusing items, see the [Infusion Rituals](category://crafting_rituals) Category.
-                        """.formatted(COLOR_PURPLE));
     }
 
     private void addSpiritsCategory(BookLangHelper helper) {
@@ -2267,6 +2037,231 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageText(),
                 """
                         Crafting these goggles is a multi-step process described in detail in the Entry about [Crafting Otherworld Goggles](entry://crafting_rituals/craft_otherworld_goggles).
+                        """.formatted(COLOR_PURPLE));
+
+
+        helper.entry("infused_pickaxe");
+        this.add(helper.entryName(), "Infused Pickaxe");
+        this.add(helper.entryDescription(), "Tackling Otherworld Ores");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        Beyond [](item://occultism:otherworld_log) and [](item://occultism:otherstone) there are also otherworld materials that require special tools to harvest. 
+                        \\
+                        \\
+                        This pickaxe is rather brittle, but it will do the job.
+                        """);
+
+        helper.page("gem_recipe");
+        this.add(helper.pageText(),
+                """
+                        These gems, when infused with a spirit, can be used to interact with Otherword materials and are the key to crafting the pickaxe.
+                        """);
+
+        helper.page("head_recipe");
+        //no text
+
+        helper.page("crafting");
+        this.add(helper.pageTitle(), "Crafting");
+        this.add(helper.pageText(),
+                """
+                        After preparing the raw materials, the pickaxe needs to be infused with a spirit.
+                        \\
+                        \\
+                        Follow the instructions at [Craft Infuse Pickaxe](entry://crafting_rituals/craft_infused_pickaxe)
+                        """.formatted(COLOR_PURPLE));
+
+        helper.entry("iesnium");
+        this.add(helper.entryName(), "Iesnium Ore");
+        this.add(helper.entryDescription(), "Myterious metals ...");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                   This is a rare metal that, to the naked eye, looks like [](item://minecraft:netherrack) and cannot be mined with a regular pickaxe.
+                   \\
+                   \\
+                   When mined with the correct tools, it can be used to craft powerful items (you will learn more about that later).
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("where");
+        this.add(helper.pageTitle(), "Where to find it");
+        this.add(helper.pageText(),
+                """
+                   Like Netherrack, Iesnium can be found in the Nether. In order to **see** it, you need to wear [Otherworld Goggles](entry://getting_started/otherworld_goggles).
+                   \\
+                   \\
+                   To make searching for it simpler, attune a [Divination Rod](entry://getting_started/divination_rod) to it and righ-click and hold in the nether until it highlights a nearby block, which will hold the ore.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("how");
+        this.add(helper.pageTitle(), "How to mine it");
+        this.add(helper.pageText(),
+                """
+                   Iesnium can only be mined with the [Infused Pickaxe](entry://getting_started/infused_pickaxe) or an [](item://occultism:iesnium_pickaxe) (about which you will learn later).
+                   \\
+                   \\
+                   After identifying a block that holds Iesnium, you can mine it with the pickaxe you created in the previous step.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("processing");
+        this.add(helper.pageTitle(), "Processing");
+        this.add(helper.pageText(),
+                """
+                   Iesnium Ore, after mining, can be smelted directly into ingots, or placed down. When placed, it will not turn back into it's netherrack form. Consequently it can also be mined with any pickaxe then. This visible form of the Ore, when mined, will drop [](item://occultism:raw_iesnium).
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("uses");
+        this.add(helper.pageTitle(), "Uses");
+        this.add(helper.pageText(),
+                """
+                   Iesnium can be used to craft an improved pickaxe, spirit lamps, and other powerful items. Follow the progress in this book to learn more about it.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.entry("iesnium_pickaxe");
+        this.add(helper.entryName(), "Iesnium Pickaxe");
+        this.add(helper.entryDescription(), "A more durable otherworld-appropriate pickaxe");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                   Like the [Infused Pickaxe](entry://getting_started/infused_pickaxe), this pickaxe can be used to mine Tier 2 Otherworld Materials such as [](item://occultism:iesnium_ore). As it is made from metal, instead of brittle [](item://occultism:spirit_attuned_gem), it is very durable and can be used for a long time.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("crafting");
+        //no text
+
+        helper.entry("magic_lamps");
+        this.add(helper.entryName(), "Magic Lamps");
+        this.add(helper.entryDescription(), "Three wishes? Close, but not quite..");
+
+        helper.page("spotlight");
+        this.add(helper.pageTitle(), "Magic Lamps");
+        this.add(helper.pageText(),
+                """
+                   Magic Lamps can be used to keep spirits safe from [#](%1$s)Essence Decay[#](), while still having access to some of their powers. Most commonly they are used to access a [#](%1$s)Mining Dimension[#]() and act as (*lag free*) [#](%1$s)Void Miners[#]().
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("crafting");
+        //no text
+
+        helper.entry("spirit_miners");
+        this.add(helper.entryName(), "Spirit Miners");
+        this.add(helper.entryDescription(), "It's Free Real Estate (-> Resources)");
+
+        helper.page("spotlight");
+        this.add(helper.pageTitle(), "Spirit Miners");
+        this.add(helper.pageText(),
+                """
+                   By summoning a spirit into a Magic Lamp and placing it in a [Dimensional Mineshaft (see next step)](entry://getting_started/mineshaft) it can be made to mine for you in a [#](%1$s)Mining Dimension[#](). This is a great way to get resources without having to go mining in the overworld (or other dimesions) yourself.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("crafting");
+        this.add(helper.pageTitle(), "Crafting");
+        this.add(helper.pageText(),
+                """
+                   See [Foliot Miner](entry://crafting_rituals/craft_foliot_miner) and the subsequent entries for information on how to craft spirit miners.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.entry("mineshaft");
+        this.add(helper.entryName(), "Dimensional Mineshaft");
+        this.add(helper.entryDescription(), "Ethically questionable, but very profitable");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                   This block acts as a portal, for spirits only, to the [#](%1$s)Mining Dimension[#](). Place a Magic Lamp with a Miner Spirit in it, to make it mine for you.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("crafting");
+        this.add(helper.pageTitle(), "Crafting");
+        this.add(helper.pageText(),
+                """
+                   See [Dimensional Mineshaft](entry://crafting_rituals/craft_dimensional_mineshaft) in the [Binding Rituals](category://crafting_rituals) Category.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.entry("storage");
+        this.add(helper.entryName(), "Magic Storage");
+        this.add(helper.entryDescription(), "Looking for much much much more storage? Look no further!");
+
+        helper.entry("possession_rituals");
+        this.add(helper.entryName(), "Possession Rituals");
+        this.add(helper.entryDescription(), "A different way to get rare drops ...");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Possession Rituals");
+        this.add(helper.pageText(),
+                """
+                   Possessed mobs are controlled by spirits, allowing the summoner to determine some of their properties. They usually have **high drop rates** for rare drops, but are generally harder to kill.
+                   \\
+                   \\
+                   You probably will want to start by summoning a [Possessed Endermite](entry://possession_rituals/possess_endermite) to get [](item://minecraft:end_stone) to craft [Advanced Chalks](entry://getting_started/chalks).
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("more");
+        this.add(helper.pageTitle(), "More Information");
+        this.add(helper.pageText(),
+                """
+                   To find out more about Possession Rituals, see the [Possession Rituals](category://possession_rituals) Category.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.entry("familiar_rituals");
+        this.add(helper.entryName(), "Familiar Rituals");
+        this.add(helper.entryDescription(), "Personal helpers that provide buffs or fight for you");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Familiar Rituals");
+        this.add(helper.pageText(),
+                """
+                   Familiars provide a variety of bonus effects, such as feather falling, water breathing, jump boosts and more, and may also assist you in combat.
+                   \\
+                   \\
+                   Store them in a [Familiar Ring](entry://crafting_rituals/craft_familiar_ring) to equip them as a curio.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("more");
+        this.add(helper.pageTitle(), "More Information");
+        this.add(helper.pageText(),
+                """
+                   To find more about Familiars, see the [Familiar Rituals](category://familiar_rituals) Category.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.entry("summoning_rituals");
+        this.add(helper.entryName(), "Summoning Rituals");
+        this.add(helper.entryDescription(), "Spirit helpers for your daily work life");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Summoning Rituals");
+        this.add(helper.pageText(),
+                """
+                   Summoning Rituals allow you to summon spirits to work for you. Unlike familiars, they are not personally bound to you, meaning they will not follow you around, but they will perform various work tasks for you. In fact the first ritual you performed, the [Foliot Crusher](entry://getting_started/first_ritual), was a summoning ritual.
+                        """.formatted(COLOR_PURPLE));
+
+
+        helper.page("more");
+        this.add(helper.pageTitle(), "More Information");
+        this.add(helper.pageText(),
+                """
+                   To find more about Summoning Rituals, see the [Summoning Rituals](category://summoning_rituals) Category.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.entry("crafting_rituals");
+        this.add(helper.entryName(), "Infusion Rituals");
+        this.add(helper.entryDescription(), "Infuse spirits into items to create powerful tools");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Infusion Rituals");
+        this.add(helper.pageText(),
+                """
+                   Infusion rituals are all about crafting powerful items, by binding ("infusing") spirits into objects.The spirits will provide special functionality to the items.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("more");
+        this.add(helper.pageTitle(), "More Information");
+        this.add(helper.pageText(),
+                """
+                   To find more about Infusing items, see the [Infusion Rituals](category://crafting_rituals) Category.
                         """.formatted(COLOR_PURPLE));
     }
 
