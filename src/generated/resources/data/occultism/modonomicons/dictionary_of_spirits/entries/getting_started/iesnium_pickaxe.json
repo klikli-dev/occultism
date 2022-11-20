@@ -1,0 +1,38 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:getting_started",
+  "description": "book.occultism.dictionary_of_spirits.getting_started.iesnium_pickaxe.description",
+  "hide_while_locked": false,
+  "icon": "occultism:iesnium_pickaxe",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.iesnium_pickaxe.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "occultism:iesnium_pickaxe"
+      },
+      "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium_pickaxe.spotlight.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:crafting/iesnium_pickaxe",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:getting_started/iesnium",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 8,
+  "y": -4
+}

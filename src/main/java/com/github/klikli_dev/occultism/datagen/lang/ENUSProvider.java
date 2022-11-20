@@ -26,14 +26,13 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
-import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
-import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
-import com.klikli_dev.modonomicon.api.datagen.book.page.*;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.contents.TranslatableContents;
@@ -1174,6 +1173,10 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("brushRecipe");
         //no text
 
+        helper.entry("more_rituals");
+        this.add(helper.entryName(), "More Rituals");
+        this.add(helper.entryDescription(), "Ready for new challenges?");
+
         helper.entry("next_steps");
         this.add(helper.entryName(), "Next Steps");
         this.add(helper.entryDescription(), "To infinity, and beyond!");
@@ -1256,6 +1259,98 @@ public class ENUSProvider extends LanguageProvider {
         helper.entry("spirits");
         this.add(helper.entryName(), "About Spirits");
         this.add(helper.entryDescription(), "Learn more about Spirits.");
+
+        helper.entry("infused_pickaxe");
+        this.add(helper.entryName(), "Infused Pickaxe");
+        this.add(helper.entryDescription(), "Tackling Otherworld Ores");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        Beyond [](item://occultism:otherworld_log) and [](item://occultism:otherstone) there are also otherworld materials that require special tools to harvest. 
+                        \\
+                        \\
+                        This pickaxe is rather brittle, but it will do the job.
+                        """);
+
+        helper.page("gem_recipe");
+        this.add(helper.pageText(),
+                """
+                        These gems, when infused with a spirit, can be used to interact with Otherword materials and are the key to crafting the pickaxe.
+                        """);
+
+        helper.page("head_recipe");
+        //no text
+
+        helper.page("crafting");
+        this.add(helper.pageTitle(), "Crafting");
+        this.add(helper.pageText(),
+                """
+                        After preparing the raw materials, the pickaxe needs to be infused with a spirit.
+                        \\
+                        \\
+                        Follow the instructions at [Craft Infuse Pickaxe](entry://crafting_rituals/craft_infused_pickaxe)
+                        """.formatted(COLOR_PURPLE));
+
+        helper.entry("iesnium");
+        this.add(helper.entryName(), "Iesnium Ore");
+        this.add(helper.entryDescription(), "Myterious metals ...");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                   This is a rare metal that, to the naked eye, looks like [](item://minecraft:netherrack) and cannot be mined with a regular pickaxe.
+                   \\
+                   \\
+                   When mined with the correct tools, it can be used to craft powerful items (you will learn more about that later).
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("where");
+        this.add(helper.pageTitle(), "Where to find it");
+        this.add(helper.pageText(),
+                """
+                   Like Netherrack, Iesnium can be found in the Nether. In order to **see** it, you need to wear [Otherworld Goggles](entry://getting_started/otherworld_goggles).
+                   \\
+                   \\
+                   To make searching for it simpler, attune a [Divination Rod](entry://getting_started/divination_rod) to it and righ-click and hold in the nether until it highlights a nearby block, which will hold the ore.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("how");
+        this.add(helper.pageTitle(), "How to mine it");
+        this.add(helper.pageText(),
+                """
+                   Iesnium can only be mined with the [Infused Pickaxe](entry://getting_started/infused_pickaxe) or an [](item://occultism:iesnium_pickaxe) (about which you will learn later).
+                   \\
+                   \\
+                   After identifying a block that holds Iesnium, you can mine it with the pickaxe you created in the previous step.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("processing");
+        this.add(helper.pageTitle(), "Processing");
+        this.add(helper.pageText(),
+                """
+                   Iesnium Ore, after mining, can be smelted directly into ingots, or placed down. When placed, it will not turn back into it's netherrack form. Consequently it can also be mined with any pickaxe then. This visible form of the Ore, when mined, will drop [](item://occultism:raw_iesnium).
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("uses");
+        this.add(helper.pageTitle(), "Uses");
+        this.add(helper.pageText(),
+                """
+                   Iesnium can be used to craft an improved pickaxe, spirit lamps, and other powerful items. Follow the progress in this book to learn more about it.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.entry("iesnium_pickaxe");
+        this.add(helper.entryName(), "Iesnium Pickaxe");
+        this.add(helper.entryDescription(), "A more durable otherworld-appropriate pickaxe");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                   Like the [Infused Pickaxe](entry://getting_started/infused_pickaxe), this pickaxe can be used to mine Tier 2 Otherworld Materials such as [](item://occultism:iesnium_ore). As it is made from metal, instead of brittle [](item://occultism:spirit_attuned_gem), it is very durable and can be used for a long time.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("crafting");
+        //no text
     }
 
     private void addSpiritsCategory(BookLangHelper helper) {
