@@ -1403,7 +1403,7 @@ public class ENUSProvider extends LanguageProvider {
                    Possessed mobs are controlled by spirits, allowing the summoner to determine some of their properties. They usually have **high drop rates** for rare drops, but are generally harder to kill.
                    \\
                    \\
-                   You probably will want to start by summoning a [Possessed Endermite](entry://possession_rituals/possess_endermite) to get [](item://minecraft:endstone) to craft [Advanced Chalks](entry://getting_started/chalks).
+                   You probably will want to start by summoning a [Possessed Endermite](entry://possession_rituals/possess_endermite) to get [](item://minecraft:end_stone) to craft [Advanced Chalks](entry://getting_started/chalks).
                         """.formatted(COLOR_PURPLE));
 
         helper.page("more");
