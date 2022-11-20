@@ -3,7 +3,7 @@
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_storage_remote.name",
   "description": "",
   "icon": "occultism:storage_remote",
-  "x": 0,
+  "x": 2,
   "y": 3,
   "background_u_index": 0,
   "background_v_index": 0,
@@ -34,5 +34,8 @@
       "title2": "",
       "text": ""
     }
-  ]
+  ],
+  "condition": {
+    "type": "modonomicon:true"
+  }
 }

@@ -23,8 +23,6 @@
 package com.github.klikli_dev.occultism.datagen;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import com.google.gson.*;

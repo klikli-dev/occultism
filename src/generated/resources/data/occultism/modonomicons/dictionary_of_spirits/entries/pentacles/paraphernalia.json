@@ -3,7 +3,7 @@
   "name": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.name",
   "description": "",
   "icon": "minecraft:skeleton_skull",
-  "x": -11,
+  "x": -8,
   "y": -2,
   "background_u_index": 0,
   "background_v_index": 0,
@@ -44,6 +44,22 @@
       "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.crystal.text"
     },
     {
+      "type": "occultism:spirit_fire_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:spirit_fire/spirit_attuned_gem",
+      "title2": "",
+      "text": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:crafting/spirit_attuned_crystal",
+      "title2": "",
+      "text": ""
+    },
+    {
       "type": "modonomicon:spotlight",
       "anchor": "",
       "title": "",
@@ -52,5 +68,8 @@
       },
       "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.skeleton_skull.text"
     }
-  ]
+  ],
+  "condition": {
+    "type": "modonomicon:true"
+  }
 }

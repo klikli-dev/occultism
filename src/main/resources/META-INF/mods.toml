@@ -39,15 +39,9 @@ description='''A magic mod inspired by the world of Jonathan Stroud's Bartimaeus
 [[dependencies.occultism]]
     modId = "modonomicon"
     mandatory = true
-    versionRange = "[1.18.2-1.8.0,)"
+    versionRange = "[1.18.2-1.11.0,)"
     side = "BOTH"
 
-
-[[dependencies.occultism]]
-    modId="patchouli"
-    mandatory=true
-    versionRange="[1.18.1-61,)"
-    side="BOTH"
 
 [[dependencies.occultism]]
     modId="curios"

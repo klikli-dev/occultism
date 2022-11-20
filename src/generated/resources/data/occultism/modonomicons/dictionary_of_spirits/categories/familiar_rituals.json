@@ -1,7 +1,7 @@
 {
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.name",
   "icon": "occultism:textures/gui/book/parrot.png",
-  "sort_number": 7,
+  "sort_number": 8,
   "background": "modonomicon:textures/gui/dark_slate_seamless.png",
   "entry_textures": "modonomicon:textures/gui/entry_textures.png",
   "show_category_button": false

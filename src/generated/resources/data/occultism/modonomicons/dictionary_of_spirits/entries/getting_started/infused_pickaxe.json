@@ -1,0 +1,54 @@
+{
+  "category": "occultism:getting_started",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.infused_pickaxe.name",
+  "description": "book.occultism.dictionary_of_spirits.getting_started.infused_pickaxe.description",
+  "icon": "occultism:infused_pickaxe",
+  "x": 7,
+  "y": -2,
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "hide_while_locked": false,
+  "parents": [
+    {
+      "entry": "occultism:getting_started/otherworld_goggles",
+      "draw_arrow": true,
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "title": "",
+      "item": {
+        "item": "occultism:infused_pickaxe"
+      },
+      "text": "book.occultism.dictionary_of_spirits.getting_started.infused_pickaxe.spotlight.text"
+    },
+    {
+      "type": "occultism:spirit_fire_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:spirit_fire/spirit_attuned_gem",
+      "title2": "",
+      "text": "book.occultism.dictionary_of_spirits.getting_started.infused_pickaxe.gem_recipe.text"
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:crafting/spirit_attuned_pickaxe_head",
+      "title2": "",
+      "text": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.infused_pickaxe.crafting.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.infused_pickaxe.crafting.text"
+    }
+  ]
+}

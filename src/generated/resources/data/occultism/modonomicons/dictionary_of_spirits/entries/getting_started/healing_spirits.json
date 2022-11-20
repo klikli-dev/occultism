@@ -1,0 +1,30 @@
+{
+  "category": "occultism:getting_started",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.healing_spirits.name",
+  "description": "book.occultism.dictionary_of_spirits.getting_started.healing_spirits.description",
+  "icon": "minecraft:splash_potion",
+  "x": -9,
+  "y": 2,
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "hide_while_locked": false,
+  "parents": [
+    {
+      "entry": "occultism:getting_started/demons_dream",
+      "draw_arrow": true,
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "title": "",
+      "item": {
+        "item": "occultism:datura"
+      },
+      "text": "book.occultism.dictionary_of_spirits.getting_started.healing_spirits.spotlight.text"
+    }
+  ]
+}

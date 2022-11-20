@@ -198,12 +198,6 @@ public class OccultismPackets {
                 OccultismPacketHandler::handle);
 
         INSTANCE.registerMessage(nextID(),
-                MessageUpdatePentacles.class,
-                MessageUpdatePentacles::encode,
-                MessageUpdatePentacles::new,
-                OccultismPacketHandler::handle);
-
-        INSTANCE.registerMessage(nextID(),
                 MessageHeadlessDie.class,
                 MessageHeadlessDie::encode,
                 MessageHeadlessDie::new,

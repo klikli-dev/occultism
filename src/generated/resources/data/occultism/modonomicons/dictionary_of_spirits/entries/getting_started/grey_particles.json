@@ -1,0 +1,29 @@
+{
+  "category": "occultism:getting_started",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.grey_particles.name",
+  "description": "book.occultism.dictionary_of_spirits.getting_started.grey_particles.description",
+  "icon": "minecraft:gray_dye",
+  "x": 3,
+  "y": 4,
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "hide_while_locked": false,
+  "parents": [
+    {
+      "entry": "occultism:getting_started/first_ritual",
+      "draw_arrow": true,
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.grey_particles.text.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.grey_particles.text.text"
+    }
+  ]
+}

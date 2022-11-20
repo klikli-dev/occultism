@@ -44,5 +44,8 @@
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_wild_otherworld_bird.description.text"
     }
-  ]
+  ],
+  "condition": {
+    "type": "modonomicon:true"
+  }
 }

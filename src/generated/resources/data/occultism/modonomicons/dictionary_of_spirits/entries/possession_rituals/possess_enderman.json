@@ -3,7 +3,7 @@
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_enderman.name",
   "description": "",
   "icon": "minecraft:ender_pearl",
-  "x": -6,
+  "x": -4,
   "y": -1,
   "background_u_index": 0,
   "background_v_index": 0,
@@ -44,5 +44,8 @@
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_enderman.description.text"
     }
-  ]
+  ],
+  "condition": {
+    "type": "modonomicon:true"
+  }
 }

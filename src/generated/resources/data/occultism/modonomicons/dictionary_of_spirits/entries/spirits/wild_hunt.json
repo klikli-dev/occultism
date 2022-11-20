@@ -1,0 +1,37 @@
+{
+  "category": "occultism:spirits",
+  "name": "book.occultism.dictionary_of_spirits.spirits.wild_hunt.name",
+  "description": "book.occultism.dictionary_of_spirits.spirits.wild_hunt.description",
+  "icon": "occultism:textures/gui/book/wild_hunt.png",
+  "x": -2,
+  "y": -1,
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "hide_while_locked": false,
+  "parents": [
+    {
+      "entry": "occultism:spirits/unbound_spirits",
+      "draw_arrow": true,
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.spirits.wild_hunt.intro.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.spirits.wild_hunt.intro.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.spirits.wild_hunt.wither_skull.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.spirits.wild_hunt.wither_skull.text"
+    }
+  ]
+}

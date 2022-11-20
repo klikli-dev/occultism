@@ -1,0 +1,61 @@
+{
+  "category": "occultism:storage",
+  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.name",
+  "description": "",
+  "icon": "minecraft:lever",
+  "x": -4,
+  "y": 2,
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "hide_while_locked": false,
+  "parents": [
+    {
+      "entry": "occultism:storage/storage_controller",
+      "draw_arrow": true,
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.intro.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.intro.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.tutorial.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.tutorial2.text"
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:ritual/summon_djinni_manage_machine",
+      "title2": "",
+      "text": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:crafting/book_of_calling_djinni_manage_machine",
+      "title2": "",
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.book_of_calling.text"
+    }
+  ]
+}

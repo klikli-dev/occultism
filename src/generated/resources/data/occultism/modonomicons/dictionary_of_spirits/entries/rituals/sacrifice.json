@@ -25,5 +25,8 @@
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.rituals.sacrifice.intro.text"
     }
-  ]
+  ],
+  "condition": {
+    "type": "modonomicon:true"
+  }
 }

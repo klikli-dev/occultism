@@ -112,10 +112,6 @@ repositories {
         url = "https://repo.repsy.io/mvn/klikli-dev/mods"
     }
     maven {
-        name = "Patchouli Maven"
-        url = 'https://maven.blamejared.com'
-    }
-    maven {
         name = "Progwm16 maven - JEI"
         url = 'https://dvs1.progwml6.com/files/maven'
     }
@@ -151,9 +147,6 @@ dependencies {
     //curios
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_mc_version}-${curios_version}:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_mc_version}-${curios_version}")
-
-    //patchouli
-    implementation fg.deobf("vazkii.patchouli:Patchouli:${patchouli_mc_version}-${patchouli_version}")
 
     //geckolib
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${geckolib_mc_version}:${geckolib_version}")

@@ -42,5 +42,8 @@
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_mineshaft.description.text"
     }
-  ]
+  ],
+  "condition": {
+    "type": "modonomicon:true"
+  }
 }

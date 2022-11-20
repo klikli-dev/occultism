@@ -44,16 +44,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import org.jetbrains.annotations.Nullable;
-import vazkii.patchouli.api.PatchouliAPI;
-import vazkii.patchouli.common.book.BookRegistry;
-//import vazkii.patchouli.api.PatchouliAPI;
-//import vazkii.patchouli.common.book.Book;
-//import vazkii.patchouli.common.book.BookRegistry;
 
 import java.lang.reflect.Field;
 import java.util.List;

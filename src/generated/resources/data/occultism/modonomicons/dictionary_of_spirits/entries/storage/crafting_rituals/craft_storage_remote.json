@@ -1,0 +1,38 @@
+{
+  "category": "occultism:storage",
+  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_storage_remote.name",
+  "description": "",
+  "icon": "occultism:storage_remote",
+  "x": -2,
+  "y": -2,
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "hide_while_locked": false,
+  "parents": [
+    {
+      "entry": "occultism:storage/crafting_rituals/craft_stable_wormhole",
+      "draw_arrow": true,
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "title": "",
+      "item": {
+        "item": "occultism:storage_remote"
+      },
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_storage_remote.spotlight.text"
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:ritual/craft_storage_remote",
+      "title2": "",
+      "text": ""
+    }
+  ]
+}

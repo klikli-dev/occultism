@@ -1,0 +1,23 @@
+{
+  "category": "occultism:spirits",
+  "name": "book.occultism.dictionary_of_spirits.spirits.return_to_getting_started.name",
+  "description": "",
+  "icon": "occultism:dictionary_of_spirits_icon",
+  "x": -10,
+  "y": -1,
+  "background_u_index": 1,
+  "background_v_index": 2,
+  "hide_while_locked": false,
+  "parents": [
+    {
+      "entry": "occultism:spirits/overview",
+      "draw_arrow": true,
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:true"
+  },
+  "category_to_open": "occultism:getting_started"
+}

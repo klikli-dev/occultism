@@ -3,8 +3,8 @@
   "name": "book.occultism.dictionary_of_spirits.pentacles.craft_afrit.name",
   "description": "",
   "icon": "occultism:pentacle",
-  "x": 1,
-  "y": 4,
+  "x": -2,
+  "y": 2,
   "background_u_index": 0,
   "background_v_index": 0,
   "hide_while_locked": false,
@@ -41,5 +41,8 @@
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.craft_afrit.uses.text"
     }
-  ]
+  ],
+  "condition": {
+    "type": "modonomicon:true"
+  }
 }

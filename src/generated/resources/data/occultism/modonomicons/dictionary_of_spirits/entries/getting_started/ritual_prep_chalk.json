@@ -1,0 +1,78 @@
+{
+  "category": "occultism:getting_started",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_chalk.name",
+  "description": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_chalk.description",
+  "icon": "occultism:chalk_white",
+  "x": -3,
+  "y": -2,
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "hide_while_locked": false,
+  "parents": [
+    {
+      "entry": "occultism:getting_started/candle",
+      "draw_arrow": true,
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_chalk.intro.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_chalk.intro.text"
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "white_chalk",
+      "title": "",
+      "item": {
+        "item": "occultism:chalk_white"
+      },
+      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_chalk.white_chalk.text"
+    },
+    {
+      "type": "modonomicon:smelting_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:smelting/burnt_otherstone",
+      "title2": "",
+      "text": ""
+    },
+    {
+      "type": "occultism:spirit_fire_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:spirit_fire/otherworld_ashes",
+      "title2": "",
+      "text": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:crafting/chalk_white_impure",
+      "title2": "",
+      "text": ""
+    },
+    {
+      "type": "occultism:spirit_fire_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:spirit_fire/chalk_white",
+      "title2": "",
+      "text": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_chalk.usage.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_chalk.usage.text"
+    }
+  ]
+}

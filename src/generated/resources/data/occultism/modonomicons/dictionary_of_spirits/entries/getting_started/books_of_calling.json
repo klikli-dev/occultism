@@ -1,0 +1,61 @@
+{
+  "category": "occultism:getting_started",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.books_of_calling.name",
+  "description": "book.occultism.dictionary_of_spirits.getting_started.books_of_calling.description",
+  "icon": "occultism:book_of_calling_djinni_manage_machine",
+  "x": -1,
+  "y": 4,
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "hide_while_locked": false,
+  "parents": [
+    {
+      "entry": "occultism:getting_started/books_of_binding",
+      "draw_arrow": true,
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.books_of_calling.intro.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_calling.intro.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.books_of_calling.usage.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_calling.usage.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.books_of_calling.obtaining.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_calling.obtaining.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_calling.obtaining2.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.books_of_calling.storage.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_calling.storage.text"
+    }
+  ]
+}

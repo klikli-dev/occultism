@@ -23,8 +23,6 @@
 package com.github.klikli_dev.occultism.integration.jei.recipes;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.integration.jei.JeiRecipeTypes;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;

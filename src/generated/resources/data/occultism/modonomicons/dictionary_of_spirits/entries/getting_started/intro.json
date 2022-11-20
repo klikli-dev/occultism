@@ -3,10 +3,10 @@
   "name": "book.occultism.dictionary_of_spirits.getting_started.intro.name",
   "description": "book.occultism.dictionary_of_spirits.getting_started.intro.description",
   "icon": "occultism:dictionary_of_spirits_icon",
-  "x": -3,
+  "x": -11,
   "y": -2,
   "background_u_index": 0,
-  "background_v_index": 0,
+  "background_v_index": 1,
   "hide_while_locked": false,
   "pages": [
     {
@@ -20,18 +20,10 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
-      "title": "",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.intro.help.title",
       "use_markdown_in_title": false,
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.getting_started.intro.intro2.text"
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "anchor": "",
-      "title1": "",
-      "recipe_id_1": "occultism:crafting/dictionary_of_spirits_old_edition",
-      "title2": "",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.intro.recipe.text"
+      "text": "book.occultism.dictionary_of_spirits.getting_started.intro.help.text"
     }
   ]
 }

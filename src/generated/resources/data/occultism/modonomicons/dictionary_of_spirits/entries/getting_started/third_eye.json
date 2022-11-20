@@ -3,7 +3,7 @@
   "name": "book.occultism.dictionary_of_spirits.getting_started.third_eye.name",
   "description": "book.occultism.dictionary_of_spirits.getting_started.third_eye.description",
   "icon": "occultism:textures/mob_effect/third_eye.png",
-  "x": -1,
+  "x": -11,
   "y": 2,
   "background_u_index": 0,
   "background_v_index": 0,

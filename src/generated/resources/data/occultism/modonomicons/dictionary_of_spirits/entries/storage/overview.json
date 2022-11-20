@@ -1,0 +1,29 @@
+{
+  "category": "occultism:storage",
+  "name": "book.occultism.dictionary_of_spirits.storage.overview.name",
+  "description": "",
+  "icon": "minecraft:chest",
+  "x": -8,
+  "y": 0,
+  "background_u_index": 0,
+  "background_v_index": 1,
+  "hide_while_locked": false,
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.storage.overview.intro.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.storage.overview.intro.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.storage.overview.intro2.text"
+    }
+  ]
+}

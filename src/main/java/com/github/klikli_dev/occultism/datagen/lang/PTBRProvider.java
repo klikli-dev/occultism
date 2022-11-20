@@ -1064,10 +1064,6 @@ public class PTBRProvider extends LanguageProvider {
 
         helper.page("intro");
         this.add(helper.pageTitle(), "O Ritual (tm)");
-        //TODO: link to ritual and pentacle page
-        //  " The ritual is described in $(l:rituals/summoning/summon_crusher)the section on rituals$(/l) "
-        //  maybe just general text linking to ritual section
-        //TODO: link to aviars circle page
         this.add(helper.pageText(),
                 """
                         Estas páginas guiarão o caro leitor pelo processo do primeiro ritual passo a passo.
@@ -1170,11 +1166,9 @@ public class PTBRProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Usos");
         this.add(helper.pageText(),
                 """
-                        - [Foliot Triturador]()
-                        - //TODO: Add remaining uses
-                        """.formatted(COLOR_PURPLE));
-        //TODO: add remaining backlinks for pentacle
-
+                    - [Foliot Triturador]()
+                    - //TODO: Add remaining uses
+                    """.formatted(COLOR_PURPLE));
     }
 
     private void addRitualsCategory(BookLangHelper helper) {
@@ -1218,7 +1212,6 @@ public class PTBRProvider extends LanguageProvider {
         //no text
 
         helper.page("afrit_essence");
-        //TODO: Modonomicon, add link to correct entry for unbound afrit
         this.add(helper.pageText(),
                 """
                         //TODO: Entry not yet implemented
@@ -1560,7 +1553,6 @@ public class PTBRProvider extends LanguageProvider {
         this.addRitualDummies();
         this.addDialogs();
         this.addPentacles();
-        this.addPatchouli(); //TODO: remove once no longer needed
         this.addModonomiconIntegration();
     }
 }

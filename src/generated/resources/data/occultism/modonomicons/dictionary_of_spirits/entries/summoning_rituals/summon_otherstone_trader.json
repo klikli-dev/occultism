@@ -41,5 +41,8 @@
       "title2": "",
       "text": ""
     }
-  ]
+  ],
+  "condition": {
+    "type": "modonomicon:true"
+  }
 }

@@ -6,7 +6,7 @@
   "x": -8,
   "y": -1,
   "background_u_index": 0,
-  "background_v_index": 0,
+  "background_v_index": 1,
   "hide_while_locked": false,
   "pages": [
     {
@@ -17,5 +17,8 @@
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.overview.intro.text"
     }
-  ]
+  ],
+  "condition": {
+    "type": "modonomicon:true"
+  }
 }

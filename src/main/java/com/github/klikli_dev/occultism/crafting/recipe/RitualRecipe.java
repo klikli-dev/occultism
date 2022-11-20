@@ -22,13 +22,13 @@
 
 package com.github.klikli_dev.occultism.crafting.recipe;
 
-import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.ritual.Ritual;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.registry.OccultismRituals;
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.multiblock.Multiblock;
 import net.minecraft.core.BlockPos;
@@ -37,20 +37,16 @@ import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.inventory.CraftingContainer;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
-import net.minecraftforge.registries.RegistryManager;
 
 import java.util.function.Supplier;
 
@@ -259,7 +255,7 @@ public class RitualRecipe extends ShapelessRecipe {
             TagKey<EntityType<?>> entityToSacrifice = null;
             String entityToSacrificeDisplayName = "";
             if (json.has("entity_to_sacrifice")) {
-                var tagRL =  new ResourceLocation(GsonHelper.getAsString(json.getAsJsonObject("entity_to_sacrifice"), "tag"));
+                var tagRL = new ResourceLocation(GsonHelper.getAsString(json.getAsJsonObject("entity_to_sacrifice"), "tag"));
                 entityToSacrifice = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, tagRL);
 
                 entityToSacrificeDisplayName = json.getAsJsonObject("entity_to_sacrifice").get("display_name").getAsString();

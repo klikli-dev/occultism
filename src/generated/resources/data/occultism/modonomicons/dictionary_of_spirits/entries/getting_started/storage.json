@@ -1,0 +1,20 @@
+{
+  "category": "occultism:getting_started",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.storage.name",
+  "description": "book.occultism.dictionary_of_spirits.getting_started.storage.description",
+  "icon": "occultism:storage_controller",
+  "x": 7,
+  "y": 0,
+  "background_u_index": 1,
+  "background_v_index": 1,
+  "hide_while_locked": false,
+  "parents": [
+    {
+      "entry": "occultism:getting_started/chalks",
+      "draw_arrow": true,
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "category_to_open": "occultism:storage"
+}

@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "occultism:item/pentacle"
+    "layer0": "occultism:item/ritual_dummy"
   }
 }

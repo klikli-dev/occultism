@@ -6,7 +6,7 @@
   "x": -8,
   "y": 0,
   "background_u_index": 0,
-  "background_v_index": 0,
+  "background_v_index": 1,
   "hide_while_locked": false,
   "pages": [
     {
@@ -33,5 +33,8 @@
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.familiar_rituals.overview.trading.text"
     }
-  ]
+  ],
+  "condition": {
+    "type": "modonomicon:true"
+  }
 }

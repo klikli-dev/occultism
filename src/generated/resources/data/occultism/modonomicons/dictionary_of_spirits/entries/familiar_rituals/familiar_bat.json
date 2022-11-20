@@ -44,5 +44,8 @@
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_bat.description.text"
     }
-  ]
+  ],
+  "condition": {
+    "type": "modonomicon:true"
+  }
 }

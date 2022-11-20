@@ -26,8 +26,6 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.item.DummyTooltipItem;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.github.klikli_dev.occultism.common.ritual.Ritual;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
-import com.github.klikli_dev.occultism.common.ritual.pentacle.PentacleManager;
 import com.github.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.registry.OccultismParticles;

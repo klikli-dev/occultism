@@ -52,5 +52,8 @@
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_otherworld_bird.description2.text"
     }
-  ]
+  ],
+  "condition": {
+    "type": "modonomicon:true"
+  }
 }

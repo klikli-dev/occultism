@@ -3,7 +3,7 @@
   "name": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.name",
   "description": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.description",
   "icon": "occultism:spirit_fire",
-  "x": -1,
+  "x": -7,
   "y": 0,
   "background_u_index": 0,
   "background_v_index": 0,
@@ -59,6 +59,22 @@
       "recipe_id_1": "occultism:spirit_fire/otherworld_sapling_natural",
       "title2": "",
       "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.otherworld_sapling_natural_recipe.text"
+    },
+    {
+      "type": "occultism:spirit_fire_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:spirit_fire/otherworld_ashes",
+      "title2": "",
+      "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.otherworld_ashes_recipe.text"
+    },
+    {
+      "type": "occultism:spirit_fire_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:spirit_fire/spirit_attuned_gem",
+      "title2": "",
+      "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.gem_recipe.text"
     }
   ]
 }

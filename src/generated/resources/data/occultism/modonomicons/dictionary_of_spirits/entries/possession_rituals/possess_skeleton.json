@@ -44,5 +44,8 @@
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_skeleton.description.text"
     }
-  ]
+  ],
+  "condition": {
+    "type": "modonomicon:true"
+  }
 }

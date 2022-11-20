@@ -1,8 +1,12 @@
 {
   "name": "book.occultism.dictionary_of_spirits.pentacles.name",
   "icon": "occultism:pentacle",
-  "sort_number": 8,
+  "sort_number": 9,
   "background": "modonomicon:textures/gui/dark_slate_seamless.png",
   "entry_textures": "modonomicon:textures/gui/entry_textures.png",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "occultism:getting_started/intro"
+  },
   "show_category_button": true
 }

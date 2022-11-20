@@ -5,8 +5,8 @@
   "icon": "occultism:textures/gui/book/possession.png",
   "x": 5,
   "y": -2,
-  "background_u_index": 0,
-  "background_v_index": 0,
+  "background_u_index": 1,
+  "background_v_index": 1,
   "hide_while_locked": false,
   "parents": [
     {
@@ -16,5 +16,8 @@
       "line_reversed": false
     }
   ],
+  "condition": {
+    "type": "modonomicon:true"
+  },
   "category_to_open": "occultism:possession_rituals"
 }

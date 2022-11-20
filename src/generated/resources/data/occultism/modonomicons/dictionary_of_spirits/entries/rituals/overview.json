@@ -6,7 +6,7 @@
   "x": -1,
   "y": 0,
   "background_u_index": 0,
-  "background_v_index": 0,
+  "background_v_index": 1,
   "hide_while_locked": false,
   "pages": [
     {
