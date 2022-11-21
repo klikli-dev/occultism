@@ -1,25 +1,5 @@
 {
-  "feature": {
-    "type": "minecraft:ore",
-    "config": {
-      "discard_chance_on_air_exposure": 0.0,
-      "size": 3,
-      "targets": [
-        {
-          "state": {
-            "Name": "occultism:iesnium_ore_natural",
-            "Properties": {
-              "uncovered": "false"
-            }
-          },
-          "target": {
-            "predicate_type": "minecraft:tag_match",
-            "tag": "minecraft:base_stone_nether"
-          }
-        }
-      ]
-    }
-  },
+  "feature": "occultism:iesnium_ore",
   "placement": [
     {
       "type": "minecraft:count",
