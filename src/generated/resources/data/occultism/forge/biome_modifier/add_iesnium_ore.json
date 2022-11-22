@@ -1,32 +1,6 @@
 {
   "type": "forge:add_features",
   "biomes": "#minecraft:is_nether",
-  "features": {
-    "feature": "occultism:iesnium_ore",
-    "placement": [
-      {
-        "type": "minecraft:count",
-        "count": 3
-      },
-      {
-        "type": "minecraft:in_square"
-      },
-      {
-        "type": "minecraft:height_range",
-        "height": {
-          "type": "minecraft:trapezoid",
-          "max_inclusive": {
-            "absolute": 50
-          },
-          "min_inclusive": {
-            "absolute": -64
-          }
-        }
-      },
-      {
-        "type": "minecraft:biome"
-      }
-    ]
-  },
+  "features": "occultism:iesnium_ore",
   "step": "underground_ores"
 }

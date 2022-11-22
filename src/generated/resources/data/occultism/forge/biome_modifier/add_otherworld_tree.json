@@ -1,22 +1,6 @@
 {
   "type": "forge:add_features",
   "biomes": "#minecraft:is_overworld",
-  "features": {
-    "feature": "occultism:otherworld_tree",
-    "placement": [
-      {
-        "type": "minecraft:block_predicate_filter",
-        "predicate": {
-          "type": "minecraft:would_survive",
-          "state": {
-            "Name": "occultism:otherworld_sapling",
-            "Properties": {
-              "stage": "0"
-            }
-          }
-        }
-      }
-    ]
-  },
+  "features": "occultism:otherworld_tree",
   "step": "underground_ores"
 }

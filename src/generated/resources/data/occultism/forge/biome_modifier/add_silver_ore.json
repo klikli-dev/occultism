@@ -1,32 +1,6 @@
 {
   "type": "forge:add_features",
   "biomes": "#minecraft:is_overworld",
-  "features": {
-    "feature": "occultism:silver_ore",
-    "placement": [
-      {
-        "type": "minecraft:count",
-        "count": 7
-      },
-      {
-        "type": "minecraft:in_square"
-      },
-      {
-        "type": "minecraft:height_range",
-        "height": {
-          "type": "minecraft:trapezoid",
-          "max_inclusive": {
-            "absolute": 200
-          },
-          "min_inclusive": {
-            "absolute": 50
-          }
-        }
-      },
-      {
-        "type": "minecraft:biome"
-      }
-    ]
-  },
+  "features": "occultism:silver_ore",
   "step": "underground_ores"
 }

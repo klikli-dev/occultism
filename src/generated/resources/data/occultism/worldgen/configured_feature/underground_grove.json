@@ -8,24 +8,7 @@
     "max_chunks_to_root": 7,
     "max_generation_height": 60,
     "min_generation_height": 25,
-    "otherworld_tree_feature": {
-      "feature": "occultism:otherworld_tree_natural",
-      "placement": [
-        {
-          "type": "minecraft:block_predicate_filter",
-          "predicate": {
-            "type": "minecraft:would_survive",
-            "state": {
-              "Name": "occultism:otherworld_sapling_natural",
-              "Properties": {
-                "stage": "0",
-                "uncovered": "false"
-              }
-            }
-          }
-        }
-      ]
-    },
+    "otherworld_tree_feature": "occultism:otherworld_tree_natural",
     "tree_chance": 0.1,
     "vine_chance": 0.3
   }

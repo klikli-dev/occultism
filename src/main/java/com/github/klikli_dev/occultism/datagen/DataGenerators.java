@@ -109,6 +109,24 @@ public class DataGenerators {
         var otherworldTreeConfiguredKey = ResourceKey.create(Registry.CONFIGURED_FEATURE_REGISTRY, new ResourceLocation(Occultism.MODID, "otherworld_tree"));
         var otherworldTreeConfiguredHolder = ops.registry(Registry.CONFIGURED_FEATURE_REGISTRY).get().getOrCreateHolderOrThrow(otherworldTreeConfiguredKey);
 
+        var silverOrePlacedKey = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Occultism.MODID, "silver_ore"));
+        var silverOrePlacedHolder = ops.registry(Registry.PLACED_FEATURE_REGISTRY).get().getOrCreateHolderOrThrow(silverOrePlacedKey);
+
+        var silverOreDeepslatePlacedKey = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Occultism.MODID, "silver_ore_deepslate"));
+        var silverOreDeepslatePlacedHolder = ops.registry(Registry.PLACED_FEATURE_REGISTRY).get().getOrCreateHolderOrThrow(silverOreDeepslatePlacedKey);
+
+        var iesniumOrePlacedKey = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Occultism.MODID, "iesnium_ore"));
+        var iesniumOrePlacedHolder = ops.registry(Registry.PLACED_FEATURE_REGISTRY).get().getOrCreateHolderOrThrow(iesniumOrePlacedKey);
+
+        var undergroundGrovePlacedKey = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Occultism.MODID, "underground_grove"));
+        var undergroundGrovePlacedHolder = ops.registry(Registry.PLACED_FEATURE_REGISTRY).get().getOrCreateHolderOrThrow(undergroundGrovePlacedKey);
+
+        var otherworldTreeNaturalPlacedKey = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Occultism.MODID, "otherworld_tree_natural"));
+        var otherworldTreeNaturalPlacedHolder = ops.registry(Registry.PLACED_FEATURE_REGISTRY).get().getOrCreateHolderOrThrow(otherworldTreeNaturalPlacedKey);
+
+        var otherworldTreePlacedKey = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Occultism.MODID, "otherworld_tree"));
+        var otherworldTreePlacedHolder = ops.registry(Registry.PLACED_FEATURE_REGISTRY).get().getOrCreateHolderOrThrow(otherworldTreePlacedKey);
+
 
         var silverOreConfigured = new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
                 new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES),
@@ -139,19 +157,21 @@ public class DataGenerators {
                                 new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build());
 
 
-        var silverOrePlaced = Holder.direct(new PlacedFeature(silverOreConfigureHolder,
-                OccultismFeatures.commonOrePlacement(7, HeightRangePlacement.triangle(VerticalAnchor.absolute(50), VerticalAnchor.absolute(200)))));
-        var silverOreDeepslatePlaced = Holder.direct(new PlacedFeature(silverOreDeepslateConfiguredHolder,
-                OccultismFeatures.commonOrePlacement(10, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(50)))));
-        var iesniumOrePlaced = Holder.direct(
+        var silverOrePlaced = new PlacedFeature(silverOreConfigureHolder,
+                OccultismFeatures.commonOrePlacement(7, HeightRangePlacement.triangle(VerticalAnchor.absolute(50), VerticalAnchor.absolute(200))));
+        var silverOreDeepslatePlaced = new PlacedFeature(silverOreDeepslateConfiguredHolder,
+                OccultismFeatures.commonOrePlacement(10, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(50))));
+        var iesniumOrePlaced =
                 new PlacedFeature(iesniumOreConfiguredHolder,
-                        OccultismFeatures.commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(50)))));
+                        OccultismFeatures.commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(50))));
+
+        //create regex to remove the call to Holder.direct
 
 
-        var otherworldTreeNaturalPlaced = Holder.direct(new PlacedFeature(otherworldTreeNaturalConfiguredHolder, List.of(
-                PlacementUtils.filteredByBlockSurvival(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get()))));
-        var otherworldTreePlaced = Holder.direct(new PlacedFeature(otherworldTreeConfiguredHolder, List.of(
-                PlacementUtils.filteredByBlockSurvival(OccultismBlocks.OTHERWORLD_SAPLING.get()))));
+        var otherworldTreeNaturalPlaced = new PlacedFeature(otherworldTreeNaturalConfiguredHolder, List.of(
+                PlacementUtils.filteredByBlockSurvival(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get())));
+        var otherworldTreePlaced = new PlacedFeature(otherworldTreeConfiguredHolder, List.of(
+                PlacementUtils.filteredByBlockSurvival(OccultismBlocks.OTHERWORLD_SAPLING.get())));
 
 
         var undergroundGroveConfigured =  new ConfiguredFeature<>(OccultismFeatures.UNDERGROUND_GROVE_FEATURE.get(),
@@ -165,29 +185,29 @@ public class DataGenerators {
                                 0.1f,
                                 0.3f,
                                 0.1f,
-                                otherworldTreeNaturalPlaced));
-        var undergroundGrovePlaced = Holder.direct(new PlacedFeature(undergroundGroveConfiguredHolder, List.of()));
+                                otherworldTreeNaturalPlacedHolder));
+        var undergroundGrovePlaced = new PlacedFeature(undergroundGroveConfiguredHolder, List.of());
 
 
         //biome modifiers
         var addSilverOre = new AddFeaturesBiomeModifier(
                 new HolderSet.Named<>(ops.registry(Registry.BIOME_REGISTRY).get(), BiomeTags.IS_OVERWORLD),
-                HolderSet.direct(silverOrePlaced), Decoration.UNDERGROUND_ORES);
+                HolderSet.direct(silverOrePlacedHolder), Decoration.UNDERGROUND_ORES);
         var addDeepslateSilverOre = new AddFeaturesBiomeModifier(
                 new HolderSet.Named<>(ops.registry(Registry.BIOME_REGISTRY).get(), BiomeTags.IS_OVERWORLD),
-                HolderSet.direct(silverOreDeepslatePlaced), Decoration.UNDERGROUND_ORES);
+                HolderSet.direct(silverOreDeepslatePlacedHolder), Decoration.UNDERGROUND_ORES);
         var addIesniumOre = new AddFeaturesBiomeModifier(
                 new HolderSet.Named<>(ops.registry(Registry.BIOME_REGISTRY).get(), BiomeTags.IS_NETHER),
-                HolderSet.direct(iesniumOrePlaced), Decoration.UNDERGROUND_ORES);
+                HolderSet.direct(iesniumOrePlacedHolder), Decoration.UNDERGROUND_ORES);
         var addUndergroundGrove = new AddFeaturesBiomeModifier(
                 new HolderSet.Named<>(ops.registry(Registry.BIOME_REGISTRY).get(), BiomeTags.IS_OVERWORLD),
-                HolderSet.direct(undergroundGrovePlaced), Decoration.UNDERGROUND_ORES);
+                HolderSet.direct(undergroundGrovePlacedHolder), Decoration.UNDERGROUND_ORES);
         var addOtherworldTreeNatural = new AddFeaturesBiomeModifier(
                 new HolderSet.Named<>(ops.registry(Registry.BIOME_REGISTRY).get(), BiomeTags.IS_OVERWORLD),
-                HolderSet.direct(otherworldTreeNaturalPlaced), Decoration.UNDERGROUND_ORES);
+                HolderSet.direct(otherworldTreeNaturalPlacedHolder), Decoration.UNDERGROUND_ORES);
         var addOtherworldTree = new AddFeaturesBiomeModifier(
                 new HolderSet.Named<>(ops.registry(Registry.BIOME_REGISTRY).get(), BiomeTags.IS_OVERWORLD),
-                HolderSet.direct(otherworldTreePlaced), Decoration.UNDERGROUND_ORES);
+                HolderSet.direct(otherworldTreePlacedHolder), Decoration.UNDERGROUND_ORES);
 
         generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(
                 generator, event.getExistingFileHelper(), Occultism.MODID, ops, Registry.CONFIGURED_FEATURE_REGISTRY,
@@ -203,12 +223,12 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(
                 generator, event.getExistingFileHelper(), Occultism.MODID, ops, Registry.PLACED_FEATURE_REGISTRY,
                 Map.of(
-                        new ResourceLocation(Occultism.MODID, "silver_ore"), silverOrePlaced.get(),
-                        new ResourceLocation(Occultism.MODID, "silver_ore_deepslate"), silverOreDeepslatePlaced.get(),
-                        new ResourceLocation(Occultism.MODID, "iesnium_ore"), iesniumOrePlaced.get(),
-                        new ResourceLocation(Occultism.MODID, "underground_grove"), undergroundGrovePlaced.get(),
-                        new ResourceLocation(Occultism.MODID, "otherworld_tree_natural"), otherworldTreeNaturalPlaced.get(),
-                        new ResourceLocation(Occultism.MODID, "otherworld_tree"), otherworldTreePlaced.get()
+                        silverOrePlacedKey.location(), silverOrePlaced,
+                        silverOreDeepslatePlacedKey.location(), silverOreDeepslatePlaced,
+                        iesniumOrePlacedKey.location(), iesniumOrePlaced,
+                        otherworldTreeNaturalPlacedKey.location(),otherworldTreeNaturalPlaced,
+                        otherworldTreePlacedKey.location(), otherworldTreePlaced,
+                        undergroundGrovePlacedKey.location(), undergroundGrovePlaced
                 )));
 
         generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(

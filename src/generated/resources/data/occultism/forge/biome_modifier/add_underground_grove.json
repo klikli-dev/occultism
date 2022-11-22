@@ -1,9 +1,6 @@
 {
   "type": "forge:add_features",
   "biomes": "#minecraft:is_overworld",
-  "features": {
-    "feature": "occultism:underground_grove",
-    "placement": []
-  },
+  "features": "occultism:underground_grove",
   "step": "underground_ores"
 }
