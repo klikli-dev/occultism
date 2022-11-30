@@ -61,6 +61,14 @@
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.pentacle_link_hint.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.pentacle_link_hint.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.start_ritual.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.start_ritual.title",
       "use_markdown_in_title": false

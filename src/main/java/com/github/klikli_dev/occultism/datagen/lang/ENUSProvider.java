@@ -976,7 +976,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.entryName(), "Candles");
         this.add(helper.entryDescription(), "Let there be light!");
 
-        helper.page("white_candle");
+        helper.page("intro");
         this.add(helper.pageText(),
                 """
                         Candles provide stability to rituals and are an important part of almost all pentacles.
@@ -1110,61 +1110,7 @@ public class ENUSProvider extends LanguageProvider {
         //no text
 
         helper.entry("first_ritual");
-        this.add(helper.entryName(), "First Ritual");
-        this.add(helper.entryDescription(), "We're actually getting started now!");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "The Ritual (tm)");
-        this.add(helper.pageText(),
-                """
-                        These pages will walk the gentle reader through the process of the [first ritual](entry://summoning_rituals/summon_crusher_t1) step by step.
-                        \\
-                        We **start** by placing the [](item://occultism:golden_sacrificial_bowl) and drawing the appropriate pentacle, [Aviar's Circle](entry://pentacles/summon_foliot) as seen on the left around it.
-                          """.formatted(COLOR_PURPLE));
-
-        helper.page("multiblock");
-        this.add(helper.pageText(),
-                """
-                        Only the color and location of the chalk marks is relevant, not the glyph/sign.
-                          """.formatted(COLOR_PURPLE));
-
-        helper.page("bowl_text");
-        this.add(helper.pageTitle(), "Sacrificial Bowls");
-        this.add(helper.pageText(),
-                """
-                        Next, place *at least* 4 [Sacrificial Bowls](item://occultism:sacrificial_bowl) close to the pentacle.
-                        \\
-                        \\
-                        They must be placed **anywhere** within 8 blocks of the central [](item://occultism:golden_sacrificial_bowl). **The exact location does not matter.**
-                          """.formatted(COLOR_PURPLE));
-
-
-        helper.page("bowl_placement");
-        this.add(helper.pageText(),
-                """
-                        Possible locations for the sacrificial bowls.
-                          """.formatted(COLOR_PURPLE));
-
-
-        helper.page("ritual_text");
-        this.add(helper.pageTitle(), "Placing Ingredients");
-        this.add(helper.pageText(),
-                """
-                        Now it is time to place the ingredients you see on the next page in the (regular, not golden) sacrificial bowls. The ingredients will be consumed from the bowls as the ritual progresses.
-                          """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual_recipe");
-        //no text
-
-        helper.page("start_ritual");
-        this.add(helper.pageTitle(), "Let there be ... spirits!");
-        this.add(helper.pageText(),
-                """
-                        Finally, [#](%1$s)right-click[#]() the [](item://occultism:golden_sacrificial_bowl) with the **bound** book of binding you created before and wait until the crusher spawns.
-                        \\
-                        \\
-                        Now all that remains is to drop appropriate ores near the crusher and wait for it to turn it into dust.
-                          """.formatted(COLOR_PURPLE));
+        //Moved to OccultismBookProvider#makeRitualEntry
 
         helper.entry("brush");
         this.add(helper.entryName(), "Brush");
@@ -2353,34 +2299,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.entryName(), "Return to Rituals Category");
 
         helper.entry("summon_crusher_t1");
-        this.add(helper.entryName(), "Summon Foliot Crusher");
-
-        helper.page("about_crushers");
-        this.add(helper.pageTitle(), "Crusher Spirits");
-        this.add(helper.pageText(),
-                """
-                        Crusher spirits are summoned to crush ores into dusts, effectively multiplying the metal output. They will pick up appropriate ores and drop the resulting dusts into the world. A purple particle effect and a crushing sound indicate the crusher is at work.
-                          """);
-
-        helper.page("automation");
-        this.add(helper.pageText(),
-                """
-                        To ease automation, try summoning a [Transporter Spirit](entry://occultism:dictionary_of_spirits/summoning_rituals/summon_transport_items)
-                        to place items from chests in the crusher's inventory, and a [Janitor Spirit](entry://occultism:dictionary_of_spirits/summoning_rituals/summon_cleaner) to collect the processed items.
-                         """);
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Foliot Crusher");
-        this.add(helper.pageText(),
-                """
-                        The foliot crusher is the most basic crusher spirit.
-                        \\
-                        \\
-                        It will crush **one** ore into **two** corresponding dusts.
-                         """);
-
-        helper.page("ritual");
-        //no text
+        //Moved to OccultismBookProvider#makeSummonCrusherT1Entry
 
         helper.entry("summon_crusher_t2");
         this.add(helper.entryName(), "Summon Djinni Crusher");
@@ -2452,63 +2371,11 @@ public class ENUSProvider extends LanguageProvider {
                         """.formatted(COLOR_PURPLE));
 
         helper.entry("summon_transport_items");
-        this.add(helper.entryName(), "Summon Foliot Transporter");
+        //Moved to OccultismBookProvider#makeSummonTransportItemsEntry
 
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Foliot Transporter");
-        this.add(helper.pageText(),
-                """
-                        The transporter is useful in that you don't need a train of hoppers transporting stuff, and can use any inventory to take from and deposit.
-                        \\
-                        \\
-                        To make it take from an inventory simply sneak and interact with it's book of calling on the inventory you want.
-                               """);
-
-        helper.page("intro2");
-        this.add(helper.pageText(),
-                """
-                        You can also dictate which inventory it deposits to in the same way.
-                        \\
-                        The transporter will move all items it can access from one inventory to another, including machines. It can also deposit into the inventories of other spirits. By setting the extract and insert side they can be used to automate various transport tasks.
-                           """);
-
-        helper.page("ritual");
-        //no text
-
-        helper.page("book_of_calling");
-        this.add(helper.pageText(),
-                """
-                        If you lose the book of calling, you can craft a new one.
-                        [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
-                        """.formatted(COLOR_PURPLE));
 
         helper.entry("summon_cleaner");
-        this.add(helper.entryName(), "Summon Foliot Janitor");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Foliot Janitor");
-        this.add(helper.pageText(),
-                """
-                        The janitor will pick up dropped items and deposit them into a target inventory. You can configure an allow/block list to specify which items to pick up or ignore. **Warning**: By default it is set to "allow" mode, so it will only pick up items you specify in the allow list.
-                        You can use tags to handle whole groups of items.
-                          """);
-
-        helper.page("intro2");
-        this.add(helper.pageText(),
-                """
-                        To bind the janitor to an inventory simply sneak and interact with the janitor book of calling on that inventory. You can also interact with a block while holding the janitor book of calling to have it deposit items there. You can also have it wander around a select area by pulling up that interface. To configure an allow/block list sneak and interact with the janitor.
-                          """);
-
-
-        helper.page("ritual");
-        //no text
-
-        helper.page("book_of_calling");
-        this.add(helper.pageText(),
-                """
-                        If you lose the book of calling, you can craft a new one.
-                        [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
-                        """.formatted(COLOR_PURPLE));
+        //Moved to OccultismBookProvider#makeSummonCleanerEntry
 
         helper.entry("summon_manage_machine");
         this.add(helper.entryName(), "Summon Djinni Machine Operator");
