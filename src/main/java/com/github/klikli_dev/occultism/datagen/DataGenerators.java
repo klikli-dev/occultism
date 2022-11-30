@@ -30,7 +30,6 @@ import com.github.klikli_dev.occultism.datagen.lang.PTBRProvider;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismFeatures;
 import com.mojang.serialization.JsonOps;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -76,10 +75,14 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new OccultismAdvancementProvider(generator));
         generator.addProvider(event.includeClient(), new ItemModelsGenerator(generator, event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new StandardBlockStateProvider(generator, event.getExistingFileHelper()));
-        generator.addProvider(event.includeClient(), new ENUSProvider(generator));
+
+        var enUSProvider = new ENUSProvider(generator);
+        generator.addProvider(event.includeServer(), new OccultismBookProvider(generator, Occultism.MODID, enUSProvider));
+
+        //Important: Lang provider (in this case enus) needs to be added after the book provider to process the texts added by the book provider
+        generator.addProvider(event.includeClient(), enUSProvider);
         generator.addProvider(event.includeClient(), new FRFRProvider(generator));
         generator.addProvider(event.includeClient(), new PTBRProvider(generator));
-        generator.addProvider(event.includeServer(), new BookGenerator(generator, Occultism.MODID));
 
         registerFeatures(event);
 
