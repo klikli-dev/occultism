@@ -26,6 +26,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class OccultismBookProvider extends BookProvider {
 
+    public static final String COLOR_PURPLE = "ad03fc";
+
     public OccultismBookProvider(DataGenerator generator, String modid, LanguageProvider lang) {
         super(generator, modid, lang);
     }
@@ -774,24 +776,45 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeRitualEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("first_ritual");
+        this.lang.add(helper.entryName(), "First Ritual");
+        this.lang.add(helper.entryDescription(), "We're actually getting started now!");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang.add(helper.pageTitle(), "The Ritual (tm)");
+        this.lang.add(helper.pageText(),
+                """
+                        These pages will walk the gentle reader through the process of the [first ritual](entry://summoning_rituals/summon_crusher_t1) step by step.
+                        \\
+                        We **start** by placing the [](item://occultism:golden_sacrificial_bowl) and drawing the appropriate pentacle, [Aviar's Circle](entry://pentacles/summon_foliot) as seen on the left around it.
+                          """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
         var multiblock = BookMultiblockPageModel.builder()
                 .withMultiblockId(this.modLoc("summon_foliot"))
                 .withText(helper.pageText())
                 .build();
+        this.lang.add(helper.pageText(),
+                """
+                        Only the color and location of the chalk marks is relevant, not the glyph/sign.
+                          """.formatted(COLOR_PURPLE));
 
         helper.page("bowl_text");
         var bowlText = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang.add(helper.pageTitle(), "Sacrificial Bowls");
+        this.lang.add(helper.pageText(),
+                """
+                        Next, place *at least* 4 [Sacrificial Bowls](item://occultism:sacrificial_bowl) close to the pentacle.
+                        \\
+                        \\
+                        They must be placed **anywhere** within 8 blocks of the central [](item://occultism:golden_sacrificial_bowl). **The exact location does not matter.**
+                          """.formatted(COLOR_PURPLE));
 
         helper.page("bowl_placement");
         var bowlPlacementImage = BookImagePageModel.builder()
@@ -799,23 +822,56 @@ public class OccultismBookProvider extends BookProvider {
                 .withBorder(true)
                 .withText(helper.pageText())
                 .build();
+        this.lang.add(helper.pageText(),
+                """
+                        Possible locations for the sacrificial bowls.
+                          """.formatted(COLOR_PURPLE));
 
         helper.page("ritual_text");
         var ritualText = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang.add(helper.pageTitle(), "Placing Ingredients");
+        this.lang.add(helper.pageText(),
+                """
+                        Now it is time to place the ingredients you see on the next page in the (regular, not golden) sacrificial bowls. The ingredients will be consumed from the bowls as the ritual progresses.
+                          """.formatted(COLOR_PURPLE));
 
         helper.page("ritual_recipe");
         var ritualRecipe = BookRitualRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("ritual/summon_foliot_crusher"))
                 .build();
+        //no text
+
+        helper.page("pentacle_link_hint");
+        var pentacleLinkHint = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+        this.lang.add(helper.pageTitle(), "A Note about Ritual Recipes");
+        this.lang.add(helper.pageText(),
+                """
+                        Ritual recipe pages, such as the previous pageshow not only the ingredients, but also the pentacle that you need to draw with chalk in order to use the ritual.
+                        \\
+                        \\
+                        **To show the pentacle, click the blue link** at the center top of the ritual page. You can then even preview it in-world.
+                          """.formatted(COLOR_PURPLE));
 
         helper.page("start_ritual");
         var startRitualText = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang.add(helper.pageTitle(), "Let there be ... spirits!");
+        this.lang.add(helper.pageText(),
+                """
+                        Finally, [#](%1$s)right-click[#]() the [](item://occultism:golden_sacrificial_bowl) with the **bound** book of binding you created before and wait until the crusher spawns.
+                        \\
+                        \\
+                        Now all that remains is to drop appropriate ores near the crusher and wait for it to turn it into dust.
+                          """.formatted(COLOR_PURPLE));
+
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -830,6 +886,7 @@ public class OccultismBookProvider extends BookProvider {
                         bowlPlacementImage,
                         ritualText,
                         ritualRecipe,
+                        pentacleLinkHint,
                         startRitualText
                 );
     }
@@ -2669,28 +2726,50 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeSummonCrusherT1Entry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("summon_crusher_t1");
+        this.lang.add(helper.entryName(), "Summon Foliot Crusher");
 
         helper.page("about_crushers");
         var aboutCrushers = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang.add(helper.pageTitle(), "Crusher Spirits");
+        this.lang.add(helper.pageText(),
+                """
+                        Crusher spirits are summoned to crush ores into dusts, effectively multiplying the metal output. They will pick up appropriate ores and drop the resulting dusts into the world. A purple particle effect and a crushing sound indicate the crusher is at work.
+                          """);
 
         helper.page("automation");
         var automation = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang.add(helper.pageTitle(), "Automation");
+        this.lang.add(helper.pageText(),
+                """
+                        To ease automation, try summoning a [Transporter Spirit](entry://occultism:dictionary_of_spirits/summoning_rituals/summon_transport_items)
+                        to place items from chests in the crusher's inventory, and a [Janitor Spirit](entry://occultism:dictionary_of_spirits/summoning_rituals/summon_cleaner) to collect the processed items.
+                         """);
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang.add(helper.pageTitle(), "Foliot Crusher");
+        this.lang.add(helper.pageText(),
+                """
+                        The foliot crusher is the most basic crusher spirit.
+                        \\
+                        \\
+                        It will crush **one** ore into **two** corresponding dusts.
+                         """);
 
         helper.page("ritual");
         var ritual = BookRitualRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("ritual/summon_foliot_crusher"))
                 .build();
+        //no text
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -2815,28 +2894,60 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeSummonTransportItemsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("summon_transport_items");
+        this.lang.add(helper.entryName(), "Summon Foliot Transporter");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang.add(helper.pageTitle(), "Foliot Transporter");
+        this.lang.add(helper.pageText(),
+                """
+                        The transporter is useful in that you don't need a train of hoppers transporting stuff, and can use any inventory to take from and deposit.
+                        \\
+                        \\
+                        To make it take from an inventory simply sneak and interact with it's book of calling on the inventory you want.
+                               """);
 
         helper.page("intro2");
         var intro2 = BookTextPageModel.builder()
                 .withText(helper.pageText())
                 .build();
+        this.lang.add(helper.pageText(),
+                """
+                        You can also dictate which inventory it deposits to in the same way.
+                        \\
+                        The transporter will move all items it can access from one inventory to another, including machines. It can also deposit into the inventories of other spirits. By setting the extract and insert side they can be used to automate various transport tasks.
+                           """);
+
+        helper.page("spirit_inventories");
+        var spirit_inventories = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+        this.lang.add(helper.pageTitle(), "Spirit Inventories");
+        this.lang.add(helper.pageText(),
+                """
+                        The Transporter can also interact with the inventories of other spirits. This is especially useful to automatically supply a [Crusher spirit](entry://summoning_rituals/summon_crusher_t1) with items to crush.
+                           """);
 
         helper.page("ritual");
         var ritual = BookRitualRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("ritual/summon_foliot_transport_items"))
                 .build();
+        //no text
 
         helper.page("book_of_calling");
         var bookOfCalling = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/book_of_calling_foliot_transport_items"))
                 .withText(helper.pageText())
                 .build();
+        this.lang.add(helper.pageText(),
+                """
+                        If you lose the book of calling, you can craft a new one.
+                        [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
+                        """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -2846,6 +2957,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withPages(
                         intro,
                         intro2,
+                        spirit_inventories,
                         ritual,
                         bookOfCalling
                 );
@@ -2853,28 +2965,59 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeSummonCleanerEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("summon_cleaner");
+        this.lang.add(helper.entryName(), "Summon Foliot Janitor");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang.add(helper.pageTitle(), "Foliot Janitor");
+        this.lang.add(helper.pageText(),
+                """
+                        The janitor will pick up dropped items and deposit them into a target inventory. You can configure an allow/block list to specify which items to pick up or ignore. **Warning**: By default it is set to "allow" mode, so it will only pick up items you specify in the allow list.
+                        You can use tags to handle whole groups of items.
+                          """);
 
         helper.page("intro2");
         var intro2 = BookTextPageModel.builder()
                 .withText(helper.pageText())
                 .build();
+        this.lang.add(helper.pageText(),
+                """
+                        To bind the janitor to an inventory simply sneak and interact with the janitor book of calling on that inventory. You can also interact with a block while holding the janitor book of calling to have it deposit items there. You can also have it wander around a select area by pulling up that interface. To configure an allow/block list sneak and interact with the janitor.
+                          """);
+
+        helper.page("tip");
+        var tip = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+        this.lang.add(helper.pageTitle(), "Pro tip");
+        this.lang.add(helper.pageText(),
+                """
+                        The Janitor will pick up crushed items from a [Crusher spirit](entry://summoning_rituals/summon_crusher_t1) and deposit them into a chest.
+                        \\
+                        \\
+                        Combine that with a [Transporter Spirit](entry://summoning_rituals/summon_transport_items) to automate the whole process.
+                           """);
 
         helper.page("ritual");
         var ritual = BookRitualRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("ritual/summon_foliot_cleaner"))
                 .build();
+        //no text
 
         helper.page("book_of_calling");
         var bookOfCalling = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/book_of_calling_foliot_cleaner"))
                 .withText(helper.pageText())
                 .build();
+        this.lang.add(helper.pageText(),
+                """
+                        If you lose the book of calling, you can craft a new one.
+                        [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
+                        """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -2884,6 +3027,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withPages(
                         intro,
                         intro2,
+                        tip,
                         ritual,
                         bookOfCalling
                 );

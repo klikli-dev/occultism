@@ -34,6 +34,14 @@
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_cleaner.intro2.text"
     },
     {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_cleaner.tip.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_cleaner.tip.text"
+    },
+    {
       "type": "occultism:ritual_recipe",
       "anchor": "",
       "title1": "",

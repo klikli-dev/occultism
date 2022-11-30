@@ -51,6 +51,22 @@
       "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.divination_rod.text"
     },
     {
+      "type": "occultism:spirit_fire_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:spirit_fire/spirit_attuned_gem",
+      "title2": "",
+      "text": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "occultism:crafting/divination_rod",
+      "title2": "",
+      "text": ""
+    },
+    {
       "type": "modonomicon:text",
       "anchor": "",
       "title": "",
