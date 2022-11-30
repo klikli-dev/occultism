@@ -1,15 +1,13 @@
 package com.github.klikli_dev.occultism.datagen;
 
-import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritTradeRecipePageModel;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
+import com.klikli_dev.modonomicon.api.datagen.BookProvider;
 import com.klikli_dev.modonomicon.api.datagen.EntryLocationHelper;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
@@ -19,110 +17,24 @@ import com.klikli_dev.modonomicon.api.datagen.book.condition.BookEntryReadCondit
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookTrueConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.*;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DataProvider;
-import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.Map;
+public class OccultismBookProvider extends BookProvider {
 
-public class BookGenerator implements DataProvider {
-    //region Boilerplate
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-
-    private final DataGenerator generator;
-    private final Map<ResourceLocation, BookModel> bookModels;
-    protected String modid;
-
-    public BookGenerator(DataGenerator generator, String modid) {
-        this.modid = modid;
-        this.generator = generator;
-        this.bookModels = new HashMap<>();
+    public OccultismBookProvider(DataGenerator generator, String modid, LanguageProvider lang) {
+        super(generator, modid, lang);
     }
 
-
-    private static Path getPath(Path path, BookModel bookModel) {
-        ResourceLocation id = bookModel.getId();
-        return path.resolve("data/" + id.getNamespace() + "/modonomicons/" + id.getPath() + "/book.json");
-    }
-
-    private static Path getPath(Path path, BookCategoryModel bookCategoryModel) {
-        ResourceLocation id = bookCategoryModel.getId();
-        return path.resolve("data/" + id.getNamespace() +
-                "/modonomicons/" + bookCategoryModel.getBook().getId().getPath() +
-                "/categories/" + id.getPath() + ".json");
-    }
-
-    private static Path getPath(Path path, BookEntryModel bookEntryModel) {
-        ResourceLocation id = bookEntryModel.getId();
-        return path.resolve("data/" + id.getNamespace() +
-                "/modonomicons/" + bookEntryModel.getCategory().getBook().getId().getPath() +
-                "/entries/" + id.getPath() + ".json");
-    }
-
-    public ResourceLocation modLoc(String name) {
-        return new ResourceLocation(this.modid, name);
-    }
-
-    private void start() {
+    @Override
+    protected void generate() {
         var dictionaryOfSpirits = this.makeDictionaryOfSpirits();
         this.add(dictionaryOfSpirits);
     }
-
-    private BookModel add(BookModel bookModel) {
-        if (this.bookModels.containsKey(bookModel.getId()))
-            throw new IllegalStateException("Duplicate book " + bookModel.getId());
-        this.bookModels.put(bookModel.getId(), bookModel);
-        return bookModel;
-    }
-
-
-
-    @Override
-    public void run(HashCache cache) throws IOException {
-        Path folder = this.generator.getOutputFolder();
-        this.start();
-
-        for (var bookModel : this.bookModels.values()) {
-            Path bookPath = getPath(folder, bookModel);
-            try {
-                DataProvider.save(GSON, cache, bookModel.toJson(), bookPath);
-            } catch (IOException exception) {
-                Occultism.LOGGER.error("Couldn't save book {}", bookPath, exception);
-            }
-
-            for (var bookCategoryModel : bookModel.getCategories()) {
-                Path bookCategoryPath = getPath(folder, bookCategoryModel);
-                try {
-                    DataProvider.save(GSON, cache, bookCategoryModel.toJson(), bookCategoryPath);
-                } catch (IOException exception) {
-                    Occultism.LOGGER.error("Couldn't save book category {}", bookCategoryPath, exception);
-                }
-
-                for (var bookEntryModel : bookCategoryModel.getEntries()) {
-                    Path bookEntryPath = getPath(folder, bookEntryModel);
-                    try {
-                        DataProvider.save(GSON, cache, bookEntryModel.toJson(), bookEntryPath);
-                    } catch (IOException exception) {
-                        Occultism.LOGGER.error("Couldn't save book entry {}", bookEntryPath, exception);
-                    }
-                }
-            }
-        }
-    }
-
-    @Override
-    public String getName() {
-        return "Books: " + Occultism.MODID;
-    }
-
-    //endregion
 
     private BookModel makeDictionaryOfSpirits() {
         var helper = ModonomiconAPI.get().getLangHelper(this.modid);
@@ -277,7 +189,7 @@ public class BookGenerator implements DataProvider {
 
         var possessionRitualsEntry = this.makePossessionRitualsEntry(helper, entryHelper, 'w');
         possessionRitualsEntry.withParent(BookEntryParentModel.builder().withEntryId(moreRitualsEntry.id).build());
-        var familiarRitualsEntry= this.makeFamiliarRitualsEntry(helper, entryHelper, 'x');
+        var familiarRitualsEntry = this.makeFamiliarRitualsEntry(helper, entryHelper, 'x');
         familiarRitualsEntry.withParent(BookEntryParentModel.builder().withEntryId(moreRitualsEntry.id).build());
         var summoningRitualsEntry = this.makeSummoningRitualsEntry(helper, entryHelper, 'y');
         summoningRitualsEntry.withParent(BookEntryParentModel.builder().withEntryId(moreRitualsEntry.id).build());
@@ -538,6 +450,16 @@ public class BookGenerator implements DataProvider {
                 .withAnchor("divination_instructions")
                 .build();
 
+        helper.page("spirit_attuned_gem_recipe");
+        var spiritAttunedGemRecipe = BookSpiritFireRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("spirit_fire/spirit_attuned_gem"))
+                .build();
+
+        helper.page("divination_rod_recipe");
+        var divinationRodRecipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/divination_rod"))
+                .build();
+
         helper.page("about_divination_rod");
         var aboutDivinationRod = BookTextPageModel.builder()
                 .withText(helper.pageText())
@@ -593,7 +515,7 @@ public class BookGenerator implements DataProvider {
                 .withDescription(helper.entryDescription())
                 .withIcon(OccultismItems.DIVINATION_ROD.getId().toString())
                 .withLocation(entryHelper.get(icon))
-                .withPages(intro, otherstoneRecipe, otherworldSaplingNaturalRecipe, divinationRod, aboutDivinationRod,
+                .withPages(intro, otherstoneRecipe, otherworldSaplingNaturalRecipe, divinationRod, spiritAttunedGemRecipe, divinationRodRecipe, aboutDivinationRod,
                         howToUse, howToUse2, divinationRodScreenshots, otherworldGroves, otherworldGroves2, otherworldTrees, otherworldTrees2);
     }
 
@@ -1109,7 +1031,7 @@ public class BookGenerator implements DataProvider {
                         gemRecipe,
                         headRecipe,
                         crafting
-                        );
+                );
     }
 
     private BookEntryModel.Builder makeIesniumEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
@@ -5124,5 +5046,6 @@ public class BookGenerator implements DataProvider {
                         demo
                 );
     }
+
     //endregion
 }

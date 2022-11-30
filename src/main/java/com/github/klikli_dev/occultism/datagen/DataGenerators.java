@@ -37,23 +37,25 @@ import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DataGenerators {
 
-    //region Static Methods
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
+
+        var enUSProvider = new ENUSProvider(generator);
+
         if (event.includeServer()) {
             generator.addProvider(new StandardLootTableProvider(generator));
             generator.addProvider(new PentacleProvider(generator));
             generator.addProvider(new OccultismAdvancementProvider(generator));
-            generator.addProvider(new BookGenerator(generator, Occultism.MODID));
+            generator.addProvider(new OccultismBookProvider(generator, Occultism.MODID, enUSProvider));
         }
         if (event.includeClient()) {
             generator.addProvider(new ItemModelsGenerator(generator, event.getExistingFileHelper()));
             generator.addProvider(new StandardBlockStateProvider(generator, event.getExistingFileHelper()));
-            generator.addProvider(new ENUSProvider(generator));
+            //Important: Lang provider (in this case enus) needs to be added after the book provider to process the texts added by the book provider
+            generator.addProvider(enUSProvider);
             generator.addProvider(new FRFRProvider(generator));
             generator.addProvider(new PTBRProvider(generator));
         }
     }
-    //endregion Static Methods
 }
