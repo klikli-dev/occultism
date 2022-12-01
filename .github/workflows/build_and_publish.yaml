@@ -15,13 +15,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Set up OpenJDK 17
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           java-version: 17
           distribution: temurin
       - name: Get release type from github tag
         id: get_release_type
-        uses: actions/github-script@0.4.0
+        uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.RELEASE_NOTES_TOKEN }}
           result-encoding: string
@@ -29,7 +29,7 @@ jobs:
             return '${{ github.ref }}'.match(/refs\/tags\/(.*)\/v((.*)-(.*))/)[1];
       - name: Get file version from tag
         id: get_version
-        uses: actions/github-script@0.4.0
+        uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.RELEASE_NOTES_TOKEN }}
           result-encoding: string
@@ -37,7 +37,7 @@ jobs:
             return '${{ github.ref }}'.match(/refs\/tags\/(.*)\/v((.*)-(.*))/)[4];
       - name: Get main mc version from tag
         id: get_mc_version
-        uses: actions/github-script@0.4.0
+        uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.RELEASE_NOTES_TOKEN }}
           result-encoding: string
@@ -60,25 +60,15 @@ jobs:
       - name: Create Release
         id: create_release
         uses: ncipollo/release-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_NOTES_TOKEN }}
         with:
           allowUpdates: true
           draft: false
           name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}-${{ steps.get_release_type.outputs.result }}
           body: ${{ steps.changelog.outputs.changes }}
           token: ${{ github.token }}
-          tag_name: ${{ github.ref }}
-      - name: Upload release asset
-        id: upload_release_asset
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_NOTES_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/libs/occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
-          asset_name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}-${{ steps.get_release_type.outputs.result }}.jar
-          asset_content_type: application/java-archive
+          tag: ${{ github.ref }}
+          artifacts: ./build/libs/occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
+          artifactContentType: application/java-archive
       - name: Commit CHANGELOG.md
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
@@ -88,16 +78,16 @@ jobs:
       - name: Upload to Curseforge
         id: curseforge
         uses: itsmeow/curseforge-upload@master
-        if: ${{ steps.get_release_type.outputs.result }} != "test"
+        if: ${{ steps.get_release_type.outputs.result != 'test' }}
         with:
           token: ${{ secrets.CURSEFORGE_API_KEY }}
           project_id: 361026
           game_endpoint: minecraft
           file_path: ./build/libs/occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
           changelog: |-
-            [Automated Build]
-            ${{ steps.get_version.outputs.result }}
-            Changelog for this build: https://github.com/klikli-dev/occultism/releases/tag/${{ steps.get_release_type.outputs.result }}%2Fv${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}
+            [Changelog]
+            ${{ steps.changelog.outputs.changes }}
+
             Find changes for all versions at https://github.com/klikli-dev/occultism/releases
           game_versions: Forge,Minecraft 1.19:1.19,Minecraft 1.19:1.19.1,Minecraft 1.19:${{ steps.get_mc_version.outputs.result }}
           display_name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
