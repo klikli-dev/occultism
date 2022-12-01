@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set up OpenJDK 17
         uses: actions/setup-java@v2
         with:
@@ -50,19 +50,25 @@ jobs:
         env:
           VERSION: ${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}
           GRADLE_BUILD_ACTION_CACHE_DEBUG_ENABLED: true
+      - name: Update CHANGELOG
+        id: changelog
+        uses: klikli-dev/changelog-action@main
+        with:
+          token: ${{ github.token }}
+          tag: ${{ github.ref_name }}
+          mcVersion: ${{ steps.get_mc_version.outputs.result }}
       - name: Create Release
         id: create_release
-        uses: actions/create-release@v1
+        uses: ncipollo/release-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_NOTES_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}-${{ steps.get_release_type.outputs.result }}
-          body: |
-            [[Automated Build]]
-            Changelog will be added on milestone close.
+          allowUpdates: true
           draft: false
-          prerelease: false
+          name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}-${{ steps.get_release_type.outputs.result }}
+          body: ${{ steps.changelog.outputs.changes }}
+          token: ${{ github.token }}
+          tag_name: ${{ github.ref }}
       - name: Upload release asset
         id: upload_release_asset
         uses: actions/upload-release-asset@v1.0.1
@@ -73,6 +79,12 @@ jobs:
           asset_path: ./build/libs/occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
           asset_name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}-${{ steps.get_release_type.outputs.result }}.jar
           asset_content_type: application/java-archive
+      - name: Commit CHANGELOG.md
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          branch: version/1.18
+          commit_message: 'docs: update CHANGELOG.md for ${{ github.ref_name }} [skip ci]'
+          file_pattern: CHANGELOG.md
       - name: Upload to Curseforge
         id: curseforge
         uses: itsmeow/curseforge-upload@master
