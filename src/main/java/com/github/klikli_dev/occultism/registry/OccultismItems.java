@@ -35,6 +35,7 @@ import com.github.klikli_dev.occultism.common.item.storage.SatchelItem;
 import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.github.klikli_dev.occultism.common.item.tool.*;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.ComposterBlock;
@@ -290,7 +291,7 @@ public class OccultismItems {
     //Deco Block Items
     public static final RegistryObject<Item> SPIRIT_TORCH = ITEMS.register("spirit_torch",
             () -> new StandingAndWallBlockItem(OccultismBlocks.SPIRIT_TORCH.get(), OccultismBlocks.SPIRIT_WALL_TORCH.get(),
-                    defaultProperties()));
+                    defaultProperties(), Direction.DOWN));
 
     public static final RegistryObject<Item> SPAWN_EGG_FOLIOT = ITEMS.register("spawn_egg/foliot",
             () -> new ForgeSpawnEggItem(OccultismEntities.FOLIOT_TYPE::get, 0xaa728d, 0x37222c, defaultProperties()));
