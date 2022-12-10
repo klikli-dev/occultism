@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.entity;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -93,9 +94,11 @@ public class ThrownSwordEntity extends ThrowableItemProjectile {
         }
     }
 
+
+
     @Override
-    public Packet<?> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+        throw new UnsupportedOperationException();
     }
 
     private boolean friendlyFire(Entity target) {
