@@ -25,9 +25,9 @@ package com.github.klikli_dev.occultism.client.model.tile;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 
-public class DimensionalMatrixModel extends AnimatedGeoModel<StorageControllerBlockEntity> {
+public class DimensionalMatrixModel extends GeoModel<StorageControllerBlockEntity> {
     @Override
     public ResourceLocation getModelResource(StorageControllerBlockEntity object) {
         return new ResourceLocation(Occultism.MODID, "geo/dimensional_matrix.geo.json");

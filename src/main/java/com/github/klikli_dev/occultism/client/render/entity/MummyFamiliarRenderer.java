@@ -28,8 +28,6 @@ import com.github.klikli_dev.occultism.common.entity.MummyFamiliarEntity;
 import com.github.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Quaternion;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
@@ -50,6 +48,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Quaternionf;
 
 public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, MummyFamiliarModel> {
 
@@ -127,19 +126,19 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
             pMatrixStack.pushPose();
             pMatrixStack.scale(0.07f, 0.07f, 0.07f);
             pMatrixStack.translate(0, -2.5, 0);
-            pMatrixStack.mulPose(new Quaternion(0, 0, 20, true));
-            Font font = renderer.getFont();
+            pMatrixStack.mulPose(new Quaternionf().rotateXYZ(0, 0, 20 * ((float) Math.PI / 180F)));
+            Font font = this.renderer.getFont();
 
             pMatrixStack.pushPose();
             pMatrixStack.translate(0, 0, -0.01);
-            Matrix4f matrix = pMatrixStack.last().pose();
+            var matrix = pMatrixStack.last().pose();
             font.drawInBatch(KAPOW_TEXT, -font.width(KAPOW_TEXT) / 2, 0, 0xff0000 | ((int) (alpha * 255) << 24), true,
                     matrix, pBuffer, false, 0, pPackedLight);
             pMatrixStack.popPose();
 
             pMatrixStack.pushPose();
             pMatrixStack.translate(0, 0, 0.01);
-            pMatrixStack.mulPose(new Quaternion(0, 180, 0, true));
+            pMatrixStack.mulPose(new Quaternionf().rotateXYZ(0, 180 * ((float) Math.PI / 180F), 0));
             matrix = pMatrixStack.last().pose();
             font.drawInBatch(KAPOW_TEXT, -font.width(KAPOW_TEXT) / 2, 0, 0xff0000 | ((int) (alpha * 255) << 24), true,
                     matrix, pBuffer, false, 0, pPackedLight);

@@ -29,7 +29,6 @@ import com.github.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.github.klikli_dev.occultism.util.FamiliarUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Quaternion;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -44,6 +43,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import org.joml.Quaternionf;
 
 public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity, GuardianFamiliarModel> {
 
@@ -118,7 +118,7 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
             model.body.translateAndRotate(pMatrixStack);
 
             pMatrixStack.translate(-0.15, -0.25, -0.25);
-            pMatrixStack.mulPose(new Quaternion(0, -60, 0, true));
+            pMatrixStack.mulPose(new Quaternionf().rotateXYZ(0, -60 * ((float) Math.PI / 180F), 0));
 
             itemRenderer.renderItem(pLivingEntity, new ItemStack(Items.STONE_SWORD), ground, false, pMatrixStack, pBuffer, pPackedLight);
             pMatrixStack.popPose();
@@ -127,7 +127,7 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
             model.body.translateAndRotate(pMatrixStack);
 
             pMatrixStack.translate(-0.15, 0.1, 0.37);
-            pMatrixStack.mulPose(new Quaternion(0, 60, -110, true));
+            pMatrixStack.mulPose(new Quaternionf().rotateXYZ(0, 60 * ((float) Math.PI / 180F), -110 * ((float) Math.PI / 180F)));
 
             itemRenderer.renderItem(pLivingEntity, new ItemStack(Items.STONE_AXE), ground, false, pMatrixStack, pBuffer, pPackedLight);
             pMatrixStack.popPose();
@@ -138,7 +138,7 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
                 model.leftArm1.translateAndRotate(pMatrixStack);
 
                 pMatrixStack.translate(0.21, 0.2, 0);
-                pMatrixStack.mulPose(new Quaternion(0, 0, 210, true));
+                pMatrixStack.mulPose(new Quaternionf().rotateXYZ(0, 0, 210 * ((float) Math.PI / 180F)));
 
                 itemRenderer.renderItem(pLivingEntity, new ItemStack(Items.STONE_PICKAXE), ground, false, pMatrixStack, pBuffer,
                         pPackedLight);

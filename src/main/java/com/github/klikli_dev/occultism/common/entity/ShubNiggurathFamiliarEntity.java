@@ -24,7 +24,6 @@ package com.github.klikli_dev.occultism.common.entity;
 
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.google.common.collect.ImmutableList;
-import com.mojang.math.Vector3d;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -37,6 +36,7 @@ import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3d;
 
 public class ShubNiggurathFamiliarEntity extends FamiliarEntity {
     private static final int MAX_SPAWN_TIMER = 20 * 10;
@@ -132,7 +132,7 @@ public class ShubNiggurathFamiliarEntity extends FamiliarEntity {
 
     private boolean immuneWhileHoldingHand(DamageSource s) {
         return s == DamageSource.CRAMMING || s == DamageSource.DROWN || s == DamageSource.FALL
-                || s == DamageSource.FALLING_BLOCK || s == DamageSource.FLY_INTO_WALL || s == DamageSource.IN_WALL;
+                || s.getMsgId().equals("fallingBlock") || s == DamageSource.FLY_INTO_WALL || s == DamageSource.IN_WALL;
     }
 
     @Override

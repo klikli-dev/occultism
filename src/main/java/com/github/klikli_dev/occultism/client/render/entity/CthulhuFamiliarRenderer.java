@@ -27,7 +27,6 @@ import com.github.klikli_dev.occultism.client.model.entity.CthulhuFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.CthulhuFamiliarEntity;
 import com.github.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Quaternion;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -38,6 +37,7 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import org.joml.Quaternionf;
 
 public class CthulhuFamiliarRenderer extends MobRenderer<CthulhuFamiliarEntity, CthulhuFamiliarModel> {
 
@@ -57,7 +57,7 @@ public class CthulhuFamiliarRenderer extends MobRenderer<CthulhuFamiliarEntity, 
         if (pEntity.isPartying()) {
             float ageInTicks = pEntity.tickCount + pPartialTicks;
             pMatrixStack.translate(0, 1.55, 0);
-            pMatrixStack.mulPose(new Quaternion(ageInTicks * 3, 0, 0, true));
+            pMatrixStack.mulPose(new Quaternionf().rotateXYZ(ageInTicks * 3 * ((float) Math.PI / 180F), 0, 0));
             pMatrixStack.translate(0, 0.5, 0);
             pEntity.yBodyRotO = -180;
             pEntity.yBodyRot = -180;
@@ -84,7 +84,7 @@ public class CthulhuFamiliarRenderer extends MobRenderer<CthulhuFamiliarEntity, 
                 matrixStack.pushPose();
                 matrixStack.scale(1.25f, -1.25f, 1.25f);
                 matrixStack.translate(0, -0.75, -0.35);
-                matrixStack.mulPose(new Quaternion(-65, 0, 0, true));
+                matrixStack.mulPose(new Quaternionf().rotateXYZ(-65 * ((float) Math.PI / 180F), 0, 0));
                 Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderItem(pLivingEntity, new ItemStack(Items.POPPY),
                         ItemTransforms.TransformType.GROUND, false, matrixStack, pBuffer,
                         pPackedLight);

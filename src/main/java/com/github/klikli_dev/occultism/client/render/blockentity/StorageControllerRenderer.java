@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.common.blockentity.StorageControllerBlock
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -81,7 +81,7 @@ public class StorageControllerRenderer implements BlockEntityRenderer<StorageCon
         //rotate item slowly around y axis
         //do not use system time rad, as rotationDegrees converts for us and we want to clamp it to 360° first
         float angle = (systemTime / 16) % 360;
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(angle));
+        poseStack.mulPose(Axis.YP.rotationDegrees(angle));
 
         //Math.sin(time/frequency)*amplitude
         float scale = (float) (1 + systemTimeRadSin8 * 0.025f);

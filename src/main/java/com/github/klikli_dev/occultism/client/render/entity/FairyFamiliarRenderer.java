@@ -28,7 +28,6 @@ import com.github.klikli_dev.occultism.common.entity.FairyFamiliarEntity;
 import com.github.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Quaternion;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -40,6 +39,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Quaternionf;
 
 public class FairyFamiliarRenderer extends MobRenderer<FairyFamiliarEntity, FairyFamiliarModel> {
 
@@ -67,7 +67,7 @@ public class FairyFamiliarRenderer extends MobRenderer<FairyFamiliarEntity, Fair
             Vec3 pos = entityIn.getMagicPosition(partialTicks).subtract(entityIn.getPosition(partialTicks));
             Vec2 radiusAngle = entityIn.getMagicRadiusAngle(partialTicks);
             matrixStackIn.translate(pos.x, pos.y, pos.z);
-            matrixStackIn.mulPose(new Quaternion(0, -radiusAngle.y, 0, false));
+            matrixStackIn.mulPose(new Quaternionf().rotateXYZ(0, -radiusAngle.y * ((float) Math.PI / 180F), 0));
             this.shadowStrength = 0;
         } else {
             this.shadowStrength = 1;

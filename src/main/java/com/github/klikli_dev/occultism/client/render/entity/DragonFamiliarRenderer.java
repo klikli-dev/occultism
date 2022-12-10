@@ -27,7 +27,6 @@ import com.github.klikli_dev.occultism.client.model.entity.DragonFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.DragonFamiliarEntity;
 import com.github.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Matrix4f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -63,10 +62,9 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Dr
 
         @SubscribeEvent
         public static void renderText(RenderLivingEvent<DragonFamiliarEntity, DragonFamiliarModel> event) {
-            if (!(event.getEntity() instanceof DragonFamiliarEntity))
+            if (!(event.getEntity() instanceof DragonFamiliarEntity dragon))
                 return;
 
-            DragonFamiliarEntity dragon = (DragonFamiliarEntity) event.getEntity();
             float partialTicks = event.getPartialTick();
             float textTimer = dragon.getPetTimer() + partialTicks;
             if (textTimer >= DragonFamiliarEntity.MAX_PET_TIMER)
@@ -83,7 +81,7 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Dr
             float size = (1 - textTimer / DragonFamiliarEntity.MAX_PET_TIMER) * 0.025f;
             matrixStackIn.scale(-size, -size, size);
 
-            Matrix4f matrix = matrixStackIn.last().pose();
+            var matrix = matrixStackIn.last().pose();
             Font font = event.getRenderer().getFont();
             font.drawInBatch(text, -font.width(text) / 2f, 0, 0xffffff, false, matrix,
                     event.getMultiBufferSource(), false, 0x000000, event.getPackedLight());

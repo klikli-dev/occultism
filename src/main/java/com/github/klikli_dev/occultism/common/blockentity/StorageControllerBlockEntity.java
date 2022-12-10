@@ -68,15 +68,15 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.builder.ILoopType;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib.animatable.GeoBlockEntity;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -85,13 +85,13 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class StorageControllerBlockEntity extends NetworkedBlockEntity implements MenuProvider, IStorageController, IStorageAccessor, IStorageControllerProxy, IAnimatable {
+public class StorageControllerBlockEntity extends NetworkedBlockEntity implements MenuProvider, IStorageController, IStorageAccessor, IStorageControllerProxy, GeoBlockEntity {
 
     public static final int MAX_STABILIZER_DISTANCE = 5;
 
     protected static final List<RegistryObject<? extends Block>> BLOCK_BLACKLIST = Stream.of(
             OccultismBlocks.STORAGE_CONTROLLER).collect(Collectors.toList());
-    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
     public Map<Integer, ItemStack> matrix = new HashMap<>();
     public ItemStack orderStack = ItemStack.EMPTY;
     public Map<GlobalBlockPos, MachineReference> linkedMachines = new HashMap<>();
@@ -199,8 +199,9 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
                 .map(entry -> (Predicate<ItemStack>) stack -> stack.getItem() == entry.getKey()).toList();
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dimensional_matrix.new", ILoopType.EDefaultLoopTypes.LOOP));
+    private <E extends GeoBlockEntity> PlayState predicate(AnimationState<E> event) {
+        event.getController().setAnimation(RawAnimation.begin()
+                .thenPlay("animation.dimensional_matrix.new"));
         return PlayState.CONTINUE;
     }
 
@@ -601,13 +602,13 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<GeoBlockEntity>(this, "controller", 0, this::predicate));
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.animatableInstanceCache;
     }
 
 }
