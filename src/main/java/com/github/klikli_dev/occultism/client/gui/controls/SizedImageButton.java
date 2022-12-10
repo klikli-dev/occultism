@@ -72,8 +72,8 @@ public class SizedImageButton extends ImageButton {
     }
 
     public void setPosition(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.setX(x);
+        this.setY(y);
     }
 
     @Override
@@ -87,11 +87,7 @@ public class SizedImageButton extends ImageButton {
                 i += this.xDiffOffset;
             }
             RenderSystem.enableDepthTest();
-            blit(stack, this.x, this.y, this.width, this.height, i, j, this.textureWidth, this.textureHeight, this.textureMapWidth, this.textureMapHeight);
-
-            if (this.isHoveredOrFocused()) {
-                this.renderToolTip(stack, mouseX, mouseY);
-            }
+            blit(stack, this.getX(), this.getY(), this.width, this.height, i, j, this.textureWidth, this.textureHeight, this.textureMapWidth, this.textureMapHeight);
         }
 
     }

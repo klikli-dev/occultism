@@ -241,7 +241,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
     //region Methods
     protected boolean isPointInSearchbar(double mouseX, double mouseY) {
-        return this.isHovering(this.tagFilterTextField.x - this.leftPos, this.tagFilterTextField.y - this.topPos,
+        return this.isHovering(this.tagFilterTextField.getX() - this.leftPos, this.tagFilterTextField.getY() - this.topPos,
                 this.tagFilterTextField.getWidth() - 5, this.font.lineHeight + 6, mouseX, mouseY);
     }
     //endregion Methods

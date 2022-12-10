@@ -556,7 +556,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     protected boolean isPointInSearchbar(double mouseX, double mouseY) {
-        return this.isHovering(this.searchBar.x - this.leftPos, this.searchBar.y - this.topPos,
+        return this.isHovering(this.searchBar.getX() - this.leftPos, this.searchBar.getY() - this.topPos,
                 this.searchBar.getWidth() - 5, this.font.lineHeight + 6, mouseX, mouseY);
     }
 
