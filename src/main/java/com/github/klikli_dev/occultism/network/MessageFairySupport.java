@@ -23,7 +23,6 @@
 package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.common.entity.FairyFamiliarEntity;
-import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.network.FriendlyByteBuf;
@@ -31,6 +30,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent.Context;
+import org.joml.Vector3f;
 
 public class MessageFairySupport extends MessageBase {
 

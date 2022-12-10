@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.misc;
 
 import com.github.klikli_dev.occultism.api.common.container.IItemStackComparator;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -74,7 +75,7 @@ public class ItemTagComparator implements IItemStackComparator {
     }
 
     public CompoundTag write(CompoundTag compound) {
-        this.tag = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(compound.getString("tag")));
+        this.tag = TagKey.create(Registries.ITEM, new ResourceLocation(compound.getString("tag")));
         return compound;
     }
 }
