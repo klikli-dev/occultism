@@ -34,6 +34,7 @@ import com.klikli_dev.modonomicon.api.multiblock.Multiblock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -72,7 +73,7 @@ public class RitualRecipe extends ShapelessRecipe {
     public RitualRecipe(ResourceLocation id, String group, ResourceLocation pentacleId, ResourceLocation ritualType, ItemStack ritualDummy,
                         ItemStack result, EntityType<?> entityToSummon, CompoundTag entityNbt, Ingredient activationItem, NonNullList<Ingredient> input, int duration, int spiritMaxAge, ResourceLocation spiritJobType,
                         TagKey<EntityType<?>> entityToSacrifice, String entityToSacrificeDisplayName, Ingredient itemToUse, String command) {
-        super(id, group, result, input);
+        super(id, group, CraftingBookCategory.MISC, result, input);
         this.entityToSummon = entityToSummon;
         this.entityNbt = entityNbt;
         this.pentacleId = pentacleId;
@@ -255,7 +256,7 @@ public class RitualRecipe extends ShapelessRecipe {
             String entityToSacrificeDisplayName = "";
             if (json.has("entity_to_sacrifice")) {
                 var tagRL = new ResourceLocation(GsonHelper.getAsString(json.getAsJsonObject("entity_to_sacrifice"), "tag"));
-                entityToSacrifice = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, tagRL);
+                entityToSacrifice = TagKey.create(Registries.ENTITY_TYPE, tagRL);
 
                 entityToSacrificeDisplayName = json.getAsJsonObject("entity_to_sacrifice").get("display_name").getAsString();
             }
@@ -308,7 +309,7 @@ public class RitualRecipe extends ShapelessRecipe {
             String entityToSacrificeDisplayName = "";
             if (buffer.readBoolean()) {
                 var tagRL = buffer.readResourceLocation();
-                entityToSacrifice = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, tagRL);
+                entityToSacrifice = TagKey.create(Registries.ENTITY_TYPE, tagRL);
                 entityToSacrificeDisplayName = buffer.readUtf();
             }
 
