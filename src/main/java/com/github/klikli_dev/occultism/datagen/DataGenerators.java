@@ -27,6 +27,8 @@ import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeature
 import com.github.klikli_dev.occultism.datagen.lang.ENUSProvider;
 import com.github.klikli_dev.occultism.datagen.lang.FRFRProvider;
 import com.github.klikli_dev.occultism.datagen.lang.PTBRProvider;
+import com.github.klikli_dev.occultism.datagen.loot.OccultismBlockLoot;
+import com.github.klikli_dev.occultism.datagen.loot.OccultismEntityLoot;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismFeatures;
 import com.mojang.serialization.JsonOps;
@@ -34,6 +36,7 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
@@ -54,6 +57,7 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlac
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraftforge.common.data.JsonCodecProvider;
 import net.minecraftforge.common.world.ForgeBiomeModifiers.AddFeaturesBiomeModifier;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -63,6 +67,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DataGenerators {
@@ -70,7 +75,11 @@ public class DataGenerators {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
-        generator.addProvider(event.includeServer(), new StandardLootTableProvider(generator));
+        generator.addProvider(event.includeServer(),
+                new LootTableProvider(generator.getPackOutput(), Set.of(), List.of(
+                        new LootTableProvider.SubProviderEntry(OccultismBlockLoot::new, LootContextParamSets.BLOCK),
+                        new LootTableProvider.SubProviderEntry(OccultismEntityLoot::new, LootContextParamSets.ENTITY)
+                )));
         generator.addProvider(event.includeServer(), new PentacleProvider(generator));
         generator.addProvider(event.includeServer(), new OccultismAdvancementProvider(generator));
         generator.addProvider(event.includeClient(), new ItemModelsGenerator(generator, event.getExistingFileHelper()));
@@ -139,25 +148,25 @@ public class DataGenerators {
                 new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES),
                 OccultismBlocks.SILVER_ORE_DEEPSLATE.get().defaultBlockState(), 10));
         var iesniumOreConfigured = new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
-                        new TagMatchTest(BlockTags.BASE_STONE_NETHER),
-                        OccultismBlocks.IESNIUM_ORE_NATURAL.get().defaultBlockState(), 3));
+                new TagMatchTest(BlockTags.BASE_STONE_NETHER),
+                OccultismBlocks.IESNIUM_ORE_NATURAL.get().defaultBlockState(), 3));
 
 
         var otherworldTreeNaturalConfigured = new ConfiguredFeature<>(Feature.TREE,
-                        new TreeConfiguration.TreeConfigurationBuilder(
-                                BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LOG_NATURAL.get().defaultBlockState()),
-                                new StraightTrunkPlacer(4, 2, 0),
-                                BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().defaultBlockState()),
-                                new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
-                                new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build());
+                new TreeConfiguration.TreeConfigurationBuilder(
+                        BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LOG_NATURAL.get().defaultBlockState()),
+                        new StraightTrunkPlacer(4, 2, 0),
+                        BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().defaultBlockState()),
+                        new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
+                        new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build());
 
-        var otherworldTreeConfigured =  new ConfiguredFeature<>(Feature.TREE,
-                        new TreeConfiguration.TreeConfigurationBuilder(
-                                BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LOG.get().defaultBlockState()),
-                                new StraightTrunkPlacer(4, 2, 0),
-                                BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LEAVES.get().defaultBlockState()),
-                                new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
-                                new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build());
+        var otherworldTreeConfigured = new ConfiguredFeature<>(Feature.TREE,
+                new TreeConfiguration.TreeConfigurationBuilder(
+                        BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LOG.get().defaultBlockState()),
+                        new StraightTrunkPlacer(4, 2, 0),
+                        BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LEAVES.get().defaultBlockState()),
+                        new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
+                        new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build());
 
 
         var silverOrePlaced = new PlacedFeature(silverOreConfigureHolder,
@@ -177,18 +186,18 @@ public class DataGenerators {
                 PlacementUtils.filteredByBlockSurvival(OccultismBlocks.OTHERWORLD_SAPLING.get())));
 
 
-        var undergroundGroveConfigured =  new ConfiguredFeature<>(OccultismFeatures.UNDERGROUND_GROVE_FEATURE.get(),
-                        new MultiChunkFeatureConfig(
-                                7,
-                                400,
-                                25,
-                                60,
-                                14653667,
-                                0.6f,
-                                0.1f,
-                                0.3f,
-                                0.1f,
-                                otherworldTreeNaturalPlacedHolder));
+        var undergroundGroveConfigured = new ConfiguredFeature<>(OccultismFeatures.UNDERGROUND_GROVE_FEATURE.get(),
+                new MultiChunkFeatureConfig(
+                        7,
+                        400,
+                        25,
+                        60,
+                        14653667,
+                        0.6f,
+                        0.1f,
+                        0.3f,
+                        0.1f,
+                        otherworldTreeNaturalPlacedHolder));
         var undergroundGrovePlaced = new PlacedFeature(undergroundGroveConfiguredHolder, List.of());
 
 
@@ -229,7 +238,7 @@ public class DataGenerators {
                         silverOrePlacedKey.location(), silverOrePlaced,
                         silverOreDeepslatePlacedKey.location(), silverOreDeepslatePlaced,
                         iesniumOrePlacedKey.location(), iesniumOrePlaced,
-                        otherworldTreeNaturalPlacedKey.location(),otherworldTreeNaturalPlaced,
+                        otherworldTreeNaturalPlacedKey.location(), otherworldTreeNaturalPlaced,
                         otherworldTreePlacedKey.location(), otherworldTreePlaced,
                         undergroundGrovePlacedKey.location(), undergroundGrovePlaced
                 )));
