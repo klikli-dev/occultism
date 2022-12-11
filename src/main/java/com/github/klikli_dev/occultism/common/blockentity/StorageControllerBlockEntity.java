@@ -201,7 +201,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
     private <E extends GeoBlockEntity> PlayState predicate(AnimationState<E> event) {
         event.getController().setAnimation(RawAnimation.begin()
-                .thenPlay("animation.dimensional_matrix.new"));
+                .thenLoop("animation.dimensional_matrix.new"));
         return PlayState.CONTINUE;
     }
 

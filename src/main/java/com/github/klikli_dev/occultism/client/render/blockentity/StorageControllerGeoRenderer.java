@@ -32,12 +32,15 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import org.joml.Matrix4f;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.cache.object.GeoBone;
+import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.object.Color;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
+import software.bernie.geckolib.renderer.GeoRenderer;
 
 import javax.annotation.Nullable;
 
@@ -57,9 +60,9 @@ public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageContro
     @Override
     public void actuallyRender(PoseStack poseStack, StorageControllerBlockEntity animatable, BakedGeoModel model, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer bufferIn, boolean isReRender, float partialTicks, int packedLightIn, int packedOverlay, float red, float green, float blue, float alpha) {
 
-        var animationState = new AnimationState<>(animatable, 0, 0, partialTicks, false);
-        this.modelProvider.setCustomAnimations(animatable, this.getInstanceId(animatable), animationState);
         poseStack.pushPose();
+        this.renderStartPose = new Matrix4f(poseStack.last().pose());;
+
         //poseStack.translate(0, 0.01f, 0); //we don't need this
         //move above block
         poseStack.translate(0.5, 1.25, 0.5);
@@ -72,6 +75,20 @@ public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageContro
         //do not use system time rad, as rotationDegrees converts for us and we want to clamp it to 360° first
         float angle = (systemTime / 16) % 360;
         poseStack.mulPose(Axis.YP.rotationDegrees(angle));
+
+
+        if (!isReRender) {
+            var animationState = new AnimationState<>(animatable, 0, 0, partialTicks, false);
+            long instanceId = getInstanceId(animatable);
+
+            animationState.setData(DataTickets.TICK, animatable.getTick(animatable));
+            animationState.setData(DataTickets.BLOCK_ENTITY, animatable);
+            this.model.addAdditionalStateData(animatable, instanceId, animationState::setData);
+//            poseStack.translate(0, 0.01f, 0);
+//            poseStack.translate(0.5, 0, 0.5);
+//           rotateBlock(getFacing(animatable), poseStack);
+            this.model.handleAnimations(animatable, instanceId, animationState);
+        }
 
         RenderSystem.setShaderTexture(0, this.getTextureLocation(animatable));
 
