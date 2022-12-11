@@ -3,6 +3,7 @@ package com.github.klikli_dev.occultism.datagen.loot;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.data.loot.EntityLootSubProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
@@ -15,9 +16,19 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerC
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
+import java.util.function.BiConsumer;
+
 public class OccultismEntityLoot extends EntityLootSubProvider {
     public OccultismEntityLoot() {
         super(FeatureFlags.REGISTRY.allFlags());
+    }
+
+    @Override
+    public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
+        this.generate();
+        this.map.forEach((key, entityType) -> {
+            entityType.forEach(consumer::accept);
+        });
     }
 
     @Override

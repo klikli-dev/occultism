@@ -6,7 +6,9 @@ import com.github.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -14,6 +16,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -26,7 +29,10 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
+import java.util.function.BiConsumer;
 
 public class OccultismBlockLoot extends BlockLootSubProvider {
 
@@ -36,6 +42,12 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
 
     public OccultismBlockLoot() {
         super(Set.of(), FeatureFlags.REGISTRY.allFlags());
+    }
+
+    @Override
+    public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
+        this.generate();
+        this.map.forEach(consumer::accept);
     }
 
     @Override
