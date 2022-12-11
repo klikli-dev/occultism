@@ -25,7 +25,6 @@ package com.github.klikli_dev.occultism;
 import com.github.klikli_dev.occultism.client.render.SelectedBlockRenderer;
 import com.github.klikli_dev.occultism.client.render.ThirdEyeEffectRenderer;
 import com.github.klikli_dev.occultism.common.DebugHelper;
-import com.github.klikli_dev.occultism.common.OccultismCreativeModeTab;
 import com.github.klikli_dev.occultism.common.entity.*;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
 import com.github.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
@@ -39,7 +38,6 @@ import com.github.klikli_dev.occultism.integration.modonomicon.PageLoaders;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.*;
 import com.mojang.logging.LogUtils;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -61,7 +59,6 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 public class Occultism {
     public static final String MODID = "occultism";
     public static final String NAME = "Occultism";
-    public static final CreativeModeTab ITEM_GROUP = new OccultismCreativeModeTab();
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final OccultismServerConfig SERVER_CONFIG = new OccultismServerConfig();
     public static final OccultismCommonConfig COMMON_CONFIG = new OccultismCommonConfig();
@@ -99,6 +96,7 @@ public class Occultism {
         OccultismAdvancements.register();
 
         //register event buses
+        modEventBus.addListener(OccultismItems::onRegisterCreativeModeTabs);
         modEventBus.addListener(OccultismCapabilities::onRegisterCapabilities);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::onEntityAttributeCreation);

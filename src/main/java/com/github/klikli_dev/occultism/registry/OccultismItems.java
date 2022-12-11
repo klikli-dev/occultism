@@ -35,11 +35,15 @@ import com.github.klikli_dev.occultism.common.item.storage.SatchelItem;
 import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
 import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.github.klikli_dev.occultism.common.item.tool.*;
+import com.klikli_dev.modonomicon.api.ModonomiconConstants;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraftforge.common.ForgeSpawnEggItem;
+import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -416,10 +420,11 @@ public class OccultismItems {
     }
 
     public static Item.Properties defaultProperties() {
-        return new Item.Properties().tab(Occultism.ITEM_GROUP);
+        //historically used to add to occultism tab
+        return new Item.Properties();
     }
 
-    public static void registerCompostables(){
+    public static void registerCompostables() {
         ComposterBlock.COMPOSTABLES.put(OccultismItems.DATURA_SEEDS.get(), 0.3f);
         ComposterBlock.COMPOSTABLES.put(OccultismBlocks.OTHERWORLD_LEAVES.get().asItem(), 0.3f);
         ComposterBlock.COMPOSTABLES.put(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().asItem(), 0.3f);
@@ -428,5 +433,27 @@ public class OccultismItems {
 
         ComposterBlock.COMPOSTABLES.put(OccultismItems.DATURA.get(), 0.65f);
         Occultism.LOGGER.info("Registered compostable Items");
+    }
+
+    public static void onRegisterCreativeModeTabs(CreativeModeTabEvent.Register event) {
+        event.registerCreativeModeTab(new ResourceLocation("occultism:occultism"),
+                (builder) -> {
+                    builder.icon(() -> new ItemStack(OccultismItems.PENTACLE.get()))
+                            .title(Component.translatable(ModonomiconConstants.I18n.ITEM_GROUP)).build();
+
+                    builder.displayItems((featureFlagSet, output, hasPermission) -> {
+                        ITEMS.getEntries().forEach(i -> {
+                            if (i.get() != PENTACLE.get()
+                                    && i.get() != DICTIONARY_OF_SPIRITS_ICON.get()
+                                    && i.get() != ADVANCEMENT_ICON.get()
+                                    && i.get() != JEI_DUMMY_NONE.get()
+                                    && i.get() != JEI_DUMMY_REQUIRE_SACRIFICE.get()
+                                    && i.get() != JEI_DUMMY_REQUIRE_ITEM_USE.get()) {
+                                output.accept(i.get());
+                            }
+                        });
+                    });
+                }
+        );
     }
 }
