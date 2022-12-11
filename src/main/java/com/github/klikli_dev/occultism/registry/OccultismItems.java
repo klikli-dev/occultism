@@ -439,7 +439,7 @@ public class OccultismItems {
         event.registerCreativeModeTab(new ResourceLocation("occultism:occultism"),
                 (builder) -> {
                     builder.icon(() -> new ItemStack(OccultismItems.PENTACLE.get()))
-                            .title(Component.translatable(ModonomiconConstants.I18n.ITEM_GROUP)).build();
+                            .title(Component.translatable("itemGroup.occultism")).build();
 
                     builder.displayItems((featureFlagSet, output, hasPermission) -> {
                         ITEMS.getEntries().forEach(i -> {
