@@ -32,13 +32,17 @@ import com.github.klikli_dev.occultism.datagen.loot.OccultismEntityLoot;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismFeatures;
 import com.mojang.serialization.JsonOps;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.Registry;
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.Util;
+import net.minecraft.core.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.DataProvider;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.data.models.ModelProvider;
+import net.minecraft.data.registries.RegistriesDatapackGenerator;
+import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
@@ -70,6 +74,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DataGenerators {
@@ -102,12 +107,17 @@ public class DataGenerators {
     public static void registerFeatures(GatherDataEvent event) {
         var generator = event.getGenerator();
 
-        var registries =   RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY);
-        var ops = RegistryOps.create(JsonOps.INSTANCE, registries);
 
-        var silverOreConfiguredKey = ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(Occultism.MODID, "silver_ore"));
-        var silverOreConfiguredHolder =  ops.getter(Registries.CONFIGURED_FEATURE).get().getOrThrow(silverOreConfiguredKey);
+        //TODO: enable once it is clear how to actually
+//        var registries =   RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY);
+//        var ops = RegistryOps.create(JsonOps.INSTANCE, registries);
+        //doesn't work -> throws on .getter()
+        //VanillaRegistries.createLookup() does not give us getOrCreateHolderOrThrow, and getOrThrow does not forward to it either
+        //we'd need a way to access createRegistrationLookup
 //
+//        var silverOreConfiguredKey = ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(Occultism.MODID, "silver_ore"));
+//        var silverOreConfiguredHolder =  ops.getter(Registries.CONFIGURED_FEATURE).get().getOrCreateHolderOrThrow(silverOreConfiguredKey);
+
 //        var silverOreDeepslateConfiguredKey = ResourceKey.create(Registry.CONFIGURED_FEATURE_REGISTRY, new ResourceLocation(Occultism.MODID, "silver_ore_deepslate"));
 //        var silverOreDeepslateConfiguredHolder = ops.registry(Registry.CONFIGURED_FEATURE_REGISTRY).get().getOrCreateHolderOrThrow(silverOreDeepslateConfiguredKey);
 //
@@ -123,8 +133,8 @@ public class DataGenerators {
 //        var otherworldTreeConfiguredKey = ResourceKey.create(Registry.CONFIGURED_FEATURE_REGISTRY, new ResourceLocation(Occultism.MODID, "otherworld_tree"));
 //        var otherworldTreeConfiguredHolder = ops.registry(Registry.CONFIGURED_FEATURE_REGISTRY).get().getOrCreateHolderOrThrow(otherworldTreeConfiguredKey);
 //
-        var silverOrePlacedKey = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(Occultism.MODID, "silver_ore"));
-        var silverOrePlacedHolder = ops.getter(Registries.PLACED_FEATURE).get().getOrThrow(silverOrePlacedKey);
+//        var silverOrePlacedKey = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(Occultism.MODID, "silver_ore"));
+//        var silverOrePlacedHolder = ops.getter(Registries.PLACED_FEATURE).get().getOrThrow(silverOrePlacedKey);
 //
 //        var silverOreDeepslatePlacedKey = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Occultism.MODID, "silver_ore_deepslate"));
 //        var silverOreDeepslatePlacedHolder = ops.registry(Registry.PLACED_FEATURE_REGISTRY).get().getOrCreateHolderOrThrow(silverOreDeepslatePlacedKey);
@@ -141,10 +151,10 @@ public class DataGenerators {
 //        var otherworldTreePlacedKey = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, new ResourceLocation(Occultism.MODID, "otherworld_tree"));
 //        var otherworldTreePlacedHolder = ops.registry(Registry.PLACED_FEATURE_REGISTRY).get().getOrCreateHolderOrThrow(otherworldTreePlacedKey);
 
-
-        var silverOreConfigured = new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
-                new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES),
-                OccultismBlocks.SILVER_ORE.get().defaultBlockState(), 5));
+//
+//        var silverOreConfigured = new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
+//                new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES),
+//                OccultismBlocks.SILVER_ORE.get().defaultBlockState(), 5));
 //
 //        var silverOreDeepslateConfigured = new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
 //                new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES),
@@ -171,8 +181,8 @@ public class DataGenerators {
 //                        new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build());
 
 
-        var silverOrePlaced = new PlacedFeature(silverOreConfiguredHolder,
-                OccultismFeatures.commonOrePlacement(7, HeightRangePlacement.triangle(VerticalAnchor.absolute(50), VerticalAnchor.absolute(200))));
+//        var silverOrePlaced = new PlacedFeature(silverOreConfiguredHolder,
+//                OccultismFeatures.commonOrePlacement(7, HeightRangePlacement.triangle(VerticalAnchor.absolute(50), VerticalAnchor.absolute(200))));
 //        var silverOreDeepslatePlaced = new PlacedFeature(silverOreDeepslateConfiguredHolder,
 //                OccultismFeatures.commonOrePlacement(10, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(50))));
 //        var iesniumOrePlaced =
@@ -201,9 +211,9 @@ public class DataGenerators {
 
 
         //biome modifiers
-        var addSilverOre = new AddFeaturesBiomeModifier(
-                ops.getter(Registries.BIOME).get().getOrThrow( BiomeTags.IS_OVERWORLD),
-                HolderSet.direct(silverOrePlacedHolder), Decoration.UNDERGROUND_ORES);
+//        var addSilverOre = new AddFeaturesBiomeModifier(
+//                ops.getter(Registries.BIOME).get().getOrThrow( BiomeTags.IS_OVERWORLD),
+//                HolderSet.direct(silverOrePlacedHolder), Decoration.UNDERGROUND_ORES);
 //        var addDeepslateSilverOre = new AddFeaturesBiomeModifier(
 //                new HolderSet.Named<>(ops.registry(Registry.BIOME_REGISTRY).get(), BiomeTags.IS_OVERWORLD),
 //                HolderSet.direct(silverOreDeepslatePlacedHolder), Decoration.UNDERGROUND_ORES);
@@ -219,39 +229,39 @@ public class DataGenerators {
 //        var addOtherworldTree = new AddFeaturesBiomeModifier(
 //                new HolderSet.Named<>(ops.registry(Registry.BIOME_REGISTRY).get(), BiomeTags.IS_OVERWORLD),
 //                HolderSet.direct(otherworldTreePlacedHolder), Decoration.UNDERGROUND_ORES);
-
-        generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(
-                generator, event.getExistingFileHelper(), Occultism.MODID, ops, Registries.CONFIGURED_FEATURE,
-                Map.of(
-                        silverOreConfiguredKey.location(), silverOreConfigured
+//
+//        generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(
+//                generator, event.getExistingFileHelper(), Occultism.MODID, ops, Registries.CONFIGURED_FEATURE,
+//                Map.of(
+//                        silverOreConfiguredKey.location(), silverOreConfigured
 //                        silverOreDeepslateConfiguredKey.location(), silverOreDeepslateConfigured,
 //                        iesniumOreConfiguredKey.location(), iesniumOreConfigured,
 //                        undergroundGroveConfiguredKey.location(), undergroundGroveConfigured,
 //                        otherworldTreeNaturalConfiguredKey.location(), otherworldTreeNaturalConfigured,
 //                        otherworldTreeConfiguredKey.location(), otherworldTreeConfigured
-                )));
-
-        generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(
-                generator, event.getExistingFileHelper(), Occultism.MODID, ops, Registries.PLACED_FEATURE,
-                Map.of(
-                        silverOrePlacedKey.location(), silverOrePlaced
+//                )));
+//
+//        generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(
+//                generator, event.getExistingFileHelper(), Occultism.MODID, ops, Registries.PLACED_FEATURE,
+//                Map.of(
+//                        silverOrePlacedKey.location(), silverOrePlaced
 //                        silverOreDeepslatePlacedKey.location(), silverOreDeepslatePlaced,
 //                        iesniumOrePlacedKey.location(), iesniumOrePlaced,
 //                        otherworldTreeNaturalPlacedKey.location(), otherworldTreeNaturalPlaced,
 //                        otherworldTreePlacedKey.location(), otherworldTreePlaced,
 //                        undergroundGrovePlacedKey.location(), undergroundGrovePlaced
-                )));
-
-        generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(
-                generator, event.getExistingFileHelper(), Occultism.MODID, ops, ForgeRegistries.Keys.BIOME_MODIFIERS,
-                Map.of(
-                        new ResourceLocation(Occultism.MODID, "add_silver_ore"), addSilverOre
+//                )));
+//
+//        generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(
+//                generator, event.getExistingFileHelper(), Occultism.MODID, ops, ForgeRegistries.Keys.BIOME_MODIFIERS,
+//                Map.of(
+//                        new ResourceLocation(Occultism.MODID, "add_silver_ore"), addSilverOre
 //                        new ResourceLocation(Occultism.MODID, "add_deepslate_silver_ore"), addDeepslateSilverOre,
 //                        new ResourceLocation(Occultism.MODID, "add_iesnium_ore"), addIesniumOre,
 //                        new ResourceLocation(Occultism.MODID, "add_underground_grove"), addUndergroundGrove,
 //                        new ResourceLocation(Occultism.MODID, "add_otherworld_tree_natural"), addOtherworldTreeNatural,
 //                        new ResourceLocation(Occultism.MODID, "add_otherworld_tree"), addOtherworldTree
-                )));
+//                )));
 
     }
 }
