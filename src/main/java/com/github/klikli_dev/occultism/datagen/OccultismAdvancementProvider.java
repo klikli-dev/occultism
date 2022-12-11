@@ -44,10 +44,12 @@ import net.minecraft.world.item.Items;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 public class OccultismAdvancementProvider implements DataProvider {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -90,18 +92,20 @@ public class OccultismAdvancementProvider implements DataProvider {
     }
 
     @Override
-    public void run(CachedOutput pCache) throws IOException {
-        Path folder = this.generator.getOutputFolder();
+    public CompletableFuture<?> run(CachedOutput pCache) {
+
+        List<CompletableFuture<?>> futures = new ArrayList<>();
+
+        Path folder = this.generator.getPackOutput().getOutputFolder();
+
         this.start();
 
         for (Advancement advancement : this.advancements.values()) {
             Path path = getPath(folder, advancement);
-            try {
-                DataProvider.saveStable(pCache, advancement.deconstruct().serializeToJson(), path);
-            } catch (IOException exception) {
-                LOGGER.error("Couldn't save advancement {}", path, exception);
-            }
+            futures.add(DataProvider.saveStable(pCache, advancement.deconstruct().serializeToJson(), path));
         }
+
+        return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
     }
 
     private void start() {
@@ -232,17 +236,17 @@ public class OccultismAdvancementProvider implements DataProvider {
                 .addCriterion("beholder_eat", FamiliarTrigger.of(FamiliarTrigger.Type.BEHOLDER_EAT))
                 .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/beholder_eat")));
         this.add(Advancement.Builder.advancement().parent(familiarsRoot)
-                .display(icon(14), familiarTitle("fairy_save"), familiarDescr("fairy_save"), null, FrameType.TASK,
+                .display(this.icon(14), familiarTitle("fairy_save"), familiarDescr("fairy_save"), null, FrameType.TASK,
                         true, true, false)
                 .addCriterion("fairy_save", FamiliarTrigger.of(FamiliarTrigger.Type.FAIRY_SAVE))
                 .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/fairy_save")));
         this.add(Advancement.Builder.advancement().parent(familiarsRoot)
-                .display(icon(15), familiarTitle("mummy_dodge"), familiarDescr("mummy_dodge"), null, FrameType.TASK,
+                .display(this.icon(15), familiarTitle("mummy_dodge"), familiarDescr("mummy_dodge"), null, FrameType.TASK,
                         true, true, false)
                 .addCriterion("mummy_dodge", FamiliarTrigger.of(FamiliarTrigger.Type.MUMMY_DODGE))
                 .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/mummy_dodge")));
         this.add(Advancement.Builder.advancement().parent(familiarsRoot)
-                .display(icon(16), familiarTitle("beaver_woodchop"), familiarDescr("beaver_woodchop"), null, FrameType.TASK,
+                .display(this.icon(16), familiarTitle("beaver_woodchop"), familiarDescr("beaver_woodchop"), null, FrameType.TASK,
                         true, true, false)
                 .addCriterion("beaver_woodchop", FamiliarTrigger.of(FamiliarTrigger.Type.BEAVER_WOODCHOP))
                 .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/beaver_woodchop")));
