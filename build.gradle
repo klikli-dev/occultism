@@ -100,10 +100,6 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven {
-        name = "KliKli Maven Mirror"
-        url = "https://klikli-dev.github.io/maven"
-    }
-    maven {
         name = "KliKli Dev Repsy Maven"
         url = "https://repo.repsy.io/mvn/klikli-dev/mods"
     }
@@ -137,9 +133,10 @@ dependencies {
     minecraft "net.minecraftforge:forge:${forge_version}"
 
     //Jei
-    compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-common-api:${jei_version}")
-    compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-forge-api:${jei_version}")
-    runtimeOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-forge:${jei_version}")
+    //TODO: reenable once updated
+//    compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-common-api:${jei_version}")
+//    compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-forge-api:${jei_version}")
+//    runtimeOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-forge:${jei_version}")
 
     //curios
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_mc_version}-${curios_version}:api")

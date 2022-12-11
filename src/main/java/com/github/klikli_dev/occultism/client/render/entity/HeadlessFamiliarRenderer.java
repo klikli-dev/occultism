@@ -32,7 +32,6 @@ import com.github.klikli_dev.occultism.util.FamiliarUtil;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Quaternion;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.SkullModel;
 import net.minecraft.client.model.SkullModelBase;
@@ -56,6 +55,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import org.joml.Quaternionf;
 
 import java.util.Map;
 
@@ -106,14 +106,14 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
             if (headless.isRebuilt(HeadlessFamiliarEntity.Rebuilt.RightLeg)) {
                 matrix.pushPose();
-                matrix.mulPose(new Quaternion(0, 130, 0, true));
+                matrix.mulPose(new Quaternionf().rotateXYZ(0, 130 * ((float) Math.PI / 180F), 0));
                 matrix.translate(0.3, -0.3, 0);
                 this.renderItem(Items.WHEAT, matrix, bufferIn, packedLightIn, headless, renderer);
                 matrix.popPose();
             }
             if (headless.isRebuilt(HeadlessFamiliarEntity.Rebuilt.LeftLeg)) {
                 matrix.pushPose();
-                matrix.mulPose(new Quaternion(0, 50, 0, true));
+                matrix.mulPose(new Quaternionf().rotateXYZ(0, 50 * ((float) Math.PI / 180F), 0));
                 matrix.translate(0.3, -0.3, 0);
                 this.renderItem(Items.WHEAT, matrix, bufferIn, packedLightIn, headless, renderer);
                 matrix.popPose();
@@ -122,7 +122,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
                 matrix.pushPose();
                 float size = 1.2f;
                 matrix.scale(size, size, size);
-                matrix.mulPose(new Quaternion(0, 0, 0, true));
+                matrix.mulPose(new Quaternionf().rotateXYZ(0, 0, 0));
                 matrix.translate(0, -0.45, -0.05);
                 this.renderItem(Items.HAY_BLOCK, matrix, bufferIn, packedLightIn, headless, renderer);
                 matrix.translate(0, -0.25, 0);
@@ -131,14 +131,14 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
             }
             if (headless.isRebuilt(HeadlessFamiliarEntity.Rebuilt.RightArm)) {
                 matrix.pushPose();
-                matrix.mulPose(new Quaternion(0, 180 + (partying ? Mth.sin(ageInTicks / 3) * 20 : 0), 0, true));
+                matrix.mulPose(new Quaternionf().rotateXYZ(0, (180 + (partying ? Mth.sin(ageInTicks / 3) * 20 : 0)) * ((float) Math.PI / 180F), 0));
                 matrix.translate(0.25, -0.6, 0.05);
                 this.renderItem(Items.STICK, matrix, bufferIn, packedLightIn, headless, renderer);
                 matrix.popPose();
             }
             if (headless.isRebuilt(HeadlessFamiliarEntity.Rebuilt.LeftArm)) {
                 matrix.pushPose();
-                matrix.mulPose(new Quaternion(0, partying ? Mth.sin(ageInTicks / 3) * 20 : 0, 0, true));
+                matrix.mulPose(new Quaternionf().rotateXYZ(0, (partying ? Mth.sin(ageInTicks / 3) * 20 : 0) * ((float) Math.PI / 180F), 0));
                 matrix.translate(0.25, -0.6, -0.05);
                 this.renderItem(Items.STICK, matrix, bufferIn, packedLightIn, headless, renderer);
                 matrix.popPose();
@@ -147,7 +147,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
                 matrix.pushPose();
                 matrix.scale(-1, -1, 1);
                 matrix.translate(0, 0.7, -0.06);
-                matrix.mulPose(new Quaternion(0, partying ? ageInTicks * 8 : -netHeadYaw, 0, true));
+                matrix.mulPose(new Quaternionf().rotateXYZ(0, (partying ? ageInTicks * 8 : -netHeadYaw) * ((float) Math.PI / 180F), 0));
 
                 this.renderItem(Items.CARVED_PUMPKIN, matrix, bufferIn, packedLightIn, headless, renderer);
                 matrix.popPose();
@@ -183,7 +183,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
             pMatrixStack.translate(-0.05f, 0.16, -0.08);
 
-            pMatrixStack.mulPose(new Quaternion(0, 90, -50, true));
+            pMatrixStack.mulPose(new Quaternionf().rotateXYZ(0, 90 * ((float) Math.PI / 180F), -50 * ((float) Math.PI / 180F)));
 
 
             Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderItem(pLivingEntity,
@@ -295,7 +295,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
             float size = 0.5f;
             pMatrixStack.scale(size, size, size);
             pMatrixStack.translate(0.15, 0.5, -0.12);
-            pMatrixStack.mulPose(new Quaternion(90, 0, 0, true));
+            pMatrixStack.mulPose(new Quaternionf().rotateXYZ(90 * ((float) Math.PI / 180F), 0, 0));
 
             ResourceLocation texture = getTexture(headType);
 
@@ -309,8 +309,8 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
     }
 
     private static class CthulhuHeadModel extends SkullModel {
-        private final CthulhuFamiliarModel model;
         protected final ModelPart head;
+        private final CthulhuFamiliarModel model;
 
         public CthulhuHeadModel(ModelPart part) {
             super(part);
@@ -327,14 +327,14 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
             pMatrixStack.pushPose();
             pMatrixStack.scale(1.5f, 1.5f, 1.5f);
             pMatrixStack.translate(0, 0.35, 0.07);
-            pMatrixStack.mulPose(new Quaternion(10, 0, 0, true));
+            pMatrixStack.mulPose(new Quaternionf().rotateXYZ(10 * ((float) Math.PI / 180F), 0, 0));
             this.model.head.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
             pMatrixStack.popPose();
         }
 
         public void setupAnim(float p_103811_, float p_103812_, float p_103813_) {
-            this.head.yRot = p_103812_ * ((float)Math.PI / 180F);
-            this.head.xRot = p_103813_ * ((float)Math.PI / 180F);
+            this.head.yRot = p_103812_ * ((float) Math.PI / 180F);
+            this.head.xRot = p_103813_ * ((float) Math.PI / 180F);
         }
     }
 }

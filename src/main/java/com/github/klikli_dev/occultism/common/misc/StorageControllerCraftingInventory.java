@@ -22,13 +22,10 @@
 
 package com.github.klikli_dev.occultism.common.misc;
 
-import net.minecraft.core.NonNullList;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
@@ -38,11 +35,6 @@ import java.util.Map;
 public class StorageControllerCraftingInventory extends CraftingContainer {
 
     //region Fields
-    protected static Field itemsField;
-
-    static {
-        itemsField = ObfuscationReflectionHelper.findField(CraftingContainer.class, "f_39320_");
-    }
 
     protected final AbstractContainerMenu container;
     /**
@@ -80,16 +72,11 @@ public class StorageControllerCraftingInventory extends CraftingContainer {
 
     //region Overrides
 
-    @SuppressWarnings("unchecked")
     @Override
     public void setItem(int index, ItemStack stack) {
-        try {
-            ((NonNullList<ItemStack>) itemsField.get(this)).set(index, stack);
-            //only notify if events are enabled
-            if (!this.disableEvents) {
-                this.container.slotsChanged(this);
-            }
-        } catch (IllegalAccessException ignored) {
+        this.items.set(index, stack);
+        if (!this.disableEvents) {
+            this.container.slotsChanged(this);
         }
     }
 

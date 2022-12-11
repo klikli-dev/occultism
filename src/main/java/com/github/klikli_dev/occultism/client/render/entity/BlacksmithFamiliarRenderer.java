@@ -27,7 +27,6 @@ import com.github.klikli_dev.occultism.client.model.entity.BlacksmithFamiliarMod
 import com.github.klikli_dev.occultism.common.entity.BlacksmithFamiliarEntity;
 import com.github.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Quaternion;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -38,6 +37,7 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import org.joml.Quaternionf;
 
 public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEntity, BlacksmithFamiliarModel> {
 
@@ -73,7 +73,7 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
             for (int i = 0; i < pLivingEntity.getBars(); i++) {
                 pMatrixStack.pushPose();
                 pMatrixStack.translate(i % 2 == 0 ? -0.3 : 0.3, 2.03 - i / 2 * 0.03, -0.15);
-                pMatrixStack.mulPose(new Quaternion(-90, 0, i, true));
+                pMatrixStack.mulPose(new Quaternionf().rotateXYZ(-90 * ((float) Math.PI / 180F), 0, i * ((float) Math.PI / 180F)));
                 Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderItem(pLivingEntity,
                         new ItemStack(Items.IRON_INGOT), ItemTransforms.TransformType.GROUND, false,
                         pMatrixStack, pBuffer, pPackedLight);

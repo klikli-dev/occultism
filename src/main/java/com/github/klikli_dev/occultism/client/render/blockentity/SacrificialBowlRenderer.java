@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.client.render.blockentity;
 import com.github.klikli_dev.occultism.common.block.SpiritAttunedCrystalBlock;
 import com.github.klikli_dev.occultism.common.blockentity.SacrificialBowlBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -73,7 +73,7 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
             long systemTime = System.currentTimeMillis();
             //rotate item slowly around y axis
             float angle = (systemTime / 16) % 360;
-            poseStack.mulPose(Vector3f.YP.rotationDegrees(angle));
+            poseStack.mulPose(Axis.YP.rotationDegrees(angle));
 
             //Fixed scale
             float scale = getScale(stack) * 0.5f;

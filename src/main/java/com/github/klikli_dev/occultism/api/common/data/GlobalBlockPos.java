@@ -24,6 +24,8 @@ package com.github.klikli_dev.occultism.api.common.data;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
@@ -31,6 +33,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -132,7 +135,7 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
     public void read(CompoundTag compound) {
         this.pos = BlockPos.of(compound.getLong("pos"));
         this.dimensionKey =
-                ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(compound.getString("dimension")));
+                ResourceKey.create(Registries.DIMENSION, new ResourceLocation(compound.getString("dimension")));
     }
 
     public void encode(FriendlyByteBuf buf) {
@@ -142,7 +145,7 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
 
     public void decode(FriendlyByteBuf buf) {
         this.pos = buf.readBlockPos();
-        this.dimensionKey = ResourceKey.create(Registry.DIMENSION_REGISTRY, buf.readResourceLocation());
+        this.dimensionKey = ResourceKey.create(Registries.DIMENSION, buf.readResourceLocation());
     }
     //endregion Methods
 }

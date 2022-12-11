@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -70,7 +71,7 @@ public class OccultismTags {
     }
 
     public static TagKey<Item> makeItemTag(ResourceLocation id) {
-        return TagKey.create(Registry.ITEM_REGISTRY, id);
+        return TagKey.create(Registries.ITEM, id);
     }
 
     public static TagKey<Block> makeBlockTag(String id) {
@@ -78,7 +79,7 @@ public class OccultismTags {
     }
 
     public static TagKey<Block> makeBlockTag(ResourceLocation id) {
-        return TagKey.create(Registry.BLOCK_REGISTRY, id);
+        return TagKey.create(Registries.BLOCK, id);
     }
 
     public static TagKey<EntityType<?>> makeEntityTypeTag(String id) {
@@ -86,7 +87,7 @@ public class OccultismTags {
     }
 
     public static TagKey<EntityType<?>> makeEntityTypeTag(ResourceLocation id) {
-        return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, id);
+        return TagKey.create(Registries.ENTITY_TYPE, id);
     }
 
     public static TagKey<Biome> makeBiomeTag(String id) {
@@ -94,6 +95,6 @@ public class OccultismTags {
     }
 
     public static TagKey<Biome> makeBiomeTag(ResourceLocation id) {
-        return TagKey.create(Registry.BIOME_REGISTRY, id);
+        return TagKey.create(Registries.BIOME, id);
     }
 }

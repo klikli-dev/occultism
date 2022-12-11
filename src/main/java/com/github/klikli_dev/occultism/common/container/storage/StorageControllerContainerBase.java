@@ -326,7 +326,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                         this.matrix.setItem(i, currentCraftingItem);
                     }
                     //handle items that consume durability on craft
-                    else if (ItemStack.isSameIgnoreDurability(stackInSlot, currentCraftingItem)) {
+                    else if (ItemStack.isSame(stackInSlot, currentCraftingItem)) {
                         this.matrix.setItem(i, currentCraftingItem);
                     } else {
                         //last resort, try to place in player inventory or if that fails, drop.

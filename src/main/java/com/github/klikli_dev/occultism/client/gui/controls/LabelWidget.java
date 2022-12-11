@@ -87,13 +87,13 @@ public class LabelWidget extends AbstractWidget {
 
             int color = this.getFGColor();
             for (int i = 0; i < this.lines.size(); i++) {
-                int top = this.y + i * (fontrenderer.lineHeight + this.margin);
+                int top = this.getY() + i * (fontrenderer.lineHeight + this.margin);
                 if (this.centered) {
-                    this.drawCenteredLabelString(stack, fontrenderer, this.lines.get(i), this.x, top, color);
+                    this.drawCenteredLabelString(stack, fontrenderer, this.lines.get(i), this.getX(), top, color);
                 } else if (this.rightAligned) {
-                    this.drawRightAlignedLabelString(stack, fontrenderer, this.lines.get(i), this.x, top, color);
+                    this.drawRightAlignedLabelString(stack, fontrenderer, this.lines.get(i), this.getX(), top, color);
                 } else {
-                    this.drawLabelString(stack, fontrenderer, this.lines.get(i), this.x, top, color);
+                    this.drawLabelString(stack, fontrenderer, this.lines.get(i), this.getX(), top, color);
                 }
             }
         }
@@ -152,7 +152,7 @@ public class LabelWidget extends AbstractWidget {
     }
 
     @Override
-    public void updateNarration(NarrationElementOutput pNarrationElementOutput) {
+    protected void updateWidgetNarration(NarrationElementOutput pNarrationElementOutput) {
 
     }
     //endregion Methods

@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -39,20 +40,26 @@ import org.jetbrains.annotations.Nullable;
 public class OtherworldTreeGrower extends AbstractTreeGrower {
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> OTHERWORLD_TREE =
-            ResourceKey.create(Registry.CONFIGURED_FEATURE_REGISTRY, new ResourceLocation(Occultism.MODID, "otherworld_tree"));
+            ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(Occultism.MODID, "otherworld_tree"));
 
     public OtherworldTreeGrower() {
     }
 
     @Nullable
     @Override
-    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource p_222910_, boolean p_222911_) {
+    protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource p_222910_, boolean p_222911_) {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(ServerLevel level, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, RandomSource random, boolean hasFlowers, ResourceKey<ConfiguredFeature<?, ?>> featureKey) {
         return null;
     }
 
     @Override
     public boolean growTree(ServerLevel level, ChunkGenerator p_222906_, BlockPos p_222907_, BlockState p_222908_, RandomSource p_222909_) {
-        Holder<? extends ConfiguredFeature<?, ?>> holder = level.registryAccess().registryOrThrow(Registry.CONFIGURED_FEATURE_REGISTRY).getHolderOrThrow(OTHERWORLD_TREE);
+        Holder<? extends ConfiguredFeature<?, ?>> holder = level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE).getHolderOrThrow(OTHERWORLD_TREE);
 
         if (holder == null) {
             return false;

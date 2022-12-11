@@ -4,7 +4,6 @@ import com.github.klikli_dev.occultism.client.model.entity.DragonFamiliarModel;
 import com.github.klikli_dev.occultism.common.entity.DragonFamiliarEntity;
 import com.github.klikli_dev.occultism.common.entity.ThrownSwordEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Quaternion;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -15,6 +14,7 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import org.joml.Quaternionf;
 
 public class DragonRendering {
     public static class StickLayer extends RenderLayer<DragonFamiliarEntity, DragonFamiliarModel> {
@@ -35,7 +35,7 @@ public class DragonRendering {
             model.jaw.translateAndRotate(pMatrixStack);
 
             pMatrixStack.translate(-0.08, -0.07, -0.15);
-            pMatrixStack.mulPose(new Quaternion(0, 0, -45, true));
+            pMatrixStack.mulPose(new Quaternionf().rotateXYZ(0, 0, -45 * ((float) Math.PI / 180F)));
 
             Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderItem(pLivingEntity, new ItemStack(Items.STICK),
                     ItemTransforms.TransformType.GROUND, false, pMatrixStack, pBuffer, pPackedLight);
@@ -61,7 +61,7 @@ public class DragonRendering {
             model.tail3.translateAndRotate(pMatrixStack);
             pMatrixStack.translate(0, 0.24, 0.32);
             pMatrixStack.translate(0, -0.23, -0.12);
-            pMatrixStack.mulPose(new Quaternion(Mth.sin(pAgeInTicks / 20) * 20 + 130, 90 + Mth.cos(pAgeInTicks / 20) * 20, 0, true));
+            pMatrixStack.mulPose(new Quaternionf().rotateXYZ((Mth.sin(pAgeInTicks / 20) * 20 + 130) * ((float) Math.PI / 180F), (90 + Mth.cos(pAgeInTicks / 20) * 20) * ((float) Math.PI / 180F), 0));
             pMatrixStack.translate(0.23, 0.12, 0.0);
 
             Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderItem(pLivingEntity,
@@ -81,7 +81,7 @@ public class DragonRendering {
         public void render(ThrownSwordEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
             float ageInTicks = pEntity.tickCount + pPartialTicks;
             pMatrixStack.pushPose();
-            pMatrixStack.mulPose(new Quaternion(0, 0, ageInTicks * 20, true));
+            pMatrixStack.mulPose(new Quaternionf().rotateXYZ(0, 0, ageInTicks * 20 * ((float) Math.PI / 180F)));
             super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
             pMatrixStack.popPose();
 

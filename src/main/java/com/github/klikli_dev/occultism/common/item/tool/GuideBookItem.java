@@ -30,7 +30,6 @@ import com.klikli_dev.modonomicon.client.gui.BookGuiManager;
 import com.klikli_dev.modonomicon.data.BookDataManager;
 import com.klikli_dev.modonomicon.item.ModonomiconItem;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
@@ -38,30 +37,21 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import org.jetbrains.annotations.Nullable;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 public class GuideBookItem extends ModonomiconItem {
 
     public static final ResourceLocation DICTIONARY_OF_SPIRITS = new ResourceLocation(Occultism.MODID, "dictionary_of_spirits");
-    protected static Field craftingRemainingItemField =
-            ObfuscationReflectionHelper.findField(Item.class, "f_41378_");
 
     public GuideBookItem(Properties properties) {
         super(properties);
-        try {
-            craftingRemainingItemField.set(this, this);
-        } catch (IllegalAccessException e) {
-        }
+        this.craftingRemainingItem = this;
     }
 
     @Override
@@ -119,17 +109,15 @@ public class GuideBookItem extends ModonomiconItem {
         return itemStack.copy();
     }
 
-    @Override
-    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
-        if (this.allowedIn(tab)) {
-            ItemStack stack = new ItemStack(this);
 
-            CompoundTag cmp = new CompoundTag();
-            cmp.putString(ModonomiconConstants.Nbt.ITEM_BOOK_ID_TAG, DICTIONARY_OF_SPIRITS.toString());
-            stack.setTag(cmp);
+    public ItemStack getCreativeModeTabDisplayStack() {
+        ItemStack stack = new ItemStack(this);
 
-            items.add(stack);
-        }
+        CompoundTag cmp = new CompoundTag();
+        cmp.putString(ModonomiconConstants.Nbt.ITEM_BOOK_ID_TAG, DICTIONARY_OF_SPIRITS.toString());
+        stack.setTag(cmp);
+
+        return stack;
     }
 
     @Override

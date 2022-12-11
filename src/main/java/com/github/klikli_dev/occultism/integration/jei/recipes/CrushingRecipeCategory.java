@@ -27,69 +27,69 @@ import com.github.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.github.klikli_dev.occultism.integration.jei.JeiRecipeTypes;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
-import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
-import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.recipe.category.IRecipeCategory;
+//import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+//import mezz.jei.api.gui.drawable.IDrawable;
+//import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+//import mezz.jei.api.helpers.IGuiHelper;
+//import mezz.jei.api.recipe.IFocusGroup;
+//import mezz.jei.api.recipe.RecipeIngredientRole;
+//import mezz.jei.api.recipe.RecipeType;
+//import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-
-public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
-
-    private final IDrawable background;
-    private final Component localizedName;
-    private final IDrawable overlay;
-
-    public CrushingRecipeCategory(IGuiHelper guiHelper) {
-        this.background = guiHelper.createBlankDrawable(168, 46); //64
-        this.localizedName = Component.translatable(Occultism.MODID + ".jei.crushing");
-        this.overlay = guiHelper.createDrawable(
-                new ResourceLocation(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
-    }
-
-    protected void drawStringCentered(PoseStack poseStack, Font fontRenderer, Component text, int x, int y) {
-        fontRenderer.draw(poseStack, text, (x - fontRenderer.width(text) / 2.0f), y, 0);
-    }
-
-    @Override
-    public RecipeType<CrushingRecipe> getRecipeType() {
-        return JeiRecipeTypes.CRUSHING;
-    }
-
-    @Override
-    public Component getTitle() {
-        return this.localizedName;
-    }
-
-    @Override
-    public IDrawable getBackground() {
-        return this.background;
-    }
-
-    @Override
-    public IDrawable getIcon() {
-        return null;
-    }
-
-    @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, CrushingRecipe recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 56, 12)
-                .addIngredients(recipe.getIngredients().get(0));
-
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 94, 12)
-                .addItemStack(recipe.getResultItem());
-    }
-
-    @Override
-    public void draw(CrushingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
-        RenderSystem.enableBlend();
-        this.overlay.draw(stack, 76, 14); //(center=84) - (width/16=8) = 76
-        this.drawStringCentered(stack, Minecraft.getInstance().font, this.getTitle(), 84, 0);
-    }
-}
+//TODO: enable once jei is updated
+//public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
+//
+//    private final IDrawable background;
+//    private final Component localizedName;
+//    private final IDrawable overlay;
+//
+//    public CrushingRecipeCategory(IGuiHelper guiHelper) {
+//        this.background = guiHelper.createBlankDrawable(168, 46); //64
+//        this.localizedName = Component.translatable(Occultism.MODID + ".jei.crushing");
+//        this.overlay = guiHelper.createDrawable(
+//                new ResourceLocation(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
+//    }
+//
+//    protected void drawStringCentered(PoseStack poseStack, Font fontRenderer, Component text, int x, int y) {
+//        fontRenderer.draw(poseStack, text, (x - fontRenderer.width(text) / 2.0f), y, 0);
+//    }
+//
+//    @Override
+//    public RecipeType<CrushingRecipe> getRecipeType() {
+//        return JeiRecipeTypes.CRUSHING;
+//    }
+//
+//    @Override
+//    public Component getTitle() {
+//        return this.localizedName;
+//    }
+//
+//    @Override
+//    public IDrawable getBackground() {
+//        return this.background;
+//    }
+//
+//    @Override
+//    public IDrawable getIcon() {
+//        return null;
+//    }
+//
+//    @Override
+//    public void setRecipe(IRecipeLayoutBuilder builder, CrushingRecipe recipe, IFocusGroup focuses) {
+//        builder.addSlot(RecipeIngredientRole.INPUT, 56, 12)
+//                .addIngredients(recipe.getIngredients().get(0));
+//
+//        builder.addSlot(RecipeIngredientRole.OUTPUT, 94, 12)
+//                .addItemStack(recipe.getResultItem());
+//    }
+//
+//    @Override
+//    public void draw(CrushingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
+//        RenderSystem.enableBlend();
+//        this.overlay.draw(stack, 76, 14); //(center=84) - (width/16=8) = 76
+//        this.drawStringCentered(stack, Minecraft.getInstance().font, this.getTitle(), 84, 0);
+//    }
+//}

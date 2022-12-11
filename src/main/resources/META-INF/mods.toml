@@ -6,7 +6,7 @@
 # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
 modLoader = "javafml" #mandatory
 # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-loaderVersion = "[41,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+loaderVersion = "[44,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 # The license for you mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
 # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
 license = "MIT"
@@ -38,29 +38,17 @@ description = '''A magic mod inspired by the world of Jonathan Stroud's Bartimae
 [[dependencies.occultism]]
 modId = "modonomicon"
 mandatory = true
-versionRange = "[1.19.2-1.11.0,)"
+versionRange = "[1.19.3-1.17.0,)"
 side = "BOTH"
 
 [[dependencies.occultism]]
 modId = "curios"
 mandatory = true
-versionRange = "[1.19-5.1.0.4,)"
+versionRange = "[1.19.3-5.1.1.2,)"
 side = "BOTH"
 
 [[dependencies.occultism]]
-modId = "geckolib3"
+modId = "geckolib"
 mandatory = true
-versionRange = "[1.19-3.1.9,)"
-side = "BOTH"
-
-[[dependencies.occultism]]
-modId = "jei"
-mandatory = false
-versionRange = "[1.19-11.1.0.235,)"
-side = "BOTH"
-
-[[dependencies.occultism]]
-modId = "forge"
-mandatory = false
-versionRange = "[41.0.94,)"
+versionRange = "[1.19.3-4.0.1,)"
 side = "BOTH"

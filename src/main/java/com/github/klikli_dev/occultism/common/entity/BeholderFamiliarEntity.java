@@ -28,7 +28,6 @@ import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.util.FamiliarUtil;
 import com.google.common.collect.ImmutableList;
-import com.mojang.math.Vector3f;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
@@ -49,6 +48,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;

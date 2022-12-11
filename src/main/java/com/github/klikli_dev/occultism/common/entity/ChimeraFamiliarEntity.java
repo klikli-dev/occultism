@@ -22,7 +22,6 @@
 
 package com.github.klikli_dev.occultism.common.entity;
 
-import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.google.common.collect.ImmutableList;
@@ -55,11 +54,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper.UnableToFindFieldException;
 
 import javax.annotation.Nullable;
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.UUID;
 
@@ -79,8 +75,6 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     private static final EntityDataAccessor<Byte> ATTACKER = SynchedEntityData.defineId(ChimeraFamiliarEntity.class,
             EntityDataSerializers.BYTE);
 
-    private static Field isRiderJumping;
-
     private final ItemBasedSteering boost = new DummyBoostHelper();
     private int jumpTimer;
     private int goatNoseTimer;
@@ -96,14 +90,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     }
 
     private boolean isRiderJumping(Player rider) {
-        try {
-            if (isRiderJumping == null)
-                isRiderJumping = ObfuscationReflectionHelper.findField(LivingEntity.class, "f_20899_");
-            return isRiderJumping.getBoolean(rider);
-        } catch (IllegalArgumentException | IllegalAccessException | UnableToFindFieldException e) {
-            Occultism.LOGGER.debug("Unable to get jump field for Chimera familiar");
-            return false;
-        }
+        return this.jumping;
     }
 
     @Override
@@ -339,8 +326,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
 
     @Override
     public void travelWithInput(Vec3 pTravelVec) {
-        if (this.isVehicle() && this.getControllingPassenger() instanceof Player) {
-            Player rider = (Player) this.getControllingPassenger();
+        if (this.isVehicle() && this.getControllingPassenger() instanceof Player rider) {
             float forward = rider.zza;
             float strafe = rider.xxa * 0.5f;
             if (this.isRiderJumping(rider) && this.onGround && this.jumpTimer <= 0) {

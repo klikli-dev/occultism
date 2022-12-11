@@ -246,7 +246,7 @@ public class OccultismBlocks {
         BLOCK_DATA_GEN_SETTINGS.put(object.getId(), new BlockDataGenSettings(generateDefaultBlockItem, lootTableType));
 
         if(generateDefaultBlockItem) {
-            OccultismItems.ITEMS.register(name, () -> new BlockItem(object.get(), new Item.Properties().tab(Occultism.ITEM_GROUP)));
+            OccultismItems.ITEMS.register(name, () -> new BlockItem(object.get(), new Item.Properties()));
         }
 
         return object;

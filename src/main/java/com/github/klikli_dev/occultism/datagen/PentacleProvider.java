@@ -47,6 +47,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 public class PentacleProvider implements DataProvider {
@@ -289,18 +290,19 @@ public class PentacleProvider implements DataProvider {
     }
 
     @Override
-    public void run(CachedOutput cache) throws IOException {
-        Path folder = this.generator.getOutputFolder();
+    public CompletableFuture<?> run(CachedOutput cache) {
+        List<CompletableFuture<?>> futures = new ArrayList<>();
+
+        Path folder = this.generator.getPackOutput().getOutputFolder();
+
         this.start();
 
         this.toSerialize.forEach((name, json) -> {
             Path path = folder.resolve("data/" + Occultism.MODID + "/" + MultiblockDataManager.FOLDER + "/" + name + ".json");
-            try {
-                DataProvider.saveStable(cache, json, path);
-            } catch (IOException e) {
-                LOGGER.error("Couldn't save pentacle {}", path, e);
-            }
+            futures.add(DataProvider.saveStable(cache, json, path));
         });
+
+        return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
     }
 
     @Override
