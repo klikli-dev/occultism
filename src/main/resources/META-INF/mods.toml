@@ -38,7 +38,7 @@ description = '''A magic mod inspired by the world of Jonathan Stroud's Bartimae
 [[dependencies.occultism]]
 modId = "modonomicon"
 mandatory = true
-versionRange = "[1.19.3-1.17.0,)"
+versionRange = "[1.19.3-1.18.0,)"
 side = "BOTH"
 
 [[dependencies.occultism]]
@@ -51,4 +51,10 @@ side = "BOTH"
 modId = "geckolib"
 mandatory = true
 versionRange = "[1.19.3-4.0.1,)"
+side = "BOTH"
+
+[[dependencies.occultism]]
+modId = "forge"
+mandatory = true
+versionRange = "[1.19.3-44.0.5,)" #creative tabs breaking change
 side = "BOTH"
