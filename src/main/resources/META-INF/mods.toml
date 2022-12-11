@@ -48,7 +48,7 @@ versionRange = "[1.19.3-5.1.1.2,)"
 side = "BOTH"
 
 [[dependencies.occultism]]
-modId = "geckolib3"
+modId = "geckolib"
 mandatory = true
 versionRange = "[1.19.3-4.0.1,)"
 side = "BOTH"
