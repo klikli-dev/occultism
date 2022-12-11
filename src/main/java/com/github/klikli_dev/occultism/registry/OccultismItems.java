@@ -56,9 +56,6 @@ public class OccultismItems {
     public static final RegistryObject<Item> DICTIONARY_OF_SPIRITS_ICON =
             ITEMS.register("dictionary_of_spirits_icon", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<GuideBookItem> DICTIONARY_OF_SPIRITS = ITEMS.register("dictionary_of_spirits",
-            () -> new GuideBookItem(defaultProperties().stacksTo(1)));
-
     public static final RegistryObject<Item> PENTACLE = ITEMS.register("pentacle",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> DEBUG_WAND = ITEMS.register("debug_wand",
