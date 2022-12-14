@@ -94,11 +94,10 @@ public class ThrownSwordEntity extends ThrowableItemProjectile {
         }
     }
 
-
-
     @Override
+    @SuppressWarnings("unchecked")
     public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        throw new UnsupportedOperationException();
+        return (Packet<ClientGamePacketListener>) NetworkHooks.getEntitySpawningPacket(this);
     }
 
     private boolean friendlyFire(Entity target) {
