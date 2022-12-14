@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.3-1.57.1] - 2022-12-14
+### :bug: Bug Fixes
+- [`a8551d0`](https://github.com/klikli-dev/occultism/commit/a8551d0418c8f27188a995e9c4888aeafa6dfe5e) - re-enable  NetworkHooks#getEntitySpawningPacket for thrown sword *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.3-1.57.0] - 2022-12-11
 ### :wrench: Chores
 - [`8fdf670`](https://github.com/klikli-dev/occultism/commit/8fdf67011c280dbdc703f41b56b571ab9a71ac2e) - update forge and modonomicon version past breaking changes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -17,3 +22,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [release/v1.19.3-1.56.0]: https://github.com/klikli-dev/occultism/compare/dummy/v1.19.3-0.0.0...release/v1.19.3-1.56.0
 [release/v1.19.3-1.57.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.56.0...release/v1.19.3-1.57.0
+[release/v1.19.3-1.57.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.57.0...release/v1.19.3-1.57.1
