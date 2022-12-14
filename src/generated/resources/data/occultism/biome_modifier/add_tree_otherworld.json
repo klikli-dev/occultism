@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
   "biomes": "#minecraft:is_overworld",
-  "features": "occultism:underground_grove",
-  "step": "underground_ores"
+  "features": "occultism:tree_otherworld",
+  "step": "vegetal_decoration"
 }

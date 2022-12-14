@@ -1,5 +1,5 @@
 {
-  "feature": "occultism:otherworld_tree_natural",
+  "feature": "occultism:tree_otherworld_natural",
   "placement": [
     {
       "type": "minecraft:block_predicate_filter",

@@ -8,7 +8,7 @@
     "max_chunks_to_root": 7,
     "max_generation_height": 60,
     "min_generation_height": 25,
-    "otherworld_tree_feature": "occultism:otherworld_tree_natural",
+    "otherworld_tree_feature": "occultism:tree_otherworld_natural",
     "tree_chance": 0.1,
     "vine_chance": 0.3
   }

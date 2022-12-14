@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
   "biomes": "#minecraft:is_overworld",
-  "features": "occultism:otherworld_tree_natural",
+  "features": "occultism:ore_silver_deepslate",
   "step": "underground_ores"
 }

@@ -1,4 +1,4 @@
-package com.github.klikli_dev.occultism.datagen.loot;
+package com.github.klikli_dev.occultism.datagen.lang.loot;
 
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
