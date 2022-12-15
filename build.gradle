@@ -1,6 +1,12 @@
 buildscript {
     repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
+        maven {
+            url = 'https://files.minecraftforge.net/maven'
+            content {
+                includeGroup "net.minecraftforge.gradle"
+                includeGroup "net.minecraftforge"
+            }
+        }
         maven { url = 'https://maven.parchmentmc.org' }
         mavenCentral()
     }
@@ -104,24 +110,32 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven {
-        name = "KliKli Maven Mirror"
-        url = "https://klikli-dev.github.io/maven"
-    }
-    maven {
         name = "KliKli Dev Repsy Maven"
         url = "https://repo.repsy.io/mvn/klikli-dev/mods"
+        content {
+            includeGroup "com.klikli_dev"
+        }
     }
     maven {
         name = "Progwm16 maven - JEI"
         url = 'https://dvs1.progwml6.com/files/maven'
+        content {
+            includeGroup "mezz.jei"
+        }
     }
     maven {
         name = "Curios Maven"
         url = "https://maven.theillusivec4.top/"
+        content {
+            includeGroup "top.theillusivec4.curios"
+        }
     }
     maven {
         name = "Geckolib Maven"
         url = "https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/"
+        content {
+            includeGroup "software.bernie.geckolib"
+        }
     }
     maven {
         url "https://cursemaven.com"
