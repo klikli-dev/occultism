@@ -59,16 +59,16 @@ public class DataGenerators {
                 )));
         generator.addProvider(event.includeServer(), new PentacleProvider(generator));
         generator.addProvider(event.includeServer(), new OccultismAdvancementProvider(generator));
-        generator.addProvider(event.includeClient(), new ItemModelsGenerator(generator, event.getExistingFileHelper()));
-        generator.addProvider(event.includeClient(), new StandardBlockStateProvider(generator, event.getExistingFileHelper()));
+        generator.addProvider(event.includeClient(), new ItemModelsGenerator(generator.getPackOutput(), event.getExistingFileHelper()));
+        generator.addProvider(event.includeClient(), new StandardBlockStateProvider(generator.getPackOutput(), event.getExistingFileHelper()));
 
-        var enUSProvider = new ENUSProvider(generator);
+        var enUSProvider = new ENUSProvider(generator.getPackOutput());
         generator.addProvider(event.includeServer(), new OccultismBookProvider(generator, Occultism.MODID, enUSProvider));
 
         //Important: Lang provider (in this case enus) needs to be added after the book provider to process the texts added by the book provider
         generator.addProvider(event.includeClient(), enUSProvider);
-        generator.addProvider(event.includeClient(), new FRFRProvider(generator));
-        generator.addProvider(event.includeClient(), new PTBRProvider(generator));
+        generator.addProvider(event.includeClient(), new FRFRProvider(generator.getPackOutput()));
+        generator.addProvider(event.includeClient(), new PTBRProvider(generator.getPackOutput()));
 
         var holderLookup = CompletableFuture.supplyAsync(OccultismRegistries::createLookup, Util.backgroundExecutor());
         generator.addProvider(event.includeServer(), bindRegistries(RegistriesDatapackGenerator::new, holderLookup));

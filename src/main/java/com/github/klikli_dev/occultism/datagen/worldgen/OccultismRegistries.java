@@ -7,11 +7,12 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class OccultismRegistries {
     private static final RegistrySetBuilder BUILDER = (new RegistrySetBuilder())
-            .add(Registries.CONFIGURED_FEATURE, (RegistrySetBuilder.RegistryBootstrap) ConfiguredFeatures::bootstrap)
+            .add(Registries.CONFIGURED_FEATURE, ConfiguredFeatures::bootstrap)
             .add(Registries.PLACED_FEATURE, PlacedFeatures::bootstrap)
             .add(Registries.BIOME, OccultismRegistries::bootstrapBiomes)
             .add(ForgeRegistries.Keys.BIOME_MODIFIERS, BiomeModifiers::bootstrap);

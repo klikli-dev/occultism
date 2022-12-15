@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.datagen;
 
 import com.github.klikli_dev.occultism.Occultism;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -34,8 +35,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemModelsGenerator extends ItemModelProvider {
-    public ItemModelsGenerator(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-        super(generator, Occultism.MODID, existingFileHelper);
+    public ItemModelsGenerator(PackOutput packOutput, ExistingFileHelper existingFileHelper) {
+        super(packOutput, Occultism.MODID, existingFileHelper);
     }
 
     @Override

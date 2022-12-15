@@ -37,6 +37,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -48,7 +49,7 @@ public class ENUSProvider extends LanguageProvider {
     public static final String DEMONS_DREAM = "Demon's Dream";
 
 
-    public ENUSProvider(DataGenerator gen) {
+    public ENUSProvider(PackOutput gen) {
         super(gen, Occultism.MODID, "en_us");
     }
 

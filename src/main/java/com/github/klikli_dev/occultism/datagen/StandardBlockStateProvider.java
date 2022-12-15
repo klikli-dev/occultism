@@ -28,6 +28,7 @@ import com.github.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
@@ -42,7 +43,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class StandardBlockStateProvider extends BlockStateProvider {
 
     //region Initialization
-    public StandardBlockStateProvider(DataGenerator gen,
+    public StandardBlockStateProvider(PackOutput gen,
                                       ExistingFileHelper exFileHelper) {
         super(gen, Occultism.MODID, exFileHelper);
     }

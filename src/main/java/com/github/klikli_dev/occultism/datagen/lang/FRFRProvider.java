@@ -31,6 +31,7 @@ import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -41,7 +42,7 @@ public class FRFRProvider extends LanguageProvider {
     public static final String DEMONS_DREAM = "Demon's Dream";
 
 
-    public FRFRProvider(DataGenerator gen) {
+    public FRFRProvider(PackOutput gen) {
         super(gen, Occultism.MODID, "fr_fr");
     }
 
