@@ -26,16 +26,19 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.items.ItemStackHandler;
 
 public class AfritEntity extends SpiritEntity {
 
-    //region Initialization
-    public AfritEntity(EntityType<? extends SpiritEntity> type, Level level) {
+    public AfritEntity(EntityType<? extends AfritEntity> type, Level level) {
         super(type, level);
     }
-    //endregion Initialization
 
-    //region Static Methods
+    public AfritEntity(EntityType<? extends AfritEntity> type, Level worldIn, ItemStackHandler itemStackHandler) {
+        super(type, worldIn, itemStackHandler);
+    }
+
+
     public static AttributeSupplier.Builder createAttributes() {
         return SpiritEntity.createAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 8.0)
@@ -45,5 +48,4 @@ public class AfritEntity extends SpiritEntity {
                 .add(Attributes.ARMOR, 8.0)
                 .add(Attributes.ARMOR_TOUGHNESS, 50.0);
     }
-    //endregion Static Methods
 }

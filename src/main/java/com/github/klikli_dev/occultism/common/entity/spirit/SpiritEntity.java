@@ -127,7 +127,8 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     private static final EntityDataAccessor<String> TAG_FILTER = SynchedEntityData
             .defineId(SpiritEntity.class, EntityDataSerializers.STRING);
 
-    public LazyOptional<ItemStackHandler> itemStackHandler = LazyOptional.of(ItemStackHandler::new);
+    public ItemStackHandler inventory;
+    public LazyOptional<ItemStackHandler> itemStackHandler = LazyOptional.of(() -> this.inventory);
     public LazyOptional<ItemStackHandler> filterItemStackHandler = LazyOptional.of(() -> new ItemStackHandler(MAX_FILTER_SLOTS) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -139,7 +140,12 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     protected boolean isInitialized = false;
 
     public SpiritEntity(EntityType<? extends SpiritEntity> type, Level worldIn) {
+        this(type, worldIn, new ItemStackHandler(1));
+    }
+
+    public SpiritEntity(EntityType<? extends SpiritEntity> type, Level worldIn, ItemStackHandler inventory) {
         super(type, worldIn);
+        this.inventory = inventory;
         this.setPersistenceRequired();
     }
 
