@@ -28,34 +28,52 @@ import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
 
 public class AfritWildEntity extends AfritEntity {
 
-    //region Initialization
-    public AfritWildEntity(EntityType<? extends SpiritEntity> type, Level level) {
-        super(type, level);
+    public AfritWildEntity(EntityType<? extends AfritWildEntity> type, Level level) {
+        super(type, level, new ItemStackHandler(6));
     }
-    //endregion Initialization
 
     public static AttributeSupplier.Builder createAttributes() {
         return AfritEntity.createAttributes();
     }
 
-    //region Overrides
+    @Override
+    public ItemStack getItemBySlot(EquipmentSlot slotIn) {
+        switch (slotIn.getType()) {
+            case HAND:
+                return this.inventory.getStackInSlot(slotIn.getIndex());
+            case ARMOR:
+                return this.inventory.getStackInSlot(slotIn.getIndex(2));
+            default:
+                return ItemStack.EMPTY;
+        }
+    }
+
+    @Override
+    public void setItemSlot(EquipmentSlot slotIn, ItemStack stack) {
+        switch (slotIn.getType()) {
+            case HAND:
+                this.inventory.setStackInSlot(slotIn.getIndex(), stack);
+            case ARMOR:
+                this.inventory.setStackInSlot(slotIn.getIndex(2), stack);
+        }
+    }
+
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason,
                                         @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
@@ -106,5 +124,4 @@ public class AfritWildEntity extends AfritEntity {
 
         return super.isInvulnerableTo(source);
     }
-    //endregion Overrides
 }

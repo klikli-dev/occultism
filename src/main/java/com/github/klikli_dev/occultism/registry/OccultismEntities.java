@@ -31,6 +31,7 @@ import com.github.klikli_dev.occultism.common.entity.possessed.PossessedSkeleton
 import com.github.klikli_dev.occultism.common.entity.spirit.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.NonNullLazy;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -54,13 +55,13 @@ public class OccultismEntities {
                     .clientTrackingRange(8)
                     .build(modLoc("djinni").toString()));
     public static final NonNullLazy<EntityType<AfritEntity>> AFRIT_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.of(AfritEntity::new, MobCategory.CREATURE)
+            NonNullLazy.of(() -> EntityType.Builder.of((EntityType<AfritEntity> t, Level l) -> new AfritEntity(t, l), MobCategory.CREATURE)
                     .fireImmune()
                     .sized(1.2f, 2.4f)
                     .clientTrackingRange(8)
                     .build(modLoc("afrit").toString()));
     public static final NonNullLazy<EntityType<AfritWildEntity>> AFRIT_WILD_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.of(AfritWildEntity::new, MobCategory.CREATURE)
+            NonNullLazy.of(() -> EntityType.Builder.of((EntityType<AfritWildEntity> t, Level l) -> new AfritWildEntity(t, l), MobCategory.CREATURE)
                     .fireImmune()
                     .sized(1.2f, 2.4f)
                     .clientTrackingRange(8)
