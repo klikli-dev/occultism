@@ -47,12 +47,6 @@ public class OtherworldNaturalTreeGrower extends AbstractTreeGrower {
 
     @Nullable
     @Override
-    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(ServerLevel level, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, RandomSource random, boolean hasFlowers, ResourceKey<ConfiguredFeature<?, ?>> featureKey) {
-        return null;
-    }
-
-    @Nullable
-    @Override
     protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource p_222910_, boolean p_222911_) {
         return null;
     }

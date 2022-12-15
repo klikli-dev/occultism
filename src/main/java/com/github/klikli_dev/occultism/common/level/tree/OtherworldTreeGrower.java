@@ -51,12 +51,6 @@ public class OtherworldTreeGrower extends AbstractTreeGrower {
         return null;
     }
 
-    @Nullable
-    @Override
-    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(ServerLevel level, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, RandomSource random, boolean hasFlowers, ResourceKey<ConfiguredFeature<?, ?>> featureKey) {
-        return null;
-    }
-
     @Override
     public boolean growTree(ServerLevel level, ChunkGenerator p_222906_, BlockPos p_222907_, BlockState p_222908_, RandomSource p_222909_) {
         Holder<? extends ConfiguredFeature<?, ?>> holder = level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE).getHolderOrThrow(OTHERWORLD_TREE);
