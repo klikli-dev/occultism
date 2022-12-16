@@ -29,6 +29,8 @@ public class OccultismModelLayers {
     public static ModelLayerLocation FOLIOT = new ModelLayerLocation(new ResourceLocation("occultism:folit"), "main");
     public static ModelLayerLocation DJINNI = new ModelLayerLocation(new ResourceLocation("occultism:djinni"), "main");
     public static ModelLayerLocation AFRIT = new ModelLayerLocation(new ResourceLocation("occultism:afrit"), "main");
+    public static ModelLayerLocation AFRIT_WILD = new ModelLayerLocation(new ResourceLocation("occultism:afrit_wild"), "main");
+
     public static ModelLayerLocation MARID = new ModelLayerLocation(new ResourceLocation("occultism:marid"), "main");
     public static ModelLayerLocation FAMILIAR_BAT = new ModelLayerLocation(new ResourceLocation("occultism:familiar_bat"), "main");
     public static ModelLayerLocation FAMILIAR_GREEDY = new ModelLayerLocation(new ResourceLocation("occultism:familiar_greedy"), "main");
