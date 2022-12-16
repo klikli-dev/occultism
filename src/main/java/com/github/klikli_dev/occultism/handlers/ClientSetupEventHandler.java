@@ -85,6 +85,7 @@ public class ClientSetupEventHandler {
     public static void onRegisterEntityRendererLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         //Register Entity Layers
         event.registerLayerDefinition(OccultismModelLayers.AFRIT, AfritModel::createBodyLayer);
+        event.registerLayerDefinition(OccultismModelLayers.AFRIT_WILD, AfritWildModel::createBodyLayer);
         event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_BAT, BatFamiliarModel::createBodyLayer);
         event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_DEER, DeerFamiliarModel::createBodyLayer);
         event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_GREEDY, GreedyFamiliarModel::createBodyLayer);
@@ -114,7 +115,7 @@ public class ClientSetupEventHandler {
         event.registerEntityRenderer(OccultismEntities.FOLIOT.get(), FoliotRenderer::new);
         event.registerEntityRenderer(OccultismEntities.DJINNI.get(), DjinniRenderer::new);
         event.registerEntityRenderer(OccultismEntities.AFRIT.get(), AfritRenderer::new);
-        event.registerEntityRenderer(OccultismEntities.AFRIT_WILD.get(), AfritRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.AFRIT_WILD.get(), AfritWildRenderer::new);
         event.registerEntityRenderer(OccultismEntities.MARID.get(), MaridRenderer::new);
         event.registerEntityRenderer(OccultismEntities.GREEDY_FAMILIAR.get(), GreedyFamiliarRenderer::new);
         event.registerEntityRenderer(OccultismEntities.BAT_FAMILIAR.get(), BatFamiliarRenderer::new);

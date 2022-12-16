@@ -30,10 +30,12 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Blaze;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -42,36 +44,22 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
 
-public class AfritWildEntity extends AfritEntity {
+public class AfritWildEntity extends Monster {
 
     public AfritWildEntity(EntityType<? extends AfritWildEntity> type, Level level) {
-        super(type, level, new ItemStackHandler(6));
+        super(type, level);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return AfritEntity.createAttributes();
-    }
 
-    @Override
-    public ItemStack getItemBySlot(EquipmentSlot slotIn) {
-        switch (slotIn.getType()) {
-            case HAND:
-                return this.inventory.getStackInSlot(slotIn.getIndex());
-            case ARMOR:
-                return this.inventory.getStackInSlot(slotIn.getIndex(2));
-            default:
-                return ItemStack.EMPTY;
-        }
-    }
-
-    @Override
-    public void setItemSlot(EquipmentSlot slotIn, ItemStack stack) {
-        switch (slotIn.getType()) {
-            case HAND:
-                this.inventory.setStackInSlot(slotIn.getIndex(), stack);
-            case ARMOR:
-                this.inventory.setStackInSlot(slotIn.getIndex(2), stack);
-        }
+        return Monster.createMonsterAttributes()
+                .add(Attributes.FOLLOW_RANGE, 50.0)
+                .add(Attributes.ATTACK_DAMAGE, 8.0)
+                .add(Attributes.ATTACK_SPEED, 8.0)
+                .add(Attributes.MAX_HEALTH, 100.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.40000001192092896)
+                .add(Attributes.ARMOR, 8.0)
+                .add(Attributes.ARMOR_TOUGHNESS, 50.0);
     }
 
     @Override
