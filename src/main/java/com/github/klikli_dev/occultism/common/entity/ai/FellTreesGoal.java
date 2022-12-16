@@ -24,7 +24,7 @@ package com.github.klikli_dev.occultism.common.entity.ai;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.common.job.LumberjackJob;
+import com.github.klikli_dev.occultism.common.entity.job.LumberjackJob;
 import com.github.klikli_dev.occultism.network.MessageSelectBlock;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismTags;

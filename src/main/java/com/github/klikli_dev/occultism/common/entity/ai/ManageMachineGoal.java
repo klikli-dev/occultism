@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController
 import com.github.klikli_dev.occultism.api.common.blockentity.IStorageControllerProxy;
 import com.github.klikli_dev.occultism.api.common.data.MachineReference;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
+import com.github.klikli_dev.occultism.common.entity.job.ManageMachineJob;
 import com.github.klikli_dev.occultism.common.misc.DepositOrder;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
