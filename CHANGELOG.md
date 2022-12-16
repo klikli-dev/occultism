@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.18.2-1.57.3] - 2022-12-16
+### :bug: Bug Fixes
+- [`cfcd4bc`](https://github.com/klikli-dev/occultism/commit/cfcd4bc5545e41fcd43c7d045059fb9ff4233b66) - armor handling for unbound afrit *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.18.2-1.57.2] - 2022-12-15
 ### :sparkles: New Features
 - [`531959c`](https://github.com/klikli-dev/occultism/commit/531959c6afd99524661777feaca6c9947e40384b) - new changelog generation *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -15,3 +20,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 [release/v1.18.2-1.57.2]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.55.4...release/v1.18.2-1.57.2
+[release/v1.18.2-1.57.3]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.57.2...release/v1.18.2-1.57.3
