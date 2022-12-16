@@ -54,6 +54,12 @@ versionRange = "[1.19.3-4.0.1,)"
 side = "BOTH"
 
 [[dependencies.occultism]]
+modId = "smartbrainlib"
+mandatory = true
+versionRange="[1.7,)"
+side = "SERVER"
+
+[[dependencies.occultism]]
 modId = "forge"
 mandatory = true
 versionRange = "[1.19.3-44.0.5,)" #creative tabs breaking change
