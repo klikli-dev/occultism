@@ -19,6 +19,7 @@ import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import net.tslat.smartbrainlib.util.BrainUtils;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -76,7 +77,7 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
         if(BrainUtils.hasMemory(entity, OccultismMemoryTypes.NO_TREE_IN_WORK_AREA.get()))
             return;
 
-        var ignoredTrees = BrainUtils.getMemory(entity, OccultismMemoryTypes.NON_TREE_LOGS.get());
+        var ignoredTrees = BrainUtils.memoryOrDefault(entity, OccultismMemoryTypes.NON_TREE_LOGS.get(), HashSet::new);
         var workAreaCenter = BrainUtils.getMemory(entity, OccultismMemoryTypes.WORK_AREA_CENTER.get());
         var workAreaSize = BrainUtils.getMemory(entity, OccultismMemoryTypes.WORK_AREA_SIZE.get());
 

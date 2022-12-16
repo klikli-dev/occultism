@@ -166,7 +166,8 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     @Override
     protected Brain.Provider<?> brainProvider() {
-        return new SmartBrainProvider<>(this);
+        //job is unintentionally null in some cases, because super constructor already calls this method -> and subsequent brain setup methods that will error out
+        return this.job != null ? new SmartBrainProvider<>(this) : super.brainProvider();
     }
 
     @Override
@@ -178,6 +179,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     public void handleAdditionalBrainSetup(Brain<SpiritEntity> brain) {
         BrainUtils.setMemory(brain, OccultismMemoryTypes.WORK_AREA_CENTER.get(), this.getWorkAreaCenter());
         BrainUtils.setMemory(brain, OccultismMemoryTypes.WORK_AREA_SIZE.get(), this.getWorkAreaSize().getValue());
+        this.job.ifPresent(job -> job.handleAdditionalBrainSetup(brain));
     }
 
     @Override
@@ -380,7 +382,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
      * @param job the new job, should already be initialized
      */
     public void setJob(SpiritJob job) {
-        this.setJob(job, false);
+        this.setJob(job, true);
     }
 
     /**

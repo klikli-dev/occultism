@@ -85,9 +85,7 @@ public class LumberjackJob extends SpiritJob {
 
     @Override
     public void handleAdditionalBrainSetup(Brain<SpiritEntity> brain) {
-        if (!BrainUtils.hasMemory(brain, OccultismMemoryTypes.NON_TREE_LOGS.get())) {
-            BrainUtils.setMemory(brain, OccultismMemoryTypes.NON_TREE_LOGS.get(), Set.of());
-        }
+
     }
 
     @Override
