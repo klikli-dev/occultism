@@ -24,7 +24,7 @@ package com.github.klikli_dev.occultism.client.render.entity;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.BeaverFamiliarModel;
-import com.github.klikli_dev.occultism.common.entity.BeaverFamiliarEntity;
+import com.github.klikli_dev.occultism.common.entity.familiar.BeaverFamiliarEntity;
 import com.github.klikli_dev.occultism.registry.OccultismModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;

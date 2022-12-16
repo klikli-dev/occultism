@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.capability;
 
-import com.github.klikli_dev.occultism.common.entity.IFamiliar;
+import com.github.klikli_dev.occultism.common.entity.familiar.IFamiliar;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.google.common.collect.ImmutableList;

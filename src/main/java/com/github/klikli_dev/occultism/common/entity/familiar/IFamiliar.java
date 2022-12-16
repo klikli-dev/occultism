@@ -20,7 +20,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.entity;
+package com.github.klikli_dev.occultism.common.entity.familiar;
 
 import com.github.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;

@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.util;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.entity.IFamiliar;
+import com.github.klikli_dev.occultism.common.entity.familiar.IFamiliar;
 import com.github.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import net.minecraft.world.entity.Entity;
