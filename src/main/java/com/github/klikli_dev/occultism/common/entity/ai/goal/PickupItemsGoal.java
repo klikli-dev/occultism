@@ -20,8 +20,9 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.entity.ai;
+package com.github.klikli_dev.occultism.common.entity.ai.goal;
 
+import com.github.klikli_dev.occultism.common.entity.ai.EntitySorter;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.google.common.base.Predicate;

@@ -27,6 +27,7 @@ import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.github.klikli_dev.occultism.common.entity.job.SpiritJob;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
+import com.github.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -70,6 +71,7 @@ import net.tslat.smartbrainlib.api.SmartBrainOwner;
 import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
 import net.tslat.smartbrainlib.api.core.SmartBrainProvider;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
+import net.tslat.smartbrainlib.util.BrainUtils;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -173,6 +175,12 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     @Override
+    public void handleAdditionalBrainSetup(Brain<SpiritEntity> brain) {
+        BrainUtils.setMemory(brain, OccultismMemoryTypes.WORK_AREA_CENTER.get(), this.getWorkAreaCenter());
+        BrainUtils.setMemory(brain, OccultismMemoryTypes.WORK_AREA_SIZE.get(), this.getWorkAreaSize().getValue());
+    }
+
+    @Override
     public List<ExtendedSensor<SpiritEntity>> getSensors() {
         return this.job.isPresent() ? this.job.get().getSensors() : ImmutableList.of();
     }
@@ -244,6 +252,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     public void setWorkAreaPosition(BlockPos position) {
         this.entityData.set(WORK_AREA_POSITION, Optional.ofNullable(position));
+        BrainUtils.setMemory(this, OccultismMemoryTypes.WORK_AREA_CENTER.get(), this.getWorkAreaCenter());
     }
 
     public WorkAreaSize getWorkAreaSize() {
@@ -252,6 +261,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     public void setWorkAreaSize(WorkAreaSize workAreaSize) {
         this.entityData.set(WORK_AREA_SIZE, workAreaSize.getValue());
+        BrainUtils.setMemory(this, OccultismMemoryTypes.WORK_AREA_SIZE.get(), this.getWorkAreaSize().getValue());
     }
 
     public BlockPos getWorkAreaCenter() {

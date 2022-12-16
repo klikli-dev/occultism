@@ -23,8 +23,8 @@
 package com.github.klikli_dev.occultism.common.entity.job;
 
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
-import com.github.klikli_dev.occultism.common.entity.ai.DepositItemsGoal;
-import com.github.klikli_dev.occultism.common.entity.ai.ExtractItemsGoal;
+import com.github.klikli_dev.occultism.common.entity.ai.goal.DepositItemsGoal;
+import com.github.klikli_dev.occultism.common.entity.ai.goal.ExtractItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;

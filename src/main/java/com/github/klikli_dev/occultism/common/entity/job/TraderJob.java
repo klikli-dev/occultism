@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.entity.job;
 
-import com.github.klikli_dev.occultism.common.entity.ai.PickupItemsGoal;
+import com.github.klikli_dev.occultism.common.entity.ai.goal.PickupItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
 import net.minecraft.core.particles.ParticleTypes;
