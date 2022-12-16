@@ -24,12 +24,17 @@ package com.github.klikli_dev.occultism.common.job;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraftforge.common.util.INBTSerializable;
+import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
+import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
+
+import java.util.List;
 
 public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
     public SpiritEntity entity;
@@ -70,6 +75,18 @@ public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
      * Sets up the job, e.g. AI Tasks
      */
     public abstract void init();
+
+    public List<ExtendedSensor<SpiritEntity>> getSensors() {
+        return ImmutableList.of();
+    }
+
+    public BrainActivityGroup<SpiritEntity> getCoreTasks() {
+        return BrainActivityGroup.empty();
+    }
+
+    public BrainActivityGroup<SpiritEntity> getIdleTasks() {
+        return BrainActivityGroup.empty();
+    }
 
     /**
      * Cleans up the job, e.g. AI Tasks.
