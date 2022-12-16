@@ -64,6 +64,7 @@ public class LumberjackJob extends SpiritJob {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public BrainActivityGroup<SpiritEntity> getCoreTasks() {
         //TODO: when idle we probably should walk to center of work area
 
