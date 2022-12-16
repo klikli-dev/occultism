@@ -24,7 +24,7 @@ package com.github.klikli_dev.occultism.client.render.entity;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.GreedyFamiliarModel;
-import com.github.klikli_dev.occultism.common.entity.GreedyFamiliarEntity;
+import com.github.klikli_dev.occultism.common.entity.familiar.GreedyFamiliarEntity;
 import com.github.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.github.klikli_dev.occultism.util.FamiliarUtil;
 import com.mojang.blaze3d.vertex.PoseStack;

@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.client.model.entity;
 
-import com.github.klikli_dev.occultism.common.entity.DevilFamiliarEntity;
+import com.github.klikli_dev.occultism.common.entity.familiar.DevilFamiliarEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;

@@ -1,6 +1,6 @@
 package com.github.klikli_dev.occultism.client.model.entity;
 
-import com.github.klikli_dev.occultism.common.entity.DragonFamiliarEntity;
+import com.github.klikli_dev.occultism.common.entity.familiar.DragonFamiliarEntity;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
