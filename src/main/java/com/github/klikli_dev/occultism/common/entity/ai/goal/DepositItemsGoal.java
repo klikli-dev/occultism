@@ -20,8 +20,9 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.entity.ai;
+package com.github.klikli_dev.occultism.common.entity.ai.goal;
 
+import com.github.klikli_dev.occultism.common.entity.ai.BlockSorter;
 import com.github.klikli_dev.occultism.common.entity.ai.target.BlockPosMoveTarget;
 import com.github.klikli_dev.occultism.common.entity.ai.target.EntityMoveTarget;
 import com.github.klikli_dev.occultism.common.entity.ai.target.IMoveTarget;

@@ -20,11 +20,12 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.entity.ai;
+package com.github.klikli_dev.occultism.common.entity.ai.goal;
 
 import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.github.klikli_dev.occultism.api.common.blockentity.IStorageControllerProxy;
 import com.github.klikli_dev.occultism.api.common.data.MachineReference;
+import com.github.klikli_dev.occultism.common.entity.ai.BlockSorter;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.entity.job.ManageMachineJob;
 import com.github.klikli_dev.occultism.common.misc.DepositOrder;

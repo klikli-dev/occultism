@@ -20,8 +20,9 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.entity.ai;
+package com.github.klikli_dev.occultism.common.entity.ai.goal;
 
+import com.github.klikli_dev.occultism.common.entity.ai.BlockSorter;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.entity.job.LumberjackJob;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
@@ -60,16 +61,17 @@ public class ReplantSaplingGoal extends Goal {
         if (!this.entity.getItemInHand(InteractionHand.MAIN_HAND).is(ItemTags.SAPLINGS)) {
             return false;
         }
-        if (!this.entity.getJob().map(j -> (LumberjackJob) j).map(j -> j.getLastFelledTree() != null).orElse(false))
-            return false;
+//        if (!this.entity.getJob().map(j -> (LumberjackJob) j).map(j -> j.getLastFelledTree() != null).orElse(false))
+//            return false;
         this.resetTarget();
         return this.moveTarget != null;
     }
 
     @Override
     public boolean canContinueToUse() {
-        return this.moveTarget != null && !this.entity.getItemInHand(InteractionHand.MAIN_HAND).is(ItemTags.SAPLINGS)
-                && !this.entity.getJob().map(j -> (LumberjackJob) j).map(j -> j.getLastFelledTree() != null).orElse(false);
+        return true;
+//        return this.moveTarget != null && !this.entity.getItemInHand(InteractionHand.MAIN_HAND).is(ItemTags.SAPLINGS)
+//                && !this.entity.getJob().map(j -> (LumberjackJob) j).map(j -> j.getLastFelledTree() != null).orElse(false);
     }
 
     public void stop() {
@@ -88,20 +90,20 @@ public class ReplantSaplingGoal extends Goal {
                 //stop moving while planting
                 this.entity.getNavigation().stop();
 
-                this.entity.getJob().map(j -> (LumberjackJob) j).map(LumberjackJob::getLastFelledTree).ifPresent(lastFelledTree -> {
-
-                    if (this.entity.level.isEmptyBlock(lastFelledTree)) {
-                        ItemStack sapling = this.entity.getItemInHand(InteractionHand.MAIN_HAND);
-                        if (sapling.getItem() instanceof BlockItem saplingBlockItem) {
-                            this.entity.level.setBlockAndUpdate(lastFelledTree, saplingBlockItem.getBlock().defaultBlockState());
-                            sapling.shrink(1);
-                        }
-                    }
-                });
-
-
-                //reset last felled tree
-                this.entity.getJob().map(j -> (LumberjackJob) j).ifPresent(j -> j.setLastFelledTree(null));
+//                this.entity.getJob().map(j -> (LumberjackJob) j).map(LumberjackJob::getLastFelledTree).ifPresent(lastFelledTree -> {
+//
+//                    if (this.entity.level.isEmptyBlock(lastFelledTree)) {
+//                        ItemStack sapling = this.entity.getItemInHand(InteractionHand.MAIN_HAND);
+//                        if (sapling.getItem() instanceof BlockItem saplingBlockItem) {
+//                            this.entity.level.setBlockAndUpdate(lastFelledTree, saplingBlockItem.getBlock().defaultBlockState());
+//                            sapling.shrink(1);
+//                        }
+//                    }
+//                });
+//
+//
+//                //reset last felled tree
+//                this.entity.getJob().map(j -> (LumberjackJob) j).ifPresent(j -> j.setLastFelledTree(null));
 
             } else {
                 //continue moving
@@ -118,8 +120,8 @@ public class ReplantSaplingGoal extends Goal {
 
     private void resetTarget() {
         this.moveTarget = null;
-        this.entity.getJob().map(j -> (LumberjackJob) j).map(LumberjackJob::getLastFelledTree)
-                .ifPresent(t -> this.moveTarget = t);
+//        this.entity.getJob().map(j -> (LumberjackJob) j).map(LumberjackJob::getLastFelledTree)
+//                .ifPresent(t -> this.moveTarget = t);
     }
     //endregion Methods
 }

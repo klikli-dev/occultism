@@ -20,45 +20,18 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.entity.ai.goal;
+package com.github.klikli_dev.occultism.registry;
 
-import net.minecraft.world.entity.ai.goal.Goal;
+import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.entity.ai.sensor.NearestTreeSensor;
+import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
-public abstract class PausableGoal extends Goal {
+public class OccultismSensors {
+    public static DeferredRegister<SensorType<?>> SENSORS = DeferredRegister.create(ForgeRegistries.Keys.SENSOR_TYPES, Occultism.MODID);
 
-    //region Fields
-    protected long lastPaused;
-    protected long pauseDuration;
-    //endregion Fields
-
-    //region Getter / Setter
-    public boolean isPaused() {
-
-        long currentTime = System.currentTimeMillis();
-        return this.lastPaused + this.pauseDuration > currentTime;
-    }
-    //endregion Getter / Setter
-
-    //region Overrides
-    @Override
-    public boolean canUse() {
-        return !this.isPaused();
-    }
-
-    @Override
-    public boolean canContinueToUse() {
-        return super.canContinueToUse() && !this.isPaused();
-    }
-    //endregion Overrides
-
-    //region Methods
-    public void pause(long i) {
-        this.pauseDuration = i;
-        this.lastPaused = System.currentTimeMillis();
-    }
-
-    public void unpause() {
-        this.pauseDuration = 0;
-    }
-    //endregion Methods
+    public static final RegistryObject<SensorType<NearestTreeSensor<?>>> NEAREST_TREE = SENSORS.register("nearest_tree",
+            () -> new SensorType<>(NearestTreeSensor::new));
 }

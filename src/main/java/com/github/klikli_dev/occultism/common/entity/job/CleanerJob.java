@@ -23,9 +23,9 @@
 package com.github.klikli_dev.occultism.common.entity.job;
 
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
-import com.github.klikli_dev.occultism.common.entity.ai.DepositItemsGoal;
-import com.github.klikli_dev.occultism.common.entity.ai.PickupItemsGoal;
-import com.github.klikli_dev.occultism.common.entity.ai.ReturnToWorkAreaGoal;
+import com.github.klikli_dev.occultism.common.entity.ai.goal.DepositItemsGoal;
+import com.github.klikli_dev.occultism.common.entity.ai.goal.PickupItemsGoal;
+import com.github.klikli_dev.occultism.common.entity.ai.goal.ReturnToWorkAreaGoal;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.util.StorageUtil;
