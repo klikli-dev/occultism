@@ -35,7 +35,7 @@ import com.github.klikli_dev.occultism.api.common.data.SortType;
 import com.github.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
 import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
+import com.github.klikli_dev.occultism.common.entity.job.ManageMachineJob;
 import com.github.klikli_dev.occultism.common.misc.DepositOrder;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.common.misc.StorageControllerItemStackHandler;

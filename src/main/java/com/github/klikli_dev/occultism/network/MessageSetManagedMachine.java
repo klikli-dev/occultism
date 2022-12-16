@@ -24,7 +24,7 @@ package com.github.klikli_dev.occultism.network;
 
 import com.github.klikli_dev.occultism.api.common.data.MachineReference;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
-import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
+import com.github.klikli_dev.occultism.common.entity.job.ManageMachineJob;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;

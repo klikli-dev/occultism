@@ -20,19 +20,20 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.job;
+package com.github.klikli_dev.occultism.common.entity.job;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.world.phys.Vec3;
 
-public abstract class ChangeTimeJob extends SpiritJob {
+public abstract class ChangeWeatherJob extends SpiritJob {
 
     //region Fields
     protected int currentChangeTicks;
@@ -41,7 +42,7 @@ public abstract class ChangeTimeJob extends SpiritJob {
 
 
     //region Initialization
-    public ChangeTimeJob(SpiritEntity entity, int requiredChangeTicks) {
+    public ChangeWeatherJob(SpiritEntity entity, int requiredChangeTicks) {
         super(entity);
         this.requiredChangeTicks = requiredChangeTicks;
     }
@@ -59,7 +60,7 @@ public abstract class ChangeTimeJob extends SpiritJob {
         //in this case called on spirit death
         for (int i = 0; i < 5; i++) {
             ((ServerLevel) this.entity.level)
-                    .sendParticles(ParticleTypes.PORTAL, this.entity.getX() + this.entity.level.getRandom().nextGaussian(),
+                    .sendParticles(ParticleTypes.LARGE_SMOKE, this.entity.getX() + this.entity.level.getRandom().nextGaussian(),
                             this.entity.getY() + 0.5 + this.entity.level.getRandom().nextGaussian(), this.entity.getZ() + this.entity.level.getRandom().nextGaussian(), 5,
                             0.0, 0.0, 0.0,
                             0.0);
@@ -77,16 +78,20 @@ public abstract class ChangeTimeJob extends SpiritJob {
         }
         if (this.entity.level.getGameTime() % 2 == 0) {
             ((ServerLevel) this.entity.level)
-                    .sendParticles(ParticleTypes.PORTAL, this.entity.getX(),
+                    .sendParticles(ParticleTypes.SMOKE, this.entity.getX(),
                             this.entity.getY() + 0.5, this.entity.getZ(), 3,
                             0.5, 0.0, 0.0,
                             0.0);
         }
 
         if (this.currentChangeTicks == this.requiredChangeTicks) {
-            this.changeTime();
-            this.entity.level.playSound(null, this.entity.blockPosition(), SoundEvents.BEACON_ACTIVATE, SoundSource.NEUTRAL, 1, 1);
-            this.entity.die(DamageSource.OUT_OF_WORLD);
+            this.changeWeather();
+
+            LightningBolt lightningboltentity = EntityType.LIGHTNING_BOLT.create(this.entity.level);
+            lightningboltentity.moveTo(Vec3.atBottomCenterOf(this.entity.blockPosition()));
+            lightningboltentity.setVisualOnly(true);
+
+            this.entity.die(DamageSource.LIGHTNING_BOLT);
             this.entity.remove(Entity.RemovalReason.DISCARDED);
         }
     }
@@ -108,6 +113,6 @@ public abstract class ChangeTimeJob extends SpiritJob {
     //endregion Overrides
 
     //region Methods
-    public abstract void changeTime();
+    public abstract void changeWeather();
     //endregion Methods
 }

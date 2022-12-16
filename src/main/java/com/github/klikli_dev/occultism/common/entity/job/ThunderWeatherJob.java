@@ -20,31 +20,33 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.job;
+package com.github.klikli_dev.occultism.common.entity.job;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.storage.ServerLevelData;
 
-public class NightTimeJob extends ChangeTimeJob {
+public class ThunderWeatherJob extends ChangeWeatherJob {
 
     //region Initialization
-    public NightTimeJob(SpiritEntity entity, int ticksToClear) {
+    public ThunderWeatherJob(SpiritEntity entity, int ticksToClear) {
         super(entity, ticksToClear);
     }
     //endregion Initialization
 
     //region Overrides
-    @Override
-    public void changeTime() {
+    public void changeWeather() {
         if (Occultism.SERVER_CONFIG.rituals.enableClearWeatherRitual.get()) {
             ServerLevelData level = (ServerLevelData) this.entity.level.getLevelData();
-            level.setDayTime(13000);
+            level.setClearWeatherTime(0);
+            level.setRainTime(6000);
+            level.setThunderTime(6000);
+            level.setRaining(true);
+            level.setThundering(true);
         } else {
             this.entity.getOwner().sendSystemMessage(Component.translatable("ritual.occultism.disabled"));
         }
     }
     //endregion Overrides
-
 }

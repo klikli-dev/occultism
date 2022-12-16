@@ -20,30 +20,31 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.job;
+package com.github.klikli_dev.occultism.common.entity.job;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.storage.ServerLevelData;
 
-import java.util.function.Function;
-
-public class SpiritJobFactory {
-
-    //region Fields
-    Function<SpiritEntity, ? extends SpiritJob> constructor;
-    //endregion Fields
+public class DayTimeJob extends ChangeTimeJob {
 
     //region Initialization
-    public SpiritJobFactory(Function<SpiritEntity, ? extends SpiritJob> constructor) {
-        this.constructor = constructor;
+    public DayTimeJob(SpiritEntity entity, int ticksToClear) {
+        super(entity, ticksToClear);
     }
     //endregion Initialization
 
-    //region Methods
-    public SpiritJob create(SpiritEntity entity) {
-        SpiritJob job = this.constructor.apply(entity);
-        job.setFactoryId(OccultismSpiritJobs.REGISTRY.get().getKey(this));
-        return job;
+    //region Overrides
+    @Override
+    public void changeTime() {
+        if (Occultism.SERVER_CONFIG.rituals.enableClearWeatherRitual.get()) {
+            ServerLevelData level = (ServerLevelData) this.entity.level.getLevelData();
+            level.setDayTime(1000);
+        } else {
+            this.entity.getOwner().sendSystemMessage(Component.translatable("ritual.occultism.disabled"));
+        }
     }
-    //endregion Methods
+    //endregion Overrides
+
 }

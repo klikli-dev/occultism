@@ -20,17 +20,17 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.job;
+package com.github.klikli_dev.occultism.common.entity.job;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.storage.ServerLevelData;
 
-public class ClearWeatherJob extends ChangeWeatherJob {
+public class RainWeatherJob extends ChangeWeatherJob {
 
     //region Initialization
-    public ClearWeatherJob(SpiritEntity entity, int ticksToClear) {
+    public RainWeatherJob(SpiritEntity entity, int ticksToClear) {
         super(entity, ticksToClear);
     }
     //endregion Initialization
@@ -38,12 +38,11 @@ public class ClearWeatherJob extends ChangeWeatherJob {
     //region Overrides
     public void changeWeather() {
         if (Occultism.SERVER_CONFIG.rituals.enableClearWeatherRitual.get()) {
-            //taken from weathercommand#clear
             ServerLevelData level = (ServerLevelData) this.entity.level.getLevelData();
-            level.setClearWeatherTime(6000);
-            level.setRainTime(0);
-            level.setThunderTime(0);
-            level.setRaining(false);
+            level.setClearWeatherTime(0);
+            level.setRainTime(6000);
+            level.setThunderTime(6000);
+            level.setRaining(true);
             level.setThundering(false);
         } else {
             this.entity.getOwner().sendSystemMessage(Component.translatable("ritual.occultism.disabled"));

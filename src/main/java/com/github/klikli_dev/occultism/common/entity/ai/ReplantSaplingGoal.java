@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.common.entity.ai;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.common.job.LumberjackJob;
+import com.github.klikli_dev.occultism.common.entity.job.LumberjackJob;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

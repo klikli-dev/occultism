@@ -20,7 +20,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism.common.job;
+package com.github.klikli_dev.occultism.common.entity.job;
 
 import com.github.klikli_dev.occultism.api.common.container.IItemStackComparator;
 import com.github.klikli_dev.occultism.common.entity.ai.DepositItemsGoal;
