@@ -28,6 +28,14 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
     protected int breakingTime;
     protected int previousBreakProgress;
 
+    public FellTreeBehaviour() {
+        super();
+
+        this.runtimeProvider = (entity) -> {
+            return 200;
+        };
+    }
+
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
         var treePos = entity.getBrain().getMemory(OccultismMemoryTypes.NEAREST_TREE.get()).get();
