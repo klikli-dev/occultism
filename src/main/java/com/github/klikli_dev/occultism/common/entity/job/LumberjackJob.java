@@ -40,6 +40,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
+import net.tslat.smartbrainlib.api.core.behaviour.custom.move.MoveToWalkTarget;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import net.tslat.smartbrainlib.util.BrainUtils;
 
@@ -72,14 +73,17 @@ public class LumberjackJob extends SpiritJob {
         //TODO: replant sapling behaviour
         //TODO: deposit behaviour
         return BrainActivityGroup.coreTasks(
-                new SetWalkToTreeTargetBehaviour<>(),
+                new MoveToWalkTarget<>(),
                 new FellTreeBehaviour<>()
         );
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public BrainActivityGroup<SpiritEntity> getIdleTasks() {
-        return super.getIdleTasks();
+        return BrainActivityGroup.idleTasks(
+                new SetWalkToTreeTargetBehaviour<>()
+        );
     }
 
 
