@@ -194,7 +194,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     @Override
     public BrainActivityGroup<SpiritEntity> getIdleTasks() {
-        return this.job.isPresent() ? this.job.get().getCoreTasks() : BrainActivityGroup.empty();
+        return this.job.isPresent() ? this.job.get().getIdleTasks() : BrainActivityGroup.empty();
     }
 
     @Override
