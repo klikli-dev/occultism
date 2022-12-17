@@ -72,6 +72,7 @@ public class LumberjackJob extends SpiritJob {
         //TODO: pickup behaviour
         //TODO: replant sapling behaviour
         //TODO: deposit behaviour
+
         return BrainActivityGroup.coreTasks(
                 new MoveToWalkTarget<>(),
                 new FellTreeBehaviour<>()
@@ -94,6 +95,7 @@ public class LumberjackJob extends SpiritJob {
 
     @Override
     public void init() {
+        this.entity.refreshDimensions();
         this.itemsToPickUp.add(new ItemTagComparator(ItemTags.LOGS));
         this.itemsToPickUp.add(new ItemTagComparator(ItemTags.LEAVES));
         this.itemsToPickUp.add(new ItemTagComparator(ItemTags.SAPLINGS));
@@ -103,7 +105,7 @@ public class LumberjackJob extends SpiritJob {
 
     @Override
     public void cleanup() {
-
+        this.entity.refreshDimensions();
     }
 
     @Override
