@@ -7,9 +7,7 @@ import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
@@ -33,23 +31,25 @@ public class SetWalkToTreeTargetBehaviour<E extends SpiritEntity> extends Extend
     @Override
     protected void start(E entity) {
         var treePos = BrainUtils.getMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
-        if (entity.distanceToSqr(Vec3.atCenterOf(treePos)) < FellTreeBehaviour.FELL_TREE_RANGE) {
+        if (entity.distanceToSqr(Vec3.atCenterOf(treePos)) < FellTreeBehaviour.FELL_TREE_RANGE_SQUARE) {
             BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
         } else {
 
+            var walkPos = treePos;
             for (Direction facing : Direction.Plane.HORIZONTAL) {
                 var pos = treePos.relative(facing);
                 if (entity.getLevel().isEmptyBlock(pos)) {
-                    treePos = pos;
+                    walkPos = pos;
                     break;
                 }
             }
 
-            BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(treePos));
-            BrainUtils.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(treePos, 1.0f, 2));
+            BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(walkPos));
+            BrainUtils.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(walkPos, 1.0f, 2));
 
             if (Occultism.DEBUG.debugAI) {
-                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, 0x00ff00));
+                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, 0xffff00));
+                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(walkPos, 5000, 0x00ff00));
             }
         }
     }

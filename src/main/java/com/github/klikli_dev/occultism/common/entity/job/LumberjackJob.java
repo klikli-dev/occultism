@@ -55,7 +55,7 @@ public class LumberjackJob extends SpiritJob {
 
     public LumberjackJob(SpiritEntity entity) {
         super(entity);
-        this.lumberJackDimensions = EntityDimensions.scalable(0.9f, 0.9f);
+        this.lumberJackDimensions = EntityDimensions.scalable(0.8f, 0.8f);
     }
 
     @Override

@@ -20,7 +20,7 @@ import net.tslat.smartbrainlib.util.BrainUtils;
 import java.util.*;
 
 public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour<E> {
-    public static final double FELL_TREE_RANGE = 2.5;
+    public static final double FELL_TREE_RANGE_SQUARE = Math.pow(2.5, 2); //we're comparing to square distance
 
     private static final List<Pair<MemoryModuleType<?>, MemoryStatus>> MEMORY_REQUIREMENTS = ObjectArrayList.of(
             Pair.of(OccultismMemoryTypes.NEAREST_TREE.get(), MemoryStatus.VALUE_PRESENT));
@@ -39,7 +39,8 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
         var treePos = BrainUtils.getMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
-        return entity.distanceToSqr(Vec3.atCenterOf(treePos)) < FellTreeBehaviour.FELL_TREE_RANGE;
+        var dist = entity.distanceToSqr(Vec3.atCenterOf(treePos));
+        return dist <= FellTreeBehaviour.FELL_TREE_RANGE_SQUARE;
     }
 
 
