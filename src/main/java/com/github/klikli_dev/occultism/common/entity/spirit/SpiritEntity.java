@@ -167,7 +167,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     @Override
     protected Brain.Provider<?> brainProvider() {
         //job is unintentionally null in some cases, because super constructor already calls this method -> and subsequent brain setup methods that will error out
-        return this.job != null ? new SmartBrainProvider<>(this) : super.brainProvider();
+        return this.job != null && this.job.isPresent() ? new SmartBrainProvider<>(this) : super.brainProvider();
     }
 
     @Override
