@@ -1,11 +1,13 @@
 package com.github.klikli_dev.occultism.common.entity.ai.sensor;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.ai.BlockSorter;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.github.klikli_dev.occultism.network.MessageSelectBlock;
+import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.github.klikli_dev.occultism.registry.OccultismSensors;
 import com.github.klikli_dev.occultism.registry.OccultismTags;
-import com.google.common.collect.ImmutableList;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,7 +23,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -74,7 +75,7 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
             return;
 
         //if work area is empty, exit. This memory expires on its own to allow rescan
-        if(BrainUtils.hasMemory(entity, OccultismMemoryTypes.NO_TREE_IN_WORK_AREA.get()))
+        if (BrainUtils.hasMemory(entity, OccultismMemoryTypes.NO_TREE_IN_WORK_AREA.get()))
             return;
 
         var ignoredTrees = BrainUtils.memoryOrDefault(entity, OccultismMemoryTypes.NON_TREE_LOGS.get(), HashSet::new);
@@ -90,21 +91,38 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
         //filter potential stumps
         List<BlockPos> potentialStumps = blocksInWorkArea.filter(pos -> isLog(level, pos) && isTreeSoil(level, pos.below()) && !ignoredTrees.contains(pos)).collect(Collectors.toList());
 
+        //TODO: refator to search in increaseing radiuses
+
         var foundTree = false;
         if (!potentialStumps.isEmpty()) {
             potentialStumps.sort(new BlockSorter(entity));
 
             for (var potentialStump : potentialStumps) {
+
+                if (Occultism.DEBUG.debugAI) {
+                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(potentialStump, 5000, 0xffffff));
+                }
+
                 //we only check if the stump is actually a tree one by one from closest to furthest to save perf.
                 if (this.isTree(level, potentialStump)) {
                     //we have a tree, now we check if it is likely reachable
+                    var isReachable = false;
                     for (Direction facing : Direction.Plane.HORIZONTAL) {
                         BlockPos pos = potentialStump.relative(facing);
                         if (level.isEmptyBlock(pos)) {
-                            BrainUtils.setForgettableMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get(), potentialStump, RESET_NEAREST_TREE_AFTER_TICKS);
-                            foundTree = true;
+                            isReachable = true;
                             break;
                         }
+                    }
+
+                    if (isReachable) {
+                        if (Occultism.DEBUG.debugAI) {
+                            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(potentialStump, 5000, 0xffff00));
+                        }
+
+                        BrainUtils.setForgettableMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get(), potentialStump, RESET_NEAREST_TREE_AFTER_TICKS);
+                        foundTree = true;
+                        break;
                     }
                 } else {
                     //we have a stump, but it is not a tree, add it to the list of ignored stumps
