@@ -30,7 +30,7 @@ public class SetWalkToTreeTargetBehaviour<E extends SpiritEntity> extends Extend
 
     @Override
     protected void start(E entity) {
-        var treePos = BrainUtils.getMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get());
+        var treePos = BrainUtils.getMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
         if (entity.distanceToSqr(Vec3.atCenterOf(treePos)) < FellTreeBehaviour.FELL_TREE_RANGE) {
             BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
         } else {
@@ -41,8 +41,6 @@ public class SetWalkToTreeTargetBehaviour<E extends SpiritEntity> extends Extend
                 OccultismPackets.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, 0x00ff00));
             }
         }
-
-        super.start(entity);
     }
 
     @Override
