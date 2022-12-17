@@ -23,8 +23,7 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
     public static final double FELL_TREE_RANGE = 2.5;
 
     private static final List<Pair<MemoryModuleType<?>, MemoryStatus>> MEMORY_REQUIREMENTS = ObjectArrayList.of(
-            Pair.of(OccultismMemoryTypes.NEAREST_TREE.get(), MemoryStatus.VALUE_PRESENT),
-            Pair.of(MemoryModuleType.ATTACK_COOLING_DOWN, MemoryStatus.VALUE_ABSENT));
+            Pair.of(OccultismMemoryTypes.NEAREST_TREE.get(), MemoryStatus.VALUE_PRESENT));
 
     protected int breakingTime;
     protected int previousBreakProgress;
@@ -47,7 +46,7 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
 
     @Override
     protected void tick(E entity) {
-        var treePos = BrainUtils.getMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get());
+        var treePos = BrainUtils.getMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
         if (NearestTreeSensor.isLog(entity.level, treePos)) {
 
             this.breakingTime++;
