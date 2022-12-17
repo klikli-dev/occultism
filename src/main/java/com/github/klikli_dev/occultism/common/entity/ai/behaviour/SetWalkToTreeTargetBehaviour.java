@@ -7,6 +7,8 @@ import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -34,6 +36,15 @@ public class SetWalkToTreeTargetBehaviour<E extends SpiritEntity> extends Extend
         if (entity.distanceToSqr(Vec3.atCenterOf(treePos)) < FellTreeBehaviour.FELL_TREE_RANGE) {
             BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
         } else {
+
+            for (Direction facing : Direction.Plane.HORIZONTAL) {
+                var pos = treePos.relative(facing);
+                if (entity.getLevel().isEmptyBlock(pos)) {
+                    treePos = pos;
+                    break;
+                }
+            }
+
             BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(treePos));
             BrainUtils.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(treePos, 1.0f, 1));
 
