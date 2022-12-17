@@ -46,7 +46,7 @@ public class SetWalkToTreeTargetBehaviour<E extends SpiritEntity> extends Extend
             }
 
             BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(treePos));
-            BrainUtils.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(treePos, 1.0f, 1));
+            BrainUtils.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(treePos, 1.0f, 2));
 
             if (Occultism.DEBUG.debugAI) {
                 OccultismPackets.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, 0x00ff00));
