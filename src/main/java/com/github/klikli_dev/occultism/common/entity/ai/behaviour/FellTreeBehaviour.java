@@ -38,7 +38,7 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
 
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
-        var treePos = entity.getBrain().getMemory(OccultismMemoryTypes.NEAREST_TREE.get()).get();
+        var treePos = BrainUtils.getMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
         return entity.distanceToSqr(Vec3.atCenterOf(treePos)) < FellTreeBehaviour.FELL_TREE_RANGE;
     }
 
@@ -49,7 +49,7 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
     }
 
     protected boolean shouldKeepRunning(E entity) {
-        return true; //stopping is handled in tick
+        return BrainUtils.hasMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
     }
 
     @Override
@@ -72,7 +72,8 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
                 entity.playSound(SoundEvents.WOOD_BREAK, 1, 1);
                 this.fellTree(entity, treePos);
                 BrainUtils.setMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get(), treePos);
-                //we actually don't need to stop here, next tick will exit due to our isLog check above
+                this.stop((ServerLevel) entity.getLevel(), entity, entity.getLevel().getGameTime());
+                //we stop here (even though the above condition would save us) because sensor might reset last felled tree meanwhile
             }
 
         } else {
