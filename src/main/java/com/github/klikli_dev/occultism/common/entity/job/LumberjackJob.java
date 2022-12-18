@@ -76,11 +76,7 @@ public class LumberjackJob extends SpiritJob {
         //TODO: pickup behaviour
         //TODO: replant sapling behaviour
         //TODO: deposit behaviour
-
-        //TODO: if moving to target fails, add to ignored trees and let logic recover
-        //      specifically, first attempt all 4 sides and add them to unreachable_walk_targets
-        //      then, if all 4 sides are unreachable, add tree to new memory unreachable_trees
-
+        
         return BrainActivityGroup.coreTasks(
                 new MoveToWalkTarget<>(),
                 new FellTreeBehaviour<>()
