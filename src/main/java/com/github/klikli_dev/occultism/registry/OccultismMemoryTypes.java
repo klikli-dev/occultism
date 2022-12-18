@@ -2,13 +2,19 @@ package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.api.common.data.WorkAreaSize;
+import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 import java.util.function.Supplier;
 
 public class OccultismMemoryTypes {
@@ -30,4 +36,8 @@ public class OccultismMemoryTypes {
     public static final Supplier<MemoryModuleType<Set<BlockPos>>> UNREACHABLE_WALK_TARGETS = MEMORY_MODULE_TYPES.register("unreachable_walk_targets", () -> new MemoryModuleType<>(Optional.empty()));
 
     public static final Supplier<MemoryModuleType<Set<BlockPos>>> UNREACHABLE_TREES = MEMORY_MODULE_TYPES.register("unreachable_trees", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<BlockPos>> DEPOSIT_POSITION = MEMORY_MODULE_TYPES.register("deposit_position", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Direction>> DEPOSIT_FACING = MEMORY_MODULE_TYPES.register("deposit_facing", () -> new MemoryModuleType<>(Optional.empty()));
 }

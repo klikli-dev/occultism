@@ -78,11 +78,13 @@ public class LumberjackJob extends SpiritJob {
         //TODO: check if that works, or if we need firstApplicable or something here too -> for close quarters work
 
         return BrainActivityGroup.coreTasks(
-                new MoveToWalkTarget<>(),
-                new ReplantSaplingBehaviour<>(),
-                //TODO: deposit behaviour
-                new PickupJobItemBehaviour<>(),
-                new FellTreeBehaviour<>()
+                new FirstApplicableBehaviour<>(
+                        new MoveToWalkTarget<>(),
+                        new ReplantSaplingBehaviour<>(),
+                        new DepositItemsBehaviour<>(),
+                        new PickupItemBehaviour<>(),
+                        new FellTreeBehaviour<>()
+                )
         );
     }
 
@@ -96,7 +98,8 @@ public class LumberjackJob extends SpiritJob {
         return BrainActivityGroup.idleTasks(
                 new FirstApplicableBehaviour<>(
                         new SetWalkTargetToReplantSaplingBehaviour<>(),
-                        new SetWalkTargetToJobItemBehaviour<>(),
+                        new SetWalkTargetToDepositBehaviour<>(),
+                        new SetWalkTargetToItemBehaviour<>(),
                         new SetWalkTargetToTreeBehaviour<>()
                 ),
                 new HandleUnreachableTreeBehaviour<>()

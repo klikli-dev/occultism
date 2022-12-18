@@ -17,7 +17,7 @@ import net.tslat.smartbrainlib.util.EntityRetrievalUtil;
 import java.util.List;
 
 public class NearestJobItemSensor<E extends SpiritEntity> extends PredicateSensor<ItemEntity, E> {
-    public static final int DEFAULT_SCAN_RATE_TICKS = 20 * 5;
+    public static final int DEFAULT_SCAN_RATE_TICKS = 20 * 1;
     private static final List<MemoryModuleType<?>> MEMORIES = ObjectArrayList.of(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
 
     public NearestJobItemSensor() {

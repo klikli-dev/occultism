@@ -179,6 +179,10 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     public void handleAdditionalBrainSetup(Brain<SpiritEntity> brain) {
         BrainUtils.setMemory(brain, OccultismMemoryTypes.WORK_AREA_CENTER.get(), this.getWorkAreaCenter());
         BrainUtils.setMemory(brain, OccultismMemoryTypes.WORK_AREA_SIZE.get(), this.getWorkAreaSize().getValue());
+
+        BrainUtils.setMemory(brain, OccultismMemoryTypes.DEPOSIT_POSITION.get(),  this.getDepositPosition().orElse(null));
+        BrainUtils.setMemory(brain, OccultismMemoryTypes.DEPOSIT_FACING.get(), this.getDepositFacing());
+
         this.job.ifPresent(job -> job.handleAdditionalBrainSetup(brain));
     }
 
@@ -228,6 +232,8 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         this.entityData.set(DEPOSIT_POSITION, Optional.ofNullable(position));
         if (position != null)
             this.entityData.set(DEPOSIT_ENTITY_UUID, Optional.empty());
+
+        BrainUtils.setMemory(this, OccultismMemoryTypes.DEPOSIT_POSITION.get(), position);
     }
 
     public Optional<UUID> getDepositEntityUUID() {
@@ -280,6 +286,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     public void setDepositFacing(Direction depositFacing) {
         this.entityData.set(DEPOSIT_FACING, depositFacing);
+        BrainUtils.setMemory(this, OccultismMemoryTypes.DEPOSIT_FACING.get(), depositFacing);
     }
 
     public Direction getExtractFacing() {

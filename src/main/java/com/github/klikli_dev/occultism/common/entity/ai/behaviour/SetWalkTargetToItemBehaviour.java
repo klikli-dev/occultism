@@ -19,34 +19,31 @@ import java.util.List;
 /**
  * Sets the WALK_TARGET memory based on the NEAREST_VISIBLE_WANTED_ITEM memory.
  */
-public class SetWalkTargetToJobItemBehaviour<E extends SpiritEntity> extends ExtendedBehaviour<E> {
+public class SetWalkTargetToItemBehaviour<E extends SpiritEntity> extends ExtendedBehaviour<E> {
 
     private static final List<Pair<MemoryModuleType<?>, MemoryStatus>> MEMORY_REQUIREMENTS = ObjectArrayList.of(
             Pair.of(MemoryModuleType.WALK_TARGET, MemoryStatus.REGISTERED),
             Pair.of(MemoryModuleType.LOOK_TARGET, MemoryStatus.REGISTERED),
             Pair.of(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, MemoryStatus.VALUE_PRESENT),
-            Pair.of(OccultismMemoryTypes.UNREACHABLE_TREES.get(), MemoryStatus.REGISTERED),
-            Pair.of(OccultismMemoryTypes.UNREACHABLE_WALK_TARGETS.get(), MemoryStatus.REGISTERED)
+            Pair.of(OccultismMemoryTypes.DEPOSIT_POSITION.get(), MemoryStatus.VALUE_PRESENT), //we only pick up, if we can deposit
+            Pair.of(OccultismMemoryTypes.DEPOSIT_FACING.get(), MemoryStatus.VALUE_PRESENT)
     );
 
     @Override
     protected void start(E entity) {
         var jobItem = BrainUtils.getMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
-        if(jobItem != null && jobItem.isAlive()){
-            if (entity.distanceToSqr(jobItem) < PickupJobItemBehaviour.PICKUP_RANGE_SQUARE) {
+        if (jobItem != null && jobItem.isAlive()) {
+            if (entity.distanceToSqr(jobItem) < PickupItemBehaviour.PICKUP_RANGE_SQUARE) {
                 BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
             } else {
                 BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new EntityTracker(jobItem, false));
                 BrainUtils.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(jobItem, 1.0f, 0));
 
-                //TODO: handle unreachable items?
-
                 if (Occultism.DEBUG.debugAI) {
                     OccultismPackets.sendToTracking(entity, new MessageSelectBlock(jobItem.blockPosition(), 5000, 0x00ff00));
                 }
             }
-        }
-        else {
+        } else {
             BrainUtils.clearMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
         }
     }
