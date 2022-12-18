@@ -31,9 +31,7 @@ import java.util.stream.Collectors;
 public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E> {
 
     public static final int DEFAULT_SCAN_RATE_TICKS = 20 * 5;
-    public static final int RESCAN_EMPTY_WORK_AREA_AFTER_TICKS = 20 * 60;
-    public static final int RESET_NEAREST_TREE_AFTER_TICKS = 20 * 60 * 5;
-
+    public static final int RESCAN_EMPTY_WORK_AREA_AFTER_TICKS = 20 * 30;
     private static final List<MemoryModuleType<?>> MEMORIES = ObjectArrayList.of(
             OccultismMemoryTypes.NEAREST_TREE.get(),
             OccultismMemoryTypes.NON_TREE_LOGS.get()
@@ -70,7 +68,7 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
     protected void doTick(@NotNull ServerLevel level, @NotNull E entity) {
 
         //if we currently have a tree, exit
-        //this will time out after a while, but generally will be removed by the fell tree behaviour
+        //Will be removed by the fell tree behaviour
         if (BrainUtils.hasMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get()))
             return;
 
@@ -136,7 +134,7 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
                             OccultismPackets.sendToTracking(entity, new MessageSelectBlock(potentialStump, 50000, 0x800080));
                         }
 
-                        BrainUtils.setForgettableMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get(), potentialStump, RESET_NEAREST_TREE_AFTER_TICKS);
+                        BrainUtils.setMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get(), potentialStump);
                         foundTree = true;
                         break;
                     }
