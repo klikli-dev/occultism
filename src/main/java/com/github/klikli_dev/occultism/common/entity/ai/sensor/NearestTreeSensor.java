@@ -78,7 +78,8 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
         if (BrainUtils.hasMemory(entity, OccultismMemoryTypes.NO_TREE_IN_WORK_AREA.get()))
             return;
 
-        var ignoredTrees = BrainUtils.memoryOrDefault(entity, OccultismMemoryTypes.NON_TREE_LOGS.get(), HashSet::new);
+        var nonTreeLogs = BrainUtils.memoryOrDefault(entity, OccultismMemoryTypes.NON_TREE_LOGS.get(), HashSet::new);
+        var unreachableTrees = BrainUtils.memoryOrDefault(entity, OccultismMemoryTypes.UNREACHABLE_TREES.get(), HashSet::new);
         var workAreaCenter = BrainUtils.getMemory(entity, OccultismMemoryTypes.WORK_AREA_CENTER.get());
         var workAreaSize = BrainUtils.getMemory(entity, OccultismMemoryTypes.WORK_AREA_SIZE.get());
 
@@ -89,9 +90,15 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
         ).map(BlockPos::immutable);
 
         //filter potential stumps
-        List<BlockPos> potentialStumps = blocksInWorkArea.filter(pos -> isLog(level, pos) && isTreeSoil(level, pos.below()) && !ignoredTrees.contains(pos)).collect(Collectors.toList());
+        List<BlockPos> potentialStumps = blocksInWorkArea
+                .filter(pos -> isLog(level, pos)
+                        && isTreeSoil(level, pos.below())
+                        && !nonTreeLogs.contains(pos)
+                        && !unreachableTrees.contains(pos)
+                )
+                .collect(Collectors.toList());
 
-        //TODO: refator to search in increaseing radiuses
+        //TODO: refactor to search in increaseing radiuses? (manhattan distance helper might help, or "closest match"
 
         var foundTree = false;
         if (!potentialStumps.isEmpty()) {
@@ -126,8 +133,8 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
                     }
                 } else {
                     //we have a stump, but it is not a tree, add it to the list of ignored stumps
-                    ignoredTrees.add(potentialStump);
-                    BrainUtils.setMemory(entity, OccultismMemoryTypes.NON_TREE_LOGS.get(), ignoredTrees);
+                    nonTreeLogs.add(potentialStump);
+                    BrainUtils.setMemory(entity, OccultismMemoryTypes.NON_TREE_LOGS.get(), nonTreeLogs);
                 }
             }
         }

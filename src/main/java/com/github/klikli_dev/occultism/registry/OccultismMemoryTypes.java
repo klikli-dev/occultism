@@ -24,4 +24,10 @@ public class OccultismMemoryTypes {
     public static final Supplier<MemoryModuleType<BlockPos>> WORK_AREA_CENTER = MEMORY_MODULE_TYPES.register("work_area_center", () -> new MemoryModuleType<>(Optional.empty()));
 
     public static final Supplier<MemoryModuleType<Integer>> WORK_AREA_SIZE = MEMORY_MODULE_TYPES.register("work_area_size", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Boolean>> WALK_TARGET_UNREACHABLE = MEMORY_MODULE_TYPES.register("walk_target_unreachable", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Set<BlockPos>>> UNREACHABLE_WALK_TARGETS = MEMORY_MODULE_TYPES.register("unreachable_walk_targets", () -> new MemoryModuleType<>(Optional.empty()));
+
+    public static final Supplier<MemoryModuleType<Set<BlockPos>>> UNREACHABLE_TREES = MEMORY_MODULE_TYPES.register("unreachable_trees", () -> new MemoryModuleType<>(Optional.empty()));
 }

@@ -24,8 +24,10 @@ package com.github.klikli_dev.occultism.common.entity.job;
 
 import com.github.klikli_dev.occultism.api.common.container.IItemStackComparator;
 import com.github.klikli_dev.occultism.common.entity.ai.behaviour.FellTreeBehaviour;
+import com.github.klikli_dev.occultism.common.entity.ai.behaviour.HandleUnreachableTreeBehaviour;
 import com.github.klikli_dev.occultism.common.entity.ai.behaviour.SetWalkToTreeTargetBehaviour;
 import com.github.klikli_dev.occultism.common.entity.ai.sensor.NearestTreeSensor;
+import com.github.klikli_dev.occultism.common.entity.ai.sensor.UnreachableWalkTargetSensor;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.common.misc.ItemTagComparator;
@@ -60,8 +62,10 @@ public class LumberjackJob extends SpiritJob {
 
     @Override
     public List<ExtendedSensor<SpiritEntity>> getSensors() {
-        //TODO: use and handle UnreachableTargetSensor?
-        return ImmutableList.of(new NearestTreeSensor<>());
+        return ImmutableList.of(
+                new NearestTreeSensor<>(),
+                new UnreachableWalkTargetSensor<>()
+        );
     }
 
     @Override
@@ -73,6 +77,10 @@ public class LumberjackJob extends SpiritJob {
         //TODO: replant sapling behaviour
         //TODO: deposit behaviour
 
+        //TODO: if moving to target fails, add to ignored trees and let logic recover
+        //      specifically, first attempt all 4 sides and add them to unreachable_walk_targets
+        //      then, if all 4 sides are unreachable, add tree to new memory unreachable_trees
+
         return BrainActivityGroup.coreTasks(
                 new MoveToWalkTarget<>(),
                 new FellTreeBehaviour<>()
@@ -83,7 +91,8 @@ public class LumberjackJob extends SpiritJob {
     @SuppressWarnings("unchecked")
     public BrainActivityGroup<SpiritEntity> getIdleTasks() {
         return BrainActivityGroup.idleTasks(
-                new SetWalkToTreeTargetBehaviour<>()
+                new SetWalkToTreeTargetBehaviour<>(),
+                new HandleUnreachableTreeBehaviour<>()
         );
     }
 

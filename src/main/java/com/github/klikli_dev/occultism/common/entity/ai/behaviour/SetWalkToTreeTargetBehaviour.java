@@ -7,6 +7,7 @@ import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -16,16 +17,22 @@ import net.minecraft.world.phys.Vec3;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
 import net.tslat.smartbrainlib.util.BrainUtils;
 
+import java.util.HashSet;
 import java.util.List;
 
 /**
  * Sets the WALK_TARGET memory based on the NEAREST_TREE memory.
  */
 public class SetWalkToTreeTargetBehaviour<E extends SpiritEntity> extends ExtendedBehaviour<E> {
+
+    public static final int FORGET_UNREACHABLE_TREES_AFTER_TICKS = 20 * 60 * 5;
+
     private static final List<Pair<MemoryModuleType<?>, MemoryStatus>> MEMORY_REQUIREMENTS = ObjectArrayList.of(
             Pair.of(MemoryModuleType.WALK_TARGET, MemoryStatus.REGISTERED),
             Pair.of(MemoryModuleType.LOOK_TARGET, MemoryStatus.REGISTERED),
-            Pair.of(OccultismMemoryTypes.NEAREST_TREE.get(), MemoryStatus.VALUE_PRESENT)
+            Pair.of(OccultismMemoryTypes.NEAREST_TREE.get(), MemoryStatus.VALUE_PRESENT),
+            Pair.of(OccultismMemoryTypes.UNREACHABLE_TREES.get(), MemoryStatus.REGISTERED),
+            Pair.of(OccultismMemoryTypes.UNREACHABLE_WALK_TARGETS.get(), MemoryStatus.REGISTERED)
     );
 
     @Override
@@ -34,22 +41,38 @@ public class SetWalkToTreeTargetBehaviour<E extends SpiritEntity> extends Extend
         if (entity.distanceToSqr(Vec3.atCenterOf(treePos)) < FellTreeBehaviour.FELL_TREE_RANGE_SQUARE) {
             BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
         } else {
+            BlockPos walkPos = null;
 
-            var walkPos = treePos;
+            var unreachableWalkTargets = BrainUtils.memoryOrDefault(entity, OccultismMemoryTypes.UNREACHABLE_WALK_TARGETS.get(), HashSet::new);
+
             for (Direction facing : Direction.Plane.HORIZONTAL) {
                 var pos = treePos.relative(facing);
-                if (entity.getLevel().isEmptyBlock(pos)) {
+                if (entity.getLevel().isEmptyBlock(pos) && !unreachableWalkTargets.contains(pos)) {
                     walkPos = pos;
                     break;
                 }
             }
 
-            BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(walkPos));
-            BrainUtils.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(walkPos, 1.0f, 2));
+            if(walkPos != null){
+                BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(walkPos));
+                BrainUtils.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(walkPos, 1.0f, 2));
 
-            if (Occultism.DEBUG.debugAI) {
-                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, 0xffff00));
-                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(walkPos, 5000, 0x00ff00));
+                if (Occultism.DEBUG.debugAI) {
+                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, 0xffff00));
+                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(walkPos, 5000, 0x00ff00));
+                }
+
+            } else {
+                var unreachableTrees = BrainUtils.memoryOrDefault(entity, OccultismMemoryTypes.UNREACHABLE_TREES.get(), HashSet::new);
+                unreachableTrees.add(treePos);
+                BrainUtils.setForgettableMemory(entity, OccultismMemoryTypes.UNREACHABLE_TREES.get(), unreachableTrees, FORGET_UNREACHABLE_TREES_AFTER_TICKS);
+
+                BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
+                BrainUtils.clearMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
+
+                if (Occultism.DEBUG.debugAI) {
+                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(treePos, 50000, 0xff0000));
+                }
             }
         }
     }
