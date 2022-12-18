@@ -27,6 +27,18 @@ public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehav
             Pair.of(OccultismMemoryTypes.DEPOSIT_FACING.get(), MemoryStatus.VALUE_PRESENT)
     );
 
+    public DepositItemsBehaviour() {
+        super();
+
+        this.runtimeProvider = (entity) -> {
+            return 10;
+        };
+    }
+
+    protected boolean shouldKeepRunning(E entity) {
+        return true;
+    }
+
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
         var depositPos = BrainUtils.getMemory(entity, OccultismMemoryTypes.DEPOSIT_POSITION.get());
@@ -61,14 +73,23 @@ public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehav
                     entityItemHandler.setStackInSlot(firstFilledSlot, leftover);
                 }
 
-                //after inserting, close container
-                this.toggleContainer(blockEntity, false);
-
             } else {
                 //if deposit is bogus, that is a player issue not ai.
             }
         } else {
             //if deposit is bogus, that is a player issue not ai.
+        }
+    }
+
+    @Override
+    protected void stop(E entity) {
+        //after inserting, close container
+        //we use stop with a runtimeprovider to create the delay.
+        var depositPos = BrainUtils.getMemory(entity, OccultismMemoryTypes.DEPOSIT_POSITION.get());
+
+        var blockEntity = entity.level.getBlockEntity(depositPos);
+        if (blockEntity != null) {
+            this.toggleContainer(blockEntity, false);
         }
     }
 
