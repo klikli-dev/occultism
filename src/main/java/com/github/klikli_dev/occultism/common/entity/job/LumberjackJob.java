@@ -23,9 +23,8 @@
 package com.github.klikli_dev.occultism.common.entity.job;
 
 import com.github.klikli_dev.occultism.api.common.container.IItemStackComparator;
-import com.github.klikli_dev.occultism.common.entity.ai.behaviour.FellTreeBehaviour;
-import com.github.klikli_dev.occultism.common.entity.ai.behaviour.HandleUnreachableTreeBehaviour;
-import com.github.klikli_dev.occultism.common.entity.ai.behaviour.SetWalkToTreeTargetBehaviour;
+import com.github.klikli_dev.occultism.common.entity.ai.behaviour.*;
+import com.github.klikli_dev.occultism.common.entity.ai.sensor.NearestJobItemSensor;
 import com.github.klikli_dev.occultism.common.entity.ai.sensor.NearestTreeSensor;
 import com.github.klikli_dev.occultism.common.entity.ai.sensor.UnreachableWalkTargetSensor;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
@@ -42,6 +41,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
+import net.tslat.smartbrainlib.api.core.behaviour.FirstApplicableBehaviour;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.move.MoveToWalkTarget;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import net.tslat.smartbrainlib.util.BrainUtils;
@@ -64,6 +64,7 @@ public class LumberjackJob extends SpiritJob {
     public List<ExtendedSensor<SpiritEntity>> getSensors() {
         return ImmutableList.of(
                 new NearestTreeSensor<>(),
+                new NearestJobItemSensor<>(),
                 new UnreachableWalkTargetSensor<>()
         );
     }
@@ -76,9 +77,12 @@ public class LumberjackJob extends SpiritJob {
         //TODO: pickup behaviour
         //TODO: replant sapling behaviour
         //TODO: deposit behaviour
-        
+
         return BrainActivityGroup.coreTasks(
                 new MoveToWalkTarget<>(),
+                //first applicable: replant over deposit
+                //pickup and fell tree should be gated by distance to tree anyway
+                new PickupJobItemBehaviour<>(),
                 new FellTreeBehaviour<>()
         );
     }
@@ -86,8 +90,13 @@ public class LumberjackJob extends SpiritJob {
     @Override
     @SuppressWarnings("unchecked")
     public BrainActivityGroup<SpiritEntity> getIdleTasks() {
+
+        //prefer job items to pick up, over trees
         return BrainActivityGroup.idleTasks(
-                new SetWalkToTreeTargetBehaviour<>(),
+                new FirstApplicableBehaviour<>(
+                        new SetWalkToJobItemTargetBehaviour<>(),
+                        new SetWalkToTreeTargetBehaviour<>()
+                ),
                 new HandleUnreachableTreeBehaviour<>()
         );
     }

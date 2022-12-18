@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.entity.ai.sensor.NearestJobItemSensor;
 import com.github.klikli_dev.occultism.common.entity.ai.sensor.NearestTreeSensor;
 import com.github.klikli_dev.occultism.common.entity.ai.sensor.UnreachableWalkTargetSensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
@@ -38,4 +39,7 @@ public class OccultismSensors {
 
     public static final RegistryObject<SensorType<UnreachableWalkTargetSensor<?>>> UNREACHABLE_WALK_TARGET = SENSORS.register("unreachable_walk_target",
             () -> new SensorType<>(UnreachableWalkTargetSensor::new));
+
+    public static final RegistryObject<SensorType<NearestJobItemSensor<?>>> NEAREST_JOB_ITEM = SENSORS.register("nearest_job_item",
+            () -> new SensorType<>(NearestJobItemSensor::new));
 }
