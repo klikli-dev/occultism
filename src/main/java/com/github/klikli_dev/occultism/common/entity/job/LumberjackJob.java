@@ -37,6 +37,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -78,6 +79,7 @@ public class LumberjackJob extends SpiritJob {
         //TODO: check if that works, or if we need firstApplicable or something here too -> for close quarters work
 
         return BrainActivityGroup.coreTasks(
+                new LookAtTargetSink(8, 8),
                 new FirstApplicableBehaviour<>(
                         new MoveToWalkTarget<>(),
                         new ReplantSaplingBehaviour<>(),
