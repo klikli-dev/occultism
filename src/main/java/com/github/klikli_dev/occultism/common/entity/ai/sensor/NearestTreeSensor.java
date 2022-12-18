@@ -83,10 +83,19 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
         var workAreaCenter = BrainUtils.getMemory(entity, OccultismMemoryTypes.WORK_AREA_CENTER.get());
         var workAreaSize = BrainUtils.getMemory(entity, OccultismMemoryTypes.WORK_AREA_SIZE.get());
 
-        //get blocks in work area, but only half height, we don't need full.
+        if (Occultism.DEBUG.debugAI) {
+            for (var tree : unreachableTrees) {
+                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(tree, 10000, 0xFFA500));
+            }
+            for (var tree : nonTreeLogs) {
+                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(tree, 10000, 0xFFA500));
+            }
+        }
+
+        //get blocks in work area. We do /2 because we offset from the center
         var blocksInWorkArea = BlockPos.betweenClosedStream(
-                workAreaCenter.offset(-workAreaSize, -workAreaSize / 2, -workAreaSize),
-                workAreaCenter.offset(workAreaSize, workAreaSize / 2, workAreaSize)
+                workAreaCenter.offset(-workAreaSize / 2, -workAreaSize / 2, -workAreaSize / 2),
+                workAreaCenter.offset(workAreaSize / 2, workAreaSize / 2, workAreaSize / 2)
         ).map(BlockPos::immutable);
 
         //filter potential stumps
@@ -124,7 +133,7 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
 
                     if (isReachable) {
                         if (Occultism.DEBUG.debugAI) {
-                            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(potentialStump, 5000, 0xffff00));
+                            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(potentialStump, 50000, 0x800080));
                         }
 
                         BrainUtils.setForgettableMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get(), potentialStump, RESET_NEAREST_TREE_AFTER_TICKS);
@@ -135,6 +144,10 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
                     //we have a stump, but it is not a tree, add it to the list of ignored stumps
                     nonTreeLogs.add(potentialStump);
                     BrainUtils.setMemory(entity, OccultismMemoryTypes.NON_TREE_LOGS.get(), nonTreeLogs);
+
+                    if (Occultism.DEBUG.debugAI) {
+                        OccultismPackets.sendToTracking(entity, new MessageSelectBlock(potentialStump, 50000, 0xffff00));
+                    }
                 }
             }
         }

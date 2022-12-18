@@ -139,4 +139,8 @@ public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
     public EntityDimensions getDimensions(Pose pPose, EntityDimensions original) {
         return original;
     }
+
+    public void onChangeWorkArea(){
+
+    }
 }

@@ -53,12 +53,12 @@ public class SetWalkToTreeTargetBehaviour<E extends SpiritEntity> extends Extend
                 }
             }
 
-            if(walkPos != null){
+            if (walkPos != null) {
                 BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(walkPos));
-                BrainUtils.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(walkPos, 1.0f, 2));
+                BrainUtils.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(walkPos, 1.0f, 1));
 
                 if (Occultism.DEBUG.debugAI) {
-                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, 0xffff00));
+                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, 0x800080));
                     OccultismPackets.sendToTracking(entity, new MessageSelectBlock(walkPos, 5000, 0x00ff00));
                 }
 

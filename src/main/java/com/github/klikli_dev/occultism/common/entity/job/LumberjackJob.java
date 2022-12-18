@@ -132,4 +132,12 @@ public class LumberjackJob extends SpiritJob {
     public EntityDimensions getDimensions(Pose pPose, EntityDimensions original) {
         return this.lumberJackDimensions;
     }
+
+    @Override
+    public void onChangeWorkArea() {
+        BrainUtils.clearMemory(this.entity, OccultismMemoryTypes.NO_TREE_IN_WORK_AREA.get());
+        BrainUtils.clearMemory(this.entity, OccultismMemoryTypes.UNREACHABLE_WALK_TARGETS.get());
+        BrainUtils.clearMemory(this.entity, OccultismMemoryTypes.UNREACHABLE_TREES.get());
+        BrainUtils.clearMemory(this.entity, OccultismMemoryTypes.NON_TREE_LOGS.get());
+    }
 }

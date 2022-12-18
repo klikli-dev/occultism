@@ -255,6 +255,8 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     public void setWorkAreaPosition(BlockPos position) {
         this.entityData.set(WORK_AREA_POSITION, Optional.ofNullable(position));
         BrainUtils.setMemory(this, OccultismMemoryTypes.WORK_AREA_CENTER.get(), this.getWorkAreaCenter());
+
+        this.getJob().ifPresent(SpiritJob::onChangeWorkArea);
     }
 
     public WorkAreaSize getWorkAreaSize() {
@@ -264,6 +266,8 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     public void setWorkAreaSize(WorkAreaSize workAreaSize) {
         this.entityData.set(WORK_AREA_SIZE, workAreaSize.getValue());
         BrainUtils.setMemory(this, OccultismMemoryTypes.WORK_AREA_SIZE.get(), this.getWorkAreaSize().getValue());
+
+        this.getJob().ifPresent(SpiritJob::onChangeWorkArea);
     }
 
     public BlockPos getWorkAreaCenter() {
