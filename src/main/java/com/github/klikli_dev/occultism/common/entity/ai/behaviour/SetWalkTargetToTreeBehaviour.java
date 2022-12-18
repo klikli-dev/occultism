@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Sets the WALK_TARGET memory based on the NEAREST_TREE memory.
  */
-public class SetWalkToTreeTargetBehaviour<E extends SpiritEntity> extends ExtendedBehaviour<E> {
+public class SetWalkTargetToTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour<E> {
 
     public static final int FORGET_UNREACHABLE_TREES_AFTER_TICKS = 20 * 60 * 5;
 

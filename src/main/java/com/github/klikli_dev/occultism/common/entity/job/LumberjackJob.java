@@ -48,7 +48,6 @@ import net.tslat.smartbrainlib.util.BrainUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class LumberjackJob extends SpiritJob {
 
@@ -74,14 +73,14 @@ public class LumberjackJob extends SpiritJob {
     public BrainActivityGroup<SpiritEntity> getCoreTasks() {
         //TODO: when idle we probably should walk to center of work area
 
-        //TODO: pickup behaviour
-        //TODO: replant sapling behaviour
-        //TODO: deposit behaviour
+        //priority is handled by the set target behaviours mostly
+        //replant, deposit, pickup and fell tree should be gated by distance to tree/item/block/lastfelledtree anyway
+        //TODO: check if that works, or if we need firstApplicable or something here too -> for close quarters work
 
         return BrainActivityGroup.coreTasks(
                 new MoveToWalkTarget<>(),
-                //first applicable: replant over deposit
-                //pickup and fell tree should be gated by distance to tree anyway
+                new ReplantSaplingBehaviour<>(),
+                //TODO: deposit behaviour
                 new PickupJobItemBehaviour<>(),
                 new FellTreeBehaviour<>()
         );
@@ -91,11 +90,14 @@ public class LumberjackJob extends SpiritJob {
     @SuppressWarnings("unchecked")
     public BrainActivityGroup<SpiritEntity> getIdleTasks() {
 
+        //prefer replanting saplings over depositing
+        //prefer depositing over picking up job items
         //prefer job items to pick up, over trees
         return BrainActivityGroup.idleTasks(
                 new FirstApplicableBehaviour<>(
-                        new SetWalkToJobItemTargetBehaviour<>(),
-                        new SetWalkToTreeTargetBehaviour<>()
+                        new SetWalkTargetToReplantSaplingBehaviour<>(),
+                        new SetWalkTargetToJobItemBehaviour<>(),
+                        new SetWalkTargetToTreeBehaviour<>()
                 ),
                 new HandleUnreachableTreeBehaviour<>()
         );
@@ -109,7 +111,7 @@ public class LumberjackJob extends SpiritJob {
 
     @Override
     public void init() {
-        this.entity.refreshDimensions();
+        this.entity.refreshDimensions(); //will apply getDimensions()
         this.itemsToPickUp.add(new ItemTagComparator(ItemTags.LOGS));
         this.itemsToPickUp.add(new ItemTagComparator(ItemTags.LEAVES));
         this.itemsToPickUp.add(new ItemTagComparator(ItemTags.SAPLINGS));

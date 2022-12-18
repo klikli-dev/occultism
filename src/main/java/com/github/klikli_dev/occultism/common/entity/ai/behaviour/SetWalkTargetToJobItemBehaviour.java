@@ -7,7 +7,6 @@ import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.behavior.EntityTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
@@ -20,7 +19,7 @@ import java.util.List;
 /**
  * Sets the WALK_TARGET memory based on the NEAREST_VISIBLE_WANTED_ITEM memory.
  */
-public class SetWalkToJobItemTargetBehaviour<E extends SpiritEntity> extends ExtendedBehaviour<E> {
+public class SetWalkTargetToJobItemBehaviour<E extends SpiritEntity> extends ExtendedBehaviour<E> {
 
     private static final List<Pair<MemoryModuleType<?>, MemoryStatus>> MEMORY_REQUIREMENTS = ObjectArrayList.of(
             Pair.of(MemoryModuleType.WALK_TARGET, MemoryStatus.REGISTERED),
