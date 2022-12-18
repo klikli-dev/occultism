@@ -42,6 +42,7 @@ public class SetWalkTargetToReplantSaplingBehaviour<E extends SpiritEntity> exte
         var treePos = BrainUtils.getMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get());
         if (entity.distanceToSqr(Vec3.atCenterOf(treePos)) < ReplantSaplingBehaviour.REPLANT_RANGE_SQUARE) {
             BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
+            BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(treePos));
         } else {
             BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(treePos));
             BrainUtils.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(treePos, 1.0f, 0));

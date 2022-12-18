@@ -46,6 +46,7 @@ public class SetWalkTargetToDepositBehaviour<E extends SpiritEntity> extends Ext
 
         if (entity.distanceToSqr(Vec3.atCenterOf(depositPos)) < DepositItemsBehaviour.DEPOSIT_ITEM_RANGE_SQUARE) {
             BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
+            BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(depositPos));
         } else {
             BlockPos walkPos = null;
 

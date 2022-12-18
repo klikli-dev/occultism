@@ -34,6 +34,7 @@ public class SetWalkTargetToItemBehaviour<E extends SpiritEntity> extends Extend
         var jobItem = BrainUtils.getMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
         if (jobItem != null && jobItem.isAlive()) {
             if (entity.distanceToSqr(jobItem) < PickupItemBehaviour.PICKUP_RANGE_SQUARE) {
+                BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new EntityTracker(jobItem, false));
                 BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
             } else {
                 BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new EntityTracker(jobItem, false));
