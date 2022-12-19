@@ -21,7 +21,7 @@
  */
 package com.github.klikli_dev.occultism.client.model.entity;
 
-import com.github.klikli_dev.occultism.common.entity.ChimeraFamiliarEntity;
+import com.github.klikli_dev.occultism.common.entity.familiar.ChimeraFamiliarEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;

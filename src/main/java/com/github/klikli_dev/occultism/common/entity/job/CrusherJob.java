@@ -1,0 +1,198 @@
+/*
+ * MIT License
+ *
+ * Copyright 2020 klikli-dev
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+ * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+ * conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+package com.github.klikli_dev.occultism.common.entity.job;
+
+import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.entity.ai.goal.PickupItemsGoal;
+import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.github.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
+import com.github.klikli_dev.occultism.crafting.recipe.ItemStackFakeInventory;
+import com.github.klikli_dev.occultism.registry.OccultismRecipes;
+import com.github.klikli_dev.occultism.registry.OccultismSounds;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.phys.Vec3;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+
+public class CrusherJob extends SpiritJob {
+
+    //region Fields
+    public static final String DROPPED_BY_CRUSHER = "occultism:dropped_by_crusher";
+
+    /**
+     * The current ticks in the crushing, will crush once it reaches crushing_time * crushingTimeMultiplier
+     */
+    protected int crushingTimer;
+    protected Supplier<Float> crushingTimeMultiplier;
+    protected Supplier<Float> outputMultiplier;
+
+    protected Optional<CrushingRecipe> currentRecipe = Optional.empty();
+    protected PickupItemsGoal pickupItemsGoal;
+
+    protected List<Ingredient> itemsToPickUp = new ArrayList<>();
+    //endregion Fields
+
+
+    //region Initialization
+    public CrusherJob(SpiritEntity entity, Supplier<Float> crushingTimeMultiplier, Supplier<Float> outputMultiplier) {
+        super(entity);
+        this.crushingTimeMultiplier = crushingTimeMultiplier;
+        this.outputMultiplier = outputMultiplier;
+    }
+    //endregion Initialization
+
+    //region Overrides
+    @Override
+    public void onInit() {
+        this.entity.targetSelector.addGoal(1, this.pickupItemsGoal = new PickupItemsGoal(this.entity));
+        this.itemsToPickUp = this.entity.level.getRecipeManager().getRecipes().stream()
+                .filter(recipe -> recipe.getType() == OccultismRecipes.CRUSHING_TYPE.get())
+                .flatMap(recipe -> recipe.getIngredients().stream()).collect(Collectors.toList());
+    }
+
+    @Override
+    public void cleanup() {
+        this.entity.targetSelector.removeGoal(this.pickupItemsGoal);
+    }
+
+    @Override
+    public void update() {
+        ItemStack handHeld = this.entity.getItemInHand(InteractionHand.MAIN_HAND);
+        ItemStackFakeInventory fakeInventory = new ItemStackFakeInventory(handHeld);
+
+        if (!this.currentRecipe.isPresent() && !handHeld.isEmpty()) {
+            this.currentRecipe = this.entity.level.getRecipeManager().getRecipeFor(OccultismRecipes.CRUSHING_TYPE.get(),
+                    fakeInventory, this.entity.level);
+            this.crushingTimer = 0;
+
+            if (this.currentRecipe.isPresent()) {
+                //play crushing sound
+                this.entity.level
+                        .playSound(null, this.entity.blockPosition(), OccultismSounds.CRUNCHING.get(), SoundSource.NEUTRAL, 0.5f,
+                                1 + 0.5f * this.entity.getRandom().nextFloat());
+            } else {
+                //if no recipe is found, drop hand held item as we can't process it
+                this.entity.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                ItemEntity droppedItem = this.entity.spawnAtLocation(handHeld);
+                if(droppedItem != null){
+                    droppedItem.addTag(DROPPED_BY_CRUSHER);
+                }
+            }
+        }
+        if (this.currentRecipe.isPresent()) {
+            if (handHeld.isEmpty() || !this.currentRecipe.get().matches(fakeInventory, this.entity.level)) {
+                //Reset cached recipe if it no longer matches
+                this.currentRecipe = Optional.empty();
+            } else {
+                //advance conversion
+                this.crushingTimer++;
+
+                //show particle effect while crushing
+                if (this.entity.level.getGameTime() % 10 == 0) {
+                    Vec3 pos = this.entity.position();
+                    ((ServerLevel) this.entity.level)
+                            .sendParticles(ParticleTypes.PORTAL, pos.x + this.entity.level.random.nextGaussian() / 3,
+                                    pos.y + 0.5, pos.z + this.entity.level.random.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
+                                    0.0);
+                }
+
+                //every two seconds, play another crushing sound
+                if (this.crushingTimer % 40 == 0) {
+                    this.entity.level.playSound(null, this.entity.blockPosition(), OccultismSounds.CRUNCHING.get(),
+                            SoundSource.NEUTRAL, 0.5f,
+                            1 + 0.5f * this.entity.getRandom().nextFloat());
+                }
+
+                if (this.crushingTimer >= this.currentRecipe.get().getCrushingTime() * this.crushingTimeMultiplier.get()) {
+                    this.crushingTimer = 0;
+
+                    ItemStack result = this.currentRecipe.get().assemble(fakeInventory);
+                    //make sure to ignore output multiplier on recipes that set that flag.
+                    //prevents e.g. 1x ingot -> 3x dust -> 3x ingot -> 9x dust ...
+                    float outputMultiplier = this.outputMultiplier.get();
+                    if (this.currentRecipe.get().getIgnoreCrushingMultiplier())
+                        outputMultiplier = 1;
+                    result.setCount((int) (result.getCount() * outputMultiplier));
+                    ItemStack inputCopy = handHeld.copy();
+                    inputCopy.setCount(1);
+                    handHeld.shrink(1);
+
+                    this.onCrush(inputCopy, result);
+                    ItemEntity droppedItem = this.entity.spawnAtLocation(result);
+                    if(droppedItem != null){
+                        droppedItem.addTag(DROPPED_BY_CRUSHER);
+                    }
+                    //Don't reset recipe here, keep it cached
+                }
+            }
+        }
+        super.update();
+    }
+
+    @Override
+    public CompoundTag writeJobToNBT(CompoundTag compound) {
+        compound.putInt("conversionTimer", this.crushingTimer);
+        return super.writeJobToNBT(compound);
+    }
+
+    @Override
+    public void readJobFromNBT(CompoundTag compound) {
+        super.readJobFromNBT(compound);
+        this.crushingTimer = compound.getInt("conversionTimer");
+    }
+
+    @Override
+    public boolean canPickupItem(ItemEntity entity) {
+        if (entity.getTags().contains(DROPPED_BY_CRUSHER) && entity.getAge() <
+                Occultism.SERVER_CONFIG.spiritJobs.crusherResultPickupDelay.get())
+            return false; //cannot pick up items a crusher (most likely *this* one) dropped util delay elapsed.
+
+        ItemStack stack = entity.getItem();
+        return !stack.isEmpty() && this.itemsToPickUp.stream().anyMatch(i -> i.test(stack));
+    }
+    //endregion Overrides
+
+    //region Methods
+
+    /**
+     * Called when an item was crushed
+     *
+     * @param input  the input item.
+     * @param output the output item.
+     */
+    public void onCrush(ItemStack input, ItemStack output) {
+
+    }
+    //endregion Methods
+}
