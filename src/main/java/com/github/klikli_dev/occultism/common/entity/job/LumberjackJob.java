@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.api.common.container.IItemStackComparator
 import com.github.klikli_dev.occultism.common.entity.ai.behaviour.*;
 import com.github.klikli_dev.occultism.common.entity.ai.sensor.NearestJobItemSensor;
 import com.github.klikli_dev.occultism.common.entity.ai.sensor.NearestTreeSensor;
-import com.github.klikli_dev.occultism.common.entity.ai.sensor.UnreachableWalkTargetSensor;
+import com.github.klikli_dev.occultism.common.entity.ai.sensor.UnreachableTreeWalkTargetSensor;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.common.misc.ItemTagComparator;
@@ -65,7 +65,7 @@ public class LumberjackJob extends SpiritJob {
         return ImmutableList.of(
                 new NearestTreeSensor<>(),
                 new NearestJobItemSensor<>(),
-                new UnreachableWalkTargetSensor<>()
+                new UnreachableTreeWalkTargetSensor<>()
         );
     }
 

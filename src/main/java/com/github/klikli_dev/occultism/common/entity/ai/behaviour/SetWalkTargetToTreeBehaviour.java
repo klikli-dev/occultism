@@ -29,6 +29,7 @@ public class SetWalkTargetToTreeBehaviour<E extends SpiritEntity> extends Extend
 
     private static final List<Pair<MemoryModuleType<?>, MemoryStatus>> MEMORY_REQUIREMENTS = ObjectArrayList.of(
             Pair.of(MemoryModuleType.WALK_TARGET, MemoryStatus.REGISTERED),
+            Pair.of(OccultismMemoryTypes.LAST_TREE_WALK_TARGET.get(), MemoryStatus.REGISTERED),
             Pair.of(MemoryModuleType.LOOK_TARGET, MemoryStatus.REGISTERED),
             Pair.of(OccultismMemoryTypes.NEAREST_TREE.get(), MemoryStatus.VALUE_PRESENT),
             Pair.of(OccultismMemoryTypes.UNREACHABLE_TREES.get(), MemoryStatus.REGISTERED),
@@ -40,7 +41,7 @@ public class SetWalkTargetToTreeBehaviour<E extends SpiritEntity> extends Extend
         var treePos = BrainUtils.getMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
         if (entity.distanceToSqr(Vec3.atCenterOf(treePos)) < FellTreeBehaviour.FELL_TREE_RANGE_SQUARE) {
             BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
-            BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(treePos));
+            BrainUtils.clearMemory(entity, OccultismMemoryTypes.LAST_TREE_WALK_TARGET.get());
         } else {
             BlockPos walkPos = null;
 
@@ -57,6 +58,7 @@ public class SetWalkTargetToTreeBehaviour<E extends SpiritEntity> extends Extend
             if (walkPos != null) {
                 BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(walkPos));
                 BrainUtils.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(walkPos, 1.0f, 1));
+                BrainUtils.setMemory(entity, OccultismMemoryTypes.LAST_TREE_WALK_TARGET.get(), new WalkTarget(walkPos, 1.0f, 1));
 
                 if (Occultism.DEBUG.debugAI) {
                     OccultismPackets.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, 0x800080));
@@ -69,6 +71,7 @@ public class SetWalkTargetToTreeBehaviour<E extends SpiritEntity> extends Extend
                 BrainUtils.setForgettableMemory(entity, OccultismMemoryTypes.UNREACHABLE_TREES.get(), unreachableTrees, FORGET_UNREACHABLE_TREES_AFTER_TICKS);
 
                 BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
+                BrainUtils.clearMemory(entity, OccultismMemoryTypes.LAST_TREE_WALK_TARGET.get());
                 BrainUtils.clearMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
 
                 if (Occultism.DEBUG.debugAI) {

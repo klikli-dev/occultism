@@ -5,6 +5,7 @@ import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.network.MessageSelectBlock;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismMemoryTypes;
+import com.github.klikli_dev.occultism.util.Math3DUtil;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.world.entity.ai.behavior.EntityTracker;
@@ -33,8 +34,10 @@ public class SetWalkTargetToItemBehaviour<E extends SpiritEntity> extends Extend
     protected void start(E entity) {
         var jobItem = BrainUtils.getMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
         if (jobItem != null && jobItem.isAlive()) {
-            if (entity.distanceToSqr(jobItem) < PickupItemBehaviour.PICKUP_RANGE_SQUARE) {
-                BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new EntityTracker(jobItem, false));
+            if (Math3DUtil.withinAxisDistances(entity.position(), jobItem.position(),
+                    PickupItemBehaviour.PICKUP_XZ_RANGE_SQUARE,
+                    PickupItemBehaviour.PICKUP_Y_RANGE,
+                    PickupItemBehaviour.PICKUP_XZ_RANGE_SQUARE)) {
                 BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
             } else {
                 BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new EntityTracker(jobItem, false));

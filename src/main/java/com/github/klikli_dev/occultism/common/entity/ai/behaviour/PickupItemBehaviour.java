@@ -3,9 +3,12 @@ package com.github.klikli_dev.occultism.common.entity.ai.behaviour;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.registry.OccultismMemoryTypes;
+import com.github.klikli_dev.occultism.util.Math3DUtil;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
+import net.minecraft.world.entity.ai.behavior.EntityTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.item.ItemStack;
@@ -17,7 +20,8 @@ import net.tslat.smartbrainlib.util.BrainUtils;
 import java.util.List;
 
 public class PickupItemBehaviour<E extends SpiritEntity> extends ExtendedBehaviour<E> {
-    public static final double PICKUP_RANGE_SQUARE = Math.pow(2.5, 2);
+    public static final double PICKUP_XZ_RANGE_SQUARE = 2.5;
+    public static final double PICKUP_Y_RANGE = 16;
 
     private static final List<Pair<MemoryModuleType<?>, MemoryStatus>> MEMORY_REQUIREMENTS = ObjectArrayList.of(
             Pair.of(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, MemoryStatus.VALUE_PRESENT),
@@ -28,8 +32,10 @@ public class PickupItemBehaviour<E extends SpiritEntity> extends ExtendedBehavio
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
         var jobItem = BrainUtils.getMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
-        var dist = entity.distanceToSqr(jobItem);
-        return dist <= PickupItemBehaviour.PICKUP_RANGE_SQUARE
+        return Math3DUtil.withinAxisDistances(entity.position(), jobItem.position(),
+                PickupItemBehaviour.PICKUP_XZ_RANGE_SQUARE,
+                PickupItemBehaviour.PICKUP_Y_RANGE,
+                PickupItemBehaviour.PICKUP_XZ_RANGE_SQUARE)
                 //also check if inserting would take anything from the entity stack -> means we have free slots
                 && ItemHandlerHelper.insertItemStacked(
                 entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new), jobItem.getItem(), true).getCount() <
@@ -39,6 +45,7 @@ public class PickupItemBehaviour<E extends SpiritEntity> extends ExtendedBehavio
     protected void start(E entity) {
         var jobItem = BrainUtils.getMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
 
+        BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new EntityTracker(jobItem, false));
         ItemStack duplicate = jobItem.getItem().copy();
         ItemStackHandler handler = entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
         if (ItemHandlerHelper.insertItemStacked(handler, duplicate, true).getCount() < duplicate.getCount()) {

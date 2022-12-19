@@ -7,6 +7,7 @@ import com.github.klikli_dev.occultism.util.StorageUtil;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.item.ItemStack;
@@ -48,12 +49,13 @@ public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehav
     }
 
     protected void start(E entity) {
-
         var depositPos = BrainUtils.getMemory(entity, OccultismMemoryTypes.DEPOSIT_POSITION.get());
         var depositFacing = BrainUtils.getMemory(entity, OccultismMemoryTypes.DEPOSIT_FACING.get());
 
         var blockEntity = entity.level.getBlockEntity(depositPos);
         if (blockEntity != null) {
+            BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(depositPos));
+
             var depositItemHandlerCap = blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, depositFacing);
 
             this.toggleContainer(blockEntity, true);

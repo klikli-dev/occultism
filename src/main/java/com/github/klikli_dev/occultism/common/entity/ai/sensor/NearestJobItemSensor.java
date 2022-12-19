@@ -1,6 +1,10 @@
 package com.github.klikli_dev.occultism.common.entity.ai.sensor;
 
+import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.common.entity.ai.EntitySorter;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.github.klikli_dev.occultism.network.MessageSelectBlock;
+import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.github.klikli_dev.occultism.registry.OccultismSensors;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -37,19 +41,42 @@ public class NearestJobItemSensor<E extends SpiritEntity> extends PredicateSenso
     }
 
     protected void doTick(ServerLevel level, E entity) {
+
+        //exit if we already have a desired item, to avoid switching back and forth if we lose LoS during movement
+        if (BrainUtils.hasMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM))
+            return;
+
         var workAreaCenter = BrainUtils.getMemory(entity, OccultismMemoryTypes.WORK_AREA_CENTER.get());
         var workAreaSize = BrainUtils.getMemory(entity, OccultismMemoryTypes.WORK_AREA_SIZE.get());
+
+        if (Occultism.DEBUG.debugAI) {
+            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(workAreaCenter, 5000, 0x0000FF));
+            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(workAreaSize / 2, workAreaSize / 2, workAreaSize / 2), 5000, 0x00FFFF));
+            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(-workAreaSize / 2, -workAreaSize / 2, -workAreaSize / 2), 5000, 0x00FFFF));
+            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(workAreaSize / 2, workAreaSize / 2, -workAreaSize / 2), 5000, 0x00FFFF));
+            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(-workAreaSize / 2, -workAreaSize / 2, workAreaSize / 2), 5000, 0x00FFFF));
+            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(workAreaSize / 2, -workAreaSize / 2, workAreaSize / 2), 5000, 0x00FFFF));
+            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(-workAreaSize / 2, workAreaSize / 2, -workAreaSize / 2), 5000, 0x00FFFF));
+            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(-workAreaSize / 2, workAreaSize / 2, workAreaSize / 2), 5000, 0x00FFFF));
+            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(workAreaSize / 2, -workAreaSize / 2, -workAreaSize / 2), 5000, 0x00FFFF));
+        }
 
         var aabb = new AABB(workAreaCenter.offset(-workAreaSize / 2, -workAreaSize / 2, -workAreaSize / 2),
                 workAreaCenter.offset(workAreaSize / 2, workAreaSize / 2, workAreaSize / 2));
 
-        BrainUtils.setMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, EntityRetrievalUtil.getNearestEntity(level,
+        ItemEntity nearestEntity =  EntityRetrievalUtil.getNearestEntity(level,
                 aabb, entity.position(), (obj) -> {
                     if (obj instanceof ItemEntity item) {
                         return this.predicate().test(item, entity);
                     }
                     return false;
-                }));
+                });
+
+        BrainUtils.setMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, nearestEntity);
+
+        if (Occultism.DEBUG.debugAI && nearestEntity != null) {
+            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(nearestEntity.blockPosition(), 5000, 0x00FF00));
+        }
     }
 
 }

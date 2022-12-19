@@ -10,6 +10,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.level.Level;
@@ -57,7 +58,7 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
     protected void tick(E entity) {
         var treePos = BrainUtils.getMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
         if (NearestTreeSensor.isLog(entity.level, treePos)) {
-
+            BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(treePos));
             this.breakingTime++;
             entity.swing(InteractionHand.MAIN_HAND);
             int i = (int) ((float) this.breakingTime / 160.0F * 10.0F);

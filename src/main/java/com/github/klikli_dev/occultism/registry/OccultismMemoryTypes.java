@@ -9,6 +9,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -24,6 +25,7 @@ public class OccultismMemoryTypes {
 
     public static final Supplier<MemoryModuleType<BlockPos>> LAST_FELLED_TREE = MEMORY_MODULE_TYPES.register("last_felled_tree", () -> new MemoryModuleType<>(Optional.empty()));
 
+    public static final Supplier<MemoryModuleType<WalkTarget>> LAST_TREE_WALK_TARGET = MEMORY_MODULE_TYPES.register("last_tree_walk_target", () -> new MemoryModuleType<>(Optional.empty()));
     public static final Supplier<MemoryModuleType<Boolean>> NO_TREE_IN_WORK_AREA = MEMORY_MODULE_TYPES.register("no_tree_in_work_area", () -> new MemoryModuleType<>(Optional.empty()));
     public static final Supplier<MemoryModuleType<Set<BlockPos>>> NON_TREE_LOGS = MEMORY_MODULE_TYPES.register("non_tree_logs", () -> new MemoryModuleType<>(Optional.empty()));
 

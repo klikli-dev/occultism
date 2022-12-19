@@ -1,5 +1,8 @@
 package com.github.klikli_dev.occultism.common.entity.ai.sensor;
 
+import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.network.MessageSelectBlock;
+import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.github.klikli_dev.occultism.registry.OccultismSensors;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -13,15 +16,15 @@ import net.tslat.smartbrainlib.util.BrainUtils;
 
 import java.util.List;
 
-public class UnreachableWalkTargetSensor<E extends LivingEntity> extends ExtendedSensor<E> {
+public class UnreachableTreeWalkTargetSensor<E extends LivingEntity> extends ExtendedSensor<E> {
     private static final List<MemoryModuleType<?>> MEMORIES = ObjectArrayList.of(
             MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
-            MemoryModuleType.WALK_TARGET,
+            OccultismMemoryTypes.LAST_TREE_WALK_TARGET.get(),
             OccultismMemoryTypes.WALK_TARGET_UNREACHABLE.get()
     );
     private long lastUnpathableTime = 0L;
 
-    public UnreachableWalkTargetSensor() {
+    public UnreachableTreeWalkTargetSensor() {
     }
 
     public List<MemoryModuleType<?>> memoriesUsed() {
@@ -35,7 +38,7 @@ public class UnreachableWalkTargetSensor<E extends LivingEntity> extends Extende
     protected void doTick(ServerLevel level, E entity) {
         Brain<?> brain = entity.getBrain();
 
-        var walkTarget = BrainUtils.getMemory(entity, MemoryModuleType.WALK_TARGET);
+        var walkTarget = BrainUtils.getMemory(entity, OccultismMemoryTypes.LAST_TREE_WALK_TARGET.get());
         if (walkTarget == null) {
             this.resetState(brain);
         } else {
@@ -50,6 +53,10 @@ public class UnreachableWalkTargetSensor<E extends LivingEntity> extends Extende
                 } else if (this.lastUnpathableTime < unpathableTime) {
                     this.lastUnpathableTime = unpathableTime;
                     BrainUtils.setMemory(brain, OccultismMemoryTypes.WALK_TARGET_UNREACHABLE.get(), walkTarget.getTarget().currentBlockPosition().getY() > entity.getEyeY());
+                    BrainUtils.clearMemory(brain, OccultismMemoryTypes.LAST_TREE_WALK_TARGET.get());
+                    if (Occultism.DEBUG.debugAI) {
+                        OccultismPackets.sendToTracking(entity, new MessageSelectBlock(walkTarget.getTarget().currentBlockPosition(), 50000, 0xFF0000));
+                    }
                 }
 
             }
