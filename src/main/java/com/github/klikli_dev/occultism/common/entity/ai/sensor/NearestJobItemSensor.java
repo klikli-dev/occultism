@@ -43,8 +43,13 @@ public class NearestJobItemSensor<E extends SpiritEntity> extends PredicateSenso
     protected void doTick(ServerLevel level, E entity) {
 
         //exit if we already have a desired item, to avoid switching back and forth if we lose LoS during movement
-        if (BrainUtils.hasMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM))
+        if (BrainUtils.hasMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM)){
+            var nearestEntity = BrainUtils.getMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
+            if (Occultism.DEBUG.debugAI) {
+                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(nearestEntity.blockPosition(), 5000, 0x00FF00));
+            }
             return;
+        }
 
         var workAreaCenter = BrainUtils.getMemory(entity, OccultismMemoryTypes.WORK_AREA_CENTER.get());
         var workAreaSize = BrainUtils.getMemory(entity, OccultismMemoryTypes.WORK_AREA_SIZE.get());

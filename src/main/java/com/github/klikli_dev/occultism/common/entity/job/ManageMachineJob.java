@@ -141,7 +141,7 @@ public class ManageMachineJob extends SpiritJob {
 
     //region Overrides
     @Override
-    public void init() {
+    public void onInit() {
         this.entity.getNavigation().getNodeEvaluator().setCanPassDoors(true);
         ((GroundPathNavigation) this.entity.getNavigation()).setCanOpenDoors(true);
         this.entity.goalSelector.addGoal(3, this.manageMachineGoal = new ManageMachineGoal(this.entity, this));

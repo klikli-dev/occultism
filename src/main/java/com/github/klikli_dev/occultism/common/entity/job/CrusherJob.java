@@ -74,7 +74,7 @@ public class CrusherJob extends SpiritJob {
 
     //region Overrides
     @Override
-    public void init() {
+    public void onInit() {
         this.entity.targetSelector.addGoal(1, this.pickupItemsGoal = new PickupItemsGoal(this.entity));
         this.itemsToPickUp = this.entity.level.getRecipeManager().getRecipes().stream()
                 .filter(recipe -> recipe.getType() == OccultismRecipes.CRUSHING_TYPE.get())

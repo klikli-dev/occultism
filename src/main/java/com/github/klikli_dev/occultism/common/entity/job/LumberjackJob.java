@@ -115,7 +115,7 @@ public class LumberjackJob extends SpiritJob {
     }
 
     @Override
-    public void init() {
+    public void onInit() {
         this.entity.refreshDimensions(); //will apply getDimensions()
         this.itemsToPickUp.add(new ItemTagComparator(ItemTags.LOGS));
         this.itemsToPickUp.add(new ItemTagComparator(ItemTags.LEAVES));

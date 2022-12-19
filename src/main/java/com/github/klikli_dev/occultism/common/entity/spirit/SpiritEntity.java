@@ -177,11 +177,8 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     @Override
     public void handleAdditionalBrainSetup(Brain<SpiritEntity> brain) {
-        BrainUtils.setMemory(brain, OccultismMemoryTypes.WORK_AREA_CENTER.get(), this.getWorkAreaCenter());
-        BrainUtils.setMemory(brain, OccultismMemoryTypes.WORK_AREA_SIZE.get(), this.getWorkAreaSize().getValue());
 
-        BrainUtils.setMemory(brain, OccultismMemoryTypes.DEPOSIT_POSITION.get(),  this.getDepositPosition().orElse(null));
-        BrainUtils.setMemory(brain, OccultismMemoryTypes.DEPOSIT_FACING.get(), this.getDepositFacing());
+        //we might want to init brain vars that come from spirit vars here, but as this happens before entity is in the world, we are missing fallback data such as entity position that some of our spirit vars (work area center) use
 
         this.job.ifPresent(job -> job.handleAdditionalBrainSetup(brain));
     }

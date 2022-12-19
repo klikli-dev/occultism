@@ -59,7 +59,7 @@ public class TransportItemsJob extends SpiritJob implements MenuProvider {
     }
 
     @Override
-    public void init() {
+    public void onInit() {
         this.entity.getNavigation().getNodeEvaluator().setCanPassDoors(true);
         ((GroundPathNavigation) this.entity.getNavigation()).setCanOpenDoors(true);
         this.entity.goalSelector.addGoal(3, this.depositItemsGoal = new DepositItemsGoal(this.entity));

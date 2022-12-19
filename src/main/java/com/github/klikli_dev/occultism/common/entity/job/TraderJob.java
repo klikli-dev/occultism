@@ -101,7 +101,7 @@ public class TraderJob extends SpiritJob {
 
     //region Overrides
     @Override
-    public void init() {
+    public void onInit() {
         this.entity.targetSelector.addGoal(1, this.pickupItemsGoal = new PickupItemsGoal(this.entity));
     }
 

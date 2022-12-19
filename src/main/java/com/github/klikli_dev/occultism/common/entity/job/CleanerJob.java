@@ -61,7 +61,7 @@ public class CleanerJob extends SpiritJob implements MenuProvider {
     }
 
     @Override
-    public void init() {
+    public void onInit() {
         this.entity.targetSelector.addGoal(0, this.returnToWorkAreaGoal = new ReturnToWorkAreaGoal(this.entity));
         this.entity.targetSelector.addGoal(1, this.pickupItemsGoal = new PickupItemsGoal(this.entity));
         this.entity.goalSelector.addGoal(4, this.depositItemsGoal = new DepositItemsGoal(this.entity));

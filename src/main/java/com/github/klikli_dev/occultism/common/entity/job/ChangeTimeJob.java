@@ -50,7 +50,7 @@ public abstract class ChangeTimeJob extends SpiritJob {
     //region Overrides
 
     @Override
-    public void init() {
+    public void onInit() {
 
     }
 
