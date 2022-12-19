@@ -28,11 +28,13 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.RenderLevelLastEvent;
+import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.awt.*;
@@ -81,22 +83,16 @@ public class SelectedBlockRenderer {
     }
 
     @SubscribeEvent
-    public void RenderLevelLastEvent(RenderLevelLastEvent event) {
+    public void RenderLevelLastEvent(RenderLevelStageEvent event) {
         this.renderSelectedBlocks(event);
     }
 
-    protected void renderSelectedBlocks(RenderLevelLastEvent event) {
+    protected void renderSelectedBlocks(RenderLevelStageEvent event) {
+        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_PARTICLES)
+            return;
+
         if (!this.selectedBlocks.isEmpty()) {
             long time = System.currentTimeMillis();
-
-            PoseStack poseStack = event.getPoseStack();
-            MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
-
-            VertexConsumer builder = buffer.getBuffer(OccultismRenderType.BLOCK_SELECTION);
-
-            poseStack.pushPose();
-            Vec3 projectedView = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
-            poseStack.translate(-projectedView.x, -projectedView.y, -projectedView.z);
 
             for (Iterator<SelectionInfo> it = this.selectedBlocks.iterator(); it.hasNext(); ) {
                 SelectionInfo info = it.next();
@@ -106,19 +102,29 @@ public class SelectedBlockRenderer {
                     it.remove();
                     return;
                 } else {
-                    RenderUtil
-                            .buildBlockOutline(builder, poseStack, info.selectedBlock.getX(), info.selectedBlock.getY(),
-                                    info.selectedBlock.getZ(), info.color.getRed() / 255.0f,
-                                    info.color.getGreen() / 255.0f, info.color.getBlue() / 255.0f,
-                                    info.color.getAlpha() / 255.0f);
+
+                    PoseStack matrixStack = event.getPoseStack();
+                    MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
+                    VertexConsumer builder = buffer.getBuffer(OccultismRenderType.overlayLines());
+                    matrixStack.pushPose();
+
+                    var camera = Minecraft.getInstance().gameRenderer.getMainCamera();
+                    Vec3 cameraPosition = camera.getPosition();
+                    matrixStack.translate(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
+
+                    LevelRenderer.renderLineBox(matrixStack, builder,
+                            info.selectedBlock.getX(), info.selectedBlock.getY(), info.selectedBlock.getZ(),
+                            info.selectedBlock.getX() + 1, info.selectedBlock.getY() + 1, info.selectedBlock.getZ() + 1,
+                            info.color.getRed() / 255.0f,
+                            info.color.getGreen() / 255.0f, info.color.getBlue() / 255.0f,
+                            info.color.getAlpha() / 255.0f
+                    );
+
+                    matrixStack.popPose();
+                    RenderSystem.disableDepthTest();
+                    buffer.endBatch(OccultismRenderType.overlayLines());
                 }
             }
-
-            poseStack.popPose();
-            RenderSystem.enableTexture();
-            RenderSystem.disableDepthTest();
-            buffer.endBatch(OccultismRenderType.BLOCK_SELECTION);
-            RenderSystem.enableDepthTest();
         }
     }
     //endregion Methods
