@@ -22,11 +22,11 @@
 
 package com.github.klikli_dev.occultism.client.render;
 
-import com.github.klikli_dev.occultism.util.RenderUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
@@ -85,7 +85,7 @@ public class SelectedBlockRenderer {
     }
 
     protected void renderSelectedBlocks(RenderLevelStageEvent event) {
-        if (event.getStage() != Stage.AFTER_TRANSLUCENT_BLOCKS)
+        if (event.getStage() != Stage.AFTER_PARTICLES)
             return;
 
         if (!this.selectedBlocks.isEmpty()) {
@@ -102,27 +102,26 @@ public class SelectedBlockRenderer {
 
                     PoseStack matrixStack = event.getPoseStack();
                     MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
-                    VertexConsumer builder = buffer.getBuffer(OccultismRenderType.OVERLAY_LINES);
-
+                    VertexConsumer builder = buffer.getBuffer(OccultismRenderType.overlayLines());
                     matrixStack.pushPose();
 
-                    Vec3 projectedView = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
-                    matrixStack.translate(-projectedView.x, -projectedView.y, -projectedView.z);
+                    var camera = Minecraft.getInstance().gameRenderer.getMainCamera();
+                    Vec3 cameraPosition = camera.getPosition();
+                    matrixStack.translate(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
 
-                    var positionMatrix = matrixStack.last().pose();
-                    RenderUtil.buildBlockOutline(builder, positionMatrix,
+                    LevelRenderer.renderLineBox(matrixStack, builder,
                             info.selectedBlock.getX(), info.selectedBlock.getY(), info.selectedBlock.getZ(),
+                            info.selectedBlock.getX() + 1, info.selectedBlock.getY() + 1, info.selectedBlock.getZ() + 1,
                             info.color.getRed() / 255.0f,
                             info.color.getGreen() / 255.0f, info.color.getBlue() / 255.0f,
-                            info.color.getAlpha() / 255.0f);
+                            info.color.getAlpha() / 255.0f
+                    );
 
                     matrixStack.popPose();
                     RenderSystem.disableDepthTest();
-                    buffer.endBatch(OccultismRenderType.OVERLAY_LINES);
+                    buffer.endBatch(OccultismRenderType.overlayLines());
                 }
             }
-
-
         }
     }
     //endregion Methods

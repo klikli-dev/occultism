@@ -30,8 +30,8 @@ import java.util.OptionalDouble;
 
 public class OccultismRenderType extends RenderType {
     private static final LineStateShard THICK_LINES = new LineStateShard(OptionalDouble.of(4.0D));
-    public static final RenderType OVERLAY_LINES = create("overlay_lines",
-            DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 256, true, false,
+    private static final RenderType OVERLAY_LINES = create("overlay_lines",
+            DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 256, false, false,
             CompositeState.builder().setLineState(THICK_LINES)
                     .setLayeringState(VIEW_OFFSET_Z_LAYERING)
                     .setShaderState(RENDERTYPE_LINES_SHADER)
@@ -41,11 +41,17 @@ public class OccultismRenderType extends RenderType {
                     .setCullState(NO_CULL)
                     .setLightmapState(NO_LIGHTMAP)
                     .setWriteMaskState(COLOR_WRITE)
+                    .setOutputState(PARTICLES_TARGET)
                     .createCompositeState(false));
+
 
     public OccultismRenderType(String name, VertexFormat vertexFormat, VertexFormat.Mode drawMode, int bufferSize,
                                boolean useDelegate, boolean needsSorting, Runnable setupTaskIn,
                                Runnable clearTaskIn) {
         super(name, vertexFormat, drawMode, bufferSize, useDelegate, needsSorting, setupTaskIn, clearTaskIn);
+    }
+
+    public static RenderType overlayLines() {
+        return OVERLAY_LINES;
     }
 }

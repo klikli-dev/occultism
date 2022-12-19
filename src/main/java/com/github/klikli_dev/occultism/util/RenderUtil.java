@@ -40,38 +40,6 @@ import javax.annotation.Nullable;
 
 public class RenderUtil {
 
-    //region Static Methods
-
-    public static void buildBlockOutline(VertexConsumer buffer, Matrix4f positionMatrix, float mx, float my, float mz, float r, float g, float b, float a) {
-        buffer.vertex(positionMatrix, mx, my, mz).color(r, g, b, a).endVertex();
-        buffer.vertex(positionMatrix, mx + 1, my, mz).color(r, g, b, a).endVertex();
-        buffer.vertex(positionMatrix, mx, my, mz).color(r, g, b, a).endVertex();
-        buffer.vertex(positionMatrix, mx, my + 1, mz).color(r, g, b, a).endVertex();
-        buffer.vertex(positionMatrix, mx, my, mz).color(r, g, b, a).endVertex();
-        buffer.vertex(positionMatrix, mx, my, mz + 1).color(r, g, b, a).endVertex();
-        buffer.vertex(positionMatrix, mx + 1, my + 1, mz + 1).color(r, g, b, a).endVertex();
-        buffer.vertex(positionMatrix, mx, my + 1, mz + 1).color(r, g, b, a).endVertex();
-        buffer.vertex(positionMatrix, mx + 1, my + 1, mz + 1).color(r, g, b, a).endVertex();
-        buffer.vertex(positionMatrix, mx + 1, my, mz + 1).color(r, g, b, a).endVertex();
-        buffer.vertex(positionMatrix, mx + 1, my + 1, mz + 1).color(r, g, b, a).endVertex();
-        buffer.vertex(positionMatrix, mx + 1, my + 1, mz).color(r, g, b, a).endVertex();
-
-        buffer.vertex(positionMatrix, mx, my + 1, mz).color(r, g, b, a).endVertex();
-        buffer.vertex(positionMatrix, mx, my + 1, mz + 1).color(r, g, b, a).endVertex();
-        buffer.vertex(positionMatrix, mx, my + 1, mz).color(r, g, b, a).endVertex();
-        buffer.vertex(positionMatrix, mx + 1, my + 1, mz).color(r, g, b, a).endVertex();
-
-        buffer.vertex(positionMatrix, mx + 1, my, mz).color(r, g, b, a).endVertex();
-        buffer.vertex(positionMatrix, mx + 1, my, mz + 1).color(r, g, b, a).endVertex();
-        buffer.vertex(positionMatrix, mx + 1, my, mz).color(r, g, b, a).endVertex();
-        buffer.vertex(positionMatrix, mx + 1, my + 1, mz).color(r, g, b, a).endVertex();
-
-        buffer.vertex(positionMatrix, mx, my, mz + 1).color(r, g, b, a).endVertex();
-        buffer.vertex(positionMatrix, mx + 1, my, mz + 1).color(r, g, b, a).endVertex();
-        buffer.vertex(positionMatrix, mx, my, mz + 1).color(r, g, b, a).endVertex();
-        buffer.vertex(positionMatrix, mx, my + 1, mz + 1).color(r, g, b, a).endVertex();
-    }
-
     /**
      * copied from ItemRenderer.renderGuiItemDecorations but allows to scale
      */
@@ -117,5 +85,4 @@ public class RenderUtil {
 
         }
     }
-    //endregion Static Methods
 }
