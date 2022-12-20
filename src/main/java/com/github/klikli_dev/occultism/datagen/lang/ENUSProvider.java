@@ -2350,24 +2350,7 @@ public class ENUSProvider extends LanguageProvider {
 
 
         helper.entry("summon_lumberjack");
-        this.add(helper.entryName(), "Summon Foliot Lumberjack");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Foliot Lumberjack");
-        this.add(helper.pageText(),
-                """
-                        The lumberjack will harvest trees in it's working area and deposit the dropped items into the specified chest. **Note**: The lumberjack is using the old vanilla AI, not villager AI. That means he is ... *wonky*, and wont to get stuck. Consider him more of a semi-automatic helper, than a fully automated tree farm :)
-                          """);
-
-        helper.page("ritual");
-        //no text
-
-        helper.page("book_of_calling");
-        this.add(helper.pageText(),
-                """
-                        If you lose the book of calling, you can craft a new one.
-                        [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
-                        """.formatted(COLOR_PURPLE));
+        //Moved to OccultismBookProvider#makeSummonLumberjackEntry
 
         helper.entry("summon_transport_items");
         //Moved to OccultismBookProvider#makeSummonTransportItemsEntry

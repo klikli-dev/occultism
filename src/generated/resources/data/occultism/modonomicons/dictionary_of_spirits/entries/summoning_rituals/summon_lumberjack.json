@@ -40,6 +40,22 @@
       "recipe_id_1": "occultism:crafting/book_of_calling_foliot_lumberjack",
       "title2": "",
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.book_of_calling.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.usage.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.usage.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.usage2.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.usage2.text"
     }
   ],
   "condition": {
