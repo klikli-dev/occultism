@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.3-1.59.1] - 2022-12-20
+### :sparkles: New Features
+- [`a10c52d`](https://github.com/klikli-dev/occultism/commit/a10c52df6a22537113522fa9b8ece0ea43c18525) - improve lumberjack ingame docs *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.3-1.59.0] - 2022-12-20
 ### :sparkles: New Features
 - [`c22aaee`](https://github.com/klikli-dev/occultism/commit/c22aaeec8b0cbf6a44ab303d61f8381482f2493a) - update to latest forge datagen changes for 44.0.37 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -71,3 +76,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.3-1.57.4]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.57.3...release/v1.19.3-1.57.4
 [release/v1.19.3-1.58.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.57.4...release/v1.19.3-1.58.0
 [release/v1.19.3-1.59.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.58.0...release/v1.19.3-1.59.0
+[release/v1.19.3-1.59.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.59.0...release/v1.19.3-1.59.1
