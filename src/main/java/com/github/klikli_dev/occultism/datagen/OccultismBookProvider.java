@@ -2862,23 +2862,63 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeSummonLumberjackEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("summon_lumberjack");
+        this.lang.add(helper.entryName(), "Summon Foliot Lumberjack");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang.add(helper.pageTitle(), "Foliot Lumberjack");
+        this.lang.add(helper.pageText(),
+                """
+                        The lumberjack will harvest trees in it's working area. If a deposit location is set it will collect the dropped items into the specified chest, and re-plant saplings.
+                          """);
 
         helper.page("ritual");
         var ritual = BookRitualRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("ritual/summon_foliot_lumberjack"))
                 .build();
+        //no text
 
         helper.page("book_of_calling");
         var bookOfCalling = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/book_of_calling_foliot_lumberjack"))
                 .withText(helper.pageText())
                 .build();
+        this.lang.add(helper.pageText(),
+                """
+                        If you lose the book of calling, you can craft a new one.
+                        [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("usage");
+        var usage = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+        this.lang.add(helper.pageTitle(), "Usage");
+        this.lang.add(helper.pageText(),
+                """
+                       Use the book of calling to set the work area and deposit location of the lumberjack.
+                       \\
+                       \\
+                       See [Books of Calling](entry://getting_started/books_of_calling) for more information.
+                          """);
+
+        helper.page("usage2");
+        var usage2 = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+        this.lang.add(helper.pageTitle(), "Lazy Lumberjack?");
+        this.lang.add(helper.pageText(),
+                """
+                        The spirit might pause for a few minutes after clearing his work area, even if trees have regrown since. This is a performance-saving measure and not a bug, he will continue on his own.
+                        \\
+                        \\
+                        Set the work area again to make him continue work immediately.
+                          """);
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -2889,7 +2929,9 @@ public class OccultismBookProvider extends BookProvider {
                 .withPages(
                         intro,
                         ritual,
-                        bookOfCalling
+                        bookOfCalling,
+                        usage,
+                        usage2
                 );
     }
 

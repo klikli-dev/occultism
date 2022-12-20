@@ -33,6 +33,22 @@
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.book_of_calling.text",
       "title1": "",
       "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.usage.text",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.usage.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.usage2.text",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.usage2.title",
+      "use_markdown_in_title": false
     }
   ],
   "parents": [
