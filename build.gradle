@@ -157,9 +157,12 @@ dependencies {
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${geckolib_mc_version}:${geckolib_version}")
 
     //smartbrainlib
-    implementation fg.deobf("curse.maven:smartbrainlib-661293:${smartbrainlib_file_id}")
+    //implementation fg.deobf("curse.maven:smartbrainlib-661293:${smartbrainlib_file_id}")
     //the below should give us the srcs jar, but causes resolving the binary jar to fail
     //compileOnly fg.deobf("curse.maven:smartbrainlib-661293:${smartbrainlib_src_file_id}")
+
+    //forgebrainlib
+    implementation fg.deobf("com.klikli_dev:forgebrainlib:${forgebrainlib_mc_version}-${forgebrainlib_version}") //we build against full jar because we NEED IT ALL
 
     //modonomicon
     compileOnly fg.deobf("com.klikli_dev:modonomicon:${modonomicon_mc_version}-${modonomicon_version}") //we build against full jar because we NEED IT ALL
