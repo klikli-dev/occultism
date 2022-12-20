@@ -14,8 +14,8 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
-import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import com.klikli_dev.forgebrainlib.api.core.behaviour.ExtendedBehaviour;
+import com.klikli_dev.forgebrainlib.util.BrainUtils;
 
 import java.util.List;
 

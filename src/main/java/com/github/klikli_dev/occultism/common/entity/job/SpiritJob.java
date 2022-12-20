@@ -33,9 +33,9 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraftforge.common.util.INBTSerializable;
-import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
-import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import com.klikli_dev.forgebrainlib.api.core.BrainActivityGroup;
+import com.klikli_dev.forgebrainlib.api.core.sensor.ExtendedSensor;
+import com.klikli_dev.forgebrainlib.util.BrainUtils;
 
 import java.util.List;
 
