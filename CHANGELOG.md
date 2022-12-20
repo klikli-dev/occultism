@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.3-1.59.0] - 2022-12-20
+### :sparkles: New Features
+- [`c22aaee`](https://github.com/klikli-dev/occultism/commit/c22aaeec8b0cbf6a44ab303d61f8381482f2493a) - update to latest forge datagen changes for 44.0.37 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`d6d0ec0`](https://github.com/klikli-dev/occultism/commit/d6d0ec09355357eea6f466ebff67a0eeda3fd920) - switch to using forgebrainlib *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`fe307f3`](https://github.com/klikli-dev/occultism/commit/fe307f33232cef047b6a4b71527a18e82ac8a3c5) - update to FBL with relocated package *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`2efcff7`](https://github.com/klikli-dev/occultism/commit/2efcff75b0f329c54dd61fa21280d3a8aeb2e448) - update forge and mappings *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`df5e3fb`](https://github.com/klikli-dev/occultism/commit/df5e3fb57ba3ba65a86d5a84baf2e5632c211447) - disable changelog for test builds *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.3-1.58.0] - 2022-12-19
 ### :sparkles: New Features
 - [`126c3b4`](https://github.com/klikli-dev/occultism/commit/126c3b4d7ec481a115e79ebefd22fd899c80c1f3) - convert lumberjack to brains *(PR [#865](https://github.com/klikli-dev/occultism/pull/865) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -59,3 +70,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.3-1.57.3]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.57.2...release/v1.19.3-1.57.3
 [release/v1.19.3-1.57.4]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.57.3...release/v1.19.3-1.57.4
 [release/v1.19.3-1.58.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.57.4...release/v1.19.3-1.58.0
+[release/v1.19.3-1.59.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.58.0...release/v1.19.3-1.59.0
