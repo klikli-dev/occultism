@@ -67,11 +67,11 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.network.NetworkHooks;
-import net.tslat.smartbrainlib.api.SmartBrainOwner;
-import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
-import net.tslat.smartbrainlib.api.core.SmartBrainProvider;
-import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import com.klikli_dev.forgebrainlib.api.SmartBrainOwner;
+import com.klikli_dev.forgebrainlib.api.core.BrainActivityGroup;
+import com.klikli_dev.forgebrainlib.api.core.SmartBrainProvider;
+import com.klikli_dev.forgebrainlib.api.core.sensor.ExtendedSensor;
+import com.klikli_dev.forgebrainlib.util.BrainUtils;
 
 import javax.annotation.Nullable;
 import java.util.List;

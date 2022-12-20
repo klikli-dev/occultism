@@ -15,8 +15,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.ItemHandlerHelper;
-import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
-import net.tslat.smartbrainlib.util.BrainUtils;
+import com.klikli_dev.forgebrainlib.api.core.behaviour.ExtendedBehaviour;
+import com.klikli_dev.forgebrainlib.util.BrainUtils;
 
 import java.util.List;
 

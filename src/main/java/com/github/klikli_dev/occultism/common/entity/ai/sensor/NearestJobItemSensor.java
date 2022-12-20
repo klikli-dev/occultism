@@ -13,10 +13,10 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.phys.AABB;
-import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
-import net.tslat.smartbrainlib.api.core.sensor.PredicateSensor;
-import net.tslat.smartbrainlib.util.BrainUtils;
-import net.tslat.smartbrainlib.util.EntityRetrievalUtil;
+import com.klikli_dev.forgebrainlib.api.core.sensor.ExtendedSensor;
+import com.klikli_dev.forgebrainlib.api.core.sensor.PredicateSensor;
+import com.klikli_dev.forgebrainlib.util.BrainUtils;
+import com.klikli_dev.forgebrainlib.util.EntityRetrievalUtil;
 
 import java.util.List;
 
