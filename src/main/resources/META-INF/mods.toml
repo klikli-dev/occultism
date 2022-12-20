@@ -62,7 +62,13 @@ description='''A magic mod inspired by the world of Jonathan Stroud's Bartimaeus
     side="BOTH"
 
 [[dependencies.occultism]]
+    modId = "forgebrainlib"
+    mandatory = true
+    versionRange="[1.0.0,)"
+    side = "BOTH"
+
+[[dependencies.occultism]]
     modId="forge"
-    mandatory=false
+    mandatory=true
     versionRange="[40.0.18,)"
     side="BOTH"

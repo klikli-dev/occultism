@@ -24,15 +24,20 @@ package com.github.klikli_dev.occultism.common.entity.spirit;
 
 import com.github.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritContainer;
-import com.github.klikli_dev.occultism.common.entity.ISkinnedCreatureMixin;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
-import com.github.klikli_dev.occultism.common.job.SpiritJob;
+import com.github.klikli_dev.occultism.common.entity.job.SpiritJob;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
+import com.github.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.mojang.serialization.Dynamic;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -45,13 +50,9 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -66,12 +67,18 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.network.NetworkHooks;
+import net.tslat.smartbrainlib.api.SmartBrainOwner;
+import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
+import net.tslat.smartbrainlib.api.core.SmartBrainProvider;
+import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
+import net.tslat.smartbrainlib.util.BrainUtils;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCreatureMixin, MenuProvider {
+public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCreatureMixin, MenuProvider, SmartBrainOwner<SpiritEntity> {
     public static final EntityDataAccessor<Integer> SKIN = SynchedEntityData
             .defineId(SpiritEntity.class, EntityDataSerializers.INT);
     /**
@@ -158,6 +165,40 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     @Override
+    protected Brain.Provider<?> brainProvider() {
+        //job is unintentionally null in some cases, because super constructor already calls this method -> and subsequent brain setup methods that will error out
+        return this.job != null && this.job.isPresent() ? new SmartBrainProvider<>(this) : super.brainProvider();
+    }
+
+    @Override
+    protected void customServerAiStep() {
+        this.tickBrain(this);
+    }
+
+    @Override
+    public void handleAdditionalBrainSetup(Brain<SpiritEntity> brain) {
+
+        //we might want to init brain vars that come from spirit vars here, but as this happens before entity is in the world, we are missing fallback data such as entity position that some of our spirit vars (work area center) use
+
+        this.job.ifPresent(job -> job.handleAdditionalBrainSetup(brain));
+    }
+
+    @Override
+    public List<ExtendedSensor<SpiritEntity>> getSensors() {
+        return this.job.isPresent() ? this.job.get().getSensors() : ImmutableList.of();
+    }
+
+    @Override
+    public BrainActivityGroup<SpiritEntity> getCoreTasks() {
+        return this.job.isPresent() ? this.job.get().getCoreTasks() : BrainActivityGroup.empty();
+    }
+
+    @Override
+    public BrainActivityGroup<SpiritEntity> getIdleTasks() {
+        return this.job.isPresent() ? this.job.get().getIdleTasks() : BrainActivityGroup.empty();
+    }
+
+    @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
         super.onSyncedDataUpdated(key);
 
@@ -188,6 +229,8 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         this.entityData.set(DEPOSIT_POSITION, Optional.ofNullable(position));
         if (position != null)
             this.entityData.set(DEPOSIT_ENTITY_UUID, Optional.empty());
+
+        BrainUtils.setMemory(this, OccultismMemoryTypes.DEPOSIT_POSITION.get(), position);
     }
 
     public Optional<UUID> getDepositEntityUUID() {
@@ -214,6 +257,9 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     public void setWorkAreaPosition(BlockPos position) {
         this.entityData.set(WORK_AREA_POSITION, Optional.ofNullable(position));
+        BrainUtils.setMemory(this, OccultismMemoryTypes.WORK_AREA_CENTER.get(), this.getWorkAreaCenter());
+
+        this.getJob().ifPresent(SpiritJob::onChangeWorkArea);
     }
 
     public WorkAreaSize getWorkAreaSize() {
@@ -222,6 +268,9 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     public void setWorkAreaSize(WorkAreaSize workAreaSize) {
         this.entityData.set(WORK_AREA_SIZE, workAreaSize.getValue());
+        BrainUtils.setMemory(this, OccultismMemoryTypes.WORK_AREA_SIZE.get(), this.getWorkAreaSize().getValue());
+
+        this.getJob().ifPresent(SpiritJob::onChangeWorkArea);
     }
 
     public BlockPos getWorkAreaCenter() {
@@ -234,6 +283,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     public void setDepositFacing(Direction depositFacing) {
         this.entityData.set(DEPOSIT_FACING, depositFacing);
+        BrainUtils.setMemory(this, OccultismMemoryTypes.DEPOSIT_FACING.get(), depositFacing);
     }
 
     public Direction getExtractFacing() {
@@ -335,15 +385,31 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     /**
      * Cleans up old job and sets and initializes the new job.
+     * Will not recreate brain.
      *
      * @param job the new job, should already be initialized
      */
     public void setJob(SpiritJob job) {
+        this.setJob(job, true);
+    }
+
+    /**
+     * Cleans up old job and sets and initializes the new job.
+     *
+     * @param job           the new job, should already be initialized
+     * @param recreateBrain if true, the brain will be re-created (which will force tasks to be set up again)
+     */
+    public void setJob(SpiritJob job, boolean recreateBrain) {
         this.removeJob();
         this.job = Optional.ofNullable(job);
         if (job != null) {
             this.job = Optional.ofNullable(job);
             this.setJobID(job.getFactoryID().toString());
+
+            if (recreateBrain) {
+                NbtOps nbtops = NbtOps.INSTANCE;
+                this.brain = this.makeBrain(new Dynamic<>(nbtops, nbtops.createMap(ImmutableMap.of(nbtops.createString("memories"), nbtops.emptyMap()))));
+            }
         }
     }
 
@@ -414,30 +480,24 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         }
     }
 
+
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new FloatGoal(this));
-        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 8.0F, 1));
-        this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(3, new HurtByTargetGoal(this));
+        //none, we use a brain
     }
 
     @Override
     public ItemStack getItemBySlot(EquipmentSlot slotIn) {
-        switch (slotIn) {
-            case MAINHAND:
-                return this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new).getStackInSlot(0);
-            default:
-                return ItemStack.EMPTY;
+        if (slotIn == EquipmentSlot.MAINHAND) {
+            return this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new).getStackInSlot(0);
         }
+        return ItemStack.EMPTY;
     }
 
     @Override
     public void setItemSlot(EquipmentSlot slotIn, ItemStack stack) {
-        switch (slotIn) {
-            case MAINHAND:
-                this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new).setStackInSlot(0, stack);
+        if (slotIn == EquipmentSlot.MAINHAND) {
+            this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new).setStackInSlot(0, stack);
         }
     }
 
@@ -553,7 +613,11 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         //read job
         if (compound.contains("spiritJob")) {
             SpiritJob job = SpiritJob.from(this, compound.getCompound("spiritJob"));
-            this.setJob(job);
+            var containsBrain = compound.contains("Brain", 10);
+            this.setJob(job, !containsBrain);
+            if (compound.contains("Brain", Tag.TAG_COMPOUND)) {
+                this.brain = this.makeBrain(new Dynamic<>(NbtOps.INSTANCE, compound.get("Brain")));
+            }
         }
 
         if (compound.contains("isFilterBlacklist")) {

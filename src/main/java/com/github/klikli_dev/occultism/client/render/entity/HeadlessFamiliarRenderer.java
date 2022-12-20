@@ -25,7 +25,7 @@ package com.github.klikli_dev.occultism.client.render.entity;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.CthulhuFamiliarModel;
 import com.github.klikli_dev.occultism.client.model.entity.HeadlessFamiliarModel;
-import com.github.klikli_dev.occultism.common.entity.HeadlessFamiliarEntity;
+import com.github.klikli_dev.occultism.common.entity.familiar.HeadlessFamiliarEntity;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.github.klikli_dev.occultism.util.FamiliarUtil;

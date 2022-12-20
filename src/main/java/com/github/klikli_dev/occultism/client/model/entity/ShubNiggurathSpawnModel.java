@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.client.model.entity;
 
-import com.github.klikli_dev.occultism.common.entity.ShubNiggurathSpawnEntity;
+import com.github.klikli_dev.occultism.common.entity.familiar.ShubNiggurathSpawnEntity;
 import com.github.klikli_dev.occultism.util.FamiliarUtil;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;

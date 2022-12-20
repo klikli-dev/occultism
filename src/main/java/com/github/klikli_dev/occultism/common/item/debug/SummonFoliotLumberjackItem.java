@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.common.item.debug;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
-import com.github.klikli_dev.occultism.common.job.SpiritJob;
+import com.github.klikli_dev.occultism.common.entity.job.SpiritJob;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.advancements.CriteriaTriggers;

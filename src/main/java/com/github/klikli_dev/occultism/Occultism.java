@@ -89,6 +89,9 @@ public class Occultism {
         OccultismSounds.SOUNDS.register(modEventBus);
         OccultismParticles.PARTICLES.register(modEventBus);
         OccultismBiomeFeatures.FEATURES.register(modEventBus);
+        OccultismLootModifiers.LOOT_MODIFIERS.register(modEventBus);
+        OccultismSensors.SENSORS.register(modEventBus);
+        OccultismMemoryTypes.MEMORY_MODULE_TYPES.register(modEventBus);
 
         //now register the custom registries
         OccultismSpiritJobs.JOBS.register(modEventBus);

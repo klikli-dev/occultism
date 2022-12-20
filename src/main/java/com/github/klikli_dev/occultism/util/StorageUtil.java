@@ -28,10 +28,12 @@ import com.github.klikli_dev.occultism.api.common.container.IStorageControllerCo
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -47,7 +49,6 @@ import java.util.function.Predicate;
  * Based on https://github.com/Lothrazar/Storage-Network
  */
 public class StorageUtil {
-    //region Static Methods
 
     /**
      * Clears the crafting matrix of the open container, if that container implements IStorageControllerContainer
@@ -278,6 +279,12 @@ public class StorageUtil {
             Containers.dropItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), itemHandler.getStackInSlot(i));
         }
     }
-    //endregion Static Methods
 
+    public static int getFirstMatchingSlot(IItemHandler handler, TagKey<Item> tag) {
+        for (int i = 0; i < handler.getSlots(); i++) {
+            if(handler.getStackInSlot(i).is(tag))
+                return i;
+        }
+        return -1;
+    }
 }

@@ -1,8 +1,8 @@
 package com.github.klikli_dev.occultism.client.render.entity;
 
 import com.github.klikli_dev.occultism.client.model.entity.DragonFamiliarModel;
-import com.github.klikli_dev.occultism.common.entity.DragonFamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.ThrownSwordEntity;
+import com.github.klikli_dev.occultism.common.entity.familiar.DragonFamiliarEntity;
+import com.github.klikli_dev.occultism.common.entity.familiar.ThrownSwordEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Quaternion;
 import net.minecraft.client.Minecraft;

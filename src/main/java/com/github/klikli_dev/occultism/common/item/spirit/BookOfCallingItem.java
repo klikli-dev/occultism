@@ -32,7 +32,7 @@ import com.github.klikli_dev.occultism.api.common.item.IHandleItemMode;
 import com.github.klikli_dev.occultism.api.common.item.IIngredientCopyNBT;
 import com.github.klikli_dev.occultism.client.gui.GuiHelper;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.common.job.ManageMachineJob;
+import com.github.klikli_dev.occultism.common.entity.job.ManageMachineJob;
 import com.github.klikli_dev.occultism.util.BlockEntityUtil;
 import com.github.klikli_dev.occultism.util.EntityUtil;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;

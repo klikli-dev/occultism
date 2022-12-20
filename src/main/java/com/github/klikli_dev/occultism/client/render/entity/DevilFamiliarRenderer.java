@@ -24,7 +24,7 @@ package com.github.klikli_dev.occultism.client.render.entity;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.client.model.entity.DevilFamiliarModel;
-import com.github.klikli_dev.occultism.common.entity.DevilFamiliarEntity;
+import com.github.klikli_dev.occultism.common.entity.familiar.DevilFamiliarEntity;
 import com.github.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
