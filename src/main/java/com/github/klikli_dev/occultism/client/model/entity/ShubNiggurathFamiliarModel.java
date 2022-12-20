@@ -22,8 +22,8 @@
 
 package com.github.klikli_dev.occultism.client.model.entity;
 
-import com.github.klikli_dev.occultism.common.entity.CthulhuFamiliarEntity;
-import com.github.klikli_dev.occultism.common.entity.ShubNiggurathFamiliarEntity;
+import com.github.klikli_dev.occultism.common.entity.familiar.CthulhuFamiliarEntity;
+import com.github.klikli_dev.occultism.common.entity.familiar.ShubNiggurathFamiliarEntity;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
