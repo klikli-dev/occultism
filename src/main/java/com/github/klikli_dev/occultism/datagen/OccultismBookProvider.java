@@ -17,6 +17,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.condition.BookEntryReadCondit
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookTrueConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.*;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -28,8 +29,8 @@ public class OccultismBookProvider extends BookProvider {
 
     public static final String COLOR_PURPLE = "ad03fc";
 
-    public OccultismBookProvider(DataGenerator generator, String modid, LanguageProvider lang) {
-        super(generator, modid, lang);
+    public OccultismBookProvider(PackOutput packOutput, String modid, LanguageProvider lang) {
+        super(packOutput, modid, lang);
     }
 
     @Override
