@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.18.2-1.59.0] - 2022-12-20
+### :bug: Bug Fixes
+- [`ef9602f`](https://github.com/klikli-dev/occultism/commit/ef9602f62555971b381fe01e3a51759417dfcfe5) - downgrade merge errors *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`2e7aea3`](https://github.com/klikli-dev/occultism/commit/2e7aea3f52fa998af0398510e178eaa270fe5f74) - disable changelog for test builds *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`cb04e4d`](https://github.com/klikli-dev/occultism/commit/cb04e4d15f4043852516f1e008a4e3777a0aa248) - switch to using forgebrainlib *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`67c9626`](https://github.com/klikli-dev/occultism/commit/67c96262f28de94a92673440101ff608d95053a4) - update to FBL with relocated package *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`ad1910f`](https://github.com/klikli-dev/occultism/commit/ad1910fe83b718025a56f70d7850dd11fc3ce5d1) - update to latest jei *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.18.2-1.57.4] - 2022-12-19
 ### :bug: Bug Fixes
 - [`fe3d763`](https://github.com/klikli-dev/occultism/commit/fe3d7631cdc9cee682d8fd36ccc3009818dc2ff0) - move block outline rendering to AFTER_PARTICLES *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -30,3 +41,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.18.2-1.57.2]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.55.4...release/v1.18.2-1.57.2
 [release/v1.18.2-1.57.3]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.57.2...release/v1.18.2-1.57.3
 [release/v1.18.2-1.57.4]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.57.3...release/v1.18.2-1.57.4
+[release/v1.18.2-1.59.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.57.4...release/v1.18.2-1.59.0
