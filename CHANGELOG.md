@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.18.2-1.59.1] - 2022-12-20
+### :sparkles: New Features
+- [`22ece0e`](https://github.com/klikli-dev/occultism/commit/22ece0e28f361ef35e2eb91776f6b85b38f03c73) - improve lumberjack ingame docs *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`38e34e0`](https://github.com/klikli-dev/occultism/commit/38e34e01dbd4ce2d1548a5d171155fb99b5f653c) - update to latest forge and gradle *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.18.2-1.59.0] - 2022-12-20
 ### :bug: Bug Fixes
 - [`ef9602f`](https://github.com/klikli-dev/occultism/commit/ef9602f62555971b381fe01e3a51759417dfcfe5) - downgrade merge errors *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -42,3 +50,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.18.2-1.57.3]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.57.2...release/v1.18.2-1.57.3
 [release/v1.18.2-1.57.4]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.57.3...release/v1.18.2-1.57.4
 [release/v1.18.2-1.59.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.57.4...release/v1.18.2-1.59.0
+[release/v1.18.2-1.59.1]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.59.0...release/v1.18.2-1.59.1
