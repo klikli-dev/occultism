@@ -11,13 +11,13 @@
       "__WSW__"
     ],
     [
-      "9999999",
-      "9999999",
-      "9999999",
-      "9999999",
-      "9999999",
-      "9999999",
-      "9999999"
+      "*+*+*+*",
+      "+*+*+*+",
+      "*+*+*+*",
+      "+*+*+*+",
+      "*+*+*+*",
+      "+*+*+*+",
+      "*+*+*+*"
     ]
   ],
   "mapping": {
@@ -42,9 +42,13 @@
       "type": "modonomicon:block",
       "block": "occultism:chalk_glyph_gold"
     },
-    "9": {
+    "*": {
       "type": "modonomicon:display",
       "display": "occultism:otherstone"
+    },
+    "+": {
+      "type": "modonomicon:display",
+      "display": "minecraft:stone"
     }
   }
 }

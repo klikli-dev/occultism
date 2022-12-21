@@ -15,17 +15,17 @@
       "___________"
     ],
     [
-      "99999999999",
-      "99999999999",
-      "99999999999",
-      "99999999999",
-      "99999999999",
-      "99999999999",
-      "99999999999",
-      "99999999999",
-      "99999999999",
-      "99999999999",
-      "99999999999"
+      "*+*+*+*+*+*",
+      "+*+*+*+*+*+",
+      "*+*+*+*+*+*",
+      "+*+*+*+*+*+",
+      "*+*+*+*+*+*",
+      "+*+*+*+*+*+",
+      "*+*+*+*+*+*",
+      "+*+*+*+*+*+",
+      "*+*+*+*+*+*",
+      "+*+*+*+*+*+",
+      "*+*+*+*+*+*"
     ]
   ],
   "mapping": {
@@ -54,7 +54,7 @@
       "type": "modonomicon:block",
       "block": "occultism:chalk_glyph_gold"
     },
-    "9": {
+    "*": {
       "type": "modonomicon:display",
       "display": "occultism:otherstone"
     },
@@ -62,6 +62,10 @@
       "type": "modonomicon:block",
       "block": "minecraft:skeleton_skull",
       "display": "occultism:skeleton_skull_dummy"
+    },
+    "+": {
+      "type": "modonomicon:display",
+      "display": "minecraft:stone"
     },
     "N": {
       "type": "modonomicon:block",
