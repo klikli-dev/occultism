@@ -61,7 +61,6 @@ public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageContro
     public void actuallyRender(PoseStack poseStack, StorageControllerBlockEntity animatable, BakedGeoModel model, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer bufferIn, boolean isReRender, float partialTicks, int packedLightIn, int packedOverlay, float red, float green, float blue, float alpha) {
 
         poseStack.pushPose();
-        this.renderStartPose = new Matrix4f(poseStack.last().pose());;
 
         //poseStack.translate(0, 0.01f, 0); //we don't need this
         //move above block

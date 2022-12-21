@@ -50,7 +50,7 @@ side = "BOTH"
 [[dependencies.occultism]]
 modId = "geckolib"
 mandatory = true
-versionRange = "[1.19.3-4.0.1,)"
+versionRange = "[1.19.3-4.0.2,)"
 side = "BOTH"
 
 [[dependencies.occultism]]
