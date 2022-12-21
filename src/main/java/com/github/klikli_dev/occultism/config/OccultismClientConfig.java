@@ -42,6 +42,7 @@ public class OccultismClientConfig {
     public static class VisualSettings {
         public final BooleanValue disableDemonsDreamShaders;
         public final BooleanValue disableHolidayTheming;
+        public final BooleanValue useAlternativeDivinationRodRenderer;
 
         public VisualSettings(ForgeConfigSpec.Builder builder) {
             builder.comment("Visual Settings").push("visual");
@@ -50,6 +51,10 @@ public class OccultismClientConfig {
                     .define("disableDemonsDreamShaders", false);
             this.disableHolidayTheming = builder.comment("Disables holiday themed visual content such as familiar skins.")
                     .define("disableHolidayTheming", false);
+            this.useAlternativeDivinationRodRenderer = builder.comment(
+                            "When true the old divination rod selected block renderer will be used.",
+                            "May work for some people that do not see selected block outlines when using the divination rod.")
+                    .define("useAlternativeDivinationRodRenderer", false);
             builder.pop();
         }
     }
