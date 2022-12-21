@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.3-1.60.1] - 2022-12-21
+### :bug: Bug Fixes
+- [`66d530d`](https://github.com/klikli-dev/occultism/commit/66d530dcd3cb975b724a1fa79a5270e6b82c41a6) - exclude lighted air from creative tab *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`14f102d`](https://github.com/klikli-dev/occultism/commit/14f102d6cb79671edc3b5388d023e3d125e3c21f) - otherworld trees *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`1d15f61`](https://github.com/klikli-dev/occultism/commit/1d15f61ad5d62b2fe425f0c84a0dc0543739c5e2) - crash after breaking change of geckolib in 4.0.2 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.3-1.60.0] - 2022-12-21
 ### :sparkles: New Features
 - [`8d7e368`](https://github.com/klikli-dev/occultism/commit/8d7e368dbc027d0ee879c07b70ef9f8780706b97) - update past breaking changes in modonomicon 1.21.0 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -95,3 +102,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.3-1.59.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.59.1...release/v1.19.3-1.59.2
 [release/v1.19.3-1.59.3]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.59.2...release/v1.19.3-1.59.3
 [release/v1.19.3-1.60.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.59.3...release/v1.19.3-1.60.0
+[release/v1.19.3-1.60.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.60.0...release/v1.19.3-1.60.1
