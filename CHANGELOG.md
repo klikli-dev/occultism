@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.18.2-1.59.3] - 2022-12-21
+### :sparkles: New Features
+- [`4017b5e`](https://github.com/klikli-dev/occultism/commit/4017b5e9265f89757a9154874b24969ebe965376) - show checkerboard as dictionary of spirits pentacle ground *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.18.2-1.59.1] - 2022-12-20
 ### :sparkles: New Features
 - [`22ece0e`](https://github.com/klikli-dev/occultism/commit/22ece0e28f361ef35e2eb91776f6b85b38f03c73) - improve lumberjack ingame docs *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -51,3 +56,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.18.2-1.57.4]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.57.3...release/v1.18.2-1.57.4
 [release/v1.18.2-1.59.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.57.4...release/v1.18.2-1.59.0
 [release/v1.18.2-1.59.1]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.59.0...release/v1.18.2-1.59.1
+[release/v1.18.2-1.59.3]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.59.1...release/v1.18.2-1.59.3
