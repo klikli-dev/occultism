@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.60.0] - 2022-12-21
+### :sparkles: New Features
+- [`c81b751`](https://github.com/klikli-dev/occultism/commit/c81b7511e336267e392ed836b040c80665750e76) - update past breaking changes in modonomicon 1.21.0 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.59.3] - 2022-12-21
 ### :sparkles: New Features
 - [`bc4c6c9`](https://github.com/klikli-dev/occultism/commit/bc4c6c9a716a35a95369d5db25370e617b2983fe) - show checkerboard as dictionary of spirits pentacle ground *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -65,3 +70,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.59.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.59.0...release/v1.19.2-1.59.1
 [release/v1.19.2-1.59.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.59.1...release/v1.19.2-1.59.2
 [release/v1.19.2-1.59.3]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.59.2...release/v1.19.2-1.59.3
+[release/v1.19.2-1.60.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.59.3...release/v1.19.2-1.60.0
