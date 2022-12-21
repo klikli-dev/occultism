@@ -1,13 +1,17 @@
 {
   "type": "modonomicon:dense",
   "mapping": {
+    "*": {
+      "type": "modonomicon:display",
+      "display": "occultism:otherstone"
+    },
+    "+": {
+      "type": "modonomicon:display",
+      "display": "minecraft:stone"
+    },
     "0": {
       "type": "modonomicon:block",
       "block": "occultism:golden_sacrificial_bowl"
-    },
-    "9": {
-      "type": "modonomicon:display",
-      "display": "occultism:otherstone"
     },
     "P": {
       "type": "modonomicon:block",
@@ -37,17 +41,17 @@
       "___________"
     ],
     [
-      "99999999999",
-      "99999999999",
-      "99999999999",
-      "99999999999",
-      "99999999999",
-      "99999999999",
-      "99999999999",
-      "99999999999",
-      "99999999999",
-      "99999999999",
-      "99999999999"
+      "*+*+*+*+*+*",
+      "+*+*+*+*+*+",
+      "*+*+*+*+*+*",
+      "+*+*+*+*+*+",
+      "*+*+*+*+*+*",
+      "+*+*+*+*+*+",
+      "*+*+*+*+*+*",
+      "+*+*+*+*+*+",
+      "*+*+*+*+*+*",
+      "+*+*+*+*+*+",
+      "*+*+*+*+*+*"
     ]
   ]
 }
