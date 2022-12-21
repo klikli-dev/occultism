@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.59.2] - 2022-12-21
+### :sparkles: New Features
+- [`5597af6`](https://github.com/klikli-dev/occultism/commit/5597af6395429b73da8ce331c4c69ee43e6fc92a) - add alternative divination rod render method from 1.45 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.59.1] - 2022-12-20
 ### :sparkles: New Features
 - [`7e4344d`](https://github.com/klikli-dev/occultism/commit/7e4344d1494c4b278d7c7921d6a772a51ef7c3cd) - improve lumberjack ingame docs *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -53,3 +58,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.57.4]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.57.3...release/v1.19.2-1.57.4
 [release/v1.19.2-1.59.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.57.4...release/v1.19.2-1.59.0
 [release/v1.19.2-1.59.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.59.0...release/v1.19.2-1.59.1
+[release/v1.19.2-1.59.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.59.1...release/v1.19.2-1.59.2
