@@ -443,13 +443,8 @@ public class OccultismItems {
 
                     builder.displayItems((featureFlagSet, output, hasPermission) -> {
                         ITEMS.getEntries().forEach(i -> {
-                            if (i.get() != PENTACLE.get()
-                                    && i.get() != DICTIONARY_OF_SPIRITS_ICON.get()
-                                    && i.get() != DICTIONARY_OF_SPIRITS.get()
-                                    && i.get() != ADVANCEMENT_ICON.get()
-                                    && i.get() != JEI_DUMMY_NONE.get()
-                                    && i.get() != JEI_DUMMY_REQUIRE_SACRIFICE.get()
-                                    && i.get() != JEI_DUMMY_REQUIRE_ITEM_USE.get()) {
+
+                            if(!shouldSkipCreativeModTab(i.get())) {
                                 output.accept(i.get());
                             }
                         });
@@ -459,5 +454,22 @@ public class OccultismItems {
 
                 }
         );
+    }
+
+    public static boolean shouldSkipCreativeModTab(Item item){
+        if(item == PENTACLE.get()
+                || item == DICTIONARY_OF_SPIRITS_ICON.get()
+                || item == DICTIONARY_OF_SPIRITS.get()
+                || item == ADVANCEMENT_ICON.get()
+                || item == JEI_DUMMY_NONE.get()
+                || item == JEI_DUMMY_REQUIRE_SACRIFICE.get()
+                || item == JEI_DUMMY_REQUIRE_ITEM_USE.get())
+            return true;
+
+        if(item instanceof BlockItem blockItem){
+            if(blockItem.getBlock() == OccultismBlocks.LIGHTED_AIR.get())
+                return true;
+        }
+        return false;
     }
 }
