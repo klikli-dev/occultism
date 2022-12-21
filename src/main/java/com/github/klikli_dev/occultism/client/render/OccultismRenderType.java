@@ -45,6 +45,19 @@ public class OccultismRenderType extends RenderType {
                     .createCompositeState(false));
 
 
+    public static final RenderType OVERLAY_LINES_ALTERNATIVE = create("overlay_lines_alternative", DefaultVertexFormat.POSITION_COLOR_NORMAL, VertexFormat.Mode.LINES,
+            256, false, false, RenderType.CompositeState.builder()
+                    .setShaderState(RENDERTYPE_LINES_SHADER)
+                    .setLineState(new LineStateShard(OptionalDouble.empty()))
+                    .setLayeringState(VIEW_OFFSET_Z_LAYERING)
+                    .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+                    .setDepthTestState(NO_DEPTH_TEST)
+                    .setOutputState(OutputStateShard.ITEM_ENTITY_TARGET)
+                    .setCullState(NO_CULL)
+                    .setWriteMaskState(COLOR_DEPTH_WRITE)
+                    .createCompositeState(false));
+
+
     public OccultismRenderType(String name, VertexFormat vertexFormat, VertexFormat.Mode drawMode, int bufferSize,
                                boolean useDelegate, boolean needsSorting, Runnable setupTaskIn,
                                Runnable clearTaskIn) {
@@ -53,5 +66,9 @@ public class OccultismRenderType extends RenderType {
 
     public static RenderType overlayLines() {
         return OVERLAY_LINES;
+    }
+
+    public static RenderType overlayLinesAlternative() {
+        return OVERLAY_LINES_ALTERNATIVE;
     }
 }

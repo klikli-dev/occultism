@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.client.render;
 
+import com.github.klikli_dev.occultism.Occultism;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -85,7 +86,12 @@ public class SelectedBlockRenderer {
     }
 
     protected void renderSelectedBlocks(RenderLevelStageEvent event) {
-        if (event.getStage() != Stage.AFTER_PARTICLES)
+        var useAltRenderer = Occultism.CLIENT_CONFIG.visuals.useAlternativeDivinationRodRenderer.get();
+
+        if (!useAltRenderer && event.getStage() != Stage.AFTER_PARTICLES)
+            return;
+
+        if (useAltRenderer && event.getStage() != Stage.AFTER_TRANSLUCENT_BLOCKS)
             return;
 
         if (!this.selectedBlocks.isEmpty()) {
@@ -102,7 +108,7 @@ public class SelectedBlockRenderer {
 
                     PoseStack matrixStack = event.getPoseStack();
                     MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
-                    VertexConsumer builder = buffer.getBuffer(OccultismRenderType.overlayLines());
+                    VertexConsumer builder = buffer.getBuffer(useAltRenderer ? OccultismRenderType.overlayLinesAlternative() : OccultismRenderType.overlayLines());
                     matrixStack.pushPose();
 
                     var camera = Minecraft.getInstance().gameRenderer.getMainCamera();
@@ -119,7 +125,7 @@ public class SelectedBlockRenderer {
 
                     matrixStack.popPose();
                     RenderSystem.disableDepthTest();
-                    buffer.endBatch(OccultismRenderType.overlayLines());
+                    buffer.endBatch(useAltRenderer ? OccultismRenderType.overlayLinesAlternative() : OccultismRenderType.overlayLines());
                 }
             }
         }
