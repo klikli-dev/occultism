@@ -308,12 +308,11 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
         }
     }
 
-    private static class CthulhuHeadModel extends SkullModel {
+    private static class CthulhuHeadModel extends SkullModelBase {
         private final CthulhuFamiliarModel model;
         protected final ModelPart head;
 
         public CthulhuHeadModel(ModelPart part) {
-            super(part);
             this.model = new CthulhuFamiliarModel(part);
             this.head = part.getChild("body").getChild("head");
         }
