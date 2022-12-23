@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.3-1.60.2] - 2022-12-23
+### :bug: Bug Fixes
+- [`2c6f6dd`](https://github.com/klikli-dev/occultism/commit/2c6f6dd2a3c90a7128159f6240c27e2da1c2ea0b) - crash with Cthulhu head for headless familiar *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.3-1.60.1] - 2022-12-21
 ### :bug: Bug Fixes
 - [`66d530d`](https://github.com/klikli-dev/occultism/commit/66d530dcd3cb975b724a1fa79a5270e6b82c41a6) - exclude lighted air from creative tab *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -103,3 +108,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.3-1.59.3]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.59.2...release/v1.19.3-1.59.3
 [release/v1.19.3-1.60.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.59.3...release/v1.19.3-1.60.0
 [release/v1.19.3-1.60.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.60.0...release/v1.19.3-1.60.1
+[release/v1.19.3-1.60.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.60.1...release/v1.19.3-1.60.2
