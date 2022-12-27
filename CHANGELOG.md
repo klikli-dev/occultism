@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.3-1.61.0] - 2022-12-27
+### :sparkles: New Features
+- [`0b306d0`](https://github.com/klikli-dev/occultism/commit/0b306d013342b2b662403039b0e210e30440f936) - switch to upstream smartbrainlib *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`0b685df`](https://github.com/klikli-dev/occultism/commit/0b685df5f0120ce9229c93941ecfc5d91dc6bd92) - update workflow dep *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.3-1.60.2] - 2022-12-23
 ### :bug: Bug Fixes
 - [`2c6f6dd`](https://github.com/klikli-dev/occultism/commit/2c6f6dd2a3c90a7128159f6240c27e2da1c2ea0b) - crash with Cthulhu head for headless familiar *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -109,3 +117,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.3-1.60.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.59.3...release/v1.19.3-1.60.0
 [release/v1.19.3-1.60.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.60.0...release/v1.19.3-1.60.1
 [release/v1.19.3-1.60.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.60.1...release/v1.19.3-1.60.2
+[release/v1.19.3-1.61.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.60.2...release/v1.19.3-1.61.0
