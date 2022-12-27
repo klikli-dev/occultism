@@ -10,8 +10,8 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
-import com.klikli_dev.forgebrainlib.api.core.behaviour.ExtendedBehaviour;
-import com.klikli_dev.forgebrainlib.util.BrainUtils;
+import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
+import net.tslat.smartbrainlib.util.BrainUtils;
 
 import java.util.HashSet;
 import java.util.List;
