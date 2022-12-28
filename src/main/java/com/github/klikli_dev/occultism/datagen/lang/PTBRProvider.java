@@ -821,11 +821,11 @@ public class PTBRProvider extends LanguageProvider {
         helper.page("otherworld_goggles");
         this.add(helper.pageText(),
                 """
-                        [Esses óculos](entry://occultism:dictionary_of_spirits/rituals/craft_otherworld_goggles) permitem ver ainda mais blocos ocultos do Outro Mundo,
-                                 porém não permitem a colheita desses materiais.
-                                 Materiais de nível baixo podem ser colhidos consumindo [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream),
-                                 mas materiais mais valiosos requerem ferramentas especiais.
-                                            """.formatted(DEMONS_DREAM));
+	        			[Esses óculos](entry://crafting_rituals/craft_otherworld_goggles) permitem ver ainda mais blocos ocultos do Outro Mundo,
+	                    porém não permitem a colheita desses materiais.
+	                    Materiais de nível baixo podem ser colhidos consumindo [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream),
+	                    mas materiais mais valiosos requerem ferramentas especiais.
+                                """.formatted(DEMONS_DREAM));
 
 
         helper.entry("divination_rod");
@@ -977,10 +977,10 @@ public class PTBRProvider extends LanguageProvider {
         helper.page("white_chalk");
         this.add(helper.pageText(),
                 """
-                        Para pentáculos, apenas a cor do giz é relevante, não o glifo/sinal.
-                              Para fins decorativos, você pode clicar repetidamente em um bloco para mudar os glifos.
-                              Para outros gizes veja [Giz](entry://occultism:dictionary_of_spirits/advanced/chalks).
-                                        """);
+		        		Para pentáculos, apenas a cor do giz é relevante, não o glifo/sinal.
+		                Para fins decorativos, você pode clicar repetidamente em um bloco para mudar os glifos.
+		                Para outros gizes veja [Giz](entry://occultism:dictionary_of_spirits/getting_started/chalks).
+                            """);
 
         helper.page("burnt_otherstone_recipe");
         //no text
