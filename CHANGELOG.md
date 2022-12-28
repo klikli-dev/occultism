@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.18.2-1.60.3] - 2022-12-28
+### :bug: Bug Fixes
+- [`82714be`](https://github.com/klikli-dev/occultism/commit/82714be441c5eacfbea7b22bb78ceb5a8dfe0862) - use correct config values for disabling time/weather rituals *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.18.2-1.60.0] - 2022-12-21
 ### :sparkles: New Features
 - [`d5cc496`](https://github.com/klikli-dev/occultism/commit/d5cc496574946c95569de4bb69b643449dbd34ae) - update past breaking changes in modonomicon 1.21.0 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -63,3 +68,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.18.2-1.59.1]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.59.0...release/v1.18.2-1.59.1
 [release/v1.18.2-1.59.3]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.59.1...release/v1.18.2-1.59.3
 [release/v1.18.2-1.60.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.59.3...release/v1.18.2-1.60.0
+[release/v1.18.2-1.60.3]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.60.0...release/v1.18.2-1.60.3
