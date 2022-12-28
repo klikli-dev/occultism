@@ -783,7 +783,7 @@ public class FRFRProvider extends LanguageProvider {
         helper.page("otherworld_goggles");
         this.add(helper.pageText(),
                 """
-                        [Ces lunettes de protection](entry://occultism:dictionary_of_spirits/rituals/craft_otherworld_goggles) permettent de voir encore plus de blocs cachés de l'Autre Monde, mais ils ne permettent pas de récolter ces matériaux.
+                        [Ces lunettes de protection](entry://crafting_rituals/craft_otherworld_goggles) permettent de voir encore plus de blocs cachés de l'Autre Monde, mais ils ne permettent pas de récolter ces matériaux.
                         Les matériaux de bas niveau peuvent être récoltés en consommant [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream),
                         mais les matériaux plus précieux nécessitent des outils spéciaux.
                                 """.formatted(DEMONS_DREAM));
@@ -904,7 +904,7 @@ public class FRFRProvider extends LanguageProvider {
                 """
                         Pour les pentacles, seule la couleur de la craie est pertinente, pas le glyph/sign.
                         À des fins décoratives, vous pouvez cliquer plusieurs fois sur un bloc pour faire défiler les glyphes.
-                        Pour d'autres craies, voir [Chalks](entry://occultism:dictionary_of_spirits/advanced/chalks)
+                        Pour d'autres craies, voir [Chalks](entry://occultism:dictionary_of_spirits/getting_started/chalks)
                             """);
 
         helper.page("burnt_otherstone_recipe");
