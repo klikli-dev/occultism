@@ -121,7 +121,6 @@ public abstract class ChangeTimeJob extends SpiritJob {
 
         if(interpolatedTime >= this.newTime){
             interpolatedTime = this.newTime;
-            //should never get here
         }
 
         level.setDayTime(interpolatedTime);
