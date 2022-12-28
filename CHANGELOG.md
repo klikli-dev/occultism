@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.3-1.62.1] - 2022-12-28
+### :bug: Bug Fixes
+- [`ec22f64`](https://github.com/klikli-dev/occultism/commit/ec22f646e86f52e36615f648bca8aa05afb76a83) - invalid links in book translations - big thanks to Sahn[#1606](https://github.com/klikli-dev/occultism/pull/1606) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`cf7d604`](https://github.com/klikli-dev/occultism/commit/cf7d60400a0402cafe66783da72198e84994d7dc) - remove invalid comment *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.3-1.62.0] - 2022-12-28
 ### :sparkles: New Features
 - [`e60f38e`](https://github.com/klikli-dev/occultism/commit/e60f38e2e8bffa482ded0eb7bfbddd6ca33b2398) - make time rituals advance time into the next day, instead of resetting *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -131,3 +139,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.3-1.61.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.60.2...release/v1.19.3-1.61.0
 [release/v1.19.3-1.61.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.61.0...release/v1.19.3-1.61.1
 [release/v1.19.3-1.62.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.61.1...release/v1.19.3-1.62.0
+[release/v1.19.3-1.62.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.62.0...release/v1.19.3-1.62.1
