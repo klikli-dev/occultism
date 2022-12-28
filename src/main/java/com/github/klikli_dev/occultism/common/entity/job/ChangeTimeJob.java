@@ -25,33 +25,35 @@ package com.github.klikli_dev.occultism.common.entity.job;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.storage.ServerLevelData;
 
 public abstract class ChangeTimeJob extends SpiritJob {
 
-    //region Fields
     protected int currentChangeTicks;
     protected int requiredChangeTicks;
-    //endregion Fields
 
+    protected long newTime;
 
-    //region Initialization
     public ChangeTimeJob(SpiritEntity entity, int requiredChangeTicks) {
         super(entity);
         this.requiredChangeTicks = requiredChangeTicks;
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void onInit() {
+        this.newTime = this.getNewTime();
 
+        if (!this.isEnabled()) {
+            this.entity.getOwner().sendSystemMessage(this.getDisabledMessage());
+            this.finishChangeTime();
+        }
     }
 
     @Override
@@ -75,6 +77,7 @@ public abstract class ChangeTimeJob extends SpiritJob {
         if (!this.entity.swinging) {
             this.entity.swing(InteractionHand.MAIN_HAND);
         }
+
         if (this.entity.level.getGameTime() % 2 == 0) {
             ((ServerLevel) this.entity.level)
                     .sendParticles(ParticleTypes.PORTAL, this.entity.getX(),
@@ -83,11 +86,11 @@ public abstract class ChangeTimeJob extends SpiritJob {
                             0.0);
         }
 
+        if (this.isEnabled())
+            this.updateTime();
+
         if (this.currentChangeTicks == this.requiredChangeTicks) {
-            this.changeTime();
-            this.entity.level.playSound(null, this.entity.blockPosition(), SoundEvents.BEACON_ACTIVATE, SoundSource.NEUTRAL, 1, 1);
-            this.entity.die(DamageSource.OUT_OF_WORLD);
-            this.entity.remove(Entity.RemovalReason.DISCARDED);
+            this.finishChangeTime();
         }
     }
 
@@ -95,6 +98,7 @@ public abstract class ChangeTimeJob extends SpiritJob {
     public CompoundTag writeJobToNBT(CompoundTag compound) {
         compound.putInt("currentChangeTicks", this.currentChangeTicks);
         compound.putInt("requiredChangeTicks", this.requiredChangeTicks);
+        compound.putLong("newTime", this.newTime);
         return super.writeJobToNBT(compound);
     }
 
@@ -103,11 +107,34 @@ public abstract class ChangeTimeJob extends SpiritJob {
         super.readJobFromNBT(compound);
         this.currentChangeTicks = compound.getInt("currentChangeTicks");
         this.requiredChangeTicks = compound.getInt("requiredChangeTicks");
+        this.newTime = compound.getLong("newTime");
     }
 
-    //endregion Overrides
+    public void updateTime() {
+        var level = (ServerLevelData) this.entity.level.getLevelData();
 
-    //region Methods
-    public abstract void changeTime();
-    //endregion Methods
+        var remainingTime = this.newTime - level.getDayTime();
+        var remainingTicks = Math.max(this.requiredChangeTicks - this.currentChangeTicks, 1);
+        var timeChange = remainingTime / remainingTicks;
+
+        var interpolatedTime = level.getDayTime() + timeChange;
+
+        if(interpolatedTime >= this.newTime){
+            interpolatedTime = this.newTime;
+        }
+
+        level.setDayTime(interpolatedTime);
+    }
+
+    public void finishChangeTime() {
+        this.entity.level.playSound(null, this.entity.blockPosition(), SoundEvents.BEACON_ACTIVATE, SoundSource.NEUTRAL, 1, 1);
+        this.entity.die(DamageSource.OUT_OF_WORLD);
+        this.entity.remove(Entity.RemovalReason.DISCARDED);
+    }
+
+    public abstract long getNewTime();
+
+    public abstract Component getDisabledMessage();
+
+    public abstract boolean isEnabled();
 }

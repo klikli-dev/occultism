@@ -98,9 +98,9 @@ public class OccultismSpiritJobs {
 
     //Time Jobs
     public static final RegistryObject<SpiritJobFactory> DAY_TIME = JOBS.register("day_time",
-            () -> new SpiritJobFactory((entity) -> new DayTimeJob(entity, 20 * 30)));
+            () -> new SpiritJobFactory((entity) -> new DayTimeJob(entity, 20 * 5)));
     public static final RegistryObject<SpiritJobFactory> NIGHT_TIME = JOBS.register("night_time",
-            () -> new SpiritJobFactory((entity) -> new NightTimeJob(entity, 20 * 60)));
+            () -> new SpiritJobFactory((entity) -> new NightTimeJob(entity, 20 * 5)));
 
     //endregion Fields
 }
