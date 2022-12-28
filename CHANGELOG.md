@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.62.0] - 2022-12-28
+### :sparkles: New Features
+- [`bad2ac1`](https://github.com/klikli-dev/occultism/commit/bad2ac1eb2e18fa6bf2567c98adb083edac7e1b5) - make time rituals advance time into the next day, instead of resetting *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`a1cc15a`](https://github.com/klikli-dev/occultism/commit/a1cc15a86599c742404f27bc8c996b106483c37a) - make day/night changes smooth over 5 seconds *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.60.3] - 2022-12-28
 ### :bug: Bug Fixes
 - [`975f11d`](https://github.com/klikli-dev/occultism/commit/975f11dd6301c3e14c1a1493119ab578713cdf7f) - use correct config values for disabling time/weather rituals *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -83,3 +89,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.60.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.59.3...release/v1.19.2-1.60.0
 [release/v1.19.2-1.60.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.60.0...release/v1.19.2-1.60.2
 [release/v1.19.2-1.60.3]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.60.2...release/v1.19.2-1.60.3
+[release/v1.19.2-1.62.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.60.3...release/v1.19.2-1.62.0
