@@ -39,7 +39,7 @@ public class ThunderWeatherJob extends ChangeWeatherJob {
 
     //region Overrides
     public void changeWeather() {
-        if (Occultism.SERVER_CONFIG.rituals.enableClearWeatherRitual.get()) {
+        if (Occultism.SERVER_CONFIG.rituals.enableThunderWeatherRitual.get()) {
             ServerLevelData level = (ServerLevelData) this.entity.level.getLevelData();
             level.setClearWeatherTime(0);
             level.setRainTime(6000);
