@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.entity.job;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.storage.ServerLevelData;
 
@@ -39,8 +40,17 @@ public class DayTimeJob extends ChangeTimeJob {
     @Override
     public void changeTime() {
         if (Occultism.SERVER_CONFIG.rituals.enableDayTimeRitual.get()) {
+            //dawn is 0, 24000, 48000, etc
+            //noon is 6000
+            //nightfall is 13000, 37000, 61000, etc
+            //midnight is 18000
+
             ServerLevelData level = (ServerLevelData) this.entity.level.getLevelData();
-            level.setDayTime(1000);
+
+            var increasedTime = level.getDayTime() + 24000; //add a day
+            var newTime = increasedTime - increasedTime % 24000; //then clamp to morning of that day
+            
+             level.setDayTime(newTime);
         } else {
             this.entity.getOwner().sendSystemMessage(Component.translatable("ritual.occultism.disabled"));
         }
