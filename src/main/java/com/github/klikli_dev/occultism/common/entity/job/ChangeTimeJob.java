@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.entity.job;
 
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import net.minecraft.Util;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -51,7 +52,7 @@ public abstract class ChangeTimeJob extends SpiritJob {
         this.newTime = this.getNewTime();
 
         if (!this.isEnabled()) {
-            this.entity.getOwner().sendSystemMessage(this.getDisabledMessage());
+            this.entity.getOwner().sendMessage(this.getDisabledMessage(), Util.NIL_UUID);
             this.finishChangeTime();
         }
     }
@@ -121,7 +122,6 @@ public abstract class ChangeTimeJob extends SpiritJob {
 
         if(interpolatedTime >= this.newTime){
             interpolatedTime = this.newTime;
-            //should never get here
         }
 
         level.setDayTime(interpolatedTime);

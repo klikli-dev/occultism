@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.common.entity.job;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.Util;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.storage.ServerLevelData;
@@ -52,7 +53,7 @@ public class NightTimeJob extends ChangeTimeJob {
 
     @Override
     public Component getDisabledMessage() {
-        return Component.translatable("ritual.occultism.disabled");
+        return new TranslatableComponent("ritual.occultism.disabled");
     }
 
     @Override
