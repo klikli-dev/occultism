@@ -31,31 +31,32 @@ import net.minecraft.world.level.storage.ServerLevelData;
 
 public class DayTimeJob extends ChangeTimeJob {
 
-    //region Initialization
     public DayTimeJob(SpiritEntity entity, int ticksToClear) {
         super(entity, ticksToClear);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
-    public void changeTime() {
-        if (Occultism.SERVER_CONFIG.rituals.enableDayTimeRitual.get()) {
-            //dawn is 0, 24000, 48000, etc
-            //noon is 6000
-            //nightfall is 13000, 37000, 61000, etc
-            //midnight is 18000
+    public long getNewTime() {
+        //dawn is 0, 24000, 48000, etc
+        //noon is 6000
+        //nightfall is 13000, 37000, 61000, etc
+        //midnight is 18000
 
-            ServerLevelData level = (ServerLevelData) this.entity.level.getLevelData();
+        ServerLevelData level = (ServerLevelData) this.entity.level.getLevelData();
 
-            var increasedTime = level.getDayTime() + 24000; //add a day
-            var newTime = increasedTime - increasedTime % 24000; //then clamp to morning of that day
-            
-             level.setDayTime(newTime);
-        } else {
-            this.entity.getOwner().sendMessage(new TranslatableComponent("ritual.occultism.disabled"), Util.NIL_UUID);
-        }
+        //time of next dawn
+        long newTime = ((level.getDayTime() + 24000) / 24000) * 24000;
+
+        return newTime;
     }
-    //endregion Overrides
 
+    @Override
+    public Component getDisabledMessage() {
+        return Component.translatable("ritual.occultism.disabled");
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return Occultism.SERVER_CONFIG.rituals.enableDayTimeRitual.get();
+    }
 }
