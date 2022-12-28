@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.3-1.61.1] - 2022-12-28
+### :bug: Bug Fixes
+- [`56adaac`](https://github.com/klikli-dev/occultism/commit/56adaac5e77b444a245e1e5d9a3521192dc07fdd) - use correct config values for disabling time/weather rituals *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.3-1.61.0] - 2022-12-27
 ### :sparkles: New Features
 - [`0b306d0`](https://github.com/klikli-dev/occultism/commit/0b306d013342b2b662403039b0e210e30440f936) - switch to upstream smartbrainlib *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -118,3 +123,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.3-1.60.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.60.0...release/v1.19.3-1.60.1
 [release/v1.19.3-1.60.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.60.1...release/v1.19.3-1.60.2
 [release/v1.19.3-1.61.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.60.2...release/v1.19.3-1.61.0
+[release/v1.19.3-1.61.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.61.0...release/v1.19.3-1.61.1
