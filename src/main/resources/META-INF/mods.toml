@@ -56,7 +56,7 @@ side = "BOTH"
 [[dependencies.occultism]]
 modId = "smartbrainlib"
 mandatory = true
-versionRange="[1.7.0,)"
+versionRange="[1.7.4,)"
 side = "BOTH"
 
 [[dependencies.occultism]]
