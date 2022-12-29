@@ -11,8 +11,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.SensorType;
-import com.klikli_dev.forgebrainlib.api.core.sensor.ExtendedSensor;
-import com.klikli_dev.forgebrainlib.util.BrainUtils;
+import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
+import net.tslat.smartbrainlib.util.BrainUtils;
 
 import java.util.List;
 

@@ -14,8 +14,8 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import com.klikli_dev.forgebrainlib.api.core.behaviour.ExtendedBehaviour;
-import com.klikli_dev.forgebrainlib.util.BrainUtils;
+import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
+import net.tslat.smartbrainlib.util.BrainUtils;
 
 import java.util.List;
 
