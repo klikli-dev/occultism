@@ -60,9 +60,9 @@ versionRange = "[1.19-11.1.0.235,)"
 side = "BOTH"
 
 [[dependencies.occultism]]
-modId = "forgebrainlib"
+modId = "smartbrainlib"
 mandatory = true
-versionRange="[1.0.0,)"
+versionRange="[1.7.4,)"
 side = "BOTH"
 
 [[dependencies.occultism]]
