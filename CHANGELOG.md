@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.18.2-1.63.0] - 2022-12-29
+### :sparkles: New Features
+- [`7bbeed7`](https://github.com/klikli-dev/occultism/commit/7bbeed798cba56d84e4e0ac1747021c6e229c4cd) - switch to upstream smartbrainlib *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`d310086`](https://github.com/klikli-dev/occultism/commit/d31008643b141e3b33c2446552cd84d48103b444) - update to latest geckolib *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.18.2-1.62.1] - 2022-12-28
 ### :bug: Bug Fixes
 - [`9afead7`](https://github.com/klikli-dev/occultism/commit/9afead71a21ecd5b6c12090796173ae59075e5b2) - invalid links in book translations - big thanks to Sahn[#1606](https://github.com/klikli-dev/occultism/pull/1606) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -85,3 +93,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.18.2-1.60.3]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.60.0...release/v1.18.2-1.60.3
 [release/v1.18.2-1.62.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.60.3...release/v1.18.2-1.62.0
 [release/v1.18.2-1.62.1]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.62.0...release/v1.18.2-1.62.1
+[release/v1.18.2-1.63.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.62.1...release/v1.18.2-1.63.0
