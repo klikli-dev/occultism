@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.client.itemproperties;
 
+import com.github.klikli_dev.occultism.OccultismConstants;
 import com.github.klikli_dev.occultism.common.item.tool.DivinationRodItem;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
@@ -38,8 +39,9 @@ public class DivinationRodItemPropertyGetter implements ItemPropertyFunction {
 
     @Override
     public float call(ItemStack itemStack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity, int i) {
-        if (!itemStack.getOrCreateTag().contains("distance") || itemStack.getTag().getFloat("distance") < 0)
+        if (!itemStack.getOrCreateTag().contains(OccultismConstants.Nbt.Divination.DISTANCE) ||
+                itemStack.getTag().getFloat(OccultismConstants.Nbt.Divination.DISTANCE) < 0)
             return DivinationRodItem.NOT_FOUND;
-        return itemStack.getTag().getFloat("distance");
+        return itemStack.getTag().getFloat(OccultismConstants.Nbt.Divination.DISTANCE);
     }
 }

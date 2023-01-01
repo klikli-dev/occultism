@@ -50,6 +50,12 @@ description='''A magic mod inspired by the world of Jonathan Stroud's Bartimaeus
     side="BOTH"
 
 [[dependencies.occultism]]
+    modId = "theurgy"
+    mandatory = false
+    versionRange = "[1.18.2-1.1.0,)"
+    side = "BOTH"
+
+[[dependencies.occultism]]
     modId="geckolib3"
     mandatory=true
     versionRange="[1.18-3.0.3,)"

@@ -23,8 +23,10 @@
 package com.github.klikli_dev.occultism.common.item.tool;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.OccultismConstants;
 import com.github.klikli_dev.occultism.client.divination.ScanManager;
 import com.github.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
+import com.github.klikli_dev.occultism.integration.theurgy.TheurgyIntegration;
 import com.github.klikli_dev.occultism.network.MessageSetDivinationResult;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
@@ -93,10 +95,11 @@ public class DivinationRodItem extends Item {
                         String translationKey =
                                 block instanceof IOtherworldBlock ? ((IOtherworldBlock) block).getUncoveredBlock()
                                         .getDescriptionId() : block.getDescriptionId();
-                        stack.getOrCreateTag().putString("linkedBlockId", block.getRegistryName().toString());
+                        stack.getOrCreateTag().putString(OccultismConstants.Nbt.Divination.LINKED_BLOCK_ID, ForgeRegistries.BLOCKS.getKey(block).toString());
                         player.sendMessage(
                                 new TranslatableComponent(this.getDescriptionId() + ".message.linked_block",
                                         new TranslatableComponent(translationKey)), Util.NIL_UUID);
+                        
                     }
 
                     level.playSound(player, player.blockPosition(), OccultismSounds.TUNING_FORK.get(),
@@ -119,14 +122,14 @@ public class DivinationRodItem extends Item {
         ItemStack stack = player.getItemInHand(hand);
 
         if (!player.isShiftKeyDown()) {
-            if (stack.getOrCreateTag().contains("linkedBlockId")) {
-                stack.getTag().putFloat("distance", SEARCHING);
+            if (stack.getOrCreateTag().contains(OccultismConstants.Nbt.Divination.LINKED_BLOCK_ID)) {
+                stack.getTag().putFloat(OccultismConstants.Nbt.Divination.DISTANCE, SEARCHING);
                 player.startUsingItem(hand);
                 level.playSound(player, player.blockPosition(), OccultismSounds.TUNING_FORK.get(), SoundSource.PLAYERS,
                         1, 1);
 
                 if (level.isClientSide) {
-                    ResourceLocation id = new ResourceLocation(stack.getTag().getString("linkedBlockId"));
+                    ResourceLocation id = new ResourceLocation(stack.getTag().getString(OccultismConstants.Nbt.Divination.LINKED_BLOCK_ID));
                     ScanManager.instance.beginScan(player, ForgeRegistries.BLOCKS.getValue(id));
                 }
             } else if (!level.isClientSide) {
@@ -139,21 +142,28 @@ public class DivinationRodItem extends Item {
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
-        if (!(entityLiving instanceof Player))
+        if (!(entityLiving instanceof Player player))
             return stack;
 
-        Player player = (Player) entityLiving;
         player.getCooldowns().addCooldown(this, 40);
-        stack.getOrCreateTag().putFloat("distance", NOT_FOUND);
+        stack.getOrCreateTag().putFloat(OccultismConstants.Nbt.Divination.DISTANCE, NOT_FOUND);
         if (level.isClientSide) {
             BlockPos result = ScanManager.instance.finishScan(player);
             float distance = this.getDistance(player.position(), result);
-            stack.getTag().putFloat("distance", distance);
-            OccultismPackets.sendToServer(new MessageSetDivinationResult(distance));
+            stack.getTag().putFloat(OccultismConstants.Nbt.Divination.DISTANCE, distance);
 
-            if (result != null) { // && player.isCreative()
-                //Show debug visualization
-                Occultism.SELECTED_BLOCK_RENDERER.selectBlock(result, System.currentTimeMillis() + 10000);
+            OccultismPackets.sendToServer(new MessageSetDivinationResult(result, distance));
+
+            if (result != null) {
+                stack.getTag().putLong(OccultismConstants.Nbt.Divination.POS, result.asLong());
+
+                if (TheurgyIntegration.isLoaded()) {
+                    //show nice particle if possible
+                    TheurgyIntegration.spawnDivinationResultParticle(result, level, entityLiving);
+                } else {
+                    //otherwise fall back to our old renderer
+                    Occultism.SELECTED_BLOCK_RENDERER.selectBlock(result, System.currentTimeMillis() + 10000);
+                }
             }
         }
         return stack;
@@ -167,20 +177,42 @@ public class DivinationRodItem extends Item {
 
     @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity pLivingEntity, int pTimeCharged) {
-        //player interrupted, so we can safely set not found on server
-        stack.getOrCreateTag().putFloat("distance", NOT_FOUND);
+        if (!stack.getOrCreateTag().contains(OccultismConstants.Nbt.Divination.POS))
+            //player interrupted, so we can safely set not found on server, if we don't have a previous result
+            stack.getOrCreateTag().putFloat(OccultismConstants.Nbt.Divination.DISTANCE, NOT_FOUND);
+        else {
+            //otherwise, restore distance from result
+            //nice bonus: will update crystal status on every "display only" use.
+            BlockPos result = BlockPos.of(stack.getTag().getLong(OccultismConstants.Nbt.Divination.POS));
+            float distance = this.getDistance(pLivingEntity.position(), result);
+            stack.getTag().putFloat(OccultismConstants.Nbt.Divination.DISTANCE, distance);
+        }
+
 
         if (level.isClientSide) {
             ScanManager.instance.cancelScan();
+
+            //re-use old result
+            if (stack.getTag().contains(OccultismConstants.Nbt.Divination.POS)) {
+                BlockPos result = BlockPos.of(stack.getTag().getLong(OccultismConstants.Nbt.Divination.POS));
+                if (TheurgyIntegration.isLoaded()) {
+                    //show nice particle if possible
+                    TheurgyIntegration.spawnDivinationResultParticle(result, level, pLivingEntity);
+                } else {
+                    //otherwise fall back to our old renderer
+                    Occultism.SELECTED_BLOCK_RENDERER.selectBlock(result, System.currentTimeMillis() + 10000);
+                }
+            }
         }
+
         super.releaseUsing(stack, level, pLivingEntity, pTimeCharged);
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
                                 TooltipFlag flagIn) {
-        if (stack.getOrCreateTag().contains("linkedBlockId")) {
-            ResourceLocation id = new ResourceLocation(stack.getTag().getString("linkedBlockId"));
+        if (stack.getOrCreateTag().contains(OccultismConstants.Nbt.Divination.LINKED_BLOCK_ID)) {
+            ResourceLocation id = new ResourceLocation(stack.getTag().getString(OccultismConstants.Nbt.Divination.LINKED_BLOCK_ID));
 
             Block block = ForgeRegistries.BLOCKS.getValue(id);
             String translationKey = block instanceof IOtherworldBlock ? ((IOtherworldBlock) block).getUncoveredBlock()

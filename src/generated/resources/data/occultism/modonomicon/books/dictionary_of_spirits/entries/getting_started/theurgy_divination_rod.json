@@ -1,0 +1,67 @@
+{
+  "category": "occultism:getting_started",
+  "name": "book.occultism.dictionary_of_spirits.getting_started.theurgy_divination_rod.name",
+  "description": "book.occultism.dictionary_of_spirits.getting_started.theurgy_divination_rod.description",
+  "icon": "theurgy:divination_rod_t1",
+  "x": -7,
+  "y": -4,
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "hide_while_locked": true,
+  "parents": [
+    {
+      "entry": "occultism:getting_started/divination_rod",
+      "draw_arrow": true,
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "title": "",
+      "item": {
+        "item": "theurgy:divination_rod_t1"
+      },
+      "text": "book.occultism.dictionary_of_spirits.getting_started.theurgy_divination_rod.intro.text"
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "theurgy:crafting/shaped/divination_rod_t1",
+      "title2": "",
+      "text": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.theurgy_divination_rod.more_info.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.theurgy_divination_rod.more_info.text"
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "title1": "",
+      "recipe_id_1": "theurgy:crafting/shapeless/the_hermetica",
+      "title2": "",
+      "text": ""
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:and",
+    "children": [
+      {
+        "type": "modonomicon:entry_read",
+        "entry_id": "occultism:getting_started/divination_rod"
+      },
+      {
+        "type": "modonomicon:mod_loaded",
+        "mod_id": "theurgy"
+      }
+    ]
+  }
+}
