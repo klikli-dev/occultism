@@ -13,9 +13,12 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryParentModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookModel;
+import com.klikli_dev.modonomicon.api.datagen.book.condition.BookAndConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookEntryReadConditionModel;
+import com.klikli_dev.modonomicon.api.datagen.book.condition.BookModLoadedConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookTrueConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.*;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
@@ -96,7 +99,7 @@ public class OccultismBookProvider extends BookProvider {
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
         entryHelper.setMap(
-                "______________B___________P___D___",
+                "__________t___B___________P___D___",
                 "__________________________________",
                 "______i___r___ç_b_____g_I_O_l_M___",
                 "__________________________________",
@@ -129,6 +132,21 @@ public class OccultismBookProvider extends BookProvider {
 
         var divinationRodEntry = this.makeDivinationRodEntry(helper, entryHelper, 'r');
         divinationRodEntry.withParent(BookEntryParentModel.builder().withEntryId(spiritFireEntry.id).build());
+
+        var theurgyDivinationRodEntry = this.makeTheurgyDivinationRodsEntry(helper, entryHelper, 't');
+        theurgyDivinationRodEntry
+                .withParent(BookEntryParentModel.builder()
+                        .withEntryId(divinationRodEntry.id)
+                        .build())
+                .withCondition(
+                        BookAndConditionModel.builder().withChildren(
+                                BookEntryReadConditionModel.builder()
+                                        .withEntry(divinationRodEntry.id).build(),
+                                BookModLoadedConditionModel.builder()
+                                        .withModId("theurgy").build()
+                        ).build()
+                )
+                .hideWhileLocked(true);
 
         var candleEntry = this.makeCandleEntry(helper, entryHelper, 'c');
         candleEntry.withParent(BookEntryParentModel.builder().withEntryId(spiritFireEntry.id).build());
@@ -209,6 +227,7 @@ public class OccultismBookProvider extends BookProvider {
                         thirdEyeEntry.build(),
                         healingSpiritsEntry.build(),
                         divinationRodEntry.build(),
+                        theurgyDivinationRodEntry.build(),
                         candleEntry.build(),
                         ritualPrepChalkEntry.build(),
                         ritualPrepBowlEntry.build(),
@@ -519,6 +538,64 @@ public class OccultismBookProvider extends BookProvider {
                 .withLocation(entryHelper.get(icon))
                 .withPages(intro, otherstoneRecipe, otherworldSaplingNaturalRecipe, divinationRod, spiritAttunedGemRecipe, divinationRodRecipe, aboutDivinationRod,
                         howToUse, howToUse2, divinationRodScreenshots, otherworldGroves, otherworldGroves2, otherworldTrees, otherworldTrees2);
+    }
+
+    private BookEntryModel.Builder makeTheurgyDivinationRodsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("theurgy_divination_rod");
+
+        this.lang.add(helper.entryName(), "More Divination Rods");
+        this.lang.add(helper.entryDescription(), "Finding other ores and resources.");
+
+        helper.page("intro");
+        var intro = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(ItemRegistry.DIVINATION_ROD_T1.get()))
+                .withText(helper.pageText())
+                .build();
+
+        this.lang.add(helper.pageText(),
+                """
+                        While the [](item://occultism:divination_rod) is a great tool for finding [#](%1$s)Otherworld Materials[#](), it would be useful to have a way to find *all other* ores and resources as well.
+                        \\
+                        \\
+                        This is where the Theurgy Divination Rod comes in.
+                                """.formatted(COLOR_PURPLE));
+
+        helper.page("recipe_rod");
+        var recipeRod = BookCraftingRecipePageModel.builder()
+                .withRecipeId1("theurgy:crafting/shaped/divination_rod_t1")
+                .build();
+
+        helper.page("more_info");
+        var moreInfo = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+
+        this.lang.add(helper.pageTitle(), "More Information");
+        this.lang.add(helper.pageText(),
+                """
+                        To find out more about the Theurgy Divination Rod, check out *"The Hermetica"*, the Guidebook for Theurgy.
+                        [This Entry](entry://theurgy:the_hermetica/getting_started/divination_rod) has more information about the Theurgy Divination Rod.
+                        """);
+
+        helper.page("recipe_hermetica");
+        var recipeHermetica = BookCraftingRecipePageModel.builder()
+                .withRecipeId1("theurgy:crafting/shapeless/the_hermetica")
+                .build();
+
+
+        return BookEntryModel.builder()
+                .withId(this.modLoc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(ItemRegistry.DIVINATION_ROD_T1.get())
+                .withLocation(entryHelper.get(icon))
+                .withPages(
+                        intro,
+                        recipeRod,
+                        moreInfo,
+                        recipeHermetica
+                );
     }
 
     private BookEntryModel.Builder makeCandleEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
@@ -2899,11 +2976,11 @@ public class OccultismBookProvider extends BookProvider {
         this.lang.add(helper.pageTitle(), "Usage");
         this.lang.add(helper.pageText(),
                 """
-                       Use the book of calling to set the work area and deposit location of the lumberjack.
-                       \\
-                       \\
-                       See [Books of Calling](entry://getting_started/books_of_calling) for more information.
-                          """);
+                        Use the book of calling to set the work area and deposit location of the lumberjack.
+                        \\
+                        \\
+                        See [Books of Calling](entry://getting_started/books_of_calling) for more information.
+                           """);
 
         helper.page("usage2");
         var usage2 = BookTextPageModel.builder()
