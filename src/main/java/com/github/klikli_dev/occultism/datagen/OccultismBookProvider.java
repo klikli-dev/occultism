@@ -498,6 +498,10 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(helper.pageText())
                 .build();
 
+        helper.page("how_to_use3");
+        var howToUse3 = BookTextPageModel.builder()
+                .withText(helper.pageText())
+                .build();
 
         helper.page("divination_rod_screenshots");
         var divinationRodScreenshots = BookImagePageModel.builder()
@@ -536,8 +540,22 @@ public class OccultismBookProvider extends BookProvider {
                 .withDescription(helper.entryDescription())
                 .withIcon(OccultismItems.DIVINATION_ROD.getId().toString())
                 .withLocation(entryHelper.get(icon))
-                .withPages(intro, otherstoneRecipe, otherworldSaplingNaturalRecipe, divinationRod, spiritAttunedGemRecipe, divinationRodRecipe, aboutDivinationRod,
-                        howToUse, howToUse2, divinationRodScreenshots, otherworldGroves, otherworldGroves2, otherworldTrees, otherworldTrees2);
+                .withPages(
+                        intro,
+                        otherstoneRecipe,
+                        otherworldSaplingNaturalRecipe,
+                        divinationRod,
+                        spiritAttunedGemRecipe,
+                        divinationRodRecipe,
+                        aboutDivinationRod,
+                        howToUse,
+                        howToUse2,
+                        howToUse3,
+                        divinationRodScreenshots,
+                        otherworldGroves,
+                        otherworldGroves2,
+                        otherworldTrees,
+                        otherworldTrees2);
     }
 
     private BookEntryModel.Builder makeTheurgyDivinationRodsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {

@@ -933,6 +933,15 @@ public class ENUSProvider extends LanguageProvider {
                         a fully purple block means the found block is nearby. Mixes between white and purple show
                         that the target is rather far away.""");
 
+        helper.page("how_to_use3");
+        this.add(helper.pageText(),
+                """
+                       [#](%1$s)Right-clicking[#]() without holding after a successful search will show the last found target block again.
+                       \\
+                       \\
+                       If the mod *"Theurgy"* is installed the rod will not highlight the target block, but instead send a particle effect in the direction of the target block.
+                       """.formatted(COLOR_PURPLE));
+
         helper.page("divination_rod_screenshots");
         this.add(helper.pageText(),
                 """
