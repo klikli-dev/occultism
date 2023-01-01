@@ -436,7 +436,7 @@ public class OccultismItems {
     }
 
     public static void onRegisterCreativeModeTabs(CreativeModeTabEvent.Register event) {
-        event.registerCreativeModeTab(new ResourceLocation("occultism:occultism"),
+        event.registerCreativeModeTab(new ResourceLocation(Occultism.MODID + ":" + Occultism.MODID),
                 (builder) -> {
                     builder.icon(() -> new ItemStack(OccultismItems.PENTACLE.get()))
                             .title(Component.translatable("itemGroup.occultism")).build();
