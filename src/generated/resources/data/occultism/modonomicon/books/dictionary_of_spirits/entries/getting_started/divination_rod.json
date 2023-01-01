@@ -91,6 +91,14 @@
       "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.how_to_use2.text"
     },
     {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.how_to_use3.text"
+    },
+    {
       "type": "modonomicon:image",
       "anchor": "",
       "title": "",
