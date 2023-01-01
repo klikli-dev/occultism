@@ -22,7 +22,9 @@
 
 package com.github.klikli_dev.occultism.network;
 
+import com.github.klikli_dev.occultism.OccultismConstants;
 import com.github.klikli_dev.occultism.common.item.tool.DivinationRodItem;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -32,42 +34,48 @@ import net.minecraftforge.network.NetworkEvent;
 
 public class MessageSetDivinationResult extends MessageBase {
 
-    //region Fields
-    public byte result;
-    //endregion Fields
-
-    //region Initialization
+    public BlockPos pos;
+    public byte distance;
 
     public MessageSetDivinationResult(FriendlyByteBuf buf) {
         this.decode(buf);
     }
 
-    public MessageSetDivinationResult(float result) {
-        this.result = (byte) result;
+    public MessageSetDivinationResult(BlockPos pos, float distance) {
+        this.pos = pos;
+        this.distance = (byte) Math.min(256, distance);
     }
-    //endregion Initialization
 
-    //region Overrides
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
         ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
         if (stack.getItem() instanceof DivinationRodItem) {
-            stack.getOrCreateTag().putFloat("distance", this.result);
+            var tag = stack.getOrCreateTag();
+            tag.putFloat(OccultismConstants.Nbt.Divination.DISTANCE, this.distance);
+            if (this.pos != null) {
+                tag.putLong(OccultismConstants.Nbt.Divination.POS, this.pos.asLong());
+            }
             player.inventoryMenu.broadcastChanges();
         }
     }
 
     @Override
     public void encode(FriendlyByteBuf buf) {
-        buf.writeByte(this.result);
+        buf.writeBoolean(this.pos != null);
+        if (this.pos != null) {
+            buf.writeBlockPos(this.pos);
+        }
+        buf.writeByte(this.distance);
     }
 
     @Override
     public void decode(FriendlyByteBuf buf) {
-        this.result = buf.readByte();
+        if (buf.readBoolean()) {
+            this.pos = buf.readBlockPos();
+        }
+        this.distance = buf.readByte();
     }
 
-    //endregion Overrides
 }

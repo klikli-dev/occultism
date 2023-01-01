@@ -42,6 +42,12 @@ versionRange = "[1.19.3-1.21.0,)"
 side = "BOTH"
 
 [[dependencies.occultism]]
+modId = "theurgy"
+mandatory = false
+versionRange = "[1.19.3-1.1.0,)"
+side = "BOTH"
+
+[[dependencies.occultism]]
 modId = "curios"
 mandatory = true
 versionRange = "[1.19.3-5.1.1.2,)"
