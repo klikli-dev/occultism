@@ -69,7 +69,9 @@ public class OccultismClientConfig {
 
             this.syncJeiSearch = builder.comment("Sync JEI search in storage actuator.")
                     .define("syncJeiSearch", false);
-            this.divinationRodHighlightAllResults = builder.comment("If true, divination rod will render all matching blocks with an outline. Disable if it causes lag.")
+            this.divinationRodHighlightAllResults = builder.comment(
+                            "If true, divination rod will render all matching blocks with an outline. Disable if it causes lag.",
+                            "This setting will be unused, if Theurgy is installed alongside, as Occultism will use Theurgy's divination rod result rendering instead.")
                     .define("divinationRodHighlightAllResults", false);
             this.divinationRodScanRange = builder.comment("The scan range in blocks for the divination rod. Too high might cause lags")
                     .defineInRange("divinationRodScanRange", 129, 1, Integer.MAX_VALUE);
