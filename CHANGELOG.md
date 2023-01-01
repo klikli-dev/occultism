@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.64.0] - 2023-01-01
+### :sparkles: New Features
+- [`62f2a8d`](https://github.com/klikli-dev/occultism/commit/62f2a8d42054dd261e33f707b1f60aac8af46851) - add theurgy integration *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`c354f2f`](https://github.com/klikli-dev/occultism/commit/c354f2f0112b9049b5a4ff649aaee306c91a11ea) - update compatibility matrix for curseforge publishing *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`267d935`](https://github.com/klikli-dev/occultism/commit/267d935eceb640145677a04b03a63794b7b59898) - update in game docs for new rod behaviour *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.63.0] - 2022-12-29
 ### :sparkles: New Features
 - [`d3f7263`](https://github.com/klikli-dev/occultism/commit/d3f726366e7f666e6379ca72ade50db3479138ef) - switch to upstream smartbrainlib *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -102,3 +111,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.62.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.60.3...release/v1.19.2-1.62.0
 [release/v1.19.2-1.62.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.62.0...release/v1.19.2-1.62.1
 [release/v1.19.2-1.63.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.62.1...release/v1.19.2-1.63.0
+[release/v1.19.2-1.64.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.63.0...release/v1.19.2-1.64.0
