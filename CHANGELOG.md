@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.3-1.65.0] - 2023-01-05
+### :sparkles: New Features
+- [`1843b93`](https://github.com/klikli-dev/occultism/commit/1843b933b62a4e85d3793ef068f702602c85bd78) - prevent client side issues if storage controller has lots of nbt *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.3-1.64.0] - 2023-01-01
 ### :sparkles: New Features
 - [`73c18c5`](https://github.com/klikli-dev/occultism/commit/73c18c582341576e6bac01e02d1ada3cbd58908e) - add theurgy integration *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -156,3 +161,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.3-1.62.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.62.0...release/v1.19.3-1.62.1
 [release/v1.19.3-1.63.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.62.1...release/v1.19.3-1.63.0
 [release/v1.19.3-1.64.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.63.0...release/v1.19.3-1.64.0
+[release/v1.19.3-1.65.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.64.0...release/v1.19.3-1.65.0
