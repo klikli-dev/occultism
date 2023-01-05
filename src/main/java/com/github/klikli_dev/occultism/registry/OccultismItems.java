@@ -30,10 +30,7 @@ import com.github.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.github.klikli_dev.occultism.common.item.debug.*;
 import com.github.klikli_dev.occultism.common.item.otherworld.OtherworldBlockItem;
 import com.github.klikli_dev.occultism.common.item.spirit.*;
-import com.github.klikli_dev.occultism.common.item.storage.DimensionalMatrixItem;
-import com.github.klikli_dev.occultism.common.item.storage.SatchelItem;
-import com.github.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
-import com.github.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
+import com.github.klikli_dev.occultism.common.item.storage.*;
 import com.github.klikli_dev.occultism.common.item.tool.*;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
@@ -245,6 +242,9 @@ public class OccultismItems {
     //Machines
     public static final RegistryObject<StableWormholeBlockItem> STABLE_WORMHOLE = ITEMS.register("stable_wormhole",
             () -> new StableWormholeBlockItem(OccultismBlocks.STABLE_WORMHOLE.get(), defaultProperties()));
+    public static final RegistryObject<StorageControllerBlockItem> STORAGE_CONTROLLER = ITEMS.register("storage_controller",
+            () -> new StorageControllerBlockItem(OccultismBlocks.STORAGE_CONTROLLER.get(), defaultProperties()));
+
 
     //Crops
     public static final RegistryObject<Item> DATURA_SEEDS =

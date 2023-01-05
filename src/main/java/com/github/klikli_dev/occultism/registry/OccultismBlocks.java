@@ -167,7 +167,7 @@ public class OccultismBlocks {
     public static final RegistryObject<StorageControllerBlock> STORAGE_CONTROLLER = register("storage_controller",
             () -> new StorageControllerBlock(
                     Block.Properties.of(Material.STONE).sound(SoundType.STONE)
-                            .strength(5f, 100).noOcclusion()), true, LootTableType.EMPTY);
+                            .strength(5f, 100).noOcclusion()), false, LootTableType.EMPTY);
     public static final RegistryObject<StorageStabilizerBlock> STORAGE_STABILIZER_TIER1 = register(
             "storage_stabilizer_tier1", () -> new StorageStabilizerBlock(
                     Block.Properties.of(Material.STONE).sound(SoundType.STONE).strength(1.5f, 30)
