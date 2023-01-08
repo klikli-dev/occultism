@@ -4304,6 +4304,7 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makePossessGhastEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("possess_ghast");
+        this.lang.add(helper.entryName(), "Possessed Ghast");
 
         helper.page("entity");
         var entity = BookEntityPageModel.builder()
@@ -4311,16 +4312,25 @@ public class OccultismBookProvider extends BookProvider {
                 .withScale(0.5f)
                 .withText(helper.pageText())
                 .build();
+        this.lang.add(helper.pageText(),
+                """
+                        **Drops**: 1-3x [](item://minecraft:ghast_tear)
+                                """);
 
         helper.page("ritual");
         var ritual = BookRitualRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("ritual/possess_ghast"))
                 .build();
+        //no text
 
         helper.page("description");
         var description = BookTextPageModel.builder()
                 .withText(helper.pageText())
                 .build();
+        this.lang.add(helper.pageText(),
+                """
+                        In this ritual a [#](%1$s)Ghast[#]() is spawned using the life energy of a [#](%1$s)Cow[#]() and immediately possessed by the summoned [#](%1$s)Djinni[#](). The [#](%1$s)Possessed Ghast[#]() will always drop at least one [](item://minecraft:ghast_tear) when killed.
+                        """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
