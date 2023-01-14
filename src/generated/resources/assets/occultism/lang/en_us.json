@@ -1354,6 +1354,7 @@
   "ritual.occultism.familiar_parrot.interrupted": "Summoning of parrot familiar interrupted.",
   "ritual.occultism.familiar_parrot.started": "Started summoning parrot familiar.",
   "ritual.occultism.pentacle_help": "\u00A7lInvalid pentacle!\u00A7r\nWere you trying to create pentacle: %s? Missing:\n%s",
+  "ritual.occultism.pentacle_help.no_pentacle": "\u00A7lNo pentacle found!\u00A7r\nIt seems you did not draw a pentacle, or your pentacle is missing large parts. See the \"Rituals\" section of the Dictionary of Spirits, the required Pentacle will be a clickable blue link above the ritual recipe on the ritual's page.",
   "ritual.occultism.pentacle_help_at_glue": " at position ",
   "ritual.occultism.possess_enderman.conditions": "Not all requirements for this ritual are met.",
   "ritual.occultism.possess_enderman.finished": "Summoned possessed enderman successfully.",
