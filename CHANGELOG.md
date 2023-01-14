@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.66.0] - 2023-01-14
+### :sparkles: New Features
+- [`09fe0a0`](https://github.com/klikli-dev/occultism/commit/09fe0a0dd0042643f3e08589caa5a0032efa03d6) - detect ritual start with no pentacle and send hint in chat *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.65.1] - 2023-01-08
 ### :bug: Bug Fixes
 - [`442e030`](https://github.com/klikli-dev/occultism/commit/442e030aa9751a74819d1283cc5ef6e1f6e0f81d) - wrong sacrifice in possess ghast ritual description *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -124,3 +129,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.64.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.63.0...release/v1.19.2-1.64.0
 [release/v1.19.2-1.65.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.64.0...release/v1.19.2-1.65.0
 [release/v1.19.2-1.65.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.65.0...release/v1.19.2-1.65.1
+[release/v1.19.2-1.66.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.65.1...release/v1.19.2-1.66.0
