@@ -109,10 +109,16 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         }
 
         if (bestPentacleDiff != null && !bestPentacleDiff.isEmpty() && bestPentacleDiff.size() < 4) {
+            //tell player which pentacle he was probably trying to build
             player.displayClientMessage(
                     Component.translatable("ritual." + Occultism.MODID + ".pentacle_help",
                             Component.translatable(Util.makeDescriptionId("multiblock", bestMatch.getId())), pentacleDiffToComponent(bestPentacleDiff)),
                     false);
+            return true;
+        } else if(bestPentacleDiff != null && !bestPentacleDiff.isEmpty()) {
+            //player probably doesn't have a pentacle at all
+            player.displayClientMessage(
+                    Component.translatable("ritual." + Occultism.MODID + ".pentacle_help.no_pentacle"), false);
             return true;
         }
         return false;
