@@ -1,0 +1,89 @@
+name: Bug report
+description: I found a bug or my game is crashing.
+title: "[BUG]: "
+labels: 'bug'
+body:
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is.
+      placeholder: "E.g.: When opening the storage actuator, ..."
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs and Crash Reports
+      description: |
+        If you are facing a crash, please upload your `<modpack-folder>/logs/latest.log` as well as the crash report from `<modpack-folder>/crash-reports/` 
+        from your minecraft installation folder.
+        
+        You can upload the content of files to one of the following sites and paste the link here:
+        
+        https://gist.github.com/: [Free] [SignUp] 100MB
+        https://paste.gemwire.uk/: [Free] 10MB
+        https://paste.ee/: [Free] 1MB, [SignUp] 6MB
+        https://hastebin.com/: [Free] 400KB
+    validations:
+      required: true
+  - type: textarea
+    id: screenshots-and-videos
+    attributes:
+      label: Screenshots and/or Videos
+      description: | 
+        If applicable, add screenshots and/or videos to help explain your problem.
+        You can upload screenshots and videos by dragging and dropping them into the text area or uploading them to https://imgur.com/
+    validations:
+      required: false
+  - type: textarea
+    id: bug-reproduction
+    attributes:
+      label: Bug Reproduction
+      description: Steps to reproduce the behavior.
+      placeholder: |
+        E.g.: 
+        1. Place block '...'
+        2. Right click to open menu.
+        3. Click Button '....'
+        4. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: A clear and concise description of what you expected to happen.
+      placeholder: "E.g.: I expected the storage actuator inventory to open without a crash."
+    validations:
+      required: true
+  - type: dropdown
+    id: mc_version
+    attributes:
+      label: Minecraft Version
+      options:
+        - 1.19.3
+        - 1.19.2
+        - 1.18.2
+        - 1.16 or older
+    validations:
+      required: true
+  - type: input
+    id: mod_version
+    attributes:
+      label: Mod Version
+      description: The version of occultism you are using. You can find this in your launchers modlist, in your /mods folder or in "Mods" menu item in the Minecraft Main Menu
+      placeholder: 1.0.0
+    validations:
+      required: true
+  - type: dropdown
+    id: modpack
+    attributes:
+      label: Modpack
+      options:
+        - Other
+        - ATM
+        - Enigmatica
+        - "Create: Above & Beyond"
+    validations:
+      required: true
