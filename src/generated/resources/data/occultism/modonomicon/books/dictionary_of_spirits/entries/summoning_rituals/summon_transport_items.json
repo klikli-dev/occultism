@@ -42,6 +42,14 @@
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.spirit_inventories.text"
     },
     {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.item_filters.title",
+      "use_markdown_in_title": false,
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.item_filters.text"
+    },
+    {
       "type": "occultism:ritual_recipe",
       "anchor": "",
       "title1": "",
