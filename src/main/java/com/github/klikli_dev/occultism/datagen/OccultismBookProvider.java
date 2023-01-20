@@ -3070,6 +3070,17 @@ public class OccultismBookProvider extends BookProvider {
                         The Transporter can also interact with the inventories of other spirits. This is especially useful to automatically supply a [Crusher spirit](entry://summoning_rituals/summon_crusher_t1) with items to crush.
                            """);
 
+        helper.page("item_filters");
+        var itemFilters = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+        this.lang.add(helper.pageTitle(), "Item Filters");
+        this.lang.add(helper.pageText(),
+                """
+                        By default the Transporter is in "Blacklist" mode and will not move anything. Shift-click the transporter to open the config UI. You can then add items to the filter list to make it move only those items, or set it to "Whitelist" to move everything *except* the filtered items. You can also enter a tag in the text field below to filter by tag.
+                           """);
+
         helper.page("ritual");
         var ritual = BookRitualRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("ritual/summon_foliot_transport_items"))
@@ -3096,6 +3107,7 @@ public class OccultismBookProvider extends BookProvider {
                         intro,
                         intro2,
                         spirit_inventories,
+                        itemFilters,
                         ritual,
                         bookOfCalling
                 );
