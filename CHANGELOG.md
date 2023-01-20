@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.66.1] - 2023-01-20
+### :sparkles: New Features
+- [`d2bb479`](https://github.com/klikli-dev/occultism/commit/d2bb47983cfa4e5619ff3d892b30709ed6b4419a) - add new bug report template *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`5d8aaed`](https://github.com/klikli-dev/occultism/commit/5d8aaed0f15de7298d7b0ea4a223f47251aadd0d) - cf dependency settings *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`5337ae6`](https://github.com/klikli-dev/occultism/commit/5337ae6d71a7a717adc24f95aa78851696a92bdd) - improve transporter docs regarding whitelist/blacklist *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`3fbaba0`](https://github.com/klikli-dev/occultism/commit/3fbaba0c70e3e6c7c92aa6a824d305d0f1581019) - make machine manager a bit more stable by disabling line of sight check *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`af234c8`](https://github.com/klikli-dev/occultism/commit/af234c829e0b8ca480f6d85ff69546d0a5a02a58) - make machine operator forget old extract block when setting new machine  *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.66.0] - 2023-01-14
 ### :sparkles: New Features
 - [`09fe0a0`](https://github.com/klikli-dev/occultism/commit/09fe0a0dd0042643f3e08589caa5a0032efa03d6) - detect ritual start with no pentacle and send hint in chat *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -130,3 +141,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.65.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.64.0...release/v1.19.2-1.65.0
 [release/v1.19.2-1.65.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.65.0...release/v1.19.2-1.65.1
 [release/v1.19.2-1.66.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.65.1...release/v1.19.2-1.66.0
+[release/v1.19.2-1.66.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.66.0...release/v1.19.2-1.66.1
