@@ -167,17 +167,17 @@ public class DepositItemsGoal extends PausableGoal {
     //region Methods
     public boolean canSeeTarget() {
 
-        ClipContext context = new ClipContext(this.entity.position(),
-                Math3DUtil.center(this.moveTarget.getBlockPos()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE,
-                this.entity);
-        BlockHitResult result = this.entity.level.clip(context);
-
-        if (result.getType() != BlockHitResult.Type.MISS) {
-            BlockPos sidePos = result.getBlockPos();
-            BlockPos pos = new BlockPos(result.getLocation());
-            return this.entity.level.isEmptyBlock(sidePos) || this.entity.level.isEmptyBlock(pos) ||
-                    this.entity.level.getBlockEntity(pos) == this.entity.level.getBlockEntity(this.moveTarget.getBlockPos());
-        }
+//        ClipContext context = new ClipContext(this.entity.position(),
+//                Math3DUtil.center(this.moveTarget.getBlockPos()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE,
+//                this.entity);
+//        BlockHitResult result = this.entity.level.clip(context);
+//
+//        if (result.getType() != BlockHitResult.Type.MISS) {
+//            BlockPos sidePos = result.getBlockPos();
+//            BlockPos pos = new BlockPos(result.getLocation());
+//            return this.entity.level.isEmptyBlock(sidePos) || this.entity.level.isEmptyBlock(pos) ||
+//                    this.entity.level.getBlockEntity(pos) == this.entity.level.getBlockEntity(this.moveTarget.getBlockPos());
+//        }
 
         return true;
     }
