@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.18.2-1.66.1] - 2023-01-20
+### :bug: Bug Fixes
+- [`795a90f`](https://github.com/klikli-dev/occultism/commit/795a90fa0115e3a74520c8c5dc08b57e6c12a584) - cf dependency settings *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`db75981`](https://github.com/klikli-dev/occultism/commit/db75981b866580080ad230259911952615ce82c0) - improve transporter docs regarding whitelist/blacklist *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`f5847c9`](https://github.com/klikli-dev/occultism/commit/f5847c9df386c52102bd92b94d404397ba6940d8) - make machine manager a bit more stable by disabling line of sight check *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`c764864`](https://github.com/klikli-dev/occultism/commit/c76486455bbda33c7bdb8b8b325694867bbd3a4e) - make machine operator forget old extract block when setting new machine  *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.18.2-1.66.0] - 2023-01-14
 ### :sparkles: New Features
 - [`a1522e7`](https://github.com/klikli-dev/occultism/commit/a1522e7df7cc3f17e2f286bf516a10da94f6696d) - detect ritual start with no pentacle and send hint in chat *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -121,3 +129,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.18.2-1.65.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.64.0...release/v1.18.2-1.65.0
 [release/v1.18.2-1.65.1]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.65.0...release/v1.18.2-1.65.1
 [release/v1.18.2-1.66.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.65.1...release/v1.18.2-1.66.0
+[release/v1.18.2-1.66.1]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.66.0...release/v1.18.2-1.66.1
