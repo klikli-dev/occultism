@@ -399,9 +399,12 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
 
                 if (boundSpirit.get().getJob().isPresent() &&
                         boundSpirit.get().getJob().get() instanceof ManageMachineJob manageMachine) {
-                    //get the existing extract reference here, or if null reuse insert
-                    var oldExtractBlockEntity = manageMachine.getExtractBlockEntity();
-                    MachineReference newReference = MachineReference.from(oldExtractBlockEntity != null ? oldExtractBlockEntity : managedMachineBlockEntity, managedMachineBlockEntity);
+
+                    //Old code:
+                    //  //get the existing extract reference here, or if null reuse insert
+                    //  var oldExtractBlockEntity = manageMachine.getExtractBlockEntity();
+                    //now we just use the new machine as extract target, because otherwise we would insert into the new machine, but extract from the old
+                    MachineReference newReference = MachineReference.from(managedMachineBlockEntity, managedMachineBlockEntity);
                     if (manageMachine.getManagedMachine() == null ||
                             !manageMachine.getManagedMachine().insertGlobalPos.equals(newReference.insertGlobalPos)) {
                         //if we are setting a completely new machine, just overwrite the reference.
