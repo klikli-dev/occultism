@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.3-1.66.1] - 2023-01-20
+### :bug: Bug Fixes
+- [`17db8be`](https://github.com/klikli-dev/occultism/commit/17db8be0d11557b408d015e6529a0bde4a2b4a46) - cf dependency settings *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`eaf7834`](https://github.com/klikli-dev/occultism/commit/eaf78348309f2c699c3eed75daafd8bedd69038b) - improve transporter docs regarding whitelist/blacklist *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`ae85987`](https://github.com/klikli-dev/occultism/commit/ae85987383e33cbddf776c94c5143456775a78a7) - make machine manager a bit more stable by disabling line of sight check *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`681e953`](https://github.com/klikli-dev/occultism/commit/681e95373f36978db4b9a0ee4bd3be7bf104a40e) - make machine operator forget old extract block when setting new machine  *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.3-1.66.0] - 2023-01-14
 ### :sparkles: New Features
 - [`046ecbc`](https://github.com/klikli-dev/occultism/commit/046ecbcb993faff76f9bb6c9845f0d43fa464508) - detect ritual start with no pentacle and send hint in chat *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -174,3 +182,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.3-1.65.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.64.0...release/v1.19.3-1.65.0
 [release/v1.19.3-1.65.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.65.0...release/v1.19.3-1.65.1
 [release/v1.19.3-1.66.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.65.1...release/v1.19.3-1.66.0
+[release/v1.19.3-1.66.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.66.0...release/v1.19.3-1.66.1
