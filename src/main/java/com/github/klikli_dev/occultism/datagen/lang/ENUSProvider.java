@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.datagen.lang;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.TranslationKeys;
 import com.github.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
@@ -3670,6 +3671,8 @@ public class ENUSProvider extends LanguageProvider {
         this.add("occultism.jei.miner.chance", "Chance: %d%%");
         this.add("occultism.jei.ritual", "Occult Ritual");
         this.add("occultism.jei.pentacle", "Pentacle");
+
+        this.add(TranslationKeys.JEI_CRUSHING_RECIPE_TIER, "Min Crusher Tier: %d");
         this.add("jei.occultism.ingredient.tallow.description", "Kill animals, such as \u00a72pigs\u00a7r, \u00a72cows\u00a7r, \u00a72sheep\u00a7r, \u00a72horses\u00a7r and \u00a72lamas\u00a7r with the Butcher Knife to obtain tallow.");
         this.add("jei.occultism.ingredient.otherstone.description", "Primarily found in Otherworld Groves. Only visible while the status \u00a76Third Eye\u00a7r is active. See \u00a76Dictionary of Spirits\u00a7r for more information.");
         this.add("jei.occultism.ingredient.otherworld_log.description", "Primarily found in Otherworld Groves. Only visible while the status \u00a76Third Eye\u00a7r is active. See \u00a76Dictionary of Spirits\u00a7r for more information.");

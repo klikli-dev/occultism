@@ -20,13 +20,21 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.occultism;
+package com.github.klikli_dev.occultism.crafting.recipe;
 
-public class TranslationKeys {
-    protected static final String ITEM = "item." + Occultism.MODID;
-    public static final String BOOK_OF_CALLING_GENERIC = ITEM + ".book_of_calling";
+import net.minecraft.world.item.ItemStack;
 
-    protected static final String JEI = "jei." + Occultism.MODID;
+public class TieredItemStackFakeInventory extends ItemStackFakeInventory {
 
-    public static final String JEI_CRUSHING_RECIPE_TIER = JEI + ".crushing.tier";
+    protected int tier;
+
+    public TieredItemStackFakeInventory(ItemStack input, int tier) {
+        super(input);
+        this.input = input;
+        this.tier = tier;
+    }
+
+    public int getTier() {
+        return this.tier;
+    }
 }

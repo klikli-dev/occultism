@@ -35,23 +35,20 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
-    //region Fields
     public static Serializer SERIALIZER = new Serializer();
     public static int DEFAULT_CRUSHING_TIME = 200;
 
     protected final int crushingTime;
+    protected final int minTier;
     protected final boolean ignoreCrushingMultiplier;
-    //endregion Fields
 
-    //region Initialization
-    public CrushingRecipe(ResourceLocation id, Ingredient input, ItemStack output, int crushingTime, boolean ignoreCrushingMultiplier) {
+    public CrushingRecipe(ResourceLocation id, Ingredient input, ItemStack output, int minTier, int crushingTime, boolean ignoreCrushingMultiplier) {
         super(id, input, output);
         this.crushingTime = crushingTime;
+        this.minTier = minTier;
         this.ignoreCrushingMultiplier = ignoreCrushingMultiplier;
     }
-    //endregion Initialization
 
-    //region Getter / Setter
     public int getCrushingTime() {
         return this.crushingTime;
     }
@@ -60,11 +57,17 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
         return this.ignoreCrushingMultiplier;
     }
 
-    //endregion Getter / Setter
+    public int getMinTier() {
+        return this.minTier;
+    }
 
-    //region Overrides
+
     @Override
     public boolean matches(ItemStackFakeInventory inv, Level level) {
+        if (inv instanceof TieredItemStackFakeInventory tieredInv) {
+            return tieredInv.getTier() >= this.minTier && this.input.test(inv.getItem(0));
+        }
+
         return this.input.test(inv.getItem(0));
     }
 
@@ -104,35 +107,35 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
         return OccultismRecipes.CRUSHING_TYPE.get();
     }
 
-    //endregion Overrides
 
     public static class Serializer implements RecipeSerializer<CrushingRecipe> {
 
-        //region Overrides
         @Override
         public CrushingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             int crushingTime = GsonHelper.getAsInt(json, "crushing_time", DEFAULT_CRUSHING_TIME);
             boolean ignoreCrushingMultiplier = GsonHelper.getAsBoolean(json, "ignore_crushing_multiplier", false);
+            int minTier = GsonHelper.getAsInt(json, "min_tier", -1);
             return ItemStackFakeInventoryRecipe.SERIALIZER
                     .read((id, input, output) ->
-                            new CrushingRecipe(id, input, output, crushingTime, ignoreCrushingMultiplier), recipeId, json);
+                            new CrushingRecipe(id, input, output, minTier, crushingTime, ignoreCrushingMultiplier), recipeId, json);
         }
 
         @Override
         public CrushingRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             int crushingTime = buffer.readInt();
             boolean ignoreCrushingMultiplier = buffer.readBoolean();
+            int minTier = buffer.readInt();
             return ItemStackFakeInventoryRecipe.SERIALIZER
                     .read((id, input, output) ->
-                            new CrushingRecipe(id, input, output, crushingTime, ignoreCrushingMultiplier), recipeId, buffer);
+                            new CrushingRecipe(id, input, output, minTier, crushingTime, ignoreCrushingMultiplier), recipeId, buffer);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buffer, CrushingRecipe recipe) {
             buffer.writeInt(recipe.crushingTime);
             buffer.writeBoolean(recipe.ignoreCrushingMultiplier);
+            buffer.writeInt(recipe.minTier);
             ItemStackFakeInventoryRecipe.SERIALIZER.write(buffer, recipe);
         }
-        //endregion Overrides
     }
 }
