@@ -1096,6 +1096,7 @@
   "item.occultism.tallow": "Tallow",
   "item.occultism.wormhole_frame": "Wormhole Frame",
   "itemGroup.occultism": "Occultism",
+  "jei.occultism.crushing.tier": "Min Crusher Tier: %d",
   "jei.occultism.error.invalid_type": "Invalid recipe type.",
   "jei.occultism.error.missing_id": "Cannot identify recipe.",
   "jei.occultism.error.pentacle_not_loaded": "The pentacle could not be loaded.",

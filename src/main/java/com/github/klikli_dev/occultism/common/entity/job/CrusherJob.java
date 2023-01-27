@@ -26,7 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.ai.goal.PickupItemsGoal;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
-import com.github.klikli_dev.occultism.crafting.recipe.ItemStackFakeInventory;
+import com.github.klikli_dev.occultism.crafting.recipe.TieredItemStackFakeInventory;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.github.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.core.particles.ParticleTypes;
@@ -47,7 +47,6 @@ import java.util.stream.Collectors;
 
 public class CrusherJob extends SpiritJob {
 
-    //region Fields
     public static final String DROPPED_BY_CRUSHER = "occultism:dropped_by_crusher";
 
     /**
@@ -56,28 +55,29 @@ public class CrusherJob extends SpiritJob {
     protected int crushingTimer;
     protected Supplier<Float> crushingTimeMultiplier;
     protected Supplier<Float> outputMultiplier;
+    protected Supplier<Integer> tier;
 
     protected Optional<CrushingRecipe> currentRecipe = Optional.empty();
     protected PickupItemsGoal pickupItemsGoal;
 
     protected List<Ingredient> itemsToPickUp = new ArrayList<>();
-    //endregion Fields
 
 
-    //region Initialization
-    public CrusherJob(SpiritEntity entity, Supplier<Float> crushingTimeMultiplier, Supplier<Float> outputMultiplier) {
+    public CrusherJob(SpiritEntity entity, Supplier<Float> crushingTimeMultiplier, Supplier<Float> outputMultiplier, Supplier<Integer> tier) {
         super(entity);
         this.crushingTimeMultiplier = crushingTimeMultiplier;
         this.outputMultiplier = outputMultiplier;
+        this.tier = tier;
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public void onInit() {
         this.entity.targetSelector.addGoal(1, this.pickupItemsGoal = new PickupItemsGoal(this.entity));
         this.itemsToPickUp = this.entity.level.getRecipeManager().getRecipes().stream()
-                .filter(recipe -> recipe.getType() == OccultismRecipes.CRUSHING_TYPE.get())
+                .filter(
+                        recipe -> recipe.getType() == OccultismRecipes.CRUSHING_TYPE.get()
+                                && ((CrushingRecipe) recipe).getMinTier() <= this.tier.get()
+                )
                 .flatMap(recipe -> recipe.getIngredients().stream()).collect(Collectors.toList());
     }
 
@@ -89,7 +89,7 @@ public class CrusherJob extends SpiritJob {
     @Override
     public void update() {
         ItemStack handHeld = this.entity.getItemInHand(InteractionHand.MAIN_HAND);
-        ItemStackFakeInventory fakeInventory = new ItemStackFakeInventory(handHeld);
+        var fakeInventory = new TieredItemStackFakeInventory(handHeld, this.tier.get());
 
         if (!this.currentRecipe.isPresent() && !handHeld.isEmpty()) {
             this.currentRecipe = this.entity.level.getRecipeManager().getRecipeFor(OccultismRecipes.CRUSHING_TYPE.get(),
@@ -105,7 +105,7 @@ public class CrusherJob extends SpiritJob {
                 //if no recipe is found, drop hand held item as we can't process it
                 this.entity.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
                 ItemEntity droppedItem = this.entity.spawnAtLocation(handHeld);
-                if(droppedItem != null){
+                if (droppedItem != null) {
                     droppedItem.addTag(DROPPED_BY_CRUSHER);
                 }
             }
@@ -150,7 +150,7 @@ public class CrusherJob extends SpiritJob {
 
                     this.onCrush(inputCopy, result);
                     ItemEntity droppedItem = this.entity.spawnAtLocation(result);
-                    if(droppedItem != null){
+                    if (droppedItem != null) {
                         droppedItem.addTag(DROPPED_BY_CRUSHER);
                     }
                     //Don't reset recipe here, keep it cached
@@ -181,9 +181,7 @@ public class CrusherJob extends SpiritJob {
         ItemStack stack = entity.getItem();
         return !stack.isEmpty() && this.itemsToPickUp.stream().anyMatch(i -> i.test(stack));
     }
-    //endregion Overrides
 
-    //region Methods
 
     /**
      * Called when an item was crushed
@@ -194,5 +192,4 @@ public class CrusherJob extends SpiritJob {
     public void onCrush(ItemStack input, ItemStack output) {
 
     }
-    //endregion Methods
 }

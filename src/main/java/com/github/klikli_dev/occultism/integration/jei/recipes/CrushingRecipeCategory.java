@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.integration.jei.recipes;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.TranslationKeys;
 import com.github.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.github.klikli_dev.occultism.integration.jei.JeiRecipeTypes;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
@@ -93,6 +94,9 @@ public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
         RenderSystem.enableBlend();
         this.overlay.draw(stack, 76, 14); //(center=84) - (width/16=8) = 76
         this.drawStringCentered(stack, Minecraft.getInstance().font, this.getTitle(), 84, 0);
+        if(recipe.getMinTier() >= 0){
+            this.drawStringCentered(stack, Minecraft.getInstance().font, new TranslatableComponent(TranslationKeys.JEI_CRUSHING_RECIPE_TIER, recipe.getMinTier()), 84, 35);
+        }
     }
 
     @Override
