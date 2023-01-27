@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.3-1.67.0] - 2023-01-27
+### :sparkles: New Features
+- [`c0f7ca1`](https://github.com/klikli-dev/occultism/commit/c0f7ca165a3b1ce30c4718ad03954494dd014fcd) - allow crushing recipes to specify min_tier *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.3-1.66.2] - 2023-01-25
 ### :bug: Bug Fixes
 - [`5fe8b5a`](https://github.com/klikli-dev/occultism/commit/5fe8b5a4a68532e56299a9ccb96e52f861a85c26) - Demon's Dream Seeds dropping while using Modded Shears *(PR [#882](https://github.com/klikli-dev/occultism/pull/882) by [@Kanzaji](https://github.com/Kanzaji))*
@@ -189,3 +194,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.3-1.66.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.65.1...release/v1.19.3-1.66.0
 [release/v1.19.3-1.66.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.66.0...release/v1.19.3-1.66.1
 [release/v1.19.3-1.66.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.66.1...release/v1.19.3-1.66.2
+[release/v1.19.3-1.67.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.66.2...release/v1.19.3-1.67.0
