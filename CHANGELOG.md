@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.3-1.67.1] - 2023-01-30
+### :sparkles: New Features
+- [`e2dcd87`](https://github.com/klikli-dev/occultism/commit/e2dcd87c2c9e57667a223067923f3abaa8748eb6) - re-enable jei now that it is available on 1.19.3 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.3-1.67.0] - 2023-01-27
 ### :sparkles: New Features
 - [`c0f7ca1`](https://github.com/klikli-dev/occultism/commit/c0f7ca165a3b1ce30c4718ad03954494dd014fcd) - allow crushing recipes to specify min_tier *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -195,3 +200,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.3-1.66.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.66.0...release/v1.19.3-1.66.1
 [release/v1.19.3-1.66.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.66.1...release/v1.19.3-1.66.2
 [release/v1.19.3-1.67.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.66.2...release/v1.19.3-1.67.0
+[release/v1.19.3-1.67.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.67.0...release/v1.19.3-1.67.1
