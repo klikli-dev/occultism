@@ -107,7 +107,7 @@ repositories {
         }
     }
     maven {
-        name = "Progwm16 maven - JEI"
+        name = "JEI"
         url = 'https://maven.blamejared.com/'
         content {
             includeGroup "mezz.jei"
