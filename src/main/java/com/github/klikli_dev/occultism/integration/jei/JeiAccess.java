@@ -23,20 +23,19 @@
 package com.github.klikli_dev.occultism.integration.jei;
 
 import com.google.common.base.Strings;
-//import mezz.jei.api.runtime.IJeiRuntime;
+import mezz.jei.api.runtime.IJeiRuntime;
 
 public class JeiAccess {
-//TODO: enable once jei is updated
     public static String getFilterText() {
-//        IJeiRuntime runtime = JeiPlugin.getJeiRuntime();
-//        if (runtime != null)
-//            return runtime.getIngredientFilter().getFilterText();
+        IJeiRuntime runtime = JeiPlugin.getJeiRuntime();
+        if (runtime != null)
+            return runtime.getIngredientFilter().getFilterText();
         return "";
     }
 
     public static void setFilterText(String filter) {
-//        IJeiRuntime runtime = JeiPlugin.getJeiRuntime();
-//        if (runtime != null)
-//            runtime.getIngredientFilter().setFilterText(Strings.nullToEmpty(filter));
+        IJeiRuntime runtime = JeiPlugin.getJeiRuntime();
+        if (runtime != null)
+            runtime.getIngredientFilter().setFilterText(Strings.nullToEmpty(filter));
     }
 }
