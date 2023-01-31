@@ -146,8 +146,8 @@ public class MachineReference implements INBTSerializable<CompoundTag> {
 
         if (this.extractGlobalPos != null)
             compound.put("extractGlobalPos", this.extractGlobalPos.serializeNBT());
-        if (this.extractGlobalPos != null)
-            compound.putString("extractGlobalPos", this.extractGlobalPos.toString());
+        if (this.extractRegistryName != null)
+            compound.putString("extractRegistryName", this.extractRegistryName.toString());
         compound.putBoolean("extractChunkLoaded", this.extractChunkLoaded);
         compound.putByte("extractFacing", (byte) this.extractFacing.get3DDataValue());
 
