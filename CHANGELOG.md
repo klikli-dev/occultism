@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.18.2-1.67.2] - 2023-01-31
+### :bug: Bug Fixes
+- [`dd4a25f`](https://github.com/klikli-dev/occultism/commit/dd4a25fa4ce79049201add35c2504463b407d9d8) - Machine operator not saving extract position *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`50edb75`](https://github.com/klikli-dev/occultism/commit/50edb759d25a6bbd34f5c299c8713b8dcbaad3a6) - update to latest jei and updat maven mirror *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.18.2-1.67.0] - 2023-01-27
 ### :sparkles: New Features
 - [`5988ece`](https://github.com/klikli-dev/occultism/commit/5988eceea5d53372db6e8069cbe60813511a2c80) - allow crushing recipes to specify min_tier *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -142,3 +150,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.18.2-1.66.1]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.66.0...release/v1.18.2-1.66.1
 [release/v1.18.2-1.66.2]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.66.1...release/v1.18.2-1.66.2
 [release/v1.18.2-1.67.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.66.2...release/v1.18.2-1.67.0
+[release/v1.18.2-1.67.2]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.67.0...release/v1.18.2-1.67.2
