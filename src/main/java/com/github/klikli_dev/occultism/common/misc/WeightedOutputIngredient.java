@@ -26,19 +26,19 @@ import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
-public class WeightedIngredient extends WeightedEntry.IntrusiveBase {
-    protected Ingredient ingredient;
+public class WeightedOutputIngredient extends WeightedEntry.IntrusiveBase {
+    protected OutputIngredient ingredient;
 
-    public WeightedIngredient(Ingredient ingredient, int itemWeightIn) {
+    public WeightedOutputIngredient(Ingredient ingredient, int itemWeightIn) {
         super(itemWeightIn);
-        this.ingredient = ingredient;
+        this.ingredient = new OutputIngredient(ingredient);
     }
 
     public ItemStack getStack() {
-        return this.ingredient.getItems()[0];
+        return this.ingredient.getStack();
     }
 
     public Ingredient getIngredient() {
-        return this.ingredient;
+        return this.ingredient.getIngredient();
     }
 }

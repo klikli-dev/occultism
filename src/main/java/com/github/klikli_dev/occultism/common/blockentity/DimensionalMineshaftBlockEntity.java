@@ -23,7 +23,7 @@
 package com.github.klikli_dev.occultism.common.blockentity;
 
 import com.github.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
-import com.github.klikli_dev.occultism.common.misc.WeightedIngredient;
+import com.github.klikli_dev.occultism.common.misc.WeightedOutputIngredient;
 import com.github.klikli_dev.occultism.crafting.recipe.MinerRecipe;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
@@ -91,7 +91,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     public int maxMiningTime = 0;
     public int rollsPerOperation = 0;
     protected Item currentInputType;
-    protected List<WeightedIngredient> possibleResults;
+    protected List<WeightedOutputIngredient> possibleResults;
 
     //endregion Fields
     //region Initialization
@@ -251,7 +251,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             return;
 
         for (int i = 0; i < this.rollsPerOperation; i++) {
-            Optional<WeightedIngredient> result = WeightedRandom.getRandomItem(this.level.random, this.possibleResults);
+            Optional<WeightedOutputIngredient> result = WeightedRandom.getRandomItem(this.level.random, this.possibleResults);
             //Important: copy the result, don't use it raw!
             result.ifPresent(r -> {
                 ItemHandlerHelper.insertItemStacked(outputHandler, r.getStack().copy(), false);
