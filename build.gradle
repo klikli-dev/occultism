@@ -159,6 +159,11 @@ dependencies {
     //smartbrainlib
     implementation fg.deobf("curse.maven:smartbrainlib-661293:${smartbrainlib_file_id}-sources-${smartbrainlib_src_file_id}")
 
+    //almostunified
+    //TODO: enable once updated
+//    compileOnly fg.deobf("curse.maven:almostunified-633823:${almostunified_file_id}")
+//    runtimeOnly fg.deobf("curse.maven:almostunified-633823:${almostunified_file_id}")
+
     //modonomicon
     implementation fg.deobf("com.klikli_dev:modonomicon:${modonomicon_mc_version}-${modonomicon_version}") //we build against full jar because we NEED IT ALL
 
