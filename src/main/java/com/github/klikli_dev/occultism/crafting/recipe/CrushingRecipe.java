@@ -22,7 +22,9 @@
 
 package com.github.klikli_dev.occultism.crafting.recipe;
 
+import com.github.klikli_dev.occultism.common.misc.OutputIngredient;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
@@ -34,6 +36,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
+import net.minecraftforge.common.crafting.CraftingHelper;
 
 public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     public static Serializer SERIALIZER = new Serializer();
@@ -43,8 +46,11 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     protected final int minTier;
     protected final boolean ignoreCrushingMultiplier;
 
-    public CrushingRecipe(ResourceLocation id, Ingredient input, ItemStack output, int minTier, int crushingTime, boolean ignoreCrushingMultiplier) {
-        super(id, input, output);
+    protected OutputIngredient output;
+
+    public CrushingRecipe(ResourceLocation id, Ingredient input, OutputIngredient output, int minTier, int crushingTime, boolean ignoreCrushingMultiplier) {
+        super(id, input, output.getStack());
+        this.output = output;
         this.crushingTime = crushingTime;
         this.minTier = minTier;
         this.ignoreCrushingMultiplier = ignoreCrushingMultiplier;
@@ -62,7 +68,6 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
         return this.minTier;
     }
 
-
     @Override
     public boolean matches(ItemStackFakeInventory inv, Level level) {
         if (inv instanceof TieredItemStackFakeInventory tieredInv) {
@@ -73,29 +78,8 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     }
 
     @Override
-    public ItemStack assemble(ItemStackFakeInventory inv) {
-        return this.getResultItem().copy();
-    }
-
-    @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        //as we don't have a real inventory so this is ignored.
-        return true;
-    }
-
-    @Override
     public ItemStack getResultItem() {
-        return this.output;
-    }
-
-    @Override
-    public NonNullList<Ingredient> getIngredients() {
-        return NonNullList.of(Ingredient.EMPTY, this.input);
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return this.id;
+        return this.output.getStack();
     }
 
     @Override
@@ -116,9 +100,23 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
             int crushingTime = GsonHelper.getAsInt(json, "crushing_time", DEFAULT_CRUSHING_TIME);
             boolean ignoreCrushingMultiplier = GsonHelper.getAsBoolean(json, "ignore_crushing_multiplier", false);
             int minTier = GsonHelper.getAsInt(json, "min_tier", -1);
+
+            var resultElement = GsonHelper.getAsJsonObject(json, "result");
+
+            //our recipe supports tags and items as output, so we use the ingredient loader which handles both
+            var outputIngredient = Ingredient.fromJson(resultElement);
+
+            //the ingredient loader does not handle count and nbt, so we use the item loader
+            //The item loader requires and "item" field, so we add it if it is missing
+            if(!resultElement.has("item"))
+                //just a dummy, OutputIngredient will not use the item type.
+                //however, cannot be air as that will make ItemStack report as empty
+                resultElement.addProperty("item", "minecraft:dirt");
+
+            //ItemStackFakeInventoryRecipe.SERIALIZER will load our output item stack info from the "result" field
             return ItemStackFakeInventoryRecipe.SERIALIZER
                     .read((id, input, output) ->
-                            new CrushingRecipe(id, input, output, minTier, crushingTime, ignoreCrushingMultiplier), recipeId, json);
+                            new CrushingRecipe(id, input, new OutputIngredient(outputIngredient, output), minTier, crushingTime, ignoreCrushingMultiplier), recipeId, json);
         }
 
         @Override
@@ -126,9 +124,10 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
             int crushingTime = buffer.readInt();
             boolean ignoreCrushingMultiplier = buffer.readBoolean();
             int minTier = buffer.readInt();
+            Ingredient outputIngredient = Ingredient.fromNetwork(buffer);
             return ItemStackFakeInventoryRecipe.SERIALIZER
                     .read((id, input, output) ->
-                            new CrushingRecipe(id, input, output, minTier, crushingTime, ignoreCrushingMultiplier), recipeId, buffer);
+                            new CrushingRecipe(id, input, new OutputIngredient(outputIngredient, output), minTier, crushingTime, ignoreCrushingMultiplier), recipeId, buffer);
         }
 
         @Override
@@ -136,6 +135,7 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
             buffer.writeInt(recipe.crushingTime);
             buffer.writeBoolean(recipe.ignoreCrushingMultiplier);
             buffer.writeInt(recipe.minTier);
+            recipe.output.getIngredient().toNetwork(buffer);
             ItemStackFakeInventoryRecipe.SERIALIZER.write(buffer, recipe);
         }
     }
