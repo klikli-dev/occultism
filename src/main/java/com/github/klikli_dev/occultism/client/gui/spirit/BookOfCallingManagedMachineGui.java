@@ -129,7 +129,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
         int exitButtonSize = 20;
         this.addRenderableWidget(new ExtendedButton(guiLeft - exitButtonSize / 2,
                 guiTop + buttonTop + buttonHeight * 3 + buttonMargin * 3, exitButtonSize, exitButtonSize, Component.literal("X"), (b) -> {
-            this.minecraft.setScreen(null);
+            this.onClose();
         }));
 
         buttonTop += 5;
