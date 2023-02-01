@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.3-1.67.3] - 2023-02-01
+### :bug: Bug Fixes
+- [`c0661e4`](https://github.com/klikli-dev/occultism/commit/c0661e40484c9b2f651a38687e9c37b83865e696) - properly close managed machine gui to ensure saving in all cases *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.3-1.67.2] - 2023-01-31
 ### :bug: Bug Fixes
 - [`8bdfc9d`](https://github.com/klikli-dev/occultism/commit/8bdfc9d2a3219a88c302519a169ce71ec6e5f501) - Machine operator not saving extract position *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -210,3 +215,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.3-1.67.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.66.2...release/v1.19.3-1.67.0
 [release/v1.19.3-1.67.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.67.0...release/v1.19.3-1.67.1
 [release/v1.19.3-1.67.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.67.1...release/v1.19.3-1.67.2
+[release/v1.19.3-1.67.3]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.67.2...release/v1.19.3-1.67.3
