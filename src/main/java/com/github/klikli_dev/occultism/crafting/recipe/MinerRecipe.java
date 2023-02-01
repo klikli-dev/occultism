@@ -22,7 +22,7 @@
 
 package com.github.klikli_dev.occultism.crafting.recipe;
 
-import com.github.klikli_dev.occultism.common.misc.WeightedIngredient;
+import com.github.klikli_dev.occultism.common.misc.WeightedOutputIngredient;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -39,28 +39,21 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 public class MinerRecipe implements Recipe<RecipeWrapper> {
-    //region Fields
     public static Serializer SERIALIZER = new Serializer();
     protected final ResourceLocation id;
     protected final Ingredient input;
-    protected final WeightedIngredient output;
-    //endregion Fields
+    protected final WeightedOutputIngredient output;
 
-    //region Initialization
-    public MinerRecipe(ResourceLocation id, Ingredient input, WeightedIngredient output) {
+    public MinerRecipe(ResourceLocation id, Ingredient input, WeightedOutputIngredient output) {
         this.input = input;
         this.output = output;
         this.id = id;
     }
-    //endregion Initialization
 
-    //region Getter / Setter
-    public WeightedIngredient getWeightedOutput() {
+    public WeightedOutputIngredient getWeightedOutput() {
         return this.output;
     }
-    //endregion Getter / Setter
 
-    //region Overrides
     @Override
     public boolean matches(RecipeWrapper inv, Level level) {
         return this.input.test(inv.getItem(0));
@@ -102,7 +95,6 @@ public class MinerRecipe implements Recipe<RecipeWrapper> {
         return OccultismRecipes.MINER_TYPE.get();
     }
 
-    //endregion Overrides
 
     public static class Serializer implements RecipeSerializer<MinerRecipe> {
 
@@ -116,7 +108,7 @@ public class MinerRecipe implements Recipe<RecipeWrapper> {
             Ingredient result = Ingredient.fromJson(resultElement);
             int weight = GsonHelper.getAsInt(json, "weight");
 
-            return new MinerRecipe(recipeId, ingredient, new WeightedIngredient(result, weight));
+            return new MinerRecipe(recipeId, ingredient, new WeightedOutputIngredient(result, weight));
         }
 
         @Override
@@ -125,7 +117,7 @@ public class MinerRecipe implements Recipe<RecipeWrapper> {
             Ingredient result = Ingredient.fromNetwork(buffer);
             int weight = buffer.readInt();
 
-            return new MinerRecipe(recipeId, ingredient, new WeightedIngredient(result, weight));
+            return new MinerRecipe(recipeId, ingredient, new WeightedOutputIngredient(result, weight));
         }
 
         @Override
@@ -134,6 +126,5 @@ public class MinerRecipe implements Recipe<RecipeWrapper> {
             recipe.output.getIngredient().toNetwork(buffer);
             buffer.writeInt(recipe.output.getWeight().asInt());
         }
-        //endregion Overrides
     }
 }
