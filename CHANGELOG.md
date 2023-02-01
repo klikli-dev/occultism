@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.3-1.68.0] - 2023-02-01
+### :sparkles: New Features
+- [`322ed0d`](https://github.com/klikli-dev/occultism/commit/322ed0de31c26f92fb3b8a07584642b739edb4a9) - use AlmostUnified preferred stack for miner recipes, if mod loaded *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.3-1.67.4] - 2023-02-01
 ### :bug: Bug Fixes
 - [`05f9c79`](https://github.com/klikli-dev/occultism/commit/05f9c791e83e43e284838857fd6f1e248ba2e16b) - wobbly divination rod result rendering *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -222,3 +227,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.3-1.67.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.67.1...release/v1.19.3-1.67.2
 [release/v1.19.3-1.67.3]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.67.2...release/v1.19.3-1.67.3
 [release/v1.19.3-1.67.4]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.67.3...release/v1.19.3-1.67.4
+[release/v1.19.3-1.68.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.67.4...release/v1.19.3-1.68.0
