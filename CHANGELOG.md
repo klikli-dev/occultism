@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.18.2-1.67.4] - 2023-02-01
+### :bug: Bug Fixes
+- [`f193973`](https://github.com/klikli-dev/occultism/commit/f193973e1aef2becf29e46740c3fded2d7560098) - wobbly divination rod result rendering *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.18.2-1.67.3] - 2023-02-01
 ### :bug: Bug Fixes
 - [`67da222`](https://github.com/klikli-dev/occultism/commit/67da222456fedbda73c795198e4dd4eca525e47f) - properly close managed machine gui to ensure saving in all cases *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -157,3 +162,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.18.2-1.67.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.66.2...release/v1.18.2-1.67.0
 [release/v1.18.2-1.67.2]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.67.0...release/v1.18.2-1.67.2
 [release/v1.18.2-1.67.3]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.67.2...release/v1.18.2-1.67.3
+[release/v1.18.2-1.67.4]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.67.3...release/v1.18.2-1.67.4
