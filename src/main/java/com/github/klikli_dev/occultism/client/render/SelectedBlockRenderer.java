@@ -125,7 +125,7 @@ public class SelectedBlockRenderer {
 
                     matrixStack.popPose();
                     RenderSystem.disableDepthTest();
-                    buffer.endBatch(useAltRenderer ? OccultismRenderType.overlayLinesAlternative() : OccultismRenderType.overlayLines());
+                    buffer.endBatch(); //call this instead of the rendertype specific end batch to fix wobbling
                 }
             }
         }
