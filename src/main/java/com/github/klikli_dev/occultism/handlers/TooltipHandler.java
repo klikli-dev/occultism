@@ -25,6 +25,8 @@ package com.github.klikli_dev.occultism.handlers;
 import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -32,6 +34,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class TooltipHandler {
@@ -45,6 +48,16 @@ public class TooltipHandler {
             if (I18n.exists(translationKey))
                 event.getToolTip().add(Component.translatable(translationKey,
                         TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
+        }
+
+        if(Occultism.CLIENT_CONFIG.visuals.showItemTagsInTooltip.get() && event.getFlags().isAdvanced()){
+            var tooltips = event.getToolTip();
+            var item = event.getItemStack().getItem();
+            ForgeRegistries.ITEMS.tags().getReverseTag(item).ifPresent((tag)->{
+                tag.getTagKeys().forEach((key)->{
+                    tooltips.add(Component.literal(key.toString()).withStyle(ChatFormatting.DARK_GRAY));
+                });
+            });
         }
     }
 }
