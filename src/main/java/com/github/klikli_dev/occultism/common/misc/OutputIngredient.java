@@ -1,8 +1,14 @@
 package com.github.klikli_dev.occultism.common.misc;
 
 import com.github.klikli_dev.occultism.integration.almostunified.AlmostUnifiedIntegration;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.Registry;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -39,9 +45,21 @@ public class OutputIngredient {
 
             var itemStacks = Arrays.stream(this.ingredient.values).flatMap((value) -> {
                 if (value instanceof Ingredient.TagValue tagValue) {
-                    if (AlmostUnifiedIntegration.isLoaded()) {
-                        return Stream.of(AlmostUnifiedIntegration.getPreferredItemForTag(tagValue.tag));
+                    var item = AlmostUnifiedIntegration.getPreferredItemForTag(tagValue.tag);
+
+                    if(item == null)
+                        item = Registry.ITEM.getTag(tagValue.tag)
+                                .map(HolderSet.ListBacked::stream)
+                                .flatMap(Stream::findFirst)
+                                .map(Holder::value)
+                                .orElse(null);
+
+                    if(item != null) {
+                        return Stream.of(new ItemStack(item));
                     }
+
+                    //copied from Ingredient.TagValue.getItems to handle empty tags
+                    return Stream.of(new ItemStack(Blocks.BARRIER).setHoverName(new TextComponent("Empty Tag: " + tagValue.tag.location())));
                 }
                 return value.getItems().stream();
             }).distinct().toArray(ItemStack[]::new);
