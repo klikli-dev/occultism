@@ -2,41 +2,71 @@ package com.github.klikli_dev.occultism.datagen;
 
 import com.github.klikli_dev.occultism.Occultism;
 import com.google.common.collect.Sets;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
+import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Consumer;
 
 public class CrushingRecipeProvider implements DataProvider {
-    protected final DataGenerator.PathProvider recipePathProvider;
+
+    private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().create();
+    protected final DataGenerator generator;
 
     public CrushingRecipeProvider(DataGenerator generator) {
-        this.recipePathProvider = generator.createPathProvider(DataGenerator.Target.DATA_PACK, "recipes/crushing");
+        this.generator = generator;
     }
 
     @Override
-    public void run(CachedOutput pOutput) throws IOException {
+    public void run(HashCache pOutput) throws IOException {
         Set<ResourceLocation> set = Sets.newHashSet();
+        Path path = this.generator.getOutputFolder();
         this.buildRecipes((recipe) -> {
             if (!set.add(recipe.getFirst())) {
                 throw new IllegalStateException("Duplicate recipe " + recipe.getFirst());
             } else {
-                saveRecipe(pOutput, recipe.getSecond(), this.recipePathProvider.json(recipe.getFirst()));
+                saveRecipe(pOutput, recipe.getSecond(), path.resolve("data/" + recipe.getFirst().getNamespace() + "/recipes/" + recipe.getFirst().getPath() + ".json"));
             }
         });
     }
 
-    private static void saveRecipe(CachedOutput pOutput, JsonObject pRecipeJson, Path pPath) {
+    private static void saveRecipe(HashCache pCache, JsonObject pRecipeJson, Path pPath) {
         try {
-            DataProvider.saveStable(pOutput, pRecipeJson, pPath);
+            String s = GSON.toJson(pRecipeJson);
+            String s1 = SHA1.hashUnencodedChars(s).toString();
+            if (!Objects.equals(pCache.getHash(pPath), s1) || !Files.exists(pPath)) {
+                Files.createDirectories(pPath.getParent());
+                BufferedWriter bufferedwriter = Files.newBufferedWriter(pPath);
+
+                try {
+                    bufferedwriter.write(s);
+                } catch (Throwable throwable1) {
+                    if (bufferedwriter != null) {
+                        try {
+                            bufferedwriter.close();
+                        } catch (Throwable throwable) {
+                            throwable1.addSuppressed(throwable);
+                        }
+                    }
+
+                    throw throwable1;
+                }
+
+                if (bufferedwriter != null) {
+                    bufferedwriter.close();
+                }
+            }
+
+            pCache.putNew(pPath, s1);
         } catch (IOException ioexception) {
             Occultism.LOGGER.error("Couldn't save recipe {}", pPath, ioexception);
         }

@@ -16,13 +16,13 @@
       }
     }
   ],
-  "crushing_time": 200,
-  "ignore_crushing_multiplier": false,
   "ingredient": {
     "tag": "forge:ores/aluminum"
   },
   "result": {
-    "count": 2,
-    "tag": "forge:dusts/aluminum"
-  }
+    "tag": "forge:dusts/aluminum",
+    "count": 2
+  },
+  "crushing_time": 200,
+  "ignore_crushing_multiplier": false
 }

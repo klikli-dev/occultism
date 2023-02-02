@@ -5,7 +5,7 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:raw_materials/aluminum"
+        "tag": "forge:ingots/aluminum"
       }
     },
     {
@@ -16,13 +16,13 @@
       }
     }
   ],
-  "crushing_time": 200,
-  "ignore_crushing_multiplier": false,
   "ingredient": {
-    "tag": "forge:raw_materials/aluminum"
+    "tag": "forge:ingots/aluminum"
   },
   "result": {
-    "count": 2,
-    "tag": "forge:dusts/aluminum"
-  }
+    "tag": "forge:dusts/aluminum",
+    "count": 1
+  },
+  "crushing_time": 200,
+  "ignore_crushing_multiplier": true
 }
