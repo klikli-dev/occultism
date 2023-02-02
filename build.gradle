@@ -173,6 +173,9 @@ dependencies {
 
     //runtime only helper mods for dev env, placed in ./runtime-mods, example: Hwyla-forge-1.10.11-B78_1.16.2.jar
     //runtimeOnly fg.deobf("ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2")
+
+    //alltheores - for recipe testing
+    runtimeOnly fg.deobf("curse.maven:alltheores-405593:4046926") //alltheores-2.0.2-1.19.2-43.1.3.jar
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
