@@ -47,6 +47,7 @@ public class DataGenerators {
             generator.addProvider(new StandardLootTableProvider(generator));
             generator.addProvider(new PentacleProvider(generator));
             generator.addProvider(new OccultismAdvancementProvider(generator));
+            generator.addProvider(new CrushingRecipeProvider(generator));
             generator.addProvider(new OccultismBookProvider(generator, Occultism.MODID, enUSProvider));
         }
         if (event.includeClient()) {
