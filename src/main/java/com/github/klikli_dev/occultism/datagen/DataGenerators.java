@@ -59,8 +59,10 @@ public class DataGenerators {
                 )));
         generator.addProvider(event.includeServer(), new PentacleProvider(generator));
         generator.addProvider(event.includeServer(), new OccultismAdvancementProvider(generator));
+        generator.addProvider(event.includeServer(), new CrushingRecipeProvider(generator));
         generator.addProvider(event.includeClient(), new ItemModelsGenerator(generator.getPackOutput(), event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new StandardBlockStateProvider(generator.getPackOutput(), event.getExistingFileHelper()));
+
 
         var enUSProvider = new ENUSProvider(generator.getPackOutput());
         generator.addProvider(event.includeServer(), new OccultismBookProvider(generator.getPackOutput(), Occultism.MODID, enUSProvider));
