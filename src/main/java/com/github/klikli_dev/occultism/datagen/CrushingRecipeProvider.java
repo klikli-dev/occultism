@@ -8,40 +8,37 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class CrushingRecipeProvider implements DataProvider {
-    protected final DataGenerator.PathProvider recipePathProvider;
+    protected final PackOutput.PathProvider recipePathProvider;
 
-    public CrushingRecipeProvider(DataGenerator generator) {
-        this.recipePathProvider = generator.createPathProvider(DataGenerator.Target.DATA_PACK, "recipes/crushing");
+    public CrushingRecipeProvider(PackOutput packOutput) {
+        this.recipePathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "recipes/crushing");
     }
 
-    @Override
-    public void run(CachedOutput pOutput) throws IOException {
+    public CompletableFuture<?> run(CachedOutput pOutput) {
         Set<ResourceLocation> set = Sets.newHashSet();
+        List<CompletableFuture<?>> list = new ArrayList<>();
         this.buildRecipes((recipe) -> {
             if (!set.add(recipe.getFirst())) {
                 throw new IllegalStateException("Duplicate recipe " + recipe.getFirst());
             } else {
-                saveRecipe(pOutput, recipe.getSecond(), this.recipePathProvider.json(recipe.getFirst()));
+                list.add(DataProvider.saveStable(pOutput, recipe.getSecond(), this.recipePathProvider.json(recipe.getFirst())));
             }
         });
+        return CompletableFuture.allOf(list.toArray(CompletableFuture[]::new));
     }
 
-    private static void saveRecipe(CachedOutput pOutput, JsonObject pRecipeJson, Path pPath) {
-        try {
-            DataProvider.saveStable(pOutput, pRecipeJson, pPath);
-        } catch (IOException ioexception) {
-            Occultism.LOGGER.error("Couldn't save recipe {}", pPath, ioexception);
-        }
-
-    }
 
     protected void buildRecipes(Consumer<Pair<ResourceLocation, JsonObject>> recipeConsumer) {
         this.buildCrushingRecipesForMetal("aluminum", recipeConsumer);
