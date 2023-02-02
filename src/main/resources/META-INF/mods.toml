@@ -66,6 +66,13 @@ versionRange="[1.7.4,)"
 side = "BOTH"
 
 [[dependencies.occultism]]
+modId = "almostunified"
+mandatory = false
+versionRange="[0.3.4,)"
+side = "BOTH"
+
+
+[[dependencies.occultism]]
 modId = "forge"
 mandatory = true
 versionRange = "[1.19.3-44.0.37,)" #creative tabs breaking change
