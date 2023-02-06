@@ -1,5 +1,6 @@
 package com.github.klikli_dev.occultism.integration.almostunified;
 
+import com.almostreliable.unified.api.AlmostUnifiedLookup;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.fml.ModList;
@@ -10,18 +11,16 @@ public class AlmostUnifiedIntegration {
     }
 
     public static Item getPreferredItemForTag(TagKey<Item> tag) {
-        //TODO: enable once almostunified is updated
-        //if (isLoaded()) {
-        //    return AlmostUnifiedHelper.getPreferredItemForTag(tag);
-        // }
+        if (isLoaded()) {
+            return AlmostUnifiedHelper.getPreferredItemForTag(tag);
+         }
 
         return null;
     }
 
     public static class AlmostUnifiedHelper {
         public static Item getPreferredItemForTag(TagKey<Item> tag) {
-            //return AlmostUnifiedLookup.INSTANCE.getPreferredItemForTag(tag);
-            throw new UnsupportedOperationException();
+            return AlmostUnifiedLookup.INSTANCE.getPreferredItemForTag(tag);
         }
     }
 }
