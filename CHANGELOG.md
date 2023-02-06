@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.69.0] - 2023-02-06
+### :sparkles: New Features
+- [`46dfb20`](https://github.com/klikli-dev/occultism/commit/46dfb2080dfb2a0281b2bf9a67e1d591a5a9edbb) - support tag output in crushing recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`5344337`](https://github.com/klikli-dev/occultism/commit/53443373c7fe27878526b7a37c444943eb60f299) - add ore crusher as jei catalyst for easier crushing recipe lookup *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`aee46e0`](https://github.com/klikli-dev/occultism/commit/aee46e0a03badbcbf7a2193724eaad11404c98a6) - add config option to display item tags on hover *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`584ea9f`](https://github.com/klikli-dev/occultism/commit/584ea9f60c42bd81cf038ae92400107bdb545e61) - add recipe datagen for conditional crushing recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`4afea2c`](https://github.com/klikli-dev/occultism/commit/4afea2c2f0baeafedbbe979c89d2639f1d271c6e) - improve Almost Unified integration *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`e6a7dc9`](https://github.com/klikli-dev/occultism/commit/e6a7dc91ec7de5269f07620b737d7c748c1bc90c) - switch to new almostunified maven *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`2f0f115`](https://github.com/klikli-dev/occultism/commit/2f0f1152d5d1f4f2d77a55bb8bf4c9243945f067) - update to latest forge to support latest AU *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.68.0] - 2023-02-01
 ### :sparkles: New Features
 - [`be574ca`](https://github.com/klikli-dev/occultism/commit/be574cac79fba57177310c6419537bdf677b1987) - use AlmostUnified preferred stack for miner recipes, if mod loaded *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -181,3 +194,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.67.3]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.67.2...release/v1.19.2-1.67.3
 [release/v1.19.2-1.67.4]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.67.3...release/v1.19.2-1.67.4
 [release/v1.19.2-1.68.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.67.4...release/v1.19.2-1.68.0
+[release/v1.19.2-1.69.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.68.0...release/v1.19.2-1.69.0
