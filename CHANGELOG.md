@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.18.2-1.69.0] - 2023-02-06
+### :sparkles: New Features
+- [`db9882e`](https://github.com/klikli-dev/occultism/commit/db9882ee6859554703de242abb4cf67157548956) - support tag output in crushing recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`25274b3`](https://github.com/klikli-dev/occultism/commit/25274b3ac9f3a20a376eebe01851b43ce53ba61e) - improve Almost Unified integration *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`b8e8af6`](https://github.com/klikli-dev/occultism/commit/b8e8af6365b5d94fd3a0cad322189fcdf7a7f589) - add ore crusher as jei catalyst for easier crushing recipe lookup *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`f49b87f`](https://github.com/klikli-dev/occultism/commit/f49b87fcc15ff9a06372008e179c25b17c279d74) - add config option to display item tags on hover *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`e3c0f06`](https://github.com/klikli-dev/occultism/commit/e3c0f06dc38efc546b7a4fd1b2a620d0a9812598) - add recipe datagen for conditional crushing recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`98a89ed`](https://github.com/klikli-dev/occultism/commit/98a89ed15b688e7fe9794e263ab9bfcb8fbea92f) - merge errors from upstream merge *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.18.2-1.68.0] - 2023-02-01
 ### :sparkles: New Features
 - [`4dc199e`](https://github.com/klikli-dev/occultism/commit/4dc199e8b0f07a3f1e33f1430f051cc88286d149) - use AlmostUnified preferred stack for miner recipes, if mod loaded *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -169,3 +181,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.18.2-1.67.3]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.67.2...release/v1.18.2-1.67.3
 [release/v1.18.2-1.67.4]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.67.3...release/v1.18.2-1.67.4
 [release/v1.18.2-1.68.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.67.4...release/v1.18.2-1.68.0
+[release/v1.18.2-1.69.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.68.0...release/v1.18.2-1.69.0
