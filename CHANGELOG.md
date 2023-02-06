@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.3-1.69.0] - 2023-02-06
+### :sparkles: New Features
+- [`dc99d39`](https://github.com/klikli-dev/occultism/commit/dc99d395e0b11e5ec54d81c35ea017a67364f1b1) - support tag output in crushing recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`4383c40`](https://github.com/klikli-dev/occultism/commit/4383c40cda40cff5d35eac34f5ba9a44bd40d466) - improve Almost Unified integration *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`51ca5bf`](https://github.com/klikli-dev/occultism/commit/51ca5bfa70a16e7804beaf145b3521218622008d) - add ore crusher as jei catalyst for easier crushing recipe lookup *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`3da9220`](https://github.com/klikli-dev/occultism/commit/3da9220776991aa5b2f3f6d2e89fb4a138cf4093) - add config option to display item tags on hover *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`3429376`](https://github.com/klikli-dev/occultism/commit/34293763565140728947a9ba81039d45b9db1eb3) - add recipe datagen for conditional crushing recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`7ebeb8d`](https://github.com/klikli-dev/occultism/commit/7ebeb8dd34dfd1e8b7c0893b9c1f5706b0278098) - enable almost unified integration on 1.19.3 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`04b4c2b`](https://github.com/klikli-dev/occultism/commit/04b4c2b980d117aa54d37440728840a109146974) - merge errors from upstream merge *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`515f0b6`](https://github.com/klikli-dev/occultism/commit/515f0b689ddcc8bde1ca4e98f55c32630714269d) - switch to new almostunified maven *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.3-1.68.0] - 2023-02-01
 ### :sparkles: New Features
 - [`322ed0d`](https://github.com/klikli-dev/occultism/commit/322ed0de31c26f92fb3b8a07584642b739edb4a9) - use AlmostUnified preferred stack for miner recipes, if mod loaded *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -228,3 +244,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.3-1.67.3]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.67.2...release/v1.19.3-1.67.3
 [release/v1.19.3-1.67.4]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.67.3...release/v1.19.3-1.67.4
 [release/v1.19.3-1.68.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.67.4...release/v1.19.3-1.68.0
+[release/v1.19.3-1.69.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.68.0...release/v1.19.3-1.69.0
