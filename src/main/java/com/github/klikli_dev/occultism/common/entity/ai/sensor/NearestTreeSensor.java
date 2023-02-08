@@ -21,6 +21,7 @@ import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import net.tslat.smartbrainlib.util.BrainUtils;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -83,10 +84,10 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
 
         if (Occultism.DEBUG.debugAI) {
             for (var tree : unreachableTrees) {
-                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(tree, 10000, 0xFFA500));
+                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(tree, 10000, Color.ORANGE.getRGB()));
             }
             for (var tree : nonTreeLogs) {
-                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(tree, 10000, 0xFFA500));
+                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(tree, 10000, Color.ORANGE.getRGB()));
             }
         }
 
@@ -114,7 +115,7 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
             for (var potentialStump : potentialStumps) {
 
                 if (Occultism.DEBUG.debugAI) {
-                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(potentialStump, 5000, 0xffffff));
+                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(potentialStump, 5000, Color.WHITE.getRGB()));
                 }
 
                 //we only check if the stump is actually a tree one by one from closest to furthest to save perf.

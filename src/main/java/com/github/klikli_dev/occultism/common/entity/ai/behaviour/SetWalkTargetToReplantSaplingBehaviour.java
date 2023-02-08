@@ -19,6 +19,7 @@ import net.minecraft.world.phys.Vec3;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
 import net.tslat.smartbrainlib.util.BrainUtils;
 
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -47,7 +48,7 @@ public class SetWalkTargetToReplantSaplingBehaviour<E extends SpiritEntity> exte
             BrainUtils.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(treePos, 1.0f, 0));
 
             if (Occultism.DEBUG.debugAI) {
-                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, 0x00ff00));
+                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, Color.GREEN.getRGB()));
             }
         }
     }
