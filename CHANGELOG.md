@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.3-1.69.1] - 2023-02-08
+### :bug: Bug Fixes
+- [`c55dd0c`](https://github.com/klikli-dev/occultism/commit/c55dd0c93320aa07045430e3273829eae343aa11) - miner recipes not working *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.3-1.69.0] - 2023-02-06
 ### :sparkles: New Features
 - [`dc99d39`](https://github.com/klikli-dev/occultism/commit/dc99d395e0b11e5ec54d81c35ea017a67364f1b1) - support tag output in crushing recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -245,3 +250,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.3-1.67.4]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.67.3...release/v1.19.3-1.67.4
 [release/v1.19.3-1.68.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.67.4...release/v1.19.3-1.68.0
 [release/v1.19.3-1.69.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.68.0...release/v1.19.3-1.69.0
+[release/v1.19.3-1.69.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.69.0...release/v1.19.3-1.69.1
