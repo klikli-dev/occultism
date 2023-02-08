@@ -20,6 +20,7 @@ import net.minecraft.world.phys.Vec3;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
 import net.tslat.smartbrainlib.util.BrainUtils;
 
+import java.awt.*;
 import java.util.HashSet;
 import java.util.List;
 
@@ -64,8 +65,9 @@ public class SetWalkTargetToDepositBehaviour<E extends SpiritEntity> extends Ext
                 BrainUtils.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(walkPos, 1.0f, 1));
 
                 if (Occultism.DEBUG.debugAI) {
-                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(depositPos, 5000, 0x800080));
-                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(walkPos, 5000, 0x00ff00));
+
+                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(depositPos, 5000,  Color.MAGENTA.getRGB()));
+                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(walkPos, 5000, Color.GREEN.getRGB()));
                 }
 
             } else {
@@ -74,7 +76,7 @@ public class SetWalkTargetToDepositBehaviour<E extends SpiritEntity> extends Ext
                 BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
 
                 if (Occultism.DEBUG.debugAI) {
-                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(depositPos, 50000, 0xff0000));
+                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(depositPos, 50000, Color.RED.getRGB()));
                 }
             }
         }

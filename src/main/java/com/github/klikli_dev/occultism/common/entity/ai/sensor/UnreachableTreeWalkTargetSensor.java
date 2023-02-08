@@ -14,6 +14,7 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import net.tslat.smartbrainlib.util.BrainUtils;
 
+import java.awt.*;
 import java.util.List;
 
 public class UnreachableTreeWalkTargetSensor<E extends LivingEntity> extends ExtendedSensor<E> {
@@ -55,7 +56,7 @@ public class UnreachableTreeWalkTargetSensor<E extends LivingEntity> extends Ext
                     BrainUtils.setMemory(brain, OccultismMemoryTypes.WALK_TARGET_UNREACHABLE.get(), walkTarget.getTarget().currentBlockPosition().getY() > entity.getEyeY());
                     BrainUtils.clearMemory(brain, OccultismMemoryTypes.LAST_TREE_WALK_TARGET.get());
                     if (Occultism.DEBUG.debugAI) {
-                        OccultismPackets.sendToTracking(entity, new MessageSelectBlock(walkTarget.getTarget().currentBlockPosition(), 50000, 0xFF0000));
+                        OccultismPackets.sendToTracking(entity, new MessageSelectBlock(walkTarget.getTarget().currentBlockPosition(), 50000, Color.RED.getRGB()));
                     }
                 }
 
