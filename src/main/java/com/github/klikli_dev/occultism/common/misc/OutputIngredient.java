@@ -7,6 +7,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 
@@ -26,7 +27,8 @@ public class OutputIngredient {
 
 
     public OutputIngredient(Ingredient ingredient) {
-        this(ingredient, ItemStack.EMPTY);
+        this(ingredient, new ItemStack(Items.DIRT, 1));
+        //have to use dirt, because EMPTY/AIR will cause output count to be 0
     }
 
     /**
