@@ -22,18 +22,10 @@
 
 package com.github.klikli_dev.occultism.common.item.debug;
 
-import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.common.entity.job.SpiritJob;
-import com.github.klikli_dev.occultism.registry.OccultismEntities;
-import com.github.klikli_dev.occultism.registry.OccultismSpiritJobs;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -53,30 +45,31 @@ public class DebugWandItem extends Item {
     public InteractionResult useOn(UseOnContext context) {
 
         if (!context.getLevel().isClientSide) {
-//            Player player = context.getPlayer();
-//
+            Player player = context.getPlayer();
+
 //            ItemStack spirit = new ItemStack(OccultismItems.MINER_DEBUG_UNSPECIALIZED.get());
 //            spirit.getItem().onCreated(spirit, context.getLevel(), context.getPlayer());
 //            ItemHandlerHelper.giveItemToPlayer(player, spirit);
-            //context.getPlayer().sendMessage(Component.literal(TextUtil.generateName()), Util.NIL_UUID);
+
+//            context.getPlayer().sendSystemMessage(Component.literal(TextUtil.generateName()));
 
             //set up the foliot entity
-            BlockPos target = context.getClickedPos().above();
-            SpiritEntity spirit = OccultismEntities.MARID.get().create(context.getLevel());
-            spirit.absMoveTo(target.getX(), target.getY(), target.getZ(),
-                    context.getLevel().random.nextInt(360), 0);
-            spirit.setCustomName(Component.literal("Testguy"));
-            spirit.finalizeSpawn((ServerLevel) context.getLevel(), context.getLevel().getCurrentDifficultyAt(target),
-                    MobSpawnType.MOB_SUMMONED, null,
-                    null);
-            spirit.tame(context.getPlayer());
-            //set up the job
-            SpiritJob job = OccultismSpiritJobs.CRUSH_TIER4.get().create(spirit);
-            job.init();
-            spirit.setJob(job);
-
-            spirit.setSpiritMaxAge(60 * 60 * 3); //3 hours max age
-            context.getLevel().addFreshEntity(spirit);
+//            BlockPos target = context.getClickedPos().above();
+//            SpiritEntity spirit = OccultismEntities.MARID.get().create(context.getLevel());
+//            spirit.absMoveTo(target.getX(), target.getY(), target.getZ(),
+//                    context.getLevel().random.nextInt(360), 0);
+//            spirit.setCustomName(Component.literal("Testguy"));
+//            spirit.finalizeSpawn((ServerLevel) context.getLevel(), context.getLevel().getCurrentDifficultyAt(target),
+//                    MobSpawnType.MOB_SUMMONED, null,
+//                    null);
+//            spirit.tame(context.getPlayer());
+//            //set up the job
+//            SpiritJob job = OccultismSpiritJobs.CRUSH_TIER4.get().create(spirit);
+//            job.init();
+//            spirit.setJob(job);
+//
+//            spirit.setSpiritMaxAge(60 * 60 * 3); //3 hours max age
+//            context.getLevel().addFreshEntity(spirit);
 
         }
         return InteractionResult.SUCCESS;
