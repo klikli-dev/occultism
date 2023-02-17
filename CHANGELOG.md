@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.70.0] - 2023-02-17
+### :sparkles: New Features
+- [`5c489e8`](https://github.com/klikli-dev/occultism/commit/5c489e8d5e07111101159218bbb17bea68bc16f1) - rework spirit name generation *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`e5e1e97`](https://github.com/klikli-dev/occultism/commit/e5e1e9773964ceb50cda06610053d432283c62ef) - use java awt colors instead of raw color codes for better readability *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.69.1] - 2023-02-08
 ### :bug: Bug Fixes
 - [`31e4bfe`](https://github.com/klikli-dev/occultism/commit/31e4bfe8ff898cdf0d6d79283954cc610e088b74) - miner recipes not working *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -201,3 +209,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.68.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.67.4...release/v1.19.2-1.68.0
 [release/v1.19.2-1.69.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.68.0...release/v1.19.2-1.69.0
 [release/v1.19.2-1.69.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.69.0...release/v1.19.2-1.69.1
+[release/v1.19.2-1.70.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.69.1...release/v1.19.2-1.70.0
