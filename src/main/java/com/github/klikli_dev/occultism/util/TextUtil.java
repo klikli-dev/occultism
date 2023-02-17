@@ -41,9 +41,8 @@ import java.util.Random;
 
 public class TextUtil {
 
-    //region Fields
-    private static final Map<String, String> MOD_NAME_TO_ID = new HashMap<String, String>();
-    private static final String[] SYLLABLE1 = {"Kr", "Ca", "Ra", "Mrok", "Cru", "Ray", "Bre", "Zed", "Drak", "Mor", "Jag", "Mer", "Jar", "Mjol", "Zork", "Mad", "Cry", "Zur", "Creo", "Azak", "Azur", "Rei", "Cro", "Mar", "Luk", "Bar"};
+    private static final Map<String, String> MOD_NAME_TO_ID = new HashMap<>();
+
     //KliKli: Obvious :)
     //Xalmas: You know why!
     //Toastbroat: You know why!
@@ -55,13 +54,12 @@ public class TextUtil {
     //Vemerion: Sooo many new familiars! <3
     //Eqis: the long-awaited additional spirit miner tiers
     private static final String[] EASTER_EGGS = {"KliKli", "Xalmas", "Toastbroat", "Najlitarvan", "TheBoo", "Ridanisaurus", "Legiaseth", "Vallen", "Vemerion", "Eqis"};
-    private static final String[] SYLLABLE2 = {"air", "ir", "mi", "sor", "mee", "clo", "red", "cra", "ark", "arc", "miri", "lori", "cres", "mur", "zer", "marac", "zoir", "slamar", "salmar", "urak", "tim"};
-    private static final String[] SYLLABLE3 = {"d", "ed", "ark", "arc", "es", "er", "der", "tron", "med", "ure", "zur", "cred", "mur", "aeus"};
+    private static final String[] SYLLABLE1 = {"Kr", "Ca", "Ra", "Mrok", "Cru", "Ray", "Bre", "Zed", "Drak", "Mor", "Jag", "Mer", "Jar", "Mjol", "Zork", "Mad", "Cry", "Zur", "Creo", "Azak", "Azur", "Rei", "Cro", "Mar", "Luk", "Bar", "Gor", "Rak", "Thr", "Nar", "Vor", "Fir", "Trin", "Drog", "Karn", "Gar", "Ulf", "Hroth", "Ald", "Yng", "Styr", "Eir", "Ein", "Sig", "Ket", "Erl", "Haf", "Bryn", "Nid", "Grim", "Hol", "Fen", "Sigr", "Geir", "Hyr", "Val", "Har", "Kol", "Eyr"};
+    private static final String[] SYLLABLE2 = {"air", "ir", "mi", "sor", "mee", "clo", "red", "cra", "ark", "arc", "miri", "lori", "cres", "mur", "zer", "marac", "zoir", "slamar", "salmar", "urak", "tim", "jor", "vyr", "dor", "thor", "kyl", "lyn", "wyn", "wynn", "lond", "rond", "vond", "dorn", "korn", "morn", "gorn", "thorn", "worn", "norn", "rinn", "dell", "bell", "vell", "fell", "kell", "zell", "nir", "fir", "mir", "tir", "sir", "vir", "zir", "lir", "jyr", "ryl", "rym", "lym", "lyn", "ryn", "myr", "myl", "myn", "ryn"};
+    private static final String[] SYLLABLE3 = {"d", "ed", "ark", "arc", "es", "er", "der", "tron", "med", "ure", "zur", "cred", "mur", "aeus", "th", "vyr", "dor", "morn", "born", "thorn", "fyr", "lyr", "ryth", "ryn", "drin", "dryn", "kyr", "kyn", "lynd", "lind", "lyne", "line", "ryne", "rine", "thyr", "thyre", "vyn", "vin", "vyne", "vine", "rynne", "rinne", "syr", "syrn", "zirn", "zirne", "kyl", "kylle", "dor", "dorne", "lor", "lorne", "morn", "morne", "thorn", "thorne", "vyrn", "vyrne", "wyrm"};
     private static final Random random = new Random();
     private static boolean modNamesInitialized = false;
-    //endregion Fields
 
-    //region Static Methods
     public static void initializeModNames() {
         modNamesInitialized = true;
         for (IModInfo info : ModList.get().getMods()) {
@@ -147,14 +145,18 @@ public class TextUtil {
      */
     public static String generateName() {
         var possibleSpiritNames = Occultism.SERVER_CONFIG.rituals.possibleSpiritNames.get();
-        if(!possibleSpiritNames.isEmpty()){
+        var usePossibleSpiritNames = random.nextDouble() > Occultism.SERVER_CONFIG.rituals.usePossibleSpiritNamesChance.get();
+
+        //if possible spirit names is not empty, and the random chance is met we use a name from the list
+        if (!possibleSpiritNames.isEmpty() && usePossibleSpiritNames) {
             return random.nextInt(20) == 0 ?
                     EASTER_EGGS[random.nextInt(EASTER_EGGS.length)] :
                     possibleSpiritNames.get(random.nextInt(possibleSpiritNames.size()));
         }
+
+        //otherwise we go with the default behaviour, which is random names
         return random.nextInt(20) == 0 ? EASTER_EGGS[random.nextInt(
                 EASTER_EGGS.length)] : SYLLABLE1[random.nextInt(SYLLABLE1.length)] + SYLLABLE2[random.nextInt(SYLLABLE2.length)] +
                 SYLLABLE3[random.nextInt(SYLLABLE3.length)];
     }
-    //endregion Static Methods
 }
