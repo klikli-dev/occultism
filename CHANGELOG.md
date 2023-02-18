@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.18.2-1.71.0] - 2023-02-18
+### :sparkles: New Features
+- [`a1b9d49`](https://github.com/klikli-dev/occultism/commit/a1b9d49a14d366ac0fa1bfca1d65128cf496a917) - extend sacrificial bowls horizontal valid range *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.18.2-1.70.0] - 2023-02-17
 ### :sparkles: New Features
 - [`c6b03f3`](https://github.com/klikli-dev/occultism/commit/c6b03f3514491908bded9d6f524312adef6e0175) - rework spirit name generation *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -197,3 +202,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.18.2-1.69.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.68.0...release/v1.18.2-1.69.0
 [release/v1.18.2-1.69.1]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.69.0...release/v1.18.2-1.69.1
 [release/v1.18.2-1.70.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.69.1...release/v1.18.2-1.70.0
+[release/v1.18.2-1.71.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.70.0...release/v1.18.2-1.71.0
