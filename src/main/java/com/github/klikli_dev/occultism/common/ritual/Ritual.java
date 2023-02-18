@@ -38,9 +38,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -447,10 +444,23 @@ public abstract class Ritual {
      * @return a list of sacrificial bowls.
      */
     public List<SacrificialBowlBlockEntity> getSacrificialBowls(Level level, BlockPos goldenBowlPosition) {
+
+        var pentacle = this.recipe.getPentacle();
+        var offset = pentacle.getOffset();
+        var size = pentacle.getSize();
+
+        //get offsets for the top and bottom layer
+        var yBowlRangeTop = size.getY() - offset.getY() - 1;
+        var yBowlRangeBottom = offset.getY();
+
+        //add one to go beyond that layer by one
+        yBowlRangeTop++;
+        yBowlRangeBottom++;
+
         List<SacrificialBowlBlockEntity> result = new ArrayList<>();
         Iterable<BlockPos> blocksToCheck = BlockPos.betweenClosed(
-                goldenBowlPosition.offset(-SACRIFICIAL_BOWL_RANGE, 0, -SACRIFICIAL_BOWL_RANGE),
-                goldenBowlPosition.offset(SACRIFICIAL_BOWL_RANGE, 0, SACRIFICIAL_BOWL_RANGE));
+                goldenBowlPosition.offset(-SACRIFICIAL_BOWL_RANGE, -yBowlRangeBottom, -SACRIFICIAL_BOWL_RANGE),
+                goldenBowlPosition.offset(SACRIFICIAL_BOWL_RANGE, yBowlRangeTop, SACRIFICIAL_BOWL_RANGE));
         for (BlockPos blockToCheck : blocksToCheck) {
             BlockEntity blockEntity = level.getBlockEntity(blockToCheck);
             if (blockEntity instanceof SacrificialBowlBlockEntity &&
@@ -468,7 +478,7 @@ public abstract class Ritual {
      * @return true if the entity is a valid sacrifice.
      */
     public boolean isValidSacrifice(LivingEntity entity) {
-        return entity != null && this.recipe.requiresSacrifice() && entity.getType().is(recipe.getEntityToSacrifice());
+        return entity != null && this.recipe.requiresSacrifice() && entity.getType().is(this.recipe.getEntityToSacrifice());
     }
 
     /**
