@@ -1057,7 +1057,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageText(),
                 """
                         These bowls are used to place the items we will sacrifice as part of a ritual and you will need a handful of them.
-                        Note: Their exact placement in the ritual does not matter - just keep them within 8 blocks of the pentacle center!
+                        Note: Their exact placement in the ritual does not matter - just keep them within 8 blocks horizontally of the pentacle center!
                              """);
 
         helper.page("sacrificial_bowl_recipe");
@@ -1431,7 +1431,7 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("bowl_text");
         this.add(helper.pageText(),
                 """
-                        [Sacrificial Bowls](item://occultism:sacrificial_bowl) must be placed **anywhere** within 8 blocks of the central [](item://occultism:golden_sacrificial_bowl). The exact location does not matter.
+                        [Sacrificial Bowls](item://occultism:sacrificial_bowl) must be placed **anywhere** within 8 blocks horizontally of the central [](item://occultism:golden_sacrificial_bowl). The exact location does not matter.
                         \\
                         \\
                         Now it is time to place the ingredients you see on the next page in the (regular, not golden) sacrificial bowls.
