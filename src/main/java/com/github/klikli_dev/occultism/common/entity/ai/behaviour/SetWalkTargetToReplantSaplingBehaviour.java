@@ -1,6 +1,7 @@
 package com.github.klikli_dev.occultism.common.entity.ai.behaviour;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.OccultismConstants;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.network.MessageSelectBlock;
@@ -19,7 +20,6 @@ import net.minecraft.world.phys.Vec3;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
 import net.tslat.smartbrainlib.util.BrainUtils;
 
-import java.awt.*;
 import java.util.List;
 
 /**
@@ -48,7 +48,7 @@ public class SetWalkTargetToReplantSaplingBehaviour<E extends SpiritEntity> exte
             BrainUtils.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(treePos, 1.0f, 0));
 
             if (Occultism.DEBUG.debugAI) {
-                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, Color.GREEN.getRGB()));
+                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, OccultismConstants.Color.GREEN));
             }
         }
     }

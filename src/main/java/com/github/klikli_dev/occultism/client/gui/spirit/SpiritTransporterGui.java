@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.client.gui.spirit;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.OccultismConstants;
 import com.github.klikli_dev.occultism.client.gui.controls.SizedImageButton;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
 import com.github.klikli_dev.occultism.network.MessageSetFilterMode;
@@ -40,7 +41,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.apache.commons.lang3.StringUtils;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -122,7 +122,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
         this.tagFilterTextField.setBordered(false);
         this.tagFilterTextField.setVisible(true);
-        this.tagFilterTextField.setTextColor(Color.WHITE.getRGB());
+        this.tagFilterTextField.setTextColor(OccultismConstants.Color.WHITE);
         this.tagFilterTextField.setFocus(false);
 
         if (!StringUtils.isBlank(this.getTagFilterText())) {

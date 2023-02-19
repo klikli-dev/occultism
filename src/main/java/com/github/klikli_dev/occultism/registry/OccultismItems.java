@@ -32,7 +32,6 @@ import com.github.klikli_dev.occultism.common.item.otherworld.OtherworldBlockIte
 import com.github.klikli_dev.occultism.common.item.spirit.*;
 import com.github.klikli_dev.occultism.common.item.storage.*;
 import com.github.klikli_dev.occultism.common.item.tool.*;
-import com.klikli_dev.modonomicon.api.ModonomiconConstants;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;

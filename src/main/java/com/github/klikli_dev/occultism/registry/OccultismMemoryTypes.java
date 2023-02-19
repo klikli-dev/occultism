@@ -1,13 +1,8 @@
 package com.github.klikli_dev.occultism.registry;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.api.common.data.WorkAreaSize;
-import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraftforge.registries.DeferredRegister;
@@ -15,7 +10,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 import java.util.function.Supplier;
 
 public class OccultismMemoryTypes {

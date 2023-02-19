@@ -22,13 +22,11 @@
 
 package com.github.klikli_dev.occultism.common.level.tree;
 
-import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.datagen.worldgen.ConfiguredFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;

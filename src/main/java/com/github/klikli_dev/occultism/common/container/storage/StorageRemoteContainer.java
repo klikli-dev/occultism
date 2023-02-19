@@ -30,7 +30,6 @@ import com.github.klikli_dev.occultism.common.misc.StorageControllerCraftingInve
 import com.github.klikli_dev.occultism.network.MessageUpdateLinkedMachines;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismContainers;
-import com.github.klikli_dev.occultism.util.BlockEntityUtil;
 import com.github.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;

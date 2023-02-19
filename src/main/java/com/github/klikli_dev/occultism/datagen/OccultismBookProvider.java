@@ -19,7 +19,6 @@ import com.klikli_dev.modonomicon.api.datagen.book.condition.BookModLoadedCondit
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookTrueConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.*;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;

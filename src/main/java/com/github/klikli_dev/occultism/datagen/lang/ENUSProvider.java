@@ -27,21 +27,15 @@ import com.github.klikli_dev.occultism.TranslationKeys;
 import com.github.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
-import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import net.minecraft.Util;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class ENUSProvider extends LanguageProvider {
