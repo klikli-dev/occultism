@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.18.2-1.71.1] - 2023-02-19
+### :wrench: Chores
+- [`9567ea1`](https://github.com/klikli-dev/occultism/commit/9567ea1601c8a22a1db8874a8a4ae4f99fde5894) - replace references to java.awt.Color with custom constants *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.18.2-1.71.0] - 2023-02-18
 ### :sparkles: New Features
 - [`a1b9d49`](https://github.com/klikli-dev/occultism/commit/a1b9d49a14d366ac0fa1bfca1d65128cf496a917) - extend sacrificial bowls horizontal valid range *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -203,3 +208,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.18.2-1.69.1]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.69.0...release/v1.18.2-1.69.1
 [release/v1.18.2-1.70.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.69.1...release/v1.18.2-1.70.0
 [release/v1.18.2-1.71.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.70.0...release/v1.18.2-1.71.0
+[release/v1.18.2-1.71.1]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.71.0...release/v1.18.2-1.71.1
