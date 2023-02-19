@@ -22,7 +22,6 @@
 
 package com.github.klikli_dev.occultism.util;
 
-import com.github.klikli_dev.occultism.api.common.blockentity.IStorageAccessor;
 import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.network.OccultismPackets;

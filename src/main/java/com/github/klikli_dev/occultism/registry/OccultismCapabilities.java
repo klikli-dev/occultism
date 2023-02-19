@@ -25,7 +25,10 @@ package com.github.klikli_dev.occultism.registry;
 import com.github.klikli_dev.occultism.common.capability.DoubleJumpCapability;
 import com.github.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.capabilities.*;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.capabilities.CapabilityToken;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
 import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;

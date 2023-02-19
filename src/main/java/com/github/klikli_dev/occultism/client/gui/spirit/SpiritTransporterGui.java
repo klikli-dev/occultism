@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.client.gui.spirit;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.OccultismConstants;
 import com.github.klikli_dev.occultism.client.gui.controls.SizedImageButton;
 import com.github.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
 import com.github.klikli_dev.occultism.network.MessageSetFilterMode;
@@ -33,7 +34,6 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -43,7 +43,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.apache.commons.lang3.StringUtils;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -125,7 +124,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
         this.tagFilterTextField.setBordered(false);
         this.tagFilterTextField.setVisible(true);
-        this.tagFilterTextField.setTextColor(Color.WHITE.getRGB());
+        this.tagFilterTextField.setTextColor(OccultismConstants.Color.WHITE);
         this.tagFilterTextField.setFocus(false);
 
         if (!StringUtils.isBlank(this.getTagFilterText())) {

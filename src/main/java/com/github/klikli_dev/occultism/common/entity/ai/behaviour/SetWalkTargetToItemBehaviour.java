@@ -1,6 +1,7 @@
 package com.github.klikli_dev.occultism.common.entity.ai.behaviour;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.OccultismConstants;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.network.MessageSelectBlock;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
@@ -15,7 +16,6 @@ import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
 import net.tslat.smartbrainlib.util.BrainUtils;
 
-import java.awt.*;
 import java.util.List;
 
 /**
@@ -45,7 +45,7 @@ public class SetWalkTargetToItemBehaviour<E extends SpiritEntity> extends Extend
                 BrainUtils.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(jobItem, 1.0f, 0));
 
                 if (Occultism.DEBUG.debugAI) {
-                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(jobItem.blockPosition(), 5000, Color.GREEN.getRGB()));
+                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(jobItem.blockPosition(), 5000, OccultismConstants.Color.GREEN));
                 }
             }
         } else {

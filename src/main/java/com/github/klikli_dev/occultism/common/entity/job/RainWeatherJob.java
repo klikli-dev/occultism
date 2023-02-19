@@ -26,10 +26,7 @@ import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.Util;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.ServerLevelData;
-import net.minecraftforge.common.Tags;
 
 public class RainWeatherJob extends ChangeWeatherJob {
 

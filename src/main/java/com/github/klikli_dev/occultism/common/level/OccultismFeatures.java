@@ -28,8 +28,6 @@ import com.github.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.github.klikli_dev.occultism.registry.OccultismBiomeFeatures;
 import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -44,8 +42,6 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraftforge.common.BiomeDictionary;
 
 import java.util.stream.Collectors;
-
-import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
 
 public class OccultismFeatures {
     public static Holder<ConfiguredFeature<OreConfiguration, ?>> SILVER_ORE;

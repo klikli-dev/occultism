@@ -24,8 +24,8 @@ package com.github.klikli_dev.occultism.common.entity.ai.goal;
 
 import com.github.klikli_dev.occultism.api.common.blockentity.IStorageControllerProxy;
 import com.github.klikli_dev.occultism.common.entity.ai.BlockSorter;
-import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.common.entity.job.ManageMachineJob;
+import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;

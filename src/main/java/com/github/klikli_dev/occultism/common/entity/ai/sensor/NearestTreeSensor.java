@@ -1,6 +1,7 @@
 package com.github.klikli_dev.occultism.common.entity.ai.sensor;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.OccultismConstants;
 import com.github.klikli_dev.occultism.common.entity.ai.BlockSorter;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.network.MessageSelectBlock;
@@ -21,7 +22,6 @@ import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import net.tslat.smartbrainlib.util.BrainUtils;
 import org.jetbrains.annotations.NotNull;
 
-import java.awt.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -84,10 +84,10 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
 
         if (Occultism.DEBUG.debugAI) {
             for (var tree : unreachableTrees) {
-                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(tree, 10000, Color.ORANGE.getRGB()));
+                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(tree, 10000, OccultismConstants.Color.ORANGE));
             }
             for (var tree : nonTreeLogs) {
-                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(tree, 10000, Color.ORANGE.getRGB()));
+                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(tree, 10000, OccultismConstants.Color.ORANGE));
             }
         }
 
@@ -115,7 +115,7 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
             for (var potentialStump : potentialStumps) {
 
                 if (Occultism.DEBUG.debugAI) {
-                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(potentialStump, 5000, Color.WHITE.getRGB()));
+                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(potentialStump, 5000, OccultismConstants.Color.WHITE));
                 }
 
                 //we only check if the stump is actually a tree one by one from closest to furthest to save perf.

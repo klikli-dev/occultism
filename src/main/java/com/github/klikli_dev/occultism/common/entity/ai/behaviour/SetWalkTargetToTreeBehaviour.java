@@ -1,6 +1,7 @@
 package com.github.klikli_dev.occultism.common.entity.ai.behaviour;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.OccultismConstants;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.network.MessageSelectBlock;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
@@ -17,7 +18,6 @@ import net.minecraft.world.phys.Vec3;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
 import net.tslat.smartbrainlib.util.BrainUtils;
 
-import java.awt.*;
 import java.util.HashSet;
 import java.util.List;
 
@@ -62,8 +62,8 @@ public class SetWalkTargetToTreeBehaviour<E extends SpiritEntity> extends Extend
                 BrainUtils.setMemory(entity, OccultismMemoryTypes.LAST_TREE_WALK_TARGET.get(), new WalkTarget(walkPos, 1.0f, 1));
 
                 if (Occultism.DEBUG.debugAI) {
-                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, Color.MAGENTA.getRGB()));
-                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(walkPos, 5000, Color.GREEN.getRGB()));
+                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, OccultismConstants.Color.MAGENTA));
+                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(walkPos, 5000, OccultismConstants.Color.GREEN));
                 }
 
             } else {
@@ -76,7 +76,7 @@ public class SetWalkTargetToTreeBehaviour<E extends SpiritEntity> extends Extend
                 BrainUtils.clearMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
 
                 if (Occultism.DEBUG.debugAI) {
-                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(treePos, 50000, Color.RED.getRGB()));
+                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(treePos, 50000, OccultismConstants.Color.RED));
                 }
             }
         }

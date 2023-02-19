@@ -24,9 +24,7 @@ package com.github.klikli_dev.occultism.crafting.recipe;
 
 import com.github.klikli_dev.occultism.common.misc.OutputIngredient;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -36,7 +34,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
-import net.minecraftforge.common.crafting.CraftingHelper;
 
 public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     public static Serializer SERIALIZER = new Serializer();

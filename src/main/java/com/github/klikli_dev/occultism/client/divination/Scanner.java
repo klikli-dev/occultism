@@ -23,9 +23,6 @@
 package com.github.klikli_dev.occultism.client.divination;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.client.render.SelectedBlockRenderer;
-import com.github.klikli_dev.occultism.network.MessageSetDivinationResult;
-import com.github.klikli_dev.occultism.network.OccultismPackets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;

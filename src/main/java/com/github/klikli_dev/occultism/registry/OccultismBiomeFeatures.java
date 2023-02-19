@@ -28,9 +28,9 @@ import com.github.klikli_dev.occultism.common.level.cave.UndergroundGroveDecorat
 import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeature;
 import com.github.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public class OccultismBiomeFeatures {
     //region Fields

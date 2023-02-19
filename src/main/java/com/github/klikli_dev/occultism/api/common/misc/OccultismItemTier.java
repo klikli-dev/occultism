@@ -23,8 +23,6 @@
 package com.github.klikli_dev.occultism.api.common.misc;
 
 
-import com.google.common.base.Suppliers;
-import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;

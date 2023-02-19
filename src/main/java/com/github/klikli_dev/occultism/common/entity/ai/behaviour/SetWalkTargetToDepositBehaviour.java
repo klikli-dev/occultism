@@ -1,6 +1,7 @@
 package com.github.klikli_dev.occultism.common.entity.ai.behaviour;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.OccultismConstants;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.github.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.github.klikli_dev.occultism.network.MessageSelectBlock;
@@ -20,7 +21,6 @@ import net.minecraft.world.phys.Vec3;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
 import net.tslat.smartbrainlib.util.BrainUtils;
 
-import java.awt.*;
 import java.util.HashSet;
 import java.util.List;
 
@@ -66,8 +66,8 @@ public class SetWalkTargetToDepositBehaviour<E extends SpiritEntity> extends Ext
 
                 if (Occultism.DEBUG.debugAI) {
 
-                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(depositPos, 5000,  Color.MAGENTA.getRGB()));
-                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(walkPos, 5000, Color.GREEN.getRGB()));
+                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(depositPos, 5000,  OccultismConstants.Color.MAGENTA));
+                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(walkPos, 5000, OccultismConstants.Color.GREEN));
                 }
 
             } else {
@@ -76,7 +76,7 @@ public class SetWalkTargetToDepositBehaviour<E extends SpiritEntity> extends Ext
                 BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
 
                 if (Occultism.DEBUG.debugAI) {
-                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(depositPos, 50000, Color.RED.getRGB()));
+                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(depositPos, 50000, OccultismConstants.Color.RED));
                 }
             }
         }

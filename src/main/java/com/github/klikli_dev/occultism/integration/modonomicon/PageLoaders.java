@@ -1,7 +1,7 @@
 package com.github.klikli_dev.occultism.integration.modonomicon;
 
-import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePage;
 import com.github.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.Page;
+import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePage;
 import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePage;
 import com.github.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritTradeRecipePage;
 import com.klikli_dev.modonomicon.data.LoaderRegistry;
