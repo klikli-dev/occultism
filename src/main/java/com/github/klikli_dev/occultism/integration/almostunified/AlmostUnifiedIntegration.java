@@ -1,14 +1,9 @@
 package com.github.klikli_dev.occultism.integration.almostunified;
 
 import com.almostreliable.unified.api.AlmostUnifiedLookup;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.Registry;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.fml.ModList;
-
-import java.util.stream.Stream;
 
 public class AlmostUnifiedIntegration {
     public static boolean isLoaded() {

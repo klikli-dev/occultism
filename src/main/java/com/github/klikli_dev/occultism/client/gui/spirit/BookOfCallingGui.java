@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.client.gui.spirit;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.OccultismConstants;
 import com.github.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.github.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.github.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
@@ -33,8 +34,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.client.gui.widget.ExtendedButton;
-
-import java.awt.*;
 
 public class BookOfCallingGui extends Screen {
 
@@ -75,7 +74,7 @@ public class BookOfCallingGui extends Screen {
 
 
         LabelWidget modeLabel = new LabelWidget(guiLeft - 80,
-                guiTop + 66, false, -1, 2, Color.WHITE.getRGB()).alignRight(true);
+                guiTop + 66, false, -1, 2, OccultismConstants.Color.WHITE).alignRight(true);
         modeLabel.addLine("gui." + Occultism.MODID + ".book_of_calling.mode", true);
         this.addRenderableWidget(modeLabel);
 
@@ -90,7 +89,7 @@ public class BookOfCallingGui extends Screen {
         boolean showSize = this.mode.getItemMode() == BookOfCallingItem.ItemMode.SET_BASE;
         if (showSize) {
             LabelWidget workAreaLabel = new LabelWidget(
-                    guiLeft - 80, guiTop + 91, true, -1, 2, Color.WHITE.getRGB()).alignRight(true);
+                    guiLeft - 80, guiTop + 91, true, -1, 2, OccultismConstants.Color.WHITE).alignRight(true);
             workAreaLabel.addLine("gui." + Occultism.MODID + ".book_of_calling.work_area", true);
             this.addRenderableWidget(workAreaLabel);
 

@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.client.gui.storage;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.OccultismConstants;
 import com.github.klikli_dev.occultism.api.client.gui.IStorageControllerGui;
 import com.github.klikli_dev.occultism.api.client.gui.IStorageControllerGuiContainer;
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
@@ -234,7 +235,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         this.searchBar.setBordered(false);
         this.searchBar.setVisible(true);
-        this.searchBar.setTextColor(Color.WHITE.getRGB());
+        this.searchBar.setTextColor(OccultismConstants.Color.WHITE);
         this.searchBar.setFocus(focus);
 
         this.searchBar.setValue(searchBarText);

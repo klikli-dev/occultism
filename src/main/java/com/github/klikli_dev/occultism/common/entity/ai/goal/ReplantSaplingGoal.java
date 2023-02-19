@@ -24,15 +24,12 @@ package com.github.klikli_dev.occultism.common.entity.ai.goal;
 
 import com.github.klikli_dev.occultism.common.entity.ai.BlockSorter;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.github.klikli_dev.occultism.common.entity.job.LumberjackJob;
 import com.github.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
 
 import java.util.EnumSet;
 
