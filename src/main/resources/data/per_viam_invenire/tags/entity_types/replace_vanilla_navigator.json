@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "occultism:foliot",
+    "occultism:djinni",
+    "occultism:afrit",
+    "occultism:marid",
+    "occultism:greedy_familiar",
+    "occultism:deer_familiar",
+    "occultism:cthulhu_familiar",
+    "occultism:devil_familiar",
+    "occultism:blacksmith_familiar",
+    "occultism:guardian_familiar",
+    "occultism:headless_familiar",
+    "occultism:chimera_familiar",
+    "occultism:goat_familiar",
+    "occultism:shub_niggurath_familiar",
+    "occultism:beholder_familiar",
+    "occultism:mummy_familiar",
+    "occultism:beaver_familiar"
+  ]
+}

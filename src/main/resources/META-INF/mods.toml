@@ -71,6 +71,12 @@ mandatory = false
 versionRange="[0.3.4,)"
 side = "BOTH"
 
+[[dependencies.occultism]]
+modId = "per_viam_invenire"
+mandatory = false
+versionRange="[0.1.57,)"
+side = "BOTH"
+
 
 [[dependencies.occultism]]
 modId = "forge"
