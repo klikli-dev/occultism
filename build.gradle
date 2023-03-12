@@ -129,6 +129,13 @@ repositories {
         }
     }
     maven {
+        name 'LDTTeam - Modding - PerViamInvenire (MineColonies)'
+        url 'https://ldtteam.jfrog.io/ldtteam/modding/'
+        content {
+            includeGroup "com.ldtteam"
+        }
+    }
+    maven {
         url "https://cursemaven.com"
         content {
             includeGroup "curse.maven"
@@ -178,8 +185,12 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:alltheores-405593:4046926") //alltheores-2.0.2-1.19.2-43.1.3.jar
 
     //Ma for crafting issue testing
-//    runtimeOnly fg.deobf("curse.maven:mysticalagriculture-246640:4399136") //MysticalAgriculture-1.19.2-6.0.8.jar
-//    runtimeOnly fg.deobf("curse.maven:cucumber-272335:4395460") //Cucumber-1.19.2-6.0.6.jar
+    //runtimeOnly fg.deobf("curse.maven:mysticalagriculture-246640:4399136") //MysticalAgriculture-1.19.2-6.0.8.jar
+    //runtimeOnly fg.deobf("curse.maven:cucumber-272335:4395460") //Cucumber-1.19.2-6.0.6.jar
+
+    //PerViamInvenire - for AI integration testing
+    //runtimeOnly fg.deobf("curse.maven:perviaminvenire-449945:4430952") //per_viam_invenire-1.19.2-0.1.57-RELEASE-universal.jar
+    //runtimeOnly fg.deobf("com.ldtteam:per_viam_invenire:1.19.2-0.1.57-RELEASE:universal")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
