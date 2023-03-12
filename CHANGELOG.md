@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.3-1.71.2] - 2023-03-12
+### :bug: Bug Fixes
+- [`06d2bf5`](https://github.com/klikli-dev/occultism/commit/06d2bf5a9221e63db76919ba66f8595febb0dcfd) - handle unbreakable items correctly in crafting *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`74ffa9a`](https://github.com/klikli-dev/occultism/commit/74ffa9aaab8106ef1baa51b97a8584565c8d6e6c) - add (disalbed) Mystical Agriculture dependency *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.3-1.71.1] - 2023-02-19
 ### :wrench: Chores
 - [`fe937c2`](https://github.com/klikli-dev/occultism/commit/fe937c2f9333ae7f0511b42818b438f00d1cf962) - replace references to java.awt.Color with custom constants *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -266,3 +274,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.3-1.69.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.69.0...release/v1.19.3-1.69.1
 [release/v1.19.3-1.70.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.69.1...release/v1.19.3-1.70.0
 [release/v1.19.3-1.71.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.71.0...release/v1.19.3-1.71.1
+[release/v1.19.3-1.71.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.71.1...release/v1.19.3-1.71.2
