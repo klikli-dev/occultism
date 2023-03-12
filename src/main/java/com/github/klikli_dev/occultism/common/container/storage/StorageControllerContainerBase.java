@@ -265,7 +265,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             if (this.currentRecipe == null)
                 break;
 
-            ItemStack newResult = this.currentRecipe.assemble(this.matrix).copy();
+             ItemStack newResult = this.currentRecipe.assemble(this.matrix).copy();
             if (newResult.getItem() != result.getItem())
                 break;
 
@@ -317,12 +317,11 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                     if (stackInSlot.isEmpty()) {
                         this.matrix.setItem(i, currentCraftingItem);
                     }
-                    //handle "normal items"
-                    else if (!stackInSlot.getItem().canBeDepleted() && ItemStack.matches(stackInSlot, currentCraftingItem) &&
-                            ItemStack.tagMatches(stackInSlot, currentCraftingItem)) {
-                        //hacky workaround for aquaculture unbreakable fillet knife being mis-interpreted and duped
-                        if (!ForgeRegistries.ITEMS.getKey(stackInSlot.getItem()).toString().equals("aquaculture:neptunium_fillet_knife"))
-                            currentCraftingItem.grow(stackInSlot.getCount());
+                    //handle "normal items" ie non-damagable
+                    else if (!stackInSlot.isDamageableItem() && ItemStack.tagMatches(stackInSlot, currentCraftingItem)) {
+                        //Used to call grow here, but that causes dupes of unbreakable items
+                        //removing it seems not to cause any harm?
+                        //  currentCraftingItem.grow(stackInSlot.getCount());
                         this.matrix.setItem(i, currentCraftingItem);
                     }
                     //handle items that consume durability on craft
@@ -332,6 +331,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                         //last resort, try to place in player inventory or if that fails, drop.
                         ItemHandlerHelper.giveItemToPlayer(player, newResult);
                     }
+                    
                 } else if (!stackInSlot.isEmpty()) {
                     //decrease the stack size in the matrix
                     this.matrix.removeItem(i, 1);
