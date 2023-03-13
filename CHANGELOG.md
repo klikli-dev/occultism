@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.18.2-1.73.0] - 2023-03-13
+### :sparkles: New Features
+- [`a6e2106`](https://github.com/klikli-dev/occultism/commit/a6e21065e38727248e9ed8b953a86bf6829ae940) - buff familiar health *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.18.2-1.72.1] - 2023-03-13
 ### :bug: Bug Fixes
 - [`2b0d184`](https://github.com/klikli-dev/occultism/commit/2b0d18459fbd753ff25601cc8747bd0e8628de05) - time magic text *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -224,3 +229,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.18.2-1.71.1]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.71.0...release/v1.18.2-1.71.1
 [release/v1.18.2-1.71.2]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.71.1...release/v1.18.2-1.71.2
 [release/v1.18.2-1.72.1]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.71.2...release/v1.18.2-1.72.1
+[release/v1.18.2-1.73.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.72.1...release/v1.18.2-1.73.0
