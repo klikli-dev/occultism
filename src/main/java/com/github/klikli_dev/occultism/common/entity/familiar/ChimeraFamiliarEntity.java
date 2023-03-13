@@ -86,7 +86,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return FamiliarEntity.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 3).add(Attributes.MOVEMENT_SPEED, 0.25).add(Attributes.MAX_HEALTH, 20);
+        return FamiliarEntity.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 4).add(Attributes.MOVEMENT_SPEED, 0.25).add(Attributes.MAX_HEALTH, 20);
     }
 
     private boolean isRiderJumping(Player rider) {
