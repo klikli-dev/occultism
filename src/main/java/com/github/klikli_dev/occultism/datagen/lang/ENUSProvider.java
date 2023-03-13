@@ -2530,7 +2530,7 @@ public class ENUSProvider extends LanguageProvider {
                         Time magic is limited in scope, it cannot send the magician back or forth in time, but rather allows to change time time of day. This is especially useful for rituals or other tasks requiring day- or nighttime specifically.
                         \\
                         \\
-                        Time spirits will only modify the weather once and then vanish.
+                        Time spirits will only modify the time once and then vanish.
                            """);
 
         helper.page("ritual_day");

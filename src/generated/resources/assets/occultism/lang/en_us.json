@@ -714,7 +714,7 @@
   "book.occultism.dictionary_of_spirits.summoning_rituals.summon_wild_parrot.description2.text": "*This means, if a [#](ad03fc)Chicken[#]() is spawned, that's not a bug, just bad luck!*\n",
   "book.occultism.dictionary_of_spirits.summoning_rituals.summon_wild_parrot.entity.text": "**Provides**: A tameable Parrot\n",
   "book.occultism.dictionary_of_spirits.summoning_rituals.summon_wild_parrot.name": "Summon Wild Parrot",
-  "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.intro.text": "Time magic is limited in scope, it cannot send the magician back or forth in time, but rather allows to change time time of day. This is especially useful for rituals or other tasks requiring day- or nighttime specifically.\n\\\n\\\nTime spirits will only modify the weather once and then vanish.\n",
+  "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.intro.text": "Time magic is limited in scope, it cannot send the magician back or forth in time, but rather allows to change time time of day. This is especially useful for rituals or other tasks requiring day- or nighttime specifically.\n\\\n\\\nTime spirits will only modify the time once and then vanish.\n",
   "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.intro.title": "Time Magic",
   "book.occultism.dictionary_of_spirits.summoning_rituals.time_magic.name": "Time Magic",
   "book.occultism.dictionary_of_spirits.summoning_rituals.trade_spirits.intro.text": "Trade spirits pick up appropriate items and throw trade results on the ground. The spirit is only actively exchanging items if purple particles spawn around it.\n\\\n\\\n**If you do not see any particles**, ensure that you gave the proper item and amount.\n",
