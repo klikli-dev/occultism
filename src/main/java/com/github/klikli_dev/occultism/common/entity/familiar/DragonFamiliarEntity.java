@@ -36,6 +36,8 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -65,6 +67,10 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         super(type, level);
         this.colorOffset = this.getRandom().nextFloat() * 2;
         this.petTimer = MAX_PET_TIMER;
+    }
+
+    public static AttributeSupplier.Builder createAttributes() {
+        return FamiliarEntity.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 4);
     }
 
     @Override
@@ -107,7 +113,6 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         });
         this.goalSelector.addGoal(4, new FetchGoal(this));
         this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1, 3, 1));
-        this.goalSelector.addGoal(6, new DevilFamiliarEntity.AttackGoal(this, 5));
         this.goalSelector.addGoal(6, new DevilFamiliarEntity.AttackGoal(this, 5) {
             @Override
             public boolean canUse() {

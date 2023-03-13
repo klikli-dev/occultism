@@ -69,7 +69,9 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 6)
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 20)
+                .add(Attributes.ARMOR, 2.0)
+                .add(Attributes.ARMOR_TOUGHNESS, 2.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.3);
     }
 
