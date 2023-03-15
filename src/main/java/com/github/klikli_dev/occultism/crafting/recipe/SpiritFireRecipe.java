@@ -26,6 +26,7 @@ import com.github.klikli_dev.occultism.registry.OccultismBlocks;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.google.gson.JsonObject;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -52,8 +53,8 @@ public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
     }
 
     @Override
-    public ItemStack assemble(ItemStackFakeInventory inv) {
-        ItemStack result = this.getResultItem().copy();
+    public ItemStack assemble(ItemStackFakeInventory inv, RegistryAccess access) {
+        ItemStack result = this.getResultItem(access).copy();
         result.setCount(inv.input.getCount());
         return result;
     }
@@ -65,7 +66,7 @@ public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess access) {
         return this.output;
     }
 

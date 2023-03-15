@@ -174,7 +174,7 @@ public class ExtractItemsGoal extends PausableGoal {
 
         if (result.getType() != BlockHitResult.Type.MISS) {
             BlockPos sidePos = result.getBlockPos();
-            BlockPos pos = new BlockPos(result.getLocation());
+            BlockPos pos = BlockPos.containing(result.getLocation());
             return this.entity.level.isEmptyBlock(sidePos) || this.entity.level.isEmptyBlock(pos) ||
                     this.entity.level.getBlockEntity(pos) == this.entity.level.getBlockEntity(this.targetBlock);
         }

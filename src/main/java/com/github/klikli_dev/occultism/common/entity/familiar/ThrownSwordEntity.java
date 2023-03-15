@@ -90,7 +90,7 @@ public class ThrownSwordEntity extends ThrowableItemProjectile {
             return;
 
         if (!this.level.isClientSide) {
-            target.hurt(DamageSource.thrown(this, this.getOwner()), 6);
+            target.hurt(this.damageSources().thrown(this, this.getOwner()), 6);
         }
     }
 

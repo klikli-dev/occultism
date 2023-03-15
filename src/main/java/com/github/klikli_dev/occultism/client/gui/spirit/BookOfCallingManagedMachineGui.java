@@ -77,7 +77,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
     @Override
     public void onClose() {
         super.onClose();
-        this.text.setFocus(false);
+        this.text.setFocused(false);
         if (!StringUtils.isBlank(this.customName) && !this.customName.equals(this.originalCustomName)) {
             OccultismPackets.sendToServer(new MessageSetManagedMachine(this.makeMachineReference()));
         }
@@ -120,7 +120,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
         this.text.setMaxLength(30);
         this.text.setVisible(true);
         this.text.setTextColor(OccultismConstants.Color.WHITE);
-        this.text.setFocus(true);
+        this.text.setFocused(true);
 
         this.text.setValue(this.customName);
 

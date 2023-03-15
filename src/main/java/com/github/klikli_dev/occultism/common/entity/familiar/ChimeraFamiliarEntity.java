@@ -324,29 +324,42 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
         return false;
     }
 
+
     @Override
-    public void travelWithInput(Vec3 pTravelVec) {
-        if (this.isVehicle() && this.getControllingPassenger() instanceof Player rider) {
-            float forward = rider.zza;
-            float strafe = rider.xxa * 0.5f;
-            if (this.isRiderJumping(rider) && this.onGround && this.jumpTimer <= 0) {
+    protected void tickRidden(LivingEntity rider, Vec3 travelVec) {
+        super.tickRidden(rider, travelVec);
+        this.setRot(rider.getYRot(), rider.getXRot() * 0.5F);
+        this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
+        this.boost.tickBoost();
+    }
+
+    @Override
+    protected Vec3 getRiddenInput(LivingEntity rider, Vec3 travelVec) {
+        if (this.isVehicle() && rider instanceof Player player) {
+            float forward = player.zza;
+            float strafe = player.xxa * 0.5f;
+
+            if (this.isRiderJumping(player) && this.onGround && this.jumpTimer <= 0) {
                 this.jumpTimer = JUMP_COOLDOWN;
                 Vec3 forwardDirection = Vec3.directionFromRotation(0, this.yRotO).scale(0.7);
                 this.setDeltaMovement(this.getDeltaMovement().add(forwardDirection.x, 0, forwardDirection.z));
                 this.jumpFromGround();
             }
+
             if (forward < 0)
                 forward *= 0.25f;
-            super.travel(new Vec3(strafe, 0, forward));
+
+            return super.getRiddenInput(rider, new Vec3(strafe, 0, forward));
         } else {
-            super.travel(pTravelVec);
+            return super.getRiddenInput(rider, travelVec);
         }
     }
 
     @Override
-    public float getSteeringSpeed() {
+    protected float getRiddenSpeed(LivingEntity rider) {
         return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.8f;
     }
+
 
     @Override
     protected int calculateFallDamage(float pDistance, float pDamageMultiplier) {
@@ -356,11 +369,6 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     @Override
     protected float getJumpPower() {
         return super.getJumpPower() * 1.35f;
-    }
-
-    @Override
-    public void travel(Vec3 pTravelVector) {
-        this.travel(this, this.boost, pTravelVector);
     }
 
     private byte[] possibleAttackers() {
@@ -379,8 +387,10 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     }
 
     @Nullable
-    public Entity getControllingPassenger() {
-        return this.getPassengers().isEmpty() ? null : this.getPassengers().get(0);
+    public LivingEntity getControllingPassenger() {
+        if(this.getFirstPassenger() instanceof LivingEntity livingEntity)
+            return livingEntity;
+        return null;
     }
 
     private static class DummyBoostHelper extends ItemBasedSteering {
@@ -432,7 +442,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
             this.chimera.setAttacker(attacker);
 
             for (LivingEntity e : enemies) {
-                e.hurt(DamageSource.playerAttack((Player) this.chimera.getFamiliarOwner()),
+                e.hurt(this.chimera.damageSources().playerAttack((Player) this.chimera.getFamiliarOwner()),
                         (float) this.chimera.getAttributeValue(Attributes.ATTACK_DAMAGE));
 
                 switch (attacker) {

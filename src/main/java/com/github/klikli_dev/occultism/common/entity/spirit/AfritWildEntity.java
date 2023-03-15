@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.entity.spirit;
 
 import com.github.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -95,7 +96,7 @@ public class AfritWildEntity extends Monster {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        if (source.isFire())
+        if (source.is(DamageTypeTags.IS_FIRE))
             return true;
         TagKey<EntityType<?>> alliesTags = OccultismTags.AFRIT_ALLIES;
 

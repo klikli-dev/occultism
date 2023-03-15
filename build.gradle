@@ -170,7 +170,6 @@ dependencies {
     //almostunified
     compileOnly fg.deobf("com.almostreliable.mods:almostunified-forge:${almostunified_version}")
     runtimeOnly fg.deobf("com.almostreliable.mods:almostunified-forge:${almostunified_version}")
-   
 
     //modonomicon
     implementation fg.deobf("com.klikli_dev:modonomicon:${modonomicon_mc_version}-${modonomicon_version}") //we build against full jar because we NEED IT ALL

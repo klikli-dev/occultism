@@ -83,7 +83,7 @@ public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
                 .addIngredients(recipe.getIngredients().get(0));
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 94, 12)
-                .addItemStack(recipe.getResultItem());
+                .addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
     }
 
     @Override

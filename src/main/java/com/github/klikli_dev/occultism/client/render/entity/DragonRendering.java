@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.joml.Quaternionf;
@@ -38,8 +39,9 @@ public class DragonRendering {
             pMatrixStack.mulPose(new Quaternionf().rotateXYZ(0, 0, -45 * ((float) Math.PI / 180F)));
 
             Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderItem(pLivingEntity, new ItemStack(Items.STICK),
-                    ItemTransforms.TransformType.GROUND, false, pMatrixStack, pBuffer, pPackedLight);
+                    ItemDisplayContext.GROUND, false, pMatrixStack, pBuffer, pPackedLight);
             pMatrixStack.popPose();
+            
         }
     }
 
@@ -65,7 +67,7 @@ public class DragonRendering {
             pMatrixStack.translate(0.23, 0.12, 0.0);
 
             Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderItem(pLivingEntity,
-                    new ItemStack(Items.IRON_SWORD), ItemTransforms.TransformType.GROUND, false, pMatrixStack,
+                    new ItemStack(Items.IRON_SWORD), ItemDisplayContext.GROUND, false, pMatrixStack,
                     pBuffer, pPackedLight);
             pMatrixStack.popPose();
         }

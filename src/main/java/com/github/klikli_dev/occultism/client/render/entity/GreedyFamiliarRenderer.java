@@ -40,6 +40,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.joml.Quaternionf;
@@ -120,7 +121,7 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
                 pMatrixStack.mulPose(new Quaternionf().rotateXYZ(0, 90 * ((float) Math.PI / 180F), -45 * ((float) Math.PI / 180F)));
 
                 renderer.renderItem(pLivingEntity,
-                        new ItemStack(Items.IRON_PICKAXE), ItemTransforms.TransformType.GROUND, false,
+                        new ItemStack(Items.IRON_PICKAXE), ItemDisplayContext.GROUND, false,
                         pMatrixStack, pBuffer, pPackedLight);
                 pMatrixStack.popPose();
             }
@@ -136,7 +137,7 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
                 pMatrixStack.scale(size, size, size);
 
                 renderer.renderItem(pLivingEntity, offhand,
-                        ItemTransforms.TransformType.GROUND, false, pMatrixStack, pBuffer, pPackedLight);
+                        ItemDisplayContext.GROUND, false, pMatrixStack, pBuffer, pPackedLight);
                 pMatrixStack.popPose();
             }
         }

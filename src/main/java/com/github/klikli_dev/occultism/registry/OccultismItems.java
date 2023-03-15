@@ -32,6 +32,7 @@ import com.github.klikli_dev.occultism.common.item.otherworld.OtherworldBlockIte
 import com.github.klikli_dev.occultism.common.item.spirit.*;
 import com.github.klikli_dev.occultism.common.item.storage.*;
 import com.github.klikli_dev.occultism.common.item.tool.*;
+import com.github.klikli_dev.occultism.common.item.tool.BrushItem;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -241,7 +242,7 @@ public class OccultismItems {
     //Armor
     public static final RegistryObject<OtherworldGogglesItem> OTHERWORLD_GOGGLES = ITEMS.register("otherworld_goggles",
             () -> new OtherworldGogglesItem(ArmorMaterials.IRON,
-                    EquipmentSlot.HEAD, defaultProperties().stacksTo(1)));
+                    ArmorItem.Type.HELMET, defaultProperties().stacksTo(1)));
 
     //Machines
     public static final RegistryObject<StableWormholeBlockItem> STABLE_WORMHOLE = ITEMS.register("stable_wormhole",
@@ -440,7 +441,7 @@ public class OccultismItems {
                     builder.icon(() -> new ItemStack(OccultismItems.PENTACLE.get()))
                             .title(Component.translatable("itemGroup.occultism")).build();
 
-                    builder.displayItems((featureFlagSet, output, hasPermission) -> {
+                    builder.displayItems((parameters, output) -> {
                         ITEMS.getEntries().forEach(i -> {
 
                             if(!shouldSkipCreativeModTab(i.get())) {

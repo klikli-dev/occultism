@@ -71,8 +71,8 @@ public class Scanner {
         this.center = center;
         this.radius = radius;
         this.radiusSquared = this.radius * this.radius;
-        this.min = new BlockPos(center).offset(-this.radius, -this.radius, -this.radius);
-        this.max = new BlockPos(center).offset(this.radius, this.radius, this.radius);
+        this.min = BlockPos.containing(center).offset(Mth.floor(-this.radius), Mth.floor(-this.radius), Mth.floor(-this.radius));
+        this.max = BlockPos.containing(center).offset(Mth.floor(this.radius), Mth.floor(this.radius), Mth.floor(this.radius));
         this.x = this.min.getX();
         this.y = this.min.getY() - 1;//first move next increments this to min.getY();
         this.z = this.min.getZ();

@@ -34,6 +34,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialBowlBlockEntity> {
@@ -81,7 +82,7 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
 
             ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
             BakedModel model = itemRenderer.getModel(stack, blockEntity.getLevel(), null, 0);
-            itemRenderer.render(stack, ItemTransforms.TransformType.FIXED, true, poseStack, buffer,
+            itemRenderer.render(stack, ItemDisplayContext.FIXED, true, poseStack, buffer,
                     combinedLight, combinedOverlay, model);
 
             poseStack.popPose();

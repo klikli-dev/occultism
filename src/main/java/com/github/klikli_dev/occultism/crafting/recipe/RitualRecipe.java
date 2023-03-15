@@ -33,6 +33,7 @@ import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.multiblock.Multiblock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -133,7 +134,7 @@ public class RitualRecipe extends ShapelessRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer pInv) {
+    public ItemStack assemble(CraftingContainer pInv, RegistryAccess access) {
         //as we don't have an inventory this is ignored.
         return null;
     }
@@ -319,7 +320,8 @@ public class RitualRecipe extends ShapelessRecipe {
 
             String command = buffer.readBoolean() ? buffer.readUtf() : null;
 
-            return new RitualRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritualType, ritualDummy, recipe.getResultItem(), entityToSummon, entityNbt,
+            //we can pass null here because shapeless recipe does not use the registryacess
+            return new RitualRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritualType, ritualDummy, recipe.getResultItem(null), entityToSummon, entityNbt,
                     activationItem, recipe.getIngredients(), duration, spiritMaxAge, spiritJobType, entityToSacrifice, entityToSacrificeDisplayName, itemToUse, command);
         }
 

@@ -69,6 +69,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.network.NetworkHooks;
 import net.tslat.smartbrainlib.api.SmartBrainOwner;
 import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
+import net.tslat.smartbrainlib.api.core.SmartBrain;
 import net.tslat.smartbrainlib.api.core.SmartBrainProvider;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import net.tslat.smartbrainlib.util.BrainUtils;
@@ -176,8 +177,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     @Override
-    public void handleAdditionalBrainSetup(Brain<SpiritEntity> brain) {
-
+    public void handleAdditionalBrainSetup(SmartBrain<SpiritEntity> brain) {
         //we might want to init brain vars that come from spirit vars here, but as this happens before entity is in the world, we are missing fallback data such as entity position that some of our spirit vars (work area center) use
 
         this.job.ifPresent(job -> job.handleAdditionalBrainSetup(brain));
@@ -454,7 +454,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
             if (this.level.getGameTime() % 20 == 0 && !this.dead && this.canDieFromAge()) {
                 this.setSpiritAge(this.getSpiritAge() + 1);
                 if (this.getSpiritAge() > this.getSpiritMaxAge()) {
-                    this.die(DamageSource.GENERIC);
+                    this.die(this.damageSources().generic());
                     this.remove(RemovalReason.DISCARDED);
                 }
             }
@@ -504,7 +504,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     @Override
     public boolean doHurtTarget(Entity entityIn) {
         //copied from wolf
-        boolean flag = entityIn.hurt(DamageSource.mobAttack(this),
+        boolean flag = entityIn.hurt(this.damageSources().mobAttack(this),
                 (float) ((int) this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
         if (flag) {
             this.doEnchantDamageEffects(this, entityIn);

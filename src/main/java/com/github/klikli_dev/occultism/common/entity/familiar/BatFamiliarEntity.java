@@ -192,7 +192,7 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
         @Override
         public void start() {
             if (this.nearby != null) {
-                this.nearby.hurt(DamageSource.mobAttack(this.bat), 10);
+                this.nearby.hurt(this.bat.damageSources().mobAttack(this.bat), 10);
                 OccultismAdvancements.FAMILIAR.trigger(this.bat.getFamiliarOwner(), FamiliarTrigger.Type.BAT_EAT);
             }
         }

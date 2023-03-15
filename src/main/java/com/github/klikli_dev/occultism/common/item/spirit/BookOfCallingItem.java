@@ -29,7 +29,6 @@ import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.github.klikli_dev.occultism.api.common.data.MachineReference;
 import com.github.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.github.klikli_dev.occultism.api.common.item.IHandleItemMode;
-import com.github.klikli_dev.occultism.api.common.item.IIngredientCopyNBT;
 import com.github.klikli_dev.occultism.client.gui.GuiHelper;
 import com.github.klikli_dev.occultism.common.entity.job.ManageMachineJob;
 import com.github.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
@@ -47,13 +46,11 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -62,7 +59,7 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 
-public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHandleItemMode {
+public class BookOfCallingItem extends Item implements IHandleItemMode {
 
     //region Fields
     public static Map<UUID, Long> spiritDeathRegister = new HashMap<>();
@@ -89,19 +86,6 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
 
     //endregion Getter / Setter
     //region Overrides
-    @Override
-    public boolean shouldCopyNBT(ItemStack itemStack, Recipe recipe, CraftingContainer inventory) {
-        return recipe.getResultItem().getItem() instanceof BookOfBindingBoundItem;
-    }
-
-    @Override
-    public CompoundTag overrideNBT(ItemStack itemStack, CompoundTag nbt, Recipe recipe, CraftingContainer inventory) {
-        CompoundTag result = new CompoundTag();
-        //copy over only the spirit name
-        if (nbt.contains(ItemNBTUtil.SPIRIT_NAME_TAG))
-            result.putString(ItemNBTUtil.SPIRIT_NAME_TAG, nbt.getString(ItemNBTUtil.SPIRIT_NAME_TAG));
-        return result;
-    }
 
     @Override
     public int getItemMode(ItemStack stack) {
@@ -188,10 +172,8 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
             return InteractionResult.PASS;
 
         //Ignore anything that is not a spirit
-        if (!(target instanceof SpiritEntity))
+        if (!(target instanceof SpiritEntity targetSpirit))
             return InteractionResult.PASS;
-
-        SpiritEntity targetSpirit = (SpiritEntity) target;
 
         //books can only control the spirit that is bound to them.
         if (!targetSpirit.getUUID().equals(ItemNBTUtil.getSpiritEntityUUID(stack))) {
@@ -441,8 +423,7 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                     .map(e -> (SpiritEntity) e);
 
             if (boundSpirit.isPresent() && boundSpirit.get().getJob().isPresent()) {
-                if (boundSpirit.get().getJob().get() instanceof ManageMachineJob) {
-                    ManageMachineJob job = (ManageMachineJob) boundSpirit.get().getJob().get();
+                if (boundSpirit.get().getJob().get() instanceof ManageMachineJob job) {
                     job.setStorageControllerPosition(new GlobalBlockPos(pos, world));
                     //write data into item nbt for client side usage
                     ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
@@ -598,17 +579,15 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                     break;
             }
         } else {
-            switch (itemMode) {
-                case SET_MANAGED_MACHINE:
-                    if (blockEntity != null && BlockEntityUtil.hasCapabilityOnAnySide(blockEntity,
-                            ForgeCapabilities.ITEM_HANDLER)) {
-                        MachineReference machine = ItemNBTUtil.getManagedMachine(stack);
-                        if (machine != null) {
-                            GuiHelper.openBookOfCallingManagedMachineGui(machine.insertFacing, machine.extractFacing,
-                                    machine.customName);
-                        }
+            if (Objects.requireNonNull(itemMode) == ItemMode.SET_MANAGED_MACHINE) {
+                if (blockEntity != null && BlockEntityUtil.hasCapabilityOnAnySide(blockEntity,
+                        ForgeCapabilities.ITEM_HANDLER)) {
+                    MachineReference machine = ItemNBTUtil.getManagedMachine(stack);
+                    if (machine != null) {
+                        GuiHelper.openBookOfCallingManagedMachineGui(machine.insertFacing, machine.extractFacing,
+                                machine.customName);
                     }
-                    break;
+                }
             }
         }
 

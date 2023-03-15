@@ -37,6 +37,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -313,7 +314,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
 
     @Override
     public boolean hurt(DamageSource pSource, float pAmount) {
-        if (!pSource.isBypassInvul() && this.getMagicTarget() != null)
+        if (!pSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && this.getMagicTarget() != null)
             return false;
 
         return super.hurt(pSource, pAmount);
@@ -451,7 +452,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
                     this.attackTimer = 20;
                     LivingEntity owner = this.fairy.getFamiliarOwner();
                     if (owner != null) {
-                        pEnemy.hurt(DamageSource.mobAttack(owner), 1);
+                        pEnemy.hurt(this.fairy.damageSources().mobAttack(owner), 1);
                         pEnemy.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 1));
                         List<LivingEntity> allies = this.fairy.level.getEntitiesOfClass(LivingEntity.class,
                                 this.fairy.getBoundingBox().inflate(7), e -> e != this.fairy && e instanceof IFamiliar

@@ -73,8 +73,9 @@ public class LabelWidget extends AbstractWidget {
     //endregion Initialization
 
     //region Overrides
+
     @Override
-    public void render(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
+    public void renderWidget(PoseStack stack, int p_268034_, int p_268009_, float p_268085_) {
         if (this.visible) {
             Minecraft minecraft = Minecraft.getInstance();
             Font fontrenderer = minecraft.font;

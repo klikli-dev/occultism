@@ -24,6 +24,7 @@ package com.github.klikli_dev.occultism.common.entity.familiar;
 
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.google.common.collect.ImmutableList;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -131,8 +132,7 @@ public class ShubNiggurathFamiliarEntity extends FamiliarEntity {
     }
 
     private boolean immuneWhileHoldingHand(DamageSource s) {
-        return s == DamageSource.CRAMMING || s == DamageSource.DROWN || s == DamageSource.FALL
-                || s.getMsgId().equals("fallingBlock") || s == DamageSource.FLY_INTO_WALL || s == DamageSource.IN_WALL;
+        return s.is(DamageTypeTags.BYPASSES_ARMOR);
     }
 
     @Override

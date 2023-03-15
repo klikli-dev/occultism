@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.crafting.recipe;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -57,8 +58,8 @@ public abstract class ItemStackFakeInventoryRecipe implements Recipe<ItemStackFa
     }
 
     @Override
-    public ItemStack assemble(ItemStackFakeInventory inv) {
-        return this.getResultItem().copy();
+    public ItemStack assemble(ItemStackFakeInventory inv, RegistryAccess registryAccess) {
+        return this.getResultItem(registryAccess).copy();
     }
 
     @Override
@@ -68,7 +69,7 @@ public abstract class ItemStackFakeInventoryRecipe implements Recipe<ItemStackFa
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess registryAccess){
         return this.output;
     }
 

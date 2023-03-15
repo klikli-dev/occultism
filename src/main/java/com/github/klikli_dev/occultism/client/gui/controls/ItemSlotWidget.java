@@ -24,7 +24,6 @@
 package com.github.klikli_dev.occultism.client.gui.controls;
 
 import com.github.klikli_dev.occultism.api.client.gui.IStorageControllerGuiContainer;
-import com.github.klikli_dev.occultism.util.RenderUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -104,16 +103,24 @@ public class ItemSlotWidget {
 
                 //render item overlay
                 poseStack.pushPose();
+
+                //TODO: Blit offset problems?
+//                this.minecraft.getItemRenderer()
+//                        .blitOffset = 0.1f;
+
+               poseStack.translate(0, 0, 0); //which Z?
                 poseStack.scale(.5f, .5f, .5f);
-                this.minecraft.getItemRenderer().blitOffset = 0.1f;
-                //copied from ItemRenderer.renderGuiItemDecorations but allows to scale
-                RenderUtil.renderGuiItemDecorationsWithPose(this.minecraft.getItemRenderer(), this.fontRenderer, poseStack, this.stack, this.x * 2 + 16, this.y * 2 + 16, amount);
-                // this.minecraft.getItemRenderer().renderGuiItemDecorations(this.fontRenderer, this.stack, this.x, this.y, amount);
+
+                this.minecraft.getItemRenderer().renderGuiItemDecorations(poseStack,  this.fontRenderer, this.stack, this.x * 2 + 16, this.y * 2 + 16, amount);
                 poseStack.popPose();
             }
 
-            this.minecraft.getItemRenderer().blitOffset = -100F;
-            this.minecraft.getItemRenderer().renderAndDecorateItem(this.getStack(), this.x, this.y);
+            //TODO: Blit offset problems?
+            //this.minecraft.getItemRenderer().blitOffset = -100F;
+            poseStack.pushPose();
+            poseStack.translate(0, 0, -100);
+            this.minecraft.getItemRenderer().renderAndDecorateItem(poseStack, this.getStack(), this.x, this.y);
+            poseStack.popPose();
 
             if (this.isMouseOverSlot(mx, my)) {
                 RenderSystem.colorMask(true, true, true, false);

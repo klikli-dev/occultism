@@ -53,6 +53,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.joml.Quaternionf;
@@ -158,7 +159,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
         private void renderItem(Item item, PoseStack pMatrixStack, MultiBufferSource bufferIn, int packedLightIn,
                                 HeadlessFamiliarEntity pLivingEntity, ItemInHandRenderer renderer) {
-            renderer.renderItem(pLivingEntity, new ItemStack(item), ItemTransforms.TransformType.GROUND,
+            renderer.renderItem(pLivingEntity, new ItemStack(item), ItemDisplayContext.GROUND,
                     false, pMatrixStack, bufferIn, packedLightIn);
         }
 
@@ -187,7 +188,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
 
             Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderItem(pLivingEntity,
-                    pLivingEntity.getWeaponItem(), ItemTransforms.TransformType.GROUND, false, pMatrixStack,
+                    pLivingEntity.getWeaponItem(), ItemDisplayContext.GROUND, false, pMatrixStack,
                     pBuffer, pPackedLight);
             pMatrixStack.popPose();
         }

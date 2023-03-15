@@ -29,6 +29,7 @@ import com.github.klikli_dev.occultism.registry.OccultismItems;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -55,8 +56,8 @@ public class SummonRitual extends Ritual {
      * @param activationItem the activation item.
      * @return return the bound book of calling with the nbt from the activation item.
      */
-    public ItemStack getBookOfCallingBound(ItemStack activationItem) {
-        ItemStack result = this.recipe.getResultItem().copy();
+    public ItemStack getBookOfCallingBound(RegistryAccess registryAccess, ItemStack activationItem) {
+        ItemStack result = this.recipe.getResultItem(registryAccess).copy();
         if (result.getItem() == OccultismItems.JEI_DUMMY_NONE.get())
             return ItemStack.EMPTY;
 
@@ -110,7 +111,7 @@ public class SummonRitual extends Ritual {
 
         ItemStack copy = activationItem.copy();
         //prepare active book of calling
-        ItemStack result = this.getBookOfCallingBound(activationItem);
+        ItemStack result = this.getBookOfCallingBound(level.registryAccess(), activationItem);
         activationItem.shrink(1); //remove original activation item.
 
         ((ServerLevel) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,

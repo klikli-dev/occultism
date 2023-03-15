@@ -72,7 +72,7 @@ public class SpiritFireBlock extends BaseFireBlock {
             if (recipe.isPresent()) {
                 item.remove(RemovalReason.DISCARDED);
 
-                ItemStack result = recipe.get().assemble(fakeInventory);
+                ItemStack result = recipe.get().assemble(fakeInventory, pLevel.registryAccess());
                 Vec3 center = Math3DUtil.center(pPos);
                 Containers.dropItemStack(pLevel, center.x, center.y + 0.5, center.z, result);
 

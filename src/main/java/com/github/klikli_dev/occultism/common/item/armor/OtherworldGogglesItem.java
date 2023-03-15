@@ -39,9 +39,9 @@ public class OtherworldGogglesItem extends ArmorItem {
     public static final String TEXTURE = Occultism.MODID + ":textures/item/armor/otherworld_goggles_model.png";
 
     public OtherworldGogglesItem(ArmorMaterial materialIn,
-                                 EquipmentSlot slot,
+                                 ArmorItem.Type type,
                                  Properties builder) {
-        super(materialIn, slot, builder);
+        super(materialIn, type, builder);
     }
 
     @Override

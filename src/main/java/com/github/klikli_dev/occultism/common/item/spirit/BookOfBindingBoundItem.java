@@ -22,8 +22,6 @@
 
 package com.github.klikli_dev.occultism.common.item.spirit;
 
-import com.github.klikli_dev.occultism.api.common.item.IIngredientCopyNBT;
-import com.github.klikli_dev.occultism.api.common.item.IIngredientModifyCraftingResult;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.network.chat.Component;
@@ -38,17 +36,12 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class BookOfBindingBoundItem extends Item implements IIngredientCopyNBT, IIngredientModifyCraftingResult {
-    //region Fields
-    //endregion Fields
+public class BookOfBindingBoundItem extends Item {
 
-    //region Initialization
     public BookOfBindingBoundItem(Item.Properties properties) {
         super(properties);
     }
-    //endregion Initialization
 
-    //region Overrides
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
@@ -58,23 +51,10 @@ public class BookOfBindingBoundItem extends Item implements IIngredientCopyNBT, 
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
 
-    @Override
-    public boolean shouldCopyNBT(ItemStack itemStack, Recipe recipe, CraftingContainer inventory) {
-        //only copy over name to book of calling
-        return recipe.getResultItem().getItem() instanceof BookOfCallingItem;
-    }
-
-    @Override
-    public void modifyResult(Recipe recipe, CraftingContainer inventory, ItemStack result) {
-        ItemNBTUtil.generateBoundSpiritName(result);
-    }
-
 
     @Override
     public void onCraftedBy(ItemStack pStack, Level pLevel, Player pPlayer) {
         ItemNBTUtil.generateBoundSpiritName(pStack);
         super.onCraftedBy(pStack, pLevel, pPlayer);
     }
-
-    //endregion Overrides
 }

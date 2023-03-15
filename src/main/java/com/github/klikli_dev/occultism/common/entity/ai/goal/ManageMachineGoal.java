@@ -208,7 +208,7 @@ public class ManageMachineGoal extends Goal {
 
         if (rayTrace.getType() != BlockHitResult.Type.MISS) {
             BlockPos sidePos = rayTrace.getBlockPos();
-            BlockPos pos = new BlockPos(rayTrace.getLocation());
+            BlockPos pos = BlockPos.containing(rayTrace.getLocation());
             return this.entity.level.isEmptyBlock(sidePos) || this.entity.level.isEmptyBlock(pos) ||
                     this.entity.level.getBlockEntity(pos) == this.entity.level.getBlockEntity(this.targetBlock);
         }

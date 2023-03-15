@@ -141,7 +141,7 @@ public class TraderJob extends SpiritJob {
                     this.entity.setItemInHand(InteractionHand.MAIN_HAND, input.get(0));
                 }
 
-                ItemStack converted = this.trade.getResultItem().copy();
+                ItemStack converted = this.trade.getResultItem(this.entity.level.registryAccess()).copy();
                 converted.setCount(converted.getCount() * resultCount);
 
                 if (resultCount > 0) {
