@@ -28,4 +28,5 @@ logs/
 
 src/generated/resources/.cache/
 
-runtime-mods/
+# local flatDir maven repo
+lib/

@@ -142,7 +142,7 @@ repositories {
         }
     }
     flatDir {
-        dirs 'runtime-mods'
+        dirs 'lib'
     }
 }
 
@@ -169,8 +169,8 @@ dependencies {
     //TODO: Enable when updated
 //    implementation fg.deobf("curse.maven:smartbrainlib-661293:${smartbrainlib_file_id}-sources-${smartbrainlib_src_file_id}")
     //temporary file-based maven with local compilation:
-    implementation fg.deobf("ignoredvalue:smartbrainlib:forge-1.8.1")
-    //runtimeOnly fg.deobf("ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2")
+    implementation fg.deobf("ignoredvalue:smartbrainlib:forge-1.19.4-1.8.1")
+
     //almostunified
     //TODO: Enable when updated
 //    compileOnly fg.deobf("com.almostreliable.mods:almostunified-forge:${almostunified_version}")
@@ -180,9 +180,8 @@ dependencies {
     implementation fg.deobf("com.klikli_dev:modonomicon:${modonomicon_mc_version}-${modonomicon_version}") //we build against full jar because we NEED IT ALL
 
     //theurgy
-    //TODO: Enable when updated
-//    compileOnly fg.deobf("com.klikli_dev:theurgy:${theurgy_mc_version}-${theurgy_version}")
-//    runtimeOnly fg.deobf("com.klikli_dev:theurgy:${theurgy_mc_version}-${theurgy_version}")
+    compileOnly fg.deobf("com.klikli_dev:theurgy:${theurgy_mc_version}-${theurgy_version}")
+    runtimeOnly fg.deobf("com.klikli_dev:theurgy:${theurgy_mc_version}-${theurgy_version}")
 
     //runtime only helper mods for dev env, placed in ./runtime-mods, example: Hwyla-forge-1.10.11-B78_1.16.2.jar
     //runtimeOnly fg.deobf("ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2")
