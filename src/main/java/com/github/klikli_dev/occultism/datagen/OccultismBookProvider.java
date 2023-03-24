@@ -69,32 +69,32 @@ public class OccultismBookProvider extends BookProvider {
 
         //https://tinyurl.com/occultism-graph
 
-        var demoBook = BookModel.builder()
-                .withId(this.modLoc("dictionary_of_spirits"))
+        var demoBook = BookModel.create(
+                        this.modLoc("dictionary_of_spirits"),
+                        helper.bookName()
+                )
                 .withModel(this.modLoc("dictionary_of_spirits_icon"))
-                .withName(helper.bookName())
                 .withTooltip(helper.bookTooltip())
                 .withCategories(
-                        gettingStartedCategory.build(),
-                        spiritsCategory.build(),
-                        pentaclesCategory.build(),
-                        ritualsCategory.build(),
-                        summoningRitualsCategory.build(),
-                        possessionRitualsCategory.build(),
-                        craftingRitualsCategory.build(),
-                        familiarRitualsCategory.build(),
-                        storageCategory.build()
+                        gettingStartedCategory,
+                        spiritsCategory,
+                        pentaclesCategory,
+                        ritualsCategory,
+                        summoningRitualsCategory,
+                        possessionRitualsCategory,
+                        craftingRitualsCategory,
+                        familiarRitualsCategory,
+                        storageCategory
                 )
                 .withCraftingTexture(this.modLoc("textures/gui/book/crafting_textures.png"))
                 .withGenerateBookItem(false)
                 .withCustomBookItem(this.modLoc("dictionary_of_spirits"))
-                .withAutoAddReadConditions(true)
-                .build();
+                .withAutoAddReadConditions(true);
         return demoBook;
     }
 
     //region Getting Started
-    private BookCategoryModel.Builder makeGettingStartedCategory(BookLangHelper helper) {
+    private BookCategoryModel makeGettingStartedCategory(BookLangHelper helper) {
         helper.category("getting_started");
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
@@ -216,9 +216,10 @@ public class OccultismBookProvider extends BookProvider {
         var craftingRitualsEntry = this.makeCraftingRitualsEntry(helper, entryHelper, 'z');
         craftingRitualsEntry.withParent(BookEntryParentModel.builder().withEntryId(moreRitualsEntry.id).build());
 
-        return BookCategoryModel.builder()
-                .withId(this.modLoc(helper.category))
-                .withName(helper.categoryName())
+        return BookCategoryModel.create(
+                        this.modLoc(helper.category),
+                        helper.categoryName()
+                )
                 .withIcon(OccultismItems.DICTIONARY_OF_SPIRITS_ICON.getId().toString())
                 .withEntries(
                         introEntry.build(),
@@ -1472,7 +1473,7 @@ public class OccultismBookProvider extends BookProvider {
 
     //region Spirits
 
-    private BookCategoryModel.Builder makeSpiritsSubcategory(BookLangHelper helper) {
+    private BookCategoryModel makeSpiritsSubcategory(BookLangHelper helper) {
         helper.category("spirits");
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
@@ -1503,9 +1504,10 @@ public class OccultismBookProvider extends BookProvider {
         var wildHunt = this.makeWildHuntEntry(helper, entryHelper, 'w');
         wildHunt.withParent(BookEntryParentModel.builder().withEntryId(unboundSpirits.id).build());
 
-        return BookCategoryModel.builder()
-                .withId(this.modLoc(helper.category))
-                .withName(helper.categoryName())
+        return BookCategoryModel.create(
+                        this.modLoc(helper.category),
+                        helper.categoryName()
+                )
                 .withIcon("occultism:textures/gui/book/spirits.png")
                 .withShowCategoryButton(false)
                 .withEntries(
@@ -1739,7 +1741,7 @@ public class OccultismBookProvider extends BookProvider {
     //endregion
 
     //region Pentacles
-    private BookCategoryModel.Builder makePentaclesCategory(BookLangHelper helper) {
+    private BookCategoryModel makePentaclesCategory(BookLangHelper helper) {
         helper.category("pentacles");
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
@@ -1806,9 +1808,10 @@ public class OccultismBookProvider extends BookProvider {
         craftAfrit.withCondition(BookTrueConditionModel.builder().build());
         craftMarid.withCondition(BookTrueConditionModel.builder().build());
 
-        return BookCategoryModel.builder()
-                .withId(this.modLoc("pentacles"))
-                .withName(helper.categoryName())
+        return BookCategoryModel.create(
+                        this.modLoc(helper.category),
+                        helper.categoryName()
+                )
                 .withIcon(OccultismItems.PENTACLE.getId().toString())
                 .withEntries(
                         overview.build(),
@@ -2472,7 +2475,7 @@ public class OccultismBookProvider extends BookProvider {
     //endregion
 
     //region Rituals
-    private BookCategoryModel.Builder makeRitualsCategory(BookLangHelper helper) {
+    private BookCategoryModel makeRitualsCategory(BookLangHelper helper) {
         helper.category("rituals");
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
@@ -2509,9 +2512,10 @@ public class OccultismBookProvider extends BookProvider {
         crafting.withCondition(BookTrueConditionModel.builder().build());
         familiars.withCondition(BookTrueConditionModel.builder().build());
 
-        return BookCategoryModel.builder()
-                .withId(this.modLoc(helper.category))
-                .withName(helper.categoryName())
+        return BookCategoryModel.create(
+                        this.modLoc(helper.category),
+                        helper.categoryName()
+                )
                 .withIcon("occultism:textures/gui/book/robe.png")
                 .withEntries(
                         ritualOverview.build(),
@@ -2658,7 +2662,7 @@ public class OccultismBookProvider extends BookProvider {
     //endregion
 
     //region Summoning Rituals
-    private BookCategoryModel.Builder makeSummoningRitualsSubcategory(BookLangHelper helper) {
+    private BookCategoryModel makeSummoningRitualsSubcategory(BookLangHelper helper) {
         helper.category("summoning_rituals");
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
@@ -2745,9 +2749,10 @@ public class OccultismBookProvider extends BookProvider {
         afritEssence.withCondition(BookTrueConditionModel.builder().build());
         witherSkull.withCondition(BookTrueConditionModel.builder().build());
 
-        return BookCategoryModel.builder()
-                .withId(this.modLoc(helper.category))
-                .withName(helper.categoryName())
+        return BookCategoryModel.create(
+                        this.modLoc(helper.category),
+                        helper.categoryName()
+                )
                 .withIcon("occultism:textures/gui/book/summoning.png")
                 .withShowCategoryButton(false)
                 .withEntries(
@@ -3482,7 +3487,7 @@ public class OccultismBookProvider extends BookProvider {
     //endregion
 
     //region Crafting Rituals
-    private BookCategoryModel.Builder makeCraftingRitualsSubcategory(BookLangHelper helper) {
+    private BookCategoryModel makeCraftingRitualsSubcategory(BookLangHelper helper) {
         helper.category("crafting_rituals");
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
@@ -3574,9 +3579,10 @@ public class OccultismBookProvider extends BookProvider {
         craftSoulGem.withCondition(BookTrueConditionModel.builder().build());
         craftFamiliarRing.withCondition(BookTrueConditionModel.builder().build());
 
-        return BookCategoryModel.builder()
-                .withId(this.modLoc(helper.category))
-                .withName(helper.categoryName())
+        return BookCategoryModel.create(
+                        this.modLoc(helper.category),
+                        helper.categoryName()
+                )
                 .withIcon("occultism:textures/gui/book/infusion.png")
                 .withShowCategoryButton(false)
                 .withEntries(
@@ -4168,7 +4174,7 @@ public class OccultismBookProvider extends BookProvider {
     //endregion
 
     //region Possession Rituals
-    private BookCategoryModel.Builder makePossessionRitualsSubcategory(BookLangHelper helper) {
+    private BookCategoryModel makePossessionRitualsSubcategory(BookLangHelper helper) {
         helper.category("possession_rituals");
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
@@ -4214,9 +4220,10 @@ public class OccultismBookProvider extends BookProvider {
         possessWitherSkeleton.withCondition(BookTrueConditionModel.builder().build());
         afritEssence.withCondition(BookTrueConditionModel.builder().build());
 
-        return BookCategoryModel.builder()
-                .withId(this.modLoc(helper.category))
-                .withName(helper.categoryName())
+        return BookCategoryModel.create(
+                        this.modLoc(helper.category),
+                        helper.categoryName()
+                )
                 .withIcon("occultism:textures/gui/book/possession.png")
                 .withShowCategoryButton(false)
                 .withEntries(
@@ -4388,7 +4395,7 @@ public class OccultismBookProvider extends BookProvider {
     //endregion
 
     //region Familiar Rituals
-    private BookCategoryModel.Builder makeFamiliarRitualsSubcategory(BookLangHelper helper) {
+    private BookCategoryModel makeFamiliarRitualsSubcategory(BookLangHelper helper) {
         helper.category("familiar_rituals");
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
@@ -4464,9 +4471,10 @@ public class OccultismBookProvider extends BookProvider {
         familiarParrot.withCondition(BookTrueConditionModel.builder().build());
         familiarShubNiggurath.withCondition(BookTrueConditionModel.builder().build());
 
-        return BookCategoryModel.builder()
-                .withId(this.modLoc(helper.category))
-                .withName(helper.categoryName())
+        return BookCategoryModel.create(
+                        this.modLoc(helper.category),
+                        helper.categoryName()
+                )
                 .withIcon("occultism:textures/gui/book/parrot.png")
                 .withShowCategoryButton(false)
                 .withEntries(
@@ -5121,7 +5129,7 @@ public class OccultismBookProvider extends BookProvider {
     //endregion
 
     //region Storage
-    private BookCategoryModel.Builder makeStorageCategory(BookLangHelper helper) {
+    private BookCategoryModel makeStorageCategory(BookLangHelper helper) {
         helper.category("storage");
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
@@ -5185,9 +5193,10 @@ public class OccultismBookProvider extends BookProvider {
 
         helper.category("storage");
 
-        return BookCategoryModel.builder()
-                .withId(this.modLoc(helper.category))
-                .withName(helper.categoryName())
+        return BookCategoryModel.create(
+                        this.modLoc(helper.category),
+                        helper.categoryName()
+                )
                 .withIcon("minecraft:chest")
                 .withEntries(
                         overview.build(),
