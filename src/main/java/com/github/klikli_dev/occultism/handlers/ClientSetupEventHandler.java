@@ -216,8 +216,6 @@ public class ClientSetupEventHandler {
         event.registerAboveAll("third_eye", (gui, poseStack, partialTick, screenWidth, screenHeight) -> {
             if(  Occultism.THIRD_EYE_EFFECT_RENDERER.gogglesActiveLastTick || Occultism.THIRD_EYE_EFFECT_RENDERER.thirdEyeActiveLastTick){
                 gui.setupOverlayRenderState(true, false, ThirdEyeEffectRenderer.THIRD_EYE_TEXTURE);
-                //TODO: Overlay works?
-                //RenderSystem.enableTexture();
                 Occultism.THIRD_EYE_EFFECT_RENDERER.renderOverlay(poseStack);
             }
         });

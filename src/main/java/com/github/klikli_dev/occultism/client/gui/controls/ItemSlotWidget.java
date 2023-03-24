@@ -104,18 +104,16 @@ public class ItemSlotWidget {
                 //render item overlay
                 poseStack.pushPose();
 
-                //TODO: Blit offset problems?
 //                this.minecraft.getItemRenderer()
 //                        .blitOffset = 0.1f;
+                //we ended up not using any translate and it was fine
 
-               poseStack.translate(0, 0, 0); //which Z?
                 poseStack.scale(.5f, .5f, .5f);
 
                 this.minecraft.getItemRenderer().renderGuiItemDecorations(poseStack,  this.fontRenderer, this.stack, this.x * 2 + 16, this.y * 2 + 16, amount);
                 poseStack.popPose();
             }
 
-            //TODO: Blit offset problems?
             //this.minecraft.getItemRenderer().blitOffset = -100F;
             poseStack.pushPose();
             poseStack.translate(0, 0, -100);
