@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.73.2] - 2023-03-25
+### :bug: Bug Fixes
+- [`58e93e0`](https://github.com/klikli-dev/occultism/commit/58e93e0ae85044af8903fd9a5537f4639c1dbe42) - crash on insertGlobalPos null *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.73.1] - 2023-03-25
 ### :bug: Bug Fixes
 - [`69e451d`](https://github.com/klikli-dev/occultism/commit/69e451d4de4bae78aadcbb92e6f26f96ae7e1f69) - some familiars cannot be healed with demon's dream fruit *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -253,3 +258,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.72.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.72.0...release/v1.19.2-1.72.1
 [release/v1.19.2-1.73.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.72.1...release/v1.19.2-1.73.0
 [release/v1.19.2-1.73.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.73.0...release/v1.19.2-1.73.1
+[release/v1.19.2-1.73.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.73.1...release/v1.19.2-1.73.2
