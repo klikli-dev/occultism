@@ -22,17 +22,20 @@
 
 package com.github.klikli_dev.occultism.integration.jei;
 
+import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.crafting.recipe.*;
+import mezz.jei.api.recipe.RecipeType;
+
 public class JeiRecipeTypes {
 
-    //TODO: Re-enable
-//    public static final RecipeType<SpiritTradeRecipe> SPIRIT_TRADE =
-//            RecipeType.create(Occultism.MODID, "spirit_trade", SpiritTradeRecipe.class);
-//    public static final RecipeType<SpiritFireRecipe> SPIRIT_FIRE =
-//            RecipeType.create(Occultism.MODID, "spirit_fire", SpiritFireRecipe.class);
-//    public static final RecipeType<CrushingRecipe> CRUSHING =
-//            RecipeType.create(Occultism.MODID, "crushing", CrushingRecipe.class);
-//    public static final RecipeType<MinerRecipe> MINER =
-//            RecipeType.create(Occultism.MODID, "miner", MinerRecipe.class);
-//    public static final RecipeType<RitualRecipe> RITUAL =
-//            RecipeType.create(Occultism.MODID, "ritual", RitualRecipe.class);
+    public static final RecipeType<SpiritTradeRecipe> SPIRIT_TRADE =
+            RecipeType.create(Occultism.MODID, "spirit_trade", SpiritTradeRecipe.class);
+    public static final RecipeType<SpiritFireRecipe> SPIRIT_FIRE =
+            RecipeType.create(Occultism.MODID, "spirit_fire", SpiritFireRecipe.class);
+    public static final RecipeType<CrushingRecipe> CRUSHING =
+            RecipeType.create(Occultism.MODID, "crushing", CrushingRecipe.class);
+    public static final RecipeType<MinerRecipe> MINER =
+            RecipeType.create(Occultism.MODID, "miner", MinerRecipe.class);
+    public static final RecipeType<RitualRecipe> RITUAL =
+            RecipeType.create(Occultism.MODID, "ritual", RitualRecipe.class);
 }
