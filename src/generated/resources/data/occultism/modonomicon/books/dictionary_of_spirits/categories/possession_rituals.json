@@ -3,6 +3,9 @@
   "icon": "occultism:textures/gui/book/possession.png",
   "sort_number": 6,
   "background": "modonomicon:textures/gui/dark_slate_seamless.png",
+  "background_width": 512,
+  "background_height": 512,
+  "background_parallax_layers": [],
   "entry_textures": "modonomicon:textures/gui/entry_textures.png",
   "show_category_button": false
 }
