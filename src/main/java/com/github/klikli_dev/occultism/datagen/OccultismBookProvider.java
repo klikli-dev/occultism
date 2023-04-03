@@ -69,10 +69,7 @@ public class OccultismBookProvider extends BookProvider {
 
         //https://tinyurl.com/occultism-graph
 
-        var demoBook = BookModel.create(
-                        this.modLoc("dictionary_of_spirits"),
-                        helper.bookName()
-                )
+        var demoBook = BookModel.create(this.modLoc("dictionary_of_spirits"), helper.bookName())
                 .withModel(this.modLoc("dictionary_of_spirits_icon"))
                 .withTooltip(helper.bookTooltip())
                 .withCategories(
@@ -216,10 +213,7 @@ public class OccultismBookProvider extends BookProvider {
         var craftingRitualsEntry = this.makeCraftingRitualsEntry(helper, entryHelper, 'z');
         craftingRitualsEntry.withParent(BookEntryParentModel.builder().withEntryId(moreRitualsEntry.id).build());
 
-        return BookCategoryModel.create(
-                        this.modLoc(helper.category),
-                        helper.categoryName()
-                )
+        return BookCategoryModel.create(this.modLoc(helper.category), helper.categoryName())
                 .withIcon(OccultismItems.DICTIONARY_OF_SPIRITS_ICON.getId().toString())
                 .withEntries(
                         introEntry.build(),
@@ -1504,10 +1498,7 @@ public class OccultismBookProvider extends BookProvider {
         var wildHunt = this.makeWildHuntEntry(helper, entryHelper, 'w');
         wildHunt.withParent(BookEntryParentModel.builder().withEntryId(unboundSpirits.id).build());
 
-        return BookCategoryModel.create(
-                        this.modLoc(helper.category),
-                        helper.categoryName()
-                )
+        return BookCategoryModel.create(this.modLoc(helper.category), helper.categoryName())
                 .withIcon("occultism:textures/gui/book/spirits.png")
                 .withShowCategoryButton(false)
                 .withEntries(
@@ -1808,10 +1799,7 @@ public class OccultismBookProvider extends BookProvider {
         craftAfrit.withCondition(BookTrueConditionModel.builder().build());
         craftMarid.withCondition(BookTrueConditionModel.builder().build());
 
-        return BookCategoryModel.create(
-                        this.modLoc(helper.category),
-                        helper.categoryName()
-                )
+        return BookCategoryModel.create(this.modLoc(helper.category), helper.categoryName())
                 .withIcon(OccultismItems.PENTACLE.getId().toString())
                 .withEntries(
                         overview.build(),
@@ -2512,10 +2500,7 @@ public class OccultismBookProvider extends BookProvider {
         crafting.withCondition(BookTrueConditionModel.builder().build());
         familiars.withCondition(BookTrueConditionModel.builder().build());
 
-        return BookCategoryModel.create(
-                        this.modLoc(helper.category),
-                        helper.categoryName()
-                )
+        return BookCategoryModel.create(this.modLoc(helper.category), helper.categoryName())
                 .withIcon("occultism:textures/gui/book/robe.png")
                 .withEntries(
                         ritualOverview.build(),
@@ -2749,10 +2734,7 @@ public class OccultismBookProvider extends BookProvider {
         afritEssence.withCondition(BookTrueConditionModel.builder().build());
         witherSkull.withCondition(BookTrueConditionModel.builder().build());
 
-        return BookCategoryModel.create(
-                        this.modLoc(helper.category),
-                        helper.categoryName()
-                )
+        return BookCategoryModel.create(this.modLoc(helper.category), helper.categoryName())
                 .withIcon("occultism:textures/gui/book/summoning.png")
                 .withShowCategoryButton(false)
                 .withEntries(
@@ -3579,10 +3561,7 @@ public class OccultismBookProvider extends BookProvider {
         craftSoulGem.withCondition(BookTrueConditionModel.builder().build());
         craftFamiliarRing.withCondition(BookTrueConditionModel.builder().build());
 
-        return BookCategoryModel.create(
-                        this.modLoc(helper.category),
-                        helper.categoryName()
-                )
+        return BookCategoryModel.create(this.modLoc(helper.category), helper.categoryName())
                 .withIcon("occultism:textures/gui/book/infusion.png")
                 .withShowCategoryButton(false)
                 .withEntries(
@@ -4220,10 +4199,7 @@ public class OccultismBookProvider extends BookProvider {
         possessWitherSkeleton.withCondition(BookTrueConditionModel.builder().build());
         afritEssence.withCondition(BookTrueConditionModel.builder().build());
 
-        return BookCategoryModel.create(
-                        this.modLoc(helper.category),
-                        helper.categoryName()
-                )
+        return BookCategoryModel.create(this.modLoc(helper.category), helper.categoryName())
                 .withIcon("occultism:textures/gui/book/possession.png")
                 .withShowCategoryButton(false)
                 .withEntries(
@@ -4471,10 +4447,7 @@ public class OccultismBookProvider extends BookProvider {
         familiarParrot.withCondition(BookTrueConditionModel.builder().build());
         familiarShubNiggurath.withCondition(BookTrueConditionModel.builder().build());
 
-        return BookCategoryModel.create(
-                        this.modLoc(helper.category),
-                        helper.categoryName()
-                )
+        return BookCategoryModel.create(this.modLoc(helper.category), helper.categoryName())
                 .withIcon("occultism:textures/gui/book/parrot.png")
                 .withShowCategoryButton(false)
                 .withEntries(
@@ -5193,10 +5166,7 @@ public class OccultismBookProvider extends BookProvider {
 
         helper.category("storage");
 
-        return BookCategoryModel.create(
-                        this.modLoc(helper.category),
-                        helper.categoryName()
-                )
+        return BookCategoryModel.create(this.modLoc(helper.category), helper.categoryName())
                 .withIcon("minecraft:chest")
                 .withEntries(
                         overview.build(),
