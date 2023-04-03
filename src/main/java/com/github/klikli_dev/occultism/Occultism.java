@@ -113,7 +113,6 @@ public class Occultism {
         GeckoLib.initialize();
     }
 
-
     private void commonSetup(final FMLCommonSetupEvent event) {
         OccultismPackets.registerMessages();
 
