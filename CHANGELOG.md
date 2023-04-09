@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.4-1.74.0] - 2023-04-09
+### :sparkles: New Features
+- [`87a4aa4`](https://github.com/klikli-dev/occultism/commit/87a4aa4b651626e810447ca37aaa8575a5e99709) - enable JEI integration now that jei is updated *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`0d25af5`](https://github.com/klikli-dev/occultism/commit/0d25af5622104f429a26afe2c4a351f8a1d4a9c7) - update to latest modonomicon & update datagen accordingly *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`a2b4ebf`](https://github.com/klikli-dev/occultism/commit/a2b4ebf54aea3990ddb9c0ca8b2c0ab88084db10) - enable remaining dependencies *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`1bd67a9`](https://github.com/klikli-dev/occultism/commit/1bd67a9d2520209c092e4889f79770ce7c8ed55d) - update packet splitting logic *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`e29c320`](https://github.com/klikli-dev/occultism/commit/e29c320546e83133a5743820c6b8c28843b91de8) - update to 1.19.4 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`08ae0d5`](https://github.com/klikli-dev/occultism/commit/08ae0d57cb98a6d18a851c0684b1a13b6b3ecaee) - some familiars cannot be healed with demon's dream fruit *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`8f2b124`](https://github.com/klikli-dev/occultism/commit/8f2b12447423bc879c8390ad58602c970ed7cd2d) - crash on insertGlobalPos null *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`eec78f7`](https://github.com/klikli-dev/occultism/commit/eec78f76b25281db235a72a42d11ae24255c6bdf) - update to 1.19.4 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`b6dcb26`](https://github.com/klikli-dev/occultism/commit/b6dcb26c0fa5e083f5f0d2b2764a3f7fe7072389) - update dependency versions *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`bc100be`](https://github.com/klikli-dev/occultism/commit/bc100be13a8824c3d1475eb8f1b4ce89c645bfbe) - disable currently unavailable dependencies *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`e45eb03`](https://github.com/klikli-dev/occultism/commit/e45eb03a0bd657b3a5850c828513729be95a611e) - fix book provider *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`e4c23fe`](https://github.com/klikli-dev/occultism/commit/e4c23feb12a2f58c1bcf25be2a82ad14a6a71708) - work through update todos *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.3-1.73.0] - 2023-03-13
 ### :sparkles: New Features
 - [`2585752`](https://github.com/klikli-dev/occultism/commit/2585752c02b2c1534b1dd6a48caf04f9ca8e94c9) - buff familiar health *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -287,3 +307,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.3-1.71.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.71.1...release/v1.19.3-1.71.2
 [release/v1.19.3-1.72.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.72.0...release/v1.19.3-1.72.1
 [release/v1.19.3-1.73.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.72.1...release/v1.19.3-1.73.0
+[release/v1.19.4-1.74.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-0.0.0...release/v1.19.4-1.74.0
