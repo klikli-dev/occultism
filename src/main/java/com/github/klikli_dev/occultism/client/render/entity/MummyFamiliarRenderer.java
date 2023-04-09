@@ -49,6 +49,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
+import oshi.hardware.Display;
 
 public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, MummyFamiliarModel> {
 
@@ -133,7 +134,7 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
             pMatrixStack.translate(0, 0, -0.01);
             var matrix = pMatrixStack.last().pose();
             font.drawInBatch(KAPOW_TEXT, -font.width(KAPOW_TEXT) / 2, 0, 0xff0000 | ((int) (alpha * 255) << 24), true,
-                    matrix, pBuffer, false, 0, pPackedLight);
+                    matrix, pBuffer, Font.DisplayMode.NORMAL, 0, pPackedLight);
             pMatrixStack.popPose();
 
             pMatrixStack.pushPose();
@@ -141,7 +142,7 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
             pMatrixStack.mulPose(new Quaternionf().rotateXYZ(0, 180 * ((float) Math.PI / 180F), 0));
             matrix = pMatrixStack.last().pose();
             font.drawInBatch(KAPOW_TEXT, -font.width(KAPOW_TEXT) / 2, 0, 0xff0000 | ((int) (alpha * 255) << 24), true,
-                    matrix, pBuffer, false, 0, pPackedLight);
+                    matrix, pBuffer, Font.DisplayMode.NORMAL, 0, pPackedLight);
             pMatrixStack.popPose();
             pMatrixStack.popPose();
             pMatrixStack.popPose();

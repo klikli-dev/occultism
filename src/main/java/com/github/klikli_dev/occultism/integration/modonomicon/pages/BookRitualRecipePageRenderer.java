@@ -155,7 +155,7 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
         }
 
         this.parentScreen.renderItemStack(poseStack, recipeX + 85, recipeY + 110, mouseX, mouseY, this.goldenSacrificialBowl);
-        this.parentScreen.renderItemStack(poseStack, recipeX + 85, recipeY + 105, mouseX, mouseY, recipe.getResultItem());
+        this.parentScreen.renderItemStack(poseStack, recipeX + 85, recipeY + 105, mouseX, mouseY, recipe.getResultItem(this.parentScreen.getMinecraft().level.registryAccess()));
 
         this.parentScreen.renderItemStack(poseStack, recipeX - 10, recipeY - 5, mouseX, mouseY, recipe.getRitualDummy());
 

@@ -13,7 +13,7 @@ public class AlmostUnifiedIntegration {
     public static Item getPreferredItemForTag(TagKey<Item> tag) {
         if (isLoaded()) {
             return AlmostUnifiedHelper.getPreferredItemForTag(tag);
-         }
+        }
 
         return null;
     }

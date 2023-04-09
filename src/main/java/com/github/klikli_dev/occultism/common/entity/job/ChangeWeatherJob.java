@@ -91,7 +91,7 @@ public abstract class ChangeWeatherJob extends SpiritJob {
             lightningboltentity.moveTo(Vec3.atBottomCenterOf(this.entity.blockPosition()));
             lightningboltentity.setVisualOnly(true);
 
-            this.entity.die(DamageSource.LIGHTNING_BOLT);
+            this.entity.die(this.entity.damageSources().lightningBolt());
             this.entity.remove(Entity.RemovalReason.DISCARDED);
         }
     }

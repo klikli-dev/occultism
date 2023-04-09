@@ -123,7 +123,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         this.tagFilterTextField.setBordered(false);
         this.tagFilterTextField.setVisible(true);
         this.tagFilterTextField.setTextColor(OccultismConstants.Color.WHITE);
-        this.tagFilterTextField.setFocus(false);
+        this.tagFilterTextField.setFocused(false);
 
         if (!StringUtils.isBlank(this.getTagFilterText())) {
             this.tagFilterTextField.setValue(this.getTagFilterText());
@@ -213,7 +213,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     @Override
     public void onClose() {
         super.onClose();
-        this.tagFilterTextField.setFocus(false);
+        this.tagFilterTextField.setFocused(false);
 
         //we used to check for blank tag filter here, but that prevents emptying the filter
         this.spirit.setTagFilter(this.tagFilter);

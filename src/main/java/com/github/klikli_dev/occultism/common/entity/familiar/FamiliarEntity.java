@@ -143,11 +143,11 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         } else if (stack.getItem() == OccultismItems.DEBUG_WAND.get()) {
             this.setOwnerId(playerIn.getUUID());
             return InteractionResult.sidedSuccess(this.level.isClientSide);
-        } else {
-            if (!this.level.isClientSide && this.getFamiliarOwner() == playerIn)
-                this.setSitting(!this.isSitting());
+        } else if (stack.isEmpty() && !this.level.isClientSide && this.getFamiliarOwner() == playerIn) {
+            this.setSitting(!this.isSitting());
             return InteractionResult.sidedSuccess(this.level.isClientSide);
         }
+        return InteractionResult.PASS;
     }
 
     @Override
@@ -301,8 +301,8 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
         private BlockPos randomNearby(BlockPos pos) {
             var rand = this.entity.getRandom();
-            return pos.offset(Mth.nextDouble(rand, -3, 3), Mth.nextDouble(rand, -1, 1),
-                    Mth.nextDouble(rand, -3, 3));
+            return pos.offset(Mth.nextInt(rand, -3, 3), Mth.nextInt(rand, -1, 1),
+                    Mth.nextInt(rand, -3, 3));
         }
     }
 

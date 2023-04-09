@@ -35,6 +35,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.joml.Quaternionf;
@@ -75,7 +76,8 @@ public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEn
                 pMatrixStack.translate(i % 2 == 0 ? -0.3 : 0.3, 2.03 - i / 2 * 0.03, -0.15);
                 pMatrixStack.mulPose(new Quaternionf().rotateXYZ(-90 * ((float) Math.PI / 180F), 0, i * ((float) Math.PI / 180F)));
                 Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderItem(pLivingEntity,
-                        new ItemStack(Items.IRON_INGOT), ItemTransforms.TransformType.GROUND, false,
+                        new ItemStack(Items.IRON_INGOT),
+                        ItemDisplayContext.GROUND, false,
                         pMatrixStack, pBuffer, pPackedLight);
                 pMatrixStack.popPose();
             }

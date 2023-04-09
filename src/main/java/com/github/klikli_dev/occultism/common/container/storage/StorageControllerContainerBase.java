@@ -219,7 +219,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             if (optional.isPresent()) {
                 CraftingRecipe icraftingrecipe = optional.get();
                 if (this.result.setRecipeUsed(this.player.level, serverplayerentity, icraftingrecipe)) {
-                    itemstack = icraftingrecipe.assemble(this.matrix);
+                    itemstack = icraftingrecipe.assemble(this.matrix, serverplayerentity.level.registryAccess());
                     this.currentRecipe = icraftingrecipe;
                 }
             }
@@ -249,7 +249,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
         }
 
         //Get the crafting result and abort if none
-        ItemStack result = this.currentRecipe.assemble(this.matrix);
+        ItemStack result = this.currentRecipe.assemble(this.matrix, player.level.registryAccess());
         if (result.isEmpty()) {
             return;
         }
@@ -265,7 +265,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             if (this.currentRecipe == null)
                 break;
 
-             ItemStack newResult = this.currentRecipe.assemble(this.matrix).copy();
+             ItemStack newResult = this.currentRecipe.assemble(this.matrix, player.level.registryAccess()).copy();
             if (newResult.getItem() != result.getItem())
                 break;
 

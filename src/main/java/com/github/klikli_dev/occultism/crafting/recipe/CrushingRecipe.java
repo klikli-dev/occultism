@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.crafting.recipe;
 import com.github.klikli_dev.occultism.common.misc.OutputIngredient;
 import com.github.klikli_dev.occultism.registry.OccultismRecipes;
 import com.google.gson.JsonObject;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -74,7 +75,7 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess registryAccess) {
         return this.output.getStack();
     }
 

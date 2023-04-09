@@ -27,6 +27,7 @@ import com.github.klikli_dev.occultism.crafting.recipe.*;
 import mezz.jei.api.recipe.RecipeType;
 
 public class JeiRecipeTypes {
+
     public static final RecipeType<SpiritTradeRecipe> SPIRIT_TRADE =
             RecipeType.create(Occultism.MODID, "spirit_trade", SpiritTradeRecipe.class);
     public static final RecipeType<SpiritFireRecipe> SPIRIT_FIRE =

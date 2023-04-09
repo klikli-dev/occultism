@@ -49,6 +49,6 @@ public abstract class BookSpiritTradeRecipePageRenderer<T extends Recipe<?>> ext
 
         this.parentScreen.renderIngredient(poseStack, recipeX + 4, recipeY + 4, mouseX, mouseY, recipe.getIngredients().get(0));
         this.parentScreen.renderItemStack(poseStack, recipeX + 40, recipeY + 4, mouseX, mouseY, recipe.getToastSymbol());
-        this.parentScreen.renderItemStack(poseStack, recipeX + 76, recipeY + 4, mouseX, mouseY, recipe.getResultItem());
+        this.parentScreen.renderItemStack(poseStack, recipeX + 76, recipeY + 4, mouseX, mouseY, recipe.getResultItem(this.parentScreen.getMinecraft().level.registryAccess()));
     }
 }

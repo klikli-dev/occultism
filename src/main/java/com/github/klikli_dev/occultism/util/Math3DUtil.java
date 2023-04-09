@@ -64,7 +64,7 @@ public class Math3DUtil {
     }
 
     public static BlockPos clamp(BlockPos pos, AABB bounds) {
-        return new BlockPos(
+        return BlockPos.containing(
                 Mth.clamp(pos.getX(), bounds.minX, bounds.maxX),
                 Mth.clamp(pos.getY(), bounds.minY, bounds.maxY),
                 Mth.clamp(pos.getZ(), bounds.minZ, bounds.maxZ)

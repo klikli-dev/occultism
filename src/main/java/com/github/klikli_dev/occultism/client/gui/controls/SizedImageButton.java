@@ -77,7 +77,7 @@ public class SizedImageButton extends ImageButton {
     }
 
     @Override
-    public void renderButton(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
+    public void renderWidget(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
         if (this.visible) {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderTexture(0, this.resourceLocation);
@@ -89,6 +89,5 @@ public class SizedImageButton extends ImageButton {
             RenderSystem.enableDepthTest();
             blit(stack, this.getX(), this.getY(), this.width, this.height, i, j, this.textureWidth, this.textureHeight, this.textureMapWidth, this.textureMapHeight);
         }
-
     }
 }

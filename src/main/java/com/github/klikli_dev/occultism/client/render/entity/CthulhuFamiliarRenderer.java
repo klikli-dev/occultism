@@ -35,6 +35,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.joml.Quaternionf;
@@ -86,7 +87,7 @@ public class CthulhuFamiliarRenderer extends MobRenderer<CthulhuFamiliarEntity, 
                 matrixStack.translate(0, -0.75, -0.35);
                 matrixStack.mulPose(new Quaternionf().rotateXYZ(-65 * ((float) Math.PI / 180F), 0, 0));
                 Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderItem(pLivingEntity, new ItemStack(Items.POPPY),
-                        ItemTransforms.TransformType.GROUND, false, matrixStack, pBuffer,
+                        ItemDisplayContext.GROUND, false, matrixStack, pBuffer,
                         pPackedLight);
                 matrixStack.popPose();
             }

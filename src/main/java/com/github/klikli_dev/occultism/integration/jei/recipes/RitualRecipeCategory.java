@@ -167,10 +167,11 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         //ingredients: 0: recipe output, 1: ritual dummy item
 
         //draw recipe output on the left
-        if (recipe.getResultItem().getItem() != OccultismItems.JEI_DUMMY_NONE.get()) {
+        var access = Minecraft.getInstance().level.registryAccess();
+        if (recipe.getResultItem(access).getItem() != OccultismItems.JEI_DUMMY_NONE.get()) {
             //if we have an item output -> render it
             builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5)
-                    .addItemStack(recipe.getResultItem());
+                    .addItemStack(recipe.getResultItem(access));
         } else {
             //if not, we instead render our ritual dummy item, just like in the corner
             builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5)

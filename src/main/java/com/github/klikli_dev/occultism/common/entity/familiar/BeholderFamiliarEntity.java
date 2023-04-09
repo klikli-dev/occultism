@@ -317,7 +317,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
                     damage *= this.entity.getEffect(MobEffects.DAMAGE_BOOST).getAmplifier() + 2;
 
                 if (e != null && owner instanceof Player player) {
-                    e.hurt(DamageSource.playerAttack(player), damage);
+                    e.hurt(this.entity.damageSources().playerAttack(player), damage);
                 }
             }
         }

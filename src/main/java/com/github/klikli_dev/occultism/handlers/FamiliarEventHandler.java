@@ -31,8 +31,8 @@ import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.github.klikli_dev.occultism.util.FamiliarUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -94,7 +94,7 @@ public class FamiliarEventHandler {
 
         DamageSource source = event.getSource();
 
-        if (!(source instanceof EntityDamageSource) || source.isExplosion() || source.isBypassInvul())
+        if (source.getEntity() == null | source.is(DamageTypeTags.IS_EXPLOSION) || source.is(DamageTypeTags.BYPASSES_INVULNERABILITY))
             return;
 
         int level = entity.getEffect(OccultismEffects.MUMMY_DODGE.get()).getAmplifier();
@@ -128,7 +128,7 @@ public class FamiliarEventHandler {
     private static void fairySave(LivingDeathEvent event) {
         LivingEntity entity = event.getEntity();
 
-        if (event.getSource().isBypassInvul() || !(entity instanceof IFamiliar)
+        if (event.getSource().is(DamageTypeTags.BYPASSES_INVULNERABILITY) || !(entity instanceof IFamiliar)
                 || entity.getType() == OccultismEntities.GUARDIAN_FAMILIAR.get()
                 || entity.getType() == OccultismEntities.FAIRY_FAMILIAR.get())
             return;
@@ -189,7 +189,7 @@ public class FamiliarEventHandler {
     }
 
     private static void guardianUltimateSacrifice(LivingDeathEvent event) {
-        if (event.getSource().isBypassInvul() || !(event.getEntity() instanceof Player))
+        if (event.getSource().is(DamageTypeTags.BYPASSES_INVULNERABILITY) || !(event.getEntity() instanceof Player))
             return;
 
         Player player = (Player) event.getEntity();

@@ -48,9 +48,11 @@ import net.minecraft.world.item.crafting.CraftingRecipe;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 /**
  * Based on https://github.com/Lothrazar/Storage-Network
  */
+
 public class StorageControllerRecipeTransferHandler<T extends AbstractContainerMenu & IStorageControllerContainer> implements IRecipeTransferHandler<T, CraftingRecipe> {
 
     protected final Class<T> containerClass;

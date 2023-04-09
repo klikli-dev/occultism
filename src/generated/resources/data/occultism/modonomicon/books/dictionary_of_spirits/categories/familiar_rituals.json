@@ -1,5 +1,8 @@
 {
   "background": "modonomicon:textures/gui/dark_slate_seamless.png",
+  "background_height": 512,
+  "background_parallax_layers": [],
+  "background_width": 512,
   "entry_textures": "modonomicon:textures/gui/entry_textures.png",
   "icon": "occultism:textures/gui/book/parrot.png",
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.name",

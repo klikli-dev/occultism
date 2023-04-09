@@ -35,7 +35,7 @@ public class TheurgyIntegration {
             var dir = dist.normalize();
             var to = dist.length() <= visualizationRange ? resultVec : from.add(dir.scale(visualizationRange));
 
-            if (level.isLoaded(new BlockPos(to)) && level.isLoaded(new BlockPos(from)) && level.isClientSide) {
+            if (level.isLoaded(BlockPos.containing(to)) && level.isLoaded(BlockPos.containing(from)) && level.isClientSide) {
                 FollowProjectile aoeProjectile = new FollowProjectile(level, from, to);
                 DivinationRodItem.DistHelper.spawnEntityClientSide(level, aoeProjectile);
             }

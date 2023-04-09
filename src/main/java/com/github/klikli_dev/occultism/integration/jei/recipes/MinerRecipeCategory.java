@@ -110,7 +110,7 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
                 .addIngredients(recipe.getIngredients().get(0));
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 94, 12)
-                .addItemStack(recipe.getResultItem());
+                .addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
     }
 
     @Override

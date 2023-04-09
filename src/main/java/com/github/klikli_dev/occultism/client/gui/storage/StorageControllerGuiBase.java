@@ -236,7 +236,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.searchBar.setBordered(false);
         this.searchBar.setVisible(true);
         this.searchBar.setTextColor(OccultismConstants.Color.WHITE);
-        this.searchBar.setFocus(focus);
+        this.searchBar.setFocused(focus);
 
         this.searchBar.setValue(searchBarText);
         if (JeiSettings.isJeiLoaded() && JeiSettings.isJeiSearchSynced()) {
@@ -275,7 +275,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             return;
         }
         if (this.forceFocus) {
-            this.searchBar.setFocus(true);
+            this.searchBar.setFocused(true);
             if (this.searchBar.isFocused()) {
                 this.forceFocus = false;
             }
@@ -310,11 +310,11 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
         super.mouseClicked(mouseX, mouseY, mouseButton);
-        this.searchBar.setFocus(false);
+        this.searchBar.setFocused(false);
 
         //right mouse button clears search bar
         if (this.isPointInSearchbar(mouseX, mouseY)) {
-            this.searchBar.setFocus(true);
+            this.searchBar.setFocused(true);
 
             if (mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) {
                 this.clearSearch();

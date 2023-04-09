@@ -185,7 +185,7 @@ public class DevilFamiliarEntity extends FamiliarEntity {
 
         protected void attack(List<LivingEntity> enemies) {
             for (Entity e : enemies) {
-                e.hurt(DamageSource.playerAttack((Player) this.entity.getFamiliarOwner()), 4);
+                e.hurt(this.entity.damageSources().playerAttack((Player) this.entity.getFamiliarOwner()), 4);
             }
         }
 

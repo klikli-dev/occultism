@@ -102,6 +102,10 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
     protected BlockEntity findClosestStorageProxy() {
         Level level = this.entity.level;
         List<BlockPos> allBlocks = new ArrayList<>();
+
+        if(this.job.getManagedMachine() == null || this.job.getManagedMachine().insertGlobalPos == null)
+            return null;
+
         BlockPos machinePosition = this.job.getManagedMachine().insertGlobalPos.getPos();
 
         //get work area, but only half height, we don't need full.
