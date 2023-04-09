@@ -42,7 +42,7 @@ public class OccultismPackets {
             PROTOCOL_VERSION::equals,
             PROTOCOL_VERSION::equals
     );
-    public static final PacketSplitter SPLITTER = new PacketSplitter(5, INSTANCE, CHANNEL);
+    public static final PacketSplitter SPLITTER = new PacketSplitter(10, INSTANCE, CHANNEL);
 
     private static int ID = 0;
 
