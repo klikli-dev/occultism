@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.18.2-1.74.0] - 2023-04-09
+### :sparkles: New Features
+- [`5a5ef0c`](https://github.com/klikli-dev/occultism/commit/5a5ef0c7afcafeebaa02ade6043de6fdd66cc89a) - update to latest modonomicon & update datagen accordingly *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`0accb54`](https://github.com/klikli-dev/occultism/commit/0accb54d109366f9500d6580c9c1e35fdc9398ee) - update packet splitting logic *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.18.2-1.73.2] - 2023-03-25
 ### :bug: Bug Fixes
 - [`4d1e819`](https://github.com/klikli-dev/occultism/commit/4d1e81975e48ce0dfaec5af77d504f4e0a6cdfd5) - crash on insertGlobalPos null *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -242,3 +248,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.18.2-1.73.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.72.1...release/v1.18.2-1.73.0
 [release/v1.18.2-1.73.1]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.73.0...release/v1.18.2-1.73.1
 [release/v1.18.2-1.73.2]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.73.1...release/v1.18.2-1.73.2
+[release/v1.18.2-1.74.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.73.2...release/v1.18.2-1.74.0
