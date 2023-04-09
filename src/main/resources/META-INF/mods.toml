@@ -62,13 +62,13 @@ side = "BOTH"
 [[dependencies.occultism]]
 modId = "smartbrainlib"
 mandatory = true
-versionRange="[1.8.1,)"
+versionRange="[1.9,)"
 side = "BOTH"
 
 [[dependencies.occultism]]
 modId = "almostunified"
 mandatory = false
-versionRange="[0.3.4,)"
+versionRange="[0.3.8,)"
 side = "BOTH"
 
 [[dependencies.occultism]]
@@ -81,5 +81,5 @@ side = "BOTH"
 [[dependencies.occultism]]
 modId = "forge"
 mandatory = true
-versionRange = "[1.19.4-45.0.1,)"
+versionRange = "[1.19.4-45.0.24,)"
 side = "BOTH"

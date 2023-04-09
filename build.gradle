@@ -136,6 +136,13 @@ repositories {
         }
     }
     maven {
+        name = "SBL Maven"
+        url "https://dl.cloudsmith.io/public/tslat/sbl/maven/"
+        content {
+            includeGroup "net.tslat.smartbrainlib"
+        }
+    }
+    maven {
         url "https://cursemaven.com"
         content {
             includeGroup "curse.maven"
@@ -165,15 +172,11 @@ dependencies {
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${geckolib_mc_version}:${geckolib_version}")
 
     //smartbrainlib
-    //TODO: Enable when updated
-//    implementation fg.deobf("curse.maven:smartbrainlib-661293:${smartbrainlib_file_id}-sources-${smartbrainlib_src_file_id}")
-    //temporary file-based maven with local compilation:
-    implementation fg.deobf("ignoredvalue:smartbrainlib:forge-1.19.4-1.8.1")
+    implementation fg.deobf("net.tslat.smartbrainlib:SmartBrainLib-forge-${smartbrainlib_mc_version}:${smartbrainlib_version}")
 
     //almostunified
-    //TODO: Enable when updated
-//    compileOnly fg.deobf("com.almostreliable.mods:almostunified-forge:${almostunified_version}")
-//    runtimeOnly fg.deobf("com.almostreliable.mods:almostunified-forge:${almostunified_version}")
+    compileOnly fg.deobf("com.almostreliable.mods:almostunified-forge:${almostunified_version}")
+    runtimeOnly fg.deobf("com.almostreliable.mods:almostunified-forge:${almostunified_version}")
 
     //modonomicon
     implementation fg.deobf("com.klikli_dev:modonomicon:${modonomicon_mc_version}-${modonomicon_version}") //we build against full jar because we NEED IT ALL
