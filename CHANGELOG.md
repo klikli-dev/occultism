@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.4-1.75.1] - 2023-04-26
+### :bug: Bug Fixes
+- [`79a8db0`](https://github.com/klikli-dev/occultism/commit/79a8db05d021356147cf9546254c0caaf3ba91a4) - mineshaft enchantement handling *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.4-1.75.0] - 2023-04-26
 ### :sparkles: New Features
 - [`ea2252c`](https://github.com/klikli-dev/occultism/commit/ea2252c51c369b72b245658a36c73754bc407690) - update to new DatapackBuiltinEntriesProvider *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -324,3 +329,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.3-1.73.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.3-1.72.1...release/v1.19.3-1.73.0
 [release/v1.19.4-1.74.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-0.0.0...release/v1.19.4-1.74.0
 [release/v1.19.4-1.75.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.74.0...release/v1.19.4-1.75.0
+[release/v1.19.4-1.75.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.75.0...release/v1.19.4-1.75.1
