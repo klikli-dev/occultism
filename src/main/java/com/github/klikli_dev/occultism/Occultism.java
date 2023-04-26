@@ -109,6 +109,7 @@ public class Occultism {
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.addListener(OccultismCapabilities::onPlayerClone);
+        MinecraftForge.EVENT_BUS.addListener(OccultismCapabilities::onJoinWorld);
 
         GeckoLib.initialize();
     }
