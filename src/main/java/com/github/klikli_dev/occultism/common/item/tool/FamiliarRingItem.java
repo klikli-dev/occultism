@@ -157,7 +157,7 @@ public class FamiliarRingItem extends Item {
         //if we have a familiar type, that means we got a ring from e.g. a loot table.
         //  it has no actual familiar nbt data, just the type to spawn, so we need to create a new familiar.
         // Test with: /give @p occultism:familiar_ring{familiarType:"occultism:greedy_familiar"}
-        if ( stack.getTag().contains("familiarType") && icurio instanceof Curio curio && server != null) {
+        if (stack.hasTag() && stack.getTag().contains("familiarType") && icurio instanceof Curio curio && server != null) {
             try {
                 EntityType<?> type = EntityType.byString(stack.getTag().getString("familiarType")).orElse(null);
                 if (type != null) {
