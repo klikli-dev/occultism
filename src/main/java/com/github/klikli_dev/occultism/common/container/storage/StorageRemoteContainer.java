@@ -122,6 +122,46 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     }
 
     @Override
+    protected void setupPlayerInventorySlots() {
+        int playerInventoryTop = 174;
+        int playerInventoryLeft = 8 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
+
+        for (int i = 0; i < 3; i++){
+            for (int j = 0; j < 9; j++){
+                if (j + i * 9 + 9 == this.selectedSlot) {
+                    this.addSlot(new Slot(this.playerInventory, j + i * 9 + 9, playerInventoryLeft + j * 18,
+                            playerInventoryTop + i * 18) {
+                        //region Overrides
+                        @Override
+                        public boolean mayPlace(ItemStack stack) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean hasItem() {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean mayPickup(Player playerIn) {
+                            return false;
+                        }
+                        //endregion Overrides
+
+                    });
+                } else {
+                    this.addSlot(new Slot(this.playerInventory, j + i * 9 + 9, playerInventoryLeft + j * 18,
+                            playerInventoryTop + i * 18));
+                }
+            }
+        }
+
+
+
+
+    }
+
+    @Override
     public boolean stillValid(Player entityPlayer) {
         IStorageController storageController = this.getStorageController();
 
