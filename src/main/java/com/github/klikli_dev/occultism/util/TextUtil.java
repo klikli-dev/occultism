@@ -23,11 +23,17 @@
 package com.github.klikli_dev.occultism.util;
 
 import com.github.klikli_dev.occultism.Occultism;
+import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.forgespi.language.IModInfo;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -58,6 +64,7 @@ public class TextUtil {
     private static final String[] SYLLABLE2 = {"air", "ir", "mi", "sor", "mee", "clo", "red", "cra", "ark", "arc", "miri", "lori", "cres", "mur", "zer", "marac", "zoir", "slamar", "salmar", "urak", "tim", "jor", "vyr", "dor", "thor", "kyl", "lyn", "wyn", "wynn", "lond", "rond", "vond", "dorn", "korn", "morn", "gorn", "thorn", "worn", "norn", "rinn", "dell", "bell", "vell", "fell", "kell", "zell", "nir", "fir", "mir", "tir", "sir", "vir", "zir", "lir", "jyr", "ryl", "rym", "lym", "lyn", "ryn", "myr", "myl", "myn", "ryn"};
     private static final String[] SYLLABLE3 = {"d", "ed", "ark", "arc", "es", "er", "der", "tron", "med", "ure", "zur", "cred", "mur", "aeus", "th", "vyr", "dor", "morn", "born", "thorn", "fyr", "lyr", "ryth", "ryn", "drin", "dryn", "kyr", "kyn", "lynd", "lind", "lyne", "line", "ryne", "rine", "thyr", "thyre", "vyn", "vin", "vyne", "vine", "rynne", "rinne", "syr", "syrn", "zirn", "zirne", "kyl", "kylle", "dor", "dorne", "lor", "lorne", "morn", "morne", "thorn", "thorne", "vyrn", "vyrne", "wyrm"};
     private static final Random random = new Random();
+
     private static boolean modNamesInitialized = false;
 
     public static void initializeModNames() {
@@ -115,6 +122,15 @@ public class TextUtil {
      */
     public static MutableComponent formatDemonName(MutableComponent name) {
         return name.withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD);
+    }
+
+    /**
+     * Formats the given spirit type name in a color based on the type.
+     */
+    public static MutableComponent formatDemonType(Component name, EntityType<?> type) {
+        var egg = ForgeSpawnEggItem.fromEntityType(type);
+        var color = egg != null ? egg.getColor(0) : 0xffffff;
+        return Component.empty().append(name).withStyle(style -> style.withColor(color));
     }
 
     /**

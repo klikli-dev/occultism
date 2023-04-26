@@ -27,6 +27,8 @@ import com.github.klikli_dev.occultism.common.entity.familiar.IFamiliar;
 import com.github.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.github.klikli_dev.occultism.util.ItemNBTUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -42,16 +44,18 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fml.loading.FMLLoader;
+import org.jetbrains.annotations.Nullable;
 import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Function;
 
@@ -61,20 +65,60 @@ public class FamiliarRingItem extends Item {
         super(properties);
     }
 
+    private static Curio getCurio(ItemStack stack) {
+        ICurio curio = stack.getCapability(CuriosCapability.ITEM).orElse(null);
+        if (curio != null && curio instanceof Curio)
+            return (Curio) curio;
+        return null;
+    }
+
+    public static IFamiliar getFamiliar(ItemStack stack, Level level) {
+        Curio curio = getCurio(stack);
+        return curio == null ? null : curio.getFamiliar(level);
+    }
+
+    @Override
+    public @Nullable CompoundTag getShareTag(ItemStack stack) {
+        var tag = super.getShareTag(stack);
+
+        if (tag != null) {
+            tag.put("familiar", getCurio(stack).serializeNBT());
+        }
+
+        return tag;
+    }
+
+    @Override
+    public void readShareTag(ItemStack stack, @Nullable CompoundTag nbt) {
+        super.readShareTag(stack, nbt);
+        if (nbt != null && nbt.contains("familiar")) {
+            getCurio(stack).deserializeNBT(nbt.getCompound("familiar"));
+        }
+    }
+
+    @Override
+    public boolean isFoil(ItemStack pStack) {
+        if (FMLLoader.getDist() == Dist.CLIENT)
+            return DistHelper.isFoil(pStack);
+        return false;
+    }
+
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
                                 TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        if (stack.getOrCreateTag().getBoolean("occupied"))
-            tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip",
-                    TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
+        if (stack.getOrCreateTag().getBoolean("occupied")) {
+            DistHelper.appendHoverText(stack, worldIn, tooltip, flagIn);
+        } else {
+            tooltip.add(Component.translatable(
+                    stack.getDescriptionId() + ".tooltip.empty"));
+        }
     }
 
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player playerIn, LivingEntity target,
                                                   InteractionHand hand) {
-        if (!playerIn.level.isClientSide && target instanceof IFamiliar) {
-            IFamiliar familiar = (IFamiliar) target;
+        if (!playerIn.level.isClientSide && target instanceof IFamiliar familiar) {
             if ((familiar.getFamiliarOwner() == playerIn || familiar.getFamiliarOwner() == null) && getCurio(stack).captureFamiliar(playerIn.level, familiar)) {
                 OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.CAPTURE);
                 CompoundTag tag = stack.getOrCreateTag();
@@ -100,21 +144,9 @@ public class FamiliarRingItem extends Item {
         return InteractionResult.CONSUME;
     }
 
-    private static Curio getCurio(ItemStack stack) {
-        ICurio curio = stack.getCapability(CuriosCapability.ITEM).orElse(null);
-        if (curio != null && curio instanceof Curio)
-            return (Curio) curio;
-        return null;
-    }
-
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundTag nbt) {
         return new Provider(stack);
-    }
-
-    public static IFamiliar getFamiliar(ItemStack stack, Level level) {
-        Curio curio = getCurio(stack);
-        return curio == null ? null : curio.getFamiliar(level);
     }
 
     private static class Curio implements ICurio, INBTSerializable<CompoundTag> {
@@ -254,4 +286,37 @@ public class FamiliarRingItem extends Item {
 
     }
 
+    public static class DistHelper {
+
+        public static void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
+                                           TooltipFlag flagIn) {
+            if (worldIn != null) {
+                var familiar = getFamiliar(stack, worldIn);
+                if (familiar != null) {
+                    var type = familiar.getFamiliarEntity().getType();
+                    tooltip.add(Component.translatable(
+                            stack.getDescriptionId() + ".tooltip",
+                            TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack)),
+                            Component.translatable(
+                                    stack.getDescriptionId() + ".tooltip.familiar_type",
+                                    TextUtil.formatDemonType(type.getDescription(), type)
+                            ).withStyle(ChatFormatting.ITALIC)
+                    ));
+                }
+            }
+        }
+
+        public static boolean isFoil(ItemStack pStack) {
+            var level = Minecraft.getInstance().level;
+            if (level == null)
+                return false;
+
+            var familiar = getFamiliar(pStack, level);
+            if (familiar != null) {
+                return familiar.isEffectEnabled(Minecraft.getInstance().player);
+            }
+            return false;
+        }
+
+    }
 }
