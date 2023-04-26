@@ -30,7 +30,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
 import static com.github.klikli_dev.occultism.util.StaticUtil.modLoc;
@@ -61,7 +61,7 @@ public class OccultismCapabilities {
         }
     }
 
-    public static void onJoinWorld(final EntityJoinLevelEvent event) {
+    public static void onJoinWorld(final EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
             FamiliarSettingsCapability.syncFor(player);
         }

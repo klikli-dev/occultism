@@ -32,6 +32,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -58,7 +59,6 @@ import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
-import java.awt.*;
 import java.util.List;
 import java.util.function.Function;
 
@@ -158,7 +158,7 @@ public class FamiliarRingItem extends Item {
         //if we have a familiar type, that means we got a ring from e.g. a loot table.
         //  it has no actual familiar nbt data, just the type to spawn, so we need to create a new familiar.
         // Test with: /give @p occultism:familiar_ring{familiarType:"occultism:greedy_familiar"}
-        if ( stack.getTag().contains("familiarType") && icurio instanceof Curio curio && server != null) {
+        if ( stack.getOrCreateTag().contains("familiarType") && icurio instanceof Curio curio && server != null) {
             try {
                 EntityType<?> type = EntityType.byString(stack.getTag().getString("familiarType")).orElse(null);
                 if (type != null) {
@@ -169,7 +169,7 @@ public class FamiliarRingItem extends Item {
                     if (familiar != null) {
                         curio.setFamiliar(familiar);
                         var name = ItemNBTUtil.getBoundSpiritName(stack);
-                        entity.setCustomName(Component.literal(name));
+                        entity.setCustomName(new TextComponent(name));
                         stack.getTag().putBoolean("occupied", true);
                     }
                 }

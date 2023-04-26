@@ -28,6 +28,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextColor;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -130,7 +131,7 @@ public class TextUtil {
     public static MutableComponent formatDemonType(Component name, EntityType<?> type) {
         var egg = ForgeSpawnEggItem.fromEntityType(type);
         var color = egg != null ? egg.getColor(0) : 0xffffff;
-        return Component.EMPTY.append(name).withStyle(style -> style.withColor(color));
+        return new TextComponent("").append(name).withStyle(style -> style.withColor(color));
     }
 
     /**

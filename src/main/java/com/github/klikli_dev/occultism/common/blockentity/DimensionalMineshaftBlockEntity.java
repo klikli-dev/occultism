@@ -43,7 +43,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.FakePlayerFactory;
@@ -54,6 +54,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -188,10 +189,11 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             ItemStack input = inputHandler.getStackInSlot(0);
 
             //handle unusing enchantment from evilcraft, see https://github.com/klikli-dev/occultism/issues/909
-            if(input.getMaxDamage() - input.getDamageValue() < 6 &&
-                    input.isEnchanted() && input.getEnchantmentLevel(ForgeRegistries.ENCHANTMENTS.getValue(EVILCRAFT_UNUSING_ENCHANTEMENT)) > 0){
-               this.miningTime = 0;
-               return;
+            if (input.getMaxDamage() - input.getDamageValue() < 6 &&
+                    ForgeRegistries.ENCHANTMENTS.containsKey(EVILCRAFT_UNUSING_ENCHANTEMENT) &&
+                    input.isEnchanted() && EnchantmentHelper.getItemEnchantmentLevel(ForgeRegistries.ENCHANTMENTS.getValue(EVILCRAFT_UNUSING_ENCHANTEMENT), input) > 0) {
+                this.miningTime = 0;
+                return;
             }
 
             boolean dirty = false;
