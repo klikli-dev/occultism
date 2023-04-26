@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.75.1] - 2023-04-26
+### :bug: Bug Fixes
+- [`6d555a2`](https://github.com/klikli-dev/occultism/commit/6d555a2aa2a4a547f456cb327eae451b3652a8f5) - mineshaft enchantement handling *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.75.0] - 2023-04-26
 ### :sparkles: New Features
 - [`4b419ec`](https://github.com/klikli-dev/occultism/commit/4b419ec2f136dc448b4049fd90152d895eed7803) - add sync of familiar settings to client *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -281,3 +286,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.73.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.73.1...release/v1.19.2-1.73.2
 [release/v1.19.2-1.74.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.73.2...release/v1.19.2-1.74.0
 [release/v1.19.2-1.75.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.74.0...release/v1.19.2-1.75.0
+[release/v1.19.2-1.75.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.75.0...release/v1.19.2-1.75.1
