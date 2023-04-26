@@ -33,6 +33,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.random.WeightedRandom;
 import net.minecraft.world.MenuProvider;
@@ -41,6 +42,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -63,6 +65,7 @@ import java.util.stream.Collectors;
 public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implements MenuProvider {
 
     //region Fields
+    public static final ResourceLocation EVILCRAFT_UNUSING_ENCHANTEMENT = new ResourceLocation("evilcraft:unusing");
     public static final String MAX_MINING_TIME_TAG = "maxMiningTime";
     public static final int DEFAULT_MAX_MINING_TIME = 400;
     public static int DEFAULT_ROLLS_PER_OPERATION = 1;
@@ -183,6 +186,13 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         if (!this.level.isClientSide) {
             IItemHandler inputHandler = this.inputHandler.orElseThrow(ItemHandlerMissingException::new);
             ItemStack input = inputHandler.getStackInSlot(0);
+
+            //handle unusing enchantment from evilcraft, see https://github.com/klikli-dev/occultism/issues/909
+            if(input.getMaxDamage() - input.getDamageValue() < 6 &&
+                    input.isEnchanted() && input.getEnchantmentLevel(ForgeRegistries.ENCHANTMENTS.getValue(EVILCRAFT_UNUSING_ENCHANTEMENT)) > 0){
+               this.miningTime = 0;
+               return;
+            }
 
             boolean dirty = false;
             if (this.miningTime > 0) {
