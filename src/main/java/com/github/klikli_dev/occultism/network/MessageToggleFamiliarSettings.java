@@ -52,7 +52,6 @@ public class MessageToggleFamiliarSettings extends MessageBase {
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
-
         player.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(cap -> {
             for (Entry<EntityType<?>, Boolean> toggle : this.familiarsPressed.entrySet()) {
                 if (toggle.getValue()) {
@@ -64,6 +63,7 @@ public class MessageToggleFamiliarSettings extends MessageBase {
                 }
             }
         });
+        FamiliarSettingsCapability.syncFor(player);
     }
 
     @Override

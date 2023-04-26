@@ -23,11 +23,14 @@
 package com.github.klikli_dev.occultism.common.capability;
 
 import com.github.klikli_dev.occultism.common.entity.familiar.IFamiliar;
+import com.github.klikli_dev.occultism.network.MessageSyncFamiliarSettings;
+import com.github.klikli_dev.occultism.network.OccultismPackets;
 import com.github.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
@@ -78,6 +81,12 @@ public class FamiliarSettingsCapability implements INBTSerializable<CompoundTag>
         return familiars;
     }
 
+    public static void syncFor(ServerPlayer player) {
+        player.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(capability -> {
+            capability.sync(player);
+        });
+    }
+
     /**
      * Clones the settings from an existing settings instance into this instance
      *
@@ -94,6 +103,10 @@ public class FamiliarSettingsCapability implements INBTSerializable<CompoundTag>
 
     public boolean isFamiliarEnabled(EntityType<?> familiar) {
         return this.familiarEnabled.get(familiar);
+    }
+
+    public void sync(ServerPlayer player) {
+        OccultismPackets.sendTo(player, new MessageSyncFamiliarSettings(this));
     }
 
     @Override
