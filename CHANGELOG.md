@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.18.2-1.75.1] - 2023-04-26
+### :sparkles: New Features
+- [`ffea8cc`](https://github.com/klikli-dev/occultism/commit/ffea8ccc4c6f978895b4f1499211d9ba575711e4) - add sync of familiar settings to client *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`40975b8`](https://github.com/klikli-dev/occultism/commit/40975b8d382b9f0fdaa9e8c795e2550c9bdf2e8c) - enable showing familiar type in familiar ring tooltip *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`5d647b7`](https://github.com/klikli-dev/occultism/commit/5d647b77e70cc30ea748dc9f89d06f7d162661a2) - enable familiar rings to auto-initialize when spawned from nbt *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`603f1be`](https://github.com/klikli-dev/occultism/commit/603f1be38bed51c8c1f08b598ca6d7042b3ceb21) - handle unusing enchantment from evilcraft in mineshaft *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`fbbe0a6`](https://github.com/klikli-dev/occultism/commit/fbbe0a6fc11f1fd1bf6126ed4729c57c66712323) - storage remote slot setup *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`c54f892`](https://github.com/klikli-dev/occultism/commit/c54f892d7c853ddcb1e465243fda0a819cd668bd) - backport errors *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`bbae8a8`](https://github.com/klikli-dev/occultism/commit/bbae8a8494bbd64bb2a11302a583a646bf1ab754) - setup use of JBR for better hotswap *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.18.2-1.74.0] - 2023-04-09
 ### :sparkles: New Features
 - [`5a5ef0c`](https://github.com/klikli-dev/occultism/commit/5a5ef0c7afcafeebaa02ade6043de6fdd66cc89a) - update to latest modonomicon & update datagen accordingly *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -249,3 +264,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.18.2-1.73.1]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.73.0...release/v1.18.2-1.73.1
 [release/v1.18.2-1.73.2]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.73.1...release/v1.18.2-1.73.2
 [release/v1.18.2-1.74.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.73.2...release/v1.18.2-1.74.0
+[release/v1.18.2-1.75.1]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.74.0...release/v1.18.2-1.75.1
