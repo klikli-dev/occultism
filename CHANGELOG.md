@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.75.0] - 2023-04-26
+### :sparkles: New Features
+- [`4b419ec`](https://github.com/klikli-dev/occultism/commit/4b419ec2f136dc448b4049fd90152d895eed7803) - add sync of familiar settings to client *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`9134485`](https://github.com/klikli-dev/occultism/commit/9134485b1b34e48de2dc58c068d6dd14ed8833fd) - enable showing familiar type in familiar ring tooltip *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`924c5be`](https://github.com/klikli-dev/occultism/commit/924c5beaaf3faba45d45b8bc1e8786db7ad771a8) - enable familiar rings to auto-initialize when spawned from nbt *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`0d7950f`](https://github.com/klikli-dev/occultism/commit/0d7950f340e3b8723ec6e35c1eb76e180f5939f9) - handle unusing enchantment from evilcraft in mineshaft *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`09e92dd`](https://github.com/klikli-dev/occultism/commit/09e92dd467f744dc65738ae14c4872a0c52f4d40) - storage remote slot setup *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`893fb7d`](https://github.com/klikli-dev/occultism/commit/893fb7d23fde300ee11e8bb5dc49bb422c62dec7) - setup use of JBR for better hotswap *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.74.0] - 2023-04-09
 ### :sparkles: New Features
 - [`1a6c34e`](https://github.com/klikli-dev/occultism/commit/1a6c34e1855acab168ee4bb81df9b97966c35c06) - update to latest modonomicon & update datagen accordingly *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -266,3 +280,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.73.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.73.0...release/v1.19.2-1.73.1
 [release/v1.19.2-1.73.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.73.1...release/v1.19.2-1.73.2
 [release/v1.19.2-1.74.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.73.2...release/v1.19.2-1.74.0
+[release/v1.19.2-1.75.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.74.0...release/v1.19.2-1.75.0
