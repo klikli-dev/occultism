@@ -51,11 +51,13 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.loading.FMLLoader;
+import net.minecraftforge.server.ServerLifecycleHooks;
 import org.jetbrains.annotations.Nullable;
 import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
+import java.awt.*;
 import java.util.List;
 import java.util.function.Function;
 
@@ -146,7 +148,38 @@ public class FamiliarRingItem extends Item {
 
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundTag nbt) {
-        return new Provider(stack);
+
+        var provider = new Provider(stack);
+
+        var server = ServerLifecycleHooks.getCurrentServer();
+        var icurio = provider.getCapability(CuriosCapability.ITEM).orElse(null);
+
+        //if we have a familiar type, that means we got a ring from e.g. a loot table.
+        //  it has no actual familiar nbt data, just the type to spawn, so we need to create a new familiar.
+        // Test with: /give @p occultism:familiar_ring{familiarType:"occultism:greedy_familiar"}
+        if ( stack.getTag().contains("familiarType") && icurio instanceof Curio curio && server != null) {
+            try {
+                EntityType<?> type = EntityType.byString(stack.getTag().getString("familiarType")).orElse(null);
+                if (type != null) {
+
+                    var level = ServerLifecycleHooks.getCurrentServer().getLevel(Level.OVERWORLD);
+                    var entity = type.create(level);
+                    var familiar = (IFamiliar) entity;
+                    if (familiar != null) {
+                        curio.setFamiliar(familiar);
+                        var name = ItemNBTUtil.getBoundSpiritName(stack);
+                        entity.setCustomName(Component.literal(name));
+                        stack.getTag().putBoolean("occupied", true);
+                    }
+                }
+                stack.getTag().remove("familiarType");
+            } catch (Exception e) {
+                //we're brutally ignoring it. if it fails, it fails.
+                //this is just in case we do not have a server/level.
+            }
+        }
+
+        return provider;
     }
 
     private static class Curio implements ICurio, INBTSerializable<CompoundTag> {

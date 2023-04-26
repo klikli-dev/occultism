@@ -100,7 +100,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add("item.occultism.book_of_calling_djinni" + ".tooltip_dead", "%s has left this plane of existence.");
         this.add("item.occultism.book_of_calling_djinni" + ".tooltip.extract", "Extracts from: %s.");
         this.add("item.occultism.book_of_calling_djinni" + ".tooltip.deposit", "Deposits to: % s");
-        this.add(OccultismItems.FAMILIAR_RING.get().getDescriptionId() + ".tooltip", "Occupied by the familiar %s %s");
+        this.add(OccultismItems.FAMILIAR_RING.get().getDescriptionId() + ".tooltip", "Occupied by the familiar %s\n%s");
         this.add(OccultismItems.FAMILIAR_RING.get().getDescriptionId() + ".tooltip.familiar_type", "[Type: %s]");
         this.add(OccultismItems.FAMILIAR_RING.get().getDescriptionId() + ".tooltip.empty", "Does not contain any familiar.");
 
