@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.4-1.77] - 2023-04-27
+### :sparkles: New Features
+- [`2b89655`](https://github.com/klikli-dev/occultism/commit/2b89655a110ab0b4a6a092fbc45c575752f6a4e3) - add default crushing recipes for various modded metals *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.4-1.76] - 2023-04-27
 ### :sparkles: New Features
 - [`254dbe9`](https://github.com/klikli-dev/occultism/commit/254dbe97e56dfcb50e6f7ad76c8fc185be02fce6) - add forbidden arcanus ores to miner *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -348,3 +353,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.4-1.75.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.75.1...release/v1.19.4-1.75.2
 [release/v1.19.4-1.75.3]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.75.2...release/v1.19.4-1.75.3
 [release/v1.19.4-1.76]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.75.3...release/v1.19.4-1.76
+[release/v1.19.4-1.77]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.76...release/v1.19.4-1.77
