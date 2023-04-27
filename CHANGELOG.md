@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.4-1.75.3] - 2023-04-27
+### :bug: Bug Fixes
+- [`e7f4e3c`](https://github.com/klikli-dev/occultism/commit/e7f4e3c71d873cbf66315c11e0feccdea48366c5) - familiar ring initialization from familiarType nbt *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.4-1.75.2] - 2023-04-26
 ### :bug: Bug Fixes
 - [`35e767f`](https://github.com/klikli-dev/occultism/commit/35e767fe65bcae4ada1a2798497cd240f7fb0ec7) - crash on familiar ring with no nbt *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -336,3 +341,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.4-1.75.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.74.0...release/v1.19.4-1.75.0
 [release/v1.19.4-1.75.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.75.0...release/v1.19.4-1.75.1
 [release/v1.19.4-1.75.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.75.1...release/v1.19.4-1.75.2
+[release/v1.19.4-1.75.3]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.75.2...release/v1.19.4-1.75.3
