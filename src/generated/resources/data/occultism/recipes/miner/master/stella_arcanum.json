@@ -1,0 +1,19 @@
+{
+  "type": "occultism:miner",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/stella_arcanum"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "occultism:miners/master"
+  },
+  "result": {
+    "tag": "forge:ores/stella_arcanum"
+  },
+  "weight": 100
+}

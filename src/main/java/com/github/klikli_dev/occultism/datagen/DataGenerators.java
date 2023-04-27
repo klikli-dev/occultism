@@ -74,6 +74,7 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new PentacleProvider(generator));
         generator.addProvider(event.includeServer(), new OccultismAdvancementProvider(generator));
         generator.addProvider(event.includeServer(), new CrushingRecipeProvider(generator));
+        generator.addProvider(event.includeServer(), new MinerRecipeProvider(generator));
 
 
         generator.addProvider(event.includeClient(), new ItemModelsGenerator(generator, event.getExistingFileHelper()));
