@@ -69,9 +69,14 @@ public class FamiliarRingItem extends Item {
     }
 
     private static Curio getCurio(ItemStack stack) {
-        ICurio curio = stack.getCapability(CuriosCapability.ITEM).orElse(null);
-        if (curio != null && curio instanceof Curio)
-            return (Curio) curio;
+        ICurio icurio = stack.getCapability(CuriosCapability.ITEM).orElse(null);
+        if (icurio != null && icurio instanceof Curio curio){
+            if (stack.getTag() != null && stack.getTag().contains("familiar")) {
+                curio.deserializeNBT(stack.getTag().getCompound("familiar"));
+                stack.getTag().remove("familiar");
+            }
+            return curio;
+        }
         return null;
     }
 
@@ -84,7 +89,7 @@ public class FamiliarRingItem extends Item {
     public @Nullable CompoundTag getShareTag(ItemStack stack) {
         var tag = super.getShareTag(stack);
 
-        if (tag != null) {
+        if (tag != null && !tag.contains("familiar")) {
             tag.put("familiar", getCurio(stack).serializeNBT());
         }
 
@@ -94,9 +99,7 @@ public class FamiliarRingItem extends Item {
     @Override
     public void readShareTag(ItemStack stack, @Nullable CompoundTag nbt) {
         super.readShareTag(stack, nbt);
-        if (nbt != null && nbt.contains("familiar")) {
-            getCurio(stack).deserializeNBT(nbt.getCompound("familiar"));
-        }
+        getCurio(stack); //this forces deserialization of the familiar nbt in case it was not deserialized yet.
     }
 
     @Override
@@ -148,12 +151,26 @@ public class FamiliarRingItem extends Item {
     }
 
     @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, CompoundTag nbt) {
+    public void verifyTagAfterLoad(CompoundTag pCompoundTag) {
+        super.verifyTagAfterLoad(pCompoundTag);
 
-        var provider = new Provider(stack);
+        if(pCompoundTag.contains("forHandleFamiliarTypeTag")){
+            return; //avoid recursion via handleFamiliarTypeTag
+        }
+
+        this.handleFamiliarTypeTag(pCompoundTag);
+    }
+
+    public void handleFamiliarTypeTag(CompoundTag tag){
+        //we create an item stack to be able to modify the tag & access the capabilities.
+        //that stack will not be put anywhere
+        var stack = new ItemStack(this);
+        tag.putBoolean("forHandleFamiliarTypeTag", true);
+        stack.setTag(tag); //avoid recursion via verifyTagAfterLoad.
+        tag.remove("forHandleFamiliarTypeTag");
 
         var server = ServerLifecycleHooks.getCurrentServer();
-        var icurio = provider.getCapability(CuriosCapability.ITEM).orElse(null);
+        var icurio = stack.getCapability(CuriosCapability.ITEM).orElse(null);
 
         //if we have a familiar type, that means we got a ring from e.g. a loot table.
         //  it has no actual familiar nbt data, just the type to spawn, so we need to create a new familiar.
@@ -162,7 +179,6 @@ public class FamiliarRingItem extends Item {
             try {
                 EntityType<?> type = EntityType.byString(stack.getTag().getString("familiarType")).orElse(null);
                 if (type != null) {
-
                     var level = ServerLifecycleHooks.getCurrentServer().getLevel(Level.OVERWORLD);
                     var entity = type.create(level);
                     var familiar = (IFamiliar) entity;
@@ -171,16 +187,22 @@ public class FamiliarRingItem extends Item {
                         var name = ItemNBTUtil.getBoundSpiritName(stack);
                         entity.setCustomName(new TextComponent(name));
                         stack.getTag().putBoolean("occupied", true);
+                        //now we also need to create the "familiar" nbt tag
+                        stack.getTag().put("familiar", curio.serializeNBT());
                     }
                 }
+
                 stack.getTag().remove("familiarType");
             } catch (Exception e) {
                 //we're brutally ignoring it. if it fails, it fails.
                 //this is just in case we do not have a server/level.
             }
         }
+    }
 
-        return provider;
+    @Override
+    public ICapabilityProvider initCapabilities(ItemStack stack, CompoundTag nbt) {
+        return new Provider(stack);
     }
 
     private static class Curio implements ICurio, INBTSerializable<CompoundTag> {
@@ -330,12 +352,12 @@ public class FamiliarRingItem extends Item {
                     var type = familiar.getFamiliarEntity().getType();
                     tooltip.add(new TranslatableComponent(
                             stack.getDescriptionId() + ".tooltip",
-                            TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack)),
-                            new TranslatableComponent(
-                                    stack.getDescriptionId() + ".tooltip.familiar_type",
-                                    TextUtil.formatDemonType(type.getDescription(), type)
-                            ).withStyle(ChatFormatting.ITALIC)
+                            TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))
                     ));
+                    tooltip.add( new TranslatableComponent(
+                            stack.getDescriptionId() + ".tooltip.familiar_type",
+                            TextUtil.formatDemonType(type.getDescription(), type)
+                    ).withStyle(ChatFormatting.ITALIC));
                 }
             }
         }
