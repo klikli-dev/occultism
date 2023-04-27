@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.77.2] - 2023-04-27
+### :bug: Bug Fixes
+- [`6db616c`](https://github.com/klikli-dev/occultism/commit/6db616c35ac6efd26884e60d65b85be0dc99964d) - familiar ring name initialization *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.77.1] - 2023-04-27
 ### :bug: Bug Fixes
 - [`087a8f9`](https://github.com/klikli-dev/occultism/commit/087a8f9546095de9525a96e8338cd00ca713e201) - newline for familiar ring description *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -317,3 +322,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.76]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.75.3...release/v1.19.2-1.76
 [release/v1.19.2-1.77]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.76...release/v1.19.2-1.77
 [release/v1.19.2-1.77.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.77...release/v1.19.2-1.77.1
+[release/v1.19.2-1.77.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.77.1...release/v1.19.2-1.77.2
