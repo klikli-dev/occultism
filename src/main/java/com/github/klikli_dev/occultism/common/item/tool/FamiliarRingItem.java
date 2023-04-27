@@ -95,6 +95,14 @@ public class FamiliarRingItem extends Item {
     }
 
     @Override
+    public int getMaxStackSize(ItemStack stack) {
+        //force generation of a name if it does not exist yet.
+        //this might get around loot tables caching the stack
+        ItemNBTUtil.getBoundSpiritName(stack);
+        return super.getMaxStackSize(stack);
+    }
+
+    @Override
     public void readShareTag(ItemStack stack, @Nullable CompoundTag nbt) {
         super.readShareTag(stack, nbt);
         getCurio(stack); //this forces deserialization of the familiar nbt in case it was not deserialized yet.
@@ -182,8 +190,7 @@ public class FamiliarRingItem extends Item {
                     var familiar = (IFamiliar) entity;
                     if (familiar != null) {
                         curio.setFamiliar(familiar);
-                        var name = ItemNBTUtil.getBoundSpiritName(stack);
-                        entity.setCustomName(Component.literal(name));
+
                         stack.getTag().putBoolean("occupied", true);
                         //now we also need to create the "familiar" nbt tag
                         stack.getTag().put("familiar", curio.serializeNBT());
@@ -232,6 +239,10 @@ public class FamiliarRingItem extends Item {
                     e.setPos(player.getX(), player.getY(), player.getZ());
                     //on release overwrite owner -> familiar rings can be used to trade familiars.
                     ((IFamiliar) e).setFamiliarOwner(player);
+
+                    var name = ItemNBTUtil.getBoundSpiritName(stack);
+                    e.setCustomName(Component.literal(name)); //set the name from the ring. the reverse happens when ring is used on entity.
+
                     level.addFreshEntity(e);
                     return e;
                 });
