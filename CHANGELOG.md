@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.18.2-1.76] - 2023-04-27
+### :sparkles: New Features
+- [`34dca75`](https://github.com/klikli-dev/occultism/commit/34dca757356f85fc64d40ff629cd8ee469a8fe41) - add forbidden arcanus ores to miner *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.18.2-1.75.3] - 2023-04-27
 ### :bug: Bug Fixes
 - [`4f2de03`](https://github.com/klikli-dev/occultism/commit/4f2de03efbe221ed5163396b4c58a229a86d8971) - familiar ring initialization from familiarType nbt *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -274,3 +279,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.18.2-1.74.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.73.2...release/v1.18.2-1.74.0
 [release/v1.18.2-1.75.1]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.74.0...release/v1.18.2-1.75.1
 [release/v1.18.2-1.75.3]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.75.1...release/v1.18.2-1.75.3
+[release/v1.18.2-1.76]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.75.3...release/v1.18.2-1.76
