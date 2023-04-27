@@ -1,0 +1,28 @@
+{
+  "type": "occultism:crushing",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/platinum"
+      }
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:dusts/platinum"
+      }
+    }
+  ],
+  "crushing_time": 200,
+  "ignore_crushing_multiplier": true,
+  "ingredient": {
+    "tag": "forge:ingots/platinum"
+  },
+  "result": {
+    "count": 1,
+    "tag": "forge:dusts/platinum"
+  }
+}

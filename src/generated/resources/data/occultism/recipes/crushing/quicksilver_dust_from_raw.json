@@ -1,0 +1,28 @@
+{
+  "type": "occultism:crushing",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:raw_materials/quicksilver"
+      }
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:dusts/quicksilver"
+      }
+    }
+  ],
+  "crushing_time": 200,
+  "ignore_crushing_multiplier": false,
+  "ingredient": {
+    "tag": "forge:raw_materials/quicksilver"
+  },
+  "result": {
+    "count": 2,
+    "tag": "forge:dusts/quicksilver"
+  }
+}

@@ -1,10 +1,8 @@
 # Crushing Recipes
 
-Ritual recipes are currently only *halfway* configurable, if "static" properties are modified this will only affect the
-information displayed in JEI, but not the actual crafting recipe.
+Crushing recipes are mostly created via Datagen in CrushingRecipeProvider.
 
-Fully configurable recipes are something I'd like to do, but due to the complex options this is almost a mod in itself,
-and thus shelved until further notice.
+They support "tag" outputs instead of "item" too, and use AlmostUnified (if present) to determine which item to output. Without AU present, the first item in the tag is used.
 
 ## Properties
 
