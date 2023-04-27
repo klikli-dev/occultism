@@ -40,6 +40,7 @@ public class DataGenerators {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
+  
 
         var enUSProvider = new ENUSProvider(generator);
 
@@ -48,6 +49,7 @@ public class DataGenerators {
             generator.addProvider(new PentacleProvider(generator));
             generator.addProvider(new OccultismAdvancementProvider(generator));
             generator.addProvider(new CrushingRecipeProvider(generator));
+            generator.addProvider(new MinerRecipeProvider(generator));
             generator.addProvider(new OccultismBookProvider(generator, Occultism.MODID, enUSProvider));
         }
         if (event.includeClient()) {
