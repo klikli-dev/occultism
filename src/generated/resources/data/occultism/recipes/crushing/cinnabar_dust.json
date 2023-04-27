@@ -1,0 +1,28 @@
+{
+  "type": "occultism:crushing",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/cinnabar"
+      }
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:dusts/cinnabar"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ores/cinnabar"
+  },
+  "result": {
+    "tag": "forge:dusts/cinnabar",
+    "count": 2
+  },
+  "crushing_time": 200,
+  "ignore_crushing_multiplier": false
+}

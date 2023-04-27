@@ -1,0 +1,28 @@
+{
+  "type": "occultism:crushing",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/lumium"
+      }
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:dusts/lumium"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ingots/lumium"
+  },
+  "result": {
+    "tag": "forge:dusts/lumium",
+    "count": 1
+  },
+  "crushing_time": 200,
+  "ignore_crushing_multiplier": true
+}

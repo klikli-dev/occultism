@@ -1,0 +1,28 @@
+{
+  "type": "occultism:crushing",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/signalum"
+      }
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:dusts/signalum"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ingots/signalum"
+  },
+  "result": {
+    "tag": "forge:dusts/signalum",
+    "count": 1
+  },
+  "crushing_time": 200,
+  "ignore_crushing_multiplier": true
+}

@@ -1,0 +1,28 @@
+{
+  "type": "occultism:crushing",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/pewter"
+      }
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:dusts/pewter"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ingots/pewter"
+  },
+  "result": {
+    "tag": "forge:dusts/pewter",
+    "count": 1
+  },
+  "crushing_time": 200,
+  "ignore_crushing_multiplier": true
+}

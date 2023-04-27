@@ -1,0 +1,28 @@
+{
+  "type": "occultism:crushing",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/steel"
+      }
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:dusts/steel"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ingots/steel"
+  },
+  "result": {
+    "tag": "forge:dusts/steel",
+    "count": 1
+  },
+  "crushing_time": 200,
+  "ignore_crushing_multiplier": true
+}
