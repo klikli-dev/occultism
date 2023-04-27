@@ -892,7 +892,7 @@
   "item.occultism.divination_rod.tooltip.linked_block": "Attuned to %s.",
   "item.occultism.divination_rod.tooltip.no_linked_block": "Not attuned to any material.",
   "item.occultism.familiar_ring": "Familiar Ring",
-  "item.occultism.familiar_ring.tooltip": "Occupied by the familiar %s\n%s",
+  "item.occultism.familiar_ring.tooltip": "Occupied by the familiar %s",
   "item.occultism.familiar_ring.tooltip.empty": "Does not contain any familiar.",
   "item.occultism.familiar_ring.tooltip.familiar_type": "[Type: %s]",
   "item.occultism.gold_dust": "Gold Dust",

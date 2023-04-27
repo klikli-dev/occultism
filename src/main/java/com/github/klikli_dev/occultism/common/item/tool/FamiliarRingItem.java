@@ -350,12 +350,12 @@ public class FamiliarRingItem extends Item {
                     var type = familiar.getFamiliarEntity().getType();
                     tooltip.add(Component.translatable(
                             stack.getDescriptionId() + ".tooltip",
-                            TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack)),
-                            Component.translatable(
-                                    stack.getDescriptionId() + ".tooltip.familiar_type",
-                                    TextUtil.formatDemonType(type.getDescription(), type)
-                            ).withStyle(ChatFormatting.ITALIC)
+                            TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))
                     ));
+                    tooltip.add( Component.translatable(
+                            stack.getDescriptionId() + ".tooltip.familiar_type",
+                            TextUtil.formatDemonType(type.getDescription(), type)
+                    ).withStyle(ChatFormatting.ITALIC));
                 }
             }
         }
