@@ -1,0 +1,28 @@
+{
+  "type": "occultism:crushing",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/lead"
+      }
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:dusts/lead"
+      }
+    }
+  ],
+  "crushing_time": 200,
+  "ignore_crushing_multiplier": true,
+  "ingredient": {
+    "tag": "forge:ingots/lead"
+  },
+  "result": {
+    "count": 1,
+    "tag": "forge:dusts/lead"
+  }
+}

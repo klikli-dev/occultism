@@ -1,0 +1,28 @@
+{
+  "type": "occultism:crushing",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/invar"
+      }
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:dusts/invar"
+      }
+    }
+  ],
+  "crushing_time": 200,
+  "ignore_crushing_multiplier": true,
+  "ingredient": {
+    "tag": "forge:ingots/invar"
+  },
+  "result": {
+    "count": 1,
+    "tag": "forge:dusts/invar"
+  }
+}

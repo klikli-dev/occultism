@@ -1,0 +1,28 @@
+{
+  "type": "occultism:crushing",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/iesnium"
+      }
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:dusts/iesnium"
+      }
+    }
+  ],
+  "crushing_time": 200,
+  "ignore_crushing_multiplier": true,
+  "ingredient": {
+    "tag": "forge:ingots/iesnium"
+  },
+  "result": {
+    "count": 1,
+    "tag": "forge:dusts/iesnium"
+  }
+}

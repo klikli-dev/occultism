@@ -1,0 +1,28 @@
+{
+  "type": "occultism:crushing",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/enderium"
+      }
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:dusts/enderium"
+      }
+    }
+  ],
+  "crushing_time": 200,
+  "ignore_crushing_multiplier": true,
+  "ingredient": {
+    "tag": "forge:ingots/enderium"
+  },
+  "result": {
+    "count": 1,
+    "tag": "forge:dusts/enderium"
+  }
+}

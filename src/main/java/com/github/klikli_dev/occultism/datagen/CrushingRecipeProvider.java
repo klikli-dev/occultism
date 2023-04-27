@@ -66,6 +66,65 @@ public class CrushingRecipeProvider implements DataProvider {
 
     protected void buildRecipes(Consumer<Pair<ResourceLocation, JsonObject>> recipeConsumer) {
         this.buildCrushingRecipesForMetal("aluminum", recipeConsumer);
+        this.buildCrushingRecipesForMetal("signalum", recipeConsumer);
+        this.buildCrushingRecipesForMetal("uranium", recipeConsumer);
+        this.buildCrushingRecipesForMetal("graphite", recipeConsumer);
+        this.buildCrushingRecipesForMetal("azure_silver", recipeConsumer);
+        this.buildCrushingRecipesForMetal("zinc", recipeConsumer);
+        this.buildCrushingRecipesForMetal("lumium", recipeConsumer);
+        this.buildCrushingRecipesForMetal("osmium", recipeConsumer);
+        this.buildCrushingRecipesForMetal("nickel", recipeConsumer);
+        this.buildCrushingRecipesForMetal("lead", recipeConsumer);
+        this.buildCrushingRecipesForMetal("allthemodium", recipeConsumer);
+        this.buildCrushingRecipesForMetal("bronze", recipeConsumer);
+        this.buildCrushingRecipesForMetal("cobalt", recipeConsumer);
+        this.buildCrushingRecipesForMetal("unobtainium", recipeConsumer);
+        this.buildCrushingRecipesForMetal("tungsten", recipeConsumer);
+        this.buildCrushingRecipesForMetal("iridium", recipeConsumer);
+        this.buildCrushingRecipesForMetal("steel", recipeConsumer);
+        this.buildCrushingRecipesForMetal("enderium", recipeConsumer);
+        this.buildCrushingRecipesForMetal("electrum", recipeConsumer);
+        this.buildCrushingRecipesForMetal("constantan", recipeConsumer);
+        this.buildCrushingRecipesForMetal("tin", recipeConsumer);
+        this.buildCrushingRecipesForMetal("netherite", recipeConsumer);
+        this.buildCrushingRecipesForMetal("brass", recipeConsumer);
+        this.buildCrushingRecipesForMetal("crimson_iron", recipeConsumer);
+        this.buildCrushingRecipesForMetal("platinum", recipeConsumer);
+        this.buildCrushingRecipesForMetal("invar", recipeConsumer);
+        this.buildCrushingRecipesForMetal("vibranium", recipeConsumer);
+        this.buildCrushingRecipesForMetal("silver", recipeConsumer);
+        this.buildCrushingRecipesForMetal("copper", recipeConsumer);
+        this.buildCrushingRecipesForMetal("pewter", recipeConsumer);
+        this.buildCrushingRecipesForMetal("mithril", recipeConsumer);
+        this.buildCrushingRecipesForMetal("gold", recipeConsumer);
+        this.buildCrushingRecipesForMetal("quicksilver", recipeConsumer);
+        this.buildCrushingRecipesForMetal("iron", recipeConsumer);
+        this.buildCrushingRecipesForMetal("iesnium", recipeConsumer);
+
+
+        this.buildCrushingRecipeForGem("diamond", recipeConsumer);
+        this.buildCrushingRecipeForGem("emerald", recipeConsumer);
+        this.buildCrushingRecipeForGem("lapis", recipeConsumer);
+        this.buildCrushingRecipeForGem("quartz", recipeConsumer);
+        this.buildCrushingRecipeForGem("coal", recipeConsumer);
+        this.buildCrushingRecipeForGem("redstone", recipeConsumer);
+        this.buildCrushingRecipeForGem("apatite", recipeConsumer);
+        this.buildCrushingRecipeForGem("sulfur", recipeConsumer);
+        this.buildCrushingRecipeForGem("fluorite", recipeConsumer);
+        this.buildCrushingRecipeForGem("cinnabar", recipeConsumer);
+        this.buildCrushingRecipeForGem("amber", recipeConsumer);
+        this.buildCrushingRecipeForGem("certus_quartz", recipeConsumer);
+        this.buildCrushingRecipeForGem("charged_certus_quartz", recipeConsumer);
+        this.buildCrushingRecipeForGem("peridot", recipeConsumer);
+        this.buildCrushingRecipeForGem("ruby", recipeConsumer);
+        this.buildCrushingRecipeForGem("sapphire", recipeConsumer);
+        this.buildCrushingRecipeForGem("topaz", recipeConsumer);
+    }
+
+    protected void buildCrushingRecipeForGem(String gem, Consumer<Pair<ResourceLocation, JsonObject>> recipeConsumer) {
+        var gemDustId = new ResourceLocation(Occultism.MODID, gem + "_dust");
+        var gemDustRecipe = this.buildCrushingRecipe("forge:ores/" + gem, "forge:dusts/" + gem, 2, 200, false);
+        recipeConsumer.accept(new Pair<>(gemDustId, gemDustRecipe));
     }
 
     protected void buildCrushingRecipesForMetal(String metal, Consumer<Pair<ResourceLocation, JsonObject>> recipeConsumer) {
