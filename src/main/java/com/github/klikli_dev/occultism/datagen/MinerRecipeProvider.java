@@ -38,11 +38,11 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-public class CrushingRecipeProvider implements DataProvider {
+public class MinerRecipeProvider implements DataProvider {
     protected final PackOutput.PathProvider recipePathProvider;
 
-    public CrushingRecipeProvider(PackOutput packOutput) {
-        this.recipePathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "recipes/crushing");
+    public MinerRecipeProvider(PackOutput packOutput) {
+        this.recipePathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "recipes/miner");
     }
 
     public CompletableFuture<?> run(CachedOutput pOutput) {
@@ -58,55 +58,70 @@ public class CrushingRecipeProvider implements DataProvider {
         return CompletableFuture.allOf(list.toArray(CompletableFuture[]::new));
     }
 
-
-    protected void buildRecipes(Consumer<Pair<ResourceLocation, JsonObject>> recipeConsumer) {
-        this.buildCrushingRecipesForMetal("aluminum", recipeConsumer);
+    protected ResourceLocation modLoc(String path) {
+        return new ResourceLocation(Occultism.MODID, path);
     }
 
-    protected void buildCrushingRecipesForMetal(String metal, Consumer<Pair<ResourceLocation, JsonObject>> recipeConsumer) {
-        var metalDustRecipeId = new ResourceLocation(Occultism.MODID, metal + "_dust");
-        var metalDustRecipe = this.buildCrushingRecipe("forge:ores/" + metal, "forge:dusts/" + metal, 2, 200, false);
-        recipeConsumer.accept(new Pair<>(metalDustRecipeId, metalDustRecipe));
-
-        var metalDustFromRawRecipeId = new ResourceLocation(Occultism.MODID, metal + "_dust_from_raw");
-        var metalDustFromRawRecipe = this.buildCrushingRecipe("forge:raw_materials/" + metal, "forge:dusts/" + metal, 2, 200, false);
-        recipeConsumer.accept(new Pair<>(metalDustFromRawRecipeId, metalDustFromRawRecipe));
-
-        var metalDustFromIngotRecipeId = new ResourceLocation(Occultism.MODID, metal + "_dust_from_ingot");
-        var metalDustFromIngotRecipe = this.buildCrushingRecipe("forge:ingots/" + metal, "forge:dusts/" + metal, 1, 200, true);
-        recipeConsumer.accept(new Pair<>(metalDustFromIngotRecipeId, metalDustFromIngotRecipe));
+    protected ResourceLocation loc(String namespace, String path) {
+        return new ResourceLocation(namespace, path);
     }
 
-    public JsonObject buildCrushingRecipe(String inputTag, String outputTag, int count, int crushingTime, boolean ignoreCrushingMultiplier) {
+    protected void buildRecipes(Consumer<Pair<ResourceLocation, JsonObject>> recipes) {
+        this.buildForbiddenArcanusRecipes(recipes);
+    }
+
+    protected void buildForbiddenArcanusRecipes(Consumer<Pair<ResourceLocation, JsonObject>> recipes) {
+        recipes.accept(this.buildMinerRecipe(
+                this.modLoc("deeps/deepslate_arcane_crystal"),
+                this.modLoc("miners/deeps"),
+                this.loc("forge", "ores/arcane_crystal"),
+                200));
+
+        recipes.accept(this.buildMinerRecipe(
+                this.modLoc("master/stella_arcanum"),
+                this.modLoc("miners/master"),
+                this.loc("forge", "ores/stella_arcanum"),
+                100));
+
+        recipes.accept(this.buildMinerRecipe(
+                this.modLoc("ores/arcane_crystal"),
+                this.modLoc("miners/ores"),
+                this.loc("forge", "ores/arcane_crystal"),
+                200));
+
+        recipes.accept(this.buildMinerRecipe(
+                this.modLoc("ores/xpetrified"),
+                this.modLoc("miners/ores"),
+                this.loc("forge", "ores/xpetrified_ore"),
+                200));
+    }
+
+    protected Pair<ResourceLocation, JsonObject> buildMinerRecipe(ResourceLocation name, ResourceLocation minerTag, ResourceLocation outputTag, int weight) {
+        var recipe = this.buildMinerRecipeJson(minerTag.toString(), outputTag.toString(), weight);
+        return new Pair<>(name, recipe);
+    }
+
+    public JsonObject buildMinerRecipeJson(String minerTag, String outputTag, int weight) {
         var recipe = new JsonObject();
-        recipe.addProperty("type", "occultism:crushing");
-        var conditions = this.buildCrushingCondition(inputTag, outputTag);
+        recipe.addProperty("type", "occultism:miner");
+        var conditions = this.buildMinerRecipeConditionJson(outputTag);
         recipe.add("conditions", conditions);
         var ingredient = new JsonObject();
-        ingredient.addProperty("tag", inputTag);
+        ingredient.addProperty("tag", minerTag);
         recipe.add("ingredient", ingredient);
         var result = new JsonObject();
         result.addProperty("tag", outputTag);
-        result.addProperty("count", count);
         recipe.add("result", result);
-        recipe.addProperty("crushing_time", crushingTime);
-        recipe.addProperty("ignore_crushing_multiplier", ignoreCrushingMultiplier);
+        recipe.addProperty("weight", weight);
         return recipe;
     }
 
-    public JsonArray buildCrushingCondition(String inputTag, String outputTag) {
+    public JsonArray buildMinerRecipeConditionJson(String outputTag) {
         var conditions = new JsonArray();
-        //multiple conditions on the root level array are treated as AND by forge
+        //multiple conditions on the root level array are treated as AND by forge, but we only have one
         var condition = new JsonObject();
         condition.addProperty("type", "forge:not");
         var value = new JsonObject();
-        value.addProperty("type", "forge:tag_empty");
-        value.addProperty("tag", inputTag);
-        condition.add("value", value);
-        conditions.add(condition);
-        condition = new JsonObject();
-        condition.addProperty("type", "forge:not");
-        value = new JsonObject();
         value.addProperty("type", "forge:tag_empty");
         value.addProperty("tag", outputTag);
         condition.add("value", value);
@@ -116,6 +131,6 @@ public class CrushingRecipeProvider implements DataProvider {
 
     @Override
     public String getName() {
-        return "Crushing Recipes";
+        return "Miner Recipes";
     }
 }
