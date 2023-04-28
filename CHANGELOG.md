@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.77.4] - 2023-04-28
+### :bug: Bug Fixes
+- [`d204af0`](https://github.com/klikli-dev/occultism/commit/d204af0a1321f257fd662c508dccaf4754aed277) - tag output crusher recipes showing no output (barrier item) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`aae30b3`](https://github.com/klikli-dev/occultism/commit/aae30b397c254e5d2e13c861706b96c5b2e18d65) - improve readability of familiar types for familiars with dark spawn eggs *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.77.3] - 2023-04-28
 ### :bug: Bug Fixes
 - [`8fc556a`](https://github.com/klikli-dev/occultism/commit/8fc556af9ff71b32f08aac7e7f7b533dfe8af6d3) - tag string filtering *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -329,3 +335,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.77.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.77...release/v1.19.2-1.77.1
 [release/v1.19.2-1.77.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.77.1...release/v1.19.2-1.77.2
 [release/v1.19.2-1.77.3]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.77.2...release/v1.19.2-1.77.3
+[release/v1.19.2-1.77.4]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.77.3...release/v1.19.2-1.77.4
