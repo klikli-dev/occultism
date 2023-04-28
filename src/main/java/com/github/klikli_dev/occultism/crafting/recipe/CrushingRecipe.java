@@ -45,7 +45,7 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     protected OutputIngredient output;
 
     public CrushingRecipe(ResourceLocation id, Ingredient input, OutputIngredient output, int minTier, int crushingTime, boolean ignoreCrushingMultiplier) {
-        super(id, input, output.getStack());
+        super(id, input, ItemStack.EMPTY); //hand over empty item stack, because we cannot resolve output.getStack() yet as tags are not resolved yet.
         this.output = output;
         this.crushingTime = crushingTime;
         this.minTier = minTier;
