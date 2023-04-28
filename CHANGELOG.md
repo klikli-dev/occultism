@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.4-1.77.3] - 2023-04-28
+### :bug: Bug Fixes
+- [`8b57d35`](https://github.com/klikli-dev/occultism/commit/8b57d3572d349156e1ac020e5938d69c74cb38b7) - tag string filtering *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.4-1.77.2] - 2023-04-27
 ### :bug: Bug Fixes
 - [`53a5230`](https://github.com/klikli-dev/occultism/commit/53a5230b28ad969fc59c24608a44d73003e8a029) - familiar ring name initialization *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -360,3 +365,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.4-1.76]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.75.3...release/v1.19.4-1.76
 [release/v1.19.4-1.77]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.76...release/v1.19.4-1.77
 [release/v1.19.4-1.77.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.77...release/v1.19.4-1.77.2
+[release/v1.19.4-1.77.3]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.77.2...release/v1.19.4-1.77.3
