@@ -23,15 +23,12 @@
 package com.github.klikli_dev.occultism.util;
 
 import com.github.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.registry.OccultismEntities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.fml.ModList;
@@ -130,7 +127,106 @@ public class TextUtil {
     public static MutableComponent formatDemonType(Component name, EntityType<?> type) {
         var egg = ForgeSpawnEggItem.fromEntityType(type);
         var color = egg != null ? egg.getColor(0) : 0xffffff;
-        return Component.empty().append(name).withStyle(style -> style.withColor(color));
+        color = makeColorLighterForDarkMode(color);
+        int finalColor = color;
+        return Component.empty().append(name).withStyle(style -> style.withColor(finalColor));
+    }
+
+    //I'll admit I just had gpt 4 whip this up, 0 extra effort to avoid AWT - love it.
+    private static int makeColorLighterForDarkMode(int colorCode) {
+        final float BRIGHTNESS_THRESHOLD = 0.4f;
+        final float BRIGHTNESS_INCREASE = 0.4f;
+
+        int r = (colorCode >> 16) & 0xFF;
+        int g = (colorCode >> 8) & 0xFF;
+        int b = colorCode & 0xFF;
+
+        float[] hsb = rgbToHsb(r, g, b);
+
+        if (hsb[2] < BRIGHTNESS_THRESHOLD) {
+            hsb[2] += BRIGHTNESS_INCREASE;
+            hsb[2] = Math.min(hsb[2], 1.0f);
+
+            int[] rgb = hsbToRgb(hsb[0], hsb[1], hsb[2]);
+            colorCode = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
+        }
+
+        return colorCode;
+    }
+
+    private static float[] rgbToHsb(int r, int g, int b) {
+        float rf = r / 255.0f;
+        float gf = g / 255.0f;
+        float bf = b / 255.0f;
+
+        float max = Math.max(rf, Math.max(gf, bf));
+        float min = Math.min(rf, Math.min(gf, bf));
+        float delta = max - min;
+
+        float h = 0.0f;
+        float s = max == 0.0 ? 0.0f : delta / max;
+        float v = max;
+
+        if (delta != 0.0f) {
+            if (max == rf) {
+                h = (gf - bf) / 6 / delta;
+            } else if (max == gf) {
+                h = (1.0f / 3) + (bf - rf) / 6 / delta;
+            } else {
+                h = (2.0f / 3) + (rf - gf) / 6 / delta;
+            }
+
+            if (h < 0) {
+                h += 1;
+            }
+        }
+
+        return new float[]{h, s, v};
+    }
+
+    private static int[] hsbToRgb(float h, float s, float v) {
+        int r = 0, g = 0, b = 0;
+
+        int i = (int) (h * 6);
+        float f = h * 6 - i;
+        float p = v * (1 - s);
+        float q = v * (1 - f * s);
+        float t = v * (1 - (1 - f) * s);
+
+        switch (i % 6) {
+            case 0:
+                r = Math.round(v * 255);
+                g = Math.round(t * 255);
+                b = Math.round(p * 255);
+                break;
+            case 1:
+                r = Math.round(q * 255);
+                g = Math.round(v * 255);
+                b = Math.round(p * 255);
+                break;
+            case 2:
+                r = Math.round(p * 255);
+                g = Math.round(v * 255);
+                b = Math.round(t * 255);
+                break;
+            case 3:
+                r = Math.round(p * 255);
+                g = Math.round(q * 255);
+                b = Math.round(v * 255);
+                break;
+            case 4:
+                r = Math.round(t * 255);
+                g = Math.round(p * 255);
+                b = Math.round(v * 255);
+                break;
+            case 5:
+                r = Math.round(v * 255);
+                g = Math.round(p * 255);
+                b = Math.round(q * 255);
+                break;
+        }
+
+        return new int[]{r, g, b};
     }
 
     /**
@@ -141,7 +237,7 @@ public class TextUtil {
      */
     public static String formatLargeNumber(int number) {
         if (number < Math.pow(10, 3)) {
-            return number + "";
+            return String.valueOf(number);
         } else if (number < Math.pow(10, 6)) {
             int rounded = Math.round(number / 1000.0F);
             return rounded + "K";
