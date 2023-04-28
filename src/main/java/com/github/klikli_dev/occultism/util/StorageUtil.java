@@ -248,8 +248,8 @@ public class StorageUtil {
                     filter = filter.substring(4);
                 }
                 final String finalFilter = filter;
-                boolean equals = stack.getTags().anyMatch(rl -> {
-                    return FilenameUtils.wildcardMatch(rl.toString(), finalFilter, IOCase.INSENSITIVE);
+                boolean equals = stack.getTags().anyMatch(tag -> {
+                    return FilenameUtils.wildcardMatch(tag.location().toString(), finalFilter, IOCase.INSENSITIVE);
                 });
 
                 if (equals) {
