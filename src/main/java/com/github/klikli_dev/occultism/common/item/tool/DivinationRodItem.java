@@ -58,22 +58,18 @@ import java.util.List;
 
 public class DivinationRodItem extends Item {
 
-    //region Fields
     public static final float NOT_FOUND = 7.0f;
     public static final float SEARCHING = 8.0f;
-    //endregion Fields
 
-    //region Initialization
     public DivinationRodItem(Properties properties) {
         super(properties);
     }
-    //endregion Initialization
 
-    //region Overrides
+
     @Override
-    public void onUsingTick(ItemStack stack, LivingEntity entityLiving, int count) {
-        if (entityLiving.level.isClientSide && entityLiving instanceof Player) {
-            ScanManager.instance.updateScan((Player) entityLiving, false);
+    public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration) {
+        if (pLivingEntity.level.isClientSide && pLivingEntity instanceof Player player) {
+            ScanManager.instance.updateScan(player, false);
         }
     }
 
@@ -222,9 +218,7 @@ public class DivinationRodItem extends Item {
         }
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }
-    //endregion Overrides
 
-    //region Methods
     public Block getOtherBlock(BlockState state, boolean isCreative) {
         //otherstone ore is linked to andesite.
         if (state.getBlock() == Blocks.ANDESITE || state.getBlock() == OccultismBlocks.OTHERSTONE_NATURAL.get()
@@ -280,6 +274,5 @@ public class DivinationRodItem extends Item {
             return 5.0f;
         return 6.0f;
     }
-    //endregion Methods
 }
 
