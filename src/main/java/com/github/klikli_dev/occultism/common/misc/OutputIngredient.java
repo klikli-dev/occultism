@@ -76,4 +76,8 @@ public class OutputIngredient {
     public Ingredient getIngredient() {
         return this.ingredient;
     }
+
+    public ItemStack getOutputStackInfo() {
+        return this.outputStackInfo;
+    }
 }
