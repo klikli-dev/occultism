@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.77.5] - 2023-05-03
+### :bug: Bug Fixes
+- [`d4a11ed`](https://github.com/klikli-dev/occultism/commit/d4a11ed3dd345867aee458fbe9d765f3d8601ad1) - crushing recipes on servers *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`ddfb4f1`](https://github.com/klikli-dev/occultism/commit/ddfb4f1735fafc5c83ac9cea3028cd17d2dabeed) - update crusher recipes readme to include ignore_crushing_multiplier *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.77.4] - 2023-04-28
 ### :bug: Bug Fixes
 - [`d204af0`](https://github.com/klikli-dev/occultism/commit/d204af0a1321f257fd662c508dccaf4754aed277) - tag output crusher recipes showing no output (barrier item) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -336,3 +344,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.77.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.77.1...release/v1.19.2-1.77.2
 [release/v1.19.2-1.77.3]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.77.2...release/v1.19.2-1.77.3
 [release/v1.19.2-1.77.4]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.77.3...release/v1.19.2-1.77.4
+[release/v1.19.2-1.77.5]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.77.4...release/v1.19.2-1.77.5
