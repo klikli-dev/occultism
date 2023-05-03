@@ -38,10 +38,9 @@ import net.minecraftforge.fml.common.Mod;
 public class ClientRegistryEventHandler {
     @SubscribeEvent()
     public static void onRegisterParticleProviders(RegisterParticleProvidersEvent event) {
-        ParticleEngine manager = Minecraft.getInstance().particleEngine;
-        manager.register(OccultismParticles.RITUAL_WAITING.get(), RitualWaitingParticle.Factory::new);
-        manager.register(OccultismParticles.SNOWFLAKE.get(), SnowflakeParticle.Factory::new);
-        manager.register(OccultismParticles.SPIRIT_FIRE_FLAME.get(), FlameParticle.Provider::new);
+        event.registerSpriteSet(OccultismParticles.RITUAL_WAITING.get(), RitualWaitingParticle.Factory::new);
+        event.registerSpriteSet(OccultismParticles.SNOWFLAKE.get(), SnowflakeParticle.Factory::new);
+        event.registerSpriteSet(OccultismParticles.SPIRIT_FIRE_FLAME.get(), FlameParticle.Provider::new);
         Occultism.LOGGER.info("Registered Particle Factories");
     }
 }
