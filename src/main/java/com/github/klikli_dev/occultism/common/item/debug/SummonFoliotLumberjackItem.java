@@ -34,6 +34,8 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraftforge.event.ForgeEventFactory;
 
 public class SummonFoliotLumberjackItem extends Item {
 
@@ -48,9 +50,11 @@ public class SummonFoliotLumberjackItem extends Item {
     public InteractionResult useOn(UseOnContext context) {
         if (!context.getLevel().isClientSide) {
             FoliotEntity spirit = OccultismEntities.FOLIOT.get().create(context.getLevel());
-            spirit.finalizeSpawn((ServerLevel) context.getLevel(),
-                    context.getLevel().getCurrentDifficultyAt(context.getClickedPos()),
-                    MobSpawnType.SPAWN_EGG, null, null);
+
+            if (!ForgeEventFactory.doSpecialSpawn(spirit, (LevelAccessor)context.getLevel(), (float) spirit.getX(), (float) spirit.getY(), (float) spirit.getZ(), null, MobSpawnType.SPAWN_EGG))
+                spirit.finalizeSpawn((ServerLevel) context.getLevel(),
+                        context.getLevel().getCurrentDifficultyAt(context.getClickedPos()),
+                        MobSpawnType.SPAWN_EGG, null, null);
             spirit.tame(context.getPlayer());
             spirit.setPos(context.getClickedPos().getX(), context.getClickedPos().getY() + 1.0f, context.getClickedPos().getZ());
             spirit.setCustomName(new TextComponent("Testspirit Lumberjack"));

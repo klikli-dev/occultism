@@ -36,6 +36,8 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraftforge.event.ForgeEventFactory;
 
 public class FamiliarRitual extends SummonRitual {
 
@@ -56,8 +58,10 @@ public class FamiliarRitual extends SummonRitual {
         if (entityType != null) {
             Entity entity = this.createSummonedEntity(entityType, level, goldenBowlPosition, blockEntity, castingPlayer);
             if (entity instanceof FamiliarEntity familiar) {
-                familiar.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED,
-                        null, null);
+
+                if (!ForgeEventFactory.doSpecialSpawn(familiar, (LevelAccessor) level, (float) familiar.getX(), (float) familiar.getY(), (float) familiar.getZ(), null, MobSpawnType.MOB_SUMMONED))
+                    familiar.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED,
+                            null, null);
 
                 this.applyEntityNbt(familiar);
 
