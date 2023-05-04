@@ -41,6 +41,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
 
@@ -69,7 +70,10 @@ public class AfritWildEntity extends Monster {
 
         for (int i = 0; i < maxBlazes; i++) {
             Blaze entity = EntityType.BLAZE.create(level.getLevel());
-            entity.finalizeSpawn(level, difficultyIn, reason, spawnDataIn, dataTag);
+
+            if (!ForgeEventFactory.doSpecialSpawn(entity, level, (float) entity.getX(), (float) entity.getY(), (float) entity.getZ(), null, reason))
+                entity.finalizeSpawn(level, difficultyIn, reason, spawnDataIn, dataTag);
+
             double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
             double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
             entity.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,

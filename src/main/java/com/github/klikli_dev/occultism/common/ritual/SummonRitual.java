@@ -38,6 +38,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 public class SummonRitual extends Ritual {
@@ -95,8 +96,8 @@ public class SummonRitual extends Ritual {
     /**
      * Needs to be called after finalizeSpawn to avoid finalizeSpawn overwriting things like RabbitType with random init values.
      */
-    public void applyEntityNbt(Entity entity){
-        if (this.recipe.getEntityNbt() != null){
+    public void applyEntityNbt(Entity entity) {
+        if (this.recipe.getEntityNbt() != null) {
             var tag = entity.saveWithoutId(new CompoundTag());
             tag.merge(this.recipe.getEntityNbt());
             entity.load(tag);
@@ -144,8 +145,7 @@ public class SummonRitual extends Ritual {
 
     public void initSummoned(LivingEntity living, Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
                              Player castingPlayer) {
-        if (living instanceof SpiritEntity) {
-            SpiritEntity spirit = (SpiritEntity) living;
+        if (living instanceof SpiritEntity spirit) {
             spirit.setSpiritMaxAge(this.recipe.getSpiritMaxAge());
         }
     }
@@ -170,10 +170,11 @@ public class SummonRitual extends Ritual {
                 level.random.nextInt(360), 0);
         if (spiritName.length() > 0)
             livingEntity.setCustomName(Component.literal(spiritName));
-        if (livingEntity instanceof Mob mob){
-            mob.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition),
-                    MobSpawnType.MOB_SUMMONED, null,
-                    null);
+        if (livingEntity instanceof Mob mob) {
+            if (!ForgeEventFactory.doSpecialSpawn(mob, level, (float) mob.getX(), (float) mob.getY(), (float) mob.getZ(), null, MobSpawnType.MOB_SUMMONED))
+                mob.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(goldenBowlPosition),
+                        MobSpawnType.MOB_SUMMONED, null,
+                        null);
         }
     }
 }

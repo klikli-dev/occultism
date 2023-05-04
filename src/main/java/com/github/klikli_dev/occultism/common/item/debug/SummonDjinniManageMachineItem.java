@@ -34,6 +34,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraftforge.event.ForgeEventFactory;
 
 public class SummonDjinniManageMachineItem extends Item {
 
@@ -49,7 +50,9 @@ public class SummonDjinniManageMachineItem extends Item {
         if (!context.getLevel().isClientSide) {
 
             DjinniEntity spirit = OccultismEntities.DJINNI.get().create(context.getLevel());
-            spirit.finalizeSpawn((ServerLevel) context.getLevel(),
+
+            if (!ForgeEventFactory.doSpecialSpawn(spirit, context.getLevel(), (float) spirit.getX(), (float) spirit.getY(), (float) spirit.getZ(), null, MobSpawnType.SPAWN_EGG))
+                spirit.finalizeSpawn((ServerLevel) context.getLevel(),
                     context.getLevel().getCurrentDifficultyAt(context.getClickedPos()),
                     MobSpawnType.SPAWN_EGG, null, null);
             spirit.tame(context.getPlayer());
