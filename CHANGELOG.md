@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.4-1.78.0] - 2023-05-04
+### :sparkles: New Features
+- [`4b80dca`](https://github.com/klikli-dev/occultism/commit/4b80dca80177b14e01f00a7f2f8a874c35d42726) - add calls to Forge's SpecialSpawn event *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`0a5e869`](https://github.com/klikli-dev/occultism/commit/0a5e86944fd27bf9ad586f9510420db3df959601) - update to new particle registration method *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`52e1bdb`](https://github.com/klikli-dev/occultism/commit/52e1bdb3b65cd7193834758acef32e84bea5100f) - stop using deprecated onUsingTick, instead use onUseTick *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.4-1.77.5] - 2023-05-03
 ### :bug: Bug Fixes
 - [`eed5897`](https://github.com/klikli-dev/occultism/commit/eed5897ff344076ab7e37aac46b188abc2140f72) - crushing recipes on servers *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -383,3 +392,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.4-1.77.3]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.77.2...release/v1.19.4-1.77.3
 [release/v1.19.4-1.77.4]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.77.3...release/v1.19.4-1.77.4
 [release/v1.19.4-1.77.5]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.77.4...release/v1.19.4-1.77.5
+[release/v1.19.4-1.78.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.77.5...release/v1.19.4-1.78.0
