@@ -590,7 +590,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add("ritual.occultism.craft_satchel.interrupted", "Binding of foliot interrupted.");
         this.add("ritual.occultism.craft_soul_gem.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.craft_soul_gem.started", "Started binding djinni into soul gem.");
-        this.add("ritual.occultism.craft_soul_gem.finished", "Successfully bound djinni into soul goum.");
+        this.add("ritual.occultism.craft_soul_gem.finished", "Successfully bound djinni into soul gem.");
         this.add("ritual.occultism.craft_soul_gem.interrupted", "Binding of djinni interrupted.");
         this.add("ritual.occultism.craft_familiar_ring.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.craft_familiar_ring.started", "Started binding djinni into familiar ring.");
