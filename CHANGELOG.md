@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.18.2-1.78.2] - 2023-05-31
+### :bug: Bug Fixes
+- [`059ba74`](https://github.com/klikli-dev/occultism/commit/059ba7436d906f99e4aa3628dbbdd16916096004) - typo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.18.2-1.78.0] - 2023-05-04
 ### :sparkles: New Features
 - [`5e7ba96`](https://github.com/klikli-dev/occultism/commit/5e7ba96b11eb81327ba4abaa8c7f94c070662b63) - add calls to Forge's SpecialSpawn event *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -320,3 +325,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.18.2-1.77.4]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.77.3...release/v1.18.2-1.77.4
 [release/v1.18.2-1.77.5]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.77.4...release/v1.18.2-1.77.5
 [release/v1.18.2-1.78.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.77.5...release/v1.18.2-1.78.0
+[release/v1.18.2-1.78.2]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.78.0...release/v1.18.2-1.78.2
