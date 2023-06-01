@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.4-1.79.0] - 2023-06-01
+### :sparkles: New Features
+- [`8b923ab`](https://github.com/klikli-dev/occultism/commit/8b923abd5cc66c303c31d25c7a551a93b39390da) - Multiline pentacle name rendering in JEI recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.4-1.78.2] - 2023-05-31
 ### :bug: Bug Fixes
 - [`734cb33`](https://github.com/klikli-dev/occultism/commit/734cb33efb340b0188634fde32f0b2a43f2c98f7) - typo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -406,3 +411,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.4-1.78.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.77.5...release/v1.19.4-1.78.0
 [release/v1.19.4-1.78.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.78.0...release/v1.19.4-1.78.1
 [release/v1.19.4-1.78.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.78.1...release/v1.19.4-1.78.2
+[release/v1.19.4-1.79.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.78.2...release/v1.19.4-1.79.0
