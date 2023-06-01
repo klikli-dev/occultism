@@ -45,6 +45,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
@@ -83,6 +84,10 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
     }
 
     protected void drawStringCentered(PoseStack poseStack, Font font, Component text, int x, int y) {
+        font.draw(poseStack, text, (x - font.width(text) / 2.0f), y, 0);
+    }
+
+    protected void drawStringCentered(PoseStack poseStack, Font font, FormattedCharSequence text, int x, int y) {
         font.draw(poseStack, text, (x - font.width(text) / 2.0f), y, 0);
     }
 
@@ -208,40 +213,46 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         this.arrow.draw(poseStack, this.ritualCenterX + this.recipeOutputOffsetX - 20, this.ritualCenterY);
         RenderSystem.disableBlend();
 
+        int infotextY = 0;
+        int infoTextX = 94;
+        int lineHeight = Minecraft.getInstance().font.lineHeight;
         var pentacle = ModonomiconAPI.get().getMultiblock(recipe.getPentacleId());
         if (pentacle != null) {
-            this.drawStringCentered(poseStack, Minecraft.getInstance().font,
-                    Component.translatable(Util.makeDescriptionId("multiblock", pentacle.getId())), 84, 0);
+            var pentacleName = Minecraft.getInstance().font.split(Component.translatable(Util.makeDescriptionId("multiblock", pentacle.getId())), 150);
+
+            for (var line : pentacleName) {
+                this.drawStringCentered(poseStack, Minecraft.getInstance().font,
+                        line, infoTextX, infotextY);
+                infotextY += lineHeight;
+            }
         } else {
             this.drawStringCentered(poseStack, Minecraft.getInstance().font,
-                    Component.translatable("jei.occultism.error.pentacle_not_loaded"), 84, 0);
+                    Component.translatable("jei.occultism.error.pentacle_not_loaded"), infoTextX, 0);
         }
 
-        int infotextY = 0;
         if (recipe.requiresSacrifice()) {
-            infotextY += 10;
             this.drawStringCentered(poseStack, Minecraft.getInstance().font,
-                    Component.translatable("jei.occultism.sacrifice", Component.translatable(recipe.getEntityToSacrificeDisplayName())), 84, infotextY);
+                    Component.translatable("jei.occultism.sacrifice", Component.translatable(recipe.getEntityToSacrificeDisplayName())), infoTextX, infotextY);
+            infotextY += lineHeight;
         }
 
         if (recipe.requiresItemUse()) {
-            infotextY += 10;
-            this.drawStringCentered(poseStack, Minecraft.getInstance().font, Component.translatable("jei.occultism.item_to_use"), 84, infotextY);
+            this.drawStringCentered(poseStack, Minecraft.getInstance().font, Component.translatable("jei.occultism.item_to_use"), infoTextX, infotextY);
+            infotextY += lineHeight;
         }
 
         if (recipe.getEntityToSummon() != null) {
-            infotextY += 10;
             this.drawStringCentered(poseStack, Minecraft.getInstance().font,
                     Component.translatable("jei.occultism.summon", Component.translatable(recipe.getEntityToSummon().getDescriptionId())),
-                    84, infotextY);
+                    infoTextX, infotextY);
+            infotextY += lineHeight;
         }
 
         if (recipe.getSpiritJobType() != null) {
-            infotextY += 10;
             this.drawStringCentered(poseStack, Minecraft.getInstance().font,
                     Component.translatable("jei.occultism.job",
                             Component.translatable("job." + recipe.getSpiritJobType().toString().replace(":", "."))),
-                    84, infotextY);
+                    infoTextX, infotextY);
         }
     }
 }
