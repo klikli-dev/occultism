@@ -29,6 +29,14 @@
     }
   ],
   "result": {
-    "item": "occultism:jei_dummy/none"
+    "item": "minecraft:skeleton_skull",
+    "nbt": {
+      "display": {
+        "Lore": [
+          "[{\"text\":\"The possessed Skeleton will always drop at least one skeleton skull when killed.\"}]"
+        ],
+        "Name": "[{\"text\":\"Ritual: Summon Possessed Skeleton\"}]"
+      }
+    }
   }
 }
