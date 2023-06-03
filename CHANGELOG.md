@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.18.2-1.80.0] - 2023-06-03
+### :sparkles: New Features
+- [`ffad8a3`](https://github.com/klikli-dev/occultism/commit/ffad8a347bcab90cb21433482531dcaa04ca5225) - allow JEI to find summon ritual by drop *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`c7d4840`](https://github.com/klikli-dev/occultism/commit/c7d484011f1fa7ad584dae354b09b6060b27caa5) - jei ritual recipe item to use render x/y position *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.18.2-1.79.0] - 2023-06-01
 ### :sparkles: New Features
 - [`c400ddb`](https://github.com/klikli-dev/occultism/commit/c400ddb2d8dd0ca1e24032b0edd1c65e76cdfc40) - Multiline pentacle name rendering in JEI recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -332,3 +340,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.18.2-1.78.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.77.5...release/v1.18.2-1.78.0
 [release/v1.18.2-1.78.2]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.78.0...release/v1.18.2-1.78.2
 [release/v1.18.2-1.79.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.78.2...release/v1.18.2-1.79.0
+[release/v1.18.2-1.80.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.79.0...release/v1.18.2-1.80.0
