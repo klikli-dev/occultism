@@ -29,6 +29,14 @@
     }
   ],
   "result": {
-    "item": "occultism:jei_dummy/none"
+    "item": "occultism:afrit_essence",
+    "nbt": {
+      "display": {
+        "Lore": [
+          "[{\"text\":\"The Unbound Afrit will always drop at least one Afrit Essence when killed.\"}]"
+        ],
+        "Name": "[{\"text\":\"Ritual: Summon Unbound Afrit\"}]"
+      }
+    }
   }
 }

@@ -28,6 +28,14 @@
     }
   ],
   "result": {
-    "item": "occultism:jei_dummy/none"
+    "item": "minecraft:end_stone",
+    "nbt": {
+      "display": {
+        "Lore": [
+          "[{\"text\":\"The possessed Endermite will always drop at least one end stone when killed.\"}]"
+        ],
+        "Name": "[{\"text\":\"Ritual: Summon Possessed Endermite\"}]"
+      }
+    }
   }
 }
