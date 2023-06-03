@@ -29,6 +29,14 @@
     }
   ],
   "result": {
-    "item": "occultism:jei_dummy/none"
+    "item": "minecraft:ender_pearl",
+    "nbt": {
+      "display": {
+        "Lore": [
+          "[{\"text\":\"The possessed Enderman will always drop at least one ender pearl when killed.\"}]"
+        ],
+        "Name": "[{\"text\":\"Ritual: Summon Possessed Enderman\"}]"
+      }
+    }
   }
 }

@@ -35,6 +35,14 @@
     }
   ],
   "result": {
-    "item": "occultism:jei_dummy/none"
+    "item": "minecraft:wither_skeleton_skull",
+    "nbt": {
+      "display": {
+        "Lore": [
+          "[{\"text\":\"The Wild Hunt consists of wither skeletons that will always drop at least one wither skeleton skull when killed.\"}]"
+        ],
+        "Name": "[{\"text\":\"Ritual: Summon Wild Hunt\"}]"
+      }
+    }
   }
 }

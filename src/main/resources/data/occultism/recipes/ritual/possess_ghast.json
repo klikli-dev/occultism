@@ -47,6 +47,14 @@
     }
   ],
   "result": {
-    "item": "occultism:jei_dummy/none"
+    "item": "minecraft:ghast_tear",
+    "nbt": {
+      "display": {
+        "Lore": [
+          "[{\"text\":\"The possessed Ghast will always drop at least one ghast tear when killed.\"}]"
+        ],
+        "Name": "[{\"text\":\"Ritual: Summon Possessed Ghast\"}]"
+      }
+    }
   }
 }
