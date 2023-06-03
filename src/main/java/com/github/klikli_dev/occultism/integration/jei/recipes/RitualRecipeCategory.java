@@ -192,17 +192,35 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         builder.addSlot(RecipeIngredientRole.OUTPUT, 0, 0)
                 .addItemStack(recipe.getRitualDummy());
 
+
+
         //draw item to use
         if (recipe.requiresItemUse()) {
-            //first simulate the info rendering to get the right render position
+
             int infotextY = 0;
-            if (recipe.requiresSacrifice()) {
-                infotextY += 10;
+
+            int lineHeight = Minecraft.getInstance().font.lineHeight;
+            var pentacle = ModonomiconAPI.get().getMultiblock(recipe.getPentacleId());
+
+            //simulate pentacle id rendering, to get the correct Y level to draw at
+            if (pentacle != null) {
+                var pentacleName = Minecraft.getInstance().font.split(new TranslatableComponent(Util.makeDescriptionId("multiblock", pentacle.getId())), 150);
+
+                for(var line : pentacleName){
+                    //Don't actually draw
+                    //this.drawStringCentered(poseStack, Minecraft.getInstance().font,  line , infoTextX, infotextY);
+                    infotextY += lineHeight;
+                }
             }
 
-            infotextY += 10;
+            //also simulate the info rendered before the item to use for the y level.
+            if (recipe.requiresSacrifice()) {
+                infotextY += lineHeight;
+            }
+
             int itemToUseY = infotextY - 5;
-            int itemToUseX = this.getStringCenteredMaxX(Minecraft.getInstance().font, new TranslatableComponent("jei.occultism.item_to_use"), 84, infotextY);
+            int infoTextX = 94;
+            int itemToUseX = this.getStringCenteredMaxX(Minecraft.getInstance().font, new TranslatableComponent("jei.occultism.item_to_use"), infoTextX, infotextY);
 
             builder.addSlot(RecipeIngredientRole.CATALYST, itemToUseX, itemToUseY)
                     .addIngredients(recipe.getItemToUse());
