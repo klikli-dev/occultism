@@ -29,6 +29,14 @@
     }
   ],
   "result": {
-    "item": "occultism:jei_dummy/none"
+    "item": "occultism:spawn_egg/familiar_greedy",
+    "nbt": {
+      "display": {
+        "Lore": [
+          "[{\"translate\":\"item.occultism.ritual_dummy.familiar_greedy.tooltip\"}]"
+        ],
+        "Name": "[{\"translate\":\"item.occultism.ritual_dummy.familiar_greedy\"}]"
+      }
+    }
   }
 }

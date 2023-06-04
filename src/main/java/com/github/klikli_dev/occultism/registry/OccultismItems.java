@@ -31,12 +31,12 @@ import com.github.klikli_dev.occultism.common.item.debug.*;
 import com.github.klikli_dev.occultism.common.item.otherworld.OtherworldBlockItem;
 import com.github.klikli_dev.occultism.common.item.spirit.*;
 import com.github.klikli_dev.occultism.common.item.storage.*;
-import com.github.klikli_dev.occultism.common.item.tool.*;
 import com.github.klikli_dev.occultism.common.item.tool.BrushItem;
+import com.github.klikli_dev.occultism.common.item.tool.*;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraftforge.common.ForgeSpawnEggItem;
@@ -356,6 +356,8 @@ public class OccultismItems {
             () -> new ForgeSpawnEggItem(OccultismEntities.MUMMY_FAMILIAR_TYPE::get, 0xcbb76a, 0xe0d4a3, defaultProperties()));
     public static final RegistryObject<Item> SPAWN_EGG_BEAVER_FAMILIAR = ITEMS.register("spawn_egg/familiar_beaver",
             () -> new ForgeSpawnEggItem(OccultismEntities.BEAVER_FAMILIAR_TYPE::get, 0x824a2b, 0xdd9973, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_PARROT_FAMILIAR = ITEMS.register("spawn_egg/familiar_parrot",
+            () -> new ForgeSpawnEggItem(() -> EntityType.PARROT, 894731, 16711680, defaultProperties()));
 
     //Ritual Dummy Items
     static {
@@ -444,7 +446,7 @@ public class OccultismItems {
                     builder.displayItems((parameters, output) -> {
                         ITEMS.getEntries().forEach(i -> {
 
-                            if(!shouldSkipCreativeModTab(i.get())) {
+                            if (!shouldSkipCreativeModTab(i.get())) {
                                 output.accept(i.get());
                             }
                         });
@@ -456,8 +458,8 @@ public class OccultismItems {
         );
     }
 
-    public static boolean shouldSkipCreativeModTab(Item item){
-        if(item == PENTACLE.get()
+    public static boolean shouldSkipCreativeModTab(Item item) {
+        if (item == PENTACLE.get()
                 || item == DICTIONARY_OF_SPIRITS_ICON.get()
                 || item == DICTIONARY_OF_SPIRITS.get()
                 || item == ADVANCEMENT_ICON.get()
@@ -466,9 +468,8 @@ public class OccultismItems {
                 || item == JEI_DUMMY_REQUIRE_ITEM_USE.get())
             return true;
 
-        if(item instanceof BlockItem blockItem){
-            if(blockItem.getBlock() == OccultismBlocks.LIGHTED_AIR.get())
-                return true;
+        if (item instanceof BlockItem blockItem) {
+            return blockItem.getBlock() == OccultismBlocks.LIGHTED_AIR.get();
         }
         return false;
     }
