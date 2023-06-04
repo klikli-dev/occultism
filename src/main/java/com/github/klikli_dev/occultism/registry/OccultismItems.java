@@ -32,6 +32,7 @@ import com.github.klikli_dev.occultism.common.item.otherworld.OtherworldBlockIte
 import com.github.klikli_dev.occultism.common.item.spirit.*;
 import com.github.klikli_dev.occultism.common.item.storage.*;
 import com.github.klikli_dev.occultism.common.item.tool.*;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.ComposterBlock;
@@ -351,6 +352,8 @@ public class OccultismItems {
             () -> new ForgeSpawnEggItem(OccultismEntities.MUMMY_FAMILIAR_TYPE::get, 0xcbb76a, 0xe0d4a3, defaultProperties()));
     public static final RegistryObject<Item> SPAWN_EGG_BEAVER_FAMILIAR = ITEMS.register("spawn_egg/familiar_beaver",
             () -> new ForgeSpawnEggItem(OccultismEntities.BEAVER_FAMILIAR_TYPE::get, 0x824a2b, 0xdd9973, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_PARROT_FAMILIAR = ITEMS.register("spawn_egg/familiar_parrot",
+            () -> new ForgeSpawnEggItem(() -> EntityType.PARROT, 894731, 16711680, defaultProperties()));
 
     //Ritual Dummy Items
     static {

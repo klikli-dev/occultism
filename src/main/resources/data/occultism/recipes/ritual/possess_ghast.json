@@ -51,9 +51,9 @@
     "nbt": {
       "display": {
         "Lore": [
-          "[{\"text\":\"The possessed Ghast will always drop at least one ghast tear when killed.\"}]"
+          "[{\"translate\":\"item.occultism.ritual_dummy.possess_ghast.tooltip\"}]"
         ],
-        "Name": "[{\"text\":\"Ritual: Summon Possessed Ghast\"}]"
+        "Name": "[{\"translate\":\"item.occultism.ritual_dummy.possess_ghast\"}]"
       }
     }
   }

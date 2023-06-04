@@ -39,9 +39,9 @@
     "nbt": {
       "display": {
         "Lore": [
-          "[{\"text\":\"The Wild Hunt consists of wither skeletons that will always drop at least one wither skeleton skull when killed.\"}]"
+          "[{\"translate\":\"item.occultism.ritual_dummy.summon_wild_hunt.tooltip\"}]"
         ],
-        "Name": "[{\"text\":\"Ritual: Summon Wild Hunt\"}]"
+        "Name": "[{\"translate\":\"item.occultism.ritual_dummy.summon_wild_hunt\"}]"
       }
     }
   }
