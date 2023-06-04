@@ -105,6 +105,8 @@ public class JeiPlugin implements IModPlugin {
         this.registerIngredientInfo(registration, OccultismBlocks.IESNIUM_ORE.get());
         this.registerIngredientInfo(registration, OccultismBlocks.SPIRIT_FIRE.get());
         this.registerIngredientInfo(registration, OccultismItems.DATURA.get());
+        this.registerIngredientInfo(registration, OccultismItems.SPAWN_EGG_GOAT_FAMILIAR.get());
+        this.registerIngredientInfo(registration, OccultismItems.SPAWN_EGG_SHUB_NIGGURATH_FAMILIAR.get());
     }
 
     @Override
@@ -139,7 +141,7 @@ public class JeiPlugin implements IModPlugin {
     }
 
     public void registerIngredientInfo(IRecipeRegistration registration, ItemLike ingredient) {
-        registration.addIngredientInfo(new ItemStack(ingredient.asItem()), VanillaTypes.ITEM,
-                new TranslatableComponent("jei." + Occultism.MODID + ".ingredient." + ingredient.asItem().getRegistryName().getPath() + ".description"));
+        registration.addIngredientInfo(new ItemStack(ingredient.asItem()), VanillaTypes.ITEM_STACK,
+                new TranslatableComponent("jei." + Occultism.MODID + ".ingredient." + ForgeRegistries.ITEMS.getKey(ingredient.asItem()).getPath().replace("/", ".") + ".description"));
     }
 }

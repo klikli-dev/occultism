@@ -33,9 +33,9 @@
     "nbt": {
       "display": {
         "Lore": [
-          "[{\"text\":\"The possessed Skeleton will always drop at least one skeleton skull when killed.\"}]"
+          "[{\"translate\":\"item.occultism.ritual_dummy.possess_skeleton.tooltip\"}]"
         ],
-        "Name": "[{\"text\":\"Ritual: Summon Possessed Skeleton\"}]"
+        "Name": "[{\"translate\":\"item.occultism.ritual_dummy.possess_skeleton\"}]"
       }
     }
   }

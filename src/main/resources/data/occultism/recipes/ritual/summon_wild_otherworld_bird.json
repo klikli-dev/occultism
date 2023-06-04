@@ -32,6 +32,14 @@
     }
   ],
   "result": {
-    "item": "occultism:jei_dummy/none"
+    "item": "occultism:spawn_egg/otherworld_bird",
+    "nbt": {
+      "display": {
+        "Lore": [
+          "[{\"translate\":\"item.occultism.ritual_dummy.summon_wild_otherworld_bird.tooltip\"}]"
+        ],
+        "Name": "[{\"translate\":\"item.occultism.ritual_dummy.summon_wild_otherworld_bird\"}]"
+      }
+    }
   }
 }

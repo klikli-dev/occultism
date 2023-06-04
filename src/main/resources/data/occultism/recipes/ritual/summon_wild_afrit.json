@@ -33,9 +33,9 @@
     "nbt": {
       "display": {
         "Lore": [
-          "[{\"text\":\"The Unbound Afrit will always drop at least one Afrit Essence when killed.\"}]"
+          "[{\"translate\":\"item.occultism.ritual_dummy.summon_wild_afrit.tooltip\"}]"
         ],
-        "Name": "[{\"text\":\"Ritual: Summon Unbound Afrit\"}]"
+        "Name": "[{\"translate\":\"item.occultism.ritual_dummy.summon_wild_afrit\"}]"
       }
     }
   }
