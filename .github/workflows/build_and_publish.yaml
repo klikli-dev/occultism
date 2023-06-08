@@ -48,7 +48,8 @@ jobs:
         with:
           arguments: build
         env:
-          VERSION: ${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}
+          MOD_VERSION: ${{ steps.get_version.outputs.result }}
+          MINECRAFT_VERSION: ${{ steps.get_mc_version.outputs.result }}
           GRADLE_BUILD_ACTION_CACHE_DEBUG_ENABLED: true
       - name: Update CHANGELOG
         id: changelog
@@ -73,7 +74,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         if: ${{ steps.get_release_type.outputs.result != 'test' }}
         with:
-          branch: version/1.19.4
+          branch: version/1.20.0
           commit_message: 'docs: update CHANGELOG.md for ${{ github.ref_name }} [skip ci]'
           file_pattern: CHANGELOG.md
       - name: Upload to Curseforge
@@ -90,7 +91,7 @@ jobs:
             ${{ steps.changelog.outputs.changes }}
 
             Find changes for all versions at https://github.com/klikli-dev/occultism/releases
-          game_versions: Forge,Minecraft 1.19:${{ steps.get_mc_version.outputs.result }}
+          game_versions: Forge,Minecraft 1.20:${{ steps.get_mc_version.outputs.result }}
           display_name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
           release_type: ${{ steps.get_release_type.outputs.result }}
           relations: modonomicon:requiredDependency,curios:requiredDependency,geckolib:requiredDependency,smartbrainlib:requiredDependency,theurgy:optionalDependency,jei:optionalDependency,almost-unified:optionalDependency,perviaminvenire:optionalDependency
