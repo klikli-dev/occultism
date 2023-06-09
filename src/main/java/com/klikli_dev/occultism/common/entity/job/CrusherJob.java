@@ -73,7 +73,7 @@ public class CrusherJob extends SpiritJob {
     @Override
     public void onInit() {
         this.entity.targetSelector.addGoal(1, this.pickupItemsGoal = new PickupItemsGoal(this.entity));
-        this.itemsToPickUp = this.entity.level.getRecipeManager().getRecipes().stream()
+        this.itemsToPickUp = this.entity.level().getRecipeManager().getRecipes().stream()
                 .filter(
                         recipe -> recipe.getType() == OccultismRecipes.CRUSHING_TYPE.get()
                                 && ((CrushingRecipe) recipe).getMinTier() <= this.tier.get()
@@ -92,13 +92,13 @@ public class CrusherJob extends SpiritJob {
         var fakeInventory = new TieredItemStackFakeInventory(handHeld, this.tier.get());
 
         if (!this.currentRecipe.isPresent() && !handHeld.isEmpty()) {
-            this.currentRecipe = this.entity.level.getRecipeManager().getRecipeFor(OccultismRecipes.CRUSHING_TYPE.get(),
-                    fakeInventory, this.entity.level);
+            this.currentRecipe = this.entity.level().getRecipeManager().getRecipeFor(OccultismRecipes.CRUSHING_TYPE.get(),
+                    fakeInventory, this.entity.level());
             this.crushingTimer = 0;
 
             if (this.currentRecipe.isPresent()) {
                 //play crushing sound
-                this.entity.level
+                this.entity.level()
                         .playSound(null, this.entity.blockPosition(), OccultismSounds.CRUNCHING.get(), SoundSource.NEUTRAL, 0.5f,
                                 1 + 0.5f * this.entity.getRandom().nextFloat());
             } else {
@@ -111,7 +111,7 @@ public class CrusherJob extends SpiritJob {
             }
         }
         if (this.currentRecipe.isPresent()) {
-            if (handHeld.isEmpty() || !this.currentRecipe.get().matches(fakeInventory, this.entity.level)) {
+            if (handHeld.isEmpty() || !this.currentRecipe.get().matches(fakeInventory, this.entity.level())) {
                 //Reset cached recipe if it no longer matches
                 this.currentRecipe = Optional.empty();
             } else {
@@ -119,17 +119,17 @@ public class CrusherJob extends SpiritJob {
                 this.crushingTimer++;
 
                 //show particle effect while crushing
-                if (this.entity.level.getGameTime() % 10 == 0) {
+                if (this.entity.level().getGameTime() % 10 == 0) {
                     Vec3 pos = this.entity.position();
-                    ((ServerLevel) this.entity.level)
-                            .sendParticles(ParticleTypes.PORTAL, pos.x + this.entity.level.random.nextGaussian() / 3,
-                                    pos.y + 0.5, pos.z + this.entity.level.random.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
+                    ((ServerLevel) this.entity.level())
+                            .sendParticles(ParticleTypes.PORTAL, pos.x + this.entity.level().random.nextGaussian() / 3,
+                                    pos.y + 0.5, pos.z + this.entity.level().random.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
                                     0.0);
                 }
 
                 //every two seconds, play another crushing sound
                 if (this.crushingTimer % 40 == 0) {
-                    this.entity.level.playSound(null, this.entity.blockPosition(), OccultismSounds.CRUNCHING.get(),
+                    this.entity.level().playSound(null, this.entity.blockPosition(), OccultismSounds.CRUNCHING.get(),
                             SoundSource.NEUTRAL, 0.5f,
                             1 + 0.5f * this.entity.getRandom().nextFloat());
                 }
@@ -137,7 +137,7 @@ public class CrusherJob extends SpiritJob {
                 if (this.crushingTimer >= this.currentRecipe.get().getCrushingTime() * this.crushingTimeMultiplier.get()) {
                     this.crushingTimer = 0;
 
-                    ItemStack result = this.currentRecipe.get().assemble(fakeInventory, this.entity.level.registryAccess());
+                    ItemStack result = this.currentRecipe.get().assemble(fakeInventory, this.entity.level().registryAccess());
                     //make sure to ignore output multiplier on recipes that set that flag.
                     //prevents e.g. 1x ingot -> 3x dust -> 3x ingot -> 9x dust ...
                     float outputMultiplier = this.outputMultiplier.get();

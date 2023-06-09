@@ -72,7 +72,7 @@ public class MessageSetRecipeByID extends MessageBase {
             return;
         }
 
-        Recipe<?> recipe = player.getLevel().getRecipeManager().byKey(this.id).orElse(null);
+        Recipe<?> recipe = player.level().getRecipeManager().byKey(this.id).orElse(null);
         Preconditions.checkArgument(recipe != null); //should not happen
 
         StorageUtil.clearOpenCraftingMatrix(player, false);

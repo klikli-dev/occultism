@@ -99,8 +99,8 @@ public class ExtractItemsGoal extends PausableGoal {
     @Override
     public void tick() {
         if (this.targetBlock != null) {
-            if (this.entity.level.getBlockEntity(this.targetBlock) != null) {
-                BlockEntity blockEntity = this.entity.level.getBlockEntity(this.targetBlock);
+            if (this.entity.level().getBlockEntity(this.targetBlock) != null) {
+                BlockEntity blockEntity = this.entity.level().getBlockEntity(this.targetBlock);
 
                 float accessDistance = 1.86f;
 
@@ -170,13 +170,13 @@ public class ExtractItemsGoal extends PausableGoal {
         ClipContext context = new ClipContext(this.entity.position(),
                 Math3DUtil.center(this.targetBlock), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE,
                 this.entity);
-        BlockHitResult result = this.entity.level.clip(context);
+        BlockHitResult result = this.entity.level().clip(context);
 
         if (result.getType() != BlockHitResult.Type.MISS) {
             BlockPos sidePos = result.getBlockPos();
             BlockPos pos = BlockPos.containing(result.getLocation());
-            return this.entity.level.isEmptyBlock(sidePos) || this.entity.level.isEmptyBlock(pos) ||
-                    this.entity.level.getBlockEntity(pos) == this.entity.level.getBlockEntity(this.targetBlock);
+            return this.entity.level().isEmptyBlock(sidePos) || this.entity.level().isEmptyBlock(pos) ||
+                    this.entity.level().getBlockEntity(pos) == this.entity.level().getBlockEntity(this.targetBlock);
         }
 
         return true;
@@ -191,9 +191,9 @@ public class ExtractItemsGoal extends PausableGoal {
     public void toggleChest(Container blockEntity, boolean open) {
         if (blockEntity instanceof ChestBlockEntity chest) {
             if (open) {
-                this.entity.level.blockEvent(this.targetBlock, chest.getBlockState().getBlock(), 1, 1);
+                this.entity.level().blockEvent(this.targetBlock, chest.getBlockState().getBlock(), 1, 1);
             } else {
-                this.entity.level.blockEvent(this.targetBlock, chest.getBlockState().getBlock(), 1, 0);
+                this.entity.level().blockEvent(this.targetBlock, chest.getBlockState().getBlock(), 1, 0);
             }
         }
     }
@@ -202,7 +202,7 @@ public class ExtractItemsGoal extends PausableGoal {
         Optional<BlockPos> targetPos = this.entity.getExtractPosition();
         targetPos.ifPresent((pos) -> {
             this.targetBlock = pos;
-            BlockEntity blockEntity = this.entity.level.getBlockEntity(this.targetBlock);
+            BlockEntity blockEntity = this.entity.level().getBlockEntity(this.targetBlock);
             if (blockEntity == null ||
                     !blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, this.entity.getExtractFacing())
                             .isPresent()) {

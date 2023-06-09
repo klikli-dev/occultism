@@ -74,7 +74,7 @@ public class ShubNiggurathFamiliarEntity extends FamiliarEntity {
     @Override
     public void tick() {
         super.tick();
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             this.rotateTowardsFriend();
 
             this.createSpawn(this, new Vector3d(this.getRandomX(2), this.getRandomY(), this.getRandomZ(2)));
@@ -99,9 +99,9 @@ public class ShubNiggurathFamiliarEntity extends FamiliarEntity {
     private void createSpawn(LivingEntity creator, Vector3d pos) {
         if (this.spawnTimer-- < 0) {
             this.spawnTimer = MAX_SPAWN_TIMER;
-            ShubNiggurathSpawnEntity spawn = new ShubNiggurathSpawnEntity(creator.level, creator);
+            ShubNiggurathSpawnEntity spawn = new ShubNiggurathSpawnEntity(creator.level(), creator);
             spawn.setPos(pos.x, pos.y, pos.z);
-            creator.level.addFreshEntity(spawn);
+            creator.level().addFreshEntity(spawn);
         }
     }
 

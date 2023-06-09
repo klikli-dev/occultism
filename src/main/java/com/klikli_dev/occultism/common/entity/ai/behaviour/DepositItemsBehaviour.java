@@ -52,7 +52,7 @@ public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehav
         var depositPos = BrainUtils.getMemory(entity, OccultismMemoryTypes.DEPOSIT_POSITION.get());
         var depositFacing = BrainUtils.getMemory(entity, OccultismMemoryTypes.DEPOSIT_FACING.get());
 
-        var blockEntity = entity.level.getBlockEntity(depositPos);
+        var blockEntity = entity.level().getBlockEntity(depositPos);
         if (blockEntity != null) {
             BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(depositPos));
 
@@ -89,7 +89,7 @@ public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehav
         //we use stop with a runtimeprovider to create the delay.
         var depositPos = BrainUtils.getMemory(entity, OccultismMemoryTypes.DEPOSIT_POSITION.get());
 
-        var blockEntity = entity.level.getBlockEntity(depositPos);
+        var blockEntity = entity.level().getBlockEntity(depositPos);
         if (blockEntity != null) {
             this.toggleContainer(blockEntity, false);
         }

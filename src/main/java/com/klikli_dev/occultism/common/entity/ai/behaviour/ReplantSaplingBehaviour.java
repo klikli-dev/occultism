@@ -37,13 +37,13 @@ public class ReplantSaplingBehaviour<E extends SpiritEntity> extends ExtendedBeh
     protected void start(E entity) {
         var lastFelledTree = BrainUtils.getMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get());
 
-        if (entity.level.isEmptyBlock(lastFelledTree)) {
+        if (entity.level().isEmptyBlock(lastFelledTree)) {
             BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(lastFelledTree));
 
             var handler = entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
             ItemStack sapling = handler.getStackInSlot(StorageUtil.getFirstMatchingSlot(handler, ItemTags.SAPLINGS));
             if (sapling.getItem() instanceof BlockItem saplingBlockItem) {
-                entity.level.setBlockAndUpdate(lastFelledTree, saplingBlockItem.getBlock().defaultBlockState());
+                entity.level().setBlockAndUpdate(lastFelledTree, saplingBlockItem.getBlock().defaultBlockState());
                 sapling.shrink(1);
             }
         }

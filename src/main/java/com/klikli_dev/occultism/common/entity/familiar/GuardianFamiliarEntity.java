@@ -143,7 +143,7 @@ public class GuardianFamiliarEntity extends ColoredFamiliarEntity {
     public void tick() {
         super.tick();
 
-        if (this.getLives() <= 0 && !this.level.isClientSide)
+        if (this.getLives() <= 0 && !this.level().isClientSide)
             this.kill();
 
         if (this.lives0 != -1 && this.lives0 > this.getLives()) {
@@ -153,10 +153,10 @@ public class GuardianFamiliarEntity extends ColoredFamiliarEntity {
 
         this.lives0 = this.getLives();
 
-        if (this.level.isClientSide) {
+        if (this.level().isClientSide) {
             if (this.particleTimer-- > 0) {
                 for (int i = 0; i < 20; i++) {
-                    this.level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState())
+                    this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState())
                             .setPos(this.blockPosition()), this.getRandomX(0.5), this.getRandomY(), this.getRandomZ(0.5), 0, 0, 0);
                 }
             }

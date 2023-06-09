@@ -96,7 +96,7 @@ public class FamiliarUtil {
 
     public static <T extends Entity & IFamiliar> List<T> getAllNearbyFamiliars(LivingEntity owner, EntityType<T> type,
                                                                                Predicate<T> pred) {
-        return owner.level.getEntities(type, owner.getBoundingBox().inflate(10),
+        return owner.level().getEntities(type, owner.getBoundingBox().inflate(10),
                 e -> pred.test(e) && e.getFamiliarOwner() == owner && e.isAlive());
     }
 
@@ -115,7 +115,7 @@ public class FamiliarUtil {
             return familiars;
 
         for (int i = 0; i < curios.getSlots(); i++) {
-            IFamiliar familiar = FamiliarRingItem.getFamiliar(curios.getStackInSlot(i), owner.level);
+            IFamiliar familiar = FamiliarRingItem.getFamiliar(curios.getStackInSlot(i), owner.level());
             if (familiar != null && familiar.getFamiliarEntity().getType() == type) {
                 T fam = (T) familiar.getFamiliarEntity();
                 if (pred.test(fam))

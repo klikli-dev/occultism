@@ -83,10 +83,10 @@ public class DeerFamiliarEntity extends FamiliarEntity {
     @Override
     public void tick() {
         super.tick();
-        if (!this.level.isClientSide && !this.hasGlowingTag() && this.hasRedNose())
+        if (!this.level().isClientSide && !this.hasGlowingTag() && this.hasRedNose())
             this.setGlowingTag(true);
 
-        if (this.level.isClientSide) {
+        if (this.level().isClientSide) {
             this.eatTimer--;
             this.oNeckRotTimer = this.neckRotTimer;
             if (this.isEating())
@@ -95,7 +95,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
                 this.neckRotTimer = Math.max(this.neckRotTimer - 1, 0);
         }
 
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             Entity owner = this.getFamiliarOwner();
             if (owner != null && this.distanceToSqr(owner) > 50) {
                 if (this.getAttribute(Attributes.MOVEMENT_SPEED).getModifier(SPEED_UUID) == null)

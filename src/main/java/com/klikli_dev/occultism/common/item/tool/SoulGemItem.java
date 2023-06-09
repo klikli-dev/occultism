@@ -128,7 +128,7 @@ public class SoulGemItem extends Item {
             return InteractionResult.PASS;
 
         //This is called from PlayerEventHandler#onPlayerRightClickEntity, because we need to bypass sitting entities processInteraction
-        if (target.level.isClientSide)
+        if (target.level().isClientSide)
             return InteractionResult.PASS;
 
         //Do not allow bosses or players.

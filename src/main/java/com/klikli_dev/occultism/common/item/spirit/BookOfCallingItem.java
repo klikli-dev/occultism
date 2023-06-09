@@ -168,7 +168,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target,
                                                   InteractionHand hand) {
-        if (target.level.isClientSide)
+        if (target.level().isClientSide)
             return InteractionResult.PASS;
 
         //Ignore anything that is not a spirit
@@ -197,7 +197,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
                         if (targetSpirit.getCapability(ForgeCapabilities.ITEM_HANDLER).isPresent()) {
                             UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
                             if (boundSpiritId != null) {
-                                Optional<SpiritEntity> boundSpirit = EntityUtil.getEntityByUuiDGlobal(target.level.getServer(), boundSpiritId)
+                                Optional<SpiritEntity> boundSpirit = EntityUtil.getEntityByUuiDGlobal(target.level().getServer(), boundSpiritId)
                                         .map(e -> (SpiritEntity) e);
 
                                 if (boundSpirit.isPresent()) {

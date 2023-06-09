@@ -82,7 +82,7 @@ public class TraderJob extends SpiritJob {
      */
     public void setTradeRecipeId(ResourceLocation recipeId) {
         this.trade = null;
-        Optional<? extends Recipe<?>> recipe = this.entity.level.getRecipeManager().byKey(recipeId);
+        Optional<? extends Recipe<?>> recipe = this.entity.level().getRecipeManager().byKey(recipeId);
         recipe.ifPresent(r -> {
             if (r instanceof SpiritTradeRecipe)
                 this.trade = (SpiritTradeRecipe) r;
@@ -114,15 +114,15 @@ public class TraderJob extends SpiritJob {
     public void update() {
         ItemStack handHeld = this.entity.getItemInHand(InteractionHand.MAIN_HAND);
         if (this.trade != null && this.trade.isValid(handHeld)) {
-            if (this.entity.level.getGameTime() % 10 == 0) {
+            if (this.entity.level().getGameTime() % 10 == 0) {
                 //show particle effect while converting
                 Vec3 pos = this.entity.position();
-                ((ServerLevel) this.entity.level)
-                        .sendParticles(ParticleTypes.PORTAL, pos.x + this.entity.level.random.nextGaussian() / 3,
-                                pos.y + 0.5, pos.z + this.entity.level.random.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
+                ((ServerLevel) this.entity.level())
+                        .sendParticles(ParticleTypes.PORTAL, pos.x + this.entity.level().random.nextGaussian() / 3,
+                                pos.y + 0.5, pos.z + this.entity.level().random.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
                                 0.0);
             }
-            if (this.entity.level.getGameTime() % 20 == 0) {
+            if (this.entity.level().getGameTime() % 20 == 0) {
                 this.conversionTimer++;
             }
             if (this.conversionTimer >= this.getTimeToConvert()) {
@@ -141,7 +141,7 @@ public class TraderJob extends SpiritJob {
                     this.entity.setItemInHand(InteractionHand.MAIN_HAND, input.get(0));
                 }
 
-                ItemStack converted = this.trade.getResultItem(this.entity.level.registryAccess()).copy();
+                ItemStack converted = this.trade.getResultItem(this.entity.level().registryAccess()).copy();
                 converted.setCount(converted.getCount() * resultCount);
 
                 if (resultCount > 0) {

@@ -52,7 +52,7 @@ public class DebugAICommand implements Command<CommandSourceStack> {
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Occultism.DEBUG.debugAI = !Occultism.DEBUG.debugAI;
-        context.getSource().sendSuccess(Component.literal("AI Debugging enabled: " + Occultism.DEBUG.debugAI), false);
+        context.getSource().sendSuccess(() -> Component.literal("AI Debugging enabled: " + Occultism.DEBUG.debugAI), false);
         return 0;
     }
     //endregion Static Methods

@@ -58,7 +58,7 @@ public class ThirdEyeEffectRenderer {
 
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (event.player.level.isClientSide && event.player == Minecraft.getInstance().player) {
+        if (event.player.level().isClientSide && event.player == Minecraft.getInstance().player) {
             this.onThirdEyeTick(event);
             this.onGogglesTick(event);
         }
@@ -157,11 +157,11 @@ public class ThirdEyeEffectRenderer {
                 }
             }
             //also handle goggles in one if we have them
-            this.uncoverBlocks(event.player, event.player.level, OtherworldBlockTier.ONE);
+            this.uncoverBlocks(event.player, event.player.level(), OtherworldBlockTier.ONE);
         } else {
             //if we don't have goggles, cover blocks
             //Try twice, but on the last effect tick, clear the list.
-            this.resetUncoveredBlocks(event.player.level, duration == 0);
+            this.resetUncoveredBlocks(event.player.level(), duration == 0);
 
             if (this.thirdEyeActiveLastTick) {
                 this.thirdEyeActiveLastTick = false;
@@ -180,16 +180,16 @@ public class ThirdEyeEffectRenderer {
             if (!this.gogglesActiveLastTick) {
                 this.gogglesActiveLastTick = true;
             }
-            this.uncoverBlocks(event.player, event.player.level, OtherworldBlockTier.TWO);
+            this.uncoverBlocks(event.player, event.player.level(), OtherworldBlockTier.TWO);
         } else {
             if (this.gogglesActiveLastTick) {
                 this.gogglesActiveLastTick = false;
 
                 //only cover blocks if third eye is not active and still needs them visible.
-                this.resetUncoveredBlocks(event.player.level, true);
+                this.resetUncoveredBlocks(event.player.level(), true);
                 if (this.thirdEyeActiveLastTick) {
                     //this uncovers tier 1 blocks that we still can see under normal third eye
-                    this.uncoverBlocks(event.player, event.player.level, OtherworldBlockTier.ONE);
+                    this.uncoverBlocks(event.player, event.player.level(), OtherworldBlockTier.ONE);
                 }
             }
         }

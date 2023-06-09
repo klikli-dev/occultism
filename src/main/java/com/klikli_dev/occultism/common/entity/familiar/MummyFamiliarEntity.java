@@ -22,10 +22,10 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEffects;
-import com.google.common.collect.ImmutableList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -61,7 +61,7 @@ public class MummyFamiliarEntity extends FamiliarEntity {
 
     public MummyFamiliarEntity(EntityType<? extends MummyFamiliarEntity> type, Level level) {
         super(type, level);
-        capowPos = capowOffset = capowOffset0 = Vec3.ZERO;
+        this.capowPos = this.capowOffset = this.capowOffset0 = Vec3.ZERO;
         this.fightPose = -1;
     }
 
@@ -86,17 +86,17 @@ public class MummyFamiliarEntity extends FamiliarEntity {
     public void tick() {
         super.tick();
 
-        if (level.isClientSide && fightPose != -1) {
-            this.capowOffset0 = capowOffset;
-            if (fightTimer++ == MAX_FIGHT_TIMER) {
-                fightTimer = 0;
-                fightPose += 1;
-                if (fightPose == 3)
-                    fightPose = -1;
-                capowPos = new Vec3(randNum(2), -random.nextDouble(), randNum(2));
+        if (this.level().isClientSide && this.fightPose != -1) {
+            this.capowOffset0 = this.capowOffset;
+            if (this.fightTimer++ == MAX_FIGHT_TIMER) {
+                this.fightTimer = 0;
+                this.fightPose += 1;
+                if (this.fightPose == 3)
+                    this.fightPose = -1;
+                this.capowPos = new Vec3(this.randNum(2), -this.random.nextDouble(), this.randNum(2));
             }
 
-            capowOffset = new Vec3(randNum(0.1), randNum(0.1), randNum(0.1));
+            this.capowOffset = new Vec3(this.randNum(0.1), this.randNum(0.1), this.randNum(0.1));
         }
     }
 
@@ -127,19 +127,19 @@ public class MummyFamiliarEntity extends FamiliarEntity {
     }
 
     private double randNum(double size) {
-        return (random.nextDouble() - 0.5) * size;
+        return (this.random.nextDouble() - 0.5) * size;
     }
 
     public float getCapowAlpha(float partialTicks) {
-        return (MAX_FIGHT_TIMER - fightTimer - partialTicks) / MAX_FIGHT_TIMER;
+        return (MAX_FIGHT_TIMER - this.fightTimer - partialTicks) / MAX_FIGHT_TIMER;
     }
 
     public Vec3 getCapowPosition(float partialTicks) {
-        return capowPos.add(capowOffset0.add(capowOffset0.subtract(capowOffset).scale(partialTicks)));
+        return this.capowPos.add(this.capowOffset0.add(this.capowOffset0.subtract(this.capowOffset).scale(partialTicks)));
     }
 
     public int getFightPose() {
-        return fightPose;
+        return this.fightPose;
     }
 
     @Override

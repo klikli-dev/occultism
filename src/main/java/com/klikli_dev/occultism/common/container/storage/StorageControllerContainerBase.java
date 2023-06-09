@@ -108,7 +108,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
 
     @Override
     public ItemStack quickMoveStack(Player player, int index) {
-        if (player.level.isClientSide)
+        if (player.level().isClientSide)
             return ItemStack.EMPTY;
 
         ItemStack result = ItemStack.EMPTY;
@@ -201,24 +201,24 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
 
     protected void findRecipeForMatrixClient() {
         Optional<CraftingRecipe> optional =
-                this.player.level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, this.matrix, this.player.level);
+                this.player.level().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, this.matrix, this.player.level());
         optional.ifPresent(iCraftingRecipe -> this.currentRecipe = iCraftingRecipe);
     }
 
     protected void findRecipeForMatrix() {
         //NOTE: if there are issues, set up a copy of this based on WorkBenchContainer func_217066_a / updateCraftingResult
         //      and call it onCraftingMatrixChanged(). Send slot packet!
-        if (!this.player.level.isClientSide) {
+        if (!this.player.level().isClientSide) {
             this.currentRecipe = null;
             ServerPlayer serverplayerentity = (ServerPlayer) this.player;
             ItemStack itemstack = ItemStack.EMPTY;
-            Optional<CraftingRecipe> optional = this.player.level.getServer().getRecipeManager()
+            Optional<CraftingRecipe> optional = this.player.level().getServer().getRecipeManager()
                     .getRecipeFor(RecipeType.CRAFTING, this.matrix,
-                            this.player.level);
+                            this.player.level());
             if (optional.isPresent()) {
                 CraftingRecipe icraftingrecipe = optional.get();
-                if (this.result.setRecipeUsed(this.player.level, serverplayerentity, icraftingrecipe)) {
-                    itemstack = icraftingrecipe.assemble(this.matrix, serverplayerentity.level.registryAccess());
+                if (this.result.setRecipeUsed(this.player.level(), serverplayerentity, icraftingrecipe)) {
+                    itemstack = icraftingrecipe.assemble(this.matrix, serverplayerentity.level().registryAccess());
                     this.currentRecipe = icraftingrecipe;
                 }
             }
@@ -248,7 +248,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
         }
 
         //Get the crafting result and abort if none
-        ItemStack result = this.currentRecipe.assemble(this.matrix, player.level.registryAccess());
+        ItemStack result = this.currentRecipe.assemble(this.matrix, player.level().registryAccess());
         if (result.isEmpty()) {
             return;
         }
@@ -264,7 +264,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             if (this.currentRecipe == null)
                 break;
 
-             ItemStack newResult = this.currentRecipe.assemble(this.matrix, player.level.registryAccess()).copy();
+             ItemStack newResult = this.currentRecipe.assemble(this.matrix, player.level().registryAccess()).copy();
             if (newResult.getItem() != result.getItem())
                 break;
 
@@ -276,7 +276,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             }
 
             //if recipe is no longer fulfilled, stop
-            if (!this.currentRecipe.matches(this.matrix, player.level)) {
+            if (!this.currentRecipe.matches(this.matrix, player.level())) {
                 break;
             }
 

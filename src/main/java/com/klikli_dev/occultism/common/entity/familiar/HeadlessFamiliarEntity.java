@@ -118,14 +118,14 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     public void tick() {
         super.tick();
 
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
 
             if (this.headTimer-- == 0)
                 this.setHead(NO_HEAD);
 
             if (this.hasBlacksmithUpgrade() && !this.isHeadlessDead() && this.tickCount % 10 == 0
                     && this.getHeadType() != null)
-                for (LivingEntity e : this.level.getEntities(this.getHeadType(), this.getBoundingBox().inflate(5),
+                for (LivingEntity e : this.level().getEntities(this.getHeadType(), this.getBoundingBox().inflate(5),
                         e -> e != this.getFamiliarOwner()))
                     e.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20 * 3));
         } else {
@@ -133,15 +133,15 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
                 Vec3 forward = Vec3.directionFromRotation(0, this.getYRot());
                 Vec3 pos = this.position().add(forward.reverse().scale(0.15)).add(this.randPos(0.08), this.randPos(0.08),
                         this.randPos(0.08));
-                this.level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, pos.x, pos.y + 1.1, pos.z, 0, 0, 0);
+                this.level().addParticle(ParticleTypes.SOUL_FIRE_FLAME, pos.x, pos.y + 1.1, pos.z, 0, 0, 0);
             }
 
             if (this.headlessDieTimer == 1)
-                this.level.addParticle(ParticleTypes.SOUL, this.getX(), this.getY() + 1, this.getZ(), 0, 0, 0);
+                this.level().addParticle(ParticleTypes.SOUL, this.getX(), this.getY() + 1, this.getZ(), 0, 0, 0);
 
             if (this.headlessDieTimer-- > 7)
                 for (int i = 0; i < 2; i++) {
-                    this.level.addParticle(new DustParticleOptions(new Vector3f(0.5f, 0, 0), 1), this.getX() + this.randPos(0.3),
+                    this.level().addParticle(new DustParticleOptions(new Vector3f(0.5f, 0, 0), 1), this.getX() + this.randPos(0.3),
                             this.getY() + 1 + this.randPos(0.3), this.getZ() + this.randPos(0.3), 0, 0, 0);
                 }
         }
@@ -205,7 +205,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
                 if (this.isFullyRebuilt())
                     OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.HEADLESS_REBUILT);
 
-                return InteractionResult.sidedSuccess(!this.level.isClientSide);
+                return InteractionResult.sidedSuccess(!this.level().isClientSide);
             }
         }
         return super.mobInteract(playerIn, hand);

@@ -64,10 +64,10 @@ public class MessageSortItems extends MessageBase {
             if (!((IStorageControllerContainer) player.containerMenu).isContainerItem()) {
 
                 //ensure players cannot load arbitrary chunks
-                if (!player.level.hasChunkAt(this.entityPosition))
+                if (!player.level().hasChunkAt(this.entityPosition))
                     return;
 
-                BlockEntity blockEntity = player.level.getBlockEntity(this.entityPosition);
+                BlockEntity blockEntity = player.level().getBlockEntity(this.entityPosition);
                 if (blockEntity instanceof IStorageAccessor) {
                     IStorageAccessor storageAccessor = (IStorageAccessor) blockEntity;
                     storageAccessor.setSortType(this.sortType);

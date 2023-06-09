@@ -83,7 +83,7 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
     @Override
     public void aiStep() {
         // Every 10 ticks, attempt to refresh the owner buff
-        if (!this.level.isClientSide && this.level.getGameTime() % 10 == 0 && this.isTame()) {
+        if (!this.level().isClientSide && this.level().getGameTime() % 10 == 0 && this.isTame()) {
             LivingEntity owner = this.getOwner();
             if (owner != null && this.distanceTo(owner) < MAX_BOOST_DISTANCE) {
                 // close enough to boost

@@ -122,6 +122,7 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
                 return null;
             }
 
+
             BlockEntity blockEntity = BlockEntityUtil.get(this.level,
                     this.linkedStorageControllerPosition);
             if (blockEntity instanceof IStorageController controller)

@@ -109,7 +109,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         this.riderRot0 = this.riderRot;
         this.riderRot = Mth.approachDegrees(this.riderRot, this.yRotO, 10);
 
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             this.lightTimer--;
             if (this.lightTimer < 0) {
                 this.lightTimer = 10;
@@ -161,14 +161,14 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
             this.lightPos0 = this.lightPos;
             this.lightPos = this.blockPosition();
         }
-        if (this.level.isEmptyBlock(this.lightPos) && this.isAlive() && this.hasBlacksmithUpgrade())
-            this.level.setBlockAndUpdate(this.lightPos, OccultismBlocks.LIGHTED_AIR.get().defaultBlockState());
+        if (this.level().isEmptyBlock(this.lightPos) && this.isAlive() && this.hasBlacksmithUpgrade())
+            this.level().setBlockAndUpdate(this.lightPos, OccultismBlocks.LIGHTED_AIR.get().defaultBlockState());
     }
 
     private void removeLight(BlockPos pos) {
-        if (!this.level.isClientSide && pos != null
-                && this.level.getBlockState(pos).getBlock() == OccultismBlocks.LIGHTED_AIR.get())
-            this.level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+        if (!this.level().isClientSide && pos != null
+                && this.level().getBlockState(pos).getBlock() == OccultismBlocks.LIGHTED_AIR.get())
+            this.level().setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
     }
 
     @Override
@@ -186,7 +186,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     @Override
     public void updateSwimming() {
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             if (this.isInWater()) {
                 this.navigation = this.waterNavigator;
                 this.setSwimming(true);
@@ -362,7 +362,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
         @Override
         protected boolean shouldTeleport(LivingEntity owner) {
-            return !this.entity.level.isWaterAt(owner.blockPosition()) && this.entity.isInWater();
+            return !this.entity.level().isWaterAt(owner.blockPosition()) && this.entity.isInWater();
         }
 
     }
@@ -394,7 +394,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         @Override
         public void tick() {
             if (this.cthulhu.distanceToSqr(this.devil) < 2) {
-                ((ServerLevel) this.cthulhu.level).sendParticles(ParticleTypes.HEART, this.devil.getBlockX(), this.devil.getBlockY() + 1,
+                ((ServerLevel) this.cthulhu.level()).sendParticles(ParticleTypes.HEART, this.devil.getBlockX(), this.devil.getBlockY() + 1,
                         this.devil.getBlockZ(), 1, 0, 0, 0, 1);
                 this.devil = null;
             }
@@ -413,7 +413,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         }
 
         private DevilFamiliarEntity findDevil() {
-            List<DevilFamiliarEntity> devils = this.cthulhu.level.getEntitiesOfClass(DevilFamiliarEntity.class,
+            List<DevilFamiliarEntity> devils = this.cthulhu.level().getEntitiesOfClass(DevilFamiliarEntity.class,
                     this.cthulhu.getBoundingBox().inflate(4));
             return devils.isEmpty() ? null : devils.get(0);
         }

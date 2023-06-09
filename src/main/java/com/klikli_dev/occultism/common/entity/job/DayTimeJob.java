@@ -40,7 +40,7 @@ public class DayTimeJob extends ChangeTimeJob {
         //nightfall is 13000, 37000, 61000, etc
         //midnight is 18000
 
-        ServerLevelData level = (ServerLevelData) this.entity.level.getLevelData();
+        ServerLevelData level = (ServerLevelData) this.entity.level().getLevelData();
 
         //time of next dawn
         long newTime = ((level.getDayTime() + 24000) / 24000) * 24000;

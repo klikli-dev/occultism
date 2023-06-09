@@ -77,7 +77,7 @@ public class ShubNiggurathSpawnEntity extends PathfinderMob {
     public void tick() {
         super.tick();
 
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             if (this.lifeTicks-- < 0)
                 this.explode();
 
@@ -132,7 +132,7 @@ public class ShubNiggurathSpawnEntity extends PathfinderMob {
     private LivingEntity getCreator() {
         if (this.creatorId == null)
             return null;
-        Entity creator = ((ServerLevel) this.level).getEntity(this.creatorId);
+        Entity creator = ((ServerLevel) this.level()).getEntity(this.creatorId);
         if (!(creator instanceof LivingEntity))
             return null;
         return (LivingEntity) creator;
@@ -149,9 +149,9 @@ public class ShubNiggurathSpawnEntity extends PathfinderMob {
     public void die(DamageSource pCause) {
         super.die(pCause);
 
-        if (this.level.isClientSide)
+        if (this.level().isClientSide)
             for (int i = 0; i < 30; i++)
-                this.level.addParticle(new DustParticleOptions(new Vector3f(0.5f, 0, 0), 1), this.getRandomX(1), this.getRandomY(),
+                this.level().addParticle(new DustParticleOptions(new Vector3f(0.5f, 0, 0), 1), this.getRandomX(1), this.getRandomY(),
                         this.getRandomZ(1), 0, 1, 0);
     }
 

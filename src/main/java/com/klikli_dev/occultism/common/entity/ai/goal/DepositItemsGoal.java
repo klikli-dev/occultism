@@ -168,13 +168,13 @@ public class DepositItemsGoal extends PausableGoal {
 //        ClipContext context = new ClipContext(this.entity.position(),
 //                Math3DUtil.center(this.moveTarget.getBlockPos()), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE,
 //                this.entity);
-//        BlockHitResult result = this.entity.level.clip(context);
+//        BlockHitResult result = this.entity.level().clip(context);
 //
 //        if (result.getType() != BlockHitResult.Type.MISS) {
 //            BlockPos sidePos = result.getBlockPos();
 //            BlockPos pos = new BlockPos(result.getLocation());
-//            return this.entity.level.isEmptyBlock(sidePos) || this.entity.level.isEmptyBlock(pos) ||
-//                    this.entity.level.getBlockEntity(pos) == this.entity.level.getBlockEntity(this.moveTarget.getBlockPos());
+//            return this.entity.level().isEmptyBlock(sidePos) || this.entity.level().isEmptyBlock(pos) ||
+//                    this.entity.level().getBlockEntity(pos) == this.entity.level().getBlockEntity(this.moveTarget.getBlockPos());
 //        }
 
         return true;
@@ -188,12 +188,12 @@ public class DepositItemsGoal extends PausableGoal {
      */
     public void toggleChest(IMoveTarget target, boolean open) {
         if (target instanceof BlockPosMoveTarget) {
-            BlockEntity blockEntity = this.entity.level.getBlockEntity(target.getBlockPos());
+            BlockEntity blockEntity = this.entity.level().getBlockEntity(target.getBlockPos());
             if (blockEntity instanceof ChestBlockEntity chest) {
                 if (open) {
-                    this.entity.level.blockEvent(this.moveTarget.getBlockPos(), chest.getBlockState().getBlock(), 1, 1);
+                    this.entity.level().blockEvent(this.moveTarget.getBlockPos(), chest.getBlockState().getBlock(), 1, 1);
                 } else {
-                    this.entity.level.blockEvent(this.moveTarget.getBlockPos(), chest.getBlockState().getBlock(), 1, 0);
+                    this.entity.level().blockEvent(this.moveTarget.getBlockPos(), chest.getBlockState().getBlock(), 1, 0);
                 }
             }
         }
@@ -203,7 +203,7 @@ public class DepositItemsGoal extends PausableGoal {
         //check a target block
         Optional<BlockPos> targetPos = this.entity.getDepositPosition();
         targetPos.ifPresent((pos) -> {
-            this.moveTarget = new BlockPosMoveTarget(this.entity.level, pos);
+            this.moveTarget = new BlockPosMoveTarget(this.entity.level(), pos);
             if (!this.moveTarget.getCapability(ForgeCapabilities.ITEM_HANDLER, this.entity.getDepositFacing())
                     .isPresent()) {
                 //the deposit block is not valid for depositing, so we disable this to allow exiting this task.
@@ -213,7 +213,7 @@ public class DepositItemsGoal extends PausableGoal {
         //also check a target entity -> its mutually exclusive with block, ensured by spirit entity
         Optional<UUID> targetUUID = this.entity.getDepositEntityUUID();
         targetUUID.ifPresent((uuid) -> {
-            Entity targetEntity = ((ServerLevel) this.entity.level).getEntity(uuid);
+            Entity targetEntity = ((ServerLevel) this.entity.level()).getEntity(uuid);
             if (targetEntity != null) {
                 this.moveTarget = new EntityMoveTarget(targetEntity);
             } else {

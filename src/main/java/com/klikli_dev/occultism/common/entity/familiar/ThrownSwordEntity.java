@@ -50,7 +50,7 @@ public class ThrownSwordEntity extends ThrowableItemProjectile {
         super.tick();
         this.duration++;
 
-        if (!this.level.isClientSide && this.duration > MAX_DURATION)
+        if (!this.level().isClientSide && this.duration > MAX_DURATION)
             this.remove(RemovalReason.DISCARDED);
     }
 
@@ -88,7 +88,7 @@ public class ThrownSwordEntity extends ThrowableItemProjectile {
         if (this.friendlyFire(target))
             return;
 
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             target.hurt(this.damageSources().thrown(this, this.getOwner()), 6);
         }
     }

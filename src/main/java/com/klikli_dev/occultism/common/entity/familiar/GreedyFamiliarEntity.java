@@ -106,7 +106,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
             return;
 
         if (this.isEffectEnabled(wearer))
-            for (ItemEntity e : wearer.level.getEntitiesOfClass(ItemEntity.class, wearer.getBoundingBox().inflate(5), Entity::isAlive)) {
+            for (ItemEntity e : wearer.level().getEntitiesOfClass(ItemEntity.class, wearer.getBoundingBox().inflate(5), Entity::isAlive)) {
                 ItemStack stack = e.getItem();
 
                 boolean isStackDemagnetized = stack.hasTag() && stack.getTag().getBoolean("PreventRemoteMovement");
@@ -125,7 +125,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
         // Ears point to target block pos
         this.earRotX0 = this.earRotX;
         this.earRotZ0 = this.earRotZ;
-        if (this.level.isClientSide) {
+        if (this.level().isClientSide) {
             Optional<BlockPos> targetBlock = this.getTargetBlock();
             if (targetBlock.isPresent()) {
                 Vec3 p = Vec3.atCenterOf(targetBlock.get());
@@ -199,11 +199,11 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
         if (this.hasBlacksmithUpgrade() && !this.getOffhandItem().isEmpty()) {
             ItemHandlerHelper.giveItemToPlayer(playerIn, this.getOffhandItem());
             this.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
-            return InteractionResult.sidedSuccess(this.level.isClientSide);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         } else if (this.hasBlacksmithUpgrade() && stack.getItem() instanceof BlockItem) {
             this.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(stack.getItem()));
             stack.shrink(1);
-            return InteractionResult.sidedSuccess(this.level.isClientSide);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
 
         return super.mobInteract(playerIn, hand);
@@ -254,7 +254,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
             Player player = (Player) owner;
             IItemHandler inv = new PlayerMainInvWrapper(player.getInventory());
 
-            for (ItemEntity item : this.entity.level.getEntitiesOfClass(ItemEntity.class,
+            for (ItemEntity item : this.entity.level().getEntitiesOfClass(ItemEntity.class,
                     this.entity.getBoundingBox().inflate(RANGE), e -> e.isAlive())) {
                 ItemStack stack = item.getItem();
 
@@ -324,7 +324,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
             if (owner == null)
                 return null;
 
-            List<T> mounts = this.rider.level.getEntities(type, this.rider.getBoundingBox().inflate(5),
+            List<T> mounts = this.rider.level().getEntities(type, this.rider.getBoundingBox().inflate(5),
                     e -> e.getFamiliarOwner() == owner && !e.isVehicle() && !e.isSitting());
             if (mounts.isEmpty())
                 return null;

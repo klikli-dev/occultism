@@ -167,8 +167,8 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
 
         //stillValid is constantly called, so we use it to send
         //stack updates every 40 ticks.
-        if (storageController != null && !entityPlayer.level.isClientSide &&
-                entityPlayer.level.getGameTime() % 40 == 0) {
+        if (storageController != null && !entityPlayer.level().isClientSide &&
+                entityPlayer.level().getGameTime() % 40 == 0) {
             OccultismPackets.sendTo((ServerPlayer) this.player, this.getStorageController().getMessageUpdateStacks());
             OccultismPackets.sendTo((ServerPlayer) this.player,
                     new MessageUpdateLinkedMachines(this.getStorageController().getLinkedMachines()));
@@ -180,7 +180,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
 
     @Override
     public IStorageController getStorageController() {
-        return StorageRemoteItem.getStorageController(this.getStorageRemote(), this.playerInventory.player.level);
+        return StorageRemoteItem.getStorageController(this.getStorageRemote(), this.playerInventory.player.level());
     }
 
     @Override

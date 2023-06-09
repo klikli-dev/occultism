@@ -106,9 +106,9 @@ public class ManageMachineGoal extends Goal {
         //Insert Result into Storage Controller: DepositItemsGoal
 
         if (this.targetBlock != null) {
-            if (this.entity.level.getBlockEntity(this.targetBlock) != null && this.job.getStorageController() != null) {
+            if (this.entity.level().getBlockEntity(this.targetBlock) != null && this.job.getStorageController() != null) {
 
-                BlockEntity blockEntity = this.entity.level.getBlockEntity(this.targetBlock);
+                BlockEntity blockEntity = this.entity.level().getBlockEntity(this.targetBlock);
 
                 //when approaching a chest, open it visually
                 double distance = this.entity.position().distanceTo(Math3DUtil.center(this.targetBlock));
@@ -200,17 +200,17 @@ public class ManageMachineGoal extends Goal {
     }
 
     public boolean canSeeTarget() {
-        BlockState targetBlockState = this.entity.level.getBlockState(this.targetBlock);
+        BlockState targetBlockState = this.entity.level().getBlockState(this.targetBlock);
         ClipContext context = new ClipContext(this.entity.getEyePosition(0),
                 Math3DUtil.center(this.targetBlock), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE,
                 this.entity);
-        BlockHitResult rayTrace = this.entity.level.clip(context);
+        BlockHitResult rayTrace = this.entity.level().clip(context);
 
         if (rayTrace.getType() != BlockHitResult.Type.MISS) {
             BlockPos sidePos = rayTrace.getBlockPos();
             BlockPos pos = BlockPos.containing(rayTrace.getLocation());
-            return this.entity.level.isEmptyBlock(sidePos) || this.entity.level.isEmptyBlock(pos) ||
-                    this.entity.level.getBlockEntity(pos) == this.entity.level.getBlockEntity(this.targetBlock);
+            return this.entity.level().isEmptyBlock(sidePos) || this.entity.level().isEmptyBlock(pos) ||
+                    this.entity.level().getBlockEntity(pos) == this.entity.level().getBlockEntity(this.targetBlock);
         }
 
         return true;
@@ -220,7 +220,7 @@ public class ManageMachineGoal extends Goal {
         if (this.cachedStorageAccessor != null && this.cachedStorageAccessorOrder == this.job.getCurrentDepositOrder())
             return this.cachedStorageAccessor;
 
-        Level level = this.entity.level;
+        Level level = this.entity.level();
         List<BlockPos> allBlocks = new ArrayList<>();
         BlockPos machinePosition = this.job.getManagedMachine().insertGlobalPos.getPos();
 

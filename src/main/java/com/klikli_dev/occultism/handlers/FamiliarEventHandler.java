@@ -24,7 +24,7 @@ package com.klikli_dev.occultism.handlers;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
-import com.github.klikli_dev.occultism.common.entity.familiar.*;
+import com.klikli_dev.occultism.common.entity.familiar.*;
 import com.klikli_dev.occultism.common.entity.familiar.*;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEffects;
@@ -150,7 +150,7 @@ public class FamiliarEventHandler {
         entity.setHealth(2);
         entity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20 * 5, 2));
 
-        if (!owner.level.isClientSide)
+        if (!owner.level().isClientSide)
             OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.FAIRY_SAVE);
     }
 

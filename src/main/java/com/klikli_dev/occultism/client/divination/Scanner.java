@@ -92,7 +92,7 @@ public class Scanner {
     }
 
     public void scan(Consumer<BlockPos> resultConsumer) {
-        Level level = this.player.level;
+        Level level = this.player.level();
         for (int i = 0; i < this.blocksPerTick; i++) {
             //move to next block
             if (!this.nextBlock(level)) {

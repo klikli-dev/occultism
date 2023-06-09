@@ -106,7 +106,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     @Override
     public void tick() {
         super.tick();
-        if (!this.level.isClientSide && this.getRandom().nextDouble() < SHRINK_CHANCE)
+        if (!this.level().isClientSide && this.getRandom().nextDouble() < SHRINK_CHANCE)
             this.setSize((byte) (this.getSize() - 1));
 
         if (this.jumpTimer > 0)
@@ -116,7 +116,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
         if (this.attackTimer == 0)
             this.setAttacker(NO_ATTACKER);
 
-        if (this.level.isClientSide) {
+        if (this.level().isClientSide) {
             this.goatNoseTimer++;
 
             if (this.attackTimer > 0 && this.getAttacker() == LION_ATTACKER) {
@@ -125,7 +125,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
                     Vec3 pos = this.position().add(direction.x + (this.getRandom().nextFloat() - 0.5f) * 0.7,
                             1 + (this.getRandom().nextFloat() - 0.5f) * 0.7,
                             direction.z + (this.getRandom().nextFloat() - 0.5f) * 0.7);
-                    this.level.addParticle(ParticleTypes.FLAME, pos.x, pos.y, pos.z, direction.x * 0.1, 0,
+                    this.level().addParticle(ParticleTypes.FLAME, pos.x, pos.y, pos.z, direction.x * 0.1, 0,
                             direction.z * 0.1);
                 }
             }
@@ -283,29 +283,29 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
         ItemStack stack = playerIn.getItemInHand(hand);
         FoodProperties food = stack.getItem().getFoodProperties();
         if (this.hasGoat() && stack.getItem() == Items.GOLDEN_APPLE && playerIn == this.getFamiliarOwner()) {
-            if (!this.level.isClientSide) {
+            if (!this.level().isClientSide) {
                 stack.shrink(1);
                 this.setGoat(false);
-                GoatFamiliarEntity goat = new GoatFamiliarEntity(this.level, this.hasRing(), this.hasBeard(),
+                GoatFamiliarEntity goat = new GoatFamiliarEntity(this.level(), this.hasRing(), this.hasBeard(),
                         this.getSize(), this.getFamiliarOwner());
                 goat.setPos(this.getX(), this.getY(), this.getZ());
-                this.level.addFreshEntity(goat);
+                this.level().addFreshEntity(goat);
                 OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.GOAT_DETACH);
             }
-            return InteractionResult.sidedSuccess(this.level.isClientSide);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
         if (this.getSize() < MAX_SIZE && food != null && food.isMeat()) {
             stack.shrink(1);
             this.setSize((byte) (this.getSize() + food.getNutrition()));
             this.heal(4);
-            return InteractionResult.sidedSuccess(this.level.isClientSide);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         } else if (!this.isSitting() && !this.isVehicle() && !playerIn.isSecondaryUseActive()
                 && this.getFamiliarOwner() == playerIn && this.getSize() > RIDING_SIZE) {
-            if (!this.level.isClientSide) {
+            if (!this.level().isClientSide) {
                 playerIn.startRiding(this);
                 OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.CHIMERA_RIDE);
             }
-            return InteractionResult.sidedSuccess(this.level.isClientSide);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
 
         return super.mobInteract(playerIn, hand);
@@ -338,7 +338,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
             float forward = player.zza;
             float strafe = player.xxa * 0.5f;
 
-            if (this.isRiderJumping(player) && this.onGround && this.jumpTimer <= 0) {
+            if (this.isRiderJumping(player) && this.onGround() && this.jumpTimer <= 0) {
                 this.jumpTimer = JUMP_COOLDOWN;
                 Vec3 forwardDirection = Vec3.directionFromRotation(0, this.yRotO).scale(0.7);
                 this.setDeltaMovement(this.getDeltaMovement().add(forwardDirection.x, 0, forwardDirection.z));

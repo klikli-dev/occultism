@@ -23,13 +23,13 @@
 package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
-import com.github.klikli_dev.occultism.common.entity.familiar.*;
+import com.klikli_dev.occultism.common.entity.familiar.*;
 import com.klikli_dev.occultism.common.entity.familiar.*;
 import com.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
 import com.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
 import com.klikli_dev.occultism.common.entity.possessed.PossessedGhastEntity;
 import com.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
-import com.github.klikli_dev.occultism.common.entity.spirit.*;
+import com.klikli_dev.occultism.common.entity.spirit.*;
 import com.klikli_dev.occultism.common.entity.spirit.*;
 import com.klikli_dev.occultism.util.StaticUtil;
 import net.minecraft.world.entity.EntityType;

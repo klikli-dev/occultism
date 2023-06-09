@@ -39,7 +39,7 @@ public class ClearWeatherJob extends ChangeWeatherJob {
     public void changeWeather() {
         if (Occultism.SERVER_CONFIG.rituals.enableClearWeatherRitual.get()) {
             //taken from weathercommand#clear
-            ServerLevelData level = (ServerLevelData) this.entity.level.getLevelData();
+            ServerLevelData level = (ServerLevelData) this.entity.level().getLevelData();
             level.setClearWeatherTime(6000);
             level.setRainTime(0);
             level.setThunderTime(0);

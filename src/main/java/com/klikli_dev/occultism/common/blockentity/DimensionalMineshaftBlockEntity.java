@@ -187,12 +187,12 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             ItemStack input = inputHandler.getStackInSlot(0);
 
             //handle unusing enchantment from evilcraft, see https://github.com/klikli-dev/occultism/issues/909
-            if(input.getMaxDamage() - input.getDamageValue() < 6 &&
+            if (input.getMaxDamage() - input.getDamageValue() < 6 &&
                     input.isEnchanted() &&
                     ForgeRegistries.ENCHANTMENTS.containsKey(EVILCRAFT_UNUSING_ENCHANTEMENT) &&
-                    input.getEnchantmentLevel(ForgeRegistries.ENCHANTMENTS.getValue(EVILCRAFT_UNUSING_ENCHANTEMENT)) > 0){
-               this.miningTime = 0;
-               return;
+                    input.getEnchantmentLevel(ForgeRegistries.ENCHANTMENTS.getValue(EVILCRAFT_UNUSING_ENCHANTEMENT)) > 0) {
+                this.miningTime = 0;
+                return;
             }
 
             boolean dirty = false;

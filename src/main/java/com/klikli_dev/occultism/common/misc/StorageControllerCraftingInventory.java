@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.misc;
 
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.inventory.TransientCraftingContainer;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
@@ -32,7 +33,7 @@ import java.util.Map;
 /**
  * A cached version of InventoryCrafting. Allows to control when events are sent with the disableEvents field.
  */
-public class StorageControllerCraftingInventory extends CraftingContainer {
+public class StorageControllerCraftingInventory extends TransientCraftingContainer {
 
     //region Fields
 

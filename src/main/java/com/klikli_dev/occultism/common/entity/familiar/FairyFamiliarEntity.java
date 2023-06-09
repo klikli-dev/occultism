@@ -154,10 +154,10 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
 
         this.partyParticle();
 
-        if (!this.level.isClientSide && this.getTarget() == null)
+        if (!this.level().isClientSide && this.getTarget() == null)
             this.setMagicTarget(null);
 
-        if (this.level.isClientSide && this.hasMagicTarget()) {
+        if (this.level().isClientSide && this.hasMagicTarget()) {
             this.yBodyRot = 0;
             this.yBodyRotO = 0;
 
@@ -217,11 +217,11 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
 
     private void magicParticle() {
         Vec3 pos = this.getMagicPosition(1);
-        this.level.addParticle(this.createParticle(), pos.x, pos.y + 1, pos.z, 0, 0, 0);
+        this.level().addParticle(this.createParticle(), pos.x, pos.y + 1, pos.z, 0, 0, 0);
     }
 
     private void partyParticle() {
-        if (!this.level.isClientSide || !this.isPartying() || this.tickCount % 2 != 0)
+        if (!this.level().isClientSide || !this.isPartying() || this.tickCount % 2 != 0)
             return;
 
         Vec3 right = Vec3.directionFromRotation(0, this.yBodyRot).yRot(FamiliarUtil.toRads(-90));
@@ -230,7 +230,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
         Vec3 pos = this.position().add(right.scale(0.2 * (this.isLeftHanded() ? -1 : 1)))
                 .add(0, 0.7 + this.getAnimationHeight(0), 0).add(armVector);
 
-        this.level.addParticle(this.createParticle(), pos.x, pos.y, pos.z, 0, 0, 0);
+        this.level().addParticle(this.createParticle(), pos.x, pos.y, pos.z, 0, 0, 0);
     }
 
     public Vec2 getMagicRadiusAngle(float partialTicks) {
@@ -285,7 +285,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
         int id = this.entityData.get(MAGIC_TARGET);
         if (id < 0)
             return null;
-        return this.level.getEntity(id);
+        return this.level().getEntity(id);
     }
 
     private void setMagicTarget(Entity entity) {
@@ -302,7 +302,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
             return false;
 
         this.saveCooldown = 20 * 20;
-        if (!familiar.getFamiliarEntity().level.isClientSide)
+        if (!familiar.getFamiliarEntity().level().isClientSide)
             OccultismPackets.sendToTracking(this,
                     new MessageFairySupport(this.getId(), familiar.getFamiliarEntity().getId()));
         return true;
@@ -350,7 +350,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
 
     @Override
     public boolean isFlying() {
-        return !this.onGround;
+        return !this.onGround();
     }
 
     private static class SupportGoal extends Goal {
@@ -384,7 +384,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
             if (owner == null)
                 return;
 
-            List<Mob> familiars = this.fairy.level.getEntitiesOfClass(Mob.class,
+            List<Mob> familiars = this.fairy.level().getEntitiesOfClass(Mob.class,
                     this.fairy.getBoundingBox().inflate(10),
                     e -> e != this.fairy && e instanceof IFamiliar && ((IFamiliar) e).getFamiliarOwner() == owner);
 
@@ -454,13 +454,13 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
                     if (owner != null) {
                         pEnemy.hurt(this.fairy.damageSources().mobAttack(owner), 1);
                         pEnemy.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 1));
-                        List<LivingEntity> allies = this.fairy.level.getEntitiesOfClass(LivingEntity.class,
+                        List<LivingEntity> allies = this.fairy.level().getEntitiesOfClass(LivingEntity.class,
                                 this.fairy.getBoundingBox().inflate(7), e -> e != this.fairy && e instanceof IFamiliar
                                         && ((IFamiliar) e).getFamiliarOwner() == owner);
                         allies.add(owner);
                         for (LivingEntity ally : allies) {
                             ally.heal(1);
-                            ((ServerLevel) this.fairy.level).sendParticles(ParticleTypes.HEART, ally.getX(),
+                            ((ServerLevel) this.fairy.level()).sendParticles(ParticleTypes.HEART, ally.getX(),
                                     ally.getY() + ally.getBbHeight(), ally.getZ(), 1, 0, 0, 0, 1);
                         }
                     }

@@ -23,7 +23,7 @@
 package com.klikli_dev.occultism.common.entity.job;
 
 import com.klikli_dev.occultism.api.common.container.IItemStackComparator;
-import com.github.klikli_dev.occultism.common.entity.ai.behaviour.*;
+import com.klikli_dev.occultism.common.entity.ai.behaviour.*;
 import com.klikli_dev.occultism.common.entity.ai.behaviour.*;
 import com.klikli_dev.occultism.common.entity.ai.sensor.NearestJobItemSensor;
 import com.klikli_dev.occultism.common.entity.ai.sensor.NearestTreeSensor;

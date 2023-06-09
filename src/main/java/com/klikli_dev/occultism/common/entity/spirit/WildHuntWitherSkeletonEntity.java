@@ -71,7 +71,7 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeleton {
         int maxSkeletons = 3 + level.getRandom().nextInt(6);
 
         for (int i = 0; i < maxSkeletons; i++) {
-            WildHuntSkeletonEntity entity = OccultismEntities.WILD_HUNT_SKELETON.get().create(this.level);
+            WildHuntSkeletonEntity entity = OccultismEntities.WILD_HUNT_SKELETON.get().create(this.level());
 
             ForgeEventFactory.onFinalizeSpawn(entity, level, difficultyIn, reason, spawnDataIn, dataTag);
 

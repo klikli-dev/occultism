@@ -204,7 +204,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
         if (key == FILTER_ITEMS) {
             //restore filter item handler from data param on client
-            if (this.level.isClientSide) {
+            if (this.level().isClientSide) {
                 this.filterItemStackHandler.ifPresent((handler) -> {
                     CompoundTag compound = this.entityData.get(FILTER_ITEMS);
                     if (!compound.isEmpty())
@@ -444,14 +444,14 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     @Override
     public void aiStep() {
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             if (!this.isInitialized) {
                 this.isInitialized = true;
                 this.init();
             }
 
             //every 20 ticks = 1 second, age by 1 second
-            if (this.level.getGameTime() % 20 == 0 && !this.dead && this.canDieFromAge()) {
+            if (this.level().getGameTime() % 20 == 0 && !this.dead && this.canDieFromAge()) {
                 this.setSpiritAge(this.getSpiritAge() + 1);
                 if (this.getSpiritAge() > this.getSpiritMaxAge()) {
                     this.die(this.damageSources().generic());
@@ -657,18 +657,18 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     @Override
     public void die(DamageSource cause) {
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             if (this.isTame()) {
-                BookOfCallingItem.spiritDeathRegister.put(this.uuid, this.level.getGameTime());
+                BookOfCallingItem.spiritDeathRegister.put(this.uuid, this.level().getGameTime());
             }
 
             this.removeJob();
 
             //Death sound and particle effects
-            ((ServerLevel) this.level)
+            ((ServerLevel) this.level())
                     .sendParticles(ParticleTypes.LARGE_SMOKE, this.getX(), this.getY() + 0.5, this.getZ(), 1,
                             0.0, 0.0, 0.0, 0.0);
-            this.level.playSound(null, this.blockPosition(), OccultismSounds.START_RITUAL.get(), SoundSource.NEUTRAL, 1,
+            this.level().playSound(null, this.blockPosition(), OccultismSounds.START_RITUAL.get(), SoundSource.NEUTRAL, 1,
                     1);
 
         }
@@ -721,7 +721,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     public void openScreen(Player playerEntity) {
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             MenuProvider menuProvider = this;
 
             SpiritJob currentJob = this.job.orElse(null);

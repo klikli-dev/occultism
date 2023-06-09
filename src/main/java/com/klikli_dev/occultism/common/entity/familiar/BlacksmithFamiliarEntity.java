@@ -91,11 +91,11 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         Item item = stack.getItem();
         if (playerIn == this.getFamiliarOwner() && this.ironCount < getMaxIron()
                 && (stack.is(Tags.Items.INGOTS_IRON) || stack.is(Tags.Items.STORAGE_BLOCKS_IRON))) {
-            if (!this.level.isClientSide) {
+            if (!this.level().isClientSide) {
                 stack.shrink(1);
                 this.changeIronCount(stack.is(Tags.Items.INGOTS_IRON) ? 1 : 9);
             }
-            return InteractionResult.sidedSuccess(!this.level.isClientSide);
+            return InteractionResult.sidedSuccess(!this.level().isClientSide);
         }
         return super.mobInteract(playerIn, hand);
     }
@@ -234,7 +234,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         }
 
         private IFamiliar findTarget() {
-            for (LivingEntity e : this.blacksmith.level.getEntitiesOfClass(LivingEntity.class,
+            for (LivingEntity e : this.blacksmith.level().getEntitiesOfClass(LivingEntity.class,
                     this.blacksmith.getBoundingBox().inflate(4), this::familiarPred)) {
                 return (IFamiliar) e;
             }

@@ -116,13 +116,13 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         this.updateSwingTime();
 
         if (this.jukeboxPos == null || !this.jukeboxPos.closerThan(this.blockPosition(), 3.5)
-                || !this.level.getBlockState(this.jukeboxPos).is(Blocks.JUKEBOX)) {
+                || !this.level().getBlockState(this.jukeboxPos).is(Blocks.JUKEBOX)) {
             this.partying = false;
             this.jukeboxPos = null;
         }
 
         LivingEntity owner;
-        if (!this.level.isClientSide && this.level.getGameTime() % 10 == 0 && (owner = this.getFamiliarOwner()) != null
+        if (!this.level().isClientSide && this.level().getGameTime() % 10 == 0 && (owner = this.getFamiliarOwner()) != null
                 && this.distanceTo(owner) < MAX_BOOST_DISTANCE)
             for (MobEffectInstance effect : this.getFamiliarEffects())
                 owner.addEffect(effect);
@@ -132,7 +132,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
     public LivingEntity getOwner() {
         UUID uuid = this.getOwnerId();
-        return uuid == null ? null : this.level.getPlayerByUUID(uuid);
+        return uuid == null ? null : this.level().getPlayerByUUID(uuid);
     }
 
     @Override
@@ -142,10 +142,10 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
             return stack.interactLivingEntity(playerIn, this, hand);
         } else if (stack.getItem() == OccultismItems.DEBUG_WAND.get()) {
             this.setOwnerId(playerIn.getUUID());
-            return InteractionResult.sidedSuccess(this.level.isClientSide);
-        } else if (stack.isEmpty() && !this.level.isClientSide && this.getFamiliarOwner() == playerIn) {
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        } else if (stack.isEmpty() && !this.level().isClientSide && this.getFamiliarOwner() == playerIn) {
             this.setSitting(!this.isSitting());
-            return InteractionResult.sidedSuccess(this.level.isClientSide);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
         return InteractionResult.PASS;
     }
@@ -285,9 +285,9 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         }
 
         private boolean tryTeleport(BlockPos pos) {
-            boolean walkable = BlockPathTypes.WALKABLE == WalkNodeEvaluator.getBlockPathTypeStatic(this.entity.level,
+            boolean walkable = BlockPathTypes.WALKABLE == WalkNodeEvaluator.getBlockPathTypeStatic(this.entity.level(),
                     pos.mutable());
-            boolean noCollision = this.entity.level.noCollision(this.entity,
+            boolean noCollision = this.entity.level().noCollision(this.entity,
                     this.entity.getBoundingBox().move(pos.subtract(this.entity.blockPosition())));
             if (walkable && noCollision) {
                 this.entity.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5,

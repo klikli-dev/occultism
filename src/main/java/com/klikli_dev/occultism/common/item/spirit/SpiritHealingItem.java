@@ -40,7 +40,7 @@ public class SpiritHealingItem extends Item {
         if(pInteractionTarget.getType().is(OccultismTags.HEALED_BY_DEMONS_DREAM_FRUIT) && pInteractionTarget.getHealth() < pInteractionTarget.getMaxHealth()){
             pInteractionTarget.heal(2);
             pStack.shrink(1);
-            return InteractionResult.sidedSuccess(pPlayer.level.isClientSide);
+            return InteractionResult.sidedSuccess(pPlayer.level().isClientSide);
         }
         return super.interactLivingEntity(pStack, pPlayer, pInteractionTarget, pUsedHand);
     }

@@ -57,7 +57,7 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
     @Override
     protected void tick(E entity) {
         var treePos = BrainUtils.getMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
-        if (NearestTreeSensor.isLog(entity.level, treePos)) {
+        if (NearestTreeSensor.isLog(entity.level(), treePos)) {
             BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(treePos));
             this.breakingTime++;
             entity.swing(InteractionHand.MAIN_HAND);
@@ -67,20 +67,20 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
                 entity.playSound(SoundEvents.PLAYER_ATTACK_SWEEP, 1, 0.5F);
             }
             if (i != this.previousBreakProgress) {
-                entity.level.destroyBlockProgress(entity.getId(), treePos, i);
+                entity.level().destroyBlockProgress(entity.getId(), treePos, i);
                 this.previousBreakProgress = i;
             }
             if (this.breakingTime == 160) {
                 entity.playSound(SoundEvents.WOOD_BREAK, 1, 1);
                 this.fellTree(entity, treePos);
                 BrainUtils.setMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get(), treePos);
-                this.stop((ServerLevel) entity.getLevel(), entity, entity.getLevel().getGameTime());
+                this.stop((ServerLevel) entity.level(), entity, entity.level().getGameTime());
                 //we stop here (even though the above condition would save us) because sensor might reset last felled tree meanwhile
             }
 
         } else {
             //if the tree is gone, just stop and reset.
-            this.stop((ServerLevel) entity.getLevel(), entity, entity.getLevel().getGameTime());
+            this.stop((ServerLevel) entity.level(), entity, entity.level().getGameTime());
         }
     }
 
@@ -94,7 +94,7 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
     }
 
     private void fellTree(E entity, BlockPos treePos) {
-        Level level = entity.level;
+        Level level = entity.level();
         BlockPos base = treePos;
         Queue<BlockPos> blocks = new ArrayDeque<>();
         Set<BlockPos> visited = new HashSet<>();

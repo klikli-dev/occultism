@@ -50,7 +50,7 @@ public class SetWalkTargetToTreeBehaviour<E extends SpiritEntity> extends Extend
 
             for (Direction facing : Direction.Plane.HORIZONTAL) {
                 var pos = treePos.relative(facing);
-                if (entity.getLevel().isEmptyBlock(pos) && !unreachableWalkTargets.contains(pos)) {
+                if (entity.level().isEmptyBlock(pos) && !unreachableWalkTargets.contains(pos)) {
                     walkPos = pos;
                     break;
                 }

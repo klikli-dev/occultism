@@ -89,10 +89,10 @@ public class ReplantSaplingGoal extends Goal {
 
 //                this.entity.getJob().map(j -> (LumberjackJob) j).map(LumberjackJob::getLastFelledTree).ifPresent(lastFelledTree -> {
 //
-//                    if (this.entity.level.isEmptyBlock(lastFelledTree)) {
+//                    if (this.entity.level().isEmptyBlock(lastFelledTree)) {
 //                        ItemStack sapling = this.entity.getItemInHand(InteractionHand.MAIN_HAND);
 //                        if (sapling.getItem() instanceof BlockItem saplingBlockItem) {
-//                            this.entity.level.setBlockAndUpdate(lastFelledTree, saplingBlockItem.getBlock().defaultBlockState());
+//                            this.entity.level().setBlockAndUpdate(lastFelledTree, saplingBlockItem.getBlock().defaultBlockState());
 //                            sapling.shrink(1);
 //                        }
 //                    }

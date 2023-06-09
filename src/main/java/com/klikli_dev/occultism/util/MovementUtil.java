@@ -53,7 +53,7 @@ public class MovementUtil {
 
         //If swimming, flying, on the ground(= normal jump) or mounted, no double jump
         boolean swimming = player.isInWater() || player.isInLava();
-        if (player.isOnGround() || player.isPassenger() || player.getAbilities().flying || swimming) {
+        if (player.onGround() || player.isPassenger() || player.getAbilities().flying || swimming) {
             return false;
         }
 

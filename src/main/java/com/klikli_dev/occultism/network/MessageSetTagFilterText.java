@@ -53,7 +53,7 @@ public class MessageSetTagFilterText extends MessageBase {
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
 
-        Entity e = player.level.getEntity(this.entityId);
+        Entity e = player.level().getEntity(this.entityId);
         if (e instanceof SpiritEntity) {
             SpiritEntity spirit = (SpiritEntity) e;
             spirit.setTagFilter(this.tagFilterText);

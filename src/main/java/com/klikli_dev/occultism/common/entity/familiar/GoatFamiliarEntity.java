@@ -22,11 +22,11 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismTags;
-import com.google.common.collect.ImmutableList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
@@ -66,7 +66,7 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
 
         entity.playSound(SoundEvents.BELL_BLOCK, 1, 1);
 
-        for (Mob e : entity.level.getEntitiesOfClass(Mob.class, entity.getBoundingBox().inflate(30),
+        for (Mob e : entity.level().getEntitiesOfClass(Mob.class, entity.getBoundingBox().inflate(30),
                 e -> e.isAlive() && e.getClassification(false) == MobCategory.MONSTER))
             e.setTarget(owner);
     }
@@ -85,7 +85,7 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
     @Override
     public void tick() {
         super.tick();
-        if (this.level.isClientSide)
+        if (this.level().isClientSide)
             this.shakeHeadTimer--;
     }
 
@@ -175,10 +175,10 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
                     this.transform();
                 }
 
-                if (!this.level.isClientSide) //do this down here because shrink will erase item info and cause checks to fail
+                if (!this.level().isClientSide) //do this down here because shrink will erase item info and cause checks to fail
                     stack.shrink(1);
 
-                return InteractionResult.sidedSuccess(this.level.isClientSide);
+                return InteractionResult.sidedSuccess(this.level().isClientSide);
             } else {
                 this.shakeHeadTimer = 20;
                 return InteractionResult.CONSUME;
@@ -188,14 +188,14 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
     }
 
     private void transform() {
-        if (this.level.isClientSide) {
+        if (this.level().isClientSide) {
             float scale = this.getScale();
             for (int i = 0; i < 30; i++)
-                this.level.addParticle(ParticleTypes.SMOKE, this.getRandomX(scale), this.getRandomY() * scale, this.getRandomZ(scale), 0, 0,
+                this.level().addParticle(ParticleTypes.SMOKE, this.getRandomX(scale), this.getRandomY() * scale, this.getRandomZ(scale), 0, 0,
                         0);
         } else {
-            ShubNiggurathFamiliarEntity shubNiggurath = new ShubNiggurathFamiliarEntity(this.level, this);
-            this.level.addFreshEntity(shubNiggurath);
+            ShubNiggurathFamiliarEntity shubNiggurath = new ShubNiggurathFamiliarEntity(this.level(), this);
+            this.level().addFreshEntity(shubNiggurath);
             this.remove(RemovalReason.DISCARDED);
         }
     }
@@ -211,7 +211,7 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
 
     @SuppressWarnings("deprecation")
     private boolean isInTransformationBiome(Entity entity) {
-        return this.level.getBiome(entity.blockPosition()).is(OccultismTags.ALLOWS_SHUB_NIGGURRATH_TRANSFORMATION);
+        return this.level().getBiome(entity.blockPosition()).is(OccultismTags.ALLOWS_SHUB_NIGGURRATH_TRANSFORMATION);
     }
 
     public float getNeckYRot(float pPartialTick) {

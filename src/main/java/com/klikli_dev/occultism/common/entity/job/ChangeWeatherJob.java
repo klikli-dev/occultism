@@ -58,9 +58,9 @@ public abstract class ChangeWeatherJob extends SpiritJob {
     public void cleanup() {
         //in this case called on spirit death
         for (int i = 0; i < 5; i++) {
-            ((ServerLevel) this.entity.level)
-                    .sendParticles(ParticleTypes.LARGE_SMOKE, this.entity.getX() + this.entity.level.getRandom().nextGaussian(),
-                            this.entity.getY() + 0.5 + this.entity.level.getRandom().nextGaussian(), this.entity.getZ() + this.entity.level.getRandom().nextGaussian(), 5,
+            ((ServerLevel) this.entity.level())
+                    .sendParticles(ParticleTypes.LARGE_SMOKE, this.entity.getX() + this.entity.level().getRandom().nextGaussian(),
+                            this.entity.getY() + 0.5 + this.entity.level().getRandom().nextGaussian(), this.entity.getZ() + this.entity.level().getRandom().nextGaussian(), 5,
                             0.0, 0.0, 0.0,
                             0.0);
         }
@@ -75,8 +75,8 @@ public abstract class ChangeWeatherJob extends SpiritJob {
         if (!this.entity.swinging) {
             this.entity.swing(InteractionHand.MAIN_HAND);
         }
-        if (this.entity.level.getGameTime() % 2 == 0) {
-            ((ServerLevel) this.entity.level)
+        if (this.entity.level().getGameTime() % 2 == 0) {
+            ((ServerLevel) this.entity.level())
                     .sendParticles(ParticleTypes.SMOKE, this.entity.getX(),
                             this.entity.getY() + 0.5, this.entity.getZ(), 3,
                             0.5, 0.0, 0.0,
@@ -86,7 +86,7 @@ public abstract class ChangeWeatherJob extends SpiritJob {
         if (this.currentChangeTicks == this.requiredChangeTicks) {
             this.changeWeather();
 
-            LightningBolt lightningboltentity = EntityType.LIGHTNING_BOLT.create(this.entity.level);
+            LightningBolt lightningboltentity = EntityType.LIGHTNING_BOLT.create(this.entity.level());
             lightningboltentity.moveTo(Vec3.atBottomCenterOf(this.entity.blockPosition()));
             lightningboltentity.setVisualOnly(true);
 

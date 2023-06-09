@@ -54,7 +54,7 @@ public class SetWalkTargetToDepositBehaviour<E extends SpiritEntity> extends Ext
 
             for (Direction facing : Direction.Plane.HORIZONTAL) {
                 var pos = depositPos.relative(facing);
-                if (entity.getLevel().isEmptyBlock(pos) && !unreachableWalkTargets.contains(pos)) {
+                if (entity.level().isEmptyBlock(pos) && !unreachableWalkTargets.contains(pos)) {
                     walkPos = pos;
                     break;
                 }

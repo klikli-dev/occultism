@@ -54,7 +54,7 @@ public class ReturnToWorkAreaGoal extends Goal {
     public boolean canUse() {
 
         //fire on a slow tick based on chance
-        long worldTime = this.entity.level.getGameTime() % 10;
+        long worldTime = this.entity.level().getGameTime() % 10;
         if (this.entity.getNoActionTime() >= 100 && worldTime != 0) {
             return false;
         }

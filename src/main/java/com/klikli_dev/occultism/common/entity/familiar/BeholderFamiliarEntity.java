@@ -106,7 +106,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
     public void tick() {
         super.tick();
 
-        if (this.level.isClientSide) {
+        if (this.level().isClientSide) {
             for (Eye eye : this.eyes)
                 eye.tick();
 
@@ -126,13 +126,13 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
 
                 if (this.eatTimer < 50) {
                     if (this.eatTimer % 5 == 0)
-                        this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.GENERIC_EAT,
+                        this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.GENERIC_EAT,
                                 SoundSource.HOSTILE, this.getSoundVolume(), this.getVoicePitch(), false);
 
                     this.mouthRot = Mth.sin(this.tickCount) * FamiliarUtil.toRads(50) + FamiliarUtil.toRads(20);
                 }
                 if (this.eatTimer == 51)
-                    this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.GENERIC_EXPLODE,
+                    this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.GENERIC_EXPLODE,
                             SoundSource.HOSTILE, this.getSoundVolume(), 0.2f, false);
             }
             this.actualMouthRot = Mth.lerp(0.2f, this.actualMouthRot, this.mouthRot);
@@ -171,7 +171,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
         if (!this.isEffectEnabled(owner))
             return;
 
-        List<LivingEntity> nearby = owner.level.getEntitiesOfClass(LivingEntity.class,
+        List<LivingEntity> nearby = owner.level().getEntitiesOfClass(LivingEntity.class,
                 owner.getBoundingBox().inflate(10),
                 e -> !(e instanceof Player) && e != owner && e != this && !e.hasEffect(MobEffects.GLOWING));
         if (nearby.isEmpty())
@@ -311,7 +311,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
             OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.BEHOLDER_RAY);
 
             for (int id : this.targetIds) {
-                Entity e = this.entity.level.getEntity(id);
+                Entity e = this.entity.level().getEntity(id);
                 float damage = 6;
                 if (this.entity.hasEffect(MobEffects.DAMAGE_BOOST))
                     damage *= this.entity.getEffect(MobEffects.DAMAGE_BOOST).getAmplifier() + 2;
@@ -342,7 +342,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
         @Override
         public void start() {
             this.cooldown = MAX_COOLDOWN;
-            List<ShubNiggurathSpawnEntity> foods = this.entity.level.getEntitiesOfClass(ShubNiggurathSpawnEntity.class,
+            List<ShubNiggurathSpawnEntity> foods = this.entity.level().getEntitiesOfClass(ShubNiggurathSpawnEntity.class,
                     this.entity.getBoundingBox().inflate(3), Entity::isAlive);
 
             LivingEntity owner = this.entity.getFamiliarOwner();
@@ -392,7 +392,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
         }
 
         private void selectEyeTarget() {
-            List<LivingEntity> entities = BeholderFamiliarEntity.this.level.getEntitiesOfClass(LivingEntity.class, BeholderFamiliarEntity.this.getBoundingBox().inflate(7),
+            List<LivingEntity> entities = BeholderFamiliarEntity.this.level().getEntitiesOfClass(LivingEntity.class, BeholderFamiliarEntity.this.getBoundingBox().inflate(7),
                     e -> e != BeholderFamiliarEntity.this);
             if (entities.isEmpty()) {
                 this.eyeTarget = new PositionEyeTarget(Vec3.ZERO.add(5, 0, 0).yRot(BeholderFamiliarEntity.this.getRandom().nextFloat() * 360)
@@ -453,7 +453,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
             AABB endBox = new AABB(end, end).inflate(0.25);
             for (int i = 0; i < 150; i++) {
                 Vec3 particlePos = start.add(direction.scale(i * 0.1));
-                BeholderFamiliarEntity.this.level.addParticle(new DustParticleOptions(new Vector3f(BeholderFamiliarEntity.this.getRed(), BeholderFamiliarEntity.this.getBlue(), BeholderFamiliarEntity.this.getGreen()), 1), particlePos.x,
+                BeholderFamiliarEntity.this.level().addParticle(new DustParticleOptions(new Vector3f(BeholderFamiliarEntity.this.getRed(), BeholderFamiliarEntity.this.getBlue(), BeholderFamiliarEntity.this.getGreen()), 1), particlePos.x,
                         particlePos.y, particlePos.z, 0, 0, 0);
                 if (endBox.intersects(new AABB(particlePos, particlePos).inflate(0.25)))
                     break;
@@ -473,7 +473,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
 
             @Override
             protected Vec3 getEyeTarget() {
-                Entity e = BeholderFamiliarEntity.this.level.getEntity(this.entityId);
+                Entity e = BeholderFamiliarEntity.this.level().getEntity(this.entityId);
                 return e == null ? null : e.getEyePosition(0);
             }
         }

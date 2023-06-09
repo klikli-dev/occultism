@@ -68,7 +68,7 @@ public class DivinationRodItem extends Item {
 
     @Override
     public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration) {
-        if (pLivingEntity.level.isClientSide && pLivingEntity instanceof Player player) {
+        if (pLivingEntity.level().isClientSide && pLivingEntity instanceof Player player) {
             ScanManager.instance.updateScan(player, false);
         }
     }

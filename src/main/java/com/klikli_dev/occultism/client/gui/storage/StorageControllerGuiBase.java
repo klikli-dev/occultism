@@ -176,7 +176,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                     ChatFormatting.RESET));
         }
 
-        if (this.minecraft.player.level.dimension() != machine.insertGlobalPos.getDimensionKey())
+        if (this.minecraft.player.level().dimension() != machine.insertGlobalPos.getDimensionKey())
             tooltip.add(Component.translatable(ChatFormatting.GRAY.toString() + ChatFormatting.ITALIC +
                     machine.insertGlobalPos.getDimensionKey().location() +
                     ChatFormatting.RESET));
@@ -799,7 +799,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected void sortMachines(List<MachineReference> machinesToDisplay) {
         BlockPos entityPosition = this.getEntityPosition();
-        ResourceKey<Level> dimensionKey = this.minecraft.player.level.dimension();
+        ResourceKey<Level> dimensionKey = this.minecraft.player.level().dimension();
         machinesToDisplay.sort(new Comparator<MachineReference>() {
 
             //region Fields

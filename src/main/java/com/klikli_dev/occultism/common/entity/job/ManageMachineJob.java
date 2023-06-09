@@ -105,7 +105,7 @@ public class ManageMachineJob extends SpiritJob {
             return null;
 
         if (this.storageController == null) {
-            this.storageController = (IStorageController) BlockEntityUtil.get(this.entity.level,
+            this.storageController = (IStorageController) BlockEntityUtil.get(this.entity.level(),
                     this.storageControllerPosition);
         }
 
@@ -119,7 +119,7 @@ public class ManageMachineJob extends SpiritJob {
             return null;
 
         if (this.managedMachineBlockEntity == null) {
-            this.managedMachineBlockEntity = BlockEntityUtil.get(this.entity.level, this.managedMachine.insertGlobalPos);
+            this.managedMachineBlockEntity = BlockEntityUtil.get(this.entity.level(), this.managedMachine.insertGlobalPos);
 
         }
 
@@ -131,7 +131,7 @@ public class ManageMachineJob extends SpiritJob {
             return null;
 
         if (this.extractBlockEntity == null) {
-            this.extractBlockEntity = BlockEntityUtil.get(this.entity.level, this.managedMachine.extractGlobalPos);
+            this.extractBlockEntity = BlockEntityUtil.get(this.entity.level(), this.managedMachine.extractGlobalPos);
 
         }
 
@@ -236,7 +236,7 @@ public class ManageMachineJob extends SpiritJob {
         if (storageController != null && this.managedMachine != null) {
             storageController.addDepositOrderSpirit(this.managedMachine.insertGlobalPos, this.entity.getUUID());
             storageController.linkMachine(this.managedMachine);
-            BlockEntityUtil.updateTile(this.entity.level, this.getStorageControllerPosition().getPos());
+            BlockEntityUtil.updateTile(this.entity.level(), this.getStorageControllerPosition().getPos());
         }
     }
 

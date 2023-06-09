@@ -134,7 +134,7 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
 
     @Override
     public boolean isFlying() {
-        return !this.onGround;
+        return !this.onGround();
     }
 
     public Iterable<MobEffectInstance> getFamiliarEffects() {
@@ -199,7 +199,7 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
 
         private Bat nearbyBat() {
             Bat nearby = null;
-            List<Bat> bats = this.bat.level.getEntitiesOfClass(Bat.class, this.bat.getBoundingBox().inflate(2));
+            List<Bat> bats = this.bat.level().getEntitiesOfClass(Bat.class, this.bat.getBoundingBox().inflate(2));
             if (!bats.isEmpty())
                 nearby = bats.get(0);
             return nearby;

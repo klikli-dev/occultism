@@ -51,7 +51,7 @@ public class NbtCommand implements Command<CommandSourceStack> {
         ItemStack heldItem = player.getItemInHand(InteractionHand.MAIN_HAND);
 
         Component nbtText = heldItem.isEmpty() || !heldItem.hasTag() ? Component.literal("{}") : NbtUtils.toPrettyComponent(heldItem.getTag());
-        context.getSource().sendSuccess(nbtText, false);
+        context.getSource().sendSuccess(() -> nbtText, false);
         return 0;
     }
 }

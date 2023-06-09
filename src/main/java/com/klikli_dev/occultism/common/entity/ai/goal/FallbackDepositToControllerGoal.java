@@ -100,7 +100,7 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
     //region Methods
 
     protected BlockEntity findClosestStorageProxy() {
-        Level level = this.entity.level;
+        Level level = this.entity.level();
         List<BlockPos> allBlocks = new ArrayList<>();
 
         if(this.job.getManagedMachine() == null || this.job.getManagedMachine().insertGlobalPos == null)

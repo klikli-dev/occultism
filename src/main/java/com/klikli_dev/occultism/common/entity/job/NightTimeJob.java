@@ -40,7 +40,7 @@ public class NightTimeJob extends ChangeTimeJob {
         //nightfall is 13000, 37000, 61000, etc
         //midnight is 18000
 
-        ServerLevelData level = (ServerLevelData) this.entity.level.getLevelData();
+        ServerLevelData level = (ServerLevelData) this.entity.level().getLevelData();
 
         //calculate the time of the next nightfall
         long newTime = ((level.getDayTime() + 11000) / 24000) * 24000 + 13000;

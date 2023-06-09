@@ -71,7 +71,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
 
     @Override
     public void updateSwimming() {
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             if (this.isInWater()) {
                 this.navigation = this.waterNavigator;
                 this.setSwimming(true);
@@ -159,7 +159,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
         @Override
         public boolean canUse() {
             return !this.beaver.isSitting() && this.beaver.isEffectEnabled(this.beaver.getFamiliarOwner()) && this.beaver.treeTarget != null
-                    && this.beaver.level.getBlockState(this.beaver.treeTarget).is(BlockTags.LOGS);
+                    && this.beaver.level().getBlockState(this.beaver.treeTarget).is(BlockTags.LOGS);
         }
 
         @Override
@@ -190,7 +190,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
 
                     harvesting.add(pos);
                     for (BlockPos p : BlockPos.withinManhattan(pos, 1, 1, 1)) {
-                        if (!harvesting.contains(p) && this.beaver.level.getBlockState(p).is(BlockTags.LOGS)) {
+                        if (!harvesting.contains(p) && this.beaver.level().getBlockState(p).is(BlockTags.LOGS)) {
                             positions.add(p.immutable());
                             harvesting.add(pos);
                         }
@@ -204,7 +204,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
                 }
 
                 for (BlockPos p : harvesting)
-                    this.beaver.level.destroyBlock(p, true);
+                    this.beaver.level().destroyBlock(p, true);
                 this.beaver.treeTarget = null;
                 OccultismAdvancements.FAMILIAR.trigger(this.beaver.getFamiliarOwner(), FamiliarTrigger.Type.BEAVER_WOODCHOP);
             }

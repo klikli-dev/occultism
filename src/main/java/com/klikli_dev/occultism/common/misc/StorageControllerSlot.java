@@ -57,7 +57,7 @@ public class StorageControllerSlot extends ResultSlot {
 
     @Override
     public void onTake(Player player, ItemStack stack) {
-        if (player.level.isClientSide) {
+        if (player.level().isClientSide) {
             // return stack;
             return;
         }

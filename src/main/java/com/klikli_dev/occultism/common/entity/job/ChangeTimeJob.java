@@ -59,9 +59,9 @@ public abstract class ChangeTimeJob extends SpiritJob {
     public void cleanup() {
         //in this case called on spirit death
         for (int i = 0; i < 5; i++) {
-            ((ServerLevel) this.entity.level)
-                    .sendParticles(ParticleTypes.PORTAL, this.entity.getX() + this.entity.level.getRandom().nextGaussian(),
-                            this.entity.getY() + 0.5 + this.entity.level.getRandom().nextGaussian(), this.entity.getZ() + this.entity.level.getRandom().nextGaussian(), 5,
+            ((ServerLevel) this.entity.level())
+                    .sendParticles(ParticleTypes.PORTAL, this.entity.getX() + this.entity.level().getRandom().nextGaussian(),
+                            this.entity.getY() + 0.5 + this.entity.level().getRandom().nextGaussian(), this.entity.getZ() + this.entity.level().getRandom().nextGaussian(), 5,
                             0.0, 0.0, 0.0,
                             0.0);
         }
@@ -77,8 +77,8 @@ public abstract class ChangeTimeJob extends SpiritJob {
             this.entity.swing(InteractionHand.MAIN_HAND);
         }
 
-        if (this.entity.level.getGameTime() % 2 == 0) {
-            ((ServerLevel) this.entity.level)
+        if (this.entity.level().getGameTime() % 2 == 0) {
+            ((ServerLevel) this.entity.level())
                     .sendParticles(ParticleTypes.PORTAL, this.entity.getX(),
                             this.entity.getY() + 0.5, this.entity.getZ(), 3,
                             0.5, 0.0, 0.0,
@@ -110,7 +110,7 @@ public abstract class ChangeTimeJob extends SpiritJob {
     }
 
     public void updateTime() {
-        var level = (ServerLevelData) this.entity.level.getLevelData();
+        var level = (ServerLevelData) this.entity.level().getLevelData();
 
         var remainingTime = this.newTime - level.getDayTime();
         var remainingTicks = Math.max(this.requiredChangeTicks - this.currentChangeTicks, 1);
@@ -126,7 +126,7 @@ public abstract class ChangeTimeJob extends SpiritJob {
     }
 
     public void finishChangeTime() {
-        this.entity.level.playSound(null, this.entity.blockPosition(), SoundEvents.BEACON_ACTIVATE, SoundSource.NEUTRAL, 1, 1);
+        this.entity.level().playSound(null, this.entity.blockPosition(), SoundEvents.BEACON_ACTIVATE, SoundSource.NEUTRAL, 1, 1);
         this.entity.die(this.entity.damageSources().outOfWorld());
         this.entity.remove(Entity.RemovalReason.DISCARDED);
     }

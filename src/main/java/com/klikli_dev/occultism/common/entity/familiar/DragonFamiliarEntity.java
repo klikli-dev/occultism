@@ -149,7 +149,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         if (this.greedyTimer > 0)
             this.greedyTimer--;
 
-        if (!this.isOnGround()) {
+        if (!this.onGround()) {
             Vec3 motion = this.getDeltaMovement();
             if (motion.y < 0) {
                 motion = motion.multiply(1, 0.5, 1);
@@ -160,7 +160,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         if (!this.isEffectiveAi()) {
             this.flyingTimer0 = this.flyingTimer;
             this.wingspan0 = this.wingspan;
-            if (this.isOnGround()) {
+            if (this.onGround()) {
                 this.wingspan -= 5;
                 if (this.wingspan < 0)
                     this.wingspan = 0;
@@ -197,7 +197,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
             if (this.isEffectiveAi())
                 stack.shrink(1);
             else
-                this.level.addParticle(ParticleTypes.HEART, this.getX(), this.getY() + 1, this.getZ(), 0, 0,
+                this.level().addParticle(ParticleTypes.HEART, this.getX(), this.getY() + 1, this.getZ(), 0, 0,
                         0);
             return InteractionResult.sidedSuccess(!this.isEffectiveAi());
         } else if (stack.isEmpty() && playerIn.isShiftKeyDown()) {
@@ -299,7 +299,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
             Entity enemy = enemies.get(this.entity.getRandom().nextInt(enemies.size()));
             ThrownSwordEntity sword = new ThrownSwordEntity(OccultismEntities.THROWN_SWORD_TYPE.get(),
-                    this.entity.level);
+                    this.entity.level());
             sword.setOwner(this.entity.getFamiliarOwner());
             double x = this.entity.getX();
             double y = this.entity.getEyeY();
@@ -309,7 +309,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
             double zDir = enemy.getZ() - z;
             sword.setPos(x, y, z);
             sword.shoot(xDir, yDir, zDir, 0.5f, 3f);
-            this.entity.level.addFreshEntity(sword);
+            this.entity.level().addFreshEntity(sword);
         }
 
     }
@@ -363,7 +363,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
         }
 
         private ItemEntity findStick() {
-            List<ItemEntity> sticks = this.dragon.level.getEntitiesOfClass(ItemEntity.class,
+            List<ItemEntity> sticks = this.dragon.level().getEntitiesOfClass(ItemEntity.class,
                     this.dragon.getBoundingBox().inflate(8), e -> e.getItem().getItem() == Items.STICK && e.isAlive());
             return sticks.isEmpty() ? null : sticks.get(0);
         }
