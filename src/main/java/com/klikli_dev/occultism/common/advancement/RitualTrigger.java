@@ -44,7 +44,7 @@ public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.Instance
     }
 
     @Override
-    protected Instance createInstance(JsonObject json, EntityPredicate.Composite composite, DeserializationContext deserializationContext) {
+    protected Instance createInstance(JsonObject json, ContextAwarePredicate predicate, DeserializationContext deserializationContext) {
         return new RitualTrigger.Instance(this.deserializeRitualPredicate(json));
     }
 
@@ -64,7 +64,7 @@ public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.Instance
         RitualPredicate ritualPredicate;
 
         public Instance(RitualPredicate ritualPredicate) {
-            super(RitualTrigger.ID, EntityPredicate.Composite.ANY);
+            super(RitualTrigger.ID, ContextAwarePredicate.ANY);
             this.ritualPredicate = ritualPredicate;
         }
 

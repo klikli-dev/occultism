@@ -23,10 +23,8 @@
 package com.klikli_dev.occultism.common.effect;
 
 import com.klikli_dev.occultism.Occultism;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -44,10 +42,8 @@ public class ThirdEyeEffect extends MobEffect {
     public static final IClientMobEffectExtensions EFFECT_RENDERER = new IClientMobEffectExtensions() {
 
         @Override
-        public boolean renderGuiIcon(MobEffectInstance instance, Gui gui, PoseStack poseStack, int x, int y, float z, float alpha) {
-            RenderSystem.setShaderTexture(0, ICON);
-            GuiComponent.blit(poseStack, x + 3, y + 3, 18, 18, 0, 0, 255, 255, 256, 256);
-
+        public boolean renderGuiIcon(MobEffectInstance instance, Gui gui, GuiGraphics guiGraphics, int x, int y, float z, float alpha) {
+            guiGraphics.blit(ICON, x + 3, y + 3, 18, 18, 0, 0, 255, 255, 256, 256);
             return true;
         }
 

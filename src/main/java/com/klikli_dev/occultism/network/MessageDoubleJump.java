@@ -48,7 +48,7 @@ public class MessageDoubleJump extends MessageBase {
                                  NetworkEvent.Context context) {
         if (MovementUtil.doubleJump(player)) {
             //Show cloud on jump.
-            player.level()
+            player.serverLevel()
                     .sendParticles(ParticleTypes.CLOUD, player.position().x, player.position().y,
                             player.position().z, 5, 0, 0, 0, 0.01F);
         }

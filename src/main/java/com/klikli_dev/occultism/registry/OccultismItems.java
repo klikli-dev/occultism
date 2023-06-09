@@ -31,20 +31,13 @@ import com.klikli_dev.occultism.common.item.debug.*;
 import com.klikli_dev.occultism.common.item.otherworld.OtherworldBlockItem;
 import com.klikli_dev.occultism.common.item.spirit.*;
 import com.klikli_dev.occultism.common.item.storage.*;
-import com.klikli_dev.occultism.common.item.spirit.*;
-import com.klikli_dev.occultism.common.item.storage.*;
-import com.klikli_dev.occultism.common.item.tool.*;
-import com.klikli_dev.occultism.common.item.tool.*;
-import com.klikli_dev.occultism.common.item.debug.*;
 import com.klikli_dev.occultism.common.item.tool.BrushItem;
+import com.klikli_dev.occultism.common.item.tool.*;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraftforge.common.ForgeSpawnEggItem;
-import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -439,27 +432,6 @@ public class OccultismItems {
 
         ComposterBlock.COMPOSTABLES.put(OccultismItems.DATURA.get(), 0.65f);
         Occultism.LOGGER.info("Registered compostable Items");
-    }
-
-    public static void onRegisterCreativeModeTabs(CreativeModeTabEvent.Register event) {
-        event.registerCreativeModeTab(new ResourceLocation(Occultism.MODID + ":" + Occultism.MODID),
-                (builder) -> {
-                    builder.icon(() -> new ItemStack(OccultismItems.PENTACLE.get()))
-                            .title(Component.translatable("itemGroup.occultism")).build();
-
-                    builder.displayItems((parameters, output) -> {
-                        ITEMS.getEntries().forEach(i -> {
-
-                            if (!shouldSkipCreativeModTab(i.get())) {
-                                output.accept(i.get());
-                            }
-                        });
-
-                        output.accept(DICTIONARY_OF_SPIRITS.get().getCreativeModeTabDisplayStack());
-                    });
-
-                }
-        );
     }
 
     public static boolean shouldSkipCreativeModTab(Item item) {

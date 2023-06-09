@@ -45,6 +45,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
@@ -536,12 +537,12 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.addRenderableWidget(this.autocraftingModeButton);
     }
 
-    protected void drawItems(PoseStack poseStack, float partialTicks, int mouseX, int mouseY) {
+    protected void drawItems(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
         List<ItemStack> stacksToDisplay = this.applySearchToItems();
         this.sortItemStacks(stacksToDisplay);
         this.buildPage(stacksToDisplay);
         this.buildItemSlots(stacksToDisplay);
-        this.drawItemSlots(poseStack, mouseX, mouseY);
+        this.drawItemSlots(guiGraphics, mouseX, mouseY);
     }
 
     protected void drawMachines(PoseStack poseStack, float partialTicks, int mouseX, int mouseY) {
@@ -649,11 +650,11 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.blit(poseStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
     }
 
-    protected void drawItemSlots(PoseStack poseStack, int mouseX, int mouseY) {
+    protected void drawItemSlots(GuiGraphics guiGraphics, int mouseX, int mouseY) {
         this.stackUnderMouse = ItemStack.EMPTY;
         for (ItemSlotWidget slot : this.itemSlots) {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            slot.drawSlot(poseStack, mouseX, mouseY);
+            slot.drawSlot(guiGraphics, mouseX, mouseY);
             if (slot.isMouseOverSlot(mouseX, mouseY)) {
                 this.stackUnderMouse = slot.getStack();
                 //        break;

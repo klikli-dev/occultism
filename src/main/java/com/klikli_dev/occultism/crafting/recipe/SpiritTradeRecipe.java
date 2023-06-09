@@ -131,14 +131,14 @@ public class SpiritTradeRecipe extends ShapelessRecipe {
         public SpiritTradeRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             ShapelessRecipe recipe = serializer.fromJson(recipeId, json);
             //we can pass null because shapeless recipe doesn't use the registryaccess.
-            return new SpiritTradeRecipe(recipe.getId(), recipe.getGroup(), recipe.getResultItem(null), recipe.getIngredients());
+            return new SpiritTradeRecipe(recipe.getId(), recipe.getGroup(), recipe.getResultItem(RegistryAccess.EMPTY), recipe.getIngredients());
         }
 
         @Override
         public SpiritTradeRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             ShapelessRecipe recipe = serializer.fromNetwork(recipeId, buffer);
             //we can pass null because shapeless recipe doesn't use the registryaccess.
-            return new SpiritTradeRecipe(recipe.getId(), recipe.getGroup(), recipe.getResultItem(null), recipe.getIngredients());
+            return new SpiritTradeRecipe(recipe.getId(), recipe.getGroup(), recipe.getResultItem(RegistryAccess.EMPTY), recipe.getIngredients());
         }
 
         @Override

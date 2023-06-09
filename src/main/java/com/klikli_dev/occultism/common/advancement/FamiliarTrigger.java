@@ -13,7 +13,7 @@ public class FamiliarTrigger extends SimpleCriterionTrigger<FamiliarTrigger.Inst
     private static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "familiar");
 
     public static Instance of(Type type) {
-        return new Instance(EntityPredicate.Composite.ANY, type);
+        return new Instance(ContextAwarePredicate.ANY, type);
     }
 
     @Override
@@ -22,8 +22,8 @@ public class FamiliarTrigger extends SimpleCriterionTrigger<FamiliarTrigger.Inst
     }
 
     @Override
-    protected Instance createInstance(JsonObject pJson, EntityPredicate.Composite pPlayer, DeserializationContext pContext) {
-        return new Instance(pPlayer, Type.valueOf(GsonHelper.getAsString(pJson, "type")));
+    protected Instance createInstance(JsonObject pJson, ContextAwarePredicate predicate, DeserializationContext pContext) {
+        return new Instance(predicate, Type.valueOf(GsonHelper.getAsString(pJson, "type")));
     }
 
     public void trigger(ServerPlayer player, Type type) {
@@ -46,8 +46,8 @@ public class FamiliarTrigger extends SimpleCriterionTrigger<FamiliarTrigger.Inst
 
         private final Type type;
 
-        public Instance(EntityPredicate.Composite entityPredicate, Type type) {
-            super(FamiliarTrigger.ID, entityPredicate);
+        public Instance(ContextAwarePredicate predicate, Type type) {
+            super(FamiliarTrigger.ID, predicate);
             this.type = type;
         }
 

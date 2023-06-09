@@ -26,19 +26,16 @@ import com.klikli_dev.occultism.client.render.SelectedBlockRenderer;
 import com.klikli_dev.occultism.client.render.ThirdEyeEffectRenderer;
 import com.klikli_dev.occultism.common.DebugHelper;
 import com.klikli_dev.occultism.common.entity.familiar.*;
-import com.klikli_dev.occultism.common.entity.familiar.*;
 import com.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
 import com.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
 import com.klikli_dev.occultism.common.entity.possessed.PossessedGhastEntity;
 import com.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
-import com.klikli_dev.occultism.common.entity.spirit.*;
 import com.klikli_dev.occultism.common.entity.spirit.*;
 import com.klikli_dev.occultism.config.OccultismClientConfig;
 import com.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.klikli_dev.occultism.config.OccultismServerConfig;
 import com.klikli_dev.occultism.integration.modonomicon.PageLoaders;
 import com.klikli_dev.occultism.network.OccultismPackets;
-import com.klikli_dev.occultism.registry.*;
 import com.klikli_dev.occultism.registry.*;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.MinecraftForge;
@@ -83,6 +80,7 @@ public class Occultism {
         OccultismRecipes.RECIPES.register(modEventBus);
         OccultismBlocks.BLOCKS.register(modEventBus);
         OccultismItems.ITEMS.register(modEventBus);
+        OccultismCreativeModeTabs.CREATIVE_MODE_TABS.register(modEventBus);
         OccultismTiles.TILES.register(modEventBus);
         OccultismContainers.CONTAINERS.register(modEventBus);
         OccultismEntities.ENTITIES.register(modEventBus);
@@ -101,7 +99,6 @@ public class Occultism {
         OccultismAdvancements.register();
 
         //register event buses
-        modEventBus.addListener(OccultismItems::onRegisterCreativeModeTabs);
         modEventBus.addListener(OccultismCapabilities::onRegisterCapabilities);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::onEntityAttributeCreation);

@@ -29,6 +29,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.item.ItemStack;
 
@@ -90,8 +91,8 @@ public class ItemSlotWidget {
         return this.parent.isPointInRegionController(this.x - this.guiLeft, this.y - this.guiTop, 16, 16, mouseX, mouseY);
     }
 
-    public void drawSlot(PoseStack poseStack, int mx, int my) {
-        poseStack.pushPose();
+    public void drawSlot(GuiGraphics guiGraphics, int mx, int my) {
+        guiGraphics.pose().pushPose();
         if (!this.getStack().isEmpty()) {
             //RenderHelper.enableGUIStandardItemLighting();
 
@@ -102,33 +103,33 @@ public class ItemSlotWidget {
                         this.stackSize);
 
                 //render item overlay
-                poseStack.pushPose();
+                guiGraphics.pose().pushPose();
 
 //                this.minecraft.getItemRenderer()
 //                        .blitOffset = 0.1f;
                 //we ended up not using any translate and it was fine
 
-                poseStack.scale(.5f, .5f, .5f);
+                guiGraphics.pose().scale(.5f, .5f, .5f);
 
-                this.minecraft.getItemRenderer().renderGuiItemDecorations(poseStack,  this.fontRenderer, this.stack, this.x * 2 + 16, this.y * 2 + 16, amount);
-                poseStack.popPose();
+                guiGraphics.renderItemDecorations(this.fontRenderer, this.stack, this.x * 2 + 16, this.y * 2 + 16, amount);
+                guiGraphics.pose().popPose();
             }
 
             //this.minecraft.getItemRenderer().blitOffset = -100F;
-            poseStack.pushPose();
-            poseStack.translate(0, 0, -100);
-            this.minecraft.getItemRenderer().renderAndDecorateItem(poseStack, this.getStack(), this.x, this.y);
-            poseStack.popPose();
+            guiGraphics.pose().pushPose();
+            guiGraphics.pose().translate(0, 0, -100);
+            guiGraphics.renderItem( this.getStack(), this.x, this.y);
+            guiGraphics.pose().popPose();
 
             if (this.isMouseOverSlot(mx, my)) {
                 RenderSystem.colorMask(true, true, true, false);
-                this.parent.drawGradientRect(poseStack, this.x, this.y, this.x + 16, this.y + 16, this.slotHighlightColor,
+                this.parent.drawGradientRect(guiGraphics, this.x, this.y, this.x + 16, this.y + 16, this.slotHighlightColor,
                         this.slotHighlightColor);
                 RenderSystem.colorMask(true, true, true, true);
             }
         }
 
-        poseStack.popPose();
+        guiGraphics.pose().popPose();
     }
 
     public void drawTooltip(PoseStack poseStack, int mx, int my) {

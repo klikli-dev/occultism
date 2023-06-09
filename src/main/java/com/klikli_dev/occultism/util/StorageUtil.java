@@ -217,7 +217,7 @@ public class StorageUtil {
         for (int i = 0; i < filter.getSlots(); i++) {
             ItemStack filtered = filter.getStackInSlot(i);
 
-            boolean equals = filtered.sameItem(stack);
+            boolean equals = ItemStack.isSameItem(filtered, stack);
 
             if (equals) {
                 return true;
