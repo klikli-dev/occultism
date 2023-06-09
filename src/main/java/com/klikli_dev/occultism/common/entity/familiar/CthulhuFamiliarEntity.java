@@ -198,12 +198,13 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public void positionRider(Entity pPassenger) {
+    protected void positionRider(Entity pPassenger, Entity.MoveFunction pCallback) {
         if (this.hasPassenger(pPassenger)) {
             Vec3 direction = this.riderLocation();
-            pPassenger.setPos(direction.x, direction.y, direction.z);
+            pCallback.accept(pPassenger, direction.x, direction.y, direction.z);
         }
     }
+
 
     @Override
     public Vec3 getDismountLocationForPassenger(LivingEntity pLivingEntity) {

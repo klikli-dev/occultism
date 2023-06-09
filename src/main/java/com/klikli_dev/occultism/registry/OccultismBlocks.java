@@ -23,11 +23,9 @@
 package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.common.block.*;
-import com.klikli_dev.occultism.common.block.*;
 import com.klikli_dev.occultism.common.block.CandleBlock;
+import com.klikli_dev.occultism.common.block.*;
 import com.klikli_dev.occultism.common.block.crops.ReplantableCropsBlock;
-import com.klikli_dev.occultism.common.block.otherworld.*;
 import com.klikli_dev.occultism.common.block.otherworld.*;
 import com.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.klikli_dev.occultism.common.block.storage.StorageControllerBlock;

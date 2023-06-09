@@ -22,14 +22,14 @@
 
 package com.klikli_dev.occultism.integration.jei.recipes;
 
+import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.modonomicon.api.ModonomiconAPI;
+import com.klikli_dev.occultism.util.GuiGraphicsExt;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -41,6 +41,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
@@ -83,12 +84,12 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         return actualX + width;
     }
 
-    protected void drawStringCentered(PoseStack poseStack, Font font, Component text, int x, int y) {
-        font.draw(poseStack, text, (x - font.width(text) / 2.0f), y, 0);
+    protected void drawStringCentered(GuiGraphics guiGraphics, Font font, Component text, int x, int y) {
+        GuiGraphicsExt.drawString(guiGraphics, font, text, (x - font.width(text) / 2.0f), y, 0, false);
     }
 
-    protected void drawStringCentered(PoseStack poseStack, Font font, FormattedCharSequence text, int x, int y) {
-        font.draw(poseStack, text, (x - font.width(text) / 2.0f), y, 0);
+    protected void drawStringCentered(GuiGraphics guiGraphics, Font font, FormattedCharSequence text, int x, int y) {
+        GuiGraphicsExt.drawString(guiGraphics, font, text, (x - font.width(text) / 2.0f), y, 0, false);
     }
 
     @Override
@@ -192,7 +193,6 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
                 .addItemStack(recipe.getRitualDummy());
 
 
-
         //draw item to use
         if (recipe.requiresItemUse()) {
 
@@ -203,9 +203,9 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
 
             //simulate pentacle id rendering, to get the correct Y level to draw at
             if (pentacle != null) {
-                var pentacleName = Minecraft.getInstance().font.split( Component.translatable(Util.makeDescriptionId("multiblock", pentacle.getId())), 150);
+                var pentacleName = Minecraft.getInstance().font.split(Component.translatable(Util.makeDescriptionId("multiblock", pentacle.getId())), 150);
 
-                for(var line : pentacleName){
+                for (var line : pentacleName) {
                     //Don't actually draw
                     //this.drawStringCentered(poseStack, Minecraft.getInstance().font,  line , infoTextX, infotextY);
                     infotextY += lineHeight;
@@ -227,9 +227,9 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
     }
 
     @Override
-    public void draw(RitualRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
+    public void draw(RitualRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
-        this.arrow.draw(poseStack, this.ritualCenterX + this.recipeOutputOffsetX - 20, this.ritualCenterY);
+        this.arrow.draw(guiGraphics, this.ritualCenterX + this.recipeOutputOffsetX - 20, this.ritualCenterY);
         RenderSystem.disableBlend();
 
         int infotextY = 0;
@@ -237,38 +237,38 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         int lineHeight = Minecraft.getInstance().font.lineHeight;
         var pentacle = ModonomiconAPI.get().getMultiblock(recipe.getPentacleId());
         if (pentacle != null) {
-            var pentacleName = Minecraft.getInstance().font.split( Component.translatable(Util.makeDescriptionId("multiblock", pentacle.getId())), 150);
+            var pentacleName = Minecraft.getInstance().font.split(Component.translatable(Util.makeDescriptionId("multiblock", pentacle.getId())), 150);
 
-            for(var line : pentacleName){
-                this.drawStringCentered(poseStack, Minecraft.getInstance().font,
-                        line , infoTextX, infotextY);
+            for (var line : pentacleName) {
+                this.drawStringCentered(guiGraphics, Minecraft.getInstance().font,
+                        line, infoTextX, infotextY);
                 infotextY += lineHeight;
             }
         } else {
-            this.drawStringCentered(poseStack, Minecraft.getInstance().font,
+            this.drawStringCentered(guiGraphics, Minecraft.getInstance().font,
                     Component.translatable("jei.occultism.error.pentacle_not_loaded"), infoTextX, 0);
         }
 
         if (recipe.requiresSacrifice()) {
-            this.drawStringCentered(poseStack, Minecraft.getInstance().font,
+            this.drawStringCentered(guiGraphics, Minecraft.getInstance().font,
                     Component.translatable("jei.occultism.sacrifice", Component.translatable(recipe.getEntityToSacrificeDisplayName())), infoTextX, infotextY);
             infotextY += lineHeight;
         }
 
         if (recipe.requiresItemUse()) {
-            this.drawStringCentered(poseStack, Minecraft.getInstance().font, Component.translatable("jei.occultism.item_to_use"), infoTextX, infotextY);
+            this.drawStringCentered(guiGraphics, Minecraft.getInstance().font, Component.translatable("jei.occultism.item_to_use"), infoTextX, infotextY);
             infotextY += lineHeight;
         }
 
         if (recipe.getEntityToSummon() != null) {
-            this.drawStringCentered(poseStack, Minecraft.getInstance().font,
+            this.drawStringCentered(guiGraphics, Minecraft.getInstance().font,
                     Component.translatable("jei.occultism.summon", Component.translatable(recipe.getEntityToSummon().getDescriptionId())),
                     infoTextX, infotextY);
             infotextY += lineHeight;
         }
 
         if (recipe.getSpiritJobType() != null) {
-            this.drawStringCentered(poseStack, Minecraft.getInstance().font,
+            this.drawStringCentered(guiGraphics, Minecraft.getInstance().font,
                     Component.translatable("jei.occultism.job",
                             Component.translatable("job." + recipe.getSpiritJobType().toString().replace(":", "."))),
                     infoTextX, infotextY);

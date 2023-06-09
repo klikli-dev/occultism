@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.entity.familiar.DragonFamiliarEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -322,12 +323,12 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         }
 
         @Override
-        public void render(PoseStack pPoseStack, VertexConsumer pVertexConsumer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
+        public void render(PoseStack poseStack, VertexConsumer pVertexConsumer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
             //prevent actual render
         }
 
-        public void proxyRender(PoseStack pPoseStack, VertexConsumer pVertexConsumer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
-            this.proxied.render(pPoseStack, pVertexConsumer, pPackedLight, pPackedOverlay, this.r, this.g, this.b, this.a);
+        public void proxyRender(PoseStack poseStack, VertexConsumer pVertexConsumer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
+            this.proxied.render(poseStack, pVertexConsumer, pPackedLight, pPackedOverlay, this.r, this.g, this.b, this.a);
         }
     }
 }

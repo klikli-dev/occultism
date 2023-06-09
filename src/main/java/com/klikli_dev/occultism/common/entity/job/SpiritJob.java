@@ -99,7 +99,7 @@ public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
         return BrainActivityGroup.empty();
     }
 
-    public void handleAdditionalBrainSetup(Brain<SpiritEntity> brain) {
+    public void handleAdditionalBrainSetup(Brain<? extends SpiritEntity> brain) {
 
     }
 

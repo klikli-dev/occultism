@@ -38,6 +38,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -66,6 +67,7 @@ public class ThirdEyeEffectRenderer {
 
 
     public void renderOverlay(PoseStack pose) {
+        RenderSystem.setShaderTexture(0, ThirdEyeEffectRenderer.THIRD_EYE_TEXTURE);
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate(
                 GlStateManager.SourceFactor.SRC_ALPHA,

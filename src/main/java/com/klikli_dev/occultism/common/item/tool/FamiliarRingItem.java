@@ -130,8 +130,8 @@ public class FamiliarRingItem extends Item {
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player playerIn, LivingEntity target,
                                                   InteractionHand hand) {
-        if (!playerIn.level.isClientSide && target instanceof IFamiliar familiar) {
-            if ((familiar.getFamiliarOwner() == playerIn || familiar.getFamiliarOwner() == null) && getCurio(stack).captureFamiliar(playerIn.level, familiar)) {
+        if (!playerIn.level().isClientSide && target instanceof IFamiliar familiar) {
+            if ((familiar.getFamiliarOwner() == playerIn || familiar.getFamiliarOwner() == null) && getCurio(stack).captureFamiliar(playerIn.level(), familiar)) {
                 OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.CAPTURE);
                 CompoundTag tag = stack.getOrCreateTag();
                 tag.putBoolean("occupied", true);
@@ -147,10 +147,10 @@ public class FamiliarRingItem extends Item {
     public InteractionResult useOn(UseOnContext pContext) {
 
         ItemStack stack = pContext.getPlayer().getItemInHand(pContext.getHand());
-        if (!pContext.getPlayer().level.isClientSide && getCurio(stack).releaseFamiliar(pContext.getPlayer(), pContext.getLevel())) {
+        if (!pContext.getPlayer().level().isClientSide && getCurio(stack).releaseFamiliar(pContext.getPlayer(), pContext.getLevel())) {
             CompoundTag tag = stack.getOrCreateTag();
             tag.putBoolean("occupied", false);
-            return InteractionResult.sidedSuccess(pContext.getPlayer().level.isClientSide);
+            return InteractionResult.sidedSuccess(pContext.getPlayer().level().isClientSide);
         }
 
         return InteractionResult.CONSUME;
@@ -259,14 +259,14 @@ public class FamiliarRingItem extends Item {
 
         @Override
         public void curioTick(SlotContext slotContext) {
-            Level level = slotContext.entity().level;
+            Level level = slotContext.entity().level();
             IFamiliar familiar = this.getFamiliar(level);
 
             if (familiar != null) {
                 // after portal use the level is still the pre-teleport level, the familiar owner is not found on the next check
                 // hence, we update the level, if the familiar is in a ring
                 if (!familiar.getFamiliarEntity().isAddedToWorld())
-                    familiar.getFamiliarEntity().level = level;
+                    familiar.getFamiliarEntity().setLevel(level);
 
                 if (familiar.getFamiliarOwner() != slotContext.entity())
                     return;

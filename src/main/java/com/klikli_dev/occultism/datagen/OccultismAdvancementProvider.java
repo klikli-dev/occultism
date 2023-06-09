@@ -30,6 +30,7 @@ import com.klikli_dev.occultism.registry.OccultismRituals;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.FrameType;
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.PlayerTrigger;
 import net.minecraft.data.CachedOutput;
@@ -116,7 +117,7 @@ public class OccultismAdvancementProvider implements DataProvider {
 //                            new ResourceLocation("textures/gui/advancements/backgrounds/stone.png"), FrameType.TASK, true,
 //                            true, true)
                 .addCriterion("occultism_present",
-                        new PlayerTrigger.TriggerInstance(CriteriaTriggers.TICK.getId(), EntityPredicate.Composite.ANY))
+                        new PlayerTrigger.TriggerInstance(CriteriaTriggers.TICK.getId(), ContextAwarePredicate.ANY))
                 .build(new ResourceLocation(Occultism.MODID, "occultism/root")));
 
         Advancement familiarsRoot = this.add(Advancement.Builder.advancement()

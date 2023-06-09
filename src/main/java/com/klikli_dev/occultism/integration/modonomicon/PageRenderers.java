@@ -1,6 +1,5 @@
 package com.klikli_dev.occultism.integration.modonomicon;
 
-import com.klikli_dev.occultism.integration.modonomicon.pages.*;
 import com.klikli_dev.modonomicon.client.render.page.PageRendererRegistry;
 import com.klikli_dev.occultism.integration.modonomicon.pages.*;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;

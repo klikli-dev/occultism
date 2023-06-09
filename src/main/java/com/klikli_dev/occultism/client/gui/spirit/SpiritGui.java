@@ -32,6 +32,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -60,8 +61,8 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         this.imageHeight = 165;
     }
 
-    //region Static Methods
-    public static void drawEntityToGui(PoseStack poseStack, int posX, int posY, int scale, float mouseX, float mouseY, LivingEntity entity) {
+    public static void drawEntityToGui(GuiGraphics guiGraphics, int posX, int posY, int scale, float mouseX, float mouseY, LivingEntity entity) {
+        var poseStack = guiGraphics.pose();
         //From inventory screen
         float f = (float) Math.atan(mouseX / 40.0F);
         float f1 = (float) Math.atan(mouseY / 40.0F);
@@ -134,25 +135,21 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     }
 
     @Override
-    protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
+    protected void renderLabels(GuiGraphics guiGraphics, int pMouseX, int pMouseY) {
         //prevent default labels being rendered
     }
 
     @Override
-    protected void renderBg(PoseStack poseStack, float partialTicks, int x, int y) {
-        this.renderBackground(poseStack);
+    protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int x, int y) {
+        this.renderBackground(guiGraphics);
 
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, TEXTURE);
+        guiGraphics.blit(TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
 
-        this.blit(poseStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
-
-        poseStack.pushPose();
+        guiGraphics.pose().pushPose();
         int scale = 30;
-        drawEntityToGui(poseStack, this.leftPos + 35, this.topPos + 65, scale, this.leftPos + 51 - x,
+        drawEntityToGui(guiGraphics, this.leftPos + 35, this.topPos + 65, scale, this.leftPos + 51 - x,
                 this.topPos + 75 - 50 - y, this.spirit);
-        poseStack.popPose();
+        guiGraphics.pose().popPose();
     }
-//endregion Static Methods
 }

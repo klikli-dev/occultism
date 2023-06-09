@@ -306,14 +306,14 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                         this.matrix.setItem(i, currentCraftingItem);
                     }
                     //handle "normal items" ie non-damagable
-                    else if (!stackInSlot.isDamageableItem() && ItemStack.tagMatches(stackInSlot, currentCraftingItem)) {
+                    else if (!stackInSlot.isDamageableItem() && ItemStack.isSameItemSameTags(stackInSlot, currentCraftingItem)) {
                         //Used to call grow here, but that causes dupes of unbreakable items
                         //removing it seems not to cause any harm?
                         //  currentCraftingItem.grow(stackInSlot.getCount());
                         this.matrix.setItem(i, currentCraftingItem);
                     }
                     //handle items that consume durability on craft
-                    else if (ItemStack.isSame(stackInSlot, currentCraftingItem)) {
+                    else if (ItemStack.isSameItem(stackInSlot, currentCraftingItem)) {
                         this.matrix.setItem(i, currentCraftingItem);
                     } else {
                         //last resort, try to place in player inventory or if that fails, drop.

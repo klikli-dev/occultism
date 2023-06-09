@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.client.gui.controls;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.renderer.GameRenderer;
@@ -77,17 +78,15 @@ public class SizedImageButton extends ImageButton {
     }
 
     @Override
-    public void renderWidget(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
+    public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         if (this.visible) {
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.setShaderTexture(0, this.resourceLocation);
             int i = this.xTexStart;
             int j = this.yTexStart;
             if (this.isHoveredOrFocused()) {
                 i += this.xDiffOffset;
             }
             RenderSystem.enableDepthTest();
-            blit(stack, this.getX(), this.getY(), this.width, this.height, i, j, this.textureWidth, this.textureHeight, this.textureMapWidth, this.textureMapHeight);
+            guiGraphics.blit(this.resourceLocation, this.getX(), this.getY(), this.width, this.height, i, j, this.textureWidth, this.textureHeight, this.textureMapWidth, this.textureMapHeight);
         }
     }
 }

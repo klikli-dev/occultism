@@ -34,6 +34,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -127,21 +128,18 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     }
 
     @Override
-    protected void renderBg(PoseStack poseStack, float partialTicks, int x, int y) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+    protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int x, int y) {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, TEXTURE);
+        guiGraphics.blit(TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
 
-        this.blit(poseStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
-
-        poseStack.pushPose();
+        guiGraphics.pose().pushPose();
         int scale = 30;
-        drawEntityToGui(poseStack, this.leftPos + 35, this.topPos + 65, scale, this.leftPos + 51 - x,
+        drawEntityToGui(guiGraphics, this.leftPos + 35, this.topPos + 65, scale, this.leftPos + 51 - x,
                 this.topPos + 75 - 50 - y, this.spirit);
-        poseStack.popPose();
+        guiGraphics.pose().popPose();
     }
 
-    protected void renderFg(PoseStack poseStack, int mouseX, int mouseY) {
+    protected void renderFg(GuiGraphics guiGraphics, int mouseX, int mouseY) {
         this.tooltip.clear();
 
         if (this.filterModeButton.isHoveredOrFocused()) {
@@ -156,17 +154,15 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
             this.tooltip.add(Component.translatable(TRANSLATION_KEY_BASE + ".tag_filter"));
         }
 
-        if (!this.tooltip.isEmpty()) {
-            this.renderTooltip(poseStack, this.tooltip, Optional.empty(), mouseX - this.leftPos,
-                    mouseY - this.topPos);
-        }
+        if (!this.tooltip.isEmpty())
+            guiGraphics.renderTooltip(this.font, this.tooltip, Optional.empty(), mouseX - this.leftPos, mouseY - this.topPos);
     }
 
     @Override
-    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-        super.render(poseStack, mouseX, mouseY, partialTicks);
-        this.tagFilterTextField.render(poseStack, mouseX, mouseY, partialTicks);
-        this.renderFg(poseStack, mouseX, mouseY);
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        super.render(guiGraphics, mouseX, mouseY, partialTicks);
+        this.tagFilterTextField.render(guiGraphics, mouseX, mouseY, partialTicks);
+        this.renderFg(guiGraphics, mouseX, mouseY);
     }
 
     @Override

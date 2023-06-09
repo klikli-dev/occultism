@@ -5323,3 +5323,4 @@ public class OccultismBookProvider extends BookProvider {
                         demo
                 );
     }
+}

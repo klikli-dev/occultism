@@ -119,7 +119,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
             return false;
 
         BlockPos upPos = pos.above();
-        return seedReader.isEmptyBlock(upPos) || seedReader.getBlockState(upPos).getMaterial().isReplaceable();
+        return seedReader.isEmptyBlock(upPos) || seedReader.getBlockState(upPos).canBeReplaced();
     }
 
     public boolean isCeiling(WorldGenLevel seedReader, BlockPos pos, BlockState state) {
@@ -143,7 +143,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
             BlockPos offsetPos = pos.relative(facing);
             BlockState stateAt = seedReader.getBlockState(offsetPos);
 
-            if (state != stateAt && seedReader.isEmptyBlock(offsetPos) || stateAt.getMaterial().isReplaceable())
+            if (state != stateAt && seedReader.isEmptyBlock(offsetPos) || stateAt.canBeReplaced())
                 return facing;
         }
 

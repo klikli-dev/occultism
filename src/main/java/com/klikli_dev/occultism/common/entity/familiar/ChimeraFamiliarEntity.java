@@ -323,9 +323,8 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
         return false;
     }
 
-
     @Override
-    protected void tickRidden(LivingEntity rider, Vec3 travelVec) {
+    protected void tickRidden(Player rider, Vec3 travelVec) {
         super.tickRidden(rider, travelVec);
         this.setRot(rider.getYRot(), rider.getXRot() * 0.5F);
         this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
@@ -333,12 +332,12 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     }
 
     @Override
-    protected Vec3 getRiddenInput(LivingEntity rider, Vec3 travelVec) {
-        if (this.isVehicle() && rider instanceof Player player) {
-            float forward = player.zza;
-            float strafe = player.xxa * 0.5f;
+    protected Vec3 getRiddenInput(Player rider, Vec3 travelVec) {
+        if (this.isVehicle()) {
+            float forward = rider.zza;
+            float strafe = rider.xxa * 0.5f;
 
-            if (this.isRiderJumping(player) && this.onGround() && this.jumpTimer <= 0) {
+            if (this.isRiderJumping(rider) && this.onGround() && this.jumpTimer <= 0) {
                 this.jumpTimer = JUMP_COOLDOWN;
                 Vec3 forwardDirection = Vec3.directionFromRotation(0, this.yRotO).scale(0.7);
                 this.setDeltaMovement(this.getDeltaMovement().add(forwardDirection.x, 0, forwardDirection.z));
@@ -355,7 +354,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     }
 
     @Override
-    protected float getRiddenSpeed(LivingEntity rider) {
+    protected float getRiddenSpeed(Player rider) {
         return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.8f;
     }
 

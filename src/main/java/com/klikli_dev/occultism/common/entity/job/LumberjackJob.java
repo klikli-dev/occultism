@@ -110,7 +110,7 @@ public class LumberjackJob extends SpiritJob {
 
 
     @Override
-    public void handleAdditionalBrainSetup(Brain<SpiritEntity> brain) {
+    public void handleAdditionalBrainSetup(Brain<? extends SpiritEntity> brain) {
 
     }
 

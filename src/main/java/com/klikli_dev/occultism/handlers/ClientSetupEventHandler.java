@@ -212,10 +212,10 @@ public class ClientSetupEventHandler {
 
     @SubscribeEvent
     public static void onRegisterGuiOverlays(RegisterGuiOverlaysEvent event) {
-        event.registerAboveAll("third_eye", (gui, poseStack, partialTick, screenWidth, screenHeight) -> {
+        event.registerAboveAll("third_eye", (gui, guiGraphics, partialTick, screenWidth, screenHeight) -> {
             if (Occultism.THIRD_EYE_EFFECT_RENDERER.gogglesActiveLastTick || Occultism.THIRD_EYE_EFFECT_RENDERER.thirdEyeActiveLastTick) {
-                gui.setupOverlayRenderState(true, false, ThirdEyeEffectRenderer.THIRD_EYE_TEXTURE);
-                Occultism.THIRD_EYE_EFFECT_RENDERER.renderOverlay(poseStack);
+                gui.setupOverlayRenderState(true, false);
+                Occultism.THIRD_EYE_EFFECT_RENDERER.renderOverlay(guiGraphics.pose());
             }
         });
     }

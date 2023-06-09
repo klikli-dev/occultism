@@ -31,6 +31,7 @@ import com.klikli_dev.occultism.network.MessageSetItemMode;
 import com.klikli_dev.occultism.network.MessageSetWorkAreaSize;
 import com.klikli_dev.occultism.network.OccultismPackets;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.client.gui.widget.ExtendedButton;
@@ -49,9 +50,9 @@ public class BookOfCallingGui extends Screen {
     }
 
     @Override
-    public void render(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(stack);
-        super.render(stack, mouseX, mouseY, partialTicks);
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(guiGraphics);
+        super.render(guiGraphics, mouseX, mouseY, partialTicks);
     }
 
     @Override

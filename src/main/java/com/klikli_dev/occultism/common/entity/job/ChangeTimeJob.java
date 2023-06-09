@@ -127,7 +127,7 @@ public abstract class ChangeTimeJob extends SpiritJob {
 
     public void finishChangeTime() {
         this.entity.level().playSound(null, this.entity.blockPosition(), SoundEvents.BEACON_ACTIVATE, SoundSource.NEUTRAL, 1, 1);
-        this.entity.die(this.entity.damageSources().outOfWorld());
+        this.entity.die(this.entity.damageSources().fellOutOfWorld());
         this.entity.remove(Entity.RemovalReason.DISCARDED);
     }
 

@@ -104,7 +104,7 @@ public class ChalkGlyphBlock extends Block {
     public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
         BlockPos down = pos.below();
         BlockState downState = worldIn.getBlockState(down);
-        return downState.isFaceSturdy(worldIn, down, Direction.UP) && state.getMaterial().isReplaceable();
+        return downState.isFaceSturdy(worldIn, down, Direction.UP) && state.canBeReplaced();
     }
 
     @Override

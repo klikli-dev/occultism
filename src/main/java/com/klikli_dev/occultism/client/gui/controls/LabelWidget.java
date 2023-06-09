@@ -26,6 +26,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.resources.language.I18n;
@@ -70,7 +71,7 @@ public class LabelWidget extends AbstractWidget {
     }
 
     @Override
-    public void renderWidget(PoseStack stack, int p_268034_, int p_268009_, float p_268085_) {
+    public void renderWidget(GuiGraphics guiGraphics, int p_268034_, int p_268009_, float p_268085_) {
         if (this.visible) {
             Minecraft minecraft = Minecraft.getInstance();
             Font fontrenderer = minecraft.font;
@@ -85,41 +86,40 @@ public class LabelWidget extends AbstractWidget {
             for (int i = 0; i < this.lines.size(); i++) {
                 int top = this.getY() + i * (fontrenderer.lineHeight + this.margin);
                 if (this.centered) {
-                    this.drawCenteredLabelString(stack, fontrenderer, this.lines.get(i), this.getX(), top, color);
+                    this.drawCenteredLabelString(guiGraphics, fontrenderer, this.lines.get(i), this.getX(), top, color);
                 } else if (this.rightAligned) {
-                    this.drawRightAlignedLabelString(stack, fontrenderer, this.lines.get(i), this.getX(), top, color);
+                    this.drawRightAlignedLabelString(guiGraphics, fontrenderer, this.lines.get(i), this.getX(), top, color);
                 } else {
-                    this.drawLabelString(stack, fontrenderer, this.lines.get(i), this.getX(), top, color);
+                    this.drawLabelString(guiGraphics, fontrenderer, this.lines.get(i), this.getX(), top, color);
                 }
             }
         }
     }
 
-    public void drawCenteredLabelString(PoseStack stack, Font fontRenderer, String text, int x, int y, int color) {
+    public void drawCenteredLabelString(GuiGraphics guiGraphics, Font font, String text, int x, int y, int color) {
         if (this.shadow) {
-            fontRenderer
-                    .drawShadow(stack, text, (float) (x - fontRenderer.width(text) / 2), (float) y, color);
+            guiGraphics.drawString(font, text, (float) (x - font.width(text) / 2), (float) y, color, true);
         } else {
-            fontRenderer.draw(stack, text, (float) (x - fontRenderer.width(text) / 2), (float) y, color);
+            guiGraphics.drawString(font, text, (float) (x - font.width(text) / 2), (float) y, color, false);
         }
     }
 
-    public void drawRightAlignedLabelString(PoseStack stack, Font fontRenderer, String text,
+    public void drawRightAlignedLabelString(GuiGraphics guiGraphics, Font font, String text,
                                             int x, int y,
                                             int color) {
         if (this.shadow) {
-            fontRenderer.drawShadow(stack, text, (float) (x - fontRenderer.width(text)), (float) y, color);
+            guiGraphics.drawString(font, text, (float) (x - font.width(text)), (float) y, color, true);
         } else {
-            fontRenderer.draw(stack, text, (float) (x - fontRenderer.width(text)), (float) y, color);
+            guiGraphics.drawString(font, text, (float) (x - font.width(text)), (float) y, color, false);
         }
 
     }
 
-    public void drawLabelString(PoseStack stack, Font fontRenderer, String text, int x, int y, int color) {
+    public void drawLabelString(GuiGraphics guiGraphics, Font font, String text, int x, int y, int color) {
         if (this.shadow) {
-            fontRenderer.drawShadow(stack, text, x, y, color);
+            guiGraphics.drawString(font, text, x, y, color, true);
         } else {
-            fontRenderer.draw(stack, text, x, y, color);
+            guiGraphics.drawString(font, text, x, y, color, false);
         }
     }
 

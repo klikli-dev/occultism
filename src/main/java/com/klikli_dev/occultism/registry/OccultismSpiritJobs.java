@@ -24,7 +24,6 @@ package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.job.*;
-import com.klikli_dev.occultism.common.entity.job.*;
 import com.klikli_dev.occultism.util.StaticUtil;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.DeferredRegister;
