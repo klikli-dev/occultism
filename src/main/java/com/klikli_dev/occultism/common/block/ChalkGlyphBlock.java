@@ -150,5 +150,5 @@ public class ChalkGlyphBlock extends Block {
     public @Nullable BlockPathTypes getBlockPathType(BlockState state, BlockGetter level, BlockPos pos, @org.jetbrains.annotations.Nullable Mob mob) {
         return BlockPathTypes.OPEN;
     }
-    
+
 }

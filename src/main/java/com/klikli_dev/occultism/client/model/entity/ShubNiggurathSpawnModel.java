@@ -22,9 +22,9 @@
 
 package com.klikli_dev.occultism.client.model.entity;
 
+import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.entity.familiar.ShubNiggurathSpawnEntity;
 import com.klikli_dev.occultism.util.FamiliarUtil;
-import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
@@ -71,30 +71,30 @@ public class ShubNiggurathSpawnModel extends EntityModel<ShubNiggurathSpawnEntit
 
     public ShubNiggurathSpawnModel(ModelPart part) {
         this.head = part.getChild("head");
-        this.rightHorn1 = head.getChild("rightHorn1");
-        this.mouth = head.getChild("mouth");
-        this.leftHorn1 = head.getChild("leftHorn1");
-        this.tentacleTop1 = head.getChild("tentacleTop1");
-        this.tentacleMiddle1 = head.getChild("tentacleMiddle1");
-        this.tentacleBottom1 = head.getChild("tentacleBottom1");
-        this.eye2 = head.getChild("eye2");
-        this.eye3 = head.getChild("eye3");
-        this.eye4 = head.getChild("eye4");
-        this.christmasPresent1 = head.getChild("christmasPresent1");
-        this.rightHorn2 = rightHorn1.getChild("rightHorn2");
-        this.jaw = mouth.getChild("jaw");
-        this.upperTeeth = mouth.getChild("upperTeeth");
-        this.eye1 = mouth.getChild("eye1");
-        this.lowerTeeth = jaw.getChild("lowerTeeth");
-        this.leftHorn2 = leftHorn1.getChild("leftHorn2");
-        this.tentacleTop2 = tentacleTop1.getChild("tentacleTop2");
-        this.tentacleTop3 = tentacleTop2.getChild("tentacleTop3");
-        this.tentacleMiddle2 = tentacleMiddle1.getChild("tentacleMiddle2");
-        this.tentacleMiddle3 = tentacleMiddle2.getChild("tentacleMiddle3");
-        this.tentacleBottom2 = tentacleBottom1.getChild("tentacleBottom2");
-        this.tentacleBottom3 = tentacleBottom2.getChild("tentacleBottom3");
-        this.christmasPresent2 = christmasPresent1.getChild("christmasPresent2");
-        this.christmasPresent3 = christmasPresent1.getChild("christmasPresent3");
+        this.rightHorn1 = this.head.getChild("rightHorn1");
+        this.mouth = this.head.getChild("mouth");
+        this.leftHorn1 = this.head.getChild("leftHorn1");
+        this.tentacleTop1 = this.head.getChild("tentacleTop1");
+        this.tentacleMiddle1 = this.head.getChild("tentacleMiddle1");
+        this.tentacleBottom1 = this.head.getChild("tentacleBottom1");
+        this.eye2 = this.head.getChild("eye2");
+        this.eye3 = this.head.getChild("eye3");
+        this.eye4 = this.head.getChild("eye4");
+        this.christmasPresent1 = this.head.getChild("christmasPresent1");
+        this.rightHorn2 = this.rightHorn1.getChild("rightHorn2");
+        this.jaw = this.mouth.getChild("jaw");
+        this.upperTeeth = this.mouth.getChild("upperTeeth");
+        this.eye1 = this.mouth.getChild("eye1");
+        this.lowerTeeth = this.jaw.getChild("lowerTeeth");
+        this.leftHorn2 = this.leftHorn1.getChild("leftHorn2");
+        this.tentacleTop2 = this.tentacleTop1.getChild("tentacleTop2");
+        this.tentacleTop3 = this.tentacleTop2.getChild("tentacleTop3");
+        this.tentacleMiddle2 = this.tentacleMiddle1.getChild("tentacleMiddle2");
+        this.tentacleMiddle3 = this.tentacleMiddle2.getChild("tentacleMiddle3");
+        this.tentacleBottom2 = this.tentacleBottom1.getChild("tentacleBottom2");
+        this.tentacleBottom3 = this.tentacleBottom2.getChild("tentacleBottom3");
+        this.christmasPresent2 = this.christmasPresent1.getChild("christmasPresent2");
+        this.christmasPresent3 = this.christmasPresent1.getChild("christmasPresent3");
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -153,7 +153,7 @@ public class ShubNiggurathSpawnModel extends EntityModel<ShubNiggurathSpawnEntit
         this.tentacleMiddle1.zRot = 0;
         this.tentacleTop1.zRot = 0;
     }
-    
+
     private void showModels(ShubNiggurathSpawnEntity entityIn) {
         boolean isChristmas = FamiliarUtil.isChristmas();
         this.tentacleBottom1.visible = !isChristmas;

@@ -21,10 +21,10 @@
  */
 package com.klikli_dev.occultism.network;
 
+import com.google.common.base.Preconditions;
 import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.klikli_dev.occultism.util.StorageUtil;
-import com.google.common.base.Preconditions;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -56,10 +56,9 @@ public class MessageSetRecipeByID extends MessageBase {
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
-        if (!(player.containerMenu instanceof IStorageControllerContainer)) {
+        if (!(player.containerMenu instanceof IStorageControllerContainer container)) {
             return;
         }
-        IStorageControllerContainer container = (IStorageControllerContainer) player.containerMenu;
         IStorageController storageController = container.getStorageController();
         if (storageController == null) {
             return;
@@ -116,8 +115,7 @@ public class MessageSetRecipeByID extends MessageBase {
         Preconditions.checkArgument(ingredients.size() <= 9);
 
 
-        if (recipe instanceof IShapedRecipe) {
-            IShapedRecipe<?> shapedRecipe = (IShapedRecipe<?>) recipe;
+        if (recipe instanceof IShapedRecipe<?> shapedRecipe) {
             int width = shapedRecipe.getRecipeWidth();
             int height = shapedRecipe.getRecipeHeight();
             Preconditions.checkArgument(width <= 3 && height <= 3);

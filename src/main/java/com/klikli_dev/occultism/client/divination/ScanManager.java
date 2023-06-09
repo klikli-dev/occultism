@@ -50,7 +50,7 @@ public class ScanManager {
 
         this.scanner = new Scanner(target);
         this.scanner.initialize(player, player.position(), Occultism.CLIENT_CONFIG.misc.divinationRodScanRange.get(), SCAN_DURATION_TICKS);
-        if(!TheurgyIntegration.isLoaded()) //only use if theurgy not used, because if it is, we use a particle effect that only goes to the closest target
+        if (!TheurgyIntegration.isLoaded()) //only use if theurgy not used, because if it is, we use a particle effect that only goes to the closest target
             this.scanner.setHighlightAllResults(Occultism.CLIENT_CONFIG.misc.divinationRodHighlightAllResults.get());
     }
 

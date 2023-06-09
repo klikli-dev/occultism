@@ -42,10 +42,6 @@ import com.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.klikli_dev.occultism.integration.modonomicon.PageRenderers;
 import com.klikli_dev.occultism.registry.*;
-import com.klikli_dev.occultism.client.itemproperties.*;
-import com.klikli_dev.occultism.client.model.entity.*;
-import com.klikli_dev.occultism.client.render.entity.*;
-import com.klikli_dev.occultism.registry.*;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -147,7 +143,7 @@ public class ClientSetupEventHandler {
     }
 
     @SubscribeEvent
-    public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event){
+    public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
         event.register(KEY_BACKPACK);
         event.register(KEY_STORAGE_REMOTE);
 
@@ -213,10 +209,11 @@ public class ClientSetupEventHandler {
             Occultism.LOGGER.debug("Registered Item Properties");
         });
     }
+
     @SubscribeEvent
-    public static void onRegisterGuiOverlays(RegisterGuiOverlaysEvent event){
+    public static void onRegisterGuiOverlays(RegisterGuiOverlaysEvent event) {
         event.registerAboveAll("third_eye", (gui, poseStack, partialTick, screenWidth, screenHeight) -> {
-            if(  Occultism.THIRD_EYE_EFFECT_RENDERER.gogglesActiveLastTick || Occultism.THIRD_EYE_EFFECT_RENDERER.thirdEyeActiveLastTick){
+            if (Occultism.THIRD_EYE_EFFECT_RENDERER.gogglesActiveLastTick || Occultism.THIRD_EYE_EFFECT_RENDERER.thirdEyeActiveLastTick) {
                 gui.setupOverlayRenderState(true, false, ThirdEyeEffectRenderer.THIRD_EYE_TEXTURE);
                 Occultism.THIRD_EYE_EFFECT_RENDERER.renderOverlay(poseStack);
             }

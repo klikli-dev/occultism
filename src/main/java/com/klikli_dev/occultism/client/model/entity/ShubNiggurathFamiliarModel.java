@@ -22,9 +22,9 @@
 
 package com.klikli_dev.occultism.client.model.entity;
 
+import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.entity.familiar.CthulhuFamiliarEntity;
 import com.klikli_dev.occultism.common.entity.familiar.ShubNiggurathFamiliarEntity;
-import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;

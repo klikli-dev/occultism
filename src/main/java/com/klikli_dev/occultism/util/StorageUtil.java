@@ -57,8 +57,7 @@ public class StorageUtil {
      * @param sendStackUpdate true to resend the current stacks to the client.
      */
     public static void clearOpenCraftingMatrix(ServerPlayer player, boolean sendStackUpdate) {
-        if (player.containerMenu instanceof IStorageControllerContainer) {
-            IStorageControllerContainer container = (IStorageControllerContainer) player.containerMenu;
+        if (player.containerMenu instanceof IStorageControllerContainer container) {
             CraftingContainer craftMatrix = container.getCraftMatrix();
             IStorageController storageController = container.getStorageController();
 
@@ -104,8 +103,7 @@ public class StorageUtil {
      * @param sendStackUpdate true to resend the current stacks to the client.
      */
     public static void clearOpenOrderSlot(ServerPlayer player, boolean sendStackUpdate) {
-        if (player.containerMenu instanceof IStorageControllerContainer) {
-            IStorageControllerContainer container = (IStorageControllerContainer) player.containerMenu;
+        if (player.containerMenu instanceof IStorageControllerContainer container) {
             SimpleContainer orderSlot = container.getOrderSlot();
             IStorageController storageController = container.getStorageController();
 
@@ -280,7 +278,7 @@ public class StorageUtil {
 
     public static int getFirstMatchingSlot(IItemHandler handler, TagKey<Item> tag) {
         for (int i = 0; i < handler.getSlots(); i++) {
-            if(handler.getStackInSlot(i).is(tag))
+            if (handler.getStackInSlot(i).is(tag))
                 return i;
         }
         return -1;

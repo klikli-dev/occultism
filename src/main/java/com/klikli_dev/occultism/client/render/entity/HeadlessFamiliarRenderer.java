@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.client.render.entity;
 
+import com.google.common.collect.ImmutableMap;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.model.entity.CthulhuFamiliarModel;
 import com.klikli_dev.occultism.client.model.entity.HeadlessFamiliarModel;
@@ -29,7 +30,6 @@ import com.klikli_dev.occultism.common.entity.familiar.HeadlessFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.klikli_dev.occultism.util.FamiliarUtil;
-import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;

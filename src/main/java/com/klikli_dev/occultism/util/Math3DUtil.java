@@ -113,7 +113,7 @@ public class Math3DUtil {
     /**
      * Checks if a is within distance of b, allowing a different distance for each axis.
      */
-    public static boolean withinAxisDistances(Vec3 a, Vec3 b, double distanceX, double distanceY, double distanceZ){
+    public static boolean withinAxisDistances(Vec3 a, Vec3 b, double distanceX, double distanceY, double distanceZ) {
         double d0 = Math.abs(a.x - b.x);
         double d1 = Math.abs(a.y - b.y);
         double d2 = Math.abs(a.z - b.z);

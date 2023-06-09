@@ -96,7 +96,7 @@ public class ThrownSwordEntity extends ThrowableItemProjectile {
     @Override
     @SuppressWarnings("unchecked")
     public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return (Packet<ClientGamePacketListener>) NetworkHooks.getEntitySpawningPacket(this);
+        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     private boolean friendlyFire(Entity target) {

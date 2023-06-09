@@ -84,7 +84,7 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Dr
             var matrix = matrixStackIn.last().pose();
             Font font = event.getRenderer().getFont();
             font.drawInBatch(text, -font.width(text) / 2f, 0, 0xffffff, false, matrix,
-                    event.getMultiBufferSource(),  Font.DisplayMode.NORMAL, 0x000000, event.getPackedLight());
+                    event.getMultiBufferSource(), Font.DisplayMode.NORMAL, 0x000000, event.getPackedLight());
             matrixStackIn.popPose();
         }
     }

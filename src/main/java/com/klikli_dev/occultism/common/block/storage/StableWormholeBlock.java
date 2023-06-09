@@ -22,11 +22,11 @@
 
 package com.klikli_dev.occultism.common.block.storage;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
 import com.klikli_dev.occultism.common.blockentity.StableWormholeBlockEntity;
 import com.klikli_dev.occultism.registry.OccultismTiles;
 import com.klikli_dev.occultism.util.BlockEntityUtil;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;

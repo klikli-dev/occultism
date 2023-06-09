@@ -46,8 +46,7 @@ public class MessageSetItemMode extends MessageBase {
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
         ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
-        if (stack.getItem() instanceof IHandleItemMode) {
-            IHandleItemMode itemModeHandler = (IHandleItemMode) stack.getItem();
+        if (stack.getItem() instanceof IHandleItemMode itemModeHandler) {
             itemModeHandler.setItemMode(stack, this.mode);
             player.inventoryMenu.broadcastChanges();
         }

@@ -22,12 +22,12 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.network.MessageBeholderAttack;
 import com.klikli_dev.occultism.network.OccultismPackets;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.util.FamiliarUtil;
-import com.google.common.collect.ImmutableList;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
@@ -52,6 +52,7 @@ import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
@@ -243,8 +244,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
     // Client method
     public void shootRay(List<Integer> targetIds) {
         List<Eye> eyeList = new ArrayList<>();
-        for (Eye e : this.eyes)
-            eyeList.add(e);
+        Collections.addAll(eyeList, this.eyes);
 
         for (int id : targetIds) {
             if (eyeList.isEmpty())
@@ -365,9 +365,9 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
     }
 
     private class Eye {
+        private final Vec3 pos;
         private Vec3 lookPos0;
         private Vec3 lookPos;
-        private final Vec3 pos;
         private EyeTarget eyeTarget;
         private int shotTimer;
 

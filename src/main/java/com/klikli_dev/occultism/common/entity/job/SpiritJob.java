@@ -22,10 +22,10 @@
 
 package com.klikli_dev.occultism.common.entity.job;
 
+import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
-import com.google.common.collect.ImmutableList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityDimensions;
@@ -77,15 +77,16 @@ public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
     /**
      * Sets up the job, e.g. AI Tasks
      */
-    public final void init(){
+    public final void init() {
         BrainUtils.setMemory(this.entity, OccultismMemoryTypes.WORK_AREA_CENTER.get(), this.entity.getWorkAreaCenter());
         BrainUtils.setMemory(this.entity, OccultismMemoryTypes.WORK_AREA_SIZE.get(), this.entity.getWorkAreaSize().getValue());
-        BrainUtils.setMemory(this.entity, OccultismMemoryTypes.DEPOSIT_POSITION.get(),  this.entity.getDepositPosition().orElse(null));
+        BrainUtils.setMemory(this.entity, OccultismMemoryTypes.DEPOSIT_POSITION.get(), this.entity.getDepositPosition().orElse(null));
         BrainUtils.setMemory(this.entity, OccultismMemoryTypes.DEPOSIT_FACING.get(), this.entity.getDepositFacing());
         this.onInit();
     }
 
     protected abstract void onInit();
+
     public List<ExtendedSensor<SpiritEntity>> getSensors() {
         return ImmutableList.of();
     }
@@ -147,7 +148,7 @@ public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
         return original;
     }
 
-    public void onChangeWorkArea(){
+    public void onChangeWorkArea() {
 
     }
 }

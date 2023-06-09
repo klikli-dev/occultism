@@ -48,8 +48,7 @@ public class MessageSetTagFilterText extends MessageBase {
                                  NetworkEvent.Context context) {
 
         Entity e = player.level().getEntity(this.entityId);
-        if (e instanceof SpiritEntity) {
-            SpiritEntity spirit = (SpiritEntity) e;
+        if (e instanceof SpiritEntity spirit) {
             spirit.setTagFilter(this.tagFilterText);
         }
     }

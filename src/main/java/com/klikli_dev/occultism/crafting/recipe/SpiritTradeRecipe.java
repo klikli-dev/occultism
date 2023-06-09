@@ -22,8 +22,8 @@
 
 package com.klikli_dev.occultism.crafting.recipe;
 
-import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.google.gson.JsonObject;
+import com.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;

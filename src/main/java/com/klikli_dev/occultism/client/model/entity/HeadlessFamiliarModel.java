@@ -22,8 +22,8 @@
 
 package com.klikli_dev.occultism.client.model.entity;
 
-import com.klikli_dev.occultism.common.entity.familiar.HeadlessFamiliarEntity;
 import com.google.common.collect.ImmutableList;
+import com.klikli_dev.occultism.common.entity.familiar.HeadlessFamiliarEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;

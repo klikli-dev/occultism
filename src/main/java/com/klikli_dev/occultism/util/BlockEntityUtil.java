@@ -40,7 +40,7 @@ import net.minecraftforge.server.ServerLifecycleHooks;
 public class BlockEntityUtil {
     //region Static Methods
 
-    public static boolean isLoaded(Level level, GlobalBlockPos pos){
+    public static boolean isLoaded(Level level, GlobalBlockPos pos) {
         if (pos == null)
             return false;
 

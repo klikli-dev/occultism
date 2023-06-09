@@ -45,7 +45,7 @@ public class OtherworldNaturalTreeGrower extends AbstractTreeGrower {
     protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource p_222910_, boolean p_222911_) {
         return ConfiguredFeatures.TREE_OTHERWORLD_NATURAL;
     }
-    
+
     @Override
     public boolean growTree(ServerLevel level, ChunkGenerator p_222906_, BlockPos p_222907_, BlockState p_222908_, RandomSource p_222909_) {
         Holder<? extends ConfiguredFeature<?, ?>> holder = level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE).getHolderOrThrow(ConfiguredFeatures.TREE_OTHERWORLD_NATURAL);

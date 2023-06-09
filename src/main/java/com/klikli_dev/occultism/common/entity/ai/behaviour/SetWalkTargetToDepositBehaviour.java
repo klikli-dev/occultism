@@ -66,7 +66,7 @@ public class SetWalkTargetToDepositBehaviour<E extends SpiritEntity> extends Ext
 
                 if (Occultism.DEBUG.debugAI) {
 
-                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(depositPos, 5000,  OccultismConstants.Color.MAGENTA));
+                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(depositPos, 5000, OccultismConstants.Color.MAGENTA));
                     OccultismPackets.sendToTracking(entity, new MessageSelectBlock(walkPos, 5000, OccultismConstants.Color.GREEN));
                 }
 

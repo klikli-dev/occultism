@@ -65,7 +65,7 @@ public abstract class ItemStackFakeInventoryRecipe implements Recipe<ItemStackFa
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess){
+    public ItemStack getResultItem(RegistryAccess registryAccess) {
         return this.output;
     }
 

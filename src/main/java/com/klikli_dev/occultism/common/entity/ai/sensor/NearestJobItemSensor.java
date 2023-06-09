@@ -21,7 +21,7 @@ import net.tslat.smartbrainlib.util.EntityRetrievalUtil;
 import java.util.List;
 
 public class NearestJobItemSensor<E extends SpiritEntity> extends PredicateSensor<ItemEntity, E> {
-    public static final int DEFAULT_SCAN_RATE_TICKS = 20 * 1;
+    public static final int DEFAULT_SCAN_RATE_TICKS = 20;
     private static final List<MemoryModuleType<?>> MEMORIES = ObjectArrayList.of(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
 
     public NearestJobItemSensor() {
@@ -43,7 +43,7 @@ public class NearestJobItemSensor<E extends SpiritEntity> extends PredicateSenso
     protected void doTick(ServerLevel level, E entity) {
 
         //exit if we already have a desired item, to avoid switching back and forth if we lose LoS during movement
-        if (BrainUtils.hasMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM)){
+        if (BrainUtils.hasMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM)) {
             var nearestEntity = BrainUtils.getMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
             if (Occultism.DEBUG.debugAI) {
                 OccultismPackets.sendToTracking(entity, new MessageSelectBlock(nearestEntity.blockPosition(), 5000, OccultismConstants.Color.GREEN));
@@ -69,7 +69,7 @@ public class NearestJobItemSensor<E extends SpiritEntity> extends PredicateSenso
         var aabb = new AABB(workAreaCenter.offset(-workAreaSize / 2, -workAreaSize / 2, -workAreaSize / 2),
                 workAreaCenter.offset(workAreaSize / 2, workAreaSize / 2, workAreaSize / 2));
 
-        ItemEntity nearestEntity =  EntityRetrievalUtil.getNearestEntity(level,
+        ItemEntity nearestEntity = EntityRetrievalUtil.getNearestEntity(level,
                 aabb, entity.position(), (obj) -> {
                     if (obj instanceof ItemEntity item) {
                         return this.predicate().test(item, entity);

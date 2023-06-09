@@ -22,10 +22,10 @@
 
 package com.klikli_dev.occultism.crafting.recipe;
 
-import com.klikli_dev.occultism.common.misc.OutputIngredient;
-import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.klikli_dev.occultism.common.misc.OutputIngredient;
+import com.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -107,7 +107,7 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
 
             //the ingredient loader does not handle count and nbt, so we use the item loader
             //The item loader requires and "item" field, so we add it if it is missing
-            if(!resultElement.has("item"))
+            if (!resultElement.has("item"))
                 //just a dummy, OutputIngredient will not use the item type.
                 //however, cannot be air as that will make ItemStack report as empty
                 resultElement.addProperty("item", "minecraft:dirt");
@@ -119,7 +119,7 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
             //helper to get count and nbt for our output ingredient
             ItemStack outputStackInfo = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(json, "result"), true);
 
-            return  new CrushingRecipe(recipeId, ingredient, new OutputIngredient(outputIngredient, outputStackInfo), minTier, crushingTime, ignoreCrushingMultiplier);
+            return new CrushingRecipe(recipeId, ingredient, new OutputIngredient(outputIngredient, outputStackInfo), minTier, crushingTime, ignoreCrushingMultiplier);
         }
 
         @Override

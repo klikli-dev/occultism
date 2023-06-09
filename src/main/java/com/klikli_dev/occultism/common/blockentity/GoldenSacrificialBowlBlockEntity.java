@@ -22,6 +22,9 @@
 
 package com.klikli_dev.occultism.common.blockentity;
 
+import com.klikli_dev.modonomicon.api.ModonomiconAPI;
+import com.klikli_dev.modonomicon.api.multiblock.Multiblock;
+import com.klikli_dev.modonomicon.api.multiblock.Multiblock.SimulateResult;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.item.DummyTooltipItem;
 import com.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
@@ -32,9 +35,6 @@ import com.klikli_dev.occultism.registry.OccultismParticles;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismTiles;
 import com.klikli_dev.occultism.util.EntityUtil;
-import com.klikli_dev.modonomicon.api.ModonomiconAPI;
-import com.klikli_dev.modonomicon.api.multiblock.Multiblock;
-import com.klikli_dev.modonomicon.api.multiblock.Multiblock.SimulateResult;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -115,7 +115,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                             Component.translatable(Util.makeDescriptionId("multiblock", bestMatch.getId())), pentacleDiffToComponent(bestPentacleDiff)),
                     false);
             return true;
-        } else if(bestPentacleDiff != null && !bestPentacleDiff.isEmpty()) {
+        } else if (bestPentacleDiff != null && !bestPentacleDiff.isEmpty()) {
             //player probably doesn't have a pentacle at all
             player.displayClientMessage(
                     Component.translatable("ritual." + Occultism.MODID + ".pentacle_help.no_pentacle"), false);
@@ -235,8 +235,8 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                 Optional<? extends Recipe<?>> recipe = this.level.getRecipeManager().byKey(this.currentRitualRecipeId);
                 recipe.map(r -> (RitualRecipe) r).ifPresent(r -> this.currentRitualRecipe = r);
 
-                MinecraftForge.EVENT_BUS.addListener(rightClickItemListener);
-                MinecraftForge.EVENT_BUS.addListener(livingDeathEventListener);
+                MinecraftForge.EVENT_BUS.addListener(this.rightClickItemListener);
+                MinecraftForge.EVENT_BUS.addListener(this.livingDeathEventListener);
 
                 this.currentRitualRecipeId = null;
             }
@@ -398,8 +398,8 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             this.currentRitualRecipe.getRitual().start(this.level, this.getBlockPos(), this, player, handler.getStackInSlot(0));
 
 
-            MinecraftForge.EVENT_BUS.addListener(rightClickItemListener);
-            MinecraftForge.EVENT_BUS.addListener(livingDeathEventListener);
+            MinecraftForge.EVENT_BUS.addListener(this.rightClickItemListener);
+            MinecraftForge.EVENT_BUS.addListener(this.livingDeathEventListener);
 
             this.setChanged();
             this.markNetworkDirty();
@@ -434,8 +434,8 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                 this.remainingAdditionalIngredients.clear();
             this.consumedIngredients.clear();
 
-            MinecraftForge.EVENT_BUS.unregister(rightClickItemListener);
-            MinecraftForge.EVENT_BUS.unregister(livingDeathEventListener);
+            MinecraftForge.EVENT_BUS.unregister(this.rightClickItemListener);
+            MinecraftForge.EVENT_BUS.unregister(this.livingDeathEventListener);
 
             this.setChanged();
             this.markNetworkDirty();

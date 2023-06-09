@@ -47,7 +47,7 @@ public class SummonFoliotLumberjackItem extends Item {
         if (!context.getLevel().isClientSide) {
             FoliotEntity spirit = OccultismEntities.FOLIOT.get().create(context.getLevel());
 
-            ForgeEventFactory.onFinalizeSpawn(spirit, (ServerLevel) context.getLevel(), context.getLevel().getCurrentDifficultyAt(context.getClickedPos()),  MobSpawnType.SPAWN_EGG, null, null);
+            ForgeEventFactory.onFinalizeSpawn(spirit, (ServerLevel) context.getLevel(), context.getLevel().getCurrentDifficultyAt(context.getClickedPos()), MobSpawnType.SPAWN_EGG, null, null);
 
             spirit.tame(context.getPlayer());
             spirit.setPos(context.getClickedPos().getX(), context.getClickedPos().getY() + 1.0f, context.getClickedPos().getZ());

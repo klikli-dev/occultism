@@ -22,9 +22,9 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
-import com.google.common.collect.ImmutableList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -387,7 +387,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
 
     @Nullable
     public LivingEntity getControllingPassenger() {
-        if(this.getFirstPassenger() instanceof LivingEntity livingEntity)
+        if (this.getFirstPassenger() instanceof LivingEntity livingEntity)
             return livingEntity;
         return null;
     }

@@ -56,14 +56,14 @@ public class CommandRitual extends Ritual {
         ((ServerLevel) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
-        if(this.recipe.getCommand() != null){
+        if (this.recipe.getCommand() != null) {
             this.execute(this.recipe.getCommand(), (ServerLevel) level, goldenBowlPosition, castingPlayer);
         }
     }
 
     private void execute(String command, ServerLevel level, BlockPos pos, Player castingPlayer) {
         MinecraftServer minecraftserver = level.getServer();
-        var name =  Component.literal("@");
+        var name = Component.literal("@");
         try {
             CommandSourceStack commandsourcestack = new CommandSourceStack(
                     CommandSource.NULL, Vec3.atCenterOf(pos), Vec2.ZERO, level, 2, name.getString(), name, minecraftserver, castingPlayer);

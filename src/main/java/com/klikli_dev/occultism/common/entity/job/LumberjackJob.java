@@ -22,8 +22,8 @@
 
 package com.klikli_dev.occultism.common.entity.job;
 
+import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.api.common.container.IItemStackComparator;
-import com.klikli_dev.occultism.common.entity.ai.behaviour.*;
 import com.klikli_dev.occultism.common.entity.ai.behaviour.*;
 import com.klikli_dev.occultism.common.entity.ai.sensor.NearestJobItemSensor;
 import com.klikli_dev.occultism.common.entity.ai.sensor.NearestTreeSensor;
@@ -33,7 +33,6 @@ import com.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.klikli_dev.occultism.common.misc.ItemTagComparator;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.registry.OccultismTags;
-import com.google.common.collect.ImmutableList;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.Pose;

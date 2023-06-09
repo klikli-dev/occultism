@@ -40,7 +40,7 @@ public class DragonRendering {
             Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderItem(pLivingEntity, new ItemStack(Items.STICK),
                     ItemDisplayContext.GROUND, false, pMatrixStack, pBuffer, pPackedLight);
             pMatrixStack.popPose();
-            
+
         }
     }
 

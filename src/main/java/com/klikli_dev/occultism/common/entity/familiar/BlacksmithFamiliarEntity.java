@@ -22,10 +22,10 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
-import com.google.common.collect.ImmutableList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -51,18 +51,16 @@ import java.util.EnumSet;
 public class BlacksmithFamiliarEntity extends FamiliarEntity {
 
     private static final ConfigValue<Integer> UPGRADE_COST = Occultism.SERVER_CONFIG.spiritJobs.blacksmithFamiliarUpgradeCost;
-
-    private static int getMaxIron() {
-        return UPGRADE_COST.get() * 10;
-    }
-
     private static final EntityDataAccessor<Byte> BARS = SynchedEntityData.defineId(BlacksmithFamiliarEntity.class,
             EntityDataSerializers.BYTE);
-
     private int ironCount;
 
     public BlacksmithFamiliarEntity(EntityType<? extends BlacksmithFamiliarEntity> type, Level level) {
         super(type, level);
+    }
+
+    private static int getMaxIron() {
+        return UPGRADE_COST.get() * 10;
     }
 
     @Nullable
@@ -242,9 +240,8 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
         }
 
         private boolean familiarPred(Entity e) {
-            if (!(e instanceof IFamiliar))
+            if (!(e instanceof IFamiliar familiar))
                 return false;
-            IFamiliar familiar = (IFamiliar) e;
             LivingEntity owner = familiar.getFamiliarOwner();
             return familiar.canBlacksmithUpgrade() && owner != null && owner == this.blacksmith.getFamiliarOwner();
         }

@@ -74,7 +74,7 @@ public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageContro
 
         if (!isReRender) {
             var animationState = new AnimationState<>(animatable, 0, 0, partialTicks, false);
-            long instanceId = getInstanceId(animatable);
+            long instanceId = this.getInstanceId(animatable);
 
             animationState.setData(DataTickets.TICK, animatable.getTick(animatable));
             animationState.setData(DataTickets.BLOCK_ENTITY, animatable);

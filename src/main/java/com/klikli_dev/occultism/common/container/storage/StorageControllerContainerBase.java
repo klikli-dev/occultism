@@ -253,7 +253,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             if (this.currentRecipe == null)
                 break;
 
-             ItemStack newResult = this.currentRecipe.assemble(this.matrix, player.level().registryAccess()).copy();
+            ItemStack newResult = this.currentRecipe.assemble(this.matrix, player.level().registryAccess()).copy();
             if (newResult.getItem() != result.getItem())
                 break;
 
@@ -291,7 +291,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
 
                 //handle container item refunding
                 if (!stackInSlot.getItem().getCraftingRemainingItem(stackInSlot).isEmpty()) {
-                    ItemStack container = stackInSlot.getItem().getCraftingRemainingItem (stackInSlot);
+                    ItemStack container = stackInSlot.getItem().getCraftingRemainingItem(stackInSlot);
                     if (!stackInSlot.isStackable()) {
                         stackInSlot = container;
                         this.matrix.setItem(i, stackInSlot);
@@ -319,7 +319,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                         //last resort, try to place in player inventory or if that fails, drop.
                         ItemHandlerHelper.giveItemToPlayer(player, newResult);
                     }
-                    
+
                 } else if (!stackInSlot.isEmpty()) {
                     //decrease the stack size in the matrix
                     this.matrix.removeItem(i, 1);

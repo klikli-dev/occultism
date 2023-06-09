@@ -22,10 +22,10 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEntities;
-import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -248,10 +248,9 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
 
         private ItemEntity getNearbyItem() {
             LivingEntity owner = this.entity.getFamiliarOwner();
-            if (!(owner instanceof Player))
+            if (!(owner instanceof Player player))
                 return null;
 
-            Player player = (Player) owner;
             IItemHandler inv = new PlayerMainInvWrapper(player.getInventory());
 
             for (ItemEntity item : this.entity.level().getEntitiesOfClass(ItemEntity.class,
@@ -284,7 +283,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
 
         @Override
         public boolean canUse() {
-            if (this.rider.getVehicle() != null && this.rider.getVehicle().getType() == type)
+            if (this.rider.getVehicle() != null && this.rider.getVehicle().getType() == this.type)
                 return true;
 
             FamiliarEntity mount = this.findMount();
@@ -298,7 +297,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
 
         @Override
         public boolean canContinueToUse() {
-            return (this.rider.getVehicle() != null && this.rider.getVehicle().getType() == type)
+            return (this.rider.getVehicle() != null && this.rider.getVehicle().getType() == this.type)
                     || (this.rider.isPathFinding() && this.mount != null);
         }
 
@@ -314,7 +313,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
                 this.rider.startRiding(this.mount);
                 this.mount.getNavigation().stop();
 
-                if (this.rider.getType() == OccultismEntities.SHUB_NIGGURATH_FAMILIAR.get() && type == OccultismEntities.CTHULHU_FAMILIAR.get())
+                if (this.rider.getType() == OccultismEntities.SHUB_NIGGURATH_FAMILIAR.get() && this.type == OccultismEntities.CTHULHU_FAMILIAR.get())
                     OccultismAdvancements.FAMILIAR.trigger(this.rider.getFamiliarOwner(), FamiliarTrigger.Type.SHUB_CTHULHU_FRIENDS);
             }
         }
@@ -324,7 +323,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
             if (owner == null)
                 return null;
 
-            List<T> mounts = this.rider.level().getEntities(type, this.rider.getBoundingBox().inflate(5),
+            List<T> mounts = this.rider.level().getEntities(this.type, this.rider.getBoundingBox().inflate(5),
                     e -> e.getFamiliarOwner() == owner && !e.isVehicle() && !e.isSitting());
             if (mounts.isEmpty())
                 return null;

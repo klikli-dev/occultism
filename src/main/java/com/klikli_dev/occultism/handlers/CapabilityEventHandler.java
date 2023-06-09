@@ -52,8 +52,7 @@ public class CapabilityEventHandler {
 
     @SubscribeEvent
     public static void onEntityJoinWorld(final EntityJoinLevelEvent evt) {
-        if (evt.getEntity() instanceof ServerPlayer) {
-            ServerPlayer player = (ServerPlayer) evt.getEntity();
+        if (evt.getEntity() instanceof ServerPlayer player) {
             int jumps = player.getCapability(OccultismCapabilities.DOUBLE_JUMP).map(DoubleJumpCapability::getJumps).orElse(0);
             if (jumps > 0) {
                 OccultismPackets.sendTo(player, new MessageSetJumps(jumps));

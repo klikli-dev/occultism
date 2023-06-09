@@ -22,9 +22,9 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
-import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -53,14 +53,13 @@ import javax.annotation.Nullable;
 
 public class GuardianFamiliarEntity extends ColoredFamiliarEntity {
 
-    private static final byte MAX_LIVES = 5;
-    public static final byte UNDAMAGED = MAX_LIVES;
     public static final byte ONE_ARMED = 4;
     public static final byte ONE_LEGGED = 3;
     public static final byte FLOATING = 2;
     public static final byte DEATHS_DOOR = 1;
     public static final byte DEAD = 0;
-
+    private static final byte MAX_LIVES = 5;
+    public static final byte UNDAMAGED = MAX_LIVES;
     private static final EntityDataAccessor<Byte> LIVES = SynchedEntityData.defineId(GuardianFamiliarEntity.class,
             EntityDataSerializers.BYTE);
 

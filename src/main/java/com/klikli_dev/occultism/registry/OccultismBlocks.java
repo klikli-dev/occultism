@@ -277,7 +277,7 @@ public class OccultismBlocks {
         RegistryObject<I> object = BLOCKS.register(name, sup);
         BLOCK_DATA_GEN_SETTINGS.put(object.getId(), new BlockDataGenSettings(generateDefaultBlockItem, lootTableType));
 
-        if(generateDefaultBlockItem) {
+        if (generateDefaultBlockItem) {
             OccultismItems.ITEMS.register(name, () -> new BlockItem(object.get(), new Item.Properties()));
         }
 

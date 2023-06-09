@@ -68,7 +68,7 @@ public class FamiliarRingItem extends Item {
 
     private static Curio getCurio(ItemStack stack) {
         ICurio icurio = stack.getCapability(CuriosCapability.ITEM).orElse(null);
-        if (icurio != null && icurio instanceof Curio curio){
+        if (icurio != null && icurio instanceof Curio curio) {
             if (stack.getTag() != null && stack.getTag().contains("familiar")) {
                 curio.deserializeNBT(stack.getTag().getCompound("familiar"));
                 stack.getTag().remove("familiar");
@@ -160,14 +160,14 @@ public class FamiliarRingItem extends Item {
     public void verifyTagAfterLoad(CompoundTag pCompoundTag) {
         super.verifyTagAfterLoad(pCompoundTag);
 
-        if(pCompoundTag.contains("forHandleFamiliarTypeTag")){
+        if (pCompoundTag.contains("forHandleFamiliarTypeTag")) {
             return; //avoid recursion via handleFamiliarTypeTag
         }
 
         this.handleFamiliarTypeTag(pCompoundTag);
     }
 
-    public void handleFamiliarTypeTag(CompoundTag tag){
+    public void handleFamiliarTypeTag(CompoundTag tag) {
         //we create an item stack to be able to modify the tag & access the capabilities.
         //that stack will not be put anywhere
         var stack = new ItemStack(this);
@@ -240,7 +240,7 @@ public class FamiliarRingItem extends Item {
                     //on release overwrite owner -> familiar rings can be used to trade familiars.
                     ((IFamiliar) e).setFamiliarOwner(player);
 
-                    var name = ItemNBTUtil.getBoundSpiritName(stack);
+                    var name = ItemNBTUtil.getBoundSpiritName(this.stack);
                     e.setCustomName(Component.literal(name)); //set the name from the ring. the reverse happens when ring is used on entity.
 
                     level.addFreshEntity(e);

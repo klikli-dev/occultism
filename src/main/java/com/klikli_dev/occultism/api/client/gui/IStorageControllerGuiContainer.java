@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.api.client.gui;
 
 import com.klikli_dev.occultism.api.common.data.MachineReference;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.ItemStack;

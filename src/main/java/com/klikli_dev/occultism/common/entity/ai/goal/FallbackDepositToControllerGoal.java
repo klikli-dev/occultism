@@ -95,7 +95,7 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
         Level level = this.entity.level();
         List<BlockPos> allBlocks = new ArrayList<>();
 
-        if(this.job.getManagedMachine() == null || this.job.getManagedMachine().insertGlobalPos == null)
+        if (this.job.getManagedMachine() == null || this.job.getManagedMachine().insertGlobalPos == null)
             return null;
 
         BlockPos machinePosition = this.job.getManagedMachine().insertGlobalPos.getPos();

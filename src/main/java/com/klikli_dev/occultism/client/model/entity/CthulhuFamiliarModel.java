@@ -218,7 +218,7 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
 
         if (entityIn.isVehicle()) {
             float animHeight = entityIn.getAnimationHeight(partialTicks);
-            this.rightArm.xRot = toRads(40 - animHeight * 15);
+            this.rightArm.xRot = this.toRads(40 - animHeight * 15);
         }
     }
 

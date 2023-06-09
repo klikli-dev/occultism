@@ -128,8 +128,7 @@ public class ThirdEyeEffectRenderer {
         BlockPos.betweenClosed(origin.offset(-MAX_THIRD_EYE_DISTANCE, -MAX_THIRD_EYE_DISTANCE, -MAX_THIRD_EYE_DISTANCE),
                 origin.offset(MAX_THIRD_EYE_DISTANCE, MAX_THIRD_EYE_DISTANCE, MAX_THIRD_EYE_DISTANCE)).forEach(pos -> {
             BlockState state = level.getBlockState(pos);
-            if (state.getBlock() instanceof IOtherworldBlock) {
-                IOtherworldBlock block = (IOtherworldBlock) state.getBlock();
+            if (state.getBlock() instanceof IOtherworldBlock block) {
                 if (block.getTier().getLevel() <= tier.getLevel()) {
                     if (!state.getValue(IOtherworldBlock.UNCOVERED)) {
                         level.setBlock(pos, state.setValue(IOtherworldBlock.UNCOVERED, true), 1);

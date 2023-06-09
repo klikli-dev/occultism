@@ -22,8 +22,8 @@
 
 package com.klikli_dev.occultism.client.model.entity;
 
-import com.klikli_dev.occultism.common.entity.familiar.DeerFamiliarEntity;
 import com.google.common.collect.ImmutableList;
+import com.klikli_dev.occultism.common.entity.familiar.DeerFamiliarEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
@@ -146,15 +146,15 @@ public class DeerFamiliarModel extends EntityModel<DeerFamiliarEntity> {
         return LayerDefinition.create(mesh, 64, 16);
     }
 
+    private static float toRad(float deg) {
+        return (float) Math.toRadians(deg);
+    }
+
     @Override
     public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float red, float green, float blue, float alpha) {
         ImmutableList.of(this.body).forEach((ModelPart) -> {
             ModelPart.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, red, green, blue, alpha);
         });
-    }
-
-    private static float toRad(float deg) {
-        return (float) Math.toRadians(deg);
     }
 
     @Override

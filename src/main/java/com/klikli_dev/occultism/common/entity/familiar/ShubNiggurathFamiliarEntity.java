@@ -22,8 +22,8 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
-import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.google.common.collect.ImmutableList;
+import com.klikli_dev.occultism.registry.OccultismEntities;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
