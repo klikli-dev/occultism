@@ -194,7 +194,8 @@ dependencies {
 //    runtimeOnly fg.deobf("com.almostreliable.mods:almostunified-forge:${almostunified_version}")
 
     //modonomicon
-    implementation fg.deobf("com.klikli_dev:modonomicon:${minecraft_version}-${modonomicon_version}") //we build against full jar because we NEED IT ALL
+    implementation fg.deobf("com.klikli_dev:modonomicon:${minecraft_version}-${modonomicon_version}")
+    //we build against full jar because we NEED IT ALL
 
     //theurgy
     //TODO: reenable once updated
@@ -225,17 +226,25 @@ dependencies {
 // See https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
 def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta']
 def replaceProperties = [
-        minecraft_version      : minecraft_version,
-        minecraft_version_range: minecraft_version_range,
-        forge_version          : forge_version,
-        forge_version_range    : forge_version_range,
-        loader_version_range   : loader_version_range,
-        mod_id                 : mod_id,
-        mod_name               : mod_name,
-        mod_license            : mod_license,
-        mod_version            : mod_version,
-        mod_authors            : mod_authors,
-        mod_description        : mod_description
+        minecraft_version              : minecraft_version,
+        minecraft_version_range        : minecraft_version_range,
+        forge_version                  : forge_version,
+        forge_version_range            : forge_version_range,
+        loader_version_range           : loader_version_range,
+        mod_id                         : mod_id,
+        mod_name                       : mod_name,
+        mod_license                    : mod_license,
+        mod_version                    : mod_version,
+        mod_authors                    : mod_authors,
+        mod_description                : mod_description,
+        jei_version_range              : jei_version_range,
+        curios_version_range           : curios_version_range,
+        geckolib_version_range         : geckolib_version_range,
+        smartbrainlib_version_range    : smartbrainlib_version_range,
+        almostunified_version_range    : almostunified_version_range,
+        modonomicon_version_range      : modonomicon_version_range,
+        theurgy_version_range          : theurgy_version_range,
+        per_viam_invenire_version_range: per_viam_invenire_version_range,
 ]
 processResources {
     inputs.properties replaceProperties
@@ -263,7 +272,7 @@ jar {
 
 // Example configuration to allow publishing using the maven-publish task
 // This is the preferred method to reobfuscate your jar file
-jar.finalizedBy('reobfJar') 
+jar.finalizedBy('reobfJar')
 // However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
 //publish.dependsOn('reobfJar')
 
