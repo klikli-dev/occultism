@@ -181,6 +181,10 @@ dependencies {
     //TODO: reenable once updated
 //    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}:api")
 //    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}")
+    //TODO: remove once 1.20 is available
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.4-5.1.4.2:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.4-5.1.4.2")
+
 
     //geckolib
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${minecraft_version}:${geckolib_version}")
@@ -198,9 +202,8 @@ dependencies {
     //we build against full jar because we NEED IT ALL
 
     //theurgy
-    //TODO: reenable once updated
-//    compileOnly fg.deobf("com.klikli_dev:theurgy:${minecraft_version}-${theurgy_version}")
-//    runtimeOnly fg.deobf("com.klikli_dev:theurgy:${minecraft_version}-${theurgy_version}")
+    compileOnly fg.deobf("com.klikli_dev:theurgy:${minecraft_version}-${theurgy_version}")
+    runtimeOnly fg.deobf("com.klikli_dev:theurgy:${minecraft_version}-${theurgy_version}")
 
     //runtime only helper mods for dev env, placed in ./runtime-mods, example: Hwyla-forge-1.10.11-B78_1.16.2.jar
     //runtimeOnly fg.deobf("ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2")
