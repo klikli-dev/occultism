@@ -26,9 +26,9 @@ package com.klikli_dev.occultism.client.gui.controls;
 import com.klikli_dev.occultism.api.client.gui.IStorageControllerGuiContainer;
 import com.klikli_dev.occultism.api.common.data.MachineReference;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
@@ -73,30 +73,30 @@ public class MachineSlotWidget {
         return this.parent.isPointInRegionController(this.x - this.guiLeft, this.y - this.guiTop, 16, 16, mouseX, mouseY);
     }
 
-    public void drawSlot(PoseStack poseStack, int mx, int my) {
-        poseStack.pushPose();
+    public void drawSlot(GuiGraphics guiGraphics, int mx, int my) {
+        guiGraphics.pose().pushPose();
         //render item
         //RenderHelper.setupGuiFlatDiffuseLighting();
 
         var isMouseOverSlot = this.isMouseOverSlot(mx, my);
 
         if (isMouseOverSlot)
-            this.minecraft.getItemRenderer().renderAndDecorateItem(poseStack, this.machine.getExtractItemStack(), this.x, this.y);
+            guiGraphics.renderItem(this.machine.getExtractItemStack(), this.x, this.y);
         else
-            this.minecraft.getItemRenderer().renderAndDecorateItem(poseStack, this.machine.getInsertItemStack(), this.x, this.y);
+            guiGraphics.renderItem(this.machine.getInsertItemStack(), this.x, this.y);
 
         if (isMouseOverSlot) {
             RenderSystem.colorMask(true, true, true, false);
-            this.parent.drawGradientRect(poseStack, this.x, this.y, this.x + 16, this.y + 16, this.slotHighlightColor,
+            this.parent.drawGradientRect(guiGraphics, this.x, this.y, this.x + 16, this.y + 16, this.slotHighlightColor,
                     this.slotHighlightColor);
             RenderSystem.colorMask(true, true, true, true);
         }
-        poseStack.popPose();
+        guiGraphics.pose().popPose();
     }
 
-    public void drawTooltip(PoseStack poseStack, int mx, int my) {
+    public void drawTooltip(GuiGraphics guiGraphics, int mx, int my) {
         if (this.isMouseOverSlot(mx, my)) {
-            this.parent.renderToolTip(poseStack, this.machine, mx, my);
+            this.parent.renderToolTip(guiGraphics, this.machine, mx, my);
         }
     }
 

@@ -26,7 +26,6 @@ package com.klikli_dev.occultism.client.gui.controls;
 import com.klikli_dev.occultism.api.client.gui.IStorageControllerGuiContainer;
 import com.klikli_dev.occultism.util.TextUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -114,7 +113,7 @@ public class ItemSlotWidget {
             //this.minecraft.getItemRenderer().blitOffset = -100F;
             guiGraphics.pose().pushPose();
             guiGraphics.pose().translate(0, 0, -100);
-            guiGraphics.renderItem( this.getStack(), this.x, this.y);
+            guiGraphics.renderItem(this.getStack(), this.x, this.y);
             guiGraphics.pose().popPose();
 
             if (this.isMouseOverSlot(mx, my)) {
@@ -128,9 +127,9 @@ public class ItemSlotWidget {
         guiGraphics.pose().popPose();
     }
 
-    public void drawTooltip(PoseStack poseStack, int mx, int my) {
+    public void drawTooltip(GuiGraphics guiGraphics, int mx, int my) {
         if (this.isMouseOverSlot(mx, my) && !this.getStack().isEmpty()) {
-            this.parent.renderToolTip(poseStack, this.getStack(), mx, my);
+            this.parent.renderToolTip(guiGraphics, this.getStack(), mx, my);
         }
     }
 

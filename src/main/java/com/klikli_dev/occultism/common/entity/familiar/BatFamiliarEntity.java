@@ -92,7 +92,7 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
             @Override
             public boolean isStableDestination(BlockPos pos) {
                 BlockState state = this.level.getBlockState(pos);
-                return state.isAir() || !state.getMaterial().blocksMotion();
+                return state.isAir() || !state.blocksMotion();
             }
         };
         return navigation;
