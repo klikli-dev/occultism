@@ -80,3 +80,9 @@ modId = "per_viam_invenire"
 mandatory = false
 versionRange = "${per_viam_invenire_version_range}"
 side = "BOTH"
+
+[[dependencies.occultism]]
+modId = "jei"
+mandatory = false
+versionRange = "${jei_version_range}"
+side = "BOTH"
