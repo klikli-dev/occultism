@@ -32,7 +32,6 @@ import net.minecraftforge.network.NetworkEvent;
 
 public class MessageRequestStacks extends MessageBase {
 
-    //region Initialization
     public MessageRequestStacks() {
 
     }
@@ -40,10 +39,6 @@ public class MessageRequestStacks extends MessageBase {
     public MessageRequestStacks(FriendlyByteBuf buf) {
         this.decode(buf);
     }
-    //endregion Initialization
-
-
-    //region Overrides
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
@@ -69,5 +64,5 @@ public class MessageRequestStacks extends MessageBase {
     public void decode(FriendlyByteBuf buf) {
 
     }
-    //endregion Overrides
+
 }

@@ -36,7 +36,6 @@ public abstract class NetworkedBlockEntity extends BlockEntity {
         super(BlockEntityTypeIn, worldPos, state);
     }
 
-    //region Overrides
     @Override
     public void load(CompoundTag compound) {
         this.loadNetwork(compound);
@@ -69,10 +68,6 @@ public abstract class NetworkedBlockEntity extends BlockEntity {
         super.load(tag);
         this.loadNetwork(tag);
     }
-
-    //endregion Overrides
-
-    //region Methods
 
     /**
      * Reads networked nbt, this is a subset of the entire nbt that is synchronized over network.

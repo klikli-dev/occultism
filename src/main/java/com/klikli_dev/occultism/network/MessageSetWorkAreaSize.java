@@ -38,11 +38,8 @@ import net.minecraftforge.network.NetworkEvent;
 
 public class MessageSetWorkAreaSize extends MessageBase {
 
-    //region Fields
     public int workAreaSize;
-    //endregion Fields
 
-    //region Initialization
     public MessageSetWorkAreaSize(FriendlyByteBuf buf) {
         this.decode(buf);
     }
@@ -50,9 +47,6 @@ public class MessageSetWorkAreaSize extends MessageBase {
     public MessageSetWorkAreaSize(int workAreaSize) {
         this.workAreaSize = workAreaSize;
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
@@ -85,5 +79,5 @@ public class MessageSetWorkAreaSize extends MessageBase {
     public void decode(FriendlyByteBuf buf) {
         this.workAreaSize = buf.readInt();
     }
-    //endregion Overrides
+
 }

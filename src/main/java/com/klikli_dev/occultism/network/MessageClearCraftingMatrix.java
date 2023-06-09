@@ -30,7 +30,6 @@ import net.minecraftforge.network.NetworkEvent;
 
 public class MessageClearCraftingMatrix extends MessageBase {
 
-    //region Initialization
     public MessageClearCraftingMatrix() {
 
     }
@@ -38,9 +37,6 @@ public class MessageClearCraftingMatrix extends MessageBase {
     public MessageClearCraftingMatrix(FriendlyByteBuf buf) {
         this.decode(buf);
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
@@ -58,5 +54,4 @@ public class MessageClearCraftingMatrix extends MessageBase {
 
     }
 
-    //endregion Overrides
 }

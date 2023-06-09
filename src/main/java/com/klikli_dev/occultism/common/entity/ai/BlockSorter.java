@@ -28,26 +28,19 @@ import net.minecraft.world.entity.Entity;
 import java.util.Comparator;
 
 public class BlockSorter implements Comparator<BlockPos> {
-    //region Fields
-    private final Entity entity;
-    //endregion Fields
 
-    //region Initialization
+    private final Entity entity;
+
     public BlockSorter(Entity entity) {
         this.entity = entity;
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public int compare(BlockPos a, BlockPos b) {
         double distanceA = this.getDistance(a);
         double distanceB = this.getDistance(b);
         return Double.compare(distanceA, distanceB);
     }
-    //endregion Overrides
-
-    //region Methods
 
     /**
      * Gets the distance of the entity to the given position at eye level.
@@ -61,6 +54,5 @@ public class BlockSorter implements Comparator<BlockPos> {
         double deltaZ = this.entity.getZ() - (pos.getZ() + 0.5);
         return deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ;
     }
-    //endregion Methods
+
 }
-//endregion Subtypes

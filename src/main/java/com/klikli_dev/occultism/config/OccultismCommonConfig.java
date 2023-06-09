@@ -27,7 +27,6 @@ import net.minecraftforge.common.ForgeConfigSpec;
 public class OccultismCommonConfig {
     public final ForgeConfigSpec spec;
 
-    //region Initialization
     public OccultismCommonConfig() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
         this.spec = builder.build();

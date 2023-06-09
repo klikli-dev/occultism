@@ -37,13 +37,11 @@ import java.util.List;
 import java.util.Map;
 
 public class BookOfCallingTransportItems extends BookOfCallingItem {
-    //region Initialization
+
     public BookOfCallingTransportItems(Properties properties, String translationKeyBase) {
         super(properties, translationKeyBase, spirit -> spirit.getJob().orElse(null) instanceof TransportItemsJob);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public IItemModeSubset<?> getItemModeSubset(ItemStack stack) {
         ItemModeSubset subset = ItemModeSubset.get(ItemMode.get(this.getItemMode(stack)));
@@ -68,13 +66,11 @@ public class BookOfCallingTransportItems extends BookOfCallingItem {
             tooltip.add(Component.translatable(this.getTranslationKeyBase() + ".tooltip.deposit_entity", TextUtil.formatDemonName(depositName)));
         }
     }
-    //endregion Overrides
 
     public enum ItemModeSubset implements IItemModeSubset<ItemModeSubset> {
         SET_EXTRACT(ItemMode.SET_EXTRACT),
         SET_DEPOSIT(ItemMode.SET_DEPOSIT);
 
-        //region Fields
         private static final Map<ItemMode, ItemModeSubset> lookup = new HashMap<>();
 
         static {
@@ -84,25 +80,20 @@ public class BookOfCallingTransportItems extends BookOfCallingItem {
         }
 
         private final ItemMode itemMode;
-        //endregion Fields
 
-        //region Initialization
         ItemModeSubset(ItemMode itemMode) {
             this.itemMode = itemMode;
         }
-        //endregion Initialization
 
         //region Static Methods
         public static ItemModeSubset get(ItemMode value) {
             return lookup.get(value);
         }
 
-        //region Overrides
         @Override
         public ItemMode getItemMode() {
             return this.itemMode;
         }
-        //endregion Overrides
 
         @Override
         public ItemModeSubset next() {

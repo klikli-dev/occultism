@@ -35,16 +35,12 @@ import java.util.Map;
  */
 public class StorageControllerCraftingInventory extends TransientCraftingContainer {
 
-    //region Fields
-
     protected final AbstractContainerMenu container;
     /**
      * set to true to disable sending events (usually temporarily to perform multiple actions)
      */
     public boolean disableEvents;
-    //endregion Fields
 
-    //region Initialization
     public StorageControllerCraftingInventory(AbstractContainerMenu container, int width, int height) {
         super(container, width, height);
         this.container = container;
@@ -69,9 +65,6 @@ public class StorageControllerCraftingInventory extends TransientCraftingContain
         }
         this.disableEvents = false;
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void setItem(int index, ItemStack stack) {
@@ -81,5 +74,4 @@ public class StorageControllerCraftingInventory extends TransientCraftingContain
         }
     }
 
-    //endregion Overrides
 }

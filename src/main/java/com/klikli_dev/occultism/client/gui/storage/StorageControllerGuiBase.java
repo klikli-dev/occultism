@@ -70,7 +70,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class StorageControllerGuiBase<T extends StorageControllerContainerBase> extends AbstractContainerScreen<T> implements IStorageControllerGui, IStorageControllerGuiContainer, ContainerListener {
-    //region Fields
+
     public static final int ORDER_AREA_OFFSET = 48;
     protected static final ResourceLocation BACKGROUND = new ResourceLocation(Occultism.MODID,
             "textures/gui/storage_controller_droparea.png");
@@ -102,9 +102,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected boolean forceFocus;
     protected long lastClick;
-    //endregion Fields
 
-    //region Initialization
     public StorageControllerGuiBase(T container, Inventory playerInventory, Component name) {
         super(container, playerInventory, name);
         this.storageControllerContainer = container;
@@ -127,7 +125,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         OccultismPackets.sendToServer(new MessageRequestStacks());
     }
-    //endregion Initialization
 
     //region Getter / Setter
     protected abstract boolean isGuiValid();
@@ -144,7 +141,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     //endregion Getter / Setter
 
-    //region Overrides
     @Override
     public Font getFontRenderer() {
         return this.font;
@@ -426,9 +422,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         return false;
     }
-    //endregion Overrides
 
-    //region Methods
     public void initButtons() {
         int controlButtonSize = 12;
 
@@ -707,11 +701,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected void sortItemStacks(List<ItemStack> stacksToDisplay) {
         stacksToDisplay.sort(new Comparator<ItemStack>() {
 
-            //region Fields
             final int direction = StorageControllerGuiBase.this.getSortDirection().isDown() ? -1 : 1;
-            //endregion Fields
 
-            //region Overrides
             @Override
             public int compare(ItemStack a, ItemStack b) {
                 switch (StorageControllerGuiBase.this.getSortType()) {
@@ -728,7 +719,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 }
                 return 0;
             }
-            //endregion Overrides
+
         });
     }
 
@@ -803,11 +794,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         ResourceKey<Level> dimensionKey = this.minecraft.player.level().dimension();
         machinesToDisplay.sort(new Comparator<MachineReference>() {
 
-            //region Fields
             final int direction = StorageControllerGuiBase.this.getSortDirection().isDown() ? -1 : 1;
-            //endregion Fields
 
-            //region Overrides
             @Override
             public int compare(MachineReference a, MachineReference b) {
                 switch (StorageControllerGuiBase.this.getSortType()) {
@@ -831,7 +819,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 }
                 return 0;
             }
-            //endregion Overrides
+
         });
     }
 
@@ -868,5 +856,4 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         }
     }
 
-    //endregion Methods
 }

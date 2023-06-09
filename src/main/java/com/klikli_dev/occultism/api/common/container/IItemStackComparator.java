@@ -31,8 +31,6 @@ import java.util.function.Predicate;
 
 public interface IItemStackComparator extends INBTSerializable<CompoundTag>, Predicate<ItemStack> {
 
-    //region Methods
-
     /**
      * Matches the given stack with the master stack using the rules in the comparator.
      *
@@ -46,5 +44,4 @@ public interface IItemStackComparator extends INBTSerializable<CompoundTag>, Pre
         return this.matches(stack);
     }
 
-    //endregion Methods
 }

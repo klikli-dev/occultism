@@ -7,11 +7,8 @@ import net.minecraftforge.client.settings.KeyConflictContext;
 
 public class StorageRemoteKeyConflictContext implements IKeyConflictContext {
 
-    //region Fields
     public static final StorageRemoteKeyConflictContext INSTANCE = new StorageRemoteKeyConflictContext();
-    //endregion Fields
 
-    //region Overrides
     @Override
     public boolean isActive() {
         return !KeyConflictContext.GUI.isActive() || Minecraft.getInstance().screen instanceof StorageControllerGuiBase;
@@ -21,6 +18,5 @@ public class StorageRemoteKeyConflictContext implements IKeyConflictContext {
     public boolean conflicts(IKeyConflictContext other) {
         return this == other;
     }
-    //endregion Overrides
 
 }

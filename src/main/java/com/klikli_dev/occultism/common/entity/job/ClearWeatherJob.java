@@ -29,13 +29,10 @@ import net.minecraft.world.level.storage.ServerLevelData;
 
 public class ClearWeatherJob extends ChangeWeatherJob {
 
-    //region Initialization
     public ClearWeatherJob(SpiritEntity entity, int ticksToClear) {
         super(entity, ticksToClear);
     }
-    //endregion Initialization
 
-    //region Overrides
     public void changeWeather() {
         if (Occultism.SERVER_CONFIG.rituals.enableClearWeatherRitual.get()) {
             //taken from weathercommand#clear
@@ -49,5 +46,5 @@ public class ClearWeatherJob extends ChangeWeatherJob {
             this.entity.getOwner().sendSystemMessage(Component.translatable("ritual.occultism.disabled"));
         }
     }
-    //endregion Overrides
+
 }

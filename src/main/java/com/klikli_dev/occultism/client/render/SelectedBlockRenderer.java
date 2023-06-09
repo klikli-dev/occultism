@@ -42,11 +42,7 @@ import java.util.Set;
 
 public class SelectedBlockRenderer {
 
-    //region Fields
     protected Set<SelectionInfo> selectedBlocks = new HashSet<>();
-    //endregion Fields
-
-    //region Methods
 
     /**
      * Highlights the given block position until the given system time (not game time)
@@ -130,24 +126,19 @@ public class SelectedBlockRenderer {
             }
         }
     }
-    //endregion Methods
 
     public class SelectionInfo {
-        //region Fields
+
         public BlockPos selectedBlock;
         public long selectionExpireTime;
         public Color color;
-        //endregion Fields
 
-        //region Initialization
         public SelectionInfo(BlockPos selectedBlock, long selectionExpireTime, Color color) {
             this.selectedBlock = selectedBlock;
             this.selectionExpireTime = selectionExpireTime;
             this.color = color;
         }
-        //endregion Initialization
 
-        //region Overrides
         @Override
         public int hashCode() {
             return this.selectedBlock.hashCode();
@@ -164,6 +155,6 @@ public class SelectedBlockRenderer {
 
             return other.selectedBlock.equals(this.selectedBlock);
         }
-        //endregion Overrides
+
     }
 }

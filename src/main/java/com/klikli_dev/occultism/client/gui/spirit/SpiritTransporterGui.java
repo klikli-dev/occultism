@@ -46,7 +46,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> {
-    //region Fields
+
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Occultism.MODID,
             "textures/gui/inventory_spirit_transporter_tagfilter.png");
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit.transporter";
@@ -57,9 +57,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     protected EditBox tagFilterTextField;
 
     protected String tagFilter;
-    //endregion Fields
 
-    //region Initialization
     public SpiritTransporterGui(SpiritTransporterContainer container,
                                 Inventory playerInventory,
                                 Component titleIn) {
@@ -70,7 +68,6 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         this.imageWidth = 176;
         this.imageHeight = 220;
     }
-    //endregion Initialization
 
     //region Getter / Setter
     public boolean isBlacklist() {
@@ -91,7 +88,6 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
     }
     //endregion Getter / Setter
 
-    //region Overrides
     @Override
     public void init() {
         super.init();
@@ -237,12 +233,10 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
         return false;
     }
-    //endregion Overrides
 
-    //region Methods
     protected boolean isPointInSearchbar(double mouseX, double mouseY) {
         return this.isHovering(this.tagFilterTextField.getX() - this.leftPos, this.tagFilterTextField.getY() - this.topPos,
                 this.tagFilterTextField.getWidth() - 5, this.font.lineHeight + 6, mouseX, mouseY);
     }
-    //endregion Methods
+
 }

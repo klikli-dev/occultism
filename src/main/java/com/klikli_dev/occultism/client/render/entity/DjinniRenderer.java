@@ -31,19 +31,13 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
 public class DjinniRenderer extends BipedSpiritRenderer<DjinniEntity, DjinniModel> {
-    //region Fields
+
     private static final ResourceLocation[] TEXTURES = {new ResourceLocation(Occultism.MODID,
             "textures/entity/djinni.png")};
-    //endregion Fields
 
-
-    //region Initialization
     public DjinniRenderer(EntityRendererProvider.Context context) {
         super(context, new DjinniModel(context.bakeLayer(OccultismModelLayers.DJINNI)), 0.25f);
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public ResourceLocation getTextureLocation(DjinniEntity entity) {
@@ -55,5 +49,5 @@ public class DjinniRenderer extends BipedSpiritRenderer<DjinniEntity, DjinniMode
         super.scale(entity, matrixStackIn, partialTickTime);
         matrixStackIn.scale(0.6f, 0.6f, 0.6f);
     }
-    //endregion Overrides
+
 }

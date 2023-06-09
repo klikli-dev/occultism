@@ -28,20 +28,17 @@ import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.level.Level;
 
 public class PossessedEndermiteEntity extends Endermite {
-    //region Initialization
+
     public PossessedEndermiteEntity(EntityType<? extends Endermite> type,
                                     Level worldIn) {
         super(type, worldIn);
     }
-    //endregion Initialization
 
     //region Static Methods
     public static AttributeSupplier.Builder createAttributes() {
         return Endermite.createAttributes();
     }
-    //endregion Overrides
 
-    //region Overrides
     @Override
     protected boolean shouldDespawnInPeaceful() {
         return false;

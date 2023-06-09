@@ -43,11 +43,8 @@ import net.minecraftforge.network.NetworkEvent;
  */
 public class MessageSetRecipeByID extends MessageBase {
 
-    //region Fields
     private ResourceLocation id;
-    //endregion Fields
 
-    //region Initialization
     public MessageSetRecipeByID(FriendlyByteBuf buf) {
         this.decode(buf);
     }
@@ -55,10 +52,6 @@ public class MessageSetRecipeByID extends MessageBase {
     public MessageSetRecipeByID(ResourceLocation id) {
         this.id = id;
     }
-    //endregion Initialization
-
-    //region Overrides
-
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
@@ -115,9 +108,7 @@ public class MessageSetRecipeByID extends MessageBase {
     public void decode(FriendlyByteBuf buf) {
         this.id = buf.readResourceLocation();
     }
-    //endregion Overrides
 
-    //region Methods
     private NonNullList<Ingredient> getIngredientsForRecipe(Recipe<?> recipe) {
         NonNullList<Ingredient> ingredients = recipe.getIngredients();
         NonNullList<Ingredient> ingredientsMatrixGrid = NonNullList.withSize(9, Ingredient.EMPTY);
@@ -147,5 +138,5 @@ public class MessageSetRecipeByID extends MessageBase {
 
         return ingredientsMatrixGrid;
     }
-    //endregion Methods
+
 }

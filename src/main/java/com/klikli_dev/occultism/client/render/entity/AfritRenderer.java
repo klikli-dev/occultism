@@ -31,19 +31,13 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
 public class AfritRenderer extends BipedSpiritRenderer<AfritEntity, AfritModel> {
-    //region Fields
+
     private static final ResourceLocation[] TEXTURES = {new ResourceLocation(Occultism.MODID,
             "textures/entity/afrit.png")};
-    //endregion Fields
 
-
-    //region Initialization
     public AfritRenderer(EntityRendererProvider.Context context) {
         super(context, new AfritModel(context.bakeLayer(OccultismModelLayers.AFRIT)), 0.5f);
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public ResourceLocation getTextureLocation(AfritEntity entity) {
@@ -55,5 +49,5 @@ public class AfritRenderer extends BipedSpiritRenderer<AfritEntity, AfritModel> 
         super.scale(entity, matrixStackIn, partialTickTime);
         matrixStackIn.scale(1.2f, 1.2f, 1.2f);
     }
-    //endregion Overrides
+
 }

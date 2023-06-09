@@ -53,7 +53,6 @@ public interface ISkinnedCreatureMixin {
     }
     //endregion Getter / Setter
 
-    //region Methods
     default void writeSkinToNBT(CompoundTag tag) {
         SynchedEntityData entityData = this.getEntity().getEntityData();
         tag.putInt("skin", entityData.get(this.getDataParameterSkin()));
@@ -78,5 +77,5 @@ public interface ISkinnedCreatureMixin {
     default void registerSkinDataParameter() {
         this.getEntity().getEntityData().define(this.getDataParameterSkin(), 0);
     }
-    //endregion Methods
+
 }

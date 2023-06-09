@@ -31,7 +31,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class OccultismTiles {
-    //region Fields
+
     public static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(
             ForgeRegistries.BLOCK_ENTITY_TYPES, Occultism.MODID);
 
@@ -56,7 +56,5 @@ public class OccultismTiles {
             TILES.register(
                     "dimensional_mineshaft", () -> BlockEntityType.Builder.of(DimensionalMineshaftBlockEntity::new,
                             OccultismBlocks.DIMENSIONAL_MINESHAFT.get()).build(null));
-
-    //endregion Fields
 
 }

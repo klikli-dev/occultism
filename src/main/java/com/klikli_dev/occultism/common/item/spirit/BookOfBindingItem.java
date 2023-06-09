@@ -33,13 +33,9 @@ import java.util.List;
 
 public class BookOfBindingItem extends Item {
 
-    //region Initialization
     public BookOfBindingItem(Properties properties) {
         super(properties);
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
@@ -48,5 +44,4 @@ public class BookOfBindingItem extends Item {
         tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip"));
     }
 
-    //endregion Overrides
 }

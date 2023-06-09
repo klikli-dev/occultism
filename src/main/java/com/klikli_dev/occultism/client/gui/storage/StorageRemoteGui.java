@@ -33,19 +33,14 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class StorageRemoteGui extends StorageControllerGuiBase<StorageRemoteContainer> {
 
-    //region Fields
     protected StorageRemoteContainer container;
-    //endregion Fields
 
-    //region Initialization
     public StorageRemoteGui(StorageRemoteContainer container, Inventory playerInventory,
                             Component name) {
         super(container, playerInventory, name);
         this.container = container;
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     protected boolean isGuiValid() {
         return !this.container.getStorageRemote().isEmpty();
@@ -77,5 +72,5 @@ public class StorageRemoteGui extends StorageControllerGuiBase<StorageRemoteCont
         this.container.getStorageRemote().getOrCreateTag().putInt("sortType", sortType.getValue());
         OccultismPackets.sendToServer(new MessageUpdateStorageSettings(this.getSortDirection(), sortType));
     }
-    //endregion Overrides
+
 }

@@ -36,22 +36,18 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.crafting.CraftingHelper;
 
 public abstract class ItemStackFakeInventoryRecipe implements Recipe<ItemStackFakeInventory> {
-    //region Fields
+
     public static Serializer SERIALIZER = new Serializer();
     protected final ResourceLocation id;
     protected final Ingredient input;
     protected final ItemStack output;
-    //endregion Fields
 
-    //region Initialization
     public ItemStackFakeInventoryRecipe(ResourceLocation id, Ingredient input, ItemStack output) {
         this.input = input;
         this.output = output;
         this.id = id;
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public boolean matches(ItemStackFakeInventory inv, Level level) {
         return this.input.test(inv.getItem(0));
@@ -83,20 +79,14 @@ public abstract class ItemStackFakeInventoryRecipe implements Recipe<ItemStackFa
         return this.id;
     }
 
-    //endregion Overrides
-
     public interface IItemStackFakeInventoryRecipeFactory<T extends ItemStackFakeInventoryRecipe> {
-        //region Methods
+
         T create(ResourceLocation id, Ingredient input, ItemStack output);
-        //endregion Methods
+
     }
 
     public static class Serializer {
 
-        //region Overrides
-        //endregion Overrides
-
-        //region Methods
         public <T extends ItemStackFakeInventoryRecipe> T read(IItemStackFakeInventoryRecipeFactory<T> factory,
                                                                ResourceLocation recipeId, JsonObject json) {
             //we also allow arrays, but only one ingredient will be used.
@@ -119,6 +109,6 @@ public abstract class ItemStackFakeInventoryRecipe implements Recipe<ItemStackFa
             recipe.input.toNetwork(buffer);
             buffer.writeItem(recipe.output);
         }
-        //endregion Methods
+
     }
 }

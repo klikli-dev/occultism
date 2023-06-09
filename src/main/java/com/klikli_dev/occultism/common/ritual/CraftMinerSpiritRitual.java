@@ -34,13 +34,9 @@ import net.minecraft.world.level.Level;
 
 public class CraftMinerSpiritRitual extends Ritual {
 
-    //region Initialization
     public CraftMinerSpiritRitual(RitualRecipe recipe) {
         super(recipe);
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity BlockEntity,
@@ -62,5 +58,5 @@ public class CraftMinerSpiritRitual extends Ritual {
 
         this.dropResult(level, goldenBowlPosition, BlockEntity, castingPlayer, result);
     }
-    //endregion Overrides
+
 }

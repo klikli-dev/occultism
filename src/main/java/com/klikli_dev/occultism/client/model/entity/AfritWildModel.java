@@ -38,7 +38,6 @@ public class AfritWildModel extends HumanoidModel<AfritWildEntity> {
     public static final String WINGED_WINGS_LEFT = "wingedWingsLeft";
     public static final String WINGED_WINGS_RIGHT = "wingedWingsRight";
 
-    //region Fields
     public ModelPart nose;
     public ModelPart earLeft;
     public ModelPart earRight;
@@ -46,9 +45,6 @@ public class AfritWildModel extends HumanoidModel<AfritWildEntity> {
     public ModelPart wingedWingsLeft;
     public ModelPart wingedWingsRight;
 
-    //endregion Fields
-
-    //region Initialization
     public AfritWildModel(ModelPart modelPart) {
         super(modelPart); //modelsize 1.0 was used here
         this.leftArmPose = ArmPose.EMPTY;
@@ -61,9 +57,6 @@ public class AfritWildModel extends HumanoidModel<AfritWildEntity> {
         this.wingedWingsLeft = this.wingedWings.getChild(WINGED_WINGS_LEFT);
         this.wingedWingsRight = this.wingedWings.getChild(WINGED_WINGS_RIGHT);
     }
-    //endregion Initialization
-
-    //region Methods
 
     public static LayerDefinition createBodyLayer() {
         MeshDefinition meshdefinition = HumanoidModel.createMesh(CubeDeformation.NONE, 0);
@@ -134,5 +127,5 @@ public class AfritWildModel extends HumanoidModel<AfritWildEntity> {
 
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
-    //endregion Methods
+
 }

@@ -29,18 +29,15 @@ import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.Tier;
 
 public class OtherworldPickaxeItem extends PickaxeItem implements IOtherworldTool {
-    //region Initialization
+
     public OtherworldPickaxeItem(Tier tier, int attackDamageIn, float attackSpeedIn,
                                  Properties builder) {
         super(tier, attackDamageIn, attackSpeedIn, builder);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public OtherworldBlockTier getHarvestTier(ItemStack stack) {
         return OtherworldBlockTier.TWO;
     }
-    //endregion Overrides
 
 }

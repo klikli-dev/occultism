@@ -57,19 +57,15 @@ import java.util.Map;
 
 public class StableWormholeBlockEntity extends NetworkedBlockEntity implements IStorageControllerProxy, MenuProvider, IStorageAccessor {
 
-    //region Fields
     protected GlobalBlockPos linkedStorageControllerPosition;
     protected Map<Integer, ItemStack> matrix = new HashMap<>();
     protected ItemStack orderStack = ItemStack.EMPTY;
     protected SortDirection sortDirection = SortDirection.DOWN;
     protected SortType sortType = SortType.AMOUNT;
-    //endregion Fields
 
-    //region Initialization
     public StableWormholeBlockEntity(BlockPos worldPos, BlockState state) {
         super(OccultismTiles.STABLE_WORMHOLE.get(), worldPos, state);
     }
-    //endregion Initialization
 
     //region Getter / Setter
     @Override
@@ -108,7 +104,6 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
     }
     //endregion Getter / Setter
 
-    //region Overrides
     @Override
     public Component getDisplayName() {
         return Component.literal(ForgeRegistries.BLOCK_ENTITY_TYPES.getKey(this.getType()).getPath());
@@ -216,8 +211,5 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
         return new StableWormholeContainer(id, playerInventory, this);
     }
-    //endregion Overrides
 
-    //region Methods
-    //endregion Methods
 }

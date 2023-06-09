@@ -33,13 +33,10 @@ import net.minecraft.world.level.block.Block;
  * Allows to show different textures and translation keys for HWYLA and in the inventory
  */
 public class OtherworldBlockItem extends BlockItem {
-    //region Initialization
+
     public OtherworldBlockItem(Block blockIn, Properties builder) {
         super(blockIn, builder);
     }
-    //endregion Initialization
-
-    //region Overrides
 
     /**
      * Make getDefaultTranslationKey public for use in OtherworldUtil
@@ -59,5 +56,5 @@ public class OtherworldBlockItem extends BlockItem {
         super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
         stack.getOrCreateTag().putBoolean("isInventoryItem", true);
     }
-    //endregion Overrides
+
 }

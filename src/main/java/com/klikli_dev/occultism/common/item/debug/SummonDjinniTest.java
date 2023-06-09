@@ -38,13 +38,10 @@ import net.minecraftforge.event.ForgeEventFactory;
 
 public class SummonDjinniTest extends Item {
 
-    //region Initialization
     public SummonDjinniTest(Properties properties) {
         super(properties);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public InteractionResult useOn(UseOnContext context) {
         if (!context.getLevel().isClientSide) {
@@ -72,5 +69,4 @@ public class SummonDjinniTest extends Item {
         return InteractionResult.SUCCESS;
     }
 
-    //endregion Overrides
 }

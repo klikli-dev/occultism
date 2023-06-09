@@ -31,7 +31,6 @@ public enum SortDirection implements StringRepresentable {
     DOWN(0),
     UP(1);
 
-    //region Fields
     private static final Map<Integer, SortDirection> lookup = new HashMap<Integer, SortDirection>();
 
     static {
@@ -42,12 +41,9 @@ public enum SortDirection implements StringRepresentable {
 
     private final int value;
 
-    //endregion Fields
-    //region Initialization
     SortDirection(int value) {
         this.value = value;
     }
-    //endregion Initialization
 
     //region Static Methods
     public static SortDirection get(int value) {
@@ -63,18 +59,15 @@ public enum SortDirection implements StringRepresentable {
     public boolean isDown() {
         return this == DOWN;
     }
-    //endregion Overrides
 
-    //region Overrides
     @Override
     public String getSerializedName() {
         return this.name().toLowerCase();
     }
     //endregion Static Methods
 
-    //region Methods
     public SortDirection next() {
         return values()[(this.ordinal() + 1) % SortDirection.values().length];
     }
-    //endregion Methods
+
 }

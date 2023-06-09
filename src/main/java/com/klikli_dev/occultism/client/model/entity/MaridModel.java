@@ -33,14 +33,11 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 
 
 public class MaridModel extends HumanoidModel<MaridEntity> {
-    //region Fields
+
     public ModelPart nose;
     public ModelPart earLeft;
     public ModelPart earRight;
 
-    //endregion Fields
-
-    //region Initialization
     public MaridModel(ModelPart part) {
         super(part);
 
@@ -48,8 +45,6 @@ public class MaridModel extends HumanoidModel<MaridEntity> {
         this.earLeft = this.head.getChild("left_ear");
         this.earRight = this.head.getChild("right_ear");
     }
-    //endregion Initialization
-
 
     public static LayerDefinition createBodyLayer() {
         MeshDefinition mesh = new MeshDefinition();

@@ -23,9 +23,9 @@
 package com.klikli_dev.occultism.exceptions;
 
 public class ItemHandlerMissingException extends CapabilityMissingException {
-    //region Initialization
+
     public ItemHandlerMissingException() {
         super("ItemHandler");
     }
-    //endregion Initialization
+
 }

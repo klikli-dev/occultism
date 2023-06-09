@@ -39,13 +39,10 @@ import net.minecraftforge.event.ForgeEventFactory;
 
 public class SummonFoliotTraderItem extends Item {
 
-    //region Initialization
     public SummonFoliotTraderItem(Properties properties) {
         super(properties);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public InteractionResult useOn(UseOnContext context) {
         if (!context.getLevel().isClientSide) {
@@ -72,5 +69,4 @@ public class SummonFoliotTraderItem extends Item {
         return InteractionResult.SUCCESS;
     }
 
-    //endregion Overrides
 }

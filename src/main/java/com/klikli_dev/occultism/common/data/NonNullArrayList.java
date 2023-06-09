@@ -34,11 +34,8 @@ import java.util.stream.Stream;
 
 public class NonNullArrayList<E> extends NonNullList<E> {
 
-    //region Fields
     protected final ArrayList<E> delegate;
-    //endregion Fields
 
-    //region Initialization
     protected NonNullArrayList() {
         this(new ArrayList<>(), null);
     }
@@ -47,9 +44,6 @@ public class NonNullArrayList<E> extends NonNullList<E> {
         super(delegateIn, listType);
         this.delegate = delegateIn;
     }
-    //endregion Initialization
-
-    //region Overrides
 
     //region Static Methods
     public static <E> NonNullArrayList<E> create() {
@@ -59,7 +53,6 @@ public class NonNullArrayList<E> extends NonNullList<E> {
     public static <E> NonNullArrayList<E> withSize(int size, E fill) {
         return new NonNullArrayList<>(new ArrayList<>(Collections.nCopies(size, fill)), fill);
     }
-    //endregion Overrides
 
     @SafeVarargs
     public static <E> NonNullList<E> from(E defaultElementIn, E... elements) {

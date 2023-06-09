@@ -30,7 +30,6 @@ public enum OtherworldBlockTier {
     ONE(1),
     TWO(2);
 
-    //region Fields
     private static final Map<Integer, OtherworldBlockTier> lookup = new HashMap<Integer, OtherworldBlockTier>();
 
     static {
@@ -41,12 +40,9 @@ public enum OtherworldBlockTier {
 
     private final int level;
 
-    //endregion Fields
-    //region Initialization
     OtherworldBlockTier(int level) {
         this.level = level;
     }
-    //endregion Initialization
 
     //region Static Methods
     public static OtherworldBlockTier get(int level) {

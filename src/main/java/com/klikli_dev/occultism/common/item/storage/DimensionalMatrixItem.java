@@ -34,16 +34,10 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class DimensionalMatrixItem extends Item {
-    //region Fields
-    //endregion Fields
 
-    //region Initialization
     public DimensionalMatrixItem(Properties properties) {
         super(properties);
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
@@ -52,5 +46,5 @@ public class DimensionalMatrixItem extends Item {
         tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
-    //endregion Overrides
+
 }

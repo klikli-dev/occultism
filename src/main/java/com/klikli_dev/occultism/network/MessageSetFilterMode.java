@@ -31,12 +31,9 @@ import net.minecraftforge.network.NetworkEvent;
 
 public class MessageSetFilterMode extends MessageBase {
 
-    //region Fields
     public boolean isBlacklistFilter;
     public int entityId;
-    //endregion Fields
 
-    //region Initialization
     public MessageSetFilterMode(FriendlyByteBuf buf) {
         this.decode(buf);
     }
@@ -45,9 +42,6 @@ public class MessageSetFilterMode extends MessageBase {
         this.isBlacklistFilter = isBlacklistFilter;
         this.entityId = entityId;
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
@@ -71,5 +65,5 @@ public class MessageSetFilterMode extends MessageBase {
         this.isBlacklistFilter = buf.readBoolean();
         this.entityId = buf.readInt();
     }
-    //endregion Overrides
+
 }

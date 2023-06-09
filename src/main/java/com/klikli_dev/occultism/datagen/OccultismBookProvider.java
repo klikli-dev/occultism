@@ -1465,8 +1465,6 @@ public class OccultismBookProvider extends BookProvider {
 
     //endregion
 
-    //region Spirits
-
     private BookCategoryModel makeSpiritsSubcategory(BookLangHelper helper) {
         helper.category("spirits");
 
@@ -1731,7 +1729,6 @@ public class OccultismBookProvider extends BookProvider {
 
     //endregion
 
-    //region Pentacles
     private BookCategoryModel makePentaclesCategory(BookLangHelper helper) {
         helper.category("pentacles");
 
@@ -2462,7 +2459,6 @@ public class OccultismBookProvider extends BookProvider {
     }
     //endregion
 
-    //region Rituals
     private BookCategoryModel makeRitualsCategory(BookLangHelper helper) {
         helper.category("rituals");
 
@@ -5101,7 +5097,6 @@ public class OccultismBookProvider extends BookProvider {
     }
     //endregion
 
-    //region Storage
     private BookCategoryModel makeStorageCategory(BookLangHelper helper) {
         helper.category("storage");
 
@@ -5328,6 +5323,3 @@ public class OccultismBookProvider extends BookProvider {
                         demo
                 );
     }
-
-    //endregion
-}

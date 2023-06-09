@@ -27,22 +27,17 @@ import net.minecraft.world.entity.Entity;
 import java.util.Comparator;
 
 public class EntitySorter implements Comparator<Entity> {
-    //region Fields
-    private final Entity entity;
-    //endregion Fields
 
-    //region Initialization
+    private final Entity entity;
+
     public EntitySorter(Entity entity) {
         this.entity = entity;
     }
-    //endregion Initialization
 
-    //region Overrides
     public int compare(Entity a, Entity b) {
         double distanceA = this.entity.distanceToSqr(a);
         double distanceB = this.entity.distanceToSqr(b);
         return Double.compare(distanceA, distanceB);
     }
-    //endregion Overrides
+
 }
-//endregion Subtypes

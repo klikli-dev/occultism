@@ -320,9 +320,6 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         }
     }
 
-    //endregion Overrides
-
-    //region Methods
     public void restoreCastingPlayer() {
         //every 30 seconds try to restore the casting player
         if (this.castingPlayer == null && this.castingPlayerId != null &&

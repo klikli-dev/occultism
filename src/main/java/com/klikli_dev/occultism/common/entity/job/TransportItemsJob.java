@@ -37,22 +37,15 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import javax.annotation.Nullable;
 
 public class TransportItemsJob extends SpiritJob implements MenuProvider {
-    //region Fields
 
     protected DepositItemsGoal depositItemsGoal;
     protected ExtractItemsGoal extractItemsGoal;
     protected OpenDoorGoal openDoorGoal;
-    //endregion Fields
-
-    //region Initialization
-
 
     public TransportItemsJob(SpiritEntity entity) {
         super(entity);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public Component getDisplayName() {
         return this.entity.getDisplayName();
@@ -81,5 +74,5 @@ public class TransportItemsJob extends SpiritJob implements MenuProvider {
     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
         return new SpiritTransporterContainer(id, playerInventory, this.entity);
     }
-    //endregion Overrides
+
 }

@@ -41,20 +41,14 @@ import javax.annotation.Nullable;
 
 public class CleanerJob extends SpiritJob implements MenuProvider {
 
-    //region Fields
     protected PickupItemsGoal pickupItemsGoal;
     protected ReturnToWorkAreaGoal returnToWorkAreaGoal;
     protected DepositItemsGoal depositItemsGoal;
-    //endregion Fields
 
-
-    //region Initialization
     public CleanerJob(SpiritEntity entity) {
         super(entity);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public Component getDisplayName() {
         return this.entity.getDisplayName();
@@ -90,5 +84,5 @@ public class CleanerJob extends SpiritJob implements MenuProvider {
     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
         return new SpiritTransporterContainer(id, playerInventory, this.entity);
     }
-    //endregion Overrides
+
 }

@@ -40,7 +40,7 @@ import net.minecraft.world.level.Level;
 import java.util.Optional;
 
 public class WildHuntSkeletonEntity extends Skeleton {
-    //region Fields
+
     protected Optional<WildHuntWitherSkeletonEntity> master = Optional.empty();
 
     public WildHuntSkeletonEntity(EntityType<? extends WildHuntSkeletonEntity> type,

@@ -47,19 +47,16 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class DepositItemsGoal extends PausableGoal {
-    //region Fields
+
     protected final SpiritEntity entity;
     protected final BlockSorter targetSorter;
     protected IMoveTarget moveTarget = null;
-    //endregion Fields
 
-    //region Initialization
     public DepositItemsGoal(SpiritEntity entity) {
         this.entity = entity;
         this.targetSorter = new BlockSorter(entity);
         this.setFlags(EnumSet.of(Flag.TARGET));
     }
-    //endregion Initialization
 
     //region Getter / Setter
 
@@ -72,7 +69,6 @@ public class DepositItemsGoal extends PausableGoal {
     }
     //endregion Getter / Setter
 
-    //region Overrides
     @Override
     public boolean canUse() {
         //do not use if there is a target to attack
@@ -160,9 +156,7 @@ public class DepositItemsGoal extends PausableGoal {
             }
         }
     }
-    //endregion Overrides
 
-    //region Methods
     public boolean canSeeTarget() {
 
 //        ClipContext context = new ClipContext(this.entity.position(),
@@ -221,5 +215,5 @@ public class DepositItemsGoal extends PausableGoal {
             }
         });
     }
-    //endregion Methods
+
 }

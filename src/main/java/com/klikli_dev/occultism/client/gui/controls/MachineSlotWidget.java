@@ -34,7 +34,7 @@ import javax.annotation.Nonnull;
 import java.awt.*;
 
 public class MachineSlotWidget {
-    //region Fields
+
     protected int x;
     protected int y;
     protected int guiLeft;
@@ -44,9 +44,7 @@ public class MachineSlotWidget {
     protected MachineReference machine;
     protected Font fontRenderer;
     protected int slotHighlightColor;
-    //endregion Fields
 
-    //region Initialization
     public MachineSlotWidget(IStorageControllerGuiContainer parent, @Nonnull MachineReference machine, int x, int y,
                              int guiLeft, int guiTop) {
         this.x = x;
@@ -59,7 +57,6 @@ public class MachineSlotWidget {
         this.fontRenderer = this.parent.getFontRenderer();
         this.slotHighlightColor = new Color(255, 255, 255, 128).getRGB();
     }
-    //endregion Initialization
 
     //region Getter / Setter
     public MachineReference getMachine() {
@@ -72,7 +69,6 @@ public class MachineSlotWidget {
 
     //endregion Getter / Setter
 
-    //region Methods
     public boolean isMouseOverSlot(double mouseX, double mouseY) {
         return this.parent.isPointInRegionController(this.x - this.guiLeft, this.y - this.guiTop, 16, 16, mouseX, mouseY);
     }
@@ -103,5 +99,5 @@ public class MachineSlotWidget {
             this.parent.renderToolTip(poseStack, this.machine, mx, my);
         }
     }
-    //endregion Methods
+
 }

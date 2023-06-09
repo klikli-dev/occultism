@@ -45,15 +45,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 
 public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScreen<T> {
-    //region Fields
+
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Occultism.MODID,
             "textures/gui/inventory_spirit.png");
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit";
     protected SpiritEntity spirit;
     protected T container;
-//endregion Fields
 
-    //region Initialization
     public SpiritGui(T container, Inventory playerInventory, Component titleIn) {
         super(container, playerInventory, titleIn);
         this.container = container;
@@ -61,7 +59,6 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         this.imageWidth = 175;
         this.imageHeight = 165;
     }
-    //endregion Initialization
 
     //region Static Methods
     public static void drawEntityToGui(PoseStack poseStack, int posX, int posY, int scale, float mouseX, float mouseY, LivingEntity entity) {
@@ -103,7 +100,6 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         poseStack.popPose();
     }
 
-    //region Overrides
     @Override
     @SuppressWarnings("deprecation")
     public void init() {
@@ -141,8 +137,6 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
     protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
         //prevent default labels being rendered
     }
-
-    //endregion Overrides
 
     @Override
     protected void renderBg(PoseStack poseStack, float partialTicks, int x, int y) {

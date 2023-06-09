@@ -40,14 +40,11 @@ import javax.annotation.Nullable;
 
 public class OtherworldLogNaturalBlock extends RotatedPillarBlock implements IOtherworldBlock {
 
-    //region Initialization
     public OtherworldLogNaturalBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(UNCOVERED, false));
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public Block getUncoveredBlock() {
         return OccultismBlocks.OTHERWORLD_LOG.get();
@@ -87,5 +84,5 @@ public class OtherworldLogNaturalBlock extends RotatedPillarBlock implements IOt
         builder.add(UNCOVERED);
         super.createBlockStateDefinition(builder);
     }
-    //endregion Overrides
+
 }

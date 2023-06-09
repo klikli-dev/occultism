@@ -38,13 +38,9 @@ import net.minecraft.world.item.ItemStack;
 
 public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialBowlBlockEntity> {
 
-    //region Initialization
     public SacrificialBowlRenderer(BlockEntityRendererProvider.Context context) {
 
     }
-    //endregion Initialization
-
-    //region Overrides
 
     //region Static Methods
     public static float getScale(ItemStack stack) {
@@ -54,7 +50,6 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
         }
         return 1.0f;
     }
-    //endregion Overrides
 
     @Override
     public void render(SacrificialBowlBlockEntity blockEntity, float partialTicks, PoseStack poseStack,

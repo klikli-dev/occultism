@@ -29,11 +29,9 @@ import net.minecraft.world.level.Level;
 
 public class FoliotEntity extends SpiritEntity {
 
-    //region Initialization
     public FoliotEntity(EntityType<? extends SpiritEntity> type, Level level) {
         super(type, level);
     }
-    //endregion Initialization
 
     //region Static Methods
     public static AttributeSupplier.Builder createAttributes() {

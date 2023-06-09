@@ -33,13 +33,9 @@ import java.awt.*;
 
 public class MessageSelectBlock extends MessageBase {
 
-    //region Fields
     public BlockPos blockPos;
     public int durationMilliseconds;
     public int color;
-    //endregion Fields
-
-    //region Initialization
 
     public MessageSelectBlock(FriendlyByteBuf buf) {
         this.decode(buf);
@@ -50,9 +46,6 @@ public class MessageSelectBlock extends MessageBase {
         this.durationMilliseconds = durationMilliseconds;
         this.color = color;
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context) {
@@ -73,5 +66,5 @@ public class MessageSelectBlock extends MessageBase {
         this.durationMilliseconds = buf.readInt();
         this.color = buf.readInt();
     }
-    //endregion Overrides
+
 }

@@ -40,14 +40,11 @@ import javax.annotation.Nullable;
 
 public class OtherworldSaplingNaturalBlock extends SaplingBlock implements IOtherworldBlock {
 
-    //region Initialization
     public OtherworldSaplingNaturalBlock(AbstractTreeGrower tree, Properties properties) {
         super(tree, properties);
         this.registerDefaultState(this.defaultBlockState().setValue(UNCOVERED, false));
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public Block getUncoveredBlock() {
         return this;
@@ -86,6 +83,5 @@ public class OtherworldSaplingNaturalBlock extends SaplingBlock implements IOthe
         builder.add(UNCOVERED);
         super.createBlockStateDefinition(builder);
     }
-    //endregion Overrides
 
 }

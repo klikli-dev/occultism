@@ -39,17 +39,12 @@ import java.util.List;
 
 public class PickupItemsGoal extends TargetGoal {
 
-    //region Fields
-
     protected final SpiritEntity entity;
     protected final Predicate<? super ItemEntity> targetItemSelector;
     protected final EntitySorter entitySorter;
     protected ItemEntity targetItem;
     protected int executionChance;
     protected float pickupRange;
-    //endregion Fields
-
-    //region Initialization
 
     public PickupItemsGoal(SpiritEntity entity) {
         this(entity, 2f, 10);
@@ -62,7 +57,7 @@ public class PickupItemsGoal extends TargetGoal {
         this.pickupRange = pickupRange;
         this.executionChance = executionChance;
         this.targetItemSelector = new Predicate<ItemEntity>() {
-            //region Overrides
+
             @Override
             public boolean apply(@Nullable ItemEntity item) {
                 ItemStack stack = item.getItem();
@@ -70,14 +65,12 @@ public class PickupItemsGoal extends TargetGoal {
                         entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new), stack, true).getCount() <
                         stack.getCount();
             }
-            //endregion Overrides
+
         };
         this.entitySorter = new EntitySorter(entity);
         this.setFlags(EnumSet.of(Flag.MOVE));
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public boolean canUse() {
 
@@ -138,6 +131,5 @@ public class PickupItemsGoal extends TargetGoal {
         this.mob.getNavigation().moveTo(this.mob.getNavigation().createPath(this.targetItem, 0), 1.0f);
         super.start();
     }
-    //endregion Overrides
 
 }

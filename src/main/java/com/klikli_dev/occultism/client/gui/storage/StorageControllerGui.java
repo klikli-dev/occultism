@@ -34,19 +34,14 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class StorageControllerGui extends StorageControllerGuiBase<StorageControllerContainer> {
 
-    //region Fields
     protected StorageControllerBlockEntity storageController;
-    //endregion Fields
 
-    //region Initialization
     public StorageControllerGui(StorageControllerContainer container, Inventory playerInventory,
                                 Component name) {
         super(container, playerInventory, name);
         this.storageController = container.getStorageController();
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     protected boolean isGuiValid() {
         return true;
@@ -78,5 +73,5 @@ public class StorageControllerGui extends StorageControllerGuiBase<StorageContro
         this.storageController.setSortType(sortType);
         OccultismPackets.sendToServer(new MessageUpdateStorageSettings(this.getSortDirection(), sortType));
     }
-    //endregion Overrides
+
 }

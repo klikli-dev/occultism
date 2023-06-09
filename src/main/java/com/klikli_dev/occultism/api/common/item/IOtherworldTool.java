@@ -26,7 +26,7 @@ import com.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import net.minecraft.world.item.ItemStack;
 
 public interface IOtherworldTool {
-    //region Methods
+
     OtherworldBlockTier getHarvestTier(ItemStack stack);
-    //endregion Methods
+
 }

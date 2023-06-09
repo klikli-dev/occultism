@@ -36,14 +36,11 @@ import java.util.Collections;
 
 public class StorageControllerItemStackHandler extends ItemStackHandler {
 
-    //region Fields
     protected int maxStackSize;
     protected int maxSlots;
     protected boolean overrideItemStackSizes;
     protected IStorageController storageController;
-    //endregion Fields
 
-    //region Initialization
     public StorageControllerItemStackHandler(IStorageController storageController, int size, int maxStackSize,
                                              boolean overrideItemStackSizes) {
         super();
@@ -53,9 +50,7 @@ public class StorageControllerItemStackHandler extends ItemStackHandler {
         this.maxStackSize = maxStackSize;
         this.overrideItemStackSizes = overrideItemStackSizes;
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public void setSize(int size) {
         if (size < 0)
@@ -181,7 +176,6 @@ public class StorageControllerItemStackHandler extends ItemStackHandler {
         this.storageController.onContentsChanged();
     }
 
-    //region Methods
     public void prune() {
         //iterate from the end and remove empty stuff until we have our desired size
         for (int i = this.stacks.size() - 1; i >= 0 && this.stacks.size() > this.maxSlots; i--) {
@@ -189,6 +183,5 @@ public class StorageControllerItemStackHandler extends ItemStackHandler {
                 this.stacks.remove(i);
         }
     }
-    //endregion Methods
 
 }

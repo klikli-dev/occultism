@@ -37,12 +37,9 @@ import net.minecraftforge.client.gui.widget.ExtendedButton;
 
 public class BookOfCallingGui extends Screen {
 
-    //region Fields
     public BookOfCallingItem.IItemModeSubset<?> mode;
     public WorkAreaSize workAreaSize;
-    //endregion Fields
 
-    //region Initialization
     public BookOfCallingGui(BookOfCallingItem.IItemModeSubset<?> mode, WorkAreaSize workAreaSize) {
         super(Component.literal(""));
 
@@ -50,9 +47,7 @@ public class BookOfCallingGui extends Screen {
         this.workAreaSize = workAreaSize;
         this.init();
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public void render(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(stack);
@@ -117,5 +112,5 @@ public class BookOfCallingGui extends Screen {
     public boolean isPauseScreen() {
         return false;
     }
-    //endregion Overrides
+
 }

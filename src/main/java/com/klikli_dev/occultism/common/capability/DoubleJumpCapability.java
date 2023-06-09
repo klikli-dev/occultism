@@ -35,14 +35,10 @@ import javax.annotation.Nullable;
 
 public class DoubleJumpCapability implements INBTSerializable<CompoundTag> {
 
-    //region Fields
     private int jumps = 0;
-    //endregion Fields
 
-    //region Initialization
     public DoubleJumpCapability() {
     }
-    //endregion Initialization
 
     //region Getter / Setter
     public int getJumps() {
@@ -54,7 +50,6 @@ public class DoubleJumpCapability implements INBTSerializable<CompoundTag> {
     }
     //endregion Getter / Setter
 
-    //region Methods
     public void addJump() {
         this.jumps++;
     }
@@ -70,16 +65,12 @@ public class DoubleJumpCapability implements INBTSerializable<CompoundTag> {
     public void deserializeNBT(CompoundTag nbt) {
         this.jumps = nbt.getInt("jumps");
     }
-    //endregion Methods
 
     public static class Dispatcher implements ICapabilitySerializable<CompoundTag> {
 
-        //region Fields
         private final LazyOptional<DoubleJumpCapability> doubleJumpCapability = LazyOptional.of(
                 DoubleJumpCapability::new);
-        //endregion Fields
 
-        //region Overrides
         @Nonnull
         @Override
         public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
@@ -98,8 +89,6 @@ public class DoubleJumpCapability implements INBTSerializable<CompoundTag> {
         public void deserializeNBT(CompoundTag nbt) {
             this.doubleJumpCapability.ifPresent(capability -> capability.deserializeNBT(nbt));
         }
-
-        //endregion Overrides
 
     }
 }

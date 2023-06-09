@@ -30,13 +30,8 @@ import java.util.EnumSet;
 
 public class ReturnToWorkAreaGoal extends Goal {
 
-    //region Fields
-
     protected final SpiritEntity entity;
     protected int executionChance;
-    //endregion Fields
-
-    //region Initialization
 
     public ReturnToWorkAreaGoal(SpiritEntity entity) {
         this(entity, 10);
@@ -47,9 +42,7 @@ public class ReturnToWorkAreaGoal extends Goal {
         this.executionChance = executionChance;
         this.setFlags(EnumSet.of(Flag.TARGET));
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public boolean canUse() {
 
@@ -93,6 +86,5 @@ public class ReturnToWorkAreaGoal extends Goal {
                 this.entity.getWorkAreaPosition().orElse(this.entity.blockPosition()), 0), 1.0f);
         super.start();
     }
-    //endregion Overrides
 
 }

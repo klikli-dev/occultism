@@ -31,19 +31,13 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
 public class MaridRenderer extends BipedSpiritRenderer<MaridEntity, MaridModel> {
-    //region Fields
+
     private static final ResourceLocation[] TEXTURES = {new ResourceLocation(Occultism.MODID,
             "textures/entity/marid.png")};
-    //endregion Fields
 
-
-    //region Initialization
     public MaridRenderer(EntityRendererProvider.Context context) {
         super(context, new MaridModel(context.bakeLayer(OccultismModelLayers.MARID)), 0.5f);
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public ResourceLocation getTextureLocation(MaridEntity entity) {
@@ -55,5 +49,5 @@ public class MaridRenderer extends BipedSpiritRenderer<MaridEntity, MaridModel> 
         super.scale(entity, matrixStackIn, partialTickTime);
         matrixStackIn.scale(1.2f, 1.2f, 1.2f);
     }
-    //endregion Overrides
+
 }

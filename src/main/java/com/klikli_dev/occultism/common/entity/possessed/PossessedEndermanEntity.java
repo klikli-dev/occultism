@@ -28,20 +28,17 @@ import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.level.Level;
 
 public class PossessedEndermanEntity extends EnderMan {
-    //region Initialization
+
     public PossessedEndermanEntity(EntityType<? extends EnderMan> type,
                                    Level worldIn) {
         super(type, worldIn);
     }
-    //endregion Initialization
 
     //region Static Methods
     public static AttributeSupplier.Builder createAttributes() {
         return EnderMan.createAttributes();
     }
-    //endregion Overrides
 
-    //region Overrides
     @Override
     protected boolean shouldDespawnInPeaceful() {
         return false;

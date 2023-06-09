@@ -34,21 +34,16 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class StableWormholeGui extends StorageControllerGuiBase<StableWormholeContainer> {
 
-    //region Fields
     protected StorageControllerBlockEntity storageController;
     protected StableWormholeContainer container;
-    //endregion Fields
 
-    //region Initialization
     public StableWormholeGui(StableWormholeContainer container, Inventory playerInventory,
                              Component name) {
         super(container, playerInventory, name);
         this.container = container;
         this.storageController = container.getStorageController();
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     protected boolean isGuiValid() {
         return true;
@@ -80,5 +75,5 @@ public class StableWormholeGui extends StorageControllerGuiBase<StableWormholeCo
         this.container.getStableWormhole().setSortType(sortType);
         OccultismPackets.sendToServer(new MessageUpdateStorageSettings(this.getSortDirection(), sortType));
     }
-    //endregion Overrides
+
 }

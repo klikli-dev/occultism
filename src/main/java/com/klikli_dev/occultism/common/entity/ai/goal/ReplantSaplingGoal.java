@@ -111,14 +111,11 @@ public class ReplantSaplingGoal extends Goal {
             this.resetTarget(); //if there is no tile entity, recheck
         }
     }
-    //endregion Overrides
-
-    //region Methods
 
     private void resetTarget() {
         this.moveTarget = null;
 //        this.entity.getJob().map(j -> (LumberjackJob) j).map(LumberjackJob::getLastFelledTree)
 //                .ifPresent(t -> this.moveTarget = t);
     }
-    //endregion Methods
+
 }

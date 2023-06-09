@@ -32,7 +32,6 @@ public enum StorageControllerGuiMode implements StringRepresentable {
     INVENTORY(0),
     AUTOCRAFTING(1);
 
-    //region Fields
     private static final Map<Integer, StorageControllerGuiMode> lookup = new HashMap<Integer, StorageControllerGuiMode>();
 
     static {
@@ -43,12 +42,9 @@ public enum StorageControllerGuiMode implements StringRepresentable {
 
     private final int value;
 
-    //endregion Fields
-    //region Initialization
     StorageControllerGuiMode(int value) {
         this.value = value;
     }
-    //endregion Initialization
 
     //region Static Methods
     public static StorageControllerGuiMode get(int value) {
@@ -60,18 +56,15 @@ public enum StorageControllerGuiMode implements StringRepresentable {
     public int getValue() {
         return this.value;
     }
-    //endregion Overrides
 
-    //region Overrides
     @Override
     public String getSerializedName() {
         return this.name().toLowerCase();
     }
     //endregion Static Methods
 
-    //region Methods
     public StorageControllerGuiMode next() {
         return values()[(this.ordinal() + 1) % StorageControllerGuiMode.values().length];
     }
-    //endregion Methods
+
 }

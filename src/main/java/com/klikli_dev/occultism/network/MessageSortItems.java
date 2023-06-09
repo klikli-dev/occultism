@@ -36,13 +36,9 @@ import net.minecraftforge.network.NetworkEvent;
 
 public class MessageSortItems extends MessageBase {
 
-    //region Fields
     private BlockPos entityPosition;
     private SortDirection sortDirection;
     private SortType sortType;
-    //endregion Fields
-
-    //region Initialization
 
     public MessageSortItems(FriendlyByteBuf buf) {
         this.decode(buf);
@@ -53,9 +49,6 @@ public class MessageSortItems extends MessageBase {
         this.sortDirection = sortDirection;
         this.sortType = sortType;
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
@@ -96,5 +89,5 @@ public class MessageSortItems extends MessageBase {
         this.sortDirection = SortDirection.get(byteBuf.readByte());
         this.sortType = SortType.get(byteBuf.readByte());
     }
-    //endregion Overrides
+
 }

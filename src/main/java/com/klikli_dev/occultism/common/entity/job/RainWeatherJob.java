@@ -29,13 +29,10 @@ import net.minecraft.world.level.storage.ServerLevelData;
 
 public class RainWeatherJob extends ChangeWeatherJob {
 
-    //region Initialization
     public RainWeatherJob(SpiritEntity entity, int ticksToClear) {
         super(entity, ticksToClear);
     }
-    //endregion Initialization
 
-    //region Overrides
     public void changeWeather() {
         if (Occultism.SERVER_CONFIG.rituals.enableRainWeatherRitual.get()) {
             ServerLevelData level = (ServerLevelData) this.entity.level().getLevelData();
@@ -48,5 +45,5 @@ public class RainWeatherJob extends ChangeWeatherJob {
             this.entity.getOwner().sendSystemMessage(Component.translatable("ritual.occultism.disabled"));
         }
     }
-    //endregion Overrides
+
 }

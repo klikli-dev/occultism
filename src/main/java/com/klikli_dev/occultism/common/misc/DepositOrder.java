@@ -27,12 +27,9 @@ import net.minecraftforge.common.util.INBTSerializable;
 
 public class DepositOrder implements INBTSerializable<CompoundTag> {
 
-    //region Fields
     public ItemStackComparator comparator;
     public int amount;
-    //endregion Fields
 
-    //region Initialization
     protected DepositOrder() {
     }
 
@@ -40,7 +37,6 @@ public class DepositOrder implements INBTSerializable<CompoundTag> {
         this.comparator = comparator;
         this.amount = amount;
     }
-    //endregion Initialization
 
     //region Static Methods
     public static DepositOrder from(CompoundTag compound) {
@@ -50,7 +46,6 @@ public class DepositOrder implements INBTSerializable<CompoundTag> {
     }
     //endregion Static Methods
 
-    //region Methods
     public CompoundTag writeToNBT(CompoundTag compound) {
         compound.put("comparator", this.comparator.serializeNBT());
         compound.putInt("amount", this.amount);
@@ -71,5 +66,5 @@ public class DepositOrder implements INBTSerializable<CompoundTag> {
     public void deserializeNBT(CompoundTag nbt) {
         this.readFromNBT(nbt);
     }
-    //endregion Methods
+
 }

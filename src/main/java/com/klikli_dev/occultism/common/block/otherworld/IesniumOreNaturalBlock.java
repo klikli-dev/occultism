@@ -39,14 +39,12 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import javax.annotation.Nullable;
 
 public class IesniumOreNaturalBlock extends Block implements IOtherworldBlock {
-    //region Initialization
+
     public IesniumOreNaturalBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(UNCOVERED, false));
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public Block getUncoveredBlock() {
         return OccultismBlocks.IESNIUM_ORE.get();
@@ -85,5 +83,5 @@ public class IesniumOreNaturalBlock extends Block implements IOtherworldBlock {
         builder.add(UNCOVERED);
         super.createBlockStateDefinition(builder);
     }
-    //endregion Overrides
+
 }

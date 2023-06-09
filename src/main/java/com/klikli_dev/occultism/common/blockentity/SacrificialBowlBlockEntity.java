@@ -38,11 +38,10 @@ import javax.annotation.Nullable;
 
 public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
 
-    //region Fields
     public long lastChangeTime;
     public LazyOptional<ItemStackHandler> itemStackHandler = LazyOptional.of(
             () -> new ItemStackHandler(1) {
-                //region Overrides
+
                 @Override
                 public int getSlotLimit(int slot) {
                     return 1;
@@ -57,12 +56,10 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
                         SacrificialBowlBlockEntity.this.markNetworkDirty();
                     }
                 }
-                //endregion Overrides
+
             });
     protected boolean initialized = false;
-    //endregion Fields
 
-    //region Initialization
     public SacrificialBowlBlockEntity(BlockPos worldPos, BlockState state) {
         super(OccultismTiles.SACRIFICIAL_BOWL.get(), worldPos, state);
     }
@@ -70,9 +67,7 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
     public SacrificialBowlBlockEntity(BlockEntityType<?> BlockEntityTypeIn, BlockPos worldPos, BlockState state) {
         super(BlockEntityTypeIn, worldPos, state);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction direction) {
@@ -101,5 +96,4 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
         this.itemStackHandler.invalidate();
     }
 
-    //endregion Overrides
 }

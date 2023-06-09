@@ -38,9 +38,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.List;
 
 public interface IReplantableCrops {
-    //region Fields
+
     float EXHAUSTION_PER_HARVEST = 0.005f;
-    //endregion Fields
 
     //region Getter / Setter
     ItemLike getCropsItem();
@@ -48,10 +47,8 @@ public interface IReplantableCrops {
     ItemLike getSeedsItem();
     //endregion Getter / Setter
 
-    //region Overrides
-
     //endregion Getter / Setter
-    //region Methods
+
     default InteractionResult onHarvest(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
         if (!level.isClientSide) {
             if (state.getValue(CropBlock.AGE) >= 7) {
@@ -77,5 +74,5 @@ public interface IReplantableCrops {
         }
         return InteractionResult.PASS;
     }
-    //endregion Methods
+
 }

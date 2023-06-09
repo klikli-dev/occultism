@@ -39,14 +39,11 @@ import net.minecraftforge.items.SlotItemHandler;
 
 public class DimensionalMineshaftContainer extends AbstractContainerMenu {
 
-    //region Fields
     public ItemStackHandler inputHandler;
     public ItemStackHandler outputHandler;
     public DimensionalMineshaftBlockEntity otherworldMiner;
     public Inventory playerInventory;
-    //endregion Fields
 
-    //region Initialization
     public DimensionalMineshaftContainer(int id, Inventory playerInventory,
                                          DimensionalMineshaftBlockEntity otherworldMiner) {
         super(OccultismContainers.OTHERWORLD_MINER.get(), id);
@@ -59,9 +56,7 @@ public class DimensionalMineshaftContainer extends AbstractContainerMenu {
         this.setupPlayerInventorySlots(playerInventory.player);
         this.setupPlayerHotbar(playerInventory.player);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public boolean stillValid(Player player) {
         return player.distanceToSqr(this.otherworldMiner.getBlockPos().getX() + 0.5D,
@@ -103,9 +98,6 @@ public class DimensionalMineshaftContainer extends AbstractContainerMenu {
         return itemstack;
     }
 
-    //endregion Overrides
-
-    //region Methods
     protected void setupPlayerInventorySlots(Player player) {
         int playerInventoryTop = 84;
         int playerInventoryLeft = 8;
@@ -140,35 +132,29 @@ public class DimensionalMineshaftContainer extends AbstractContainerMenu {
 
         this.addSlot(new InputSlot(inputHandler, 0, 26, 35));
     }
-    //endregion Methods
 
     public class InputSlot extends SlotItemHandler {
 
-        //region Initialization
         public InputSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
             super(itemHandler, index, xPosition, yPosition);
         }
-        //endregion Initialization
 
-        //region Overrides
         public boolean mayPlace(ItemStack stack) {
             RecipeManager recipeManager = DimensionalMineshaftContainer.this.otherworldMiner.getLevel().getRecipeManager();
             return RecipeUtil.isValidIngredient(recipeManager, OccultismRecipes.MINER_TYPE.get(), stack);
         }
-        //endregion Overrides
+
     }
 
     public class OutputSlot extends SlotItemHandler {
-        //region Initialization
+
         public OutputSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
             super(itemHandler, index, xPosition, yPosition);
         }
-        //endregion Initialization
 
-        //region Overrides
         public boolean mayPlace(ItemStack stack) {
             return false;
         }
-        //endregion Overrides
+
     }
 }

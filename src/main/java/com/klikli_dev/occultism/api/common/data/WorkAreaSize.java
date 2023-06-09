@@ -32,7 +32,6 @@ public enum WorkAreaSize {
     MEDIUM(32, "medium"),
     LARGE(64, "large");
 
-    //region Fields
     private static final Map<Integer, WorkAreaSize> lookup = new HashMap<Integer, WorkAreaSize>();
     private static final String TRANSLATION_KEY_BASE = "enum." + Occultism.MODID + ".work_area_size";
 
@@ -44,14 +43,11 @@ public enum WorkAreaSize {
 
     private final int value;
     private final String translationKey;
-    //endregion Fields
 
-    //region Initialization
     WorkAreaSize(int value, String translationKey) {
         this.value = value;
         this.translationKey = TRANSLATION_KEY_BASE + "." + translationKey;
     }
-    //endregion Initialization
 
     //region Static Methods
     public static WorkAreaSize get(int value) {
@@ -69,7 +65,6 @@ public enum WorkAreaSize {
     }
     //endregion Static Methods
 
-    //region Methods
     public WorkAreaSize next() {
         return values()[(this.ordinal() + 1) % values().length];
     }

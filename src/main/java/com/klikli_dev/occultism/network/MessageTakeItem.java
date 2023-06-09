@@ -39,14 +39,10 @@ import net.minecraftforge.network.NetworkEvent;
  */
 public class MessageTakeItem extends MessageBase {
 
-    //region Fields
     private ItemStack stack = ItemStack.EMPTY;
     private int mouseButton;
     private boolean isShiftDown;
     private boolean isCtrlDown;
-    //endregion Fields
-
-    //region Initialization
 
     public MessageTakeItem(FriendlyByteBuf buf) {
         this.decode(buf);
@@ -58,9 +54,6 @@ public class MessageTakeItem extends MessageBase {
         this.isShiftDown = isShiftDown;
         this.isCtrlDown = isCtrlDown;
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
@@ -136,5 +129,5 @@ public class MessageTakeItem extends MessageBase {
         this.isShiftDown = buf.readBoolean();
         this.isCtrlDown = buf.readBoolean();
     }
-    //endregion Overrides
+
 }

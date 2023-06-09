@@ -43,8 +43,6 @@ public interface IStorageControllerContainer {
     boolean isContainerItem();
     //endregion Getter / Setter
 
-    //region Methods
-
     /**
      * Updates the crafting slots.
      *
@@ -59,5 +57,4 @@ public interface IStorageControllerContainer {
      */
     void updateOrderSlot(boolean force);
 
-    //endregion Methods
 }

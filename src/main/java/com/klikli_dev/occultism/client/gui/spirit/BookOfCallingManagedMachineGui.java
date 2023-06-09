@@ -39,16 +39,13 @@ import org.apache.commons.lang3.StringUtils;
 
 public class BookOfCallingManagedMachineGui extends Screen {
 
-    //region Fields
     protected final String originalCustomName;
     protected String customName;
     protected Direction insertFacing = Direction.UP;
     protected Direction extractFacing = Direction.DOWN;
 
     protected EditBox text;
-    //endregion Fields
 
-    //region Initialization
     public BookOfCallingManagedMachineGui(Direction insertFacing, Direction extractFacing, String customName) {
         super(Component.literal(""));
 
@@ -59,9 +56,6 @@ public class BookOfCallingManagedMachineGui extends Screen {
         this.init();
     }
 
-    //endregion Initialization
-
-    //region Overrides
     @Override
     public void render(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(stack);
@@ -182,9 +176,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
             return super.charTyped(typedChar, keyCode);
         }
     }
-    //endregion Overrides
 
-    //region Methods
     public MachineReference makeMachineReference() {
         MachineReference reference = new MachineReference(null, null, false, null, null, false);
         reference.insertFacing = this.insertFacing;
@@ -192,5 +184,5 @@ public class BookOfCallingManagedMachineGui extends Screen {
         reference.customName = this.customName;
         return reference;
     }
-    //endregion Methods
+
 }

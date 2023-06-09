@@ -29,12 +29,9 @@ import net.minecraft.world.level.Level;
 
 public class DjinniEntity extends SpiritEntity {
 
-    //region Initialization
     public DjinniEntity(EntityType<? extends SpiritEntity> type, Level level) {
         super(type, level);
     }
-
-    //endregion Initialization
 
     //region Static Methods
     public static AttributeSupplier.Builder createAttributes() {

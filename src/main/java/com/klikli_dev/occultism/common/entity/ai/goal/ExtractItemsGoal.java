@@ -45,19 +45,16 @@ import java.util.EnumSet;
 import java.util.Optional;
 
 public class ExtractItemsGoal extends PausableGoal {
-    //region Fields
+
     protected final SpiritEntity entity;
     protected final BlockSorter targetSorter;
     protected BlockPos targetBlock = null;
-    //endregion Fields
 
-    //region Initialization
     public ExtractItemsGoal(SpiritEntity entity) {
         this.entity = entity;
         this.targetSorter = new BlockSorter(entity);
         this.setFlags(EnumSet.of(Flag.TARGET));
     }
-    //endregion Initialization
 
     //region Getter / Setter
 
@@ -70,7 +67,6 @@ public class ExtractItemsGoal extends PausableGoal {
     }
     //endregion Getter / Setter
 
-    //region Overrides
     @Override
     public boolean canUse() {
         //do not use if there is a target to attack
@@ -162,9 +158,7 @@ public class ExtractItemsGoal extends PausableGoal {
             }
         }
     }
-    //endregion Overrides
 
-    //region Methods
     public boolean canSeeTarget() {
 
         ClipContext context = new ClipContext(this.entity.position(),
@@ -211,5 +205,5 @@ public class ExtractItemsGoal extends PausableGoal {
             }
         });
     }
-    //endregion Methods
+
 }

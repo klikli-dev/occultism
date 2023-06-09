@@ -25,9 +25,9 @@ package com.klikli_dev.occultism.api.common.item;
 import net.minecraft.world.item.ItemStack;
 
 public interface IHandleItemMode {
-    //region Methods
+
     int getItemMode(ItemStack stack);
 
     void setItemMode(ItemStack stack, int mode);
-    //endregion Methods
+
 }

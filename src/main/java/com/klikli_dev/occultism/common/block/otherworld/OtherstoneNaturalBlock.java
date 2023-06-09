@@ -39,14 +39,12 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import javax.annotation.Nullable;
 
 public class OtherstoneNaturalBlock extends Block implements IOtherworldBlock {
-    //region Initialization
+
     public OtherstoneNaturalBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(UNCOVERED, false));
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public Block getUncoveredBlock() {
         return OccultismBlocks.OTHERSTONE.get();
@@ -85,5 +83,5 @@ public class OtherstoneNaturalBlock extends Block implements IOtherworldBlock {
         builder.add(UNCOVERED);
         super.createBlockStateDefinition(builder);
     }
-    //endregion Overrides
+
 }

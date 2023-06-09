@@ -52,7 +52,6 @@ import java.util.Optional;
 
 public abstract class StorageControllerContainerBase extends AbstractContainerMenu implements IStorageControllerContainer {
 
-    //region Fields
     public Inventory playerInventory;
     public Player player;
     protected ResultContainer result;
@@ -64,9 +63,6 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
      * used to lock recipe while crafting
      */
     protected boolean recipeLocked = false;
-    //endregion Fields
-
-    //region Initialization
 
     protected StorageControllerContainerBase(@Nullable MenuType<?> type, int id, Inventory playerInventory) {
         super(type, id);
@@ -76,10 +72,6 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
         this.result = new ResultContainer();
         this.orderInventory = new SimpleContainer(1);
     }
-
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public GlobalBlockPos getStorageControllerGlobalBlockPos() {
@@ -156,9 +148,6 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
         super.removed(playerIn);
     }
 
-    //endregion Overrides
-
-    //region Methods
     protected void setupPlayerInventorySlots() {
         int playerInventoryTop = 174;
         int playerInventoryLeft = 8 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
@@ -375,5 +364,5 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
         OccultismPackets.sendTo((ServerPlayer) player, this.getStorageController().getMessageUpdateStacks());
 
     }
-    //endregion Methods
+
 }

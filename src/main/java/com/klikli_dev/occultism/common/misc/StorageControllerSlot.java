@@ -38,12 +38,10 @@ import java.util.List;
  * Extension of slot crafting that sends network updates. Based on https://github.com/Lothrazar/Storage-Network
  */
 public class StorageControllerSlot extends ResultSlot {
-    //region Fields
+
     IStorageControllerContainer storageControllerContainer;
     CraftingContainer matrix;
-    //endregion Fields
 
-    //region Initialization
     public StorageControllerSlot(Player player, CraftingContainer matrix, Container inventory,
                                  IStorageControllerContainer storageControllerContainer, int slotIndex, int xPosition,
                                  int yPosition) {
@@ -51,9 +49,6 @@ public class StorageControllerSlot extends ResultSlot {
         this.storageControllerContainer = storageControllerContainer;
         this.matrix = matrix;
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void onTake(Player player, ItemStack stack) {
@@ -82,6 +77,5 @@ public class StorageControllerSlot extends ResultSlot {
         ((AbstractContainerMenu) this.storageControllerContainer).broadcastChanges();
         //return stack;
     }
-    //endregion Overrides
 
 }

@@ -40,18 +40,13 @@ import javax.annotation.Nullable;
 
 public class OtherworldLeavesNaturalBlock extends LeavesBlock implements IOtherworldBlock {
 
-    //region Fields
     public static final int COLOR = 0x760ea2;
-    //endregion Fields
 
-    //region Initialization
     public OtherworldLeavesNaturalBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(UNCOVERED, false));
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public Block getUncoveredBlock() {
         return OccultismBlocks.OTHERWORLD_LEAVES.get();
@@ -90,5 +85,5 @@ public class OtherworldLeavesNaturalBlock extends LeavesBlock implements IOtherw
         builder.add(UNCOVERED);
         super.createBlockStateDefinition(builder);
     }
-    //endregion Overrides
+
 }

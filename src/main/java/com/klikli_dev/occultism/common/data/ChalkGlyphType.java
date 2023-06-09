@@ -46,7 +46,6 @@ public enum ChalkGlyphType implements StringRepresentable {
      */
     PURPLE(3);
 
-    //region Fields
     private static final Map<Integer, ChalkGlyphType> lookup = new HashMap<Integer, ChalkGlyphType>();
 
     static {
@@ -56,13 +55,10 @@ public enum ChalkGlyphType implements StringRepresentable {
     }
 
     private final int value;
-    //endregion Fields
 
-    //region Initialization
     ChalkGlyphType(int value) {
         this.value = value;
     }
-    //endregion Initialization
 
     //region Static Methods
     public static ChalkGlyphType get(int value) {

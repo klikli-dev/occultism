@@ -37,7 +37,6 @@ import java.util.UUID;
 
 public class ItemNBTUtil {
 
-    //region Fields
     public static final String SPIRIT_NAME_TAG = "spiritName";
     public static final String SPIRIT_UUID_TAG = "spiritUUID";
     public static final String SPIRIT_DEAD_TAG = "spiritDead";
@@ -53,8 +52,6 @@ public class ItemNBTUtil {
     public static final String EXTRACT_FACING_TAG = "extractFacing";
     public static final String STORAGE_CONTROLLER_POSITION_TAG = "storageControllerPosition";
     public static final String MANAGED_MACHINE = "managedMachine";
-
-    //endregion Fields
 
     //region Static Methods
 

@@ -37,14 +37,12 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class InfusedPickaxeItem extends PickaxeItem implements IOtherworldTool {
-    //region Initialization
+
     public InfusedPickaxeItem(Tier tier, int attackDamageIn, float attackSpeedIn,
                               Properties builder) {
         super(tier, attackDamageIn, attackSpeedIn, builder);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public OtherworldBlockTier getHarvestTier(ItemStack stack) {
         return OtherworldBlockTier.TWO;
@@ -57,6 +55,5 @@ public class InfusedPickaxeItem extends PickaxeItem implements IOtherworldTool {
         tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip",
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
-    //endregion Overrides
 
 }

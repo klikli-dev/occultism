@@ -50,11 +50,9 @@ import java.util.List;
 
 public class StorageRemoteItem extends Item implements MenuProvider {
 
-    //region Initialization
     public StorageRemoteItem(Properties properties) {
         super(properties);
     }
-    //endregion Initialization
 
     public static IStorageController getStorageController(ItemStack stack, Level level) {
         //Invalid item or cannot not get hold of server instance
@@ -72,7 +70,6 @@ public class StorageRemoteItem extends Item implements MenuProvider {
         return blockEntity instanceof IStorageController ? (IStorageController) blockEntity : null;
     }
 
-    //region Overrides
     @Override
     public Component getDisplayName() {
         return Component.translatable(this.getDescriptionId());

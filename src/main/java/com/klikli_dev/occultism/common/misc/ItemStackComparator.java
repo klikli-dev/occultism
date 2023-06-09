@@ -32,12 +32,10 @@ import javax.annotation.Nonnull;
  * Based on https://github.com/Lothrazar/Storage-Network
  */
 public class ItemStackComparator implements IItemStackComparator {
-    //region Fields
+
     protected ItemStack filterStack;
     protected boolean matchNbt;
-    //endregion Fields
 
-    //region Initialization
     public ItemStackComparator(ItemStack stack) {
         this(stack, false);
     }
@@ -49,7 +47,6 @@ public class ItemStackComparator implements IItemStackComparator {
 
     private ItemStackComparator() {
     }
-    //endregion Initialization
 
     //region Static Methods
     public static ItemStackComparator from(CompoundTag nbt) {
@@ -76,7 +73,6 @@ public class ItemStackComparator implements IItemStackComparator {
         this.filterStack = filterStack;
     }
 
-    //region Overrides
     @Override
     public boolean matches(@Nonnull ItemStack stack) {
         if (stack.isEmpty())
@@ -91,7 +87,6 @@ public class ItemStackComparator implements IItemStackComparator {
     public CompoundTag serializeNBT() {
         return this.write(new CompoundTag());
     }
-    //endregion Overrides
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
@@ -99,7 +94,6 @@ public class ItemStackComparator implements IItemStackComparator {
     }
     //endregion Static Methods
 
-    //region Methods
     public void read(CompoundTag compound) {
         CompoundTag nbt = compound.getCompound("stack");
         this.filterStack = ItemStack.of(nbt);
@@ -111,5 +105,5 @@ public class ItemStackComparator implements IItemStackComparator {
         compound.putBoolean("matchNbt", this.matchNbt);
         return compound;
     }
-    //endregion Methods
+
 }

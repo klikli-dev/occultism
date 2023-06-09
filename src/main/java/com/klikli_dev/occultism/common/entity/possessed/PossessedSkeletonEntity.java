@@ -29,12 +29,11 @@ import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.level.Level;
 
 public class PossessedSkeletonEntity extends Skeleton {
-    //region Initialization
+
     public PossessedSkeletonEntity(EntityType<? extends Skeleton> type,
                                    Level worldIn) {
         super(type, worldIn);
     }
-    //endregion Initialization
 
     //region Static Methods
     public static AttributeSupplier.Builder createAttributes() {
@@ -43,12 +42,10 @@ public class PossessedSkeletonEntity extends Skeleton {
                 .add(Attributes.MAX_HEALTH, 30.0);
     }
 
-    //region Overrides
     @Override
     protected boolean shouldDespawnInPeaceful() {
         return false;
     }
-    //endregion Overrides
 
     @Override
     protected boolean isSunBurnTick() {

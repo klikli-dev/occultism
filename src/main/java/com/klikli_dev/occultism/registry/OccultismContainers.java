@@ -41,7 +41,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class OccultismContainers {
-    //region Fields
+
     public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(
             ForgeRegistries.MENU_TYPES, Occultism.MODID);
 
@@ -90,5 +90,4 @@ public class OccultismContainers {
     public static final RegistryObject<MenuType<SatchelContainer>> SATCHEL =
             CONTAINERS.register("satchel", () -> IForgeMenuType.create(SatchelContainer::createClientContainer));
 
-    //endregion Fields
 }

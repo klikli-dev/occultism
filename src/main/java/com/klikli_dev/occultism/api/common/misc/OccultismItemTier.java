@@ -35,16 +35,13 @@ public enum OccultismItemTier implements Tier {
         return Ingredient.of(Items.IRON_INGOT);
     });
 
-    //region Fields
     private final int level;
     private final int uses;
     private final float speed;
     private final float attackDamageBonus;
     private final int enchantmentValue;
     private final Lazy<Ingredient> repairIngredient;
-    //endregion Fields
 
-    //region Initialization
     OccultismItemTier(int harvestLevelIn, int maxUsesIn, float efficiencyIn, float attackDamageIn,
                       int enchantabilityIn, Supplier<Ingredient> repairMaterialIn) {
         this.level = harvestLevelIn;
@@ -54,9 +51,7 @@ public enum OccultismItemTier implements Tier {
         this.enchantmentValue = enchantabilityIn;
         this.repairIngredient = Lazy.of(repairMaterialIn);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public int getUses() {
         return this.uses;
@@ -87,5 +82,4 @@ public enum OccultismItemTier implements Tier {
         return this.repairIngredient.get();
     }
 
-    //endregion Overrides
 }

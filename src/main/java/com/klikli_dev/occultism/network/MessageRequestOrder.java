@@ -41,13 +41,9 @@ import net.minecraftforge.network.NetworkEvent;
  */
 public class MessageRequestOrder extends MessageBase {
 
-    //region Fields
     private GlobalBlockPos storageControllerPosition;
     private GlobalBlockPos targetMachinePosition;
     private ItemStack stack = ItemStack.EMPTY;
-    //endregion Fields
-
-    //region Initialization
 
     public MessageRequestOrder(FriendlyByteBuf buf) {
         this.decode(buf);
@@ -59,11 +55,6 @@ public class MessageRequestOrder extends MessageBase {
         this.targetMachinePosition = targetMachinePosition;
         this.stack = stack;
     }
-
-    //endregion Initialization
-
-
-    //region Overrides
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
@@ -102,5 +93,5 @@ public class MessageRequestOrder extends MessageBase {
         this.targetMachinePosition = GlobalBlockPos.from(buf);
         this.stack = buf.readItem();
     }
-    //endregion Overrides
+
 }

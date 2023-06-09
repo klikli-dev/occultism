@@ -29,7 +29,7 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 
 public interface ICaveDecorator {
-    //region Methods
+
     void finalPass(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
                    CaveDecoratordata data, MultiChunkFeatureConfig config);
 

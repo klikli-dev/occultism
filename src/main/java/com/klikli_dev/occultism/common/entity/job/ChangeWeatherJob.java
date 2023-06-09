@@ -34,20 +34,13 @@ import net.minecraft.world.phys.Vec3;
 
 public abstract class ChangeWeatherJob extends SpiritJob {
 
-    //region Fields
     protected int currentChangeTicks;
     protected int requiredChangeTicks;
-    //endregion Fields
 
-
-    //region Initialization
     public ChangeWeatherJob(SpiritEntity entity, int requiredChangeTicks) {
         super(entity);
         this.requiredChangeTicks = requiredChangeTicks;
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void onInit() {
@@ -109,9 +102,6 @@ public abstract class ChangeWeatherJob extends SpiritJob {
         this.requiredChangeTicks = compound.getInt("requiredChangeTicks");
     }
 
-    //endregion Overrides
-
-    //region Methods
     public abstract void changeWeather();
-    //endregion Methods
+
 }

@@ -63,27 +63,26 @@ import java.util.stream.Collectors;
 
 public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implements MenuProvider {
 
-    //region Fields
     public static final ResourceLocation EVILCRAFT_UNUSING_ENCHANTEMENT = new ResourceLocation("evilcraft:unusing");
     public static final String MAX_MINING_TIME_TAG = "maxMiningTime";
     public static final int DEFAULT_MAX_MINING_TIME = 400;
     public static int DEFAULT_ROLLS_PER_OPERATION = 1;
     public static String ROLLS_PER_OPERATION_TAG = "rollsPerOperation";
     public LazyOptional<ItemStackHandler> inputHandler = LazyOptional.of(() -> new ItemStackHandler(1) {
-        //region Overrides
+
         @Override
         protected void onContentsChanged(int slot) {
             DimensionalMineshaftBlockEntity.this.setChanged();
         }
-        //endregion Overrides
+
     });
     public LazyOptional<ItemStackHandler> outputHandler = LazyOptional.of(() -> new ItemStackHandler(9) {
-        //region Overrides
+
         @Override
         protected void onContentsChanged(int slot) {
             DimensionalMineshaftBlockEntity.this.setChanged();
         }
-        //endregion Overrides
+
     });
     public LazyOptional<CombinedInvWrapper> combinedHandler =
             LazyOptional
@@ -95,12 +94,9 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     protected Item currentInputType;
     protected List<WeightedOutputIngredient> possibleResults;
 
-    //endregion Fields
-    //region Initialization
     public DimensionalMineshaftBlockEntity(BlockPos worldPos, BlockState state) {
         super(OccultismTiles.DIMENSIONAL_MINESHAFT.get(), worldPos, state);
     }
-    //endregion Initialization
 
     //region Static Methods
     public static void forceInitStackNBT(ItemStack stack, ServerLevel level) {
@@ -123,7 +119,6 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         return rolls <= 0 ? DEFAULT_ROLLS_PER_OPERATION : rolls;
     }
 
-    //region Overrides
     @Override
     public Component getDisplayName() {
         return Component.literal(ForgeRegistries.BLOCK_ENTITY_TYPES.getKey(this.getType()).getPath());
@@ -172,7 +167,6 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         compound.putInt("maxMiningTime", this.maxMiningTime);
         return super.saveNetwork(compound);
     }
-    //endregion Overrides
 
     @Override
     public void setRemoved() {
@@ -242,7 +236,6 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     }
     //endregion Static Methods
 
-    //region Methods
     public void mine() {
         ItemStackHandler inputHandler = this.inputHandler.orElseThrow(ItemHandlerMissingException::new);
         ItemStackHandler outputHandler = this.outputHandler.orElseThrow(ItemHandlerMissingException::new);
@@ -287,5 +280,4 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         this.combinedHandler.invalidate();
     }
 
-    //endregion Methods
 }

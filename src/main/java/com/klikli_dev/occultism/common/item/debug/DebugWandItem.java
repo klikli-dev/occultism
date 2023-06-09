@@ -34,13 +34,10 @@ import net.minecraft.world.level.Level;
 
 public class DebugWandItem extends Item {
 
-    //region Initialization
     public DebugWandItem(Properties properties) {
         super(properties);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public InteractionResult useOn(UseOnContext context) {
 
@@ -88,5 +85,5 @@ public class DebugWandItem extends Item {
 
         return InteractionResult.SUCCESS;
     }
-    //endregion Overrides
+
 }

@@ -35,10 +35,7 @@ import net.minecraft.network.chat.Component;
 
 public class DebugAICommand implements Command<CommandSourceStack> {
 
-    //region Fields
     private static final DebugAICommand CMD = new DebugAICommand();
-
-    //endregion Fields
 
     //region Static Methods
     public static ArgumentBuilder<CommandSourceStack, ?> register(CommandDispatcher<CommandSourceStack> dispatcher) {
@@ -46,9 +43,7 @@ public class DebugAICommand implements Command<CommandSourceStack> {
                 .requires(cs -> cs.hasPermission(1))
                 .executes(CMD);
     }
-    //endregion Overrides
 
-    //region Overrides
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Occultism.DEBUG.debugAI = !Occultism.DEBUG.debugAI;

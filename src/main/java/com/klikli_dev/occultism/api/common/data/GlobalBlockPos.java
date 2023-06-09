@@ -36,12 +36,10 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
-    //region Fields
+
     protected BlockPos pos;
     protected ResourceKey<Level> dimensionKey;
-    //endregion Fields
 
-    //region Initialization
     public GlobalBlockPos() {
     }
 
@@ -54,7 +52,6 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
         this.pos = pos;
         this.dimensionKey = level.dimension();
     }
-    //endregion Initialization
 
     //region Static Methods
     public static GlobalBlockPos from(CompoundTag compound) {
@@ -83,7 +80,6 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
         return this.pos;
     }
 
-    //region Overrides
     @Override
     public int hashCode() {
         return Objects.hash(this.dimensionKey, this.pos);
@@ -102,7 +98,6 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
             return false;
         return this.dimensionKey.equals(other.dimensionKey);
     }
-    //endregion Overrides
 
     @Override
     public String toString() {
@@ -122,7 +117,6 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
     }
     //endregion Static Methods
 
-    //region Methods
     public CompoundTag write(CompoundTag compound) {
         compound.putLong("pos", this.getPos().asLong());
         compound.putString("dimension", this.dimensionKey.location().toString());
@@ -144,5 +138,5 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
         this.pos = buf.readBlockPos();
         this.dimensionKey = ResourceKey.create(Registries.DIMENSION, buf.readResourceLocation());
     }
-    //endregion Methods
+
 }

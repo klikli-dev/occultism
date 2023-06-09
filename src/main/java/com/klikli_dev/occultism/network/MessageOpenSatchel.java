@@ -35,8 +35,6 @@ import net.minecraftforge.network.NetworkHooks;
 
 public class MessageOpenSatchel extends MessageBase {
 
-    //region Initialization
-
     public MessageOpenSatchel(FriendlyByteBuf buf) {
         this.decode(buf);
     }
@@ -44,9 +42,6 @@ public class MessageOpenSatchel extends MessageBase {
     public MessageOpenSatchel() {
 
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
@@ -85,5 +80,5 @@ public class MessageOpenSatchel extends MessageBase {
     public void decode(FriendlyByteBuf buf) {
 
     }
-    //endregion Overrides
+
 }

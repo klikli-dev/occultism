@@ -41,24 +41,19 @@ import java.util.stream.Collectors;
  * If there is a handheld item and no deposit location, it will try to deposit in a storage controller.
  */
 public class FallbackDepositToControllerGoal extends PausableGoal {
-    //region Fields
+
     protected final SpiritEntity entity;
     protected final BlockSorter targetSorter;
     protected ManageMachineJob job;
     protected int retries = 0;
-    //endregion Fields
 
-    //region Initialization
     public FallbackDepositToControllerGoal(SpiritEntity entity, ManageMachineJob job) {
         this.entity = entity;
         this.job = job;
         this.targetSorter = new BlockSorter(entity);
         this.setFlags(EnumSet.of(Flag.MOVE));
     }
-    //endregion Initialization
 
-
-    //region Overrides
     @Override
     public boolean canUse() {
         //do not use if there is a target to attack
@@ -95,9 +90,6 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
         }
 
     }
-    //endregion Overrides
-
-    //region Methods
 
     protected BlockEntity findClosestStorageProxy() {
         Level level = this.entity.level();
@@ -132,5 +124,4 @@ public class FallbackDepositToControllerGoal extends PausableGoal {
         return null;
     }
 
-    //endregion Methods
 }

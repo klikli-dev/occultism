@@ -32,7 +32,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkEvent;
 
 public interface IMessage {
-    //region Methods
+
     void encode(FriendlyByteBuf buf);
 
     void decode(FriendlyByteBuf buf);
@@ -42,5 +42,5 @@ public interface IMessage {
 
     void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                           NetworkEvent.Context context);
-    //endregion Methods
+
 }

@@ -41,7 +41,6 @@ import java.util.Optional;
 
 public class TraderJob extends SpiritJob {
 
-    //region Fields
     /**
      * The current ticks in the conversion, will convert once it reaches timeToConvert
      */
@@ -52,15 +51,11 @@ public class TraderJob extends SpiritJob {
 
     protected SpiritTradeRecipe trade;
     protected int maxTradesPerRound = 4;
-    //endregion Fields
 
-
-    //region Initialization
     public TraderJob(SpiritEntity entity, ResourceLocation recipeId) {
         super(entity);
         this.setTradeRecipeId(recipeId);
     }
-    //endregion Initialization
 
     //region Getter / Setter
 
@@ -99,7 +94,6 @@ public class TraderJob extends SpiritJob {
     }
     //endregion Getter / Setter
 
-    //region Overrides
     @Override
     public void onInit() {
         this.entity.targetSelector.addGoal(1, this.pickupItemsGoal = new PickupItemsGoal(this.entity));
@@ -181,9 +175,6 @@ public class TraderJob extends SpiritJob {
         ItemStack stack = entity.getItem();
         return !stack.isEmpty() && this.trade.isValid(stack);
     }
-    //endregion Overrides
-
-    //region Methods
 
     /**
      * Called when a conversion trade was successful.
@@ -193,5 +184,5 @@ public class TraderJob extends SpiritJob {
     public void onConvert(int count) {
 
     }
-    //endregion Methods
+
 }

@@ -61,19 +61,15 @@ import java.util.function.Predicate;
 
 public class BookOfCallingItem extends Item implements IHandleItemMode {
 
-    //region Fields
     public static Map<UUID, Long> spiritDeathRegister = new HashMap<>();
     public String translationKeyBase;
     public Predicate<SpiritEntity> targetSpirit;
-    //endregion Fields
 
-    //region Initialization
     public BookOfCallingItem(Properties properties, String translationKeyBase, Predicate<SpiritEntity> targetSpirit) {
         super(properties);
         this.translationKeyBase = translationKeyBase;
         this.targetSpirit = targetSpirit;
     }
-    //endregion Initialization
 
     //region Getter / Setter
 
@@ -85,7 +81,6 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
     }
 
     //endregion Getter / Setter
-    //region Overrides
 
     @Override
     public int getItemMode(ItemStack stack) {
@@ -303,9 +298,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
     public Rarity getRarity(ItemStack stack) {
         return ItemNBTUtil.getSpiritEntityUUID(stack) != null ? Rarity.RARE : Rarity.COMMON;
     }
-    //endregion Overrides
 
-    //region Methods
     public IItemModeSubset<?> getItemModeSubset(ItemStack stack) {
         return ItemMode.get(this.getItemMode(stack));
     }
@@ -595,8 +588,6 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
         return InteractionResult.PASS;
     }
 
-    //endregion Methods
-
     public enum ItemMode implements IItemModeSubset<ItemMode> {
 
         SET_DEPOSIT(0, "set_deposit"),
@@ -605,7 +596,6 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
         SET_STORAGE_CONTROLLER(3, "set_storage_controller"),
         SET_MANAGED_MACHINE(4, "set_managed_machine");
 
-        //region Fields
         private static final Map<Integer, ItemMode> lookup = new HashMap<Integer, ItemMode>();
         private static final String TRANSLATION_KEY_BASE =
                 "enum." + Occultism.MODID + ".book_of_calling.item_mode";
@@ -618,14 +608,11 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
 
         private final int value;
         private final String translationKey;
-        //endregion Fields
 
-        //region Initialization
         ItemMode(int value, String translationKey) {
             this.value = value;
             this.translationKey = TRANSLATION_KEY_BASE + "." + translationKey;
         }
-        //endregion Initialization
 
         //region Static Methods
         public static ItemMode get(int value) {
@@ -642,23 +629,20 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
             return this.translationKey;
         }
 
-        //region Overrides
         @Override
         public ItemMode getItemMode() {
             return this;
         }
-        //endregion Overrides
 
         public ItemMode next() {
             return values()[(this.ordinal() + 1) % values().length];
         }
         //endregion Static Methods
 
-        //region Methods
         public boolean equals(int value) {
             return this.value == value;
         }
-        //endregion Methods
+
     }
 
     public interface IItemModeSubset<T extends IItemModeSubset<T>> {
@@ -666,8 +650,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
         ItemMode getItemMode();
         //endregion Getter / Setter
 
-        //region Methods
         T next();
-        //endregion Methods
+
     }
 }

@@ -46,16 +46,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WildHuntWitherSkeletonEntity extends WitherSkeleton {
-    //region Fields
-    List<WildHuntSkeletonEntity> minions = new ArrayList<>();
-    //endregion Fields
 
-    //region Initialization
+    List<WildHuntSkeletonEntity> minions = new ArrayList<>();
+
     public WildHuntWitherSkeletonEntity(EntityType<? extends WildHuntWitherSkeletonEntity> type,
                                         Level worldIn) {
         super(type, worldIn);
     }
-    //endregion Initialization
 
     //region Static Methods
     public static AttributeSupplier.Builder createAttributes() {
@@ -64,7 +61,6 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeleton {
                 .add(Attributes.MAX_HEALTH, 60.0);
     }
 
-    //region Overrides
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason,
                                         @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
@@ -112,7 +108,6 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeleton {
 
         return super.isInvulnerableTo(source);
     }
-    //endregion Overrides
 
     @Override
     public boolean isInvulnerable() {
@@ -120,9 +115,8 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeleton {
     }
     //endregion Static Methods
 
-    //region Methods
     public void notifyMinionDeath(WildHuntSkeletonEntity minion) {
         this.minions.remove(minion);
     }
-    //endregion Methods
+
 }

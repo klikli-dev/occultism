@@ -78,6 +78,6 @@ public class SummonWildHuntRitual extends SummonRitual {
                 }
             }
         }
-        //endregion Overrides
+
     }
 }

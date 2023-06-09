@@ -35,11 +35,7 @@ import net.minecraftforge.network.NetworkEvent;
  */
 public class MessageUpdateMouseHeldItem extends MessageBase {
 
-    //region Fields
     private ItemStack stack;
-    //endregion Fields
-
-    //region Initialization
 
     public MessageUpdateMouseHeldItem(FriendlyByteBuf buf) {
         this.decode(buf);
@@ -48,9 +44,6 @@ public class MessageUpdateMouseHeldItem extends MessageBase {
     public MessageUpdateMouseHeldItem(ItemStack itemStack) {
         this.stack = itemStack;
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     @OnlyIn(Dist.CLIENT)
@@ -67,5 +60,5 @@ public class MessageUpdateMouseHeldItem extends MessageBase {
     public void decode(FriendlyByteBuf buf) {
         this.stack = buf.readItem();
     }
-    //endregion Overrides
+
 }

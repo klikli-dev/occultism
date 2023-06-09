@@ -52,8 +52,6 @@ import java.util.Optional;
 
 public abstract class Ritual {
 
-    //region Fields
-
     /**
      * The default range to look for sacrificial bowls with additional ingredients
      */
@@ -75,18 +73,12 @@ public abstract class Ritual {
 
     public ResourceLocation factoryId;
 
-    //endregion Fields
-
-
-    //region Initialization
-
     /**
      * Constructs a ritual.
      */
     public Ritual(RitualRecipe recipe) {
         this.recipe = recipe;
     }
-    //endregion Initialization
 
     //region Getter / Setter
 
@@ -157,8 +149,6 @@ public abstract class Ritual {
         return String.format("ritual.%s.interrupted", this.getRitualID());
     }
     //endregion Getter / Setter
-
-    //region Methods
 
     /**
      * @return the finished message translation key for this ritual.
@@ -527,5 +517,5 @@ public abstract class Ritual {
         entity.setPickUpDelay(10);
         level.addFreshEntity(entity);
     }
-    //endregion Methods
+
 }

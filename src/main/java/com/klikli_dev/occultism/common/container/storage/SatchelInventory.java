@@ -30,17 +30,13 @@ import net.minecraft.world.item.ItemStack;
 
 public class SatchelInventory extends SimpleContainer {
 
-    //region Fields
     private final ItemStack itemStack;
-    //endregion Fields
 
-    //region Initialization
     public SatchelInventory(ItemStack itemStack, int count) {
         super(count);
         this.itemStack = itemStack;
         this.readItemStack();
     }
-    //endregion Initialization
 
     //region Getter / Setter
     public ItemStack getItemStack() {
@@ -48,7 +44,6 @@ public class SatchelInventory extends SimpleContainer {
     }
     //endregion Getter / Setter
 
-    //region Methods
     public void readItemStack() {
         this.readNBT(this.itemStack.getOrCreateTag());
     }
@@ -78,5 +73,5 @@ public class SatchelInventory extends SimpleContainer {
         }
         ContainerHelper.saveAllItems(compound, list, false);
     }
-    //endregion Methods
+
 }

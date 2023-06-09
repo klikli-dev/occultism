@@ -77,8 +77,6 @@ public interface IStorageController {
     void setLinkedMachines(Map<GlobalBlockPos, MachineReference> machines);
     //endregion Getter / Setter
 
-    //region Methods
-
     /**
      * @param machine the machine to add
      */
@@ -155,5 +153,5 @@ public interface IStorageController {
      * Called when the contents of the storage controller change.
      */
     void onContentsChanged();
-    //endregion Methods
+
 }

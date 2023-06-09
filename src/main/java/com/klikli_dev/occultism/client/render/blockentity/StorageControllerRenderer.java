@@ -49,18 +49,13 @@ import java.util.List;
 @Deprecated
 public class StorageControllerRenderer implements BlockEntityRenderer<StorageControllerBlockEntity> {
 
-    //region Fields
     protected Minecraft minecraft;
     protected ItemStack stack;
-    //endregion Fields
 
-    //region Initialization
     public StorageControllerRenderer(BlockEntityRendererProvider.Context context) {
         this.minecraft = Minecraft.getInstance();
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public void render(StorageControllerBlockEntity blockEntity, float partialTicks, PoseStack poseStack,
                        MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
@@ -116,9 +111,7 @@ public class StorageControllerRenderer implements BlockEntityRenderer<StorageCon
 
         poseStack.popPose();
     }
-    //endregion Overrides
 
-    //region Methods
     public void renderQuads(PoseStack matrixStackIn, VertexConsumer bufferIn, List<BakedQuad> quadsIn, int colorIn,
                             int combinedLightIn, int combinedOverlayIn) {
         //from  ItemRenderer#renderQuadList
@@ -135,5 +128,4 @@ public class StorageControllerRenderer implements BlockEntityRenderer<StorageCon
 
     }
 
-    //endregion Methods
 }

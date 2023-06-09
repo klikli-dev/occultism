@@ -41,7 +41,7 @@ import java.util.Random;
 import java.util.stream.Stream;
 
 public class CandleBlock extends Block {
-    //region Fields
+
     private static final VoxelShape SHAPE = Stream.of(
             Block.box(7, 0, 10, 9, 4, 11),
             Block.box(10, 0, 8, 11, 3, 9),
@@ -60,15 +60,10 @@ public class CandleBlock extends Block {
     ).reduce((v1, v2) -> {
         return Shapes.join(v1, v2, BooleanOp.OR);
     }).get();
-    //endregion Fields
 
-    //region Initialization
     public CandleBlock(Properties properties) {
         super(properties);
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     @SuppressWarnings("deprecation")
@@ -107,5 +102,5 @@ public class CandleBlock extends Block {
         BlockState downState = worldIn.getBlockState(down);
         return downState.isFaceSturdy(worldIn, down, Direction.UP);
     }
-    //endregion Overrides
+
 }

@@ -29,21 +29,16 @@ import java.util.function.Function;
 
 public class SpiritJobFactory {
 
-    //region Fields
     Function<SpiritEntity, ? extends SpiritJob> constructor;
-    //endregion Fields
 
-    //region Initialization
     public SpiritJobFactory(Function<SpiritEntity, ? extends SpiritJob> constructor) {
         this.constructor = constructor;
     }
-    //endregion Initialization
 
-    //region Methods
     public SpiritJob create(SpiritEntity entity) {
         SpiritJob job = this.constructor.apply(entity);
         job.setFactoryId(OccultismSpiritJobs.REGISTRY.get().getKey(this));
         return job;
     }
-    //endregion Methods
+
 }

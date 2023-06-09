@@ -41,12 +41,10 @@ import net.minecraft.world.level.Level;
 
 
 public class StableWormholeContainer extends StorageControllerContainerBase {
-    //region Fields
+
     protected StorageControllerBlockEntity storageController;
     protected StableWormholeBlockEntity stableWormhole;
 
-    //endregion Fields
-    //region Initialization
     public StableWormholeContainer(int id, Inventory playerInventory,
                                    StableWormholeBlockEntity stableWormhole) {
         super(OccultismContainers.STABLE_WORMHOLE.get(), id, playerInventory);
@@ -64,7 +62,6 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
 
         this.slotsChanged(this.matrix);
     }
-    //endregion Initialization
 
     //region Getter / Setter
     public StableWormholeBlockEntity getStableWormhole() {
@@ -72,7 +69,6 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
     }
     //endregion Getter / Setter
 
-    //region Overrides
     @Override
     protected void setupPlayerHotbar() {
         int hotbarTop = 232;
@@ -145,5 +141,5 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
         return player.distanceToSqr(wormholePosition.getX() + 0.5D, wormholePosition.getY() + 0.5D,
                 wormholePosition.getZ() + 0.5D) <= 64.0D;
     }
-    //endregion Overrides
+
 }

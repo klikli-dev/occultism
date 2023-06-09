@@ -42,13 +42,10 @@ import java.util.stream.Collectors;
 public class SpiritTradeRecipe extends ShapelessRecipe {
     public static Serializer SERIALIZER = new Serializer();
 
-    //region Initialization
     public SpiritTradeRecipe(ResourceLocation id, String group, ItemStack result, NonNullList<Ingredient> input) {
         super(id, group, CraftingBookCategory.MISC, result, input);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public RecipeSerializer<?> getSerializer() {
         return SERIALIZER;
@@ -69,10 +66,6 @@ public class SpiritTradeRecipe extends ShapelessRecipe {
     public RecipeType<?> getType() {
         return OccultismRecipes.SPIRIT_TRADE_TYPE.get();
     }
-
-    //endregion Overrides
-
-    //region Methods
 
     /**
      * Consumes the given input and returns all unused items. isValid needs to be called first!
@@ -119,14 +112,11 @@ public class SpiritTradeRecipe extends ShapelessRecipe {
         }
         return true;
     }
-    //endregion Methods
 
     public static class Serializer implements RecipeSerializer<SpiritTradeRecipe> {
-        //region Fields
-        private static final ShapelessRecipe.Serializer serializer = new ShapelessRecipe.Serializer();
-        //endregion Fields
 
-        //region Overrides
+        private static final ShapelessRecipe.Serializer serializer = new ShapelessRecipe.Serializer();
+
         @Override
         public SpiritTradeRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             ShapelessRecipe recipe = serializer.fromJson(recipeId, json);
@@ -145,6 +135,6 @@ public class SpiritTradeRecipe extends ShapelessRecipe {
         public void toNetwork(FriendlyByteBuf buffer, SpiritTradeRecipe recipe) {
             serializer.toNetwork(buffer, recipe);
         }
-        //endregion Overrides
+
     }
 }

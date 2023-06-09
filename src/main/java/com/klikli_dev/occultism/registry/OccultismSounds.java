@@ -31,7 +31,6 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class OccultismSounds {
 
-    //region Fields
     public static DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Occultism.MODID);
 
     public static final RegistryObject<SoundEvent> CHALK = SOUNDS.register("chalk", () -> loadSoundEvent("chalk"));
@@ -40,8 +39,6 @@ public class OccultismSounds {
     public static final RegistryObject<SoundEvent> TUNING_FORK = SOUNDS.register("tuning_fork", () -> loadSoundEvent("tuning_fork"));
     public static final RegistryObject<SoundEvent> CRUNCHING = SOUNDS.register("crunching", () -> loadSoundEvent("crunching"));
     public static final RegistryObject<SoundEvent> POOF = SOUNDS.register("poof", () -> loadSoundEvent("poof"));
-
-    //endregion Fields
 
     /**
      * Creates the sound event object for the given sound event name, as specified in sounds.json Automatically appends

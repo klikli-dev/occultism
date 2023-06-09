@@ -26,10 +26,8 @@ import net.minecraft.world.entity.ai.goal.Goal;
 
 public abstract class PausableGoal extends Goal {
 
-    //region Fields
     protected long lastPaused;
     protected long pauseDuration;
-    //endregion Fields
 
     //region Getter / Setter
     public boolean isPaused() {
@@ -39,7 +37,6 @@ public abstract class PausableGoal extends Goal {
     }
     //endregion Getter / Setter
 
-    //region Overrides
     @Override
     public boolean canUse() {
         return !this.isPaused();
@@ -49,9 +46,7 @@ public abstract class PausableGoal extends Goal {
     public boolean canContinueToUse() {
         return super.canContinueToUse() && !this.isPaused();
     }
-    //endregion Overrides
 
-    //region Methods
     public void pause(long i) {
         this.pauseDuration = i;
         this.lastPaused = System.currentTimeMillis();
@@ -60,5 +55,5 @@ public abstract class PausableGoal extends Goal {
     public void unpause() {
         this.pauseDuration = 0;
     }
-    //endregion Methods
+
 }

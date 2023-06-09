@@ -37,11 +37,9 @@ import net.minecraftforge.items.SlotItemHandler;
 import javax.annotation.Nonnull;
 
 public class SpiritTransporterContainer extends SpiritContainer {
-    //region Fields
-    protected final Player player;
-    //endregion Fields
 
-    //region Initialization
+    protected final Player player;
+
     public SpiritTransporterContainer(int id, Inventory playerInventory,
                                       SpiritEntity spirit) {
 
@@ -51,9 +49,6 @@ public class SpiritTransporterContainer extends SpiritContainer {
         //needs to be called after transport item jobs has been set, so its not in setupSlots()
         this.setupFilterSlots();
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     protected void setupPlayerInventorySlots(Player player) {
@@ -102,9 +97,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
 
         return super.canTakeItemForPickAll(stack, slot);
     }
-    //endregion Overrides
 
-    //region Methods
     protected void setupFilterSlots() {
         int x = 8;
         int y = 84;
@@ -117,16 +110,13 @@ public class SpiritTransporterContainer extends SpiritContainer {
             }
         }
     }
-    //endregion Methods
 
     public class FilterSlot extends SlotItemHandler {
-        //region Initialization
+
         public FilterSlot(IItemHandler handler, int inventoryIndex, int x, int y) {
             super(handler, inventoryIndex, x, y);
         }
-        //endregion Initialization
 
-        //region Overrides
         @Override
         public void set(@Nonnull ItemStack stack) {
             if (!stack.isEmpty()) {
@@ -135,7 +125,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
 
             super.set(stack);
         }
-        //endregion Overrides
+
     }
 
 }

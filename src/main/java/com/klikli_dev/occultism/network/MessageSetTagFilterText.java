@@ -31,12 +31,9 @@ import net.minecraftforge.network.NetworkEvent;
 
 public class MessageSetTagFilterText extends MessageBase {
 
-    //region Fields
     public String tagFilterText;
     public int entityId;
-    //endregion Fields
 
-    //region Initialization
     public MessageSetTagFilterText(FriendlyByteBuf buf) {
         this.decode(buf);
     }
@@ -45,9 +42,6 @@ public class MessageSetTagFilterText extends MessageBase {
         this.tagFilterText = tagFilterText;
         this.entityId = entityId;
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
@@ -71,5 +65,5 @@ public class MessageSetTagFilterText extends MessageBase {
         this.tagFilterText = buf.readUtf(255);
         this.entityId = buf.readInt();
     }
-    //endregion Overrides
+
 }

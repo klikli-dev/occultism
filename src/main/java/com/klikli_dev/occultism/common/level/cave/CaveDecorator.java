@@ -32,22 +32,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 
 public abstract class CaveDecorator implements ICaveDecorator {
-    //region Fields
+
     public BlockState floorState;
     public BlockState ceilingState;
     public BlockState wallState;
-    //endregion Fields
-
-    //region Initialization
 
     public CaveDecorator(BlockState floorState, BlockState ceilingState, BlockState wallState) {
         this.floorState = floorState;
         this.ceilingState = ceilingState;
         this.wallState = wallState;
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public void finalPass(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
                           CaveDecoratordata data, MultiChunkFeatureConfig config) {
@@ -78,9 +73,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
             this.fillInside(seedReader, generator, rand, pos, state, config);
         }
     }
-    //endregion Overrides
 
-    //region Methods
     public void fillFloor(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
                           BlockPos pos, BlockState state, MultiChunkFeatureConfig config) {
         if (this.floorState != null) {
@@ -171,6 +164,5 @@ public abstract class CaveDecorator implements ICaveDecorator {
         }
         return false;
     }
-    //endregion Methods
 
 }

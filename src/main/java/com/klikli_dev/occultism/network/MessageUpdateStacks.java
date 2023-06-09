@@ -43,7 +43,6 @@ import java.util.zip.Inflater;
  */
 public class MessageUpdateStacks extends MessageBase {
 
-    //region Fields
     private static final int DEFAULT_BUFFER_SIZE = 2 * 1024;
 
     private List<ItemStack> stacks;
@@ -51,9 +50,6 @@ public class MessageUpdateStacks extends MessageBase {
     private int maxSlots;
     private ByteBuf payload;
 
-    //endregion Fields
-
-    //region Initialization
     public MessageUpdateStacks(FriendlyByteBuf buf) {
         this.decode(buf);
     }
@@ -64,9 +60,6 @@ public class MessageUpdateStacks extends MessageBase {
         this.maxSlots = maxSlots;
         this.compress();
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     @OnlyIn(Dist.CLIENT)
@@ -102,9 +95,7 @@ public class MessageUpdateStacks extends MessageBase {
         this.payload = Unpooled.buffer(compressedSize);
         buf.readBytes(this.payload, 0, compressedSize);
     }
-    //endregion Overrides
 
-    //region Methods
     public void uncompress() {
         Inflater decompressor = new Inflater();
         decompressor.setInput(this.payload.array());
@@ -157,5 +148,5 @@ public class MessageUpdateStacks extends MessageBase {
             this.payload.writeBytes(buf, 0, count);
         }
     }
-    //endregion Methods
+
 }

@@ -35,14 +35,12 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 public class SatchelContainer extends AbstractContainerMenu {
-    //region Fields
+
     public static final int SATCHEL_SIZE = 13 * 9;
     protected Container satchelInventory;
     protected Inventory playerInventory;
     protected int selectedSlot;
-    //endregion Fields
 
-    //region Initialization
     public SatchelContainer(int id, Inventory playerInventory, Container satchelInventory, int selectedSlot) {
         super(OccultismContainers.SATCHEL.get(), id);
         this.satchelInventory = satchelInventory;
@@ -53,7 +51,6 @@ public class SatchelContainer extends AbstractContainerMenu {
         this.setupPlayerInventorySlots();
         this.setupPlayerHotbar();
     }
-    //endregion Initialization
 
     //region Static Methods
     public static SatchelContainer createClientContainer(int id, Inventory playerInventory, FriendlyByteBuf buffer) {
@@ -61,7 +58,6 @@ public class SatchelContainer extends AbstractContainerMenu {
         return new SatchelContainer(id, playerInventory, new SimpleContainer(SATCHEL_SIZE), selectedSlot);
     }
 
-    //region Overrides
     @Override
     public void broadcastChanges() {
         if (this.satchelInventory instanceof SatchelInventory) {
@@ -105,7 +101,6 @@ public class SatchelContainer extends AbstractContainerMenu {
 
         return itemstack;
     }
-    //endregion Overrides
 
     @Override
     public boolean stillValid(Player player) {
@@ -118,7 +113,6 @@ public class SatchelContainer extends AbstractContainerMenu {
     }
     //endregion Static Methods
 
-    //region Methods
     protected void setupPlayerInventorySlots() {
         int playerInventoryTop = 174;
         int playerInventoryLeft = 44;
@@ -151,5 +145,5 @@ public class SatchelContainer extends AbstractContainerMenu {
             }
         }
     }
-    //endregion Methods
+
 }

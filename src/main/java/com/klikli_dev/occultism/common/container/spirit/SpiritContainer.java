@@ -38,12 +38,9 @@ import javax.annotation.Nullable;
 
 public class SpiritContainer extends AbstractContainerMenu {
 
-    //region Fields
     public ItemStackHandler inventory;
     public SpiritEntity spirit;
-    //endregion Fields
 
-    //region Initialization
     public SpiritContainer(int id, Inventory playerInventory, SpiritEntity spirit) {
         this(OccultismContainers.SPIRIT.get(), id, playerInventory, spirit);
     }
@@ -55,9 +52,7 @@ public class SpiritContainer extends AbstractContainerMenu {
 
         this.setupSlots(playerInventory);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
@@ -92,9 +87,7 @@ public class SpiritContainer extends AbstractContainerMenu {
     public boolean stillValid(Player entityPlayer) {
         return this.spirit.isAlive() && this.spirit.distanceTo(entityPlayer) < 8.0F;
     }
-    //endregion Overrides
 
-    //region Methods
     public void setupSlots(Inventory playerInventory) {
         this.setupPlayerInventorySlots(playerInventory.player);
         this.setupPlayerHotbar(playerInventory.player);
@@ -120,7 +113,7 @@ public class SpiritContainer extends AbstractContainerMenu {
 
     protected void setupEntityInventory() {
         this.addSlot(new SlotItemHandler(this.inventory, 0, 152, 54) {
-            //region Overrides
+
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return super.mayPlace(stack);
@@ -129,8 +122,8 @@ public class SpiritContainer extends AbstractContainerMenu {
             public void setChanged() {
                 this.container.setChanged();
             }
-            //endregion Overrides
+
         });
     }
-    //endregion Methods
+
 }

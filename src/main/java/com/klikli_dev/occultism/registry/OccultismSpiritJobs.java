@@ -35,7 +35,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.function.Supplier;
 
 public class OccultismSpiritJobs {
-    //region Fields
+
     public static DeferredRegister<SpiritJobFactory> JOBS = DeferredRegister.create(new ResourceLocation(Occultism.MODID, "spirit_job_factory"), Occultism.MODID);
 
     public static final Supplier<IForgeRegistry<SpiritJobFactory>> REGISTRY = JOBS.makeRegistry(() ->
@@ -106,5 +106,4 @@ public class OccultismSpiritJobs {
     public static final RegistryObject<SpiritJobFactory> NIGHT_TIME = JOBS.register("night_time",
             () -> new SpiritJobFactory((entity) -> new NightTimeJob(entity, 20 * 5)));
 
-    //endregion Fields
 }

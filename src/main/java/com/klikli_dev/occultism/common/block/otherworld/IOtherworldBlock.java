@@ -35,9 +35,8 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 
 public interface IOtherworldBlock {
-    //region Fields
+
     Property<Boolean> UNCOVERED = BooleanProperty.create("uncovered");
-    //endregion Fields
 
     //region Getter / Setter
     Block getUncoveredBlock();
@@ -46,8 +45,6 @@ public interface IOtherworldBlock {
 
     OtherworldBlockTier getTier();
     //endregion Getter / Setter
-
-    //region Methods
 
     default OtherworldBlockTier getPlayerHarvestTier(Player player, ItemStack tool) {
         OtherworldBlockTier toolTier = OtherworldBlockTier.NONE;
@@ -71,5 +68,4 @@ public interface IOtherworldBlock {
         return new ItemStack(state.getValue(UNCOVERED) ? this.getUncoveredBlock() : this.getCoveredBlock(), 1);
     }
 
-    //endregion Methods
 }

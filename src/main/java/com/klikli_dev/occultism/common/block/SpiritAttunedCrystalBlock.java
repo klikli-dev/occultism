@@ -37,7 +37,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import java.util.stream.Stream;
 
 public class SpiritAttunedCrystalBlock extends Block {
-    //region Fields
+
     private static final VoxelShape SHAPE = Stream.of(
             Block.box(5, 0, 9, 8, 4, 12),
             Block.box(9, 0, 8, 12, 8, 11),
@@ -47,15 +47,10 @@ public class SpiritAttunedCrystalBlock extends Block {
     ).reduce((v1, v2) -> {
         return Shapes.join(v1, v2, BooleanOp.OR);
     }).get();
-    //endregion Fields
 
-    //region Initialization
     public SpiritAttunedCrystalBlock(Properties properties) {
         super(properties);
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     @SuppressWarnings("deprecation")
@@ -80,5 +75,5 @@ public class SpiritAttunedCrystalBlock extends Block {
         BlockState downState = worldIn.getBlockState(down);
         return downState.isFaceSturdy(worldIn, down, Direction.UP);
     }
-    //endregion Overrides
+
 }

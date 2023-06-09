@@ -41,11 +41,7 @@ import java.util.Map;
  */
 public class MessageUpdateLinkedMachines extends MessageBase {
 
-    //region Fields
     private List<MachineReference> linkedMachines;
-    //endregion Fields
-
-    //region Initialization
 
     public MessageUpdateLinkedMachines(FriendlyByteBuf buf) {
         this.decode(buf);
@@ -58,9 +54,6 @@ public class MessageUpdateLinkedMachines extends MessageBase {
     public MessageUpdateLinkedMachines(Map<GlobalBlockPos, MachineReference> linkedMachines) {
         this.linkedMachines = new ArrayList<>(linkedMachines.values());
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     @OnlyIn(Dist.CLIENT)
@@ -92,5 +85,4 @@ public class MessageUpdateLinkedMachines extends MessageBase {
         }
     }
 
-    //endregion Overrides
 }

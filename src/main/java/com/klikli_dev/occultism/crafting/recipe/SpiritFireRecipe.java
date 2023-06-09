@@ -36,17 +36,13 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
-    //region Fields
-    public static Serializer SERIALIZER = new Serializer();
-    //endregion Fields
 
-    //region Initialization
+    public static Serializer SERIALIZER = new Serializer();
+
     public SpiritFireRecipe(ResourceLocation id, Ingredient input, ItemStack output) {
         super(id, input, output);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public boolean matches(ItemStackFakeInventory inv, Level level) {
         return this.input.test(inv.getItem(0));
@@ -94,11 +90,9 @@ public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
     public RecipeType<?> getType() {
         return OccultismRecipes.SPIRIT_FIRE_TYPE.get();
     }
-    //endregion Overrides
 
     public static class Serializer implements RecipeSerializer<SpiritFireRecipe> {
 
-        //region Overrides
         @Override
         public SpiritFireRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             return ItemStackFakeInventoryRecipe.SERIALIZER.read(SpiritFireRecipe::new, recipeId, json);
@@ -113,6 +107,6 @@ public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
         public void toNetwork(FriendlyByteBuf buffer, SpiritFireRecipe recipe) {
             ItemStackFakeInventoryRecipe.SERIALIZER.write(buffer, recipe);
         }
-        //endregion Overrides
+
     }
 }

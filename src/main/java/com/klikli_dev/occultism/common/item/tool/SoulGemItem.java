@@ -44,13 +44,11 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class SoulGemItem extends Item {
-    //region Initialization
+
     public SoulGemItem(Properties properties) {
         super(properties);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public InteractionResult useOn(UseOnContext context) {
 
@@ -175,5 +173,5 @@ public class SoulGemItem extends Item {
             tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip_empty"));
         }
     }
-    //endregion Overrides
+
 }

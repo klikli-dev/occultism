@@ -41,13 +41,9 @@ import java.util.Optional;
  */
 public class DummyTooltipItem extends Item {
 
-    //region Initialization
-
     public DummyTooltipItem(Properties properties) {
         super(properties);
     }
-
-    //endregion Initialization
 
     public void performRitual(Level level, BlockPos pos, GoldenSacrificialBowlBlockEntity blockEntity,
                               Player player, ItemStack activationItem) {
@@ -57,11 +53,10 @@ public class DummyTooltipItem extends Item {
         ritualRecipe.ifPresent(r -> r.getRitual().finish(level, pos, blockEntity, player, activationItem));
     }
 
-    //region Overrides
     @Override
     public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(Component.translatable(stack.getDescriptionId() + ".tooltip"));
     }
-    //endregion Overrides
+
 }

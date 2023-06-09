@@ -29,9 +29,8 @@ import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 
 public abstract class BipedSpiritRenderer<T extends SpiritEntity, M extends HumanoidModel<T>> extends HumanoidMobRenderer<T, M> {
 
-    //region Initialization
     public BipedSpiritRenderer(EntityRendererProvider.Context context, M modelBiped, float shadowsizein) {
         super(context, modelBiped, shadowsizein);
     }
-    //endregion Initialization
+
 }

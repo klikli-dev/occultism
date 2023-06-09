@@ -41,7 +41,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class OccultismEntities {
-    //region Fields
+
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES,
             Occultism.MODID);
 
@@ -268,5 +268,5 @@ public class OccultismEntities {
             ENTITIES.register("thrown_sword", THROWN_SWORD_TYPE::get);
     public static final RegistryObject<EntityType<ShubNiggurathSpawnEntity>> SHUB_NIGGURATH_SPAWN =
             ENTITIES.register("shub_niggurath_spawn", SHUB_NIGGURATH_SPAWN_TYPE::get);
-    //endregion Fields
+
 }

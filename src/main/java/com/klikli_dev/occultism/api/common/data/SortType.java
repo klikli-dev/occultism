@@ -33,7 +33,6 @@ public enum SortType implements StringRepresentable {
     NAME(1),
     MOD(2);
 
-    //region Fields
     private static final Map<Integer, SortType> lookup = new HashMap<Integer, SortType>();
 
     static {
@@ -44,12 +43,9 @@ public enum SortType implements StringRepresentable {
 
     private final int value;
 
-    //endregion Fields
-    //region Initialization
     SortType(int value) {
         this.value = value;
     }
-    //endregion Initialization
 
     //region Static Methods
     public static SortType get(int value) {
@@ -61,18 +57,15 @@ public enum SortType implements StringRepresentable {
     public int getValue() {
         return this.value;
     }
-    //endregion Overrides
 
-    //region Overrides
     @Override
     public String getSerializedName() {
         return this.name().toLowerCase();
     }
     //endregion Static Methods
 
-    //region Methods
     public SortType next() {
         return values()[(this.ordinal() + 1) % SortType.values().length];
     }
-    //endregion Methods
+
 }

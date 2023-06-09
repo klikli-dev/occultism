@@ -29,26 +29,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BookOfCallingManageMachineItem extends BookOfCallingItem {
-    //region Initialization
+
     public BookOfCallingManageMachineItem(Properties properties, String translationKeyBase) {
         super(properties, translationKeyBase, spirit -> spirit.getJob().orElse(null) instanceof ManageMachineJob);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public IItemModeSubset<?> getItemModeSubset(ItemStack stack) {
         ItemModeSubset subset = ItemModeSubset.get(ItemMode.get(this.getItemMode(stack)));
         return subset != null ? subset : ItemModeSubset.SET_STORAGE_CONTROLLER;
     }
-    //endregion Overrides
 
     public enum ItemModeSubset implements IItemModeSubset<ItemModeSubset> {
         SET_MANAGED_MACHINE(ItemMode.SET_MANAGED_MACHINE),
         SET_EXTRACT(ItemMode.SET_EXTRACT),
         SET_STORAGE_CONTROLLER(ItemMode.SET_STORAGE_CONTROLLER);
 
-        //region Fields
         private static final Map<ItemMode, ItemModeSubset> lookup = new HashMap<>();
 
         static {
@@ -58,25 +54,20 @@ public class BookOfCallingManageMachineItem extends BookOfCallingItem {
         }
 
         private final ItemMode itemMode;
-        //endregion Fields
 
-        //region Initialization
         ItemModeSubset(ItemMode itemMode) {
             this.itemMode = itemMode;
         }
-        //endregion Initialization
 
         //region Static Methods
         public static ItemModeSubset get(ItemMode value) {
             return lookup.get(value);
         }
 
-        //region Overrides
         @Override
         public ItemMode getItemMode() {
             return this.itemMode;
         }
-        //endregion Overrides
 
         @Override
         public ItemModeSubset next() {

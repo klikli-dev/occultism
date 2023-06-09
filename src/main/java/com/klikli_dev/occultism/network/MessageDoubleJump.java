@@ -31,7 +31,6 @@ import net.minecraftforge.network.NetworkEvent;
 
 public class MessageDoubleJump extends MessageBase {
 
-    //region Initialization
     public MessageDoubleJump() {
 
     }
@@ -39,10 +38,7 @@ public class MessageDoubleJump extends MessageBase {
     public MessageDoubleJump(FriendlyByteBuf buf) {
         this.decode(buf);
     }
-    //endregion Initialization
 
-
-    //region Overrides
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
@@ -63,5 +59,5 @@ public class MessageDoubleJump extends MessageBase {
     public void decode(FriendlyByteBuf buf) {
 
     }
-    //endregion Overrides
+
 }

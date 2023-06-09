@@ -27,17 +27,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 public class ItemStackFakeInventory implements Container {
-    //region Fields
-    protected ItemStack input;
-    //endregion Fields
 
-    //region Initialization
+    protected ItemStack input;
+
     public ItemStackFakeInventory(ItemStack input) {
         this.input = input;
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public int getContainerSize() {
@@ -85,5 +80,4 @@ public class ItemStackFakeInventory implements Container {
         this.input = ItemStack.EMPTY;
     }
 
-    //endregion Overrides
 }

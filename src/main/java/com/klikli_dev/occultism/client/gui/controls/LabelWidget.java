@@ -35,16 +35,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LabelWidget extends AbstractWidget {
-    //region Fields
+
     public List<String> lines = new ArrayList<>();
     public boolean centered = false;
     public boolean rightAligned = false;
     public int width = 0;
     public int margin = 2;
     public boolean shadow = false;
-    //endregion Fields
 
-    //region Initialization
     public LabelWidget(int xIn, int yIn) {
         this(xIn, yIn, false);
     }
@@ -70,9 +68,6 @@ public class LabelWidget extends AbstractWidget {
         //active false prevents click intercepts and other unwanted interactions
         this.active = false;
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void renderWidget(PoseStack stack, int p_268034_, int p_268009_, float p_268085_) {
@@ -127,9 +122,7 @@ public class LabelWidget extends AbstractWidget {
             fontRenderer.draw(stack, text, x, y, color);
         }
     }
-    //endregion Overrides
 
-    //region Methods
     public LabelWidget alignRight(boolean align) {
         this.rightAligned = align;
         if (this.rightAligned)
@@ -156,5 +149,5 @@ public class LabelWidget extends AbstractWidget {
     protected void updateWidgetNarration(NarrationElementOutput pNarrationElementOutput) {
 
     }
-    //endregion Methods
+
 }

@@ -35,11 +35,8 @@ import net.minecraftforge.network.NetworkEvent;
 
 public class MessageSetManagedMachine extends MessageBase {
 
-    //region Fields
     public MachineReference managedMachine;
-    //endregion Fields
 
-    //region Initialization
     public MessageSetManagedMachine(FriendlyByteBuf buf) {
         this.decode(buf);
     }
@@ -47,9 +44,6 @@ public class MessageSetManagedMachine extends MessageBase {
     public MessageSetManagedMachine(MachineReference managedMachine) {
         this.managedMachine = managedMachine;
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
@@ -82,5 +76,5 @@ public class MessageSetManagedMachine extends MessageBase {
     public void decode(FriendlyByteBuf buf) {
         this.managedMachine = MachineReference.from(buf);
     }
-    //endregion Overrides
+
 }

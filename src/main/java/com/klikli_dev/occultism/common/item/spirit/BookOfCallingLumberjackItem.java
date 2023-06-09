@@ -29,25 +29,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BookOfCallingLumberjackItem extends BookOfCallingItem {
-    //region Initialization
+
     public BookOfCallingLumberjackItem(Properties properties, String translationKeyBase) {
         super(properties, translationKeyBase, spirit -> spirit.getJob().orElse(null) instanceof LumberjackJob);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public IItemModeSubset<?> getItemModeSubset(ItemStack stack) {
         ItemModeSubset subset = ItemModeSubset.get(ItemMode.get(this.getItemMode(stack)));
         return subset != null ? subset : ItemModeSubset.SET_BASE;
     }
-    //endregion Overrides
 
     public enum ItemModeSubset implements IItemModeSubset<ItemModeSubset> {
         SET_BASE(ItemMode.SET_BASE),
         SET_DEPOSIT(ItemMode.SET_DEPOSIT);
 
-        //region Fields
         private static final Map<ItemMode, ItemModeSubset> lookup = new HashMap<>();
 
         static {
@@ -57,25 +53,20 @@ public class BookOfCallingLumberjackItem extends BookOfCallingItem {
         }
 
         private final ItemMode itemMode;
-        //endregion Fields
 
-        //region Initialization
         ItemModeSubset(ItemMode itemMode) {
             this.itemMode = itemMode;
         }
-        //endregion Initialization
 
         //region Static Methods
         public static ItemModeSubset get(ItemMode value) {
             return lookup.get(value);
         }
 
-        //region Overrides
         @Override
         public ItemMode getItemMode() {
             return this.itemMode;
         }
-        //endregion Overrides
 
         @Override
         public ItemModeSubset next() {

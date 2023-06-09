@@ -40,13 +40,11 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class SatchelItem extends Item {
-    //region Initialization
+
     public SatchelItem(Properties properties) {
         super(properties);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         final ItemStack stack = player.getItemInHand(hand);
@@ -75,11 +73,8 @@ public class SatchelItem extends Item {
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
 
-    //endregion Overrides
-
-    //region Methods
     public Container getInventory(ServerPlayer player, ItemStack stack) {
         return new SatchelInventory(stack, SatchelContainer.SATCHEL_SIZE);
     }
-    //endregion Methods
+
 }

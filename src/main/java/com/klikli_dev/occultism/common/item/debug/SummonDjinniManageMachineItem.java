@@ -38,13 +38,10 @@ import net.minecraftforge.event.ForgeEventFactory;
 
 public class SummonDjinniManageMachineItem extends Item {
 
-    //region Initialization
     public SummonDjinniManageMachineItem(Properties properties) {
         super(properties);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public InteractionResult useOn(UseOnContext context) {
         if (!context.getLevel().isClientSide) {
@@ -71,5 +68,4 @@ public class SummonDjinniManageMachineItem extends Item {
         return InteractionResult.SUCCESS;
     }
 
-    //endregion Overrides
 }

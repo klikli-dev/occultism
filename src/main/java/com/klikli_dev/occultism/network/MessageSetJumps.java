@@ -30,11 +30,7 @@ import net.minecraftforge.network.NetworkEvent;
 
 public class MessageSetJumps extends MessageBase {
 
-    //region Fields
     public int jumps;
-    //endregion Fields
-
-    //region Initialization
 
     public MessageSetJumps(FriendlyByteBuf buf) {
         this.decode(buf);
@@ -43,9 +39,6 @@ public class MessageSetJumps extends MessageBase {
     public MessageSetJumps(int jumps) {
         this.jumps = jumps;
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context) {
@@ -63,5 +56,5 @@ public class MessageSetJumps extends MessageBase {
     public void decode(FriendlyByteBuf buf) {
         this.jumps = buf.readInt();
     }
-    //endregion Overrides
+
 }

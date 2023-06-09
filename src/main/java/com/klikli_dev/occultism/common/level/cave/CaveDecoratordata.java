@@ -31,11 +31,11 @@ import java.util.List;
 import java.util.Map;
 
 public class CaveDecoratordata {
-    //region Fields
+
     public final List<BlockPos> floorBlocks = new LinkedList<>();
     public final List<BlockPos> ceilingBlocks = new LinkedList<>();
     public final List<BlockPos> insideBlocks = new LinkedList<>();
 
     public final Map<BlockPos, Direction> wallBlocks = new HashMap<>();
-    //endregion Fields
+
 }

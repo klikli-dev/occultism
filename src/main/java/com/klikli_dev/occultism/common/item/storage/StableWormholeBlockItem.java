@@ -42,14 +42,11 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class StableWormholeBlockItem extends BlockItem {
-    //region Initialization
+
     public StableWormholeBlockItem(Block blockIn, Properties builder) {
         super(blockIn, builder);
     }
 
-    //endregion Initialization
-
-    //region Overrides
     @Override
     public Rarity getRarity(ItemStack stack) {
         return stack.getOrCreateTag().getCompound("BlockEntityTag")
@@ -95,5 +92,5 @@ public class StableWormholeBlockItem extends BlockItem {
             tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip.unlinked"));
         }
     }
-    //endregion Overrides
+
 }

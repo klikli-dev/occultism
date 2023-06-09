@@ -32,14 +32,9 @@ import net.minecraftforge.network.NetworkEvent;
 
 public abstract class MessageBase implements IMessage {
 
-    //region Initialization
-
     protected MessageBase() {
     }
 
-    //endregion Initialization
-
-    //region Overrides
     @OnlyIn(Dist.CLIENT)
     public void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context) {
     }
@@ -47,9 +42,5 @@ public abstract class MessageBase implements IMessage {
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
     }
-    //endregion Overrides
 
-
-    //region Methods
-    //endregion Methods
 }

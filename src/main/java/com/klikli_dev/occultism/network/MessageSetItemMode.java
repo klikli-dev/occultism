@@ -32,11 +32,7 @@ import net.minecraftforge.network.NetworkEvent;
 
 public class MessageSetItemMode extends MessageBase {
 
-    //region Fields
     public int mode;
-    //endregion Fields
-
-    //region Initialization
 
     public MessageSetItemMode(FriendlyByteBuf buf) {
         this.decode(buf);
@@ -45,9 +41,7 @@ public class MessageSetItemMode extends MessageBase {
     public MessageSetItemMode(int mode) {
         this.mode = mode;
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
@@ -68,5 +62,5 @@ public class MessageSetItemMode extends MessageBase {
     public void decode(FriendlyByteBuf buf) {
         this.mode = buf.readInt();
     }
-    //endregion Overrides
+
 }

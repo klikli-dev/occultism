@@ -7,11 +7,8 @@ import net.minecraftforge.client.settings.KeyConflictContext;
 
 public class BackpackKeyConflictContext implements IKeyConflictContext {
 
-    //region Fields
     public static final BackpackKeyConflictContext INSTANCE = new BackpackKeyConflictContext();
-    //endregion Fields
 
-    //region Overrides
     @Override
     public boolean isActive() {
         return !KeyConflictContext.GUI.isActive() || Minecraft.getInstance().screen instanceof SatchelScreen;
@@ -21,6 +18,5 @@ public class BackpackKeyConflictContext implements IKeyConflictContext {
     public boolean conflicts(IKeyConflictContext other) {
         return this == other;
     }
-    //endregion Overrides
 
 }

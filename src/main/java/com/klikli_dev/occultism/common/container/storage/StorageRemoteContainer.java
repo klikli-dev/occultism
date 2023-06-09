@@ -44,11 +44,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class StorageRemoteContainer extends StorageControllerContainerBase {
-    //region Fields
-    protected int selectedSlot;
-    //endregion Fields
 
-    //region Initialization
+    protected int selectedSlot;
+
     public StorageRemoteContainer(int id, Inventory playerInventory, int selectedSlot) {
         super(OccultismContainers.STORAGE_REMOTE.get(), id, playerInventory);
 
@@ -67,7 +65,6 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
 
         this.slotsChanged(this.matrix);
     }
-    //endregion Initialization
 
     //region Getter / Setter
     public ItemStack getStorageRemote() {
@@ -80,9 +77,6 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         return selected.getItem() instanceof StorageRemoteItem ? selected : ItemStack.EMPTY;
     }
     //endregion Getter / Setter
-
-
-    //region Overrides
 
     @Override
     public GlobalBlockPos getStorageControllerGlobalBlockPos() {
@@ -97,7 +91,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         for (int i = 0; i < 9; i++) {
             if (i == this.selectedSlot) {
                 this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop) {
-                    //region Overrides
+
                     @Override
                     public boolean mayPlace(ItemStack stack) {
                         return false;
@@ -112,7 +106,6 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
                     public boolean mayPickup(Player playerIn) {
                         return false;
                     }
-                    //endregion Overrides
 
                 });
             } else {
@@ -131,7 +124,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
                 if (j + i * 9 + 9 == this.selectedSlot) {
                     this.addSlot(new Slot(this.playerInventory, j + i * 9 + 9, playerInventoryLeft + j * 18,
                             playerInventoryTop + i * 18) {
-                        //region Overrides
+
                         @Override
                         public boolean mayPlace(ItemStack stack) {
                             return false;
@@ -146,7 +139,6 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
                         public boolean mayPickup(Player playerIn) {
                             return false;
                         }
-                        //endregion Overrides
 
                     });
                 } else {
@@ -205,9 +197,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         if (storageRemote != ItemStack.EMPTY)
             storageRemote.getOrCreateTag().put("orderStack", this.orderInventory.getItem(0).serializeNBT());
     }
-    //endregion Overrides
 
-    //region Methods
     protected List<ItemStack> getCraftingMatrixFromItemStack(ItemStack stack) {
         List<ItemStack> craftingMatrix = new ArrayList<>(Collections.nCopies(9, ItemStack.EMPTY));
         if (!stack.getOrCreateTag().contains("craftingMatrix"))
@@ -228,5 +218,5 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
 
         return ItemStack.of(stack.getTag().getCompound("orderStack"));
     }
-    //endregion Methods
+
 }

@@ -38,13 +38,10 @@ import net.minecraftforge.event.ForgeEventFactory;
 
 public class SummonFoliotCleanerItem extends Item {
 
-    //region Initialization
     public SummonFoliotCleanerItem(Properties properties) {
         super(properties);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public InteractionResult useOn(UseOnContext context) {
         if (!context.getLevel().isClientSide) {
@@ -70,5 +67,4 @@ public class SummonFoliotCleanerItem extends Item {
         return InteractionResult.SUCCESS;
     }
 
-    //endregion Overrides
 }

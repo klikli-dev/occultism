@@ -42,7 +42,7 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 public class ManageMachineJob extends SpiritJob {
-    //region Fields
+
     protected DepositItemsGoal depositItemsGoal;
     protected ManageMachineGoal manageMachineGoal;
     protected FallbackDepositToControllerGoal fallbackDepositToControllerGoal;
@@ -55,12 +55,9 @@ public class ManageMachineJob extends SpiritJob {
     protected BlockEntity managedMachineBlockEntity;
     protected BlockEntity extractBlockEntity;
 
-    //endregion Fields
-    //region Initialization
     public ManageMachineJob(SpiritEntity entity) {
         super(entity);
     }
-    //endregion Initialization
 
     //region Getter / Setter
     public DepositOrder getCurrentDepositOrder() {
@@ -139,7 +136,6 @@ public class ManageMachineJob extends SpiritJob {
     }
     //endregion Getter / Setter
 
-    //region Overrides
     @Override
     public void onInit() {
         this.entity.getNavigation().getNodeEvaluator().setCanPassDoors(true);
@@ -220,7 +216,6 @@ public class ManageMachineJob extends SpiritJob {
         super.readJobFromNBT(compound);
     }
 
-    //region Methods
     public void addDepsitOrder(DepositOrder order) {
         this.depositOrderQueue.add(order);
     }
@@ -247,5 +242,5 @@ public class ManageMachineJob extends SpiritJob {
                 storageController.removeDepositOrderSpirit(this.managedMachine.insertGlobalPos);
         }
     }
-    //endregion Methods
+
 }

@@ -45,16 +45,12 @@ import java.util.Set;
 
 public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
 
-    //region Fields
     public static Set<BlockPos> sphericalCaves = new HashSet<>();
     protected ICaveDecorator caveDecorator;
     protected int radius;
     protected int maxRandomRadiusOffset;
     protected int additionalSpheres;
     protected int maxRandomAdditionalSpheres;
-    //endregion Fields
-
-    //region Initialization
 
     /**
      * @param caveDecorator         the decorator for the generated cave.
@@ -80,9 +76,7 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         this.additionalSpheres = additionalSpheres;
         this.maxRandomAdditionalSpheres = maxRandomAdditionalSpheres;
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     public boolean place(WorldGenLevel reader, ChunkGenerator generator, RandomSource rand, BlockPos rootPosition,
                          AABB bounds, MultiChunkFeatureConfig config) {
@@ -114,9 +108,7 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         spheres.clear();
         return true;
     }
-    //endregion Overrides
 
-    //region Methods
     protected Sphere generateSphere(WorldGenLevel level, RandomSource rand, BlockPos position, int radius, AABB bounds) {
         return new Sphere(position, radius);
     }
@@ -162,19 +154,16 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         }
         level.setBlock(pPos, pNewState, pFlags);
     }
-    //endregion Methods
 
     public class Sphere {
-        //region Fields
+
         public BlockPos center;
         public int radius;
-        //endregion Fields
 
-        //region Initialization
         public Sphere(BlockPos center, int radius) {
             this.center = center;
             this.radius = radius;
         }
-        //endregion Initialization
+
     }
 }

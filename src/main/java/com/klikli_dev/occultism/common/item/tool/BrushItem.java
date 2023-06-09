@@ -32,13 +32,10 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
 public class BrushItem extends Item {
-    //region Initialization
+
     public BrushItem(Properties properties) {
         super(properties);
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
@@ -55,5 +52,4 @@ public class BrushItem extends Item {
         return InteractionResult.SUCCESS;
     }
 
-    //endregion Overrides
 }

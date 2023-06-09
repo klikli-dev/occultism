@@ -29,7 +29,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.List;
 
 public interface IButcherKnifeLoot {
-    //region Methods
+
     List<ItemStack> getLoot(LivingEntity killedEntity, ItemStack knife, LivingEntity trueDamageSource);
-    //endregion Methods
+
 }

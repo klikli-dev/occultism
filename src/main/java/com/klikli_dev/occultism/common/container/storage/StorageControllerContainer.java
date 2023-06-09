@@ -38,11 +38,9 @@ import net.minecraft.world.level.Level;
 
 
 public class StorageControllerContainer extends StorageControllerContainerBase {
-    //region Fields
-    protected StorageControllerBlockEntity storageController;
-    //endregion Fields
 
-    //region Initialization
+    protected StorageControllerBlockEntity storageController;
+
     public StorageControllerContainer(int id, Inventory playerInventory,
                                       StorageControllerBlockEntity storageController) {
         super(OccultismContainers.STORAGE_CONTROLLER.get(), id, playerInventory);
@@ -60,9 +58,7 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
 
         this.slotsChanged(this.matrix);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     protected void setupPlayerHotbar() {
         int hotbarTop = 232;
@@ -125,5 +121,5 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
         return player.distanceToSqr(controllerPosition.getX() + 0.5D, controllerPosition.getY() + 0.5D,
                 controllerPosition.getZ() + 0.5D) <= 64.0D;
     }
-    //endregion Overrides
+
 }

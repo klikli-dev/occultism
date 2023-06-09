@@ -37,7 +37,7 @@ import javax.annotation.Nonnull;
 import java.awt.*;
 
 public class ItemSlotWidget {
-    //region Fields
+
     protected int x;
     protected int y;
     protected int stackSize;
@@ -49,9 +49,7 @@ public class ItemSlotWidget {
     protected ItemStack stack;
     protected Font fontRenderer;
     protected int slotHighlightColor;
-    //endregion Fields
 
-    //region Initialization
     public ItemSlotWidget(IStorageControllerGuiContainer parent, @Nonnull ItemStack stack, int x, int y, int stackSize,
                           int guiLeft, int guiTop, boolean showStackSize) {
         this.x = x;
@@ -66,7 +64,6 @@ public class ItemSlotWidget {
         this.fontRenderer = this.parent.getFontRenderer();
         this.slotHighlightColor = new Color(255, 255, 255, 128).getRGB();
     }
-    //endregion Initialization
 
     //region Getter / Setter
     public ItemStack getStack() {
@@ -86,7 +83,6 @@ public class ItemSlotWidget {
     }
     //endregion Getter / Setter
 
-    //region Methods
     public boolean isMouseOverSlot(int mouseX, int mouseY) {
         return this.parent.isPointInRegionController(this.x - this.guiLeft, this.y - this.guiTop, 16, 16, mouseX, mouseY);
     }
@@ -137,5 +133,5 @@ public class ItemSlotWidget {
             this.parent.renderToolTip(poseStack, this.getStack(), mx, my);
         }
     }
-    //endregion Methods
+
 }

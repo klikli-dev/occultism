@@ -31,19 +31,13 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
 public class FoliotRenderer extends BipedSpiritRenderer<FoliotEntity, FoliotModel> {
-    //region Fields
+
     private static final ResourceLocation[] TEXTURES = {new ResourceLocation(Occultism.MODID,
             "textures/entity/foliot.png")};
-    //endregion Fields
 
-
-    //region Initialization
     public FoliotRenderer(EntityRendererProvider.Context context) {
         super(context, new FoliotModel(context.bakeLayer(OccultismModelLayers.FOLIOT)), 0.25f);
     }
-    //endregion Initialization
-
-    //region Overrides
 
     @Override
     public ResourceLocation getTextureLocation(FoliotEntity entity) {
@@ -55,5 +49,5 @@ public class FoliotRenderer extends BipedSpiritRenderer<FoliotEntity, FoliotMode
         super.scale(entity, matrixStackIn, partialTickTime);
         matrixStackIn.scale(0.6f, 0.6f, 0.6f);
     }
-    //endregion Overrides
+
 }

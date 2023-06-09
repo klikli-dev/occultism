@@ -99,7 +99,6 @@ public class MinerRecipe implements Recipe<RecipeWrapper> {
 
     public static class Serializer implements RecipeSerializer<MinerRecipe> {
 
-        //region Overrides
         @Override
         public MinerRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             JsonElement ingredientElement = GsonHelper.isArrayNode(json, "ingredient") ? GsonHelper.getAsJsonArray(json,

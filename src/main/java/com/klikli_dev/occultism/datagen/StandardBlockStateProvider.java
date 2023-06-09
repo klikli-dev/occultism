@@ -41,14 +41,11 @@ import net.minecraftforge.registries.RegistryObject;
  */
 public class StandardBlockStateProvider extends BlockStateProvider {
 
-    //region Initialization
     public StandardBlockStateProvider(PackOutput gen,
                                       ExistingFileHelper exFileHelper) {
         super(gen, Occultism.MODID, exFileHelper);
     }
-    //endregion Initialization
 
-    //region Overrides
     @Override
     protected void registerStatesAndModels() {
         //Generate blockstates for the glyphs
@@ -72,9 +69,6 @@ public class StandardBlockStateProvider extends BlockStateProvider {
         this.directionalBlock(OccultismBlocks.STORAGE_STABILIZER_TIER4.get(),
                 this.models().getExistingFile(this.modLoc("block/storage_stabilizer_tier4")));
     }
-    //endregion Overrides
-
-    //region Methods
 
     protected void generateStableWormholeState(Block block) {
         ModelFile.ExistingModelFile linkedModel = this.models().getExistingFile(this.modLoc("block/stable_wormhole"));
@@ -112,5 +106,5 @@ public class StandardBlockStateProvider extends BlockStateProvider {
                             .build();
                 });
     }
-    //endregion Methods
+
 }

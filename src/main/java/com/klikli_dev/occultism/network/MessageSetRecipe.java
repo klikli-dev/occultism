@@ -44,12 +44,9 @@ import java.util.Map;
  */
 public class MessageSetRecipe extends MessageBase {
 
-    //region Fields
     private CompoundTag nbt;
     private int index = 0;
-    //endregion Fields
 
-    //region Initialization
     public MessageSetRecipe(FriendlyByteBuf buf) {
         this.decode(buf);
     }
@@ -57,10 +54,6 @@ public class MessageSetRecipe extends MessageBase {
     public MessageSetRecipe(CompoundTag nbt) {
         this.nbt = nbt;
     }
-    //endregion Initialization
-
-    //region Overrides
-
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
@@ -136,5 +129,5 @@ public class MessageSetRecipe extends MessageBase {
         this.nbt = buf.readNbt();
         this.index = buf.readInt();
     }
-    //endregion Overrides
+
 }

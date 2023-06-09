@@ -36,12 +36,8 @@ import net.minecraftforge.network.NetworkEvent;
  * Inserts the mouse held item into the opened storage controller.
  */
 public class MessageInsertMouseHeldItem extends MessageBase {
-    //region Fields
+
     private int mouseButton;
-    //endregion Fields
-
-    //region Initialization
-
 
     public MessageInsertMouseHeldItem(FriendlyByteBuf buf) {
         this.decode(buf);
@@ -50,10 +46,6 @@ public class MessageInsertMouseHeldItem extends MessageBase {
     public MessageInsertMouseHeldItem(int mouseButton) {
         this.mouseButton = mouseButton;
     }
-    //endregion Initialization
-
-    //region Overrides
-
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
@@ -104,5 +96,5 @@ public class MessageInsertMouseHeldItem extends MessageBase {
     public void decode(FriendlyByteBuf buf) {
         this.mouseButton = buf.readInt();
     }
-    //endregion Overrides
+
 }

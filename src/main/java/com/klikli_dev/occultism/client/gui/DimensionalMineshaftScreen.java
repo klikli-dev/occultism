@@ -34,22 +34,18 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class DimensionalMineshaftScreen extends AbstractContainerScreen<DimensionalMineshaftContainer> {
-    //region Fields
+
     public static final ResourceLocation TEXTURE =
             new ResourceLocation(Occultism.MODID, "textures/gui/otherworld_miner.png");
 
     public DimensionalMineshaftBlockEntity otherworldMiner;
-    //endregion Fields
 
-    //region Initialization
     public DimensionalMineshaftScreen(DimensionalMineshaftContainer screenContainer, Inventory inv,
                                       Component titleIn) {
         super(screenContainer, inv, titleIn);
         this.otherworldMiner = screenContainer.otherworldMiner;
     }
-    //endregion Initialization
 
-    //region Overrides
     public void render(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(stack);
         super.render(stack, mouseX, mouseY, partialTicks);
@@ -74,5 +70,5 @@ public class DimensionalMineshaftScreen extends AbstractContainerScreen<Dimensio
             this.blit(stack, this.leftPos + 61, this.topPos + 41, 176, 0, progress + 1, 4);
         }
     }
-    //endregion Overrides
+
 }
