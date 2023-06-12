@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20-1.80.1] - 2023-06-12
+### :sparkles: New Features
+- [`fda4bbe`](https://github.com/klikli-dev/occultism/commit/fda4bbe9aac29a044e6fefce9f7af4706ddba95e) - upgrade to 1.20 *(PR [#929](https://github.com/klikli-dev/occultism/pull/929) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`482fe6f`](https://github.com/klikli-dev/occultism/commit/482fe6f2fb85a5a4ccd561aa940dd1d052c75f20) - set CF changelog type to md *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.4-1.80.1] - 2023-06-04
 ### :sparkles: New Features
 - [`b653f27`](https://github.com/klikli-dev/occultism/commit/b653f27d578caf77cec2252a3a2137c3ae50597b) - add more jei output context *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -427,3 +435,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.4-1.79.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.78.2...release/v1.19.4-1.79.0
 [release/v1.19.4-1.80.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.79.0...release/v1.19.4-1.80.0
 [release/v1.19.4-1.80.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.80.0...release/v1.19.4-1.80.1
+[release/v1.20-1.80.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20-0.0.0...release/v1.20-1.80.1
