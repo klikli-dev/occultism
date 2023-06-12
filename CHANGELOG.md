@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.80.2] - 2023-06-12
+### :wrench: Chores
+- [`0850cae`](https://github.com/klikli-dev/occultism/commit/0850cae3b0bf4108568d0d0ac2f75774181089d7) - improve crafting matrix sync *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.80.1] - 2023-06-04
 ### :sparkles: New Features
 - [`8a942ed`](https://github.com/klikli-dev/occultism/commit/8a942ed86efd230e68c53b7074f233067a1d6516) - add more jei output context *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -385,3 +390,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.79.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.78.2...release/v1.19.2-1.79.0
 [release/v1.19.2-1.80.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.79.0...release/v1.19.2-1.80.0
 [release/v1.19.2-1.80.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.80.0...release/v1.19.2-1.80.1
+[release/v1.19.2-1.80.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.80.1...release/v1.19.2-1.80.2
