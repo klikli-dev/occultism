@@ -179,11 +179,8 @@ dependencies {
 
     //curios
     //TODO: reenable once updated
-//    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}:api")
-//    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}")
-    //TODO: remove once 1.20 is available
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.4-5.1.4.2:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.4-5.1.4.2")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}")
 
 
     //geckolib
