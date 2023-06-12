@@ -98,6 +98,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             //only allow matrix changes while we are not crafting
             return;
         }
+        this.updateCraftingSlots(true);
         this.findRecipeForMatrix();
     }
 
