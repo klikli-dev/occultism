@@ -28,5 +28,6 @@
     [
       "rare_variant"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

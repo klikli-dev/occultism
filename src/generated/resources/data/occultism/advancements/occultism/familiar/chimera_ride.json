@@ -28,5 +28,6 @@
     [
       "chimera_ride"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

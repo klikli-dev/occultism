@@ -9,5 +9,6 @@
     [
       "occultism_present"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

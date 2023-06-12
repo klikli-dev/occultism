@@ -28,5 +28,6 @@
     [
       "cthulhu_sad"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

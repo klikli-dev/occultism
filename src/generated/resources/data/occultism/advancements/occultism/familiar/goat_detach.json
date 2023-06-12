@@ -27,5 +27,6 @@
     [
       "goat_detach"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

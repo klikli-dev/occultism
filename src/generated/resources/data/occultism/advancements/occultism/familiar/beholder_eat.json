@@ -27,5 +27,6 @@
     [
       "beholder_eat"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

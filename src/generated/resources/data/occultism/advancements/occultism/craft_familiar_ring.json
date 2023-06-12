@@ -29,5 +29,6 @@
     [
       "craft_familiar_ring"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

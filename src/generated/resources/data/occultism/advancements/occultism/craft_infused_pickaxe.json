@@ -29,5 +29,6 @@
     [
       "craft_infused_pickaxe"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

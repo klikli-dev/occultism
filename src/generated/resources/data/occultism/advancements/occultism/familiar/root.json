@@ -29,5 +29,6 @@
     [
       "summon_familiar"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

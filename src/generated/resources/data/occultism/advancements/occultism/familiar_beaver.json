@@ -29,5 +29,6 @@
     [
       "familiar_beaver"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

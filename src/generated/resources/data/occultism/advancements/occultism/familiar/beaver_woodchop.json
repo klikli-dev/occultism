@@ -28,5 +28,6 @@
     [
       "beaver_woodchop"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

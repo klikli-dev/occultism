@@ -29,5 +29,6 @@
     [
       "familiar_bat"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

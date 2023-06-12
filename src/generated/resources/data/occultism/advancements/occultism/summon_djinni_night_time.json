@@ -29,5 +29,6 @@
     [
       "summon_djinni_night_time"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

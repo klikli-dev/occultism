@@ -28,5 +28,6 @@
     [
       "shub_niggurath_spawn"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

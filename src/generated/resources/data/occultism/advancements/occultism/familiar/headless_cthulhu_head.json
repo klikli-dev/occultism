@@ -28,5 +28,6 @@
     [
       "headless_cthulhu_head"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

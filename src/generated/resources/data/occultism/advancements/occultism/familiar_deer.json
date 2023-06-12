@@ -29,5 +29,6 @@
     [
       "familiar_deer"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

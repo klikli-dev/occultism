@@ -29,5 +29,6 @@
     [
       "summon_afrit_crusher"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }
