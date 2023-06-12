@@ -29,5 +29,6 @@
     [
       "familiar_mummy"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

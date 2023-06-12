@@ -29,5 +29,6 @@
     [
       "familiar_greedy"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

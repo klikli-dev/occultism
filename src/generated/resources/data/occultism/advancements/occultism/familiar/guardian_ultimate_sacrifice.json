@@ -28,5 +28,6 @@
     [
       "guardian_ultimate_sacrifice"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

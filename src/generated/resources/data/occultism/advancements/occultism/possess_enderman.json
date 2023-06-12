@@ -29,5 +29,6 @@
     [
       "possess_enderman"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

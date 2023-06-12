@@ -93,5 +93,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "occultism:entities/wild_hunt_wither_skeleton"
 }

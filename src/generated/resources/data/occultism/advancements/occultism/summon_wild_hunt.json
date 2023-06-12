@@ -29,5 +29,6 @@
     [
       "summon_wild_hunt"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

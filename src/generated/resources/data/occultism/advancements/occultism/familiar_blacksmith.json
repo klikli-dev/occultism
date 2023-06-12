@@ -29,5 +29,6 @@
     [
       "familiar_blacksmith"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

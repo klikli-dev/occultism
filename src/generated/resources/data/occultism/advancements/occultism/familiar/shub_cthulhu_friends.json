@@ -27,5 +27,6 @@
     [
       "shub_cthulhu_friends"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

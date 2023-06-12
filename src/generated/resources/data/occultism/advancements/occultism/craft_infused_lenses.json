@@ -29,5 +29,6 @@
     [
       "craft_infused_lenses"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

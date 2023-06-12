@@ -29,5 +29,6 @@
     [
       "summon_marid_crusher"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

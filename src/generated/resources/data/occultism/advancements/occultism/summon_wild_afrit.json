@@ -29,5 +29,6 @@
     [
       "summon_wild_afrit"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

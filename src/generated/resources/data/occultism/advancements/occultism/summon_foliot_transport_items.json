@@ -29,5 +29,6 @@
     [
       "summon_foliot_transport_items"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

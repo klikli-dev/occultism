@@ -29,5 +29,6 @@
     [
       "familiar_devil"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

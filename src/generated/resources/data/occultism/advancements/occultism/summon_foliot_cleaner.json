@@ -29,5 +29,6 @@
     [
       "summon_foliot_cleaner"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

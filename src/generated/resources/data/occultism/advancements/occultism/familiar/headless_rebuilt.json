@@ -27,5 +27,6 @@
     [
       "headless_rebuilt"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }
