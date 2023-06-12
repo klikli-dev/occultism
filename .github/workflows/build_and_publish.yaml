@@ -86,6 +86,7 @@ jobs:
           project_id: 361026
           game_endpoint: minecraft
           file_path: ./build/libs/occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
+          changelog_type: markdown
           changelog: |-
             [Changelog]
             ${{ steps.changelog.outputs.changes }}
