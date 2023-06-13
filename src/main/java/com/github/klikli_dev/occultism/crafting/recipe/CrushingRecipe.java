@@ -95,7 +95,9 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<CrushingRecipe> {
 
         @Override
-        public CrushingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+        public CrushingRecipe fromJson(ResourceLocation recipeId, JsonObject originalJson) {
+            var json = originalJson.deepCopy(); //we are modifying the json, so we need a copy to avoid side effects to e.g. KubeJS
+
             int crushingTime = GsonHelper.getAsInt(json, "crushing_time", DEFAULT_CRUSHING_TIME);
             boolean ignoreCrushingMultiplier = GsonHelper.getAsBoolean(json, "ignore_crushing_multiplier", false);
             int minTier = GsonHelper.getAsInt(json, "min_tier", -1);
@@ -112,12 +114,12 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
                 //however, cannot be air as that will make ItemStack report as empty
                 resultElement.addProperty("item", "minecraft:dirt");
 
+            //helper to get count and nbt for our output ingredient
+            ItemStack outputStackInfo = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(json, "result"), true);
+
             JsonElement ingredientElement = GsonHelper.isArrayNode(json, "ingredient") ? GsonHelper.getAsJsonArray(json,
                     "ingredient") : GsonHelper.getAsJsonObject(json, "ingredient");
             Ingredient ingredient = Ingredient.fromJson(ingredientElement);
-
-            //helper to get count and nbt for our output ingredient
-            ItemStack outputStackInfo = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(json, "result"), true);
 
             return  new CrushingRecipe(recipeId, ingredient, new OutputIngredient(outputIngredient, outputStackInfo), minTier, crushingTime, ignoreCrushingMultiplier);
         }
