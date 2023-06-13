@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20-1.80.3] - 2023-06-13
+### :bug: Bug Fixes
+- [`86295f0`](https://github.com/klikli-dev/occultism/commit/86295f02346badff43051130f72f700349182b0a) - chalk marks breaking on neighbor change *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`66aaa1f`](https://github.com/klikli-dev/occultism/commit/66aaa1fbe9632a06e2c76bc73e9fbea218c44d05) - dragon eyes aka floaty bits *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`48f314a`](https://github.com/klikli-dev/occultism/commit/48f314a167fb2618da3ccb01fda700c2c1ce5cdd) - improve crafting matrix sync *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`e25e12e`](https://github.com/klikli-dev/occultism/commit/e25e12e7dc98c2a0b380fca2c3e9c3a1d38a327c) - improve crafting matrix sync [#2](https://github.com/klikli-dev/occultism/pull/2) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20-1.80.1] - 2023-06-12
 ### :sparkles: New Features
 - [`fda4bbe`](https://github.com/klikli-dev/occultism/commit/fda4bbe9aac29a044e6fefce9f7af4706ddba95e) - upgrade to 1.20 *(PR [#929](https://github.com/klikli-dev/occultism/pull/929) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -436,3 +446,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.4-1.80.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.79.0...release/v1.19.4-1.80.0
 [release/v1.19.4-1.80.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.80.0...release/v1.19.4-1.80.1
 [release/v1.20-1.80.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20-0.0.0...release/v1.20-1.80.1
+[release/v1.20-1.80.3]: https://github.com/klikli-dev/occultism/compare/release/v1.20-1.80.1...release/v1.20-1.80.3
