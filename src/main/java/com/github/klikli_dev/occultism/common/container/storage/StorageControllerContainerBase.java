@@ -32,8 +32,6 @@ import com.github.klikli_dev.occultism.common.misc.StorageControllerCraftingInve
 import com.github.klikli_dev.occultism.common.misc.StorageControllerSlot;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
-import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
@@ -60,20 +58,6 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
      * Hack to only allow one player to open a container at a time.
      */
     public static Map<BlockPos, UUID> openContainers = new HashMap<>();
-
-    public static boolean canOpen( Player player, BlockPos pos){
-        if(!openContainers.containsKey(pos)){
-            return true;
-        }
-
-        player.sendSystemMessage(Component.translatable(TranslationKeys.MESSAGE_CONTAINER_ALREADY_OPEN).withStyle(ChatFormatting.RED));
-        return false;
-    }
-
-    public static void reserve(Player player, BlockPos pos){
-        openContainers.put(pos, player.getUUID());
-    }
-
     //region Fields
     public Inventory playerInventory;
     public Player player;
@@ -82,15 +66,10 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     protected StorageControllerCraftingInventory matrix;
     protected SimpleContainer orderInventory;
     protected CraftingRecipe currentRecipe;
-
     /**
      * used to lock recipe while crafting
      */
     protected boolean recipeLocked = false;
-    //endregion Fields
-
-    //region Initialization
-
     protected StorageControllerContainerBase(@Nullable MenuType<?> type, int id, Inventory playerInventory) {
         super(type, id);
         this.playerInventory = playerInventory;
@@ -98,6 +77,22 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
 
         this.result = new ResultContainer();
         this.orderInventory = new SimpleContainer(1);
+    }
+
+    public static boolean canOpen(Player player, BlockPos pos) {
+        if (!openContainers.containsKey(pos)) {
+            return true;
+        }
+
+        player.sendSystemMessage(Component.translatable(TranslationKeys.MESSAGE_CONTAINER_ALREADY_OPEN).withStyle(ChatFormatting.RED));
+        return false;
+    }
+    //endregion Fields
+
+    //region Initialization
+
+    public static void reserve(Player player, BlockPos pos) {
+        openContainers.put(pos, player.getUUID());
     }
 
     //endregion Initialization
