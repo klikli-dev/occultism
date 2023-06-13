@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.80.3] - 2023-06-13
+### :bug: Bug Fixes
+- [`b16e63b`](https://github.com/klikli-dev/occultism/commit/b16e63bb952ba55360543429c3ea5778c8090a7b) - dragon eyes aka floaty bits *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`117c220`](https://github.com/klikli-dev/occultism/commit/117c2204c529b8a4c6ae416abf5b35ed257cd445) - improve crafting matrix sync [#2](https://github.com/klikli-dev/occultism/pull/2) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.80.2] - 2023-06-12
 ### :wrench: Chores
 - [`0850cae`](https://github.com/klikli-dev/occultism/commit/0850cae3b0bf4108568d0d0ac2f75774181089d7) - improve crafting matrix sync *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -391,3 +399,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.80.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.79.0...release/v1.19.2-1.80.0
 [release/v1.19.2-1.80.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.80.0...release/v1.19.2-1.80.1
 [release/v1.19.2-1.80.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.80.1...release/v1.19.2-1.80.2
+[release/v1.19.2-1.80.3]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.80.2...release/v1.19.2-1.80.3
