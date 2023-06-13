@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20-1.80.4] - 2023-06-13
+### :bug: Bug Fixes
+- [`1a17eaf`](https://github.com/klikli-dev/occultism/commit/1a17eaf47e81606ae8978d27cf7190ad94968e8e) - kubejs parse errors *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20-1.80.3] - 2023-06-13
 ### :bug: Bug Fixes
 - [`86295f0`](https://github.com/klikli-dev/occultism/commit/86295f02346badff43051130f72f700349182b0a) - chalk marks breaking on neighbor change *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -447,3 +452,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.4-1.80.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.80.0...release/v1.19.4-1.80.1
 [release/v1.20-1.80.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20-0.0.0...release/v1.20-1.80.1
 [release/v1.20-1.80.3]: https://github.com/klikli-dev/occultism/compare/release/v1.20-1.80.1...release/v1.20-1.80.3
+[release/v1.20-1.80.4]: https://github.com/klikli-dev/occultism/compare/release/v1.20-1.80.3...release/v1.20-1.80.4
