@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20-1.80.6] - 2023-06-13
+### :wrench: Chores
+- [`34c7b40`](https://github.com/klikli-dev/occultism/commit/34c7b40a8512e154a58997767d29f013d761d1c7) - improve crafting matrix sync [#3](https://github.com/klikli-dev/occultism/pull/3) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20-1.80.4] - 2023-06-13
 ### :bug: Bug Fixes
 - [`1a17eaf`](https://github.com/klikli-dev/occultism/commit/1a17eaf47e81606ae8978d27cf7190ad94968e8e) - kubejs parse errors *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -453,3 +458,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20-1.80.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20-0.0.0...release/v1.20-1.80.1
 [release/v1.20-1.80.3]: https://github.com/klikli-dev/occultism/compare/release/v1.20-1.80.1...release/v1.20-1.80.3
 [release/v1.20-1.80.4]: https://github.com/klikli-dev/occultism/compare/release/v1.20-1.80.3...release/v1.20-1.80.4
+[release/v1.20-1.80.6]: https://github.com/klikli-dev/occultism/compare/release/v1.20-1.80.4...release/v1.20-1.80.6
