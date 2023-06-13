@@ -23,6 +23,7 @@
 package com.github.klikli_dev.occultism.common.block.storage;
 
 import com.github.klikli_dev.occultism.common.blockentity.StableWormholeBlockEntity;
+import com.github.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
 import com.github.klikli_dev.occultism.registry.OccultismTiles;
 import com.github.klikli_dev.occultism.util.BlockEntityUtil;
 import com.google.common.collect.ImmutableMap;
@@ -219,10 +220,12 @@ public class StableWormholeBlock extends Block implements EntityBlock {
                                  InteractionHand handIn, BlockHitResult rayTraceResult) {
         if (!level.isClientSide) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof StableWormholeBlockEntity wormhole) {
-                if (wormhole.getLinkedStorageController() != null)
+
+            if (blockEntity instanceof StableWormholeBlockEntity wormhole && StorageControllerContainerBase.canOpen(player, pos)) {
+                if (wormhole.getLinkedStorageController() != null) {
                     NetworkHooks.openScreen((ServerPlayer) player, wormhole, pos);
-                else {
+                    StorageControllerContainerBase.reserve(player, pos);
+                } else {
                     level.setBlock(pos, state.setValue(LINKED, false), 2);
                 }
             }
