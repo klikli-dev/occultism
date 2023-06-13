@@ -13,8 +13,11 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import org.joml.Vector3f;
 
 import java.util.Collections;
+import java.util.stream.Stream;
 
 /**
  * Created using Tabula 8.0.0
@@ -35,8 +38,6 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
     public ModelPart neck2;
     public ModelPart head;
     public ModelPart jaw;
-    public ColorModelPartProxy leftEye;
-    public ColorModelPartProxy rightEye;
     public ModelPart fez1;
     public ModelPart leftHorn1;
     public ModelPart leftEar;
@@ -65,6 +66,9 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
     public ModelPart leftArm3;
     public ModelPart rightArm2;
     public ModelPart rightArm3;
+
+    public ColorModelPartProxy leftEye;
+    public ColorModelPartProxy rightEye;
 
     public DragonFamiliarModel(ModelPart part) {
         this.body = part.getChild("body");
@@ -127,8 +131,8 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         PartDefinition neck2 = neck1.addOrReplaceChild("neck2", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, -1.0F, -3.0F, 2.0F, 2.0F, 3.0F, false), PartPose.offsetAndRotation(0.0F, 0.0F, -2.4F, -0.1563815016444822F, 0.0F, 0.0F));
         PartDefinition head = neck2.addOrReplaceChild("head", CubeListBuilder.create().texOffs(30, 0).addBox(-2.0F, -1.5F, -4.0F, 4.0F, 3.0F, 4.0F, false), PartPose.offsetAndRotation(0.0F, -0.4F, -2.4F, 0.8213519699569813F, 0.0F, 0.0F));
         PartDefinition jaw = head.addOrReplaceChild("jaw", CubeListBuilder.create().texOffs(46, 0).addBox(-1.5F, -1.0F, -3.0F, 3.0F, 2.0F, 3.0F, false), PartPose.offsetAndRotation(0.0F, 0.2F, -4.0F, 0, 0, 0));
-        PartDefinition leftEye = head.addOrReplaceChild("leftEye", CubeListBuilder.create().texOffs(0, 0).addBox(0.0F, -1.0F, -1.0F, 1.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(1.5F, -0.1F, -2.4F, 0, 0, 0));
-        PartDefinition rightEye = head.addOrReplaceChild("rightEye", CubeListBuilder.create().texOffs(0, 0).addBox(0.0F, -1.0F, -1.0F, 1.0F, 2.0F, 2.0F, true), PartPose.offsetAndRotation(-2.5F, -0.1F, -2.4F, 0, 0, 0));
+        PartDefinition leftEye = head.addOrReplaceChild("leftEye", CubeListBuilder.create().texOffs(56, 3).addBox(0.0F, -1.0F, -1.0F, 1.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(1.5F, -0.1F, -2.4F, 0, 0, 0));
+        PartDefinition rightEye = head.addOrReplaceChild("rightEye", CubeListBuilder.create().texOffs(56, 3).addBox(0.0F, -1.0F, -1.0F, 1.0F, 2.0F, 2.0F, true), PartPose.offsetAndRotation(-2.5F, -0.1F, -2.4F, 0, 0, 0));
         PartDefinition fez1 = head.addOrReplaceChild("fez1", CubeListBuilder.create().texOffs(18, 14).addBox(-1.0F, -2.0F, -1.0F, 2.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(0.0F, -1.5F, -2.0F, 0, 0, 0));
         PartDefinition leftHorn1 = head.addOrReplaceChild("leftHorn1", CubeListBuilder.create().texOffs(0, 14).addBox(-0.5F, -1.0F, 0.0F, 1.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(1.7F, -0.5F, -0.5F, 0.22689280275926282F, 0.0F, 0.0F));
         PartDefinition leftEar = head.addOrReplaceChild("leftEar", CubeListBuilder.create().texOffs(12, 14).addBox(-0.5F, -1.0F, 0.0F, 1.0F, 2.0F, 2.0F, false), PartPose.offsetAndRotation(1.7F, -0.6F, -0.6F, -0.13613568498450906F, 1.1798425477165557F, -0.5899212738582779F));
@@ -165,8 +169,8 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         ImmutableList.of(this.body).forEach((modelRenderer) -> {
             modelRenderer.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, red, green, blue, alpha);
         });
-        this.rightEye.proxyRender(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, red, green, blue, alpha);
-        this.leftEye.proxyRender(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, red, green, blue, alpha);
+//        this.rightEye.proxyRender(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, red, green, blue, alpha);
+//        this.leftEye.proxyRender(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, red, green, blue, alpha);
     }
 
 
@@ -325,10 +329,101 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         @Override
         public void render(PoseStack poseStack, VertexConsumer pVertexConsumer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
             //prevent actual render
+            this.proxied.render(poseStack, pVertexConsumer, pPackedLight, pPackedOverlay, this.r, this.g, this.b, this.a);
         }
 
         public void proxyRender(PoseStack poseStack, VertexConsumer pVertexConsumer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
             this.proxied.render(poseStack, pVertexConsumer, pPackedLight, pPackedOverlay, this.r, this.g, this.b, this.a);
+        }
+
+        @Override
+        public PartPose getInitialPose() {
+            return this.proxied.getInitialPose();
+        }
+
+        @Override
+        public void visit(PoseStack pPoseStack, Visitor pVisitor) {
+            this.proxied.visit(pPoseStack, pVisitor);
+        }
+
+        @Override
+        public void offsetPos(Vector3f p_233565_) {
+            this.proxied.offsetPos(p_233565_);
+        }
+
+        @Override
+        public void offsetRotation(Vector3f p_233568_) {
+            this.proxied.offsetRotation(p_233568_);
+        }
+
+        @Override
+        public void offsetScale(Vector3f p_233571_) {
+            this.proxied.offsetScale(p_233571_);
+        }
+
+        @Override
+        public Stream<ModelPart> getAllParts() {
+            return this.proxied.getAllParts();
+        }
+
+        @Override
+        public PartPose storePose() {
+            return this.proxied.storePose();
+        }
+
+        @Override
+        public void setInitialPose(PartPose pInitialPose) {
+            this.proxied.setInitialPose(pInitialPose);
+        }
+
+        @Override
+        public void resetPose() {
+            this.proxied.resetPose();
+        }
+
+        @Override
+        public void loadPose(PartPose pPartPose) {
+            this.proxied.loadPose(pPartPose);
+        }
+
+        @Override
+        public void copyFrom(ModelPart pModelPart) {
+            this.proxied.copyFrom(pModelPart);
+        }
+
+        @Override
+        public boolean hasChild(String p_233563_) {
+            return this.proxied.hasChild(p_233563_);
+        }
+
+        @Override
+        public ModelPart getChild(String pName) {
+            return this.proxied.getChild(pName);
+        }
+
+        @Override
+        public void setPos(float pX, float pY, float pZ) {
+            this.proxied.setPos(pX, pY, pZ);
+        }
+
+        @Override
+        public void setRotation(float pXRot, float pYRot, float pZRot) {
+            this.proxied.setRotation(pXRot, pYRot, pZRot);
+        }
+
+        @Override
+        public void translateAndRotate(PoseStack pPoseStack) {
+            this.proxied.translateAndRotate(pPoseStack);
+        }
+
+        @Override
+        public Cube getRandomCube(RandomSource pRandom) {
+            return this.proxied.getRandomCube(pRandom);
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return this.proxied.isEmpty();
         }
     }
 }
