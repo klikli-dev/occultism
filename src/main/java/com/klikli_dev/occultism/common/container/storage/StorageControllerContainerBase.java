@@ -90,7 +90,8 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             //only allow matrix changes while we are not crafting
             return;
         }
-        this.updateCraftingSlots(true);
+        this.updateCraftingSlots(false);
+        this.broadcastChanges();
         this.findRecipeForMatrix();
     }
 
@@ -192,7 +193,10 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     protected void findRecipeForMatrixClient() {
         Optional<CraftingRecipe> optional =
                 this.player.level().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, this.matrix, this.player.level());
-        optional.ifPresent(iCraftingRecipe -> this.currentRecipe = iCraftingRecipe);
+        optional.ifPresentOrElse(iCraftingRecipe -> this.currentRecipe = iCraftingRecipe, () -> {
+            this.currentRecipe = null;
+            this.result.setItem(0, ItemStack.EMPTY);
+        });
     }
 
     protected void findRecipeForMatrix() {
@@ -215,6 +219,8 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
 
             this.result.setItem(0, itemstack);
             serverplayerentity.connection.send(new ClientboundContainerSetSlotPacket(this.containerId, 0, 0, itemstack));
+        } else {
+            this.findRecipeForMatrixClient();
         }
     }
 
