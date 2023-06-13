@@ -324,6 +324,8 @@ public class ENUSProvider extends LanguageProvider {
         //"(.*?)": "(.*)",
         //this.add\("\1", "\2"\);
 
+        this.add(TranslationKeys.MESSAGE_CONTAINER_ALREADY_OPEN, "This container is already opened by another player, wait until they close it.");
+
         //Jobs
         this.add("job.occultism.lumberjack", "Lumberjack");
         this.add("job.occultism.crush_tier1", "Slow Crusher");

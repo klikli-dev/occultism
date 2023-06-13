@@ -194,7 +194,7 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
         compound.putInt("sortType", this.getSortType().getValue());
 
         ListTag matrixNbt = new ListTag();
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < this.matrix.size(); i++) {
             if (this.matrix.get(i) != null && !this.matrix.get(i).isEmpty()) {
                 CompoundTag stackTag = new CompoundTag();
                 stackTag.putByte("slot", (byte) i);

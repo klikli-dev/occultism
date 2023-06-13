@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.occultism.common.container.storage;
 
+import com.github.klikli_dev.occultism.TranslationKeys;
 import com.github.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.github.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.github.klikli_dev.occultism.api.common.data.GlobalBlockPos;
@@ -30,7 +31,12 @@ import com.github.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.github.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.github.klikli_dev.occultism.common.misc.StorageControllerSlot;
 import com.github.klikli_dev.occultism.network.OccultismPackets;
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
@@ -44,19 +50,35 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public abstract class StorageControllerContainerBase extends AbstractContainerMenu implements IStorageControllerContainer {
+
+    /**
+     * Hack to only allow one player to open a container at a time.
+     */
+    public static Map<BlockPos, UUID> openContainers = new HashMap<>();
+
+    public static boolean canOpen( Player player, BlockPos pos){
+        if(!openContainers.containsKey(pos)){
+            return true;
+        }
+
+        player.sendSystemMessage(Component.translatable(TranslationKeys.MESSAGE_CONTAINER_ALREADY_OPEN).withStyle(ChatFormatting.RED));
+        return false;
+    }
+
+    public static void reserve(Player player, BlockPos pos){
+        openContainers.put(pos, player.getUUID());
+    }
 
     //region Fields
     public Inventory playerInventory;
     public Player player;
     protected ResultContainer result;
+    protected StorageControllerSlot slotCraftOutput;
     protected StorageControllerCraftingInventory matrix;
     protected SimpleContainer orderInventory;
     protected CraftingRecipe currentRecipe;
@@ -157,6 +179,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
         this.updateCraftingSlots(false);
         this.updateOrderSlot(true); //only send network update on second call
         super.removed(playerIn);
+        openContainers.values().removeIf(uuid -> uuid.equals(playerIn.getUUID()));
     }
 
     //endregion Overrides
@@ -189,9 +212,9 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     protected void setupCraftingOutput() {
         int craftingOutputTop = 131;
         int craftingOutputLeft = 130 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
-        StorageControllerSlot slotCraftOutput = new StorageControllerSlot(this.playerInventory.player, this.matrix,
+        this.slotCraftOutput = new StorageControllerSlot(this.playerInventory.player, this.matrix,
                 this.result, this, 0, craftingOutputLeft, craftingOutputTop);
-        this.addSlot(slotCraftOutput);
+        this.addSlot(this.slotCraftOutput);
     }
 
     protected void setupOrderInventorySlot() {
@@ -205,10 +228,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     protected void findRecipeForMatrixClient() {
         Optional<CraftingRecipe> optional =
                 this.player.level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, this.matrix, this.player.level);
-        optional.ifPresentOrElse(iCraftingRecipe -> this.currentRecipe = iCraftingRecipe, () -> {
-            this.currentRecipe = null;
-            this.result.setItem(0, ItemStack.EMPTY);
-        });
+        optional.ifPresentOrElse(iCraftingRecipe -> this.currentRecipe = iCraftingRecipe, () -> this.currentRecipe = null);
     }
 
     protected void findRecipeForMatrix() {
@@ -228,11 +248,8 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                     this.currentRecipe = icraftingrecipe;
                 }
             }
-
             this.result.setItem(0, itemstack);
             serverplayerentity.connection.send(new ClientboundContainerSetSlotPacket(this.containerId, 0, 0, itemstack));
-        } else {
-            this.findRecipeForMatrixClient();
         }
     }
 
@@ -272,7 +289,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             if (this.currentRecipe == null)
                 break;
 
-             ItemStack newResult = this.currentRecipe.assemble(this.matrix).copy();
+            ItemStack newResult = this.currentRecipe.assemble(this.matrix).copy();
             if (newResult.getItem() != result.getItem())
                 break;
 
@@ -310,7 +327,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
 
                 //handle container item refunding
                 if (!stackInSlot.getItem().getCraftingRemainingItem(stackInSlot).isEmpty()) {
-                    ItemStack container = stackInSlot.getItem().getCraftingRemainingItem (stackInSlot);
+                    ItemStack container = stackInSlot.getItem().getCraftingRemainingItem(stackInSlot);
                     if (!stackInSlot.isStackable()) {
                         stackInSlot = container;
                         this.matrix.setItem(i, stackInSlot);
@@ -338,7 +355,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                         //last resort, try to place in player inventory or if that fails, drop.
                         ItemHandlerHelper.giveItemToPlayer(player, newResult);
                     }
-                    
+
                 } else if (!stackInSlot.isEmpty()) {
                     //decrease the stack size in the matrix
                     this.matrix.removeItem(i, 1);
