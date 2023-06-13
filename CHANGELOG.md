@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.18.2-1.80.3] - 2023-06-13
+### :bug: Bug Fixes
+- [`47e147c`](https://github.com/klikli-dev/occultism/commit/47e147cfaf93700c7bd5b4b8ec8538c6f61b1529) - dragon eyes aka floaty bits *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`ed804d9`](https://github.com/klikli-dev/occultism/commit/ed804d94ad13158c9526df9c1ac49f6c4418d8c3) - improve crafting matrix sync *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`bfa86dc`](https://github.com/klikli-dev/occultism/commit/bfa86dcbe0f8e69b0b33c6fe1d343c0c74e1d296) - improve crafting matrix sync [#2](https://github.com/klikli-dev/occultism/pull/2) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.18.2-1.80.1] - 2023-06-04
 ### :sparkles: New Features
 - [`7120091`](https://github.com/klikli-dev/occultism/commit/71200912e56bdabad234bb649c8583941515bcd6) - add more jei output context *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -347,3 +356,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.18.2-1.79.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.78.2...release/v1.18.2-1.79.0
 [release/v1.18.2-1.80.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.79.0...release/v1.18.2-1.80.0
 [release/v1.18.2-1.80.1]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.80.0...release/v1.18.2-1.80.1
+[release/v1.18.2-1.80.3]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.80.1...release/v1.18.2-1.80.3
