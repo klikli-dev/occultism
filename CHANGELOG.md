@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.4-1.80.4] - 2023-06-13
+### :bug: Bug Fixes
+- [`a764ef4`](https://github.com/klikli-dev/occultism/commit/a764ef495693e37e0f32bdfac8a8b6eae836def4) - kubejs parse errors *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.4-1.80.3] - 2023-06-13
 ### :bug: Bug Fixes
 - [`44cb43b`](https://github.com/klikli-dev/occultism/commit/44cb43bd7c07aced89a8612010804faf15925ae4) - dragon eyes aka floaty bits *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -437,3 +442,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.4-1.80.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.79.0...release/v1.19.4-1.80.0
 [release/v1.19.4-1.80.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.80.0...release/v1.19.4-1.80.1
 [release/v1.19.4-1.80.3]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.80.1...release/v1.19.4-1.80.3
+[release/v1.19.4-1.80.4]: https://github.com/klikli-dev/occultism/compare/release/v1.19.4-1.80.3...release/v1.19.4-1.80.4
