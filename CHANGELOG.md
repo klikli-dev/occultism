@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.80.6] - 2023-06-13
+### :wrench: Chores
+- [`acbc2c1`](https://github.com/klikli-dev/occultism/commit/acbc2c141f2ea319509c0bce9cb43e68317b7b22) - improve crafting matrix sync [#3](https://github.com/klikli-dev/occultism/pull/3) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.80.5] - 2023-06-13
 ### :wrench: Chores
 - [`086f80d`](https://github.com/klikli-dev/occultism/commit/086f80da5de5c77ae75f1ee52839a8d31408f058) - improve crafting matrix sync [#3](https://github.com/klikli-dev/occultism/pull/3) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -412,3 +417,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.80.3]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.80.2...release/v1.19.2-1.80.3
 [release/v1.19.2-1.80.4]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.80.3...release/v1.19.2-1.80.4
 [release/v1.19.2-1.80.5]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.80.4...release/v1.19.2-1.80.5
+[release/v1.19.2-1.80.6]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.80.5...release/v1.19.2-1.80.6
