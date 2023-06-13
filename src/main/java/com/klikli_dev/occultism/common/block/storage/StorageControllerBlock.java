@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.block.storage;
 
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
+import com.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
 import com.klikli_dev.occultism.registry.OccultismTiles;
 import com.klikli_dev.occultism.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
@@ -84,8 +85,9 @@ public class StorageControllerBlock extends Block implements EntityBlock {
                                  InteractionHand handIn, BlockHitResult rayTraceResult) {
         if (!level.isClientSide) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof MenuProvider provider) {
+            if (blockEntity instanceof MenuProvider provider && StorageControllerContainerBase.canOpen(player, pos)) {
                 NetworkHooks.openScreen((ServerPlayer) player, provider, pos);
+                StorageControllerContainerBase.reserve(player, pos);
             }
         }
         return InteractionResult.SUCCESS;

@@ -58,7 +58,7 @@ minecraft {
         clientalt {
             parent runs.client
             //somehow doesnt replace the name but adds a new one, so we manually need remove
-            args '--username', 'Dev####' //#s get replaced with random numbers when starting
+            args '--username', 'Occultism2' //#s get replaced with random numbers when starting
         }
 
         server {

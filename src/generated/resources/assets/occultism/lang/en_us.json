@@ -1186,6 +1186,7 @@
   "message.occultism.familiar.otherworld_bird.enabled": "Ring Effect - Drikwing: Enabled",
   "message.occultism.familiar.shub_niggurath_familiar.disabled": "Ring Effect - Shub Niggurath: Disabled",
   "message.occultism.familiar.shub_niggurath_familiar.enabled": "Ring Effect - Shub Niggurath: Enabled",
+  "messages.occultism.container_already_open": "This container is already opened by another player, wait until they close it.",
   "multiblock.occultism.craft_afrit": "Sevira's Permanent Confinement",
   "multiblock.occultism.craft_djinni": "Strigeor's Higher Binding",
   "multiblock.occultism.craft_foliot": "Eziveus' Spectral Compulsion",

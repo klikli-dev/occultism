@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.common.block.storage;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.klikli_dev.occultism.common.blockentity.StableWormholeBlockEntity;
+import com.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
 import com.klikli_dev.occultism.registry.OccultismTiles;
 import com.klikli_dev.occultism.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
@@ -219,10 +220,11 @@ public class StableWormholeBlock extends Block implements EntityBlock {
                                  InteractionHand handIn, BlockHitResult rayTraceResult) {
         if (!level.isClientSide) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof StableWormholeBlockEntity wormhole) {
-                if (wormhole.getLinkedStorageController() != null)
+            if (blockEntity instanceof StableWormholeBlockEntity wormhole && StorageControllerContainerBase.canOpen(player, pos)) {
+                if (wormhole.getLinkedStorageController() != null) {
                     NetworkHooks.openScreen((ServerPlayer) player, wormhole, pos);
-                else {
+                    StorageControllerContainerBase.reserve(player, pos);
+                } else {
                     level.setBlock(pos, state.setValue(LINKED, false), 2);
                 }
             }
