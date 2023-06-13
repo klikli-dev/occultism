@@ -85,6 +85,7 @@ public class OccultismBlocks {
     public static final Block.Properties GLYPH_PROPERTIES = Block.Properties.of()
             .sound(SoundType.WOOL)
             .pushReaction(PushReaction.DESTROY)
+            .replaceable()
             .noCollission()
             .strength(5f, 30);
     public static final RegistryObject<ChalkGlyphBlock> CHALK_GLYPH_WHITE = register("chalk_glyph_white",
