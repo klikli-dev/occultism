@@ -27,6 +27,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Dictionary;
+
 public class OccultismBookProvider extends BookProvider {
 
     public static final String COLOR_PURPLE = "ad03fc";
@@ -47,6 +49,8 @@ public class OccultismBookProvider extends BookProvider {
         helper.book("dictionary_of_spirits");
         this.lang().add(helper.bookName(), "Dictionary of Spirits");
         this.lang().add(helper.bookTooltip(), "An introduction to the spirit world.");
+        this.lang("ru_ru").add(helper.bookName(), "Словарь душ");
+        this.lang("ru_ru").add(helper.bookTooltip(), "Введение в мир духовных практик.");
 
         int sortNum = 1;
         var gettingStartedCategory = this.makeGettingStartedCategory(helper).withSortNumber(sortNum++);
