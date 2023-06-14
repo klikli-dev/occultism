@@ -26,6 +26,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.datagen.lang.ENUSProvider;
 import com.klikli_dev.occultism.datagen.lang.FRFRProvider;
 import com.klikli_dev.occultism.datagen.lang.PTBRProvider;
+import com.klikli_dev.occultism.datagen.lang.RURUProvider;
 import com.klikli_dev.occultism.datagen.lang.loot.OccultismBlockLoot;
 import com.klikli_dev.occultism.datagen.lang.loot.OccultismEntityLoot;
 import com.klikli_dev.occultism.datagen.worldgen.OccultismRegistries;
@@ -67,6 +68,7 @@ public class DataGenerators {
         generator.addProvider(event.includeClient(), enUSProvider);
         generator.addProvider(event.includeClient(), new FRFRProvider(generator.getPackOutput()));
         generator.addProvider(event.includeClient(), new PTBRProvider(generator.getPackOutput()));
+        generator.addProvider(event.includeClient(), new RURUProvider(generator.getPackOutput()));
 
         event.getGenerator().addProvider(event.includeServer(),
                 (DataProvider.Factory<DatapackBuiltinEntriesProvider>) output ->
