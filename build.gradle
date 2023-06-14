@@ -184,10 +184,10 @@ dependencies {
 
 
     //geckolib
-    implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${minecraft_version}:${geckolib_version}")
+    implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${geckolib_minecraft_version}:${geckolib_version}")
 
     //smartbrainlib
-    implementation fg.deobf("net.tslat.smartbrainlib:SmartBrainLib-forge-${minecraft_version}:${smartbrainlib_version}")
+    implementation fg.deobf("net.tslat.smartbrainlib:SmartBrainLib-forge-${smartbrainlib_minecraft_version}:${smartbrainlib_version}")
 
     //almostunified
     //TODO: reenable once updated
