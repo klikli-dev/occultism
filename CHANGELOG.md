@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.80.8] - 2023-06-14
+### :sparkles: New Features
+- [`e667526`](https://github.com/klikli-dev/occultism/commit/e6675260c8790c1fe643a627414c234a6ca3fdd4) - reenable AU integration *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`7139531`](https://github.com/klikli-dev/occultism/commit/713953107ae22e4f5b51ac9ec1b37b27ad70569f) - fix cf metadata *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.80.7] - 2023-06-14
 ### :sparkles: New Features
 - [`da77ba5`](https://github.com/klikli-dev/occultism/commit/da77ba53b8b11bbbd1609cc0ebe1cfc46060ca1f) - update to 1.20.1 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -465,3 +473,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20-1.80.4]: https://github.com/klikli-dev/occultism/compare/release/v1.20-1.80.3...release/v1.20-1.80.4
 [release/v1.20-1.80.6]: https://github.com/klikli-dev/occultism/compare/release/v1.20-1.80.4...release/v1.20-1.80.6
 [release/v1.20.1-1.80.7]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-0.0.0...release/v1.20.1-1.80.7
+[release/v1.20.1-1.80.8]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.80.7...release/v1.20.1-1.80.8
