@@ -62,13 +62,21 @@ public class DataGenerators {
 
 
         var enUSProvider = new ENUSProvider(generator.getPackOutput());
-        generator.addProvider(event.includeServer(), new OccultismBookProvider(generator.getPackOutput(), Occultism.MODID, enUSProvider));
+        var frFRProvider = new FRFRProvider(generator.getPackOutput());
+        var ptBRProvider = new PTBRProvider(generator.getPackOutput());
+        var ruRUProvider = new RURUProvider(generator.getPackOutput());
+        generator.addProvider(event.includeServer(), new OccultismBookProvider(generator.getPackOutput(), Occultism.MODID,
+                enUSProvider,
+                frFRProvider,
+                ptBRProvider,
+                ruRUProvider
+        ));
 
         //Important: Lang provider (in this case enus) needs to be added after the book provider to process the texts added by the book provider
         generator.addProvider(event.includeClient(), enUSProvider);
-        generator.addProvider(event.includeClient(), new FRFRProvider(generator.getPackOutput()));
-        generator.addProvider(event.includeClient(), new PTBRProvider(generator.getPackOutput()));
-        generator.addProvider(event.includeClient(), new RURUProvider(generator.getPackOutput()));
+        generator.addProvider(event.includeClient(), frFRProvider);
+        generator.addProvider(event.includeClient(), ptBRProvider);
+        generator.addProvider(event.includeClient(), ruRUProvider);
 
         event.getGenerator().addProvider(event.includeServer(),
                 (DataProvider.Factory<DatapackBuiltinEntriesProvider>) output ->

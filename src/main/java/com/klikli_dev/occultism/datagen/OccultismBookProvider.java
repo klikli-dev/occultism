@@ -30,9 +30,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class OccultismBookProvider extends BookProvider {
 
     public static final String COLOR_PURPLE = "ad03fc";
+    public static final String DEMONS_DREAM = "Demon's Dream";
 
-    public OccultismBookProvider(PackOutput packOutput, String modid, LanguageProvider lang) {
-        super(packOutput, modid, lang);
+    public OccultismBookProvider(PackOutput packOutput, String modid, LanguageProvider lang, LanguageProvider... translations) {
+        super(packOutput, modid, lang, translations);
     }
 
     @Override
@@ -44,6 +45,8 @@ public class OccultismBookProvider extends BookProvider {
     private BookModel makeDictionaryOfSpirits() {
         var helper = ModonomiconAPI.get().getLangHelper(this.modid);
         helper.book("dictionary_of_spirits");
+        this.lang().add(helper.bookName(), "Dictionary of Spirits");
+        this.lang().add(helper.bookTooltip(), "An introduction to the spirit world.");
 
         int sortNum = 1;
         var gettingStartedCategory = this.makeGettingStartedCategory(helper).withSortNumber(sortNum++);
@@ -93,6 +96,7 @@ public class OccultismBookProvider extends BookProvider {
     //region Getting Started
     private BookCategoryModel makeGettingStartedCategory(BookLangHelper helper) {
         helper.category("getting_started");
+        this.lang().add(helper.categoryName(), "Getting Started");
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
         entryHelper.setMap(
@@ -251,19 +255,34 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeIntroEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("intro");
+        this.lang().add(helper.entryName(), "About");
+        this.lang().add(helper.entryDescription(), "About using the Dictionary of Spirits");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "About");
+        this.lang().add(helper.pageText(),
+                """
+                        This book aims to introduce the novice reader to the most common summoning rituals and equip them with a list of spirit names to summon.
+                        The authors advise caution in the summoning of the listed entities and does not take responsibility for any harm caused.
+                        """);
 
         helper.page("help");
         var help = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
-
+        this.lang().add(helper.pageTitle(), "Getting Help");
+        this.lang().add(helper.pageText(),
+                """
+                        If you run into any trouble while playing Occultism, please join our Discord server and ask for help.
+                        \\
+                        \\
+                        [Join us at https://invite.gg/klikli](https://invite.gg/klikli)
+                        """);
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -280,38 +299,69 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeDemonsDreamEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("demons_dream");
+        this.lang().add(helper.entryName(), "Lifting the Veil");
+        this.lang().add(helper.entryDescription(), "Learn about the Otherworld and the Third Eye.");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "The Otherworld");
+        this.lang().add(helper.pageText(),
+                """
+                        Hidden from mere human eyes exists another plane of existence, another *dimension* if you will, the [#](%1$s)Otherworld[#]().
+                        This world is populated with entities often referred to as [#](%1$s)Demons[#]().
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("intro2");
         var intro2 = BookTextPageModel.builder()
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        These Demons possess a wide variety of powers and useful skills, and for centuries magicians have sought to summon them for their own gain.
+                        The first step on the journey to successfully summoning such an Entity is to learn how to interact with the Otherworld.
+                        """);
 
         helper.page("spotlight");
         var spotlight = BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(OccultismItems.DATURA.get()))
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        %1$s is a herb that gives humans the [#](%2$s)Third Eye[#](),
+                        allowing them to see where the [#](%2$s)Otherworld[#]() intersects with our own.
+                        Seeds can be found **by breaking grass**.
+                        **Consuming** the grown fruit activates the ability.
+                        """.formatted(DEMONS_DREAM, COLOR_PURPLE));
 
         helper.page("harvest_effect");
         var harvestEffect = BookTextPageModel.builder()
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        An additional side effect of %1$s, is **the ability to interact with [#](%2$s)Otherworld[#]() materials**.
+                        This is unique to %1$s, other ways to obtain [#](%2$s)Third Eye[#]() do not yield this ability.
+                        While under the effect of %1$s you are able to **harvest** Otherstone as well as Otherworld trees.
+                         """.formatted(DEMONS_DREAM, COLOR_PURPLE));
 
         helper.page("datura_screenshot");
         var datureScreenshot = BookImagePageModel.builder()
                 .withImages(this.modLoc("textures/gui/book/datura_effect.png"))
                 .build();
+        //no text
 
         helper.page("note_on_spirit_fire");
         var spiritFire = BookTextPageModel.builder()
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        **Hint**: The otherworld materials you obtain by harvesting under the effects of[#](%2$s)Third Eye[#]() **can be obtained more easily using [](item://occultism:spirit_fire)**. Proceed with the next entry in this book to learn more about spirit fire.
+                         """.formatted(DEMONS_DREAM, COLOR_PURPLE));
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -330,48 +380,74 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeSpiritFireEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("spirit_fire");
+        this.lang().add(helper.entryName(), "It burns!");
+        this.lang().add(helper.entryDescription(), "Or does it?");
 
         helper.page("spotlight");
         var spotlight = BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(OccultismItems.SPIRIT_FIRE.get()))
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        [#](%1$s)Spiritfire[#]() is a special type of fire that exists mostly in [#](%1$s)The Other Place[#]()
+                        and does not harm living beings. Its special properties allow to use it to purify and convert
+                        certain materials by burning them, without consuming them.
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("spirit_fire_screenshot");
         var spiritFireScreenshot = BookImagePageModel.builder()
                 .withImages(this.modLoc("textures/gui/book/spiritfire_instructions.png"))
                 .withText(helper.pageText())
                 .build();
-
+        this.lang().add(helper.pageText(),
+                """
+                        Throw [](item://occultism:datura) to the ground and light it on fire with [](item://minecraft:flint_and_steel).
+                         """);
 
         helper.page("main_uses");
         var mainUses = BookTextPageModel.builder()
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        The main uses of [](item://occultism:spirit_fire) are to convert [](item://minecraft:diamond) into [](item://occultism:spirit_attuned_gem),
+                        to get basic ingredients such as [](item://occultism:otherstone) and [Otherworld Saplings](item://occultism:otherworld_sapling_natural),
+                        and to purify impure chalks.
+                         """);
 
         helper.page("otherstone_recipe");
         var otherstoneRecipe = BookSpiritFireRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("spirit_fire/otherstone"))
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        An easier way to obtain [](item://occultism:otherstone) than via divination.
+                              """);
 
         helper.page("otherworld_sapling_natural_recipe");
         var otherworldSaplingNaturalRecipe = BookSpiritFireRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("spirit_fire/otherworld_sapling_natural"))
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        An easier way to obtain [Otherworld Saplings](item://occultism:otherworld_sapling_natural) than via divination.
+                              """);
 
         helper.page("otherworld_ashes_recipe");
         var otherworldAshesRecipe = BookSpiritFireRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("spirit_fire/otherworld_ashes"))
-                .withText(helper.pageText())
                 .build();
+        //no text
 
         helper.page("gem_recipe");
         var gemRecipe = BookSpiritFireRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("spirit_fire/spirit_attuned_gem"))
-                .withText(helper.pageText())
                 .build();
+        //no text
+
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -392,12 +468,21 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeHealingSpiritsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("healing_spirits");
+        this.lang().add(helper.entryName(), "Healing Spirits");
+        this.lang().add(helper.entryDescription(), "Fix up your spirit!");
 
         helper.page("spotlight");
         var spotlight = BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(OccultismItems.DATURA.get()))
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        Right-click a spirit with [](item://occultism:datura) to heal it. 
+                        \\
+                        \\
+                        This will work on **Familiars**, **Summoned Spirits** and also **Possessed Mobs**.
+                        """);
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -412,23 +497,46 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeThirdEyeEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("third_eye");
+        this.lang().add(helper.entryName(), "The Third Eye");
+        this.lang().add(helper.entryDescription(), "Do you see now?");
 
         helper.page("about");
         var about = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Third Eye");
+        this.lang().add(helper.pageText(),
+                """
+                        The ability to see beyond the physical world is referred to as [#](%1$s)Third Eye[#]().
+                        Humans do not possess such an ability to see [#](%1$s)beyond the veil[#](),
+                        however with certain substances and contraptions the knowledgeable summoner can work around this limitation.
+                         """.formatted(COLOR_PURPLE));
 
         helper.page("how_to_obtain");
         var howToObtain = BookTextPageModel.builder()
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        The most comfortable, and most *expensive*, way to obtain this ability, is to wear spectacles
+                        infused with spirits, that *lend* their sight to the wearer.
+                        A slightly more nauseating, but **very affordable** alternative is the consumption of certain herbs,
+                        [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream) most prominent among them.
+                         """.formatted(DEMONS_DREAM));
 
         helper.page("otherworld_goggles");
         var otherworldGoggles = BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(OccultismItems.OTHERWORLD_GOGGLES.get()))
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        [These goggles](entry://occultism:dictionary_of_spirits/crafting_rituals/craft_otherworld_goggles) allow to see even more hidden Otherworld blocks,
+                        however they do not allow harvesting those materials.
+                        Low-tier materials can be harvested by consuming [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream),
+                        but more valuable materials require special tools.
+                                """.formatted(DEMONS_DREAM));
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -441,23 +549,39 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeDivinationRodEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("divination_rod");
+        this.lang().add(helper.entryName(), "Divination Rod");
+        this.lang().add(helper.entryDescription(), "Obtaining otherworld materials");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Divination");
+        this.lang().add(helper.pageText(),
+                """
+                        To make it easier to get started, the materials obtained by divination now also have crafting recipes.
+                        **If you want the full experience, skip the following recipe page and move on to the
+                        [divination instructions](entry://occultism:dictionary_of_spirits/getting_started/divination_rod@divination_instructions).**
+                                """);
 
         helper.page("otherstone_recipe");
         var otherstoneRecipe = BookSpiritFireRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("spirit_fire/otherstone"))
                 .build();
+        //no text
 
         helper.page("otherworld_sapling_natural_recipe");
         var otherworldSaplingNaturalRecipe = BookSpiritFireRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("spirit_fire/otherworld_sapling_natural"))
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        **Beware**: the tree growing from the sapling will look like a normal oak tree.
+                        You need to activate the [Third Eye](entry://occultism:dictionary_of_spirits/getting_started/demons_dream)
+                        to harvest the Otherworld Logs and Leaves.
+                                """);
 
         helper.page("divination_rod");
         var divinationRod = BookSpotlightPageModel.builder()
@@ -465,6 +589,12 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(helper.pageText())
                 .withAnchor("divination_instructions")
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        Otherworld materials play an important role in interacting with spirits.
+                        As they are rare and not visible to the naked eye, finding them requires special tools.
+                        The divination rod allows to find Otherworld materials based on their similarities to materials common to our world.
+                                 """);
 
         helper.page("spirit_attuned_gem_recipe");
         var spiritAttunedGemRecipe = BookSpiritFireRecipePageModel.builder()
@@ -480,23 +610,56 @@ public class OccultismBookProvider extends BookProvider {
         var aboutDivinationRod = BookTextPageModel.builder()
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        The divination rod uses a spirit attuned gem attached to a wooden rod.
+                        The gem resonates with the chosen material, and this movement is amplified by the wooden rod,
+                        allowing to detect nearby Otherworld materials.   \s
+                           \s
+                           \s
+                        The rod works by detecting resonance between real world and Otherworld materials.
+                        Attuned the rod to a real world material, and it will find the corresponding Otherworld block.
+                                 """);
 
         helper.page("how_to_use");
         var howToUse = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Use of the Rod");
+        this.lang().add(helper.pageText(),
+                """
+                        [#](%1$s)Shift-right-click[#]() a block to attune the rod to the corresponding Otherworld block.
+                        - [](item://minecraft:andesite): [](item://occultism:otherstone)
+                        - [](item://minecraft:oak_wood):  [](item://occultism:otherworld_log)
+                        - [](item://minecraft:oak_leaves): [](item://occultism:otherworld_leaves)
+                        - [](item://minecraft:netherrack): [](item://occultism:iesnium_ore)
 
+                        Then [#](%1$s)right-click[#]() and hold until the rod animation finishes.""".formatted(COLOR_PURPLE));
 
         helper.page("how_to_use2");
         var howToUse2 = BookTextPageModel.builder()
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        After the animation finishes, the closest **found block will be highlighted
+                        with white lines and can be seen through other blocks**.
+                        Additionally you can watch the crystals for hints: a white crystal indicates no target blocks found,
+                        a fully purple block means the found block is nearby. Mixes between white and purple show
+                        that the target is rather far away.""");
 
         helper.page("how_to_use3");
         var howToUse3 = BookTextPageModel.builder()
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        [#](%1$s)Right-clicking[#]() without holding after a successful search will show the last found target block again.
+                        \\
+                        \\
+                        If the mod *"Theurgy"* is installed the rod will not highlight the target block, but instead send a particle effect in the direction of the target block.
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("divination_rod_screenshots");
         var divinationRodScreenshots = BookImagePageModel.builder()
@@ -507,27 +670,57 @@ public class OccultismBookProvider extends BookProvider {
                 )
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        White means nothing was found.
+                        The more purple you see, the closer you are.
+                        """);
 
         helper.page("otherworld_groves");
         var otherworldGroves = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Otherworld Groves");
+        this.lang().add(helper.pageText(),
+                """
+                        Otherworld Groves are lush, overgrown caves, with [#](%1$s)Otherworld Trees[#](),
+                        and walls of [](item://occultism:otherstone), and represent the fastest way to get everything one
+                        needs to get set up as a summoner.
+                        To find them, attune your divination rod to Otherworld leaves
+                        or logs, as unlike Otherstone, they only spawn in these groves.
+                         """.formatted(COLOR_PURPLE));
 
         helper.page("otherworld_groves_2");
         var otherworldGroves2 = BookTextPageModel.builder()
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        **Hint:** In the Overworld, look **down**.
+                          """);
 
         helper.page("otherworld_trees");
         var otherworldTrees = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Otherworld Trees");
+        this.lang().add(helper.pageText(),
+                """
+                        Otherworld trees grow naturally in Otherworld Groves. To the naked eye they appear as oak trees,
+                        but to the Third Eye they reveal their true nature.   \s
+                        **Important:** Otherworld Saplings can only be obtained by breaking the leaves manually, naturally only oak saplings drop.
+                         """);
+
         helper.page("otherworld_trees_2");
         var otherworldTrees2 = BookTextPageModel.builder()
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        Trees grown from Stable Otherworld Saplings as obtained from spirit traders do not have that limitation.
+                         """);
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -556,8 +749,8 @@ public class OccultismBookProvider extends BookProvider {
     private BookEntryModel.Builder makeTheurgyDivinationRodsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("theurgy_divination_rod");
 
-        this.lang.add(helper.entryName(), "More Divination Rods");
-        this.lang.add(helper.entryDescription(), "Finding other ores and resources.");
+        this.lang().add(helper.entryName(), "More Divination Rods");
+        this.lang().add(helper.entryDescription(), "Finding other ores and resources.");
 
         helper.page("intro");
         var intro = BookSpotlightPageModel.builder()
@@ -565,7 +758,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(helper.pageText())
                 .build();
 
-        this.lang.add(helper.pageText(),
+        this.lang().add(helper.pageText(),
                 """
                         While the [](item://occultism:divination_rod) is a great tool for finding [#](%1$s)Otherworld Materials[#](), it would be useful to have a way to find *all other* ores and resources as well.
                         \\
@@ -584,8 +777,8 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(helper.pageText())
                 .build();
 
-        this.lang.add(helper.pageTitle(), "More Information");
-        this.lang.add(helper.pageText(),
+        this.lang().add(helper.pageTitle(), "More Information");
+        this.lang().add(helper.pageText(),
                 """
                         To find out more about the Theurgy Divination Rod, check out *"The Hermetica"*, the Guidebook for Theurgy.
                         [This Entry](entry://theurgy:the_hermetica/getting_started/divination_rod) has more information about the Theurgy Divination Rod.
@@ -613,28 +806,45 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeCandleEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("candle");
+        this.lang().add(helper.entryName(), "Candles");
+        this.lang().add(helper.entryDescription(), "Let there be light!");
 
         helper.page("intro");
         var intro = BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(OccultismBlocks.CANDLE_WHITE.get()))
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        Candles provide stability to rituals and are an important part of almost all pentacles.
+                        **Candles also act like bookshelves for enchantment purposes.**
+                        \\
+                        \\
+                        Candles from Minecraft and other Mods may be used in place of Occultism candles.
+                            """);
 
         helper.page("tallow");
         var tallow = BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(OccultismItems.TALLOW.get()))
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        Key ingredient for candles. Kill large animals like pigs, cows or sheep with a [](item://occultism:butcher_knife)
+                        to harvest [](item://occultism:tallow).
+                            """);
 
         helper.page("cleaver_recipe");
         var cleaverRecipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/butcher_knife"))
                 .build();
+        //no text
 
         helper.page("candle_recipe");
         var candleRecipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/candle"))
                 .build();
+        //no text
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -652,12 +862,20 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeRitualPrepChalkEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("ritual_prep_chalk");
+        this.lang().add(helper.entryName(), "Ritual Preparations: Chalks");
+        this.lang().add(helper.entryDescription(), "Signs to find them, Signs to bring them all, and in the darkness bind them.");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Ritual Preparations: Chalks");
+        this.lang().add(helper.pageText(),
+                """
+                        To summon spirits from the [#](%1$s)Other Place[#]() in *relative* safety,
+                        you need to draw a fitting pentacle using chalk to contain their powers.
+                         """.formatted(COLOR_PURPLE));
 
         helper.page("white_chalk");
         var whiteChalkSpotlight = BookSpotlightPageModel.builder()
@@ -665,32 +883,47 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(helper.pageText())
                 .withAnchor("white_chalk")
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        White chalk is used to draw the most basic pentacles, such as for our first ritual.
+                        \\
+                        \\
+                        More powerful summonings require appropriate more advanced chalk, see [Chalks](entry://occultism:dictionary_of_spirits/getting_started/chalks) for more information.
+                            """);
 
         helper.page("burnt_otherstone_recipe");
         var burntOtherstoneRecipe = BookSmeltingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("smelting/burnt_otherstone"))
                 .build();
+        //no text
 
         helper.page("otherworld_ashes_recipe");
         var otherworldAshesRecipe = BookSpiritFireRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("spirit_fire/otherworld_ashes"))
                 .build();
-
+        //no text
         helper.page("impure_white_chalk_recipe");
         var impureWhiteChalkRecipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/chalk_white_impure"))
                 .build();
+        //no text
 
         helper.page("white_chalk_recipe");
         var whiteChalkRecipe = BookSpiritFireRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("spirit_fire/chalk_white"))
                 .build();
+        //no text
 
         helper.page("usage");
         var usage = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Usage");
+        this.lang().add(helper.pageText(),
+                """
+                        Right-click on a block with the chalk to draw a single glyph. For decorative purposes you can repeatedly click a block to cycle through glyphs. The shown glyph does not matter for the ritual, only the color.
+                         """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -711,6 +944,8 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeRitualPrepBowlEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("ritual_prep_bowl");
+        this.lang().add(helper.entryName(), "Ritual Preparations: Sacrificial Bowls");
+        this.lang().add(helper.entryDescription(), "There is no power without sacrifice.");
 
         helper.page("sacrificial_bowl");
         var sacrificialBowlSpotlight = BookSpotlightPageModel.builder()
@@ -718,22 +953,36 @@ public class OccultismBookProvider extends BookProvider {
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Ritual Preparations: Sacrificial Bowls");
+        this.lang().add(helper.pageText(),
+                """
+                        These bowls are used to place the items we will sacrifice as part of a ritual and you will need a handful of them.
+                        Note: Their exact placement in the ritual does not matter - just keep them within 8 blocks horizontally of the pentacle center!
+                             """);
 
         helper.page("sacrificial_bowl_recipe");
         var sacrificialBowlRecipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/sacrificial_bowl"))
                 .build();
+        //no text
+
 
         helper.page("golden_sacrificial_bowl");
         var goldenSacrificialBowlSpotlight = BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()))
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        Once everything has been set up and you are ready to start, this special sacrificial bowl is used to activate the ritual by [#](%1$s)right-clicking[#]() it with the activation item,
+                        usually a [Book of Binding](entry://getting_started/books_of_binding).
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("golden_sacrificial_bowl_recipe");
         var goldenSacrificialBowlRecipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/golden_sacrificial_bowl"))
                 .build();
+        //no text
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -751,53 +1000,81 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeBooksOfBindingEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("books_of_binding");
+        this.lang().add(helper.entryName(), "Books of Binding");
+        this.lang().add(helper.entryDescription(), "Or how to identify your spirit");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Books of Binding");
+        this.lang().add(helper.pageText(),
+                """
+                        To call forth a spirit, a [#](%1$s)Book of Binding[#]() must be used in the ritual.
+                        There is a type of book corresponding to each type (or tier) of spirit.
+                        To identify a spirit to summon, it's name must be written in the [#](%1$s)Book of Binding[#](), resulting in a [#](%1$s)Bound Book of Binding[#]() that can be used in the ritual.
+                         """.formatted(COLOR_PURPLE));
 
         helper.page("intro2");
         var intro2 = BookTextPageModel.builder()
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        **Note:** *The spirit names are eye candy only*, that means they are not relevant for the recipe. As long as you have the right spirit type in your book of binding it can be used.
+                         """.formatted(COLOR_PURPLE));
 
         helper.page("purified_ink_recipe");
         var purifiedInkRecipe = BookSpiritFireRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("spirit_fire/purified_ink"))
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        In order to craft [#](%1$s)Books of Binding[#]() to summon spirits, you need purified ink. Simply drop any black dye into [](item://occultism:spirit_fire) to purify it.
+                            """.formatted(COLOR_PURPLE));
 
         helper.page("book_of_binding_foliot_recipe");
         var bookOfBindingFoliotRecipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/book_of_binding_foliot"))
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        Craft a book of binding that will be used to call forth a [#](%1$s)Foliot[#]() spirit.
+                           """.formatted(COLOR_PURPLE));
 
         helper.page("book_of_binding_bound_foliot_recipe");
         var bookOfBindingBoundFoliotRecipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/book_of_binding_bound_foliot"))
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        Add the name of the spirit to summon to your book of binding by crafting it with the Dictionary of Spirits. The Dictionary will not be used up.
+                           """);
 
         helper.page("book_of_binding_djinni_recipe");
         var bookOfBindingDjinniRecipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/book_of_binding_djinni"))
                 .withRecipeId2(this.modLoc("crafting/book_of_binding_bound_djinni"))
                 .build();
+        //no text
 
         helper.page("book_of_binding_afrit_recipe");
         var bookOfBindingAfritRecipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/book_of_binding_afrit"))
                 .withRecipeId2(this.modLoc("crafting/book_of_binding_bound_afrit"))
                 .build();
+        //no text
 
         helper.page("book_of_binding_marid_recipe");
         var bookOfBindingMaritRecipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/book_of_binding_marid"))
                 .withRecipeId2(this.modLoc("crafting/book_of_binding_bound_marid"))
                 .build();
+        //no text
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -819,35 +1096,74 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeBooksOfCallingEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("books_of_calling");
+        this.lang().add(helper.entryName(), "Books of Calling");
+        this.lang().add(helper.entryDescription(), "Telling your spirits what to do");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Books of Calling");
+        this.lang().add(helper.pageText(),
+                """
+                        Books of Calling allow to control a summoned spirit, and to store it to prevent essence decay or move it more easily. 
+                        \\
+                        \\
+                        Only spirits that require precise instructions - such as a work area or drop-off storage - come with a book of calling.
+                        """);
 
         helper.page("usage");
         var usage = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Usage");
+        this.lang().add(helper.pageText(),
+                """
+                        - [#](%1$s)Right-click[#]() air to open the configuration screen
+                        - [#](%1$s)Shift-right-click[#]() a block to apply the action selected in the configuration screen
+                        - [#](%1$s)Shift-right-click[#]() a spirit to capture it (must be of the same type)
+                        - [#](%1$s)Right-click[#]() with a book with a captured spirit to release it
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("obtaining");
         var obtaining = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "How to obtain Books of Calling");
+        this.lang().add(helper.pageText(),
+                """
+                        If a summoned spirit supports the use of a Book of Calling, the summoning ritual will automatically spawn a book in the world alongside the spirit.
+                        \\
+                        \\
+                        If you **lose the book**, there are also crafting recipes that just provide the book (without summoning a spirit).
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("obtaining2");
         var obtaining2 = BookTextPageModel.builder()
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        The recipes can be found in this book or via JEI.
+                        \\
+                        \\
+                        [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("storage");
         var storage = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Storing Spirits");
+        this.lang().add(helper.pageText(),
+                """
+                        To store spirits that do not have a fitting book of calling, you can use a [Soul Gem](entry://crafting_rituals/craft_soul_gem).
+                        Soul gems are much more versatile and allow to store almost all types of entities even animals and monsters, but not players or bosses.
+                        """);
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -983,17 +1299,25 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeBrushEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("brush");
+        this.lang().add(helper.entryName(), "Brush");
+        this.lang().add(helper.entryDescription(), "Cleaning up!");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Next Steps");
+        this.lang().add(helper.pageText(),
+                """
+                        Chalk is a pain to clean up, by [#](%1$s)right-clicking[#]() with a brush you can remove it from the world much more easily.
+                          """.formatted(COLOR_PURPLE));
 
         helper.page("brushRecipe");
         var brushRecipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/brush"))
                 .build();
+        //no text
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -1009,6 +1333,8 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeMoreRitualsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("more_rituals");
+        this.lang().add(helper.entryName(), "More Rituals");
+        this.lang().add(helper.entryDescription(), "Ready for new challenges?");
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -1022,12 +1348,22 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeGreyParticlesEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("grey_particles");
+        this.lang().add(helper.entryName(), "Grey particles?");
+        this.lang().add(helper.entryDescription(), "What to do when a ritual seems stuck!");
 
         helper.page("text");
         var text = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Ritual stuck?");
+        this.lang().add(helper.pageText(),
+                """
+                        If a ritual appears stuck - no items being consumed - you should see grey particles around the [](item://occultism:golden_sacrificial_bowl). If this is the case the ritual requires you to either [use a specific item](entry://rituals/item_use) or [sacrifice a specific mob](entry://rituals/sacrifice).
+                        \\
+                        \\
+                        Find the ritual in the [Rituals](category://rituals) category and check for instructions.
+                          """);
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -1040,6 +1376,8 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeSpiritsSubcategoryEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("spirits");
+        this.lang().add(helper.entryName(), "About Spirits");
+        this.lang().add(helper.entryDescription(), "Learn more about Spirits.");
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -1052,49 +1390,69 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeChalksEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("chalks");
+        this.lang().add(helper.entryName(), "More Chalks");
+        this.lang().add(helper.entryDescription(), "Better chalks for better rituals!");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "More Chalks");
+        this.lang().add(helper.pageText(),
+                """
+                        For more advanced rituals the basic [White Chalk](entry://occultism:dictionary_of_spirits/getting_started/ritual_prep_chalk) is not sufficient. Instead chalks made from more arcane materials are required.
+                        """);
 
         helper.page("impure_gold_chalk_recipe");
         var impureGoldChalkRecipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/chalk_gold_impure"))
                 .build();
+        //no text
 
         helper.page("gold_chalk_recipe");
         var goldChalkRecipe = BookSpiritFireRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("spirit_fire/chalk_gold"))
                 .build();
+        //no text
 
         helper.page("impure_purple_chalk_recipe");
         var impurePurpleChalkRecipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/chalk_purple_impure"))
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        You do not need to visit the [#](%1$s)The End[#]() to obtain Endstone. You can summon a [Possessed Endermite](entry://possession_rituals/possess_endermite) which has a high chance to drop it.
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("purple_chalk_recipe");
         var purpleChalkRecipe = BookSpiritFireRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("spirit_fire/chalk_purple"))
                 .build();
+        //no text
 
         helper.page("impure_red_chalk_recipe");
         var impureRedChalkRecipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/chalk_red_impure"))
                 .build();
+        //no text
 
         helper.page("red_chalk_recipe");
         var redChalkRecipe = BookSpiritFireRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("spirit_fire/chalk_red"))
                 .build();
+        //no text
 
         helper.page("afrit_essence");
         var afritEssenceSpotlight = BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(OccultismItems.AFRIT_ESSENCE.get()))
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        To obtain the essence of an [#](%1$s)Afrit[#]() for [](item://occultism:chalk_red) you need to [summon and kill an Unbound Afrit](entry://summoning_rituals/afrit_essence).
+                        """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -1116,18 +1474,32 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeOtherworldGogglesEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("otherworld_goggles");
+        this.lang().add(helper.entryName(), "Otherworld Goggles");
+        this.lang().add(helper.entryDescription(), "Say no to drugs!");
 
         helper.page("spotlight");
         var spotlight = BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(OccultismItems.OTHERWORLD_GOGGLES.get()))
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        The [](item://occultism:otherworld_goggles) are what advanced summoners use to see the [#](%1$s)Otherworld[#](), to avoid the negative side effects of [](entry://occultism:dictionary_of_spirits/getting_started/demons_dream).
+                        \\
+                        \\
+                        Making your first pair of these is seen by many as a rite of passage.
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("crafting");
         var crafting = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Crafting Goggles");
+        this.lang().add(helper.pageText(),
+                """
+                        Crafting these goggles is a multi-step process described in detail in the Entry about [Crafting Otherworld Goggles](entry://crafting_rituals/craft_otherworld_goggles).
+                        """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -1143,29 +1515,51 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeInfusedPickaxeEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("infused_pickaxe");
+        this.lang().add(helper.entryName(), "Infused Pickaxe");
+        this.lang().add(helper.entryDescription(), "Tackling Otherworld Ores");
 
         helper.page("spotlight");
         var spotlight = BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(OccultismItems.INFUSED_PICKAXE.get()))
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        Beyond [](item://occultism:otherworld_log) and [](item://occultism:otherstone) there are also otherworld materials that require special tools to harvest. 
+                        \\
+                        \\
+                        This pickaxe is rather brittle, but it will do the job.
+                        """);
 
         helper.page("gem_recipe");
         var gemRecipe = BookSpiritFireRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("spirit_fire/spirit_attuned_gem"))
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        These gems, when infused with a spirit, can be used to interact with Otherword materials and are the key to crafting the pickaxe.
+                        """);
 
         helper.page("head_recipe");
         var headRecipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/spirit_attuned_pickaxe_head"))
                 .build();
+        //no text
 
         helper.page("crafting");
         var crafting = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Crafting");
+        this.lang().add(helper.pageText(),
+                """
+                        After preparing the raw materials, the pickaxe needs to be infused with a spirit.
+                        \\
+                        \\
+                        Follow the instructions at [Craft Infuse Pickaxe](entry://crafting_rituals/craft_infused_pickaxe)
+                        """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -1183,36 +1577,71 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeIesniumEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("iesnium");
+        this.lang().add(helper.entryName(), "Iesnium Ore");
+        this.lang().add(helper.entryDescription(), "Myterious metals ...");
 
         helper.page("spotlight");
         var spotlight = BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(OccultismBlocks.IESNIUM_ORE.get()))
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        This is a rare metal that, to the naked eye, looks like [](item://minecraft:netherrack) and cannot be mined with a regular pickaxe.
+                        \\
+                        \\
+                        When mined with the correct tools, it can be used to craft powerful items (you will learn more about that later).
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("where");
         var where = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Where to find it");
+        this.lang().add(helper.pageText(),
+                """
+                        Like Netherrack, Iesnium can be found in the Nether. In order to **see** it, you need to wear [Otherworld Goggles](entry://getting_started/otherworld_goggles).
+                        \\
+                        \\
+                        To make searching for it simpler, attune a [Divination Rod](entry://getting_started/divination_rod) to it and righ-click and hold in the nether until it highlights a nearby block, which will hold the ore.
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("how");
         var how = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "How to mine it");
+        this.lang().add(helper.pageText(),
+                """
+                        Iesnium can only be mined with the [Infused Pickaxe](entry://getting_started/infused_pickaxe) or an [](item://occultism:iesnium_pickaxe) (about which you will learn later).
+                        \\
+                        \\
+                        After identifying a block that holds Iesnium, you can mine it with the pickaxe you created in the previous step.
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("processing");
         var processing = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Processing");
+        this.lang().add(helper.pageText(),
+                """
+                        Iesnium Ore, after mining, can be smelted directly into ingots, or placed down. When placed, it will not turn back into it's netherrack form. Consequently it can also be mined with any pickaxe then. This visible form of the Ore, when mined, will drop [](item://occultism:raw_iesnium).
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("uses");
         var uses = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Uses");
+        this.lang().add(helper.pageText(),
+                """
+                        Iesnium can be used to craft an improved pickaxe, spirit lamps, and other powerful items. Follow the progress in this book to learn more about it.
+                             """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -1231,17 +1660,24 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeIesniumPickaxeEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("iesnium_pickaxe");
+        this.lang().add(helper.entryName(), "Iesnium Pickaxe");
+        this.lang().add(helper.entryDescription(), "A more durable otherworld-appropriate pickaxe");
 
         helper.page("spotlight");
         var spotlight = BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(OccultismItems.IESNIUM_PICKAXE.get()))
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        Like the [Infused Pickaxe](entry://getting_started/infused_pickaxe), this pickaxe can be used to mine Tier 2 Otherworld Materials such as [](item://occultism:iesnium_ore). As it is made from metal, instead of brittle [](item://occultism:spirit_attuned_gem), it is very durable and can be used for a long time.
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("crafting");
         var crafting = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/iesnium_pickaxe"))
                 .build();
+        //no text
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -1257,6 +1693,8 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeMagicLampsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("magic_lamps");
+        this.lang().add(helper.entryName(), "Magic Lamps");
+        this.lang().add(helper.entryDescription(), "Three wishes? Close, but not quite..");
 
         helper.page("spotlight");
         var spotlight = BookSpotlightPageModel.builder()
@@ -1264,11 +1702,17 @@ public class OccultismBookProvider extends BookProvider {
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Magic Lamps");
+        this.lang().add(helper.pageText(),
+                """
+                        Magic Lamps can be used to keep spirits safe from [#](%1$s)Essence Decay[#](), while still having access to some of their powers. Most commonly they are used to access a [#](%1$s)Mining Dimension[#]() and act as (*lag free*) [#](%1$s)Void Miners[#]().
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("crafting");
         var crafting = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/magic_lamp_empty"))
                 .build();
+        //no text
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -1284,6 +1728,8 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeSpiritMinersEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("spirit_miners");
+        this.lang().add(helper.entryName(), "Spirit Miners");
+        this.lang().add(helper.entryDescription(), "It's Free Real Estate (-> Resources)");
 
         helper.page("spotlight");
         var spotlight = BookSpotlightPageModel.builder()
@@ -1291,12 +1737,22 @@ public class OccultismBookProvider extends BookProvider {
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Spirit Miners");
+        this.lang().add(helper.pageText(),
+                """
+                        By summoning a spirit into a Magic Lamp and placing it in a [Dimensional Mineshaft (see next step)](entry://getting_started/mineshaft) it can be made to mine for you in a [#](%1$s)Mining Dimension[#](). This is a great way to get resources without having to go mining in the overworld (or other dimesions) yourself.
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("crafting");
         var crafting = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Crafting");
+        this.lang().add(helper.pageText(),
+                """
+                        See [Foliot Miner](entry://crafting_rituals/craft_foliot_miner) and the subsequent entries for information on how to craft spirit miners.
+                             """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -1312,19 +1768,29 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeMineshaftEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("mineshaft");
+        this.lang().add(helper.entryName(), "Dimensional Mineshaft");
+        this.lang().add(helper.entryDescription(), "Ethically questionable, but very profitable");
 
         helper.page("spotlight");
         var spotlight = BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(OccultismBlocks.DIMENSIONAL_MINESHAFT.get()))
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageText(),
+                """
+                        This block acts as a portal, for spirits only, to the [#](%1$s)Mining Dimension[#](). Place a Magic Lamp with a Miner Spirit in it, to make it mine for you.
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("crafting");
         var crafting = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
-
+        this.lang().add(helper.pageTitle(), "Crafting");
+        this.lang().add(helper.pageText(),
+                """
+                        See [Dimensional Mineshaft](entry://crafting_rituals/craft_dimensional_mineshaft) in the [Binding Rituals](category://crafting_rituals) Category.
+                             """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -1340,6 +1806,8 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeStorageEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("storage");
+        this.lang().add(helper.entryName(), "Magic Storage");
+        this.lang().add(helper.entryDescription(), "Looking for much much much more storage? Look no further!");
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -1353,18 +1821,33 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makePossessionRitualsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("possession_rituals");
+        this.lang().add(helper.entryName(), "Possession Rituals");
+        this.lang().add(helper.entryDescription(), "A different way to get rare drops ...");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Possession Rituals");
+        this.lang().add(helper.pageText(),
+                """
+                        Possessed mobs are controlled by spirits, allowing the summoner to determine some of their properties. They usually have **high drop rates** for rare drops, but are generally harder to kill.
+                        \\
+                        \\
+                        You probably will want to start by summoning a [Possessed Endermite](entry://possession_rituals/possess_endermite) to get [](item://minecraft:end_stone) to craft [Advanced Chalks](entry://getting_started/chalks).
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("more");
         var more = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "More Information");
+        this.lang().add(helper.pageText(),
+                """
+                        To find out more about Possession Rituals, see the [Possession Rituals](category://possession_rituals) Category.
+                             """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -1381,18 +1864,33 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeFamiliarRitualsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("familiar_rituals");
+        this.lang().add(helper.entryName(), "Familiar Rituals");
+        this.lang().add(helper.entryDescription(), "Personal helpers that provide buffs or fight for you");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Familiar Rituals");
+        this.lang().add(helper.pageText(),
+                """
+                        Familiars provide a variety of bonus effects, such as feather falling, water breathing, jump boosts and more, and may also assist you in combat.
+                        \\
+                        \\
+                        Store them in a [Familiar Ring](entry://crafting_rituals/craft_familiar_ring) to equip them as a curio.
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("more");
         var more = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "More Information");
+        this.lang().add(helper.pageText(),
+                """
+                        To find more about Familiars, see the [Familiar Rituals](category://familiar_rituals) Category.
+                             """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -1409,18 +1907,30 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeSummoningRitualsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("summoning_rituals");
+        this.lang().add(helper.entryName(), "Summoning Rituals");
+        this.lang().add(helper.entryDescription(), "Spirit helpers for your daily work life");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Summoning Rituals");
+        this.lang().add(helper.pageText(),
+                """
+                        Summoning Rituals allow you to summon spirits to work for you. Unlike familiars, they are not personally bound to you, meaning they will not follow you around, but they will perform various work tasks for you. In fact the first ritual you performed, the [Foliot Crusher](entry://getting_started/first_ritual), was a summoning ritual.
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("more");
         var more = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "More Information");
+        this.lang().add(helper.pageText(),
+                """
+                        To find more about Summoning Rituals, see the [Summoning Rituals](category://summoning_rituals) Category.
+                             """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -1437,18 +1947,30 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeCraftingRitualsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("crafting_rituals");
+        this.lang().add(helper.entryName(), "Infusion Rituals");
+        this.lang().add(helper.entryDescription(), "Infuse spirits into items to create powerful tools");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Infusion Rituals");
+        this.lang().add(helper.pageText(),
+                """
+                        Infusion rituals are all about crafting powerful items, by binding ("infusing") spirits into objects.The spirits will provide special functionality to the items.
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("more");
         var more = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "More Information");
+        this.lang().add(helper.pageText(),
+                """
+                        To find more about Infusing items, see the [Infusion Rituals](category://crafting_rituals) Category.
+                             """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -1467,7 +1989,7 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookCategoryModel makeSpiritsSubcategory(BookLangHelper helper) {
         helper.category("spirits");
-
+        this.lang().add(helper.categoryName(), "Spirits");
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
         entryHelper.setMap(
                 "___________________________",
@@ -1511,6 +2033,7 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeReturnToGettingStartedEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("return_to_getting_started");
+        this.lang().add(helper.entryName(), "Return to getting started");
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -1523,54 +2046,97 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeSpiritsOverviewEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("overview");
+        this.lang().add(helper.entryName(), "On Spirits");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "On Spirits");
+        this.lang().add(helper.pageText(),
+                """
+                        [#](%1$s)Spirit[#](), commonly referred to also as [#](%1$s)Demon[#](), is a general term for a variety of supernatural entities usually residing in [#](%1$s)The Other Place[#](), a plane of existence entirely separate from our own.
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("shapes");
         var shapes = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Shapes");
+        this.lang().add(helper.pageText(),
+                """
+                        When in our world Spirits can take a variety of forms, by morphing their essence into [#](%1$s)Chosen Forms[#](). Alternatively, they can inhabit objects or even living beings.
+                          """.formatted(COLOR_PURPLE));
 
         helper.page("tiers");
         var tiers = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Types of Spirits");
+        this.lang().add(helper.pageText(),
+                """
+                        There are four major "ranks" of spirits identified by researchers, but there are a myriad spirits below and in between these ranks, and some great entities of terrible power, referred to only as [#](%1$s)Greater Spirits[#](), that are beyond classification.
+                         """.formatted(COLOR_PURPLE));
 
         helper.page("foliot");
         var foliot = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Foliot");
+        this.lang().add(helper.pageText(),
+                """
+                        The lowest identified class of spirit. Equipped with some intelligence and a modicum of power they are most often used for manual labor or minor artifacts.
+                         """.formatted(COLOR_PURPLE));
 
         helper.page("djinni");
         var djinni = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Djinni");
+        this.lang().add(helper.pageText(),
+                """
+                        The most commonly summoned class. There is a great variety of Djinni, differing both in intelligence and power. Djinni can be used for a variety of task, ranging from higher artifacts over possession of living beings to carrying out tasks in their Chosen Form.
+                         """.formatted(COLOR_PURPLE));
 
         helper.page("afrit");
         var afrit = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Afrit");
+        this.lang().add(helper.pageText(),
+                """
+                        Even more powerful than Djinni, Afrit are used for the creation of major artifacts and the possession of powerful beings.
+                         """.formatted(COLOR_PURPLE));
+
 
         helper.page("marid");
         var marid = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Marid");
+        this.lang().add(helper.pageText(),
+                """
+                        The strongest identified class of spirits. Due to their power and vast intellect attempting a summoning is extremely dangerous and usually only carried out by the most experienced summoners, and even then usually in groups.
+                         """.formatted(COLOR_PURPLE));
 
         helper.page("greater_spirits");
         var greaterSpirits = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Greater Spirits");
+        this.lang().add(helper.pageText(),
+                """
+                        Spirits of power so great it is beyond measure. No summons have been attempted in living memory, and records of summonings in ancient times are mostly considered apocryphal.
+                         """.formatted(COLOR_PURPLE));
+
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -1593,24 +2159,42 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeEssenceDecayEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("essence_decay");
+        this.lang().add(helper.entryName(), "Essence Decay");
+        this.lang().add(helper.entryDescription(), "Even the immortal are not immune to time.");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Essence Decay");
+        this.lang().add(helper.pageText(),
+                """
+                        When residing in our plane of existence, spirits experience [#](%1$s)Essence Decay[#](), the slow rot of their "body". The more powerful the spirit, the slower the decay, but only the most powerful can stop it entirely. Once fully decayed they are returned to [#](%1$s)The Other Place[#]() and can only be re-summoned once fully recovered.
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("countermeasures");
         var countermeasures = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Countermeasures");
+        this.lang().add(helper.pageText(),
+                """
+                        The summoner can slow or even stop essence decay by binding the spirit into an object, or summoning it into a living being. Additionally the pentacle used can influence the effects of essence decay to a degree.
+                        """.formatted(COLOR_PURPLE));
+
 
         helper.page("affected_spirits");
         var affectedSpirits = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Affected Spirits");
+        this.lang().add(helper.pageText(),
+                """
+                        Only tier 1 spirits are affected by essence decay, by default. All higher tiers are immune and will not despawn. Modpacks may modify this behaviour.
+                              """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -1627,24 +2211,44 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeTrueNamesEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("true_names");
+        this.lang().add(helper.entryName(), "True Names");
+        this.lang().add(helper.entryDescription(), "How to call spirits.");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "True Names");
+        this.lang().add(helper.pageText(),
+                """
+                        To summon a spirit the magician needs to know their [#](%1$s)True Name[#](). By calling the true naming during the summoning ritual the Spirit is drawn forth from [#](%1$s)The Other Place[#]() and forced to do the summoners bidding.
+                        \\
+                        \\
+                        *It should be noted, that it does not matter which spirit name is used in summoning, only the spirit tier is relevant.*
+                         """.formatted(COLOR_PURPLE));
 
         helper.page("finding_names");
         var findingNames = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Finding Names");
+        this.lang().add(helper.pageText(),
+                """
+                        In ancient summoners had to research and experiment to find [#](%1$s)True Names[#](). Some spirits can be convinced to share their knowledge of true names of other demons, either by promising a swift return to [#](%1$s)The Other Place[#](), or by more ... *persuasive* measures.
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("using_names");
         var usingNames = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Using Names to Summon a Spirit");
+        this.lang().add(helper.pageText(),
+                """
+                        For your convenience, in this work you will find the known names of spirits of all 4 ranks, as well as some beyond that. To summon a spirit, copy their name from this book into the appropriate book of binding, then use this bound book of binding to activate a ritual.
+                         """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -1661,30 +2265,52 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeUnboundSpiritsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("unbound_spirits");
+        this.lang().add(helper.entryName(), "Unbound Spirits");
+        this.lang().add(helper.entryDescription(), "Try not to lose your spirits!");
 
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Unbound Spirits");
+        this.lang().add(helper.pageText(),
+                """
+                        Generally spirits are summoned [#](%1$s)bound[#](), which refers to any condition that keeps them under control of the summoner. A side effect of binding spells is that part of the spirit remains in [#](%1$s)The Other Place[#](), robbing them of large portions of the power, but at the same time also protecting their essence from foreign access in this world.
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("unbound");
         var unbound = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Forego the Leash");
+        this.lang().add(helper.pageText(),
+                """
+                        In order to access a spirit's essence, or unleash it's full destructive power, it needs to be summoned [#](%1$s)unbound[#](). Unbound summonings use pentacles that are intentionally incomplete or unstable, allowing to call on the spirit, but not putting any constraints on it.
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("unbound2");
         var unbound2 = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Beware!");
+        this.lang().add(helper.pageText(),
+                """
+                        The lack of restraints when summoning spirits unbound makes these rituals incredibly dangerous, but you may find that the rewards are worth the risk - and often there is no way around them to achieve certain results.
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("essence");
         var essence = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Spirit Essence");
+        this.lang().add(helper.pageText(),
+                """
+                        Unbound summonings are the only way to obtain [Afrit Essence](entry://summoning_rituals/afrit_essence), a powerful substance required for crafting [](item://occultism:chalk_red) which is used for the most powerful binding pentacles.
+                        """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))
@@ -1702,18 +2328,29 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel.Builder makeWildHuntEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("wild_hunt");
-
+        this.lang().add(helper.entryName(), "The Wild Hunt");
+        this.lang().add(helper.entryDescription(), "You better watch out, you better not cry ...");
         helper.page("intro");
         var intro = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "The Wild Hunt");
+        this.lang().add(helper.pageText(),
+                """
+                        A group of legendary Greater Spirits, usually appearing in the form of wither skeletons, with their skeleton minions. The Greater Spirits are bound to their minions in such fashion that they are virtually invulnerable until their minions have been sent back to [#](%1$s)The Other Place[#]().
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("wither_skull");
         var witherSkull = BookTextPageModel.builder()
                 .withTitle(helper.pageTitle())
                 .withText(helper.pageText())
                 .build();
+        this.lang().add(helper.pageTitle(), "Wither Skeleton Skulls");
+        this.lang().add(helper.pageText(),
+                """
+                        While it is incredibly dangerous to call on the Wild Hunt, some summoners have been known to do so for quick access to the rare wither skeleton skulls they are known to leave behind. Summoning the wild hunt is described in detail on the page on obtaining [Wither Skeleton Skulls](entry://summoning_rituals/wither_skull).
+                        """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.builder()
                 .withId(this.modLoc(helper.category + "/" + helper.entry))

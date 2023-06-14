@@ -54,7 +54,7 @@
       "type": "occultism:spirit_fire_recipe",
       "anchor": "",
       "recipe_id_1": "occultism:spirit_fire/otherworld_ashes",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.otherworld_ashes_recipe.text",
+      "text": "",
       "title1": "",
       "title2": ""
     },
@@ -62,7 +62,7 @@
       "type": "occultism:spirit_fire_recipe",
       "anchor": "",
       "recipe_id_1": "occultism:spirit_fire/spirit_attuned_gem",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.gem_recipe.text",
+      "text": "",
       "title1": "",
       "title2": ""
     }
