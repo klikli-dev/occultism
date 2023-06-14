@@ -190,17 +190,13 @@ dependencies {
     implementation fg.deobf("net.tslat.smartbrainlib:SmartBrainLib-forge-${smartbrainlib_minecraft_version}:${smartbrainlib_version}")
 
     //almostunified
-    //TODO: reenable once updated
-//    compileOnly fg.deobf("com.almostreliable.mods:almostunified-forge:${almostunified_version}")
-//    runtimeOnly fg.deobf("com.almostreliable.mods:almostunified-forge:${almostunified_version}")
+    implementation fg.deobf("com.almostreliable.mods:almostunified-forge:${minecraft_version}-${almost_unified_version}")
 
     //modonomicon
     implementation fg.deobf("com.klikli_dev:modonomicon:${minecraft_version}-${modonomicon_version}")
-    //we build against full jar because we NEED IT ALL
 
     //theurgy
-    compileOnly fg.deobf("com.klikli_dev:theurgy:${minecraft_version}-${theurgy_version}")
-    runtimeOnly fg.deobf("com.klikli_dev:theurgy:${minecraft_version}-${theurgy_version}")
+    implementation fg.deobf("com.klikli_dev:theurgy:${minecraft_version}-${theurgy_version}")
 
     //runtime only helper mods for dev env, placed in ./runtime-mods, example: Hwyla-forge-1.10.11-B78_1.16.2.jar
     //runtimeOnly fg.deobf("ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2")
@@ -241,7 +237,7 @@ def replaceProperties = [
         curios_version_range           : curios_version_range,
         geckolib_version_range         : geckolib_version_range,
         smartbrainlib_version_range    : smartbrainlib_version_range,
-        almostunified_version_range    : almostunified_version_range,
+        almost_unified_version_range    : almost_unified_version_range,
         modonomicon_version_range      : modonomicon_version_range,
         theurgy_version_range          : theurgy_version_range,
         per_viam_invenire_version_range: per_viam_invenire_version_range,

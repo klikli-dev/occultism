@@ -1,5 +1,6 @@
 package com.klikli_dev.occultism.integration.almostunified;
 
+import com.almostreliable.unified.api.AlmostUnifiedLookup;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.fml.ModList;
@@ -19,9 +20,7 @@ public class AlmostUnifiedIntegration {
 
     public static class AlmostUnifiedHelper {
         public static Item getPreferredItemForTag(TagKey<Item> tag) {
-            //TODO: enable once updated
-//            return AlmostUnifiedLookup.INSTANCE.getPreferredItemForTag(tag);
-            return null;
+            return AlmostUnifiedLookup.INSTANCE.getPreferredItemForTag(tag);
         }
     }
 }
