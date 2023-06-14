@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.80.7] - 2023-06-14
+### :sparkles: New Features
+- [`e985ca6`](https://github.com/klikli-dev/occultism/commit/e985ca6e3221698b37d35702dd1c6faefd9f4bf5) - add pickaxes to forge tag *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`0a11168`](https://github.com/klikli-dev/occultism/commit/0a11168072bc9146eff16755f0acdc94a4a4d57d) - autoformat *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.80.6] - 2023-06-13
 ### :wrench: Chores
 - [`acbc2c1`](https://github.com/klikli-dev/occultism/commit/acbc2c141f2ea319509c0bce9cb43e68317b7b22) - improve crafting matrix sync [#3](https://github.com/klikli-dev/occultism/pull/3) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -418,3 +426,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.80.4]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.80.3...release/v1.19.2-1.80.4
 [release/v1.19.2-1.80.5]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.80.4...release/v1.19.2-1.80.5
 [release/v1.19.2-1.80.6]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.80.5...release/v1.19.2-1.80.6
+[release/v1.19.2-1.80.7]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.80.6...release/v1.19.2-1.80.7
