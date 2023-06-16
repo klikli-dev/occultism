@@ -23,7 +23,7 @@
 package com.klikli_dev.occultism.datagen.lang;
 
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
-import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
+import com.klikli_dev.modonomicon.api.datagen.BookContextHelper;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
@@ -666,7 +666,7 @@ public class PTBRProvider extends LanguageProvider {
     }
 
     private void addBook() {
-        var helper = ModonomiconAPI.get().getLangHelper(Occultism.MODID);
+        var helper = ModonomiconAPI.get().getContextHelper(Occultism.MODID);
         helper.book("dictionary_of_spirits");
         this.add(helper.bookName(), "Dicionário de espíritos");
         this.add(helper.bookTooltip(), """
@@ -681,7 +681,7 @@ public class PTBRProvider extends LanguageProvider {
         this.addAdvancedCategory(helper);
     }
 
-    private void addGettingStartedCategory(BookLangHelper helper) {
+    private void addGettingStartedCategory(BookContextHelper helper) {
         helper.category("getting_started");
         this.add(helper.categoryName(), "Começando");
 
@@ -1139,7 +1139,7 @@ public class PTBRProvider extends LanguageProvider {
                                      """);
     }
 
-    private void addPentaclesCategory(BookLangHelper helper) {
+    private void addPentaclesCategory(BookContextHelper helper) {
         helper.category("pentacles");
         this.add(helper.categoryName(), "Pentáculos");
 
@@ -1172,7 +1172,7 @@ public class PTBRProvider extends LanguageProvider {
                         """.formatted(COLOR_PURPLE));
     }
 
-    private void addRitualsCategory(BookLangHelper helper) {
+    private void addRitualsCategory(BookContextHelper helper) {
         helper.category("rituals");
         this.add(helper.categoryName(), "Rituais");
 
@@ -1187,7 +1187,7 @@ public class PTBRProvider extends LanguageProvider {
                         """);
     }
 
-    private void addAdvancedCategory(BookLangHelper helper) {
+    private void addAdvancedCategory(BookContextHelper helper) {
         helper.category("advanced");
         this.add(helper.categoryName(), "Avançado");
 

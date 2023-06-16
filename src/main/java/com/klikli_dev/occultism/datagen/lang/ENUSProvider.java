@@ -23,7 +23,7 @@
 package com.klikli_dev.occultism.datagen.lang;
 
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
-import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
+import com.klikli_dev.modonomicon.api.datagen.BookContextHelper;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
@@ -691,7 +691,7 @@ public class ENUSProvider extends LanguageProvider {
     }
 
     private void addBook() {
-        var helper = ModonomiconAPI.get().getLangHelper(Occultism.MODID);
+        var helper = ModonomiconAPI.get().getContextHelper(Occultism.MODID);
         helper.book("dictionary_of_spirits");
 
         this.addPentaclesCategory(helper);
@@ -703,7 +703,7 @@ public class ENUSProvider extends LanguageProvider {
         this.addStorageCategory(helper);
     }
 
-    private void addPentaclesCategory(BookLangHelper helper) {
+    private void addPentaclesCategory(BookContextHelper helper) {
         helper.category("pentacles");
         this.add(helper.categoryName(), "Pentacles");
 
@@ -1258,7 +1258,7 @@ public class ENUSProvider extends LanguageProvider {
                         """.formatted(COLOR_PURPLE));
     }
 
-    private void addRitualsCategory(BookLangHelper helper) {
+    private void addRitualsCategory(BookContextHelper helper) {
         helper.category("rituals");
         this.add(helper.categoryName(), "Rituals");
 
@@ -1328,7 +1328,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.entryName(), "Familiar Rituals");
     }
 
-    private void addSummoningRitualsCategory(BookLangHelper helper) {
+    private void addSummoningRitualsCategory(BookContextHelper helper) {
         helper.category("summoning_rituals");
         this.add(helper.categoryName(), "Summoning Rituals");
 
@@ -1608,7 +1608,7 @@ public class ENUSProvider extends LanguageProvider {
         //no text
     }
 
-    private void addPossessionRitualsCategory(BookLangHelper helper) {
+    private void addPossessionRitualsCategory(BookContextHelper helper) {
         helper.category("possession_rituals");
         this.add(helper.categoryName(), "Possession Rituals");
 
@@ -1686,7 +1686,7 @@ public class ENUSProvider extends LanguageProvider {
                                 """.formatted(COLOR_PURPLE));
     }
 
-    private void addCraftingRitualsCategory(BookLangHelper helper) {
+    private void addCraftingRitualsCategory(BookContextHelper helper) {
         helper.category("crafting_rituals");
         this.add(helper.categoryName(), "Binding Rituals");
 
@@ -2019,7 +2019,7 @@ public class ENUSProvider extends LanguageProvider {
         //no text
     }
 
-    private void addFamiliarRitualsCategory(BookLangHelper helper) {
+    private void addFamiliarRitualsCategory(BookContextHelper helper) {
         helper.category("familiar_rituals");
         this.add(helper.categoryName(), "Familiar Rituals");
 
@@ -2476,7 +2476,7 @@ public class ENUSProvider extends LanguageProvider {
 
     }
 
-    private void addStorageCategory(BookLangHelper helper) {
+    private void addStorageCategory(BookContextHelper helper) {
         helper.category("storage");
         this.add(helper.categoryName(), "Magic Storage");
 

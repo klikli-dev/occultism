@@ -23,7 +23,7 @@
 package com.klikli_dev.occultism.datagen.lang;
 
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
-import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
+import com.klikli_dev.modonomicon.api.datagen.BookContextHelper;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
@@ -662,7 +662,7 @@ public class FRFRProvider extends LanguageProvider {
     }
 
     private void addBook() {
-        var helper = ModonomiconAPI.get().getLangHelper(Occultism.MODID);
+        var helper = ModonomiconAPI.get().getContextHelper(Occultism.MODID);
         helper.book("dictionary_of_spirits");
         this.add(helper.bookName(), "Dictionnaire des Esprits");
         this.add(helper.bookTooltip(), """
@@ -675,7 +675,7 @@ public class FRFRProvider extends LanguageProvider {
         this.addRitualsCategory(helper);
     }
 
-    private void addGettingStartedCategory(BookLangHelper helper) {
+    private void addGettingStartedCategory(BookContextHelper helper) {
         helper.category("getting_started");
         this.add(helper.categoryName(), "Pour commencer");
 
@@ -960,7 +960,7 @@ public class FRFRProvider extends LanguageProvider {
         //no text
     }
 
-    private void addRitualsCategory(BookLangHelper helper) {
+    private void addRitualsCategory(BookContextHelper helper) {
         helper.category("rituels");
         this.add(helper.categoryName(), "Rituels");
 
