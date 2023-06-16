@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.80.9] - 2023-06-16
+### :sparkles: New Features
+- [`aaedef4`](https://github.com/klikli-dev/occultism/commit/aaedef4ee1f4961d383dc0ac684f7c1a9c587d41) - start move to new modonomicon multilang supporting text gen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`43ec04b`](https://github.com/klikli-dev/occultism/commit/43ec04beeef0513c6bc4e3f8e63b21bfdc96e4af) - update to latest modonomicon lang api features *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.80.8] - 2023-06-14
 ### :sparkles: New Features
 - [`e667526`](https://github.com/klikli-dev/occultism/commit/e6675260c8790c1fe643a627414c234a6ca3fdd4) - reenable AU integration *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -474,3 +480,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20-1.80.6]: https://github.com/klikli-dev/occultism/compare/release/v1.20-1.80.4...release/v1.20-1.80.6
 [release/v1.20.1-1.80.7]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-0.0.0...release/v1.20.1-1.80.7
 [release/v1.20.1-1.80.8]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.80.7...release/v1.20.1-1.80.8
+[release/v1.20.1-1.80.9]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.80.8...release/v1.20.1-1.80.9
