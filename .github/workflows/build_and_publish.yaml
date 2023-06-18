@@ -77,22 +77,34 @@ jobs:
           branch: version/1.20.1
           commit_message: 'docs: update CHANGELOG.md for ${{ github.ref_name }} [skip ci]'
           file_pattern: CHANGELOG.md
-      - name: Upload to Curseforge
-        id: curseforge
-        uses: itsmeow/curseforge-upload@master
-        if: ${{ steps.get_release_type.outputs.result != 'test' }}
+      - name: Upload to Mod Platforms
+        uses: Kir-Antipov/mc-publish@v3.3
         with:
-          token: ${{ secrets.CURSEFORGE_API_KEY }}
-          project_id: 361026
-          game_endpoint: minecraft
-          file_path: ./build/libs/occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
-          changelog_type: markdown
-          changelog: |-
-            [Changelog]
-            ${{ steps.changelog.outputs.changes }}
+          modrinth-id: sbJh4AZw
+          modrinth-token: ${{ secrets.MODRINTH_API_KEY }}
+          curseforge-id: 361026
+          curseforge-token: ${{ secrets.CURSEFORGE_API_KEY }}
 
+          files: |
+            build/libs/occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
+
+          name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
+          version: ${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}
+          version-type: ${{ steps.get_release_type.outputs.result }}
+          game-versions: |
+            1.20
+            ${{ steps.get_mc_version.outputs.result }}
+          changelog: |-
+            ${{ steps.changelog.outputs.changes }}
+            
             Find changes for all versions at https://github.com/klikli-dev/occultism/releases
-          game_versions: Forge,Minecraft 1.20:1.20,Minecraft 1.20:${{ steps.get_mc_version.outputs.result }}
-          display_name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
-          release_type: ${{ steps.get_release_type.outputs.result }}
-          relations: modonomicon:requiredDependency,curios:requiredDependency,geckolib:requiredDependency,smartbrainlib:requiredDependency,theurgy:optionalDependency,jei:optionalDependency,almost-unified:optionalDependency,perviaminvenire:optionalDependency
+          dependencies: |
+            forge(required)
+            modonomicon(required)
+            curios(required)
+            geckolib(required)
+            smartbrainlib(required)
+            theurgy(optional)
+            jei(optional)
+            almost-unified(optional)
+            perviaminvenire(optional)
