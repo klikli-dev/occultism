@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.80.10] - 2023-06-21
+### :bug: Bug Fixes
+- [`c0621dc`](https://github.com/klikli-dev/occultism/commit/c0621dc889c0a33d9a07588d34d155b9414133ff) - soul gem always disallowing wither inrregardless of config *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`8ce7181`](https://github.com/klikli-dev/occultism/commit/8ce718171337702ac55e08a0e54615d17491df1d) - switch to new publish plugin that supports modrinth *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`03ed338`](https://github.com/klikli-dev/occultism/commit/03ed33815c54e43bec42b7cfffa60bb692997d5e) - update forge version *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.80.9] - 2023-06-16
 ### :sparkles: New Features
 - [`aaedef4`](https://github.com/klikli-dev/occultism/commit/aaedef4ee1f4961d383dc0ac684f7c1a9c587d41) - start move to new modonomicon multilang supporting text gen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -481,3 +490,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.80.7]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-0.0.0...release/v1.20.1-1.80.7
 [release/v1.20.1-1.80.8]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.80.7...release/v1.20.1-1.80.8
 [release/v1.20.1-1.80.9]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.80.8...release/v1.20.1-1.80.9
+[release/v1.20.1-1.80.10]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.80.9...release/v1.20.1-1.80.10
