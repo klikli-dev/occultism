@@ -59,7 +59,7 @@ public class OccultismServerConfig {
             builder.comment("Item Settings").push("items");
 
             List<String> defaultSoulgemEntityDenyList =
-                    Stream.of("minecraft:wither")
+                    Stream.of("minecraft:wither", "minecraft:ender_dragon")
                             .collect(Collectors.toList());
             this.soulgemEntityTypeDenyList =
                     builder.comment("Entity types that cannot be captured in a soul gem. Specify by their full id, e.g \"minecraft:zombie\"")

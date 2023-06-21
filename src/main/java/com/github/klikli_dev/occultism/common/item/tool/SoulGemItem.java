@@ -133,9 +133,8 @@ public class SoulGemItem extends Item {
         if (target.level.isClientSide)
             return InteractionResult.PASS;
 
-        //Do not allow bosses or players.
-        //canChangeDimension used to be isNonBoss
-        if (!target.canChangeDimensions() || target instanceof Player)
+        //Do not allow  players.
+        if (target instanceof Player)
             return InteractionResult.FAIL;
 
         //Already got an entity in there.
