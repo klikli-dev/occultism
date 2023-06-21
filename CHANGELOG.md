@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.80.10] - 2023-06-21
+### :bug: Bug Fixes
+- [`e45234c`](https://github.com/klikli-dev/occultism/commit/e45234c29876e62c9df792f05ec9920518b7b2a0) - soul gem always disallowing wither inrregardless of config *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.80.7] - 2023-06-14
 ### :sparkles: New Features
 - [`e985ca6`](https://github.com/klikli-dev/occultism/commit/e985ca6e3221698b37d35702dd1c6faefd9f4bf5) - add pickaxes to forge tag *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -427,3 +432,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.80.5]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.80.4...release/v1.19.2-1.80.5
 [release/v1.19.2-1.80.6]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.80.5...release/v1.19.2-1.80.6
 [release/v1.19.2-1.80.7]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.80.6...release/v1.19.2-1.80.7
+[release/v1.19.2-1.80.10]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.80.7...release/v1.19.2-1.80.10
