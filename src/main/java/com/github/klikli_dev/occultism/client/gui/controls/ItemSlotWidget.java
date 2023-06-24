@@ -24,7 +24,6 @@
 package com.github.klikli_dev.occultism.client.gui.controls;
 
 import com.github.klikli_dev.occultism.api.client.gui.IStorageControllerGuiContainer;
-import com.github.klikli_dev.occultism.util.RenderUtil;
 import com.github.klikli_dev.occultism.util.TextUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -97,19 +96,21 @@ public class ItemSlotWidget {
             //RenderHelper.enableGUIStandardItemLighting();
 
             if (this.showStackSize) {
-
                 //get amount to show
                 String amount = Screen.hasShiftDown() ? Integer.toString(this.stackSize) : TextUtil.formatLargeNumber(
                         this.stackSize);
+                if (this.stackSize <= 1)
+                    amount = null;
 
-                //render item overlay
-                poseStack.pushPose();
-                poseStack.scale(.5f, .5f, .5f);
-                this.minecraft.getItemRenderer().blitOffset = 0.1f;
-                //copied from ItemRenderer.renderGuiItemDecorations but allows to scale
-                RenderUtil.renderGuiItemDecorationsWithPose(this.minecraft.getItemRenderer(), this.fontRenderer, poseStack, this.stack, this.x * 2 + 16, this.y * 2 + 16, amount);
-                // this.minecraft.getItemRenderer().renderGuiItemDecorations(this.fontRenderer, this.stack, this.x, this.y, amount);
-                poseStack.popPose();
+                PoseStack viewModelPose = RenderSystem.getModelViewStack();
+                viewModelPose.pushPose();
+                viewModelPose.translate(this.x + 3, this.y + 3, 0);
+                viewModelPose.scale(.85f, .85f, .85f);
+                viewModelPose.translate(-1 * this.x, -1 * this.y, 0);
+                RenderSystem.applyModelViewMatrix();
+                Minecraft.getInstance().getItemRenderer().renderGuiItemDecorations(this.fontRenderer, this.stack, this.x, this.y, amount);
+                viewModelPose.popPose();
+                RenderSystem.applyModelViewMatrix();
             }
 
             this.minecraft.getItemRenderer().blitOffset = -100F;
