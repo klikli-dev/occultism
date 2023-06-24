@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.80.12] - 2023-06-24
+### :bug: Bug Fixes
+- [`61c3b6a`](https://github.com/klikli-dev/occultism/commit/61c3b6a0e4e9a3262ab9b25f29a56f71801264b6) - advancement trigger on familiar summon *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.80.10] - 2023-06-21
 ### :bug: Bug Fixes
 - [`c0621dc`](https://github.com/klikli-dev/occultism/commit/c0621dc889c0a33d9a07588d34d155b9414133ff) - soul gem always disallowing wither inrregardless of config *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -491,3 +496,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.80.8]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.80.7...release/v1.20.1-1.80.8
 [release/v1.20.1-1.80.9]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.80.8...release/v1.20.1-1.80.9
 [release/v1.20.1-1.80.10]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.80.9...release/v1.20.1-1.80.10
+[release/v1.20.1-1.80.12]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.80.10...release/v1.20.1-1.80.12
