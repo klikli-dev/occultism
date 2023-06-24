@@ -24,11 +24,15 @@ package com.klikli_dev.occultism.common.ritual;
 
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
+import com.klikli_dev.occultism.registry.OccultismAdvancements;
+import com.klikli_dev.occultism.registry.OccultismSounds;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -45,7 +49,11 @@ public class SummonWildHuntRitual extends SummonRitual {
     @Override
     public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
                        Player castingPlayer, ItemStack activationItem) {
-        super.finish(level, goldenBowlPosition, blockEntity, castingPlayer, activationItem);
+        //manually call content of Ritual.finish(), because we cannot access it via super
+        level.playSound(null, goldenBowlPosition, OccultismSounds.POOF.get(), SoundSource.BLOCKS, 0.7f,
+                0.7f);
+        castingPlayer.displayClientMessage(Component.translatable(this.getFinishedMessage()), true);
+        OccultismAdvancements.RITUAL.trigger((ServerPlayer) castingPlayer, this);
 
         activationItem.shrink(1); //remove original activation item.
 
