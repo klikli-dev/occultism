@@ -55,6 +55,11 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
         this.ignoreCrushingMultiplier = ignoreCrushingMultiplier;
     }
 
+    @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
     public int getCrushingTime() {
         return this.crushingTime;
     }

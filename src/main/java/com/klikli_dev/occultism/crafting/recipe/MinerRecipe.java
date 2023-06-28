@@ -51,6 +51,11 @@ public class MinerRecipe implements Recipe<RecipeWrapper> {
         this.id = id;
     }
 
+    @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
     public WeightedOutputIngredient getWeightedOutput() {
         return this.output;
     }

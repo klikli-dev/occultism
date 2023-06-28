@@ -44,6 +44,11 @@ public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public boolean matches(ItemStackFakeInventory inv, Level level) {
         return this.input.test(inv.getItem(0));
     }

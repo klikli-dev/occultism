@@ -91,6 +91,11 @@ public class RitualRecipe extends ShapelessRecipe {
         this.command = command;
     }
 
+    @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
     public String getCommand() {
         return this.command;
     }
