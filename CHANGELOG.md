@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.81.0] - 2023-07-08
+### :sparkles: New Features
+- [`e10ca84`](https://github.com/klikli-dev/occultism/commit/e10ca84fe5029226cfd2e766a23ef3413a12b7eb) - set recipes to return isSpecial -> true to avoid vanilla log warnings *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`f0bc7dc`](https://github.com/klikli-dev/occultism/commit/f0bc7dc997c3add52f113528eae304aad505b6db) - add all crusher tiers as catalyst in jei *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`d1e409f`](https://github.com/klikli-dev/occultism/commit/d1e409f79b898b800a470a3bfc6a8eb52be4d684) - update to 1.20.1 parchment mappings *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`9b7317f`](https://github.com/klikli-dev/occultism/commit/9b7317faec7f888e4af68a131f6def4df90f765e) - increase jei version *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.80.12] - 2023-06-24
 ### :bug: Bug Fixes
 - [`61c3b6a`](https://github.com/klikli-dev/occultism/commit/61c3b6a0e4e9a3262ab9b25f29a56f71801264b6) - advancement trigger on familiar summon *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -497,3 +507,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.80.9]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.80.8...release/v1.20.1-1.80.9
 [release/v1.20.1-1.80.10]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.80.9...release/v1.20.1-1.80.10
 [release/v1.20.1-1.80.12]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.80.10...release/v1.20.1-1.80.12
+[release/v1.20.1-1.81.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.80.12...release/v1.20.1-1.81.0
