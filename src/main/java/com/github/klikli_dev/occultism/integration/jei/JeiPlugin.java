@@ -132,6 +132,12 @@ public class JeiPlugin implements IModPlugin {
 
         registration.addRecipeCatalyst(new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_marid_crusher"))),
                 JeiRecipeTypes.CRUSHING);
+        registration.addRecipeCatalyst(new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_afrit_crusher"))),
+                JeiRecipeTypes.CRUSHING);
+        registration.addRecipeCatalyst(new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_djinni_crusher"))),
+                JeiRecipeTypes.CRUSHING);
+        registration.addRecipeCatalyst(new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_foliot_crusher"))),
+                JeiRecipeTypes.CRUSHING);
     }
 
     @Override
