@@ -17,6 +17,7 @@
     }
   ],
   "crushing_time": 200,
+  "min_tier": 4,
   "ignore_crushing_multiplier": true,
   "ingredient": {
     "tag": "forge:ingots/iesnium"

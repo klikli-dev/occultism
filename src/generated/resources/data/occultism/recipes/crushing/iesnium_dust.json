@@ -18,6 +18,7 @@
   ],
   "crushing_time": 200,
   "ignore_crushing_multiplier": false,
+  "min_tier": 4,
   "ingredient": {
     "tag": "forge:ores/iesnium"
   },
