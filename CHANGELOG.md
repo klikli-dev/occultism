@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.81.0] - 2023-07-08
+### :sparkles: New Features
+- [`445373f`](https://github.com/klikli-dev/occultism/commit/445373f7adaa41bd8455fc5de95351b669a4a4da) - add all crusher tiers as catalyst in jei *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.80.12] - 2023-06-24
 ### :bug: Bug Fixes
 - [`7fa8c32`](https://github.com/klikli-dev/occultism/commit/7fa8c3227fa864508f59536a37a783f730cba29b) - advancement trigger on familiar summon *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -445,3 +450,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.80.10]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.80.7...release/v1.19.2-1.80.10
 [release/v1.19.2-1.80.11]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.80.10...release/v1.19.2-1.80.11
 [release/v1.19.2-1.80.12]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.80.11...release/v1.19.2-1.80.12
+[release/v1.19.2-1.81.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.80.12...release/v1.19.2-1.81.0
