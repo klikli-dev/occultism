@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.81.1] - 2023-07-12
+### :bug: Bug Fixes
+- [`7680852`](https://github.com/klikli-dev/occultism/commit/7680852f2856688b6e4fa365a0533d4b354f9920) - allow candle preview to rotate through all candles in tag *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.81.0] - 2023-07-08
 ### :sparkles: New Features
 - [`e10ca84`](https://github.com/klikli-dev/occultism/commit/e10ca84fe5029226cfd2e766a23ef3413a12b7eb) - set recipes to return isSpecial -> true to avoid vanilla log warnings *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -508,3 +513,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.80.10]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.80.9...release/v1.20.1-1.80.10
 [release/v1.20.1-1.80.12]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.80.10...release/v1.20.1-1.80.12
 [release/v1.20.1-1.81.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.80.12...release/v1.20.1-1.81.0
+[release/v1.20.1-1.81.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.81.0...release/v1.20.1-1.81.1
