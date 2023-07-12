@@ -355,11 +355,10 @@ public class PentacleProvider implements DataProvider {
             return this.element(c, json);
         }
 
-        private MappingBuilder tag(char c, TagKey<Block> tag, Supplier<? extends Block> display) {
+        private MappingBuilder tag(char c, TagKey<Block> tag) {
             JsonObject json = new JsonObject();
             json.addProperty("type", "modonomicon:tag");
             json.addProperty("tag", "#" + tag.location());
-            json.addProperty("display", ForgeRegistries.BLOCKS.getKey(display.get()).toString());
             return this.element(c, json);
         }
 
@@ -368,7 +367,7 @@ public class PentacleProvider implements DataProvider {
         }
 
         private MappingBuilder candle() {
-            return this.tag('C', OccultismTags.CANDLES, OccultismBlocks.CANDLE_WHITE);
+            return this.tag('C', OccultismTags.CANDLES);
         }
 
         private MappingBuilder whiteChalk() {

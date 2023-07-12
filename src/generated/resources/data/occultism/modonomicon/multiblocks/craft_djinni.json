@@ -35,8 +35,7 @@
     },
     "C": {
       "type": "modonomicon:tag",
-      "tag": "#minecraft:candles",
-      "display": "occultism:candle_white"
+      "tag": "#minecraft:candles"
     },
     "S": {
       "type": "modonomicon:block",
