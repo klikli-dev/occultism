@@ -15,11 +15,13 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'idea'
 apply plugin: 'maven-publish'
 
-if (System.getenv('VERSION') != null) {
-    version = System.getenv('VERSION')
-} else {
-    version = "${mc_version}-${mod_version}"
+if (System.getenv('MOD_VERSION') != null) {
+    mod_version = System.getenv('MOD_VERSION')
 }
+if (System.getenv('MINECRAFT_VERSION') != null) {
+    mc_version = System.getenv('MINECRAFT_VERSION')
+}
+version = "${mc_version}-${mod_version}"
 
 group = "com.github.klikli_dev"
 archivesBaseName = "occultism"
