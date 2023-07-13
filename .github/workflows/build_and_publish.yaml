@@ -48,7 +48,8 @@ jobs:
         with:
           arguments: build
         env:
-          VERSION: ${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}
+          MOD_VERSION: ${{ steps.get_version.outputs.result }}
+          MINECRAFT_VERSION: ${{ steps.get_mc_version.outputs.result }}
           GRADLE_BUILD_ACTION_CACHE_DEBUG_ENABLED: true
       - name: Update CHANGELOG
         id: changelog
@@ -83,10 +84,10 @@ jobs:
           modrinth-token: ${{ secrets.MODRINTH_API_KEY }}
           curseforge-id: 361026
           curseforge-token: ${{ secrets.CURSEFORGE_API_KEY }}
-          
+
           files: |
             build/libs/occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
-            
+
           name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
           version: ${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}
           version-type: ${{ steps.get_release_type.outputs.result }}
