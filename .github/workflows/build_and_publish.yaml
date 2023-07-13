@@ -82,7 +82,7 @@ jobs:
           commit_message: 'docs: update CHANGELOG.md for ${{ github.ref_name }} [skip ci]'
           file_pattern: CHANGELOG.md
       - name: Upload to Mod Platforms
-        uses: itsmeow/curseforge-upload@master
+        uses: Kir-Antipov/mc-publish@v3.3
         with:
           modrinth-id: sbJh4AZw
           modrinth-token: ${{ secrets.MODRINTH_API_KEY }}
@@ -91,6 +91,7 @@ jobs:
           
           files: |
             build/libs/occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
+
           name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
           version: ${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}
           version-type: ${{ steps.get_release_type.outputs.result }}
