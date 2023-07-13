@@ -88,22 +88,17 @@ jobs:
           modrinth-token: ${{ secrets.MODRINTH_API_KEY }}
           curseforge-id: 361026
           curseforge-token: ${{ secrets.CURSEFORGE_API_KEY }}
-          game_endpoint: minecraft
           files: |
             build/libs/occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
           name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
           version: ${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}
           version-type: ${{ steps.get_release_type.outputs.result }}
           game-versions: |
-            1.19
             ${{ steps.get_mc_version.outputs.result }}
           changelog: |-
             ${{ steps.changelog.outputs.changes }}
             
             Find changes for all versions at https://github.com/klikli-dev/occultism/releases
-          game_versions: Forge,Minecraft 1.19:${{ steps.get_mc_version.outputs.result }}
-          display_name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
-          release_type: ${{ steps.get_release_type.outputs.result }}
           dependencies: |
             forge(required)
             modonomicon(required)
