@@ -5,12 +5,13 @@ plugins {
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 
-if (System.getenv('VERSION') != null) {
-    version = System.getenv('VERSION')
-} else {
-    version = "${mc_version}-${mod_version}"
+if (System.getenv('MOD_VERSION') != null) {
+    mod_version = System.getenv('MOD_VERSION')
 }
-
+if (System.getenv('MINECRAFT_VERSION') != null) {
+    mc_version = System.getenv('MINECRAFT_VERSION')
+}
+version = "${mc_version}-${mod_version}"
 group = "com.github.klikli_dev"
 archivesBaseName = "occultism"
 
