@@ -697,6 +697,8 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     @Override
     public EntityDimensions getDimensions(Pose pPose) {
+        if(this.job == null) //should never be null, but getDimensions is sometimes called in the super constructor before the job is set to its initial value
+            return super.getDimensions(pPose);
         return this.job.map(job -> job.getDimensions(pPose, super.getDimensions(pPose))).orElse(super.getDimensions(pPose));
     }
 
