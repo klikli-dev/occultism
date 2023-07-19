@@ -17,7 +17,6 @@
     }
   ],
   "crushing_time": 200,
-  "min_tier": 4,
   "ignore_crushing_multiplier": false,
   "ingredient": {
     "tag": "forge:raw_materials/iesnium"
