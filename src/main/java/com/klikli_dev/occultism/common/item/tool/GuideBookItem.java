@@ -65,7 +65,7 @@ public class GuideBookItem extends ModonomiconItem {
                 var book = BookDataManager.get().getBook(DICTIONARY_OF_SPIRITS);
                 BookGuiManager.get().openBook(book.getId());
             } else {
-                Modonomicon.LOGGER.error("ModonomiconItem: ItemStack has no tag!");
+                Modonomicon.LOG.error("ModonomiconItem: ItemStack has no tag!");
             }
         }
 

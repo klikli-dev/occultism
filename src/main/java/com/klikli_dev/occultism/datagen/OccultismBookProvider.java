@@ -118,29 +118,27 @@ public class OccultismBookProvider extends BookProvider {
         var introEntry = this.makeIntroEntry(entryMap, 'i');
 
         var demonsDreamEntry = this.makeDemonsDreamEntry(entryMap, 'd');
-        demonsDreamEntry.withParent(BookEntryParentModel.builder().withEntryId(introEntry.id).build());
+        demonsDreamEntry.withParent(BookEntryParentModel.create(introEntry.getId()));
 
         var spiritFireEntry = this.makeSpiritFireEntry(entryMap, 'f');
-        spiritFireEntry.withParent(BookEntryParentModel.builder().withEntryId(demonsDreamEntry.id).build());
+        spiritFireEntry.withParent(BookEntryParentModel.create(demonsDreamEntry.getId()));
 
         var healingSpiritsEntry = this.makeHealingSpiritsEntry(entryMap, 'h');
-        healingSpiritsEntry.withParent(BookEntryParentModel.builder().withEntryId(demonsDreamEntry.id).build());
+        healingSpiritsEntry.withParent(BookEntryParentModel.create(demonsDreamEntry.getId()));
 
         var thirdEyeEntry = this.makeThirdEyeEntry(entryMap, 'e');
-        thirdEyeEntry.withParent(BookEntryParentModel.builder().withEntryId(demonsDreamEntry.id).build());
+        thirdEyeEntry.withParent(BookEntryParentModel.create(demonsDreamEntry.getId()));
 
         var divinationRodEntry = this.makeDivinationRodEntry(entryMap, 'r');
-        divinationRodEntry.withParent(BookEntryParentModel.builder().withEntryId(spiritFireEntry.id).build());
+        divinationRodEntry.withParent(BookEntryParentModel.create(spiritFireEntry.getId()));
 
         var theurgyDivinationRodEntry = this.makeTheurgyDivinationRodsEntry(entryMap, 't');
         theurgyDivinationRodEntry
-                .withParent(BookEntryParentModel.builder()
-                        .withEntryId(divinationRodEntry.id)
-                        .build())
+                .withParent(BookEntryParentModel.create(divinationRodEntry.getId()))
                 .withCondition(
                         BookAndConditionModel.builder().withChildren(
                                 BookEntryReadConditionModel.builder()
-                                        .withEntry(divinationRodEntry.id).build(),
+                                        .withEntry(divinationRodEntry.getId()).build(),
                                 BookModLoadedConditionModel.builder()
                                         .withModId("theurgy").build()
                         ).build()
@@ -148,110 +146,110 @@ public class OccultismBookProvider extends BookProvider {
                 .hideWhileLocked(true);
 
         var candleEntry = this.makeCandleEntry(entryMap, 'c');
-        candleEntry.withParent(BookEntryParentModel.builder().withEntryId(spiritFireEntry.id).build());
+        candleEntry.withParent(BookEntryParentModel.create(spiritFireEntry.getId()));
 
         var ritualPrepChalkEntry = this.makeRitualPrepChalkEntry(entryMap, 'ç');
-        ritualPrepChalkEntry.withParent(BookEntryParentModel.builder().withEntryId(candleEntry.id).build());
+        ritualPrepChalkEntry.withParent(BookEntryParentModel.create(candleEntry.getId()));
 
         var brushEntry = this.makeBrushEntry(entryMap, 'B');
-        brushEntry.withParent(BookEntryParentModel.builder().withEntryId(ritualPrepChalkEntry.id).build());
+        brushEntry.withParent(BookEntryParentModel.create(ritualPrepChalkEntry.getId()));
 
         var ritualPrepBowlEntry = this.makeRitualPrepBowlEntry(entryMap, 'b');
-        ritualPrepBowlEntry.withParent(BookEntryParentModel.builder().withEntryId(ritualPrepChalkEntry.id).build());
+        ritualPrepBowlEntry.withParent(BookEntryParentModel.create(ritualPrepChalkEntry.getId()));
 
         var booksOfBinding = this.makeBooksOfBindingEntry(entryMap, 'ạ');
-        booksOfBinding.withParent(BookEntryParentModel.builder().withEntryId(candleEntry.id).build());
+        booksOfBinding.withParent(BookEntryParentModel.create(candleEntry.getId()));
 
         var booksOfCalling = this.makeBooksOfCallingEntry(entryMap, 'C');
-        booksOfCalling.withParent(BookEntryParentModel.builder().withEntryId(booksOfBinding.id).build());
+        booksOfCalling.withParent(BookEntryParentModel.create(booksOfBinding.getId()));
 
         var ritualEntry = this.makeRitualEntry(entryMap, 'R');
         ritualEntry
-                .withParent(BookEntryParentModel.builder().withEntryId(ritualPrepBowlEntry.id).build())
-                .withParent(BookEntryParentModel.builder().withEntryId(booksOfBinding.id).build());
+                .withParent(BookEntryParentModel.create(ritualPrepBowlEntry.getId()))
+                .withParent(BookEntryParentModel.create(booksOfBinding.getId()));
 
         var advancedChalksEntry = this.makeChalksEntry(entryMap, 'a');
-        advancedChalksEntry.withParent(BookEntryParentModel.builder().withEntryId(ritualEntry.id).build());
+        advancedChalksEntry.withParent(BookEntryParentModel.create(ritualEntry.getId()));
 
         var moreRitualsEntry = this.makeMoreRitualsEntry(entryMap, 'm');
-        moreRitualsEntry.withParent(BookEntryParentModel.builder().withEntryId(advancedChalksEntry.id).build());
+        moreRitualsEntry.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()));
 
         var greyParticlesEntry = this.makeGreyParticlesEntry(entryMap, 'p');
-        greyParticlesEntry.withParent(BookEntryParentModel.builder().withEntryId(ritualEntry.id).build());
+        greyParticlesEntry.withParent(BookEntryParentModel.create(ritualEntry.getId()));
 
         var spiritsSubcategory = this.makeSpiritsSubcategoryEntry(entryMap, 'S');
-        spiritsSubcategory.withParent(BookEntryParentModel.builder().withEntryId(greyParticlesEntry.id).build());
+        spiritsSubcategory.withParent(BookEntryParentModel.create(greyParticlesEntry.getId()));
 
         var otherworldGoggles = this.makeOtherworldGogglesEntry(entryMap, 'g');
-        otherworldGoggles.withParent(BookEntryParentModel.builder().withEntryId(advancedChalksEntry.id).build());
+        otherworldGoggles.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()));
 
         var infusedPickaxe = this.makeInfusedPickaxeEntry(entryMap, 'I');
-        infusedPickaxe.withParent(BookEntryParentModel.builder().withEntryId(otherworldGoggles.id).build());
+        infusedPickaxe.withParent(BookEntryParentModel.create(otherworldGoggles.getId()));
 
         var iesnium = this.makeIesniumEntry(entryMap, 'O');
-        iesnium.withParent(BookEntryParentModel.builder().withEntryId(infusedPickaxe.id).build());
+        iesnium.withParent(BookEntryParentModel.create(infusedPickaxe.getId()));
 
         var iesniumPickaxe = this.makeIesniumPickaxeEntry(entryMap, 'P');
-        iesniumPickaxe.withParent(BookEntryParentModel.builder().withEntryId(iesnium.id).build());
+        iesniumPickaxe.withParent(BookEntryParentModel.create(iesnium.getId()));
 
         var magicLampsEntry = this.makeMagicLampsEntry(entryMap, 'l');
-        magicLampsEntry.withParent(BookEntryParentModel.builder().withEntryId(iesnium.id).build());
+        magicLampsEntry.withParent(BookEntryParentModel.create(iesnium.getId()));
 
         var spiritMinersEntry = this.makeSpiritMinersEntry(entryMap, 'M');
-        spiritMinersEntry.withParent(BookEntryParentModel.builder().withEntryId(magicLampsEntry.id).build());
+        spiritMinersEntry.withParent(BookEntryParentModel.create(magicLampsEntry.getId()));
 
         var mineshaftEntry = this.makeMineshaftEntry(entryMap, 'D');
-        mineshaftEntry.withParent(BookEntryParentModel.builder().withEntryId(spiritMinersEntry.id).build());
+        mineshaftEntry.withParent(BookEntryParentModel.create(spiritMinersEntry.getId()));
 
         var storageEntry = this.makeStorageEntry(entryMap, 's');
-        storageEntry.withParent(BookEntryParentModel.builder().withEntryId(advancedChalksEntry.id).build());
+        storageEntry.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()));
 
         var possessionRitualsEntry = this.makePossessionRitualsEntry(entryMap, 'w');
-        possessionRitualsEntry.withParent(BookEntryParentModel.builder().withEntryId(moreRitualsEntry.id).build());
+        possessionRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()));
         var familiarRitualsEntry = this.makeFamiliarRitualsEntry(entryMap, 'x');
-        familiarRitualsEntry.withParent(BookEntryParentModel.builder().withEntryId(moreRitualsEntry.id).build());
+        familiarRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()));
         var summoningRitualsEntry = this.makeSummoningRitualsEntry(entryMap, 'y');
-        summoningRitualsEntry.withParent(BookEntryParentModel.builder().withEntryId(moreRitualsEntry.id).build());
+        summoningRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()));
         var craftingRitualsEntry = this.makeCraftingRitualsEntry(entryMap, 'z');
-        craftingRitualsEntry.withParent(BookEntryParentModel.builder().withEntryId(moreRitualsEntry.id).build());
+        craftingRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()));
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon(OccultismItems.DICTIONARY_OF_SPIRITS_ICON.getId().toString())
                 .withEntries(
-                        introEntry.build(),
-                        demonsDreamEntry.build(),
-                        spiritFireEntry.build(),
-                        thirdEyeEntry.build(),
-                        healingSpiritsEntry.build(),
-                        divinationRodEntry.build(),
-                        theurgyDivinationRodEntry.build(),
-                        candleEntry.build(),
-                        ritualPrepChalkEntry.build(),
-                        ritualPrepBowlEntry.build(),
-                        booksOfBinding.build(),
-                        ritualEntry.build(),
-                        brushEntry.build(),
-                        moreRitualsEntry.build(),
-                        greyParticlesEntry.build(),
-                        booksOfCalling.build(),
-                        spiritsSubcategory.build(),
-                        advancedChalksEntry.build(),
-                        otherworldGoggles.build(),
-                        infusedPickaxe.build(),
-                        iesnium.build(),
-                        iesniumPickaxe.build(),
-                        magicLampsEntry.build(),
-                        spiritMinersEntry.build(),
-                        mineshaftEntry.build(),
-                        storageEntry.build(),
-                        possessionRitualsEntry.build(),
-                        familiarRitualsEntry.build(),
-                        summoningRitualsEntry.build(),
-                        craftingRitualsEntry.build()
+                        introEntry,
+                        demonsDreamEntry,
+                        spiritFireEntry,
+                        thirdEyeEntry,
+                        healingSpiritsEntry,
+                        divinationRodEntry,
+                        theurgyDivinationRodEntry,
+                        candleEntry,
+                        ritualPrepChalkEntry,
+                        ritualPrepBowlEntry,
+                        booksOfBinding,
+                        ritualEntry,
+                        brushEntry,
+                        moreRitualsEntry,
+                        greyParticlesEntry,
+                        booksOfCalling,
+                        spiritsSubcategory,
+                        advancedChalksEntry,
+                        otherworldGoggles,
+                        infusedPickaxe,
+                        iesnium,
+                        iesniumPickaxe,
+                        magicLampsEntry,
+                        spiritMinersEntry,
+                        mineshaftEntry,
+                        storageEntry,
+                        possessionRitualsEntry,
+                        familiarRitualsEntry,
+                        summoningRitualsEntry,
+                        craftingRitualsEntry
                 );
     }
 
-    private BookEntryModel.Builder makeIntroEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeIntroEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("intro");
         this.lang().add(this.context().entryName(), "About");
         this.lang().add(this.context().entryDescription(), "About using the Dictionary of Spirits");
@@ -282,9 +280,7 @@ public class OccultismBookProvider extends BookProvider {
                         [Join us at https://invite.gg/klikli](https://invite.gg/klikli)
                         """);
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismItems.DICTIONARY_OF_SPIRITS_ICON.getId().toString())
                 .withLocation(entryMap.get(icon))
@@ -295,7 +291,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeDemonsDreamEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeDemonsDreamEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("demons_dream");
         this.lang().add(this.context().entryName(), "Lifting the Veil");
         this.lang().add(this.context().entryDescription(), "Learn about the Otherworld and the Third Eye.");
@@ -361,9 +357,7 @@ public class OccultismBookProvider extends BookProvider {
                         **Hint**: The otherworld materials you obtain by harvesting under the effects of[#](%2$s)Third Eye[#]() **can be obtained more easily using [](item://occultism:spirit_fire)**. Proceed with the next entry in this book to learn more about spirit fire.
                          """.formatted(DEMONS_DREAM, COLOR_PURPLE));
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismItems.DATURA.getId().toString())
                 .withLocation(entryMap.get(icon))
@@ -376,7 +370,7 @@ public class OccultismBookProvider extends BookProvider {
                         spiritFire);
     }
 
-    private BookEntryModel.Builder makeSpiritFireEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSpiritFireEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("spirit_fire");
         this.lang().add(this.context().entryName(), "It burns!");
         this.lang().add(this.context().entryDescription(), "Or does it?");
@@ -447,9 +441,7 @@ public class OccultismBookProvider extends BookProvider {
         //no text
 
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismItems.SPIRIT_FIRE.getId().toString())
                 .withLocation(entryMap.get(icon))
@@ -464,7 +456,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeHealingSpiritsEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeHealingSpiritsEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("healing_spirits");
         this.lang().add(this.context().entryName(), "Healing Spirits");
         this.lang().add(this.context().entryDescription(), "Fix up your spirit!");
@@ -482,9 +474,7 @@ public class OccultismBookProvider extends BookProvider {
                         This will work on **Familiars**, **Summoned Spirits** and also **Possessed Mobs**.
                         """);
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ForgeRegistries.ITEMS.getKey(Items.SPLASH_POTION).toString())
                 .withLocation(entryMap.get(icon))
@@ -493,7 +483,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeThirdEyeEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeThirdEyeEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("third_eye");
         this.lang().add(this.context().entryName(), "The Third Eye");
         this.lang().add(this.context().entryDescription(), "Do you see now?");
@@ -536,16 +526,14 @@ public class OccultismBookProvider extends BookProvider {
                         but more valuable materials require special tools.
                                 """.formatted(DEMONS_DREAM));
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(this.modLoc("textures/mob_effect/third_eye.png").toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(about, howToObtain, otherworldGoggles);
     }
 
-    private BookEntryModel.Builder makeDivinationRodEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeDivinationRodEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("divination_rod");
         this.lang().add(this.context().entryName(), "Divination Rod");
         this.lang().add(this.context().entryDescription(), "Obtaining otherworld materials");
@@ -720,9 +708,7 @@ public class OccultismBookProvider extends BookProvider {
                         Trees grown from Stable Otherworld Saplings as obtained from spirit traders do not have that limitation.
                          """);
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismItems.DIVINATION_ROD.getId().toString())
                 .withLocation(entryMap.get(icon))
@@ -744,7 +730,7 @@ public class OccultismBookProvider extends BookProvider {
                         otherworldTrees2);
     }
 
-    private BookEntryModel.Builder makeTheurgyDivinationRodsEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeTheurgyDivinationRodsEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("theurgy_divination_rod");
 
         this.lang().add(this.context().entryName(), "More Divination Rods");
@@ -787,10 +773,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1("theurgy:crafting/shapeless/the_hermetica")
                 .build();
 
-
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.DIVINATION_ROD_T1.get())
                 .withLocation(entryMap.get(icon))
@@ -802,7 +785,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCandleEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCandleEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("candle");
         this.lang().add(this.context().entryName(), "Candles");
         this.lang().add(this.context().entryDescription(), "Let there be light!");
@@ -844,9 +827,7 @@ public class OccultismBookProvider extends BookProvider {
                 .build();
         //no text
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismBlocks.CANDLE_WHITE.getId().toString())
                 .withLocation(entryMap.get(icon))
@@ -858,7 +839,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeRitualPrepChalkEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeRitualPrepChalkEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("ritual_prep_chalk");
         this.lang().add(this.context().entryName(), "Ritual Preparations: Chalks");
         this.lang().add(this.context().entryDescription(), "Signs to find them, Signs to bring them all, and in the darkness bind them.");
@@ -923,9 +904,7 @@ public class OccultismBookProvider extends BookProvider {
                         Right-click on a block with the chalk to draw a single glyph. For decorative purposes you can repeatedly click a block to cycle through glyphs. The shown glyph does not matter for the ritual, only the color.
                          """.formatted(COLOR_PURPLE));
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismItems.CHALK_WHITE.getId().toString())
                 .withLocation(entryMap.get(icon))
@@ -940,7 +919,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeRitualPrepBowlEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeRitualPrepBowlEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("ritual_prep_bowl");
         this.lang().add(this.context().entryName(), "Ritual Preparations: Sacrificial Bowls");
         this.lang().add(this.context().entryDescription(), "There is no power without sacrifice.");
@@ -982,9 +961,7 @@ public class OccultismBookProvider extends BookProvider {
                 .build();
         //no text
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.getId().toString())
                 .withLocation(entryMap.get(icon))
@@ -996,7 +973,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeBooksOfBindingEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeBooksOfBindingEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("books_of_binding");
         this.lang().add(this.context().entryName(), "Books of Binding");
         this.lang().add(this.context().entryDescription(), "Or how to identify your spirit");
@@ -1074,9 +1051,7 @@ public class OccultismBookProvider extends BookProvider {
                 .build();
         //no text
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.getId().toString())
                 .withLocation(entryMap.get(icon))
@@ -1092,7 +1067,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeBooksOfCallingEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeBooksOfCallingEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("books_of_calling");
         this.lang().add(this.context().entryName(), "Books of Calling");
         this.lang().add(this.context().entryDescription(), "Telling your spirits what to do");
@@ -1163,9 +1138,7 @@ public class OccultismBookProvider extends BookProvider {
                         Soul gems are much more versatile and allow to store almost all types of entities even animals and monsters, but not players or bosses.
                         """);
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.getId().toString())
                 .withLocation(entryMap.get(icon))
@@ -1178,7 +1151,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeRitualEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeRitualEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("first_ritual");
         this.lang.add(this.context().entryName(), "First Ritual");
         this.lang.add(this.context().entryDescription(), "We're actually getting started now!");
@@ -1277,9 +1250,7 @@ public class OccultismBookProvider extends BookProvider {
                           """.formatted(COLOR_PURPLE));
 
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismItems.PENTACLE.getId().toString())
                 .withLocation(entryMap.get(icon))
@@ -1295,7 +1266,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeBrushEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeBrushEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("brush");
         this.lang().add(this.context().entryName(), "Brush");
         this.lang().add(this.context().entryDescription(), "Cleaning up!");
@@ -1317,9 +1288,7 @@ public class OccultismBookProvider extends BookProvider {
                 .build();
         //no text
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismItems.BRUSH.getId().toString())
                 .withLocation(entryMap.get(icon))
@@ -1329,14 +1298,12 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeMoreRitualsEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeMoreRitualsEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("more_rituals");
         this.lang().add(this.context().entryName(), "More Rituals");
         this.lang().add(this.context().entryDescription(), "Ready for new challenges?");
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon("occultism:textures/gui/book/robe.png")
                 .withLocation(entryMap.get(icon))
@@ -1344,7 +1311,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withCategoryToOpen(this.modLoc("rituals"));
     }
 
-    private BookEntryModel.Builder makeGreyParticlesEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeGreyParticlesEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("grey_particles");
         this.lang().add(this.context().entryName(), "Grey particles?");
         this.lang().add(this.context().entryDescription(), "What to do when a ritual seems stuck!");
@@ -1363,30 +1330,26 @@ public class OccultismBookProvider extends BookProvider {
                         Find the ritual in the [Rituals](category://rituals) category and check for instructions.
                           """);
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ForgeRegistries.ITEMS.getKey(Items.GRAY_DYE).toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(text);
     }
 
-    private BookEntryModel.Builder makeSpiritsSubcategoryEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSpiritsSubcategoryEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("spirits");
         this.lang().add(this.context().entryName(), "About Spirits");
         this.lang().add(this.context().entryDescription(), "Learn more about Spirits.");
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/spirits.png")
                 .withCategoryToOpen(this.modLoc("spirits"))
                 .withEntryBackground(1, 1) //silver background and wavey entry shape
                 .withLocation(entryMap.get(icon));
     }
 
-    private BookEntryModel.Builder makeChalksEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeChalksEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("chalks");
         this.lang().add(this.context().entryName(), "More Chalks");
         this.lang().add(this.context().entryDescription(), "Better chalks for better rituals!");
@@ -1452,9 +1415,7 @@ public class OccultismBookProvider extends BookProvider {
                         To obtain the essence of an [#](%1$s)Afrit[#]() for [](item://occultism:chalk_red) you need to [summon and kill an Unbound Afrit](entry://summoning_rituals/afrit_essence).
                         """.formatted(COLOR_PURPLE));
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismItems.CHALK_GOLD.getId().toString())
                 .withLocation(entryMap.get(icon))
@@ -1470,7 +1431,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeOtherworldGogglesEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeOtherworldGogglesEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("otherworld_goggles");
         this.lang().add(this.context().entryName(), "Otherworld Goggles");
         this.lang().add(this.context().entryDescription(), "Say no to drugs!");
@@ -1499,9 +1460,7 @@ public class OccultismBookProvider extends BookProvider {
                         Crafting these goggles is a multi-step process described in detail in the Entry about [Crafting Otherworld Goggles](entry://crafting_rituals/craft_otherworld_goggles).
                         """.formatted(COLOR_PURPLE));
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismItems.OTHERWORLD_GOGGLES.getId().toString())
                 .withLocation(entryMap.get(icon))
@@ -1511,7 +1470,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeInfusedPickaxeEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeInfusedPickaxeEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("infused_pickaxe");
         this.lang().add(this.context().entryName(), "Infused Pickaxe");
         this.lang().add(this.context().entryDescription(), "Tackling Otherworld Ores");
@@ -1559,9 +1518,7 @@ public class OccultismBookProvider extends BookProvider {
                         Follow the instructions at [Craft Infuse Pickaxe](entry://crafting_rituals/craft_infused_pickaxe)
                         """.formatted(COLOR_PURPLE));
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismItems.INFUSED_PICKAXE.getId().toString())
                 .withLocation(entryMap.get(icon))
@@ -1573,7 +1530,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeIesniumEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeIesniumEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("iesnium");
         this.lang().add(this.context().entryName(), "Iesnium Ore");
         this.lang().add(this.context().entryDescription(), "Myterious metals ...");
@@ -1641,9 +1598,7 @@ public class OccultismBookProvider extends BookProvider {
                         Iesnium can be used to craft an improved pickaxe, spirit lamps, and other powerful items. Follow the progress in this book to learn more about it.
                              """.formatted(COLOR_PURPLE));
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismBlocks.IESNIUM_ORE.getId().toString())
                 .withLocation(entryMap.get(icon))
@@ -1656,7 +1611,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeIesniumPickaxeEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeIesniumPickaxeEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("iesnium_pickaxe");
         this.lang().add(this.context().entryName(), "Iesnium Pickaxe");
         this.lang().add(this.context().entryDescription(), "A more durable otherworld-appropriate pickaxe");
@@ -1677,9 +1632,7 @@ public class OccultismBookProvider extends BookProvider {
                 .build();
         //no text
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismItems.IESNIUM_PICKAXE.getId().toString())
                 .withLocation(entryMap.get(icon))
@@ -1689,7 +1642,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeMagicLampsEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeMagicLampsEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("magic_lamps");
         this.lang().add(this.context().entryName(), "Magic Lamps");
         this.lang().add(this.context().entryDescription(), "Three wishes? Close, but not quite..");
@@ -1712,9 +1665,7 @@ public class OccultismBookProvider extends BookProvider {
                 .build();
         //no text
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismItems.MAGIC_LAMP_EMPTY.getId().toString())
                 .withLocation(entryMap.get(icon))
@@ -1724,7 +1675,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSpiritMinersEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSpiritMinersEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("spirit_miners");
         this.lang().add(this.context().entryName(), "Spirit Miners");
         this.lang().add(this.context().entryDescription(), "It's Free Real Estate (-> Resources)");
@@ -1752,9 +1703,7 @@ public class OccultismBookProvider extends BookProvider {
                         See [Foliot Miner](entry://crafting_rituals/craft_foliot_miner) and the subsequent entries for information on how to craft spirit miners.
                              """.formatted(COLOR_PURPLE));
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.getId().toString())
                 .withLocation(entryMap.get(icon))
@@ -1764,7 +1713,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeMineshaftEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeMineshaftEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("mineshaft");
         this.lang().add(this.context().entryName(), "Dimensional Mineshaft");
         this.lang().add(this.context().entryDescription(), "Ethically questionable, but very profitable");
@@ -1790,9 +1739,7 @@ public class OccultismBookProvider extends BookProvider {
                         See [Dimensional Mineshaft](entry://crafting_rituals/craft_dimensional_mineshaft) in the [Binding Rituals](category://crafting_rituals) Category.
                              """.formatted(COLOR_PURPLE));
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismBlocks.DIMENSIONAL_MINESHAFT.getId().toString())
                 .withLocation(entryMap.get(icon))
@@ -1802,14 +1749,12 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeStorageEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeStorageEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("storage");
         this.lang().add(this.context().entryName(), "Magic Storage");
         this.lang().add(this.context().entryDescription(), "Looking for much much much more storage? Look no further!");
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismBlocks.STORAGE_CONTROLLER.getId().toString())
                 .withLocation(entryMap.get(icon))
@@ -1817,7 +1762,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withCategoryToOpen(this.modLoc("storage"));
     }
 
-    private BookEntryModel.Builder makePossessionRitualsEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makePossessionRitualsEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("possession_rituals");
         this.lang().add(this.context().entryName(), "Possession Rituals");
         this.lang().add(this.context().entryDescription(), "A different way to get rare drops ...");
@@ -1847,9 +1792,7 @@ public class OccultismBookProvider extends BookProvider {
                         To find out more about Possession Rituals, see the [Possession Rituals](category://possession_rituals) Category.
                              """.formatted(COLOR_PURPLE));
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon("occultism:textures/gui/book/possession.png")
                 .withLocation(entryMap.get(icon))
@@ -1860,7 +1803,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeFamiliarRitualsEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeFamiliarRitualsEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("familiar_rituals");
         this.lang().add(this.context().entryName(), "Familiar Rituals");
         this.lang().add(this.context().entryDescription(), "Personal helpers that provide buffs or fight for you");
@@ -1890,9 +1833,7 @@ public class OccultismBookProvider extends BookProvider {
                         To find more about Familiars, see the [Familiar Rituals](category://familiar_rituals) Category.
                              """.formatted(COLOR_PURPLE));
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon("occultism:textures/gui/book/parrot.png")
                 .withLocation(entryMap.get(icon))
@@ -1903,7 +1844,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSummoningRitualsEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSummoningRitualsEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summoning_rituals");
         this.lang().add(this.context().entryName(), "Summoning Rituals");
         this.lang().add(this.context().entryDescription(), "Spirit helpers for your daily work life");
@@ -1930,9 +1871,7 @@ public class OccultismBookProvider extends BookProvider {
                         To find more about Summoning Rituals, see the [Summoning Rituals](category://summoning_rituals) Category.
                              """.formatted(COLOR_PURPLE));
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon("occultism:textures/gui/book/summoning.png")
                 .withLocation(entryMap.get(icon))
@@ -1943,7 +1882,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftingRitualsEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftingRitualsEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("crafting_rituals");
         this.lang().add(this.context().entryName(), "Infusion Rituals");
         this.lang().add(this.context().entryDescription(), "Infuse spirits into items to create powerful tools");
@@ -1970,9 +1909,7 @@ public class OccultismBookProvider extends BookProvider {
                         To find more about Infusing items, see the [Infusion Rituals](category://crafting_rituals) Category.
                              """.formatted(COLOR_PURPLE));
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon("occultism:textures/gui/book/infusion.png")
                 .withLocation(entryMap.get(icon))
@@ -2001,48 +1938,46 @@ public class OccultismBookProvider extends BookProvider {
 
         var overview = this.makeSpiritsOverviewEntry(entryMap, '0');
         var returnToGettingStarted = this.makeReturnToGettingStartedEntry(entryMap, '<');
-        returnToGettingStarted.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        returnToGettingStarted.withParent(BookEntryParentModel.create(overview.getId()));
         returnToGettingStarted.withCondition(BookTrueConditionModel.builder().build());
 
         var essenceDecay = this.makeEssenceDecayEntry(entryMap, 'd');
-        essenceDecay.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        essenceDecay.withParent(BookEntryParentModel.create(overview.getId()));
 
         var trueNames = this.makeTrueNamesEntry(entryMap, 'n');
-        trueNames.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        trueNames.withParent(BookEntryParentModel.create(overview.getId()));
 
         var unboundSpirits = this.makeUnboundSpiritsEntry(entryMap, 'u');
-        unboundSpirits.withParent(BookEntryParentModel.builder().withEntryId(trueNames.id).build());
+        unboundSpirits.withParent(BookEntryParentModel.create(trueNames.getId()));
 
         var wildHunt = this.makeWildHuntEntry(entryMap, 'w');
-        wildHunt.withParent(BookEntryParentModel.builder().withEntryId(unboundSpirits.id).build());
+        wildHunt.withParent(BookEntryParentModel.create(unboundSpirits.getId()));
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon("occultism:textures/gui/book/spirits.png")
                 .withShowCategoryButton(false)
                 .withEntries(
-                        overview.build(),
-                        returnToGettingStarted.build(),
-                        trueNames.build(),
-                        essenceDecay.build(),
-                        unboundSpirits.build(),
-                        wildHunt.build()
+                        overview,
+                        returnToGettingStarted,
+                        trueNames,
+                        essenceDecay,
+                        unboundSpirits,
+                        wildHunt
                 );
     }
 
-    private BookEntryModel.Builder makeReturnToGettingStartedEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeReturnToGettingStartedEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("return_to_getting_started");
         this.lang().add(this.context().entryName(), "Return to getting started");
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.DICTIONARY_OF_SPIRITS_ICON.getId().toString())
                 .withCategoryToOpen(this.modLoc("getting_started"))
                 .withEntryBackground(1, 2)
                 .withLocation(entryMap.get(icon));
     }
 
-    private BookEntryModel.Builder makeSpiritsOverviewEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSpiritsOverviewEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("overview");
         this.lang().add(this.context().entryName(), "On Spirits");
 
@@ -2136,9 +2071,7 @@ public class OccultismBookProvider extends BookProvider {
                          """.formatted(COLOR_PURPLE));
 
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon("occultism:textures/gui/book/spirits.png")
                 .withLocation(entryMap.get(icon))
@@ -2155,7 +2088,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeEssenceDecayEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeEssenceDecayEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("essence_decay");
         this.lang().add(this.context().entryName(), "Essence Decay");
         this.lang().add(this.context().entryDescription(), "Even the immortal are not immune to time.");
@@ -2194,9 +2127,7 @@ public class OccultismBookProvider extends BookProvider {
                         Only tier 1 spirits are affected by essence decay, by default. All higher tiers are immune and will not despawn. Modpacks may modify this behaviour.
                               """.formatted(COLOR_PURPLE));
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ForgeRegistries.ITEMS.getKey(Items.ROTTEN_FLESH).toString())
                 .withLocation(entryMap.get(icon))
@@ -2207,7 +2138,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeTrueNamesEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeTrueNamesEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("true_names");
         this.lang().add(this.context().entryName(), "True Names");
         this.lang().add(this.context().entryDescription(), "How to call spirits.");
@@ -2248,9 +2179,7 @@ public class OccultismBookProvider extends BookProvider {
                         For your convenience, in this work you will find the known names of spirits of all 4 ranks, as well as some beyond that. To summon a spirit, copy their name from this book into the appropriate book of binding, then use this bound book of binding to activate a ritual.
                          """.formatted(COLOR_PURPLE));
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ForgeRegistries.ITEMS.getKey(Items.WRITABLE_BOOK).toString())
                 .withLocation(entryMap.get(icon))
@@ -2261,7 +2190,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeUnboundSpiritsEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeUnboundSpiritsEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("unbound_spirits");
         this.lang().add(this.context().entryName(), "Unbound Spirits");
         this.lang().add(this.context().entryDescription(), "Try not to lose your spirits!");
@@ -2310,9 +2239,7 @@ public class OccultismBookProvider extends BookProvider {
                         Unbound summonings are the only way to obtain [Afrit Essence](entry://summoning_rituals/afrit_essence), a powerful substance required for crafting [](item://occultism:chalk_red) which is used for the most powerful binding pentacles.
                         """.formatted(COLOR_PURPLE));
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon("occultism:textures/gui/book/unbound_spirits.png")
                 .withLocation(entryMap.get(icon))
@@ -2324,7 +2251,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeWildHuntEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeWildHuntEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("wild_hunt");
         this.lang().add(this.context().entryName(), "The Wild Hunt");
         this.lang().add(this.context().entryDescription(), "You better watch out, you better not cry ...");
@@ -2350,9 +2277,7 @@ public class OccultismBookProvider extends BookProvider {
                         While it is incredibly dangerous to call on the Wild Hunt, some summoners have been known to do so for quick access to the rare wither skeleton skulls they are known to leave behind. Summoning the wild hunt is described in detail on the page on obtaining [Wither Skeleton Skulls](entry://summoning_rituals/wither_skull).
                         """.formatted(COLOR_PURPLE));
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon("occultism:textures/gui/book/wild_hunt.png")
                 .withLocation(entryMap.get(icon))
@@ -2380,38 +2305,38 @@ public class OccultismBookProvider extends BookProvider {
 
         var overview = this.makePentaclesOverviewEntry(entryMap, 'o');
         var paraphernalia = this.makeParaphernaliaEntry(entryMap, 'p');
-        paraphernalia.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        paraphernalia.withParent(BookEntryParentModel.create(overview.getId()));
         var chalkUses = this.makeChalkUsesEntry(entryMap, 'u');
-        chalkUses.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        chalkUses.withParent(BookEntryParentModel.create(overview.getId()));
 
         var summonFoliot = this.makeSummonFoliotEntry(entryMap, 'a');
-        summonFoliot.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        summonFoliot.withParent(BookEntryParentModel.create(overview.getId()));
         var summonDjinni = this.makeSummonDjinniEntry(entryMap, 'b');
-        summonDjinni.withParent(BookEntryParentModel.builder().withEntryId(summonFoliot.id).build());
+        summonDjinni.withParent(BookEntryParentModel.create(summonFoliot.getId()));
         var summonWildAfrit = this.makeSummonWildAfritEntry(entryMap, 'c');
-        summonWildAfrit.withParent(BookEntryParentModel.builder().withEntryId(summonDjinni.id).build());
+        summonWildAfrit.withParent(BookEntryParentModel.create(summonDjinni.getId()));
         var summonAfrit = this.makeSummonAfritEntry(entryMap, 'd');
-        summonAfrit.withParent(BookEntryParentModel.builder().withEntryId(summonWildAfrit.id).build());
+        summonAfrit.withParent(BookEntryParentModel.create(summonWildAfrit.getId()));
         var summonMarid = this.makeSummonMaridEntry(entryMap, 'e');
-        summonMarid.withParent(BookEntryParentModel.builder().withEntryId(summonAfrit.id).build());
+        summonMarid.withParent(BookEntryParentModel.create(summonAfrit.getId()));
         var summonWildGreaterSpirit = this.makeSummonWildGreaterSpiritEntry(entryMap, 'f');
-        summonWildGreaterSpirit.withParent(BookEntryParentModel.builder().withEntryId(summonMarid.id).build());
+        summonWildGreaterSpirit.withParent(BookEntryParentModel.create(summonMarid.getId()));
 
         var possessFoliot = this.makePossessFoliotEntry(entryMap, 'g');
-        possessFoliot.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        possessFoliot.withParent(BookEntryParentModel.create(overview.getId()));
         var possessDjinni = this.makePossessDjinniEntry(entryMap, 'h');
-        possessDjinni.withParent(BookEntryParentModel.builder().withEntryId(possessFoliot.id).build());
+        possessDjinni.withParent(BookEntryParentModel.create(possessFoliot.getId()));
         var possessAfrit = this.makePossessAfritEntry(entryMap, 'i');
-        possessAfrit.withParent(BookEntryParentModel.builder().withEntryId(possessDjinni.id).build());
+        possessAfrit.withParent(BookEntryParentModel.create(possessDjinni.getId()));
 
         var craftFoliot = this.makeCraftFoliotEntry(entryMap, 'j');
-        craftFoliot.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        craftFoliot.withParent(BookEntryParentModel.create(overview.getId()));
         var craftDjinni = this.makeCraftDjinniEntry(entryMap, 'k');
-        craftDjinni.withParent(BookEntryParentModel.builder().withEntryId(craftFoliot.id).build());
+        craftDjinni.withParent(BookEntryParentModel.create(craftFoliot.getId()));
         var craftAfrit = this.makeCraftAfritEntry(entryMap, 'l');
-        craftAfrit.withParent(BookEntryParentModel.builder().withEntryId(craftDjinni.id).build());
+        craftAfrit.withParent(BookEntryParentModel.create(craftDjinni.getId()));
         var craftMarid = this.makeCraftMaridEntry(entryMap, 'm');
-        craftMarid.withParent(BookEntryParentModel.builder().withEntryId(craftAfrit.id).build());
+        craftMarid.withParent(BookEntryParentModel.create(craftAfrit.getId()));
 
         //add true condition to all entries to enable them by default
         overview.withCondition(BookTrueConditionModel.builder().build());
@@ -2434,29 +2359,29 @@ public class OccultismBookProvider extends BookProvider {
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon(OccultismItems.PENTACLE.getId().toString())
                 .withEntries(
-                        overview.build(),
-                        paraphernalia.build(),
-                        chalkUses.build(),
+                        overview,
+                        paraphernalia,
+                        chalkUses,
 
-                        summonFoliot.build(),
-                        summonDjinni.build(),
-                        summonWildAfrit.build(),
-                        summonAfrit.build(),
-                        summonMarid.build(),
-                        summonWildGreaterSpirit.build(),
+                        summonFoliot,
+                        summonDjinni,
+                        summonWildAfrit,
+                        summonAfrit,
+                        summonMarid,
+                        summonWildGreaterSpirit,
 
-                        possessFoliot.build(),
-                        possessDjinni.build(),
-                        possessAfrit.build(),
+                        possessFoliot,
+                        possessDjinni,
+                        possessAfrit,
 
-                        craftFoliot.build(),
-                        craftDjinni.build(),
-                        craftAfrit.build(),
-                        craftMarid.build()
+                        craftFoliot,
+                        craftDjinni,
+                        craftAfrit,
+                        craftMarid
                 );
     }
 
-    private BookEntryModel.Builder makePentaclesOverviewEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makePentaclesOverviewEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("pentacles_overview");
 
         this.context().page("intro1");
@@ -2511,9 +2436,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withEntryBackground(0, 1)
@@ -2530,7 +2453,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeParaphernaliaEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeParaphernaliaEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("paraphernalia");
 
         this.context().page("intro");
@@ -2567,9 +2490,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withItem(Ingredient.of(Blocks.SKELETON_SKULL))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(ForgeRegistries.BLOCKS.getKey(Blocks.SKELETON_SKULL).toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -2582,7 +2503,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeChalkUsesEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeChalkUsesEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("chalk_uses");
 
         this.context().page("intro");
@@ -2650,9 +2571,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.CHALK_PURPLE.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -2670,7 +2589,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSummonFoliotEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSummonFoliotEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summon_foliot");
 
         this.context().page("intro");
@@ -2690,9 +2609,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -2702,7 +2619,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makePossessFoliotEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makePossessFoliotEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("possess_foliot");
 
         this.context().page("intro");
@@ -2722,9 +2639,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -2734,7 +2649,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftFoliotEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftFoliotEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_foliot");
 
         this.context().page("intro");
@@ -2754,9 +2669,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -2766,7 +2679,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSummonDjinniEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSummonDjinniEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summon_djinni");
 
         this.context().page("intro");
@@ -2786,9 +2699,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -2798,7 +2709,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makePossessDjinniEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makePossessDjinniEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("possess_djinni");
 
         this.context().page("intro");
@@ -2824,9 +2735,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -2837,7 +2746,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftDjinniEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftDjinniEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_djinni");
 
         this.context().page("intro");
@@ -2857,9 +2766,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -2869,7 +2776,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSummonAfritEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSummonAfritEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summon_afrit");
 
         this.context().page("intro");
@@ -2889,9 +2796,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -2901,7 +2806,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSummonWildAfritEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSummonWildAfritEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summon_wild_afrit");
 
         this.context().page("intro");
@@ -2921,9 +2826,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -2933,7 +2836,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makePossessAfritEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makePossessAfritEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("possess_afrit");
 
         this.context().page("intro");
@@ -2953,9 +2856,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -2965,7 +2866,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftAfritEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftAfritEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_afrit");
 
         this.context().page("intro");
@@ -2985,9 +2886,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -2997,7 +2896,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSummonMaridEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSummonMaridEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summon_marid");
 
         this.context().page("intro");
@@ -3017,9 +2916,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -3029,7 +2926,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftMaridEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftMaridEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_marid");
 
         this.context().page("intro");
@@ -3049,9 +2946,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -3061,7 +2956,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSummonWildGreaterSpiritEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSummonWildGreaterSpiritEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summon_wild_greater_spirit");
 
         this.context().page("intro");
@@ -3081,9 +2976,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -3110,18 +3003,18 @@ public class OccultismBookProvider extends BookProvider {
 
         var ritualOverview = this.makeRitualOverviewEntry(entryMap, 'o');
         var itemUse = this.makeItemUseEntry(entryMap, 'i');
-        itemUse.withParent(BookEntryParentModel.builder().withEntryId(ritualOverview.id).build());
+        itemUse.withParent(BookEntryParentModel.create(ritualOverview.getId()));
         var sacrifice = this.makeSacrificeEntry(entryMap, 'k');
-        sacrifice.withParent(BookEntryParentModel.builder().withEntryId(itemUse.id).build());
+        sacrifice.withParent(BookEntryParentModel.create(itemUse.getId()));
 
         var summoning = this.makeSummoningRitualsSubcategoryEntry(entryMap, 's');
-        summoning.withParent(BookEntryParentModel.builder().withEntryId(sacrifice.id).build());
+        summoning.withParent(BookEntryParentModel.create(sacrifice.getId()));
         var possession = this.makePossessionRitualsSubcategoryEntry(entryMap, 'p');
-        possession.withParent(BookEntryParentModel.builder().withEntryId(sacrifice.id).build());
+        possession.withParent(BookEntryParentModel.create(sacrifice.getId()));
         var crafting = this.makeCraftingRitualsSubcategoryEntry(entryMap, 'c');
-        crafting.withParent(BookEntryParentModel.builder().withEntryId(sacrifice.id).build());
+        crafting.withParent(BookEntryParentModel.create(sacrifice.getId()));
         var familiars = this.makeFamiliarRitualsSubcategoryEntry(entryMap, 'f');
-        familiars.withParent(BookEntryParentModel.builder().withEntryId(sacrifice.id).build());
+        familiars.withParent(BookEntryParentModel.create(sacrifice.getId()));
 
         //enable all entries by default
         itemUse.withCondition(BookTrueConditionModel.builder().build());
@@ -3134,17 +3027,17 @@ public class OccultismBookProvider extends BookProvider {
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon("occultism:textures/gui/book/robe.png")
                 .withEntries(
-                        ritualOverview.build(),
-                        itemUse.build(),
-                        sacrifice.build(),
-                        summoning.build(),
-                        possession.build(),
-                        crafting.build(),
-                        familiars.build()
+                        ritualOverview,
+                        itemUse,
+                        sacrifice,
+                        summoning,
+                        possession,
+                        crafting,
+                        familiars
                 );
     }
 
-    private BookEntryModel.Builder makeRitualOverviewEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeRitualOverviewEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("overview");
 
         this.context().page("intro");
@@ -3165,9 +3058,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/robe.png")
                 .withLocation(entryMap.get(icon))
                 .withEntryBackground(0, 1)
@@ -3178,7 +3069,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSacrificeEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSacrificeEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("sacrifice");
 
         this.context().page("intro");
@@ -3187,9 +3078,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(ForgeRegistries.ITEMS.getKey(Items.IRON_SWORD).toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -3197,7 +3086,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeItemUseEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeItemUseEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("item_use");
 
         this.context().page("intro");
@@ -3206,9 +3095,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(ForgeRegistries.ITEMS.getKey(Items.FLINT_AND_STEEL).toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -3216,60 +3103,50 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSummoningRitualsSubcategoryEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSummoningRitualsSubcategoryEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summoning_rituals");
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/summoning.png")
                 .withCategoryToOpen(this.modLoc("summoning_rituals"))
                 .withEntryBackground(1, 1) //silver background and wavey entry shape
                 .withLocation(entryMap.get(icon));
     }
 
-    private BookEntryModel.Builder makePossessionRitualsSubcategoryEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makePossessionRitualsSubcategoryEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("possession_rituals");
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/possession.png")
                 .withCategoryToOpen(this.modLoc("possession_rituals"))
                 .withEntryBackground(1, 1) //silver background and wavey entry shape
                 .withLocation(entryMap.get(icon));
     }
 
-    private BookEntryModel.Builder makeCraftingRitualsSubcategoryEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftingRitualsSubcategoryEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("crafting_rituals");
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/infusion.png")
                 .withCategoryToOpen(this.modLoc("crafting_rituals"))
                 .withEntryBackground(1, 1) //silver background and wavey entry shape
                 .withLocation(entryMap.get(icon));
     }
 
-    private BookEntryModel.Builder makeFamiliarRitualsSubcategoryEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeFamiliarRitualsSubcategoryEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("familiar_rituals");
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/parrot.png")
                 .withCategoryToOpen(this.modLoc("familiar_rituals"))
                 .withEntryBackground(1, 1) //silver background and wavey entry shape
                 .withLocation(entryMap.get(icon));
     }
 
-    private BookEntryModel.Builder makeReturnToRitualsEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeReturnToRitualsEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("return_to_rituals");
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/robe.png")
                 .withCategoryToOpen(this.modLoc("rituals"))
                 .withEntryBackground(1, 2)
@@ -3300,50 +3177,50 @@ public class OccultismBookProvider extends BookProvider {
 
         var overview = this.makeSummoningRitualsOverviewEntry(entryMap, 'o');
         var returnToRituals = this.makeReturnToRitualsEntry(entryMap, 'r');
-        returnToRituals.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        returnToRituals.withParent(BookEntryParentModel.create(overview.getId()));
         returnToRituals.withCondition(BookTrueConditionModel.builder().build());
 
         var summonT1Crusher = this.makeSummonCrusherT1Entry(entryMap, '1');
-        summonT1Crusher.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        summonT1Crusher.withParent(BookEntryParentModel.create(overview.getId()));
         var summonT2Crusher = this.makeSummonCrusherT2Entry(entryMap, '2');
-        summonT2Crusher.withParent(BookEntryParentModel.builder().withEntryId(summonT1Crusher.id).build());
+        summonT2Crusher.withParent(BookEntryParentModel.create(summonT1Crusher.getId()));
         var summonT3Crusher = this.makeSummonCrusherT3Entry(entryMap, '3');
-        summonT3Crusher.withParent(BookEntryParentModel.builder().withEntryId(summonT2Crusher.id).build());
+        summonT3Crusher.withParent(BookEntryParentModel.create(summonT2Crusher.getId()));
         var summonT4Crusher = this.makeSummonCrusherT4Entry(entryMap, '4');
-        summonT4Crusher.withParent(BookEntryParentModel.builder().withEntryId(summonT3Crusher.id).build());
+        summonT4Crusher.withParent(BookEntryParentModel.create(summonT3Crusher.getId()));
 
         var summonLumberjack = this.makeSummonLumberjackEntry(entryMap, 'c');
-        summonLumberjack.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        summonLumberjack.withParent(BookEntryParentModel.create(overview.getId()));
 
         var summonTransportItems = this.makeSummonTransportItemsEntry(entryMap, 'd');
-        summonTransportItems.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        summonTransportItems.withParent(BookEntryParentModel.create(overview.getId()));
         var summonCleaner = this.makeSummonCleanerEntry(entryMap, 'b');
-        summonCleaner.withParent(BookEntryParentModel.builder().withEntryId(summonTransportItems.id).build());
+        summonCleaner.withParent(BookEntryParentModel.create(summonTransportItems.getId()));
         var summonManageMachine = this.makeSummonManageMachineEntry(entryMap, 'h');
-        summonManageMachine.withParent(BookEntryParentModel.builder().withEntryId(summonTransportItems.id).build());
+        summonManageMachine.withParent(BookEntryParentModel.create(summonTransportItems.getId()));
 
         var tradeSpirits = this.makeTradeSpiritsEntry(entryMap, 'e');
-        tradeSpirits.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        tradeSpirits.withParent(BookEntryParentModel.create(overview.getId()));
         var summonOtherworldSaplingTrader = this.makeSummonOtherworldSaplingTraderEntry(entryMap, 'f');
-        summonOtherworldSaplingTrader.withParent(BookEntryParentModel.builder().withEntryId(tradeSpirits.id).build());
+        summonOtherworldSaplingTrader.withParent(BookEntryParentModel.create(tradeSpirits.getId()));
         var summonOtherstoneTrader = this.makeSummonOtherstoneTraderEntry(entryMap, 'g');
-        summonOtherstoneTrader.withParent(BookEntryParentModel.builder().withEntryId(summonOtherworldSaplingTrader.id).build());
+        summonOtherstoneTrader.withParent(BookEntryParentModel.create(summonOtherworldSaplingTrader.getId()));
 
         var summonWildParrot = this.makeSummonWildParrotEntry(entryMap, 'i');
-        summonWildParrot.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        summonWildParrot.withParent(BookEntryParentModel.create(overview.getId()));
         var summonWildOtherworldBird = this.makeSummonWildOtherworldBirdEntry(entryMap, 'j');
-        summonWildOtherworldBird.withParent(BookEntryParentModel.builder().withEntryId(summonWildParrot.id).build());
+        summonWildOtherworldBird.withParent(BookEntryParentModel.create(summonWildParrot.getId()));
 
         var weatherMagic = this.makeWeatherMagicEntry(entryMap, 'k');
-        weatherMagic.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        weatherMagic.withParent(BookEntryParentModel.create(overview.getId()));
         var timeMagic = this.makeTimeMagicEntry(entryMap, 'l');
-        timeMagic.withParent(BookEntryParentModel.builder().withEntryId(weatherMagic.id).build());
+        timeMagic.withParent(BookEntryParentModel.create(weatherMagic.getId()));
 
         var afritEssence = this.makeAfritEssenceEntry(entryMap, 'a');
-        afritEssence.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        afritEssence.withParent(BookEntryParentModel.create(overview.getId()));
 
         var witherSkull = this.makeWitherSkullEntry(entryMap, 'm');
-        witherSkull.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        witherSkull.withParent(BookEntryParentModel.create(overview.getId()));
 
         //add true condition to all entries to enable them by default
         overview.withCondition(BookTrueConditionModel.builder().build());
@@ -3369,30 +3246,30 @@ public class OccultismBookProvider extends BookProvider {
                 .withIcon("occultism:textures/gui/book/summoning.png")
                 .withShowCategoryButton(false)
                 .withEntries(
-                        overview.build(),
-                        returnToRituals.build(),
-                        afritEssence.build(),
-                        summonCleaner.build(),
-                        summonT1Crusher.build(),
-                        summonT2Crusher.build(),
-                        summonT3Crusher.build(),
-                        summonT4Crusher.build(),
-                        summonLumberjack.build(),
-                        summonManageMachine.build(),
-                        summonTransportItems.build(),
-                        tradeSpirits.build(),
-                        summonOtherstoneTrader.build(),
-                        summonOtherworldSaplingTrader.build(),
-                        summonWildOtherworldBird.build(),
-                        summonWildParrot.build(),
-                        timeMagic.build(),
-                        weatherMagic.build(),
-                        witherSkull.build(),
-                        afritEssence.build()
+                        overview,
+                        returnToRituals,
+                        afritEssence,
+                        summonCleaner,
+                        summonT1Crusher,
+                        summonT2Crusher,
+                        summonT3Crusher,
+                        summonT4Crusher,
+                        summonLumberjack,
+                        summonManageMachine,
+                        summonTransportItems,
+                        tradeSpirits,
+                        summonOtherstoneTrader,
+                        summonOtherworldSaplingTrader,
+                        summonWildOtherworldBird,
+                        summonWildParrot,
+                        timeMagic,
+                        weatherMagic,
+                        witherSkull,
+                        afritEssence
                 );
     }
 
-    private BookEntryModel.Builder makeSummoningRitualsOverviewEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSummoningRitualsOverviewEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("overview");
 
         this.context().page("intro");
@@ -3401,9 +3278,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/summoning.png")
                 .withLocation(entryMap.get(icon))
                 .withEntryBackground(0, 1)
@@ -3412,7 +3287,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeAfritEssenceEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeAfritEssenceEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("afrit_essence");
 
         this.context().page("intro");
@@ -3426,9 +3301,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("ritual/summon_wild_afrit"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.AFRIT_ESSENCE.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -3437,7 +3310,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSummonCrusherT1Entry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSummonCrusherT1Entry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summon_crusher_t1");
         this.lang.add(this.context().entryName(), "Summon Foliot Crusher");
 
@@ -3484,9 +3357,7 @@ public class OccultismBookProvider extends BookProvider {
                 .build();
         //no text
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.COPPER_DUST.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -3497,7 +3368,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSummonCrusherT2Entry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSummonCrusherT2Entry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summon_crusher_t2");
 
         this.context().page("intro");
@@ -3511,9 +3382,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("ritual/summon_djinni_crusher"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.IRON_DUST.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -3522,7 +3391,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSummonCrusherT3Entry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSummonCrusherT3Entry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summon_crusher_t3");
 
         this.context().page("intro");
@@ -3536,9 +3405,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("ritual/summon_afrit_crusher"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.SILVER_DUST.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -3547,7 +3414,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSummonCrusherT4Entry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSummonCrusherT4Entry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summon_crusher_t4");
 
         this.context().page("intro");
@@ -3561,9 +3428,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("ritual/summon_marid_crusher"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.GOLD_DUST.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -3572,7 +3437,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSummonLumberjackEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSummonLumberjackEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summon_lumberjack");
         this.lang.add(this.context().entryName(), "Summon Foliot Lumberjack");
 
@@ -3632,9 +3497,7 @@ public class OccultismBookProvider extends BookProvider {
                         Set the work area again to make him continue work immediately.
                           """);
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.BRUSH.getId().toString())
                 .withIcon(ForgeRegistries.ITEMS.getKey(Items.IRON_AXE).toString())
                 .withLocation(entryMap.get(icon))
@@ -3647,7 +3510,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSummonTransportItemsEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSummonTransportItemsEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summon_transport_items");
         this.lang.add(this.context().entryName(), "Summon Foliot Transporter");
 
@@ -3715,9 +3578,7 @@ public class OccultismBookProvider extends BookProvider {
                         [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
                         """.formatted(COLOR_PURPLE));
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(ForgeRegistries.ITEMS.getKey(Items.MINECART).toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -3730,7 +3591,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSummonCleanerEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSummonCleanerEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summon_cleaner");
         this.lang.add(this.context().entryName(), "Summon Foliot Janitor");
 
@@ -3786,9 +3647,7 @@ public class OccultismBookProvider extends BookProvider {
                         [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
                         """.formatted(COLOR_PURPLE));
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.BRUSH.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -3800,7 +3659,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSummonManageMachineEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSummonManageMachineEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summon_manage_machine");
 
         this.context().page("intro");
@@ -3830,9 +3689,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(ForgeRegistries.ITEMS.getKey(Items.LEVER).toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -3844,7 +3701,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeTradeSpiritsEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeTradeSpiritsEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("trade_spirits");
 
         this.context().page("intro");
@@ -3858,9 +3715,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/cash.png")
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -3869,7 +3724,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSummonOtherstoneTraderEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSummonOtherstoneTraderEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summon_otherstone_trader");
 
         this.context().page("intro");
@@ -3888,9 +3743,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("ritual/summon_foliot_otherstone_trader"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.OTHERSTONE.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -3900,7 +3753,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSummonOtherworldSaplingTraderEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSummonOtherworldSaplingTraderEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summon_otherworld_sapling_trader");
 
         this.context().page("intro");
@@ -3919,9 +3772,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("ritual/summon_foliot_sapling_trader"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.OTHERWORLD_SAPLING.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -3931,7 +3782,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSummonWildParrotEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSummonWildParrotEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summon_wild_parrot");
 
         this.context().page("entity");
@@ -3956,9 +3807,7 @@ public class OccultismBookProvider extends BookProvider {
                 .build();
 
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/parrot.png")
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -3969,7 +3818,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSummonWildOtherworldBirdEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeSummonWildOtherworldBirdEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summon_wild_otherworld_bird");
 
         this.context().page("entity");
@@ -3988,9 +3837,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/otherworld_bird.png")
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4000,7 +3847,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeWeatherMagicEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeWeatherMagicEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("weather_magic");
 
         this.context().page("intro");
@@ -4027,9 +3874,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withAnchor("thunder")
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(ForgeRegistries.ITEMS.getKey(Items.WHEAT).toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4040,7 +3885,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeTimeMagicEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeTimeMagicEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("time_magic");
 
         this.context().page("intro");
@@ -4061,9 +3906,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withAnchor("night")
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(ForgeRegistries.ITEMS.getKey(Items.CLOCK).toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4073,7 +3916,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeWitherSkullEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeWitherSkullEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("wither_skull");
 
         this.context().page("intro");
@@ -4087,9 +3930,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("ritual/summon_wild_hunt"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(ForgeRegistries.ITEMS.getKey(Items.WITHER_SKELETON_SKULL).toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4122,53 +3963,53 @@ public class OccultismBookProvider extends BookProvider {
 
         var overview = this.makeCraftingRitualsOverviewEntry(entryMap, '0');
         var returnToRituals = this.makeReturnToRitualsEntry(entryMap, '9');
-        returnToRituals.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        returnToRituals.withParent(BookEntryParentModel.create(overview.getId()));
         returnToRituals.withCondition(BookTrueConditionModel.builder().build());
 
         var craftInfusedPickaxe = this.makeCraftInfusedPickaxeEntry(entryMap, 'd');
-        craftInfusedPickaxe.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        craftInfusedPickaxe.withParent(BookEntryParentModel.create(overview.getId()));
         var craftDimensionalMineshaft = this.makeCraftDimensionalMineshaftEntry(entryMap, 'b');
-        craftDimensionalMineshaft.withParent(BookEntryParentModel.builder().withEntryId(craftInfusedPickaxe.id).build());
+        craftDimensionalMineshaft.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()));
         var craftFoliotMiner = this.makeCraftFoliotMinerEntry(entryMap, 'e');
-        craftFoliotMiner.withParent(BookEntryParentModel.builder().withEntryId(craftDimensionalMineshaft.id).build());
+        craftFoliotMiner.withParent(BookEntryParentModel.create(craftDimensionalMineshaft.getId()));
         var craftDjinniMiner = this.makeCraftDjinniMinerEntry(entryMap, 'x');
-        craftDjinniMiner.withParent(BookEntryParentModel.builder().withEntryId(craftFoliotMiner.id).build());
+        craftDjinniMiner.withParent(BookEntryParentModel.create(craftFoliotMiner.getId()));
         var craftAfritMiner = this.makeCraftAfritMinerEntry(entryMap, 'p');
-        craftAfritMiner.withParent(BookEntryParentModel.builder().withEntryId(craftDjinniMiner.id).build());
+        craftAfritMiner.withParent(BookEntryParentModel.create(craftDjinniMiner.getId()));
         var craftMaridMiner = this.makeCraftMaridMinerEntry(entryMap, 'q');
-        craftMaridMiner.withParent(BookEntryParentModel.builder().withEntryId(craftAfritMiner.id).build());
+        craftMaridMiner.withParent(BookEntryParentModel.create(craftAfritMiner.getId()));
 
         var craftStorageSystem = this.makeCraftStorageSystemEntry(entryMap, 'z');
-        craftStorageSystem.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        craftStorageSystem.withParent(BookEntryParentModel.create(overview.getId()));
 
         var craftDimensionalMatrix = this.makeCraftDimensionalMatrixEntry(entryMap, 'a');
-        craftDimensionalMatrix.withParent(BookEntryParentModel.builder().withEntryId(craftStorageSystem.id).build());
+        craftDimensionalMatrix.withParent(BookEntryParentModel.create(craftStorageSystem.getId()));
         var craftStorageControllerBase = this.makeCraftStorageControllerBaseEntry(entryMap, 'n');
-        craftStorageControllerBase.withParent(BookEntryParentModel.builder().withEntryId(craftDimensionalMatrix.id).build());
+        craftStorageControllerBase.withParent(BookEntryParentModel.create(craftDimensionalMatrix.getId()));
         var craftStabilizerTier1 = this.makeCraftStabilizerTier1Entry(entryMap, 'i');
-        craftStabilizerTier1.withParent(BookEntryParentModel.builder().withEntryId(craftStorageControllerBase.id).build());
+        craftStabilizerTier1.withParent(BookEntryParentModel.create(craftStorageControllerBase.getId()));
         var craftStabilizerTier2 = this.makeCraftStabilizerTier2Entry(entryMap, 'j');
-        craftStabilizerTier2.withParent(BookEntryParentModel.builder().withEntryId(craftStabilizerTier1.id).build());
+        craftStabilizerTier2.withParent(BookEntryParentModel.create(craftStabilizerTier1.getId()));
         var craftStabilizerTier3 = this.makeCraftStabilizerTier3Entry(entryMap, 'k');
-        craftStabilizerTier3.withParent(BookEntryParentModel.builder().withEntryId(craftStabilizerTier2.id).build());
+        craftStabilizerTier3.withParent(BookEntryParentModel.create(craftStabilizerTier2.getId()));
         var craftStabilizerTier4 = this.makeCraftStabilizerTier4Entry(entryMap, 'l');
-        craftStabilizerTier4.withParent(BookEntryParentModel.builder().withEntryId(craftStabilizerTier3.id).build());
+        craftStabilizerTier4.withParent(BookEntryParentModel.create(craftStabilizerTier3.getId()));
 
         var craftStableWormhole = this.makeCraftStableWormholeEntry(entryMap, 'm');
-        craftStableWormhole.withParent(BookEntryParentModel.builder().withEntryId(craftStorageControllerBase.id).build());
+        craftStableWormhole.withParent(BookEntryParentModel.create(craftStorageControllerBase.getId()));
         var craftStorageRemote = this.makeCraftStorageRemoteEntry(entryMap, 'o');
-        craftStorageRemote.withParent(BookEntryParentModel.builder().withEntryId(craftStableWormhole.id).build());
+        craftStorageRemote.withParent(BookEntryParentModel.create(craftStableWormhole.getId()));
 
         var craftOtherworldGoggles = this.makeCraftOtherworldGogglesEntry(entryMap, 'f');
-        craftOtherworldGoggles.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        craftOtherworldGoggles.withParent(BookEntryParentModel.create(overview.getId()));
 
         var craftSatchel = this.makeCraftSatchelEntry(entryMap, 'g');
-        craftSatchel.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        craftSatchel.withParent(BookEntryParentModel.create(overview.getId()));
 
         var craftSoulGem = this.makeCraftSoulGemEntry(entryMap, 'h');
-        craftSoulGem.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        craftSoulGem.withParent(BookEntryParentModel.create(overview.getId()));
         var craftFamiliarRing = this.makeCraftFamiliarRingEntry(entryMap, 'c');
-        craftFamiliarRing.withParent(BookEntryParentModel.builder().withEntryId(craftSoulGem.id).build());
+        craftFamiliarRing.withParent(BookEntryParentModel.create(craftSoulGem.getId()));
 
         //add true condition to all entries to enable them by default
         overview.withCondition(BookTrueConditionModel.builder().build());
@@ -4196,31 +4037,31 @@ public class OccultismBookProvider extends BookProvider {
                 .withIcon("occultism:textures/gui/book/infusion.png")
                 .withShowCategoryButton(false)
                 .withEntries(
-                        overview.build(),
-                        returnToRituals.build(),
-                        craftStorageSystem.build(),
-                        craftDimensionalMatrix.build(),
-                        craftDimensionalMineshaft.build(),
-                        craftInfusedPickaxe.build(),
-                        craftFoliotMiner.build(),
-                        craftDjinniMiner.build(),
-                        craftAfritMiner.build(),
-                        craftMaridMiner.build(),
-                        craftOtherworldGoggles.build(),
-                        craftSatchel.build(),
-                        craftSoulGem.build(),
-                        craftFamiliarRing.build(),
-                        craftStabilizerTier1.build(),
-                        craftStabilizerTier2.build(),
-                        craftStabilizerTier3.build(),
-                        craftStabilizerTier4.build(),
-                        craftStableWormhole.build(),
-                        craftStorageControllerBase.build(),
-                        craftStorageRemote.build()
+                        overview,
+                        returnToRituals,
+                        craftStorageSystem,
+                        craftDimensionalMatrix,
+                        craftDimensionalMineshaft,
+                        craftInfusedPickaxe,
+                        craftFoliotMiner,
+                        craftDjinniMiner,
+                        craftAfritMiner,
+                        craftMaridMiner,
+                        craftOtherworldGoggles,
+                        craftSatchel,
+                        craftSoulGem,
+                        craftFamiliarRing,
+                        craftStabilizerTier1,
+                        craftStabilizerTier2,
+                        craftStabilizerTier3,
+                        craftStabilizerTier4,
+                        craftStableWormhole,
+                        craftStorageControllerBase,
+                        craftStorageRemote
                 );
     }
 
-    private BookEntryModel.Builder makeCraftingRitualsOverviewEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftingRitualsOverviewEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("overview");
 
         this.context().page("intro");
@@ -4229,9 +4070,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/infusion.png")
                 .withLocation(entryMap.get(icon))
                 .withEntryBackground(0, 1)
@@ -4240,7 +4079,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftStorageSystemEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftStorageSystemEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_storage_system");
 
         this.context().page("spotlight");
@@ -4249,9 +4088,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("minecraft:chest")
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4259,7 +4096,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftDimensionalMatrixEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftDimensionalMatrixEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_dimensional_matrix");
 
         this.context().page("spotlight");
@@ -4273,9 +4110,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("ritual/craft_dimensional_matrix"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.DIMENSIONAL_MATRIX.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4284,7 +4119,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftDimensionalMineshaftEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftDimensionalMineshaftEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_dimensional_mineshaft");
 
         this.context().page("spotlight");
@@ -4304,9 +4139,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.DIMENSIONAL_MINESHAFT.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4316,7 +4149,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftInfusedPickaxeEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftInfusedPickaxeEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_infused_pickaxe");
 
         this.context().page("spotlight");
@@ -4330,9 +4163,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("ritual/craft_infused_pickaxe"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.INFUSED_PICKAXE.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4341,7 +4172,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftStorageControllerBaseEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftStorageControllerBaseEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_storage_controller_base");
 
         this.context().page("spotlight");
@@ -4355,9 +4186,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("ritual/craft_storage_controller_base"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.STORAGE_CONTROLLER_BASE.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4366,7 +4195,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftStabilizerTier1Entry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftStabilizerTier1Entry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_stabilizer_tier1");
 
         this.context().page("spotlight");
@@ -4380,9 +4209,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier1"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.STORAGE_STABILIZER_TIER1.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4391,7 +4218,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftStabilizerTier2Entry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftStabilizerTier2Entry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_stabilizer_tier2");
 
         this.context().page("spotlight");
@@ -4405,9 +4232,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier2"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.STORAGE_STABILIZER_TIER2.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4416,7 +4241,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftStabilizerTier3Entry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftStabilizerTier3Entry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_stabilizer_tier3");
 
         this.context().page("spotlight");
@@ -4430,9 +4255,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier3"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.STORAGE_STABILIZER_TIER3.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4441,7 +4264,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftStabilizerTier4Entry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftStabilizerTier4Entry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_stabilizer_tier4");
 
         this.context().page("spotlight");
@@ -4455,9 +4278,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier4"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.STORAGE_STABILIZER_TIER4.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4466,7 +4287,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftStableWormholeEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftStableWormholeEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_stable_wormhole");
 
         this.context().page("spotlight");
@@ -4480,9 +4301,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("ritual/craft_stable_wormhole"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.STABLE_WORMHOLE.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4491,7 +4310,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftStorageRemoteEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftStorageRemoteEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_storage_remote");
 
         this.context().page("spotlight");
@@ -4505,9 +4324,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("ritual/craft_storage_remote"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.STORAGE_REMOTE.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4516,7 +4333,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftFoliotMinerEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftFoliotMinerEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_foliot_miner");
 
         this.context().page("intro");
@@ -4547,9 +4364,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("ritual/craft_miner_foliot_unspecialized"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4561,7 +4376,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftDjinniMinerEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftDjinniMinerEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_djinni_miner");
 
         this.context().page("spotlight");
@@ -4575,9 +4390,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("ritual/craft_miner_djinni_ores"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.MINER_DJINNI_ORES.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4586,7 +4399,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftAfritMinerEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftAfritMinerEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_afrit_miner");
 
         this.context().page("spotlight");
@@ -4600,9 +4413,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("ritual/craft_miner_afrit_deeps"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.MINER_AFRIT_DEEPS.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4611,7 +4422,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftMaridMinerEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftMaridMinerEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_marid_miner");
 
         this.context().page("spotlight");
@@ -4625,9 +4436,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("ritual/craft_miner_marid_master"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.MINER_MARID_MASTER.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4636,7 +4445,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftSatchelEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftSatchelEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_satchel");
 
         this.context().page("spotlight");
@@ -4650,9 +4459,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("ritual/craft_satchel"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.SATCHEL.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4661,7 +4468,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftSoulGemEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftSoulGemEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_soul_gem");
 
         this.context().page("spotlight");
@@ -4681,9 +4488,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("ritual/craft_soul_gem"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.SOUL_GEM_ITEM.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4693,7 +4498,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftFamiliarRingEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftFamiliarRingEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_familiar_ring");
 
         this.context().page("spotlight");
@@ -4713,9 +4518,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("ritual/craft_familiar_ring"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.FAMILIAR_RING.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4725,7 +4528,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCraftOtherworldGogglesEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeCraftOtherworldGogglesEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_otherworld_goggles");
 
         this.context().page("goggles_spotlight");
@@ -4766,9 +4569,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withRecipeId1(this.modLoc("crafting/goggles"))
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.OTHERWORLD_GOGGLES.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4802,23 +4603,23 @@ public class OccultismBookProvider extends BookProvider {
 
         var overview = this.makePossessionRitualsOverviewEntry(entryMap, 'o');
         var returnToRituals = this.makeReturnToRitualsEntry(entryMap, 'r');
-        returnToRituals.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        returnToRituals.withParent(BookEntryParentModel.create(overview.getId()));
         returnToRituals.withCondition(BookTrueConditionModel.builder().build());
 
         var possessEndermite = this.makePossessEndermiteEntry(entryMap, 'D');
-        possessEndermite.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        possessEndermite.withParent(BookEntryParentModel.create(overview.getId()));
         var possessEnderman = this.makePossessEndermanEntry(entryMap, 'E');
-        possessEnderman.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        possessEnderman.withParent(BookEntryParentModel.create(overview.getId()));
         var possessGhast = this.makePossessGhastEntry(entryMap, 'F');
-        possessGhast.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        possessGhast.withParent(BookEntryParentModel.create(overview.getId()));
         var possessSkeleton = this.makePossessSkeletonEntry(entryMap, 'G');
-        possessSkeleton.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        possessSkeleton.withParent(BookEntryParentModel.create(overview.getId()));
 
         this.context().category("summoning_rituals"); //re-use the entries from the summoning rituals category
         var possessWitherSkeleton = this.makeWitherSkullEntry(entryMap, 'H');
-        possessWitherSkeleton.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        possessWitherSkeleton.withParent(BookEntryParentModel.create(overview.getId()));
         var afritEssence = this.makeAfritEssenceEntry(entryMap, 'A');
-        afritEssence.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        afritEssence.withParent(BookEntryParentModel.create(overview.getId()));
         this.context().category("possession_rituals");
 
         //add true condition to all entries to enable them by default
@@ -4834,18 +4635,18 @@ public class OccultismBookProvider extends BookProvider {
                 .withIcon("occultism:textures/gui/book/possession.png")
                 .withShowCategoryButton(false)
                 .withEntries(
-                        overview.build(),
-                        returnToRituals.build(),
-                        possessEnderman.build(),
-                        possessEndermite.build(),
-                        possessGhast.build(),
-                        possessSkeleton.build(),
-                        possessWitherSkeleton.build(),
-                        afritEssence.build()
+                        overview,
+                        returnToRituals,
+                        possessEnderman,
+                        possessEndermite,
+                        possessGhast,
+                        possessSkeleton,
+                        possessWitherSkeleton,
+                        afritEssence
                 );
     }
 
-    private BookEntryModel.Builder makePossessionRitualsOverviewEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makePossessionRitualsOverviewEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("overview");
 
         this.context().page("intro");
@@ -4854,9 +4655,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/possession.png")
                 .withLocation(entryMap.get(icon))
                 .withEntryBackground(0, 1)
@@ -4865,7 +4664,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makePossessEndermanEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makePossessEndermanEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("possess_enderman");
 
         this.context().page("entity");
@@ -4884,9 +4683,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(ForgeRegistries.ITEMS.getKey(Items.ENDER_PEARL).toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4896,7 +4693,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makePossessEndermiteEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makePossessEndermiteEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("possess_endermite");
 
         this.context().page("entity");
@@ -4915,9 +4712,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(ForgeRegistries.BLOCKS.getKey(Blocks.END_STONE).toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4927,7 +4722,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makePossessGhastEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makePossessGhastEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("possess_ghast");
         this.lang.add(this.context().entryName(), "Possessed Ghast");
 
@@ -4957,9 +4752,7 @@ public class OccultismBookProvider extends BookProvider {
                         In this ritual a [#](%1$s)Ghast[#]() is spawned using the life energy of a [#](%1$s)Cow[#]() and immediately possessed by the summoned [#](%1$s)Djinni[#](). The [#](%1$s)Possessed Ghast[#]() will always drop at least one [](item://minecraft:ghast_tear) when killed.
                         """.formatted(COLOR_PURPLE));
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(ForgeRegistries.ITEMS.getKey(Items.GHAST_TEAR).toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -4969,7 +4762,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makePossessSkeletonEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makePossessSkeletonEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("possess_skeleton");
 
         this.context().page("entity");
@@ -4988,9 +4781,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(ForgeRegistries.ITEMS.getKey(Items.SKELETON_SKULL).toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -5020,43 +4811,43 @@ public class OccultismBookProvider extends BookProvider {
 
         var overview = this.makeFamiliarsRitualsOverviewEntry(entryMap, 'o');
         var returnToRituals = this.makeReturnToRitualsEntry(entryMap, 'r');
-        returnToRituals.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        returnToRituals.withParent(BookEntryParentModel.create(overview.getId()));
         returnToRituals.withCondition(BookTrueConditionModel.builder().build());
 
         var familiarBat = this.makeFamiliarBatEntry(entryMap, 'I');
-        familiarBat.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        familiarBat.withParent(BookEntryParentModel.create(overview.getId()));
         var familiarBeaver = this.makeFamiliarBeaverEntry(entryMap, 'J');
-        familiarBeaver.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        familiarBeaver.withParent(BookEntryParentModel.create(overview.getId()));
         var familiarBeholder = this.makeFamiliarBeholderEntry(entryMap, 'K');
-        familiarBeholder.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        familiarBeholder.withParent(BookEntryParentModel.create(overview.getId()));
         var familiarBlacksmith = this.makeFamiliarBlacksmithEntry(entryMap, 'L');
-        familiarBlacksmith.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        familiarBlacksmith.withParent(BookEntryParentModel.create(overview.getId()));
         var familiarChimera = this.makeFamiliarChimeraEntry(entryMap, 'M');
-        familiarChimera.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        familiarChimera.withParent(BookEntryParentModel.create(overview.getId()));
         var familiarCthulhu = this.makeFamiliarCthulhuEntry(entryMap, 'N');
-        familiarCthulhu.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        familiarCthulhu.withParent(BookEntryParentModel.create(overview.getId()));
         var familiarDeer = this.makeFamiliarDeerEntry(entryMap, 'O');
-        familiarDeer.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        familiarDeer.withParent(BookEntryParentModel.create(overview.getId()));
         var familiarDevil = this.makeFamiliarDevilEntry(entryMap, 'P');
-        familiarDevil.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        familiarDevil.withParent(BookEntryParentModel.create(overview.getId()));
         var familiarDragon = this.makeFamiliarDragonEntry(entryMap, 'Q');
-        familiarDragon.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        familiarDragon.withParent(BookEntryParentModel.create(overview.getId()));
         var familiarFairy = this.makeFamiliarFairyEntry(entryMap, 'R');
-        familiarFairy.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        familiarFairy.withParent(BookEntryParentModel.create(overview.getId()));
         var familiarGreedy = this.makeFamiliarGreedyEntry(entryMap, 'S');
-        familiarGreedy.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        familiarGreedy.withParent(BookEntryParentModel.create(overview.getId()));
         var familiarGuardian = this.makeFamiliarGuardianEntry(entryMap, 'T');
-        familiarGuardian.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        familiarGuardian.withParent(BookEntryParentModel.create(overview.getId()));
         var familiarHeadlessRatman = this.makeFamiliarHeadlessRatmanEntry(entryMap, 'U');
-        familiarHeadlessRatman.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        familiarHeadlessRatman.withParent(BookEntryParentModel.create(overview.getId()));
         var familiarMummy = this.makeFamiliarMummyEntry(entryMap, 'V');
-        familiarMummy.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        familiarMummy.withParent(BookEntryParentModel.create(overview.getId()));
         var familiarOtherworldBird = this.makeFamiliarOtherworldBirdEntry(entryMap, 'W');
-        familiarOtherworldBird.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        familiarOtherworldBird.withParent(BookEntryParentModel.create(overview.getId()));
         var familiarParrot = this.makeFamiliarParrotEntry(entryMap, 'X');
-        familiarParrot.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        familiarParrot.withParent(BookEntryParentModel.create(overview.getId()));
         var familiarShubNiggurath = this.makeFamiliarShubNiggurathEntry(entryMap, 'Y');
-        familiarShubNiggurath.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        familiarShubNiggurath.withParent(BookEntryParentModel.create(overview.getId()));
 
         //add true condition to all entries to enable them by default
         overview.withCondition(BookTrueConditionModel.builder().build());
@@ -5082,29 +4873,29 @@ public class OccultismBookProvider extends BookProvider {
                 .withIcon("occultism:textures/gui/book/parrot.png")
                 .withShowCategoryButton(false)
                 .withEntries(
-                        overview.build(),
-                        returnToRituals.build(),
-                        familiarBat.build(),
-                        familiarBeaver.build(),
-                        familiarBeholder.build(),
-                        familiarBlacksmith.build(),
-                        familiarChimera.build(),
-                        familiarCthulhu.build(),
-                        familiarDeer.build(),
-                        familiarDevil.build(),
-                        familiarDragon.build(),
-                        familiarFairy.build(),
-                        familiarGreedy.build(),
-                        familiarGuardian.build(),
-                        familiarHeadlessRatman.build(),
-                        familiarMummy.build(),
-                        familiarOtherworldBird.build(),
-                        familiarParrot.build(),
-                        familiarShubNiggurath.build()
+                        overview,
+                        returnToRituals,
+                        familiarBat,
+                        familiarBeaver,
+                        familiarBeholder,
+                        familiarBlacksmith,
+                        familiarChimera,
+                        familiarCthulhu,
+                        familiarDeer,
+                        familiarDevil,
+                        familiarDragon,
+                        familiarFairy,
+                        familiarGreedy,
+                        familiarGuardian,
+                        familiarHeadlessRatman,
+                        familiarMummy,
+                        familiarOtherworldBird,
+                        familiarParrot,
+                        familiarShubNiggurath
                 );
     }
 
-    private BookEntryModel.Builder makeFamiliarsRitualsOverviewEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeFamiliarsRitualsOverviewEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("overview");
 
         this.context().page("intro");
@@ -5125,9 +4916,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/parrot.png")
                 .withLocation(entryMap.get(icon))
                 .withEntryBackground(0, 1)
@@ -5138,7 +4927,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeFamiliarBatEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeFamiliarBatEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("familiar_bat");
 
         this.context().page("entity");
@@ -5160,9 +4949,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/bat_familiar.png")
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -5172,7 +4959,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeFamiliarBeaverEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeFamiliarBeaverEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("familiar_beaver");
 
         this.context().page("entity");
@@ -5192,9 +4979,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/familiar_beaver.png")
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -5204,7 +4989,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeFamiliarBeholderEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeFamiliarBeholderEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("familiar_beholder");
 
         this.context().page("entity");
@@ -5226,9 +5011,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/familiar_beholder.png")
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -5238,7 +5021,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeFamiliarBlacksmithEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeFamiliarBlacksmithEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("familiar_blacksmith");
 
         this.context().page("entity");
@@ -5264,9 +5047,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/familiar_blacksmith.png")
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -5277,7 +5058,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeFamiliarChimeraEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeFamiliarChimeraEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("familiar_chimera");
 
         this.context().page("entity");
@@ -5304,9 +5085,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/familiar_chimera.png")
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -5317,7 +5096,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeFamiliarCthulhuEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeFamiliarCthulhuEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("familiar_cthulhu");
 
         this.context().page("entity");
@@ -5339,9 +5118,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/familiar_cthulhu.png")
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -5351,7 +5128,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeFamiliarDeerEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeFamiliarDeerEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("familiar_deer");
 
         this.context().page("entity");
@@ -5373,9 +5150,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/familiar_deer.png")
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -5385,7 +5160,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeFamiliarDevilEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeFamiliarDevilEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("familiar_devil");
 
         this.context().page("entity");
@@ -5407,9 +5182,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/familiar_devil.png")
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -5419,7 +5192,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeFamiliarDragonEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeFamiliarDragonEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("familiar_dragon");
 
         this.context().page("entity");
@@ -5441,9 +5214,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/familiar_dragon.png")
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -5453,7 +5224,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeFamiliarFairyEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeFamiliarFairyEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("familiar_fairy");
 
         this.context().page("entity");
@@ -5475,9 +5246,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/familiar_fairy.png")
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -5487,7 +5256,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeFamiliarGreedyEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeFamiliarGreedyEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("familiar_greedy");
 
         this.context().page("entity");
@@ -5507,9 +5276,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/familiar_greedy.png")
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -5519,7 +5286,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeFamiliarGuardianEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeFamiliarGuardianEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("familiar_guardian");
 
         this.context().page("entity");
@@ -5544,9 +5311,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/familiar_guardian.png")
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -5557,7 +5322,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeFamiliarHeadlessRatmanEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeFamiliarHeadlessRatmanEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("familiar_headless");
 
         this.context().page("entity");
@@ -5578,9 +5343,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/familiar_headless_ratman.png")
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -5590,7 +5353,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeFamiliarMummyEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeFamiliarMummyEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("familiar_mummy");
 
         this.context().page("entity");
@@ -5610,9 +5373,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/familiar_mummy.png")
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -5622,7 +5383,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeFamiliarOtherworldBirdEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeFamiliarOtherworldBirdEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("familiar_otherworld_bird");
 
         this.context().page("entity");
@@ -5647,9 +5408,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/otherworld_bird.png")
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -5660,7 +5419,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeFamiliarParrotEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeFamiliarParrotEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("familiar_parrot");
 
         this.context().page("entity");
@@ -5685,9 +5444,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/parrot.png")
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -5698,7 +5455,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeFamiliarShubNiggurathEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeFamiliarShubNiggurathEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("familiar_shub_niggurath");
 
         this.context().page("entity");
@@ -5719,9 +5476,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("occultism:textures/gui/book/familiar_shub_niggurath.png")
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -5750,69 +5505,69 @@ public class OccultismBookProvider extends BookProvider {
 
         this.context().category("storage");
         var storageController = this.makeStorageControllerEntry(entryMap, 'c');
-        storageController.withParent(BookEntryParentModel.builder().withEntryId(overview.id).build());
+        storageController.withParent(BookEntryParentModel.create(overview.getId()));
 
         var storageStabilizer = this.makeStorageStabilizerEntry(entryMap, 's');
-        storageStabilizer.withParent(BookEntryParentModel.builder().withEntryId(storageController.id).build());
+        storageStabilizer.withParent(BookEntryParentModel.create(storageController.getId()));
 
         this.context().category("crafting_rituals"); //re-use existing entries
         var craftStabilizerTier1 = this.makeCraftStabilizerTier1Entry(entryMap, '1');
-        craftStabilizerTier1.withParent(BookEntryParentModel.builder().withEntryId(storageStabilizer.id).build());
+        craftStabilizerTier1.withParent(BookEntryParentModel.create(storageStabilizer.getId()));
         var craftStabilizerTier2 = this.makeCraftStabilizerTier2Entry(entryMap, '2');
-        craftStabilizerTier2.withParent(BookEntryParentModel.builder().withEntryId(
+        craftStabilizerTier2.withParent(BookEntryParentModel.create(
                 new ResourceLocation(
-                        craftStabilizerTier1.id.getNamespace(),
-                        "storage/" + craftStabilizerTier1.id.getPath()
+                        craftStabilizerTier1.getId().getNamespace(),
+                        "storage/" + craftStabilizerTier1.getId().getPath()
                 )
-        ).build());
+        ));
         var craftStabilizerTier3 = this.makeCraftStabilizerTier3Entry(entryMap, '3');
-        craftStabilizerTier3.withParent(BookEntryParentModel.builder().withEntryId(
+        craftStabilizerTier3.withParent(BookEntryParentModel.create(
                 new ResourceLocation(
-                        craftStabilizerTier2.id.getNamespace(),
-                        "storage/" + craftStabilizerTier2.id.getPath()
+                        craftStabilizerTier2.getId().getNamespace(),
+                        "storage/" + craftStabilizerTier2.getId().getPath()
                 )
-        ).build());
+        ));
         var craftStabilizerTier4 = this.makeCraftStabilizerTier4Entry(entryMap, '4');
-        craftStabilizerTier4.withParent(BookEntryParentModel.builder().withEntryId(
+        craftStabilizerTier4.withParent(BookEntryParentModel.create(
                 new ResourceLocation(
-                        craftStabilizerTier3.id.getNamespace(),
-                        "storage/" + craftStabilizerTier3.id.getPath()
+                        craftStabilizerTier3.getId().getNamespace(),
+                        "storage/" + craftStabilizerTier3.getId().getPath()
                 )
-        ).build());
+        ));
 
         var craftStableWormhole = this.makeCraftStableWormholeEntry(entryMap, 'w');
-        craftStableWormhole.withParent(BookEntryParentModel.builder().withEntryId(storageController.id).build());
+        craftStableWormhole.withParent(BookEntryParentModel.create(storageController.getId()));
         var craftStorageRemote = this.makeCraftStorageRemoteEntry(entryMap, 'r');
-        craftStorageRemote.withParent(BookEntryParentModel.builder().withEntryId(
+        craftStorageRemote.withParent(BookEntryParentModel.create(
                 new ResourceLocation(
-                        craftStableWormhole.id.getNamespace(),
-                        "storage/" + craftStableWormhole.id.getPath()
+                        craftStableWormhole.getId().getNamespace(),
+                        "storage/" + craftStableWormhole.getId().getPath()
                 )
-        ).build());
+        ));
 
         this.context().category("summoning_rituals"); //re-use existing entries
         var summonManageMachine = this.makeSummonManageMachineEntry(entryMap, 'd');
-        summonManageMachine.withParent(BookEntryParentModel.builder().withEntryId(storageController.id).build());
+        summonManageMachine.withParent(BookEntryParentModel.create(storageController.getId()));
 
         this.context().category("storage");
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon("minecraft:chest")
                 .withEntries(
-                        overview.build(),
-                        storageController.build(),
-                        storageStabilizer.build(),
-                        craftStabilizerTier1.build(),
-                        craftStabilizerTier2.build(),
-                        craftStabilizerTier3.build(),
-                        craftStabilizerTier4.build(),
-                        craftStableWormhole.build(),
-                        craftStorageRemote.build(),
-                        summonManageMachine.build()
+                        overview,
+                        storageController,
+                        storageStabilizer,
+                        craftStabilizerTier1,
+                        craftStabilizerTier2,
+                        craftStabilizerTier3,
+                        craftStabilizerTier4,
+                        craftStableWormhole,
+                        craftStorageRemote,
+                        summonManageMachine
                 );
     }
 
-    private BookEntryModel.Builder makeStorageOverviewEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeStorageOverviewEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("overview");
 
         this.context().page("intro");
@@ -5827,9 +5582,7 @@ public class OccultismBookProvider extends BookProvider {
                 .build();
 
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon("minecraft:chest")
                 .withLocation(entryMap.get(icon))
                 .withEntryBackground(0, 1)
@@ -5839,7 +5592,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeStorageControllerEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeStorageControllerEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("storage_controller");
 
         this.context().page("intro");
@@ -5900,9 +5653,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.STORAGE_CONTROLLER.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
@@ -5919,7 +5670,7 @@ public class OccultismBookProvider extends BookProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeStorageStabilizerEntry(CategoryEntryMap entryMap, char icon) {
+    private BookEntryModel makeStorageStabilizerEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("storage_stabilizer");
 
         this.context().page("spotlight");
@@ -5946,9 +5697,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withMultiblockName(this.context().pageTitle())
                 .build();
 
-        return BookEntryModel.builder()
-                .withId(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.STORAGE_CONTROLLER.getId().toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(

@@ -178,10 +178,8 @@ dependencies {
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
     //curios
-    //TODO: reenable once updated
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}")
-
 
     //geckolib
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${geckolib_minecraft_version}:${geckolib_version}")
@@ -193,7 +191,8 @@ dependencies {
     implementation fg.deobf("com.almostreliable.mods:almostunified-forge:${minecraft_version}-${almost_unified_version}")
 
     //modonomicon
-    implementation fg.deobf("com.klikli_dev:modonomicon:${minecraft_version}-${modonomicon_version}")
+    compileOnly fg.deobf("com.klikli_dev:modonomicon-${minecraft_version}-common:${modonomicon_version}")
+    implementation fg.deobf("com.klikli_dev:modonomicon-${minecraft_version}-forge:${modonomicon_version}")
 
     //theurgy
     implementation fg.deobf("com.klikli_dev:theurgy:${minecraft_version}-${theurgy_version}")
