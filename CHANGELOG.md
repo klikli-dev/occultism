@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.81.3] - 2023-07-19
+### :bug: Bug Fixes
+- [`b3f4833`](https://github.com/klikli-dev/occultism/commit/b3f48334ae259c3c71bb02549695f94de8868b86) - crash on entity super constructor *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`4c2b451`](https://github.com/klikli-dev/occultism/commit/4c2b451f837e3592e68c2ebb3c12cfb269219d5e) - iesnium dust should not require tier 4 crusher *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.81.1] - 2023-07-12
 ### :bug: Bug Fixes
 - [`7680852`](https://github.com/klikli-dev/occultism/commit/7680852f2856688b6e4fa365a0533d4b354f9920) - allow candle preview to rotate through all candles in tag *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -514,3 +520,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.80.12]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.80.10...release/v1.20.1-1.80.12
 [release/v1.20.1-1.81.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.80.12...release/v1.20.1-1.81.0
 [release/v1.20.1-1.81.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.81.0...release/v1.20.1-1.81.1
+[release/v1.20.1-1.81.3]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.81.1...release/v1.20.1-1.81.3
