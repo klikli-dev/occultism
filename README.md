@@ -10,6 +10,8 @@ https://www.curseforge.com/minecraft/mc-mods/occultism
 
 ## Maven
 
+See https://cloudsmith.io/~klikli-dev/repos/mods/packages/ for available versions.
+
 ```gradle
 repositories {
 
