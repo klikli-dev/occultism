@@ -47,10 +47,9 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
+          gradle-home-cache-cleanup: true
         env:
           MOD_VERSION: ${{ steps.get_version.outputs.result }}
-          MINECRAFT_VERSION: ${{ steps.get_mc_version.outputs.result }}
-          GRADLE_BUILD_ACTION_CACHE_DEBUG_ENABLED: true
       - name: Update CHANGELOG
         id: changelog
         uses: klikli-dev/changelog-action@main
@@ -79,6 +78,7 @@ jobs:
           file_pattern: CHANGELOG.md
       - name: Upload to Mod Platforms
         uses: Kir-Antipov/mc-publish@v3.3
+        if: ${{ steps.get_release_type.outputs.result != 'test' }}
         with:
           modrinth-id: sbJh4AZw
           modrinth-token: ${{ secrets.MODRINTH_API_KEY }}
@@ -108,3 +108,14 @@ jobs:
             jei(optional)
             almost-unified(optional)
             perviaminvenire(optional)
+      # Publish at the end because it creates a non reobfed jarjar which otherwise would be distributed
+      - name: Publish
+        uses: gradle/gradle-build-action@v2
+        if: ${{ steps.get_release_type.outputs.result != 'test' }}
+        with:
+          arguments: publish
+          gradle-home-cache-cleanup: true
+        env:
+          MAVEN_USER: ${{ secrets.MAVEN_USER }}
+          MAVEN_PASS: ${{ secrets.MAVEN_PASS }}
+          MOD_VERSION: ${{ steps.get_version.outputs.result }}

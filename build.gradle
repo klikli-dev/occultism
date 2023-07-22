@@ -8,18 +8,14 @@ plugins {
 if (System.getenv('MOD_VERSION') != null) {
     mod_version = System.getenv('MOD_VERSION')
 }
-if (System.getenv('MINECRAFT_VERSION') != null) {
-    minecraft_version = System.getenv('MINECRAFT_VERSION')
-}
-version = "${minecraft_version}-${mod_version}"
-
-group = mod_group_id
+version = mod_version
 
 base {
-    archivesName = mod_id
+    archivesName = mod_id + "-" + minecraft_version
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.withSourcesJar()
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
@@ -265,21 +261,43 @@ jar {
     }
 }
 
-// Example configuration to allow publishing using the maven-publish task
-// This is the preferred method to reobfuscate your jar file
 jar.finalizedBy('reobfJar')
-// However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
-//publish.dependsOn('reobfJar')
 
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifact jar
+            artifactId base.archivesName.get()
+
+            from components.java
+
+            pom {
+                name = mod_name
+                description = 'A magic mod inspired by the world of Jonathan Stroud\'s Bartimaeus. With the help of occult rituals players can summon entities from the "Other Side" to perform magic.'
+                url = 'https://github.com/klikli-dev/occultism'
+                licenses {
+                    license {
+                        name = 'MIT AND CC-BY-4.0'
+                        url = 'https://github.com/klikli-dev/occultism#licensing'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:ssh:git@github.com:klikli-dev/occultism.git'
+                    url = 'https://github.com/klikli-dev/occultism'
+                }
+            }
         }
     }
     repositories {
         maven {
-            url "file:///${project.projectDir}/mcmodsrepo"
+            name = "cloudsmith"
+            url = "https://maven.cloudsmith.io/klikli-dev/mods/"
+            def releasesRepoUrl = "https://maven.cloudsmith.io/klikli-dev/mods/"
+            def snapshotsRepoUrl = "https://maven.cloudsmith.io/klikli-dev/mods/"
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            credentials {
+                username = System.getenv('MAVEN_USER')
+                password = System.getenv('MAVEN_PASS')
+            }
         }
     }
 }
@@ -294,5 +312,3 @@ afterEvaluate {
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
-
-processResources.setDuplicatesStrategy(DuplicatesStrategy.WARN)
