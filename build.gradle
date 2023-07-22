@@ -109,8 +109,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven {
-        name = "KliKli Dev Repsy Maven"
-        url = "https://repo.repsy.io/mvn/klikli-dev/mods"
+        url "https://dl.cloudsmith.io/public/klikli-dev/mods/maven/"
         content {
             includeGroup "com.klikli_dev"
         }
@@ -191,7 +190,7 @@ dependencies {
     implementation fg.deobf("com.klikli_dev:modonomicon-${minecraft_version}-forge:${modonomicon_version}")
 
     //theurgy
-    implementation fg.deobf("com.klikli_dev:theurgy:${minecraft_version}-${theurgy_version}")
+    implementation fg.deobf("com.klikli_dev:theurgy-${minecraft_version}:${theurgy_version}"){transitive=false}
 
     //runtime only helper mods for dev env, placed in ./runtime-mods, example: Hwyla-forge-1.10.11-B78_1.16.2.jar
     //runtimeOnly fg.deobf("ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2")
