@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.81.6] - 2023-07-22
+### :sparkles: New Features
+- [`2cdf722`](https://github.com/klikli-dev/occultism/commit/2cdf722ade8689aadee0111319a3fb13b95f29ad) - add maven (cloudsmith) publish *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`60bc68b`](https://github.com/klikli-dev/occultism/commit/60bc68b00269ddca95befd0f8a405ef5d06bcdc8) - publish sources to modrinth *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.81.2] - 2023-07-13
 ### :sparkles: New Features
 - [`a014eaa`](https://github.com/klikli-dev/occultism/commit/a014eaaab79f2e3ceda71855d8aaeaae6e9d7949) - Include Modrinth uploads *(PR [#952](https://github.com/klikli-dev/occultism/pull/952) by [@ColonelGerdauf](https://github.com/ColonelGerdauf))*
@@ -463,3 +469,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.81.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.80.12...release/v1.19.2-1.81.0
 [release/v1.19.2-1.81.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.81.0...release/v1.19.2-1.81.1
 [release/v1.19.2-1.81.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.81.1...release/v1.19.2-1.81.2
+[release/v1.19.2-1.81.6]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.81.2...release/v1.19.2-1.81.6
