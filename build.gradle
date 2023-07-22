@@ -210,39 +210,9 @@ dependencies {
     //runtimeOnly fg.deobf("com.ldtteam:per_viam_invenire:1.19.3-XYZ-RELEASE:universal")
 }
 
-
-// This block of code expands all declared replace properties in the specified resource targets.
-// A missing property will result in an error. Properties are expanded using ${} Groovy notation.
-// When "copyIdeResources" is enabled, this will also run before the game launches in IDE environments.
-// See https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
-def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta']
-def replaceProperties = [
-        minecraft_version              : minecraft_version,
-        minecraft_version_range        : minecraft_version_range,
-        forge_version                  : forge_version,
-        forge_version_range            : forge_version_range,
-        loader_version_range           : loader_version_range,
-        mod_id                         : mod_id,
-        mod_name                       : mod_name,
-        mod_license                    : mod_license,
-        mod_version                    : mod_version,
-        mod_authors                    : mod_authors,
-        mod_description                : mod_description,
-        jei_version_range              : jei_version_range,
-        curios_version_range           : curios_version_range,
-        geckolib_version_range         : geckolib_version_range,
-        smartbrainlib_version_range    : smartbrainlib_version_range,
-        almost_unified_version_range    : almost_unified_version_range,
-        modonomicon_version_range      : modonomicon_version_range,
-        theurgy_version_range          : theurgy_version_range,
-        per_viam_invenire_version_range: per_viam_invenire_version_range,
-]
 processResources {
-    inputs.properties replaceProperties
-    replaceProperties.put 'project', project
-
-    filesMatching(resourceTargets) {
-        expand replaceProperties
+    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+        expand project.properties
     }
 }
 
