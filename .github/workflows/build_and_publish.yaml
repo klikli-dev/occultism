@@ -87,6 +87,7 @@ jobs:
 
           files: |
             build/libs/occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
+            build/libs/occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}-sources.jar
 
           name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
           version: ${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}
