@@ -182,6 +182,10 @@ public class CrusherJob extends SpiritJob {
         return !stack.isEmpty() && this.itemsToPickUp.stream().anyMatch(i -> i.test(stack));
     }
 
+    @Override
+    public List<Ingredient> getItemsToPickUp() {
+        return this.itemsToPickUp;
+    }
 
     /**
      * Called when an item was crushed

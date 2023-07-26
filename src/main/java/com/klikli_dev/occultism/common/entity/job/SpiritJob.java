@@ -32,6 +32,7 @@ import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
@@ -142,6 +143,10 @@ public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
      */
     public boolean canPickupItem(ItemEntity entity) {
         return false;
+    }
+
+    public List<Ingredient> getItemsToPickUp(){
+        return List.of();
     }
 
     public EntityDimensions getDimensions(Pose pPose, EntityDimensions original) {

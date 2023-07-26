@@ -41,6 +41,7 @@ import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
 import net.tslat.smartbrainlib.api.core.behaviour.FirstApplicableBehaviour;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.move.MoveToWalkTarget;
@@ -53,7 +54,7 @@ import java.util.List;
 public class LumberjackJob extends SpiritJob {
 
     protected EntityDimensions lumberJackDimensions;
-    protected List<IItemStackComparator> itemsToPickUp = new ArrayList<>();
+    protected List<Ingredient> itemsToPickUp = new ArrayList<>();
 
     public LumberjackJob(SpiritEntity entity) {
         super(entity);
@@ -117,11 +118,11 @@ public class LumberjackJob extends SpiritJob {
     @Override
     public void onInit() {
         this.entity.refreshDimensions(); //will apply getDimensions()
-        this.itemsToPickUp.add(new ItemTagComparator(ItemTags.LOGS));
-        this.itemsToPickUp.add(new ItemTagComparator(ItemTags.LEAVES));
-        this.itemsToPickUp.add(new ItemTagComparator(ItemTags.SAPLINGS));
-        this.itemsToPickUp.add(new ItemTagComparator(OccultismTags.FRUITS));
-        this.itemsToPickUp.add(new ItemStackComparator(new ItemStack(Items.STICK), false));
+        this.itemsToPickUp.add(Ingredient.of(ItemTags.LOGS));
+        this.itemsToPickUp.add(Ingredient.of(ItemTags.LEAVES));
+        this.itemsToPickUp.add(Ingredient.of(ItemTags.SAPLINGS));
+        this.itemsToPickUp.add(Ingredient.of(OccultismTags.FRUITS));
+        this.itemsToPickUp.add(Ingredient.of(Items.STICK));
     }
 
     @Override
@@ -131,13 +132,13 @@ public class LumberjackJob extends SpiritJob {
 
     @Override
     public boolean canPickupItem(ItemEntity entity) {
-
         ItemStack stack = entity.getItem();
-        for (IItemStackComparator comparator : this.itemsToPickUp) {
-            if (comparator.matches(stack))
-                return true;
-        }
-        return false;
+        return !stack.isEmpty() && this.itemsToPickUp.stream().anyMatch(i -> i.test(stack));
+    }
+
+    @Override
+    public List<Ingredient> getItemsToPickUp() {
+        return this.itemsToPickUp;
     }
 
     @Override
