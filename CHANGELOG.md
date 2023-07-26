@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.81.7] - 2023-07-26
+### :sparkles: New Features
+- [`0b8d441`](https://github.com/klikli-dev/occultism/commit/0b8d4410b055526484440729541e567ccfe6b443) - update theurgy and modo maven *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`c332d3a`](https://github.com/klikli-dev/occultism/commit/c332d3a7c7297889873b9961ce14ed1a3c6f20a4) - dictionary of spirits not opening due to theurgy book changes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.81.6] - 2023-07-22
 ### :sparkles: New Features
 - [`9f455fa`](https://github.com/klikli-dev/occultism/commit/9f455faee7b9c2ce0e51ab010d0476d0de0a0601) - simplify property replacing *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -540,3 +548,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.81.4]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.81.3...release/v1.20.1-1.81.4
 [release/v1.20.1-1.81.5]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.81.4...release/v1.20.1-1.81.5
 [release/v1.20.1-1.81.6]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.81.5...release/v1.20.1-1.81.6
+[release/v1.20.1-1.81.7]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.81.6...release/v1.20.1-1.81.7
