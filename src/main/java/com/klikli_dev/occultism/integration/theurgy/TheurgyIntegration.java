@@ -1,8 +1,8 @@
 package com.klikli_dev.occultism.integration.theurgy;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.theurgy.entity.FollowProjectile;
-import com.klikli_dev.theurgy.item.DivinationRodItem;
+import com.klikli_dev.theurgy.content.entity.FollowProjectile;
+import com.klikli_dev.theurgy.content.item.DivinationRodItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;

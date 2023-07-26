@@ -765,7 +765,7 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().pageText(),
                 """
                         To find out more about the Theurgy Divination Rod, check out *"The Hermetica"*, the Guidebook for Theurgy.
-                        [This Entry](entry://theurgy:the_hermetica/getting_started/divination_rod) has more information about the Theurgy Divination Rod.
+                        [This Entry](entry://theurgy:the_hermetica/getting_started/about_divination_rods) has more information about the Theurgy Divination Rod.
                         """);
 
         this.context().page("recipe_hermetica");
