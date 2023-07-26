@@ -92,6 +92,9 @@ jobs:
           name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
           version: ${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}
           version-type: ${{ steps.get_release_type.outputs.result }}
+          loaders: |
+            forge
+            neoforge
           game-versions: |
             1.20
             ${{ steps.get_mc_version.outputs.result }}
