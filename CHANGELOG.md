@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.81.8] - 2023-07-27
+### :sparkles: New Features
+- [`3910741`](https://github.com/klikli-dev/occultism/commit/3910741131d8db1f07fdc039b9e72b2f16f885b4) - add neoforge to mod platform list *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`a221055`](https://github.com/klikli-dev/occultism/commit/a221055a7be67b110ba88f57b0e5c4f56d56108d) - add helpers for spirit item pick up to api *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.81.7] - 2023-07-26
 ### :sparkles: New Features
 - [`0b8d441`](https://github.com/klikli-dev/occultism/commit/0b8d4410b055526484440729541e567ccfe6b443) - update theurgy and modo maven *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -549,3 +555,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.81.5]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.81.4...release/v1.20.1-1.81.5
 [release/v1.20.1-1.81.6]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.81.5...release/v1.20.1-1.81.6
 [release/v1.20.1-1.81.7]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.81.6...release/v1.20.1-1.81.7
+[release/v1.20.1-1.81.8]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.81.7...release/v1.20.1-1.81.8
