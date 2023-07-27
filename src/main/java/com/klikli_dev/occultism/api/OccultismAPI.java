@@ -44,7 +44,7 @@ public class OccultismAPI {
      *
      * @return An empty optional if it is not a spirit entity, or the spirit entity has no job, otherwise the list of items it can pick up.
      */
-    Optional<List<Ingredient>> getItemsToPickUp(Entity entity) {
+    public Optional<List<Ingredient>> getItemsToPickUp(Entity entity) {
         if (entity instanceof SpiritEntity spiritEntity) {
             return spiritEntity.getJob().map(SpiritJob::getItemsToPickUp);
         }
