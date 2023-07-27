@@ -144,6 +144,11 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         }
     });
     protected Optional<SpiritJob> job = Optional.empty();
+
+    public boolean isInitialized() {
+        return this.isInitialized;
+    }
+
     protected boolean isInitialized = false;
 
     public SpiritEntity(EntityType<? extends SpiritEntity> type, Level worldIn) {
@@ -446,7 +451,6 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     public void aiStep() {
         if (!this.level.isClientSide) {
             if (!this.isInitialized) {
-                this.isInitialized = true;
                 this.init();
             }
 
@@ -713,6 +717,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     public void init() {
+        this.isInitialized = true;
         this.job.ifPresent(SpiritJob::init);
     }
 
