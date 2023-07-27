@@ -144,7 +144,9 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
             SpiritEntity.this.entityData.set(FILTER_ITEMS, this.serializeNBT());
         }
     });
-    protected Optional<SpiritJob> job = Optional.empty();
+
+    //initialized in getter, because super constructor already accesses it
+    protected Optional<SpiritJob> job;
     protected boolean isInitialized = false;
 
     public SpiritEntity(EntityType<? extends SpiritEntity> type, Level worldIn) {
@@ -171,8 +173,8 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     @Override
     protected Brain.Provider<?> brainProvider() {
-        //job is unintentionally null in some cases, because super constructor already calls this method -> and subsequent brain setup methods that will error out
-        return this.job != null && this.job.isPresent() ? new SmartBrainProvider<>(this) : super.brainProvider();
+        //memories are dynamic due to the job system.
+        return new SmartBrainProvider<>(this, true);
     }
 
     @Override
@@ -183,23 +185,22 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     @Override
     public void handleAdditionalBrainSetup(SmartBrain<? extends SpiritEntity> brain) {
         //we might want to init brain vars that come from spirit vars here, but as this happens before entity is in the world, we are missing fallback data such as entity position that some of our spirit vars (work area center) use
-
-        this.job.ifPresent(job -> job.handleAdditionalBrainSetup(brain));
+        this.getJob().ifPresent(job -> job.handleAdditionalBrainSetup(brain));
     }
 
     @Override
     public List<ExtendedSensor<SpiritEntity>> getSensors() {
-        return this.job.isPresent() ? this.job.get().getSensors() : ImmutableList.of();
+        return this.getJob().isPresent() ? this.getJob().get().getSensors() : ImmutableList.of();
     }
 
     @Override
     public BrainActivityGroup<SpiritEntity> getCoreTasks() {
-        return this.job.isPresent() ? this.job.get().getCoreTasks() : BrainActivityGroup.empty();
+        return this.getJob().isPresent() ? this.getJob().get().getCoreTasks() : BrainActivityGroup.empty();
     }
 
     @Override
     public BrainActivityGroup<SpiritEntity> getIdleTasks() {
-        return this.job.isPresent() ? this.job.get().getIdleTasks() : BrainActivityGroup.empty();
+        return this.getJob().isPresent() ? this.getJob().get().getIdleTasks() : BrainActivityGroup.empty();
     }
 
     @Override
@@ -384,6 +385,9 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     public Optional<SpiritJob> getJob() {
+        //super constructor already accesses it so it is null, that is why we init it here
+        if (this.job == null)
+            this.job = Optional.empty();
         return this.job;
     }
 
@@ -411,10 +415,14 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
             this.setJobID(job.getFactoryID().toString());
 
             if (recreateBrain) {
-                NbtOps nbtops = NbtOps.INSTANCE;
-                this.brain = this.makeBrain(new Dynamic<>(nbtops, nbtops.createMap(ImmutableMap.of(nbtops.createString("memories"), nbtops.emptyMap()))));
+                this.remakeBrain();
             }
         }
+    }
+
+    public void remakeBrain() {
+        NbtOps nbtops = NbtOps.INSTANCE;
+        this.brain = this.makeBrain(new Dynamic<>(nbtops, nbtops.createMap(ImmutableMap.of(nbtops.createString("memories"), nbtops.emptyMap()))));
     }
 
     @Nullable
@@ -462,7 +470,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
                 }
             }
             if (!this.dead)
-                this.job.ifPresent(SpiritJob::update);
+                this.getJob().ifPresent(SpiritJob::update);
         }
         this.updateSwingTime();
         super.aiStep();
@@ -560,7 +568,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         this.itemStackHandler.ifPresent(handler -> compound.put("inventory", handler.serializeNBT()));
 
         //store job
-        this.job.ifPresent(job -> compound.put("spiritJob", job.serializeNBT()));
+        this.getJob().ifPresent(job -> compound.put("spiritJob", job.serializeNBT()));
 
         compound.putBoolean("isFilterBlacklist", this.isFilterBlacklist());
         this.filterItemStackHandler.ifPresent(handler -> compound.put("filterItems", handler.serializeNBT()));
@@ -700,13 +708,11 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     @Override
     public EntityDimensions getDimensions(Pose pPose) {
-        if (this.job == null) //should never be null, but getDimensions is sometimes called in the super constructor before the job is set to its initial value
-            return super.getDimensions(pPose);
-        return this.job.map(job -> job.getDimensions(pPose, super.getDimensions(pPose))).orElse(super.getDimensions(pPose));
+        return this.getJob().map(job -> job.getDimensions(pPose, super.getDimensions(pPose))).orElse(super.getDimensions(pPose));
     }
 
     public void removeJob() {
-        this.job.ifPresent(SpiritJob::cleanup);
+        this.getJob().ifPresent(SpiritJob::cleanup);
         this.job = Optional.empty();
     }
 
@@ -719,18 +725,18 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     public void init() {
         this.isInitialized = true;
-        this.job.ifPresent(SpiritJob::init);
+        this.getJob().ifPresent(SpiritJob::init);
     }
 
     public boolean canPickupItem(ItemEntity entity) {
-        return this.job.map(job -> job.canPickupItem(entity)).orElse(false);
+        return this.getJob().map(job -> job.canPickupItem(entity)).orElse(false);
     }
 
     public void openScreen(Player playerEntity) {
         if (!this.level().isClientSide) {
             MenuProvider menuProvider = this;
 
-            SpiritJob currentJob = this.job.orElse(null);
+            SpiritJob currentJob = this.getJob().orElse(null);
             if (currentJob instanceof MenuProvider)
                 menuProvider = (MenuProvider) currentJob;
 
