@@ -165,6 +165,10 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
                 .add(Attributes.FOLLOW_RANGE, 50.0);
     }
 
+    public boolean isInitialized() {
+        return this.isInitialized;
+    }
+
     @Override
     protected Brain.Provider<?> brainProvider() {
         //job is unintentionally null in some cases, because super constructor already calls this method -> and subsequent brain setup methods that will error out
@@ -446,7 +450,6 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     public void aiStep() {
         if (!this.level().isClientSide) {
             if (!this.isInitialized) {
-                this.isInitialized = true;
                 this.init();
             }
 
@@ -697,7 +700,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     @Override
     public EntityDimensions getDimensions(Pose pPose) {
-        if(this.job == null) //should never be null, but getDimensions is sometimes called in the super constructor before the job is set to its initial value
+        if (this.job == null) //should never be null, but getDimensions is sometimes called in the super constructor before the job is set to its initial value
             return super.getDimensions(pPose);
         return this.job.map(job -> job.getDimensions(pPose, super.getDimensions(pPose))).orElse(super.getDimensions(pPose));
     }
@@ -715,6 +718,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     public void init() {
+        this.isInitialized = true;
         this.job.ifPresent(SpiritJob::init);
     }
 
