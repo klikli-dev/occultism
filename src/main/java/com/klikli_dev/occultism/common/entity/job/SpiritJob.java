@@ -79,6 +79,7 @@ public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
      * Sets up the job, e.g. AI Tasks
      */
     public final void init() {
+        this.entity.remakeBrain();
         BrainUtils.setMemory(this.entity, OccultismMemoryTypes.WORK_AREA_CENTER.get(), this.entity.getWorkAreaCenter());
         BrainUtils.setMemory(this.entity, OccultismMemoryTypes.WORK_AREA_SIZE.get(), this.entity.getWorkAreaSize().getValue());
         BrainUtils.setMemory(this.entity, OccultismMemoryTypes.DEPOSIT_POSITION.get(), this.entity.getDepositPosition().orElse(null));
