@@ -39,14 +39,14 @@ import java.util.function.Supplier;
 public class AddItemModifier extends LootModifier {
 
     public static final Supplier<Codec<AddItemModifier>> CODEC = Suppliers.memoize(() ->
-            RecordCodecBuilder.create( instance ->
+            RecordCodecBuilder.create(instance ->
                     instance.group(
-                            LOOT_CONDITIONS_CODEC.fieldOf("conditions").forGetter(lm -> lm.conditions),
+                                    LOOT_CONDITIONS_CODEC.fieldOf("conditions").forGetter(lm -> lm.conditions),
                                     ForgeRegistries.ITEMS.getCodec().fieldOf("item").forGetter(lm -> lm.addedItem),
                                     Codec.intRange(0, Integer.MAX_VALUE).fieldOf("count").forGetter((lm) -> lm.count)
                             )
 
-                    .apply(instance, AddItemModifier::new)));
+                            .apply(instance, AddItemModifier::new)));
 
     private final Item addedItem;
     private final int count;
@@ -59,7 +59,7 @@ public class AddItemModifier extends LootModifier {
 
     @Override
     protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
-        generatedLoot.add(new ItemStack(this.addedItem, count));
+        generatedLoot.add(new ItemStack(this.addedItem, this.count));
         return generatedLoot;
     }
 

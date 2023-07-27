@@ -69,30 +69,30 @@ public class MummyFamiliarModel extends EntityModel<MummyFamiliarEntity> {
 
     public MummyFamiliarModel(ModelPart part) {
         this.body = part.getChild("body");
-        this.head = body.getChild("head");
-        this.leftArm1 = body.getChild("leftArm1");
-        this.leftLeg1 = body.getChild("leftLeg1");
-        this.skeleton = body.getChild("skeleton");
-        this.spine = body.getChild("spine");
-        this.rightArm1 = body.getChild("rightArm1");
-        this.rightLeg1 = body.getChild("rightLeg1");
-        this.nose = head.getChild("nose");
-        this.eyeSockets = head.getChild("eyeSockets");
-        this.leftEye = head.getChild("leftEye");
-        this.rightEye = head.getChild("rightEye");
-        this.crown = head.getChild("crown");
-        this.tooth = nose.getChild("tooth");
-        this.leftArm2 = leftArm1.getChild("leftArm2");
-        this.leftArmBandage = leftArm1.getChild("leftArmBandage");
-        this.heka = leftArm2.getChild("heka");
-        this.leftGlove = leftArm2.getChild("leftGlove");
-        this.leftLeg2 = leftLeg1.getChild("leftLeg2");
-        this.leftLegBandage = leftLeg1.getChild("leftLegBandage");
-        this.rightArm2 = rightArm1.getChild("rightArm2");
-        this.rightGlove = rightArm2.getChild("rightGlove");
-        this.rightArmBandage = rightArm2.getChild("rightArmBandage");
-        this.rightLeg2 = rightLeg1.getChild("rightLeg2");
-        this.leftLegBandage_1 = rightLeg2.getChild("leftLegBandage_1");
+        this.head = this.body.getChild("head");
+        this.leftArm1 = this.body.getChild("leftArm1");
+        this.leftLeg1 = this.body.getChild("leftLeg1");
+        this.skeleton = this.body.getChild("skeleton");
+        this.spine = this.body.getChild("spine");
+        this.rightArm1 = this.body.getChild("rightArm1");
+        this.rightLeg1 = this.body.getChild("rightLeg1");
+        this.nose = this.head.getChild("nose");
+        this.eyeSockets = this.head.getChild("eyeSockets");
+        this.leftEye = this.head.getChild("leftEye");
+        this.rightEye = this.head.getChild("rightEye");
+        this.crown = this.head.getChild("crown");
+        this.tooth = this.nose.getChild("tooth");
+        this.leftArm2 = this.leftArm1.getChild("leftArm2");
+        this.leftArmBandage = this.leftArm1.getChild("leftArmBandage");
+        this.heka = this.leftArm2.getChild("heka");
+        this.leftGlove = this.leftArm2.getChild("leftGlove");
+        this.leftLeg2 = this.leftLeg1.getChild("leftLeg2");
+        this.leftLegBandage = this.leftLeg1.getChild("leftLegBandage");
+        this.rightArm2 = this.rightArm1.getChild("rightArm2");
+        this.rightGlove = this.rightArm2.getChild("rightGlove");
+        this.rightArmBandage = this.rightArm2.getChild("rightArmBandage");
+        this.rightLeg2 = this.rightLeg1.getChild("rightLeg2");
+        this.leftLegBandage_1 = this.rightLeg2.getChild("leftLegBandage_1");
     }
 
 
@@ -135,105 +135,105 @@ public class MummyFamiliarModel extends EntityModel<MummyFamiliarEntity> {
     @Override
     public void setupAnim(MummyFamiliarEntity pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks,
                           float pNetHeadYaw, float pHeadPitch) {
-        showModels(pEntity);
+        this.showModels(pEntity);
 
-        setRotateAngle(body, 0, 0, 0);
-        setRotateAngle(head, 0, 0, 0);
-        setRotateAngle(rightArm1, -0.274f, 0, 0);
-        setRotateAngle(rightArm2, -0.43f, 0, 0);
-        setRotateAngle(leftArm1, -0.274f, 0, 0);
-        setRotateAngle(leftArm2, -0.43f, 0, 0);
-        setRotateAngle(rightLeg1, 0, 0, 0);
-        setRotateAngle(rightLeg2, 0, 0, 0);
-        setRotateAngle(leftLeg1, 0, 0, 0);
-        setRotateAngle(leftLeg2, 0, 0, 0);
+        this.setRotateAngle(this.body, 0, 0, 0);
+        this.setRotateAngle(this.head, 0, 0, 0);
+        this.setRotateAngle(this.rightArm1, -0.274f, 0, 0);
+        this.setRotateAngle(this.rightArm2, -0.43f, 0, 0);
+        this.setRotateAngle(this.leftArm1, -0.274f, 0, 0);
+        this.setRotateAngle(this.leftArm2, -0.43f, 0, 0);
+        this.setRotateAngle(this.rightLeg1, 0, 0, 0);
+        this.setRotateAngle(this.rightLeg2, 0, 0, 0);
+        this.setRotateAngle(this.leftLeg1, 0, 0, 0);
+        this.setRotateAngle(this.leftLeg2, 0, 0, 0);
         this.body.z = 0;
 
-        this.head.xRot = toRads(pHeadPitch);
-        this.head.yRot = toRads(pNetHeadYaw);
-        this.rightLeg1.xRot = Mth.cos(pLimbSwing * 0.5f + PI) * toRads(40) * pLimbSwingAmount;
-        this.leftLeg1.xRot = Mth.cos(pLimbSwing * 0.5f) * toRads(40) * pLimbSwingAmount;
-        this.rightLeg2.xRot = Math.abs(Mth.cos(pLimbSwing * 0.5f + PI)) * toRads(40) * pLimbSwingAmount;
-        this.leftLeg2.xRot = Math.abs(Mth.cos(pLimbSwing * 0.5f) * toRads(40)) * pLimbSwingAmount;
-        this.rightArm1.xRot = Mth.cos(pLimbSwing * 0.5f) * toRads(40) * pLimbSwingAmount;
-        this.leftArm1.xRot = Mth.cos(pLimbSwing * 0.5f + PI) * toRads(40) * pLimbSwingAmount;
-        this.rightArm2.xRot = toRads(-30) + Mth.cos(pLimbSwing * 0.5f) * toRads(20) * pLimbSwingAmount;
-        this.leftArm2.xRot = toRads(-30) + Mth.cos(pLimbSwing * 0.5f + PI) * toRads(20) * pLimbSwingAmount;
+        this.head.xRot = this.toRads(pHeadPitch);
+        this.head.yRot = this.toRads(pNetHeadYaw);
+        this.rightLeg1.xRot = Mth.cos(pLimbSwing * 0.5f + PI) * this.toRads(40) * pLimbSwingAmount;
+        this.leftLeg1.xRot = Mth.cos(pLimbSwing * 0.5f) * this.toRads(40) * pLimbSwingAmount;
+        this.rightLeg2.xRot = Math.abs(Mth.cos(pLimbSwing * 0.5f + PI)) * this.toRads(40) * pLimbSwingAmount;
+        this.leftLeg2.xRot = Math.abs(Mth.cos(pLimbSwing * 0.5f) * this.toRads(40)) * pLimbSwingAmount;
+        this.rightArm1.xRot = Mth.cos(pLimbSwing * 0.5f) * this.toRads(40) * pLimbSwingAmount;
+        this.leftArm1.xRot = Mth.cos(pLimbSwing * 0.5f + PI) * this.toRads(40) * pLimbSwingAmount;
+        this.rightArm2.xRot = this.toRads(-30) + Mth.cos(pLimbSwing * 0.5f) * this.toRads(20) * pLimbSwingAmount;
+        this.leftArm2.xRot = this.toRads(-30) + Mth.cos(pLimbSwing * 0.5f + PI) * this.toRads(20) * pLimbSwingAmount;
 
         int fightPose = pEntity.getFightPose();
 
         if (fightPose == 0) {
-            this.body.yRot = toRads(-60);
-            this.body.xRot = toRads(-40);
-            this.body.zRot = toRads(40);
-            this.head.yRot = toRads(60);
-            this.head.xRot = toRads(20);
-            this.rightArm1.xRot = toRads(20);
-            this.rightArm1.zRot = toRads(60);
-            this.rightArm2.xRot = toRads(-20);
-            this.leftArm1.xRot = toRads(-30);
-            this.leftArm1.yRot = toRads(40);
-            this.leftArm1.zRot = toRads(-40);
-            this.leftArm2.xRot = toRads(-70);
-            this.rightLeg1.zRot = toRads(70);
-            this.leftLeg1.xRot = toRads(-20);
-            this.leftLeg1.zRot = toRads(-60);
-            this.leftLeg2.zRot = toRads(110);
+            this.body.yRot = this.toRads(-60);
+            this.body.xRot = this.toRads(-40);
+            this.body.zRot = this.toRads(40);
+            this.head.yRot = this.toRads(60);
+            this.head.xRot = this.toRads(20);
+            this.rightArm1.xRot = this.toRads(20);
+            this.rightArm1.zRot = this.toRads(60);
+            this.rightArm2.xRot = this.toRads(-20);
+            this.leftArm1.xRot = this.toRads(-30);
+            this.leftArm1.yRot = this.toRads(40);
+            this.leftArm1.zRot = this.toRads(-40);
+            this.leftArm2.xRot = this.toRads(-70);
+            this.rightLeg1.zRot = this.toRads(70);
+            this.leftLeg1.xRot = this.toRads(-20);
+            this.leftLeg1.zRot = this.toRads(-60);
+            this.leftLeg2.zRot = this.toRads(110);
         } else if (fightPose == 1) {
-            this.body.yRot = toRads(40);
-            this.head.yRot = toRads(-25);
-            this.leftArm1.xRot = toRads(-60);
-            this.leftArm1.zRot = toRads(-70);
-            this.leftArm2.xRot = toRads(-10);
-            this.rightArm1.yRot = toRads(-20);
-            this.rightArm1.xRot = toRads(30);
-            this.rightArm2.xRot = toRads(-90);
-            this.leftLeg1.yRot = toRads(-40);
-            this.leftLeg1.xRot = toRads(-50);
-            this.leftLeg2.xRot = toRads(50);
-            this.rightLeg1.yRot = toRads(60);
-            this.rightLeg1.xRot = toRads(-40);
-            this.rightLeg2.xRot = toRads(25);
+            this.body.yRot = this.toRads(40);
+            this.head.yRot = this.toRads(-25);
+            this.leftArm1.xRot = this.toRads(-60);
+            this.leftArm1.zRot = this.toRads(-70);
+            this.leftArm2.xRot = this.toRads(-10);
+            this.rightArm1.yRot = this.toRads(-20);
+            this.rightArm1.xRot = this.toRads(30);
+            this.rightArm2.xRot = this.toRads(-90);
+            this.leftLeg1.yRot = this.toRads(-40);
+            this.leftLeg1.xRot = this.toRads(-50);
+            this.leftLeg2.xRot = this.toRads(50);
+            this.rightLeg1.yRot = this.toRads(60);
+            this.rightLeg1.xRot = this.toRads(-40);
+            this.rightLeg2.xRot = this.toRads(25);
         } else if (fightPose == 2) {
-            this.body.yRot = toRads(-60);
-            this.head.yRot = toRads(60);
-            this.head.xRot = toRads(-15);
-            this.rightArm1.yRot = toRads(60);
-            this.rightArm1.xRot = toRads(-140);
-            this.rightArm2.xRot = toRads(-35);
-            this.leftArm1.yRot = toRads(40);
-            this.leftArm1.xRot = toRads(40);
-            this.leftArm2.xRot = toRads(-70);
-            this.rightLeg1.yRot = toRads(60);
-            this.rightLeg1.xRot = toRads(-40);
-            this.rightLeg2.xRot = toRads(55);
-            this.leftLeg1.yRot = toRads(60);
-            this.leftLeg1.xRot = toRads(30);
+            this.body.yRot = this.toRads(-60);
+            this.head.yRot = this.toRads(60);
+            this.head.xRot = this.toRads(-15);
+            this.rightArm1.yRot = this.toRads(60);
+            this.rightArm1.xRot = this.toRads(-140);
+            this.rightArm2.xRot = this.toRads(-35);
+            this.leftArm1.yRot = this.toRads(40);
+            this.leftArm1.xRot = this.toRads(40);
+            this.leftArm2.xRot = this.toRads(-70);
+            this.rightLeg1.yRot = this.toRads(60);
+            this.rightLeg1.xRot = this.toRads(-40);
+            this.rightLeg2.xRot = this.toRads(55);
+            this.leftLeg1.yRot = this.toRads(60);
+            this.leftLeg1.xRot = this.toRads(30);
         }
 
         if (pEntity.isPartying()) {
-            setRotateAngle(head, 0, 0, 0);
+            this.setRotateAngle(this.head, 0, 0, 0);
             float bodyRot = pAgeInTicks * 10f % 360;
-            this.body.z = Mth.sin(toRads(bodyRot)) * 5;
+            this.body.z = Mth.sin(this.toRads(bodyRot)) * 5;
             this.body.yRot = bodyRot > 90 && bodyRot < 270 ? 0 : PI;
-            this.leftArm1.xRot = toRads(90);
-            this.leftArm2.xRot = toRads(-90) + Mth.cos(pAgeInTicks * 0.5f) * toRads(20);
-            this.rightArm1.xRot = toRads(-90);
-            this.rightArm2.xRot = toRads(-90) + Mth.cos(pAgeInTicks * 0.5f) * toRads(20);
-            this.leftLeg1.xRot = toRads(-20) + Mth.cos(pAgeInTicks * 0.5f) * toRads(20);
-            this.leftLeg2.xRot = toRads(20) + Mth.cos(pAgeInTicks * 0.5f) * toRads(-10);
-            this.rightLeg1.xRot = toRads(-20) - Mth.cos(pAgeInTicks * 0.5f) * toRads(20);
-            this.rightLeg2.xRot = toRads(20) - Mth.cos(pAgeInTicks * 0.5f) * toRads(-10);
+            this.leftArm1.xRot = this.toRads(90);
+            this.leftArm2.xRot = this.toRads(-90) + Mth.cos(pAgeInTicks * 0.5f) * this.toRads(20);
+            this.rightArm1.xRot = this.toRads(-90);
+            this.rightArm2.xRot = this.toRads(-90) + Mth.cos(pAgeInTicks * 0.5f) * this.toRads(20);
+            this.leftLeg1.xRot = this.toRads(-20) + Mth.cos(pAgeInTicks * 0.5f) * this.toRads(20);
+            this.leftLeg2.xRot = this.toRads(20) + Mth.cos(pAgeInTicks * 0.5f) * this.toRads(-10);
+            this.rightLeg1.xRot = this.toRads(-20) - Mth.cos(pAgeInTicks * 0.5f) * this.toRads(20);
+            this.rightLeg2.xRot = this.toRads(20) - Mth.cos(pAgeInTicks * 0.5f) * this.toRads(-10);
         } else if (pEntity.isSitting()) {
-            this.head.xRot = toRads(40);
-            this.head.yRot = toRads(-20);
-            this.body.xRot = toRads(35);
-            this.leftArm1.xRot = toRads(-50);
-            this.leftArm2.xRot = toRads(10);
-            this.rightArm1.xRot = toRads(-50);
-            this.rightArm2.xRot = toRads(10);
-            this.leftLeg1.xRot = toRads(-35);
-            this.rightLeg1.xRot = toRads(-35);
+            this.head.xRot = this.toRads(40);
+            this.head.yRot = this.toRads(-20);
+            this.body.xRot = this.toRads(35);
+            this.leftArm1.xRot = this.toRads(-50);
+            this.leftArm2.xRot = this.toRads(10);
+            this.rightArm1.xRot = this.toRads(-50);
+            this.rightArm2.xRot = this.toRads(10);
+            this.leftLeg1.xRot = this.toRads(-35);
+            this.rightLeg1.xRot = this.toRads(-35);
         }
     }
 

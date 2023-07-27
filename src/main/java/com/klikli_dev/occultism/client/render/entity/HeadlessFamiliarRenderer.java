@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.client.render.entity;
 
+import com.google.common.collect.ImmutableMap;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.model.entity.CthulhuFamiliarModel;
 import com.klikli_dev.occultism.client.model.entity.HeadlessFamiliarModel;
@@ -29,7 +30,6 @@ import com.klikli_dev.occultism.common.entity.familiar.HeadlessFamiliarEntity;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.klikli_dev.occultism.util.FamiliarUtil;
-import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Quaternion;
@@ -309,8 +309,8 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
     }
 
     private static class CthulhuHeadModel extends SkullModelBase {
-        private final CthulhuFamiliarModel model;
         protected final ModelPart head;
+        private final CthulhuFamiliarModel model;
 
         public CthulhuHeadModel(ModelPart part) {
             this.model = new CthulhuFamiliarModel(part);
@@ -332,8 +332,8 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
         }
 
         public void setupAnim(float p_103811_, float p_103812_, float p_103813_) {
-            this.head.yRot = p_103812_ * ((float)Math.PI / 180F);
-            this.head.xRot = p_103813_ * ((float)Math.PI / 180F);
+            this.head.yRot = p_103812_ * ((float) Math.PI / 180F);
+            this.head.xRot = p_103813_ * ((float) Math.PI / 180F);
         }
     }
 }

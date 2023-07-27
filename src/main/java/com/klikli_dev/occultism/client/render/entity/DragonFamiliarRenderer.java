@@ -63,10 +63,9 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Dr
 
         @SubscribeEvent
         public static void renderText(RenderLivingEvent<DragonFamiliarEntity, DragonFamiliarModel> event) {
-            if (!(event.getEntity() instanceof DragonFamiliarEntity))
+            if (!(event.getEntity() instanceof DragonFamiliarEntity dragon))
                 return;
 
-            DragonFamiliarEntity dragon = (DragonFamiliarEntity) event.getEntity();
             float partialTicks = event.getPartialTick();
             float textTimer = dragon.getPetTimer() + partialTicks;
             if (textTimer >= DragonFamiliarEntity.MAX_PET_TIMER)

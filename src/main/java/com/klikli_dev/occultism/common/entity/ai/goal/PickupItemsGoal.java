@@ -22,10 +22,10 @@
 
 package com.klikli_dev.occultism.common.entity.ai.goal;
 
+import com.google.common.base.Predicate;
 import com.klikli_dev.occultism.common.entity.ai.EntitySorter;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
-import com.google.common.base.Predicate;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;

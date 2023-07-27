@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.integration.jei;
 
 import com.klikli_dev.occultism.Occultism;
-import  com.klikli_dev.occultism.crafting.recipe.*;
 import com.klikli_dev.occultism.crafting.recipe.*;
 import mezz.jei.api.recipe.RecipeType;
 

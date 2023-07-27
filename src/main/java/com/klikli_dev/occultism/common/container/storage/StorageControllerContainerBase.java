@@ -70,6 +70,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
      * used to lock recipe while crafting
      */
     protected boolean recipeLocked = false;
+
     protected StorageControllerContainerBase(@Nullable MenuType<?> type, int id, Inventory playerInventory) {
         super(type, id);
         this.playerInventory = playerInventory;

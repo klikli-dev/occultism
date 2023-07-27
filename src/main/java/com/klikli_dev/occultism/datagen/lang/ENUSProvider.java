@@ -22,6 +22,8 @@
 
 package com.klikli_dev.occultism.datagen.lang;
 
+import com.klikli_dev.modonomicon.api.ModonomiconAPI;
+import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
@@ -30,8 +32,6 @@ import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconCons
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.modonomicon.api.ModonomiconAPI;
-import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
@@ -721,9 +721,9 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "About");
         this.add(helper.pageText(),
                 """
-                    This book aims to introduce the novice reader to the most common summoning rituals and equip them with a list of spirit names to summon.
-                    The authors advise caution in the summoning of the listed entities and does not take responsibility for any harm caused.
-                    """);
+                        This book aims to introduce the novice reader to the most common summoning rituals and equip them with a list of spirit names to summon.
+                        The authors advise caution in the summoning of the listed entities and does not take responsibility for any harm caused.
+                        """);
 
         helper.page("help");
         this.add(helper.pageTitle(), "Getting Help");
@@ -939,11 +939,11 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("how_to_use3");
         this.add(helper.pageText(),
                 """
-                       [#](%1$s)Right-clicking[#]() without holding after a successful search will show the last found target block again.
-                       \\
-                       \\
-                       If the mod *"Theurgy"* is installed the rod will not highlight the target block, but instead send a particle effect in the direction of the target block.
-                       """.formatted(COLOR_PURPLE));
+                        [#](%1$s)Right-clicking[#]() without holding after a successful search will show the last found target block again.
+                        \\
+                        \\
+                        If the mod *"Theurgy"* is installed the rod will not highlight the target block, but instead send a particle effect in the direction of the target block.
+                        """.formatted(COLOR_PURPLE));
 
         helper.page("divination_rod_screenshots");
         this.add(helper.pageText(),
@@ -1960,8 +1960,8 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("impure_purple_chalk_recipe");
         this.add(helper.pageText(),
                 """
-                   You do not need to visit the [#](%1$s)The End[#]() to obtain Endstone. You can summon a [Possessed Endermite](entry://possession_rituals/possess_endermite) which has a high chance to drop it.
-                        """.formatted(COLOR_PURPLE));
+                        You do not need to visit the [#](%1$s)The End[#]() to obtain Endstone. You can summon a [Possessed Endermite](entry://possession_rituals/possess_endermite) which has a high chance to drop it.
+                             """.formatted(COLOR_PURPLE));
         helper.page("purple_chalk_recipe");
         //no text
 
@@ -2037,45 +2037,45 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("spotlight");
         this.add(helper.pageText(),
                 """
-                   This is a rare metal that, to the naked eye, looks like [](item://minecraft:netherrack) and cannot be mined with a regular pickaxe.
-                   \\
-                   \\
-                   When mined with the correct tools, it can be used to craft powerful items (you will learn more about that later).
-                        """.formatted(COLOR_PURPLE));
+                        This is a rare metal that, to the naked eye, looks like [](item://minecraft:netherrack) and cannot be mined with a regular pickaxe.
+                        \\
+                        \\
+                        When mined with the correct tools, it can be used to craft powerful items (you will learn more about that later).
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("where");
         this.add(helper.pageTitle(), "Where to find it");
         this.add(helper.pageText(),
                 """
-                   Like Netherrack, Iesnium can be found in the Nether. In order to **see** it, you need to wear [Otherworld Goggles](entry://getting_started/otherworld_goggles).
-                   \\
-                   \\
-                   To make searching for it simpler, attune a [Divination Rod](entry://getting_started/divination_rod) to it and righ-click and hold in the nether until it highlights a nearby block, which will hold the ore.
-                        """.formatted(COLOR_PURPLE));
+                        Like Netherrack, Iesnium can be found in the Nether. In order to **see** it, you need to wear [Otherworld Goggles](entry://getting_started/otherworld_goggles).
+                        \\
+                        \\
+                        To make searching for it simpler, attune a [Divination Rod](entry://getting_started/divination_rod) to it and righ-click and hold in the nether until it highlights a nearby block, which will hold the ore.
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("how");
         this.add(helper.pageTitle(), "How to mine it");
         this.add(helper.pageText(),
                 """
-                   Iesnium can only be mined with the [Infused Pickaxe](entry://getting_started/infused_pickaxe) or an [](item://occultism:iesnium_pickaxe) (about which you will learn later).
-                   \\
-                   \\
-                   After identifying a block that holds Iesnium, you can mine it with the pickaxe you created in the previous step.
-                        """.formatted(COLOR_PURPLE));
+                        Iesnium can only be mined with the [Infused Pickaxe](entry://getting_started/infused_pickaxe) or an [](item://occultism:iesnium_pickaxe) (about which you will learn later).
+                        \\
+                        \\
+                        After identifying a block that holds Iesnium, you can mine it with the pickaxe you created in the previous step.
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("processing");
         this.add(helper.pageTitle(), "Processing");
         this.add(helper.pageText(),
                 """
-                   Iesnium Ore, after mining, can be smelted directly into ingots, or placed down. When placed, it will not turn back into it's netherrack form. Consequently it can also be mined with any pickaxe then. This visible form of the Ore, when mined, will drop [](item://occultism:raw_iesnium).
-                        """.formatted(COLOR_PURPLE));
+                        Iesnium Ore, after mining, can be smelted directly into ingots, or placed down. When placed, it will not turn back into it's netherrack form. Consequently it can also be mined with any pickaxe then. This visible form of the Ore, when mined, will drop [](item://occultism:raw_iesnium).
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("uses");
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
-                   Iesnium can be used to craft an improved pickaxe, spirit lamps, and other powerful items. Follow the progress in this book to learn more about it.
-                        """.formatted(COLOR_PURPLE));
+                        Iesnium can be used to craft an improved pickaxe, spirit lamps, and other powerful items. Follow the progress in this book to learn more about it.
+                             """.formatted(COLOR_PURPLE));
 
         helper.entry("iesnium_pickaxe");
         this.add(helper.entryName(), "Iesnium Pickaxe");
@@ -2084,8 +2084,8 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("spotlight");
         this.add(helper.pageText(),
                 """
-                   Like the [Infused Pickaxe](entry://getting_started/infused_pickaxe), this pickaxe can be used to mine Tier 2 Otherworld Materials such as [](item://occultism:iesnium_ore). As it is made from metal, instead of brittle [](item://occultism:spirit_attuned_gem), it is very durable and can be used for a long time.
-                        """.formatted(COLOR_PURPLE));
+                        Like the [Infused Pickaxe](entry://getting_started/infused_pickaxe), this pickaxe can be used to mine Tier 2 Otherworld Materials such as [](item://occultism:iesnium_ore). As it is made from metal, instead of brittle [](item://occultism:spirit_attuned_gem), it is very durable and can be used for a long time.
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("crafting");
         //no text
@@ -2098,8 +2098,8 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Magic Lamps");
         this.add(helper.pageText(),
                 """
-                   Magic Lamps can be used to keep spirits safe from [#](%1$s)Essence Decay[#](), while still having access to some of their powers. Most commonly they are used to access a [#](%1$s)Mining Dimension[#]() and act as (*lag free*) [#](%1$s)Void Miners[#]().
-                        """.formatted(COLOR_PURPLE));
+                        Magic Lamps can be used to keep spirits safe from [#](%1$s)Essence Decay[#](), while still having access to some of their powers. Most commonly they are used to access a [#](%1$s)Mining Dimension[#]() and act as (*lag free*) [#](%1$s)Void Miners[#]().
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("crafting");
         //no text
@@ -2112,15 +2112,15 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Spirit Miners");
         this.add(helper.pageText(),
                 """
-                   By summoning a spirit into a Magic Lamp and placing it in a [Dimensional Mineshaft (see next step)](entry://getting_started/mineshaft) it can be made to mine for you in a [#](%1$s)Mining Dimension[#](). This is a great way to get resources without having to go mining in the overworld (or other dimesions) yourself.
-                        """.formatted(COLOR_PURPLE));
+                        By summoning a spirit into a Magic Lamp and placing it in a [Dimensional Mineshaft (see next step)](entry://getting_started/mineshaft) it can be made to mine for you in a [#](%1$s)Mining Dimension[#](). This is a great way to get resources without having to go mining in the overworld (or other dimesions) yourself.
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("crafting");
         this.add(helper.pageTitle(), "Crafting");
         this.add(helper.pageText(),
                 """
-                   See [Foliot Miner](entry://crafting_rituals/craft_foliot_miner) and the subsequent entries for information on how to craft spirit miners.
-                        """.formatted(COLOR_PURPLE));
+                        See [Foliot Miner](entry://crafting_rituals/craft_foliot_miner) and the subsequent entries for information on how to craft spirit miners.
+                             """.formatted(COLOR_PURPLE));
 
         helper.entry("mineshaft");
         this.add(helper.entryName(), "Dimensional Mineshaft");
@@ -2129,15 +2129,15 @@ public class ENUSProvider extends LanguageProvider {
         helper.page("spotlight");
         this.add(helper.pageText(),
                 """
-                   This block acts as a portal, for spirits only, to the [#](%1$s)Mining Dimension[#](). Place a Magic Lamp with a Miner Spirit in it, to make it mine for you.
-                        """.formatted(COLOR_PURPLE));
+                        This block acts as a portal, for spirits only, to the [#](%1$s)Mining Dimension[#](). Place a Magic Lamp with a Miner Spirit in it, to make it mine for you.
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("crafting");
         this.add(helper.pageTitle(), "Crafting");
         this.add(helper.pageText(),
                 """
-                   See [Dimensional Mineshaft](entry://crafting_rituals/craft_dimensional_mineshaft) in the [Binding Rituals](category://crafting_rituals) Category.
-                        """.formatted(COLOR_PURPLE));
+                        See [Dimensional Mineshaft](entry://crafting_rituals/craft_dimensional_mineshaft) in the [Binding Rituals](category://crafting_rituals) Category.
+                             """.formatted(COLOR_PURPLE));
 
         helper.entry("storage");
         this.add(helper.entryName(), "Magic Storage");
@@ -2151,18 +2151,18 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Possession Rituals");
         this.add(helper.pageText(),
                 """
-                   Possessed mobs are controlled by spirits, allowing the summoner to determine some of their properties. They usually have **high drop rates** for rare drops, but are generally harder to kill.
-                   \\
-                   \\
-                   You probably will want to start by summoning a [Possessed Endermite](entry://possession_rituals/possess_endermite) to get [](item://minecraft:end_stone) to craft [Advanced Chalks](entry://getting_started/chalks).
-                        """.formatted(COLOR_PURPLE));
+                        Possessed mobs are controlled by spirits, allowing the summoner to determine some of their properties. They usually have **high drop rates** for rare drops, but are generally harder to kill.
+                        \\
+                        \\
+                        You probably will want to start by summoning a [Possessed Endermite](entry://possession_rituals/possess_endermite) to get [](item://minecraft:end_stone) to craft [Advanced Chalks](entry://getting_started/chalks).
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("more");
         this.add(helper.pageTitle(), "More Information");
         this.add(helper.pageText(),
                 """
-                   To find out more about Possession Rituals, see the [Possession Rituals](category://possession_rituals) Category.
-                        """.formatted(COLOR_PURPLE));
+                        To find out more about Possession Rituals, see the [Possession Rituals](category://possession_rituals) Category.
+                             """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_rituals");
         this.add(helper.entryName(), "Familiar Rituals");
@@ -2172,18 +2172,18 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Familiar Rituals");
         this.add(helper.pageText(),
                 """
-                   Familiars provide a variety of bonus effects, such as feather falling, water breathing, jump boosts and more, and may also assist you in combat.
-                   \\
-                   \\
-                   Store them in a [Familiar Ring](entry://crafting_rituals/craft_familiar_ring) to equip them as a curio.
-                        """.formatted(COLOR_PURPLE));
+                        Familiars provide a variety of bonus effects, such as feather falling, water breathing, jump boosts and more, and may also assist you in combat.
+                        \\
+                        \\
+                        Store them in a [Familiar Ring](entry://crafting_rituals/craft_familiar_ring) to equip them as a curio.
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("more");
         this.add(helper.pageTitle(), "More Information");
         this.add(helper.pageText(),
                 """
-                   To find more about Familiars, see the [Familiar Rituals](category://familiar_rituals) Category.
-                        """.formatted(COLOR_PURPLE));
+                        To find more about Familiars, see the [Familiar Rituals](category://familiar_rituals) Category.
+                             """.formatted(COLOR_PURPLE));
 
         helper.entry("summoning_rituals");
         this.add(helper.entryName(), "Summoning Rituals");
@@ -2193,16 +2193,16 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Summoning Rituals");
         this.add(helper.pageText(),
                 """
-                   Summoning Rituals allow you to summon spirits to work for you. Unlike familiars, they are not personally bound to you, meaning they will not follow you around, but they will perform various work tasks for you. In fact the first ritual you performed, the [Foliot Crusher](entry://getting_started/first_ritual), was a summoning ritual.
-                        """.formatted(COLOR_PURPLE));
+                        Summoning Rituals allow you to summon spirits to work for you. Unlike familiars, they are not personally bound to you, meaning they will not follow you around, but they will perform various work tasks for you. In fact the first ritual you performed, the [Foliot Crusher](entry://getting_started/first_ritual), was a summoning ritual.
+                             """.formatted(COLOR_PURPLE));
 
 
         helper.page("more");
         this.add(helper.pageTitle(), "More Information");
         this.add(helper.pageText(),
                 """
-                   To find more about Summoning Rituals, see the [Summoning Rituals](category://summoning_rituals) Category.
-                        """.formatted(COLOR_PURPLE));
+                        To find more about Summoning Rituals, see the [Summoning Rituals](category://summoning_rituals) Category.
+                             """.formatted(COLOR_PURPLE));
 
         helper.entry("crafting_rituals");
         this.add(helper.entryName(), "Infusion Rituals");
@@ -2212,15 +2212,15 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Infusion Rituals");
         this.add(helper.pageText(),
                 """
-                   Infusion rituals are all about crafting powerful items, by binding ("infusing") spirits into objects.The spirits will provide special functionality to the items.
-                        """.formatted(COLOR_PURPLE));
+                        Infusion rituals are all about crafting powerful items, by binding ("infusing") spirits into objects.The spirits will provide special functionality to the items.
+                             """.formatted(COLOR_PURPLE));
 
         helper.page("more");
         this.add(helper.pageTitle(), "More Information");
         this.add(helper.pageText(),
                 """
-                   To find more about Infusing items, see the [Infusion Rituals](category://crafting_rituals) Category.
-                        """.formatted(COLOR_PURPLE));
+                        To find more about Infusing items, see the [Infusion Rituals](category://crafting_rituals) Category.
+                             """.formatted(COLOR_PURPLE));
     }
 
     private void addRitualsCategory(BookLangHelper helper) {

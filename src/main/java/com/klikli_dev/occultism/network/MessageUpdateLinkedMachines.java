@@ -65,8 +65,7 @@ public class MessageUpdateLinkedMachines extends MessageBase {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context) {
-        if (minecraft.screen instanceof IStorageControllerGui) {
-            IStorageControllerGui gui = (IStorageControllerGui) minecraft.screen;
+        if (minecraft.screen instanceof IStorageControllerGui gui) {
             if (gui != null) {
                 gui.setLinkedMachines(this.linkedMachines);
             }

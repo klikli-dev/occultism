@@ -68,8 +68,7 @@ public class MessageSortItems extends MessageBase {
                     return;
 
                 BlockEntity blockEntity = player.level.getBlockEntity(this.entityPosition);
-                if (blockEntity instanceof IStorageAccessor) {
-                    IStorageAccessor storageAccessor = (IStorageAccessor) blockEntity;
+                if (blockEntity instanceof IStorageAccessor storageAccessor) {
                     storageAccessor.setSortType(this.sortType);
                     storageAccessor.setSortDirection(this.sortDirection);
                     blockEntity.setChanged();

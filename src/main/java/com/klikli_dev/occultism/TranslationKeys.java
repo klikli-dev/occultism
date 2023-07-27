@@ -23,12 +23,9 @@
 package com.klikli_dev.occultism;
 
 public class TranslationKeys {
+    public static final String MESSAGE_CONTAINER_ALREADY_OPEN = "messages." + Occultism.MODID + ".container_already_open";
     protected static final String ITEM = "item." + Occultism.MODID;
     public static final String BOOK_OF_CALLING_GENERIC = ITEM + ".book_of_calling";
-
     protected static final String JEI = "jei." + Occultism.MODID;
-
     public static final String JEI_CRUSHING_RECIPE_TIER = JEI + ".crushing.tier";
-
-    public static final String MESSAGE_CONTAINER_ALREADY_OPEN = "messages." + Occultism.MODID + ".container_already_open";
 }

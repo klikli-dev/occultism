@@ -22,12 +22,12 @@
 
 package com.klikli_dev.occultism.common.capability;
 
+import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.entity.familiar.IFamiliar;
 import com.klikli_dev.occultism.network.MessageSyncFamiliarSettings;
 import com.klikli_dev.occultism.network.OccultismPackets;
 import com.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.klikli_dev.occultism.registry.OccultismEntities;
-import com.google.common.collect.ImmutableList;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;

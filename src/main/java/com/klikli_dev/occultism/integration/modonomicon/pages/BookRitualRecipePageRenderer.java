@@ -6,12 +6,12 @@
 
 package com.klikli_dev.occultism.integration.modonomicon.pages;
 
-import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
-import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
-import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
 import com.klikli_dev.modonomicon.client.gui.book.BookContentScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
+import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
+import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
+import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.Util;
 import net.minecraft.client.resources.language.I18n;
@@ -51,7 +51,7 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
 
         if (this.page.getRecipe1() != null) {
             //rituals only support one recipe
-            drawRecipe(poseStack, this.page.getRecipe1(), recipeX, recipeY, mouseX, mouseY, false);
+            this.drawRecipe(poseStack, this.page.getRecipe1(), recipeX, recipeY, mouseX, mouseY, false);
         }
 
 
@@ -77,14 +77,13 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
             var nameWidth = this.font.width(pentacleName);
 
             int maxWidth = BookContentScreen.MAX_TITLE_WIDTH - RITUAL_DUMMY_OFFSET - 10; //account for the ritual dummy icon, 10 is a magic constant
-            var scale =  Math.min(1.0f, (float) maxWidth / (float) nameWidth);
-            if (scale < 1)
-            {
+            var scale = Math.min(1.0f, (float) maxWidth / (float) nameWidth);
+            if (scale < 1) {
                 nameWidth = (int) (nameWidth * scale);
             }
 
-            if(pMouseX > pentacleNameX && pMouseX < pentacleNameX + nameWidth && pMouseY > pentacleNameY && pMouseY < pentacleNameY + this.font.lineHeight) {
-                var  goToText = "book.occultism.dictionary_of_spirits.pentacles."+this.page.getRecipe1().getPentacleId().getPath()+".name";
+            if (pMouseX > pentacleNameX && pMouseX < pentacleNameX + nameWidth && pMouseY > pentacleNameY && pMouseY < pentacleNameY + this.font.lineHeight) {
+                var goToText = "book.occultism.dictionary_of_spirits.pentacles." + this.page.getRecipe1().getPentacleId().getPath() + ".name";
                 var hoverComponent = Component.translatable(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_GO_TO_PENTACLE,
                         Component.translatable(goToText));
                 return Style.EMPTY
@@ -102,14 +101,14 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
 
         recipeY += 10;
 
-        if(!second){
+        if (!second) {
             //rituals only support one recipe
             if (!this.page.getTitle1().isEmpty()) {
                 this.renderTitle(this.page.getTitle1(), false, poseStack, BookContentScreen.PAGE_WIDTH / 2, 0);
             }
         }
 
-        
+
         int ritualCenterX = recipeX + 30;
         int ritualCenterY = recipeY + 70;
         int sacrificialCircleRadius = 30;
@@ -168,22 +167,21 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
             int y = recipeY - 1;
             int x = recipeX;
             int maxWidth = BookContentScreen.MAX_TITLE_WIDTH - RITUAL_DUMMY_OFFSET - 10; //account for the ritual dummy icon, 10 is a magic constant
-            var scale =  Math.min(1.0f, (float) maxWidth / (float) this.font.width(pentacleName));
-            if (scale < 1)
-            {
+            var scale = Math.min(1.0f, (float) maxWidth / (float) this.font.width(pentacleName));
+            if (scale < 1) {
                 poseStack.translate(x - x * scale, y - y * scale, 0);
                 poseStack.scale(scale, scale, scale);
             }
 
-            this.drawScaledStringNoShadow(poseStack, pentacleName,  x + RITUAL_DUMMY_OFFSET, y, 0x3366CC , scale);
+            this.drawScaledStringNoShadow(poseStack, pentacleName, x + RITUAL_DUMMY_OFFSET, y, 0x3366CC, scale);
 
             poseStack.popPose();
 
         }
 
-        if(recipe.requiresItemUse()){
+        if (recipe.requiresItemUse()) {
             this.parentScreen.renderIngredient(poseStack, recipeX + 50, recipeY + 21, mouseX, mouseY, recipe.getItemToUse());
-            this.font.draw(poseStack, I18n.get(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_ITEM_USE),recipeX - 15, recipeY + 25, 0);
+            this.font.draw(poseStack, I18n.get(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_ITEM_USE), recipeX - 15, recipeY + 25, 0);
         }
 
         this.parentScreen.renderItemStack(poseStack, recipeX + 30, recipeY + 70, mouseX, mouseY, this.goldenSacrificialBowl);
@@ -198,14 +196,13 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
             int y = recipeY + 120;
             int x = recipeX - 15;
             int maxWidth = BookContentScreen.MAX_TITLE_WIDTH - RITUAL_DUMMY_OFFSET - 10; //account for the ritual output, 10 is our magic constant
-            var scale =  Math.min(1.0f, (float) maxWidth / (float) this.font.width(text));
-            if (scale < 1)
-            {
+            var scale = Math.min(1.0f, (float) maxWidth / (float) this.font.width(text));
+            if (scale < 1) {
                 poseStack.translate(x - x * scale, y - y * scale, 0);
                 poseStack.scale(scale, scale, scale);
             }
 
-            this.drawScaledStringNoShadow(poseStack, text,  x, y, 0x000000 , scale);
+            this.drawScaledStringNoShadow(poseStack, text, x, y, 0x000000, scale);
 
             poseStack.popPose();
         }
@@ -219,14 +216,13 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
             int y = recipeY + 130;
             int x = recipeX;
             int maxWidth = BookContentScreen.MAX_TITLE_WIDTH - 15; //account for the ritual dummy icon, 10 is a magic constant
-            var scale =  Math.min(1.0f, (float) maxWidth / (float) this.font.width(text));
-            if (scale < 1)
-            {
+            var scale = Math.min(1.0f, (float) maxWidth / (float) this.font.width(text));
+            if (scale < 1) {
                 poseStack.translate(x - x * scale, y - y * scale, 0);
                 poseStack.scale(scale, scale, scale);
             }
 
-            this.drawScaledStringNoShadow(poseStack, text,  x - 15, y, 0x3366CC , scale);
+            this.drawScaledStringNoShadow(poseStack, text, x - 15, y, 0x3366CC, scale);
 
             poseStack.popPose();
         }
@@ -240,14 +236,13 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
             int y = recipeY + 15;
             int x = recipeX - 15;
             int maxWidth = BookContentScreen.MAX_TITLE_WIDTH;
-            var scale =  Math.min(1.0f, (float) maxWidth / (float) this.font.width(text));
-            if (scale < 1)
-            {
+            var scale = Math.min(1.0f, (float) maxWidth / (float) this.font.width(text));
+            if (scale < 1) {
                 poseStack.translate(x - x * scale, y - y * scale, 0);
                 poseStack.scale(scale, scale, scale);
             }
 
-            this.drawScaledStringNoShadow(poseStack, text,  x, y, 0x000000 , scale);
+            this.drawScaledStringNoShadow(poseStack, text, x, y, 0x000000, scale);
 
             poseStack.popPose();
         }

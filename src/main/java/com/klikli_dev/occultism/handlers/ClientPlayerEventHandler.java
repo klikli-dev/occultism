@@ -25,7 +25,6 @@ package com.klikli_dev.occultism.handlers;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.gui.storage.SatchelScreen;
 import com.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
-import  com.klikli_dev.occultism.network.*;
 import com.klikli_dev.occultism.network.*;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import com.klikli_dev.occultism.util.MovementUtil;

@@ -77,7 +77,7 @@ public class MultiChunkFeatureConfig implements FeatureConfiguration {
 
 
     public MultiChunkFeatureConfig(int maxChunksToRoot, int chanceToGenerate, int minGenerationHeight,
-                                   int maxGenerationHeight, int featureSeedSalt, float grassChance,float treeChance,
+                                   int maxGenerationHeight, int featureSeedSalt, float grassChance, float treeChance,
                                    float vineChance, float ceilingLightChance,
                                    Holder<PlacedFeature> otherworldTreeFeature) {
         this.maxChunksToRoot = maxChunksToRoot;

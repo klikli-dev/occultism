@@ -88,48 +88,48 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
 
     public BatFamiliarModel(ModelPart part) {
         this.body1 = part.getChild("body1");
-        this.head = body1.getChild("head");
-        this.body2 = body1.getChild("body2");
-        this.leftEye = head.getChild("leftEye");
-        this.leftEar1 = head.getChild("leftEar1");
-        this.mouth = head.getChild("mouth");
-        this.hair = head.getChild("hair");
-        this.ribbon = head.getChild("ribbon");
-        this.rightEye = head.getChild("rightEye");
-        this.rightEar1 = head.getChild("rightEar1");
-        this.leftEar2 = leftEar1.getChild("leftEar2");
-        this.leftEarBack1 = leftEar1.getChild("leftEarBack1");
-        this.leftEarBack2 = leftEar2.getChild("leftEarBack2");
-        this.nose = mouth.getChild("nose");
-        this.tooth = mouth.getChild("tooth");
-        this.rightEar2 = rightEar1.getChild("rightEar2");
-        this.rightEarBack1 = rightEar1.getChild("rightEarBack1");
-        this.rightEarBack2 = rightEar2.getChild("rightEarBack2");
-        this.leftLeg = body2.getChild("leftLeg");
-        this.leftWing1 = body2.getChild("leftWing1");
-        this.rightLeg = body2.getChild("rightLeg");
-        this.tail = body2.getChild("tail");
-        this.rightWing1 = body2.getChild("rightWing1");
-        this.stick = body2.getChild("stick");
-        this.goblet1 = leftLeg.getChild("goblet1");
-        this.goblet2 = goblet1.getChild("goblet2");
-        this.goblet3 = goblet1.getChild("goblet3");
-        this.goblet4 = goblet3.getChild("goblet4");
-        this.goblet5 = goblet3.getChild("goblet5");
-        this.goblet6 = goblet3.getChild("goblet6");
-        this.goblet7 = goblet3.getChild("goblet7");
-        this.leftWing2 = leftWing1.getChild("leftWing2");
-        this.leftWingBack1 = leftWing1.getChild("leftWingBack1");
-        this.leftWingBack2 = leftWing2.getChild("leftWingBack2");
-        this.rightWing2 = rightWing1.getChild("rightWing2");
-        this.rightWingBack1 = rightWing1.getChild("rightWingBack1");
-        this.rightWingBack2 = rightWing2.getChild("rightWingBack2");
-        this.leftChain1 = stick.getChild("leftChain1");
-        this.rightChain1 = stick.getChild("rightChain1");
-        this.leftChain2 = leftChain1.getChild("leftChain2");
-        this.leftChain3 = leftChain2.getChild("leftChain3");
-        this.rightChain2 = rightChain1.getChild("rightChain2");
-        this.rightChain3 = rightChain2.getChild("rightChain3");
+        this.head = this.body1.getChild("head");
+        this.body2 = this.body1.getChild("body2");
+        this.leftEye = this.head.getChild("leftEye");
+        this.leftEar1 = this.head.getChild("leftEar1");
+        this.mouth = this.head.getChild("mouth");
+        this.hair = this.head.getChild("hair");
+        this.ribbon = this.head.getChild("ribbon");
+        this.rightEye = this.head.getChild("rightEye");
+        this.rightEar1 = this.head.getChild("rightEar1");
+        this.leftEar2 = this.leftEar1.getChild("leftEar2");
+        this.leftEarBack1 = this.leftEar1.getChild("leftEarBack1");
+        this.leftEarBack2 = this.leftEar2.getChild("leftEarBack2");
+        this.nose = this.mouth.getChild("nose");
+        this.tooth = this.mouth.getChild("tooth");
+        this.rightEar2 = this.rightEar1.getChild("rightEar2");
+        this.rightEarBack1 = this.rightEar1.getChild("rightEarBack1");
+        this.rightEarBack2 = this.rightEar2.getChild("rightEarBack2");
+        this.leftLeg = this.body2.getChild("leftLeg");
+        this.leftWing1 = this.body2.getChild("leftWing1");
+        this.rightLeg = this.body2.getChild("rightLeg");
+        this.tail = this.body2.getChild("tail");
+        this.rightWing1 = this.body2.getChild("rightWing1");
+        this.stick = this.body2.getChild("stick");
+        this.goblet1 = this.leftLeg.getChild("goblet1");
+        this.goblet2 = this.goblet1.getChild("goblet2");
+        this.goblet3 = this.goblet1.getChild("goblet3");
+        this.goblet4 = this.goblet3.getChild("goblet4");
+        this.goblet5 = this.goblet3.getChild("goblet5");
+        this.goblet6 = this.goblet3.getChild("goblet6");
+        this.goblet7 = this.goblet3.getChild("goblet7");
+        this.leftWing2 = this.leftWing1.getChild("leftWing2");
+        this.leftWingBack1 = this.leftWing1.getChild("leftWingBack1");
+        this.leftWingBack2 = this.leftWing2.getChild("leftWingBack2");
+        this.rightWing2 = this.rightWing1.getChild("rightWing2");
+        this.rightWingBack1 = this.rightWing1.getChild("rightWingBack1");
+        this.rightWingBack2 = this.rightWing2.getChild("rightWingBack2");
+        this.leftChain1 = this.stick.getChild("leftChain1");
+        this.rightChain1 = this.stick.getChild("rightChain1");
+        this.leftChain2 = this.leftChain1.getChild("leftChain2");
+        this.leftChain3 = this.leftChain2.getChild("leftChain3");
+        this.rightChain2 = this.rightChain1.getChild("rightChain2");
+        this.rightChain3 = this.rightChain2.getChild("rightChain3");
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -189,7 +189,7 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
     @Override
     public void setupAnim(BatFamiliarEntity pEntity, float limbSwing, float limbSwingAmount, float ageInTicks,
                           float netHeadYaw, float headPitch) {
-        showModels(pEntity);
+        this.showModels(pEntity);
 
         float partialTicks = Minecraft.getInstance().getFrameTime();
 
@@ -209,8 +209,8 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
         this.leftWing2.xRot = animationHeight * this.toRads(20) + this.toRads(15);
         this.rightWing2.xRot = animationHeight * this.toRads(20) + this.toRads(15);
         this.body1.xRot = this.toRads(20) + limbSwingAmount * this.toRads(30);
-        this.leftLeg.xRot = 0.24f + Mth.cos(ageInTicks * 0.1f) * toRads(20);
-        this.rightLeg.xRot = 0.24f + Mth.cos(ageInTicks * 0.1f) * toRads(20);
+        this.leftLeg.xRot = 0.24f + Mth.cos(ageInTicks * 0.1f) * this.toRads(20);
+        this.rightLeg.xRot = 0.24f + Mth.cos(ageInTicks * 0.1f) * this.toRads(20);
 
         if (pEntity.isPartying()) {
             float headRot = Mth.sin(ageInTicks / 3) * this.toRads(10);
@@ -225,8 +225,8 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
             this.leftWing2.xRot = wingRot;
             this.rightWing2.xRot = wingRot;
             this.body1.xRot = this.toRads(20) + limbSwingAmount * this.toRads(70);
-            this.leftEar1.xRot = Mth.cos(ageInTicks / 3 + PI) * toRads(25);
-            this.rightEar1.xRot = Mth.cos(ageInTicks / 3) * toRads(25);
+            this.leftEar1.xRot = Mth.cos(ageInTicks / 3 + PI) * this.toRads(25);
+            this.rightEar1.xRot = Mth.cos(ageInTicks / 3) * this.toRads(25);
         } else if (pEntity.isSitting()) {
             this.leftWing1.xRot = this.toRads(0);
             this.rightWing1.xRot = this.toRads(0);

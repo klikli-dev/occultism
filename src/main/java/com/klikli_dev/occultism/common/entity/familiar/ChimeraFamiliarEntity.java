@@ -22,10 +22,10 @@
 
 package com.klikli_dev.occultism.common.entity.familiar;
 
+import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
-import com.google.common.collect.ImmutableList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -339,8 +339,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
 
     @Override
     public void travelWithInput(Vec3 pTravelVec) {
-        if (this.isVehicle() && this.getControllingPassenger() instanceof Player) {
-            Player rider = (Player) this.getControllingPassenger();
+        if (this.isVehicle() && this.getControllingPassenger() instanceof Player rider) {
             float forward = rider.zza;
             float strafe = rider.xxa * 0.5f;
             if (this.isRiderJumping(rider) && this.onGround && this.jumpTimer <= 0) {

@@ -32,7 +32,8 @@ public class OutputIngredient {
 
     /**
      * Creates a new OutputIngredient
-     * @param ingredient the ingredient to source the output item from
+     *
+     * @param ingredient      the ingredient to source the output item from
      * @param outputStackInfo the additional required stack info (count, nbt) will be read from this
      */
     public OutputIngredient(Ingredient ingredient, ItemStack outputStackInfo) {
@@ -48,14 +49,14 @@ public class OutputIngredient {
                 if (value instanceof Ingredient.TagValue tagValue) {
                     var item = AlmostUnifiedIntegration.getPreferredItemForTag(tagValue.tag);
 
-                    if(item == null)
+                    if (item == null)
                         item = Registry.ITEM.getTag(tagValue.tag)
                                 .map(HolderSet.ListBacked::stream)
                                 .flatMap(Stream::findFirst)
                                 .map(Holder::value)
                                 .orElse(null);
 
-                    if(item != null) {
+                    if (item != null) {
                         return Stream.of(new ItemStack(item));
                     }
 

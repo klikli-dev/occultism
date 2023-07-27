@@ -10,7 +10,7 @@ public class OccultismModonomiconConstants {
         public static final ResourceLocation RITUAL_RECIPE = new ResourceLocation(Occultism.MODID, "ritual_recipe");
     }
 
-    public static class I18n{
+    public static class I18n {
         public static final String PREFIX = Occultism.MODID + ".";
         public static final String RITUAL_RECIPE_ITEM_USE = PREFIX + "modonomicon.ritual_recipe.item_to_use";
         public static final String RITUAL_RECIPE_SUMMON = PREFIX + "modonomicon.ritual_recipe.summon";

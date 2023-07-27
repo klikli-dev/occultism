@@ -24,7 +24,6 @@ package com.klikli_dev.occultism.handlers;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
-import  com.klikli_dev.occultism.common.entity.familiar.*;
 import com.klikli_dev.occultism.common.entity.familiar.*;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEffects;
@@ -115,10 +114,8 @@ public class FamiliarEventHandler {
     }
 
     private static void lifesteal(LivingDeathEvent event) {
-        if (!(event.getSource().getEntity() instanceof LivingEntity))
+        if (!(event.getSource().getEntity() instanceof LivingEntity attacker))
             return;
-
-        LivingEntity attacker = (LivingEntity) event.getSource().getEntity();
 
         if (!attacker.hasEffect(OccultismEffects.BAT_LIFESTEAL.get()))
             return;
@@ -129,12 +126,10 @@ public class FamiliarEventHandler {
     private static void fairySave(LivingDeathEvent event) {
         LivingEntity entity = event.getEntity();
 
-        if (event.getSource().isBypassInvul() || !(entity instanceof IFamiliar)
+        if (event.getSource().isBypassInvul() || !(entity instanceof IFamiliar familiar)
                 || entity.getType() == OccultismEntities.GUARDIAN_FAMILIAR.get()
                 || entity.getType() == OccultismEntities.FAIRY_FAMILIAR.get())
             return;
-
-        IFamiliar familiar = (IFamiliar) entity;
 
         LivingEntity owner = familiar.getFamiliarOwner();
 
@@ -156,9 +151,8 @@ public class FamiliarEventHandler {
 
     @SubscribeEvent
     public static void livingDamageEvent(LivingDamageEvent event) {
-        if (!(event.getSource().getEntity() instanceof Player))
+        if (!(event.getSource().getEntity() instanceof Player player))
             return;
-        Player player = (Player) event.getSource().getEntity();
 
         if (!FamiliarUtil.isFamiliarEnabled(player, OccultismEntities.HEADLESS_FAMILIAR.get()))
             return;
@@ -173,9 +167,8 @@ public class FamiliarEventHandler {
     }
 
     private static void headlessStealHead(LivingDeathEvent event) {
-        if (!(event.getSource().getEntity() instanceof Player))
+        if (!(event.getSource().getEntity() instanceof Player player))
             return;
-        Player player = (Player) event.getSource().getEntity();
 
         if (!FamiliarUtil.isFamiliarEnabled(player, OccultismEntities.HEADLESS_FAMILIAR.get()))
             return;
@@ -190,10 +183,9 @@ public class FamiliarEventHandler {
     }
 
     private static void guardianUltimateSacrifice(LivingDeathEvent event) {
-        if (event.getSource().isBypassInvul() || !(event.getEntity() instanceof Player))
+        if (event.getSource().isBypassInvul() || !(event.getEntity() instanceof Player player))
             return;
 
-        Player player = (Player) event.getEntity();
         if (!FamiliarUtil.isFamiliarEnabled(player, OccultismEntities.GUARDIAN_FAMILIAR.get()))
             return;
 

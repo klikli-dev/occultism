@@ -65,10 +65,9 @@ public class MessageSetRecipe extends MessageBase {
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
                                  NetworkEvent.Context context) {
-        if (!(player.containerMenu instanceof IStorageControllerContainer)) {
+        if (!(player.containerMenu instanceof IStorageControllerContainer container)) {
             return;
         }
-        IStorageControllerContainer container = (IStorageControllerContainer) player.containerMenu;
         IStorageController storageController = container.getStorageController();
         if (storageController == null) {
             return;

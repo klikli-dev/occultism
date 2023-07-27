@@ -1,10 +1,5 @@
 package com.klikli_dev.occultism.datagen;
 
-import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
-import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
-import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritTradeRecipePageModel;
-import com.klikli_dev.occultism.registry.OccultismBlocks;
-import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
 import com.klikli_dev.modonomicon.api.datagen.BookProvider;
@@ -18,6 +13,11 @@ import com.klikli_dev.modonomicon.api.datagen.book.condition.BookEntryReadCondit
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookModLoadedConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookTrueConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.*;
+import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
+import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
+import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritTradeRecipePageModel;
+import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;

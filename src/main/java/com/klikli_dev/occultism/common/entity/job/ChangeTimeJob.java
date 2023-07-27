@@ -119,7 +119,7 @@ public abstract class ChangeTimeJob extends SpiritJob {
 
         var interpolatedTime = level.getDayTime() + timeChange;
 
-        if(interpolatedTime >= this.newTime){
+        if (interpolatedTime >= this.newTime) {
             interpolatedTime = this.newTime;
         }
 

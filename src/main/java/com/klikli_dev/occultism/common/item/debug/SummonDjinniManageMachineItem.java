@@ -53,8 +53,8 @@ public class SummonDjinniManageMachineItem extends Item {
 
             if (!ForgeEventFactory.doSpecialSpawn(spirit, context.getLevel(), (float) spirit.getX(), (float) spirit.getY(), (float) spirit.getZ(), null, MobSpawnType.SPAWN_EGG))
                 spirit.finalizeSpawn((ServerLevel) context.getLevel(),
-                    context.getLevel().getCurrentDifficultyAt(context.getClickedPos()),
-                    MobSpawnType.SPAWN_EGG, null, null);
+                        context.getLevel().getCurrentDifficultyAt(context.getClickedPos()),
+                        MobSpawnType.SPAWN_EGG, null, null);
             spirit.tame(context.getPlayer());
             spirit.setPos(context.getClickedPos().getX(), context.getClickedPos().getY() + 1.0f, context.getClickedPos().getZ());
             spirit.setCustomName(Component.literal("Testspirit Manage Machine"));

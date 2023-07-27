@@ -22,12 +22,12 @@
 
 package com.klikli_dev.occultism.integration.jei.recipes;
 
+import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -191,7 +191,6 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
                 .addItemStack(recipe.getRitualDummy());
 
 
-
         //draw item to use
         if (recipe.requiresItemUse()) {
 
@@ -202,9 +201,9 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
 
             //simulate pentacle id rendering, to get the correct Y level to draw at
             if (pentacle != null) {
-                var pentacleName = Minecraft.getInstance().font.split( Component.translatable(Util.makeDescriptionId("multiblock", pentacle.getId())), 150);
+                var pentacleName = Minecraft.getInstance().font.split(Component.translatable(Util.makeDescriptionId("multiblock", pentacle.getId())), 150);
 
-                for(var line : pentacleName){
+                for (var line : pentacleName) {
                     //Don't actually draw
                     //this.drawStringCentered(poseStack, Minecraft.getInstance().font,  line , infoTextX, infotextY);
                     infotextY += lineHeight;

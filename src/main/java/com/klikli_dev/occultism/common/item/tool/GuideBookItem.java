@@ -22,13 +22,13 @@
 
 package com.klikli_dev.occultism.common.item.tool;
 
-import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.modonomicon.Modonomicon;
 import com.klikli_dev.modonomicon.api.ModonomiconConstants;
 import com.klikli_dev.modonomicon.book.Book;
 import com.klikli_dev.modonomicon.client.gui.BookGuiManager;
 import com.klikli_dev.modonomicon.data.BookDataManager;
 import com.klikli_dev.modonomicon.item.ModonomiconItem;
+import com.klikli_dev.occultism.Occultism;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;

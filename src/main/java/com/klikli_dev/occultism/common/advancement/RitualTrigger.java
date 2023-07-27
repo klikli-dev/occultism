@@ -22,11 +22,11 @@
 
 package com.klikli_dev.occultism.common.advancement;
 
-import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.common.ritual.Ritual;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
+import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.common.ritual.Ritual;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;

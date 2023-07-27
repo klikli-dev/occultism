@@ -22,13 +22,13 @@
 
 package com.klikli_dev.occultism.datagen;
 
-import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.registry.OccultismBlocks;
-import com.klikli_dev.occultism.registry.OccultismTags;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.data.MultiblockDataManager;
+import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -252,7 +252,7 @@ public class PentacleProvider implements DataProvider {
     private List<String> createPattern(String... rows) {
         List<String> pattern = new ArrayList<>();
         for (String row : rows) {
-            pattern.add(row.replace(" ","_"));
+            pattern.add(row.replace(" ", "_"));
         }
         return pattern;
     }
@@ -273,11 +273,11 @@ public class PentacleProvider implements DataProvider {
         outerPattern.add(innerPattern); //modonomicon multiblocks may have multiple layers, but we use only one
 
         JsonArray ground = new JsonArray();
-        for(int i = 0; i < pattern.size(); i++){
+        for (int i = 0; i < pattern.size(); i++) {
             var row = "";
-            for(int j = 0; j < pattern.get(i).length(); j++){
+            for (int j = 0; j < pattern.get(i).length(); j++) {
                 //create a checkerbord, alternatively adding "*" and "+" to the row
-                if((i + j) % 2 == 0)
+                if ((i + j) % 2 == 0)
                     row += "*";
                 else
                     row += "+";

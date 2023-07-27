@@ -49,11 +49,11 @@ public class TooltipHandler {
                         TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
         }
 
-        if(Occultism.CLIENT_CONFIG.visuals.showItemTagsInTooltip.get() && event.getFlags().isAdvanced()){
+        if (Occultism.CLIENT_CONFIG.visuals.showItemTagsInTooltip.get() && event.getFlags().isAdvanced()) {
             var tooltips = event.getToolTip();
             var item = event.getItemStack().getItem();
-            ForgeRegistries.ITEMS.tags().getReverseTag(item).ifPresent((tag)->{
-                tag.getTagKeys().forEach((key)->{
+            ForgeRegistries.ITEMS.tags().getReverseTag(item).ifPresent((tag) -> {
+                tag.getTagKeys().forEach((key) -> {
                     tooltips.add(Component.literal(key.toString()).withStyle(ChatFormatting.DARK_GRAY));
                 });
             });

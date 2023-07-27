@@ -232,17 +232,17 @@ public class OccultismAdvancementProvider implements DataProvider {
                 .addCriterion("beholder_eat", FamiliarTrigger.of(FamiliarTrigger.Type.BEHOLDER_EAT))
                 .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/beholder_eat")));
         this.add(Advancement.Builder.advancement().parent(familiarsRoot)
-                .display(icon(14), familiarTitle("fairy_save"), familiarDescr("fairy_save"), null, FrameType.TASK,
+                .display(this.icon(14), familiarTitle("fairy_save"), familiarDescr("fairy_save"), null, FrameType.TASK,
                         true, true, false)
                 .addCriterion("fairy_save", FamiliarTrigger.of(FamiliarTrigger.Type.FAIRY_SAVE))
                 .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/fairy_save")));
         this.add(Advancement.Builder.advancement().parent(familiarsRoot)
-                .display(icon(15), familiarTitle("mummy_dodge"), familiarDescr("mummy_dodge"), null, FrameType.TASK,
+                .display(this.icon(15), familiarTitle("mummy_dodge"), familiarDescr("mummy_dodge"), null, FrameType.TASK,
                         true, true, false)
                 .addCriterion("mummy_dodge", FamiliarTrigger.of(FamiliarTrigger.Type.MUMMY_DODGE))
                 .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/mummy_dodge")));
         this.add(Advancement.Builder.advancement().parent(familiarsRoot)
-                .display(icon(16), familiarTitle("beaver_woodchop"), familiarDescr("beaver_woodchop"), null, FrameType.TASK,
+                .display(this.icon(16), familiarTitle("beaver_woodchop"), familiarDescr("beaver_woodchop"), null, FrameType.TASK,
                         true, true, false)
                 .addCriterion("beaver_woodchop", FamiliarTrigger.of(FamiliarTrigger.Type.BEAVER_WOODCHOP))
                 .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/beaver_woodchop")));

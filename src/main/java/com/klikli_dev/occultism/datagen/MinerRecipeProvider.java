@@ -22,10 +22,10 @@
 
 package com.klikli_dev.occultism.datagen;
 
-import com.klikli_dev.occultism.Occultism;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.klikli_dev.occultism.Occultism;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;

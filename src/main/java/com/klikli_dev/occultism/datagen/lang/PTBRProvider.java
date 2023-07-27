@@ -22,14 +22,14 @@
 
 package com.klikli_dev.occultism.datagen.lang;
 
+import com.klikli_dev.modonomicon.api.ModonomiconAPI;
+import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.modonomicon.api.ModonomiconAPI;
-import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
 import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.contents.TranslatableContents;
@@ -670,10 +670,10 @@ public class PTBRProvider extends LanguageProvider {
         helper.book("dictionary_of_spirits");
         this.add(helper.bookName(), "Dicionário de espíritos");
         this.add(helper.bookTooltip(), """
-        		Este livro tem como objetivo apresentar ao leitor iniciante os rituais de invocação mais comuns e equipá-los com uma lista de espíritos e seus nomes.
-                Os autores aconselham cautela na convocação das entidades listadas.
-                Para obter ajuda ou dar feedback, junte-se a nós no Discord https://invite.gg/klikli.
-                """);
+                Este livro tem como objetivo apresentar ao leitor iniciante os rituais de invocação mais comuns e equipá-los com uma lista de espíritos e seus nomes.
+                      Os autores aconselham cautela na convocação das entidades listadas.
+                      Para obter ajuda ou dar feedback, junte-se a nós no Discord https://invite.gg/klikli.
+                      """);
 
         this.addGettingStartedCategory(helper);
         this.addPentaclesCategory(helper);
@@ -693,28 +693,28 @@ public class PTBRProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Informação importante");
         this.add(helper.pageText(),
                 """
-		        		Occultism está em transição do Patchouli para o Modonomicon como forma de documentação do jogo.\\
-		                \\
-		                Atualmente, apenas a seção "Começando" está disponível no Modonomicon,
-		                para todos os outros conteúdos, você precisa consultar o livro do Patchouli
-		                intitulado "Dicionário de Espíritos (Edição Antiga)". 
-                        
-                        """);
+                        Occultism está em transição do Patchouli para o Modonomicon como forma de documentação do jogo.\\
+                              \\
+                              Atualmente, apenas a seção "Começando" está disponível no Modonomicon,
+                              para todos os outros conteúdos, você precisa consultar o livro do Patchouli
+                              intitulado "Dicionário de Espíritos (Edição Antiga)". 
+                                    
+                                    """);
 
         helper.page("intro2");
         this.add(helper.pageText(),
                 """
-		        		Por enquanto, para procurar receitas, formas de pentagramas, informações sobre rituais e basicamente tudo depois de "começando",
-		                abra a Edição Antiga.\\
-		                \\
-		                Com o tempo, cada vez mais conteúdo estará disponível diretamente aqui na versão Modonomicon.
-                        """);
+                        Por enquanto, para procurar receitas, formas de pentagramas, informações sobre rituais e basicamente tudo depois de "começando",
+                              abra a Edição Antiga.\\
+                              \\
+                              Com o tempo, cada vez mais conteúdo estará disponível diretamente aqui na versão Modonomicon.
+                                    """);
 
         helper.page("recipe");
         this.add(helper.pageText(),
                 """
-        				Para obter a edição antiga, basta colocar este livro sozinho em uma grade de fabricação. (A nova edição do livro não será destruída.)
-                        """);
+                        Para obter a edição antiga, basta colocar este livro sozinho em uma grade de fabricação. (A nova edição do livro não será destruída.)
+                                    """);
 
         helper.entry("demons_dream");
         this.add(helper.entryName(), "Levantando o Véu");
@@ -724,33 +724,33 @@ public class PTBRProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "O Outro Mundo");
         this.add(helper.pageText(),
                 """
-        				Escondido de meros olhos humanos existe outro plano de existência, outra *dimensão* como dizem, o [#](%1$s)Outro Mundo[#]().
-        				Este mundo é preenchido com entidades geralmente chamadas de [#](%1$s)Demônios[#]().
-                        """.formatted(COLOR_PURPLE));
+                        Escondido de meros olhos humanos existe outro plano de existência, outra *dimensão* como dizem, o [#](%1$s)Outro Mundo[#]().
+                        Este mundo é preenchido com entidades geralmente chamadas de [#](%1$s)Demônios[#]().
+                                    """.formatted(COLOR_PURPLE));
 
         helper.page("intro2");
         this.add(helper.pageText(),
                 """
-        				Esses Demônios possuem uma grande variedade de poderes e habilidades úteis, e por séculos os magos buscaram invocá-los ao seu favor.
-        				O primeiro passo na jornada para invocar tal Entidade com sucesso é aprender a interagir com o Outro Mundo.
-                        """);
+                        Esses Demônios possuem uma grande variedade de poderes e habilidades úteis, e por séculos os magos buscaram invocá-los ao seu favor.
+                        O primeiro passo na jornada para invocar tal Entidade com sucesso é aprender a interagir com o Outro Mundo.
+                                    """);
 
         helper.page("spotlight");
         this.add(helper.pageText(),
                 """
-		        		%1$s é uma erva que dá aos humanos o [#](%2$s)Terceiro Olho[#](),
-		                permitindo que eles vejam onde o [#](%2$s)Outro Mundo[#]() se cruza com o nosso.
-		                As sementes podem ser encontradas **quebrando grama**.
-		                **Consumir** a fruta ativa a habilidade.
-                        """.formatted(DEMONS_DREAM, COLOR_PURPLE));
+                        %1$s é uma erva que dá aos humanos o [#](%2$s)Terceiro Olho[#](),
+                              permitindo que eles vejam onde o [#](%2$s)Outro Mundo[#]() se cruza com o nosso.
+                              As sementes podem ser encontradas **quebrando grama**.
+                              **Consumir** a fruta ativa a habilidade.
+                                    """.formatted(DEMONS_DREAM, COLOR_PURPLE));
 
         helper.page("harvest_effect");
         this.add(helper.pageText(),
                 """
-		        		Um efeito colateral adicional de %1$s é **a capacidade de interagir com materiais do [#](%2$s)Outro Mundo[#]()**.
-		                Isso é exclusivo de %1$s, outras formas de obter [#](%2$s)Terceiro Olho[#]() não produzem essa habilidade.
-		                Enquanto estiver sob o efeito de %1$s, você pode **colher** outra pedra, bem como árvores do Outro Mundo.
-                         """.formatted(DEMONS_DREAM, COLOR_PURPLE));
+                        Um efeito colateral adicional de %1$s é **a capacidade de interagir com materiais do [#](%2$s)Outro Mundo[#]()**.
+                              Isso é exclusivo de %1$s, outras formas de obter [#](%2$s)Terceiro Olho[#]() não produzem essa habilidade.
+                              Enquanto estiver sob o efeito de %1$s, você pode **colher** outra pedra, bem como árvores do Outro Mundo.
+                                     """.formatted(DEMONS_DREAM, COLOR_PURPLE));
 
 
         helper.page("datura_screenshot"); //no text
@@ -763,10 +763,10 @@ public class PTBRProvider extends LanguageProvider {
         helper.page("spotlight");
         this.add(helper.pageText(),
                 """
-		        		[#](%1$s)Fogo místico[#]() é um tipo especial de fogo que existe principalmente no [#](%1$s)Outro Lugar[#]()
-		                e não prejudica os seres vivos. Suas propriedades especiais permitem usá-lo para purificar e converter
-		                certos materiais queimando-os, sem consumi-los.
-                        """.formatted(COLOR_PURPLE));
+                        [#](%1$s)Fogo místico[#]() é um tipo especial de fogo que existe principalmente no [#](%1$s)Outro Lugar[#]()
+                              e não prejudica os seres vivos. Suas propriedades especiais permitem usá-lo para purificar e converter
+                              certos materiais queimando-os, sem consumi-los.
+                                    """.formatted(COLOR_PURPLE));
 
 
         helper.page("spirit_fire_screenshot");
@@ -779,16 +779,16 @@ public class PTBRProvider extends LanguageProvider {
         helper.page("main_uses");
         this.add(helper.pageText(),
                 """
-	        			Os principais usos de [](item://occultism:spirit_fire) é converter [](item://minecraft:diamond) em [](item://occultism:spirit_attuned_gem),
-	                    para obter ingredientes básicos como [](item://occultism:otherstone) e [Mudas do Outro Mundo](item://occultism:otherworld_sapling_natural),
-	                    e purificar giz impuro.
-                         """);
+                        Os principais usos de [](item://occultism:spirit_fire) é converter [](item://minecraft:diamond) em [](item://occultism:spirit_attuned_gem),
+                                 para obter ingredientes básicos como [](item://occultism:otherstone) e [Mudas do Outro Mundo](item://occultism:otherworld_sapling_natural),
+                                 e purificar giz impuro.
+                                     """);
 
         helper.page("otherstone_recipe");
         this.add(helper.pageText(),
                 """
-        				Uma maneira mais fácil de obter [](item://occultism:otherstone) do que via adivinhação.
-                              """);
+                        Uma maneira mais fácil de obter [](item://occultism:otherstone) do que via adivinhação.
+                                          """);
 
 
         helper.page("otherworld_sapling_natural_recipe");
@@ -805,28 +805,28 @@ public class PTBRProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Terceiro Olho");
         this.add(helper.pageText(),
                 """
-		        		A capacidade de ver além do mundo físico é chamada de [#](%1$s)Terceiro Olho[#]().
-		                Os humanos não possuem essa capacidade de ver [#](%1$s)além do véu[#](),
-		                no entanto, com certas substâncias e engenhocas, um invocador experiente pode contornar essa limitação.
-                         """.formatted(COLOR_PURPLE));
+                        A capacidade de ver além do mundo físico é chamada de [#](%1$s)Terceiro Olho[#]().
+                              Os humanos não possuem essa capacidade de ver [#](%1$s)além do véu[#](),
+                              no entanto, com certas substâncias e engenhocas, um invocador experiente pode contornar essa limitação.
+                                     """.formatted(COLOR_PURPLE));
 
         helper.page("how_to_obtain");
         this.add(helper.pageText(),
                 """
-		        		A maneira mais confortável e mais *cara* de obter essa habilidade é usar um óculos
-		                infundido com espíritos, que *emprestam* sua visão ao usuário.
-		                Uma alternativa um pouco mais nauseante, mas **muito acessível** é o consumo de certas ervas, sendo
-		                [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream) a mais proeminente entre elas.
-                         """.formatted(DEMONS_DREAM));
+                        A maneira mais confortável e mais *cara* de obter essa habilidade é usar um óculos
+                              infundido com espíritos, que *emprestam* sua visão ao usuário.
+                              Uma alternativa um pouco mais nauseante, mas **muito acessível** é o consumo de certas ervas, sendo
+                              [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream) a mais proeminente entre elas.
+                                     """.formatted(DEMONS_DREAM));
 
         helper.page("otherworld_goggles");
         this.add(helper.pageText(),
                 """
-	        			[Esses óculos](entry://crafting_rituals/craft_otherworld_goggles) permitem ver ainda mais blocos ocultos do Outro Mundo,
-	                    porém não permitem a colheita desses materiais.
-	                    Materiais de nível baixo podem ser colhidos consumindo [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream),
-	                    mas materiais mais valiosos requerem ferramentas especiais.
-                                """.formatted(DEMONS_DREAM));
+                        [Esses óculos](entry://crafting_rituals/craft_otherworld_goggles) permitem ver ainda mais blocos ocultos do Outro Mundo,
+                                 porém não permitem a colheita desses materiais.
+                                 Materiais de nível baixo podem ser colhidos consumindo [%1$s](entry://occultism:dictionary_of_spirits/getting_started/demons_dream),
+                                 mas materiais mais valiosos requerem ferramentas especiais.
+                                            """.formatted(DEMONS_DREAM));
 
 
         helper.entry("divination_rod");
@@ -837,10 +837,10 @@ public class PTBRProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Adivinhação");
         this.add(helper.pageText(),
                 """
-		        		Para facilitar o início, os materiais obtidos por adivinhação agora também têm receitas de fabricação.
-		                **Se você quiser a experiência completa, pule a página de receitas a seguir e vá para a
-		                [instruções de adivinhação](entry://occultism:dictionary_of_spirits/getting_started/divination_rod@divination_instructions).**
-                                """);
+                        Para facilitar o início, os materiais obtidos por adivinhação agora também têm receitas de fabricação.
+                              **Se você quiser a experiência completa, pule a página de receitas a seguir e vá para a
+                              [instruções de adivinhação](entry://occultism:dictionary_of_spirits/getting_started/divination_rod@divination_instructions).**
+                                            """);
 
 
         helper.page("otherstone_recipe");
@@ -849,30 +849,30 @@ public class PTBRProvider extends LanguageProvider {
         helper.page("otherworld_sapling_natural_recipe");
         this.add(helper.pageText(),
                 """
-		        		**Aviso**: a árvore que cresce da muda parecerá um carvalho normal.
-		                Você precisa ativar o [Terceiro Olho](entry://occultism:dictionary_of_spirits/getting_started/demons_dream)
-		                para colher os Troncos e Folhas do Outro Mundo.
-                                """);
+                        **Aviso**: a árvore que cresce da muda parecerá um carvalho normal.
+                              Você precisa ativar o [Terceiro Olho](entry://occultism:dictionary_of_spirits/getting_started/demons_dream)
+                              para colher os Troncos e Folhas do Outro Mundo.
+                                            """);
 
         helper.page("divination_rod");
         this.add(helper.pageText(),
                 """
-		        		Os materiais do Outro Mundo desempenham um papel importante na interação com os espíritos.
-		                Como são raros e invisíveis a olho nu, encontrá-los requer ferramentas especiais.
-		                A vara de adivinhação permite encontrar materiais do Outro Mundo com base em suas semelhanças com materiais comuns ao nosso mundo.
-                                 """);
+                        Os materiais do Outro Mundo desempenham um papel importante na interação com os espíritos.
+                              Como são raros e invisíveis a olho nu, encontrá-los requer ferramentas especiais.
+                              A vara de adivinhação permite encontrar materiais do Outro Mundo com base em suas semelhanças com materiais comuns ao nosso mundo.
+                                             """);
 
         helper.page("about_divination_rod");
         this.add(helper.pageText(),
                 """
-		        		A vara de adivinhação usa uma gema mística sintonizada presa a uma vara de madeira.
-		                A gema ressoa com o material escolhido, e esse movimento é amplificado pela haste de madeira,
-		                permitindo detectar materiais do Outro Mundo próximos. \s
-		                   \s
-		                   \s
-		                A haste detecta a ressonância entre os materiais do mundo real e do Outro Mundo.
-		                Sintonize o bastão com um material do mundo real e ele encontrará o bloco do Outro Mundo correspondente.
-                                 """);
+                        A vara de adivinhação usa uma gema mística sintonizada presa a uma vara de madeira.
+                              A gema ressoa com o material escolhido, e esse movimento é amplificado pela haste de madeira,
+                              permitindo detectar materiais do Outro Mundo próximos. \s
+                                 \s
+                                 \s
+                              A haste detecta a ressonância entre os materiais do mundo real e do Outro Mundo.
+                              Sintonize o bastão com um material do mundo real e ele encontrará o bloco do Outro Mundo correspondente.
+                                             """);
 
         helper.page("how_to_use");
         this.add(helper.pageTitle(), "Uso da Vara");
@@ -889,11 +889,11 @@ public class PTBRProvider extends LanguageProvider {
         helper.page("how_to_use2");
         this.add(helper.pageText(),
                 """
-		        		Depois que a animação terminar, o bloco **mais próximo encontrado será destacado
-		                com linhas brancas e pode ser visto através de outros blocos**.
-		                Além disso, você pode observar o cristal para obter dicas: um cristal branco indica que nenhum bloco de destino foi encontrado,
-		                um bloco totalmente roxo significa que o bloco encontrado está próximo. Misturas entre branco e roxo mostram
-		                que o alvo está longe.""");
+                        Depois que a animação terminar, o bloco **mais próximo encontrado será destacado
+                              com linhas brancas e pode ser visto através de outros blocos**.
+                              Além disso, você pode observar o cristal para obter dicas: um cristal branco indica que nenhum bloco de destino foi encontrado,
+                              um bloco totalmente roxo significa que o bloco encontrado está próximo. Misturas entre branco e roxo mostram
+                              que o alvo está longe.""");
 
         helper.page("divination_rod_screenshots");
         this.add(helper.pageText(),
@@ -906,12 +906,12 @@ public class PTBRProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Bosques do Outro Mundo");
         this.add(helper.pageText(),
                 """
-		        		Bosques do Outro Mundo são cavernas exuberantes e cobertas de vegetação, com [#](%1$s)Árvores do Outro Mundo[#](),
-		                e paredes de [](item://occultism:otherstone), e representam a maneira mais rápida de obter tudo que
-		                alguém precisa para começar como um invocador.
-		                Para encontrá-los, sintonize sua vara de adivinhação com as folhas do Outro Mundo
-		                ou troncos, pois ao contrário da outra pedra, elas só aparecem nesses bosques.
-                         """.formatted(COLOR_PURPLE));
+                        Bosques do Outro Mundo são cavernas exuberantes e cobertas de vegetação, com [#](%1$s)Árvores do Outro Mundo[#](),
+                              e paredes de [](item://occultism:otherstone), e representam a maneira mais rápida de obter tudo que
+                              alguém precisa para começar como um invocador.
+                              Para encontrá-los, sintonize sua vara de adivinhação com as folhas do Outro Mundo
+                              ou troncos, pois ao contrário da outra pedra, elas só aparecem nesses bosques.
+                                     """.formatted(COLOR_PURPLE));
 
         helper.page("otherworld_groves_2");
         this.add(helper.pageText(),
@@ -923,16 +923,16 @@ public class PTBRProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Árvores do Outro Mundo");
         this.add(helper.pageText(),
                 """
-		        		Árvores do Outro Mundo crescem naturalmente em Bosques do Outro Mundo. A olho nu parecem carvalhos,
-		                mas ao Terceiro Olho elas revelam sua verdadeira natureza. \s
-		                **Importante:** Mudas do Outro Mundo só podem ser obtidas quebrando as folhas manualmente, naturalmente só caem as mudas de carvalho.
-                         """);
+                        Árvores do Outro Mundo crescem naturalmente em Bosques do Outro Mundo. A olho nu parecem carvalhos,
+                              mas ao Terceiro Olho elas revelam sua verdadeira natureza. \s
+                              **Importante:** Mudas do Outro Mundo só podem ser obtidas quebrando as folhas manualmente, naturalmente só caem as mudas de carvalho.
+                                     """);
 
         helper.page("otherworld_trees_2");
         this.add(helper.pageText(),
                 """
-        				Árvores cultivadas a partir de Mudas Estáveis ​​do Outro Mundo obtidas de comerciantes espirituais não têm essa limitação.
-                         """);
+                        Árvores cultivadas a partir de Mudas Estáveis ​​do Outro Mundo obtidas de comerciantes espirituais não têm essa limitação.
+                                     """);
 
         helper.entry("candle");
         this.add(helper.entryName(), "Velas");
@@ -941,19 +941,19 @@ public class PTBRProvider extends LanguageProvider {
         helper.page("white_candle");
         this.add(helper.pageText(),
                 """
-		        		As velas dão estabilidade aos rituais e são uma parte importante de quase todos os pentagramas.
-		                **As velas também funcionam como estantes de livros para fins de encantamento.**
-		                \\
-		                \\
-		                Velas de Minecraft e outros Mods podem ser usadas no lugar de velas do Occultism.
-                            """);
+                        As velas dão estabilidade aos rituais e são uma parte importante de quase todos os pentagramas.
+                              **As velas também funcionam como estantes de livros para fins de encantamento.**
+                              \\
+                              \\
+                              Velas de Minecraft e outros Mods podem ser usadas no lugar de velas do Occultism.
+                                        """);
 
         helper.page("tallow");
         this.add(helper.pageText(),
                 """
-        				Ingrediente chave para velas. Mate animais grandes como porcos, vacas ou ovelhas com um [](item://occultism:butcher_knife)
-        				para colher [](item://occultism:tallow).
-                            """);
+                        Ingrediente chave para velas. Mate animais grandes como porcos, vacas ou ovelhas com um [](item://occultism:butcher_knife)
+                        para colher [](item://occultism:tallow).
+                                        """);
 
 
         helper.page("white_candle_recipe");
@@ -968,20 +968,20 @@ public class PTBRProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Preparando Rituais");
         this.add(helper.pageText(),
                 """
-		        		Para invocar espíritos do [#](%1$s)Outro Lugar[#]() em relativa segurança,
-		                você precisa desenhar um pentáculo apropriado usando giz para conter seus poderes.
-		                Além disso, você precisa de [Tijelas sacrificiais](item://occultism:sacrificial_bowl)
-		                para sacrificar itens adequados a atrair o espírito.
-                         """.formatted(COLOR_PURPLE));
+                        Para invocar espíritos do [#](%1$s)Outro Lugar[#]() em relativa segurança,
+                              você precisa desenhar um pentáculo apropriado usando giz para conter seus poderes.
+                              Além disso, você precisa de [Tijelas sacrificiais](item://occultism:sacrificial_bowl)
+                              para sacrificar itens adequados a atrair o espírito.
+                                     """.formatted(COLOR_PURPLE));
 
 
         helper.page("white_chalk");
         this.add(helper.pageText(),
                 """
-		        		Para pentáculos, apenas a cor do giz é relevante, não o glifo/sinal.
-		                Para fins decorativos, você pode clicar repetidamente em um bloco para mudar os glifos.
-		                Para outros gizes veja [Giz](entry://occultism:dictionary_of_spirits/getting_started/chalks).
-                            """);
+                        Para pentáculos, apenas a cor do giz é relevante, não o glifo/sinal.
+                              Para fins decorativos, você pode clicar repetidamente em um bloco para mudar os glifos.
+                              Para outros gizes veja [Giz](entry://occultism:dictionary_of_spirits/getting_started/chalks).
+                                        """);
 
         helper.page("burnt_otherstone_recipe");
         //no text
@@ -998,9 +998,9 @@ public class PTBRProvider extends LanguageProvider {
         helper.page("sacrificial_bowl");
         this.add(helper.pageText(),
                 """
-		        		Essas tigelas são usadas para sacrificar itens como parte de um ritual e você precisará de um monte delas.
-		                Nota: Sua colocação exata no ritual não importa - apenas mantenha-as dentro de 8 blocos do centro do pentáculo!
-                             """);
+                        Essas tigelas são usadas para sacrificar itens como parte de um ritual e você precisará de um monte delas.
+                              Nota: Sua colocação exata no ritual não importa - apenas mantenha-as dentro de 8 blocos do centro do pentáculo!
+                                         """);
 
         helper.page("sacrificial_bowl_recipe");
         //no text
@@ -1008,9 +1008,9 @@ public class PTBRProvider extends LanguageProvider {
         helper.page("golden_sacrificial_bowl");
         this.add(helper.pageText(),
                 """
-		        		Esta tigela de sacrifício especial é usada para ativar o ritual clicando com o botão direito do mouse com o item de ativação,
-		                geralmente um livro de vínculo, uma vez que tudo foi arrumado e você está pronto para começar.
-                             """);
+                        Esta tigela de sacrifício especial é usada para ativar o ritual clicando com o botão direito do mouse com o item de ativação,
+                              geralmente um livro de vínculo, uma vez que tudo foi arrumado e você está pronto para começar.
+                                         """);
 
 
         helper.page("golden_sacrificial_bowl_recipe");
@@ -1025,30 +1025,30 @@ public class PTBRProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Livros de Vínculo");
         this.add(helper.pageText(),
                 """
-		        		Para invocar um espírito, um [#](%1$s)Livro de Vínculo[#]() deve ser usado no ritual.
-		                Há um tipo de livro correspondente a cada tipo (ou nível) de espírito.
-		                Para identificar um espírito a ser invocado, seu nome deve ser escrito no [#](%1$s)Livro de Vínculo[#](),
-		                resultando em um [#](%1$s)Livro de Vínculo[#]() que pode ser usado no ritual. 
-                         """.formatted(COLOR_PURPLE));
+                        Para invocar um espírito, um [#](%1$s)Livro de Vínculo[#]() deve ser usado no ritual.
+                              Há um tipo de livro correspondente a cada tipo (ou nível) de espírito.
+                              Para identificar um espírito a ser invocado, seu nome deve ser escrito no [#](%1$s)Livro de Vínculo[#](),
+                              resultando em um [#](%1$s)Livro de Vínculo[#]() que pode ser usado no ritual. 
+                                     """.formatted(COLOR_PURPLE));
 
         helper.page("purified_ink_recipe");
         this.add(helper.pageText(),
                 """
-		        		Para criar [#](%1$s)Livros de Vínculo[#]() para invocar espíritos, você precisa de tinta purificada.
-		                Simplesmente coloque qualquer corante preto em [](item://occultism:spirit_fire) para purificá-lo.
-                            """.formatted(COLOR_PURPLE));
+                        Para criar [#](%1$s)Livros de Vínculo[#]() para invocar espíritos, você precisa de tinta purificada.
+                              Simplesmente coloque qualquer corante preto em [](item://occultism:spirit_fire) para purificá-lo.
+                                        """.formatted(COLOR_PURPLE));
 
         helper.page("book_of_binding_foliot_recipe");
         this.add(helper.pageText(),
                 """
-        				Fabrique um livro de vínculo que será usado para invocar um espírito [#](%1$s)Foliot[#]().
-                           """.formatted(COLOR_PURPLE));
+                        Fabrique um livro de vínculo que será usado para invocar um espírito [#](%1$s)Foliot[#]().
+                                       """.formatted(COLOR_PURPLE));
 
         helper.page("book_of_binding_bound_foliot_recipe");
         this.add(helper.pageText(),
                 """
-        				Adicione o nome do espírito a ser invocado ao seu livro de vínculo juntando-o com o Dicionário de Espíritos. O Dicionário não será usado.
-                           """);
+                        Adicione o nome do espírito a ser invocado ao seu livro de vínculo juntando-o com o Dicionário de Espíritos. O Dicionário não será usado.
+                                       """);
 
         helper.page("book_of_binding_djinni_recipe");
         //no text
@@ -1067,14 +1067,13 @@ public class PTBRProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "O Ritual (tm)");
         this.add(helper.pageText(),
                 """
-        				Estas páginas guiarão o caro leitor pelo processo do primeiro ritual passo a passo.
-        				Começamos colocando a tigela sacrificial dourada e desenhando o pentáculo apropriado,
-        				[#](%1$s)Círculo de Aviar[#]().
-        				\\
-        				\\
-        				Depois, coloque quatro tijelas sacrificiais perto do pentáculo.
-                         """.formatted(COLOR_PURPLE));
-
+                        Estas páginas guiarão o caro leitor pelo processo do primeiro ritual passo a passo.
+                        Começamos colocando a tigela sacrificial dourada e desenhando o pentáculo apropriado,
+                        [#](%1$s)Círculo de Aviar[#]().
+                        \\
+                        \\
+                        Depois, coloque quatro tijelas sacrificiais perto do pentáculo.
+                                     """.formatted(COLOR_PURPLE));
 
 
         helper.page("bowl_placement");
@@ -1083,32 +1082,32 @@ public class PTBRProvider extends LanguageProvider {
         helper.page("bowl_text");
         this.add(helper.pageText(),
                 """
-                       [Tijelas Sacrificiais](item://occultism:sacrificial_bowl) devem ser colocadas **em qualquer lugar** 
-                       dentro de 8 blocos da [](item://occultism:golden_sacrificial_bowl) central.
-                       The exact location does not matter.
-                       \\
-                       \\
-                       Agora é hora de colocar os ingredientes que você vê na próxima página nas tigelas sacrificiais (normais, não douradas).
-                         """.formatted(COLOR_PURPLE));
+                        [Tijelas Sacrificiais](item://occultism:sacrificial_bowl) devem ser colocadas **em qualquer lugar** 
+                        dentro de 8 blocos da [](item://occultism:golden_sacrificial_bowl) central.
+                        The exact location does not matter.
+                        \\
+                        \\
+                        Agora é hora de colocar os ingredientes que você vê na próxima página nas tigelas sacrificiais (normais, não douradas).
+                          """.formatted(COLOR_PURPLE));
 
         helper.page("ritual_recipe");
         this.add(helper.pageText(),
                 """
-        			   Esta página mostrará a receita do ritual no futuro.
-        			   Por enquanto, consulte a Edição Antiga para procurar a 
-                       receita do ritual \"Invoca Foliot Triturador\".
-                         """.formatted(COLOR_PURPLE));
+                        Esta página mostrará a receita do ritual no futuro.
+                        Por enquanto, consulte a Edição Antiga para procurar a 
+                                 receita do ritual "Invoca Foliot Triturador".
+                                   """.formatted(COLOR_PURPLE));
         //no text
 
         helper.page("start_ritual");
         this.add(helper.pageText(),
                 """
-		        		Por fim, clique com o botão direito do mouse na tigela sacrificial dourada com o livro de vínculo **vinculado**
-		                que você criou e espere até que o triturador apareça.
-		                \\
-		                \\
-		                Agora só falta jogar os minérios apropriados perto do triturador e esperar que ele transforme-os em pó.
-                         """.formatted(COLOR_PURPLE));
+                        Por fim, clique com o botão direito do mouse na tigela sacrificial dourada com o livro de vínculo **vinculado**
+                              que você criou e espere até que o triturador apareça.
+                              \\
+                              \\
+                              Agora só falta jogar os minérios apropriados perto do triturador e esperar que ele transforme-os em pó.
+                                     """.formatted(COLOR_PURPLE));
 
 
         helper.entry("brush");
@@ -1119,11 +1118,11 @@ public class PTBRProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Próximos Passos");
         this.add(helper.pageText(),
                 """
-        				Giz é chato de limpar, mas clicando com o botão direito do mouse com um apagador você pode removê-lo do mundo com muito mais facilidade. 
-                         """);
+                        Giz é chato de limpar, mas clicando com o botão direito do mouse com um apagador você pode removê-lo do mundo com muito mais facilidade. 
+                                     """);
 
         helper.page("brushRecipe");
-       //no text
+        //no text
 
         helper.entry("next_steps");
         this.add(helper.entryName(), "Próximos Passos");
@@ -1133,11 +1132,11 @@ public class PTBRProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Próximos Passos");
         this.add(helper.pageText(),
                 """
-		        		Por enquanto, consulte a seção Começando da Edição Antiga para saber mais sobre as próximas etapas.
-		                \\
-		                \\
-		                Veja também a [Entrada de Aviso](entry://occultism:dictionary_of_spirits/getting_started/intro).
-                         """);
+                        Por enquanto, consulte a seção Começando da Edição Antiga para saber mais sobre as próximas etapas.
+                              \\
+                              \\
+                              Veja também a [Entrada de Aviso](entry://occultism:dictionary_of_spirits/getting_started/intro).
+                                     """);
     }
 
     private void addPentaclesCategory(BookLangHelper helper) {
@@ -1151,15 +1150,15 @@ public class PTBRProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Óculos do Outro Mundo");
         this.add(helper.pageText(),
                 """
-	        		**Propósito:** Invocar um [#](%1$s)Foliot[#]()
-	                \\
-	                \\
-	                Considerado pela maioria como o pentáculo mais simples, o [#](%1$s)Círculo de Aviar[#]() é fácil de configurar,
-	                mas fornece apenas um mínimo de poder de vinculação e proteção para o invocador.
-	                \\
-	                \\
-	                Apenas os [#](%1$s)Foliot[#]() mais fracos podem ser invocados em rituais usando este pentáculo.
-                    """.formatted(COLOR_PURPLE));
+                        **Propósito:** Invocar um [#](%1$s)Foliot[#]()
+                              \\
+                              \\
+                              Considerado pela maioria como o pentáculo mais simples, o [#](%1$s)Círculo de Aviar[#]() é fácil de configurar,
+                              mas fornece apenas um mínimo de poder de vinculação e proteção para o invocador.
+                              \\
+                              \\
+                              Apenas os [#](%1$s)Foliot[#]() mais fracos podem ser invocados em rituais usando este pentáculo.
+                                 """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
         //no text
@@ -1168,9 +1167,9 @@ public class PTBRProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Usos");
         this.add(helper.pageText(),
                 """
-                    - [Foliot Triturador]()
-                    - //TODO: Add remaining uses
-                    """.formatted(COLOR_PURPLE));
+                        - [Foliot Triturador]()
+                        - //TODO: Add remaining uses
+                        """.formatted(COLOR_PURPLE));
     }
 
     private void addRitualsCategory(BookLangHelper helper) {
@@ -1184,8 +1183,8 @@ public class PTBRProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Óculos do Outro Mundo");
         this.add(helper.pageText(),
                 """
-                    //TODO: Entry not yet implemented
-                    """);
+                        //TODO: Entry not yet implemented
+                        """);
     }
 
     private void addAdvancedCategory(BookLangHelper helper) {
@@ -1200,9 +1199,9 @@ public class PTBRProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Mais Gizes");
         this.add(helper.pageText(),
                 """
-        			Para rituais mais avançados, o simples [Giz Branco](entry://occultism:dictionary_of_spirits/getting_started/ritual_prep@white_chalk)
-                    não é suficiente. Em vez disso, são necessários gizes feitos de materiais mais arcanos.
-                    """);
+                        Para rituais mais avançados, o simples [Giz Branco](entry://occultism:dictionary_of_spirits/getting_started/ritual_prep@white_chalk)
+                                 não é suficiente. Em vez disso, são necessários gizes feitos de materiais mais arcanos.
+                                 """);
 
         helper.page("gold_chalk_recipe");
         //no text
@@ -1216,8 +1215,8 @@ public class PTBRProvider extends LanguageProvider {
         helper.page("afrit_essence");
         this.add(helper.pageText(),
                 """
-                    //TODO: Entry not yet implemented
-                    """);
+                        //TODO: Entry not yet implemented
+                        """);
     }
 
 
@@ -1515,18 +1514,18 @@ public class PTBRProvider extends LanguageProvider {
         this.add("dialog.occultism.mummy.kapow", "KAPOW!");
     }
 
-    private void addPatchouli(){
+    private void addPatchouli() {
         this.add("book.occultism.name", "Dicionário de Espíritos (Edição Antiga)");
         this.add("pentacle.occultism.craft_djinni", "Vinculação Maior de Strigeor");
         this.add("pentacle.occultism.craft_foliot", "Compulsão Espectral de Eziveus");
     }
 
-    private void addModonomiconIntegration(){
-        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_ITEM_USE,"Item a se usar:");
-        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SUMMON,"Invoca: %s");
-        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_JOB,"Trabalho: %s");
-        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SACRIFICE,"Sacrifício: %s");
-        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_GO_TO_PENTACLE,"Página do Pentáculo: %s");
+    private void addModonomiconIntegration() {
+        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_ITEM_USE, "Item a se usar:");
+        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SUMMON, "Invoca: %s");
+        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_JOB, "Trabalho: %s");
+        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SACRIFICE, "Sacrifício: %s");
+        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_GO_TO_PENTACLE, "Página do Pentáculo: %s");
     }
 
     private void advancementTitle(String name, String s) {

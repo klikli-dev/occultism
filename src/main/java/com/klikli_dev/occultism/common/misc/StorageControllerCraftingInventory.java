@@ -84,7 +84,7 @@ public class StorageControllerCraftingInventory extends CraftingContainer {
     @Override
     public void setItem(int index, ItemStack stack) {
         try {
-             ((NonNullList<ItemStack>) itemsField.get(this)).set(index, stack);
+            ((NonNullList<ItemStack>) itemsField.get(this)).set(index, stack);
             //only notify if events are enabled
             if (!this.disableEvents) {
                 this.container.slotsChanged(this);

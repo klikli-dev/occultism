@@ -22,10 +22,10 @@
 
 package com.klikli_dev.occultism.datagen;
 
-import com.klikli_dev.occultism.Occultism;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.klikli_dev.occultism.Occultism;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
@@ -44,6 +44,14 @@ public class CrushingRecipeProvider implements DataProvider {
         this.recipePathProvider = generator.createPathProvider(DataGenerator.Target.DATA_PACK, "recipes/crushing");
     }
 
+    private static void saveRecipe(CachedOutput pOutput, JsonObject pRecipeJson, Path pPath) {
+        try {
+            DataProvider.saveStable(pOutput, pRecipeJson, pPath);
+        } catch (IOException ioexception) {
+            Occultism.LOGGER.error("Couldn't save recipe {}", pPath, ioexception);
+        }
+    }
+
     @Override
     public void run(CachedOutput pOutput) throws IOException {
         Set<ResourceLocation> set = Sets.newHashSet();
@@ -54,14 +62,6 @@ public class CrushingRecipeProvider implements DataProvider {
                 saveRecipe(pOutput, recipe.getSecond(), this.recipePathProvider.json(recipe.getFirst()));
             }
         });
-    }
-
-    private static void saveRecipe(CachedOutput pOutput, JsonObject pRecipeJson, Path pPath) {
-        try {
-            DataProvider.saveStable(pOutput, pRecipeJson, pPath);
-        } catch (IOException ioexception) {
-            Occultism.LOGGER.error("Couldn't save recipe {}", pPath, ioexception);
-        }
     }
 
     protected void buildRecipes(Consumer<Pair<ResourceLocation, JsonObject>> recipeConsumer) {

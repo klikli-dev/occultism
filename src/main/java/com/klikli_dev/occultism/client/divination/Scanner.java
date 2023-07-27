@@ -53,10 +53,8 @@ public class Scanner {
     protected int x;
     protected int y;
     protected int z;
-
-    private int blocksPerTick;
-
     protected boolean highlightAllResults;
+    private int blocksPerTick;
 
     public Scanner(Block target) {
         this.target = target;

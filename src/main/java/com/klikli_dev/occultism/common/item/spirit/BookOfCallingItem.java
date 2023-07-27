@@ -188,10 +188,8 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
             return InteractionResult.PASS;
 
         //Ignore anything that is not a spirit
-        if (!(target instanceof SpiritEntity))
+        if (!(target instanceof SpiritEntity targetSpirit))
             return InteractionResult.PASS;
-
-        SpiritEntity targetSpirit = (SpiritEntity) target;
 
         //books can only control the spirit that is bound to them.
         if (!targetSpirit.getUUID().equals(ItemNBTUtil.getSpiritEntityUUID(stack))) {
@@ -441,8 +439,7 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                     .map(e -> (SpiritEntity) e);
 
             if (boundSpirit.isPresent() && boundSpirit.get().getJob().isPresent()) {
-                if (boundSpirit.get().getJob().get() instanceof ManageMachineJob) {
-                    ManageMachineJob job = (ManageMachineJob) boundSpirit.get().getJob().get();
+                if (boundSpirit.get().getJob().get() instanceof ManageMachineJob job) {
                     job.setStorageControllerPosition(new GlobalBlockPos(pos, world));
                     //write data into item nbt for client side usage
                     ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
@@ -598,17 +595,15 @@ public class BookOfCallingItem extends Item implements IIngredientCopyNBT, IHand
                     break;
             }
         } else {
-            switch (itemMode) {
-                case SET_MANAGED_MACHINE:
-                    if (blockEntity != null && BlockEntityUtil.hasCapabilityOnAnySide(blockEntity,
-                            ForgeCapabilities.ITEM_HANDLER)) {
-                        MachineReference machine = ItemNBTUtil.getManagedMachine(stack);
-                        if (machine != null) {
-                            GuiHelper.openBookOfCallingManagedMachineGui(machine.insertFacing, machine.extractFacing,
-                                    machine.customName);
-                        }
+            if (Objects.requireNonNull(itemMode) == ItemMode.SET_MANAGED_MACHINE) {
+                if (blockEntity != null && BlockEntityUtil.hasCapabilityOnAnySide(blockEntity,
+                        ForgeCapabilities.ITEM_HANDLER)) {
+                    MachineReference machine = ItemNBTUtil.getManagedMachine(stack);
+                    if (machine != null) {
+                        GuiHelper.openBookOfCallingManagedMachineGui(machine.insertFacing, machine.extractFacing,
+                                machine.customName);
                     }
-                    break;
+                }
             }
         }
 

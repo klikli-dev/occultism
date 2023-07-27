@@ -1,7 +1,7 @@
 package com.klikli_dev.occultism.client.model.entity;
 
-import com.klikli_dev.occultism.common.entity.familiar.DragonFamiliarEntity;
 import com.google.common.collect.ImmutableList;
+import com.klikli_dev.occultism.common.entity.familiar.DragonFamiliarEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
@@ -341,6 +341,11 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         }
 
         @Override
+        public void setInitialPose(PartPose pInitialPose) {
+            this.proxied.setInitialPose(pInitialPose);
+        }
+
+        @Override
         public void visit(PoseStack pPoseStack, Visitor pVisitor) {
             this.proxied.visit(pPoseStack, pVisitor);
         }
@@ -368,11 +373,6 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         @Override
         public PartPose storePose() {
             return this.proxied.storePose();
-        }
-
-        @Override
-        public void setInitialPose(PartPose pInitialPose) {
-            this.proxied.setInitialPose(pInitialPose);
         }
 
         @Override

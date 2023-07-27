@@ -21,9 +21,9 @@
  */
 package com.klikli_dev.occultism.client.model.entity;
 
+import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.entity.familiar.BlacksmithFamiliarEntity;
 import com.klikli_dev.occultism.util.FamiliarUtil;
-import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
@@ -221,7 +221,7 @@ public class BlacksmithFamiliarModel extends EntityModel<BlacksmithFamiliarEntit
         this.mouth2.visible = hasMarioMoustache && !isChristmas;
         this.hair1.visible = hasSquarehair;
         this.hair2.visible = !hasSquarehair;
-        
+
         this.christmasBeard.visible = isChristmas;
     }
 }

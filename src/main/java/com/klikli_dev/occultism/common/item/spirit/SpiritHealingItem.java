@@ -37,7 +37,7 @@ public class SpiritHealingItem extends Item {
 
     @Override
     public InteractionResult interactLivingEntity(ItemStack pStack, Player pPlayer, LivingEntity pInteractionTarget, InteractionHand pUsedHand) {
-        if(pInteractionTarget.getType().is(OccultismTags.HEALED_BY_DEMONS_DREAM_FRUIT) && pInteractionTarget.getHealth() < pInteractionTarget.getMaxHealth()){
+        if (pInteractionTarget.getType().is(OccultismTags.HEALED_BY_DEMONS_DREAM_FRUIT) && pInteractionTarget.getHealth() < pInteractionTarget.getMaxHealth()) {
             pInteractionTarget.heal(2);
             pStack.shrink(1);
             return InteractionResult.sidedSuccess(pPlayer.level.isClientSide);

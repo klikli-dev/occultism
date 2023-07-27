@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
-import  com.klikli_dev.occultism.crafting.recipe.*;
 import com.klikli_dev.occultism.crafting.recipe.*;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;

@@ -22,6 +22,8 @@
 
 package com.klikli_dev.occultism.client.gui.storage;
 
+import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
 import com.klikli_dev.occultism.api.client.gui.IStorageControllerGui;
@@ -38,8 +40,6 @@ import com.klikli_dev.occultism.integration.jei.JeiSettings;
 import com.klikli_dev.occultism.network.*;
 import com.klikli_dev.occultism.util.InputUtil;
 import com.klikli_dev.occultism.util.TextUtil;
-import com.google.common.base.Joiner;
-import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;

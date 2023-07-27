@@ -6,13 +6,13 @@
 
 package com.klikli_dev.occultism.integration.modonomicon.pages;
 
-import com.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
-import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
-import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.book.BookTextHolder;
 import com.klikli_dev.modonomicon.book.page.BookProcessingRecipePage;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
+import com.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
+import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
+import com.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;

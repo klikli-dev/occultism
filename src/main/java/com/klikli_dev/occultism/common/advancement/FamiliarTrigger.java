@@ -1,7 +1,7 @@
 package com.klikli_dev.occultism.common.advancement;
 
-import com.klikli_dev.occultism.Occultism;
 import com.google.gson.JsonObject;
+import com.klikli_dev.occultism.Occultism;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;

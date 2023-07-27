@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
-import  com.klikli_dev.occultism.common.ritual.*;
 import com.klikli_dev.occultism.common.ritual.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.DeferredRegister;

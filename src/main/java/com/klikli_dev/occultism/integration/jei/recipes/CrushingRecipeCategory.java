@@ -92,7 +92,7 @@ public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
         RenderSystem.enableBlend();
         this.overlay.draw(stack, 76, 14); //(center=84) - (width/16=8) = 76
         this.drawStringCentered(stack, Minecraft.getInstance().font, this.getTitle(), 84, 0);
-        if(recipe.getMinTier() >= 0){
+        if (recipe.getMinTier() >= 0) {
             this.drawStringCentered(stack, Minecraft.getInstance().font, Component.translatable(TranslationKeys.JEI_CRUSHING_RECIPE_TIER, recipe.getMinTier()), 84, 35);
         }
     }

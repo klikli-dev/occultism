@@ -143,25 +143,25 @@ public class DataGenerators {
                 new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES),
                 OccultismBlocks.SILVER_ORE_DEEPSLATE.get().defaultBlockState(), 10));
         var iesniumOreConfigured = new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
-                        new TagMatchTest(BlockTags.BASE_STONE_NETHER),
-                        OccultismBlocks.IESNIUM_ORE_NATURAL.get().defaultBlockState(), 3));
+                new TagMatchTest(BlockTags.BASE_STONE_NETHER),
+                OccultismBlocks.IESNIUM_ORE_NATURAL.get().defaultBlockState(), 3));
 
 
         var otherworldTreeNaturalConfigured = new ConfiguredFeature<>(Feature.TREE,
-                        new TreeConfiguration.TreeConfigurationBuilder(
-                                BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LOG_NATURAL.get().defaultBlockState()),
-                                new StraightTrunkPlacer(4, 2, 0),
-                                BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().defaultBlockState()),
-                                new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
-                                new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build());
+                new TreeConfiguration.TreeConfigurationBuilder(
+                        BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LOG_NATURAL.get().defaultBlockState()),
+                        new StraightTrunkPlacer(4, 2, 0),
+                        BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().defaultBlockState()),
+                        new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
+                        new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build());
 
-        var otherworldTreeConfigured =  new ConfiguredFeature<>(Feature.TREE,
-                        new TreeConfiguration.TreeConfigurationBuilder(
-                                BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LOG.get().defaultBlockState()),
-                                new StraightTrunkPlacer(4, 2, 0),
-                                BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LEAVES.get().defaultBlockState()),
-                                new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
-                                new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build());
+        var otherworldTreeConfigured = new ConfiguredFeature<>(Feature.TREE,
+                new TreeConfiguration.TreeConfigurationBuilder(
+                        BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LOG.get().defaultBlockState()),
+                        new StraightTrunkPlacer(4, 2, 0),
+                        BlockStateProvider.simple(OccultismBlocks.OTHERWORLD_LEAVES.get().defaultBlockState()),
+                        new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
+                        new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build());
 
 
         var silverOrePlaced = new PlacedFeature(silverOreConfigureHolder,
@@ -181,18 +181,18 @@ public class DataGenerators {
                 PlacementUtils.filteredByBlockSurvival(OccultismBlocks.OTHERWORLD_SAPLING.get())));
 
 
-        var undergroundGroveConfigured =  new ConfiguredFeature<>(OccultismFeatures.UNDERGROUND_GROVE_FEATURE.get(),
-                        new MultiChunkFeatureConfig(
-                                7,
-                                400,
-                                25,
-                                60,
-                                14653667,
-                                0.6f,
-                                0.1f,
-                                0.3f,
-                                0.1f,
-                                otherworldTreeNaturalPlacedHolder));
+        var undergroundGroveConfigured = new ConfiguredFeature<>(OccultismFeatures.UNDERGROUND_GROVE_FEATURE.get(),
+                new MultiChunkFeatureConfig(
+                        7,
+                        400,
+                        25,
+                        60,
+                        14653667,
+                        0.6f,
+                        0.1f,
+                        0.3f,
+                        0.1f,
+                        otherworldTreeNaturalPlacedHolder));
         var undergroundGrovePlaced = new PlacedFeature(undergroundGroveConfiguredHolder, List.of());
 
 
@@ -233,7 +233,7 @@ public class DataGenerators {
                         silverOrePlacedKey.location(), silverOrePlaced,
                         silverOreDeepslatePlacedKey.location(), silverOreDeepslatePlaced,
                         iesniumOrePlacedKey.location(), iesniumOrePlaced,
-                        otherworldTreeNaturalPlacedKey.location(),otherworldTreeNaturalPlaced,
+                        otherworldTreeNaturalPlacedKey.location(), otherworldTreeNaturalPlaced,
                         otherworldTreePlacedKey.location(), otherworldTreePlaced,
                         undergroundGrovePlacedKey.location(), undergroundGrovePlaced
                 )));

@@ -44,6 +44,12 @@ public class OtherworldGogglesItem extends ArmorItem {
         super(materialIn, slot, builder);
     }
 
+    public static boolean isGogglesItem(ItemStack stack) {
+        return stack.getItem() instanceof OtherworldGogglesItem ||
+                stack.is(OccultismTags.OTHERWORLD_GOGGLES) ||
+                (stack.hasTag() && stack.getTag().getBoolean(NBT_GOGGLES));
+    }
+
     @Override
     public boolean isValidRepairItem(ItemStack pToRepair, ItemStack pRepair) {
         return false;
@@ -53,11 +59,5 @@ public class OtherworldGogglesItem extends ArmorItem {
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
         return TEXTURE;
-    }
-
-    public static boolean isGogglesItem(ItemStack stack) {
-        return stack.getItem() instanceof OtherworldGogglesItem ||
-                stack.is(OccultismTags.OTHERWORLD_GOGGLES) ||
-                (stack.hasTag() && stack.getTag().getBoolean(NBT_GOGGLES));
     }
 }

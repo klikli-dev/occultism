@@ -30,12 +30,11 @@ public abstract class BookSpiritFireRecipePageRenderer<T extends Recipe<?>> exte
         recipeY += 10;
 
 
-        if(!second){
+        if (!second) {
             if (!this.page.getTitle1().isEmpty()) {
                 this.renderTitle(this.page.getTitle1(), false, poseStack, BookContentScreen.PAGE_WIDTH / 2, 0);
             }
-        }
-        else {
+        } else {
             if (!this.page.getTitle2().isEmpty()) {
                 this.renderTitle(this.page.getTitle2(), false, poseStack, BookContentScreen.PAGE_WIDTH / 2,
                         recipeY - (this.page.getTitle2().getString().isEmpty() ? 10 : 0) - 10);

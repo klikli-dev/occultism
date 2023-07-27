@@ -128,7 +128,7 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
             pMatrixStack.scale(0.07f, 0.07f, 0.07f);
             pMatrixStack.translate(0, -2.5, 0);
             pMatrixStack.mulPose(new Quaternion(0, 0, 20, true));
-            Font font = renderer.getFont();
+            Font font = this.renderer.getFont();
 
             pMatrixStack.pushPose();
             pMatrixStack.translate(0, 0, -0.01);
