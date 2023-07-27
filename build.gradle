@@ -147,6 +147,13 @@ repositories {
         }
     }
     maven {
+        name "SBL Maven"
+        url "https://dl.cloudsmith.io/public/tslat/sbl/maven/"
+        content {
+            includeGroup "net.tslat.smartbrainlib"
+        }
+    }
+    maven {
         url "https://cursemaven.com"
         content {
             includeGroup "curse.maven"
@@ -176,7 +183,7 @@ dependencies {
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${geckolib_mc_version}:${geckolib_version}")
 
     //smartbrainlib
-    implementation fg.deobf("curse.maven:smartbrainlib-661293:${smartbrainlib_file_id}-sources-${smartbrainlib_src_file_id}")
+    implementation fg.deobf("net.tslat.smartbrainlib:SmartBrainLib-forge-${smartbrainlib_mc_version}:${smartbrainlib_version}")
 
     //almostunified
     compileOnly fg.deobf("com.almostreliable.mods:almostunified-forge:${almostunified_version}")
