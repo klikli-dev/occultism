@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.81.8] - 2023-07-27
+### :sparkles: New Features
+- [`c8a2c28`](https://github.com/klikli-dev/occultism/commit/c8a2c286cccf5b1c3245afcafa89e33a274db46a) - move files to same package as 1.20.1 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`a7820d2`](https://github.com/klikli-dev/occultism/commit/a7820d2530181fb4a44bd7b9d00649b1f5935b82) - add helpers for spirit item pick up to api *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`66fcc38`](https://github.com/klikli-dev/occultism/commit/66fcc38fbc7be44d92ef56c7467e157f21adcb19) - autoformat *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.81.6] - 2023-07-22
 ### :sparkles: New Features
 - [`2cdf722`](https://github.com/klikli-dev/occultism/commit/2cdf722ade8689aadee0111319a3fb13b95f29ad) - add maven (cloudsmith) publish *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -470,3 +479,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.81.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.81.0...release/v1.19.2-1.81.1
 [release/v1.19.2-1.81.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.81.1...release/v1.19.2-1.81.2
 [release/v1.19.2-1.81.6]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.81.2...release/v1.19.2-1.81.6
+[release/v1.19.2-1.81.8]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.81.6...release/v1.19.2-1.81.8
