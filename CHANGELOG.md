@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.81.10] - 2023-07-27
+### :sparkles: New Features
+- [`362af2c`](https://github.com/klikli-dev/occultism/commit/362af2ca242f879c260ad5982a533226a76b501c) - **api**: add getter for spirit isInitialized *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.81.9] - 2023-07-27
 ### :bug: Bug Fixes
 - [`86ddc25`](https://github.com/klikli-dev/occultism/commit/86ddc255867a947195dca4d3ff28835289c3a548) - api method not public *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -486,3 +491,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.81.6]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.81.2...release/v1.19.2-1.81.6
 [release/v1.19.2-1.81.8]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.81.6...release/v1.19.2-1.81.8
 [release/v1.19.2-1.81.9]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.81.8...release/v1.19.2-1.81.9
+[release/v1.19.2-1.81.10]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.81.9...release/v1.19.2-1.81.10
