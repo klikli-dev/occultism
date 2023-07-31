@@ -33,12 +33,12 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
 
@@ -54,9 +54,12 @@ public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
     }
     //endregion Initialization
 
+    public static long getLargeFeatureWithSaltSeed(long pLevelSeed, int pRegionX, int pRegionZ, int pSalt) {
+        return (long) pRegionX * 341873128712L + (long) pRegionZ * 132897987541L + pLevelSeed + (long) pSalt;
+    }
 
     //region Methods
-    protected List<BlockPos> getRootPositions(WorldGenLevel reader, ChunkGenerator generator, WorldgenRandom random,
+    protected List<BlockPos> getRootPositions(WorldGenLevel reader, ChunkGenerator generator, Random random,
                                               ChunkPos generatingChunk,
                                               MultiChunkFeatureConfig config) {
         ArrayList<BlockPos> result = new ArrayList<>(1);
@@ -66,8 +69,8 @@ public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
                 ChunkPos currentChunk = new ChunkPos(generatingChunk.x + i, generatingChunk.z + j);
 
                 //Seed random for this chunk, this way we get the same result no matter how often this is called.
-                random.setLargeFeatureWithSalt(reader.getSeed(), currentChunk.x, currentChunk.z,
-                        config.featureSeedSalt);
+                var seed = getLargeFeatureWithSaltSeed(reader.getSeed(), currentChunk.x, currentChunk.z, config.featureSeedSalt);
+                random.setSeed(seed);
 
                 if (random.nextInt(config.chanceToGenerate) == 0) {
                     //this chunk contains a root, so we generate a random
@@ -97,20 +100,25 @@ public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
         }
 
         ChunkPos generatingChunk = new ChunkPos(pos);
+
+        //we create our own random here so that subsequent features are not affected by our custom seed gen.
+        //we also hand that to our sub feature so that that also doesn't modify the seed of the world random.
+        var random = new Random();
         List<BlockPos> rootPositions =
-                this.getRootPositions(context.level(), context.chunkGenerator(), (WorldgenRandom) context.random(), generatingChunk, context.config());
+                this.getRootPositions(context.level(), context.chunkGenerator(), random, generatingChunk, context.config());
         //If no root position was found in range, we exit
         if (rootPositions.isEmpty()) {
             return false;
         }
         boolean generatedAny = false;
         for (BlockPos rootPosition : rootPositions) {
-            if (this.subFeature.place(context.level(), context.chunkGenerator(), context.random(), rootPosition,
+            if (this.subFeature.place(context.level(), context.chunkGenerator(), random, rootPosition,
                     Math3DUtil.bounds(generatingChunk, context.chunkGenerator().getGenDepth()), context.config()))
                 generatedAny = true;
         }
         return generatedAny;
     }
+
     //endregion Methods
 
 }

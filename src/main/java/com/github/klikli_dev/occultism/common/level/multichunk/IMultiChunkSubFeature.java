@@ -25,6 +25,7 @@ package com.github.klikli_dev.occultism.common.level.multichunk;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.RandomSource;
 import net.minecraft.world.phys.AABB;
 
 import java.util.Random;
