@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.83.0] - 2023-07-31
+### :bug: Bug Fixes
+- [`843b102`](https://github.com/klikli-dev/occultism/commit/843b1026f13f3a65e2488216d457ad59ce2f5fff) - unsafe cast to worldgenrandom *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.82.0] - 2023-07-27
 ### :bug: Bug Fixes
 - [`8d6f7fa`](https://github.com/klikli-dev/occultism/commit/8d6f7fa7ff613ef7c45728cce8e4296b37b3c1ec) - lumberjack getting stuck *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -501,3 +506,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.81.9]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.81.8...release/v1.19.2-1.81.9
 [release/v1.19.2-1.81.10]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.81.9...release/v1.19.2-1.81.10
 [release/v1.19.2-1.82.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.81.10...release/v1.19.2-1.82.0
+[release/v1.19.2-1.83.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.82.0...release/v1.19.2-1.83.0
