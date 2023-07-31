@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.level.cave;
 
 import com.klikli_dev.occultism.common.level.multichunk.IMultiChunkSubFeature;
+import com.klikli_dev.occultism.common.level.multichunk.MultiChunkFeature;
 import com.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.Math3DUtil;
@@ -35,7 +36,6 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.phys.AABB;
 
 import java.util.ArrayList;
@@ -88,9 +88,10 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         sphericalCaves.add(rootPosition);
 
         ChunkPos rootChunk = new ChunkPos(rootPosition);
+
         //Seed with root chunk position
-        ((WorldgenRandom) rand)
-                .setLargeFeatureWithSalt(reader.getSeed(), rootChunk.x, rootChunk.z, config.featureSeedSalt);
+        var seed = MultiChunkFeature.getLargeFeatureWithSaltSeed(reader.getSeed(), rootChunk.x, rootChunk.z, config.featureSeedSalt);
+        rand.setSeed(seed);
 
         List<Sphere> spheres = new ArrayList<>();
         int radiusBase = this.radius + rand.nextInt(this.maxRandomRadiusOffset);
