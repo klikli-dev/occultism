@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.84.0] - 2023-08-01
+### :sparkles: New Features
+- [`4c7fcc1`](https://github.com/klikli-dev/occultism/commit/4c7fcc1cfb32a986ff8fc8a7d662dac333748cbf) - improve render performane of selected block renderer *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`016e5ed`](https://github.com/klikli-dev/occultism/commit/016e5ed78ac764c7f3a760b1985dd4dc38232031) - allow disabling theurgy for testing *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.83.0] - 2023-07-31
 ### :bug: Bug Fixes
 - [`e4be359`](https://github.com/klikli-dev/occultism/commit/e4be359d40af2733976cfef2578dc512678a6b40) - unsafe cast to worldgenrandom *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -580,3 +588,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.81.10]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.81.9...release/v1.20.1-1.81.10
 [release/v1.20.1-1.82.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.81.10...release/v1.20.1-1.82.0
 [release/v1.20.1-1.83.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.82.0...release/v1.20.1-1.83.0
+[release/v1.20.1-1.84.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.83.0...release/v1.20.1-1.84.0
