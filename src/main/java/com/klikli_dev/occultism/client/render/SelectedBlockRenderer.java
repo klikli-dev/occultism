@@ -93,24 +93,23 @@ public class SelectedBlockRenderer {
         if (!this.selectedBlocks.isEmpty()) {
             long time = System.currentTimeMillis();
 
+            PoseStack matrixStack = event.getPoseStack();
+            MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
+            var renderType = useAltRenderer ? OccultismRenderType.overlayLinesAlternative() : OccultismRenderType.overlayLines();
+            VertexConsumer builder = buffer.getBuffer(renderType);
+            matrixStack.pushPose();
+
+            var camera = Minecraft.getInstance().gameRenderer.getMainCamera();
+            Vec3 cameraPosition = camera.getPosition();
+            matrixStack.translate(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
+
             for (Iterator<SelectionInfo> it = this.selectedBlocks.iterator(); it.hasNext(); ) {
                 SelectionInfo info = it.next();
 
                 if (time > info.selectionExpireTime || info.selectedBlock == null) {
                     //remove expired or invalid selections
                     it.remove();
-                    return;
                 } else {
-
-                    PoseStack matrixStack = event.getPoseStack();
-                    MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
-                    VertexConsumer builder = buffer.getBuffer(useAltRenderer ? OccultismRenderType.overlayLinesAlternative() : OccultismRenderType.overlayLines());
-                    matrixStack.pushPose();
-
-                    var camera = Minecraft.getInstance().gameRenderer.getMainCamera();
-                    Vec3 cameraPosition = camera.getPosition();
-                    matrixStack.translate(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
-
                     LevelRenderer.renderLineBox(matrixStack, builder,
                             info.selectedBlock.getX(), info.selectedBlock.getY(), info.selectedBlock.getZ(),
                             info.selectedBlock.getX() + 1, info.selectedBlock.getY() + 1, info.selectedBlock.getZ() + 1,
@@ -118,12 +117,13 @@ public class SelectedBlockRenderer {
                             info.color.getGreen() / 255.0f, info.color.getBlue() / 255.0f,
                             info.color.getAlpha() / 255.0f
                     );
-
-                    matrixStack.popPose();
-                    RenderSystem.disableDepthTest();
-                    buffer.endBatch(); //call this instead of the rendertype specific end batch to fix wobbling
                 }
             }
+
+            matrixStack.popPose();
+            RenderSystem.disableDepthTest();
+            //buffer.endBatch(renderType);
+            buffer.endBatch(); //call this instead of the rendertype specific end batch to fix wobbling
         }
     }
 
