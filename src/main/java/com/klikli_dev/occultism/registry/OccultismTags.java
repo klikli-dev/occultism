@@ -45,6 +45,7 @@ public class OccultismTags {
     public static final TagKey<Item> FRUITS = makeItemTag(new ResourceLocation("forge", "fruits"));
 
     //Entity Tags
+    public static final TagKey<EntityType<?>> SOUL_GEM_DENY_LIST = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "soul_gem_deny_list"));
     public static final TagKey<EntityType<?>> AFRIT_ALLIES = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "afrit_allies"));
     public static final TagKey<EntityType<?>> WILD_HUNT = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "wild_hunt"));
 

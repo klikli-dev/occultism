@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.item.tool;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.EntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -140,7 +141,8 @@ public class SoulGemItem extends Item {
             return InteractionResult.FAIL;
 
         //do not capture entities on deny lists
-        if (Occultism.SERVER_CONFIG.itemSettings.soulgemEntityTypeDenyList.get().contains(target.getEncodeId())) {
+        if (target.getType().is(OccultismTags.SOUL_GEM_DENY_LIST) ||
+                Occultism.SERVER_CONFIG.itemSettings.soulgemEntityTypeDenyList.get().contains(target.getEncodeId())) {
             player.sendSystemMessage(
                     Component.translatable(this.getDescriptionId() + ".message.entity_type_denied"));
             return InteractionResult.FAIL;
