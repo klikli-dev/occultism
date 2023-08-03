@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.85.0] - 2023-08-03
+### :boom: BREAKING CHANGES
+- due to [`5e251a6`](https://github.com/klikli-dev/occultism/commit/5e251a6e9d52349157e0fd9421d219504729d2f8) - add tag to replace config as soul gem entity deny list *(commit by [@klikli-dev](https://github.com/klikli-dev))*:
+
+  add tag to replace config as soul gem entity deny list
+
+
+### :sparkles: New Features
+- [`5e251a6`](https://github.com/klikli-dev/occultism/commit/5e251a6e9d52349157e0fd9421d219504729d2f8) - add tag to replace config as soul gem entity deny list *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.84.0] - 2023-08-01
 ### :sparkles: New Features
 - [`4c7fcc1`](https://github.com/klikli-dev/occultism/commit/4c7fcc1cfb32a986ff8fc8a7d662dac333748cbf) - improve render performane of selected block renderer *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -589,3 +600,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.82.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.81.10...release/v1.20.1-1.82.0
 [release/v1.20.1-1.83.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.82.0...release/v1.20.1-1.83.0
 [release/v1.20.1-1.84.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.83.0...release/v1.20.1-1.84.0
+[release/v1.20.1-1.85.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.84.0...release/v1.20.1-1.85.0
