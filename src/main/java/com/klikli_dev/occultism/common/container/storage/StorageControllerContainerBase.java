@@ -51,13 +51,15 @@ import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 public abstract class StorageControllerContainerBase extends AbstractContainerMenu implements IStorageControllerContainer {
 
     /**
      * Hack to only allow one player to open a container at a time.
      */
-    public static Map<BlockPos, UUID> openContainers = new HashMap<>();
+    public static ConcurrentMap<BlockPos, UUID> openContainers = new ConcurrentHashMap<>();
     public Inventory playerInventory;
     public Player player;
     protected ResultContainer result;
