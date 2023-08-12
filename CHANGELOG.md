@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.85.1] - 2023-08-12
+### :bug: Bug Fixes
+- [`1ed075a`](https://github.com/klikli-dev/occultism/commit/1ed075ab6245425b2ae30977faa4407fa4b8f7ce) - tag filter text not working for spirits *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`f85c4fa`](https://github.com/klikli-dev/occultism/commit/f85c4fab1b128ef61e61b4d1103e94e7350bf1fa) - concurrent access crash for storage controller *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`ccb74b1`](https://github.com/klikli-dev/occultism/commit/ccb74b1270c26ea780834c4af253e4495fbf165d) - in some cases players cannot open storage controller despite no one else being in it *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.85.0] - 2023-08-03
 ### :boom: BREAKING CHANGES
 - due to [`5e251a6`](https://github.com/klikli-dev/occultism/commit/5e251a6e9d52349157e0fd9421d219504729d2f8) - add tag to replace config as soul gem entity deny list *(commit by [@klikli-dev](https://github.com/klikli-dev))*:
@@ -601,3 +608,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.83.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.82.0...release/v1.20.1-1.83.0
 [release/v1.20.1-1.84.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.83.0...release/v1.20.1-1.84.0
 [release/v1.20.1-1.85.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.84.0...release/v1.20.1-1.85.0
+[release/v1.20.1-1.85.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.85.0...release/v1.20.1-1.85.1
