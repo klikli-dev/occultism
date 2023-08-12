@@ -125,7 +125,11 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         if (!StringUtils.isBlank(this.getTagFilterText())) {
             this.tagFilterTextField.setValue(this.getTagFilterText());
         }
+        this.addWidget(this.tagFilterTextField);
+        this.setInitialFocus(this.tagFilterTextField);
     }
+
+
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int x, int y) {
