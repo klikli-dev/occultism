@@ -85,7 +85,6 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             return true;
         }
 
-
         player.sendSystemMessage(Component.translatable(TranslationKeys.MESSAGE_CONTAINER_ALREADY_OPEN).withStyle(ChatFormatting.RED));
         return false;
     }
