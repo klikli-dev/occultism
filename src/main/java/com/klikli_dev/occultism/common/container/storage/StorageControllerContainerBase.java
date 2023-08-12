@@ -81,9 +81,10 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     }
 
     public static boolean canOpen(Player player, BlockPos pos) {
-        if (!openContainers.containsKey(pos)) {
+        if (!openContainers.containsKey(pos) || openContainers.get(pos).equals(player.getUUID())) {
             return true;
         }
+
 
         player.sendSystemMessage(Component.translatable(TranslationKeys.MESSAGE_CONTAINER_ALREADY_OPEN).withStyle(ChatFormatting.RED));
         return false;
