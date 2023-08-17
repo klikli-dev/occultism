@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.84.1] - 2023-08-17
+### :bug: Bug Fixes
+- [`3c7c788`](https://github.com/klikli-dev/occultism/commit/3c7c7889796e40bb5e7adcbdbc346faf4c57c19b) - concurrent access crash for storage controller *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`fcb72aa`](https://github.com/klikli-dev/occultism/commit/fcb72aa06cc2d6755d47aa148ec07d1588758389) - in some cases players cannot open storage controller despite no one else being in it *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.84.0] - 2023-08-03
 ### :sparkles: New Features
 - [`e29d98a`](https://github.com/klikli-dev/occultism/commit/e29d98ac4da0a89b6e09109114487a44f0ad7eaf) - add tag in addition to config as soul gem entity deny list *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -513,3 +519,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.82.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.81.10...release/v1.19.2-1.82.0
 [release/v1.19.2-1.83.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.82.0...release/v1.19.2-1.83.0
 [release/v1.19.2-1.84.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.83.0...release/v1.19.2-1.84.0
+[release/v1.19.2-1.84.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.84.0...release/v1.19.2-1.84.1
