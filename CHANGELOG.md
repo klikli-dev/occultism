@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.86.0] - 2023-08-21
+### :sparkles: New Features
+- [`061d53e`](https://github.com/klikli-dev/occultism/commit/061d53e2623fca51d1ee099b2416c82c1670e22e) - add step up and speed buff to deer *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`63742ba`](https://github.com/klikli-dev/occultism/commit/63742baa0618ad2c2b751d9d0898f44d1331cd16) - crushing sound does not fade with distance *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.84.1] - 2023-08-17
 ### :bug: Bug Fixes
 - [`3c7c788`](https://github.com/klikli-dev/occultism/commit/3c7c7889796e40bb5e7adcbdbc346faf4c57c19b) - concurrent access crash for storage controller *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -520,3 +528,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.83.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.82.0...release/v1.19.2-1.83.0
 [release/v1.19.2-1.84.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.83.0...release/v1.19.2-1.84.0
 [release/v1.19.2-1.84.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.84.0...release/v1.19.2-1.84.1
+[release/v1.19.2-1.86.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.84.1...release/v1.19.2-1.86.0
