@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.86.0] - 2023-08-21
+### :sparkles: New Features
+- [`8336322`](https://github.com/klikli-dev/occultism/commit/8336322637628d785b5c1a0df3ed2c7b8db4268b) - add step up and speed buff to deer *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`3cb4140`](https://github.com/klikli-dev/occultism/commit/3cb41404e741b6b924ee8f3025dedc73f520c494) - crushing sound does not fade with distance *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`edc2593`](https://github.com/klikli-dev/occultism/commit/edc2593227dc8652a3728418c6619ec87720b0ac) - delete double empty line *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.85.1] - 2023-08-12
 ### :bug: Bug Fixes
 - [`1ed075a`](https://github.com/klikli-dev/occultism/commit/1ed075ab6245425b2ae30977faa4407fa4b8f7ce) - tag filter text not working for spirits *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -609,3 +620,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.84.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.83.0...release/v1.20.1-1.84.0
 [release/v1.20.1-1.85.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.84.0...release/v1.20.1-1.85.0
 [release/v1.20.1-1.85.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.85.0...release/v1.20.1-1.85.1
+[release/v1.20.1-1.86.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.85.1...release/v1.20.1-1.86.0
