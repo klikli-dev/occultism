@@ -191,7 +191,7 @@ dependencies {
 
     //theurgy
     compileOnly fg.deobf("com.klikli_dev:theurgy-${minecraft_version}:${theurgy_version}"){transitive=false}
-//    runtimeOnly fg.deobf("com.klikli_dev:theurgy-${minecraft_version}:${theurgy_version}"){transitive=false}
+    runtimeOnly fg.deobf("com.klikli_dev:theurgy-${minecraft_version}:${theurgy_version}"){transitive=false}
 
     //runtime only helper mods for dev env, placed in ./runtime-mods, example: Hwyla-forge-1.10.11-B78_1.16.2.jar
     //runtimeOnly fg.deobf("ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2")
