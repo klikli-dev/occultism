@@ -27,6 +27,9 @@ import com.klikli_dev.occultism.common.effect.DoubleJumpEffect;
 import com.klikli_dev.occultism.common.effect.ThirdEyeEffect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -36,12 +39,16 @@ public class OccultismEffects {
 
     public static final RegistryObject<ThirdEyeEffect> THIRD_EYE = EFFECTS.register("third_eye", ThirdEyeEffect::new);
     public static final RegistryObject<DoubleJumpEffect> DOUBLE_JUMP = EFFECTS.register("double_jump", DoubleJumpEffect::new);
-    public static final RegistryObject<ModEffect> DRAGON_GREED = EFFECTS.register("dragon_greed", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0xFFD700));
-    public static final RegistryObject<ModEffect> MUMMY_DODGE = EFFECTS.register("mummy_dodge", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0xe4d8a7));
-    public static final RegistryObject<ModEffect> BAT_LIFESTEAL = EFFECTS.register("bat_lifesteal", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0x960201));
-    public static final RegistryObject<ModEffect> BEAVER_HARVEST = EFFECTS.register("beaver_harvest", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0x603613));
+    public static final RegistryObject<MobEffect> DRAGON_GREED = EFFECTS.register("dragon_greed", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0xFFD700));
+    public static final RegistryObject<MobEffect> MUMMY_DODGE = EFFECTS.register("mummy_dodge", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0xe4d8a7));
+    public static final RegistryObject<MobEffect> BAT_LIFESTEAL = EFFECTS.register("bat_lifesteal", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0x960201));
+    public static final RegistryObject<MobEffect> BEAVER_HARVEST = EFFECTS.register("beaver_harvest", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0x603613));
 
-    private static class ModEffect extends MobEffect {
+    public static final RegistryObject<MobEffect> STEP_HEIGHT = EFFECTS.register("step_height", () ->
+            new ModEffect(MobEffectCategory.BENEFICIAL, 3402751)
+            .addAttributeModifier(ForgeMod.STEP_HEIGHT_ADDITION.get(), "748e2cfd-8db4-4b55-ba07-014fdf0f74da", 2, AttributeModifier.Operation.ADDITION));
+
+    public static class ModEffect extends MobEffect {
 
         private ModEffect(MobEffectCategory category, int color) {
             super(category, color);

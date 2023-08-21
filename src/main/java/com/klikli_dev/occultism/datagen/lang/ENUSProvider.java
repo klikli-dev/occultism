@@ -394,6 +394,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add("effect.occultism.mummy_dodge", "Dodge");
         this.add("effect.occultism.bat_lifesteal", "Lifesteal");
         this.add("effect.occultism.beaver_harvest", "Beaver Harvest");
+        this.add("effect.occultism.step_height", "Step Height");
 
         //Sounds
         this.add("occultism.subtitle.chalk", "Chalk");

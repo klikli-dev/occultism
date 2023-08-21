@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.common.entity.familiar;
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
+import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -124,7 +125,12 @@ public class DeerFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
-        return ImmutableList.of(new MobEffectInstance(MobEffects.JUMP, 300, 0, false, false));
+        return ImmutableList.of(
+                new MobEffectInstance(MobEffects.JUMP, 300, 0, false, true),
+                new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 300, 0, false, true),
+                new MobEffectInstance(OccultismEffects.STEP_HEIGHT.get(), 300, 0, false, true)
+
+        );
     }
 
     @Override
