@@ -99,7 +99,7 @@ public class CrusherJob extends SpiritJob {
             if (this.currentRecipe.isPresent()) {
                 //play crushing sound
                 this.entity.level()
-                        .playSound(null, this.entity.blockPosition(), OccultismSounds.CRUNCHING.get(), SoundSource.NEUTRAL, 0.5f,
+                        .playSound(null, this.entity.blockPosition(), OccultismSounds.CRUNCHING.get(), SoundSource.NEUTRAL, 1f,
                                 1 + 0.5f * this.entity.getRandom().nextFloat());
             } else {
                 //if no recipe is found, drop hand held item as we can't process it
@@ -130,7 +130,7 @@ public class CrusherJob extends SpiritJob {
                 //every two seconds, play another crushing sound
                 if (this.crushingTimer % 40 == 0) {
                     this.entity.level().playSound(null, this.entity.blockPosition(), OccultismSounds.CRUNCHING.get(),
-                            SoundSource.NEUTRAL, 0.5f,
+                            SoundSource.NEUTRAL, 1f,
                             1 + 0.5f * this.entity.getRandom().nextFloat());
                 }
 
