@@ -3,6 +3,7 @@ package com.klikli_dev.occultism.integration.theurgy;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.theurgy.content.entity.FollowProjectile;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
+import com.klikli_dev.theurgy.util.EntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
@@ -36,8 +37,8 @@ public class TheurgyIntegration {
             var to = dist.length() <= visualizationRange ? resultVec : from.add(dir.scale(visualizationRange));
 
             if (level.isLoaded(BlockPos.containing(to)) && level.isLoaded(BlockPos.containing(from)) && level.isClientSide) {
-                FollowProjectile aoeProjectile = new FollowProjectile(level, from, to);
-                DivinationRodItem.DistHelper.spawnEntityClientSide(level, aoeProjectile);
+                FollowProjectile aoeProjectile = new FollowProjectile(level, from, to, 255, 25, 180, 0.25f);
+                EntityUtil.spawnEntityClientSide(level, aoeProjectile);
             }
         }
     }
