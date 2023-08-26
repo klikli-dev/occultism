@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.86.1] - 2023-08-26
+### :bug: Bug Fixes
+- [`6d49416`](https://github.com/klikli-dev/occultism/commit/6d49416bda2697385613156932f1a56d8eaca0c3) - crash when using divination rod with theurgy present *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.86.0] - 2023-08-21
 ### :sparkles: New Features
 - [`8336322`](https://github.com/klikli-dev/occultism/commit/8336322637628d785b5c1a0df3ed2c7b8db4268b) - add step up and speed buff to deer *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -621,3 +626,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.85.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.84.0...release/v1.20.1-1.85.0
 [release/v1.20.1-1.85.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.85.0...release/v1.20.1-1.85.1
 [release/v1.20.1-1.86.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.85.1...release/v1.20.1-1.86.0
+[release/v1.20.1-1.86.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.86.0...release/v1.20.1-1.86.1
