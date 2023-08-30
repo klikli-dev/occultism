@@ -3,16 +3,15 @@
   "entries": [
     "occultism:datura_seed_from_grass",
     "occultism:datura_seed_from_tall_grass",
-    "occultism:tallow_from_cow",
-    "occultism:tallow_from_donkey",
-    "occultism:tallow_from_goat",
-    "occultism:tallow_from_hoglin",
-    "occultism:tallow_from_horse",
-    "occultism:tallow_from_llama",
-    "occultism:tallow_from_mule",
-    "occultism:tallow_from_panda",
-    "occultism:tallow_from_pig",
-    "occultism:tallow_from_sheep",
-    "occultism:tallow_from_trader_llama"
+    "occultism:tallow_from_cows",
+    "occultism:tallow_from_donkeys",
+    "occultism:tallow_from_goats",
+    "occultism:tallow_from_hoglins",
+    "occultism:tallow_from_horses",
+    "occultism:tallow_from_llamas",
+    "occultism:tallow_from_mules",
+    "occultism:tallow_from_pandas",
+    "occultism:tallow_from_pigs",
+    "occultism:tallow_from_sheeps"
   ]
 }

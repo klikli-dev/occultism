@@ -16,10 +16,10 @@
       "condition": "minecraft:entity_properties",
       "entity": "this",
       "predicate": {
-        "type": "minecraft:mule"
+        "type": "#forge:hoglins"
       }
     }
   ],
   "item": "occultism:tallow",
-  "count": 3
+  "count": 4
 }

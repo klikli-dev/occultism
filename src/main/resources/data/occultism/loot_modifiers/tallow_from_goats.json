@@ -16,10 +16,10 @@
       "condition": "minecraft:entity_properties",
       "entity": "this",
       "predicate": {
-        "type": "minecraft:cow"
+        "type": "#forge:goats"
       }
     }
   ],
   "item": "occultism:tallow",
-  "count": 4
+  "count": 2
 }
