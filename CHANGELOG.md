@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.18.2-1.84.0] - 2023-08-30
+### :sparkles: New Features
+- [`5dfd6be`](https://github.com/klikli-dev/occultism/commit/5dfd6be42d5ad92fa205f7febbbc769fdc0a7eec) - make tallow loot use entity tags *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.18.2-1.83.0] - 2023-07-31
 ### :bug: Bug Fixes
 - [`0f13afe`](https://github.com/klikli-dev/occultism/commit/0f13afe70d4377db906793c856deb9fe6b5483b9) - unsafe cast to worldgenrandom *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -402,3 +407,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.18.2-1.81.3]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.81.1...release/v1.18.2-1.81.3
 [release/v1.18.2-1.81.4]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.81.3...release/v1.18.2-1.81.4
 [release/v1.18.2-1.83.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.81.4...release/v1.18.2-1.83.0
+[release/v1.18.2-1.84.0]: https://github.com/klikli-dev/occultism/compare/release/v1.18.2-1.83.0...release/v1.18.2-1.84.0
