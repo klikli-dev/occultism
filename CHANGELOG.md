@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.87.1] - 2023-09-03
+### :bug: Bug Fixes
+- [`59391f5`](https://github.com/klikli-dev/occultism/commit/59391f52ffaec0b03e47edb6bfbd01135ef2a7ef) - book not working in chinese due to outdated translation *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`d9a62f7`](https://github.com/klikli-dev/occultism/commit/d9a62f7ea2aa80824d441ca9827d7a56a5bc96ef) - update theurgy *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.87.0] - 2023-08-30
 ### :sparkles: New Features
 - [`f475593`](https://github.com/klikli-dev/occultism/commit/f4755934fe9fdad3bdbb86ca79503f8206351c3b) - make tallow loot use entity tags *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -633,3 +641,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.86.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.85.1...release/v1.20.1-1.86.0
 [release/v1.20.1-1.86.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.86.0...release/v1.20.1-1.86.1
 [release/v1.20.1-1.87.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.86.1...release/v1.20.1-1.87.0
+[release/v1.20.1-1.87.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.87.0...release/v1.20.1-1.87.1
