@@ -3064,7 +3064,7 @@ public class OccultismBookProvider extends BookProvider {
         this.lang.add(helper.pageTitle(), "Item Filters");
         this.lang.add(helper.pageText(),
                 """
-                        By default the Transporter is in "Blacklist" mode and will not move anything. Shift-click the transporter to open the config UI. You can then add items to the filter list to make it move only those items, or set it to "Whitelist" to move everything *except* the filtered items. You can also enter a tag in the text field below to filter by tag.
+                        By default the Transporter is in "Whitelist" mode and will not move anything. Shift-click the transporter to open the config UI. You can then add items to the filter list to make it move only those items, or set it to "Blacklist" to move everything *except* the filtered items. You can also enter a tag in the text field below to filter by tag.
                            """);
 
         helper.page("ritual");
