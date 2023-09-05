@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.87.1] - 2023-09-05
+### :bug: Bug Fixes
+- [`a6ea45b`](https://github.com/klikli-dev/occultism/commit/a6ea45baaeff49525c101b3149ff7ec89f48a9e9) - dictionary of spirits wrongly shows that transporters start in blacklist mode *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.87.0] - 2023-08-30
 ### :sparkles: New Features
 - [`b21d48a`](https://github.com/klikli-dev/occultism/commit/b21d48acd9ac0567b8aa13293585a3885ed6f479) - make tallow loot use entity tags *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -535,3 +540,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.84.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.84.0...release/v1.19.2-1.84.1
 [release/v1.19.2-1.86.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.84.1...release/v1.19.2-1.86.0
 [release/v1.19.2-1.87.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.86.0...release/v1.19.2-1.87.0
+[release/v1.19.2-1.87.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.87.0...release/v1.19.2-1.87.1
