@@ -58,20 +58,16 @@ public class ChalkGlyphBlock extends Block {
     private static final VoxelShape SHAPE = Block.box(0, 0, 0, 15, 0.04, 15);
 
     protected Supplier<Item> chalk;
-    protected int color;
+    protected Supplier<Integer> color;
 
-    public ChalkGlyphBlock(Properties properties, int color, Supplier<Item> chalk) {
+    public ChalkGlyphBlock(Properties properties, Supplier<Integer> color, Supplier<Item> chalk) {
         super(properties);
         this.color = color;
         this.chalk = chalk;
     }
 
     public int getColor() {
-        return this.color;
-    }
-
-    public void setColor(int color) {
-        this.color = color;
+        return this.color.get();
     }
 
     public Item getChalk() {
