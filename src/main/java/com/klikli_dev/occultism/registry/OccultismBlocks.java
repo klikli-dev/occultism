@@ -34,6 +34,7 @@ import com.klikli_dev.occultism.common.entity.familiar.CthulhuFamiliarEntity;
 import com.klikli_dev.occultism.common.entity.familiar.FamiliarEntity;
 import com.klikli_dev.occultism.common.level.tree.OtherworldNaturalTreeGrower;
 import com.klikli_dev.occultism.common.level.tree.OtherworldTreeGrower;
+import com.klikli_dev.occultism.config.OccultismClientConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -89,16 +90,16 @@ public class OccultismBlocks {
             .sound(SoundType.WOOL).noCollission()
             .strength(5f, 30);
     public static final RegistryObject<ChalkGlyphBlock> CHALK_GLYPH_WHITE = register("chalk_glyph_white",
-            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xffffff, () -> OccultismItems.CHALK_WHITE.get()),
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.whiteChalkGlyphColor, () -> OccultismItems.CHALK_WHITE.get()),
             false, LootTableType.EMPTY);
     public static final RegistryObject<ChalkGlyphBlock> CHALK_GLYPH_GOLD = register("chalk_glyph_gold",
-            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xf0d700, () -> OccultismItems.CHALK_GOLD.get()), false,
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.goldenChalkGlyphColor, () -> OccultismItems.CHALK_GOLD.get()), false,
             LootTableType.EMPTY);
     public static final RegistryObject<ChalkGlyphBlock> CHALK_GLYPH_PURPLE = register("chalk_glyph_purple",
-            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0x9c0393, () -> OccultismItems.CHALK_PURPLE.get()),
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.purpleChalkGlyphColor, () -> OccultismItems.CHALK_PURPLE.get()),
             false, LootTableType.EMPTY);
     public static final RegistryObject<ChalkGlyphBlock> CHALK_GLYPH_RED = register("chalk_glyph_red",
-            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, 0xcc0101, () -> OccultismItems.CHALK_RED.get()), false,
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.redChalkGlyphColor, () -> OccultismItems.CHALK_RED.get()), false,
             LootTableType.EMPTY);
 
     //Resources

@@ -45,6 +45,12 @@ public class OccultismClientConfig {
         public final BooleanValue disableHolidayTheming;
         public final BooleanValue useAlternativeDivinationRodRenderer;
 
+        public final ForgeConfigSpec.ConfigValue<Integer> whiteChalkGlyphColor;
+        public final ForgeConfigSpec.ConfigValue<Integer> goldenChalkGlyphColor;
+        public final ForgeConfigSpec.ConfigValue<Integer> purpleChalkGlyphColor;
+        public final ForgeConfigSpec.ConfigValue<Integer> redChalkGlyphColor;
+
+
         public VisualSettings(ForgeConfigSpec.Builder builder) {
             builder.comment("Visual Settings").push("visual");
             this.showItemTagsInTooltip = builder.comment("Shows all tags an item has in the tooltip on hover if advanced tooltips (F3+H) are enabled.")
@@ -57,6 +63,32 @@ public class OccultismClientConfig {
                             "When true the old divination rod selected block renderer will be used.",
                             "May work for some people that do not see selected block outlines when using the divination rod.")
                     .define("useAlternativeDivinationRodRenderer", false);
+
+            this.whiteChalkGlyphColor = builder.comment(
+                    "The integer code of the color of the white chalk glyph in world.",
+                    "This is intended to allow people with color blindness to change the color of the glyph.",
+                    "For most types of color blindness it should not be necessary to change this."
+            ).define("whiteChalkGlyphColor", 0xffffff);
+
+            this.goldenChalkGlyphColor = builder.comment(
+                    "The integer code of the color of the golden chalk glyph in world.",
+                    "This is intended to allow people with color blindness to change the color of the glyph.",
+                    "For most types of color blindness it should not be necessary to change this."
+            ).define("goldenChalkGlyphColor", 0xf0d700);
+
+
+            this.purpleChalkGlyphColor = builder.comment(
+                    "The integer code of the color of the purple chalk glyph in world.",
+                    "This is intended to allow people with color blindness to change the color of the glyph.",
+                    "For most types of color blindness it should not be necessary to change this."
+            ).define("purpleChalkGlyphColor", 0x9c0393);
+
+            this.redChalkGlyphColor = builder.comment(
+                    "The integer code of the  color of the red chalk glyph in world.",
+                    "This is intended to allow people with color blindness to change the color of the glyph.",
+                    "For most types of color blindness this value should be changed to a green color, we recommend 33289 (= Hex 0x008209)"
+            ).define("redChalkGlyphColor", 0xcc0101);
+
             builder.pop();
         }
     }
