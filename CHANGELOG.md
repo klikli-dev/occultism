@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.88.0] - 2023-09-25
+### :sparkles: New Features
+- [`3a58be2`](https://github.com/klikli-dev/occultism/commit/3a58be2cdf7b549abe88f3c3e90f918c2cc27734) - colorblind mode for chalks (see occultism-client.toml) *(PR [#974](https://github.com/klikli-dev/occultism/pull/974) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.19.2-1.87.1] - 2023-09-05
 ### :bug: Bug Fixes
 - [`a6ea45b`](https://github.com/klikli-dev/occultism/commit/a6ea45baaeff49525c101b3149ff7ec89f48a9e9) - dictionary of spirits wrongly shows that transporters start in blacklist mode *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -541,3 +546,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.86.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.84.1...release/v1.19.2-1.86.0
 [release/v1.19.2-1.87.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.86.0...release/v1.19.2-1.87.0
 [release/v1.19.2-1.87.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.87.0...release/v1.19.2-1.87.1
+[release/v1.19.2-1.88.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.87.1...release/v1.19.2-1.88.0
