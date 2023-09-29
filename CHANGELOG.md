@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.88.1] - 2023-09-29
+### :bug: Bug Fixes
+- [`36747a0`](https://github.com/klikli-dev/occultism/commit/36747a08243e57e3219a1001190744bb1c348209) - outdated link in ru_ru book translation *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.88.0] - 2023-09-25
 ### :sparkles: New Features
 - [`5fbb617`](https://github.com/klikli-dev/occultism/commit/5fbb617e2a31c70cc75b57d6c9df574d28d9f75e) - colorblind mode for chalks (see occultism-client.toml) *(PR [#974](https://github.com/klikli-dev/occultism/pull/974) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -654,3 +659,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.87.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.87.0...release/v1.20.1-1.87.1
 [release/v1.20.1-1.87.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.87.1...release/v1.20.1-1.87.2
 [release/v1.20.1-1.88.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.87.2...release/v1.20.1-1.88.0
+[release/v1.20.1-1.88.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.88.0...release/v1.20.1-1.88.1
