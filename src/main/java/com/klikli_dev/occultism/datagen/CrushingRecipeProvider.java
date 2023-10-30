@@ -118,7 +118,7 @@ public class CrushingRecipeProvider implements DataProvider {
 
     protected void buildCrushingRecipeForGem(String gem, Consumer<Pair<ResourceLocation, JsonObject>> recipeConsumer) {
         var gemDustId = new ResourceLocation(Occultism.MODID, gem + "_dust");
-        var gemDustRecipe = this.buildCrushingRecipe("forge:ores/" + gem, "forge:dusts/" + gem, 2, 200, false);
+        var gemDustRecipe = this.buildCrushingRecipe("forge:ores/" + gem, "forge:dusts/" + gem, 4, 200, false);
         recipeConsumer.accept(new Pair<>(gemDustId, gemDustRecipe));
     }
 
