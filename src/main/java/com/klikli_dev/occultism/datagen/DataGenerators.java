@@ -24,10 +24,8 @@ package com.klikli_dev.occultism.datagen;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.datagen.lang.ENUSProvider;
-import com.klikli_dev.occultism.datagen.lang.FRFRProvider;
-import com.klikli_dev.occultism.datagen.lang.PTBRProvider;
-import com.klikli_dev.occultism.datagen.lang.loot.OccultismBlockLoot;
-import com.klikli_dev.occultism.datagen.lang.loot.OccultismEntityLoot;
+import com.klikli_dev.occultism.datagen.loot.OccultismBlockLoot;
+import com.klikli_dev.occultism.datagen.loot.OccultismEntityLoot;
 import com.klikli_dev.occultism.datagen.worldgen.OccultismRegistries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -61,14 +59,10 @@ public class DataGenerators {
 
 
         var enUSProvider = new ENUSProvider(generator.getPackOutput());
-        var frFRProvider = new FRFRProvider(generator.getPackOutput());
-        var ptBRProvider = new PTBRProvider(generator.getPackOutput());
-        generator.addProvider(event.includeServer(), new OccultismBookProvider(generator.getPackOutput(), Occultism.MODID, enUSProvider, frFRProvider, ptBRProvider));
+        generator.addProvider(event.includeServer(), new OccultismBookProvider(generator.getPackOutput(), Occultism.MODID, enUSProvider));
 
         //Important: Lang provider (in this case enus) needs to be added after the book provider to process the texts added by the book provider
         generator.addProvider(event.includeClient(), enUSProvider);
-        generator.addProvider(event.includeClient(), frFRProvider);
-        generator.addProvider(event.includeClient(), ptBRProvider);
 
         event.getGenerator().addProvider(event.includeServer(),
                 (DataProvider.Factory<DatapackBuiltinEntriesProvider>) output ->
