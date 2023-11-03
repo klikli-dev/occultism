@@ -96,7 +96,7 @@
   "block.occultism.storage_stabilizer_tier4": "Estabilizador de almacenamiento dimensional  IV",
   "block.occultism.wither_skeleton_skull_dummy": "Calavera de esqueleto Wither",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_afrit_miner.name": "Afrit Miner",
-  "book.occultism.dictionary_of_spirits.crafting_rituals.craft_afrit_miner.spotlight.text": "The [#](ad03fc)Afrit[#]() miner harvests ores, like djinni miners, and additionally mines deepslate ores. This miner is faster and more efficient than the djinnis, thus damaging the magic lamp even more slowly.\n",
+  "book.occultism.dictionary_of_spirits.crafting_rituals.craft_afrit_miner.spotlight.text": "El [#](ad03fc)Budgetit[#]() minero cosecha minerales, como los mineros de djinni, y además minas minerales de profundidad. Este minero es más rápido y eficiente que el djinnis, lo que dañará la lámpara mágica aún más lentamente.\n",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_matrix.name": "Dimensional Matrix",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_matrix.spotlight.text": "The dimensional matrix is the entry point to a small dimension used for storing items. A [#](ad03fc)Djinni[#]() bound to the matrix keeps the dimension stable, often supported by additional spirits in storage stabilizers, to increase the dimension size.\n",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_mineshaft.description.text": "The dimensional mineshaft will discard any items it cannot store, so it is important to regularly empty the mineshaft, either manually, with hoppers or using a transporter spirit. Spirits in lamps can be **inserted** from the top, all other sides can be used to **extract** items.\n",
