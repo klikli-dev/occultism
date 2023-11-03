@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.89.1] - 2023-11-03
+### :sparkles: New Features
+- [`0694bb6`](https://github.com/klikli-dev/occultism/commit/0694bb6e88e018f51b01dd90cd14b97725d08401) - setup lang files for crowdin *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`6478bc0`](https://github.com/klikli-dev/occultism/commit/6478bc0107af80aa12e19ff9efe473055bb2530c) - New Crowdin updates *(PR [#986](https://github.com/klikli-dev/occultism/pull/986) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.89.0] - 2023-10-30
 ### :sparkles: New Features
 - [`cca705e`](https://github.com/klikli-dev/occultism/commit/cca705ed4c3c0766644a6988479d4b9ec7862bb9) - add ores in ground tags *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -667,3 +673,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.88.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.87.2...release/v1.20.1-1.88.0
 [release/v1.20.1-1.88.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.88.0...release/v1.20.1-1.88.1
 [release/v1.20.1-1.89.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.88.1...release/v1.20.1-1.89.0
+[release/v1.20.1-1.89.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.89.0...release/v1.20.1-1.89.1
