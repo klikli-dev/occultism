@@ -109,7 +109,6 @@
   "item.occultism.book_of_calling_foliot.tooltip_dead": "%s이(가) 존재의 평면을 벗어났습니다.",
   "item.occultism.book_of_calling_djinni.tooltip": "정령 %s",
   "item.occultism.book_of_calling_djinni.tooltip_dead": "%s이(가) 존재의 평면을 벗어났습니다.",
-  //block, because it's a block item.
   "block.occultism.stable_wormhole.tooltip.unlinked": "저장소 작동기에 연결되어 있지 않습니다.",
   "block.occultism.stable_wormhole.tooltip.linked": "%s의 저장소 작동기에 연결됩니다.",
   "item.occultism.storage_remote.tooltip": "저장소 망에 원격으로 접속합니다.",

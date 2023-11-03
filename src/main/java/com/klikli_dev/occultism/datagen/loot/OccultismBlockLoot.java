@@ -1,4 +1,4 @@
-package com.klikli_dev.occultism.datagen.lang.loot;
+package com.klikli_dev.occultism.datagen.loot;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.block.crops.IReplantableCrops;
