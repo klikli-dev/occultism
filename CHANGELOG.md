@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.90.0] - 2023-11-20
+### :sparkles: New Features
+- [`957bcbc`](https://github.com/klikli-dev/occultism/commit/957bcbc2453826dae9e5983ac21e0b5e4ca3167d) - control which nbt items send to client *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`4695974`](https://github.com/klikli-dev/occultism/commit/469597439e20a1fc2dc852282dcf5ae99c19cc3d) - New translations en_us.json (Korean) *(PR [#987](https://github.com/klikli-dev/occultism/pull/987) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.89.1] - 2023-11-03
 ### :sparkles: New Features
 - [`0694bb6`](https://github.com/klikli-dev/occultism/commit/0694bb6e88e018f51b01dd90cd14b97725d08401) - setup lang files for crowdin *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -674,3 +680,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.88.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.88.0...release/v1.20.1-1.88.1
 [release/v1.20.1-1.89.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.88.1...release/v1.20.1-1.89.0
 [release/v1.20.1-1.89.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.89.0...release/v1.20.1-1.89.1
+[release/v1.20.1-1.90.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.89.1...release/v1.20.1-1.90.0
