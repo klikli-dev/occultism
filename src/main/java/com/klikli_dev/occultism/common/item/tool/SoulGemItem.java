@@ -22,7 +22,6 @@
 
 package com.klikli_dev.occultism.common.item.tool;
 
-import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.EntityUtil;
 import net.minecraft.core.BlockPos;
@@ -40,8 +39,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.List;
 
 public class SoulGemItem extends Item {
@@ -174,4 +174,18 @@ public class SoulGemItem extends Item {
         }
     }
 
+    @Override
+    public @Nullable CompoundTag getShareTag(ItemStack stack) {
+        var tag = super.getShareTag(stack);
+        if (tag != null) {
+            tag = tag.copy();
+            //remove all data that we do not need for client side display
+            if (tag.contains("entityData")) {
+                var entityData = tag.getCompound("entityData");
+                var toRemove = entityData.getAllKeys().stream().filter(key -> !key.equals("id")).toArray(String[]::new);
+                Arrays.stream(toRemove).forEach(entityData::remove);
+            }
+        }
+        return tag;
+    }
 }
