@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ppp",
+    "ppp",
+    "ppp"
+  ],
+  "key": {
+    "p": {
+      "tag": "forge:raw_ores/silver"
+    }
+  },
+  "result": {
+    "item": "occultism:raw_silver_block"
+  }
+}

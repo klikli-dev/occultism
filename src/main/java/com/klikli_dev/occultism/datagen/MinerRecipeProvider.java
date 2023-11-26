@@ -72,9 +72,9 @@ public class MinerRecipeProvider implements DataProvider {
 
     protected void buildForbiddenArcanusRecipes(Consumer<Pair<ResourceLocation, JsonObject>> recipes) {
         recipes.accept(this.buildMinerRecipe(
-                this.modLoc("deeps/deepslate_arcane_crystal"),
-                this.modLoc("miners/deeps"),
-                this.loc("forge", "ores/arcane_crystal"),
+                this.modLoc("ores/runic_stone"),
+                this.modLoc("miners/ores"),
+                this.loc("forbidden_arcanus", "runic_stones"),
                 200));
 
         recipes.accept(this.buildMinerRecipe(

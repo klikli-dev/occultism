@@ -43,7 +43,7 @@ public class AfritEntity extends SpiritEntity {
         return SpiritEntity.createAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 8.0)
                 .add(Attributes.ATTACK_SPEED, 8.0)
-                .add(Attributes.MAX_HEALTH, 100.0)
+                .add(Attributes.MAX_HEALTH, 200.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.40000001192092896)
                 .add(Attributes.ARMOR, 8.0)
                 .add(Attributes.ARMOR_TOUGHNESS, 50.0);

@@ -114,12 +114,17 @@ public class CrushingRecipeProvider implements DataProvider {
         this.buildCrushingRecipeForGem("ruby", recipeConsumer);
         this.buildCrushingRecipeForGem("sapphire", recipeConsumer);
         this.buildCrushingRecipeForGem("topaz", recipeConsumer);
+        this.buildCrushingRecipeForGem("arcane_crystal", recipeConsumer);
     }
 
     protected void buildCrushingRecipeForGem(String gem, Consumer<Pair<ResourceLocation, JsonObject>> recipeConsumer) {
         var gemDustId = new ResourceLocation(Occultism.MODID, gem + "_dust");
         var gemDustRecipe = this.buildCrushingRecipe("forge:ores/" + gem, "forge:dusts/" + gem, 4, 200, false);
         recipeConsumer.accept(new Pair<>(gemDustId, gemDustRecipe));
+
+        var gemDustFromGemId = new ResourceLocation(Occultism.MODID, gem + "_dust_from_gem");
+        var gemDustFromGemRecipe = this.buildCrushingRecipe("forge:gems/" + gem, "forge:dusts/" + gem, 1, 200, true);
+        recipeConsumer.accept(new Pair<>(gemDustFromGemId, gemDustFromGemRecipe));
     }
 
     protected void buildCrushingRecipesForMetal(String metal, Consumer<Pair<ResourceLocation, JsonObject>> recipeConsumer) {
@@ -130,6 +135,10 @@ public class CrushingRecipeProvider implements DataProvider {
         var metalDustFromRawRecipeId = new ResourceLocation(Occultism.MODID, metal + "_dust_from_raw");
         var metalDustFromRawRecipe = this.buildCrushingRecipe("forge:raw_materials/" + metal, "forge:dusts/" + metal, 2, 200, false);
         recipeConsumer.accept(new Pair<>(metalDustFromRawRecipeId, metalDustFromRawRecipe));
+
+        var metalDustFromRawBlockRecipeId = new ResourceLocation(Occultism.MODID, metal + "_dust_from_raw_block");
+        var metalDustFromRawBlockRecipe = this.buildCrushingRecipe("forge:storage_blocks/raw_" + metal, "forge:dusts/" + metal, 18, 1600, false);
+        recipeConsumer.accept(new Pair<>(metalDustFromRawBlockRecipeId, metalDustFromRawBlockRecipe));
 
         var metalDustFromIngotRecipeId = new ResourceLocation(Occultism.MODID, metal + "_dust_from_ingot");
         var metalDustFromIngotRecipe = this.buildCrushingRecipe("forge:ingots/" + metal, "forge:dusts/" + metal, 1, 200, true);

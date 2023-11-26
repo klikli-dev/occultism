@@ -9,21 +9,22 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
 public class OccultismCreativeModeTabs {
-    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Occultism.MODID);
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
+            DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Occultism.MODID);
 
 
-    public static final RegistryObject<CreativeModeTab> OCCULTISM = CREATIVE_MODE_TABS.register(Occultism.MODID, () -> CreativeModeTab.builder()
-            .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(() -> OccultismItems.PENTACLE.get().getDefaultInstance())
-            .title(Component.translatable("itemGroup.occultism"))
-            .displayItems((parameters, output) -> {
-                OccultismItems.ITEMS.getEntries().forEach(i -> {
+    public static final RegistryObject<CreativeModeTab> OCCULTISM = CREATIVE_MODE_TABS.register("occultism",
+            () -> CreativeModeTab.builder()
+                .title(Component.translatable("itemGroup.occultism"))
+                .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
+                .icon(() -> OccultismItems.PENTACLE.get().getDefaultInstance())
+                .displayItems((parameters, output) -> {
+                    OccultismItems.ITEMS.getEntries().forEach(i -> {
 
                     if (!OccultismItems.shouldSkipCreativeModTab(i.get())) {
                         output.accept(i.get());
                     }
                 });
-
                 output.accept(OccultismItems.DICTIONARY_OF_SPIRITS.get().getCreativeModeTabDisplayStack());
             }).build());
 

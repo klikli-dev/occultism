@@ -151,7 +151,9 @@ public class OccultismBlocks {
             register("iesnium_ore_natural", () -> new IesniumOreNaturalBlock(Block.Properties.copy(Blocks.IRON_ORE)),
                     true, LootTableType.OTHERWORLD_BLOCK);
     public static final RegistryObject<Block> SILVER_BLOCK = register("silver_block", () -> new Block(Block.Properties.copy(Blocks.IRON_BLOCK)));
+    public static final RegistryObject<Block> RAW_SILVER_BLOCK = register("raw_silver_block", () -> new Block(Block.Properties.copy(Blocks.RAW_IRON_BLOCK)));
     public static final RegistryObject<Block> IESNIUM_BLOCK = register("iesnium_block", () -> new Block(Block.Properties.copy(Blocks.IRON_BLOCK)));
+    public static final RegistryObject<Block> RAW_IESNIUM_BLOCK = register("raw_iesnium_block", () -> new Block(Block.Properties.copy(Blocks.RAW_IRON_BLOCK)));
 
     //Decorative and Ritual Blocks
     public static final RegistryObject<CandleBlock> CANDLE_WHITE = register("candle_white", () -> new CandleBlock(

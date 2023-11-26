@@ -1,0 +1,28 @@
+{
+  "type": "occultism:crushing",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:storage_blocks/raw_iridium"
+      }
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:dusts/iridium"
+      }
+    }
+  ],
+  "crushing_time": 1600,
+  "ignore_crushing_multiplier": false,
+  "ingredient": {
+    "tag": "forge:storage_blocks/raw_iridium"
+  },
+  "result": {
+    "count": 18,
+    "tag": "forge:dusts/iridium"
+  }
+}
