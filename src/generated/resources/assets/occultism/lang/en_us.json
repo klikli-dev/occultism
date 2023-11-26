@@ -1206,7 +1206,7 @@
   "network.messages.occultism.request_order.order_received": "Order received!",
   "occultism.jei.crushing": "Crusher Spirit",
   "occultism.jei.miner": "Dimensional Mineshaft",
-  "occultism.jei.miner.chance": "Chance: %d%%",
+  "occultism.jei.miner.chance": "Weight: %d",
   "occultism.jei.pentacle": "Pentacle",
   "occultism.jei.ritual": "Occult Ritual",
   "occultism.jei.spirit_fire": "Spiritfire",

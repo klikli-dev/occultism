@@ -2708,7 +2708,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add("occultism.jei.spirit_fire", "Spiritfire");
         this.add("occultism.jei.crushing", "Crusher Spirit");
         this.add("occultism.jei.miner", "Dimensional Mineshaft");
-        this.add("occultism.jei.miner.chance", "Chance: %d%%");
+        this.add("occultism.jei.miner.chance", "Weight: %d");
         this.add("occultism.jei.ritual", "Occult Ritual");
         this.add("occultism.jei.pentacle", "Pentacle");
 
