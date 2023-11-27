@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.91.0] - 2023-11-27
+### :sparkles: New Features
+- [`e14f076`](https://github.com/klikli-dev/occultism/commit/e14f0768834216b6bfd4822533b1460f143f3c1a) - The Raw Update *(PR [#1001](https://github.com/klikli-dev/occultism/pull/1001) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+
+
 ## [release/v1.20.1-1.90.0] - 2023-11-20
 ### :sparkles: New Features
 - [`957bcbc`](https://github.com/klikli-dev/occultism/commit/957bcbc2453826dae9e5983ac21e0b5e4ca3167d) - control which nbt items send to client *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -681,3 +686,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.89.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.88.1...release/v1.20.1-1.89.0
 [release/v1.20.1-1.89.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.89.0...release/v1.20.1-1.89.1
 [release/v1.20.1-1.90.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.89.1...release/v1.20.1-1.90.0
+[release/v1.20.1-1.91.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.90.0...release/v1.20.1-1.91.0
