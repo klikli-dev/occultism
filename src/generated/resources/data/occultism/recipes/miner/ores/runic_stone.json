@@ -5,15 +5,15 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:ores/arcane_crystal"
+        "tag": "forbidden_arcanus:runic_stones"
       }
     }
   ],
   "ingredient": {
-    "tag": "occultism:miners/deeps"
+    "tag": "occultism:miners/ores"
   },
   "result": {
-    "tag": "forge:ores/arcane_crystal"
+    "tag": "forbidden_arcanus:runic_stones"
   },
   "weight": 200
 }

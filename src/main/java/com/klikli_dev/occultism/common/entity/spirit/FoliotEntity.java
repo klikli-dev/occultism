@@ -37,7 +37,7 @@ public class FoliotEntity extends SpiritEntity {
     public static AttributeSupplier.Builder createAttributes() {
         return SpiritEntity.createAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 1.0)
-                .add(Attributes.MAX_HEALTH, 8.0)
+                .add(Attributes.MAX_HEALTH, 20.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.30000001192092896)
                 .add(Attributes.ARMOR, 2.0)
                 .add(Attributes.ARMOR_TOUGHNESS, 1.0)

@@ -275,6 +275,8 @@ public class ENUSProvider extends LanguageProvider {
         this.addBlock(OccultismBlocks.IESNIUM_ORE, "Iesnium Ore");
         this.addBlock(OccultismBlocks.SILVER_BLOCK, "Block of Silver");
         this.addBlock(OccultismBlocks.IESNIUM_BLOCK, "Block of Iesnium");
+        this.addBlock(OccultismBlocks.RAW_SILVER_BLOCK, "Block of Raw Silver");
+        this.addBlock(OccultismBlocks.RAW_IESNIUM_BLOCK, "Block of Raw Iesnium");
         this.addBlock(OccultismBlocks.DIMENSIONAL_MINESHAFT, "Dimensional Mineshaft");
         this.addBlock(OccultismBlocks.SKELETON_SKULL_DUMMY, "Skeleton Skull");
         this.addBlock(OccultismBlocks.WITHER_SKELETON_SKULL_DUMMY, "Wither Skeleton Skull");
