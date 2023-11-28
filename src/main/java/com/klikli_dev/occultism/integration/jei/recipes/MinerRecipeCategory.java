@@ -103,9 +103,7 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
                         new RecipeWrapper(simulatedHandler), level);
         List<WeightedOutputIngredient> possibleResults = recipes.stream().map(MinerRecipe::getWeightedOutput).collect(Collectors.toList());
 
-        float chance = (float) recipe.getWeightedOutput().getWeight().asInt() / (float) WeightedRandom.getTotalWeight(possibleResults) * 100.0F;
-        //reduce to two decimals
-        chance = Math.round(chance * 10) / 10.0f;
+        float chance = (float) recipe.getWeightedOutput().getWeight().asInt()/100;
         this.chances.put(recipe, chance);
 
         builder.addSlot(RecipeIngredientRole.INPUT, 56, 12)
