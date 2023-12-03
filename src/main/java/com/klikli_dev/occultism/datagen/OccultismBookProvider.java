@@ -1010,6 +1010,26 @@ public class OccultismBookProvider extends BookProvider {
                         In order to craft [#](%1$s)Books of Binding[#]() to summon spirits, you need purified ink. Simply drop any black dye into [](item://occultism:spirit_fire) to purify it.
                             """.formatted(COLOR_PURPLE));
 
+        this.context().page("awakened_feather_recipe");
+        var awakenedFeatherRecipe = BookSpiritFireRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("spirit_fire/awakened_feather"))
+                .withText(this.context().pageText())
+                .build();
+        this.lang().add(this.context().pageText(),
+                """
+                        In order to craft [#](%1$s)Books of Binding[#]() to summon spirits, you also need awakened feather. Simply drop any feather into [](item://occultism:spirit_fire) to awakened it.
+                            """.formatted(COLOR_PURPLE));
+
+        this.context().page("taboo_book_recipe");
+        var tabooBookRecipe = BookSpiritFireRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("spirit_fire/taboo_book"))
+                .withText(this.context().pageText())
+                .build();
+        this.lang().add(this.context().pageText(),
+                """
+                        Lastly you need taboo book to craft [#](%1$s)Books of Binding[#]() to summon spirits. Simply drop a book into [](item://occultism:spirit_fire) to get it.
+                        """.formatted(COLOR_PURPLE));
+
         this.context().page("book_of_binding_foliot_recipe");
         var bookOfBindingFoliotRecipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/book_of_binding_foliot"))
@@ -1045,9 +1065,25 @@ public class OccultismBookProvider extends BookProvider {
         //no text
 
         this.context().page("book_of_binding_marid_recipe");
-        var bookOfBindingMaritRecipe = BookCraftingRecipePageModel.builder()
+        var bookOfBindingMaridRecipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("crafting/book_of_binding_marid"))
                 .withRecipeId2(this.modLoc("crafting/book_of_binding_bound_marid"))
+                .build();
+        //no text
+
+        this.context().page("book_of_binding_empty");
+        var alternativeBooks = BookSpiritFireRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("spirit_fire/book_of_binding_empty"))
+                .withText(this.context().pageText())
+                .build();
+        this.lang().add(this.context().pageText(),
+                """
+                         Alternatively, you can directly use the Binding Book: Empty instead of the previous three items. There are two ways to obtain this book. Place this book in the center of dyes to get specific book of binding.
+                        """.formatted(COLOR_PURPLE));
+
+        this.context().page("book_of_binding_empty_recipe");
+        var bookOfBindingEmptyRecipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId2(this.modLoc("crafting/book_of_binding_empty"))
                 .build();
         //no text
 
@@ -1059,11 +1095,15 @@ public class OccultismBookProvider extends BookProvider {
                         intro,
                         intro2,
                         purifiedInkRecipe,
+                        awakenedFeatherRecipe,
+                        tabooBookRecipe,
                         bookOfBindingFoliotRecipe,
                         bookOfBindingBoundFoliotRecipe,
                         bookOfBindingDjinniRecipe,
                         bookOfBindingAfritRecipe,
-                        bookOfBindingMaritRecipe
+                        bookOfBindingMaridRecipe,
+                        alternativeBooks,
+                        bookOfBindingEmptyRecipe
                 );
     }
 

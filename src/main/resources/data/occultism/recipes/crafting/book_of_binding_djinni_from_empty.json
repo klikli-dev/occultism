@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "cgf",
+    " g ",
     "gbg",
     " g "
   ],
@@ -10,13 +10,7 @@
       "tag": "forge:dyes/green"
     },
     "b": {
-      "item": "occultism:taboo_book"
-    },
-    "c": {
-      "item": "occultism:purified_ink"
-    },
-    "f": {
-      "item": "occultism:awakened_feather"
+      "item": "occultism:book_of_binding_empty"
     }
   },
   "result": {

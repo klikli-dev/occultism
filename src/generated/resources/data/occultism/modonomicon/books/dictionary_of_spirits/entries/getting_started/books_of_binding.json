@@ -32,6 +32,22 @@
       "title2": ""
     },
     {
+      "type": "occultism:spirit_fire_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:spirit_fire/awakened_feather",
+      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.awakened_feather_recipe.text",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "occultism:spirit_fire_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:spirit_fire/taboo_book",
+      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.taboo_book_recipe.text",
+      "title1": "",
+      "title2": ""
+    },
+    {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
       "recipe_id_1": "occultism:crafting/book_of_binding_foliot",
@@ -70,6 +86,22 @@
       "anchor": "",
       "recipe_id_1": "occultism:crafting/book_of_binding_marid",
       "recipe_id_2": "occultism:crafting/book_of_binding_bound_marid",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "occultism:spirit_fire_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:spirit_fire/book_of_binding_empty",
+      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.book_of_binding_empty.text",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_2": "occultism:crafting/book_of_binding_empty",
       "text": "",
       "title1": "",
       "title2": ""

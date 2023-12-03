@@ -82,7 +82,7 @@ public class ENUSProvider extends LanguageProvider {
     public void addItemTooltips() {
         //"item\.occultism\.(.*?)\.(.*)": "(.*)",
         // this.add\(OccultismItems.\U\1\E.get\(\).getDescriptionId\(\)  + " \2", "\3"\);
-
+        this.add(OccultismItems.BOOK_OF_BINDING_EMPTY.get().getDescriptionId() + ".tooltip", "This book has not been defined to any spirit yet.");
         this.add(OccultismItems.BOOK_OF_BINDING_FOLIOT.get().getDescriptionId() + ".tooltip", "This book has not been bound to a foliot yet.");
         this.add(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get().getDescriptionId() + ".tooltip", "Can be used to summon the foliot %s");
         this.add(OccultismItems.BOOK_OF_BINDING_DJINNI.get().getDescriptionId() + ".tooltip", "This book has not been bound to a djinni yet.");
@@ -153,6 +153,9 @@ public class ENUSProvider extends LanguageProvider {
         this.addItem(OccultismItems.BRUSH, "Chalk Brush");
         this.addItem(OccultismItems.AFRIT_ESSENCE, "Afrit Essence");
         this.addItem(OccultismItems.PURIFIED_INK, "Purified Ink");
+        this.addItem(OccultismItems.AWAKENED_FEATHER, "Awakened Feather");
+        this.addItem(OccultismItems.TABOO_BOOK, "Taboo Book");
+        this.addItem(OccultismItems.BOOK_OF_BINDING_EMPTY, "Book of Binding: Empty");
         this.addItem(OccultismItems.BOOK_OF_BINDING_FOLIOT, "Book of Binding: Foliot");
         this.addItem(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT, "Book of Binding: Foliot (Bound)");
         this.addItem(OccultismItems.BOOK_OF_BINDING_DJINNI, "Book of Binding: Djinni");
