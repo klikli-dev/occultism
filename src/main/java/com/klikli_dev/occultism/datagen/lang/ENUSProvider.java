@@ -1391,7 +1391,7 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageTitle(), "Marid Crusher");
         this.add(helper.pageText(),
                 """
-                        The afrit crusher is resistant to essence decay and faster and more efficient than the afrit crusher.
+                        The marid crusher is resistant to essence decay and faster and more efficient than the afrit crusher.
                         \\
                         \\
                         It will crush **one** ore into **six** corresponding dusts.
