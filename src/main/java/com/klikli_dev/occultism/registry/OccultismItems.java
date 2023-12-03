@@ -315,6 +315,8 @@ public class OccultismItems {
             () -> new ForgeSpawnEggItem(OccultismEntities.POSSESSED_SKELETON_TYPE::get, 0xC1C1C1, 0x494949, defaultProperties()));
     public static final RegistryObject<Item> SPAWN_EGG_POSSESSED_ENDERMAN = ITEMS.register("spawn_egg/possessed_enderman",
             () -> new ForgeSpawnEggItem(OccultismEntities.POSSESSED_ENDERMAN_TYPE::get, 0x161616, 0x0, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_POSSESSED_GHAST = ITEMS.register("spawn_egg/possessed_ghast",
+            () -> new ForgeSpawnEggItem(OccultismEntities.POSSESSED_GHAST_TYPE::get, 0xe2e2e2, 0xC1C1C1, defaultProperties()));
 
     public static final RegistryObject<Item> SPAWN_EGG_WILD_HUNT_SKELETON = ITEMS.register("spawn_egg/wild_hunt_skeleton",
             () -> new ForgeSpawnEggItem(OccultismEntities.WILD_HUNT_SKELETON_TYPE::get, 12698049, 4802889, defaultProperties()));
