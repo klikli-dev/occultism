@@ -153,14 +153,6 @@ public class OccultismItems {
             () -> new Item(defaultProperties()));
     public static final RegistryObject<Item> LENS_FRAME = ITEMS.register("lens_frame",
             () -> new Item(defaultProperties()));
-    public static final RegistryObject<Item> PURIFIED_INK = ITEMS.register("purified_ink",
-            () -> new Item(defaultProperties()));
-
-    public static final RegistryObject<Item> SPIRIT_ATTUNED_PICKAXE_HEAD = ITEMS.register("spirit_attuned_pickaxe_head",
-            () -> new Item(defaultProperties()));
-
-    public static final RegistryObject<Item> MAGIC_LAMP_EMPTY = ITEMS.register("magic_lamp_empty",
-            () -> new Item(defaultProperties()));
 
     public static final RegistryObject<StorageRemoteItem> STORAGE_REMOTE = ITEMS.register("storage_remote",
             () -> new StorageRemoteItem(defaultProperties().stacksTo(1)));
@@ -185,6 +177,8 @@ public class OccultismItems {
     public static final RegistryObject<SwordItem> BUTCHER_KNIFE = ITEMS.register("butcher_knife",
             () -> new SwordItem(Tiers.IRON, 3, -2.4F, defaultProperties()));
 
+    public static final RegistryObject<Item> SPIRIT_ATTUNED_PICKAXE_HEAD = ITEMS.register("spirit_attuned_pickaxe_head",
+            () -> new Item(defaultProperties()));
     public static final RegistryObject<InfusedPickaxeItem> INFUSED_PICKAXE = ITEMS.register("infused_pickaxe",
             () -> new InfusedPickaxeItem(OccultismItemTier.SPIRIT_ATTUNED_GEM, 1, -2.8F, defaultProperties()));
     public static final RegistryObject<OtherworldPickaxeItem> IESNIUM_PICKAXE = ITEMS.register("iesnium_pickaxe",
@@ -199,7 +193,15 @@ public class OccultismItems {
     public static final RegistryObject<Item> FAMILIAR_RING = ITEMS.register("familiar_ring",
             () -> new FamiliarRingItem(defaultProperties().stacksTo(1)));
 
+    public static final RegistryObject<Item> PURIFIED_INK = ITEMS.register("purified_ink",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> AWAKENED_FEATHER = ITEMS.register("awakened_feather",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> TABOO_BOOK = ITEMS.register("taboo_book",
+            () -> new Item(defaultProperties()));
     //Books of Binding
+    public static final RegistryObject<BookOfBindingItem> BOOK_OF_BINDING_EMPTY = ITEMS.register(
+            "book_of_binding_empty", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
     public static final RegistryObject<BookOfBindingItem> BOOK_OF_BINDING_FOLIOT = ITEMS.register(
             "book_of_binding_foliot", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
     public static final RegistryObject<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_FOLIOT = ITEMS.register(
@@ -257,6 +259,8 @@ public class OccultismItems {
             () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.DATURA.get())));
 
     //Miner Spirits
+    public static final RegistryObject<Item> MAGIC_LAMP_EMPTY = ITEMS.register("magic_lamp_empty",
+            () -> new Item(defaultProperties()));
     public static final RegistryObject<MinerSpiritItem> MINER_DEBUG_UNSPECIALIZED =
             ITEMS.register("miner_debug_unspecialized",
                     () -> new MinerSpiritItem(defaultProperties().durability(10000), () -> 100, () -> 10, () -> 10000));
