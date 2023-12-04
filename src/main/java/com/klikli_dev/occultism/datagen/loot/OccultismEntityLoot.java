@@ -68,6 +68,15 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                         .apply(
                                                 LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F))))));
 
+        //Guaranteed phantom membrane drop for phantom
+        this.add(OccultismEntities.POSSESSED_PHANTOM_TYPE.get(),
+                LootTable.lootTable().withPool(
+                        LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(Items.PHANTOM_MEMBRANE)
+                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 4.0F)))
+                                        .apply(LootingEnchantFunction.lootingMultiplier(
+                                                UniformGenerator.between(0.0F, 1.0F))))));
+
         //Essence drop from wild afrit
         this.add(OccultismEntities.AFRIT_WILD_TYPE.get(),
                 LootTable.lootTable().withPool(

@@ -223,6 +223,7 @@ public class ENUSProvider extends LanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_SKELETON, "Possessed Skeleton Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ENDERMAN, "Possessed Enderman Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_GHAST, "Possessed Ghast Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_PHANTOM, "Possessed Phantom Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HUNT_SKELETON, "Wild Hunt Skeleton Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HUNT_WITHER_SKELETON, "Wild Hunt Wither Skeleton Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_OTHERWORLD_BIRD, "Drikwing Spawn Egg");
@@ -303,6 +304,7 @@ public class ENUSProvider extends LanguageProvider {
         this.addEntityType(OccultismEntities.POSSESSED_SKELETON, "Possessed Skeleton");
         this.addEntityType(OccultismEntities.POSSESSED_ENDERMAN, "Possessed Enderman");
         this.addEntityType(OccultismEntities.POSSESSED_GHAST, "Possessed Ghast");
+        this.addEntityType(OccultismEntities.POSSESSED_PHANTOM, "Possessed Phantom");
         this.addEntityType(OccultismEntities.WILD_HUNT_SKELETON, "Wild Hunt Skeleton");
         this.addEntityType(OccultismEntities.WILD_HUNT_WITHER_SKELETON, "Wild Hunt Wither Skeleton");
         this.addEntityType(OccultismEntities.OTHERWORLD_BIRD, "Drikwing");

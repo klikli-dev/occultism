@@ -24,10 +24,7 @@ package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.familiar.*;
-import com.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
-import com.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
-import com.klikli_dev.occultism.common.entity.possessed.PossessedGhastEntity;
-import com.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
+import com.klikli_dev.occultism.common.entity.possessed.*;
 import com.klikli_dev.occultism.common.entity.spirit.*;
 import com.klikli_dev.occultism.util.StaticUtil;
 import net.minecraft.world.entity.EntityType;
@@ -92,6 +89,12 @@ public class OccultismEntities {
                     .sized(4.0F, 4.0F)
                     .clientTrackingRange(10)
                     .build(StaticUtil.modLoc("possessed_ghast").toString()));
+    public static final NonNullLazy<EntityType<PossessedPhantomEntity>> POSSESSED_PHANTOM_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.of(PossessedPhantomEntity::new, MobCategory.MONSTER)
+                    .fireImmune()
+                    .sized(0.9F, 0.5F)
+                    .clientTrackingRange(16)
+                    .build(StaticUtil.modLoc("possessed_phantom").toString()));
 
     public static final NonNullLazy<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(WildHuntSkeletonEntity::new, MobCategory.MONSTER)
@@ -224,6 +227,8 @@ public class OccultismEntities {
             ENTITIES.register("possessed_enderman", POSSESSED_ENDERMAN_TYPE::get);
     public static final RegistryObject<EntityType<PossessedGhastEntity>> POSSESSED_GHAST =
             ENTITIES.register("possessed_ghast", POSSESSED_GHAST_TYPE::get);
+    public static final RegistryObject<EntityType<PossessedPhantomEntity>> POSSESSED_PHANTOM =
+            ENTITIES.register("possessed_phantom", POSSESSED_PHANTOM_TYPE::get);
     public static final RegistryObject<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON =
             ENTITIES.register("wild_hunt_skeleton", WILD_HUNT_SKELETON_TYPE::get);
     public static final RegistryObject<EntityType<WildHuntWitherSkeletonEntity>> WILD_HUNT_WITHER_SKELETON =
