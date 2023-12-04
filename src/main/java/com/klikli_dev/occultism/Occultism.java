@@ -132,6 +132,7 @@ public class Occultism {
         event.put(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get(), PossessedEndermanEntity.createAttributes().build());
         event.put(OccultismEntities.POSSESSED_GHAST_TYPE.get(), PossessedGhastEntity.createAttributes().build());
         event.put(OccultismEntities.POSSESSED_PHANTOM_TYPE.get(), PossessedPhantomEntity.createAttributes().build());
+        event.put(OccultismEntities.WEAK_POSSESSED_SHULKER_TYPE.get(), WeakPossessedShulkerEntity.createAttributes().build());
         event.put(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get(), WildHuntSkeletonEntity.createAttributes().build());
         event.put(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get(), WildHuntWitherSkeletonEntity.createAttributes().build());
         event.put(OccultismEntities.OTHERWORLD_BIRD_TYPE.get(), OtherworldBirdEntity.createAttributes().build());

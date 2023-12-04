@@ -95,7 +95,12 @@ public class OccultismEntities {
                     .sized(0.9F, 0.5F)
                     .clientTrackingRange(16)
                     .build(StaticUtil.modLoc("possessed_phantom").toString()));
-
+    public static final NonNullLazy<EntityType<WeakPossessedShulkerEntity>> WEAK_POSSESSED_SHULKER_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.of(WeakPossessedShulkerEntity::new, MobCategory.MONSTER)
+                    .fireImmune()
+                    .sized(1F, 1F)
+                    .clientTrackingRange(8)
+                    .build(StaticUtil.modLoc("weak_possessed_shulker").toString()));
     public static final NonNullLazy<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(WildHuntSkeletonEntity::new, MobCategory.MONSTER)
                     .sized(0.6F, 2.9F)
@@ -229,6 +234,8 @@ public class OccultismEntities {
             ENTITIES.register("possessed_ghast", POSSESSED_GHAST_TYPE::get);
     public static final RegistryObject<EntityType<PossessedPhantomEntity>> POSSESSED_PHANTOM =
             ENTITIES.register("possessed_phantom", POSSESSED_PHANTOM_TYPE::get);
+    public static final RegistryObject<EntityType<WeakPossessedShulkerEntity>> WEAK_POSSESSED_SHULKER =
+            ENTITIES.register("weak_possessed_shulker", WEAK_POSSESSED_SHULKER_TYPE::get);
     public static final RegistryObject<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON =
             ENTITIES.register("wild_hunt_skeleton", WILD_HUNT_SKELETON_TYPE::get);
     public static final RegistryObject<EntityType<WildHuntWitherSkeletonEntity>> WILD_HUNT_WITHER_SKELETON =
