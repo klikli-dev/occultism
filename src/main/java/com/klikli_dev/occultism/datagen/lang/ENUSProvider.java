@@ -224,7 +224,9 @@ public class ENUSProvider extends LanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ENDERMAN, "Possessed Enderman Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_GHAST, "Possessed Ghast Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_PHANTOM, "Possessed Phantom Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_WEAK_POSSESSED_SHULKER, "Weak Possessed Shulker Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WEAK_SHULKER, "Possessed Weak Shulker Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_SHULKER, "Possessed Shulker Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ELDER_GUARDIAN, "Possessed Elder Guardian Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HUNT_SKELETON, "Wild Hunt Skeleton Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HUNT_WITHER_SKELETON, "Wild Hunt Wither Skeleton Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_OTHERWORLD_BIRD, "Drikwing Spawn Egg");
@@ -306,7 +308,9 @@ public class ENUSProvider extends LanguageProvider {
         this.addEntityType(OccultismEntities.POSSESSED_ENDERMAN, "Possessed Enderman");
         this.addEntityType(OccultismEntities.POSSESSED_GHAST, "Possessed Ghast");
         this.addEntityType(OccultismEntities.POSSESSED_PHANTOM, "Possessed Phantom");
-        this.addEntityType(OccultismEntities.WEAK_POSSESSED_SHULKER, "Weak Possessed Shulker");
+        this.addEntityType(OccultismEntities.POSSESSED_WEAK_SHULKER, "Possessed Weak Shulker");
+        this.addEntityType(OccultismEntities.POSSESSED_SHULKER, "Possessed Shulker");
+        this.addEntityType(OccultismEntities.POSSESSED_ELDER_GUARDIAN, "Possessed Elder Guardian");
         this.addEntityType(OccultismEntities.WILD_HUNT_SKELETON, "Wild Hunt Skeleton");
         this.addEntityType(OccultismEntities.WILD_HUNT_WITHER_SKELETON, "Wild Hunt Wither Skeleton");
         this.addEntityType(OccultismEntities.OTHERWORLD_BIRD, "Drikwing");

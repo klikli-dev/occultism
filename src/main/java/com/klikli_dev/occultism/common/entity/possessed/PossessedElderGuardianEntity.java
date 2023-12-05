@@ -25,20 +25,20 @@ package com.klikli_dev.occultism.common.entity.possessed;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.Shulker;
+import net.minecraft.world.entity.monster.ElderGuardian;
 import net.minecraft.world.level.Level;
 
-public class WeakPossessedShulkerEntity extends Shulker {
+public class PossessedElderGuardianEntity extends ElderGuardian {
 
-    public WeakPossessedShulkerEntity(EntityType<? extends Shulker> type,
-                                      Level worldIn) {
+    public PossessedElderGuardianEntity(EntityType<? extends ElderGuardian> type,
+                                        Level worldIn) {
         super(type, worldIn);
     }
 
     //region Static Methods
     public static AttributeSupplier.Builder createAttributes() {
-        return Shulker.createAttributes()
-                .add(Attributes.MAX_HEALTH, 10.0);
+        return ElderGuardian.createAttributes()
+                .add(Attributes.MAX_HEALTH, 160.0);
     }
 
     @Override

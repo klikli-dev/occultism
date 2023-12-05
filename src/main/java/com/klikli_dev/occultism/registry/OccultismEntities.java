@@ -95,12 +95,24 @@ public class OccultismEntities {
                     .sized(0.9F, 0.5F)
                     .clientTrackingRange(16)
                     .build(StaticUtil.modLoc("possessed_phantom").toString()));
-    public static final NonNullLazy<EntityType<WeakPossessedShulkerEntity>> WEAK_POSSESSED_SHULKER_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.of(WeakPossessedShulkerEntity::new, MobCategory.MONSTER)
+    public static final NonNullLazy<EntityType<PossessedWeakShulkerEntity>> POSSESSED_WEAK_SHULKER_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.of(PossessedWeakShulkerEntity::new, MobCategory.MONSTER)
                     .fireImmune()
                     .sized(1F, 1F)
                     .clientTrackingRange(8)
-                    .build(StaticUtil.modLoc("weak_possessed_shulker").toString()));
+                    .build(StaticUtil.modLoc("possessed_weak_shulker").toString()));
+    public static final NonNullLazy<EntityType<PossessedShulkerEntity>> POSSESSED_SHULKER_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.of(PossessedShulkerEntity::new, MobCategory.MONSTER)
+                    .fireImmune()
+                    .sized(1F, 1F)
+                    .clientTrackingRange(8)
+                    .build(StaticUtil.modLoc("possessed_shulker").toString()));
+    public static final NonNullLazy<EntityType<PossessedElderGuardianEntity>> POSSESSED_ELDER_GUARDIAN_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.of(PossessedElderGuardianEntity::new, MobCategory.MONSTER)
+                    .fireImmune()
+                    .sized(2F, 2F)
+                    .clientTrackingRange(24)
+                    .build(StaticUtil.modLoc("possessed_elder_guardian").toString()));
     public static final NonNullLazy<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(WildHuntSkeletonEntity::new, MobCategory.MONSTER)
                     .sized(0.6F, 2.9F)
@@ -234,8 +246,12 @@ public class OccultismEntities {
             ENTITIES.register("possessed_ghast", POSSESSED_GHAST_TYPE::get);
     public static final RegistryObject<EntityType<PossessedPhantomEntity>> POSSESSED_PHANTOM =
             ENTITIES.register("possessed_phantom", POSSESSED_PHANTOM_TYPE::get);
-    public static final RegistryObject<EntityType<WeakPossessedShulkerEntity>> WEAK_POSSESSED_SHULKER =
-            ENTITIES.register("weak_possessed_shulker", WEAK_POSSESSED_SHULKER_TYPE::get);
+    public static final RegistryObject<EntityType<PossessedWeakShulkerEntity>> POSSESSED_WEAK_SHULKER =
+            ENTITIES.register("possessed_weak_shulker", POSSESSED_WEAK_SHULKER_TYPE::get);
+    public static final RegistryObject<EntityType<PossessedShulkerEntity>> POSSESSED_SHULKER =
+            ENTITIES.register("possessed_shulker", POSSESSED_SHULKER_TYPE::get);
+    public static final RegistryObject<EntityType<PossessedElderGuardianEntity>> POSSESSED_ELDER_GUARDIAN =
+            ENTITIES.register("possessed_elder_guardian", POSSESSED_ELDER_GUARDIAN_TYPE::get);
     public static final RegistryObject<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON =
             ENTITIES.register("wild_hunt_skeleton", WILD_HUNT_SKELETON_TYPE::get);
     public static final RegistryObject<EntityType<WildHuntWitherSkeletonEntity>> WILD_HUNT_WITHER_SKELETON =
