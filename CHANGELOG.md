@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.93.0] - 2023-12-07
+### :sparkles: New Features
+- [`b9de397`](https://github.com/klikli-dev/occultism/commit/b9de397cf27711dea73302a850a692ed97b709fc) - Book of Binding: Empty *(PR [#1005](https://github.com/klikli-dev/occultism/pull/1005) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+  - :arrow_lower_right: *addresses issue [#1004](undefined) opened by [@leafreynolds](https://github.com/leafreynolds)*
+
+
 ## [release/v1.20.1-1.92.0] - 2023-11-28
 ### :bug: Bug Fixes
 - [`38155ef`](https://github.com/klikli-dev/occultism/commit/38155ef3c812884e7f1546bf6065910863fc752a) - apostheosis occultism id typo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -693,3 +699,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.90.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.89.1...release/v1.20.1-1.90.0
 [release/v1.20.1-1.91.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.90.0...release/v1.20.1-1.91.0
 [release/v1.20.1-1.92.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.91.0...release/v1.20.1-1.92.0
+[release/v1.20.1-1.93.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.92.0...release/v1.20.1-1.93.0
