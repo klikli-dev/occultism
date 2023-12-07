@@ -1,0 +1,51 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:possession_rituals",
+  "condition": {
+    "type": "modonomicon:true"
+  },
+  "description": "",
+  "hide_while_locked": false,
+  "icon": "minecraft:shulker_shell",
+  "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_shulker.name",
+  "pages": [
+    {
+      "type": "modonomicon:entity",
+      "anchor": "",
+      "default_rotation": -45.0,
+      "entity_id": "occultism:possessed_shulker",
+      "name": "",
+      "offset": 0.0,
+      "rotate": true,
+      "scale": 0.5,
+      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_shulker.entity.text"
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "recipe_id_1": "occultism:ritual/possess_shulker",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_shulker.description.text",
+      "title": "",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:possession_rituals/overview",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 2,
+  "y": 1
+}
