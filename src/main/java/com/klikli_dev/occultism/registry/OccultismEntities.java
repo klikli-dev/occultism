@@ -24,10 +24,7 @@ package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.familiar.*;
-import com.klikli_dev.occultism.common.entity.possessed.PossessedEndermanEntity;
-import com.klikli_dev.occultism.common.entity.possessed.PossessedEndermiteEntity;
-import com.klikli_dev.occultism.common.entity.possessed.PossessedGhastEntity;
-import com.klikli_dev.occultism.common.entity.possessed.PossessedSkeletonEntity;
+import com.klikli_dev.occultism.common.entity.possessed.*;
 import com.klikli_dev.occultism.common.entity.spirit.*;
 import com.klikli_dev.occultism.util.StaticUtil;
 import net.minecraft.world.entity.EntityType;
@@ -92,7 +89,30 @@ public class OccultismEntities {
                     .sized(4.0F, 4.0F)
                     .clientTrackingRange(10)
                     .build(StaticUtil.modLoc("possessed_ghast").toString()));
-
+    public static final NonNullLazy<EntityType<PossessedPhantomEntity>> POSSESSED_PHANTOM_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.of(PossessedPhantomEntity::new, MobCategory.MONSTER)
+                    .fireImmune()
+                    .sized(0.9F, 0.5F)
+                    .clientTrackingRange(16)
+                    .build(StaticUtil.modLoc("possessed_phantom").toString()));
+    public static final NonNullLazy<EntityType<PossessedWeakShulkerEntity>> POSSESSED_WEAK_SHULKER_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.of(PossessedWeakShulkerEntity::new, MobCategory.MONSTER)
+                    .fireImmune()
+                    .sized(1F, 1F)
+                    .clientTrackingRange(8)
+                    .build(StaticUtil.modLoc("possessed_weak_shulker").toString()));
+    public static final NonNullLazy<EntityType<PossessedShulkerEntity>> POSSESSED_SHULKER_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.of(PossessedShulkerEntity::new, MobCategory.MONSTER)
+                    .fireImmune()
+                    .sized(1F, 1F)
+                    .clientTrackingRange(8)
+                    .build(StaticUtil.modLoc("possessed_shulker").toString()));
+    public static final NonNullLazy<EntityType<PossessedElderGuardianEntity>> POSSESSED_ELDER_GUARDIAN_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.of(PossessedElderGuardianEntity::new, MobCategory.MONSTER)
+                    .fireImmune()
+                    .sized(2F, 2F)
+                    .clientTrackingRange(24)
+                    .build(StaticUtil.modLoc("possessed_elder_guardian").toString()));
     public static final NonNullLazy<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(WildHuntSkeletonEntity::new, MobCategory.MONSTER)
                     .sized(0.6F, 2.9F)
@@ -224,6 +244,14 @@ public class OccultismEntities {
             ENTITIES.register("possessed_enderman", POSSESSED_ENDERMAN_TYPE::get);
     public static final RegistryObject<EntityType<PossessedGhastEntity>> POSSESSED_GHAST =
             ENTITIES.register("possessed_ghast", POSSESSED_GHAST_TYPE::get);
+    public static final RegistryObject<EntityType<PossessedPhantomEntity>> POSSESSED_PHANTOM =
+            ENTITIES.register("possessed_phantom", POSSESSED_PHANTOM_TYPE::get);
+    public static final RegistryObject<EntityType<PossessedWeakShulkerEntity>> POSSESSED_WEAK_SHULKER =
+            ENTITIES.register("possessed_weak_shulker", POSSESSED_WEAK_SHULKER_TYPE::get);
+    public static final RegistryObject<EntityType<PossessedShulkerEntity>> POSSESSED_SHULKER =
+            ENTITIES.register("possessed_shulker", POSSESSED_SHULKER_TYPE::get);
+    public static final RegistryObject<EntityType<PossessedElderGuardianEntity>> POSSESSED_ELDER_GUARDIAN =
+            ENTITIES.register("possessed_elder_guardian", POSSESSED_ELDER_GUARDIAN_TYPE::get);
     public static final RegistryObject<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON =
             ENTITIES.register("wild_hunt_skeleton", WILD_HUNT_SKELETON_TYPE::get);
     public static final RegistryObject<EntityType<WildHuntWitherSkeletonEntity>> WILD_HUNT_WITHER_SKELETON =
