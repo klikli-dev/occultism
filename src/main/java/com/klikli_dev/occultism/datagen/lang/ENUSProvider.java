@@ -397,6 +397,9 @@ public class ENUSProvider extends LanguageProvider {
         this.add("ritual.occultism.sacrifice.llamas", "Llama");
         this.add("ritual.occultism.sacrifice.snow_golem", "Snow Golem");
         this.add("ritual.occultism.sacrifice.spiders", "Spider");
+        this.add("ritual.occultism.sacrifice.flying_passive", "Allay, Bat, Bee or Parrot");
+        this.add("ritual.occultism.sacrifice.cubemob", "Slime or Magma Cube");
+        this.add("ritual.occultism.sacrifice.fishs", "Any Fish");
 
         //Network Message
         this.add("network.messages.occultism.request_order.order_received", "Order received!");
@@ -632,6 +635,22 @@ public class ENUSProvider extends LanguageProvider {
         this.add("ritual.occultism.possess_ghast.started", "Started summoning possessed ghast.");
         this.add("ritual.occultism.possess_ghast.finished", "Summoned possessed ghast successfully.");
         this.add("ritual.occultism.possess_ghast.interrupted", "Summoning of possessed ghast interrupted.");
+        this.add("ritual.occultism.possess_phantom.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_phantom.started", "Started summoning possessed phantom.");
+        this.add("ritual.occultism.possess_phantom.finished", "Summoned possessed phantom successfully.");
+        this.add("ritual.occultism.possess_phantom.interrupted", "Summoning of possessed phantom interrupted.");
+        this.add("ritual.occultism.possess_weak_shulker.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_weak_shulker.started", "Started summoning possessed weak_shulker.");
+        this.add("ritual.occultism.possess_weak_shulker.finished", "Summoned possessed weak_shulker successfully.");
+        this.add("ritual.occultism.possess_weak_shulker.interrupted", "Summoning of possessed weak_shulker interrupted.");
+        this.add("ritual.occultism.possess_shulker.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_shulker.started", "Started summoning possessed shulker.");
+        this.add("ritual.occultism.possess_shulker.finished", "Summoned possessed shulker successfully.");
+        this.add("ritual.occultism.possess_shulker.interrupted", "Summoning of possessed shulker interrupted.");
+        this.add("ritual.occultism.possess_elder_guardian.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_elder_guardian.started", "Started summoning possessed elder_guardian.");
+        this.add("ritual.occultism.possess_elder_guardian.finished", "Summoned possessed elder_guardian successfully.");
+        this.add("ritual.occultism.possess_elder_guardian.interrupted", "Summoning of possessed elder_guardian interrupted.");
         this.add("ritual.occultism.familiar_otherworld_bird.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.familiar_otherworld_bird.started", "Started summoning drikwing familiar.");
         this.add("ritual.occultism.familiar_otherworld_bird.finished", "Summoned drikwing familiar successfully.");
@@ -1104,6 +1123,7 @@ public class ENUSProvider extends LanguageProvider {
                 """
                         - [Possessed Endermite](entry://possession_rituals/possess_endermite)
                         - [Possessed Skeleton](entry://possession_rituals/possess_skeleton)
+                        - [Possessed Phantom](entry://possession_rituals/possess_phantom)
                         - [Parrot Familiar](entry://familiar_rituals/familiar_parrot)
                         - [Greedy Familiar](entry://familiar_rituals/familiar_greedy)
                         - [Deer Familiar](entry://familiar_rituals/familiar_deer)
@@ -1132,6 +1152,7 @@ public class ENUSProvider extends LanguageProvider {
                 """
                         - [Possessed Enderman](entry://possession_rituals/possess_enderman)
                         - [Possessed Ghast](entry://possession_rituals/possess_ghast)
+                        - [Possessed Weak Shulker](entry://possession_rituals/possess_weak_shulker)                        
                         - [Drikwing Familiar](entry://familiar_rituals/familiar_otherworld_bird)
                         - [Bat Familiar](entry://familiar_rituals/familiar_bat)
                         - [Cthulhu Familiar](entry://familiar_rituals/familiar_cthulhu)
@@ -1139,13 +1160,13 @@ public class ENUSProvider extends LanguageProvider {
                         - [Dragon Familiar](entry://familiar_rituals/familiar_dragon)
                         - [Headless Ratman Familiar](entry://familiar_rituals/familiar_headless)
                         - [Chimera Familiar](entry://familiar_rituals/familiar_chimera)
-                        - [Beholder Familiar](entry://familiar_rituals/familiar_beholder)
                         """.formatted(COLOR_PURPLE));
 
         helper.page("uses2");
         this.add(helper.pageTitle(), "Uses");
         this.add(helper.pageText(),
                 """
+                        - [Beholder Familiar](entry://familiar_rituals/familiar_beholder)                        
                         - [Fairy Familiar](entry://familiar_rituals/familiar_fairy)
                         """.formatted(COLOR_PURPLE));
 
@@ -1169,6 +1190,8 @@ public class ENUSProvider extends LanguageProvider {
         this.add(helper.pageText(),
                 """
                         - [Guardian Familiar](entry://familiar_rituals/familiar_guardian)
+                        - [Possessed Shulker](entry://possession_rituals/possess_shulker)
+                        - [Possessed Elder Guardian](entry://possession_rituals/possess_elder_guardian)
                         """.formatted(COLOR_PURPLE));
 
         helper.entry("craft_foliot");
@@ -2891,6 +2914,14 @@ public class ENUSProvider extends LanguageProvider {
         this.add("item.occultism.ritual_dummy.possess_skeleton.tooltip", " The possessed Skeleton is immune to daylight and always drop at least one Skeleton Skull when killed.");
         this.add("item.occultism.ritual_dummy.possess_ghast", "Ritual: Summon Possessed Ghast");
         this.add("item.occultism.ritual_dummy.possess_ghast.tooltip", "The possessed Ghast will always drop at least one ghast tear when killed.");
+        this.add("item.occultism.ritual_dummy.possess_phantom", "Ritual: Summon Possessed Phantom");
+        this.add("item.occultism.ritual_dummy.possess_phantom.tooltip", "The possessed Phantom will always drop at least one phantom membrane when killed and is easy to trap.");
+        this.add("item.occultism.ritual_dummy.possess_weak_shulker", "Ritual: Summon Possessed Weak Shulker");
+        this.add("item.occultism.ritual_dummy.possess_weak_shulker.tooltip", "The possessed Weak Shulker will drop at least one chorus fruit when killed and can drop shulker shell.");
+        this.add("item.occultism.ritual_dummy.possess_shulker", "Ritual: Summon Possessed Shulker");
+        this.add("item.occultism.ritual_dummy.possess_shulker.tooltip", "The possessed shulker will always drop at least one shulker shell when killed.");
+        this.add("item.occultism.ritual_dummy.possess_elder_guardian", "Ritual: Summon Possessed Elder Guardian");
+        this.add("item.occultism.ritual_dummy.possess_elder_guardian.tooltip", "The possessed elder guardian will drop at least one nautilus shell when killed, also can drop heart of the sea and the commom drops.");
         this.add("item.occultism.ritual_dummy.summon_afrit_rain_weather", "Ritual: Rainy Weather");
         this.add("item.occultism.ritual_dummy.summon_afrit_rain_weather.tooltip", "Summons an bound Afrit that creates rain.");
         this.add("item.occultism.ritual_dummy.summon_afrit_thunder_weather", "Ritual: Thunderstorm");

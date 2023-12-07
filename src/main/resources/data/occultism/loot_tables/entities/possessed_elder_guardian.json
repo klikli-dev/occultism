@@ -149,15 +149,21 @@
       ]
     },
     {
-      "rolls": {
-        "min": 2,
-        "max": 4
-      },
+      "rolls": 1,
       "bonus_rolls": 0,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:nautilus_shell"
+          "name": "minecraft:nautilus_shell",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 2,
+                "max": 4
+              }
+            }
+          ]
         }
       ]
     },

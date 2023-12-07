@@ -4633,9 +4633,9 @@ public class OccultismBookProvider extends BookProvider {
                 "___________________________",
                 "___________________________",
                 "___________________________",
-                "_______D_E_A_______________",
+                "_______D_E_A_I_L___________",
                 "___r_o_____________________",
-                "_______F_G_H_______________",
+                "_______F_G_H_J_K___________",
                 "___________________________",
                 "___________________________",
                 "___________________________"
@@ -4654,6 +4654,14 @@ public class OccultismBookProvider extends BookProvider {
         possessGhast.withParent(BookEntryParentModel.create(overview.getId()));
         var possessSkeleton = this.makePossessSkeletonEntry(entryMap, 'G');
         possessSkeleton.withParent(BookEntryParentModel.create(overview.getId()));
+        var possessPhantom = this.makePossessPhantomEntry(entryMap, 'I');
+        possessPhantom.withParent(BookEntryParentModel.create(overview.getId()));
+        var possessWeakShulker = this.makePossessWeakShulkerEntry(entryMap, 'J');
+        possessWeakShulker.withParent(BookEntryParentModel.create(overview.getId()));
+        var possessShulker = this.makePossessShulkerEntry(entryMap, 'K');
+        possessShulker.withParent(BookEntryParentModel.create(overview.getId()));
+        var possessElderGuardian = this.makePossessElderGuardianEntry(entryMap, 'L');
+        possessElderGuardian.withParent(BookEntryParentModel.create(overview.getId()));
 
         this.context().category("summoning_rituals"); //re-use the entries from the summoning rituals category
         var possessWitherSkeleton = this.makeWitherSkullEntry(entryMap, 'H');
@@ -4668,6 +4676,10 @@ public class OccultismBookProvider extends BookProvider {
         possessEndermite.withCondition(BookTrueConditionModel.builder().build());
         possessGhast.withCondition(BookTrueConditionModel.builder().build());
         possessSkeleton.withCondition(BookTrueConditionModel.builder().build());
+        possessPhantom.withCondition(BookTrueConditionModel.builder().build());
+        possessWeakShulker.withCondition(BookTrueConditionModel.builder().build());
+        possessShulker.withCondition(BookTrueConditionModel.builder().build());
+        possessElderGuardian.withCondition(BookTrueConditionModel.builder().build());
         possessWitherSkeleton.withCondition(BookTrueConditionModel.builder().build());
         afritEssence.withCondition(BookTrueConditionModel.builder().build());
 
@@ -4681,6 +4693,10 @@ public class OccultismBookProvider extends BookProvider {
                         possessEndermite,
                         possessGhast,
                         possessSkeleton,
+                        possessPhantom,
+                        possessWeakShulker,
+                        possessShulker,
+                        possessElderGuardian,
                         possessWitherSkeleton,
                         afritEssence
                 );
@@ -4823,6 +4839,165 @@ public class OccultismBookProvider extends BookProvider {
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(ForgeRegistries.ITEMS.getKey(Items.SKELETON_SKULL).toString())
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+
+    private BookEntryModel makePossessPhantomEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("possess_phantom");
+        this.lang.add(this.context().entryName(), "Possessed Phantom");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.builder()
+                .withEntityId("occultism:possessed_phantom")
+                .withScale(0.5f)
+                .withText(this.context().pageText())
+                .build();
+        this.lang.add(this.context().pageText(),
+                """
+                        **Drops**: 1-4x [](item://minecraft:phantom_membrane)
+                                """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/possess_phantom"))
+                .build();
+
+        this.context().page("description");
+        var description = BookTextPageModel.builder()
+                .withText(this.context().pageText())
+                .build();
+        this.lang.add(this.context().pageText(),
+                """
+                        In this ritual a [#](%1$s)Phantom[#]() is spawned using the life energy of a [#](%1$s)Flying Passive Mob[#]() and immediately possessed by the summoned [#](%1$s)Foliot[#](). The [#](%1$s)Possessed Phantom[#]() will always drop at least one [](item://minecraft:phantom_membrane) when killed. Using this ritual is easy to trap the phantom and you can has comfy sleep.
+                        """.formatted(COLOR_PURPLE));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(ForgeRegistries.ITEMS.getKey(Items.PHANTOM_MEMBRANE).toString())
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+
+    private BookEntryModel makePossessWeakShulkerEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("possess_weak_shulker");
+        this.lang.add(this.context().entryName(), "Possessed Weak Shulker");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.builder()
+                .withEntityId("occultism:possessed_weak_shulker")
+                .withScale(0.5f)
+                .withText(this.context().pageText())
+                .build();
+        this.lang.add(this.context().pageText(),
+                """
+                        **Drops**: 1-3x [](item://minecraft:chorus_fruit);
+                        and as 10% to drop a [](item://minecraft:shulker_shell);
+                                """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/possess_weak_shulker"))
+                .build();
+
+        this.context().page("description");
+        var description = BookTextPageModel.builder()
+                .withText(this.context().pageText())
+                .build();
+        this.lang.add(this.context().pageText(),
+                """
+                        In this ritual a [#](%1$s)Shulker[#]() is spawned using the life energy of a [#](%1$s)Cube Mob[#]() and immediately possessed by the summoned [#](%1$s)Djinni[#](). The [#](%1$s)Possessed Weak Shulker[#]() will always drop at least one [](item://minecraft:chorus_fruit) when killed and as a chance to drop [](item://minecraft:shulker_shell). You can use vanilla shulker multiplication to get normal shulkers with more chance to drop their shells.
+                        """.formatted(COLOR_PURPLE));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(ForgeRegistries.ITEMS.getKey(Items.CHORUS_FRUIT).toString())
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+
+    private BookEntryModel makePossessShulkerEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("possess_shulker");
+        this.lang.add(this.context().entryName(), "Possessed Shulker");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.builder()
+                .withEntityId("occultism:possessed_shulker")
+                .withScale(0.5f)
+                .withText(this.context().pageText())
+                .build();
+        this.lang.add(this.context().pageText(),
+                """
+                        **Drops**: 1-2x [](item://minecraft:shulker_shell);
+                                """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/possess_shulker"))
+                .build();
+
+        this.context().page("description");
+        var description = BookTextPageModel.builder()
+                .withText(this.context().pageText())
+                .build();
+        this.lang.add(this.context().pageText(),
+                """
+                        In this ritual a [#](%1$s)Shulker[#]() is spawned using the life energy of a [#](%1$s)Cube Mob[#]() and immediately possessed by the summoned [#](%1$s)Afrit[#](). The [#](%1$s)Possessed Shulker[#]() will always drop at least one [](item://minecraft:shulker_shell) when killed. You can use vanilla shulker multiplication to get normal shulkers but their have less chance to drop shells.
+                        """.formatted(COLOR_PURPLE));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(ForgeRegistries.ITEMS.getKey(Items.SHULKER_SHELL).toString())
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+
+    private BookEntryModel makePossessElderGuardianEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("possess_elder_guardian");
+        this.lang.add(this.context().entryName(), "Possessed Elder Guardian");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.builder()
+                .withEntityId("occultism:possessed_elder_guardian")
+                .withScale(0.5f)
+                .withText(this.context().pageText())
+                .build();
+        this.lang.add(this.context().pageText(),
+                """
+                        **Drops**: 2-4x [](item://minecraft:nautilus_shell);
+                        and as 40% to drop a [](item://minecraft:heart_of_the_sea);
+                        Also commom Elder Guardian loot;
+                                """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/possess_elder_guardian"))
+                .build();
+
+        this.context().page("description");
+        var description = BookTextPageModel.builder()
+                .withText(this.context().pageText())
+                .build();
+        this.lang.add(this.context().pageText(),
+                """
+                        In this ritual a [#](%1$s)Elder Guardian[#]() is spawned using the life energy of a [#](%1$s)Fish[#]() and immediately possessed by the summoned [#](%1$s)Afrit[#](). The [#](%1$s)Possessed Elder Guardian[#]() will always drop at least one [](item://minecraft:nautilus_shell), having a chance to drop [](item://minecraft:heart_of_the_sea) and a lot of things that normal Elder Guardian drops.
+                        """.formatted(COLOR_PURPLE));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(ForgeRegistries.ITEMS.getKey(Items.HEART_OF_THE_SEA).toString())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         entity,
