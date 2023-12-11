@@ -364,13 +364,11 @@ public class OccultismBookProvider extends BookProvider {
         helper.page("otherworld_ashes_recipe");
         var otherworldAshesRecipe = BookSpiritFireRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("spirit_fire/otherworld_ashes"))
-                .withText(helper.pageText())
                 .build();
 
         helper.page("gem_recipe");
         var gemRecipe = BookSpiritFireRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("spirit_fire/spirit_attuned_gem"))
-                .withText(helper.pageText())
                 .build();
 
         return BookEntryModel.builder()
