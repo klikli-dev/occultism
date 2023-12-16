@@ -44,6 +44,8 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.ShapelessRecipe;
 
 import java.util.List;
 import java.util.Optional;
@@ -130,7 +132,7 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
         //  disabled this -> not a good idea for custom recipes that fit in 3x3 such as botania
         //  not needed either -> the 3x3 check handles anything that is invalid and still registers as crafting.
 //        if (!(recipe instanceof ShapedRecipe) && !(recipe instanceof ShapelessRecipe)) {
-//            return this.handlerHelper.createUserErrorWithTooltip(I18n.get("jei." + Occultism.MODID + "error.invalid_type"));
+//            return this.handlerHelper.createUserErrorWithTooltip(Component.translatable("jei." + Occultism.MODID + "error.invalid_type"));
 //        }
 
         //if recipe is in recipe manager send by id, otherwise fallback to ingredient list

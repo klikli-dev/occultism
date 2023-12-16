@@ -38,6 +38,7 @@ import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import mezz.jei.api.IModPlugin;
+import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.helpers.IStackHelper;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
@@ -113,12 +114,10 @@ public class JeiPlugin implements IModPlugin {
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
         IStackHelper stackHelper = registration.getJeiHelpers().getStackHelper();
         IRecipeTransferHandlerHelper handlerHelper = registration.getTransferHelper();
-        registration.addUniversalRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
-                StorageControllerContainer.class, handlerHelper));
-        registration.addUniversalRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
-                StorageRemoteContainer.class, handlerHelper));
-        registration.addUniversalRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(
-                StableWormholeContainer.class, handlerHelper));
+
+        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>( StorageControllerContainer.class, handlerHelper), RecipeTypes.CRAFTING);
+        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>( StorageRemoteContainer.class, handlerHelper), RecipeTypes.CRAFTING);
+        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>( StableWormholeContainer.class, handlerHelper), RecipeTypes.CRAFTING);
     }
 
     @Override
