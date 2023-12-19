@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.95.1] - 2023-12-19
+### :bug: Bug Fixes
+- [`0685703`](https://github.com/klikli-dev/occultism/commit/0685703d354bc3ea22e016a66e86fc074bdc8fb5) - campfire tags *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.95.0] - 2023-12-17
 ### :sparkles: New Features
 - [`b348472`](https://github.com/klikli-dev/occultism/commit/b348472b564e749965fc9ae15a927e6702c708ce) - add more tags to spirit campfire *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -718,3 +723,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.94.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.93.0...release/v1.20.1-1.94.0
 [release/v1.20.1-1.94.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.94.0...release/v1.20.1-1.94.1
 [release/v1.20.1-1.95.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.94.1...release/v1.20.1-1.95.0
+[release/v1.20.1-1.95.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.95.0...release/v1.20.1-1.95.1
