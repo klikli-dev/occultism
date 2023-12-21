@@ -46,17 +46,17 @@ public class BiomeModifiers {
                 GenerationStep.Decoration.UNDERGROUND_ORES));
 
         context.register(ADD_TREE_OTHERWORLD_NATURAL, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
+                biomes.getOrThrow(BiomeTags.STRONGHOLD_BIASED_TO),
                 HolderSet.direct(placedFeatures.getOrThrow(PlacedFeatures.TREE_OTHERWORLD_NATURAL)),
                 GenerationStep.Decoration.VEGETAL_DECORATION));
 
         context.register(ADD_TREE_OTHERWORLD, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
+                biomes.getOrThrow(BiomeTags.STRONGHOLD_BIASED_TO),
                 HolderSet.direct(placedFeatures.getOrThrow(PlacedFeatures.TREE_OTHERWORLD)),
                 GenerationStep.Decoration.VEGETAL_DECORATION));
 
         context.register(ADD_GROVE_UNDERGROUND, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
+                biomes.getOrThrow(BiomeTags.STRONGHOLD_BIASED_TO),
                 HolderSet.direct(placedFeatures.getOrThrow(PlacedFeatures.GROVE_UNDERGROUND)),
                 GenerationStep.Decoration.UNDERGROUND_STRUCTURES));
     }
