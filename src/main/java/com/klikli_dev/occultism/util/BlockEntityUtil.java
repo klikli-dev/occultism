@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.util;
 
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -172,9 +173,14 @@ public class BlockEntityUtil {
     public static ItemStack getItemWithNbt(Block block, BlockGetter level, BlockPos pos) {
         ItemStack itemStack = new ItemStack(block);
         BlockEntity blockEntity = level.getBlockEntity(pos);
-        CompoundTag CompoundTag = blockEntity.serializeNBT();
-        if (!CompoundTag.isEmpty()) {
-            itemStack.addTagElement("BlockEntityTag", CompoundTag);
+
+        if(blockEntity != null) {
+            CompoundTag CompoundTag = blockEntity.serializeNBT();
+            if (!CompoundTag.isEmpty()) {
+                itemStack.addTagElement("BlockEntityTag", CompoundTag);
+            }
+        } else {
+            Occultism.LOGGER.warn("BlockEntity is null for block {} at pos {}, cannot get ItemStack with NBT", block, pos);
         }
 
         return itemStack;
