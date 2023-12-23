@@ -40,17 +40,18 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Iterator;
 import java.util.function.Supplier;
 
-public class RitualRecipe extends ShapelessRecipe {
+public class RitualRecipe implements Recipe<Container> {
     public static Serializer SERIALIZER = new Serializer();
 
     private final ResourceLocation pentacleId;
@@ -70,10 +71,17 @@ public class RitualRecipe extends ShapelessRecipe {
     private final String entityToSacrificeDisplayName;
     private final String command;
 
-    public RitualRecipe(ResourceLocation id, String group, ResourceLocation pentacleId, ResourceLocation ritualType, ItemStack ritualDummy,
-                        ItemStack result, EntityType<?> entityToSummon, CompoundTag entityNbt, Ingredient activationItem, NonNullList<Ingredient> input, int duration, int spiritMaxAge, ResourceLocation spiritJobType,
+    private final ResourceLocation id;
+
+    final ItemStack result;
+    final NonNullList<Ingredient> ingredients;
+
+    public RitualRecipe(ResourceLocation id, ResourceLocation pentacleId, ResourceLocation ritualType, ItemStack ritualDummy,
+                        ItemStack result, EntityType<?> entityToSummon, CompoundTag entityNbt, Ingredient activationItem, NonNullList<Ingredient> ingredients, int duration, int spiritMaxAge, ResourceLocation spiritJobType,
                         TagKey<EntityType<?>> entityToSacrifice, String entityToSacrificeDisplayName, Ingredient itemToUse, String command) {
-        super(id, group, CraftingBookCategory.MISC, result, input);
+        this.id = id;
+        this.result = result;
+        this.ingredients = ingredients;
         this.entityToSummon = entityToSummon;
         this.entityNbt = entityNbt;
         this.pentacleId = pentacleId;
@@ -134,14 +142,34 @@ public class RitualRecipe extends ShapelessRecipe {
     }
 
     @Override
-    public boolean matches(CraftingContainer pInv, Level pLevel) {
+    public boolean matches(Container pInv, Level pLevel) {
         return false;
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer pInv, RegistryAccess access) {
+    public ItemStack assemble(Container pInv, RegistryAccess access) {
         //as we don't have an inventory this is ignored.
         return null;
+    }
+
+    @Override
+    public ResourceLocation getId() {
+        return this.id;
+    }
+
+    @Override
+    public boolean canCraftInDimensions(int i, int i1) {
+        return true;
+    }
+
+    @Override
+    public ItemStack getResultItem(RegistryAccess registryAccess) {
+        return this.result;
+    }
+
+    @Override
+    public NonNullList<Ingredient> getIngredients() {
+        return this.ingredients;
     }
 
     /**
@@ -219,9 +247,6 @@ public class RitualRecipe extends ShapelessRecipe {
 
         @Override
         public RitualRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-
-            //do not use shapeless serializer here, because it limits max ingredients
-            String group = GsonHelper.getAsString(json, "group", "");
             NonNullList<Ingredient> ingredients = itemsFromJson(GsonHelper.getAsJsonArray(json, "ingredients"));
             if (ingredients.isEmpty()) {
                 throw new JsonParseException("No ingredients for shapeless recipe");
@@ -277,14 +302,21 @@ public class RitualRecipe extends ShapelessRecipe {
 
             var command = GsonHelper.getAsString(json, "command", null);
 
-            return new RitualRecipe(recipeId, group, pentacleId, ritualType, ritualDummy,
+            return new RitualRecipe(recipeId, pentacleId, ritualType, ritualDummy,
                     result, entityToSummon, entityNbt, activationItem, ingredients, duration,
                     spiritMaxAge, spiritJobType, entityToSacrifice, entityToSacrificeDisplayName, itemToUse, command);
         }
 
         @Override
         public RitualRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            ShapelessRecipe recipe = serializer.fromNetwork(recipeId, buffer);
+            int ingredientCount = buffer.readVarInt();
+            NonNullList<Ingredient> ingredients = NonNullList.withSize(ingredientCount, Ingredient.EMPTY);
+
+            for(int j = 0; j < ingredients.size(); ++j) {
+                ingredients.set(j, Ingredient.fromNetwork(buffer));
+            }
+
+            ItemStack result = buffer.readItem();
 
             ResourceLocation ritualType = buffer.readResourceLocation();
 
@@ -325,14 +357,19 @@ public class RitualRecipe extends ShapelessRecipe {
 
             String command = buffer.readBoolean() ? buffer.readUtf() : null;
 
-            //we can pass null here because shapeless recipe does not use the registryacess
-            return new RitualRecipe(recipe.getId(), recipe.getGroup(), pentacleId, ritualType, ritualDummy, recipe.getResultItem(null), entityToSummon, entityNbt,
-                    activationItem, recipe.getIngredients(), duration, spiritMaxAge, spiritJobType, entityToSacrifice, entityToSacrificeDisplayName, itemToUse, command);
+            return new RitualRecipe(recipeId, pentacleId, ritualType, ritualDummy, result, entityToSummon, entityNbt,
+                    activationItem, ingredients, duration, spiritMaxAge, spiritJobType, entityToSacrifice, entityToSacrificeDisplayName, itemToUse, command);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buffer, RitualRecipe recipe) {
-            serializer.toNetwork(buffer, recipe);
+            buffer.writeVarInt(recipe.ingredients.size());
+
+            for(var ingredient : recipe.ingredients) {
+                ingredient.toNetwork(buffer);
+            }
+
+            buffer.writeItem(recipe.result);
 
             buffer.writeResourceLocation(recipe.ritualType);
 
