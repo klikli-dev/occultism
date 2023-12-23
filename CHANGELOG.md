@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.96.0] - 2023-12-23
+### :sparkles: New Features
+- [`058807d`](https://github.com/klikli-dev/occultism/commit/058807df2a97855c9d6817769c5be84b39a3db4b) - make ritual recipe indenpendent of shapeless recipe *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.95.2] - 2023-12-21
 ### :bug: Bug Fixes
 - [`9a2ef81`](https://github.com/klikli-dev/occultism/commit/9a2ef819ffb7842c5bba04f5c41f9a3c78b723df) - No more groves underwater *(PR [#1016](https://github.com/klikli-dev/occultism/pull/1016) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
@@ -731,3 +736,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.95.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.94.1...release/v1.20.1-1.95.0
 [release/v1.20.1-1.95.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.95.0...release/v1.20.1-1.95.1
 [release/v1.20.1-1.95.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.95.1...release/v1.20.1-1.95.2
+[release/v1.20.1-1.96.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.95.2...release/v1.20.1-1.96.0
