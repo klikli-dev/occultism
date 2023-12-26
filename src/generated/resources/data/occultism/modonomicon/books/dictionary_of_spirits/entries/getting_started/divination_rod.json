@@ -104,6 +104,14 @@
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.troubleshooting.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.troubleshooting.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.otherworld_groves.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.otherworld_groves.title",
       "use_markdown_in_title": false

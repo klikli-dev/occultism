@@ -98,7 +98,7 @@ public class OccultismBookProvider extends BookProvider {
 
         var entryMap = ModonomiconAPI.get().getEntryMap();
         entryMap.setMap(
-                "__________t___B___________P___D___",
+                "______ŕ___t___B___________P___D___",
                 "__________________________________",
                 "______i___r___ç_b_____g_I_O_l_M___",
                 "__________________________________",
@@ -662,6 +662,20 @@ public class OccultismBookProvider extends BookProvider {
                         The more purple you see, the closer you are.
                         """);
 
+        this.context().page("troubleshooting");
+        var troubleshooting = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+        this.lang().add(this.context().pageTitle(), "Troubleshooting");
+        this.lang().add(this.context().pageText(),
+                """
+                        If the rod does not create highlighted blocks for you, you can try to:
+                        - install theurgy, then a particle effect will be used instead
+                        - Open occultism-client.toml in your instance's /config folder and set useAlternativeDivinationRodRenderer = true
+                        """);
+
+
         this.context().page("otherworld_groves");
         var otherworldGroves = BookTextPageModel.builder()
                 .withTitle(this.context().pageTitle())
@@ -724,11 +738,13 @@ public class OccultismBookProvider extends BookProvider {
                         howToUse2,
                         howToUse3,
                         divinationRodScreenshots,
+                        troubleshooting,
                         otherworldGroves,
                         otherworldGroves2,
                         otherworldTrees,
                         otherworldTrees2);
     }
+
 
     private BookEntryModel makeTheurgyDivinationRodsEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("theurgy_divination_rod");

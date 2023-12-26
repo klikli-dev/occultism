@@ -308,6 +308,8 @@
   "book.occultism.dictionary_of_spirits.getting_started.divination_rod.otherworld_trees.text": "Otherworld trees grow naturally in Otherworld Groves. To the naked eye they appear as oak trees,\nbut to the Third Eye they reveal their true nature.    \n**Important:** Otherworld Saplings can only be obtained by breaking the leaves manually, naturally only oak saplings drop.\n",
   "book.occultism.dictionary_of_spirits.getting_started.divination_rod.otherworld_trees.title": "Otherworld Trees",
   "book.occultism.dictionary_of_spirits.getting_started.divination_rod.otherworld_trees_2.text": "Trees grown from Stable Otherworld Saplings as obtained from spirit traders do not have that limitation.\n",
+  "book.occultism.dictionary_of_spirits.getting_started.divination_rod.troubleshooting.text": "If the rod does not create highlighted blocks for you, you can try to:\n- install theurgy, then a particle effect will be used instead\n- Open occultism-client.toml in your instance's /config folder and set useAlternativeDivinationRodRenderer = true\n",
+  "book.occultism.dictionary_of_spirits.getting_started.divination_rod.troubleshooting.title": "Troubleshooting",
   "book.occultism.dictionary_of_spirits.getting_started.familiar_rituals.description": "Personal helpers that provide buffs or fight for you",
   "book.occultism.dictionary_of_spirits.getting_started.familiar_rituals.intro.text": "Familiars provide a variety of bonus effects, such as feather falling, water breathing, jump boosts and more, and may also assist you in combat.\n\\\n\\\nStore them in a [Familiar Ring](entry://crafting_rituals/craft_familiar_ring) to equip them as a curio.\n",
   "book.occultism.dictionary_of_spirits.getting_started.familiar_rituals.intro.title": "Familiar Rituals",
