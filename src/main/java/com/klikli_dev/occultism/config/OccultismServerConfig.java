@@ -58,7 +58,8 @@ public class OccultismServerConfig {
         public ItemSettings(ForgeConfigSpec.Builder builder) {
             builder.comment("Item Settings").push("items");
 
-            List<String> defaultSoulgemEntityDenyList = List.of();
+            //Note: Do not use List.of() leads to config correcting itself every time it is loaded, despite already being default value.
+            List<String> defaultSoulgemEntityDenyList = new ArrayList<>();
             this.soulgemEntityTypeDenyList =
                     builder.comment("[DEPRECATED: Use entity_types tag occultis:soul_gem_deny_list. It is still working but may be removed in the future] Entity types that cannot be captured in a soul gem. Specify by their full id, e.g \"minecraft:zombie\"")
                             .define("soulgemEntityDenyList", defaultSoulgemEntityDenyList);
