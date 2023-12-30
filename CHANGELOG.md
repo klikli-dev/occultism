@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.98.0] - 2023-12-30
+### :sparkles: New Features
+- [`9518818`](https://github.com/klikli-dev/occultism/commit/9518818a10c00ba60fb105dd2a7313fbbd1fe492) - cache storage actuator search results for better performance *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.97.0] - 2023-12-26
 ### :sparkles: New Features
 - [`97f438c`](https://github.com/klikli-dev/occultism/commit/97f438cd89d369000125975dadd03e72d3932851) - add divination troubleshooting page *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -743,3 +748,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.95.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.95.1...release/v1.20.1-1.95.2
 [release/v1.20.1-1.96.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.95.2...release/v1.20.1-1.96.0
 [release/v1.20.1-1.97.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.96.0...release/v1.20.1-1.97.0
+[release/v1.20.1-1.98.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.97.0...release/v1.20.1-1.98.0
