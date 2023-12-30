@@ -102,6 +102,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected boolean forceFocus;
     protected long lastClick;
 
+    private List<ItemStack> cachedStacksToDisplay;
+    private String cachedSearchString;
+
     public StorageControllerGuiBase(T container, Inventory playerInventory, Component name) {
         super(container, playerInventory, name);
         this.storageControllerContainer = container;
@@ -725,11 +728,18 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         String searchText = this.searchBar.getValue();
 
         if (!searchText.equals("")) {
+            if (this.cachedStacksToDisplay != null && this.cachedSearchString != null && this.cachedSearchString.equals(searchText))
+                return this.cachedStacksToDisplay;
+
             List<ItemStack> stacksToDisplay = new ArrayList<>();
             for (ItemStack stack : this.stacks) {
                 if (this.itemMatchesSearch(stack))
                     stacksToDisplay.add(stack);
             }
+
+            this.cachedStacksToDisplay = stacksToDisplay;
+            this.cachedSearchString = searchText;
+
             return stacksToDisplay;
         }
         return new ArrayList<>(this.stacks);
