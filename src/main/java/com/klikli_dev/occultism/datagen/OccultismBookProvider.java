@@ -3516,7 +3516,7 @@ public class OccultismBookProvider extends BookProvider {
         this.lang.add(this.context().pageTitle(), "Prerequisites");
         this.lang.add(this.context().pageText(),
                 """
-                        Summoning the lumberjack requires a [Stable Otherworld Sapling](item://occultism:otherworld_sapling). You can obtain it by summoning an [Otherworld Sapling Trader][Books of Calling](entry://summoning_rituals/summon_otherworld_sapling_trader). 
+                        Summoning the lumberjack requires a [Stable Otherworld Sapling](item://occultism:otherworld_sapling). You can obtain it by summoning an [Otherworld Sapling Trader](entry://summoning_rituals/summon_otherworld_sapling_trader). 
                           """
         );
 
@@ -3835,7 +3835,11 @@ public class OccultismBookProvider extends BookProvider {
         this.context().page("trade");
         var trade = BookSpiritTradeRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("spirit_trade/otherworld_sapling"))
+                .withText(this.context().pageText())
                 .build();
+        this.lang().add(this.context.pageText(), """
+                To trade, drop an your offered item next to the trader, he will pick it up and drop the exchanged item.
+                """);
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.builder()

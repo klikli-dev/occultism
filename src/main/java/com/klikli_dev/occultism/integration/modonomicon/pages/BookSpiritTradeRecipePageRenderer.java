@@ -42,11 +42,11 @@ public abstract class BookSpiritTradeRecipePageRenderer<T extends Recipe<?>> ext
 
         RenderSystem.enableBlend();
         guiGraphics.blit(this.page.getBook().getCraftingTexture(), recipeX, recipeY, 11, 71, 24, 24, 128, 256); //first box
-        guiGraphics.blit(this.page.getBook().getCraftingTexture(), recipeX + 22, recipeY + 7, 0, 246, 18, 10, 128, 256); //"throw arrow"
+        guiGraphics.blit(this.page.getBook().getCraftingTexture(), recipeX + 36, recipeY + 7, 0, 246, 18, 10, 128, 256); //"throw arrow"
         guiGraphics.blit(this.page.getBook().getCraftingTexture(), recipeX + 61, recipeY, 72, 71, 36, 24, 128, 256); //straight arrow and second box
 
         this.parentScreen.renderIngredient(guiGraphics, recipeX + 4, recipeY + 4, mouseX, mouseY, recipe.getIngredients().get(0));
-        this.parentScreen.renderItemStack(guiGraphics, recipeX + 40, recipeY + 4, mouseX, mouseY, recipe.getToastSymbol());
+//        this.parentScreen.renderItemStack(guiGraphics, recipeX + 40, recipeY + 4, mouseX, mouseY, recipe.getToastSymbol());
         this.parentScreen.renderItemStack(guiGraphics, recipeX + 76, recipeY + 4, mouseX, mouseY, recipe.getResultItem(this.parentScreen.getMinecraft().level.registryAccess()));
     }
 }
