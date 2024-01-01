@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.99.0] - 2024-01-01
+### :sparkles: New Features
+- [`088acec`](https://github.com/klikli-dev/occultism/commit/088acecd300e37c3af45d3075bda838672e2dc1a) - make lumberjack use (only) stable otherworld sapling to avoid confusions with recipe *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`e03f145`](https://github.com/klikli-dev/occultism/commit/e03f1459853eff1ba133b48c5a31d6f167bdd807) - improve spirit trade documentation *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.98.0] - 2023-12-30
 ### :sparkles: New Features
 - [`9518818`](https://github.com/klikli-dev/occultism/commit/9518818a10c00ba60fb105dd2a7313fbbd1fe492) - cache storage actuator search results for better performance *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -749,3 +755,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.96.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.95.2...release/v1.20.1-1.96.0
 [release/v1.20.1-1.97.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.96.0...release/v1.20.1-1.97.0
 [release/v1.20.1-1.98.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.97.0...release/v1.20.1-1.98.0
+[release/v1.20.1-1.99.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.98.0...release/v1.20.1-1.99.0
