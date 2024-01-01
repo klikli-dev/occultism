@@ -14,7 +14,7 @@
   },
   "ingredients": [
     {
-      "tag": "occultism:saplings/otherworld"
+      "item": "occultism:otherworld_sapling"
     },
     {
       "item": "minecraft:oak_sapling"

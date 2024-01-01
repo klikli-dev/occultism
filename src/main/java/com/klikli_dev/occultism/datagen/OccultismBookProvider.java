@@ -3508,6 +3508,19 @@ public class OccultismBookProvider extends BookProvider {
                         The lumberjack will harvest trees in it's working area. If a deposit location is set it will collect the dropped items into the specified chest, and re-plant saplings.
                           """);
 
+        this.context().page("prerequisites");
+        var prerequisites = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+        this.lang.add(this.context().pageTitle(), "Prerequisites");
+        this.lang.add(this.context().pageText(),
+                """
+                        Summoning the lumberjack requires a [Stable Otherworld Sapling](item://occultism:otherworld_sapling). You can obtain it by summoning an [Otherworld Sapling Trader][Books of Calling](entry://summoning_rituals/summon_otherworld_sapling_trader). 
+                          """
+        );
+
+
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.builder()
                 .withRecipeId1(this.modLoc("ritual/summon_foliot_lumberjack"))
@@ -3559,6 +3572,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,
+                        prerequisites,
                         ritual,
                         bookOfCalling,
                         usage,
