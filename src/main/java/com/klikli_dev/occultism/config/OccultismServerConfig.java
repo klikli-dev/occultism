@@ -255,6 +255,7 @@ public class OccultismServerConfig {
         public final ConfigValue<Integer> controllerBaseSlots;
         public final ConfigValue<Integer> controllerStackSize;
         public final BooleanValue overrideItemStackSizes;
+        public final BooleanValue unlinkWormholeOnBreak;
 
         public StorageSettings(ForgeConfigSpec.Builder builder) {
             builder.comment("Storage Settings").push("storage");
@@ -282,6 +283,12 @@ public class OccultismServerConfig {
                                             "item type (such as 16 for ender pearls, 64 for iron ingot). WARNING: Setting this to " +
                                             "false may have a negative impact on performance.")
                             .define("overrideItemStackSizes", true);
+            this.unlinkWormholeOnBreak =
+                    builder.comment(
+                                    "True to use the configured controllerStackSize for all items, instead of the stack sizes provided by " +
+                                            "item type (such as 16 for ender pearls, 64 for iron ingot). WARNING: Setting this to " +
+                                            "false may have a negative impact on performance.")
+                            .define("unlinkWormholeOnBreak", false);
             builder.pop();
         }
     }

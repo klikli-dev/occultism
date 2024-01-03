@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.block.storage;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.blockentity.StableWormholeBlockEntity;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
 import com.klikli_dev.occultism.registry.OccultismTiles;
@@ -210,6 +211,14 @@ public class StableWormholeBlock extends Block implements EntityBlock {
     @Override
     @SuppressWarnings("deprecation")
     public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+        if(Occultism.SERVER_CONFIG.storage.unlinkWormholeOnBreak.get()){
+            BlockEntity blockEntity = worldIn.getBlockEntity(pos);
+            if (blockEntity instanceof StableWormholeBlockEntity wormhole) {
+                if (wormhole.getLinkedStorageController() != null) {
+                    wormhole.setLinkedStorageControllerPosition(null);
+                }
+            }
+        }
         BlockEntityUtil.onBlockChangeDropWithNbt(this, state, worldIn, pos, newState);
         super.onRemove(state, worldIn, pos, newState, isMoving);
     }
