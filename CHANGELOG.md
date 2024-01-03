@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.100.0] - 2024-01-03
+### :sparkles: New Features
+- [`895851d`](https://github.com/klikli-dev/occultism/commit/895851d307c370476d79fc345a8e5859974be8a9) - Add config option to unlink wormhole when destroyed *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.99.0] - 2024-01-01
 ### :sparkles: New Features
 - [`088acec`](https://github.com/klikli-dev/occultism/commit/088acecd300e37c3af45d3075bda838672e2dc1a) - make lumberjack use (only) stable otherworld sapling to avoid confusions with recipe *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -756,3 +761,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.97.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.96.0...release/v1.20.1-1.97.0
 [release/v1.20.1-1.98.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.97.0...release/v1.20.1-1.98.0
 [release/v1.20.1-1.99.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.98.0...release/v1.20.1-1.99.0
+[release/v1.20.1-1.100.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.99.0...release/v1.20.1-1.100.0
