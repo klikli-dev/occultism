@@ -23,7 +23,9 @@
 package com.klikli_dev.occultism.datagen.lang;
 
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
+import com.klikli_dev.modonomicon.api.datagen.AbstractModonomiconLanguageProvider;
 import com.klikli_dev.modonomicon.api.datagen.BookContextHelper;
+import com.klikli_dev.modonomicon.api.datagen.ModonomiconLanguageProvider;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
@@ -39,7 +41,7 @@ import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.data.LanguageProvider;
 
-public class ENUSProvider extends LanguageProvider {
+public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
     public static final String COLOR_PURPLE = "ad03fc";
     public static final String DEMONS_DREAM = "Demon's Dream";
