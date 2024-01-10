@@ -7,7 +7,9 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:storage_stabilizer_tier4",
+  "icon": {
+    "item": "occultism:storage_stabilizer_tier4"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_stabilizer_tier4.name",
   "pages": [
     {

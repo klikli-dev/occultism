@@ -4,7 +4,9 @@
   "category": "occultism:getting_started",
   "description": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_chalk.description",
   "hide_while_locked": false,
-  "icon": "occultism:chalk_white",
+  "icon": {
+    "item": "occultism:chalk_white"
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_chalk.name",
   "pages": [
     {

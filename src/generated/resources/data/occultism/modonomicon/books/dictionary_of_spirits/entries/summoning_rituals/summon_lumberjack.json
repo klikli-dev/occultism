@@ -7,7 +7,9 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "minecraft:iron_axe",
+  "icon": {
+    "item": "minecraft:iron_axe"
+  },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.name",
   "pages": [
     {

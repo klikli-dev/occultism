@@ -7,7 +7,9 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:afrit_essence",
+  "icon": {
+    "item": "occultism:afrit_essence"
+  },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.afrit_essence.name",
   "pages": [
     {

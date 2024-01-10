@@ -7,7 +7,11 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:textures/gui/book/otherworld_bird.png",
+  "icon": {
+    "height": 16,
+    "texture": "occultism:textures/gui/book/otherworld_bird.png",
+    "width": 16
+  },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_wild_otherworld_bird.name",
   "pages": [
     {

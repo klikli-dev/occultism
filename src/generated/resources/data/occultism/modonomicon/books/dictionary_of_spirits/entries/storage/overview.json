@@ -4,7 +4,9 @@
   "category": "occultism:storage",
   "description": "",
   "hide_while_locked": false,
-  "icon": "minecraft:chest",
+  "icon": {
+    "item": "minecraft:chest"
+  },
   "name": "book.occultism.dictionary_of_spirits.storage.overview.name",
   "pages": [
     {

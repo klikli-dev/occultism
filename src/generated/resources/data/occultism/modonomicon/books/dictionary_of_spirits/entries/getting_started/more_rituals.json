@@ -5,7 +5,11 @@
   "category_to_open": "occultism:rituals",
   "description": "book.occultism.dictionary_of_spirits.getting_started.more_rituals.description",
   "hide_while_locked": false,
-  "icon": "occultism:textures/gui/book/robe.png",
+  "icon": {
+    "height": 16,
+    "texture": "occultism:textures/gui/book/robe.png",
+    "width": 16
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.more_rituals.name",
   "parents": [
     {

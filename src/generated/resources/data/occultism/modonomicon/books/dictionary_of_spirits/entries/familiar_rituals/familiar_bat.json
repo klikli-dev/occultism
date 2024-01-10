@@ -7,7 +7,11 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:textures/gui/book/bat_familiar.png",
+  "icon": {
+    "height": 16,
+    "texture": "occultism:textures/gui/book/bat_familiar.png",
+    "width": 16
+  },
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_bat.name",
   "pages": [
     {

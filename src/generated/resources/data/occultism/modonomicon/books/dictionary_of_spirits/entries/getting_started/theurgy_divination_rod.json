@@ -17,7 +17,9 @@
   },
   "description": "book.occultism.dictionary_of_spirits.getting_started.theurgy_divination_rod.description",
   "hide_while_locked": true,
-  "icon": "theurgy:divination_rod_t1",
+  "icon": {
+    "item": "theurgy:divination_rod_t1"
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.theurgy_divination_rod.name",
   "pages": [
     {

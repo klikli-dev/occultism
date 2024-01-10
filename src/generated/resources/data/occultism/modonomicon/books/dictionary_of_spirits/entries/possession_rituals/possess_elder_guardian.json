@@ -7,7 +7,9 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "minecraft:heart_of_the_sea",
+  "icon": {
+    "item": "minecraft:heart_of_the_sea"
+  },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_elder_guardian.name",
   "pages": [
     {

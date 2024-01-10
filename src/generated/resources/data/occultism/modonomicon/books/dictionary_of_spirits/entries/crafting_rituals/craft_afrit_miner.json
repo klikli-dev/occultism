@@ -7,7 +7,9 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:miner_afrit_deeps",
+  "icon": {
+    "item": "occultism:miner_afrit_deeps"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_afrit_miner.name",
   "pages": [
     {

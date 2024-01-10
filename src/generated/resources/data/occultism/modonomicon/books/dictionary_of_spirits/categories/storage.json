@@ -8,7 +8,9 @@
     "entry_id": "occultism:getting_started/intro"
   },
   "entry_textures": "modonomicon:textures/gui/entry_textures.png",
-  "icon": "minecraft:chest",
+  "icon": {
+    "item": "minecraft:chest"
+  },
   "name": "book.occultism.dictionary_of_spirits.storage.name",
   "show_category_button": true,
   "sort_number": 3

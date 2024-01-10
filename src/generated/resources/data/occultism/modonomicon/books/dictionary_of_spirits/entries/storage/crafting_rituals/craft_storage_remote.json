@@ -4,7 +4,9 @@
   "category": "occultism:storage",
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:storage_remote",
+  "icon": {
+    "item": "occultism:storage_remote"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_storage_remote.name",
   "pages": [
     {

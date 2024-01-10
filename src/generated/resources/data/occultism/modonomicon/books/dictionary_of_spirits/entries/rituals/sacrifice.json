@@ -7,7 +7,9 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "minecraft:iron_sword",
+  "icon": {
+    "item": "minecraft:iron_sword"
+  },
   "name": "book.occultism.dictionary_of_spirits.rituals.sacrifice.name",
   "pages": [
     {

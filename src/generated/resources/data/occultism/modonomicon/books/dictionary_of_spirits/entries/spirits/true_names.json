@@ -4,7 +4,9 @@
   "category": "occultism:spirits",
   "description": "book.occultism.dictionary_of_spirits.spirits.true_names.description",
   "hide_while_locked": false,
-  "icon": "minecraft:writable_book",
+  "icon": {
+    "item": "minecraft:writable_book"
+  },
   "name": "book.occultism.dictionary_of_spirits.spirits.true_names.name",
   "pages": [
     {

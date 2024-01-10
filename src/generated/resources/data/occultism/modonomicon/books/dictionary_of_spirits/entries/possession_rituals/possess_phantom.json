@@ -7,7 +7,9 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "minecraft:phantom_membrane",
+  "icon": {
+    "item": "minecraft:phantom_membrane"
+  },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_phantom.name",
   "pages": [
     {

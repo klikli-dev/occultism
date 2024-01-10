@@ -7,7 +7,9 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:dimensional_matrix",
+  "icon": {
+    "item": "occultism:dimensional_matrix"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_matrix.name",
   "pages": [
     {

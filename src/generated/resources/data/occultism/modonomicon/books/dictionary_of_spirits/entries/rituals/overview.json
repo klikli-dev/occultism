@@ -4,7 +4,11 @@
   "category": "occultism:rituals",
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:textures/gui/book/robe.png",
+  "icon": {
+    "height": 16,
+    "texture": "occultism:textures/gui/book/robe.png",
+    "width": 16
+  },
   "name": "book.occultism.dictionary_of_spirits.rituals.overview.name",
   "pages": [
     {

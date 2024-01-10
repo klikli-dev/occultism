@@ -4,7 +4,11 @@
   "category": "occultism:getting_started",
   "description": "book.occultism.dictionary_of_spirits.getting_started.third_eye.description",
   "hide_while_locked": false,
-  "icon": "occultism:textures/mob_effect/third_eye.png",
+  "icon": {
+    "height": 16,
+    "texture": "occultism:textures/mob_effect/third_eye.png",
+    "width": 16
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.third_eye.name",
   "pages": [
     {

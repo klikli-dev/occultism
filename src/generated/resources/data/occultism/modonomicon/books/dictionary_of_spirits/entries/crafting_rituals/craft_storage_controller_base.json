@@ -7,7 +7,9 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:storage_controller_base",
+  "icon": {
+    "item": "occultism:storage_controller_base"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_storage_controller_base.name",
   "pages": [
     {

@@ -7,7 +7,9 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:copper_dust",
+  "icon": {
+    "item": "occultism:copper_dust"
+  },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.name",
   "pages": [
     {

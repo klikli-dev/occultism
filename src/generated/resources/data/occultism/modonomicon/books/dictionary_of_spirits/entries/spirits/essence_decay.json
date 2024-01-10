@@ -4,7 +4,9 @@
   "category": "occultism:spirits",
   "description": "book.occultism.dictionary_of_spirits.spirits.essence_decay.description",
   "hide_while_locked": false,
-  "icon": "minecraft:rotten_flesh",
+  "icon": {
+    "item": "minecraft:rotten_flesh"
+  },
   "name": "book.occultism.dictionary_of_spirits.spirits.essence_decay.name",
   "pages": [
     {

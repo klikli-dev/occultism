@@ -7,7 +7,9 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:miner_foliot_unspecialized",
+  "icon": {
+    "item": "occultism:miner_foliot_unspecialized"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.name",
   "pages": [
     {

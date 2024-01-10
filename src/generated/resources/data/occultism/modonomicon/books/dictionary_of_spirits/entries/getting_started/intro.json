@@ -4,7 +4,9 @@
   "category": "occultism:getting_started",
   "description": "book.occultism.dictionary_of_spirits.getting_started.intro.description",
   "hide_while_locked": false,
-  "icon": "occultism:dictionary_of_spirits_icon",
+  "icon": {
+    "item": "occultism:dictionary_of_spirits_icon"
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.intro.name",
   "pages": [
     {

@@ -4,7 +4,9 @@
   "category": "occultism:getting_started",
   "description": "book.occultism.dictionary_of_spirits.getting_started.otherworld_goggles.description",
   "hide_while_locked": false,
-  "icon": "occultism:otherworld_goggles",
+  "icon": {
+    "item": "occultism:otherworld_goggles"
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.otherworld_goggles.name",
   "pages": [
     {

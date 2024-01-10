@@ -4,7 +4,9 @@
   "category": "occultism:storage",
   "description": "",
   "hide_while_locked": false,
-  "icon": "minecraft:lever",
+  "icon": {
+    "item": "minecraft:lever"
+  },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.name",
   "pages": [
     {

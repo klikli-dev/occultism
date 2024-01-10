@@ -7,7 +7,9 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:familiar_ring",
+  "icon": {
+    "item": "occultism:familiar_ring"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_ring.name",
   "pages": [
     {

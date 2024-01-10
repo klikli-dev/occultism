@@ -8,7 +8,11 @@
     "entry_id": "occultism:getting_started/intro"
   },
   "entry_textures": "modonomicon:textures/gui/entry_textures.png",
-  "icon": "occultism:textures/gui/book/robe.png",
+  "icon": {
+    "height": 16,
+    "texture": "occultism:textures/gui/book/robe.png",
+    "width": 16
+  },
   "name": "book.occultism.dictionary_of_spirits.rituals.name",
   "show_category_button": true,
   "sort_number": 4

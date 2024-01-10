@@ -4,7 +4,9 @@
   "category": "occultism:getting_started",
   "description": "book.occultism.dictionary_of_spirits.getting_started.spirit_miners.description",
   "hide_while_locked": false,
-  "icon": "occultism:miner_foliot_unspecialized",
+  "icon": {
+    "item": "occultism:miner_foliot_unspecialized"
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.spirit_miners.name",
   "pages": [
     {

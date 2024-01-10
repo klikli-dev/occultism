@@ -7,7 +7,9 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "minecraft:shulker_shell",
+  "icon": {
+    "item": "minecraft:shulker_shell"
+  },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_shulker.name",
   "pages": [
     {

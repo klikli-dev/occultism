@@ -7,7 +7,11 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:textures/gui/book/parrot.png",
+  "icon": {
+    "height": 16,
+    "texture": "occultism:textures/gui/book/parrot.png",
+    "width": 16
+  },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_wild_parrot.name",
   "pages": [
     {

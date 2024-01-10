@@ -7,7 +7,9 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:miner_djinni_ores",
+  "icon": {
+    "item": "occultism:miner_djinni_ores"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_djinni_miner.name",
   "pages": [
     {
