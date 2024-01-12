@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.101.0] - 2024-01-12
+### :sparkles: New Features
+- [`67d7ca5`](https://github.com/klikli-dev/occultism/commit/67d7ca579caec688ab658af537ec02cc87183df7) - add new devil familiar model *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`420bc29`](https://github.com/klikli-dev/occultism/commit/420bc29db2874eabb35d6fa3163957a2f850571a) - update to new modonomicon *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`c098880`](https://github.com/klikli-dev/occultism/commit/c098880db40f68dc884efdc57a148ede14b2d514) - new icon format *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`c00dfa9`](https://github.com/klikli-dev/occultism/commit/c00dfa9cd645d4f11563f93e214d9f5923857863) - remove unneeded dependency *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.100.0] - 2024-01-03
 ### :sparkles: New Features
 - [`895851d`](https://github.com/klikli-dev/occultism/commit/895851d307c370476d79fc345a8e5859974be8a9) - Add config option to unlink wormhole when destroyed *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -762,3 +772,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.98.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.97.0...release/v1.20.1-1.98.0
 [release/v1.20.1-1.99.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.98.0...release/v1.20.1-1.99.0
 [release/v1.20.1-1.100.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.99.0...release/v1.20.1-1.100.0
+[release/v1.20.1-1.101.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.100.0...release/v1.20.1-1.101.0
