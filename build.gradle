@@ -186,7 +186,6 @@ dependencies {
     implementation fg.deobf("com.almostreliable.mods:almostunified-forge:${minecraft_version}-${almost_unified_version}")
 
     //modonomicon
-    compileOnly fg.deobf("com.klikli_dev:modonomicon-${minecraft_version}-common:${modonomicon_version}")
     implementation fg.deobf("com.klikli_dev:modonomicon-${minecraft_version}-forge:${modonomicon_version}")
 
     //theurgy
