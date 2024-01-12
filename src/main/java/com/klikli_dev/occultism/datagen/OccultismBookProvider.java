@@ -19,6 +19,7 @@ import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritTradeRec
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;

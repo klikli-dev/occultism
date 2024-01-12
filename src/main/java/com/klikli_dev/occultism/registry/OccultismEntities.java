@@ -152,7 +152,7 @@ public class OccultismEntities {
 
     public static final NonNullLazy<EntityType<DevilFamiliarEntity>> DEVIL_FAMILIAR_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(DevilFamiliarEntity::new, MobCategory.CREATURE)
-                    .sized(0.8F, 1.0F)
+                    .sized(0.8F, 1.5F)
                     .clientTrackingRange(8)
                     .build(StaticUtil.modLoc("devil_familiar").toString()));
     public static final NonNullLazy<EntityType<DragonFamiliarEntity>> DRAGON_FAMILIAR_TYPE =

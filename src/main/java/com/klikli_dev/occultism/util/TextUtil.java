@@ -50,13 +50,14 @@ public class TextUtil {
     //Xalmas: You know why!
     //Toastbroat: You know why!
     //Ridanisaurus: Pretty things!
-    //Najlitarvan: Various contributions & came up with this idea
-    //TheBoo: Ambassador to E6 and many many contributions
-    //Legiaseth: Tried to overload the storage system with nbt. Genius contraption using create to auto-create as much nbt as possible. Love it.
+    //Najlitarvan: Various contributions & came up with this idea!
+    //TheBoo: Ambassador to E6 and many many contributions!
+    //Legiaseth: Tried to overload the storage system with nbt. Genius contraption using create to auto-create as much nbt as possible. Love it!
     //Vallen: Did a Bit-By-Bit Video! https://www.youtube.com/watch?v=kAKzzJ_yiC8
     //Vemerion: Sooo many new familiars! <3
-    //EqisEdu: the long-awaited additional spirit miner tiers
-    private static final String[] EASTER_EGGS = {"KliKli", "Xalmas", "Toastbroat", "Najlitarvan", "TheBoo", "Ridanisaurus", "Legiaseth", "Vallen", "Vemerion", "EqisEdu"};
+    //EqisEdu: the long-awaited additional spirit miner tiers!
+    //feellian: New Spirit models!
+    private static final String[] EASTER_EGGS = {"KliKli", "Xalmas", "Toastbroat", "Najlitarvan", "TheBoo", "Ridanisaurus", "Legiaseth", "Vallen", "Vemerion", "EqisEdu", "Feellian"};
     private static final String[] SYLLABLE1 = {"Kr", "Ca", "Ra", "Mrok", "Cru", "Ray", "Bre", "Zed", "Drak", "Mor", "Jag", "Mer", "Jar", "Mjol", "Zork", "Mad", "Cry", "Zur", "Creo", "Azak", "Azur", "Rei", "Cro", "Mar", "Luk", "Bar", "Gor", "Rak", "Thr", "Nar", "Vor", "Fir", "Trin", "Drog", "Karn", "Gar", "Ulf", "Hroth", "Ald", "Yng", "Styr", "Eir", "Ein", "Sig", "Ket", "Erl", "Haf", "Bryn", "Nid", "Grim", "Hol", "Fen", "Sigr", "Geir", "Hyr", "Val", "Har", "Kol", "Eyr"};
     private static final String[] SYLLABLE2 = {"air", "ir", "mi", "sor", "mee", "clo", "red", "cra", "ark", "arc", "miri", "lori", "cres", "mur", "zer", "marac", "zoir", "slamar", "salmar", "urak", "tim", "jor", "vyr", "dor", "thor", "kyl", "lyn", "wyn", "wynn", "lond", "rond", "vond", "dorn", "korn", "morn", "gorn", "thorn", "worn", "norn", "rinn", "dell", "bell", "vell", "fell", "kell", "zell", "nir", "fir", "mir", "tir", "sir", "vir", "zir", "lir", "jyr", "ryl", "rym", "lym", "lyn", "ryn", "myr", "myl", "myn", "ryn"};
     private static final String[] SYLLABLE3 = {"d", "ed", "ark", "arc", "es", "er", "der", "tron", "med", "ure", "zur", "cred", "mur", "aeus", "th", "vyr", "dor", "morn", "born", "thorn", "fyr", "lyr", "ryth", "ryn", "drin", "dryn", "kyr", "kyn", "lynd", "lind", "lyne", "line", "ryne", "rine", "thyr", "thyre", "vyn", "vin", "vyne", "vine", "rynne", "rinne", "syr", "syrn", "zirn", "zirne", "kyl", "kylle", "dor", "dorne", "lor", "lorne", "morn", "morne", "thorn", "thorne", "vyrn", "vyrne", "wyrm"};

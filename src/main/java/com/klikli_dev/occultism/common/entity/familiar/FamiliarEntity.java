@@ -137,6 +137,9 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
     @Override
     protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
+        if(hand != InteractionHand.MAIN_HAND)
+            return InteractionResult.PASS;
+
         ItemStack stack = playerIn.getItemInHand(hand);
         if (stack.getItem() == OccultismItems.FAMILIAR_RING.get()) {
             return stack.interactLivingEntity(playerIn, this, hand);

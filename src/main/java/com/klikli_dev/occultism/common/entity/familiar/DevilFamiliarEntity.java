@@ -28,13 +28,13 @@ import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.util.FamiliarUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FollowMobGoal;
@@ -43,16 +43,25 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
-public class DevilFamiliarEntity extends FamiliarEntity {
+public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
 
     private final float heightOffset;
+
+    AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
     public DevilFamiliarEntity(EntityType<? extends DevilFamiliarEntity> type, Level level) {
         super(type, level);
@@ -60,16 +69,8 @@ public class DevilFamiliarEntity extends FamiliarEntity {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return FamiliarEntity.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 1f);
-    }
-
-    @Nullable
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
-        this.setLollipop(this.getRandom().nextDouble() < 0.1);
-        this.setNose(this.getRandom().nextDouble() < 0.5);
-        this.setEars(this.getRandom().nextDouble() < 0.5);
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        return FamiliarEntity.createAttributes()
+                .add(Attributes.MOVEMENT_SPEED, 0.30000001192092896);
     }
 
     @Override
@@ -82,16 +83,10 @@ public class DevilFamiliarEntity extends FamiliarEntity {
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8));
         this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1, 3, 1));
         this.goalSelector.addGoal(4, new AttackGoal(this, 5));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(6, new FollowMobGoal(this, 1, 3, 7));
     }
 
-    @Override
-    public void setFamiliarOwner(LivingEntity owner) {
-        if (this.hasLollipop())
-            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
-        super.setFamiliarOwner(owner);
-    }
 
     @Override
     public void aiStep() {
@@ -110,49 +105,44 @@ public class DevilFamiliarEntity extends FamiliarEntity {
         return Mth.cos((this.tickCount + this.heightOffset + partialTicks) / 3.5f);
     }
 
-    public boolean hasLollipop() {
-        return this.hasVariant(0);
-    }
-
-    private void setLollipop(boolean b) {
-        this.setVariant(0, b);
-    }
-
-    public boolean hasNose() {
-        return this.hasVariant(1);
-    }
-
-    private void setNose(boolean b) {
-        this.setVariant(1, b);
-    }
-
-    public boolean hasEars() {
-        return this.hasVariant(2);
-    }
-
-    private void setEars(boolean b) {
-        this.setVariant(2, b);
-    }
-
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        if (!compound.contains("variants")) {
-            this.setLollipop(compound.getBoolean("hasLollipop"));
-            this.setNose(compound.getBoolean("hasNose"));
-            this.setEars(compound.getBoolean("hasEars"));
-        }
-    }
-
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
         return ImmutableList.of(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 300, 0, false, false));
     }
 
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        var mainController = new AnimationController<>(this, "mainController", 0, this::animPredicate);
+        controllerRegistrar.add(mainController);
+    }
+
+    @Override
+    public int getCurrentSwingDuration() {
+        return 10; //to match our attack animation speed
+    }
+
+    private <T extends GeoAnimatable> PlayState animPredicate(AnimationState<T> tAnimationState) {
+
+        if (this.swinging) {
+            return tAnimationState.setAndContinue(RawAnimation.begin().thenPlay("attack"));
+        }
+
+        if (this.isSitting()) {
+            tAnimationState.getController().setAnimation(RawAnimation.begin().thenPlay("sitting"));
+            return PlayState.CONTINUE;
+        }
+
+        return tAnimationState.setAndContinue(tAnimationState.isMoving() ? RawAnimation.begin().thenPlay("walk") : RawAnimation.begin().thenPlay("idle"));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.animatableInstanceCache;
+    }
+
     public static class AttackGoal extends Goal {
 
-        private static final int MAX_COOLDOWN = 20 * 5;
+        private static final int MAX_COOLDOWN = 20;
 
         protected final FamiliarEntity entity;
         private final float range;
