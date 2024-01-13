@@ -28,6 +28,7 @@ import com.klikli_dev.occultism.network.MessageBeholderAttack;
 import com.klikli_dev.occultism.network.OccultismPackets;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.util.FamiliarUtil;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
@@ -45,6 +46,7 @@ import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
@@ -81,6 +83,11 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
     public void curioTick(LivingEntity wearer) {
         if (this.getRandom().nextDouble() >= 0.98)
             this.tickGlow(wearer);
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pPos, BlockState pState) {
+
     }
 
     @Override
