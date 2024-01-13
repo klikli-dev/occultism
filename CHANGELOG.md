@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.102.0] - 2024-01-13
+### :sparkles: New Features
+- [`6889f61`](https://github.com/klikli-dev/occultism/commit/6889f6118790624ea547dfb102db9d53a2c1a01a) - make devil familiar fire resistant *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`e7bc2e4`](https://github.com/klikli-dev/occultism/commit/e7bc2e41a2193a729cb4673fc5dd36430a6c99c9) - make devil familiar set enemies on fire *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`7e73cf3`](https://github.com/klikli-dev/occultism/commit/7e73cf344fdc93cf672308c2df1af616daa6baac) - remove beholder step sound .. he has no legs! *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`9c95186`](https://github.com/klikli-dev/occultism/commit/9c95186d8cfe04ed302f301921ea24c1a2f7a7b2) - further clarify copyright on models *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.101.0] - 2024-01-12
 ### :sparkles: New Features
 - [`67d7ca5`](https://github.com/klikli-dev/occultism/commit/67d7ca579caec688ab658af537ec02cc87183df7) - add new devil familiar model *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -773,3 +785,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.99.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.98.0...release/v1.20.1-1.99.0
 [release/v1.20.1-1.100.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.99.0...release/v1.20.1-1.100.0
 [release/v1.20.1-1.101.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.100.0...release/v1.20.1-1.101.0
+[release/v1.20.1-1.102.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.101.0...release/v1.20.1-1.102.0
