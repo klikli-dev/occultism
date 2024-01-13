@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.entity.spirit;
 
 import com.klikli_dev.occultism.registry.OccultismTags;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.TagKey;
@@ -42,11 +43,22 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.ForgeEventFactory;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
-public class AfritWildEntity extends Monster {
+public class AfritWildEntity extends Monster implements GeoEntity {
+    AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
     public AfritWildEntity(EntityType<? extends AfritWildEntity> type, Level level) {
         super(type, level);
@@ -98,6 +110,10 @@ public class AfritWildEntity extends Monster {
     }
 
     @Override
+    protected void playStepSound(BlockPos pPos, BlockState pBlock) {
+    }
+
+    @Override
     public boolean isInvulnerableTo(DamageSource source) {
         if (source.is(DamageTypeTags.IS_FIRE))
             return true;
@@ -115,5 +131,30 @@ public class AfritWildEntity extends Monster {
         }
 
         return super.isInvulnerableTo(source);
+    }
+
+    @Override
+    public int getCurrentSwingDuration() {
+        return 11; //to match our attack animation speed + 1 tick
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        var mainController = new AnimationController<>(this, "mainController", 0, this::animPredicate);
+        controllers.add(mainController);
+    }
+
+    private <T extends GeoAnimatable> PlayState animPredicate(AnimationState<T> tAnimationState) {
+
+        if (this.swinging) {
+            return tAnimationState.setAndContinue(RawAnimation.begin().thenPlay("attack"));
+        }
+
+        return tAnimationState.setAndContinue(tAnimationState.isMoving() ? RawAnimation.begin().thenPlay("walk") : RawAnimation.begin().thenPlay("idle"));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.animatableInstanceCache;
     }
 }

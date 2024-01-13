@@ -81,8 +81,6 @@ public class ClientSetupEventHandler {
     @SubscribeEvent
     public static void onRegisterEntityRendererLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         //Register Entity Layers
-        event.registerLayerDefinition(OccultismModelLayers.AFRIT, AfritModel::createBodyLayer);
-        event.registerLayerDefinition(OccultismModelLayers.AFRIT_WILD, AfritWildModel::createBodyLayer);
         event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_BAT, BatFamiliarModel::createBodyLayer);
         event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_DEER, DeerFamiliarModel::createBodyLayer);
         event.registerLayerDefinition(OccultismModelLayers.FAMILIAR_GREEDY, GreedyFamiliarModel::createBodyLayer);

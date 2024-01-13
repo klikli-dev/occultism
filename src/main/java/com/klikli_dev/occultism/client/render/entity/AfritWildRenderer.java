@@ -22,31 +22,17 @@
 
 package com.klikli_dev.occultism.client.render.entity;
 
-import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.model.entity.AfritWildModel;
 import com.klikli_dev.occultism.common.entity.spirit.AfritWildEntity;
-import com.klikli_dev.occultism.registry.OccultismModelLayers;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import software.bernie.geckolib.renderer.layer.AutoGlowingGeoLayer;
 
-public class AfritWildRenderer extends HumanoidMobRenderer<AfritWildEntity, AfritWildModel> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(Occultism.MODID,
-            "textures/entity/afrit.png");
+public class AfritWildRenderer extends GeoEntityRenderer<AfritWildEntity> {
 
-    public AfritWildRenderer(EntityRendererProvider.Context context) {
-        super(context, new AfritWildModel(context.bakeLayer(OccultismModelLayers.AFRIT_WILD)), 0.5f);
-    }
+    public AfritWildRenderer(EntityRendererProvider.Context renderManager) {
+        super(renderManager, new AfritWildModel());
 
-    @Override
-    public ResourceLocation getTextureLocation(AfritWildEntity entity) {
-        return TEXTURE;
-    }
-
-    @Override
-    protected void scale(AfritWildEntity entity, PoseStack matrixStackIn, float partialTickTime) {
-        super.scale(entity, matrixStackIn, partialTickTime);
-        matrixStackIn.scale(1.2f, 1.2f, 1.2f);
+        this.addRenderLayer(new AutoGlowingGeoLayer<>(this));
     }
 }
