@@ -175,6 +175,7 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
         protected void attack(List<LivingEntity> enemies) {
             for (Entity e : enemies) {
                 e.hurt(this.entity.damageSources().playerAttack((Player) this.entity.getFamiliarOwner()), 4);
+                e.setSecondsOnFire(4);
             }
         }
 
