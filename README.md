@@ -4,6 +4,10 @@ A magic mod inspired by the world of Jonathan Stroud's Bartimaeus. With the help
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.dev/klikli-dev/occultism)
 
+## Translations
+
+See https://crowdin.com/project/occultism to help translate Occultism (or fix translation errors!)
+
 ## Curseforge
 
 https://www.curseforge.com/minecraft/mc-mods/occultism
