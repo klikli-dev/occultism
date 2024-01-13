@@ -153,12 +153,14 @@ public class OccultismEntities {
     public static final NonNullLazy<EntityType<DevilFamiliarEntity>> DEVIL_FAMILIAR_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(DevilFamiliarEntity::new, MobCategory.CREATURE)
                     .sized(0.8F, 1.5F)
+                    .fireImmune()
                     .clientTrackingRange(8)
                     .build(StaticUtil.modLoc("devil_familiar").toString()));
     public static final NonNullLazy<EntityType<DragonFamiliarEntity>> DRAGON_FAMILIAR_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(DragonFamiliarEntity::new, MobCategory.CREATURE)
                     .sized(1F, 0.8F)
                     .clientTrackingRange(8)
+                    .fireImmune()
                     .build(StaticUtil.modLoc("dragon_familiar").toString()));
     public static final NonNullLazy<EntityType<BlacksmithFamiliarEntity>> BLACKSMITH_FAMILIAR_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(BlacksmithFamiliarEntity::new, MobCategory.CREATURE)
