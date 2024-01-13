@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.103.0] - 2024-01-13
+### :sparkles: New Features
+- [`a0f3915`](https://github.com/klikli-dev/occultism/commit/a0f39151363a499c1927832fb83e70c6d431845a) - add new afrit model - thanks @feellian *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`4bac8fc`](https://github.com/klikli-dev/occultism/commit/4bac8fcc852b5928ac2362a8b7ea0aaf660fa591) - cleanup for devil familiar *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.102.0] - 2024-01-13
 ### :sparkles: New Features
 - [`6889f61`](https://github.com/klikli-dev/occultism/commit/6889f6118790624ea547dfb102db9d53a2c1a01a) - make devil familiar fire resistant *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -786,3 +794,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.100.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.99.0...release/v1.20.1-1.100.0
 [release/v1.20.1-1.101.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.100.0...release/v1.20.1-1.101.0
 [release/v1.20.1-1.102.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.101.0...release/v1.20.1-1.102.0
+[release/v1.20.1-1.103.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.102.0...release/v1.20.1-1.103.0
