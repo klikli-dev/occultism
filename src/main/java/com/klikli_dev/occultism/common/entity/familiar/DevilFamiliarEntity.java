@@ -118,7 +118,7 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
 
     @Override
     public int getCurrentSwingDuration() {
-        return 10; //to match our attack animation speed
+        return 11; //to match our attack animation speed + 1 tick
     }
 
     private <T extends GeoAnimatable> PlayState animPredicate(AnimationState<T> tAnimationState) {

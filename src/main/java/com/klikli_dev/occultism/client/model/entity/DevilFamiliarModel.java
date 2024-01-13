@@ -41,17 +41,6 @@ import software.bernie.geckolib.model.GeoModel;
 
 public class DevilFamiliarModel extends DefaultedGeoModel<DevilFamiliarEntity> {
 
-    /**
-     * Create a new instance of this model class.<br>
-     * The asset path should be the truncated relative path from the base folder.<br>
-     * E.G.
-     * <pre>
-     *     {@code
-     * 		new ResourceLocation("myMod", "animals/red_fish")
-     *                }</pre>
-     *
-     * @param assetSubpath
-     */
     public DevilFamiliarModel() {
         super(new ResourceLocation(Occultism.MODID, "familiar_devil"));
     }
