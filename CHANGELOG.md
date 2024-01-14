@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.104.0] - 2024-01-14
+### :sparkles: New Features
+- [`21dc235`](https://github.com/klikli-dev/occultism/commit/21dc235d2472f4756569bbf368aa63a7d30b2fb4) - make beholder float roughly at head level instead of just above ground *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`0557fce`](https://github.com/klikli-dev/occultism/commit/0557fce59fb4c3b8e9ccfa56186df06a3b574691) - remove modloader from dependencies, is handled via loader config *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.103.0] - 2024-01-13
 ### :sparkles: New Features
 - [`a0f3915`](https://github.com/klikli-dev/occultism/commit/a0f39151363a499c1927832fb83e70c6d431845a) - add new afrit model - thanks @feellian *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -795,3 +803,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.101.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.100.0...release/v1.20.1-1.101.0
 [release/v1.20.1-1.102.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.101.0...release/v1.20.1-1.102.0
 [release/v1.20.1-1.103.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.102.0...release/v1.20.1-1.103.0
+[release/v1.20.1-1.104.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.103.0...release/v1.20.1-1.104.0
