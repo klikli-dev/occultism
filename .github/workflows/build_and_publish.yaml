@@ -103,7 +103,6 @@ jobs:
             
             Find changes for all versions at https://github.com/klikli-dev/occultism/releases
           dependencies: |
-            forge(required)
             modonomicon(required)
             curios(required)
             geckolib(required)
