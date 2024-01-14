@@ -197,7 +197,7 @@ public class OccultismEntities {
                     .build(StaticUtil.modLoc("shub_niggurath_familiar").toString()));
     public static final NonNullLazy<EntityType<BeholderFamiliarEntity>> BEHOLDER_FAMILIAR_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(BeholderFamiliarEntity::new, MobCategory.CREATURE)
-                    .sized(0.6F, 1F)
+                    .sized(1.6F, 1F)
                     .clientTrackingRange(8)
                     .build(StaticUtil.modLoc("beholder_familiar").toString()));
 

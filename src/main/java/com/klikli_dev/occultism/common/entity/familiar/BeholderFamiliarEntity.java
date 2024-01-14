@@ -165,7 +165,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
         if (this.isSitting())
             return -0.44f;
 
-        return Mth.cos((this.tickCount + this.heightOffset + partialTicks) / 5f) * 0.1f;
+        return 1 +  Mth.cos((this.tickCount + this.heightOffset + partialTicks) / 5f) * 0.1f;
     }
 
     @Override
