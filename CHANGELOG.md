@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.104.1] - 2024-01-16
+### :bug: Bug Fixes
+- [`56521a1`](https://github.com/klikli-dev/occultism/commit/56521a1894dc11a7863410ecf4c9b11b8f164fc4) - items being able to be transferred into the Golden Sacrificial Bowl ([#1031](https://github.com/klikli-dev/occultism/pull/1031)) - thanks @irishgreencitrus *(commit by [@irishgreencitrus](https://github.com/irishgreencitrus))*
+
+### :wrench: Chores
+- [`b1f536a`](https://github.com/klikli-dev/occultism/commit/b1f536a4f13f7f33e0f8fd228938a0baed38c578) - adjust publish action *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.104.0] - 2024-01-14
 ### :sparkles: New Features
 - [`21dc235`](https://github.com/klikli-dev/occultism/commit/21dc235d2472f4756569bbf368aa63a7d30b2fb4) - make beholder float roughly at head level instead of just above ground *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -804,3 +812,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.102.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.101.0...release/v1.20.1-1.102.0
 [release/v1.20.1-1.103.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.102.0...release/v1.20.1-1.103.0
 [release/v1.20.1-1.104.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.103.0...release/v1.20.1-1.104.0
+[release/v1.20.1-1.104.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.104.0...release/v1.20.1-1.104.1
