@@ -38,7 +38,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraftforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.event.EventHooks;
 
 public class SummonWildHuntRitual extends SummonRitual {
 
@@ -77,7 +77,7 @@ public class SummonWildHuntRitual extends SummonRitual {
                     living.setCustomName(Component.literal(TextUtil.generateName()));
 
                     if (living instanceof Mob mob) {
-                        ForgeEventFactory.onFinalizeSpawn(mob, (ServerLevelAccessor) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED, null, null);
+                        EventHooks.onFinalizeSpawn(mob, (ServerLevelAccessor) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED, null, null);
                     }
 
                     this.applyEntityNbt(living);

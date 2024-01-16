@@ -1,8 +1,7 @@
 plugins {
     id 'idea'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
-    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id 'net.neoforged.gradle.userdev' version "${neogradle_version}"
 }
 
 if (System.getenv('MOD_VERSION') != null) {
@@ -17,90 +16,26 @@ base {
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 java.withSourcesJar()
 
-println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
-minecraft {
+runs {
+    configureEach {
+        systemProperty 'forge.logging.markers', 'REGISTRIES'
+        systemProperty 'forge.logging.console.level', 'debug'
+        jvmArguments.addAll('-XX:+AllowEnhancedClassRedefinition', '-XX:+IgnoreUnrecognizedVMOptions')
+        modSource project.sourceSets.main
+    }
 
-    mappings channel: mapping_channel, version: mapping_version
+    client {
+        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
+        programArgument "--username=Occultism"
+    }
 
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    server {
+        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
+//        programArgument '--nogui'
+    }
 
-    // Default run configurations.
-    // These can be tweaked, removed, or duplicated as needed.
-    runs {
-        client {
-            workingDirectory project.file('run')
-            args '--username', 'Occultism'
-            // Recommended logging data for a userdev environment
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
-            property 'forge.logging.console.level', 'debug'
-
-            //Fix for patchouli mixin crash
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-
-            // enable using JBR to hotswap MOAR
-            // also ignore the option if someone isnt using JBR
-            jvmArgs '-XX:+AllowEnhancedClassRedefinition', '-XX:+IgnoreUnrecognizedVMOptions'
-
-            mods {
-                "${mod_id}" {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        clientalt {
-            parent runs.client
-            //somehow doesnt replace the name but adds a new one, so we manually need remove
-            args '--username', 'Occultism2' //#s get replaced with random numbers when starting
-        }
-
-        server {
-            workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
-            property 'forge.logging.console.level', 'debug'
-
-            //Workaround for patchouli mixin crash
-            property 'mixin.env.disableRefMap', 'true'
-
-            // enable using JBR to hotswap MOAR
-            // also ignore the option if someone isnt using JBR
-            jvmArgs '-XX:+AllowEnhancedClassRedefinition', '-XX:+IgnoreUnrecognizedVMOptions'
-
-            mods {
-                "${mod_id}" {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        data {
-            workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
-            property 'forge.logging.console.level', 'debug'
-
-            //Workaround for patchouli mixin crash
-            property 'mixin.env.disableRefMap', 'true'
-
-            // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            args '--mod', 'occultism', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-
-            mods {
-                "${mod_id}" {
-                    source sourceSets.main
-                }
-            }
-        }
+    data {
+        programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
     }
 }
 
@@ -162,51 +97,47 @@ repositories {
 }
 
 dependencies {
-    // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
-    // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
-    // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft "net.minecraftforge:forge:${forge_version}"
+    implementation "net.neoforged:neoforge:${neo_version}"
 
+    //TODO: enable once available
     //Jei
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
-    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+//    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+//    compileOnly "mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"
+//    runtimeOnly "mezz.jei:jei-${minecraft_version}-forge:${jei_version}"
 
     //curios
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}")
+    compileOnly "top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}:api"
+    runtimeOnly "top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}"
 
     //geckolib
-    implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${geckolib_minecraft_version}:${geckolib_version}")
+    implementation "software.bernie.geckolib:geckolib-forge-${geckolib_minecraft_version}:${geckolib_version}"
 
     //smartbrainlib
-    implementation fg.deobf("net.tslat.smartbrainlib:SmartBrainLib-forge-${smartbrainlib_minecraft_version}:${smartbrainlib_version}")
+    implementation "net.tslat.smartbrainlib:SmartBrainLib-forge-${smartbrainlib_minecraft_version}:${smartbrainlib_version}"
 
+    //TODO: enable once available
     //almostunified
-    implementation fg.deobf("com.almostreliable.mods:almostunified-forge:${minecraft_version}-${almost_unified_version}")
+//    implementation "com.almostreliable.mods:almostunified-forge:${minecraft_version}-${almost_unified_version}"
 
     //modonomicon
-    implementation fg.deobf("com.klikli_dev:modonomicon-${minecraft_version}-forge:${modonomicon_version}")
+    implementation "com.klikli_dev:modonomicon-${minecraft_version}-forge:${modonomicon_version}"
 
+    //TODO: enable once available
     //theurgy
-    compileOnly fg.deobf("com.klikli_dev:theurgy-${minecraft_version}:${theurgy_version}"){transitive=false}
-    runtimeOnly fg.deobf("com.klikli_dev:theurgy-${minecraft_version}:${theurgy_version}"){transitive=false}
+//    compileOnly "com.klikli_dev:theurgy-${minecraft_version}:${theurgy_version}"{transitive=false}
+//    runtimeOnly "com.klikli_dev:theurgy-${minecraft_version}:${theurgy_version}"{transitive=false}
 
     //runtime only helper mods for dev env, placed in ./runtime-mods, example: Hwyla-forge-1.10.11-B78_1.16.2.jar
-    //runtimeOnly fg.deobf("ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2")
+    //runtimeOnly "ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2"
 
     //alltheores - for recipe testing
     //enable once available for 1.20
-    //runtimeOnly fg.deobf("curse.maven:alltheores-405593:xyz") //
-
-    //Ma for crafting issue testing
-//    runtimeOnly fg.deobf("curse.maven:mysticalagriculture-246640:4399151") //MysticalAgriculture-1.19.3-6.1.4.jar
-//    runtimeOnly fg.deobf("curse.maven:cucumber-272335:4395466") //Cucumber-1.19.3-6.1.2.jar
+    //runtimeOnly "curse.maven:alltheores-405593:xyz" //
 
     //PerViamInvenire - for AI integration testing
-    //runtimeOnly fg.deobf("curse.maven:perviaminvenire-449945:xyz") //
+    //runtimeOnly "curse.maven:perviaminvenire-449945:xyz" //
     //enable once available for 1.20
-    //runtimeOnly fg.deobf("com.ldtteam:per_viam_invenire:1.19.3-XYZ-RELEASE:universal")
+    //runtimeOnly "com.ldtteam:per_viam_invenire:1.19.3-XYZ-RELEASE:universal"
 }
 
 processResources {
@@ -229,8 +160,6 @@ jar {
         ])
     }
 }
-
-jar.finalizedBy('reobfJar')
 
 publishing {
     publications {

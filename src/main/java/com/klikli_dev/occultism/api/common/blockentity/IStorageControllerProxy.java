@@ -23,7 +23,7 @@
 package com.klikli_dev.occultism.api.common.blockentity;
 
 import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.neoforged.neoforge.common.capabilities.ICapabilityProvider;
 
 /**
  * Interface for storage

@@ -48,7 +48,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemStack;
-
+import var;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;

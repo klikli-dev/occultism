@@ -25,11 +25,10 @@ package com.klikli_dev.occultism.registry;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.ritual.*;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.RegistryBuilder;
-import net.minecraftforge.registries.RegistryObject;
-
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.IForgeRegistry;
+import net.neoforged.neoforge.registries.RegistryBuilder;
+import net.neoforged.neoforge.registries.RegistryObject;
 import java.util.function.Supplier;
 
 public class OccultismRituals {

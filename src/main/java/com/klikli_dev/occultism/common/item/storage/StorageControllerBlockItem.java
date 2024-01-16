@@ -27,6 +27,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
+import var;
 
 public class StorageControllerBlockItem extends BlockItem {
     public StorageControllerBlockItem(Block pBlock, Properties pProperties) {

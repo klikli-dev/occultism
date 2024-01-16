@@ -35,17 +35,17 @@ import com.klikli_dev.occultism.integration.modonomicon.PageLoaders;
 import com.klikli_dev.occultism.network.OccultismPackets;
 import com.klikli_dev.occultism.registry.*;
 import com.mojang.logging.LogUtils;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.InterModComms;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.InterModComms;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
+import net.neoforged.fml.event.lifecycle.InterModEnqueueEvent;
+import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import org.slf4j.Logger;
 import software.bernie.geckolib.GeckoLib;
 import top.theillusivec4.curios.api.CuriosApi;
@@ -102,9 +102,9 @@ public class Occultism {
         modEventBus.addListener(this::serverSetup);
         modEventBus.addListener(this::enqueueIMC);
 
-        MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.addListener(OccultismCapabilities::onPlayerClone);
-        MinecraftForge.EVENT_BUS.addListener(OccultismCapabilities::onJoinWorld);
+        NeoForge.EVENT_BUS.register(this);
+        NeoForge.EVENT_BUS.addListener(OccultismCapabilities::onPlayerClone);
+        NeoForge.EVENT_BUS.addListener(OccultismCapabilities::onJoinWorld);
 
         GeckoLib.initialize();
     }

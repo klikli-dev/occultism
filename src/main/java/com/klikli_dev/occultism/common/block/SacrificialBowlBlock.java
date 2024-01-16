@@ -42,9 +42,8 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.ItemHandlerHelper;
-
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import javax.annotation.Nullable;
 
 public class SacrificialBowlBlock extends Block implements EntityBlock {
@@ -80,7 +79,7 @@ public class SacrificialBowlBlock extends Block implements EntityBlock {
         if (!level.isClientSide) {
             ItemStack heldItem = player.getItemInHand(hand);
             SacrificialBowlBlockEntity bowl = (SacrificialBowlBlockEntity) level.getBlockEntity(pos);
-            bowl.getCapability(ForgeCapabilities.ITEM_HANDLER, hit.getDirection()).ifPresent(handler -> {
+            bowl.getCapability(Capabilities.ITEM_HANDLER, hit.getDirection()).ifPresent(handler -> {
                 if (!player.isShiftKeyDown()) {
                     ItemStack itemStack = handler.getStackInSlot(0);
                     if (itemStack.isEmpty()) {

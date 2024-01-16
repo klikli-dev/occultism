@@ -45,7 +45,7 @@ public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.Instance
 
     @Override
     protected Instance createInstance(JsonObject json, ContextAwarePredicate predicate, DeserializationContext deserializationContext) {
-        return new RitualTrigger.Instance(this.deserializeRitualPredicate(json));
+        return new Instance(this.deserializeRitualPredicate(json));
     }
 
     private RitualPredicate deserializeRitualPredicate(JsonObject json) {

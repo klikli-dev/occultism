@@ -30,8 +30,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.client.extensions.common.IClientMobEffectExtensions;
-
+import net.neoforged.neoforge.client.extensions.common.IClientMobEffectExtensions;
 import java.util.function.Consumer;
 
 public class ThirdEyeEffect extends MobEffect {

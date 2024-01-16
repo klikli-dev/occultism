@@ -16,6 +16,7 @@ import com.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import var;
 
 public class BookSpiritTradeRecipePage extends BookProcessingRecipePage<SpiritTradeRecipe> {
     public BookSpiritTradeRecipePage(BookTextHolder title1, ResourceLocation recipeId1, BookTextHolder title2, ResourceLocation recipeId2, BookTextHolder text, String anchor) {

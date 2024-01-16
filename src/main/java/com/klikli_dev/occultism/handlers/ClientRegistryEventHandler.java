@@ -27,10 +27,10 @@ import com.klikli_dev.occultism.client.particle.RitualWaitingParticle;
 import com.klikli_dev.occultism.client.particle.SnowflakeParticle;
 import com.klikli_dev.occultism.registry.OccultismParticles;
 import net.minecraft.client.particle.FlameParticle;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientRegistryEventHandler {

@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.common.block.CandleBlock;
 import com.klikli_dev.occultism.common.block.*;
 import com.klikli_dev.occultism.common.block.crops.ReplantableCropsBlock;
 import com.klikli_dev.occultism.common.block.otherworld.*;
@@ -48,10 +47,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
-
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.RegistryObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;

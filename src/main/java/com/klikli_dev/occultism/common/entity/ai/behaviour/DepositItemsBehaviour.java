@@ -13,11 +13,11 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
 import net.tslat.smartbrainlib.util.BrainUtils;
-
+import var;
 import java.util.List;
 
 public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehaviour<E> {
@@ -56,7 +56,7 @@ public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehav
         if (blockEntity != null) {
             BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(depositPos));
 
-            var depositItemHandlerCap = blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, depositFacing);
+            var depositItemHandlerCap = blockEntity.getCapability(Capabilities.ITEM_HANDLER, depositFacing);
 
             this.toggleContainer(blockEntity, true);
 

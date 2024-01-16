@@ -3,7 +3,7 @@ package com.klikli_dev.occultism.integration.almostunified;
 import com.almostreliable.unified.api.AlmostUnifiedLookup;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.fml.ModList;
+import net.neoforged.fml.ModList;
 
 public class AlmostUnifiedIntegration {
     public static boolean isLoaded() {

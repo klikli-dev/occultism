@@ -46,7 +46,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
-
+import var;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

@@ -39,8 +39,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraftforge.event.ForgeEventFactory;
-
+import net.neoforged.neoforge.event.EventHooks;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +68,7 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeleton {
         for (int i = 0; i < maxSkeletons; i++) {
             WildHuntSkeletonEntity entity = OccultismEntities.WILD_HUNT_SKELETON.get().create(this.level());
 
-            ForgeEventFactory.onFinalizeSpawn(entity, level, difficultyIn, reason, spawnDataIn, dataTag);
+            EventHooks.onFinalizeSpawn(entity, level, difficultyIn, reason, spawnDataIn, dataTag);
 
             double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
             double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));

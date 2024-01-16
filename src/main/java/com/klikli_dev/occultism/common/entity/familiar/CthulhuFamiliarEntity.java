@@ -53,8 +53,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeMod;
-
+import net.neoforged.neoforge.common.NeoForgeMod;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
@@ -76,7 +75,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return createMobAttributes().add(ForgeMod.SWIM_SPEED.get(), 1f);
+        return createMobAttributes().add(NeoForgeMod.SWIM_SPEED.get(), 1f);
     }
 
     @Override

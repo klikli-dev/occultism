@@ -22,15 +22,14 @@
 
 package com.klikli_dev.occultism.config;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
-import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
-import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import net.neoforged.neoforge.common.NeoForgeConfigSpec;
+import net.neoforged.neoforge.common.NeoForgeConfigSpec.BooleanValue;
+import net.neoforged.neoforge.common.NeoForgeConfigSpec.ConfigValue;
+import net.neoforged.neoforge.common.NeoForgeConfigSpec.DoubleValue;
 
 public class OccultismServerConfig {
 
@@ -40,10 +39,10 @@ public class OccultismServerConfig {
     public final RitualSettings rituals;
     public final DimensionalMineshaftSettings dimensionalMineshaft;
     public final ItemSettings itemSettings;
-    public final ForgeConfigSpec spec;
+    public final NeoForgeConfigSpec spec;
 
     public OccultismServerConfig() {
-        ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
+        NeoForgeConfigSpec.Builder builder = new NeoForgeConfigSpec.Builder();
         this.storage = new StorageSettings(builder);
         this.spiritJobs = new SpiritJobSettings(builder);
         this.rituals = new RitualSettings(builder);
@@ -54,7 +53,7 @@ public class OccultismServerConfig {
 
     public static class ItemSettings {
 
-        public ItemSettings(ForgeConfigSpec.Builder builder) {
+        public ItemSettings(NeoForgeConfigSpec.Builder builder) {
             builder.comment("Item Settings").push("items");
 
             builder.pop();
@@ -76,7 +75,7 @@ public class OccultismServerConfig {
         public final ConfigValue<Integer> blacksmithFamiliarUpgradeCooldown;
         public final ConfigValue<Double> blacksmithFamiliarRepairChance;
 
-        public SpiritJobSettings(ForgeConfigSpec.Builder builder) {
+        public SpiritJobSettings(NeoForgeConfigSpec.Builder builder) {
             builder.comment("Spirit Job Settings").push("spirit_job");
             this.drikwingFamiliarSlowFallingSeconds =
                     builder.comment(
@@ -146,7 +145,7 @@ public class OccultismServerConfig {
         public final MinerSpiritSettings minerAfritDeeps;
         public final MinerSpiritSettings minerMaridMaster;
 
-        public DimensionalMineshaftSettings(ForgeConfigSpec.Builder builder) {
+        public DimensionalMineshaftSettings(NeoForgeConfigSpec.Builder builder) {
             builder.comment("Dimensional Mineshaft Settings").push("dimensional_mineshaft");
 
             this.minerFoliotUnspecialized =
@@ -169,7 +168,7 @@ public class OccultismServerConfig {
             public final ConfigValue<Integer> rollsPerOperation;
             public final ConfigValue<Integer> durability;
 
-            public MinerSpiritSettings(String oreName, ForgeConfigSpec.Builder builder,
+            public MinerSpiritSettings(String oreName, NeoForgeConfigSpec.Builder builder,
                                        int maxMiningTime, int rollsPerOperation, int durability) {
                 builder.comment("Miner Spirit Settings").push(oreName);
 
@@ -202,7 +201,7 @@ public class OccultismServerConfig {
         public final DoubleValue usePossibleSpiritNamesChance;
 
 
-        public RitualSettings(ForgeConfigSpec.Builder builder) {
+        public RitualSettings(NeoForgeConfigSpec.Builder builder) {
             builder.comment("Ritual Settings").push("rituals");
 
             this.enableClearWeatherRitual =
@@ -257,7 +256,7 @@ public class OccultismServerConfig {
         public final BooleanValue overrideItemStackSizes;
         public final BooleanValue unlinkWormholeOnBreak;
 
-        public StorageSettings(ForgeConfigSpec.Builder builder) {
+        public StorageSettings(NeoForgeConfigSpec.Builder builder) {
             builder.comment("Storage Settings").push("storage");
             this.stabilizerTier1Slots =
                     builder.comment("The amount of slots the storage stabilizer tier 1 provides.")

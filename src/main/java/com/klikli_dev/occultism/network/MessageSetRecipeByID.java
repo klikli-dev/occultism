@@ -34,9 +34,9 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraftforge.common.crafting.IShapedRecipe;
-import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.neoforge.common.crafting.IShapedRecipe;
+import net.neoforged.neoforge.items.wrapper.PlayerMainInvWrapper;
+import net.neoforged.neoforge.network.NetworkEvent;
 
 /**
  * Based on https://github.com/Lothrazar/Storage-Network

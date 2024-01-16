@@ -26,7 +26,7 @@ import com.klikli_dev.occultism.registry.OccultismCapabilities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.NetworkEvent;
 
 public class MessageSetJumps extends MessageBase {
 

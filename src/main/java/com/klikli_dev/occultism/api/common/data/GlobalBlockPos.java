@@ -30,8 +30,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.util.INBTSerializable;
-
+import net.neoforged.neoforge.common.util.INBTSerializable;
 import java.util.Objects;
 import java.util.StringJoiner;
 

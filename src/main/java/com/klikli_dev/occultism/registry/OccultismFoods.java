@@ -25,7 +25,7 @@ package com.klikli_dev.occultism.registry;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraftforge.common.util.NonNullLazy;
+import net.neoforged.neoforge.common.util.NonNullLazy;
 
 public class OccultismFoods {
     public static final NonNullLazy<FoodProperties> DATURA = NonNullLazy.of(

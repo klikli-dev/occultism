@@ -30,12 +30,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.ForgeSpawnEggItem;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.forgespi.language.IModInfo;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.fml.ModList;
+import net.neoforged.neoforge.common.DeferredSpawnEggItem;
+import net.neoforged.neoforge.registries.ForgeRegistries;
+import net.neoforged.neoforgespi.language.IModInfo;
 import org.apache.commons.lang3.text.WordUtils;
-
+import var;
 import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Locale;
@@ -126,7 +126,7 @@ public class TextUtil {
      * Formats the given spirit type name in a color based on the type.
      */
     public static MutableComponent formatDemonType(Component name, EntityType<?> type) {
-        var egg = ForgeSpawnEggItem.fromEntityType(type);
+        var egg = DeferredSpawnEggItem.fromEntityType(type);
         var color = egg != null ? egg.getColor(0) : 0xffffff;
         color = makeColorLighterForDarkMode(color);
         int finalColor = color;

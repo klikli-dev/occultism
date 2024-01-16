@@ -50,16 +50,16 @@ import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.client.settings.KeyConflictContext;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiOverlaysEvent;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.neoforge.client.settings.KeyConflictContext;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.registries.ForgeRegistries;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.HashMap;
@@ -159,8 +159,8 @@ public class ClientSetupEventHandler {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         //Register client side event handlers
-        MinecraftForge.EVENT_BUS.register(Occultism.SELECTED_BLOCK_RENDERER);
-        MinecraftForge.EVENT_BUS.register(Occultism.THIRD_EYE_EFFECT_RENDERER);
+        NeoForge.EVENT_BUS.register(Occultism.SELECTED_BLOCK_RENDERER);
+        NeoForge.EVENT_BUS.register(Occultism.THIRD_EYE_EFFECT_RENDERER);
 
         //Register Tile Entity Renderers
         BlockEntityRenderers.register(OccultismTiles.STORAGE_CONTROLLER.get(), StorageControllerGeoRenderer::new);

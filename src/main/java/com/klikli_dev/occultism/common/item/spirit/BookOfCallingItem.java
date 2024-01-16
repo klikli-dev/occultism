@@ -53,8 +53,8 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import var;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
@@ -189,7 +189,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
                     //if our mode is "set deposit" then we check if the target is appropriate for depositing
                     //Note: we filter above for spirits -> so for now only spirits are an appropriate target
                     if (ItemMode.get(this.getItemMode(stack)) == ItemMode.SET_DEPOSIT) {
-                        if (targetSpirit.getCapability(ForgeCapabilities.ITEM_HANDLER).isPresent()) {
+                        if (targetSpirit.getCapability(Capabilities.ITEM_HANDLER).isPresent()) {
                             UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
                             if (boundSpiritId != null) {
                                 Optional<SpiritEntity> boundSpirit = EntityUtil.getEntityByUuiDGlobal(target.level().getServer(), boundSpiritId)
@@ -536,7 +536,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
             switch (itemMode) {
                 case SET_DEPOSIT:
                     if (blockEntity != null &&
-                            blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, facing).isPresent()) {
+                            blockEntity.getCapability(Capabilities.ITEM_HANDLER, facing).isPresent()) {
                         return this.setSpiritDepositLocation(player, world, pos, stack,
                                 facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
                     }
@@ -544,12 +544,12 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
                 case SET_EXTRACT:
                     if (this instanceof BookOfCallingManageMachineItem) {
                         if (blockEntity != null &&
-                                blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, facing).isPresent()) {
+                                blockEntity.getCapability(Capabilities.ITEM_HANDLER, facing).isPresent()) {
                             return this.setSpiritManagedMachineExtractLocation(player, world, pos, stack,
                                     facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
                         }
                     } else if (blockEntity != null &&
-                            blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, facing).isPresent()) {
+                            blockEntity.getCapability(Capabilities.ITEM_HANDLER, facing).isPresent()) {
                         return this.setSpiritExtractLocation(player, world, pos, stack,
                                 facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
                     }
@@ -565,7 +565,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
                     break;
                 case SET_MANAGED_MACHINE:
                     if (blockEntity != null && BlockEntityUtil.hasCapabilityOnAnySide(blockEntity,
-                            ForgeCapabilities.ITEM_HANDLER)) {
+                            Capabilities.ITEM_HANDLER)) {
                         this.setSpiritManagedMachine(player, world, pos, stack, facing);
                         return InteractionResult.SUCCESS;
                     }
@@ -574,7 +574,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
         } else {
             if (Objects.requireNonNull(itemMode) == ItemMode.SET_MANAGED_MACHINE) {
                 if (blockEntity != null && BlockEntityUtil.hasCapabilityOnAnySide(blockEntity,
-                        ForgeCapabilities.ITEM_HANDLER)) {
+                        Capabilities.ITEM_HANDLER)) {
                     MachineReference machine = ItemNBTUtil.getManagedMachine(stack);
                     if (machine != null) {
                         GuiHelper.openBookOfCallingManagedMachineGui(machine.insertFacing, machine.extractFacing,

@@ -23,7 +23,7 @@
 package com.klikli_dev.occultism.common.misc;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.common.util.INBTSerializable;
+import net.neoforged.neoforge.common.util.INBTSerializable;
 
 public class DepositOrder implements INBTSerializable<CompoundTag> {
 

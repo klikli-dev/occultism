@@ -30,9 +30,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
-import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.registries.ForgeRegistries;
-
+import net.neoforged.neoforge.network.NetworkEvent;
+import net.neoforged.neoforge.registries.ForgeRegistries;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;

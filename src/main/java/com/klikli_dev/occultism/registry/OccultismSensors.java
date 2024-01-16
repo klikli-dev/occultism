@@ -27,9 +27,9 @@ import com.klikli_dev.occultism.common.entity.ai.sensor.NearestJobItemSensor;
 import com.klikli_dev.occultism.common.entity.ai.sensor.NearestTreeSensor;
 import com.klikli_dev.occultism.common.entity.ai.sensor.UnreachableTreeWalkTargetSensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.RegistryObject;
 
 public class OccultismSensors {
     public static DeferredRegister<SensorType<?>> SENSORS = DeferredRegister.create(ForgeRegistries.Keys.SENSOR_TYPES, Occultism.MODID);

@@ -39,7 +39,7 @@ import net.minecraft.Util;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.data.LanguageProvider;
+import var;
 
 public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
@@ -2970,10 +2970,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addModonomiconIntegration() {
-        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_ITEM_USE, "Item to use:");
-        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SUMMON, "Summon: %s");
-        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_JOB, "Job: %s");
-        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SACRIFICE, "Sacrifice: %s");
+        this.add(I18n.RITUAL_RECIPE_ITEM_USE, "Item to use:");
+        this.add(I18n.RITUAL_RECIPE_SUMMON, "Summon: %s");
+        this.add(I18n.RITUAL_RECIPE_JOB, "Job: %s");
+        this.add(I18n.RITUAL_RECIPE_SACRIFICE, "Sacrifice: %s");
         this.add(I18n.RITUAL_RECIPE_GO_TO_PENTACLE, "Open Pentacle Page: %s");
     }
 

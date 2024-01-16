@@ -58,15 +58,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickItem;
-import net.minecraftforge.items.IItemHandler;
-
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.common.capabilities.Capability;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickItem;
+import net.neoforged.neoforge.items.IItemHandler;
+import var;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
@@ -240,8 +240,8 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                 Optional<? extends Recipe<?>> recipe = this.level.getRecipeManager().byKey(this.currentRitualRecipeId);
                 recipe.map(r -> (RitualRecipe) r).ifPresent(r -> this.currentRitualRecipe = r);
 
-                MinecraftForge.EVENT_BUS.addListener(this.rightClickItemListener);
-                MinecraftForge.EVENT_BUS.addListener(this.livingDeathEventListener);
+                NeoForge.EVENT_BUS.addListener(this.rightClickItemListener);
+                NeoForge.EVENT_BUS.addListener(this.livingDeathEventListener);
 
                 this.currentRitualRecipeId = null;
             }
@@ -403,8 +403,8 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             this.currentRitualRecipe.getRitual().start(this.level, this.getBlockPos(), this, player, handler.getStackInSlot(0));
 
 
-            MinecraftForge.EVENT_BUS.addListener(this.rightClickItemListener);
-            MinecraftForge.EVENT_BUS.addListener(this.livingDeathEventListener);
+            NeoForge.EVENT_BUS.addListener(this.rightClickItemListener);
+            NeoForge.EVENT_BUS.addListener(this.livingDeathEventListener);
 
             this.setChanged();
             this.markNetworkDirty();
@@ -439,8 +439,8 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                 this.remainingAdditionalIngredients.clear();
             this.consumedIngredients.clear();
 
-            MinecraftForge.EVENT_BUS.unregister(this.rightClickItemListener);
-            MinecraftForge.EVENT_BUS.unregister(this.livingDeathEventListener);
+            NeoForge.EVENT_BUS.unregister(this.rightClickItemListener);
+            NeoForge.EVENT_BUS.unregister(this.livingDeathEventListener);
 
             this.setChanged();
             this.markNetworkDirty();
@@ -478,7 +478,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction direction) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
+        if (cap == Capabilities.ITEM_HANDLER) {
             return LazyOptional.empty();
         }
         return super.getCapability(cap, direction);

@@ -36,10 +36,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.registries.ForgeRegistries;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOCase;
 
@@ -265,7 +265,7 @@ public class StorageUtil {
      * @param blockEntity the block entity to drop contents for.
      */
     public static void dropInventoryItems(BlockEntity blockEntity) {
-        blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
+        blockEntity.getCapability(Capabilities.ITEM_HANDLER).ifPresent(handler -> {
             dropInventoryItems(blockEntity.getLevel(), blockEntity.getBlockPos(), handler);
         });
     }

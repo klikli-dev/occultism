@@ -2,7 +2,7 @@ package com.klikli_dev.occultism.integration.modonomicon;
 
 import com.klikli_dev.modonomicon.client.render.page.PageRendererRegistry;
 import com.klikli_dev.occultism.integration.modonomicon.pages.*;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
 public class PageRenderers {
 

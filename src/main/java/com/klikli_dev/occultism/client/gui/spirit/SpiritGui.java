@@ -44,6 +44,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
+import var;
 
 public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScreen<T> {
 

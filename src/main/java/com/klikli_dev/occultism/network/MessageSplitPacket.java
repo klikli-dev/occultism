@@ -23,8 +23,7 @@
 package com.klikli_dev.occultism.network;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent.Context;
-
+import net.neoforged.neoforge.network.NetworkEvent.Context;
 import java.util.function.Supplier;
 
 public class MessageSplitPacket {

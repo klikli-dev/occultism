@@ -29,10 +29,10 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.RegistryObject;
 
 public class OccultismEffects {
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, Occultism.MODID);
@@ -46,7 +46,7 @@ public class OccultismEffects {
 
     public static final RegistryObject<MobEffect> STEP_HEIGHT = EFFECTS.register("step_height", () ->
             new ModEffect(MobEffectCategory.BENEFICIAL, 3402751)
-            .addAttributeModifier(ForgeMod.STEP_HEIGHT_ADDITION.get(), "748e2cfd-8db4-4b55-ba07-014fdf0f74da", 2, AttributeModifier.Operation.ADDITION));
+            .addAttributeModifier(NeoForgeMod.STEP_HEIGHT_ADDITION.get(), "748e2cfd-8db4-4b55-ba07-014fdf0f74da", 2, AttributeModifier.Operation.ADDITION));
 
     public static class ModEffect extends MobEffect {
 

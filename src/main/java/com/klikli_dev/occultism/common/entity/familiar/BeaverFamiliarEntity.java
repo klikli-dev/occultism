@@ -43,8 +43,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraftforge.common.ForgeMod;
-
+import net.neoforged.neoforge.common.NeoForgeMod;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -66,7 +65,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return FamiliarEntity.createMobAttributes().add(ForgeMod.SWIM_SPEED.get(), 1f);
+        return FamiliarEntity.createMobAttributes().add(NeoForgeMod.SWIM_SPEED.get(), 1f);
     }
 
     @Override
