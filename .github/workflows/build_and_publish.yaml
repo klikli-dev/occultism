@@ -73,7 +73,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         if: ${{ steps.get_release_type.outputs.result != 'test' }}
         with:
-          branch: version/1.20.1
+          branch: version/1.20.4
           commit_message: 'docs: update CHANGELOG.md for ${{ github.ref_name }} [skip ci]'
           file_pattern: CHANGELOG.md
       - name: Upload to Mod Platforms
@@ -93,7 +93,6 @@ jobs:
           version: ${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}
           version-type: ${{ steps.get_release_type.outputs.result }}
           loaders: |
-            forge
             neoforge
           game-versions: |
             ${{ steps.get_mc_version.outputs.result }}
