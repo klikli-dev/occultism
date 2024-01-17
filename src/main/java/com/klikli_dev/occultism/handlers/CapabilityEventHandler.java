@@ -23,29 +23,23 @@
 package com.klikli_dev.occultism.handlers;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.common.capability.DoubleJumpCapability;
-import com.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
-import com.klikli_dev.occultism.network.messages.MessageSetJumps;
 import com.klikli_dev.occultism.network.Networking;
-import com.klikli_dev.occultism.registry.OccultismCapabilities;
+import com.klikli_dev.occultism.network.messages.MessageSetJumps;
+import com.klikli_dev.occultism.registry.OccultismDataStorage;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.event.AttachCapabilitiesEvent;
 import net.neoforged.neoforge.event.TickEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class CapabilityEventHandler {
-    //region Static Methods
     @SubscribeEvent
     public static void onPlayerTick(final TickEvent.PlayerTickEvent evt) {
         if (evt.phase == TickEvent.Phase.END) {
             //Reset the double jump capability
             if (evt.player.onGround()) {
-                evt.player.getCapability(OccultismCapabilities.DOUBLE_JUMP).ifPresent(cap -> cap.setJumps(0));
+                evt.player.setData(OccultismDataStorage.DOUBLE_JUMP, 0);
             }
         }
     }
@@ -53,23 +47,10 @@ public class CapabilityEventHandler {
     @SubscribeEvent
     public static void onEntityJoinWorld(final EntityJoinLevelEvent evt) {
         if (evt.getEntity() instanceof ServerPlayer player) {
-            int jumps = player.getCapability(OccultismCapabilities.DOUBLE_JUMP).map(DoubleJumpCapability::getJumps).orElse(0);
+            int jumps = player.getData(OccultismDataStorage.DOUBLE_JUMP);
             if (jumps > 0) {
                 Networking.sendTo(player, new MessageSetJumps(jumps));
             }
         }
     }
-
-    @SubscribeEvent
-    public static void onEntityConstructing(final AttachCapabilitiesEvent<Entity> evt) {
-        if (evt.getObject() instanceof Player) {
-            if (!evt.getObject().getCapability(OccultismCapabilities.DOUBLE_JUMP).isPresent()) {
-                evt.addCapability(OccultismCapabilities.DOUBLE_JUMP_ID, new DoubleJumpCapability.Dispatcher());
-            }
-            if (!evt.getObject().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).isPresent()) {
-                evt.addCapability(OccultismCapabilities.FAMILIAR_SETTINGS_ID, new FamiliarSettingsCapability.Dispatcher());
-            }
-        }
-    }
-    //endregion Static Methods
 }

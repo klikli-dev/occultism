@@ -23,7 +23,7 @@
 package com.klikli_dev.occultism.network.messages;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
+import com.klikli_dev.occultism.common.capability.FamiliarSettingsData;
 import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.registry.OccultismCapabilities;
 import net.minecraft.network.FriendlyByteBuf;
@@ -65,19 +65,19 @@ public class MessageToggleFamiliarSettings implements IMessage {
                 }
             }
         });
-        FamiliarSettingsCapability.syncFor(player);
+        FamiliarSettingsData.syncFor(player);
     }
 
     @Override
     public void encode(FriendlyByteBuf buf) {
-        for (EntityType<?> familiar : FamiliarSettingsCapability.getFamiliars())
+        for (EntityType<?> familiar : FamiliarSettingsData.getFamiliars())
             buf.writeBoolean(this.familiarsPressed.get(familiar));
     }
 
     @Override
     public void decode(FriendlyByteBuf buf) {
         this.familiarsPressed = new HashMap<>();
-        for (EntityType<?> familiar : FamiliarSettingsCapability.getFamiliars())
+        for (EntityType<?> familiar : FamiliarSettingsData.getFamiliars())
             this.familiarsPressed.put(familiar, buf.readBoolean());
     }
 

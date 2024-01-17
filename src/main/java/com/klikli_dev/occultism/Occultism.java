@@ -70,7 +70,7 @@ public class Occultism {
         OccultismBlocks.BLOCKS.register(modEventBus);
         OccultismItems.ITEMS.register(modEventBus);
         OccultismCreativeModeTabs.CREATIVE_MODE_TABS.register(modEventBus);
-        OccultismBlockEntities.TILES.register(modEventBus);
+        OccultismBlockEntities.BLOCK_ENTITIES.register(modEventBus);
         OccultismContainers.CONTAINERS.register(modEventBus);
         OccultismEntities.ENTITIES.register(modEventBus);
         OccultismSounds.SOUNDS.register(modEventBus);
@@ -79,6 +79,7 @@ public class Occultism {
         OccultismLootModifiers.LOOT_MODIFIERS.register(modEventBus);
         OccultismSensors.SENSORS.register(modEventBus);
         OccultismMemoryTypes.MEMORY_MODULE_TYPES.register(modEventBus);
+        OccultismDataStorage.ATTACHMENT_TYPES.register(modEventBus);
 
 
         //now register the custom registries
@@ -95,8 +96,8 @@ public class Occultism {
         modEventBus.addListener(com.klikli_dev.theurgy.network.Networking::register);
 
         NeoForge.EVENT_BUS.register(this);
-        NeoForge.EVENT_BUS.addListener(OccultismCapabilities::onPlayerClone);
-        NeoForge.EVENT_BUS.addListener(OccultismCapabilities::onJoinWorld);
+        NeoForge.EVENT_BUS.addListener(OccultismDataStorage::onPlayerClone);
+        NeoForge.EVENT_BUS.addListener(OccultismDataStorage::onJoinWorld);
 
         GeckoLib.initialize(modEventBus);
     }

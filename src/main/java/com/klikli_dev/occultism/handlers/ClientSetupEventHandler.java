@@ -37,7 +37,7 @@ import com.klikli_dev.occultism.client.model.entity.*;
 import com.klikli_dev.occultism.client.render.blockentity.SacrificialBowlRenderer;
 import com.klikli_dev.occultism.client.render.blockentity.StorageControllerGeoRenderer;
 import com.klikli_dev.occultism.client.render.entity.*;
-import com.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
+import com.klikli_dev.occultism.common.capability.FamiliarSettingsData;
 import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.klikli_dev.occultism.integration.modonomicon.PageRenderers;
 import com.klikli_dev.occultism.registry.*;
@@ -147,7 +147,7 @@ public class ClientSetupEventHandler {
         event.register(KEY_STORAGE_REMOTE);
 
         keysFamiliars = new HashMap<>();
-        for (EntityType<?> familiar : FamiliarSettingsCapability.getFamiliars()) {
+        for (EntityType<?> familiar : FamiliarSettingsData.getFamiliars()) {
             KeyMapping kb = new KeyMapping("key.occultism.familiar." + ForgeRegistries.ENTITY_TYPES.getKey(familiar).getPath(), KeyConflictContext.IN_GAME,
                     InputConstants.Type.KEYSYM.getOrCreate(-1), "key.occultism.category");
             keysFamiliars.put(familiar, kb);

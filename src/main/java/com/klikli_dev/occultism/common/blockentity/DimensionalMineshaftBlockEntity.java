@@ -31,6 +31,7 @@ import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -67,26 +68,25 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     public static final int DEFAULT_MAX_MINING_TIME = 400;
     public static int DEFAULT_ROLLS_PER_OPERATION = 1;
     public static String ROLLS_PER_OPERATION_TAG = "rollsPerOperation";
-    public LazyOptional<ItemStackHandler> inputHandler = LazyOptional.of(() -> new ItemStackHandler(1) {
+    public ItemStackHandler inputHandler =new ItemStackHandler(1) {
 
         @Override
         protected void onContentsChanged(int slot) {
             DimensionalMineshaftBlockEntity.this.setChanged();
         }
 
-    });
-    public LazyOptional<ItemStackHandler> outputHandler = LazyOptional.of(() -> new ItemStackHandler(9) {
+    };
+
+    public ItemStackHandler outputHandler = new ItemStackHandler(9) {
 
         @Override
         protected void onContentsChanged(int slot) {
             DimensionalMineshaftBlockEntity.this.setChanged();
         }
 
-    });
-    public LazyOptional<CombinedInvWrapper> combinedHandler =
-            LazyOptional
-                    .of(() -> new CombinedInvWrapper(this.inputHandler.orElseThrow(ItemHandlerMissingException::new),
-                            this.outputHandler.orElseThrow(ItemHandlerMissingException::new)));
+    };
+
+    public CombinedInvWrapper combinedHandler = new CombinedInvWrapper(this.inputHandler, this.outputHandler);
     public int miningTime;
     public int maxMiningTime = 0;
     public int rollsPerOperation = 0;
@@ -120,24 +120,9 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
     @Override
     public Component getDisplayName() {
-        return Component.literal(ForgeRegistries.BLOCK_ENTITY_TYPES.getKey(this.getType()).getPath());
+        return Component.literal(BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(this.getType()).getPath());
     }
 
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction direction) {
-        if (cap == Capabilities.ITEM_HANDLER) {
-            if (direction == null) {
-                //null is full access for machines or similar.
-                return this.combinedHandler.cast();
-            } else if (direction == Direction.UP) {
-                return this.inputHandler.cast();
-            } else {
-                return this.outputHandler.cast();
-            }
-        }
-        return super.getCapability(cap, direction);
-    }
 
     @Override
     public void load(CompoundTag compound) {
@@ -167,12 +152,6 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         return super.saveNetwork(compound);
     }
 
-    @Override
-    public void setRemoved() {
-        this.inputHandler.invalidate();
-        this.outputHandler.invalidate();
-        super.setRemoved();
-    }
 
     public void tick() {
         if (!this.level.isClientSide) {
@@ -270,13 +249,4 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             input.setDamageValue(0);
         }
     }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        this.inputHandler.invalidate();
-        this.outputHandler.invalidate();
-        this.combinedHandler.invalidate();
-    }
-
 }

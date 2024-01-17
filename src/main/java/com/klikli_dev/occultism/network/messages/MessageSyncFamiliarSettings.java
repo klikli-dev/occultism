@@ -23,9 +23,9 @@
 package com.klikli_dev.occultism.network.messages;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
+import com.klikli_dev.occultism.common.capability.FamiliarSettingsData;
 import com.klikli_dev.occultism.network.IMessage;
-import com.klikli_dev.occultism.registry.OccultismCapabilities;
+import com.klikli_dev.occultism.registry.OccultismDataStorage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -41,15 +41,13 @@ public class MessageSyncFamiliarSettings implements IMessage {
         this.decode(buf);
     }
 
-    public MessageSyncFamiliarSettings(FamiliarSettingsCapability cap) {
+    public MessageSyncFamiliarSettings(FamiliarSettingsData cap) {
         this.tag = cap.serializeNBT();
     }
 
     @Override
     public void onClientReceived(Minecraft minecraft, Player player) {
-        player.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(capability -> {
-            capability.deserializeNBT(this.tag);
-        });
+        player.getData(OccultismDataStorage.FAMILIAR_SETTINGS).deserializeNBT(this.tag);
     }
 
     @Override
@@ -60,5 +58,10 @@ public class MessageSyncFamiliarSettings implements IMessage {
     @Override
     public void decode(FriendlyByteBuf byteBuf) {
         this.tag = byteBuf.readNbt();
+    }
+
+    @Override
+    public ResourceLocation id() {
+        return ID;
     }
 }

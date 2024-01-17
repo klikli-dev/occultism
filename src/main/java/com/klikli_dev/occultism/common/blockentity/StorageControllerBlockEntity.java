@@ -96,12 +96,13 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     public Map<GlobalBlockPos, UUID> depositOrderSpirits = new HashMap<>();
     protected SortDirection sortDirection = SortDirection.DOWN;
     protected SortType sortType = SortType.AMOUNT;
-    protected ItemStackHandler itemStackHandlerInternal = new StorageControllerItemStackHandler(this,
+
+    public ItemStackHandler itemStackHandler = new StorageControllerItemStackHandler(this,
             Occultism.SERVER_CONFIG.storage.controllerBaseSlots.get(),
             Occultism.SERVER_CONFIG.storage.controllerStackSize.get(),
             Occultism.SERVER_CONFIG.storage.overrideItemStackSizes.get()
     );
-    protected LazyOptional<ItemStackHandler> itemStackHandler = LazyOptional.of(() -> this.itemStackHandlerInternal);
+
     protected int maxSlots = Occultism.SERVER_CONFIG.storage.controllerBaseSlots.get();
     protected int usedSlots = 0;
     protected boolean stabilizersInitialized = false;
@@ -485,27 +486,6 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     public void onContentsChanged() {
         this.cachedMessageUpdateStacks = null;
         this.setChanged();
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        this.itemStackHandler.invalidate();
-    }
-
-    @Override
-    public void reviveCaps() {
-        super.reviveCaps();
-        this.itemStackHandler = LazyOptional.of(() -> this.itemStackHandlerInternal);
-    }
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction direction) {
-        if (cap == Capabilities.ITEM_HANDLER) {
-            return this.itemStackHandler.cast();
-        }
-        return super.getCapability(cap, direction);
     }
 
     @Override

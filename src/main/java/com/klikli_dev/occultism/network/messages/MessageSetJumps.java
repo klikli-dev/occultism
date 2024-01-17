@@ -24,7 +24,7 @@ package com.klikli_dev.occultism.network.messages;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.network.IMessage;
-import com.klikli_dev.occultism.registry.OccultismCapabilities;
+import com.klikli_dev.occultism.registry.OccultismDataStorage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -45,7 +45,7 @@ public class MessageSetJumps implements IMessage {
     @Override
     public void onClientReceived(Minecraft minecraft, Player player) {
         if (!player.onGround()) {
-            player.getCapability(OccultismCapabilities.DOUBLE_JUMP).ifPresent(cap -> cap.setJumps(this.jumps));
+            player.setData(OccultismDataStorage.DOUBLE_JUMP, this.jumps);
         }
     }
 

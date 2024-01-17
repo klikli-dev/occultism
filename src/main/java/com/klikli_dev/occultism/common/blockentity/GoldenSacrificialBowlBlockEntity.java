@@ -474,15 +474,6 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         }
     }
 
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction direction) {
-        if (cap == Capabilities.ITEM_HANDLER) {
-            return LazyOptional.empty();
-        }
-        return super.getCapability(cap, direction);
-    }
-
     public void onLivingDeath(LivingDeathEvent event) {
         LivingEntity entityLivingBase = event.getEntity();
         if (!entityLivingBase.level().isClientSide && this.getCurrentRitualRecipe() != null) {

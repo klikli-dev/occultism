@@ -23,12 +23,11 @@
 package com.klikli_dev.occultism.api.common.blockentity;
 
 import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
-import net.neoforged.neoforge.common.capabilities.ICapabilityProvider;
 
 /**
  * Interface for storage
  */
-public interface IStorageControllerProxy extends ICapabilityProvider {
+public interface IStorageControllerProxy {
     //region Getter / Setter
     IStorageController getLinkedStorageController();
 

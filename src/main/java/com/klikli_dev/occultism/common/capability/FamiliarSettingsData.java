@@ -24,33 +24,28 @@ package com.klikli_dev.occultism.common.capability;
 
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.entity.familiar.IFamiliar;
-import com.klikli_dev.occultism.network.messages.MessageSyncFamiliarSettings;
 import com.klikli_dev.occultism.network.Networking;
-import com.klikli_dev.occultism.registry.OccultismCapabilities;
+import com.klikli_dev.occultism.network.messages.MessageSyncFamiliarSettings;
+import com.klikli_dev.occultism.registry.OccultismDataStorage;
 import com.klikli_dev.occultism.registry.OccultismEntities;
-import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.capabilities.ICapabilitySerializable;
 import net.neoforged.neoforge.common.util.INBTSerializable;
-import net.neoforged.neoforge.common.util.LazyOptional;
-import net.neoforged.neoforge.registries.ForgeRegistries;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class FamiliarSettingsCapability implements INBTSerializable<CompoundTag> {
+public class FamiliarSettingsData implements INBTSerializable<CompoundTag> {
 
     private static ImmutableList<EntityType<? extends IFamiliar>> familiars = null;
 
     private final Map<EntityType<?>, Boolean> familiarEnabled;
 
-    public FamiliarSettingsCapability() {
+    public FamiliarSettingsData() {
         this.familiarEnabled = new HashMap<>();
         for (EntityType<?> familiar : getFamiliars())
             this.familiarEnabled.put(familiar, true);
@@ -81,9 +76,7 @@ public class FamiliarSettingsCapability implements INBTSerializable<CompoundTag>
     }
 
     public static void syncFor(ServerPlayer player) {
-        player.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(capability -> {
-            capability.sync(player);
-        });
+        player.getData(OccultismDataStorage.FAMILIAR_SETTINGS).sync(player);
     }
 
     /**
@@ -91,7 +84,7 @@ public class FamiliarSettingsCapability implements INBTSerializable<CompoundTag>
      *
      * @param settings the existing settings instance.
      */
-    public void clone(FamiliarSettingsCapability settings) {
+    public void clone(FamiliarSettingsData settings) {
         for (Entry<EntityType<?>, Boolean> entry : settings.familiarEnabled.entrySet())
             this.familiarEnabled.put(entry.getKey(), entry.getValue());
     }
@@ -112,39 +105,14 @@ public class FamiliarSettingsCapability implements INBTSerializable<CompoundTag>
     public CompoundTag serializeNBT() {
         CompoundTag compound = new CompoundTag();
         for (Entry<EntityType<?>, Boolean> entry : this.familiarEnabled.entrySet())
-            compound.putBoolean(ForgeRegistries.ENTITY_TYPES.getKey(entry.getKey()).getPath(), entry.getValue());
+            compound.putBoolean(BuiltInRegistries.ENTITY_TYPE.getKey(entry.getKey()).getPath(), entry.getValue());
         return compound;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
         for (EntityType<?> familiar : getFamiliars())
-            if (nbt.contains(ForgeRegistries.ENTITY_TYPES.getKey(familiar).getPath()))
-                this.familiarEnabled.put(familiar, nbt.getBoolean(ForgeRegistries.ENTITY_TYPES.getKey(familiar).getPath()));
-    }
-
-    public static class Dispatcher implements ICapabilitySerializable<CompoundTag> {
-
-        private final LazyOptional<FamiliarSettingsCapability> familiarSettingsCapability = LazyOptional.of(
-                FamiliarSettingsCapability::new);
-
-        @Nonnull
-        @Override
-        public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-            if (cap == OccultismCapabilities.FAMILIAR_SETTINGS) {
-                return this.familiarSettingsCapability.cast();
-            }
-            return LazyOptional.empty();
-        }
-
-        @Override
-        public CompoundTag serializeNBT() {
-            return this.familiarSettingsCapability.map(FamiliarSettingsCapability::serializeNBT).orElse(new CompoundTag());
-        }
-
-        @Override
-        public void deserializeNBT(CompoundTag nbt) {
-            this.familiarSettingsCapability.ifPresent(capability -> capability.deserializeNBT(nbt));
-        }
+            if (nbt.contains(BuiltInRegistries.ENTITY_TYPE.getKey(familiar).getPath()))
+                this.familiarEnabled.put(familiar, nbt.getBoolean(BuiltInRegistries.ENTITY_TYPE.getKey(familiar).getPath()));
     }
 }

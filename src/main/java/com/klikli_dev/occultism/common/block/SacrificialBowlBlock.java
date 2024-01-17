@@ -42,8 +42,8 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
+
 import javax.annotation.Nullable;
 
 public class SacrificialBowlBlock extends Block implements EntityBlock {
@@ -79,27 +79,26 @@ public class SacrificialBowlBlock extends Block implements EntityBlock {
         if (!level.isClientSide) {
             ItemStack heldItem = player.getItemInHand(hand);
             SacrificialBowlBlockEntity bowl = (SacrificialBowlBlockEntity) level.getBlockEntity(pos);
-            bowl.getCapability(Capabilities.ITEM_HANDLER, hit.getDirection()).ifPresent(handler -> {
-                if (!player.isShiftKeyDown()) {
-                    ItemStack itemStack = handler.getStackInSlot(0);
-                    if (itemStack.isEmpty()) {
-                        //if there is nothing in the bowl, put the hand held item in
-                        player.setItemInHand(hand, handler.insertItem(0, heldItem, false));
-                        level.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1, 1);
+            var handler = bowl.itemStackHandler;
+            if (!player.isShiftKeyDown()) {
+                ItemStack itemStack = handler.getStackInSlot(0);
+                if (itemStack.isEmpty()) {
+                    //if there is nothing in the bowl, put the hand held item in
+                    player.setItemInHand(hand, handler.insertItem(0, heldItem, false));
+                    level.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1, 1);
+                } else {
+                    //otherwise take out the item.
+                    if (heldItem.isEmpty()) {
+                        //place it in the hand if possible
+                        player.setItemInHand(hand, handler.extractItem(0, 64, false));
                     } else {
-                        //otherwise take out the item.
-                        if (heldItem.isEmpty()) {
-                            //place it in the hand if possible
-                            player.setItemInHand(hand, handler.extractItem(0, 64, false));
-                        } else {
-                            //and if not, just put it in the inventory
-                            ItemHandlerHelper.giveItemToPlayer(player, handler.extractItem(0, 64, false));
-                        }
-                        level.playSound(null, pos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 1, 1);
+                        //and if not, just put it in the inventory
+                        ItemHandlerHelper.giveItemToPlayer(player, handler.extractItem(0, 64, false));
                     }
-                    bowl.setChanged();
+                    level.playSound(null, pos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 1, 1);
                 }
-            });
+                bowl.setChanged();
+            }
         }
         return InteractionResult.SUCCESS;
     }
