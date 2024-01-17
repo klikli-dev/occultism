@@ -39,7 +39,7 @@ import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.common.misc.DepositOrder;
 import com.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.klikli_dev.occultism.common.misc.StorageControllerItemStackHandler;
-import com.klikli_dev.occultism.network.MessageUpdateStacks;
+import com.klikli_dev.occultism.network.messages.MessageUpdateStacks;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;

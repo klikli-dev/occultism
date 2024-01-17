@@ -27,7 +27,7 @@ import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
 import com.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
-import com.klikli_dev.occultism.network.MessageUpdateLinkedMachines;
+import com.klikli_dev.occultism.network.messages.MessageUpdateLinkedMachines;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.OccultismContainers;
 import com.klikli_dev.occultism.util.CuriosUtil;

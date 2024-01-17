@@ -24,8 +24,8 @@ package com.klikli_dev.occultism.integration.jei;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
-import com.klikli_dev.occultism.network.MessageSetRecipe;
-import com.klikli_dev.occultism.network.MessageSetRecipeByID;
+import com.klikli_dev.occultism.network.messages.MessageSetRecipe;
+import com.klikli_dev.occultism.network.messages.MessageSetRecipeByID;
 import com.klikli_dev.occultism.network.Networking;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.constants.VanillaTypes;

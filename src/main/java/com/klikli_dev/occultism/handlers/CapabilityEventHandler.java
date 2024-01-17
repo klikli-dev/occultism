@@ -25,7 +25,7 @@ package com.klikli_dev.occultism.handlers;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.capability.DoubleJumpCapability;
 import com.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
-import com.klikli_dev.occultism.network.MessageSetJumps;
+import com.klikli_dev.occultism.network.messages.MessageSetJumps;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.OccultismCapabilities;
 import net.minecraft.server.level.ServerPlayer;

@@ -26,7 +26,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
 import com.klikli_dev.occultism.api.common.data.MachineReference;
 import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
-import com.klikli_dev.occultism.network.MessageSetManagedMachine;
+import com.klikli_dev.occultism.network.messages.MessageSetManagedMachine;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.util.EnumUtil;
 import net.minecraft.client.gui.GuiGraphics;

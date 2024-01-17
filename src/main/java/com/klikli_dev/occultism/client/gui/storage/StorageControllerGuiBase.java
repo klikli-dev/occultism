@@ -38,7 +38,7 @@ import com.klikli_dev.occultism.common.container.storage.StorageControllerContai
 import com.klikli_dev.occultism.integration.jei.JeiAccess;
 import com.klikli_dev.occultism.integration.jei.JeiSettings;
 import com.klikli_dev.occultism.network.*;
-import com.klikli_dev.occultism.network.messages.MessageClearCraftingMatrix;
+import com.klikli_dev.occultism.network.messages.Messages.MessageClearCraftingMatrix;
 import com.klikli_dev.occultism.util.InputUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import com.mojang.blaze3d.platform.InputConstants;

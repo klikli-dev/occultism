@@ -27,7 +27,7 @@ import com.klikli_dev.occultism.OccultismConstants;
 import com.klikli_dev.occultism.client.divination.ScanManager;
 import com.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.klikli_dev.occultism.integration.theurgy.TheurgyIntegration;
-import com.klikli_dev.occultism.network.MessageSetDivinationResult;
+import com.klikli_dev.occultism.network.messages.MessageSetDivinationResult;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismSounds;

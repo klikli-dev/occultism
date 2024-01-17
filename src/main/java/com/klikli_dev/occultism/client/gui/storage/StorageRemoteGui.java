@@ -25,7 +25,7 @@ package com.klikli_dev.occultism.client.gui.storage;
 import com.klikli_dev.occultism.api.common.data.SortDirection;
 import com.klikli_dev.occultism.api.common.data.SortType;
 import com.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
-import com.klikli_dev.occultism.network.MessageUpdateStorageSettings;
+import com.klikli_dev.occultism.network.messages.MessageUpdateStorageSettings;
 import com.klikli_dev.occultism.network.Networking;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
