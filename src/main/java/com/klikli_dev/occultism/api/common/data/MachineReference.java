@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.api.common.data;
 
 import com.klikli_dev.occultism.util.BlockEntityUtil;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -33,7 +34,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.INBTSerializable;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.StringUtils;
 
 public class MachineReference implements INBTSerializable<CompoundTag> {
@@ -85,8 +85,8 @@ public class MachineReference implements INBTSerializable<CompoundTag> {
         boolean insertIsLoaded = insertBlockEntity.getLevel().isLoaded(insertPos.getPos());
 
         return new MachineReference(extractPos,
-                ForgeRegistries.ITEMS.getKey(extractItem.getItem()), extractIsLoaded, insertPos,
-                ForgeRegistries.ITEMS.getKey(insertItem.getItem()), insertIsLoaded);
+                BuiltInRegistries.ITEM.getKey(extractItem.getItem()), extractIsLoaded, insertPos,
+                BuiltInRegistries.ITEM.getKey(insertItem.getItem()), insertIsLoaded);
     }
 
     public static MachineReference from(CompoundTag compound) {
@@ -103,7 +103,7 @@ public class MachineReference implements INBTSerializable<CompoundTag> {
 
     public Item getExtractItem() {
         if (this.cachedExtractItem == null)
-            this.cachedExtractItem = ForgeRegistries.ITEMS.getValue(this.extractRegistryName);
+            this.cachedExtractItem = BuiltInRegistries.ITEM.get(this.extractRegistryName);
         return this.cachedExtractItem;
     }
 
@@ -115,7 +115,7 @@ public class MachineReference implements INBTSerializable<CompoundTag> {
 
     public Item getInsertItem() {
         if (this.cachedInsertItem == null)
-            this.cachedInsertItem = ForgeRegistries.ITEMS.getValue(this.insertRegistryName);
+            this.cachedInsertItem = BuiltInRegistries.ITEM.get(this.insertRegistryName);
         return this.cachedInsertItem;
     }
 
