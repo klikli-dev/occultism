@@ -23,25 +23,31 @@
 package com.klikli_dev.occultism.common.block.otherworld;
 
 import com.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
+import com.klikli_dev.occultism.datagen.worldgen.ConfiguredFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.grower.AbstractTreeGrower;
+import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 public class OtherworldSaplingNaturalBlock extends SaplingBlock implements IOtherworldBlock {
 
-    public OtherworldSaplingNaturalBlock(AbstractTreeGrower tree, Properties properties) {
-        super(tree, properties);
+    public static final TreeGrower TREE_GROWER = new TreeGrower("otherworld_natural", Optional.empty(), Optional.of(ConfiguredFeatures.TREE_OTHERWORLD_NATURAL), Optional.empty());
+
+
+    public OtherworldSaplingNaturalBlock(Properties properties) {
+        super(TREE_GROWER, properties);
         this.registerDefaultState(this.defaultBlockState().setValue(UNCOVERED, false));
     }
 
@@ -74,8 +80,8 @@ public class OtherworldSaplingNaturalBlock extends SaplingBlock implements IOthe
 
     @Override
     @SuppressWarnings("deprecation")
-    public ItemStack getCloneItemStack(BlockGetter worldIn, BlockPos pos, BlockState state) {
-        return IOtherworldBlock.super.getItem(worldIn, pos, state);
+    public ItemStack getCloneItemStack(LevelReader pLevel, BlockPos pPos, BlockState pState) {
+        return IOtherworldBlock.super.getItem(pLevel, pPos, pState);
     }
 
     @Override

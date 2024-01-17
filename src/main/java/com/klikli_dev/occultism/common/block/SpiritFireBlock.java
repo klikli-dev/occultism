@@ -66,13 +66,13 @@ public class SpiritFireBlock extends BaseFireBlock {
             ItemStackFakeInventory fakeInventory =
                     new ItemStackFakeInventory(ItemStack.EMPTY);
             fakeInventory.setItem(0, item.getItem());
-            Optional<SpiritFireRecipe> recipe =
+            var recipe =
                     pLevel.getRecipeManager().getRecipeFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), fakeInventory, pLevel);
 
             if (recipe.isPresent()) {
                 item.remove(RemovalReason.DISCARDED);
 
-                ItemStack result = recipe.get().assemble(fakeInventory, pLevel.registryAccess());
+                ItemStack result = recipe.get().value().assemble(fakeInventory, pLevel.registryAccess());
                 Vec3 center = Math3DUtil.center(pPos);
                 Containers.dropItemStack(pLevel, center.x, center.y + 0.5, center.z, result);
 

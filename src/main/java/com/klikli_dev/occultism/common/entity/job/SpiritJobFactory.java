@@ -37,7 +37,7 @@ public class SpiritJobFactory {
 
     public SpiritJob create(SpiritEntity entity) {
         SpiritJob job = this.constructor.apply(entity);
-        job.setFactoryId(OccultismSpiritJobs.REGISTRY.get().getKey(this));
+        job.setFactoryId(OccultismSpiritJobs.REGISTRY.getKey(this));
         return job;
     }
 

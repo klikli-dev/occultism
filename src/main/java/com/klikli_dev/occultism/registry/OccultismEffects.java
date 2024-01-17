@@ -25,28 +25,28 @@ package com.klikli_dev.occultism.registry;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.effect.DoubleJumpEffect;
 import com.klikli_dev.occultism.common.effect.ThirdEyeEffect;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.ForgeRegistries;
-import net.neoforged.neoforge.registries.RegistryObject;
+
+import java.util.function.Supplier;
 
 public class OccultismEffects {
-    public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, Occultism.MODID);
+    public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(BuiltInRegistries.MOB_EFFECT, Occultism.MODID);
 
-    public static final RegistryObject<ThirdEyeEffect> THIRD_EYE = EFFECTS.register("third_eye", ThirdEyeEffect::new);
-    public static final RegistryObject<DoubleJumpEffect> DOUBLE_JUMP = EFFECTS.register("double_jump", DoubleJumpEffect::new);
-    public static final RegistryObject<MobEffect> DRAGON_GREED = EFFECTS.register("dragon_greed", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0xFFD700));
-    public static final RegistryObject<MobEffect> MUMMY_DODGE = EFFECTS.register("mummy_dodge", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0xe4d8a7));
-    public static final RegistryObject<MobEffect> BAT_LIFESTEAL = EFFECTS.register("bat_lifesteal", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0x960201));
-    public static final RegistryObject<MobEffect> BEAVER_HARVEST = EFFECTS.register("beaver_harvest", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0x603613));
+    public static final Supplier<ThirdEyeEffect> THIRD_EYE = EFFECTS.register("third_eye", ThirdEyeEffect::new);
+    public static final Supplier<DoubleJumpEffect> DOUBLE_JUMP = EFFECTS.register("double_jump", DoubleJumpEffect::new);
+    public static final Supplier<MobEffect> DRAGON_GREED = EFFECTS.register("dragon_greed", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0xFFD700));
+    public static final Supplier<MobEffect> MUMMY_DODGE = EFFECTS.register("mummy_dodge", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0xe4d8a7));
+    public static final Supplier<MobEffect> BAT_LIFESTEAL = EFFECTS.register("bat_lifesteal", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0x960201));
+    public static final Supplier<MobEffect> BEAVER_HARVEST = EFFECTS.register("beaver_harvest", () -> new ModEffect(MobEffectCategory.BENEFICIAL, 0x603613));
 
-    public static final RegistryObject<MobEffect> STEP_HEIGHT = EFFECTS.register("step_height", () ->
+    public static final Supplier<MobEffect> STEP_HEIGHT = EFFECTS.register("step_height", () ->
             new ModEffect(MobEffectCategory.BENEFICIAL, 3402751)
-            .addAttributeModifier(NeoForgeMod.STEP_HEIGHT_ADDITION.get(), "748e2cfd-8db4-4b55-ba07-014fdf0f74da", 2, AttributeModifier.Operation.ADDITION));
+                    .addAttributeModifier(NeoForgeMod.STEP_HEIGHT.value(), "748e2cfd-8db4-4b55-ba07-014fdf0f74da", 2, AttributeModifier.Operation.ADDITION));
 
     public static class ModEffect extends MobEffect {
 

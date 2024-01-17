@@ -33,7 +33,7 @@ import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.klikli_dev.occultism.registry.OccultismParticles;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
-import com.klikli_dev.occultism.registry.OccultismTiles;
+import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.util.EntityUtil;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.Util;
@@ -89,7 +89,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
 
     public GoldenSacrificialBowlBlockEntity(BlockPos worldPos, BlockState state) {
-        super(OccultismTiles.GOLDEN_SACRIFICIAL_BOWL.get(), worldPos, state);
+        super(OccultismBlockEntities.GOLDEN_SACRIFICIAL_BOWL.get(), worldPos, state);
 
         this.rightClickItemListener = this::onPlayerRightClickItem;
         this.livingDeathEventListener = this::onLivingDeath;

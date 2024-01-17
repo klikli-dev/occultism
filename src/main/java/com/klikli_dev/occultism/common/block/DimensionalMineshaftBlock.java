@@ -23,7 +23,7 @@
 package com.klikli_dev.occultism.common.block;
 
 import com.klikli_dev.occultism.common.blockentity.DimensionalMineshaftBlockEntity;
-import com.klikli_dev.occultism.registry.OccultismTiles;
+import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -117,7 +117,7 @@ public class DimensionalMineshaftBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return OccultismTiles.DIMENSIONAL_MINESHAFT.get().create(blockPos, blockState);
+        return OccultismBlockEntities.DIMENSIONAL_MINESHAFT.get().create(blockPos, blockState);
 
     }
 

@@ -23,22 +23,23 @@
 package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.ForgeRegistries;
-import net.neoforged.neoforge.registries.RegistryObject;
+
+import java.util.function.Supplier;
 
 public class OccultismSounds {
 
-    public static DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Occultism.MODID);
+    public static DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, Occultism.MODID);
 
-    public static final RegistryObject<SoundEvent> CHALK = SOUNDS.register("chalk", () -> loadSoundEvent("chalk"));
-    public static final RegistryObject<SoundEvent> BRUSH = SOUNDS.register("brush", () -> loadSoundEvent("brush"));
-    public static final RegistryObject<SoundEvent> START_RITUAL = SOUNDS.register("start_ritual", () -> loadSoundEvent("start_ritual"));
-    public static final RegistryObject<SoundEvent> TUNING_FORK = SOUNDS.register("tuning_fork", () -> loadSoundEvent("tuning_fork"));
-    public static final RegistryObject<SoundEvent> CRUNCHING = SOUNDS.register("crunching", () -> loadSoundEvent("crunching"));
-    public static final RegistryObject<SoundEvent> POOF = SOUNDS.register("poof", () -> loadSoundEvent("poof"));
+    public static final Supplier<SoundEvent> CHALK = SOUNDS.register("chalk", () -> loadSoundEvent("chalk"));
+    public static final Supplier<SoundEvent> BRUSH = SOUNDS.register("brush", () -> loadSoundEvent("brush"));
+    public static final Supplier<SoundEvent> START_RITUAL = SOUNDS.register("start_ritual", () -> loadSoundEvent("start_ritual"));
+    public static final Supplier<SoundEvent> TUNING_FORK = SOUNDS.register("tuning_fork", () -> loadSoundEvent("tuning_fork"));
+    public static final Supplier<SoundEvent> CRUNCHING = SOUNDS.register("crunching", () -> loadSoundEvent("crunching"));
+    public static final Supplier<SoundEvent> POOF = SOUNDS.register("poof", () -> loadSoundEvent("poof"));
 
     /**
      * Creates the sound event object for the given sound event name, as specified in sounds.json Automatically appends

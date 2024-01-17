@@ -22,7 +22,7 @@
 
 package com.klikli_dev.occultism.common.blockentity;
 
-import com.klikli_dev.occultism.registry.OccultismTiles;
+import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -60,7 +60,7 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
     protected boolean initialized = false;
 
     public SacrificialBowlBlockEntity(BlockPos worldPos, BlockState state) {
-        super(OccultismTiles.SACRIFICIAL_BOWL.get(), worldPos, state);
+        super(OccultismBlockEntities.SACRIFICIAL_BOWL.get(), worldPos, state);
     }
 
     public SacrificialBowlBlockEntity(BlockEntityType<?> BlockEntityTypeIn, BlockPos worldPos, BlockState state) {

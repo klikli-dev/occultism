@@ -27,7 +27,7 @@ import com.klikli_dev.occultism.common.misc.WeightedOutputIngredient;
 import com.klikli_dev.occultism.crafting.recipe.MinerRecipe;
 import com.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
-import com.klikli_dev.occultism.registry.OccultismTiles;
+import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -94,7 +94,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     protected List<WeightedOutputIngredient> possibleResults;
 
     public DimensionalMineshaftBlockEntity(BlockPos worldPos, BlockState state) {
-        super(OccultismTiles.DIMENSIONAL_MINESHAFT.get(), worldPos, state);
+        super(OccultismBlockEntities.DIMENSIONAL_MINESHAFT.get(), worldPos, state);
     }
 
     //region Static Methods

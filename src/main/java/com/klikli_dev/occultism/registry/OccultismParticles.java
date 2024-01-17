@@ -25,19 +25,20 @@ package com.klikli_dev.occultism.registry;
 import com.klikli_dev.occultism.Occultism;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.ForgeRegistries;
-import net.neoforged.neoforge.registries.RegistryObject;
+
+import java.util.function.Supplier;
 
 public class OccultismParticles {
     public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(
-            ForgeRegistries.PARTICLE_TYPES, Occultism.MODID);
+            BuiltInRegistries.PARTICLE_TYPE, Occultism.MODID);
 
-    public static final RegistryObject<SimpleParticleType> RITUAL_WAITING = PARTICLES.register(
+    public static final Supplier<SimpleParticleType> RITUAL_WAITING = PARTICLES.register(
             "ritual_waiting", () -> new SimpleParticleType(false));
-    public static final RegistryObject<SimpleParticleType> SNOWFLAKE = PARTICLES.register(
+    public static final Supplier<SimpleParticleType> SNOWFLAKE = PARTICLES.register(
             "snowflake", () -> new SimpleParticleType(false));
-    public static final RegistryObject<SimpleParticleType> SPIRIT_FIRE_FLAME = PARTICLES.register(
+    public static final Supplier<SimpleParticleType> SPIRIT_FIRE_FLAME = PARTICLES.register(
             "spirit_fire_flame", () -> new SimpleParticleType(false));
 
     //NOTE: IF adding new particles, Register in ClientRegistryEventHandler.onRegisterParticleFactories

@@ -23,7 +23,7 @@
 package com.klikli_dev.occultism.common.block;
 
 import com.klikli_dev.occultism.common.blockentity.SacrificialBowlBlockEntity;
-import com.klikli_dev.occultism.registry.OccultismTiles;
+import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -113,6 +113,6 @@ public class SacrificialBowlBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return OccultismTiles.SACRIFICIAL_BOWL.get().create(blockPos, blockState);
+        return OccultismBlockEntities.SACRIFICIAL_BOWL.get().create(blockPos, blockState);
     }
 }

@@ -30,7 +30,7 @@ import com.klikli_dev.occultism.api.common.data.SortDirection;
 import com.klikli_dev.occultism.api.common.data.SortType;
 import com.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
-import com.klikli_dev.occultism.registry.OccultismTiles;
+import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -63,7 +63,7 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
     protected SortType sortType = SortType.AMOUNT;
 
     public StableWormholeBlockEntity(BlockPos worldPos, BlockState state) {
-        super(OccultismTiles.STABLE_WORMHOLE.get(), worldPos, state);
+        super(OccultismBlockEntities.STABLE_WORMHOLE.get(), worldPos, state);
     }
 
     //region Getter / Setter

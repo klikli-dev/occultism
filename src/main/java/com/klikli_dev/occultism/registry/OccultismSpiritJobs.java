@@ -25,38 +25,39 @@ package com.klikli_dev.occultism.registry;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.job.*;
 import com.klikli_dev.occultism.util.StaticUtil;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.IForgeRegistry;
-import net.neoforged.neoforge.registries.RegistryBuilder;
-import net.neoforged.neoforge.registries.RegistryObject;
+
 import java.util.function.Supplier;
 
 public class OccultismSpiritJobs {
 
-    public static DeferredRegister<SpiritJobFactory> JOBS = DeferredRegister.create(new ResourceLocation(Occultism.MODID, "spirit_job_factory"), Occultism.MODID);
+    public static final ResourceKey<Registry<SpiritJobFactory>> JOBS_KEY = ResourceKey.createRegistryKey(new ResourceLocation(Occultism.MODID, "spirit_job_factories"));
+    public static DeferredRegister<SpiritJobFactory> JOBS = DeferredRegister.create(JOBS_KEY, Occultism.MODID);
 
-    public static final Supplier<IForgeRegistry<SpiritJobFactory>> REGISTRY = JOBS.makeRegistry(() ->
-            new RegistryBuilder<SpiritJobFactory>().disableSaving().setMaxID(Integer.MAX_VALUE - 1));
+    public static final Registry<SpiritJobFactory> REGISTRY = JOBS.makeRegistry((builder) -> {
+    });
 
-    public static final RegistryObject<SpiritJobFactory> LUMBERJACK = JOBS.register("lumberjack",
+    public static final Supplier<SpiritJobFactory> LUMBERJACK = JOBS.register("lumberjack",
             () -> new SpiritJobFactory(LumberjackJob::new));
-    public static final RegistryObject<SpiritJobFactory> MANAGE_MACHINE = JOBS.register("manage_machine",
+    public static final Supplier<SpiritJobFactory> MANAGE_MACHINE = JOBS.register("manage_machine",
             () -> new SpiritJobFactory(ManageMachineJob::new));
-    public static final RegistryObject<SpiritJobFactory> TRANSPORT_ITEMS = JOBS.register("transport_items",
+    public static final Supplier<SpiritJobFactory> TRANSPORT_ITEMS = JOBS.register("transport_items",
             () -> new SpiritJobFactory(TransportItemsJob::new));
-    public static final RegistryObject<SpiritJobFactory> CLEANER = JOBS.register("cleaner",
+    public static final Supplier<SpiritJobFactory> CLEANER = JOBS.register("cleaner",
             () -> new SpiritJobFactory(CleanerJob::new));
 
     //Trade jobs
-    public static final RegistryObject<SpiritJobFactory> TRADE_OTHERSTONE_T1 = JOBS.register("trade_otherstone_t1",
+    public static final Supplier<SpiritJobFactory> TRADE_OTHERSTONE_T1 = JOBS.register("trade_otherstone_t1",
             () -> new SpiritJobFactory((entity) -> {
                 TraderJob job = new TraderJob(entity, StaticUtil.modLoc("spirit_trade/stone_to_otherstone"));
                 job.setTimeToConvert(15);
                 job.setMaxTradesPerRound(4);
                 return job;
             }));
-    public static final RegistryObject<SpiritJobFactory> TRADE_OTHERWORLD_SAPLINGS_T2 = JOBS.register("trade_otherworld_saplings_t1",
+    public static final Supplier<SpiritJobFactory> TRADE_OTHERWORLD_SAPLINGS_T2 = JOBS.register("trade_otherworld_saplings_t1",
             () -> new SpiritJobFactory((entity) -> {
                 TraderJob job = new TraderJob(entity, StaticUtil.modLoc("spirit_trade/otherworld_sapling"));
                 job.setTimeToConvert(20);
@@ -65,25 +66,25 @@ public class OccultismSpiritJobs {
             }));
 
     //Crushing jobs
-    public static final RegistryObject<SpiritJobFactory> CRUSH_TIER1 = JOBS.register("crush_tier1",
+    public static final Supplier<SpiritJobFactory> CRUSH_TIER1 = JOBS.register("crush_tier1",
             () -> new SpiritJobFactory((entity) -> new CrusherJob(entity,
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier1CrusherTimeMultiplier.get().floatValue(),
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier1CrusherOutputMultiplier.get().floatValue(),
                     () -> 1
             )));
-    public static final RegistryObject<SpiritJobFactory> CRUSH_TIER2 = JOBS.register("crush_tier2",
+    public static final Supplier<SpiritJobFactory> CRUSH_TIER2 = JOBS.register("crush_tier2",
             () -> new SpiritJobFactory((entity) -> new CrusherJob(entity,
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier2CrusherTimeMultiplier.get().floatValue(),
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier2CrusherOutputMultiplier.get().floatValue(),
                     () -> 2
             )));
-    public static final RegistryObject<SpiritJobFactory> CRUSH_TIER3 = JOBS.register("crush_tier3",
+    public static final Supplier<SpiritJobFactory> CRUSH_TIER3 = JOBS.register("crush_tier3",
             () -> new SpiritJobFactory((entity) -> new CrusherJob(entity,
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier3CrusherTimeMultiplier.get().floatValue(),
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier3CrusherOutputMultiplier.get().floatValue(),
                     () -> 3
             )));
-    public static final RegistryObject<SpiritJobFactory> CRUSH_TIER4 = JOBS.register("crush_tier4",
+    public static final Supplier<SpiritJobFactory> CRUSH_TIER4 = JOBS.register("crush_tier4",
             () -> new SpiritJobFactory((entity) -> new CrusherJob(entity,
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier4CrusherTimeMultiplier.get().floatValue(),
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier4CrusherOutputMultiplier.get().floatValue(),
@@ -91,17 +92,17 @@ public class OccultismSpiritJobs {
             )));
 
     //Weather Jobs
-    public static final RegistryObject<SpiritJobFactory> CLEAR_WEATHER = JOBS.register("clear_weather",
+    public static final Supplier<SpiritJobFactory> CLEAR_WEATHER = JOBS.register("clear_weather",
             () -> new SpiritJobFactory((entity) -> new ClearWeatherJob(entity, 20 * 15)));
-    public static final RegistryObject<SpiritJobFactory> RAIN_WEATHER = JOBS.register("rain_weather",
+    public static final Supplier<SpiritJobFactory> RAIN_WEATHER = JOBS.register("rain_weather",
             () -> new SpiritJobFactory((entity) -> new RainWeatherJob(entity, 20 * 30)));
-    public static final RegistryObject<SpiritJobFactory> THUNDER_WEATHER = JOBS.register("thunder_weather",
+    public static final Supplier<SpiritJobFactory> THUNDER_WEATHER = JOBS.register("thunder_weather",
             () -> new SpiritJobFactory((entity) -> new ThunderWeatherJob(entity, 20 * 60)));
 
     //Time Jobs
-    public static final RegistryObject<SpiritJobFactory> DAY_TIME = JOBS.register("day_time",
+    public static final Supplier<SpiritJobFactory> DAY_TIME = JOBS.register("day_time",
             () -> new SpiritJobFactory((entity) -> new DayTimeJob(entity, 20 * 5)));
-    public static final RegistryObject<SpiritJobFactory> NIGHT_TIME = JOBS.register("night_time",
+    public static final Supplier<SpiritJobFactory> NIGHT_TIME = JOBS.register("night_time",
             () -> new SpiritJobFactory((entity) -> new NightTimeJob(entity, 20 * 5)));
 
 }

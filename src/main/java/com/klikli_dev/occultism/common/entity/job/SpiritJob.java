@@ -50,7 +50,7 @@ public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
 
     public static SpiritJob from(SpiritEntity entity, CompoundTag nbt) {
         SpiritJobFactory factory = OccultismSpiritJobs.REGISTRY
-                .get().getValue(new ResourceLocation(nbt.getString("factoryId")));
+                .get(new ResourceLocation(nbt.getString("factoryId")));
         SpiritJob job = factory.create(entity);
         job.deserializeNBT(nbt);
         return job;

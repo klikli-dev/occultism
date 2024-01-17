@@ -32,7 +32,6 @@ import com.klikli_dev.occultism.config.OccultismClientConfig;
 import com.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.klikli_dev.occultism.config.OccultismServerConfig;
 import com.klikli_dev.occultism.integration.modonomicon.PageLoaders;
-import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.*;
 import com.mojang.logging.LogUtils;
 import net.neoforged.bus.api.IEventBus;
@@ -71,7 +70,7 @@ public class Occultism {
         OccultismBlocks.BLOCKS.register(modEventBus);
         OccultismItems.ITEMS.register(modEventBus);
         OccultismCreativeModeTabs.CREATIVE_MODE_TABS.register(modEventBus);
-        OccultismTiles.TILES.register(modEventBus);
+        OccultismBlockEntities.TILES.register(modEventBus);
         OccultismContainers.CONTAINERS.register(modEventBus);
         OccultismEntities.ENTITIES.register(modEventBus);
         OccultismSounds.SOUNDS.register(modEventBus);

@@ -42,7 +42,7 @@ import com.klikli_dev.occultism.common.misc.StorageControllerItemStackHandler;
 import com.klikli_dev.occultism.network.MessageUpdateStacks;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.occultism.registry.OccultismTiles;
+import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.util.EntityUtil;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
@@ -109,7 +109,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     protected MessageUpdateStacks cachedMessageUpdateStacks;
 
     public StorageControllerBlockEntity(BlockPos worldPos, BlockState state) {
-        super(OccultismTiles.STORAGE_CONTROLLER.get(), worldPos, state);
+        super(OccultismBlockEntities.STORAGE_CONTROLLER.get(), worldPos, state);
     }
 
     public void tick() {

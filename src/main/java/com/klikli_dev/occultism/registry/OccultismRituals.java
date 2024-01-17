@@ -24,56 +24,58 @@ package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.ritual.*;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.IForgeRegistry;
-import net.neoforged.neoforge.registries.RegistryBuilder;
-import net.neoforged.neoforge.registries.RegistryObject;
+
 import java.util.function.Supplier;
 
 public class OccultismRituals {
 
-    public static final DeferredRegister<RitualFactory> RITUAL_FACTORIES = DeferredRegister.create(new ResourceLocation(Occultism.MODID, "ritual_factory"), Occultism.MODID);
+    public static final ResourceKey<Registry<RitualFactory>> RITUAL_FACTORIES_KEY = ResourceKey.createRegistryKey(new ResourceLocation(Occultism.MODID, "ritual_factories"));
 
-    public static final Supplier<IForgeRegistry<RitualFactory>> REGISTRY = RITUAL_FACTORIES.makeRegistry(() ->
-            new RegistryBuilder<RitualFactory>().disableSaving().setMaxID(Integer.MAX_VALUE - 1));
+    public static final DeferredRegister<RitualFactory> RITUAL_FACTORIES = DeferredRegister.create(RITUAL_FACTORIES_KEY, Occultism.MODID);
+
+    public static final Registry<RitualFactory> REGISTRY = RITUAL_FACTORIES.makeRegistry((builder) -> {
+    });
 
     //Summoning
-    public static final RegistryObject<RitualFactory> SUMMON_RITUAL =
+    public static final Supplier<RitualFactory> SUMMON_RITUAL =
             RITUAL_FACTORIES.register("summon",
                     () -> new RitualFactory((r) -> new SummonRitual(r, false)));
-    public static final RegistryObject<RitualFactory> SUMMON_TAMED_RITUAL =
+    public static final Supplier<RitualFactory> SUMMON_TAMED_RITUAL =
             RITUAL_FACTORIES.register("summon_tamed",
                     () -> new RitualFactory((r) -> new SummonRitual(r, true)));
-    public static final RegistryObject<RitualFactory> SUMMON_WITH_CHANCE_OF_CHICKEN_RITUAL =
+    public static final Supplier<RitualFactory> SUMMON_WITH_CHANCE_OF_CHICKEN_RITUAL =
             RITUAL_FACTORIES.register("summon_with_chance_of_chicken",
                     () -> new RitualFactory((r) -> new SummonWithChanceOfChickenRitual(r, false)));
-    public static final RegistryObject<RitualFactory> SUMMON_WITH_CHANCE_OF_CHICKEN_TAMED_RITUAL =
+    public static final Supplier<RitualFactory> SUMMON_WITH_CHANCE_OF_CHICKEN_TAMED_RITUAL =
             RITUAL_FACTORIES.register("summon_with_chance_of_chicken_tamed",
                     () -> new RitualFactory((r) -> new SummonWithChanceOfChickenRitual(r, false)));
-    public static final RegistryObject<RitualFactory> SUMMON_SPIRIT_WITH_JOB_RITUAL =
+    public static final Supplier<RitualFactory> SUMMON_SPIRIT_WITH_JOB_RITUAL =
             RITUAL_FACTORIES.register("summon_spirit_with_job",
                     () -> new RitualFactory(SummonSpiritWithJobRitual::new));
-    public static final RegistryObject<RitualFactory> SUMMON_WILD_HUNT =
+    public static final Supplier<RitualFactory> SUMMON_WILD_HUNT =
             RITUAL_FACTORIES.register("summon_wild_hunt",
                     () -> new RitualFactory(SummonWildHuntRitual::new));
-    public static final RegistryObject<RitualFactory> FAMILIAR_RITUAL =
+    public static final Supplier<RitualFactory> FAMILIAR_RITUAL =
             RITUAL_FACTORIES.register("familiar",
                     () -> new RitualFactory(FamiliarRitual::new));
 
     //Crafting
-    public static final RegistryObject<RitualFactory> CRAFT_RITUAL =
+    public static final Supplier<RitualFactory> CRAFT_RITUAL =
             RITUAL_FACTORIES.register("craft",
                     () -> new RitualFactory(CraftRitual::new));
-    public static final RegistryObject<RitualFactory> CRAFT_WITH_SPIRIT_NAME_RITUAL =
+    public static final Supplier<RitualFactory> CRAFT_WITH_SPIRIT_NAME_RITUAL =
             RITUAL_FACTORIES.register("craft_with_spirit_name",
                     () -> new RitualFactory(CraftWithSpiritNameRitual::new));
-    public static final RegistryObject<RitualFactory> CRAFT_MINER_SPIRIT_RITUAL =
+    public static final Supplier<RitualFactory> CRAFT_MINER_SPIRIT_RITUAL =
             RITUAL_FACTORIES.register("craft_miner_spirit",
                     () -> new RitualFactory(CraftMinerSpiritRitual::new));
 
     //Other
-    public static final RegistryObject<RitualFactory> COMMAND_RITUAL =
+    public static final Supplier<RitualFactory> COMMAND_RITUAL =
             RITUAL_FACTORIES.register("execute_command",
                     () -> new RitualFactory(CommandRitual::new));
 }

@@ -85,7 +85,7 @@ public class RitualRecipe implements Recipe<Container> {
         this.entityNbt = entityNbt;
         this.pentacleId = pentacleId;
         this.ritualType = ritualType;
-        this.ritual = () -> OccultismRituals.REGISTRY.get().getValue(this.ritualType).create(this);
+        this.ritual = () -> OccultismRituals.REGISTRY.get(this.ritualType).create(this);
         this.ritualDummy = ritualDummy;
         this.activationItem = activationItem;
         this.duration = duration;

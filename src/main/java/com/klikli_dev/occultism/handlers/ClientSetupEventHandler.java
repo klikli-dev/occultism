@@ -34,7 +34,6 @@ import com.klikli_dev.occultism.client.itemproperties.*;
 import com.klikli_dev.occultism.client.keybindings.BackpackKeyConflictContext;
 import com.klikli_dev.occultism.client.keybindings.StorageRemoteKeyConflictContext;
 import com.klikli_dev.occultism.client.model.entity.*;
-import com.klikli_dev.occultism.client.render.ThirdEyeEffectRenderer;
 import com.klikli_dev.occultism.client.render.blockentity.SacrificialBowlRenderer;
 import com.klikli_dev.occultism.client.render.blockentity.StorageControllerGeoRenderer;
 import com.klikli_dev.occultism.client.render.entity.*;
@@ -163,9 +162,9 @@ public class ClientSetupEventHandler {
         NeoForge.EVENT_BUS.register(Occultism.THIRD_EYE_EFFECT_RENDERER);
 
         //Register Tile Entity Renderers
-        BlockEntityRenderers.register(OccultismTiles.STORAGE_CONTROLLER.get(), StorageControllerGeoRenderer::new);
-        BlockEntityRenderers.register(OccultismTiles.SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
-        BlockEntityRenderers.register(OccultismTiles.GOLDEN_SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
+        BlockEntityRenderers.register(OccultismBlockEntities.STORAGE_CONTROLLER.get(), StorageControllerGeoRenderer::new);
+        BlockEntityRenderers.register(OccultismBlockEntities.SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
+        BlockEntityRenderers.register(OccultismBlockEntities.GOLDEN_SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
 
         registerItemModelProperties(event);
 

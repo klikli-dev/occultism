@@ -27,17 +27,18 @@ import com.klikli_dev.occultism.common.entity.familiar.*;
 import com.klikli_dev.occultism.common.entity.possessed.*;
 import com.klikli_dev.occultism.common.entity.spirit.*;
 import com.klikli_dev.occultism.util.StaticUtil;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.util.NonNullLazy;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.ForgeRegistries;
-import net.neoforged.neoforge.registries.RegistryObject;
+
+import java.util.function.Supplier;
 
 public class OccultismEntities {
 
-    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES,
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE,
             Occultism.MODID);
 
     public static final NonNullLazy<EntityType<FoliotEntity>> FOLIOT_TYPE =
@@ -231,70 +232,70 @@ public class OccultismEntities {
                     .clientTrackingRange(8)
                     .build(StaticUtil.modLoc("shub_niggurath_spawn").toString()));
 
-    public static final RegistryObject<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
-    public static final RegistryObject<EntityType<DjinniEntity>> DJINNI = ENTITIES.register("djinni", DJINNI_TYPE::get);
-    public static final RegistryObject<EntityType<AfritEntity>> AFRIT = ENTITIES.register("afrit", AFRIT_TYPE::get);
-    public static final RegistryObject<EntityType<AfritWildEntity>> AFRIT_WILD = ENTITIES.register("afrit_wild", AFRIT_WILD_TYPE::get);
-    public static final RegistryObject<EntityType<MaridEntity>> MARID = ENTITIES.register("marid", MARID_TYPE::get);
+    public static final Supplier<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
+    public static final Supplier<EntityType<DjinniEntity>> DJINNI = ENTITIES.register("djinni", DJINNI_TYPE::get);
+    public static final Supplier<EntityType<AfritEntity>> AFRIT = ENTITIES.register("afrit", AFRIT_TYPE::get);
+    public static final Supplier<EntityType<AfritWildEntity>> AFRIT_WILD = ENTITIES.register("afrit_wild", AFRIT_WILD_TYPE::get);
+    public static final Supplier<EntityType<MaridEntity>> MARID = ENTITIES.register("marid", MARID_TYPE::get);
 
 
-    public static final RegistryObject<EntityType<PossessedEndermiteEntity>> POSSESSED_ENDERMITE =
+    public static final Supplier<EntityType<PossessedEndermiteEntity>> POSSESSED_ENDERMITE =
             ENTITIES.register("possessed_endermite", POSSESSED_ENDERMITE_TYPE::get);
-    public static final RegistryObject<EntityType<PossessedSkeletonEntity>> POSSESSED_SKELETON =
+    public static final Supplier<EntityType<PossessedSkeletonEntity>> POSSESSED_SKELETON =
             ENTITIES.register("possessed_skeleton", POSSESSED_SKELETON_TYPE::get);
-    public static final RegistryObject<EntityType<PossessedEndermanEntity>> POSSESSED_ENDERMAN =
+    public static final Supplier<EntityType<PossessedEndermanEntity>> POSSESSED_ENDERMAN =
             ENTITIES.register("possessed_enderman", POSSESSED_ENDERMAN_TYPE::get);
-    public static final RegistryObject<EntityType<PossessedGhastEntity>> POSSESSED_GHAST =
+    public static final Supplier<EntityType<PossessedGhastEntity>> POSSESSED_GHAST =
             ENTITIES.register("possessed_ghast", POSSESSED_GHAST_TYPE::get);
-    public static final RegistryObject<EntityType<PossessedPhantomEntity>> POSSESSED_PHANTOM =
+    public static final Supplier<EntityType<PossessedPhantomEntity>> POSSESSED_PHANTOM =
             ENTITIES.register("possessed_phantom", POSSESSED_PHANTOM_TYPE::get);
-    public static final RegistryObject<EntityType<PossessedWeakShulkerEntity>> POSSESSED_WEAK_SHULKER =
+    public static final Supplier<EntityType<PossessedWeakShulkerEntity>> POSSESSED_WEAK_SHULKER =
             ENTITIES.register("possessed_weak_shulker", POSSESSED_WEAK_SHULKER_TYPE::get);
-    public static final RegistryObject<EntityType<PossessedShulkerEntity>> POSSESSED_SHULKER =
+    public static final Supplier<EntityType<PossessedShulkerEntity>> POSSESSED_SHULKER =
             ENTITIES.register("possessed_shulker", POSSESSED_SHULKER_TYPE::get);
-    public static final RegistryObject<EntityType<PossessedElderGuardianEntity>> POSSESSED_ELDER_GUARDIAN =
+    public static final Supplier<EntityType<PossessedElderGuardianEntity>> POSSESSED_ELDER_GUARDIAN =
             ENTITIES.register("possessed_elder_guardian", POSSESSED_ELDER_GUARDIAN_TYPE::get);
-    public static final RegistryObject<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON =
+    public static final Supplier<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON =
             ENTITIES.register("wild_hunt_skeleton", WILD_HUNT_SKELETON_TYPE::get);
-    public static final RegistryObject<EntityType<WildHuntWitherSkeletonEntity>> WILD_HUNT_WITHER_SKELETON =
+    public static final Supplier<EntityType<WildHuntWitherSkeletonEntity>> WILD_HUNT_WITHER_SKELETON =
             ENTITIES.register("wild_hunt_wither_skeleton", WILD_HUNT_WITHER_SKELETON_TYPE::get);
-    public static final RegistryObject<EntityType<OtherworldBirdEntity>> OTHERWORLD_BIRD =
+    public static final Supplier<EntityType<OtherworldBirdEntity>> OTHERWORLD_BIRD =
             ENTITIES.register("otherworld_bird", OTHERWORLD_BIRD_TYPE::get);
-    public static final RegistryObject<EntityType<GreedyFamiliarEntity>> GREEDY_FAMILIAR =
+    public static final Supplier<EntityType<GreedyFamiliarEntity>> GREEDY_FAMILIAR =
             ENTITIES.register("greedy_familiar", GREEDY_FAMILIAR_TYPE::get);
-    public static final RegistryObject<EntityType<BatFamiliarEntity>> BAT_FAMILIAR =
+    public static final Supplier<EntityType<BatFamiliarEntity>> BAT_FAMILIAR =
             ENTITIES.register("bat_familiar", BAT_FAMILIAR_TYPE::get);
-    public static final RegistryObject<EntityType<DeerFamiliarEntity>> DEER_FAMILIAR =
+    public static final Supplier<EntityType<DeerFamiliarEntity>> DEER_FAMILIAR =
             ENTITIES.register("deer_familiar", DEER_FAMILIAR_TYPE::get);
-    public static final RegistryObject<EntityType<CthulhuFamiliarEntity>> CTHULHU_FAMILIAR =
+    public static final Supplier<EntityType<CthulhuFamiliarEntity>> CTHULHU_FAMILIAR =
             ENTITIES.register("cthulhu_familiar", CTHULHU_FAMILIAR_TYPE::get);
-    public static final RegistryObject<EntityType<DevilFamiliarEntity>> DEVIL_FAMILIAR =
+    public static final Supplier<EntityType<DevilFamiliarEntity>> DEVIL_FAMILIAR =
             ENTITIES.register("devil_familiar", DEVIL_FAMILIAR_TYPE::get);
-    public static final RegistryObject<EntityType<DragonFamiliarEntity>> DRAGON_FAMILIAR =
+    public static final Supplier<EntityType<DragonFamiliarEntity>> DRAGON_FAMILIAR =
             ENTITIES.register("dragon_familiar", DRAGON_FAMILIAR_TYPE::get);
-    public static final RegistryObject<EntityType<BlacksmithFamiliarEntity>> BLACKSMITH_FAMILIAR =
+    public static final Supplier<EntityType<BlacksmithFamiliarEntity>> BLACKSMITH_FAMILIAR =
             ENTITIES.register("blacksmith_familiar", BLACKSMITH_FAMILIAR_TYPE::get);
-    public static final RegistryObject<EntityType<GuardianFamiliarEntity>> GUARDIAN_FAMILIAR =
+    public static final Supplier<EntityType<GuardianFamiliarEntity>> GUARDIAN_FAMILIAR =
             ENTITIES.register("guardian_familiar", GUARDIAN_FAMILIAR_TYPE::get);
-    public static final RegistryObject<EntityType<HeadlessFamiliarEntity>> HEADLESS_FAMILIAR =
+    public static final Supplier<EntityType<HeadlessFamiliarEntity>> HEADLESS_FAMILIAR =
             ENTITIES.register("headless_familiar", HEADLESS_FAMILIAR_TYPE::get);
-    public static final RegistryObject<EntityType<ChimeraFamiliarEntity>> CHIMERA_FAMILIAR =
+    public static final Supplier<EntityType<ChimeraFamiliarEntity>> CHIMERA_FAMILIAR =
             ENTITIES.register("chimera_familiar", CHIMERA_FAMILIAR_TYPE::get);
-    public static final RegistryObject<EntityType<GoatFamiliarEntity>> GOAT_FAMILIAR =
+    public static final Supplier<EntityType<GoatFamiliarEntity>> GOAT_FAMILIAR =
             ENTITIES.register("goat_familiar", GOAT_FAMILIAR_TYPE::get);
-    public static final RegistryObject<EntityType<ShubNiggurathFamiliarEntity>> SHUB_NIGGURATH_FAMILIAR =
+    public static final Supplier<EntityType<ShubNiggurathFamiliarEntity>> SHUB_NIGGURATH_FAMILIAR =
             ENTITIES.register("shub_niggurath_familiar", SHUB_NIGGURATH_FAMILIAR_TYPE::get);
-    public static final RegistryObject<EntityType<BeholderFamiliarEntity>> BEHOLDER_FAMILIAR =
+    public static final Supplier<EntityType<BeholderFamiliarEntity>> BEHOLDER_FAMILIAR =
             ENTITIES.register("beholder_familiar", BEHOLDER_FAMILIAR_TYPE::get);
-    public static final RegistryObject<EntityType<FairyFamiliarEntity>> FAIRY_FAMILIAR =
+    public static final Supplier<EntityType<FairyFamiliarEntity>> FAIRY_FAMILIAR =
             ENTITIES.register("fairy_familiar", FAIRY_FAMILIAR_TYPE::get);
-    public static final RegistryObject<EntityType<MummyFamiliarEntity>> MUMMY_FAMILIAR =
+    public static final Supplier<EntityType<MummyFamiliarEntity>> MUMMY_FAMILIAR =
             ENTITIES.register("mummy_familiar", MUMMY_FAMILIAR_TYPE::get);
-    public static final RegistryObject<EntityType<BeaverFamiliarEntity>> BEAVER_FAMILIAR =
+    public static final Supplier<EntityType<BeaverFamiliarEntity>> BEAVER_FAMILIAR =
             ENTITIES.register("beaver_familiar", BEAVER_FAMILIAR_TYPE::get);
-    public static final RegistryObject<EntityType<ThrownSwordEntity>> THROWN_SWORD =
+    public static final Supplier<EntityType<ThrownSwordEntity>> THROWN_SWORD =
             ENTITIES.register("thrown_sword", THROWN_SWORD_TYPE::get);
-    public static final RegistryObject<EntityType<ShubNiggurathSpawnEntity>> SHUB_NIGGURATH_SPAWN =
+    public static final Supplier<EntityType<ShubNiggurathSpawnEntity>> SHUB_NIGGURATH_SPAWN =
             ENTITIES.register("shub_niggurath_spawn", SHUB_NIGGURATH_SPAWN_TYPE::get);
 
 }

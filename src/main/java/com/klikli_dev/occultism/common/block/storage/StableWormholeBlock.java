@@ -27,7 +27,7 @@ import com.google.common.collect.Maps;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.blockentity.StableWormholeBlockEntity;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
-import com.klikli_dev.occultism.registry.OccultismTiles;
+import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -266,7 +266,7 @@ public class StableWormholeBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return OccultismTiles.STABLE_WORMHOLE.get().create(blockPos, blockState);
+        return OccultismBlockEntities.STABLE_WORMHOLE.get().create(blockPos, blockState);
     }
 }
 
