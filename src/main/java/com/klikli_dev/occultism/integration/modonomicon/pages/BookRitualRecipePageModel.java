@@ -11,7 +11,6 @@ import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconCons
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
-import var;
 
 public class BookRitualRecipePageModel extends BookRecipePageModel {
     protected BookRitualRecipePageModel(@NotNull String anchor) {

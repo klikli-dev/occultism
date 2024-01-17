@@ -73,7 +73,6 @@ import net.tslat.smartbrainlib.api.core.SmartBrain;
 import net.tslat.smartbrainlib.api.core.SmartBrainProvider;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import net.tslat.smartbrainlib.util.BrainUtils;
-import var;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;

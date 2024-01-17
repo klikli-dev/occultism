@@ -26,10 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import net.neoforged.neoforge.common.NeoForgeConfigSpec;
-import net.neoforged.neoforge.common.NeoForgeConfigSpec.BooleanValue;
-import net.neoforged.neoforge.common.NeoForgeConfigSpec.ConfigValue;
-import net.neoforged.neoforge.common.NeoForgeConfigSpec.DoubleValue;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
+import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
+import net.neoforged.neoforge.common.ModConfigSpec.DoubleValue;
 
 public class OccultismServerConfig {
 
@@ -39,10 +39,10 @@ public class OccultismServerConfig {
     public final RitualSettings rituals;
     public final DimensionalMineshaftSettings dimensionalMineshaft;
     public final ItemSettings itemSettings;
-    public final NeoForgeConfigSpec spec;
+    public final ModConfigSpec spec;
 
     public OccultismServerConfig() {
-        NeoForgeConfigSpec.Builder builder = new NeoForgeConfigSpec.Builder();
+        ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
         this.storage = new StorageSettings(builder);
         this.spiritJobs = new SpiritJobSettings(builder);
         this.rituals = new RitualSettings(builder);
@@ -53,7 +53,7 @@ public class OccultismServerConfig {
 
     public static class ItemSettings {
 
-        public ItemSettings(NeoForgeConfigSpec.Builder builder) {
+        public ItemSettings(ModConfigSpec.Builder builder) {
             builder.comment("Item Settings").push("items");
 
             builder.pop();
@@ -75,7 +75,7 @@ public class OccultismServerConfig {
         public final ConfigValue<Integer> blacksmithFamiliarUpgradeCooldown;
         public final ConfigValue<Double> blacksmithFamiliarRepairChance;
 
-        public SpiritJobSettings(NeoForgeConfigSpec.Builder builder) {
+        public SpiritJobSettings(ModConfigSpec.Builder builder) {
             builder.comment("Spirit Job Settings").push("spirit_job");
             this.drikwingFamiliarSlowFallingSeconds =
                     builder.comment(
@@ -145,7 +145,7 @@ public class OccultismServerConfig {
         public final MinerSpiritSettings minerAfritDeeps;
         public final MinerSpiritSettings minerMaridMaster;
 
-        public DimensionalMineshaftSettings(NeoForgeConfigSpec.Builder builder) {
+        public DimensionalMineshaftSettings(ModConfigSpec.Builder builder) {
             builder.comment("Dimensional Mineshaft Settings").push("dimensional_mineshaft");
 
             this.minerFoliotUnspecialized =
@@ -168,7 +168,7 @@ public class OccultismServerConfig {
             public final ConfigValue<Integer> rollsPerOperation;
             public final ConfigValue<Integer> durability;
 
-            public MinerSpiritSettings(String oreName, NeoForgeConfigSpec.Builder builder,
+            public MinerSpiritSettings(String oreName, ModConfigSpec.Builder builder,
                                        int maxMiningTime, int rollsPerOperation, int durability) {
                 builder.comment("Miner Spirit Settings").push(oreName);
 
@@ -201,7 +201,7 @@ public class OccultismServerConfig {
         public final DoubleValue usePossibleSpiritNamesChance;
 
 
-        public RitualSettings(NeoForgeConfigSpec.Builder builder) {
+        public RitualSettings(ModConfigSpec.Builder builder) {
             builder.comment("Ritual Settings").push("rituals");
 
             this.enableClearWeatherRitual =
@@ -256,7 +256,7 @@ public class OccultismServerConfig {
         public final BooleanValue overrideItemStackSizes;
         public final BooleanValue unlinkWormholeOnBreak;
 
-        public StorageSettings(NeoForgeConfigSpec.Builder builder) {
+        public StorageSettings(ModConfigSpec.Builder builder) {
             builder.comment("Storage Settings").push("storage");
             this.stabilizerTier1Slots =
                     builder.comment("The amount of slots the storage stabilizer tier 1 provides.")

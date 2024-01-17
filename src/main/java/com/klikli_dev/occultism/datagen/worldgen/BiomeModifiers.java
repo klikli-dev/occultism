@@ -10,7 +10,6 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.neoforged.neoforge.common.world.BiomeModifier;
 import net.neoforged.neoforge.registries.ForgeRegistries;
-import var;
 
 public class BiomeModifiers {
 

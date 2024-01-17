@@ -16,7 +16,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
 import net.tslat.smartbrainlib.util.BrainUtils;
-import var;
 import java.util.List;
 
 public class ReplantSaplingBehaviour<E extends SpiritEntity> extends ExtendedBehaviour<E> {

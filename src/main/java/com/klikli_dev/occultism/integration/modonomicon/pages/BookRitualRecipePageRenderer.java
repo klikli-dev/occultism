@@ -24,7 +24,6 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import org.jetbrains.annotations.Nullable;
-import var;
 import java.util.List;
 import java.util.stream.Stream;
 

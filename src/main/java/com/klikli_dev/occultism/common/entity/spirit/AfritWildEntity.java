@@ -54,7 +54,6 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
-import var;
 import javax.annotation.Nullable;
 
 public class AfritWildEntity extends Monster implements GeoEntity {

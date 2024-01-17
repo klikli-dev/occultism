@@ -47,7 +47,6 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.crafting.CraftingHelper;
 import net.neoforged.neoforge.registries.ForgeRegistries;
-import var;
 import java.util.Iterator;
 import java.util.function.Supplier;
 

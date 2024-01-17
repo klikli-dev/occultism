@@ -39,7 +39,6 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.object.Color;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
-import var;
 
 public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageControllerBlockEntity> {
 

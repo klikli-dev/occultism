@@ -17,7 +17,6 @@ import net.neoforged.neoforge.common.capabilities.Capabilities;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
 import net.tslat.smartbrainlib.util.BrainUtils;
-import var;
 import java.util.List;
 
 public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehaviour<E> {

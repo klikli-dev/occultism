@@ -42,7 +42,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.capabilities.ICapabilityProvider;
 import org.jetbrains.annotations.Nullable;
-import var;
 import java.util.List;
 
 public class GuideBookItem extends ModonomiconItem {

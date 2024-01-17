@@ -66,7 +66,6 @@ import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickItem;
 import net.neoforged.neoforge.items.IItemHandler;
-import var;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;

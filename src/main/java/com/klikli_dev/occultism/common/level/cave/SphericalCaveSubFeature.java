@@ -37,7 +37,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.phys.AABB;
-import var;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

@@ -22,18 +22,18 @@
 
 package com.klikli_dev.occultism.config;
 
-import net.neoforged.neoforge.common.NeoForgeConfigSpec;
-import net.neoforged.neoforge.common.NeoForgeConfigSpec.BooleanValue;
-import net.neoforged.neoforge.common.NeoForgeConfigSpec.IntValue;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
+import net.neoforged.neoforge.common.ModConfigSpec.IntValue;
 
 public class OccultismClientConfig {
 
     public final VisualSettings visuals;
     public final MiscSettings misc;
-    public final NeoForgeConfigSpec spec;
+    public final ModConfigSpec spec;
 
     public OccultismClientConfig() {
-        NeoForgeConfigSpec.Builder builder = new NeoForgeConfigSpec.Builder();
+        ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
         this.visuals = new VisualSettings(builder);
         this.misc = new MiscSettings(builder);
         this.spec = builder.build();
@@ -45,13 +45,13 @@ public class OccultismClientConfig {
         public final BooleanValue disableHolidayTheming;
         public final BooleanValue useAlternativeDivinationRodRenderer;
 
-        public final NeoForgeConfigSpec.ConfigValue<Integer> whiteChalkGlyphColor;
-        public final NeoForgeConfigSpec.ConfigValue<Integer> goldenChalkGlyphColor;
-        public final NeoForgeConfigSpec.ConfigValue<Integer> purpleChalkGlyphColor;
-        public final NeoForgeConfigSpec.ConfigValue<Integer> redChalkGlyphColor;
+        public final ModConfigSpec.ConfigValue<Integer> whiteChalkGlyphColor;
+        public final ModConfigSpec.ConfigValue<Integer> goldenChalkGlyphColor;
+        public final ModConfigSpec.ConfigValue<Integer> purpleChalkGlyphColor;
+        public final ModConfigSpec.ConfigValue<Integer> redChalkGlyphColor;
 
 
-        public VisualSettings(NeoForgeConfigSpec.Builder builder) {
+        public VisualSettings(ModConfigSpec.Builder builder) {
             builder.comment("Visual Settings").push("visual");
             this.showItemTagsInTooltip = builder.comment("Shows all tags an item has in the tooltip on hover if advanced tooltips (F3+H) are enabled.")
                     .define("showItemTagsInTooltip", false);
@@ -98,7 +98,7 @@ public class OccultismClientConfig {
         public final BooleanValue divinationRodHighlightAllResults;
         public final IntValue divinationRodScanRange;
 
-        public MiscSettings(NeoForgeConfigSpec.Builder builder) {
+        public MiscSettings(ModConfigSpec.Builder builder) {
             builder.comment("Misc Settings").push("misc");
 
             this.syncJeiSearch = builder.comment("Sync JEI search in storage actuator.")

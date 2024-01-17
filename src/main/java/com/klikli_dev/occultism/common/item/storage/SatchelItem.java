@@ -37,7 +37,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
-import var;
 import java.util.List;
 
 public class SatchelItem extends Item {

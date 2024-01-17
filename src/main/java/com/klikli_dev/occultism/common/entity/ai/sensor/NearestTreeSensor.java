@@ -21,7 +21,6 @@ import net.minecraft.world.level.block.LeavesBlock;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import net.tslat.smartbrainlib.util.BrainUtils;
 import org.jetbrains.annotations.NotNull;
-import var;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;

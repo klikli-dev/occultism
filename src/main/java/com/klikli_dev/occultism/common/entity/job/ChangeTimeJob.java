@@ -32,7 +32,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.storage.ServerLevelData;
-import var;
 
 public abstract class ChangeTimeJob extends SpiritJob {
 

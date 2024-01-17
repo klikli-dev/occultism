@@ -15,7 +15,6 @@ import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
 import net.tslat.smartbrainlib.util.BrainUtils;
-import var;
 import java.util.List;
 
 public class PickupItemBehaviour<E extends SpiritEntity> extends ExtendedBehaviour<E> {

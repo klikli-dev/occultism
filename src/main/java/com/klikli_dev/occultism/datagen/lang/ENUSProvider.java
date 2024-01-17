@@ -39,7 +39,6 @@ import net.minecraft.Util;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
-import var;
 
 public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 

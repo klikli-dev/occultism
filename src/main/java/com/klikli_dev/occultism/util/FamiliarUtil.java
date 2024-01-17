@@ -30,7 +30,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import top.theillusivec4.curios.api.CuriosApi;
-import var;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;

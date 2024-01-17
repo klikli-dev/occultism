@@ -22,13 +22,13 @@
 
 package com.klikli_dev.occultism.config;
 
-import net.neoforged.neoforge.common.NeoForgeConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class OccultismCommonConfig {
-    public final NeoForgeConfigSpec spec;
+    public final ModConfigSpec spec;
 
     public OccultismCommonConfig() {
-        NeoForgeConfigSpec.Builder builder = new NeoForgeConfigSpec.Builder();
+        ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
         this.spec = builder.build();
     }
 }

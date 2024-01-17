@@ -106,26 +106,26 @@ dependencies {
 //    runtimeOnly "mezz.jei:jei-${minecraft_version}-forge:${jei_version}"
 
     //curios
-    compileOnly "top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}:api"
-    runtimeOnly "top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}"
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api"
+    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}"
 
     //geckolib
-    implementation "software.bernie.geckolib:geckolib-forge-${geckolib_minecraft_version}:${geckolib_version}"
+    implementation "software.bernie.geckolib:geckolib-neoforge-${geckolib_minecraft_version}:${geckolib_version}"
 
     //smartbrainlib
-    implementation "net.tslat.smartbrainlib:SmartBrainLib-forge-${smartbrainlib_minecraft_version}:${smartbrainlib_version}"
+    implementation "net.tslat.smartbrainlib:SmartBrainLib-neoforge-${smartbrainlib_minecraft_version}:${smartbrainlib_version}"
 
     //TODO: enable once available
     //almostunified
 //    implementation "com.almostreliable.mods:almostunified-forge:${minecraft_version}-${almost_unified_version}"
 
     //modonomicon
-    implementation "com.klikli_dev:modonomicon-${minecraft_version}-forge:${modonomicon_version}"
+    implementation "com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}"
 
     //TODO: enable once available
     //theurgy
-//    compileOnly "com.klikli_dev:theurgy-${minecraft_version}:${theurgy_version}"{transitive=false}
-//    runtimeOnly "com.klikli_dev:theurgy-${minecraft_version}:${theurgy_version}"{transitive=false}
+    compileOnly "com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}"
+    runtimeOnly "com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}"
 
     //runtime only helper mods for dev env, placed in ./runtime-mods, example: Hwyla-forge-1.10.11-B78_1.16.2.jar
     //runtimeOnly "ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2"

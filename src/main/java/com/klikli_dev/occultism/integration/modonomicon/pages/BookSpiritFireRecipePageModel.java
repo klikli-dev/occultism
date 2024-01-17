@@ -9,7 +9,6 @@ package com.klikli_dev.occultism.integration.modonomicon.pages;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookRecipePageModel;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import org.jetbrains.annotations.NotNull;
-import var;
 
 public class BookSpiritFireRecipePageModel extends BookRecipePageModel {
     protected BookSpiritFireRecipePageModel(@NotNull String anchor) {

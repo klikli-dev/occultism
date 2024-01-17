@@ -39,7 +39,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import var;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -60,7 +60,6 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
-import var;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.Map.Entry;

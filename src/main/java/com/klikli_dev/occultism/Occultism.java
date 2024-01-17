@@ -36,21 +36,15 @@ import com.klikli_dev.occultism.network.OccultismPackets;
 import com.klikli_dev.occultism.registry.*;
 import com.mojang.logging.LogUtils;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.InterModComms;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
-import net.neoforged.fml.event.lifecycle.InterModEnqueueEvent;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import org.slf4j.Logger;
 import software.bernie.geckolib.GeckoLib;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotTypeMessage;
-import top.theillusivec4.curios.api.SlotTypePreset;
 
 @Mod(Occultism.MODID)
 public class Occultism {
@@ -65,12 +59,11 @@ public class Occultism {
     public static final DebugHelper DEBUG = new DebugHelper();
     public static Occultism INSTANCE;
 
-    public Occultism() {
+    public Occultism(IEventBus modEventBus) {
         INSTANCE = this;
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG.spec);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG.spec);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG.spec);
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         OccultismEffects.EFFECTS.register(modEventBus);
         OccultismRecipes.RECIPE_TYPES.register(modEventBus);
@@ -100,13 +93,12 @@ public class Occultism {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::onEntityAttributeCreation);
         modEventBus.addListener(this::serverSetup);
-        modEventBus.addListener(this::enqueueIMC);
 
         NeoForge.EVENT_BUS.register(this);
         NeoForge.EVENT_BUS.addListener(OccultismCapabilities::onPlayerClone);
         NeoForge.EVENT_BUS.addListener(OccultismCapabilities::onJoinWorld);
 
-        GeckoLib.initialize();
+        GeckoLib.initialize(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -159,12 +151,5 @@ public class Occultism {
 
     private void serverSetup(final FMLDedicatedServerSetupEvent event) {
         LOGGER.info("Dedicated server setup complete.");
-    }
-
-    private void enqueueIMC(final InterModEnqueueEvent event) {
-        InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.BELT.getMessageBuilder().build());
-        InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.HEAD.getMessageBuilder().build());
-        InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.RING.getMessageBuilder().build());
-        InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.HANDS.getMessageBuilder().build());
     }
 }

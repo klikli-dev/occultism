@@ -35,7 +35,6 @@ import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.ForgeRegistries;
 import net.neoforged.neoforgespi.language.IModInfo;
 import org.apache.commons.lang3.text.WordUtils;
-import var;
 import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Locale;

@@ -35,7 +35,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.INBTSerializable;
 import net.neoforged.neoforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.StringUtils;
-import var;
 
 public class MachineReference implements INBTSerializable<CompoundTag> {
     //extract is a potentially separate output block entity

@@ -44,7 +44,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import var;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

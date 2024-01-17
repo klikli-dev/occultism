@@ -14,7 +14,6 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import net.tslat.smartbrainlib.util.BrainUtils;
-import var;
 import java.util.List;
 
 public class UnreachableTreeWalkTargetSensor<E extends LivingEntity> extends ExtendedSensor<E> {
