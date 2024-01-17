@@ -28,7 +28,7 @@ import com.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
 import com.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.klikli_dev.occultism.network.MessageUpdateLinkedMachines;
-import com.klikli_dev.occultism.network.OccultismPackets;
+import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.OccultismContainers;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.nbt.ListTag;
@@ -159,8 +159,8 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         //stack updates every 40 ticks.
         if (storageController != null && !entityPlayer.level().isClientSide &&
                 entityPlayer.level().getGameTime() % 40 == 0) {
-            OccultismPackets.sendTo((ServerPlayer) this.player, this.getStorageController().getMessageUpdateStacks());
-            OccultismPackets.sendTo((ServerPlayer) this.player,
+            Networking.sendTo((ServerPlayer) this.player, this.getStorageController().getMessageUpdateStacks());
+            Networking.sendTo((ServerPlayer) this.player,
                     new MessageUpdateLinkedMachines(this.getStorageController().getLinkedMachines()));
         }
 

@@ -26,7 +26,7 @@ import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.network.MessageHeadlessDie;
-import com.klikli_dev.occultism.network.OccultismPackets;
+import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import net.minecraft.core.particles.DustParticleOptions;
@@ -247,7 +247,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
         super.actuallyHurt(pDamageSrc, pDamageAmount);
         if (this.getHealth() / this.getMaxHealth() < 0.5 && !this.isHeadlessDead()) {
             this.setHeadlessDead(true);
-            OccultismPackets.sendToTracking(this, new MessageHeadlessDie(this.getId()));
+            Networking.sendToTracking(this, new MessageHeadlessDie(this.getId()));
         }
     }
 

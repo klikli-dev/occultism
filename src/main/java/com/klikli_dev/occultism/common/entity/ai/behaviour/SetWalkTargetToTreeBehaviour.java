@@ -4,7 +4,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.network.MessageSelectBlock;
-import com.klikli_dev.occultism.network.OccultismPackets;
+import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -61,8 +61,8 @@ public class SetWalkTargetToTreeBehaviour<E extends SpiritEntity> extends Extend
                 BrainUtils.setMemory(entity, OccultismMemoryTypes.LAST_TREE_WALK_TARGET.get(), new WalkTarget(walkPos, 1.0f, 1));
 
                 if (Occultism.DEBUG.debugAI) {
-                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, OccultismConstants.Color.MAGENTA));
-                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(walkPos, 5000, OccultismConstants.Color.GREEN));
+                    Networking.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, OccultismConstants.Color.MAGENTA));
+                    Networking.sendToTracking(entity, new MessageSelectBlock(walkPos, 5000, OccultismConstants.Color.GREEN));
                 }
 
             } else {
@@ -75,7 +75,7 @@ public class SetWalkTargetToTreeBehaviour<E extends SpiritEntity> extends Extend
                 BrainUtils.clearMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get());
 
                 if (Occultism.DEBUG.debugAI) {
-                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(treePos, 50000, OccultismConstants.Color.RED));
+                    Networking.sendToTracking(entity, new MessageSelectBlock(treePos, 50000, OccultismConstants.Color.RED));
                 }
             }
         }

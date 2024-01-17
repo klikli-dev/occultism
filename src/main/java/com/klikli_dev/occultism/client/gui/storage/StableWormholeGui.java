@@ -27,7 +27,7 @@ import com.klikli_dev.occultism.api.common.data.SortType;
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
 import com.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
 import com.klikli_dev.occultism.network.MessageUpdateStorageSettings;
-import com.klikli_dev.occultism.network.OccultismPackets;
+import com.klikli_dev.occultism.network.Networking;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -62,7 +62,7 @@ public class StableWormholeGui extends StorageControllerGuiBase<StableWormholeCo
     @Override
     public void setSortDirection(SortDirection sortDirection) {
         this.container.getStableWormhole().setSortDirection(sortDirection);
-        OccultismPackets.sendToServer(new MessageUpdateStorageSettings(sortDirection, this.getSortType()));
+        Networking.sendToServer(new MessageUpdateStorageSettings(sortDirection, this.getSortType()));
     }
 
     @Override
@@ -73,7 +73,7 @@ public class StableWormholeGui extends StorageControllerGuiBase<StableWormholeCo
     @Override
     public void setSortType(SortType sortType) {
         this.container.getStableWormhole().setSortType(sortType);
-        OccultismPackets.sendToServer(new MessageUpdateStorageSettings(this.getSortDirection(), sortType));
+        Networking.sendToServer(new MessageUpdateStorageSettings(this.getSortDirection(), sortType));
     }
 
 }

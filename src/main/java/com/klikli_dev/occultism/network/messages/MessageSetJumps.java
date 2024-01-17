@@ -20,32 +20,47 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.occultism.network;
+package com.klikli_dev.occultism.network.messages;
 
+import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.network.IMessage;
+import com.klikli_dev.occultism.registry.OccultismCapabilities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 
-public interface IMessage extends CustomPacketPayload {
+public class MessageSetJumps implements IMessage {
+    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "set_jumps");
+    public int jumps;
 
-    void encode(FriendlyByteBuf buf);
-
-    void decode(FriendlyByteBuf buf);
-
-    default void onClientReceived(Minecraft minecraft, Player player) {
-
+    public MessageSetJumps(FriendlyByteBuf buf) {
+        this.decode(buf);
     }
 
-    default void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
-
+    public MessageSetJumps(int jumps) {
+        this.jumps = jumps;
     }
 
     @Override
-    default void write(FriendlyByteBuf pBuffer) {
-        this.encode(pBuffer);
+    public void onClientReceived(Minecraft minecraft, Player player) {
+        if (!player.onGround()) {
+            player.getCapability(OccultismCapabilities.DOUBLE_JUMP).ifPresent(cap -> cap.setJumps(this.jumps));
+        }
     }
 
+    @Override
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeInt(this.jumps);
+    }
+
+    @Override
+    public void decode(FriendlyByteBuf buf) {
+        this.jumps = buf.readInt();
+    }
+
+    @Override
+    public ResourceLocation id() {
+        return ID;
+    }
 }

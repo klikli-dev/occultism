@@ -29,8 +29,7 @@ import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.klikli_dev.occultism.network.MessageSetItemMode;
 import com.klikli_dev.occultism.network.MessageSetWorkAreaSize;
-import com.klikli_dev.occultism.network.OccultismPackets;
-import com.mojang.blaze3d.vertex.PoseStack;
+import com.klikli_dev.occultism.network.Networking;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -78,7 +77,7 @@ public class BookOfCallingGui extends Screen {
         this.addRenderableWidget((new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + 60, buttonWidth, 20,
                 Component.translatable(this.mode.getItemMode().getDescriptionId()), (b) -> {
             this.mode = this.mode.next();
-            OccultismPackets.sendToServer(new MessageSetItemMode(this.mode.getItemMode().getValue()));
+            Networking.sendToServer(new MessageSetItemMode(this.mode.getItemMode().getValue()));
             this.init();
         })));
 
@@ -93,7 +92,7 @@ public class BookOfCallingGui extends Screen {
             this.addRenderableWidget(new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + 85, buttonWidth, 20,
                     Component.translatable(this.workAreaSize.getDescriptionId()), (b) -> {
                 this.workAreaSize = this.workAreaSize.next();
-                OccultismPackets.sendToServer(new MessageSetWorkAreaSize(this.workAreaSize.getValue()));
+                Networking.sendToServer(new MessageSetWorkAreaSize(this.workAreaSize.getValue()));
                 this.init();
             }));
 

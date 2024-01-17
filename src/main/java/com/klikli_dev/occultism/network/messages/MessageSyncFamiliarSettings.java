@@ -20,32 +20,45 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.occultism.network;
+package com.klikli_dev.occultism.network.messages;
 
+import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
+import com.klikli_dev.occultism.network.IMessage;
+import com.klikli_dev.occultism.registry.OccultismCapabilities;
 import net.minecraft.client.Minecraft;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 
-public interface IMessage extends CustomPacketPayload {
+public class MessageSyncFamiliarSettings implements IMessage {
+    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "sync_familiar_settings");
 
-    void encode(FriendlyByteBuf buf);
+    public CompoundTag tag;
 
-    void decode(FriendlyByteBuf buf);
-
-    default void onClientReceived(Minecraft minecraft, Player player) {
-
+    public MessageSyncFamiliarSettings(FriendlyByteBuf buf) {
+        this.decode(buf);
     }
 
-    default void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
-
+    public MessageSyncFamiliarSettings(FamiliarSettingsCapability cap) {
+        this.tag = cap.serializeNBT();
     }
 
     @Override
-    default void write(FriendlyByteBuf pBuffer) {
-        this.encode(pBuffer);
+    public void onClientReceived(Minecraft minecraft, Player player) {
+        player.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(capability -> {
+            capability.deserializeNBT(this.tag);
+        });
     }
 
+    @Override
+    public void encode(FriendlyByteBuf byteBuf) {
+        byteBuf.writeNbt(this.tag);
+    }
+
+    @Override
+    public void decode(FriendlyByteBuf byteBuf) {
+        this.tag = byteBuf.readNbt();
+    }
 }

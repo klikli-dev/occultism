@@ -28,7 +28,7 @@ import com.klikli_dev.occultism.client.divination.ScanManager;
 import com.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.klikli_dev.occultism.integration.theurgy.TheurgyIntegration;
 import com.klikli_dev.occultism.network.MessageSetDivinationResult;
-import com.klikli_dev.occultism.network.OccultismPackets;
+import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import com.klikli_dev.occultism.util.Math3DUtil;
@@ -144,7 +144,7 @@ public class DivinationRodItem extends Item {
             float distance = this.getDistance(player.position(), result);
             stack.getTag().putFloat(OccultismConstants.Nbt.Divination.DISTANCE, distance);
 
-            OccultismPackets.sendToServer(new MessageSetDivinationResult(result, distance));
+            Networking.sendToServer(new MessageSetDivinationResult(result, distance));
 
             if (result != null) {
                 stack.getTag().putLong(OccultismConstants.Nbt.Divination.POS, result.asLong());

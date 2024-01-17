@@ -26,7 +26,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.klikli_dev.occultism.network.MessageSetRecipe;
 import com.klikli_dev.occultism.network.MessageSetRecipeByID;
-import com.klikli_dev.occultism.network.OccultismPackets;
+import com.klikli_dev.occultism.network.Networking;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -44,8 +44,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.item.crafting.ShapedRecipe;
-import net.minecraft.world.item.crafting.ShapelessRecipe;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -137,9 +136,9 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
         //if recipe is in recipe manager send by id, otherwise fallback to ingredient list
         if (doTransfer) {
             if (player.getCommandSenderWorld().getRecipeManager().byKey(recipe.getId()).isPresent()) {
-                OccultismPackets.sendToServer(new MessageSetRecipeByID(recipe.getId()));
+                Networking.sendToServer(new MessageSetRecipeByID(recipe.getId()));
             } else {
-                OccultismPackets.sendToServer(new MessageSetRecipe(this.recipeToNbt(container, recipeSlots)));
+                Networking.sendToServer(new MessageSetRecipe(this.recipeToNbt(container, recipeSlots)));
             }
         }
         return null;

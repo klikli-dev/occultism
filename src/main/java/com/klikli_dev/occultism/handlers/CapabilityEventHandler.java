@@ -26,7 +26,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.capability.DoubleJumpCapability;
 import com.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import com.klikli_dev.occultism.network.MessageSetJumps;
-import com.klikli_dev.occultism.network.OccultismPackets;
+import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.OccultismCapabilities;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -55,7 +55,7 @@ public class CapabilityEventHandler {
         if (evt.getEntity() instanceof ServerPlayer player) {
             int jumps = player.getCapability(OccultismCapabilities.DOUBLE_JUMP).map(DoubleJumpCapability::getJumps).orElse(0);
             if (jumps > 0) {
-                OccultismPackets.sendTo(player, new MessageSetJumps(jumps));
+                Networking.sendTo(player, new MessageSetJumps(jumps));
             }
         }
     }

@@ -5,7 +5,7 @@ import com.klikli_dev.occultism.OccultismConstants;
 import com.klikli_dev.occultism.common.entity.ai.BlockSorter;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.network.MessageSelectBlock;
-import com.klikli_dev.occultism.network.OccultismPackets;
+import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.registry.OccultismSensors;
 import com.klikli_dev.occultism.registry.OccultismTags;
@@ -83,10 +83,10 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
 
         if (Occultism.DEBUG.debugAI) {
             for (var tree : unreachableTrees) {
-                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(tree, 10000, OccultismConstants.Color.ORANGE));
+                Networking.sendToTracking(entity, new MessageSelectBlock(tree, 10000, OccultismConstants.Color.ORANGE));
             }
             for (var tree : nonTreeLogs) {
-                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(tree, 10000, OccultismConstants.Color.ORANGE));
+                Networking.sendToTracking(entity, new MessageSelectBlock(tree, 10000, OccultismConstants.Color.ORANGE));
             }
         }
 
@@ -114,7 +114,7 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
             for (var potentialStump : potentialStumps) {
 
                 if (Occultism.DEBUG.debugAI) {
-                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(potentialStump, 5000, OccultismConstants.Color.WHITE));
+                    Networking.sendToTracking(entity, new MessageSelectBlock(potentialStump, 5000, OccultismConstants.Color.WHITE));
                 }
 
                 //we only check if the stump is actually a tree one by one from closest to furthest to save perf.
@@ -131,7 +131,7 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
 
                     if (isReachable) {
                         if (Occultism.DEBUG.debugAI) {
-                            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(potentialStump, 50000, 0x800080));
+                            Networking.sendToTracking(entity, new MessageSelectBlock(potentialStump, 50000, 0x800080));
                         }
 
                         BrainUtils.setMemory(entity, OccultismMemoryTypes.NEAREST_TREE.get(), potentialStump);
@@ -144,7 +144,7 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
                     BrainUtils.setMemory(entity, OccultismMemoryTypes.NON_TREE_LOGS.get(), nonTreeLogs);
 
                     if (Occultism.DEBUG.debugAI) {
-                        OccultismPackets.sendToTracking(entity, new MessageSelectBlock(potentialStump, 50000, 0xffff00));
+                        Networking.sendToTracking(entity, new MessageSelectBlock(potentialStump, 50000, 0xffff00));
                     }
                 }
             }

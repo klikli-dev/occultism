@@ -20,32 +20,45 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.occultism.network;
+package com.klikli_dev.occultism.network.messages;
 
-import net.minecraft.client.Minecraft;
+import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.network.IMessage;
+import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 
-public interface IMessage extends CustomPacketPayload {
+public class MessageClearCraftingMatrix implements IMessage {
 
-    void encode(FriendlyByteBuf buf);
+    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "clear_crafting_matrix");
 
-    void decode(FriendlyByteBuf buf);
-
-    default void onClientReceived(Minecraft minecraft, Player player) {
+    public MessageClearCraftingMatrix() {
 
     }
 
-    default void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
+    public MessageClearCraftingMatrix(FriendlyByteBuf buf) {
+        this.decode(buf);
+    }
+
+    @Override
+    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
+        StorageUtil.clearOpenCraftingMatrix(player, true);
+    }
+
+    @Override
+    public void encode(FriendlyByteBuf buf) {
 
     }
 
     @Override
-    default void write(FriendlyByteBuf pBuffer) {
-        this.encode(pBuffer);
+    public void decode(FriendlyByteBuf buf) {
+
     }
 
+    @Override
+    public ResourceLocation id() {
+        return ID;
+    }
 }

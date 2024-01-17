@@ -20,32 +20,51 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.occultism.network;
+package com.klikli_dev.occultism.network.messages;
 
-import net.minecraft.client.Minecraft;
+import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.network.IMessage;
+import com.klikli_dev.occultism.util.MovementUtil;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 
-public interface IMessage extends CustomPacketPayload {
+public class MessageDoubleJump implements IMessage {
 
-    void encode(FriendlyByteBuf buf);
+    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "double_jump");
 
-    void decode(FriendlyByteBuf buf);
-
-    default void onClientReceived(Minecraft minecraft, Player player) {
+    public MessageDoubleJump() {
 
     }
 
-    default void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
+    public MessageDoubleJump(FriendlyByteBuf buf) {
+        this.decode(buf);
+    }
+
+    @Override
+    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
+        if (MovementUtil.doubleJump(player)) {
+            //Show cloud on jump.
+            player.serverLevel()
+                    .sendParticles(ParticleTypes.CLOUD, player.position().x, player.position().y,
+                            player.position().z, 5, 0, 0, 0, 0.01F);
+        }
+    }
+
+    @Override
+    public void encode(FriendlyByteBuf buf) {
 
     }
 
     @Override
-    default void write(FriendlyByteBuf pBuffer) {
-        this.encode(pBuffer);
+    public void decode(FriendlyByteBuf buf) {
+
     }
 
+    @Override
+    public ResourceLocation id() {
+        return ID;
+    }
 }

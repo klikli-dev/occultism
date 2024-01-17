@@ -38,6 +38,7 @@ import com.klikli_dev.occultism.common.container.storage.StorageControllerContai
 import com.klikli_dev.occultism.integration.jei.JeiAccess;
 import com.klikli_dev.occultism.integration.jei.JeiSettings;
 import com.klikli_dev.occultism.network.*;
+import com.klikli_dev.occultism.network.messages.MessageClearCraftingMatrix;
 import com.klikli_dev.occultism.util.InputUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import com.mojang.blaze3d.platform.InputConstants;
@@ -125,7 +126,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         this.lastClick = System.currentTimeMillis();
 
-        OccultismPackets.sendToServer(new MessageRequestStacks());
+        Networking.sendToServer(new MessageRequestStacks());
     }
 
     //region Getter / Setter
@@ -325,13 +326,13 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                     (mouseButton == InputUtil.MOUSE_BUTTON_LEFT || mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) &&
                     stackCarriedByMouse.isEmpty() && this.canClick()) {
                 //take item out of storage
-                OccultismPackets.sendToServer(
+                Networking.sendToServer(
                         new MessageTakeItem(this.stackUnderMouse, mouseButton, Screen.hasShiftDown(),
                                 Screen.hasControlDown()));
                 this.lastClick = System.currentTimeMillis();
             } else if (!stackCarriedByMouse.isEmpty() && this.isPointInItemArea(mouseX, mouseY) && this.canClick()) {
                 //put item into storage
-                OccultismPackets.sendToServer(new MessageInsertMouseHeldItem(mouseButton));
+                Networking.sendToServer(new MessageInsertMouseHeldItem(mouseButton));
                 this.lastClick = System.currentTimeMillis();
             }
         } else if (this.guiMode == StorageControllerGuiMode.AUTOCRAFTING) {
@@ -347,7 +348,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                             //this message both clears the order slot and creates the order
                             GlobalBlockPos storageControllerPos = this.storageControllerContainer.getStorageControllerGlobalBlockPos();
                             if (storageControllerPos != null) {
-                                OccultismPackets.sendToServer(new MessageRequestOrder(
+                                Networking.sendToServer(new MessageRequestOrder(
                                         storageControllerPos,
                                         slot.getMachine().insertGlobalPos, orderStack));
                             } else {
@@ -417,7 +418,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     @Override
     public boolean charTyped(char typedChar, int keyCode) {
         if (this.searchBar.isFocused() && this.searchBar.charTyped(typedChar, keyCode)) {
-            OccultismPackets.sendToServer(new MessageRequestStacks());
+            Networking.sendToServer(new MessageRequestStacks());
             if (JeiSettings.isJeiLoaded() && JeiSettings.isJeiSearchSynced()) {
                 JeiAccess.setFilterText(this.searchBar.getValue());
             }
@@ -434,8 +435,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.clearRecipeButton = new SizedImageButton(this.leftPos + clearRecipeButtonLeft,
                 this.topPos + clearRecipeButtonTop, controlButtonSize, controlButtonSize, 0, 196, 28, 28, 28, 256, 256,
                 BUTTONS, (button) -> {
-            OccultismPackets.sendToServer(new MessageClearCraftingMatrix());
-            OccultismPackets.sendToServer(new MessageRequestStacks());
+            Networking.sendToServer(new MessageClearCraftingMatrix());
+            Networking.sendToServer(new MessageRequestStacks());
             this.init();
         });
         this.addRenderableWidget(this.clearRecipeButton);
@@ -458,7 +459,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 this.topPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, sortTypeOffset, 28, 28, 28,
                 256, 256, BUTTONS, (button) -> {
             this.setSortType(this.getSortType().next());
-            OccultismPackets.sendToServer(
+            Networking.sendToServer(
                     new MessageSortItems(this.getEntityPosition(), this.getSortDirection(), this.getSortType()));
             this.init();
         });
@@ -470,7 +471,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 this.topPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, sortDirectionOffset, 28, 28,
                 28, 256, 256, BUTTONS, (button) -> {
             this.setSortDirection(this.getSortDirection().next());
-            OccultismPackets.sendToServer(
+            Networking.sendToServer(
                     new MessageSortItems(this.getEntityPosition(), this.getSortDirection(), this.getSortType()));
             this.init();
         });

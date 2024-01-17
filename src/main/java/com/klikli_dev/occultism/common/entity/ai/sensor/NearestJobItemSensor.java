@@ -4,7 +4,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.network.MessageSelectBlock;
-import com.klikli_dev.occultism.network.OccultismPackets;
+import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.registry.OccultismSensors;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -45,7 +45,7 @@ public class NearestJobItemSensor<E extends SpiritEntity> extends PredicateSenso
         if (BrainUtils.hasMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM)) {
             var nearestEntity = BrainUtils.getMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
             if (Occultism.DEBUG.debugAI) {
-                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(nearestEntity.blockPosition(), 5000, OccultismConstants.Color.GREEN));
+                Networking.sendToTracking(entity, new MessageSelectBlock(nearestEntity.blockPosition(), 5000, OccultismConstants.Color.GREEN));
             }
             return;
         }
@@ -54,15 +54,15 @@ public class NearestJobItemSensor<E extends SpiritEntity> extends PredicateSenso
         var workAreaSize = BrainUtils.getMemory(entity, OccultismMemoryTypes.WORK_AREA_SIZE.get());
 
         if (Occultism.DEBUG.debugAI) {
-            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(workAreaCenter, 5000, OccultismConstants.Color.BLUE));
-            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(workAreaSize / 2, workAreaSize / 2, workAreaSize / 2), 5000, OccultismConstants.Color.CYAN));
-            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(-workAreaSize / 2, -workAreaSize / 2, -workAreaSize / 2), 5000, OccultismConstants.Color.CYAN));
-            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(workAreaSize / 2, workAreaSize / 2, -workAreaSize / 2), 5000, OccultismConstants.Color.CYAN));
-            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(-workAreaSize / 2, -workAreaSize / 2, workAreaSize / 2), 5000, OccultismConstants.Color.CYAN));
-            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(workAreaSize / 2, -workAreaSize / 2, workAreaSize / 2), 5000, OccultismConstants.Color.CYAN));
-            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(-workAreaSize / 2, workAreaSize / 2, -workAreaSize / 2), 5000, OccultismConstants.Color.CYAN));
-            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(-workAreaSize / 2, workAreaSize / 2, workAreaSize / 2), 5000, OccultismConstants.Color.CYAN));
-            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(workAreaSize / 2, -workAreaSize / 2, -workAreaSize / 2), 5000, OccultismConstants.Color.CYAN));
+            Networking.sendToTracking(entity, new MessageSelectBlock(workAreaCenter, 5000, OccultismConstants.Color.BLUE));
+            Networking.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(workAreaSize / 2, workAreaSize / 2, workAreaSize / 2), 5000, OccultismConstants.Color.CYAN));
+            Networking.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(-workAreaSize / 2, -workAreaSize / 2, -workAreaSize / 2), 5000, OccultismConstants.Color.CYAN));
+            Networking.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(workAreaSize / 2, workAreaSize / 2, -workAreaSize / 2), 5000, OccultismConstants.Color.CYAN));
+            Networking.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(-workAreaSize / 2, -workAreaSize / 2, workAreaSize / 2), 5000, OccultismConstants.Color.CYAN));
+            Networking.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(workAreaSize / 2, -workAreaSize / 2, workAreaSize / 2), 5000, OccultismConstants.Color.CYAN));
+            Networking.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(-workAreaSize / 2, workAreaSize / 2, -workAreaSize / 2), 5000, OccultismConstants.Color.CYAN));
+            Networking.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(-workAreaSize / 2, workAreaSize / 2, workAreaSize / 2), 5000, OccultismConstants.Color.CYAN));
+            Networking.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(workAreaSize / 2, -workAreaSize / 2, -workAreaSize / 2), 5000, OccultismConstants.Color.CYAN));
         }
 
         var aabb = new AABB(workAreaCenter.offset(-workAreaSize / 2, -workAreaSize / 2, -workAreaSize / 2),
@@ -79,7 +79,7 @@ public class NearestJobItemSensor<E extends SpiritEntity> extends PredicateSenso
         BrainUtils.setMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, nearestEntity);
 
         if (Occultism.DEBUG.debugAI && nearestEntity != null) {
-            OccultismPackets.sendToTracking(entity, new MessageSelectBlock(nearestEntity.blockPosition(), 5000, OccultismConstants.Color.GREEN));
+            Networking.sendToTracking(entity, new MessageSelectBlock(nearestEntity.blockPosition(), 5000, OccultismConstants.Color.GREEN));
         }
     }
 

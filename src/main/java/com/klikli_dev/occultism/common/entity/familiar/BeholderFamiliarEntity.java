@@ -24,8 +24,8 @@ package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
-import com.klikli_dev.occultism.network.MessageBeholderAttack;
-import com.klikli_dev.occultism.network.OccultismPackets;
+import com.klikli_dev.occultism.network.messages.MessageBeholderAttack;
+import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.util.FamiliarUtil;
 import net.minecraft.core.BlockPos;
@@ -295,7 +295,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
                 this.targetIds = enemies;
                 this.cooldown = MAX_COOLDOWN;
                 this.attackTimer = 23;
-                OccultismPackets.sendToTracking(this.entity,
+                Networking.sendToTracking(this.entity,
                         new MessageBeholderAttack(this.entity.getId(), this.targetIds));
             }
 

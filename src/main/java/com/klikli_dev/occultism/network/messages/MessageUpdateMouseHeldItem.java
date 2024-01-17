@@ -20,32 +20,53 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.occultism.network;
+package com.klikli_dev.occultism.network.messages;
 
+import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.network.IMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
-public interface IMessage extends CustomPacketPayload {
+/**
+ * Updates the item currently held by the mouse
+ */
+public class MessageUpdateMouseHeldItem implements IMessage {
 
-    void encode(FriendlyByteBuf buf);
+    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "update_mouse_held_item");
 
-    void decode(FriendlyByteBuf buf);
+    private ItemStack stack;
 
-    default void onClientReceived(Minecraft minecraft, Player player) {
-
+    public MessageUpdateMouseHeldItem(FriendlyByteBuf buf) {
+        this.decode(buf);
     }
 
-    default void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
-
+    public MessageUpdateMouseHeldItem(ItemStack itemStack) {
+        this.stack = itemStack;
     }
 
     @Override
-    default void write(FriendlyByteBuf pBuffer) {
-        this.encode(pBuffer);
+    @OnlyIn(Dist.CLIENT)
+    public void onClientReceived(Minecraft minecraft, Player player) {
+        player.containerMenu.setCarried(this.stack);
     }
 
+    @Override
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeItem(this.stack);
+    }
+
+    @Override
+    public void decode(FriendlyByteBuf buf) {
+        this.stack = buf.readItem();
+    }
+
+    @Override
+    public ResourceLocation id() {
+        return ID;
+    }
 }

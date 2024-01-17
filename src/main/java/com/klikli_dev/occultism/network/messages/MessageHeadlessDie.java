@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright 2020 klikli-dev
+ * Copyright 2021 vemerion
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -20,32 +20,50 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.occultism.network;
+package com.klikli_dev.occultism.network.messages;
 
+import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.common.entity.familiar.HeadlessFamiliarEntity;
+import com.klikli_dev.occultism.network.IMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
-public interface IMessage extends CustomPacketPayload {
+public class MessageHeadlessDie implements IMessage {
 
-    void encode(FriendlyByteBuf buf);
+    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "headless_die");
 
-    void decode(FriendlyByteBuf buf);
+    private int id;
 
-    default void onClientReceived(Minecraft minecraft, Player player) {
-
+    public MessageHeadlessDie(int id) {
+        this.id = id;
     }
 
-    default void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
-
+    public MessageHeadlessDie(FriendlyByteBuf buf) {
+        this.decode(buf);
     }
 
     @Override
-    default void write(FriendlyByteBuf pBuffer) {
-        this.encode(pBuffer);
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeInt(this.id);
     }
 
+    @Override
+    public void decode(FriendlyByteBuf buf) {
+        this.id = buf.readInt();
+    }
+
+    @Override
+    public void onClientReceived(Minecraft minecraft, Player player) {
+        Entity headless = minecraft.level.getEntity(this.id);
+        if (headless instanceof HeadlessFamiliarEntity)
+            ((HeadlessFamiliarEntity) headless).killHeadless();
+    }
+
+    @Override
+    public ResourceLocation id() {
+        return ID;
+    }
 }

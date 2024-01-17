@@ -30,7 +30,7 @@ import com.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
 import com.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.klikli_dev.occultism.common.misc.StorageControllerSlot;
-import com.klikli_dev.occultism.network.OccultismPackets;
+import com.klikli_dev.occultism.network.Networking;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -151,7 +151,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                 this.broadcastChanges();
 
                 //get updated stacks from storage controller and send to client
-                OccultismPackets.sendTo((ServerPlayer) player, storageController.getMessageUpdateStacks());
+                Networking.sendTo((ServerPlayer) player, storageController.getMessageUpdateStacks());
 
                 if (!remainingItemStack.isEmpty()) {
                     slot.onTake(player, slotStack);
@@ -383,7 +383,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
 
         //update crafting matrix to handle container items / items that survive crafting
         this.slotsChanged(this.matrix);
-        OccultismPackets.sendTo((ServerPlayer) player, this.getStorageController().getMessageUpdateStacks());
+        Networking.sendTo((ServerPlayer) player, this.getStorageController().getMessageUpdateStacks());
 
     }
 

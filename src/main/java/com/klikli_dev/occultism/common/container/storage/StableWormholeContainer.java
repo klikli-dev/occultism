@@ -28,7 +28,7 @@ import com.klikli_dev.occultism.common.blockentity.StableWormholeBlockEntity;
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
 import com.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.klikli_dev.occultism.network.MessageUpdateLinkedMachines;
-import com.klikli_dev.occultism.network.OccultismPackets;
+import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.OccultismContainers;
 import com.klikli_dev.occultism.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
@@ -132,8 +132,8 @@ public class StableWormholeContainer extends StorageControllerContainerBase {
 
         //send stack updates on a slow tick while interacting
         if (!level.isClientSide && level.getGameTime() % 40 == 0) {
-            OccultismPackets.sendTo((ServerPlayer) player, this.storageController.getMessageUpdateStacks());
-            OccultismPackets.sendTo((ServerPlayer) player,
+            Networking.sendTo((ServerPlayer) player, this.storageController.getMessageUpdateStacks());
+            Networking.sendTo((ServerPlayer) player,
                     new MessageUpdateLinkedMachines(this.storageController.getLinkedMachines()));
         }
 

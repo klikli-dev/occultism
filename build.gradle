@@ -10,7 +10,7 @@ if (System.getenv('MOD_VERSION') != null) {
 version = mod_version
 
 base {
-    archivesName = mod_id + "-" + minecraft_version
+    archivesName = "${mod_id}-${minecraft_version}-neoforge"
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)

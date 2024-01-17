@@ -23,8 +23,8 @@
 package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
-import com.klikli_dev.occultism.network.MessageFairySupport;
-import com.klikli_dev.occultism.network.OccultismPackets;
+import com.klikli_dev.occultism.network.messages.MessageFairySupport;
+import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismParticles;
 import com.klikli_dev.occultism.util.FamiliarUtil;
@@ -302,7 +302,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
 
         this.saveCooldown = 20 * 20;
         if (!familiar.getFamiliarEntity().level().isClientSide)
-            OccultismPackets.sendToTracking(this,
+            Networking.sendToTracking(this,
                     new MessageFairySupport(this.getId(), familiar.getFamiliarEntity().getId()));
         return true;
     }
@@ -409,7 +409,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
                             && familiar.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, DURATION)))
                         gaveSupport = true;
                     if (gaveSupport) {
-                        OccultismPackets.sendToTracking(this.fairy,
+                        Networking.sendToTracking(this.fairy,
                                 new MessageFairySupport(this.fairy.getId(), familiar.getId()));
                         this.cooldowns.put(id, DURATION);
                     }

@@ -4,7 +4,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.network.MessageSelectBlock;
-import com.klikli_dev.occultism.network.OccultismPackets;
+import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -40,7 +40,7 @@ public class HandleUnreachableTreeBehaviour<E extends SpiritEntity> extends Exte
                 BrainUtils.clearMemory(entity, OccultismMemoryTypes.WALK_TARGET_UNREACHABLE.get());
 
                 if (Occultism.DEBUG.debugAI) {
-                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(walkTarget.getTarget().currentBlockPosition(), 50000, OccultismConstants.Color.RED));
+                    Networking.sendToTracking(entity, new MessageSelectBlock(walkTarget.getTarget().currentBlockPosition(), 50000, OccultismConstants.Color.RED));
                 }
             }
         }
