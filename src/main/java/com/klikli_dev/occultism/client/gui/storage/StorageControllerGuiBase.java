@@ -37,7 +37,9 @@ import com.klikli_dev.occultism.client.gui.controls.SizedImageButton;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
 import com.klikli_dev.occultism.integration.jei.JeiAccess;
 import com.klikli_dev.occultism.integration.jei.JeiSettings;
+import com.klikli_dev.occultism.integration.jei.OccultismJeiIntegration;
 import com.klikli_dev.occultism.network.*;
+import com.klikli_dev.occultism.network.messages.*;
 import com.klikli_dev.occultism.network.messages.Messages.MessageClearCraftingMatrix;
 import com.klikli_dev.occultism.util.InputUtil;
 import com.klikli_dev.occultism.util.TextUtil;
@@ -241,7 +243,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         this.searchBar.setValue(searchBarText);
         if (JeiSettings.isJeiLoaded() && JeiSettings.isJeiSearchSynced()) {
-            this.searchBar.setValue(JeiAccess.getFilterText());
+            this.searchBar.setValue(OccultismJeiIntegration.get().getFilterText());
         }
 
         int storageSpaceInfoLabelLeft = 186;
@@ -370,7 +372,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     public boolean keyPressed(int keyCode, int scanCode, int p_keyPressed_3_) {
         if (this.searchBar.isFocused() && this.searchBar.keyPressed(keyCode, scanCode, p_keyPressed_3_)) {
             if (JeiSettings.isJeiLoaded() && JeiSettings.isJeiSearchSynced()) {
-                JeiAccess.setFilterText(this.searchBar.getValue());
+                OccultismJeiIntegration.get().setFilterText(this.searchBar.getValue());
             }
             return true;
         }
@@ -400,15 +402,15 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public boolean mouseScrolled(double x, double y, double mouseButton) {
-        super.mouseScrolled(x, y, mouseButton);
+    public boolean mouseScrolled(double pMouseX, double pMouseY, double pScrollX, double pScrollY) {
+        super.mouseScrolled(pMouseX, pMouseY, pScrollX, pScrollY);
 
         //check if mouse is over item area, then handle scrolling
-        if (this.isPointInItemArea(x, y)) {
-            if (mouseButton > 0 && this.currentPage > 1) {
+        if (this.isPointInItemArea(pMouseX, pMouseY)) {
+            if (pScrollX > 0 && this.currentPage > 1) {
                 this.currentPage--;
             }
-            if (mouseButton < 0 && this.currentPage < this.totalPages) {
+            if (pScrollX < 0 && this.currentPage < this.totalPages) {
                 this.currentPage++;
             }
         }
@@ -420,7 +422,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         if (this.searchBar.isFocused() && this.searchBar.charTyped(typedChar, keyCode)) {
             Networking.sendToServer(new MessageRequestStacks());
             if (JeiSettings.isJeiLoaded() && JeiSettings.isJeiSearchSynced()) {
-                JeiAccess.setFilterText(this.searchBar.getValue());
+                OccultismJeiIntegration.get().setFilterText(this.searchBar.getValue());
             }
         }
 
@@ -861,7 +863,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected void clearSearch() {
         this.searchBar.setValue("");
         if (JeiSettings.isJeiLoaded() && JeiSettings.isJeiSearchSynced()) {
-            JeiAccess.setFilterText("");
+            OccultismJeiIntegration.get().setFilterText("");
         }
     }
 

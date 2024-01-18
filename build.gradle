@@ -13,6 +13,20 @@ base {
     archivesName = "${mod_id}-${minecraft_version}-neoforge"
 }
 
+//TODO: re enable source sets once mods are updated
+sourceSets {
+    main {
+        java {
+            exclude '**/integration/jei/recipes/**/*.java'
+            exclude '**/integration/jei/JeiPlugin.java'
+            exclude '**/integration/jei/JeiRecipeTypes.java'
+            exclude '**/integration/jei/OccultismJeiIntegrationImpl.java'
+            exclude '**/integration/jei/StorageControllerRecipeTransferHandler.java'
+            exclude '**/AlmostUnifiedIntegrationImpl.java'
+        }
+    }
+}
+
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 java.withSourcesJar()
 
