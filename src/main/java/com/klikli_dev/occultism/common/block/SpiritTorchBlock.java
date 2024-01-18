@@ -22,25 +22,12 @@
 
 package com.klikli_dev.occultism.common.block;
 
-import com.klikli_dev.occultism.registry.OccultismParticles;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.Level;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.world.level.block.TorchBlock;
-import net.minecraft.world.level.block.state.BlockState;
 
 public class SpiritTorchBlock extends TorchBlock {
-    public SpiritTorchBlock(Properties pProperties) {
-        super(pProperties, null);
-    }
 
-    @Override
-    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRand) {
-        double d0 = (double) pPos.getX() + 0.5D;
-        double d1 = (double) pPos.getY() + 0.7D;
-        double d2 = (double) pPos.getZ() + 0.5D;
-        pLevel.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
-        pLevel.addParticle(OccultismParticles.SPIRIT_FIRE_FLAME.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
+    public SpiritTorchBlock(SimpleParticleType particleType, Properties pProperties) {
+        super(particleType, pProperties);
     }
 }

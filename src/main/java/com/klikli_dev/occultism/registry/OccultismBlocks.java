@@ -252,11 +252,15 @@ public class OccultismBlocks {
                     .strength(2.0F).sound(SoundType.WOOD).lightLevel((state) -> 10).noOcclusion()));
 
     public static final DeferredBlock<Block> SPIRIT_TORCH = register("spirit_torch",
-            () -> new SpiritTorchBlock(BlockBehaviour.Properties.of()
+            () -> new SpiritTorchBlock(
+                    OccultismParticles.SPIRIT_FIRE_FLAME.get(),
+                    BlockBehaviour.Properties.of()
                     .noCollission().instabreak().lightLevel((state) -> 10).sound(SoundType.WOOD)), false);
 
     public static final DeferredBlock<Block> SPIRIT_WALL_TORCH = register("spirit_wall_torch",
-            () -> new SpiritWallTorchBlock(BlockBehaviour.Properties.of()
+            () -> new SpiritWallTorchBlock(
+                    OccultismParticles.SPIRIT_FIRE_FLAME.get(),
+                    BlockBehaviour.Properties.of()
                     .noCollission().instabreak().lightLevel((state) -> 10).sound(SoundType.WOOD).lootFrom(SPIRIT_TORCH)), false);
 
     public static <I extends Block> DeferredBlock<I> register(final String name, final Supplier<? extends I> sup) {

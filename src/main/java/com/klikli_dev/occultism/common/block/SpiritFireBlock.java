@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import com.klikli_dev.occultism.util.Math3DUtil;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
@@ -41,14 +42,22 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Optional;
 
 public class SpiritFireBlock extends BaseFireBlock {
+
+    public static final MapCodec<SpiritFireBlock> CODEC = simpleCodec(SpiritFireBlock::new);
     public SpiritFireBlock(Properties properties) {
         super(properties, 0);
+    }
+
+    @Override
+    protected MapCodec<? extends BaseFireBlock> codec() {
+        return CODEC;
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
