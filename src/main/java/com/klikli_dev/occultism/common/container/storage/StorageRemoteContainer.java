@@ -31,6 +31,7 @@ import com.klikli_dev.occultism.network.messages.MessageUpdateLinkedMachines;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.OccultismContainers;
 import com.klikli_dev.occultism.util.CuriosUtil;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerPlayer;
@@ -182,7 +183,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     public void updateCraftingSlots(boolean force) {
         ListTag nbtTagList = new ListTag();
         for (int i = 0; i < this.matrix.getContainerSize(); i++) {
-            nbtTagList.add(this.matrix.getItem(i).serializeNBT());
+            nbtTagList.add(this.matrix.getItem(i).save(new CompoundTag()));
         }
         ItemStack storageRemote = this.getStorageRemote();
         if (storageRemote != ItemStack.EMPTY)
@@ -193,7 +194,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     public void updateOrderSlot(boolean force) {
         ItemStack storageRemote = this.getStorageRemote();
         if (storageRemote != ItemStack.EMPTY)
-            storageRemote.getOrCreateTag().put("orderStack", this.orderInventory.getItem(0).serializeNBT());
+            storageRemote.getOrCreateTag().put("orderStack", this.orderInventory.getItem(0).save(new CompoundTag()));
     }
 
     protected List<ItemStack> getCraftingMatrixFromItemStack(ItemStack stack) {

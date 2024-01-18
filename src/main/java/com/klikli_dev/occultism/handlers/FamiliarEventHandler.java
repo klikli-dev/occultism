@@ -101,7 +101,7 @@ public class FamiliarEventHandler {
         event.setCanceled(dodge);
 
         if (dodge)
-            OccultismAdvancements.FAMILIAR.trigger(entity, FamiliarTrigger.Type.MUMMY_DODGE);
+            OccultismAdvancements.FAMILIAR.get().trigger(entity, FamiliarTrigger.Type.MUMMY_DODGE);
     }
 
     @SubscribeEvent
@@ -145,7 +145,7 @@ public class FamiliarEventHandler {
         entity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20 * 5, 2));
 
         if (!owner.level().isClientSide)
-            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.FAIRY_SAVE);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.FAIRY_SAVE);
     }
 
     @SubscribeEvent
@@ -176,7 +176,7 @@ public class FamiliarEventHandler {
                 OccultismEntities.HEADLESS_FAMILIAR.get());
 
         if (!headlesses.isEmpty() && event.getEntity().getType() == OccultismEntities.CTHULHU_FAMILIAR.get())
-            OccultismAdvancements.FAMILIAR.trigger(player, FamiliarTrigger.Type.HEADLESS_CTHULHU_HEAD);
+            OccultismAdvancements.FAMILIAR.get().trigger(player, FamiliarTrigger.Type.HEADLESS_CTHULHU_HEAD);
 
         headlesses.forEach(h -> h.setHeadType(event.getEntity().getType()));
     }

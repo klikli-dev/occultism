@@ -90,7 +90,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasHat())
-            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 
@@ -221,7 +221,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
             if (source.getEntity() == this.getFamiliarOwner()) {
                 this.setAngry(true);
                 this.setSitting(true);
-                OccultismAdvancements.FAMILIAR.trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.CTHULHU_SAD);
+                OccultismAdvancements.FAMILIAR.get().trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.CTHULHU_SAD);
             } else if (source.getEntity() != null) {
                 Vec3 tp = DefaultRandomPos.getPos(this, 8, 4);
                 if (tp != null) {

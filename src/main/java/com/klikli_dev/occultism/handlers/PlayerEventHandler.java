@@ -111,7 +111,7 @@ public class PlayerEventHandler {
                         e -> e instanceof IFamiliar && ((IFamiliar) e).getFamiliarOwner() == event.getEntity())
                 .isEmpty())
             return;
-        OccultismAdvancements.FAMILIAR.trigger(event.getEntity(), FamiliarTrigger.Type.PARTY);
+        OccultismAdvancements.FAMILIAR.get().trigger(event.getEntity(), FamiliarTrigger.Type.PARTY);
     }
 
     @SubscribeEvent

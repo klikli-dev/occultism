@@ -290,7 +290,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
                         this.getSize(), this.getFamiliarOwner());
                 goat.setPos(this.getX(), this.getY(), this.getZ());
                 this.level().addFreshEntity(goat);
-                OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.GOAT_DETACH);
+                OccultismAdvancements.FAMILIAR.get().trigger(playerIn, FamiliarTrigger.Type.GOAT_DETACH);
             }
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
@@ -303,7 +303,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
                 && this.getFamiliarOwner() == playerIn && this.getSize() > RIDING_SIZE) {
             if (!this.level().isClientSide) {
                 playerIn.startRiding(this);
-                OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.CHIMERA_RIDE);
+                OccultismAdvancements.FAMILIAR.get().trigger(playerIn, FamiliarTrigger.Type.CHIMERA_RIDE);
             }
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
@@ -314,7 +314,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasHat())
-            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 

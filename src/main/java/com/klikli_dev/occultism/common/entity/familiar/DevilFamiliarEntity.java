@@ -164,7 +164,7 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
         public void start() {
             List<LivingEntity> enemies = this.getNearbyEnemies();
             if (!enemies.isEmpty() && this.entity instanceof DevilFamiliarEntity)
-                OccultismAdvancements.FAMILIAR.trigger(this.entity.getFamiliarOwner(), FamiliarTrigger.Type.DEVIL_FIRE);
+                OccultismAdvancements.FAMILIAR.get().trigger(this.entity.getFamiliarOwner(), FamiliarTrigger.Type.DEVIL_FIRE);
 
             this.attack(enemies);
             this.entity.swing(InteractionHand.MAIN_HAND);

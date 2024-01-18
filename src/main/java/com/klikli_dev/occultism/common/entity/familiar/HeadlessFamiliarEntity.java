@@ -203,7 +203,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
             if (success) {
                 stack.shrink(1);
                 if (this.isFullyRebuilt())
-                    OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.HEADLESS_REBUILT);
+                    OccultismAdvancements.FAMILIAR.get().trigger(playerIn, FamiliarTrigger.Type.HEADLESS_REBUILT);
 
                 return InteractionResult.sidedSuccess(!this.level().isClientSide);
             }
@@ -215,7 +215,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasGlasses())
-            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 

@@ -119,7 +119,7 @@ public class GuardianFamiliarEntity extends ColoredFamiliarEntity {
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasTree())
-            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 
@@ -133,7 +133,7 @@ public class GuardianFamiliarEntity extends ColoredFamiliarEntity {
         byte lives = this.getLives();
         boolean success = lives > 0;
         if (lives == DEATHS_DOOR)
-            OccultismAdvancements.FAMILIAR.trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.GUARDIAN_ULTIMATE_SACRIFICE);
+            OccultismAdvancements.FAMILIAR.get().trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.GUARDIAN_ULTIMATE_SACRIFICE);
         this.setLives((byte) (lives - 1));
         return success;
     }

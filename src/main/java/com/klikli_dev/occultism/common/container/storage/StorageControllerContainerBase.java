@@ -44,6 +44,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
@@ -64,7 +65,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     protected ResultContainer result;
     protected StorageControllerCraftingInventory matrix;
     protected SimpleContainer orderInventory;
-    protected CraftingRecipe currentRecipe;
+    protected RecipeHolder<CraftingRecipe> currentRecipe;
     /**
      * used to lock recipe while crafting
      */
@@ -211,7 +212,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     protected abstract void setupPlayerHotbar();
 
     protected void findRecipeForMatrixClient() {
-        Optional<CraftingRecipe> optional =
+        var optional =
                 this.player.level().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, this.matrix, this.player.level());
         optional.ifPresentOrElse(iCraftingRecipe -> this.currentRecipe = iCraftingRecipe, () -> this.currentRecipe = null);
     }
@@ -223,13 +224,13 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             this.currentRecipe = null;
             ServerPlayer serverplayerentity = (ServerPlayer) this.player;
             ItemStack itemstack = ItemStack.EMPTY;
-            Optional<CraftingRecipe> optional = this.player.level().getServer().getRecipeManager()
+            var optional = this.player.level().getServer().getRecipeManager()
                     .getRecipeFor(RecipeType.CRAFTING, this.matrix,
                             this.player.level());
             if (optional.isPresent()) {
-                CraftingRecipe icraftingrecipe = optional.get();
+                var icraftingrecipe = optional.get();
                 if (this.result.setRecipeUsed(this.player.level(), serverplayerentity, icraftingrecipe)) {
-                    itemstack = icraftingrecipe.assemble(this.matrix, serverplayerentity.level().registryAccess());
+                    itemstack = icraftingrecipe.value().assemble(this.matrix, serverplayerentity.level().registryAccess());
                     this.currentRecipe = icraftingrecipe;
                 }
             }
@@ -259,7 +260,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
         }
 
         //Get the crafting result and abort if none
-        ItemStack result = this.currentRecipe.assemble(this.matrix, player.level().registryAccess());
+        ItemStack result = this.currentRecipe.value().assemble(this.matrix, player.level().registryAccess());
         if (result.isEmpty()) {
             return;
         }
@@ -275,7 +276,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             if (this.currentRecipe == null)
                 break;
 
-            ItemStack newResult = this.currentRecipe.assemble(this.matrix, player.level().registryAccess()).copy();
+            ItemStack newResult = this.currentRecipe.value().assemble(this.matrix, player.level().registryAccess()).copy();
             if (newResult.getItem() != result.getItem())
                 break;
 
@@ -287,7 +288,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             }
 
             //if recipe is no longer fulfilled, stop
-            if (!this.currentRecipe.matches(this.matrix, player.level())) {
+            if (!this.currentRecipe.value().matches(this.matrix, player.level())) {
                 break;
             }
 
@@ -299,7 +300,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             resultList.add(newResult);
 
             //get remaining items in the crafting matrix
-            NonNullList<ItemStack> remainingCraftingItems = this.currentRecipe.getRemainingItems(this.matrix);
+            NonNullList<ItemStack> remainingCraftingItems = this.currentRecipe.value().getRemainingItems(this.matrix);
             for (int i = 0; i < remainingCraftingItems.size(); ++i) {
 
                 ItemStack currentCraftingItem = remainingCraftingItems.get(i);

@@ -95,7 +95,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasFlower())
-            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 

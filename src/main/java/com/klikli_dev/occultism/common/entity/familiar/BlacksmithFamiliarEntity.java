@@ -100,7 +100,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasEarring())
-            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 
@@ -223,7 +223,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
                 if (this.target.canBlacksmithUpgrade()) {
                     this.target.blacksmithUpgrade();
                     this.blacksmith.changeIronCount(-UPGRADE_COST.get());
-                    OccultismAdvancements.FAMILIAR.trigger(this.blacksmith.getFamiliarOwner(),
+                    OccultismAdvancements.FAMILIAR.get().trigger(this.blacksmith.getFamiliarOwner(),
                             FamiliarTrigger.Type.BLACKSMITH_UPGRADE);
                 }
                 this.target = null;

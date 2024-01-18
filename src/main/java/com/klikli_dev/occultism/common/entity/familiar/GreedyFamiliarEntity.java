@@ -240,7 +240,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
                 LivingEntity owner = this.entity.getFamiliarOwner();
                 if (item.distanceToSqr(this.entity) < 4 && owner instanceof Player player) {
                     item.playerTouch(player);
-                    OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.GREEDY_ITEM);
+                    OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.GREEDY_ITEM);
                 }
             }
         }
@@ -313,7 +313,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
                 this.mount.getNavigation().stop();
 
                 if (this.rider.getType() == OccultismEntities.SHUB_NIGGURATH_FAMILIAR.get() && this.type == OccultismEntities.CTHULHU_FAMILIAR.get())
-                    OccultismAdvancements.FAMILIAR.trigger(this.rider.getFamiliarOwner(), FamiliarTrigger.Type.SHUB_CTHULHU_FRIENDS);
+                    OccultismAdvancements.FAMILIAR.get().trigger(this.rider.getFamiliarOwner(), FamiliarTrigger.Type.SHUB_CTHULHU_FRIENDS);
             }
         }
 

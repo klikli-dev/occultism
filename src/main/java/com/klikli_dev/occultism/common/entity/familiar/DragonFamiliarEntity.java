@@ -75,7 +75,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasFez())
-            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 
@@ -191,7 +191,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
             this.setStick(false);
             return InteractionResult.sidedSuccess(!this.isEffectiveAi());
         } else if (stack.is(Tags.Items.NUGGETS_GOLD)) {
-            OccultismAdvancements.FAMILIAR.trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.DRAGON_NUGGET);
+            OccultismAdvancements.FAMILIAR.get().trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.DRAGON_NUGGET);
             this.greedyTimer += GREEDY_INCREMENT;
             if (this.isEffectiveAi())
                 stack.shrink(1);
@@ -201,7 +201,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
             return InteractionResult.sidedSuccess(!this.isEffectiveAi());
         } else if (stack.isEmpty() && playerIn.isShiftKeyDown()) {
             this.petTimer = 0;
-            OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.DRAGON_PET);
+            OccultismAdvancements.FAMILIAR.get().trigger(playerIn, FamiliarTrigger.Type.DRAGON_PET);
             return InteractionResult.sidedSuccess(!this.isEffectiveAi());
         }
         return super.mobInteract(playerIn, hand);
@@ -354,7 +354,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
             if (this.stick.distanceToSqr(this.dragon) < 3) {
                 this.dragon.setStick(true);
-                OccultismAdvancements.FAMILIAR.trigger(this.dragon.getFamiliarOwner(),
+                OccultismAdvancements.FAMILIAR.get().trigger(this.dragon.getFamiliarOwner(),
                         FamiliarTrigger.Type.DRAGON_FETCH);
                 this.stick.getItem().shrink(1);
                 this.stick = null;

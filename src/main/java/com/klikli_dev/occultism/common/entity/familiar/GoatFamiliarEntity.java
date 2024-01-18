@@ -171,7 +171,7 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
                 else if (stack.getItem() == Items.FLINT)
                     this.setEvilHorns(true);
                 if (this.shouldTransform()) {
-                    OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.SHUB_NIGGURATH_SUMMON);
+                    OccultismAdvancements.FAMILIAR.get().trigger(playerIn, FamiliarTrigger.Type.SHUB_NIGGURATH_SUMMON);
                     this.transform();
                 }
 

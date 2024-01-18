@@ -46,7 +46,7 @@ public class SpiritContainer extends AbstractContainerMenu {
 
     public SpiritContainer(@Nullable MenuType<?> type, int id, Inventory playerInventory, SpiritEntity spirit) {
         super(type, id);
-        this.inventory = spirit.inventory.orElseThrow(ItemHandlerMissingException::new);
+        this.inventory = spirit.inventory;
         this.spirit = spirit;
 
         this.setupSlots(playerInventory);

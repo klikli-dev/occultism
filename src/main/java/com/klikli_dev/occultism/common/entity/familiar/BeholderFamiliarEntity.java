@@ -171,7 +171,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasTongue())
-            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 
@@ -315,7 +315,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
 
         protected void attack() {
             LivingEntity owner = this.entity.getFamiliarOwner();
-            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.BEHOLDER_RAY);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.BEHOLDER_RAY);
 
             for (int id : this.targetIds) {
                 Entity e = this.entity.level().getEntity(id);
@@ -361,7 +361,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
                 this.entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, EAT_EFFECT_DURATION, 0, false, false));
                 this.entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, EAT_EFFECT_DURATION, 0, false, false));
 
-                OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.BEHOLDER_EAT);
+                OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.BEHOLDER_EAT);
             }
         }
 
