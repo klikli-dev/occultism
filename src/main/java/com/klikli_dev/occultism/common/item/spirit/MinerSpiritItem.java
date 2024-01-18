@@ -72,11 +72,14 @@ public class MinerSpiritItem extends Item {
     }
 
     @Override
-    public void verifyTagAfterLoad(CompoundTag pTag) {
+    public int getMaxStackSize(ItemStack stack) {
+        //cannot use verifyTagAfterLoad as config is not available at that time
+        var pTag = stack.getOrCreateTag();
         if(!pTag.contains(DimensionalMineshaftBlockEntity.MAX_MINING_TIME_TAG))
             pTag.putInt(DimensionalMineshaftBlockEntity.MAX_MINING_TIME_TAG, this.maxMiningTime.get());
 
         if(!pTag.contains(DimensionalMineshaftBlockEntity.ROLLS_PER_OPERATION_TAG))
             pTag.putInt(DimensionalMineshaftBlockEntity.ROLLS_PER_OPERATION_TAG, this.rollsPerOperation.get());
+        return super.getMaxStackSize(stack);
     }
 }

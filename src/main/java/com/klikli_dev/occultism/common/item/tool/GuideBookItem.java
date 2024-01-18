@@ -120,6 +120,7 @@ public class GuideBookItem extends ModonomiconItem {
 
     @Override
     public void verifyTagAfterLoad(CompoundTag pTag) {
+        //here this is ok to use as we do not access the (at that time not yet loaded) config
         if (!pTag.contains(ModonomiconConstants.Nbt.ITEM_BOOK_ID_TAG))
             pTag.putString(ModonomiconConstants.Nbt.ITEM_BOOK_ID_TAG, DICTIONARY_OF_SPIRITS.toString());
     }
