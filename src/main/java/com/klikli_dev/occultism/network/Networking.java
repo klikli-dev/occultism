@@ -24,7 +24,6 @@ package com.klikli_dev.occultism.network;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.network.messages.*;
-import com.klikli_dev.theurgy.network.MessageHandler;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
