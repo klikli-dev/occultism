@@ -22,13 +22,14 @@
 
 package com.klikli_dev.occultism.common.item.debug;
 
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.job.TraderJob;
 import com.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
-import com.klikli_dev.occultism.util.StaticUtil;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;

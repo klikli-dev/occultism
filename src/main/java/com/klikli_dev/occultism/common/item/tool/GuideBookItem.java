@@ -40,8 +40,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.capabilities.ICapabilityProvider;
-import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 
 public class GuideBookItem extends ModonomiconItem {
@@ -120,8 +119,8 @@ public class GuideBookItem extends ModonomiconItem {
     }
 
     @Override
-    public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-        stack.getOrCreateTag().putString(ModonomiconConstants.Nbt.ITEM_BOOK_ID_TAG, DICTIONARY_OF_SPIRITS.toString());
-        return super.initCapabilities(stack, nbt);
+    public void verifyTagAfterLoad(CompoundTag pTag) {
+        if (!pTag.contains(ModonomiconConstants.Nbt.ITEM_BOOK_ID_TAG))
+            pTag.putString(ModonomiconConstants.Nbt.ITEM_BOOK_ID_TAG, DICTIONARY_OF_SPIRITS.toString());
     }
 }

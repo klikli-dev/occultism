@@ -43,7 +43,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.network.NetworkHooks;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -107,8 +106,8 @@ public class StorageRemoteItem extends Item implements MenuProvider {
         }
 
         //then access it and if it fits, open UI
-        if (storageControllerWorld.getBlockEntity(storageControllerPos.getPos()) instanceof IStorageController) {
-            NetworkHooks.openScreen((ServerPlayer) player, this, buffer -> buffer.writeVarInt(player.getInventory().selected));
+        if (storageControllerWorld.getBlockEntity(storageControllerPos.getPos()) instanceof IStorageController && player instanceof ServerPlayer serverPlayer) {
+            serverPlayer.openMenu(this, buffer -> buffer.writeVarInt(player.getInventory().selected));
             return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
         }
         return super.use(level, player, hand);
