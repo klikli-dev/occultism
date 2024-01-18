@@ -51,11 +51,12 @@ type = "optional"
 versionRange = "${theurgy_version_range}"
 side = "BOTH"
 
-[[dependencies.occultism]]
-modId = "curios"
-type = "required"
-versionRange = "${curios_version_range}"
-side = "BOTH"
+#TODO: enable once curios is available
+#[[dependencies.occultism]]
+#modId = "curios"
+#type = "required"
+#versionRange = "${curios_version_range}"
+#side = "BOTH"
 
 [[dependencies.occultism]]
 modId = "geckolib"
