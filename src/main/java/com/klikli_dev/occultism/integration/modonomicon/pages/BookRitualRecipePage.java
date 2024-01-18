@@ -16,6 +16,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 
 public class BookRitualRecipePage extends BookRecipePage<RitualRecipe> {
@@ -41,12 +42,12 @@ public class BookRitualRecipePage extends BookRecipePage<RitualRecipe> {
     }
 
     @Override
-    protected ItemStack getRecipeOutput(Level level, RitualRecipe recipe) {
+    protected ItemStack getRecipeOutput(Level level, RecipeHolder<RitualRecipe> recipe) {
         if (recipe == null) {
             return ItemStack.EMPTY;
         }
 
-        return recipe.getRitualDummy();
+        return recipe.value().getRitualDummy();
     }
 
     @Override

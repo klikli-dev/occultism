@@ -73,7 +73,7 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
             //8 is a magic constant, maybe actually because of line height?
             // IDK why but I put 8 and it works so I won't touch it
 
-            var pentacleName = I18n.get(Util.makeDescriptionId("multiblock", this.page.getRecipe1().getPentacleId()));
+            var pentacleName = I18n.get(Util.makeDescriptionId("multiblock", this.page.getRecipe1().value().getPentacleId()));
             var nameWidth = this.font.width(pentacleName);
 
             int maxWidth = BookContentScreen.MAX_TITLE_WIDTH - RITUAL_DUMMY_OFFSET - 10; //account for the ritual dummy icon, 10 is a magic constant
@@ -83,12 +83,12 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
             }
 
             if (pMouseX > pentacleNameX && pMouseX < pentacleNameX + nameWidth && pMouseY > pentacleNameY && pMouseY < pentacleNameY + this.font.lineHeight) {
-                var goToText = "book.occultism.dictionary_of_spirits.pentacles." + this.page.getRecipe1().getPentacleId().getPath() + ".name";
+                var goToText = "book.occultism.dictionary_of_spirits.pentacles." + this.page.getRecipe1().value().getPentacleId().getPath() + ".name";
                 var hoverComponent = Component.translatable(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_GO_TO_PENTACLE,
                         Component.translatable(goToText));
                 return Style.EMPTY
                         .withClickEvent(new ClickEvent(Action.CHANGE_PAGE,
-                                "entry://occultism:dictionary_of_spirits/pentacles/" + this.page.getRecipe1().getPentacleId().getPath()))
+                                "entry://occultism:dictionary_of_spirits/pentacles/" + this.page.getRecipe1().value().getPentacleId().getPath()))
                         .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverComponent));
             }
         }
