@@ -32,6 +32,7 @@ import com.klikli_dev.occultism.config.OccultismClientConfig;
 import com.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.klikli_dev.occultism.config.OccultismServerConfig;
 import com.klikli_dev.occultism.integration.modonomicon.PageLoaders;
+import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.*;
 import com.mojang.logging.LogUtils;
 import net.neoforged.bus.api.IEventBus;
@@ -92,7 +93,7 @@ public class Occultism {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::onEntityAttributeCreation);
         modEventBus.addListener(this::serverSetup);
-        modEventBus.addListener(com.klikli_dev.theurgy.network.Networking::register);
+        modEventBus.addListener(Networking::register);
 
         NeoForge.EVENT_BUS.addListener(OccultismDataStorage::onPlayerClone);
         NeoForge.EVENT_BUS.addListener(OccultismDataStorage::onJoinWorld);
