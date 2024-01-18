@@ -58,8 +58,8 @@ public class RitualRecipe implements Recipe<Container> {
     public static final Codec<RitualRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                     ResourceLocation.CODEC.fieldOf("pentacle_id").forGetter((r) -> r.pentacleId),
                     ResourceLocation.CODEC.fieldOf("ritual_type").forGetter((r) -> r.ritualType),
-                    ItemStack.CODEC.fieldOf("ritual_dummy").forGetter((r) -> r.ritualDummy),
-                    ItemStack.CODEC.fieldOf("result").forGetter((r) -> r.result),
+                    ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("ritual_dummy").forGetter((r) -> r.ritualDummy),
+                    ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter((r) -> r.result),
                     BuiltInRegistries.ENTITY_TYPE.byNameCodec().optionalFieldOf("entity_to_summon").forGetter(r -> Optional.ofNullable(r.entityToSummon)),
                     CompoundTag.CODEC.optionalFieldOf("entity_nbt").forGetter(r -> Optional.ofNullable(r.entityNbt)),
                     Ingredient.CODEC.fieldOf("activation_item").forGetter((r) -> r.activationItem),

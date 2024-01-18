@@ -44,7 +44,7 @@ public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
     public static final Codec<SpiritFireRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Ingredient.CODEC
                     .fieldOf("ingredient").forGetter((r) -> r.input),
-            ItemStack.CODEC.fieldOf("result").forGetter(r -> r.output)
+            ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter(r -> r.output)
     ).apply(instance, SpiritFireRecipe::new));
 
     public SpiritFireRecipe(Ingredient input, ItemStack output) {
