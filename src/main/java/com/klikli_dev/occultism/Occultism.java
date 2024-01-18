@@ -80,13 +80,12 @@ public class Occultism {
         OccultismSensors.SENSORS.register(modEventBus);
         OccultismMemoryTypes.MEMORY_MODULE_TYPES.register(modEventBus);
         OccultismDataStorage.ATTACHMENT_TYPES.register(modEventBus);
+        OccultismAdvancements.TRIGGER_TYPES.register(modEventBus);
 
 
         //now register the custom registries
         OccultismSpiritJobs.JOBS.register(modEventBus);
         OccultismRituals.RITUAL_FACTORIES.register(modEventBus);
-
-        OccultismAdvancements.register();
 
         //register event buses
         modEventBus.addListener(OccultismCapabilities::onRegisterCapabilities);

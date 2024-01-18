@@ -57,7 +57,7 @@ public class SummonFoliotTraderItem extends Item {
             //set up the job
             TraderJob trader = (TraderJob) OccultismSpiritJobs.TRADE_OTHERSTONE_T1.get().create(spirit);
             trader.init();
-            trader.setTradeRecipeId(StaticUtil.modLoc("spirit_trade/test"));
+            trader.setTradeRecipeId(new ResourceLocation(Occultism.MODID, "spirit_trade/test"));
             spirit.setJob(trader);
 
             //notify players nearby and spawn

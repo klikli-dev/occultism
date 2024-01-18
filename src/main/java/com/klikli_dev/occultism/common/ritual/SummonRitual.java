@@ -108,7 +108,7 @@ public class SummonRitual extends Ritual {
 
     @Override
     public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                       Player castingPlayer, ItemStack activationItem) {
+                       ServerPlayer castingPlayer, ItemStack activationItem) {
         super.finish(level, goldenBowlPosition, blockEntity, castingPlayer, activationItem);
 
         ItemStack copy = activationItem.copy();

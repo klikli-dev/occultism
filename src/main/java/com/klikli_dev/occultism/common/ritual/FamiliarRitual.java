@@ -37,7 +37,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -51,12 +50,12 @@ public class FamiliarRitual extends SummonRitual {
 
     @Override
     public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                       Player castingPlayer, ItemStack activationItem) {
+                       ServerPlayer castingPlayer, ItemStack activationItem) {
         //manually call content of Ritual.finish(), because we cannot access it via super
         level.playSound(null, goldenBowlPosition, OccultismSounds.POOF.get(), SoundSource.BLOCKS, 0.7f,
                 0.7f);
-        castingPlayer.displayClientMessage(Component.translatable(this.getFinishedMessage()), true);
-        OccultismAdvancements.RITUAL.trigger((ServerPlayer) castingPlayer, this);
+        castingPlayer.displayClientMessage(Component.translatable(this.getFinishedMessage(castingPlayer)), true);
+        OccultismAdvancements.RITUAL.get().trigger(castingPlayer, this);
 
         String entityName = ItemNBTUtil.getBoundSpiritName(activationItem);
         activationItem.shrink(1); //remove original activation item.

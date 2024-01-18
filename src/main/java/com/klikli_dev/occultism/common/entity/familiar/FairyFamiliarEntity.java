@@ -23,7 +23,7 @@
 package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
-import com.klikli_dev.occultism.network.messages.Messages.MessageFairySupport;
+import com.klikli_dev.occultism.network.messages.MessageFairySupport;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismParticles;
@@ -57,6 +57,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
@@ -318,6 +319,29 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
 
         return super.hurt(pSource, pAmount);
     }
+    private static final double DEFAULT_ATTACK_REACH = Math.sqrt(2.04F) - 0.6F;
+    @Override
+    protected AABB getAttackBoundingBox() {
+        //copied from parent and set reach * 3
+        Entity entity = this.getVehicle();
+        AABB aabb;
+        if (entity != null) {
+            AABB aabb1 = entity.getBoundingBox();
+            AABB aabb2 = this.getBoundingBox();
+            aabb = new AABB(
+                    Math.min(aabb2.minX, aabb1.minX),
+                    aabb2.minY,
+                    Math.min(aabb2.minZ, aabb1.minZ),
+                    Math.max(aabb2.maxX, aabb1.maxX),
+                    aabb2.maxY,
+                    Math.max(aabb2.maxZ, aabb1.maxZ)
+            );
+        } else {
+            aabb = this.getBoundingBox();
+        }
+
+        return aabb.inflate(DEFAULT_ATTACK_REACH * 3, 0.0, DEFAULT_ATTACK_REACH * 3);
+    }
 
     @Override
     public boolean causeFallDamage(float fallDistance, float damageMultiplier, DamageSource p_147189_) {
@@ -442,10 +466,15 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
         }
 
         @Override
-        protected void checkAndPerformAttack(LivingEntity pEnemy, double pDistToEnemySqr) {
+        protected boolean canPerformAttack(LivingEntity pEntity) {
+            return this.mob.isWithinMeleeAttackRange(pEntity);
+        }
+
+        @Override
+        protected void checkAndPerformAttack(LivingEntity pEnemy) {
             this.attackTimer--;
-            double reach = this.getAttackReachSqr(pEnemy);
-            if (pDistToEnemySqr <= reach) {
+
+            if(this.canPerformAttack(pEnemy)) {
                 this.fairy.setMagicTarget(pEnemy);
                 if (this.attackTimer <= 0) {
                     this.attackTimer = 20;
@@ -464,14 +493,9 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
                         }
                     }
                 }
-            } else if (pDistToEnemySqr > reach * 3) {
+            } else {
                 this.fairy.setMagicTarget(null);
             }
-        }
-
-        @Override
-        protected double getAttackReachSqr(LivingEntity pAttackTarget) {
-            return super.getAttackReachSqr(pAttackTarget) * 3;
         }
 
     }
