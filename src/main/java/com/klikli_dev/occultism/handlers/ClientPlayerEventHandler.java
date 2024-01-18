@@ -66,7 +66,7 @@ public class ClientPlayerEventHandler {
     }
 
     @SubscribeEvent
-    public static void onMouseInput(final InputEvent.MouseButton event) {
+    public static void onMouseInput(final InputEvent.MouseButton.Key event) {
         //handle mouse button bindings for storage keys
         checkBackpackKey(event);
         checkStorageRemoteKey(event);

@@ -94,7 +94,6 @@ public class Occultism {
         modEventBus.addListener(this::serverSetup);
         modEventBus.addListener(com.klikli_dev.theurgy.network.Networking::register);
 
-        NeoForge.EVENT_BUS.register(this);
         NeoForge.EVENT_BUS.addListener(OccultismDataStorage::onPlayerClone);
         NeoForge.EVENT_BUS.addListener(OccultismDataStorage::onJoinWorld);
 

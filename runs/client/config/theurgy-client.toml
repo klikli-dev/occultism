@@ -1,0 +1,7 @@
+
+#Rendering Settings
+[rendering]
+	#True to show the icon of the source item on top of the sulfur jar icon, false to hide it (source item will still be shown on hover in item name).
+	#Disabling this setting may improve performance in inventories with lots of sulfur item stacks.
+	renderSulfurSourceItem = true
+

@@ -1,0 +1,143 @@
+---- Minecraft Crash Report ----
+// Why did you do that?
+
+Time: 2024-01-18 11:31:34
+Description: Mod loading error has occurred
+
+java.lang.Exception: Mod Loading has failed
+	at net.neoforged.neoforge.logging.CrashReportExtender.dumpModLoadingCrashReport(CrashReportExtender.java:56) ~[neoforge-20.4.80-beta.jar:?] {re:classloading}
+	at net.neoforged.neoforge.client.loading.ClientModLoader.completeModLoading(ClientModLoader.java:127) ~[neoforge-20.4.80-beta.jar:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.client.Minecraft.buildInitialScreens(Minecraft.java:685) ~[neoforge-20.4.80-beta.jar:?] {re:mixin,pl:accesstransformer:B,pl:runtimedistcleaner:A,re:classloading,pl:accesstransformer:B,pl:mixin:A,pl:runtimedistcleaner:A}
+	at net.minecraft.client.Minecraft.onGameLoadFinished(Minecraft.java:658) ~[neoforge-20.4.80-beta.jar:?] {re:mixin,pl:accesstransformer:B,pl:runtimedistcleaner:A,re:classloading,pl:accesstransformer:B,pl:mixin:A,pl:runtimedistcleaner:A}
+	at net.minecraft.client.Minecraft.onResourceLoadFinished(Minecraft.java:653) ~[neoforge-20.4.80-beta.jar:?] {re:mixin,pl:accesstransformer:B,pl:runtimedistcleaner:A,re:classloading,pl:accesstransformer:B,pl:mixin:A,pl:runtimedistcleaner:A}
+	at net.minecraft.client.Minecraft.lambda$new$6(Minecraft.java:641) ~[neoforge-20.4.80-beta.jar:?] {re:mixin,pl:accesstransformer:B,pl:runtimedistcleaner:A,re:classloading,pl:accesstransformer:B,pl:mixin:A,pl:runtimedistcleaner:A}
+	at net.minecraft.Util.ifElse(Util.java:428) ~[neoforge-20.4.80-beta.jar:?] {re:classloading}
+	at net.minecraft.client.Minecraft.lambda$new$7(Minecraft.java:635) ~[neoforge-20.4.80-beta.jar:?] {re:mixin,pl:accesstransformer:B,pl:runtimedistcleaner:A,re:classloading,pl:accesstransformer:B,pl:mixin:A,pl:runtimedistcleaner:A}
+	at net.neoforged.neoforge.client.loading.NeoForgeLoadingOverlay.render(NeoForgeLoadingOverlay.java:147) ~[neoforge-20.4.80-beta.jar:?] {re:classloading}
+	at net.minecraft.client.renderer.GameRenderer.render(GameRenderer.java:1136) ~[neoforge-20.4.80-beta.jar:?] {re:classloading,pl:accesstransformer:B,pl:runtimedistcleaner:A}
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1284) ~[neoforge-20.4.80-beta.jar:?] {re:mixin,pl:accesstransformer:B,pl:runtimedistcleaner:A,re:classloading,pl:accesstransformer:B,pl:mixin:A,pl:runtimedistcleaner:A}
+	at net.minecraft.client.Minecraft.run(Minecraft.java:824) ~[neoforge-20.4.80-beta.jar:?] {re:mixin,pl:accesstransformer:B,pl:runtimedistcleaner:A,re:classloading,pl:accesstransformer:B,pl:mixin:A,pl:runtimedistcleaner:A}
+	at net.minecraft.client.main.Main.main(Main.java:244) ~[neoforge-20.4.80-beta.jar:?] {re:classloading,pl:runtimedistcleaner:A}
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?] {}
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?] {}
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?] {}
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?] {}
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:126) ~[loader-2.0.7.jar:2.0] {}
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.clientService(CommonLaunchHandler.java:114) ~[loader-2.0.7.jar:2.0] {}
+	at net.neoforged.fml.loading.targets.ForgeClientUserdevLaunchHandler.runService(ForgeClientUserdevLaunchHandler.java:19) ~[loader-2.0.7.jar:2.0] {}
+	at net.neoforged.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:108) ~[loader-2.0.7.jar:2.0] {}
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?] {}
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?] {}
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?] {}
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?] {}
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?] {}
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?] {}
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?] {}
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?] {}
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Render thread
+Stacktrace:
+	at net.neoforged.bus.EventBus.addToListeners(EventBus.java:294) ~[bus-7.2.0.jar%23117!/:?] {}
+-- MOD occultism --
+Details:
+	Mod File: /J:/Projects/Minecraft/occultism-1.20.4/build/resources/main/
+	Failure message: Occultism (occultism) has failed to load correctly
+		java.lang.IllegalArgumentException: Cannot register listeners for abstract class net.neoforged.neoforge.client.event.InputEvent$MouseButton. Register a listener to one of its subclasses instead!
+	Mod Version: 1.81.4
+	Mod Issue URL: https://github.com/klikli-dev/occultism/issues
+	Exception message: java.lang.IllegalArgumentException: Cannot register listeners for abstract class net.neoforged.neoforge.client.event.InputEvent$MouseButton. Register a listener to one of its subclasses instead!
+Stacktrace:
+	at net.neoforged.bus.EventBus.addToListeners(EventBus.java:294) ~[bus-7.2.0.jar%23117!/:?] {}
+	at net.neoforged.bus.EventBus.register(EventBus.java:289) ~[bus-7.2.0.jar%23117!/:?] {}
+	at net.neoforged.bus.EventBus.registerListener(EventBus.java:169) ~[bus-7.2.0.jar%23117!/:?] {}
+	at net.neoforged.bus.EventBus.register(EventBus.java:91) ~[bus-7.2.0.jar%23117!/:?] {}
+	at net.neoforged.fml.javafmlmod.AutomaticEventSubscriber.lambda$inject$6(AutomaticEventSubscriber.java:70) ~[language-java-2.0.7.jar%23197!/:2.0] {}
+	at java.util.ArrayList.forEach(ArrayList.java:1511) ~[?:?] {}
+	at net.neoforged.fml.javafmlmod.AutomaticEventSubscriber.inject(AutomaticEventSubscriber.java:50) ~[language-java-2.0.7.jar%23197!/:2.0] {}
+	at net.neoforged.fml.javafmlmod.FMLModContainer.constructMod(FMLModContainer.java:124) ~[language-java-2.0.7.jar%23197!/:2.0] {}
+	at net.neoforged.fml.ModContainer.lambda$buildTransitionHandler$10(ModContainer.java:130) ~[core-2.0.7.jar%23196!/:2.0] {}
+	at java.util.concurrent.CompletableFuture$AsyncRun.run$$$capture(CompletableFuture.java:1804) ~[?:?] {}
+	at java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java) ~[?:?] {}
+	at java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1796) ~[?:?] {}
+	at java.util.concurrent.ForkJoinTask.doExec$$$capture(ForkJoinTask.java:373) ~[?:?] {}
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java) ~[?:?] {}
+	at java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182) ~[?:?] {}
+	at java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) ~[?:?] {}
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) ~[?:?] {}
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) ~[?:?] {}
+
+
+-- System Details --
+Details:
+	Minecraft Version: 1.20.4
+	Minecraft Version ID: 1.20.4
+	Operating System: Windows 11 (amd64) version 10.0
+	Java Version: 17.0.5, Eclipse Adoptium
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Eclipse Adoptium
+	Memory: 256225904 bytes (244 MiB) / 679477248 bytes (648 MiB) up to 17154703360 bytes (16360 MiB)
+	CPUs: 48
+	Processor Vendor: AuthenticAMD
+	Processor Name: AMD Ryzen Threadripper 3960X 24-Core Processor 
+	Identifier: AuthenticAMD Family 23 Model 49 Stepping 0
+	Microarchitecture: Zen 2
+	Frequency (GHz): 3.79
+	Number of physical packages: 1
+	Number of physical CPUs: 24
+	Number of logical CPUs: 48
+	Graphics card #0 name: NVIDIA GeForce RTX 4080
+	Graphics card #0 vendor: NVIDIA (0x10de)
+	Graphics card #0 VRAM (MB): 4095.00
+	Graphics card #0 deviceId: 0x2704
+	Graphics card #0 versionInfo: DriverVersion=31.0.15.4665
+	Memory slot #0 capacity (MB): 16384.00
+	Memory slot #0 clockSpeed (GHz): 3.20
+	Memory slot #0 type: DDR4
+	Memory slot #1 capacity (MB): 16384.00
+	Memory slot #1 clockSpeed (GHz): 3.20
+	Memory slot #1 type: DDR4
+	Memory slot #2 capacity (MB): 16384.00
+	Memory slot #2 clockSpeed (GHz): 3.20
+	Memory slot #2 type: DDR4
+	Memory slot #3 capacity (MB): 16384.00
+	Memory slot #3 clockSpeed (GHz): 3.20
+	Memory slot #3 type: DDR4
+	Virtual memory max (MB): 70243.73
+	Virtual memory used (MB): 34621.93
+	Swap memory total (MB): 4834.66
+	Swap memory used (MB): 943.33
+	JVM Flags: 3 total; -XX:+AllowEnhancedClassRedefinition -XX:+IgnoreUnrecognizedVMOptions -XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump
+	ModLauncher: 10.0.9+10.0.9+main.dcd20f30
+	ModLauncher launch target: forgeclientuserdev
+	ModLauncher naming: mcp
+	ModLauncher services: 
+		mixin-0.8.5.jar mixin PLUGINSERVICE 
+		loader-2.0.7.jar slf4jfixer PLUGINSERVICE 
+		loader-2.0.7.jar runtime_enum_extender PLUGINSERVICE 
+		at-modlauncher-10.0.1.jar accesstransformer PLUGINSERVICE 
+		loader-2.0.7.jar runtimedistcleaner PLUGINSERVICE 
+		modlauncher-10.0.9.jar mixin TRANSFORMATIONSERVICE 
+		modlauncher-10.0.9.jar fml TRANSFORMATIONSERVICE 
+	FML Language Providers: 
+		lowcodefml@2.0
+		minecraft@2.0
+		javafml@2.0
+	Mod List: 
+		SmartBrainLib-neoforge-1.20.4-1.13.jar            |SmartBrainLib                 |smartbrainlib                 |1.13                |COMMON_SET|Manifest: NOSIGNATURE
+		neoforge-20.4.80-beta.jar                         |Minecraft                     |minecraft                     |1.20.4              |COMMON_SET|Manifest: a1:d4:5e:04:4f:d3:d6:e0:7b:37:97:cf:77:b0:de:ad:4a:47:ce:8c:96:49:5f:0a:cf:8c:ae:b2:6d:4b:8a:3f
+		modonomicon-1.20.4-neoforge-1.54.4.jar            |Modonomicon                   |modonomicon                   |1.54.4              |COMMON_SET|Manifest: NOSIGNATURE
+		geckolib-neoforge-1.20.4-4.4.1.jar                |GeckoLib 4                    |geckolib                      |4.4.1               |COMMON_SET|Manifest: NOSIGNATURE
+		architectury-api-419699-5020280.jar               |Architectury                  |architectury                  |11.0.11             |COMMON_SET|Manifest: NOSIGNATURE
+		main                                              |Occultism                     |occultism                     |1.81.4              |ERROR     |Manifest: NOSIGNATURE
+		theurgy-1.20.4-neoforge-1.12.1.jar                |Theurgy                       |theurgy                       |1.12.1              |COMMON_SET|Manifest: NOSIGNATURE
+		roughly-enough-items-310111-4973489.jar           |Roughly Enough Items (REI)    |roughlyenoughitems            |14.0.688            |COMMON_SET|Manifest: NOSIGNATURE
+		cloth-config-348521-4973457.jar                   |Cloth Config v13 API          |cloth_config                  |13.0.121            |COMMON_SET|Manifest: NOSIGNATURE
+		curios-neoforge-7.0.0-beta.3+1.20.4.jar           |Curios API                    |curios                        |7.0.0-beta.3+1.20.4 |COMMON_SET|Manifest: NOSIGNATURE
+		                                                  |NeoForge                      |neoforge                      |20.4.80-beta        |COMMON_SET|Manifest: NOSIGNATURE
+	Crash Report UUID: 7765b22a-d5a1-4a8e-ae82-62f4fbe1a1ca
+	FML: 20.4
+	NeoForge: net.neoforged:20.4.80-beta

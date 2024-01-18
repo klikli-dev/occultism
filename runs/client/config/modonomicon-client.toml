@@ -1,0 +1,8 @@
+
+#Quality of Life Settings
+[qol]
+	#Enable smooth zoom in book categories
+	enableSmoothZoom = true
+	#Enable keeping the last open page stored when closing an entry. Regardless of this setting it will be stored when closing the entire book with Esc.
+	storeLastOpenPageWhenClosingEntry = false
+

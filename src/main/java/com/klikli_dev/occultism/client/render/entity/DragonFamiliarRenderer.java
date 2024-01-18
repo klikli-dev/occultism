@@ -61,7 +61,7 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Dr
     private static class RenderText {
 
         @SubscribeEvent
-        public static void renderText(RenderLivingEvent<DragonFamiliarEntity, DragonFamiliarModel> event) {
+        public static void renderText(RenderLivingEvent.Post<DragonFamiliarEntity, DragonFamiliarModel> event) {
             if (!(event.getEntity() instanceof DragonFamiliarEntity dragon))
                 return;
 
