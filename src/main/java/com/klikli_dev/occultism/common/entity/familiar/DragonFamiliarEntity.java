@@ -73,6 +73,11 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
+    public Vec3 getPassengerRidingPosition(Entity pEntity) {
+        return super.getPassengerRidingPosition(pEntity).subtract(0, 0.4, 0);
+    }
+
+    @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasFez())
             OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);

@@ -279,6 +279,11 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     }
 
     @Override
+    public Vec3 getPassengerRidingPosition(Entity pEntity) {
+        return super.getPassengerRidingPosition(pEntity).subtract(0, 0.6, 0);
+    }
+
+    @Override
     protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
         ItemStack stack = playerIn.getItemInHand(hand);
         FoodProperties food = stack.getItem().getFoodProperties();
