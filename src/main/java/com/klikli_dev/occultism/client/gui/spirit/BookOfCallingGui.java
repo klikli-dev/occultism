@@ -50,7 +50,7 @@ public class BookOfCallingGui extends Screen {
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(guiGraphics);
+//        this.renderBackground(guiGraphics); //called by super
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
     }
 

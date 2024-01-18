@@ -28,10 +28,11 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 
-public class SizedImageButton extends ImageButton {
+public class SizedImageButton extends Button {
     public final ResourceLocation resourceLocation;
     public final int xTexStart;
     public final int yTexStart;
@@ -61,7 +62,7 @@ public class SizedImageButton extends ImageButton {
                             int textureOffsetY, int hoverOffsetX, int textureWidth, int textureHeight,
                             int textureMapWidth, int textureMapHeight, ResourceLocation resourceLocation,
                             Button.OnPress handler) {
-        super(xIn, yIn, widthIn, heightIn, textureOffsetX, textureOffsetY, 0, resourceLocation, handler);
+        super(xIn, yIn, widthIn, heightIn, Component.empty(), handler, DEFAULT_NARRATION);
         this.xTexStart = textureOffsetX;
         this.yTexStart = textureOffsetY;
         this.xDiffOffset = hoverOffsetX;

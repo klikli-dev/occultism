@@ -214,15 +214,6 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         Networking.sendToServer(new MessageSetTagFilterText(this.tagFilter, this.spirit.getId()));
     }
 
-    /**
-     * Tick is final in abstract container, but calls this method
-     */
-    @Override
-    public void containerTick() {
-        this.tagFilterTextField.tick();
-        super.containerTick();
-    }
-
     @Override
     public boolean charTyped(char codePoint, int modifiers) {
         if (this.tagFilterTextField.isFocused() && this.tagFilterTextField.charTyped(codePoint, modifiers)) {

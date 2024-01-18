@@ -58,9 +58,10 @@ public class BookOfCallingManagedMachineGui extends Screen {
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(guiGraphics);
-        this.text.render(guiGraphics, mouseX, mouseY, partialTicks);
+//        this.renderBackground(guiGraphics); called by super
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
+        this.text.render(guiGraphics, mouseX, mouseY, partialTicks);
+        //TODO upgrade: I suspect text needs to be after super to not be behind bg
     }
 
     @Override
