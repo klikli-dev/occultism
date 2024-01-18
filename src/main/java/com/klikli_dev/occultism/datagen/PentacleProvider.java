@@ -29,6 +29,7 @@ import com.klikli_dev.modonomicon.data.MultiblockDataManager;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -36,7 +37,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.nio.file.Path;
@@ -336,22 +336,22 @@ public class PentacleProvider implements DataProvider {
 
             JsonObject json = new JsonObject();
             json.addProperty("type", "modonomicon:block");
-            json.addProperty("block", ForgeRegistries.BLOCKS.getKey(b.get()).toString());
+            json.addProperty("block", BuiltInRegistries.BLOCK.getKey(b.get()).toString());
             return this.element(c, json);
         }
 
         private MappingBuilder blockDisplay(char c, Supplier<? extends Block> b, Supplier<? extends Block> display) {
             JsonObject json = new JsonObject();
             json.addProperty("type", "modonomicon:block");
-            json.addProperty("block", ForgeRegistries.BLOCKS.getKey(b.get()).toString());
-            json.addProperty("display", ForgeRegistries.BLOCKS.getKey(display.get()).toString());
+            json.addProperty("block", BuiltInRegistries.BLOCK.getKey(b.get()).toString());
+            json.addProperty("display", BuiltInRegistries.BLOCK.getKey(display.get()).toString());
             return this.element(c, json);
         }
 
         private MappingBuilder display(char c, Supplier<? extends Block> display) {
             JsonObject json = new JsonObject();
             json.addProperty("type", "modonomicon:display");
-            json.addProperty("display", ForgeRegistries.BLOCKS.getKey(display.get()).toString());
+            json.addProperty("display", BuiltInRegistries.BLOCK.getKey(display.get()).toString());
             return this.element(c, json);
         }
 

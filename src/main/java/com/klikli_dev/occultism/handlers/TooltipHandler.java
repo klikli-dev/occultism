@@ -27,13 +27,13 @@ import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class TooltipHandler {
@@ -51,11 +51,9 @@ public class TooltipHandler {
 
         if (Occultism.CLIENT_CONFIG.visuals.showItemTagsInTooltip.get() && event.getFlags().isAdvanced()) {
             var tooltips = event.getToolTip();
-            var item = event.getItemStack().getItem();
-            ForgeRegistries.ITEMS.tags().getReverseTag(item).ifPresent((tag) -> {
-                tag.getTagKeys().forEach((key) -> {
-                    tooltips.add(Component.literal(key.toString()).withStyle(ChatFormatting.DARK_GRAY));
-                });
+            var item = event.getItemStack().getItemHolder();
+            BuiltInRegistries.ITEM.getTags().filter(p -> p.getSecond().contains(item)).forEach((tag) -> {
+                tooltips.add(Component.literal(tag.getFirst().toString()).withStyle(ChatFormatting.DARK_GRAY));
             });
         }
     }

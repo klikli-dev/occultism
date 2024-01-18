@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.common.ritual.*;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
@@ -59,7 +60,7 @@ public class OccultismRituals {
     public static final Supplier<RitualFactory> SUMMON_WILD_HUNT =
             RITUAL_FACTORIES.register("summon_wild_hunt",
                     () -> new RitualFactory(SummonWildHuntRitual::new));
-    public static final Supplier<RitualFactory> FAMILIAR_RITUAL =
+    public static final DeferredHolder< RitualFactory,RitualFactory> FAMILIAR_RITUAL =
             RITUAL_FACTORIES.register("familiar",
                     () -> new RitualFactory(FamiliarRitual::new));
 

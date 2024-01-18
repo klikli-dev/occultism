@@ -46,10 +46,10 @@ public class OutputIngredient {
 
             var itemStacks = Arrays.stream(this.ingredient.values).flatMap((value) -> {
                 if (value instanceof Ingredient.TagValue tagValue) {
-                    var item = AlmostUnifiedIntegration.getPreferredItemForTag(tagValue.tag);
+                    var item = AlmostUnifiedIntegration.get().getPreferredItemForTag(tagValue.tag());
 
                     if (item == null)
-                        item = BuiltInRegistries.ITEM.getTag(tagValue.tag)
+                        item = BuiltInRegistries.ITEM.getTag(tagValue.tag())
                                 .map(HolderSet.ListBacked::stream)
                                 .flatMap(Stream::findFirst)
                                 .map(Holder::value)
@@ -60,7 +60,7 @@ public class OutputIngredient {
                     }
 
                     //copied from Ingredient.TagValue.getItems to handle empty tags
-                    return Stream.of(new ItemStack(Blocks.BARRIER).setHoverName(Component.literal("Empty Tag: " + tagValue.tag.location())));
+                    return Stream.of(new ItemStack(Blocks.BARRIER).setHoverName(Component.literal("Empty Tag: " + tagValue.tag().location())));
                 }
                 return value.getItems().stream();
             }).distinct().toArray(ItemStack[]::new);

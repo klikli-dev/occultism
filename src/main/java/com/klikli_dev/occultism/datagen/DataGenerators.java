@@ -50,7 +50,7 @@ public class DataGenerators {
                         new LootTableProvider.SubProviderEntry(OccultismEntityLoot::new, LootContextParamSets.ENTITY)
                 )));
         generator.addProvider(event.includeServer(), new PentacleProvider(generator));
-        generator.addProvider(event.includeServer(), new OccultismAdvancementProvider(generator));
+        generator.addProvider(event.includeServer(), new OccultismAdvancementSubProvider(generator));
         generator.addProvider(event.includeServer(), new CrushingRecipeProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new MinerRecipeProvider(generator.getPackOutput()));
         generator.addProvider(event.includeClient(), new ItemModelsGenerator(generator.getPackOutput(), event.getExistingFileHelper()));

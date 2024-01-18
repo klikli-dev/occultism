@@ -23,11 +23,15 @@
 package com.klikli_dev.occultism.common.advancement;
 
 import com.klikli_dev.occultism.common.ritual.Ritual;
+import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.PlayerTrigger;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -50,6 +54,10 @@ public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.TriggerI
     public record TriggerInstance(Optional<ContextAwarePredicate> player,
                                   Optional<ResourceLocation> ritualId,
                                   Optional<ResourceLocation> ritualFactoryId) implements SimpleCriterionTrigger.SimpleInstance {
+
+        public static Criterion<RitualTrigger.TriggerInstance> ritualFactory(ResourceLocation ritualFactoryId) {
+            return OccultismAdvancements.RITUAL.get().createCriterion(new TriggerInstance(Optional.empty(), Optional.empty(), Optional.of(ritualFactoryId)));
+        }
 
         public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(
                 instance -> instance.group(

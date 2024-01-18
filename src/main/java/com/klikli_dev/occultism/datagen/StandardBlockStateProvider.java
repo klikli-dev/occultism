@@ -34,7 +34,7 @@ import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 /**
  * Based on https://github.com/McJty/YouTubeModding14
@@ -50,7 +50,7 @@ public class StandardBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         //Generate blockstates for the glyphs
         OccultismBlocks.BLOCKS.getEntries().stream()
-                .map(RegistryObject::get)
+                .map(DeferredHolder::get)
                 .filter(block -> block instanceof ChalkGlyphBlock)
                 .forEach(this::generateGlyphBlockState);
         this.simpleBlock(OccultismBlocks.STORAGE_CONTROLLER.get(),

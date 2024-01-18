@@ -9,21 +9,21 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.neoforged.neoforge.common.world.BiomeModifier;
-import net.neoforged.neoforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 public class BiomeModifiers {
 
-    public static final ResourceKey<BiomeModifier> ADD_ORE_SILVER = ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(Occultism.MODID, "add_ore_silver"));
+    public static final ResourceKey<BiomeModifier> ADD_ORE_SILVER = ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(Occultism.MODID, "add_ore_silver"));
 
-    public static final ResourceKey<BiomeModifier> ADD_ORE_SILVER_DEEPSLATE = ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(Occultism.MODID, "add_ore_silver_deepslate"));
+    public static final ResourceKey<BiomeModifier> ADD_ORE_SILVER_DEEPSLATE = ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(Occultism.MODID, "add_ore_silver_deepslate"));
 
-    public static final ResourceKey<BiomeModifier> ADD_ORE_IESNIUM = ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(Occultism.MODID, "add_ore_iesnium"));
+    public static final ResourceKey<BiomeModifier> ADD_ORE_IESNIUM = ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(Occultism.MODID, "add_ore_iesnium"));
 
-    public static final ResourceKey<BiomeModifier> ADD_TREE_OTHERWORLD = ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(Occultism.MODID, "add_tree_otherworld"));
+    public static final ResourceKey<BiomeModifier> ADD_TREE_OTHERWORLD = ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(Occultism.MODID, "add_tree_otherworld"));
 
-    public static final ResourceKey<BiomeModifier> ADD_TREE_OTHERWORLD_NATURAL = ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(Occultism.MODID, "add_tree_otherworld_natural"));
+    public static final ResourceKey<BiomeModifier> ADD_TREE_OTHERWORLD_NATURAL = ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(Occultism.MODID, "add_tree_otherworld_natural"));
 
-    public static final ResourceKey<BiomeModifier> ADD_GROVE_UNDERGROUND = ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(Occultism.MODID, "add_grove_underground"));
+    public static final ResourceKey<BiomeModifier> ADD_GROVE_UNDERGROUND = ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(Occultism.MODID, "add_grove_underground"));
 
     public static void bootstrap(BootstapContext<BiomeModifier> context) {
         var placedFeatures = context.lookup(Registries.PLACED_FEATURE);

@@ -26,13 +26,14 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.capability.FamiliarSettingsData;
 import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.registry.OccultismCapabilities;
+import com.klikli_dev.occultism.registry.OccultismDataStorage;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,17 +55,16 @@ public class MessageToggleFamiliarSettings implements IMessage {
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
-        player.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(cap -> {
-            for (Entry<EntityType<?>, Boolean> toggle : this.familiarsPressed.entrySet()) {
-                if (toggle.getValue()) {
-                    cap.setFamiliarEnabled(toggle.getKey(), !cap.isFamiliarEnabled(toggle.getKey()));
-                    player.displayClientMessage(
-                            Component.translatable(
-                                    "message." + Occultism.MODID + ".familiar." + ForgeRegistries.ENTITY_TYPES.getKey(toggle.getKey()).getPath() +
-                                            (cap.isFamiliarEnabled(toggle.getKey()) ? ".enabled" : ".disabled")), true);
-                }
+        var cap = player.getData(OccultismDataStorage.FAMILIAR_SETTINGS.get());
+        for (Entry<EntityType<?>, Boolean> toggle : this.familiarsPressed.entrySet()) {
+            if (toggle.getValue()) {
+                cap.setFamiliarEnabled(toggle.getKey(), !cap.isFamiliarEnabled(toggle.getKey()));
+                player.displayClientMessage(
+                        Component.translatable(
+                                "message." + Occultism.MODID + ".familiar." + BuiltInRegistries.ENTITY_TYPE.getKey(toggle.getKey()).getPath() +
+                                        (cap.isFamiliarEnabled(toggle.getKey()) ? ".enabled" : ".disabled")), true);
             }
-        });
+        }
         FamiliarSettingsData.syncFor(player);
     }
 

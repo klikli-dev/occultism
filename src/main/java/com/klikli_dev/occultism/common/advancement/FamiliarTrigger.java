@@ -1,5 +1,6 @@
 package com.klikli_dev.occultism.common.advancement;
 
+import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -14,6 +15,10 @@ import net.minecraft.world.level.block.Block;
 import java.util.Optional;
 
 public class FamiliarTrigger extends SimpleCriterionTrigger<FamiliarTrigger.TriggerInstance> {
+
+    public static Criterion<TriggerInstance> of(Type type) {
+        return OccultismAdvancements.FAMILIAR.get().createCriterion(new TriggerInstance(Optional.empty(), Optional.of(type)));
+    }
 
     @Override
     public Codec<TriggerInstance> codec() {
