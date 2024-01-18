@@ -12,6 +12,7 @@ import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public abstract class BookSpiritFireRecipePageRenderer<T extends Recipe<?>> extends BookRecipePageRenderer<T, BookProcessingRecipePage<T>> {
     public BookSpiritFireRecipePageRenderer(BookProcessingRecipePage<T> page) {
@@ -24,9 +25,10 @@ public abstract class BookSpiritFireRecipePageRenderer<T extends Recipe<?>> exte
     }
 
     @Override
-    protected void drawRecipe(GuiGraphics guiGraphics, T recipe, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
+    protected void drawRecipe(GuiGraphics guiGraphics, RecipeHolder<T> recipeHolder, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
 
         recipeY += 10;
+        var recipe = recipeHolder.value();
 
 
         if (!second) {

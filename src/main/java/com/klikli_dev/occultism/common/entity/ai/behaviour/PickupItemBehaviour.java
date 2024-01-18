@@ -1,7 +1,7 @@
 package com.klikli_dev.occultism.common.entity.ai.behaviour;
 
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
+
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import com.mojang.datafixers.util.Pair;
@@ -36,7 +36,7 @@ public class PickupItemBehaviour<E extends SpiritEntity> extends ExtendedBehavio
                 PickupItemBehaviour.PICKUP_XZ_RANGE_SQUARE)
                 //also check if inserting would take anything from the entity stack -> means we have free slots
                 && ItemHandlerHelper.insertItemStacked(
-                entity.inventory.orElseThrow(ItemHandlerMissingException::new), jobItem.getItem(), true).getCount() <
+                entity.inventory, jobItem.getItem(), true).getCount() <
                 jobItem.getItem().getCount();
     }
 
@@ -45,7 +45,7 @@ public class PickupItemBehaviour<E extends SpiritEntity> extends ExtendedBehavio
 
         BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new EntityTracker(jobItem, false));
         ItemStack duplicate = jobItem.getItem().copy();
-        ItemStackHandler handler = entity.inventory.orElseThrow(ItemHandlerMissingException::new);
+        ItemStackHandler handler = entity.inventory;
         if (ItemHandlerHelper.insertItemStacked(handler, duplicate, true).getCount() < duplicate.getCount()) {
             ItemStack remaining = ItemHandlerHelper.insertItemStacked(handler, duplicate, false);
             jobItem.getItem().setCount(remaining.getCount());

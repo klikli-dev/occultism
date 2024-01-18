@@ -22,12 +22,13 @@
 
 package com.klikli_dev.occultism.crafting.recipe;
 
-import com.google.gson.JsonObject;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
@@ -42,8 +43,8 @@ import java.util.stream.Collectors;
 public class SpiritTradeRecipe extends ShapelessRecipe {
     public static Serializer SERIALIZER = new Serializer();
 
-    public SpiritTradeRecipe(ResourceLocation id, String group, ItemStack result, NonNullList<Ingredient> input) {
-        super(id, group, CraftingBookCategory.MISC, result, input);
+    public SpiritTradeRecipe(String group, ItemStack result, NonNullList<Ingredient> input) {
+        super(group, CraftingBookCategory.MISC, result, input);
     }
 
     @Override
@@ -120,25 +121,33 @@ public class SpiritTradeRecipe extends ShapelessRecipe {
 
     public static class Serializer implements RecipeSerializer<SpiritTradeRecipe> {
 
-        private static final ShapelessRecipe.Serializer serializer = new ShapelessRecipe.Serializer();
+        public static Codec<SpiritTradeRecipe> CODEC = RecipeSerializer.SHAPELESS_RECIPE.codec().flatXmap(
+                shapeless -> {
+                    var recipe = new SpiritTradeRecipe(shapeless.getGroup(), shapeless.getResultItem(RegistryAccess.EMPTY), shapeless.getIngredients());
+                    return DataResult.success(recipe);
+                }
+                ,
+                trade -> {
+                    var recipe = new ShapelessRecipe(trade.getGroup(), CraftingBookCategory.MISC, trade.getResultItem(RegistryAccess.EMPTY), trade.getIngredients());
+                    return DataResult.success(recipe);
+                }
+        );
 
         @Override
-        public SpiritTradeRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-            ShapelessRecipe recipe = serializer.fromJson(recipeId, json);
-            //we can pass null because shapeless recipe doesn't use the registryaccess.
-            return new SpiritTradeRecipe(recipe.getId(), recipe.getGroup(), recipe.getResultItem(RegistryAccess.EMPTY), recipe.getIngredients());
+        public Codec<SpiritTradeRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public SpiritTradeRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            ShapelessRecipe recipe = serializer.fromNetwork(recipeId, buffer);
-            //we can pass null because shapeless recipe doesn't use the registryaccess.
-            return new SpiritTradeRecipe(recipe.getId(), recipe.getGroup(), recipe.getResultItem(RegistryAccess.EMPTY), recipe.getIngredients());
+        public SpiritTradeRecipe fromNetwork(FriendlyByteBuf pBuffer) {
+            //noinspection deprecation
+            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf buffer, SpiritTradeRecipe recipe) {
-            serializer.toNetwork(buffer, recipe);
+        public void toNetwork(FriendlyByteBuf pBuffer, SpiritTradeRecipe pRecipe) {
+            //noinspection deprecation
+            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
         }
 
     }

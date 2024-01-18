@@ -379,10 +379,6 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
         return this.moveDist + 1.6f;
     }
 
-    @Override
-    public double getPassengersRidingOffset() {
-        return super.getPassengersRidingOffset() * 0.6;
-    }
 
     @Nullable
     public LivingEntity getControllingPassenger() {

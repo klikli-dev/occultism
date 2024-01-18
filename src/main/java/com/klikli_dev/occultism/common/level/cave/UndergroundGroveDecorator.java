@@ -49,10 +49,10 @@ public class UndergroundGroveDecorator extends CaveDecorator {
                                BlockPos pos, MultiChunkFeatureConfig config) {
         if (seedReader.getBlockState(pos).getBlock() == Blocks.GRASS_BLOCK &&
                 rand.nextFloat() < config.grassChance)
-            seedReader.setBlock(pos.above(), Blocks.GRASS.defaultBlockState(), 2);
+            seedReader.setBlock(pos.above(), Blocks.SHORT_GRASS.defaultBlockState(), 2);
 
         if (rand.nextFloat() < config.treeChance) {
-            config.otherworldTreeFeature.get().place(seedReader, generator, rand, pos.above());
+            config.otherworldTreeFeature.value().place(seedReader, generator, rand, pos.above());
         }
     }
 

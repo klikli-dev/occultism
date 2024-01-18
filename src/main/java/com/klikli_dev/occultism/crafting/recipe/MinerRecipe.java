@@ -22,15 +22,14 @@
 
 package com.klikli_dev.occultism.crafting.recipe;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.klikli_dev.occultism.common.misc.WeightedOutputIngredient;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -40,15 +39,23 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
 public class MinerRecipe implements Recipe<RecipeWrapper> {
+
+    public static final Codec<MinerRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            Ingredient.CODEC
+                    .fieldOf("ingredient").forGetter((r) -> r.input),
+            Ingredient.CODEC.fieldOf("result").forGetter(r -> r.output.getIngredient()),
+            Codec.INT.fieldOf("weight").forGetter(r -> r.output.weight())
+    ).apply(instance, (input, output, weight) -> {
+        return new MinerRecipe(input, new WeightedOutputIngredient(output, weight));
+    }));
+
     public static Serializer SERIALIZER = new Serializer();
-    protected final ResourceLocation id;
     protected final Ingredient input;
     protected final WeightedOutputIngredient output;
 
-    public MinerRecipe(ResourceLocation id, Ingredient input, WeightedOutputIngredient output) {
+    public MinerRecipe(Ingredient input, WeightedOutputIngredient output) {
         this.input = input;
         this.output = output;
-        this.id = id;
     }
 
     @Override
@@ -87,11 +94,6 @@ public class MinerRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public ResourceLocation getId() {
-        return this.id;
-    }
-
-    @Override
     public RecipeSerializer<?> getSerializer() {
         return SERIALIZER;
     }
@@ -105,31 +107,20 @@ public class MinerRecipe implements Recipe<RecipeWrapper> {
     public static class Serializer implements RecipeSerializer<MinerRecipe> {
 
         @Override
-        public MinerRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-            JsonElement ingredientElement = GsonHelper.isArrayNode(json, "ingredient") ? GsonHelper.getAsJsonArray(json,
-                    "ingredient") : GsonHelper.getAsJsonObject(json, "ingredient");
-            Ingredient ingredient = Ingredient.fromJson(ingredientElement);
-            JsonElement resultElement = GsonHelper.getAsJsonObject(json, "result");
-            Ingredient result = Ingredient.fromJson(resultElement);
-            int weight = GsonHelper.getAsInt(json, "weight");
-
-            return new MinerRecipe(recipeId, ingredient, new WeightedOutputIngredient(result, weight));
+        public Codec<MinerRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public MinerRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            Ingredient ingredient = Ingredient.fromNetwork(buffer);
-            Ingredient result = Ingredient.fromNetwork(buffer);
-            int weight = buffer.readInt();
-
-            return new MinerRecipe(recipeId, ingredient, new WeightedOutputIngredient(result, weight));
+        public MinerRecipe fromNetwork(FriendlyByteBuf pBuffer) {
+            //noinspection deprecation
+            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf buffer, MinerRecipe recipe) {
-            recipe.input.toNetwork(buffer);
-            recipe.output.getIngredient().toNetwork(buffer);
-            buffer.writeInt(recipe.output.getWeight().asInt());
+        public void toNetwork(FriendlyByteBuf pBuffer, MinerRecipe pRecipe) {
+            //noinspection deprecation
+            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
         }
     }
 }

@@ -27,7 +27,7 @@ import com.klikli_dev.occultism.common.entity.ai.target.BlockPosMoveTarget;
 import com.klikli_dev.occultism.common.entity.ai.target.EntityMoveTarget;
 import com.klikli_dev.occultism.common.entity.ai.target.IMoveTarget;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
+
 import com.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

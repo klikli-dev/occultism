@@ -144,12 +144,6 @@ public class BookOfCallingManagedMachineGui extends Screen {
     }
 
     @Override
-    public void tick() {
-        this.text.tick();
-        super.tick();
-    }
-
-    @Override
     public boolean isPauseScreen() {
         return false;
     }

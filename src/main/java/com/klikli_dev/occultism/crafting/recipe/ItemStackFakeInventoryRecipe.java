@@ -22,30 +22,21 @@
 
 package com.klikli_dev.occultism.crafting.recipe;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.crafting.CraftingHelper;
 
 public abstract class ItemStackFakeInventoryRecipe implements Recipe<ItemStackFakeInventory> {
 
-    public static Serializer SERIALIZER = new Serializer();
-    protected final ResourceLocation id;
     protected final Ingredient input;
     protected final ItemStack output;
 
-    public ItemStackFakeInventoryRecipe(ResourceLocation id, Ingredient input, ItemStack output) {
+    public ItemStackFakeInventoryRecipe(Ingredient input, ItemStack output) {
         this.input = input;
         this.output = output;
-        this.id = id;
     }
 
     @Override
@@ -74,41 +65,4 @@ public abstract class ItemStackFakeInventoryRecipe implements Recipe<ItemStackFa
         return NonNullList.of(Ingredient.EMPTY, this.input);
     }
 
-    @Override
-    public ResourceLocation getId() {
-        return this.id;
-    }
-
-    public interface IItemStackFakeInventoryRecipeFactory<T extends ItemStackFakeInventoryRecipe> {
-
-        T create(ResourceLocation id, Ingredient input, ItemStack output);
-
-    }
-
-    public static class Serializer {
-
-        public <T extends ItemStackFakeInventoryRecipe> T read(IItemStackFakeInventoryRecipeFactory<T> factory,
-                                                               ResourceLocation recipeId, JsonObject json) {
-            //we also allow arrays, but only one ingredient will be used.
-            JsonElement ingredientElement = GsonHelper.isArrayNode(json, "ingredient") ? GsonHelper.getAsJsonArray(json,
-                    "ingredient") : GsonHelper.getAsJsonObject(json, "ingredient");
-            Ingredient ingredient = Ingredient.fromJson(ingredientElement);
-            ItemStack result = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(json, "result"), true);
-
-            return factory.create(recipeId, ingredient, result);
-        }
-
-        public <T extends ItemStackFakeInventoryRecipe> T read(IItemStackFakeInventoryRecipeFactory<T> factory,
-                                                               ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            Ingredient ingredient = Ingredient.fromNetwork(buffer);
-            ItemStack result = buffer.readItem();
-            return factory.create(recipeId, ingredient, result);
-        }
-
-        public <T extends ItemStackFakeInventoryRecipe> void write(FriendlyByteBuf buffer, T recipe) {
-            recipe.input.toNetwork(buffer);
-            buffer.writeItem(recipe.output);
-        }
-
-    }
 }

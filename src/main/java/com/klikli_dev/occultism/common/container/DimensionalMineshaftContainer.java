@@ -23,7 +23,7 @@
 package com.klikli_dev.occultism.common.container;
 
 import com.klikli_dev.occultism.common.blockentity.DimensionalMineshaftBlockEntity;
-import com.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
+
 import com.klikli_dev.occultism.registry.OccultismContainers;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.util.RecipeUtil;

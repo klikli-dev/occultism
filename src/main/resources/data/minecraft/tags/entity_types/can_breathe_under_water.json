@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "occultism:beaver_familiar"
+    "occultism:beaver_familiar",
+    "occultism:cthulhu_familiar"
   ]
 }

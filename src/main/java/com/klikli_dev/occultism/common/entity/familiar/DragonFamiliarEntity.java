@@ -240,11 +240,6 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public double getPassengersRidingOffset() {
-        return super.getPassengersRidingOffset() * 0.4f;
-    }
-
-    @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("greedyTimer", this.greedyTimer);

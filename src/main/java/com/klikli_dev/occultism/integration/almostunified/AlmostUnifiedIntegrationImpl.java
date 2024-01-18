@@ -5,7 +5,6 @@
 package com.klikli_dev.occultism.integration.almostunified;
 
 import com.almostreliable.unified.api.AlmostUnifiedLookup;
-import com.klikli_dev.theurgy.integration.almostunified.AlmostUnifiedIntegration;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.neoforged.fml.ModList;

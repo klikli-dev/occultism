@@ -244,7 +244,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
         private static ResourceLocation getTexture(EntityType<?> type) {
             if (textures == null) {
                 ImmutableMap.Builder<EntityType<?>, ResourceLocation> builder = new ImmutableMap.Builder<>();
-                builder.put(EntityType.PLAYER, DefaultPlayerSkin.getDefaultSkin());
+                builder.put(EntityType.PLAYER, DefaultPlayerSkin.getDefaultTexture());
                 builder.put(EntityType.SKELETON, new ResourceLocation("textures/entity/skeleton/skeleton.png"));
                 builder.put(EntityType.WITHER_SKELETON, new ResourceLocation("textures/entity/skeleton/wither_skeleton.png"));
                 builder.put(EntityType.ZOMBIE, new ResourceLocation("textures/entity/zombie/zombie.png"));

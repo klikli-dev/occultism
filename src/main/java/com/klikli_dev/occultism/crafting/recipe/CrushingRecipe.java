@@ -26,9 +26,15 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.klikli_dev.occultism.common.misc.OutputIngredient;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
+import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -37,9 +43,25 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.crafting.CraftingHelper;
 
+import java.util.Optional;
+
 public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
-    public static Serializer SERIALIZER = new Serializer();
+
     public static int DEFAULT_CRUSHING_TIME = 200;
+
+    public static final Codec<CrushingRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            Ingredient.CODEC
+                    .fieldOf("ingredient").forGetter((r) -> r.input),
+            Ingredient.CODEC.fieldOf("result").forGetter(r -> r.output.getIngredient()),
+            OutputIngredient.OutputStackInfo.CODEC.fieldOf("result").forGetter(r -> r.output.getOutputStackInfo()),
+            Codec.INT.optionalFieldOf("min_tier", -1).forGetter(r -> r.minTier),
+            Codec.INT.optionalFieldOf("crushing_time", DEFAULT_CRUSHING_TIME).forGetter(r -> r.crushingTime),
+            Codec.BOOL.optionalFieldOf("ignore_crushing_multiplier", false).forGetter(r -> r.ignoreCrushingMultiplier)
+    ).apply(instance, (input, output, outputStackInfo, minTier, crushingTime, ignoreCrushingMultiplier) -> {
+        return new CrushingRecipe(input, new OutputIngredient(output, outputStackInfo), minTier, crushingTime, ignoreCrushingMultiplier);
+    }));
+
+    public static Serializer SERIALIZER = new Serializer();
 
     protected final int crushingTime;
     protected final int minTier;
@@ -47,8 +69,8 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
 
     protected OutputIngredient output;
 
-    public CrushingRecipe(ResourceLocation id, Ingredient input, OutputIngredient output, int minTier, int crushingTime, boolean ignoreCrushingMultiplier) {
-        super(id, input, ItemStack.EMPTY); //hand over empty item stack, because we cannot resolve output.getStack() yet as tags are not resolved yet.
+    public CrushingRecipe(Ingredient input, OutputIngredient output, int minTier, int crushingTime, boolean ignoreCrushingMultiplier) {
+        super(input, ItemStack.EMPTY); //hand over empty item stack, because we cannot resolve output.getStack() yet as tags are not resolved yet.
         this.output = output;
         this.crushingTime = crushingTime;
         this.minTier = minTier;
@@ -100,54 +122,20 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     public static class Serializer implements RecipeSerializer<CrushingRecipe> {
 
         @Override
-        public CrushingRecipe fromJson(ResourceLocation recipeId, JsonObject originalJson) {
-            var json = originalJson.deepCopy(); //we are modifying the json, so we need a copy to avoid side effects to e.g. KubeJS
-
-            int crushingTime = GsonHelper.getAsInt(json, "crushing_time", DEFAULT_CRUSHING_TIME);
-            boolean ignoreCrushingMultiplier = GsonHelper.getAsBoolean(json, "ignore_crushing_multiplier", false);
-            int minTier = GsonHelper.getAsInt(json, "min_tier", -1);
-
-            var resultElement = GsonHelper.getAsJsonObject(json, "result");
-
-            //our recipe supports tags and items as output, so we use the ingredient loader which handles both
-            var outputIngredient = Ingredient.fromJson(resultElement);
-
-            //the ingredient loader does not handle count and nbt, so we use the item loader
-            //The item loader requires and "item" field, so we add it if it is missing
-            if(!resultElement.has("item"))
-                //just a dummy, OutputIngredient will not use the item type.
-                //however, cannot be air as that will make ItemStack report as empty
-                resultElement.addProperty("item", "minecraft:dirt");
-
-            //helper to get count and nbt for our output ingredient
-            ItemStack outputStackInfo = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(json, "result"), true);
-
-            JsonElement ingredientElement = GsonHelper.isArrayNode(json, "ingredient") ? GsonHelper.getAsJsonArray(json,
-                    "ingredient") : GsonHelper.getAsJsonObject(json, "ingredient");
-            Ingredient ingredient = Ingredient.fromJson(ingredientElement);
-
-            return  new CrushingRecipe(recipeId, ingredient, new OutputIngredient(outputIngredient, outputStackInfo), minTier, crushingTime, ignoreCrushingMultiplier);
+        public Codec<CrushingRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public CrushingRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            int crushingTime = buffer.readInt();
-            boolean ignoreCrushingMultiplier = buffer.readBoolean();
-            int minTier = buffer.readInt();
-            Ingredient ingredient = Ingredient.fromNetwork(buffer);
-            Ingredient outputIngredient = Ingredient.fromNetwork(buffer);
-            ItemStack outputStackInfo = buffer.readItem();
-            return new CrushingRecipe(recipeId, ingredient, new OutputIngredient(outputIngredient, outputStackInfo), minTier, crushingTime, ignoreCrushingMultiplier);
+        public CrushingRecipe fromNetwork(FriendlyByteBuf pBuffer) {
+            //noinspection deprecation
+            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf buffer, CrushingRecipe recipe) {
-            buffer.writeInt(recipe.crushingTime);
-            buffer.writeBoolean(recipe.ignoreCrushingMultiplier);
-            buffer.writeInt(recipe.minTier);
-            recipe.input.toNetwork(buffer);
-            recipe.output.getIngredient().toNetwork(buffer);
-            buffer.writeItem(recipe.output.getOutputStackInfo());
+        public void toNetwork(FriendlyByteBuf pBuffer, CrushingRecipe pRecipe) {
+            //noinspection deprecation
+            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
         }
     }
 }

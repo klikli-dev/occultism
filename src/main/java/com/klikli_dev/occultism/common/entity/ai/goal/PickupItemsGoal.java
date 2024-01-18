@@ -25,7 +25,7 @@ package com.klikli_dev.occultism.common.entity.ai.goal;
 import com.google.common.base.Predicate;
 import com.klikli_dev.occultism.common.entity.ai.EntitySorter;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
+
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
@@ -61,7 +61,7 @@ public class PickupItemsGoal extends TargetGoal {
             public boolean apply(@Nullable ItemEntity item) {
                 ItemStack stack = item.getItem();
                 return !stack.isEmpty() && entity.canPickupItem(item) && ItemHandlerHelper.insertItemStacked(
-                        entity.inventory.orElseThrow(ItemHandlerMissingException::new), stack, true).getCount() <
+                        entity.inventory, stack, true).getCount() <
                         stack.getCount();
             }
 
@@ -111,7 +111,7 @@ public class PickupItemsGoal extends TargetGoal {
                 this.entity.getNavigation().stop();
 
                 ItemStack duplicate = this.targetItem.getItem().copy();
-                ItemStackHandler handler = this.entity.inventory.orElseThrow(ItemHandlerMissingException::new);
+                ItemStackHandler handler = this.entity.inventory;
                 if (ItemHandlerHelper.insertItemStacked(handler, duplicate, true).getCount() < duplicate.getCount()) {
                     ItemStack remaining = ItemHandlerHelper.insertItemStacked(handler, duplicate, false);
                     this.targetItem.getItem().setCount(remaining.getCount());

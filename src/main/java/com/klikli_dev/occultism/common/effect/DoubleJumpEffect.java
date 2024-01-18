@@ -80,8 +80,9 @@ public class DoubleJumpEffect extends MobEffect {
     public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
     }
 
+
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         return true;
     }
 

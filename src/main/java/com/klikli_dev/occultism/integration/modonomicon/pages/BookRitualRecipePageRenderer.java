@@ -23,6 +23,7 @@ import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.stream.Stream;
@@ -96,9 +97,10 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
 
 
     @Override
-    protected void drawRecipe(GuiGraphics guiGraphics, RitualRecipe recipe, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
+    protected void drawRecipe(GuiGraphics guiGraphics, RecipeHolder<RitualRecipe> recipeHolder, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
 
         recipeY += 10;
+        var recipe = recipeHolder.value();
 
         if (!second) {
             //rituals only support one recipe

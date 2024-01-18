@@ -25,7 +25,7 @@ package com.klikli_dev.occultism.common.blockentity;
 import com.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
 import com.klikli_dev.occultism.common.misc.WeightedOutputIngredient;
 import com.klikli_dev.occultism.crafting.recipe.MinerRecipe;
-import com.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
+
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import net.minecraft.core.BlockPos;

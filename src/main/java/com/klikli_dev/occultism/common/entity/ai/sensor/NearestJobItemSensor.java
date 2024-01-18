@@ -65,8 +65,8 @@ public class NearestJobItemSensor<E extends SpiritEntity> extends PredicateSenso
             Networking.sendToTracking(entity, new MessageSelectBlock(workAreaCenter.offset(workAreaSize / 2, -workAreaSize / 2, -workAreaSize / 2), 5000, OccultismConstants.Color.CYAN));
         }
 
-        var aabb = new AABB(workAreaCenter.offset(-workAreaSize / 2, -workAreaSize / 2, -workAreaSize / 2),
-                workAreaCenter.offset(workAreaSize / 2, workAreaSize / 2, workAreaSize / 2));
+        var aabb = new AABB(workAreaCenter.getCenter().add(-workAreaSize / 2f, -workAreaSize / 2f, -workAreaSize / 2f),
+                workAreaCenter.getCenter().add(workAreaSize / 2f, workAreaSize / 2f, workAreaSize / 2f));
 
         ItemEntity nearestEntity = EntityRetrievalUtil.getNearestEntity(level,
                 aabb, entity.position(), (obj) -> {

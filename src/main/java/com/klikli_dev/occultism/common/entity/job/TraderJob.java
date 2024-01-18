@@ -33,6 +33,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Collections;
@@ -49,7 +50,7 @@ public class TraderJob extends SpiritJob {
 
     protected PickupItemsGoal pickupItemsGoal;
 
-    protected SpiritTradeRecipe trade;
+    protected RecipeHolder<SpiritTradeRecipe> trade;
     protected int maxTradesPerRound = 4;
 
     public TraderJob(SpiritEntity entity, ResourceLocation recipeId) {
@@ -76,12 +77,10 @@ public class TraderJob extends SpiritJob {
      * @param recipeId the resource location for the recipe.
      */
     public void setTradeRecipeId(ResourceLocation recipeId) {
-        this.trade = null;
-        Optional<? extends Recipe<?>> recipe = this.entity.level().getRecipeManager().byKey(recipeId);
-        recipe.ifPresent(r -> {
-            if (r instanceof SpiritTradeRecipe)
-                this.trade = (SpiritTradeRecipe) r;
-        });
+        var recipe = this.entity.level().getRecipeManager().byKey(recipeId);
+        //noinspection unchecked
+        this.trade = (RecipeHolder<SpiritTradeRecipe>) recipe
+                .filter(r -> r.value() instanceof SpiritTradeRecipe).orElse(null);
     }
 
     /**
@@ -107,7 +106,7 @@ public class TraderJob extends SpiritJob {
     @Override
     public void update() {
         ItemStack handHeld = this.entity.getItemInHand(InteractionHand.MAIN_HAND);
-        if (this.trade != null && this.trade.isValid(handHeld)) {
+        if (this.trade != null && this.trade.value().isValid(handHeld)) {
             if (this.entity.level().getGameTime() % 10 == 0) {
                 //show particle effect while converting
                 Vec3 pos = this.entity.position();
@@ -124,8 +123,8 @@ public class TraderJob extends SpiritJob {
 
                 List<ItemStack> input = Collections.singletonList(handHeld);
                 int resultCount = 0;
-                while (this.trade.isValid(input) && resultCount < this.maxTradesPerRound) {
-                    input = this.trade.consume(input);
+                while (this.trade.value().isValid(input) && resultCount < this.maxTradesPerRound) {
+                    input = this.trade.value().consume(input);
                     resultCount++;
                 }
 
@@ -135,7 +134,7 @@ public class TraderJob extends SpiritJob {
                     this.entity.setItemInHand(InteractionHand.MAIN_HAND, input.get(0));
                 }
 
-                ItemStack converted = this.trade.getResultItem(this.entity.level().registryAccess()).copy();
+                ItemStack converted = this.trade.value().getResultItem(this.entity.level().registryAccess()).copy();
                 converted.setCount(converted.getCount() * resultCount);
 
                 if (resultCount > 0) {
@@ -155,7 +154,7 @@ public class TraderJob extends SpiritJob {
         compound.putInt("conversionTimer", this.conversionTimer);
         compound.putInt("maxTradesPerRound", this.maxTradesPerRound);
         if (this.trade != null)
-            compound.putString("spiritTradeId", this.trade.getId().toString());
+            compound.putString("spiritTradeId", this.trade.id().toString());
         return super.writeJobToNBT(compound);
     }
 
@@ -173,7 +172,7 @@ public class TraderJob extends SpiritJob {
     @Override
     public boolean canPickupItem(ItemEntity entity) {
         ItemStack stack = entity.getItem();
-        return !stack.isEmpty() && this.trade.isValid(stack);
+        return !stack.isEmpty() && this.trade.value().isValid(stack);
     }
 
     /**

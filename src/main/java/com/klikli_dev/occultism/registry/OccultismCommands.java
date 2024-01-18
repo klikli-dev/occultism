@@ -25,7 +25,6 @@ package com.klikli_dev.occultism.registry;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.command.DebugAICommand;
 import com.klikli_dev.occultism.common.command.NbtCommand;
-import com.klikli_dev.occultism.common.command.ShareNbtCommand;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.minecraft.commands.CommandSourceStack;
@@ -45,7 +44,6 @@ public class OccultismCommands {
         LiteralCommandNode<CommandSourceStack> occultismCommand = dispatcher.register(
                 Commands.literal(Occultism.MODID)
                         .then(NbtCommand.register(dispatcher))
-                        .then(ShareNbtCommand.register(dispatcher))
                         .then(debugCommand)
         );
 

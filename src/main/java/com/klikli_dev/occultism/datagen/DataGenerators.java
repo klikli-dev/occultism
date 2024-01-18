@@ -27,12 +27,14 @@ import com.klikli_dev.occultism.datagen.lang.ENUSProvider;
 import com.klikli_dev.occultism.datagen.loot.OccultismBlockLoot;
 import com.klikli_dev.occultism.datagen.loot.OccultismEntityLoot;
 import com.klikli_dev.occultism.datagen.worldgen.OccultismRegistries;
+import com.klikli_dev.theurgy.datagen.advancement.TheurgyAdvancementSubProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.data.AdvancementProvider;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import java.util.List;
@@ -50,7 +52,12 @@ public class DataGenerators {
                         new LootTableProvider.SubProviderEntry(OccultismEntityLoot::new, LootContextParamSets.ENTITY)
                 )));
         generator.addProvider(event.includeServer(), new PentacleProvider(generator));
-        generator.addProvider(event.includeServer(), new OccultismAdvancementSubProvider(generator));
+        generator.addProvider(event.includeServer(),
+                new AdvancementProvider(generator.getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper(), List.of(
+                        new OccultismAdvancementSubProvider()
+                )));
+
+
         generator.addProvider(event.includeServer(), new CrushingRecipeProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new MinerRecipeProvider(generator.getPackOutput()));
         generator.addProvider(event.includeClient(), new ItemModelsGenerator(generator.getPackOutput(), event.getExistingFileHelper()));

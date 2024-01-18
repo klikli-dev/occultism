@@ -172,19 +172,4 @@ public class SoulGemItem extends Item {
             tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip_empty"));
         }
     }
-
-    @Override
-    public @Nullable CompoundTag getShareTag(ItemStack stack) {
-        var tag = super.getShareTag(stack);
-        if (tag != null) {
-            tag = tag.copy();
-            //remove all data that we do not need for client side display
-            if (tag.contains("entityData")) {
-                var entityData = tag.getCompound("entityData");
-                var toRemove = entityData.getAllKeys().stream().filter(key -> !key.equals("id")).toArray(String[]::new);
-                Arrays.stream(toRemove).forEach(entityData::remove);
-            }
-        }
-        return tag;
-    }
 }

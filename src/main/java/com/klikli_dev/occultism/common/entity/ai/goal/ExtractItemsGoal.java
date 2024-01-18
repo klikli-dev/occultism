@@ -24,7 +24,7 @@ package com.klikli_dev.occultism.common.entity.ai.goal;
 
 import com.klikli_dev.occultism.common.entity.ai.BlockSorter;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
+
 import com.klikli_dev.occultism.util.Math3DUtil;
 import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;

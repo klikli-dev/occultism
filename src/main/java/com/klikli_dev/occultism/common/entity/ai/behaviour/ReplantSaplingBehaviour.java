@@ -1,7 +1,6 @@
 package com.klikli_dev.occultism.common.entity.ai.behaviour;
 
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.util.StorageUtil;
 import com.mojang.datafixers.util.Pair;
@@ -16,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
 import net.tslat.smartbrainlib.util.BrainUtils;
+
 import java.util.List;
 
 public class ReplantSaplingBehaviour<E extends SpiritEntity> extends ExtendedBehaviour<E> {
@@ -29,7 +29,7 @@ public class ReplantSaplingBehaviour<E extends SpiritEntity> extends ExtendedBeh
     protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
         var treePos = BrainUtils.getMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get());
         var dist = entity.distanceToSqr(Vec3.atCenterOf(treePos));
-        return StorageUtil.getFirstMatchingSlot(entity.inventory.orElseThrow(ItemHandlerMissingException::new), ItemTags.SAPLINGS) != -1
+        return StorageUtil.getFirstMatchingSlot(entity.inventory, ItemTags.SAPLINGS) != -1
                 && dist <= ReplantSaplingBehaviour.REPLANT_RANGE_SQUARE;
     }
 
@@ -39,7 +39,7 @@ public class ReplantSaplingBehaviour<E extends SpiritEntity> extends ExtendedBeh
         if (entity.level().isEmptyBlock(lastFelledTree)) {
             BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(lastFelledTree));
 
-            var handler = entity.inventory.orElseThrow(ItemHandlerMissingException::new);
+            var handler = entity.inventory;
             ItemStack sapling = handler.getStackInSlot(StorageUtil.getFirstMatchingSlot(handler, ItemTags.SAPLINGS));
             if (sapling.getItem() instanceof BlockItem saplingBlockItem) {
                 entity.level().setBlockAndUpdate(lastFelledTree, saplingBlockItem.getBlock().defaultBlockState());
