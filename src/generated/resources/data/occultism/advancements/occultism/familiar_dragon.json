@@ -3,9 +3,7 @@
   "criteria": {
     "familiar_dragon": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/familiar_dragon"
-        }
+        "ritual_id": "occultism:ritual/familiar_dragon"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.familiar_dragon.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

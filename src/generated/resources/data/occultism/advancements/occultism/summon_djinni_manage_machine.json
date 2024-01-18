@@ -3,9 +3,7 @@
   "criteria": {
     "summon_djinni_manage_machine": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/summon_djinni_manage_machine"
-        }
+        "ritual_id": "occultism:ritual/summon_djinni_manage_machine"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.summon_djinni_manage_machine.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

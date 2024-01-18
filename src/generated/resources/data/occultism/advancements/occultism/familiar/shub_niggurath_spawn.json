@@ -3,23 +3,19 @@
   "criteria": {
     "shub_niggurath_spawn": {
       "conditions": {
-        "type": "SHUB_NIGGURATH_SPAWN"
+        "type": "shub_niggurath_spawn"
       },
       "trigger": "occultism:familiar"
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.occultism.familiar.shub_niggurath_spawn.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "occultism:advancement_icon",
       "nbt": "{CustomModelData:12}"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.occultism.familiar.shub_niggurath_spawn.title"
     }

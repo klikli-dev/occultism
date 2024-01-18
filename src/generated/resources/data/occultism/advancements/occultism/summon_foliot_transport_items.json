@@ -3,9 +3,7 @@
   "criteria": {
     "summon_foliot_transport_items": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/summon_foliot_transport_items"
-        }
+        "ritual_id": "occultism:ritual/summon_foliot_transport_items"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.summon_foliot_transport_items.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

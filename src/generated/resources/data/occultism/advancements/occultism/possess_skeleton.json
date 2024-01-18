@@ -3,9 +3,7 @@
   "criteria": {
     "possess_skeleton": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/possess_skeleton"
-        }
+        "ritual_id": "occultism:ritual/possess_skeleton"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.possess_skeleton.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

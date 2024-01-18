@@ -3,23 +3,19 @@
   "criteria": {
     "devil_fire": {
       "conditions": {
-        "type": "DEVIL_FIRE"
+        "type": "devil_fire"
       },
       "trigger": "occultism:familiar"
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.occultism.familiar.devil.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "occultism:advancement_icon",
       "nbt": "{CustomModelData:3}"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.occultism.familiar.devil.title"
     }

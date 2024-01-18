@@ -3,9 +3,7 @@
   "criteria": {
     "possess_endermite": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/possess_endermite"
-        }
+        "ritual_id": "occultism:ritual/possess_endermite"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.possess_endermite.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

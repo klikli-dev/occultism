@@ -3,9 +3,7 @@
   "criteria": {
     "familiar_bat": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/familiar_bat"
-        }
+        "ritual_id": "occultism:ritual/familiar_bat"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.familiar_bat.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

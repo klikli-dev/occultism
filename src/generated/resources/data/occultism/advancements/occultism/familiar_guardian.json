@@ -3,9 +3,7 @@
   "criteria": {
     "familiar_guardian": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/familiar_guardian"
-        }
+        "ritual_id": "occultism:ritual/familiar_guardian"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.familiar_guardian.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

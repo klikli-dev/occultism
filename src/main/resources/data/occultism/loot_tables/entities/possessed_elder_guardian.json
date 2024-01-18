@@ -49,7 +49,7 @@
             },
             {
               "function": "minecraft:furnace_smelt",
-              "conditions": [
+              "neoforge:conditions": [
                 {
                   "condition": "minecraft:entity_properties",
                   "entity": "this",
@@ -92,7 +92,7 @@
           "name": "minecraft:wet_sponge"
         }
       ],
-      "conditions": [
+      "neoforge:conditions": [
         {
           "condition": "minecraft:killed_by_player"
         }
@@ -108,7 +108,7 @@
           "functions": [
             {
               "function": "minecraft:furnace_smelt",
-              "conditions": [
+              "neoforge:conditions": [
                 {
                   "condition": "minecraft:entity_properties",
                   "entity": "this",
@@ -123,7 +123,7 @@
           ]
         }
       ],
-      "conditions": [
+      "neoforge:conditions": [
         {
           "condition": "minecraft:killed_by_player"
         },
@@ -174,7 +174,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:heart_of_the_sea",
-          "conditions": [
+          "neoforge:conditions": [
             {
               "condition": "minecraft:random_chance",
               "chance": 0.4

@@ -3,9 +3,7 @@
   "criteria": {
     "summon_afrit_rain_weather": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/summon_afrit_rain_weather"
-        }
+        "ritual_id": "occultism:ritual/summon_afrit_rain_weather"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.summon_afrit_rain_weather.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

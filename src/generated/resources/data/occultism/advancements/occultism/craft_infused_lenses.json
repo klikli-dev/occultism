@@ -3,9 +3,7 @@
   "criteria": {
     "craft_infused_lenses": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/craft_infused_lenses"
-        }
+        "ritual_id": "occultism:ritual/craft_infused_lenses"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.craft_infused_lenses.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

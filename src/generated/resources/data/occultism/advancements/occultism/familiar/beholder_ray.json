@@ -3,23 +3,19 @@
   "criteria": {
     "beholder_ray": {
       "conditions": {
-        "type": "BEHOLDER_RAY"
+        "type": "beholder_ray"
       },
       "trigger": "occultism:familiar"
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.occultism.familiar.beholder_ray.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "occultism:advancement_icon",
       "nbt": "{CustomModelData:13}"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.occultism.familiar.beholder_ray.title"
     }

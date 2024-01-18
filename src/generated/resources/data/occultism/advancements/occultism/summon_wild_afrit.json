@@ -3,9 +3,7 @@
   "criteria": {
     "summon_wild_afrit": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/summon_wild_afrit"
-        }
+        "ritual_id": "occultism:ritual/summon_wild_afrit"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.summon_wild_afrit.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

@@ -3,9 +3,7 @@
   "criteria": {
     "familiar_headless": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/familiar_headless"
-        }
+        "ritual_id": "occultism:ritual/familiar_headless"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.familiar_headless.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

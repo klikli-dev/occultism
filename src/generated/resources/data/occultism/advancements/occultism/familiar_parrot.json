@@ -3,9 +3,7 @@
   "criteria": {
     "familiar_parrot": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/familiar_parrot"
-        }
+        "ritual_id": "occultism:ritual/familiar_parrot"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.familiar_parrot.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

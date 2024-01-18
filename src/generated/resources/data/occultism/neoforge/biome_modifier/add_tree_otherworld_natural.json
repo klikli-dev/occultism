@@ -1,5 +1,5 @@
 {
-  "type": "forge:add_features",
+  "type": "neoforge:add_features",
   "biomes": "#minecraft:stronghold_biased_to",
   "features": "occultism:tree_otherworld_natural",
   "step": "vegetal_decoration"

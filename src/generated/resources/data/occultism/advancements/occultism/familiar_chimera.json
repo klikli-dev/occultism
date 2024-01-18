@@ -3,9 +3,7 @@
   "criteria": {
     "familiar_chimera": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/familiar_chimera"
-        }
+        "ritual_id": "occultism:ritual/familiar_chimera"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.familiar_chimera.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

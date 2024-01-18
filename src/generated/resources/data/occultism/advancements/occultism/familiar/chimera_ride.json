@@ -3,23 +3,19 @@
   "criteria": {
     "chimera_ride": {
       "conditions": {
-        "type": "CHIMERA_RIDE"
+        "type": "chimera_ride"
       },
       "trigger": "occultism:familiar"
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.occultism.familiar.chimera_ride.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "occultism:advancement_icon",
       "nbt": "{CustomModelData:10}"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.occultism.familiar.chimera_ride.title"
     }

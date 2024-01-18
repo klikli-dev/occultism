@@ -3,23 +3,19 @@
   "criteria": {
     "blacksmith_upgrade": {
       "conditions": {
-        "type": "BLACKSMITH_UPGRADE"
+        "type": "blacksmith_upgrade"
       },
       "trigger": "occultism:familiar"
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.occultism.familiar.blacksmith_upgrade.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "occultism:advancement_icon",
       "nbt": "{CustomModelData:7}"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.occultism.familiar.blacksmith_upgrade.title"
     }

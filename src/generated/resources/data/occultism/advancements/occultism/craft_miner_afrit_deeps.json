@@ -3,9 +3,7 @@
   "criteria": {
     "craft_miner_afrit_deeps": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/craft_miner_afrit_deeps"
-        }
+        "ritual_id": "occultism:ritual/craft_miner_afrit_deeps"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.craft_miner_afrit_deeps.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

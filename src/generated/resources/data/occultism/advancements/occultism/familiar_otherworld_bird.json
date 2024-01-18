@@ -3,9 +3,7 @@
   "criteria": {
     "familiar_otherworld_bird": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/familiar_otherworld_bird"
-        }
+        "ritual_id": "occultism:ritual/familiar_otherworld_bird"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.familiar_otherworld_bird.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

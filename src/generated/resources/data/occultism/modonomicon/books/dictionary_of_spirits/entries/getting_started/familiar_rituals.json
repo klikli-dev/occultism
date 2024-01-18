@@ -36,6 +36,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": 11,
   "y": 4
 }

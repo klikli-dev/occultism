@@ -23,6 +23,7 @@
       "use_markdown_in_title": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -6,
   "y": -2
 }
