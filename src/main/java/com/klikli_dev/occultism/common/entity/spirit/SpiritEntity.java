@@ -28,7 +28,6 @@ import com.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.klikli_dev.occultism.common.entity.job.SpiritJob;
 import com.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
-import com.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import com.mojang.serialization.Dynamic;
@@ -62,17 +61,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.util.LazyOptional;
 import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.network.NetworkHooks;
 import net.tslat.smartbrainlib.api.SmartBrainOwner;
 import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
 import net.tslat.smartbrainlib.api.core.SmartBrain;
 import net.tslat.smartbrainlib.api.core.SmartBrainProvider;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import net.tslat.smartbrainlib.util.BrainUtils;
+
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
@@ -135,14 +131,13 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
             .defineId(SpiritEntity.class, EntityDataSerializers.STRING);
 
     public ItemStackHandler inventory;
-    public LazyOptional<ItemStackHandler> itemStackHandler = LazyOptional.of(() -> this.inventory);
-    public LazyOptional<ItemStackHandler> filterItemStackHandler = LazyOptional.of(() -> new ItemStackHandler(MAX_FILTER_SLOTS) {
+    public ItemStackHandler filterItemStackHandler = new ItemStackHandler(MAX_FILTER_SLOTS) {
         @Override
         protected void onContentsChanged(int slot) {
             super.onContentsChanged(slot);
             SpiritEntity.this.entityData.set(FILTER_ITEMS, this.serializeNBT());
         }
-    });
+    };
 
     //initialized in getter, because super constructor already accesses it
     protected Optional<SpiritJob> job;
@@ -209,20 +204,11 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         if (key == FILTER_ITEMS) {
             //restore filter item handler from data param on client
             if (this.level().isClientSide) {
-                this.filterItemStackHandler.ifPresent((handler) -> {
-                    CompoundTag compound = this.entityData.get(FILTER_ITEMS);
-                    if (!compound.isEmpty())
-                        handler.deserializeNBT(compound);
-                });
+                CompoundTag compound = this.entityData.get(FILTER_ITEMS);
+                if (!compound.isEmpty())
+                    this.filterItemStackHandler.deserializeNBT(compound);
             }
         }
-    }
-
-    public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-        if (this.isAlive() && capability == Capabilities.ITEM_HANDLER) {
-            return this.itemStackHandler.cast();
-        }
-        return super.getCapability(capability, facing);
     }
 
     public Optional<BlockPos> getDepositPosition() {
@@ -379,7 +365,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     /**
      * @return the filter mode
      */
-    public LazyOptional<ItemStackHandler> getFilterItems() {
+    public ItemStackHandler getFilterItems() {
         return this.filterItemStackHandler;
     }
 
@@ -499,7 +485,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     @Override
     public ItemStack getItemBySlot(EquipmentSlot slotIn) {
         if (slotIn == EquipmentSlot.MAINHAND) {
-            return this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new).getStackInSlot(0);
+            return this.inventory.getStackInSlot(0);
         }
         return ItemStack.EMPTY;
     }
@@ -507,7 +493,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     @Override
     public void setItemSlot(EquipmentSlot slotIn, ItemStack stack) {
         if (slotIn == EquipmentSlot.MAINHAND) {
-            this.itemStackHandler.orElseThrow(ItemHandlerMissingException::new).setStackInSlot(0, stack);
+            this.inventory.setStackInSlot(0, stack);
         }
     }
 
@@ -564,13 +550,13 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         compound.putInt("extractFacing", this.getExtractFacing().ordinal());
 
         //store current inventory
-        this.itemStackHandler.ifPresent(handler -> compound.put("inventory", handler.serializeNBT()));
+        compound.put("inventory", this.inventory.serializeNBT());
 
         //store job
         this.getJob().ifPresent(job -> compound.put("spiritJob", job.serializeNBT()));
 
         compound.putBoolean("isFilterBlacklist", this.isFilterBlacklist());
-        this.filterItemStackHandler.ifPresent(handler -> compound.put("filterItems", handler.serializeNBT()));
+        compound.put("filterItems", this.filterItemStackHandler.serializeNBT());
 
         compound.putString("tagFilter", this.getTagFilter());
     }
@@ -617,7 +603,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         //set up inventory and read items
 
         if (compound.contains("inventory")) {
-            this.itemStackHandler.ifPresent(handler -> handler.deserializeNBT(compound.getCompound("inventory")));
+            this.inventory.deserializeNBT(compound.getCompound("inventory"));
         }
 
         //read job
@@ -636,7 +622,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
         if (compound.contains("filterItems")) {
             compound.getCompound("filterItems").putInt("Size", MAX_FILTER_SLOTS); //override legacy filter size
-            this.filterItemStackHandler.ifPresent(handler -> handler.deserializeNBT(compound.getCompound("filterItems")));
+            this.filterItemStackHandler.deserializeNBT(compound.getCompound("filterItems"));
         }
 
         if (compound.contains("tagFilter")) {
@@ -654,15 +640,12 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     @Override
     protected void dropEquipment() {
         super.dropEquipment();
-        this.itemStackHandler.ifPresent((handle) -> {
-            for (int i = 0; i < handle.getSlots(); ++i) {
-                ItemStack itemstack = handle.getStackInSlot(i);
-                if (!itemstack.isEmpty()) {
-                    this.spawnAtLocation(itemstack, 0.0F);
-                }
+        for (int i = 0; i < this.inventory.getSlots(); ++i) {
+            ItemStack itemstack = this.inventory.getStackInSlot(i);
+            if (!itemstack.isEmpty()) {
+                this.spawnAtLocation(itemstack, 0.0F);
             }
-        });
-
+        }
     }
 
     @Override
@@ -739,7 +722,9 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
             if (currentJob instanceof MenuProvider)
                 menuProvider = (MenuProvider) currentJob;
 
-            NetworkHooks.openScreen((ServerPlayer) playerEntity, menuProvider, (buf) -> buf.writeInt(this.getId()));
+            if (playerEntity instanceof ServerPlayer serverPlayer) {
+                serverPlayer.openMenu(menuProvider, (buf) -> buf.writeInt(this.getId()));
+            }
         }
     }
 }

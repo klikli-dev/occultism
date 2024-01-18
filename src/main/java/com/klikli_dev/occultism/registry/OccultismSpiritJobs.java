@@ -24,7 +24,6 @@ package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.job.*;
-import com.klikli_dev.occultism.util.StaticUtil;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -52,14 +51,14 @@ public class OccultismSpiritJobs {
     //Trade jobs
     public static final Supplier<SpiritJobFactory> TRADE_OTHERSTONE_T1 = JOBS.register("trade_otherstone_t1",
             () -> new SpiritJobFactory((entity) -> {
-                TraderJob job = new TraderJob(entity, StaticUtil.modLoc("spirit_trade/stone_to_otherstone"));
+                TraderJob job = new TraderJob(entity, new ResourceLocation(Occultism.MODID, "spirit_trade/stone_to_otherstone"));
                 job.setTimeToConvert(15);
                 job.setMaxTradesPerRound(4);
                 return job;
             }));
     public static final Supplier<SpiritJobFactory> TRADE_OTHERWORLD_SAPLINGS_T2 = JOBS.register("trade_otherworld_saplings_t1",
             () -> new SpiritJobFactory((entity) -> {
-                TraderJob job = new TraderJob(entity, StaticUtil.modLoc("spirit_trade/otherworld_sapling"));
+                TraderJob job = new TraderJob(entity, new ResourceLocation(Occultism.MODID, "spirit_trade/otherworld_sapling"));
                 job.setTimeToConvert(20);
                 job.setMaxTradesPerRound(1);
                 return job;

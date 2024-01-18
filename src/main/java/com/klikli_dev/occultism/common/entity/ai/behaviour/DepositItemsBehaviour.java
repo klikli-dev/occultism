@@ -43,7 +43,7 @@ public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehav
     protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
         var depositPos = BrainUtils.getMemory(entity, OccultismMemoryTypes.DEPOSIT_POSITION.get());
         var dist = entity.distanceToSqr(Vec3.atCenterOf(depositPos));
-        return StorageUtil.getFirstFilledSlot(entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new)) != -1
+        return StorageUtil.getFirstFilledSlot(entity.inventory.orElseThrow(ItemHandlerMissingException::new)) != -1
                 && dist <= DepositItemsBehaviour.DEPOSIT_ITEM_RANGE_SQUARE;
     }
 
@@ -61,7 +61,7 @@ public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehav
 
             if (depositItemHandlerCap.isPresent()) {
                 var depositItemHandler = depositItemHandlerCap.orElseThrow(ItemHandlerMissingException::new);
-                var entityItemHandler = entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
+                var entityItemHandler = entity.inventory.orElseThrow(ItemHandlerMissingException::new);
                 var firstFilledSlot = StorageUtil.getFirstFilledSlot(entityItemHandler);
                 ItemStack duplicate = entityItemHandler.getStackInSlot(firstFilledSlot).copy();
 

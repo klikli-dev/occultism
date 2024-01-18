@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
-import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.core.Direction;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;

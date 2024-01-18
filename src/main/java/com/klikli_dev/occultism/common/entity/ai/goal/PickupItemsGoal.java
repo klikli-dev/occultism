@@ -61,7 +61,7 @@ public class PickupItemsGoal extends TargetGoal {
             public boolean apply(@Nullable ItemEntity item) {
                 ItemStack stack = item.getItem();
                 return !stack.isEmpty() && entity.canPickupItem(item) && ItemHandlerHelper.insertItemStacked(
-                        entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new), stack, true).getCount() <
+                        entity.inventory.orElseThrow(ItemHandlerMissingException::new), stack, true).getCount() <
                         stack.getCount();
             }
 
@@ -111,7 +111,7 @@ public class PickupItemsGoal extends TargetGoal {
                 this.entity.getNavigation().stop();
 
                 ItemStack duplicate = this.targetItem.getItem().copy();
-                ItemStackHandler handler = this.entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
+                ItemStackHandler handler = this.entity.inventory.orElseThrow(ItemHandlerMissingException::new);
                 if (ItemHandlerHelper.insertItemStacked(handler, duplicate, true).getCount() < duplicate.getCount()) {
                     ItemStack remaining = ItemHandlerHelper.insertItemStacked(handler, duplicate, false);
                     this.targetItem.getItem().setCount(remaining.getCount());

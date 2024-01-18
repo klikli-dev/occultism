@@ -43,17 +43,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.capabilities.Capability;
 import net.neoforged.neoforge.common.util.FakePlayerFactory;
-import net.neoforged.neoforge.common.util.LazyOptional;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -127,14 +124,14 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     @Override
     public void load(CompoundTag compound) {
         super.load(compound);
-        this.inputHandler.ifPresent((handler) -> handler.deserializeNBT(compound.getCompound("inputHandler")));
-        this.outputHandler.ifPresent((handler) -> handler.deserializeNBT(compound.getCompound("outputHandler")));
+        inputHandler.deserializeNBT(compound.getCompound("inputHandler"));
+        outputHandler.deserializeNBT(compound.getCompound("outputHandler"));
     }
 
     @Override
     protected void saveAdditional(CompoundTag compound) {
-        this.inputHandler.ifPresent(handler -> compound.put("inputHandler", handler.serializeNBT()));
-        this.outputHandler.ifPresent(handler -> compound.put("outputHandler", handler.serializeNBT()));
+        compound.put("inputHandler", inputHandler.serializeNBT());
+        compound.put("outputHandler", outputHandler.serializeNBT());
         super.saveAdditional(compound);
     }
 
@@ -155,14 +152,13 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
     public void tick() {
         if (!this.level.isClientSide) {
-            IItemHandler inputHandler = this.inputHandler.orElseThrow(ItemHandlerMissingException::new);
             ItemStack input = inputHandler.getStackInSlot(0);
 
             //handle unusing enchantment from evilcraft, see https://github.com/klikli-dev/occultism/issues/909
             if (input.getMaxDamage() - input.getDamageValue() < 6 &&
                     input.isEnchanted() &&
-                    ForgeRegistries.ENCHANTMENTS.containsKey(EVILCRAFT_UNUSING_ENCHANTEMENT) &&
-                    input.getEnchantmentLevel(ForgeRegistries.ENCHANTMENTS.getValue(EVILCRAFT_UNUSING_ENCHANTEMENT)) > 0) {
+                    BuiltInRegistries.ENCHANTMENT.containsKey(EVILCRAFT_UNUSING_ENCHANTEMENT) &&
+                    input.getEnchantmentLevel(BuiltInRegistries.ENCHANTMENT.get(EVILCRAFT_UNUSING_ENCHANTEMENT)) > 0) {
                 this.miningTime = 0;
                 return;
             }
@@ -215,17 +211,15 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     //endregion Static Methods
 
     public void mine() {
-        ItemStackHandler inputHandler = this.inputHandler.orElseThrow(ItemHandlerMissingException::new);
-        ItemStackHandler outputHandler = this.outputHandler.orElseThrow(ItemHandlerMissingException::new);
 
         if (this.possibleResults == null) {
-            List<MinerRecipe> recipes = this.level.getRecipeManager()
+            List<RecipeHolder<MinerRecipe>> recipes = this.level.getRecipeManager()
                     .getRecipesFor(OccultismRecipes.MINER_TYPE.get(),
                             new RecipeWrapper(inputHandler), this.level);
             if (recipes == null || recipes.size() == 0) {
                 this.possibleResults = new ArrayList<>();
             } else {
-                this.possibleResults = recipes.stream().map(r -> r.getWeightedOutput()).collect(Collectors.toList());
+                this.possibleResults = recipes.stream().map(r -> r.value().getWeightedOutput()).collect(Collectors.toList());
             }
         }
 

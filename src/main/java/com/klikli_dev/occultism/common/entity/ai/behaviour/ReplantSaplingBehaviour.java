@@ -29,7 +29,7 @@ public class ReplantSaplingBehaviour<E extends SpiritEntity> extends ExtendedBeh
     protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
         var treePos = BrainUtils.getMemory(entity, OccultismMemoryTypes.LAST_FELLED_TREE.get());
         var dist = entity.distanceToSqr(Vec3.atCenterOf(treePos));
-        return StorageUtil.getFirstMatchingSlot(entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new), ItemTags.SAPLINGS) != -1
+        return StorageUtil.getFirstMatchingSlot(entity.inventory.orElseThrow(ItemHandlerMissingException::new), ItemTags.SAPLINGS) != -1
                 && dist <= ReplantSaplingBehaviour.REPLANT_RANGE_SQUARE;
     }
 
@@ -39,7 +39,7 @@ public class ReplantSaplingBehaviour<E extends SpiritEntity> extends ExtendedBeh
         if (entity.level().isEmptyBlock(lastFelledTree)) {
             BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(lastFelledTree));
 
-            var handler = entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
+            var handler = entity.inventory.orElseThrow(ItemHandlerMissingException::new);
             ItemStack sapling = handler.getStackInSlot(StorageUtil.getFirstMatchingSlot(handler, ItemTags.SAPLINGS));
             if (sapling.getItem() instanceof BlockItem saplingBlockItem) {
                 entity.level().setBlockAndUpdate(lastFelledTree, saplingBlockItem.getBlock().defaultBlockState());

@@ -35,7 +35,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
-import net.neoforged.neoforge.common.capabilities.Capability;
+import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
 public class BlockEntityUtil {
@@ -114,9 +114,9 @@ public class BlockEntityUtil {
      * @param capability  the capability to check for.
      * @return true if the capability is found on any face.
      */
-    public static boolean hasCapabilityOnAnySide(BlockEntity blockEntity, Capability<?> capability) {
+    public static <T> boolean hasCapabilityOnAnySide(BlockEntity blockEntity, BlockCapability<T, Direction> capability) {
         for (Direction face : Direction.values()) {
-            if (blockEntity.getCapability(capability, face).isPresent())
+            if (blockEntity.getLevel().getCapability(capability, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, face) != null)
                 return true;
         }
         return false;
@@ -174,7 +174,7 @@ public class BlockEntityUtil {
         ItemStack itemStack = new ItemStack(block);
         BlockEntity blockEntity = level.getBlockEntity(pos);
 
-        if(blockEntity != null) {
+        if (blockEntity != null) {
             CompoundTag CompoundTag = blockEntity.serializeNBT();
             if (!CompoundTag.isEmpty()) {
                 itemStack.addTagElement("BlockEntityTag", CompoundTag);

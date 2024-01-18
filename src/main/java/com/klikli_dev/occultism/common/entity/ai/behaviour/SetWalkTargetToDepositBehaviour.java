@@ -37,7 +37,7 @@ public class SetWalkTargetToDepositBehaviour<E extends SpiritEntity> extends Ext
 
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
-        return StorageUtil.getFirstFilledSlot(entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new)) != -1;
+        return StorageUtil.getFirstFilledSlot(entity.inventory.orElseThrow(ItemHandlerMissingException::new)) != -1;
     }
 
     @Override

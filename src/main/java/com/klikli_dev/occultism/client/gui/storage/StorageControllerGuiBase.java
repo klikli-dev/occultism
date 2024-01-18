@@ -35,12 +35,10 @@ import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.klikli_dev.occultism.client.gui.controls.MachineSlotWidget;
 import com.klikli_dev.occultism.client.gui.controls.SizedImageButton;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
-import com.klikli_dev.occultism.integration.jei.JeiAccess;
 import com.klikli_dev.occultism.integration.jei.JeiSettings;
 import com.klikli_dev.occultism.integration.jei.OccultismJeiIntegration;
 import com.klikli_dev.occultism.network.*;
 import com.klikli_dev.occultism.network.messages.*;
-import com.klikli_dev.occultism.network.messages.Messages.MessageClearCraftingMatrix;
 import com.klikli_dev.occultism.util.InputUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import com.mojang.blaze3d.platform.InputConstants;
@@ -259,7 +257,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(guiGraphics);
+//        this.renderBackground(guiGraphics, mouseX, mouseY, partialTicks); //called by super
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
 
         this.renderTooltip(guiGraphics, mouseX, mouseY);

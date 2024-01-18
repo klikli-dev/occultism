@@ -34,7 +34,7 @@ public class SetWalkTargetToReplantSaplingBehaviour<E extends SpiritEntity> exte
 
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
-        return StorageUtil.getFirstMatchingSlot(entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new), ItemTags.SAPLINGS) != -1;
+        return StorageUtil.getFirstMatchingSlot(entity.inventory.orElseThrow(ItemHandlerMissingException::new), ItemTags.SAPLINGS) != -1;
     }
 
     @Override

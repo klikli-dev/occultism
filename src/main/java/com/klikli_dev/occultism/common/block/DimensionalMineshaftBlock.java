@@ -45,7 +45,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.network.NetworkHooks;
+
 import javax.annotation.Nullable;
 import java.util.stream.Stream;
 
@@ -101,8 +101,8 @@ public class DimensionalMineshaftBlock extends Block implements EntityBlock {
                                  InteractionHand hand, BlockHitResult hit) {
         if (!level.isClientSide) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof MenuProvider) {
-                NetworkHooks.openScreen((ServerPlayer) player, (MenuProvider) blockEntity, pos);
+            if (blockEntity instanceof MenuProvider menu && player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.openMenu(menu, pos);
             }
         }
         return InteractionResult.SUCCESS;

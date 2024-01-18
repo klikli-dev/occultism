@@ -36,7 +36,7 @@ public class PickupItemBehaviour<E extends SpiritEntity> extends ExtendedBehavio
                 PickupItemBehaviour.PICKUP_XZ_RANGE_SQUARE)
                 //also check if inserting would take anything from the entity stack -> means we have free slots
                 && ItemHandlerHelper.insertItemStacked(
-                entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new), jobItem.getItem(), true).getCount() <
+                entity.inventory.orElseThrow(ItemHandlerMissingException::new), jobItem.getItem(), true).getCount() <
                 jobItem.getItem().getCount();
     }
 
@@ -45,7 +45,7 @@ public class PickupItemBehaviour<E extends SpiritEntity> extends ExtendedBehavio
 
         BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new EntityTracker(jobItem, false));
         ItemStack duplicate = jobItem.getItem().copy();
-        ItemStackHandler handler = entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
+        ItemStackHandler handler = entity.inventory.orElseThrow(ItemHandlerMissingException::new);
         if (ItemHandlerHelper.insertItemStacked(handler, duplicate, true).getCount() < duplicate.getCount()) {
             ItemStack remaining = ItemHandlerHelper.insertItemStacked(handler, duplicate, false);
             jobItem.getItem().setCount(remaining.getCount());
