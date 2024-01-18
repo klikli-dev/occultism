@@ -36,8 +36,7 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import java.util.EnumSet;
@@ -120,20 +119,17 @@ public class ExtractItemsGoal extends PausableGoal {
                 //when close enough extract item
                 if (distance < accessDistance && this.canSeeTarget()) {
 
-                    LazyOptional<IItemHandler> handlerCapability = blockEntity.getCapability(
-                            Capabilities.ITEM_HANDLER, this.entity.getExtractFacing());
-                    if (!handlerCapability
-                            .isPresent()) { //worst case scenario if block entity changes since last target reset.
+                    var blockEntityHandler = this.entity.level().getCapability(Capabilities.ItemHandler.BLOCK, blockEntity.getBlockPos(),blockEntity.getBlockState(), blockEntity, this.entity.getDepositFacing());
+                    if (blockEntityHandler == null) { //worst case scenario if block entity or entity changes since last target reset.
                         this.resetTarget();
                         return;
                     }
-                    IItemHandler blockEntityHandler = handlerCapability.orElseThrow(ItemHandlerMissingException::new);
+
                     IItemHandler entityHandler =
-                            this.entity.getCapability(Capabilities.ITEM_HANDLER, Direction.DOWN)
-                                    .orElseThrow(ItemHandlerMissingException::new);
+                            this.entity.getCapability(Capabilities.ItemHandler.ENTITY);
 
                     int slot = StorageUtil.getFirstMatchingSlot(blockEntityHandler,
-                            this.entity.getFilterItems().orElseThrow(ItemHandlerMissingException::new), this.entity.getTagFilter(), this.entity.isFilterBlacklist());
+                            this.entity.getFilterItems(), this.entity.getTagFilter(), this.entity.isFilterBlacklist());
                     if (slot >= 0) {
                         //simulate extraction
                         ItemStack toExtract = blockEntityHandler.extractItem(slot, Integer.MAX_VALUE, true).copy();
@@ -178,7 +174,7 @@ public class ExtractItemsGoal extends PausableGoal {
     /**
      * Opens or closes a chest
      *
-     * @param BlockEntity the chest block entity
+     * @param blockEntity the chest block entity
      * @param open        true to open the chest, false to close it.
      */
     public void toggleChest(Container blockEntity, boolean open) {
@@ -195,10 +191,9 @@ public class ExtractItemsGoal extends PausableGoal {
         Optional<BlockPos> targetPos = this.entity.getExtractPosition();
         targetPos.ifPresent((pos) -> {
             this.targetBlock = pos;
-            BlockEntity blockEntity = this.entity.level().getBlockEntity(this.targetBlock);
-            if (blockEntity == null ||
-                    !blockEntity.getCapability(Capabilities.ITEM_HANDLER, this.entity.getExtractFacing())
-                            .isPresent()) {
+
+            var handler = this.entity.level().getCapability(Capabilities.ItemHandler.BLOCK, this.targetBlock, this.entity.getExtractFacing());
+            if (handler == null) {
                 //the extract block is not valid for extracting, so we disable this to allow exiting this task.
                 this.entity.setExtractPosition(null);
             }

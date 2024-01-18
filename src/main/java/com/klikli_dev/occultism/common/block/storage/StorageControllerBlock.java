@@ -26,6 +26,7 @@ import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.util.BlockEntityUtil;
+import net.minecraft.client.multiplayer.chat.report.ReportEnvironment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -48,7 +49,6 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.network.NetworkHooks;
 import javax.annotation.Nullable;
 import java.util.stream.Stream;
 
@@ -85,8 +85,11 @@ public class StorageControllerBlock extends Block implements EntityBlock {
                                  InteractionHand handIn, BlockHitResult rayTraceResult) {
         if (!level.isClientSide) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof MenuProvider provider && StorageControllerContainerBase.canOpen(player, pos)) {
-                NetworkHooks.openScreen((ServerPlayer) player, provider, pos);
+            if (blockEntity instanceof MenuProvider provider &&
+                    StorageControllerContainerBase.canOpen(player, pos) &&
+                    player instanceof ServerPlayer serverPlayer
+            ) {
+                serverPlayer.openMenu(provider, pos);
                 StorageControllerContainerBase.reserve(player, pos);
             }
         }

@@ -23,9 +23,8 @@
 package com.klikli_dev.occultism.common.entity.ai.target;
 
 import net.minecraft.core.BlockPos;
-import net.neoforged.neoforge.common.capabilities.ICapabilityProvider;
 
-public interface IMoveTarget extends ICapabilityProvider {
+public interface IMoveTarget  {
     BlockPos getBlockPos();
 
     boolean isValid();
