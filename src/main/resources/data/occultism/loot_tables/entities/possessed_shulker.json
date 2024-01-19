@@ -10,7 +10,7 @@
           "name": "minecraft:shulker_shell"
         }
       ],
-      "neoforge:conditions": [
+      "conditions": [
         {
           "condition": "minecraft:random_chance_with_looting",
           "chance": 0.25,
