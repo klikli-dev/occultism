@@ -48,11 +48,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
+public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<RitualRecipe>> {
 
     private final IDrawable background;
     private final IDrawable arrow;
@@ -92,7 +94,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
     }
 
     @Override
-    public RecipeType<RitualRecipe> getRecipeType() {
+    public RecipeType<RecipeHolder<RitualRecipe>> getRecipeType() {
         return JeiRecipeTypes.RITUAL;
     }
 
@@ -112,12 +114,12 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, RitualRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<RitualRecipe> recipe, IFocusGroup focuses) {
         this.recipeOutputOffsetX = 75;
 
         //draw activation item on top of bowl
         builder.addSlot(RecipeIngredientRole.INPUT, this.ritualCenterX, this.ritualCenterY - 5)
-                .addIngredients(recipe.getActivationItem());
+                .addIngredients(recipe.value().getActivationItem());
 
         //draw the sacrificial bowl in the center
         builder.addSlot(RecipeIngredientRole.CATALYST, this.ritualCenterX, this.ritualCenterY)
@@ -159,11 +161,11 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         ).collect(Collectors.toList());
 
 
-        for (int i = 0; i < recipe.getIngredients().size(); i++) {
+        for (int i = 0; i < recipe.value().getIngredients().size(); i++) {
             Vec3i pos = sacrificialBowlPosition.get(i);
 
             builder.addSlot(RecipeIngredientRole.INPUT, pos.getX(), pos.getY() - 5)
-                    .addIngredients(recipe.getIngredients().get(i));
+                    .addIngredients(recipe.value().getIngredients().get(i));
 
             builder.addSlot(RecipeIngredientRole.RENDER_ONLY, pos.getX(), pos.getY())
                     .addItemStack(this.sacrificialBowl);
@@ -173,14 +175,14 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
 
         //draw recipe output on the left
         var access = Minecraft.getInstance().level.registryAccess();
-        if (recipe.getResultItem(access).getItem() != OccultismItems.JEI_DUMMY_NONE.get()) {
+        if (recipe.value().getResultItem(access).getItem() != OccultismItems.JEI_DUMMY_NONE.get()) {
             //if we have an item output -> render it
             builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5)
-                    .addItemStack(recipe.getResultItem(access));
+                    .addItemStack(recipe.value().getResultItem(access));
         } else {
             //if not, we instead render our ritual dummy item, just like in the corner
             builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5)
-                    .addItemStack(recipe.getRitualDummy());
+                    .addItemStack(recipe.value().getRitualDummy());
         }
 
         //draw output golden bowl
@@ -189,16 +191,16 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
 
         //draw ritual dummy item in upper left corner
         builder.addSlot(RecipeIngredientRole.OUTPUT, 0, 0)
-                .addItemStack(recipe.getRitualDummy());
+                .addItemStack(recipe.value().getRitualDummy());
 
 
         //draw item to use
-        if (recipe.requiresItemUse()) {
+        if (recipe.value().requiresItemUse()) {
 
             int infotextY = 0;
 
             int lineHeight = Minecraft.getInstance().font.lineHeight;
-            var pentacle = ModonomiconAPI.get().getMultiblock(recipe.getPentacleId());
+            var pentacle = ModonomiconAPI.get().getMultiblock(recipe.value().getPentacleId());
 
             //simulate pentacle id rendering, to get the correct Y level to draw at
             if (pentacle != null) {
@@ -212,7 +214,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
             }
 
             //also simulate the info rendered before the item to use for the y level.
-            if (recipe.requiresSacrifice()) {
+            if (recipe.value().requiresSacrifice()) {
                 infotextY += lineHeight;
             }
 
@@ -221,12 +223,12 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
             int itemToUseX = this.getStringCenteredMaxX(Minecraft.getInstance().font, Component.translatable("jei.occultism.item_to_use"), infoTextX, infotextY);
 
             builder.addSlot(RecipeIngredientRole.CATALYST, itemToUseX, itemToUseY)
-                    .addIngredients(recipe.getItemToUse());
+                    .addIngredients(recipe.value().getItemToUse());
         }
     }
 
     @Override
-    public void draw(RitualRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<RitualRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
         this.arrow.draw(guiGraphics, this.ritualCenterX + this.recipeOutputOffsetX - 20, this.ritualCenterY);
         RenderSystem.disableBlend();
@@ -234,7 +236,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
         int infotextY = 0;
         int infoTextX = 94;
         int lineHeight = Minecraft.getInstance().font.lineHeight;
-        var pentacle = ModonomiconAPI.get().getMultiblock(recipe.getPentacleId());
+        var pentacle = ModonomiconAPI.get().getMultiblock(recipe.value().getPentacleId());
         if (pentacle != null) {
             var pentacleName = Minecraft.getInstance().font.split(Component.translatable(Util.makeDescriptionId("multiblock", pentacle.getId())), 150);
 
@@ -248,28 +250,28 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipe> {
                     Component.translatable("jei.occultism.error.pentacle_not_loaded"), infoTextX, 0);
         }
 
-        if (recipe.requiresSacrifice()) {
+        if (recipe.value().requiresSacrifice()) {
             this.drawStringCentered(guiGraphics, Minecraft.getInstance().font,
-                    Component.translatable("jei.occultism.sacrifice", Component.translatable(recipe.getEntityToSacrificeDisplayName())), infoTextX, infotextY);
+                    Component.translatable("jei.occultism.sacrifice", Component.translatable(recipe.value().getEntityToSacrificeDisplayName())), infoTextX, infotextY);
             infotextY += lineHeight;
         }
 
-        if (recipe.requiresItemUse()) {
+        if (recipe.value().requiresItemUse()) {
             this.drawStringCentered(guiGraphics, Minecraft.getInstance().font, Component.translatable("jei.occultism.item_to_use"), infoTextX, infotextY);
             infotextY += lineHeight;
         }
 
-        if (recipe.getEntityToSummon() != null) {
+        if (recipe.value().getEntityToSummon() != null) {
             this.drawStringCentered(guiGraphics, Minecraft.getInstance().font,
-                    Component.translatable("jei.occultism.summon", Component.translatable(recipe.getEntityToSummon().getDescriptionId())),
+                    Component.translatable("jei.occultism.summon", Component.translatable(recipe.value().getEntityToSummon().getDescriptionId())),
                     infoTextX, infotextY);
             infotextY += lineHeight;
         }
 
-        if (recipe.getSpiritJobType() != null) {
+        if (recipe.value().getSpiritJobType() != null) {
             this.drawStringCentered(guiGraphics, Minecraft.getInstance().font,
                     Component.translatable("jei.occultism.job",
-                            Component.translatable("job." + recipe.getSpiritJobType().toString().replace(":", "."))),
+                            Component.translatable("job." + recipe.value().getSpiritJobType().toString().replace(":", "."))),
                     infoTextX, infotextY);
         }
     }

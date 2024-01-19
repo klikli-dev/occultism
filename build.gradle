@@ -17,11 +17,6 @@ base {
 sourceSets {
     main {
         java {
-            exclude '**/integration/jei/recipes/**/*.java'
-            exclude '**/integration/jei/JeiPlugin.java'
-            exclude '**/integration/jei/JeiRecipeTypes.java'
-            exclude '**/integration/jei/OccultismJeiIntegrationImpl.java'
-            exclude '**/integration/jei/StorageControllerRecipeTransferHandler.java'
             exclude '**/AlmostUnifiedIntegrationImpl.java'
         }
     }
@@ -117,12 +112,12 @@ repositories {
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
 
-    //TODO: enable once available
     //Jei
-//    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
-//    compileOnly "mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"
-//    runtimeOnly "mezz.jei:jei-${minecraft_version}-forge:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
+    //TODO: enable once available
     //curios
 //    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api"
 //    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}"

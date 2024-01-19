@@ -44,6 +44,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.List;
 import java.util.Optional;
@@ -53,7 +54,7 @@ import java.util.stream.Collectors;
  * Based on https://github.com/Lothrazar/Storage-Network
  */
 
-public class StorageControllerRecipeTransferHandler<T extends AbstractContainerMenu & IStorageControllerContainer> implements IRecipeTransferHandler<T, CraftingRecipe> {
+public class StorageControllerRecipeTransferHandler<T extends AbstractContainerMenu & IStorageControllerContainer> implements IRecipeTransferHandler<T, RecipeHolder<CraftingRecipe>> {
 
     protected final Class<T> containerClass;
     protected final IRecipeTransferHandlerHelper handlerHelper;
@@ -91,7 +92,7 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
                     //if stack is not empty, write to result
                     ItemStack itemStack = possibleItems.get(i);
                     if (!itemStack.isEmpty()) {
-                        invList.add(itemStack.serializeNBT());
+                        invList.add(itemStack.save(new CompoundTag()));
                     }
                 }
                 nbt.put("s" + (slot.getSlotIndex()), invList);
@@ -111,18 +112,18 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
     }
 
     @Override
-    public RecipeType<CraftingRecipe> getRecipeType() {
+    public RecipeType<RecipeHolder<CraftingRecipe>> getRecipeType() {
         return RecipeTypes.CRAFTING;
     }
 
-    public IRecipeTransferError transferRecipe(T container, CraftingRecipe recipe, IRecipeSlotsView recipeSlots, Player player, boolean maxTransfer, boolean doTransfer) {
+    public IRecipeTransferError transferRecipe(T container, RecipeHolder<CraftingRecipe> recipe, IRecipeSlotsView recipeSlots, Player player, boolean maxTransfer, boolean doTransfer) {
 
-        if (recipe.getId() == null) {
+        if (recipe.id() == null) {
             return this.handlerHelper.createUserErrorWithTooltip(Component.translatable("jei." + Occultism.MODID + "error.missing_id"));
         }
 
         //sort out any modded recipes that don't fit 3x3
-        if (!recipe.canCraftInDimensions(3, 3)) {
+        if (!recipe.value().canCraftInDimensions(3, 3)) {
             return this.handlerHelper.createUserErrorWithTooltip(Component.translatable("jei." + Occultism.MODID + "error.recipe_too_large"));
         }
 
@@ -135,8 +136,8 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
 
         //if recipe is in recipe manager send by id, otherwise fallback to ingredient list
         if (doTransfer) {
-            if (player.getCommandSenderWorld().getRecipeManager().byKey(recipe.getId()).isPresent()) {
-                Networking.sendToServer(new MessageSetRecipeByID(recipe.getId()));
+            if (player.getCommandSenderWorld().getRecipeManager().byKey(recipe.id()).isPresent()) {
+                Networking.sendToServer(new MessageSetRecipeByID(recipe.id()));
             } else {
                 Networking.sendToServer(new MessageSetRecipe(this.recipeToNbt(container, recipeSlots)));
             }
