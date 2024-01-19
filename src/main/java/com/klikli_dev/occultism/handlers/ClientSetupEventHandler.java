@@ -57,6 +57,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiOverlaysEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
@@ -169,24 +170,21 @@ public class ClientSetupEventHandler {
 
         registerItemModelProperties(event);
 
-        //Not safe to call during parallel load, so register to run threadsafe.
-        event.enqueueWork(() -> {
-            //Register screen factories
-            MenuScreens.register(OccultismContainers.STORAGE_CONTROLLER.get(), StorageControllerGui::new);
-            MenuScreens.register(OccultismContainers.STABLE_WORMHOLE.get(), StableWormholeGui::new);
-            MenuScreens.register(OccultismContainers.STORAGE_REMOTE.get(), StorageRemoteGui::new);
-            MenuScreens.register(OccultismContainers.SPIRIT.get(), SpiritGui<SpiritContainer>::new);
-            MenuScreens.register(OccultismContainers.SPIRIT_TRANSPORTER.get(), SpiritTransporterGui::new);
-            MenuScreens.register(OccultismContainers.OTHERWORLD_MINER.get(), DimensionalMineshaftScreen::new);
-            MenuScreens.register(OccultismContainers.SATCHEL.get(), SatchelScreen::new);
-            Occultism.LOGGER.debug("Registered Screen Containers");
-        });
-
         PageRenderers.onClientSetup(event);
 
         Occultism.LOGGER.debug("Registered Overlays");
 
         Occultism.LOGGER.info("Client setup complete.");
+    }
+
+    public static void onRegisterMenuScreens(RegisterMenuScreensEvent event){
+        event.register(OccultismContainers.STORAGE_CONTROLLER.get(), StorageControllerGui::new);
+        event.register(OccultismContainers.STABLE_WORMHOLE.get(), StableWormholeGui::new);
+        event.register(OccultismContainers.STORAGE_REMOTE.get(), StorageRemoteGui::new);
+        event.register(OccultismContainers.SPIRIT.get(), SpiritGui<SpiritContainer>::new);
+        event.register(OccultismContainers.SPIRIT_TRANSPORTER.get(), SpiritTransporterGui::new);
+        event.register(OccultismContainers.OTHERWORLD_MINER.get(), DimensionalMineshaftScreen::new);
+        event.register(OccultismContainers.SATCHEL.get(), SatchelScreen::new);
     }
 
     public static void registerItemModelProperties(FMLClientSetupEvent event) {
