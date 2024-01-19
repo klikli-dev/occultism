@@ -73,6 +73,8 @@ public class OtherstoneNaturalBlock extends Block implements IOtherworldBlock {
         return "block.minecraft.andesite";
     }
 
+
+
     @Override
     @SuppressWarnings("deprecation")
     public ItemStack getCloneItemStack(LevelReader worldIn, BlockPos pos, BlockState state) {

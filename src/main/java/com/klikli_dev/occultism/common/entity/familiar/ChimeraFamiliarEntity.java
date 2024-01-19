@@ -35,6 +35,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -52,13 +53,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements ItemSteerable {
+public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements ItemSteerable, PlayerRideableJumping {
 
     public static final byte NO_ATTACKER = 0;
     public static final byte LION_ATTACKER = 1;
@@ -68,16 +70,16 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     private static final UUID DAMAGE_BONUS = UUID.fromString("fdaa6165-abdf-4b85-aed6-199086f6a5ee");
     private static final byte RIDING_SIZE = 80;
     private static final double SHRINK_CHANCE = 0.005;
-    private static final int JUMP_COOLDOWN = 20 * 2;
     private static final int ATTACK_TIME = 10;
 
     private static final EntityDataAccessor<Byte> ATTACKER = SynchedEntityData.defineId(ChimeraFamiliarEntity.class,
             EntityDataSerializers.BYTE);
 
     private final ItemBasedSteering boost = new DummyBoostHelper();
-    private int jumpTimer;
     private int goatNoseTimer;
     private int attackTimer;
+    private float playerJumpPendingScale;
+    private boolean isJumping;
 
     public ChimeraFamiliarEntity(EntityType<? extends ChimeraFamiliarEntity> type, Level level) {
         super(type, level);
@@ -85,7 +87,12 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return createMobAttributes().add(Attributes.ATTACK_DAMAGE, 4).add(Attributes.MOVEMENT_SPEED, 0.25).add(Attributes.MAX_HEALTH, 20);
+        return createMobAttributes()
+                .add(Attributes.ATTACK_DAMAGE, 4)
+                .add(Attributes.MOVEMENT_SPEED, 0.25)
+                .add(Attributes.MAX_HEALTH, 20)
+                .add(Attributes.JUMP_STRENGTH, 0.7)
+                ;
     }
 
     private boolean isRiderJumping(Player rider) {
@@ -108,9 +115,6 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
         super.tick();
         if (!this.level().isClientSide && this.getRandom().nextDouble() < SHRINK_CHANCE)
             this.setSize((byte) (this.getSize() - 1));
-
-        if (this.jumpTimer > 0)
-            this.jumpTimer--;
 
         this.attackTimer--;
         if (this.attackTimer == 0)
@@ -334,20 +338,69 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
         this.setRot(rider.getYRot(), rider.getXRot() * 0.5F);
         this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
         this.boost.tickBoost();
+
+        if (this.isControlledByLocalInstance()) {
+//            if (travelVec.z <= 0.0) {
+//                this.gallopSoundCounter = 0;
+//            }
+
+            if (this.onGround()) {
+                this.setIsJumping(false);
+                if (this.playerJumpPendingScale > 0.0F && !this.isJumping()) {
+                    this.executeRidersJump(this.playerJumpPendingScale, travelVec);
+                }
+
+                this.playerJumpPendingScale = 0.0F;
+            }
+        }
     }
+
+    public double getCustomJump() {
+        return this.getAttributeValue(Attributes.JUMP_STRENGTH) * 2;
+    }
+
+
+    protected void executeRidersJump(float pPlayerJumpPendingScale, Vec3 pTravelVector) {
+        double d0 = this.getCustomJump() * (double)pPlayerJumpPendingScale * (double)this.getBlockJumpFactor();
+        double d1 = d0 + (double)this.getJumpBoostPower();
+        Vec3 vec3 = this.getDeltaMovement();
+        this.setDeltaMovement(vec3.x, d1, vec3.z);
+        this.setIsJumping(true);
+        this.hasImpulse = true;
+        net.neoforged.neoforge.common.CommonHooks.onLivingJump(this);
+        if (pTravelVector.z > 0.0) {
+            float f = Mth.sin(this.getYRot() * (float) (Math.PI / 180.0));
+            float f1 = Mth.cos(this.getYRot() * (float) (Math.PI / 180.0));
+            this.setDeltaMovement(this.getDeltaMovement().add((double)(-0.4F * f * pPlayerJumpPendingScale), 0.0, (double)(0.4F * f1 * pPlayerJumpPendingScale)));
+        }
+    }
+
+    public boolean isJumping() {
+        return this.isJumping;
+    }
+
+    public void setIsJumping(boolean pJumping) {
+        this.isJumping = pJumping;
+    }
+
 
     @Override
     protected Vec3 getRiddenInput(Player rider, Vec3 travelVec) {
+//        if (this.onGround() && this.playerJumpPendingScale == 0.0F) {// && this.isStanding() && !this.allowStandSliding) {
+//            return Vec3.ZERO;
+//        } else {
+//            float forward = rider.zza;
+//            float strafe = rider.xxa * 0.5f;
+//
+//            if (forward < 0)
+//                forward *= 0.25f;
+//
+//            return new Vec3(strafe, 0, forward);
+//        }
+
         if (this.isVehicle()) {
             float forward = rider.zza;
             float strafe = rider.xxa * 0.5f;
-
-            if (this.isRiderJumping(rider) && this.onGround() && this.jumpTimer <= 0) {
-                this.jumpTimer = JUMP_COOLDOWN;
-                Vec3 forwardDirection = Vec3.directionFromRotation(0, this.yRotO).scale(0.7);
-                this.setDeltaMovement(this.getDeltaMovement().add(forwardDirection.x, 0, forwardDirection.z));
-                this.jumpFromGround();
-            }
 
             if (forward < 0)
                 forward *= 0.25f;
@@ -390,6 +443,43 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
         if (this.getFirstPassenger() instanceof LivingEntity livingEntity)
             return livingEntity;
         return null;
+    }
+
+    @Override
+    public void onPlayerJump(int pJumpPower) {
+        if (pJumpPower < 0) {
+            pJumpPower = 0;
+        } else {
+//            this.allowStandSliding = true;
+//            this.standIfPossible();
+        }
+
+        if (pJumpPower >= 90) {
+            this.playerJumpPendingScale = 1.0F;
+        } else {
+            this.playerJumpPendingScale = 0.6F + 0.4F * (float)pJumpPower / 90.0F;
+        }
+    }
+
+    @Override
+    public boolean canJump() {
+       return true;
+    }
+
+    @Override
+    public boolean causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
+        return false;
+    }
+
+    @Override
+    public void handleStartJump(int pJumpPower) {
+//        this.allowStandSliding = true;
+//        this.standIfPossible();
+//        this.playJumpSound();
+    }
+
+    @Override
+    public void handleStopJump() {
     }
 
     private static class DummyBoostHelper extends ItemBasedSteering {
