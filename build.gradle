@@ -135,7 +135,6 @@ dependencies {
     //modonomicon
     implementation "com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}"
 
-    //TODO: enable once available
     //theurgy
     compileOnly "com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}"
     runtimeOnly "com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}"
