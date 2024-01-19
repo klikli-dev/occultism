@@ -1,21 +1,21 @@
 {
-  "type": "occultism:crushing",
-  "conditions": [
+  "neoforge:conditions": [
     {
-      "type": "forge:not",
+      "type": "neoforge:not",
       "value": {
-        "type": "forge:tag_empty",
+        "type": "neoforge:tag_empty",
         "tag": "forge:storage_blocks/raw_netherite"
       }
     },
     {
-      "type": "forge:not",
+      "type": "neoforge:not",
       "value": {
-        "type": "forge:tag_empty",
+        "type": "neoforge:tag_empty",
         "tag": "forge:dusts/netherite"
       }
     }
   ],
+  "type": "occultism:crushing",
   "crushing_time": 1600,
   "ignore_crushing_multiplier": false,
   "ingredient": {
