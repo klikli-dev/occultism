@@ -3,9 +3,7 @@
   "criteria": {
     "familiar_cthulhu": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/familiar_cthulhu"
-        }
+        "ritual_id": "occultism:ritual/familiar_cthulhu"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.familiar_cthulhu.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

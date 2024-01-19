@@ -27,9 +27,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.Container;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -56,15 +53,5 @@ public class BlockPosMoveTarget implements IMoveTarget {
     @Override
     public boolean isChest() {
         return this.level.getBlockEntity(this.target) instanceof Container;
-    }
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        BlockEntity blockEntity = this.level.getBlockEntity(this.target);
-        if (blockEntity != null) {
-            return blockEntity.getCapability(cap, side);
-        }
-        return LazyOptional.empty();
     }
 }

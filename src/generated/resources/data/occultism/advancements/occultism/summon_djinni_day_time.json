@@ -3,9 +3,7 @@
   "criteria": {
     "summon_djinni_day_time": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/summon_djinni_day_time"
-        }
+        "ritual_id": "occultism:ritual/summon_djinni_day_time"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.summon_djinni_day_time.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

@@ -26,16 +26,15 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
 import com.klikli_dev.occultism.api.common.data.MachineReference;
 import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
-import com.klikli_dev.occultism.network.MessageSetManagedMachine;
-import com.klikli_dev.occultism.network.OccultismPackets;
+import com.klikli_dev.occultism.network.messages.MessageSetManagedMachine;
+import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.util.EnumUtil;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.client.gui.widget.ExtendedButton;
+import net.neoforged.neoforge.client.gui.widget.ExtendedButton;
 import org.apache.commons.lang3.StringUtils;
 
 public class BookOfCallingManagedMachineGui extends Screen {
@@ -59,9 +58,9 @@ public class BookOfCallingManagedMachineGui extends Screen {
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(guiGraphics);
-        this.text.render(guiGraphics, mouseX, mouseY, partialTicks);
+//        this.renderBackground(guiGraphics); called by super
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
+        this.text.render(guiGraphics, mouseX, mouseY, partialTicks);
     }
 
     @Override
@@ -74,7 +73,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
         super.onClose();
         this.text.setFocused(false);
         if (!StringUtils.isBlank(this.customName) && !this.customName.equals(this.originalCustomName)) {
-            OccultismPackets.sendToServer(new MessageSetManagedMachine(this.makeMachineReference()));
+            Networking.sendToServer(new MessageSetManagedMachine(this.makeMachineReference()));
         }
     }
 
@@ -95,7 +94,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
                 (b) -> {
                     MachineReference reference = this.makeMachineReference();
                     this.insertFacing = reference.insertFacing = EnumUtil.nextFacing(this.insertFacing);
-                    OccultismPackets.sendToServer(new MessageSetManagedMachine(reference));
+                    Networking.sendToServer(new MessageSetManagedMachine(reference));
                     this.init();
                 }));
 
@@ -105,7 +104,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
                 Component.translatable("enum." + Occultism.MODID + ".facing." + this.extractFacing.getSerializedName()), (b) -> {
             MachineReference reference = this.makeMachineReference();
             this.extractFacing = reference.extractFacing = EnumUtil.nextFacing(this.extractFacing);
-            OccultismPackets.sendToServer(new MessageSetManagedMachine(reference));
+            Networking.sendToServer(new MessageSetManagedMachine(reference));
             this.init();
         }));
 
@@ -141,12 +140,6 @@ public class BookOfCallingManagedMachineGui extends Screen {
                 guiTop + buttonTop + buttonHeight * 2 + buttonMargin * 2 + 1, false, -1, 2, OccultismConstants.Color.WHITE).alignRight(true);
         customNameLabel.addLine("gui." + Occultism.MODID + ".book_of_calling.manage_machine.custom_name", true);
         this.addRenderableWidget(customNameLabel);
-    }
-
-    @Override
-    public void tick() {
-        this.text.tick();
-        super.tick();
     }
 
     @Override

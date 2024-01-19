@@ -50,6 +50,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -4,
   "y": 2
 }

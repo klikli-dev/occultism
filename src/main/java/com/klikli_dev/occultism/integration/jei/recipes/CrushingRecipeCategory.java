@@ -41,8 +41,9 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
-public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
+public class CrushingRecipeCategory implements IRecipeCategory<RecipeHolder<CrushingRecipe>> {
 
     private final IDrawable background;
     private final Component localizedName;
@@ -60,7 +61,7 @@ public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
     }
 
     @Override
-    public RecipeType<CrushingRecipe> getRecipeType() {
+    public RecipeType<RecipeHolder<CrushingRecipe>> getRecipeType() {
         return JeiRecipeTypes.CRUSHING;
     }
 
@@ -80,21 +81,21 @@ public class CrushingRecipeCategory implements IRecipeCategory<CrushingRecipe> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, CrushingRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<CrushingRecipe> recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 56, 12)
-                .addIngredients(recipe.getIngredients().get(0));
+                .addIngredients(recipe.value().getIngredients().get(0));
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 94, 12)
-                .addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
+                .addItemStack(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess()));
     }
 
     @Override
-    public void draw(CrushingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<CrushingRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
         this.overlay.draw(guiGraphics, 76, 14); //(center=84) - (width/16=8) = 76
         this.drawStringCentered(guiGraphics, Minecraft.getInstance().font, this.getTitle(), 84, 0);
-        if (recipe.getMinTier() >= 0) {
-            this.drawStringCentered(guiGraphics, Minecraft.getInstance().font, Component.translatable(TranslationKeys.JEI_CRUSHING_RECIPE_TIER, recipe.getMinTier()), 84, 35);
+        if (recipe.value().getMinTier() >= 0) {
+            this.drawStringCentered(guiGraphics, Minecraft.getInstance().font, Component.translatable(TranslationKeys.JEI_CRUSHING_RECIPE_TIER, recipe.value().getMinTier()), 84, 35);
         }
     }
 }

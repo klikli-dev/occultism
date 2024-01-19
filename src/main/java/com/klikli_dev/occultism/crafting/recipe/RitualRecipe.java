@@ -22,71 +22,83 @@
 
 package com.klikli_dev.occultism.crafting.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
+import com.google.common.base.Suppliers;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.multiblock.Multiblock;
 import com.klikli_dev.occultism.common.ritual.Ritual;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismRituals;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.Iterator;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class RitualRecipe implements Recipe<Container> {
-    public static Serializer SERIALIZER = new Serializer();
 
+    public static final Codec<RitualRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                    ResourceLocation.CODEC.fieldOf("pentacle_id").forGetter((r) -> r.pentacleId),
+                    ResourceLocation.CODEC.fieldOf("ritual_type").forGetter((r) -> r.ritualType),
+                    ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("ritual_dummy").forGetter((r) -> r.ritualDummy),
+                    ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter((r) -> r.result),
+                    BuiltInRegistries.ENTITY_TYPE.byNameCodec().optionalFieldOf("entity_to_summon").forGetter(r -> Optional.ofNullable(r.entityToSummon)),
+                    CompoundTag.CODEC.optionalFieldOf("entity_nbt").forGetter(r -> Optional.ofNullable(r.entityNbt)),
+                    Ingredient.CODEC.fieldOf("activation_item").forGetter((r) -> r.activationItem),
+                    Ingredient.LIST_CODEC.fieldOf("ingredients").forGetter((r) -> r.ingredients),
+                    Codec.INT.optionalFieldOf("duration", 30).forGetter((r) -> r.duration),
+                    Codec.INT.optionalFieldOf("spirit_max_age", -1).forGetter((r) -> r.spiritMaxAge),
+                    ResourceLocation.CODEC.optionalFieldOf("spirit_job_type").forGetter(r -> Optional.ofNullable(r.spiritJobType)),
+                    EntityToSacrifice.CODEC.optionalFieldOf("entity_to_sacrifice").forGetter(r -> Optional.ofNullable(r.entityToSacrifice)),
+                    Ingredient.CODEC.optionalFieldOf("item_to_use").forGetter(r -> Optional.ofNullable(r.itemToUse)),
+                    Codec.STRING.optionalFieldOf("command").forGetter(r -> Optional.ofNullable(r.command))
+            ).apply(instance, (pentacleId, ritualType, ritualDummy, result, entityToSummon, entityNbt, activationItem, ingredients, duration, spiritMaxAge, spiritJobType, entityToSacrifice, itemToUse, command) -> new RitualRecipe(pentacleId, ritualType, ritualDummy, result, entityToSummon.orElse(null), entityNbt.orElse(null), activationItem,
+                    NonNullList.copyOf(ingredients), duration, spiritMaxAge, spiritJobType.orElse(null), entityToSacrifice.orElse(null), itemToUse.orElse(null), command.orElse(null)))
+    );
+    public static Serializer SERIALIZER = new Serializer();
+    final ItemStack result;
+    final NonNullList<Ingredient> ingredients;
     private final ResourceLocation pentacleId;
     private final ResourceLocation ritualType;
     private final ResourceLocation spiritJobType;
     private final Supplier<Ritual> ritual;
     private final ItemStack ritualDummy;
     private final Ingredient activationItem;
-    private final TagKey<EntityType<?>> entityToSacrifice;
+    private final EntityToSacrifice entityToSacrifice;
     private final EntityType<?> entityToSummon;
-
     private final CompoundTag entityNbt;
     private final Ingredient itemToUse;
     private final int duration;
     private final int spiritMaxAge;
     private final float durationPerIngredient;
-    private final String entityToSacrificeDisplayName;
     private final String command;
-
-    private final ResourceLocation id;
-
-    final ItemStack result;
-    final NonNullList<Ingredient> ingredients;
-
-    public RitualRecipe(ResourceLocation id, ResourceLocation pentacleId, ResourceLocation ritualType, ItemStack ritualDummy,
-                        ItemStack result, EntityType<?> entityToSummon, CompoundTag entityNbt, Ingredient activationItem, NonNullList<Ingredient> ingredients, int duration, int spiritMaxAge, ResourceLocation spiritJobType,
-                        TagKey<EntityType<?>> entityToSacrifice, String entityToSacrificeDisplayName, Ingredient itemToUse, String command) {
-        this.id = id;
+    public RitualRecipe(ResourceLocation pentacleId, ResourceLocation ritualType, ItemStack ritualDummy,
+                        ItemStack result, EntityType<?> entityToSummon, CompoundTag entityNbt, Ingredient activationItem, NonNullList<Ingredient> ingredients, int duration, int spiritMaxAge, ResourceLocation spiritJobType, EntityToSacrifice entityToSacrifice, Ingredient itemToUse, String command) {
         this.result = result;
         this.ingredients = ingredients;
         this.entityToSummon = entityToSummon;
         this.entityNbt = entityNbt;
         this.pentacleId = pentacleId;
         this.ritualType = ritualType;
-        this.ritual = () -> OccultismRituals.REGISTRY.get().getValue(this.ritualType).create(this);
+        this.ritual = () -> OccultismRituals.REGISTRY.get(this.ritualType).create(this);
         this.ritualDummy = ritualDummy;
         this.activationItem = activationItem;
         this.duration = duration;
@@ -94,7 +106,6 @@ public class RitualRecipe implements Recipe<Container> {
         this.spiritJobType = spiritJobType;
         this.durationPerIngredient = this.duration / (float) (this.getIngredients().size() + 1);
         this.entityToSacrifice = entityToSacrifice;
-        this.entityToSacrificeDisplayName = entityToSacrificeDisplayName;
         this.itemToUse = itemToUse;
         this.command = command;
     }
@@ -153,11 +164,6 @@ public class RitualRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ResourceLocation getId() {
-        return this.id;
-    }
-
-    @Override
     public boolean canCraftInDimensions(int i, int i1) {
         return true;
     }
@@ -190,7 +196,7 @@ public class RitualRecipe implements Recipe<Container> {
     }
 
     public TagKey<EntityType<?>> getEntityToSacrifice() {
-        return this.entityToSacrifice;
+        return this.entityToSacrifice.tag();
     }
 
     public boolean requiresSacrifice() {
@@ -218,7 +224,7 @@ public class RitualRecipe implements Recipe<Container> {
     }
 
     public String getEntityToSacrificeDisplayName() {
-        return this.entityToSacrificeDisplayName;
+        return this.entityToSacrifice.displayName();
     }
 
     public ResourceLocation getSpiritJobType() {
@@ -229,180 +235,30 @@ public class RitualRecipe implements Recipe<Container> {
         return this.spiritMaxAge;
     }
 
+    public record EntityToSacrifice(TagKey<EntityType<?>> tag, String displayName) {
+        public static Codec<EntityToSacrifice> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                TagKey.codec(BuiltInRegistries.ENTITY_TYPE.key()).fieldOf("tag").forGetter(EntityToSacrifice::tag),
+                Codec.STRING.fieldOf("display_name").forGetter(EntityToSacrifice::displayName)
+        ).apply(instance, EntityToSacrifice::new));
+    }
+
     public static class Serializer implements RecipeSerializer<RitualRecipe> {
-        private static final ShapelessRecipe.Serializer serializer = new ShapelessRecipe.Serializer();
 
-        private static NonNullList<Ingredient> itemsFromJson(JsonArray pIngredientArray) {
-            NonNullList<Ingredient> nonnulllist = NonNullList.create();
-
-            for (int i = 0; i < pIngredientArray.size(); ++i) {
-                Ingredient ingredient = Ingredient.fromJson(pIngredientArray.get(i));
-                if (!ingredient.isEmpty()) {
-                    nonnulllist.add(ingredient);
-                }
-            }
-
-            return nonnulllist;
+        @Override
+        public Codec<RitualRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public RitualRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-            NonNullList<Ingredient> ingredients = itemsFromJson(GsonHelper.getAsJsonArray(json, "ingredients"));
-            if (ingredients.isEmpty()) {
-                throw new JsonParseException("No ingredients for shapeless recipe");
-            }
-            ItemStack result = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
-
-            ResourceLocation ritualType = new ResourceLocation(json.get("ritual_type").getAsString());
-
-            EntityType<?> entityToSummon = null;
-            if (json.has("entity_to_summon")) {
-                entityToSummon = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(GsonHelper.getAsString(json, "entity_to_summon")));
-            }
-
-            CompoundTag entityNbt = null;
-            if (json.has("entity_nbt")) {
-                entityNbt = CraftingHelper.getNBT(json.get("entity_nbt"));
-            }
-
-            JsonElement activationItemElement =
-                    GsonHelper.isArrayNode(json, "activation_item") ? GsonHelper.getAsJsonArray(json,
-                            "activation_item") : GsonHelper.getAsJsonObject(json, "activation_item");
-            Ingredient activationItem = Ingredient.fromJson(activationItemElement);
-
-            ResourceLocation pentacleId = new ResourceLocation(json.get("pentacle_id").getAsString());
-
-            int duration = GsonHelper.getAsInt(json, "duration", 30);
-            int spiritMaxAge = GsonHelper.getAsInt(json, "spirit_max_age", -1);
-
-            ResourceLocation spiritJobType = null;
-            if (json.has("spirit_job_type")) {
-                spiritJobType = new ResourceLocation(json.get("spirit_job_type").getAsString());
-            }
-
-            ItemStack ritualDummy = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(json, "ritual_dummy"), true);
-
-            TagKey<EntityType<?>> entityToSacrifice = null;
-            String entityToSacrificeDisplayName = "";
-            if (json.has("entity_to_sacrifice")) {
-                var tagRL = new ResourceLocation(GsonHelper.getAsString(json.getAsJsonObject("entity_to_sacrifice"), "tag"));
-                entityToSacrifice = TagKey.create(Registries.ENTITY_TYPE, tagRL);
-
-                entityToSacrificeDisplayName = json.getAsJsonObject("entity_to_sacrifice").get("display_name").getAsString();
-            }
-
-            Ingredient itemToUse = Ingredient.EMPTY;
-            if (json.has("item_to_use")) {
-                JsonElement itemToUseElement =
-                        GsonHelper.isArrayNode(json, "item_to_use") ? GsonHelper.getAsJsonArray(json,
-                                "item_to_use") : GsonHelper.getAsJsonObject(json, "item_to_use");
-                itemToUse = Ingredient.fromJson(itemToUseElement);
-
-            }
-
-            var command = GsonHelper.getAsString(json, "command", null);
-
-            return new RitualRecipe(recipeId, pentacleId, ritualType, ritualDummy,
-                    result, entityToSummon, entityNbt, activationItem, ingredients, duration,
-                    spiritMaxAge, spiritJobType, entityToSacrifice, entityToSacrificeDisplayName, itemToUse, command);
+        public RitualRecipe fromNetwork(FriendlyByteBuf pBuffer) {
+            //noinspection deprecation
+            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
         }
 
         @Override
-        public RitualRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            int ingredientCount = buffer.readVarInt();
-            NonNullList<Ingredient> ingredients = NonNullList.withSize(ingredientCount, Ingredient.EMPTY);
-
-            for(int j = 0; j < ingredients.size(); ++j) {
-                ingredients.set(j, Ingredient.fromNetwork(buffer));
-            }
-
-            ItemStack result = buffer.readItem();
-
-            ResourceLocation ritualType = buffer.readResourceLocation();
-
-            EntityType<?> entityToSummon = null;
-            if (buffer.readBoolean()) {
-                entityToSummon = buffer.readRegistryId();
-            }
-
-            CompoundTag entityNbt = null;
-            if (buffer.readBoolean()) {
-                entityNbt = buffer.readNbt();
-            }
-
-            ResourceLocation pentacleId = buffer.readResourceLocation();
-            int duration = buffer.readVarInt();
-            int spiritMaxAge = buffer.readVarInt();
-
-            ResourceLocation spiritJobType = null;
-            if (buffer.readBoolean()) {
-                spiritJobType = buffer.readResourceLocation();
-            }
-
-            ItemStack ritualDummy = buffer.readItem();
-            Ingredient activationItem = Ingredient.fromNetwork(buffer);
-
-            TagKey<EntityType<?>> entityToSacrifice = null;
-            String entityToSacrificeDisplayName = "";
-            if (buffer.readBoolean()) {
-                var tagRL = buffer.readResourceLocation();
-                entityToSacrifice = TagKey.create(Registries.ENTITY_TYPE, tagRL);
-                entityToSacrificeDisplayName = buffer.readUtf();
-            }
-
-            Ingredient itemToUse = Ingredient.EMPTY;
-            if (buffer.readBoolean()) {
-                itemToUse = Ingredient.fromNetwork(buffer);
-            }
-
-            String command = buffer.readBoolean() ? buffer.readUtf() : null;
-
-            return new RitualRecipe(recipeId, pentacleId, ritualType, ritualDummy, result, entityToSummon, entityNbt,
-                    activationItem, ingredients, duration, spiritMaxAge, spiritJobType, entityToSacrifice, entityToSacrificeDisplayName, itemToUse, command);
-        }
-
-        @Override
-        public void toNetwork(FriendlyByteBuf buffer, RitualRecipe recipe) {
-            buffer.writeVarInt(recipe.ingredients.size());
-
-            for(var ingredient : recipe.ingredients) {
-                ingredient.toNetwork(buffer);
-            }
-
-            buffer.writeItem(recipe.result);
-
-            buffer.writeResourceLocation(recipe.ritualType);
-
-            buffer.writeBoolean(recipe.entityToSummon != null);
-            if (recipe.entityToSummon != null)
-                buffer.writeRegistryId(ForgeRegistries.ENTITY_TYPES, recipe.entityToSummon);
-
-            buffer.writeBoolean(recipe.entityNbt != null);
-            if (recipe.entityNbt != null)
-                buffer.writeNbt(recipe.entityNbt);
-
-            buffer.writeResourceLocation(recipe.pentacleId);
-            buffer.writeVarInt(recipe.duration);
-            buffer.writeVarInt(recipe.spiritMaxAge);
-            buffer.writeBoolean(recipe.spiritJobType != null);
-            if (recipe.spiritJobType != null) {
-                buffer.writeResourceLocation(recipe.spiritJobType);
-            }
-            buffer.writeItem(recipe.ritualDummy);
-            recipe.activationItem.toNetwork(buffer);
-            buffer.writeBoolean(recipe.entityToSacrifice != null);
-            if (recipe.entityToSacrifice != null) {
-
-                buffer.writeResourceLocation(recipe.entityToSacrifice.location());
-                buffer.writeUtf(recipe.entityToSacrificeDisplayName);
-            }
-            buffer.writeBoolean(recipe.itemToUse != Ingredient.EMPTY);
-            if (recipe.itemToUse != Ingredient.EMPTY)
-                recipe.itemToUse.toNetwork(buffer);
-
-            buffer.writeBoolean(recipe.command != null);
-            if (recipe.command != null)
-                buffer.writeUtf(recipe.command);
+        public void toNetwork(FriendlyByteBuf pBuffer, RitualRecipe pRecipe) {
+            //noinspection deprecation
+            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
         }
     }
 }

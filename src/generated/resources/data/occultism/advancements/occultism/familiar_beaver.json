@@ -3,9 +3,7 @@
   "criteria": {
     "familiar_beaver": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/familiar_beaver"
-        }
+        "ritual_id": "occultism:ritual/familiar_beaver"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.familiar_beaver.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

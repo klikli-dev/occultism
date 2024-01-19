@@ -3,9 +3,7 @@
   "criteria": {
     "craft_infused_pickaxe": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/craft_infused_pickaxe"
-        }
+        "ritual_id": "occultism:ritual/craft_infused_pickaxe"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.craft_infused_pickaxe.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

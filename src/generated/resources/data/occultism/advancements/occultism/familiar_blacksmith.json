@@ -3,9 +3,7 @@
   "criteria": {
     "familiar_blacksmith": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/familiar_blacksmith"
-        }
+        "ritual_id": "occultism:ritual/familiar_blacksmith"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.familiar_blacksmith.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

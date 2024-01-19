@@ -22,20 +22,21 @@
 
 package com.klikli_dev.occultism.common.item.debug;
 
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.job.TraderJob;
 import com.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
-import com.klikli_dev.occultism.util.StaticUtil;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraftforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.event.EventHooks;
 
 public class SummonFoliotTraderItem extends Item {
 
@@ -48,7 +49,7 @@ public class SummonFoliotTraderItem extends Item {
         if (!context.getLevel().isClientSide) {
             FoliotEntity spirit = OccultismEntities.FOLIOT.get().create(context.getLevel());
 
-            ForgeEventFactory.onFinalizeSpawn(spirit, (ServerLevel) context.getLevel(), context.getLevel().getCurrentDifficultyAt(context.getClickedPos()), MobSpawnType.SPAWN_EGG, null, null);
+            EventHooks.onFinalizeSpawn(spirit, (ServerLevel) context.getLevel(), context.getLevel().getCurrentDifficultyAt(context.getClickedPos()), MobSpawnType.SPAWN_EGG, null, null);
 
             spirit.tame(context.getPlayer());
             spirit.setPos(context.getClickedPos().getX(), context.getClickedPos().getY() + 1.0f, context.getClickedPos().getZ());
@@ -57,7 +58,7 @@ public class SummonFoliotTraderItem extends Item {
             //set up the job
             TraderJob trader = (TraderJob) OccultismSpiritJobs.TRADE_OTHERSTONE_T1.get().create(spirit);
             trader.init();
-            trader.setTradeRecipeId(StaticUtil.modLoc("spirit_trade/test"));
+            trader.setTradeRecipeId(new ResourceLocation(Occultism.MODID, "spirit_trade/test"));
             spirit.setJob(trader);
 
             //notify players nearby and spawn

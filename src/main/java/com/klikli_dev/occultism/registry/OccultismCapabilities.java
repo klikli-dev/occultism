@@ -22,49 +22,99 @@
 
 package com.klikli_dev.occultism.registry;
 
-import com.klikli_dev.occultism.common.capability.DoubleJumpCapability;
-import com.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
-import com.klikli_dev.occultism.util.StaticUtil;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
+import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
+import net.minecraft.core.Direction;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
 public class OccultismCapabilities {
 
-    public static final ResourceLocation DOUBLE_JUMP_ID = StaticUtil.modLoc("double_jump");
-    public static final ResourceLocation FAMILIAR_SETTINGS_ID = StaticUtil.modLoc("familiar_settings");
+    public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
 
-    public static Capability<DoubleJumpCapability> DOUBLE_JUMP = CapabilityManager.get(new CapabilityToken<>() {
-    });
-    public static Capability<FamiliarSettingsCapability> FAMILIAR_SETTINGS = CapabilityManager.get(new CapabilityToken<>() {
-    });
+        //TODO: enable once curios is available
+//        event.registerItem(
+//                CuriosCapability.ITEM, // capability to register for
+//                (itemStack, context) -> {
+//                    return new FamiliarRingItem.Curio(itemStack);
+//                },
+//            // items to register for
+//            OccultismItems.FAMILIAR_RING.get()
+//        );
 
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                OccultismBlockEntities.SACRIFICIAL_BOWL.get(),
+                (blockEntity, side) -> {
+                    return blockEntity.itemStackHandler;
+                }
+        );
+        //note the golden sacrificial bowl intentionally does not get a capability!
 
-    public static void onRegisterCapabilities(final RegisterCapabilitiesEvent event) {
-        event.register(DoubleJumpCapability.class);
-        event.register(FamiliarSettingsCapability.class);
-    }
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                OccultismBlockEntities.DIMENSIONAL_MINESHAFT.get(),
+                (blockEntity, side) -> {
+                    if (side == null)
+                        return blockEntity.combinedHandler;
+                    else if (side == Direction.UP)
+                        return blockEntity.inputHandler;
+                    else
+                        return blockEntity.outputHandler;
+                }
 
-    public static void onPlayerClone(final PlayerEvent.Clone event) {
-        //only handle respawn after death -> not portal transfers
-        if (event.isWasDeath()) {
-            event.getOriginal().reviveCaps();
-            //copy capability to new player instance
-            event.getEntity().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(newCap -> {
-                        event.getOriginal().getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).ifPresent(newCap::clone);
+        );
+
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                OccultismBlockEntities.STABLE_WORMHOLE.get(),
+                (blockEntity, side) -> {
+                    if (blockEntity.getLinkedStorageController() instanceof StorageControllerBlockEntity controller) {
+                        return controller.itemStackHandler;
                     }
-            );
-        }
+                    return null;
+                }
+        );
+
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                OccultismBlockEntities.STORAGE_CONTROLLER.get(),
+                (blockEntity, side) -> {
+                    return blockEntity.itemStackHandler;
+                }
+        );
+
+        event.registerEntity(
+                Capabilities.ItemHandler.ENTITY,
+                OccultismEntities.FOLIOT.get(),
+                (entity, side) -> {
+                    return entity.inventory;
+                }
+        );
+
+        event.registerEntity(
+                Capabilities.ItemHandler.ENTITY,
+                OccultismEntities.DJINNI.get(),
+                (entity, side) -> {
+                    return entity.inventory;
+                }
+        );
+
+        event.registerEntity(
+                Capabilities.ItemHandler.ENTITY,
+                OccultismEntities.AFRIT.get(),
+                (entity, side) -> {
+                    return entity.inventory;
+                }
+        );
+
+        event.registerEntity(
+                Capabilities.ItemHandler.ENTITY,
+                OccultismEntities.MARID.get(),
+                (entity, side) -> {
+                    return entity.inventory;
+                }
+        );
+
     }
 
-    public static void onJoinWorld(final EntityJoinLevelEvent event) {
-        if (event.getEntity() instanceof ServerPlayer player) {
-            FamiliarSettingsCapability.syncFor(player);
-        }
-    }
 }

@@ -23,8 +23,8 @@
 package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
-import com.klikli_dev.occultism.network.MessageFairySupport;
-import com.klikli_dev.occultism.network.OccultismPackets;
+import com.klikli_dev.occultism.network.messages.MessageFairySupport;
+import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismParticles;
 import com.klikli_dev.occultism.util.FamiliarUtil;
@@ -57,10 +57,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
-
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.Map.Entry;
@@ -95,7 +95,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasFlower())
-            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 
@@ -303,7 +303,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
 
         this.saveCooldown = 20 * 20;
         if (!familiar.getFamiliarEntity().level().isClientSide)
-            OccultismPackets.sendToTracking(this,
+            Networking.sendToTracking(this,
                     new MessageFairySupport(this.getId(), familiar.getFamiliarEntity().getId()));
         return true;
     }
@@ -318,6 +318,29 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
             return false;
 
         return super.hurt(pSource, pAmount);
+    }
+    private static final double DEFAULT_ATTACK_REACH = Math.sqrt(2.04F) - 0.6F;
+    @Override
+    protected AABB getAttackBoundingBox() {
+        //copied from parent and set reach * 3
+        Entity entity = this.getVehicle();
+        AABB aabb;
+        if (entity != null) {
+            AABB aabb1 = entity.getBoundingBox();
+            AABB aabb2 = this.getBoundingBox();
+            aabb = new AABB(
+                    Math.min(aabb2.minX, aabb1.minX),
+                    aabb2.minY,
+                    Math.min(aabb2.minZ, aabb1.minZ),
+                    Math.max(aabb2.maxX, aabb1.maxX),
+                    aabb2.maxY,
+                    Math.max(aabb2.maxZ, aabb1.maxZ)
+            );
+        } else {
+            aabb = this.getBoundingBox();
+        }
+
+        return aabb.inflate(DEFAULT_ATTACK_REACH * 3, 0.0, DEFAULT_ATTACK_REACH * 3);
     }
 
     @Override
@@ -410,7 +433,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
                             && familiar.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, DURATION)))
                         gaveSupport = true;
                     if (gaveSupport) {
-                        OccultismPackets.sendToTracking(this.fairy,
+                        Networking.sendToTracking(this.fairy,
                                 new MessageFairySupport(this.fairy.getId(), familiar.getId()));
                         this.cooldowns.put(id, DURATION);
                     }
@@ -443,10 +466,15 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
         }
 
         @Override
-        protected void checkAndPerformAttack(LivingEntity pEnemy, double pDistToEnemySqr) {
+        protected boolean canPerformAttack(LivingEntity pEntity) {
+            return this.mob.isWithinMeleeAttackRange(pEntity);
+        }
+
+        @Override
+        protected void checkAndPerformAttack(LivingEntity pEnemy) {
             this.attackTimer--;
-            double reach = this.getAttackReachSqr(pEnemy);
-            if (pDistToEnemySqr <= reach) {
+
+            if(this.canPerformAttack(pEnemy)) {
                 this.fairy.setMagicTarget(pEnemy);
                 if (this.attackTimer <= 0) {
                     this.attackTimer = 20;
@@ -465,14 +493,9 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
                         }
                     }
                 }
-            } else if (pDistToEnemySqr > reach * 3) {
+            } else {
                 this.fairy.setMagicTarget(null);
             }
-        }
-
-        @Override
-        protected double getAttackReachSqr(LivingEntity pAttackTarget) {
-            return super.getAttackReachSqr(pAttackTarget) * 3;
         }
 
     }

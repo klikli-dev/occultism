@@ -33,7 +33,7 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.common.util.INBTSerializable;
+import net.neoforged.neoforge.common.util.INBTSerializable;
 import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import net.tslat.smartbrainlib.util.BrainUtils;
@@ -50,7 +50,7 @@ public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
 
     public static SpiritJob from(SpiritEntity entity, CompoundTag nbt) {
         SpiritJobFactory factory = OccultismSpiritJobs.REGISTRY
-                .get().getValue(new ResourceLocation(nbt.getString("factoryId")));
+                .get(new ResourceLocation(nbt.getString("factoryId")));
         SpiritJob job = factory.create(entity);
         job.deserializeNBT(nbt);
         return job;

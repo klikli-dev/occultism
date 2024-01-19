@@ -3,28 +3,24 @@
   "criteria": {
     "dragon_fetch": {
       "conditions": {
-        "type": "DRAGON_FETCH"
+        "type": "dragon_fetch"
       },
       "trigger": "occultism:familiar"
     },
     "dragon_pet": {
       "conditions": {
-        "type": "DRAGON_PET"
+        "type": "dragon_pet"
       },
       "trigger": "occultism:familiar"
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.occultism.familiar.mans_best_friend.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "minecraft:stick"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.occultism.familiar.mans_best_friend.title"
     }

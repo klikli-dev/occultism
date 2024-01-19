@@ -39,14 +39,15 @@ import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.common.misc.DepositOrder;
 import com.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.klikli_dev.occultism.common.misc.StorageControllerItemStackHandler;
-import com.klikli_dev.occultism.network.MessageUpdateStacks;
+import com.klikli_dev.occultism.network.messages.MessageUpdateStacks;
+import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.occultism.registry.OccultismTiles;
 import com.klikli_dev.occultism.util.EntityUtil;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -61,13 +62,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -88,21 +85,20 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
     public static final int MAX_STABILIZER_DISTANCE = 5;
 
-    protected static final List<RegistryObject<? extends Block>> BLOCK_BLACKLIST = Stream.of(
+    protected static final List<DeferredBlock<? extends Block>> BLOCK_BLACKLIST = Stream.of(
             OccultismBlocks.STORAGE_CONTROLLER).collect(Collectors.toList());
     private final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
     public Map<Integer, ItemStack> matrix = new HashMap<>();
     public ItemStack orderStack = ItemStack.EMPTY;
     public Map<GlobalBlockPos, MachineReference> linkedMachines = new HashMap<>();
     public Map<GlobalBlockPos, UUID> depositOrderSpirits = new HashMap<>();
-    protected SortDirection sortDirection = SortDirection.DOWN;
-    protected SortType sortType = SortType.AMOUNT;
-    protected ItemStackHandler itemStackHandlerInternal = new StorageControllerItemStackHandler(this,
+    public ItemStackHandler itemStackHandler = new StorageControllerItemStackHandler(this,
             Occultism.SERVER_CONFIG.storage.controllerBaseSlots.get(),
             Occultism.SERVER_CONFIG.storage.controllerStackSize.get(),
             Occultism.SERVER_CONFIG.storage.overrideItemStackSizes.get()
     );
-    protected LazyOptional<ItemStackHandler> itemStackHandler = LazyOptional.of(() -> this.itemStackHandlerInternal);
+    protected SortDirection sortDirection = SortDirection.DOWN;
+    protected SortType sortType = SortType.AMOUNT;
     protected int maxSlots = Occultism.SERVER_CONFIG.storage.controllerBaseSlots.get();
     protected int usedSlots = 0;
     protected boolean stabilizersInitialized = false;
@@ -110,7 +106,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     protected MessageUpdateStacks cachedMessageUpdateStacks;
 
     public StorageControllerBlockEntity(BlockPos worldPos, BlockState state) {
-        super(OccultismTiles.STORAGE_CONTROLLER.get(), worldPos, state);
+        super(OccultismBlockEntities.STORAGE_CONTROLLER.get(), worldPos, state);
     }
 
     public void tick() {
@@ -185,7 +181,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     }
 
     private List<Predicate<ItemStack>> getComparatorsSortedByAmount(Predicate<ItemStack> comparator) {
-        var handler = this.itemStackHandlerInternal;
+        var handler = this.itemStackHandler;
         var map = new HashMap<Item, Integer>();
         for (int i = 0; i < handler.getSlots(); i++) {
             var getStackInSlot = handler.getStackInSlot(i);
@@ -206,7 +202,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
     @Override
     public Component getDisplayName() {
-        return Component.literal(ForgeRegistries.BLOCK_ENTITY_TYPES.getKey(this.getType()).getPath());
+        return Component.literal(BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(this.getType()).getPath());
     }
 
     @Override
@@ -263,7 +259,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
     @Override
     public List<ItemStack> getStacks() {
-        ItemStackHandler handler = this.itemStackHandlerInternal;
+        ItemStackHandler handler = this.itemStackHandler;
         int size = handler.getSlots();
         int usedSlots = 0;
         List<ItemStack> result = new ArrayList<>(size);
@@ -295,7 +291,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     @Override
     public void setMaxSlots(int slots) {
         this.maxSlots = slots;
-        this.itemStackHandlerInternal.setSize(this.maxSlots);
+        this.itemStackHandler.setSize(this.maxSlots);
         //force resync
         this.cachedMessageUpdateStacks = null;
         this.markNetworkDirty();
@@ -360,7 +356,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     @Override
     public boolean isBlacklisted(ItemStack stack) {
         if (stack.getItem() instanceof BlockItem itemBlock) {
-            return BLOCK_BLACKLIST.stream().map(RegistryObject::get).anyMatch(block -> itemBlock.getBlock() == block);
+            return BLOCK_BLACKLIST.stream().map(DeferredBlock::get).anyMatch(block -> itemBlock.getBlock() == block);
         }
 
         return stack.getItem() == OccultismItems.STORAGE_REMOTE.get();
@@ -371,7 +367,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         if (this.isBlacklisted(stack))
             return stack.getCount();
 
-        ItemStackHandler handler = this.itemStackHandlerInternal;
+        ItemStackHandler handler = this.itemStackHandler;
         if (ItemHandlerHelper.insertItem(handler, stack, true).getCount() < stack.getCount()) {
             stack = ItemHandlerHelper.insertItem(handler, stack, simulate);
         }
@@ -387,7 +383,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
         var comparators = this.getComparatorsSortedByAmount(comparator);
 
-        ItemStackHandler handler = this.itemStackHandlerInternal;
+        ItemStackHandler handler = this.itemStackHandler;
 
         //we start with the comparator representing the most common item, and if we don't find anything we move on.
         //Note: unless something weird happens we should always find something.
@@ -418,7 +414,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         if (requestedSize <= 0 || comparator == null) {
             return ItemStack.EMPTY;
         }
-        ItemStackHandler handler = this.itemStackHandlerInternal;
+        ItemStackHandler handler = this.itemStackHandler;
         ItemStack firstMatchedStack = ItemStack.EMPTY;
         int remaining = requestedSize;
         for (int slot = 0; slot < handler.getSlots(); slot++) {
@@ -472,7 +468,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
             return 0;
         }
         int totalCount = 0;
-        ItemStackHandler handler = this.itemStackHandlerInternal;
+        ItemStackHandler handler = this.itemStackHandler;
         int size = handler.getSlots();
         for (int slot = 0; slot < size; slot++) {
             ItemStack stack = handler.getStackInSlot(slot);
@@ -489,34 +485,13 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     }
 
     @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        this.itemStackHandler.invalidate();
-    }
-
-    @Override
-    public void reviveCaps() {
-        super.reviveCaps();
-        this.itemStackHandler = LazyOptional.of(() -> this.itemStackHandlerInternal);
-    }
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction direction) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            return this.itemStackHandler.cast();
-        }
-        return super.getCapability(cap, direction);
-    }
-
-    @Override
     public void load(CompoundTag compound) {
         compound.remove("linkedMachines"); //linked machines are not saved, they self-register.
         super.load(compound);
 
         //read stored items
         if (compound.contains("items")) {
-            this.itemStackHandlerInternal.deserializeNBT(compound.getCompound("items"));
+            this.itemStackHandler.deserializeNBT(compound.getCompound("items"));
             this.cachedMessageUpdateStacks = null;
         }
     }
@@ -525,7 +500,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     protected void saveAdditional(CompoundTag compound) {
         super.saveAdditional(compound);
         compound.remove("linkedMachines"); //linked machines are not saved, they self-register.
-        compound.put("items", this.itemStackHandlerInternal.serializeNBT());
+        compound.put("items", this.itemStackHandler.serializeNBT());
     }
 
     @Override

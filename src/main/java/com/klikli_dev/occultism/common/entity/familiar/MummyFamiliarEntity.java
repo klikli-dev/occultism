@@ -154,7 +154,7 @@ public class MummyFamiliarEntity extends FamiliarEntity {
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasCrown())
-            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 

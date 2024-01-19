@@ -69,7 +69,7 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasRibbon())
-            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 
@@ -193,7 +193,7 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
         public void start() {
             if (this.nearby != null) {
                 this.nearby.hurt(this.bat.damageSources().mobAttack(this.bat), 10);
-                OccultismAdvancements.FAMILIAR.trigger(this.bat.getFamiliarOwner(), FamiliarTrigger.Type.BAT_EAT);
+                OccultismAdvancements.FAMILIAR.get().trigger(this.bat.getFamiliarOwner(), FamiliarTrigger.Type.BAT_EAT);
             }
         }
 

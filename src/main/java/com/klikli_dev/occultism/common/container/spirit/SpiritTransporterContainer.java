@@ -23,17 +23,16 @@
 package com.klikli_dev.occultism.common.container.spirit;
 
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
+
 import com.klikli_dev.occultism.registry.OccultismContainers;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.SlotItemHandler;
-
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.SlotItemHandler;
 import javax.annotation.Nonnull;
 
 public class SpiritTransporterContainer extends SpiritContainer {
@@ -101,7 +100,7 @@ public class SpiritTransporterContainer extends SpiritContainer {
     protected void setupFilterSlots() {
         int x = 8;
         int y = 84;
-        ItemStackHandler filterItems = this.spirit.filterItemStackHandler.orElseThrow(ItemHandlerMissingException::new);
+        ItemStackHandler filterItems = this.spirit.filterItemStackHandler;
 
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < filterItems.getSlots() / 2; j++) {

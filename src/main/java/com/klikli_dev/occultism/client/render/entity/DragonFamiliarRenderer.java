@@ -34,11 +34,11 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RenderLivingEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod.EventBusSubscriber;
+import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.neoforge.client.event.RenderLivingEvent;
 
 public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, DragonFamiliarModel> {
 
@@ -61,7 +61,7 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Dr
     private static class RenderText {
 
         @SubscribeEvent
-        public static void renderText(RenderLivingEvent<DragonFamiliarEntity, DragonFamiliarModel> event) {
+        public static void renderText(RenderLivingEvent.Post<DragonFamiliarEntity, DragonFamiliarModel> event) {
             if (!(event.getEntity() instanceof DragonFamiliarEntity dragon))
                 return;
 

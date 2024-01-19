@@ -33,8 +33,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.network.NetworkHooks;
-
 public class ThrownSwordEntity extends ThrowableItemProjectile {
 
     private static final int MAX_DURATION = 20 * 5;
@@ -91,12 +89,6 @@ public class ThrownSwordEntity extends ThrowableItemProjectile {
         if (!this.level().isClientSide) {
             target.hurt(this.damageSources().thrown(this, this.getOwner()), 6);
         }
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     private boolean friendlyFire(Entity target) {

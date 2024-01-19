@@ -26,17 +26,15 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
 import com.klikli_dev.occultism.client.gui.controls.SizedImageButton;
 import com.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
-import com.klikli_dev.occultism.network.MessageSetFilterMode;
-import com.klikli_dev.occultism.network.MessageSetTagFilterText;
-import com.klikli_dev.occultism.network.OccultismPackets;
+import com.klikli_dev.occultism.network.messages.MessageSetFilterMode;
+import com.klikli_dev.occultism.network.messages.MessageSetTagFilterText;
+import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.util.InputUtil;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -85,7 +83,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
     public void setIsBlacklist(boolean isBlacklist) {
         this.spirit.setFilterBlacklist(isBlacklist);
-        OccultismPackets.sendToServer(new MessageSetFilterMode(isBlacklist, this.spirit.getId()));
+        Networking.sendToServer(new MessageSetFilterMode(isBlacklist, this.spirit.getId()));
     }
     //endregion Getter / Setter
 
@@ -213,16 +211,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
         //we used to check for blank tag filter here, but that prevents emptying the filter
         this.spirit.setTagFilter(this.tagFilter);
-        OccultismPackets.sendToServer(new MessageSetTagFilterText(this.tagFilter, this.spirit.getId()));
-    }
-
-    /**
-     * Tick is final in abstract container, but calls this method
-     */
-    @Override
-    public void containerTick() {
-        this.tagFilterTextField.tick();
-        super.containerTick();
+        Networking.sendToServer(new MessageSetTagFilterText(this.tagFilter, this.spirit.getId()));
     }
 
     @Override

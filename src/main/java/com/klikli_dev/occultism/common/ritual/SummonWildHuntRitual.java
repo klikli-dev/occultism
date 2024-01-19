@@ -34,11 +34,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraftforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.event.EventHooks;
 
 public class SummonWildHuntRitual extends SummonRitual {
 
@@ -48,12 +47,12 @@ public class SummonWildHuntRitual extends SummonRitual {
 
     @Override
     public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                       Player castingPlayer, ItemStack activationItem) {
+                       ServerPlayer castingPlayer, ItemStack activationItem) {
         //manually call content of Ritual.finish(), because we cannot access it via super
         level.playSound(null, goldenBowlPosition, OccultismSounds.POOF.get(), SoundSource.BLOCKS, 0.7f,
                 0.7f);
-        castingPlayer.displayClientMessage(Component.translatable(this.getFinishedMessage()), true);
-        OccultismAdvancements.RITUAL.trigger((ServerPlayer) castingPlayer, this);
+        castingPlayer.displayClientMessage(Component.translatable(this.getFinishedMessage(castingPlayer)), true);
+        OccultismAdvancements.RITUAL.get().trigger(castingPlayer, this);
 
         activationItem.shrink(1); //remove original activation item.
 
@@ -77,7 +76,7 @@ public class SummonWildHuntRitual extends SummonRitual {
                     living.setCustomName(Component.literal(TextUtil.generateName()));
 
                     if (living instanceof Mob mob) {
-                        ForgeEventFactory.onFinalizeSpawn(mob, (ServerLevelAccessor) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED, null, null);
+                        EventHooks.onFinalizeSpawn(mob, (ServerLevelAccessor) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED, null, null);
                     }
 
                     this.applyEntityNbt(living);

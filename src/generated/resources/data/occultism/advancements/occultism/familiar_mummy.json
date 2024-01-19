@@ -3,9 +3,7 @@
   "criteria": {
     "familiar_mummy": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/familiar_mummy"
-        }
+        "ritual_id": "occultism:ritual/familiar_mummy"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.familiar_mummy.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

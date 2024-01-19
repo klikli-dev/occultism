@@ -3,9 +3,7 @@
   "criteria": {
     "craft_stable_wormhole": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/craft_stable_wormhole"
-        }
+        "ritual_id": "occultism:ritual/craft_stable_wormhole"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.craft_stable_wormhole.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

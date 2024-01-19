@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_nether",
+  "features": "occultism:ore_iesnium",
+  "step": "underground_ores"
+}

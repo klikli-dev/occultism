@@ -42,7 +42,6 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
 
     }
 
-    //region Static Methods
     public static float getScale(ItemStack stack) {
         if (stack.getItem() instanceof BlockItem itemBlock) {
             if (itemBlock.getBlock() instanceof SpiritAttunedCrystalBlock)
@@ -54,33 +53,32 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
     @Override
     public void render(SacrificialBowlBlockEntity blockEntity, float partialTicks, PoseStack poseStack,
                        MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
-        blockEntity.itemStackHandler.ifPresent(handler -> {
-            ItemStack stack = handler.getStackInSlot(0);
-            long time = blockEntity.getLevel().getGameTime();
-            poseStack.pushPose();
+        var handler = blockEntity.itemStackHandler;
 
-            //slowly bob up and down following a sine
-            double offset = Math.sin((time - blockEntity.lastChangeTime + partialTicks) / 16) * 0.5f + 0.5f; // * 0.5f + 0.5f;  move sine between 0.0-1.0
-            offset = offset / 4.0f; //reduce amplitude
-            poseStack.translate(0.5, 0.6 + offset, 0.5);
+        ItemStack stack = handler.getStackInSlot(0);
+        long time = blockEntity.getLevel().getGameTime();
+        poseStack.pushPose();
 
-            //use system time to become independent of game time
-            long systemTime = System.currentTimeMillis();
-            //rotate item slowly around y axis
-            float angle = (systemTime / 16) % 360;
-            poseStack.mulPose(Axis.YP.rotationDegrees(angle));
+        //slowly bob up and down following a sine
+        double offset = Math.sin((time - blockEntity.lastChangeTime + partialTicks) / 16) * 0.5f + 0.5f; // * 0.5f + 0.5f;  move sine between 0.0-1.0
+        offset = offset / 4.0f; //reduce amplitude
+        poseStack.translate(0.5, 0.6 + offset, 0.5);
 
-            //Fixed scale
-            float scale = getScale(stack) * 0.5f;
-            poseStack.scale(scale, scale, scale);
+        //use system time to become independent of game time
+        long systemTime = System.currentTimeMillis();
+        //rotate item slowly around y axis
+        float angle = (systemTime / 16) % 360;
+        poseStack.mulPose(Axis.YP.rotationDegrees(angle));
 
-            ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-            BakedModel model = itemRenderer.getModel(stack, blockEntity.getLevel(), null, 0);
-            itemRenderer.render(stack, ItemDisplayContext.FIXED, true, poseStack, buffer,
-                    combinedLight, combinedOverlay, model);
+        //Fixed scale
+        float scale = getScale(stack) * 0.5f;
+        poseStack.scale(scale, scale, scale);
 
-            poseStack.popPose();
-        });
+        ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
+        BakedModel model = itemRenderer.getModel(stack, blockEntity.getLevel(), null, 0);
+        itemRenderer.render(stack, ItemDisplayContext.FIXED, true, poseStack, buffer,
+                combinedLight, combinedOverlay, model);
+
+        poseStack.popPose();
     }
-    //endregion Static Methods
 }

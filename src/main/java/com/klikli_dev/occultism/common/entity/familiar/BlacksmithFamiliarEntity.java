@@ -42,9 +42,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
-import net.minecraftforge.common.Tags;
-
+import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
+import net.neoforged.neoforge.common.Tags;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 
@@ -101,7 +100,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasEarring())
-            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 
@@ -224,7 +223,7 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
                 if (this.target.canBlacksmithUpgrade()) {
                     this.target.blacksmithUpgrade();
                     this.blacksmith.changeIronCount(-UPGRADE_COST.get());
-                    OccultismAdvancements.FAMILIAR.trigger(this.blacksmith.getFamiliarOwner(),
+                    OccultismAdvancements.FAMILIAR.get().trigger(this.blacksmith.getFamiliarOwner(),
                             FamiliarTrigger.Type.BLACKSMITH_UPGRADE);
                 }
                 this.target = null;

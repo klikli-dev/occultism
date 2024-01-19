@@ -3,23 +3,19 @@
   "criteria": {
     "dragon_ride": {
       "conditions": {
-        "type": "DRAGON_RIDE"
+        "type": "dragon_ride"
       },
       "trigger": "occultism:familiar"
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.occultism.familiar.dragon_ride.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "occultism:advancement_icon",
       "nbt": "{CustomModelData:6}"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.occultism.familiar.dragon_ride.title"
     }

@@ -3,9 +3,7 @@
   "criteria": {
     "craft_storage_remote": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/craft_storage_remote"
-        }
+        "ritual_id": "occultism:ritual/craft_storage_remote"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.craft_storage_remote.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

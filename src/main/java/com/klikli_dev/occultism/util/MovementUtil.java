@@ -22,15 +22,13 @@
 
 package com.klikli_dev.occultism.util;
 
-import com.klikli_dev.occultism.common.capability.DoubleJumpCapability;
 import com.klikli_dev.occultism.common.effect.DoubleJumpEffect;
-import com.klikli_dev.occultism.registry.OccultismCapabilities;
+import com.klikli_dev.occultism.registry.OccultismDataStorage;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ElytraItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.util.LazyOptional;
 
 public class MovementUtil {
     public static boolean doubleJump(Player player) {
@@ -39,11 +37,10 @@ public class MovementUtil {
             return false;
         }
 
-        LazyOptional<DoubleJumpCapability> doubleJumpCapability = player.getCapability(OccultismCapabilities.DOUBLE_JUMP);
-        int jumps = doubleJumpCapability.map(DoubleJumpCapability::getJumps).orElse(Integer.MAX_VALUE);
+        int jumps = player.getData(OccultismDataStorage.DOUBLE_JUMP);
         if (jumps < DoubleJumpEffect.getMaxJumps(player)) {
             player.jumpFromGround();
-            doubleJumpCapability.ifPresent(DoubleJumpCapability::addJump);
+            player.setData(OccultismDataStorage.DOUBLE_JUMP, jumps + 1);
             return true;
         }
         return false;

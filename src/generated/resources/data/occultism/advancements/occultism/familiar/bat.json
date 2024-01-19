@@ -3,23 +3,19 @@
   "criteria": {
     "bat_eat": {
       "conditions": {
-        "type": "BAT_EAT"
+        "type": "bat_eat"
       },
       "trigger": "occultism:familiar"
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.occultism.familiar.bat.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "occultism:advancement_icon",
       "nbt": "{CustomModelData:1}"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.occultism.familiar.bat.title"
     }

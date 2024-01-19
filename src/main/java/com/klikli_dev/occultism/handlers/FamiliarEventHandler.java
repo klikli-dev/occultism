@@ -40,16 +40,15 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.MobEffectEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.level.SaplingGrowTreeEvent;
-import net.minecraftforge.eventbus.api.Event.Result;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-
+import net.neoforged.bus.api.Event.Result;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingHurtEvent;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.level.SaplingGrowTreeEvent;
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -102,7 +101,7 @@ public class FamiliarEventHandler {
         event.setCanceled(dodge);
 
         if (dodge)
-            OccultismAdvancements.FAMILIAR.trigger(entity, FamiliarTrigger.Type.MUMMY_DODGE);
+            OccultismAdvancements.FAMILIAR.get().trigger(entity, FamiliarTrigger.Type.MUMMY_DODGE);
     }
 
     @SubscribeEvent
@@ -146,7 +145,7 @@ public class FamiliarEventHandler {
         entity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20 * 5, 2));
 
         if (!owner.level().isClientSide)
-            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.FAIRY_SAVE);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.FAIRY_SAVE);
     }
 
     @SubscribeEvent
@@ -177,7 +176,7 @@ public class FamiliarEventHandler {
                 OccultismEntities.HEADLESS_FAMILIAR.get());
 
         if (!headlesses.isEmpty() && event.getEntity().getType() == OccultismEntities.CTHULHU_FAMILIAR.get())
-            OccultismAdvancements.FAMILIAR.trigger(player, FamiliarTrigger.Type.HEADLESS_CTHULHU_HEAD);
+            OccultismAdvancements.FAMILIAR.get().trigger(player, FamiliarTrigger.Type.HEADLESS_CTHULHU_HEAD);
 
         headlesses.forEach(h -> h.setHeadType(event.getEntity().getType()));
     }

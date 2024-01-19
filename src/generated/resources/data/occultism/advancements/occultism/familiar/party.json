@@ -3,22 +3,18 @@
   "criteria": {
     "party": {
       "conditions": {
-        "type": "PARTY"
+        "type": "party"
       },
       "trigger": "occultism:familiar"
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.occultism.familiar.party.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "minecraft:jukebox"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.occultism.familiar.party.title"
     }

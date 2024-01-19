@@ -29,7 +29,6 @@ import com.klikli_dev.occultism.common.entity.ai.BlockSorter;
 import com.klikli_dev.occultism.common.entity.job.ManageMachineJob;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.common.misc.DepositOrder;
-import com.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -41,9 +40,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -131,8 +130,7 @@ public class ManageMachineGoal extends Goal {
                         ItemStack itemToExtract = this.job.getStorageController()
                                 .getItemStack(currentOrder.comparator, currentOrder.amount,
                                         true);
-                        IItemHandler handler = this.entity.getCapability(ForgeCapabilities.ITEM_HANDLER,
-                                Direction.UP).orElseThrow(ItemHandlerMissingException::new);
+                        IItemHandler handler = this.entity.getCapability(Capabilities.ItemHandler.ENTITY);
                         if (!itemToExtract.isEmpty() &&
                                 ItemHandlerHelper.insertItem(handler, itemToExtract, true).isEmpty()) {
                             //we can insert all, so we can perform for real now
@@ -150,13 +148,13 @@ public class ManageMachineGoal extends Goal {
                     } else if (this.targetBlock.equals(machineReference.extractGlobalPos.getPos())) {
                         //if we reached the machine (=extract block entity), we take out the result
 
+                        var machineHandler = blockEntity.getLevel().getCapability(Capabilities.ItemHandler.BLOCK,
+                                blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity,
+                                machineReference.extractFacing);
 
-                        blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER,
-                                machineReference.extractFacing).ifPresent(machineHandler -> {
+                        if (machineHandler != null) {
 
-                            IItemHandler entityHandler = this.entity.getCapability(
-                                            ForgeCapabilities.ITEM_HANDLER, Direction.UP)
-                                    .orElseThrow(ItemHandlerMissingException::new);
+                            IItemHandler entityHandler = this.entity.getCapability(Capabilities.ItemHandler.ENTITY);
 
                             boolean movedAnyItems = false;
                             for (int i = 0; i < machineHandler.getSlots(); i++) {
@@ -188,7 +186,7 @@ public class ManageMachineGoal extends Goal {
                                 this.targetBlock = null;
 
                             }
-                        });
+                        }
                     }
                     this.stop();
                 }
@@ -250,44 +248,49 @@ public class ManageMachineGoal extends Goal {
 
     private boolean startTargetingStorageController(DepositOrder depositOrder, MachineReference machineReference,
                                                     BlockEntity machine, IStorageController storageController) {
-        return machine.getCapability(ForgeCapabilities.ITEM_HANDLER, machineReference.insertFacing)
-                .map(machineItemHandler -> {
-                    //simulate taking and inserting items to ensure we have space
-                    ItemStack orderStack = storageController
-                            .getItemStack(depositOrder.comparator, depositOrder.amount,
-                                    true);
-                    if (!orderStack.isEmpty() &&
-                            ItemHandlerHelper.insertItem(machineItemHandler, orderStack, true).isEmpty()) {
-                        //if we can insert everything we can get for this order, perform it.
-                        BlockEntity storageControllerProxy = this.findClosestStorageProxy();
-                        if (storageControllerProxy != null) {
-                            this.targetBlock = storageControllerProxy.getBlockPos();
-                            return true;
-                        }
-                        //no proxy in range, so we just skip this task which will lead to idle.
-                        this.targetBlock = null;
-                        return true;
-                    } else if (!orderStack.isEmpty()) {
-                        //returning false leads to a call to startTargetingMachine
-                        return false;
-                    }
-                    return false;
-                }).orElse(false);
+
+        var machineItemHandler = machine.getLevel().getCapability(Capabilities.ItemHandler.BLOCK,
+                machine.getBlockPos(), machine.getBlockState(), machine, machineReference.insertFacing);
+        if (machineItemHandler == null)
+            return false;
+
+        //simulate taking and inserting items to ensure we have space
+        ItemStack orderStack = storageController
+                .getItemStack(depositOrder.comparator, depositOrder.amount,
+                        true);
+        if (!orderStack.isEmpty() &&
+                ItemHandlerHelper.insertItem(machineItemHandler, orderStack, true).isEmpty()) {
+            //if we can insert everything we can get for this order, perform it.
+            BlockEntity storageControllerProxy = this.findClosestStorageProxy();
+            if (storageControllerProxy != null) {
+                this.targetBlock = storageControllerProxy.getBlockPos();
+                return true;
+            }
+            //no proxy in range, so we just skip this task which will lead to idle.
+            this.targetBlock = null;
+            return true;
+        } else if (!orderStack.isEmpty()) {
+            //returning false leads to a call to startTargetingMachine
+            return false;
+        }
+        return false;
     }
 
     private boolean startTargetingExtractBlockEntity(DepositOrder depositOrder, MachineReference machineReference,
                                                      BlockEntity extractBlockEntity, IStorageController storageController) {
-        return extractBlockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, machineReference.extractFacing)
-                .map(machineItemHandler -> {
-                    for (int i = 0; i < machineItemHandler.getSlots(); i++) {
-                        if (!machineItemHandler.getStackInSlot(i).isEmpty()) {
-                            this.targetBlock = extractBlockEntity.getBlockPos();
-                            return true;
-                        }
-                    }
-                    this.targetBlock = null;
-                    return false;
-                }).orElse(false);
+        var machineItemHandler = extractBlockEntity.getLevel().getCapability(Capabilities.ItemHandler.BLOCK,
+                extractBlockEntity.getBlockPos(), extractBlockEntity.getBlockState(), extractBlockEntity, machineReference.extractFacing);
+        if (machineItemHandler == null)
+            return false;
+
+        for (int i = 0; i < machineItemHandler.getSlots(); i++) {
+            if (!machineItemHandler.getStackInSlot(i).isEmpty()) {
+                this.targetBlock = extractBlockEntity.getBlockPos();
+                return true;
+            }
+        }
+        this.targetBlock = null;
+        return false;
     }
 
     private void resetTarget() {
@@ -300,8 +303,9 @@ public class ManageMachineGoal extends Goal {
         if (machine != null && extractBlockEntity != null && storageController != null) {
 
             //machine was replaced or no longer supports inventories, so we unlink it and abort
-            if (!machine.getCapability(ForgeCapabilities.ITEM_HANDLER, machineReference.insertFacing).isPresent() ||
-                    !extractBlockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, machineReference.extractFacing).isPresent()) {
+            if (machine.getLevel().getCapability(Capabilities.ItemHandler.BLOCK,
+                    machine.getBlockPos(), machine.getBlockState(), machine, machineReference.insertFacing) == null ||
+                    extractBlockEntity.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, extractBlockEntity.getBlockPos(), extractBlockEntity.getBlockState(), extractBlockEntity, machineReference.extractFacing) == null) {
                 this.job.setManagedMachine(null);
                 this.targetBlock = null;
                 return;

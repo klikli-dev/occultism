@@ -37,11 +37,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.event.ScreenEvent;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.TickEvent;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -133,7 +132,7 @@ public class ThirdEyeEffectRenderer {
             if (state.getBlock() instanceof IOtherworldBlock block) {
                 if (block.getTier().getLevel() <= tier.getLevel()) {
                     if (!state.getValue(IOtherworldBlock.UNCOVERED)) {
-                        level.setBlock(pos, state.setValue(IOtherworldBlock.UNCOVERED, true), 1);
+                        level.setBlock(pos, state.setValue(IOtherworldBlock.UNCOVERED, true), Block.UPDATE_IMMEDIATE);
                     }
                     this.uncoveredBlocks.add(pos.immutable());
                 }

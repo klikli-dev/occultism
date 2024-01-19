@@ -44,7 +44,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.event.EventHooks;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -54,7 +54,6 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
-
 import javax.annotation.Nullable;
 
 public class AfritWildEntity extends Monster implements GeoEntity {
@@ -84,7 +83,7 @@ public class AfritWildEntity extends Monster implements GeoEntity {
         for (int i = 0; i < maxBlazes; i++) {
             Blaze entity = EntityType.BLAZE.create(level.getLevel());
 
-            ForgeEventFactory.onFinalizeSpawn(entity, level, difficultyIn, reason, spawnDataIn, dataTag);
+            EventHooks.onFinalizeSpawn(entity, level, difficultyIn, reason, spawnDataIn, dataTag);
 
             double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
             double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));

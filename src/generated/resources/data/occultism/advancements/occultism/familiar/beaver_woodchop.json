@@ -3,23 +3,19 @@
   "criteria": {
     "beaver_woodchop": {
       "conditions": {
-        "type": "BEAVER_WOODCHOP"
+        "type": "beaver_woodchop"
       },
       "trigger": "occultism:familiar"
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.occultism.familiar.beaver_woodchop.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "occultism:advancement_icon",
       "nbt": "{CustomModelData:16}"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.occultism.familiar.beaver_woodchop.title"
     }

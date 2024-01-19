@@ -1,21 +1,21 @@
 {
-  "type": "occultism:crushing",
-  "conditions": [
+  "neoforge:conditions": [
     {
-      "type": "forge:not",
+      "type": "neoforge:not",
       "value": {
-        "type": "forge:tag_empty",
+        "type": "neoforge:tag_empty",
         "tag": "forge:storage_blocks/raw_mithril"
       }
     },
     {
-      "type": "forge:not",
+      "type": "neoforge:not",
       "value": {
-        "type": "forge:tag_empty",
+        "type": "neoforge:tag_empty",
         "tag": "forge:dusts/mithril"
       }
     }
   ],
+  "type": "occultism:crushing",
   "crushing_time": 1600,
   "ignore_crushing_multiplier": false,
   "ingredient": {

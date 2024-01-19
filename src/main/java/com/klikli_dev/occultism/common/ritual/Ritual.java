@@ -22,11 +22,13 @@
 
 package com.klikli_dev.occultism.common.ritual;
 
+import com.google.common.base.Suppliers;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
 import com.klikli_dev.occultism.common.blockentity.SacrificialBowlBlockEntity;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
+import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -41,14 +43,16 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public abstract class Ritual {
 
@@ -72,6 +76,9 @@ public abstract class Ritual {
     public RitualRecipe recipe;
 
     public ResourceLocation factoryId;
+    Supplier<RecipeHolder<RitualRecipe>> recipeHolderSupplier;
+
+    //region Getter / Setter
 
     /**
      * Constructs a ritual.
@@ -79,8 +86,6 @@ public abstract class Ritual {
     public Ritual(RitualRecipe recipe) {
         this.recipe = recipe;
     }
-
-    //region Getter / Setter
 
     /**
      * Removes all matching consumed already consumed ingredients from the remaining additional ingredients.
@@ -119,8 +124,17 @@ public abstract class Ritual {
         return this.recipe;
     }
 
-    public String getRitualID() {
-        ResourceLocation recipeId = this.getRecipe().getId();
+    public RecipeHolder<RitualRecipe> getRecipeHolder(ServerPlayer player) {
+        if (this.recipeHolderSupplier == null) {
+            this.recipeHolderSupplier = Suppliers.memoize(() -> player.getServer().getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get()).stream().filter(
+                    r -> r.value() == this.getRecipe()
+            ).findFirst().orElse(null));
+        }
+        return this.recipeHolderSupplier.get();
+    }
+
+    public String getRitualID(ServerPlayer player) {
+        ResourceLocation recipeId = this.getRecipeHolder(player).id();
         String path = recipeId.getPath();
         if (path.contains("/"))
             path = path.substring(path.indexOf("/") + 1);
@@ -131,30 +145,30 @@ public abstract class Ritual {
     /**
      * @return the conditions message translation key for this ritual.
      */
-    public String getConditionsMessage() {
-        return String.format("ritual.%s.conditions", this.getRitualID());
+    public String getConditionsMessage(ServerPlayer player) {
+        return String.format("ritual.%s.conditions", this.getRitualID(player));
     }
 
     /**
      * @return the started message translation key for this ritual.
      */
-    public String getStartedMessage() {
-        return String.format("ritual.%s.started", this.getRitualID());
+    public String getStartedMessage(ServerPlayer player) {
+        return String.format("ritual.%s.started", this.getRitualID(player));
     }
 
     /**
      * @return the interrupted message translation key for this ritual.
      */
-    public String getInterruptedMessage() {
-        return String.format("ritual.%s.interrupted", this.getRitualID());
+    public String getInterruptedMessage(ServerPlayer player) {
+        return String.format("ritual.%s.interrupted", this.getRitualID(player));
     }
     //endregion Getter / Setter
 
     /**
      * @return the finished message translation key for this ritual.
      */
-    public String getFinishedMessage() {
-        return String.format("ritual.%s.finished", this.getRitualID());
+    public String getFinishedMessage(ServerPlayer player) {
+        return String.format("ritual.%s.finished", this.getRitualID(player));
     }
 
     /**
@@ -185,9 +199,9 @@ public abstract class Ritual {
      * @param activationItem     the item used to start the ritual.
      */
     public void start(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                      Player castingPlayer, ItemStack activationItem) {
+                      ServerPlayer castingPlayer, ItemStack activationItem) {
         level.playSound(null, goldenBowlPosition, OccultismSounds.START_RITUAL.get(), SoundSource.BLOCKS, 1, 1);
-        castingPlayer.displayClientMessage(Component.translatable(this.getStartedMessage()), true);
+        castingPlayer.displayClientMessage(Component.translatable(this.getStartedMessage(castingPlayer)), true);
     }
 
     /**
@@ -200,11 +214,11 @@ public abstract class Ritual {
      * @param activationItem     the item used to start the ritual.
      */
     public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                       Player castingPlayer, ItemStack activationItem) {
+                       ServerPlayer castingPlayer, ItemStack activationItem) {
         level.playSound(null, goldenBowlPosition, OccultismSounds.POOF.get(), SoundSource.BLOCKS, 0.7f,
                 0.7f);
-        castingPlayer.displayClientMessage(Component.translatable(this.getFinishedMessage()), true);
-        OccultismAdvancements.RITUAL.trigger((ServerPlayer) castingPlayer, this);
+        castingPlayer.displayClientMessage(Component.translatable(this.getFinishedMessage(castingPlayer)), true);
+        OccultismAdvancements.RITUAL.get().trigger(castingPlayer, this);
     }
 
     /**
@@ -217,9 +231,9 @@ public abstract class Ritual {
      * @param activationItem     the item used to start the ritual.
      */
     public void interrupt(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                          Player castingPlayer, ItemStack activationItem) {
+                          ServerPlayer castingPlayer, ItemStack activationItem) {
         level.playSound(null, goldenBowlPosition, SoundEvents.CHICKEN_EGG, SoundSource.BLOCKS, 0.7f, 0.7f);
-        castingPlayer.displayClientMessage(Component.translatable(this.getInterruptedMessage()), true);
+        castingPlayer.displayClientMessage(Component.translatable(this.getInterruptedMessage(castingPlayer)), true);
     }
 
     /**
@@ -325,27 +339,22 @@ public abstract class Ritual {
                                                Ingredient ingredient, List<ItemStack> consumedIngredients) {
         for (SacrificialBowlBlockEntity sacrificialBowl : sacrificialBowls) {
             //first simulate removal to check the ingredient
-            if (sacrificialBowl.itemStackHandler.map(handler -> {
-                ItemStack stack = handler.extractItem(0, 1, true);
-                if (ingredient.test(stack)) {
-                    //now take for real
-                    ItemStack extracted = handler.extractItem(0, 1, false);
-                    consumedIngredients.add(extracted);
-                    //Show effect in level
-                    ((ServerLevel) level)
-                            .sendParticles(ParticleTypes.LARGE_SMOKE, sacrificialBowl.getBlockPos().getX() + 0.5,
-                                    sacrificialBowl.getBlockPos().getY() + 1.5, sacrificialBowl.getBlockPos().getZ() + 0.5, 1,
-                                    0.0, 0.0, 0.0,
-                                    0.0);
+            ItemStack stack = sacrificialBowl.itemStackHandler.extractItem(0, 1, true);
+            if (ingredient.test(stack)) {
+                //now take for real
+                ItemStack extracted = sacrificialBowl.itemStackHandler.extractItem(0, 1, false);
+                consumedIngredients.add(extracted);
+                //Show effect in level
+                ((ServerLevel) level)
+                        .sendParticles(ParticleTypes.LARGE_SMOKE, sacrificialBowl.getBlockPos().getX() + 0.5,
+                                sacrificialBowl.getBlockPos().getY() + 1.5, sacrificialBowl.getBlockPos().getZ() + 0.5, 1,
+                                0.0, 0.0, 0.0,
+                                0.0);
 
-                    level.playSound(null, sacrificialBowl.getBlockPos(), OccultismSounds.POOF.get(), SoundSource.BLOCKS,
-                            0.7f, 0.7f);
-                    return true;
-                }
-                return false;
-            }).orElse(false))
+                level.playSound(null, sacrificialBowl.getBlockPos(), OccultismSounds.POOF.get(), SoundSource.BLOCKS,
+                        0.7f, 0.7f);
                 return true;
-
+            }
         }
         return false;
     }
@@ -415,12 +424,10 @@ public abstract class Ritual {
 
         List<SacrificialBowlBlockEntity> sacrificialBowls = this.getSacrificialBowls(level, goldenBowlPosition);
         for (SacrificialBowlBlockEntity sacrificialBowl : sacrificialBowls) {
-            sacrificialBowl.itemStackHandler.ifPresent(handler -> {
-                ItemStack stack = handler.getStackInSlot(0);
-                if (!stack.isEmpty()) {
-                    result.add(stack);
-                }
-            });
+            ItemStack stack = sacrificialBowl.itemStackHandler.getStackInSlot(0);
+            if (!stack.isEmpty()) {
+                result.add(stack);
+            }
         }
 
         return result;

@@ -24,8 +24,9 @@ package com.klikli_dev.occultism.common.block.storage;
 
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
-import com.klikli_dev.occultism.registry.OccultismTiles;
+import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.util.BlockEntityUtil;
+import net.minecraft.client.multiplayer.chat.report.ReportEnvironment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -35,6 +36,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -47,8 +49,6 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.NetworkHooks;
-
 import javax.annotation.Nullable;
 import java.util.stream.Stream;
 
@@ -85,8 +85,11 @@ public class StorageControllerBlock extends Block implements EntityBlock {
                                  InteractionHand handIn, BlockHitResult rayTraceResult) {
         if (!level.isClientSide) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof MenuProvider provider && StorageControllerContainerBase.canOpen(player, pos)) {
-                NetworkHooks.openScreen((ServerPlayer) player, provider, pos);
+            if (blockEntity instanceof MenuProvider provider &&
+                    StorageControllerContainerBase.canOpen(player, pos) &&
+                    player instanceof ServerPlayer serverPlayer
+            ) {
+                serverPlayer.openMenu(provider, pos);
                 StorageControllerContainerBase.reserve(player, pos);
             }
         }
@@ -101,14 +104,14 @@ public class StorageControllerBlock extends Block implements EntityBlock {
 
     @Override
     @SuppressWarnings("deprecation")
-    public ItemStack getCloneItemStack(BlockGetter worldIn, BlockPos pos, BlockState state) {
+    public ItemStack getCloneItemStack(LevelReader worldIn, BlockPos pos, BlockState state) {
         return BlockEntityUtil.getItemWithNbt(this, worldIn, pos);
     }
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return OccultismTiles.STORAGE_CONTROLLER.get().create(blockPos, blockState);
+        return OccultismBlockEntities.STORAGE_CONTROLLER.get().create(blockPos, blockState);
     }
 
     @Nullable

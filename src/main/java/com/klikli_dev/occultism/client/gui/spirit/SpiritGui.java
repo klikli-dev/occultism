@@ -141,7 +141,7 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int x, int y) {
-        this.renderBackground(guiGraphics);
+//        this.renderBackground(guiGraphics); //called by super
 
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         guiGraphics.blit(TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);

@@ -41,7 +41,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.Tags;
+import net.neoforged.neoforge.common.Tags;
 
 public class GoatFamiliarEntity extends ResizableFamiliarEntity {
 
@@ -171,7 +171,7 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
                 else if (stack.getItem() == Items.FLINT)
                     this.setEvilHorns(true);
                 if (this.shouldTransform()) {
-                    OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.SHUB_NIGGURATH_SUMMON);
+                    OccultismAdvancements.FAMILIAR.get().trigger(playerIn, FamiliarTrigger.Type.SHUB_NIGGURATH_SUMMON);
                     this.transform();
                 }
 

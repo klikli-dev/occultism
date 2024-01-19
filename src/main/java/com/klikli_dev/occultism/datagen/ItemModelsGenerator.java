@@ -23,12 +23,12 @@
 package com.klikli_dev.occultism.datagen;
 
 import com.klikli_dev.occultism.Occultism;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.client.model.generators.ItemModelBuilder;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
+import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +40,8 @@ public class ItemModelsGenerator extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        ForgeRegistries.ITEMS.forEach(item -> {
-            var key = ForgeRegistries.ITEMS.getKey(item);
+        BuiltInRegistries.ITEM.forEach(item -> {
+            var key = BuiltInRegistries.ITEM.getKey(item);
             if (key.getPath().startsWith("ritual_dummy/")) {
                 this.registerRitualDummy("item/" + key.getPath());
             }

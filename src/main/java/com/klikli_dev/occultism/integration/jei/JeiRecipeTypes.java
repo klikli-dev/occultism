@@ -25,17 +25,27 @@ package com.klikli_dev.occultism.integration.jei;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.crafting.recipe.*;
 import mezz.jei.api.recipe.RecipeType;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class JeiRecipeTypes {
 
-    public static final RecipeType<SpiritTradeRecipe> SPIRIT_TRADE =
-            RecipeType.create(Occultism.MODID, "spirit_trade", SpiritTradeRecipe.class);
-    public static final RecipeType<SpiritFireRecipe> SPIRIT_FIRE =
-            RecipeType.create(Occultism.MODID, "spirit_fire", SpiritFireRecipe.class);
-    public static final RecipeType<CrushingRecipe> CRUSHING =
-            RecipeType.create(Occultism.MODID, "crushing", CrushingRecipe.class);
-    public static final RecipeType<MinerRecipe> MINER =
-            RecipeType.create(Occultism.MODID, "miner", MinerRecipe.class);
-    public static final RecipeType<RitualRecipe> RITUAL =
-            RecipeType.create(Occultism.MODID, "ritual", RitualRecipe.class);
+    public static final RecipeType<RecipeHolder<SpiritTradeRecipe>> SPIRIT_TRADE =
+            create(Occultism.MODID, "spirit_trade", SpiritTradeRecipe.class);
+    public static final RecipeType<RecipeHolder<SpiritFireRecipe>> SPIRIT_FIRE =
+            create(Occultism.MODID, "spirit_fire", SpiritFireRecipe.class);
+    public static final RecipeType<RecipeHolder<CrushingRecipe>> CRUSHING =
+            create(Occultism.MODID, "crushing", CrushingRecipe.class);
+    public static final RecipeType<RecipeHolder<MinerRecipe>> MINER =
+            create(Occultism.MODID, "miner", MinerRecipe.class);
+    public static final RecipeType<RecipeHolder<RitualRecipe>> RITUAL =
+            create(Occultism.MODID, "ritual", RitualRecipe.class);
+
+    public static <R extends Recipe<?>> RecipeType<RecipeHolder<R>> create(String modid, String name, Class<? extends R> recipeClass) {
+        ResourceLocation uid = new ResourceLocation(modid, name);
+        @SuppressWarnings({"unchecked", "RedundantCast"})
+        Class<? extends RecipeHolder<R>> holderClass = (Class<? extends RecipeHolder<R>>) (Object) RecipeHolder.class;
+        return new RecipeType<>(uid, holderClass);
+    }
 }

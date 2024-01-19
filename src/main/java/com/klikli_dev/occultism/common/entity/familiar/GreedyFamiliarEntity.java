@@ -46,10 +46,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
-
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.wrapper.PlayerMainInvWrapper;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
@@ -241,7 +240,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
                 LivingEntity owner = this.entity.getFamiliarOwner();
                 if (item.distanceToSqr(this.entity) < 4 && owner instanceof Player player) {
                     item.playerTouch(player);
-                    OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.GREEDY_ITEM);
+                    OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.GREEDY_ITEM);
                 }
             }
         }
@@ -314,7 +313,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
                 this.mount.getNavigation().stop();
 
                 if (this.rider.getType() == OccultismEntities.SHUB_NIGGURATH_FAMILIAR.get() && this.type == OccultismEntities.CTHULHU_FAMILIAR.get())
-                    OccultismAdvancements.FAMILIAR.trigger(this.rider.getFamiliarOwner(), FamiliarTrigger.Type.SHUB_CTHULHU_FRIENDS);
+                    OccultismAdvancements.FAMILIAR.get().trigger(this.rider.getFamiliarOwner(), FamiliarTrigger.Type.SHUB_CTHULHU_FRIENDS);
             }
         }
 

@@ -27,7 +27,7 @@ import com.google.common.collect.Maps;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.blockentity.StableWormholeBlockEntity;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
-import com.klikli_dev.occultism.registry.OccultismTiles;
+import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -39,6 +39,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -52,8 +53,6 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.NetworkHooks;
-
 import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -230,8 +229,8 @@ public class StableWormholeBlock extends Block implements EntityBlock {
         if (!level.isClientSide) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof StableWormholeBlockEntity wormhole && StorageControllerContainerBase.canOpen(player, pos)) {
-                if (wormhole.getLinkedStorageController() != null) {
-                    NetworkHooks.openScreen((ServerPlayer) player, wormhole, pos);
+                if (wormhole.getLinkedStorageController() != null && player instanceof ServerPlayer serverPlayer) {
+                    serverPlayer.openMenu(wormhole, pos);
                     StorageControllerContainerBase.reserve(player, pos);
                 } else {
                     level.setBlock(pos, state.setValue(LINKED, false), 2);
@@ -254,7 +253,7 @@ public class StableWormholeBlock extends Block implements EntityBlock {
 
     @Override
     @SuppressWarnings("deprecation")
-    public ItemStack getCloneItemStack(BlockGetter worldIn, BlockPos pos, BlockState state) {
+    public ItemStack getCloneItemStack(LevelReader worldIn, BlockPos pos, BlockState state) {
         return BlockEntityUtil.getItemWithNbt(this, worldIn, pos);
     }
 
@@ -267,7 +266,7 @@ public class StableWormholeBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return OccultismTiles.STABLE_WORMHOLE.get().create(blockPos, blockState);
+        return OccultismBlockEntities.STABLE_WORMHOLE.get().create(blockPos, blockState);
     }
 }
 

@@ -28,8 +28,8 @@ import com.klikli_dev.occultism.client.gui.spirit.BookOfCallingManagedMachineGui
 import com.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 public class GuiHelper {
 

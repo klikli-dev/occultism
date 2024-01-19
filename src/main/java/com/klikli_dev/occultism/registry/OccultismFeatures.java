@@ -27,20 +27,20 @@ import com.klikli_dev.occultism.common.level.cave.SphericalCaveSubFeature;
 import com.klikli_dev.occultism.common.level.cave.UndergroundGroveDecorator;
 import com.klikli_dev.occultism.common.level.multichunk.MultiChunkFeature;
 import com.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.*;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public class OccultismFeatures {
 
     public static final DeferredRegister<Feature<?>> FEATURES =
-            DeferredRegister.create(ForgeRegistries.FEATURES, Occultism.MODID);
+            DeferredRegister.create(BuiltInRegistries.FEATURE, Occultism.MODID);
 
-    public static final RegistryObject<MultiChunkFeature> UNDERGROUND_GROVE_FEATURE =
+    public static final Supplier<MultiChunkFeature> UNDERGROUND_GROVE_FEATURE =
             FEATURES.register("underground_grove",
                     () -> new MultiChunkFeature(
                             MultiChunkFeatureConfig.CODEC,

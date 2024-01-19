@@ -1,6 +1,6 @@
 {
   "type": "occultism:add_item",
-  "conditions": [
+  "neoforge:conditions": [
     {
       "condition": "minecraft:random_chance",
       "chance": 0.02

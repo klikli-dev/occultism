@@ -22,11 +22,17 @@
 
 package com.klikli_dev.occultism.common.block.otherworld;
 
+import com.klikli_dev.occultism.datagen.worldgen.ConfiguredFeatures;
 import net.minecraft.world.level.block.SaplingBlock;
-import net.minecraft.world.level.block.grower.AbstractTreeGrower;
+import net.minecraft.world.level.block.grower.TreeGrower;
+
+import java.util.Optional;
 
 public class OtherworldSaplingBlock extends SaplingBlock {
-    public OtherworldSaplingBlock(AbstractTreeGrower tree, Properties properties) {
-        super(tree, properties);
+
+    public static final TreeGrower TREE_GROWER = new TreeGrower("otherworld", Optional.empty(), Optional.of(ConfiguredFeatures.TREE_OTHERWORLD), Optional.empty());
+
+    public OtherworldSaplingBlock(Properties properties) {
+        super(TREE_GROWER, properties);
     }
 }

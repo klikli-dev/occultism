@@ -3,23 +3,19 @@
   "criteria": {
     "greedy_item": {
       "conditions": {
-        "type": "GREEDY_ITEM"
+        "type": "greedy_item"
       },
       "trigger": "occultism:familiar"
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.occultism.familiar.greedy.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "occultism:advancement_icon",
       "nbt": "{CustomModelData:4}"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.occultism.familiar.greedy.title"
     }

@@ -26,13 +26,13 @@ import com.google.common.base.Suppliers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraftforge.common.loot.IGlobalLootModifier;
-import net.minecraftforge.common.loot.LootModifier;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
+import net.neoforged.neoforge.common.loot.LootModifier;
 
 import java.util.function.Supplier;
 
@@ -42,7 +42,7 @@ public class AddItemModifier extends LootModifier {
             RecordCodecBuilder.create(instance ->
                     instance.group(
                                     LOOT_CONDITIONS_CODEC.fieldOf("conditions").forGetter(lm -> lm.conditions),
-                                    ForgeRegistries.ITEMS.getCodec().fieldOf("item").forGetter(lm -> lm.addedItem),
+                                    BuiltInRegistries.ITEM.byNameCodec().fieldOf("item").forGetter(lm -> lm.addedItem),
                                     Codec.intRange(0, Integer.MAX_VALUE).fieldOf("count").forGetter((lm) -> lm.count)
                             )
 

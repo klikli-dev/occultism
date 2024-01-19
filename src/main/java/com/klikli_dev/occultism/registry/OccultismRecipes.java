@@ -24,39 +24,39 @@ package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.crafting.recipe.*;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class OccultismRecipes {
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(
-            ForgeRegistries.RECIPE_TYPES, Occultism.MODID);
+            BuiltInRegistries.RECIPE_TYPE, Occultism.MODID);
     public static final DeferredRegister<RecipeSerializer<?>> RECIPES = DeferredRegister.create(
-            ForgeRegistries.RECIPE_SERIALIZERS, Occultism.MODID);
+            BuiltInRegistries.RECIPE_SERIALIZER, Occultism.MODID);
 
-    public static final RegistryObject<RecipeType<SpiritTradeRecipe>> SPIRIT_TRADE_TYPE = registerRecipeType("spirit_trade");
-    public static final RegistryObject<RecipeType<SpiritFireRecipe>> SPIRIT_FIRE_TYPE = registerRecipeType("spirit_fire");
-    public static final RegistryObject<RecipeType<CrushingRecipe>> CRUSHING_TYPE = registerRecipeType("crushing");
-    public static final RegistryObject<RecipeType<MinerRecipe>> MINER_TYPE = registerRecipeType("miner");
-    public static final RegistryObject<RecipeType<RitualRecipe>> RITUAL_TYPE = registerRecipeType("ritual");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<SpiritTradeRecipe>> SPIRIT_TRADE_TYPE = registerRecipeType("spirit_trade");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<SpiritFireRecipe>> SPIRIT_FIRE_TYPE = registerRecipeType("spirit_fire");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<CrushingRecipe>> CRUSHING_TYPE = registerRecipeType("crushing");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<MinerRecipe>> MINER_TYPE = registerRecipeType("miner");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<RitualRecipe>> RITUAL_TYPE = registerRecipeType("ritual");
 
-    public static final RegistryObject<RecipeSerializer<SpiritTradeRecipe>> SPIRIT_TRADE = RECIPES.register("spirit_trade",
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<SpiritTradeRecipe>> SPIRIT_TRADE = RECIPES.register("spirit_trade",
             () -> SpiritTradeRecipe.SERIALIZER);
-    public static final RegistryObject<RecipeSerializer<SpiritFireRecipe>> SPIRIT_FIRE = RECIPES.register("spirit_fire",
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<SpiritFireRecipe>> SPIRIT_FIRE = RECIPES.register("spirit_fire",
             () -> SpiritFireRecipe.SERIALIZER);
-    public static final RegistryObject<RecipeSerializer<CrushingRecipe>> CRUSHING = RECIPES.register("crushing",
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<CrushingRecipe>> CRUSHING = RECIPES.register("crushing",
             () -> CrushingRecipe.SERIALIZER);
-    public static final RegistryObject<RecipeSerializer<MinerRecipe>> MINER = RECIPES.register("miner",
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<MinerRecipe>> MINER = RECIPES.register("miner",
             () -> MinerRecipe.SERIALIZER);
 
-    public static final RegistryObject<RecipeSerializer<RitualRecipe>> RITUAL = RECIPES.register("ritual",
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<RitualRecipe>> RITUAL = RECIPES.register("ritual",
             () -> RitualRecipe.SERIALIZER);
 
 
-    static <T extends Recipe<?>> RegistryObject<RecipeType<T>> registerRecipeType(final String id) {
+    static <T extends Recipe<?>> DeferredHolder<RecipeType<?>, RecipeType<T>> registerRecipeType(final String id) {
         return RECIPE_TYPES.register(id, () -> new RecipeType<T>() {
             public String toString() {
                 return id;

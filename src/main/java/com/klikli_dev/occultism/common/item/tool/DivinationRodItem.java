@@ -27,13 +27,14 @@ import com.klikli_dev.occultism.OccultismConstants;
 import com.klikli_dev.occultism.client.divination.ScanManager;
 import com.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.klikli_dev.occultism.integration.theurgy.TheurgyIntegration;
-import com.klikli_dev.occultism.network.MessageSetDivinationResult;
-import com.klikli_dev.occultism.network.OccultismPackets;
+import com.klikli_dev.occultism.network.Networking;
+import com.klikli_dev.occultism.network.messages.MessageSetDivinationResult;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
@@ -51,7 +52,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -89,7 +89,7 @@ public class DivinationRodItem extends Item {
                         String translationKey =
                                 block instanceof IOtherworldBlock ? ((IOtherworldBlock) block).getUncoveredBlock()
                                         .getDescriptionId() : block.getDescriptionId();
-                        stack.getOrCreateTag().putString(OccultismConstants.Nbt.Divination.LINKED_BLOCK_ID, ForgeRegistries.BLOCKS.getKey(block).toString());
+                        stack.getOrCreateTag().putString(OccultismConstants.Nbt.Divination.LINKED_BLOCK_ID, BuiltInRegistries.BLOCK.getKey(block).toString());
                         player.sendSystemMessage(
                                 Component.translatable(this.getDescriptionId() + ".message.linked_block",
                                         Component.translatable(translationKey)));
@@ -123,7 +123,7 @@ public class DivinationRodItem extends Item {
 
                 if (level.isClientSide) {
                     ResourceLocation id = new ResourceLocation(stack.getTag().getString(OccultismConstants.Nbt.Divination.LINKED_BLOCK_ID));
-                    ScanManager.instance.beginScan(player, ForgeRegistries.BLOCKS.getValue(id));
+                    ScanManager.instance.beginScan(player, BuiltInRegistries.BLOCK.get(id));
                 }
             } else if (!level.isClientSide) {
                 player.sendSystemMessage(Component.translatable(this.getDescriptionId() + ".message.no_linked_block"));
@@ -145,7 +145,7 @@ public class DivinationRodItem extends Item {
             float distance = this.getDistance(player.position(), result);
             stack.getTag().putFloat(OccultismConstants.Nbt.Divination.DISTANCE, distance);
 
-            OccultismPackets.sendToServer(new MessageSetDivinationResult(result, distance));
+            Networking.sendToServer(new MessageSetDivinationResult(result, distance));
 
             if (result != null) {
                 stack.getTag().putLong(OccultismConstants.Nbt.Divination.POS, result.asLong());
@@ -207,7 +207,7 @@ public class DivinationRodItem extends Item {
         if (stack.getOrCreateTag().contains(OccultismConstants.Nbt.Divination.LINKED_BLOCK_ID)) {
             ResourceLocation id = new ResourceLocation(stack.getTag().getString(OccultismConstants.Nbt.Divination.LINKED_BLOCK_ID));
 
-            Block block = ForgeRegistries.BLOCKS.getValue(id);
+            Block block = BuiltInRegistries.BLOCK.get(id);
             String translationKey = block instanceof IOtherworldBlock ? ((IOtherworldBlock) block).getUncoveredBlock()
                     .getDescriptionId() : block.getDescriptionId();
             tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip.linked_block",

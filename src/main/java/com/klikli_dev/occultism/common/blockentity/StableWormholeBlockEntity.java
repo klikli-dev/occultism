@@ -30,10 +30,10 @@ import com.klikli_dev.occultism.api.common.data.SortDirection;
 import com.klikli_dev.occultism.api.common.data.SortType;
 import com.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
-import com.klikli_dev.occultism.registry.OccultismTiles;
+import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -45,10 +45,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -64,7 +60,7 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
     protected SortType sortType = SortType.AMOUNT;
 
     public StableWormholeBlockEntity(BlockPos worldPos, BlockState state) {
-        super(OccultismTiles.STABLE_WORMHOLE.get(), worldPos, state);
+        super(OccultismBlockEntities.STABLE_WORMHOLE.get(), worldPos, state);
     }
 
     //region Getter / Setter
@@ -106,7 +102,7 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
 
     @Override
     public Component getDisplayName() {
-        return Component.literal(ForgeRegistries.BLOCK_ENTITY_TYPES.getKey(this.getType()).getPath());
+        return Component.literal(BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(this.getType()).getPath());
     }
 
     @Override
@@ -142,18 +138,6 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
     public void setLinkedStorageControllerPosition(GlobalBlockPos blockPos) {
         this.linkedStorageControllerPosition = blockPos;
     }
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            if (this.getLinkedStorageController() != null) {
-                return ((BlockEntity) this.getLinkedStorageController()).getCapability(cap, side);
-            }
-        }
-        return super.getCapability(cap, side);
-    }
-
 
     @Override
     public void loadNetwork(CompoundTag compound) {

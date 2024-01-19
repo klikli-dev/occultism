@@ -7,9 +7,9 @@
     "item": "rftools:dimensional_shard_ore"
   },
   "weight": 127,
-  "conditions": [
+  "neoforge:conditions": [
     {
-      "type": "forge:item_exists",
+      "type": "neoforge:item_exists",
       "item": "rftools:dimensional_shard_ore"
     }
   ]

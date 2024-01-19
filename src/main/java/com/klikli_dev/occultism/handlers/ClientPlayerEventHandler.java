@@ -25,7 +25,11 @@ package com.klikli_dev.occultism.handlers;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.gui.storage.SatchelScreen;
 import com.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
-import com.klikli_dev.occultism.network.*;
+import com.klikli_dev.occultism.network.Networking;
+import com.klikli_dev.occultism.network.messages.MessageDoubleJump;
+import com.klikli_dev.occultism.network.messages.MessageOpenSatchel;
+import com.klikli_dev.occultism.network.messages.MessageOpenStorageRemote;
+import com.klikli_dev.occultism.network.messages.MessageToggleFamiliarSettings;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import com.klikli_dev.occultism.util.MovementUtil;
 import net.minecraft.client.KeyMapping;
@@ -33,10 +37,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.client.event.InputEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,13 +60,13 @@ public class ClientPlayerEventHandler {
         checkFamiliarSettingsKeys(event);
         if (event.getAction() == GLFW_PRESS && minecraft.options.keyJump.isDown()) {
             if (minecraft.player != null && MovementUtil.doubleJump(minecraft.player)) {
-                OccultismPackets.sendToServer(new MessageDoubleJump());
+                Networking.sendToServer(new MessageDoubleJump());
             }
         }
     }
 
     @SubscribeEvent
-    public static void onMouseInput(final InputEvent.MouseButton event) {
+    public static void onMouseInput(final InputEvent.MouseButton.Key event) {
         //handle mouse button bindings for storage keys
         checkBackpackKey(event);
         checkStorageRemoteKey(event);
@@ -80,7 +84,7 @@ public class ClientPlayerEventHandler {
                 ClientSetupEventHandler.KEY_BACKPACK.consumeClick()) {
             if (!CuriosUtil.getBackpack(minecraft.player).isEmpty() ||
                     CuriosUtil.getFirstBackpackSlot(minecraft.player) > 0) {
-                OccultismPackets.sendToServer(new MessageOpenSatchel());
+                Networking.sendToServer(new MessageOpenSatchel());
                 minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.ARMOR_EQUIP_LEATHER, 0.75F, 1.0F));
             }
         }
@@ -98,7 +102,7 @@ public class ClientPlayerEventHandler {
 
             if (!CuriosUtil.getStorageRemoteCurio(minecraft.player).isEmpty() ||
                     CuriosUtil.getFirstStorageRemoteSlot(minecraft.player) > 0) {
-                OccultismPackets.sendToServer(new MessageOpenStorageRemote());
+                Networking.sendToServer(new MessageOpenStorageRemote());
                 minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.ARMOR_EQUIP_DIAMOND, 0.75F, 1.0F));
             }
         }
@@ -117,7 +121,7 @@ public class ClientPlayerEventHandler {
                 familiarsPressed.put(entry.getKey(), isPressed);
             }
             if (familiarKeyPressed) {
-                OccultismPackets.sendToServer(new MessageToggleFamiliarSettings(familiarsPressed));
+                Networking.sendToServer(new MessageToggleFamiliarSettings(familiarsPressed));
             }
         }
     }

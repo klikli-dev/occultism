@@ -28,10 +28,16 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 public class WeightedOutputIngredient extends WeightedEntry.IntrusiveBase {
     protected OutputIngredient ingredient;
+    protected int weight;
 
     public WeightedOutputIngredient(Ingredient ingredient, int itemWeightIn) {
         super(itemWeightIn);
         this.ingredient = new OutputIngredient(ingredient);
+        this.weight = itemWeightIn;
+    }
+
+    public int weight() {
+        return this.weight;
     }
 
     public ItemStack getStack() {
@@ -40,5 +46,9 @@ public class WeightedOutputIngredient extends WeightedEntry.IntrusiveBase {
 
     public Ingredient getIngredient() {
         return this.ingredient.getIngredient();
+    }
+
+    public OutputIngredient.OutputStackInfo getOutputStackInfo() {
+        return this.ingredient.getOutputStackInfo();
     }
 }

@@ -37,7 +37,7 @@ public class RitualFactory {
 
     public Ritual create(RitualRecipe recipe) {
         Ritual ritual = this.constructor.apply(recipe);
-        ritual.setFactoryId(OccultismRituals.REGISTRY.get().getKey(this));
+        ritual.setFactoryId(OccultismRituals.REGISTRY.getKey(this));
         return ritual;
     }
 }

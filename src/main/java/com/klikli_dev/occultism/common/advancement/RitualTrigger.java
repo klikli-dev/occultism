@@ -22,108 +22,57 @@
 
 package com.klikli_dev.occultism.common.advancement;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonNull;
-import com.google.gson.JsonObject;
-import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.ritual.Ritual;
-import net.minecraft.advancements.critereon.*;
+import com.klikli_dev.occultism.registry.OccultismAdvancements;
+import com.klikli_dev.occultism.registry.OccultismRecipes;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.PlayerTrigger;
+import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.util.ExtraCodecs;
 
-public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.Instance> {
+import java.util.Optional;
 
-    private static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "ritual");
+public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.TriggerInstance> {
 
-    public RitualTrigger() {
-    }
 
-    public ResourceLocation getId() {
-        return ID;
+    public void trigger(ServerPlayer player, Ritual ritual) {
+        this.trigger(player, (instance) -> instance.matches(player, ritual));
     }
 
     @Override
-    protected Instance createInstance(JsonObject json, ContextAwarePredicate predicate, DeserializationContext deserializationContext) {
-        return new RitualTrigger.Instance(this.deserializeRitualPredicate(json));
+    public Codec<TriggerInstance> codec() {
+        return TriggerInstance.CODEC;
     }
 
-    private RitualPredicate deserializeRitualPredicate(JsonObject json) {
-        if (json.has("ritual_id"))
-            return new RitualPredicate(new ResourceLocation(GsonHelper.getAsString(json, "ritual_id")), null);
-        return RitualPredicate.deserialize(json.get("ritual_predicate"));
-    }
+    public record TriggerInstance(Optional<ContextAwarePredicate> player,
+                                  Optional<ResourceLocation> ritualId,
+                                  Optional<ResourceLocation> ritualFactoryId) implements SimpleCriterionTrigger.SimpleInstance {
 
-    public void trigger(ServerPlayer player, Ritual ritual) {
-        this.trigger(player, (instance) -> instance.test(player, ritual));
-    }
-
-
-    public static class Instance extends AbstractCriterionTriggerInstance {
-
-        RitualPredicate ritualPredicate;
-
-        public Instance(RitualPredicate ritualPredicate) {
-            super(RitualTrigger.ID, ContextAwarePredicate.ANY);
-            this.ritualPredicate = ritualPredicate;
+        public static Criterion<RitualTrigger.TriggerInstance> ritualFactory(ResourceLocation ritualFactoryId) {
+            return OccultismAdvancements.RITUAL.get().createCriterion(new TriggerInstance(Optional.empty(), Optional.empty(), Optional.of(ritualFactoryId)));
         }
 
-        public boolean test(ServerPlayer player, Ritual ritual) {
-            return this.ritualPredicate.test(ritual);
-        }
+        public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(
+                instance -> instance.group(
+                                ExtraCodecs.strictOptionalField(EntityPredicate.ADVANCEMENT_CODEC, "player").forGetter(TriggerInstance::player),
+                                ExtraCodecs.strictOptionalField(ResourceLocation.CODEC, "ritual_id").forGetter(TriggerInstance::ritualId),
+                                ExtraCodecs.strictOptionalField(ResourceLocation.CODEC, "ritual_factory_id").forGetter(TriggerInstance::ritualFactoryId)
+                        )
+                        .apply(instance, TriggerInstance::new)
+        );
 
-        public JsonObject serializeToJson(SerializationContext pConditions) {
-            JsonObject jsonobject = super.serializeToJson(pConditions);
-            jsonobject.add("ritual_predicate", this.ritualPredicate.serialize());
-            return jsonobject;
-        }
-
-    }
-
-    public static class RitualPredicate {
-
-        public static final RitualPredicate ANY = new RitualPredicate(null, null);
-
-        private final ResourceLocation ritualId;
-        private final ResourceLocation ritualFactoryId;
-
-        public RitualPredicate(ResourceLocation ritualId, ResourceLocation ritualFactoryId) {
-            this.ritualId = ritualId;
-            this.ritualFactoryId = ritualFactoryId;
-        }
-
-        public static RitualPredicate deserialize(JsonElement element) {
-            if (element == null || element.isJsonNull())
-                return ANY;
-
-            ResourceLocation ritualId = null;
-            ResourceLocation ritualFactoryId = null;
-            JsonObject json = GsonHelper.convertToJsonObject(element, "ritual_predicate");
-            if (json.has("ritual_id"))
-                ritualId = new ResourceLocation(GsonHelper.getAsString(json, "ritual_id"));
-            if (json.has("ritual_factory_id"))
-                ritualFactoryId = new ResourceLocation(GsonHelper.getAsString(json, "ritual_factory_id"));
-            return new RitualPredicate(ritualId, ritualFactoryId);
-        }
-
-        public boolean test(Ritual ritual) {
-            if (this == ANY)
-                return true;
-            else if (this.ritualId != null && !this.ritualId.equals(ritual.getRecipe().getId()))
+        public boolean matches(ServerPlayer player, Ritual ritual) {
+            if (this.ritualId.isPresent() && !this.ritualId.get().equals(ritual.getRecipeHolder(player).id()))
                 return false;
-            else return this.ritualFactoryId == null || this.ritualFactoryId.equals(ritual.getFactoryID());
+            else return this.ritualFactoryId.isEmpty() || this.ritualFactoryId.get().equals(ritual.getFactoryID());
         }
 
-        public JsonElement serialize() {
-            if (this == ANY)
-                return JsonNull.INSTANCE;
-            JsonObject json = new JsonObject();
-            if (this.ritualId != null)
-                json.addProperty("ritual_id", this.ritualId.toString());
-            if (this.ritualFactoryId != null)
-                json.addProperty("ritual_factory_id", this.ritualFactoryId.toString());
-            return json;
-        }
     }
-
 }

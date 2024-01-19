@@ -26,8 +26,7 @@ package com.klikli_dev.occultism.api.common.misc;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.common.util.Lazy;
-
+import net.neoforged.neoforge.common.util.Lazy;
 import java.util.function.Supplier;
 
 public enum OccultismItemTier implements Tier {

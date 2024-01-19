@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import com.klikli_dev.occultism.util.Math3DUtil;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
@@ -41,14 +42,22 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Optional;
 
 public class SpiritFireBlock extends BaseFireBlock {
+
+    public static final MapCodec<SpiritFireBlock> CODEC = simpleCodec(SpiritFireBlock::new);
     public SpiritFireBlock(Properties properties) {
         super(properties, 0);
+    }
+
+    @Override
+    protected MapCodec<? extends BaseFireBlock> codec() {
+        return CODEC;
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
@@ -66,13 +75,13 @@ public class SpiritFireBlock extends BaseFireBlock {
             ItemStackFakeInventory fakeInventory =
                     new ItemStackFakeInventory(ItemStack.EMPTY);
             fakeInventory.setItem(0, item.getItem());
-            Optional<SpiritFireRecipe> recipe =
+            var recipe =
                     pLevel.getRecipeManager().getRecipeFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), fakeInventory, pLevel);
 
             if (recipe.isPresent()) {
                 item.remove(RemovalReason.DISCARDED);
 
-                ItemStack result = recipe.get().assemble(fakeInventory, pLevel.registryAccess());
+                ItemStack result = recipe.get().value().assemble(fakeInventory, pLevel.registryAccess());
                 Vec3 center = Math3DUtil.center(pPos);
                 Containers.dropItemStack(pLevel, center.x, center.y + 0.5, center.z, result);
 

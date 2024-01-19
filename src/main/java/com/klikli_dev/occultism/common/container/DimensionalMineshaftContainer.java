@@ -23,7 +23,7 @@
 package com.klikli_dev.occultism.common.container;
 
 import com.klikli_dev.occultism.common.blockentity.DimensionalMineshaftBlockEntity;
-import com.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
+
 import com.klikli_dev.occultism.registry.OccultismContainers;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.util.RecipeUtil;
@@ -33,9 +33,9 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.SlotItemHandler;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.SlotItemHandler;
 
 public class DimensionalMineshaftContainer extends AbstractContainerMenu {
 
@@ -49,8 +49,8 @@ public class DimensionalMineshaftContainer extends AbstractContainerMenu {
         super(OccultismContainers.OTHERWORLD_MINER.get(), id);
         this.playerInventory = playerInventory;
         this.otherworldMiner = otherworldMiner;
-        this.inputHandler = otherworldMiner.inputHandler.orElseThrow(ItemHandlerMissingException::new);
-        this.outputHandler = otherworldMiner.outputHandler.orElseThrow(ItemHandlerMissingException::new);
+        this.inputHandler = otherworldMiner.inputHandler;
+        this.outputHandler = otherworldMiner.outputHandler;
 
         this.setupMinerInventory();
         this.setupPlayerInventorySlots(playerInventory.player);
@@ -120,8 +120,8 @@ public class DimensionalMineshaftContainer extends AbstractContainerMenu {
         int outputGridLeft = 98;
         int index = 0;
 
-        IItemHandler outputHandler = this.otherworldMiner.outputHandler.orElseThrow(ItemHandlerMissingException::new);
-        IItemHandler inputHandler = this.otherworldMiner.inputHandler.orElseThrow(ItemHandlerMissingException::new);
+        IItemHandler outputHandler = this.otherworldMiner.outputHandler;
+        IItemHandler inputHandler = this.otherworldMiner.inputHandler;
 
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {

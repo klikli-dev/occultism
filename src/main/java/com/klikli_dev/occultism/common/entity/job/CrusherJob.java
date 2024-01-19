@@ -37,8 +37,8 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.phys.Vec3;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -57,7 +57,7 @@ public class CrusherJob extends SpiritJob {
     protected Supplier<Float> outputMultiplier;
     protected Supplier<Integer> tier;
 
-    protected Optional<CrushingRecipe> currentRecipe = Optional.empty();
+    protected Optional<RecipeHolder<CrushingRecipe>> currentRecipe = Optional.empty();
     protected PickupItemsGoal pickupItemsGoal;
 
     protected List<Ingredient> itemsToPickUp = new ArrayList<>();
@@ -73,12 +73,11 @@ public class CrusherJob extends SpiritJob {
     @Override
     public void onInit() {
         this.entity.targetSelector.addGoal(1, this.pickupItemsGoal = new PickupItemsGoal(this.entity));
-        this.itemsToPickUp = this.entity.level().getRecipeManager().getRecipes().stream()
+        this.itemsToPickUp = this.entity.level().getRecipeManager().getAllRecipesFor(OccultismRecipes.CRUSHING_TYPE.get()).stream()
                 .filter(
-                        recipe -> recipe.getType() == OccultismRecipes.CRUSHING_TYPE.get()
-                                && ((CrushingRecipe) recipe).getMinTier() <= this.tier.get()
+                        recipe -> recipe.value().getMinTier() <= this.tier.get()
                 )
-                .flatMap(recipe -> recipe.getIngredients().stream()).collect(Collectors.toList());
+                .flatMap(recipe -> recipe.value().getIngredients().stream()).collect(Collectors.toList());
     }
 
     @Override
@@ -111,7 +110,7 @@ public class CrusherJob extends SpiritJob {
             }
         }
         if (this.currentRecipe.isPresent()) {
-            if (handHeld.isEmpty() || !this.currentRecipe.get().matches(fakeInventory, this.entity.level())) {
+            if (handHeld.isEmpty() || !this.currentRecipe.get().value().matches(fakeInventory, this.entity.level())) {
                 //Reset cached recipe if it no longer matches
                 this.currentRecipe = Optional.empty();
             } else {
@@ -134,14 +133,14 @@ public class CrusherJob extends SpiritJob {
                             1 + 0.5f * this.entity.getRandom().nextFloat());
                 }
 
-                if (this.crushingTimer >= this.currentRecipe.get().getCrushingTime() * this.crushingTimeMultiplier.get()) {
+                if (this.crushingTimer >= this.currentRecipe.get().value().getCrushingTime() * this.crushingTimeMultiplier.get()) {
                     this.crushingTimer = 0;
 
-                    ItemStack result = this.currentRecipe.get().assemble(fakeInventory, this.entity.level().registryAccess());
+                    ItemStack result = this.currentRecipe.get().value().assemble(fakeInventory, this.entity.level().registryAccess());
                     //make sure to ignore output multiplier on recipes that set that flag.
                     //prevents e.g. 1x ingot -> 3x dust -> 3x ingot -> 9x dust ...
                     float outputMultiplier = this.outputMultiplier.get();
-                    if (this.currentRecipe.get().getIgnoreCrushingMultiplier())
+                    if (this.currentRecipe.get().value().getIgnoreCrushingMultiplier())
                         outputMultiplier = 1;
                     result.setCount((int) (result.getCount() * outputMultiplier));
                     ItemStack inputCopy = handHeld.copy();

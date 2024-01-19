@@ -53,7 +53,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeMod;
+import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.fluids.FluidType;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -76,7 +77,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return createMobAttributes().add(ForgeMod.SWIM_SPEED.get(), 1f);
+        return createMobAttributes().add(NeoForgeMod.SWIM_SPEED.value(), 1f);
     }
 
     @Override
@@ -91,7 +92,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasHat())
-            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 
@@ -212,8 +213,8 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public boolean canBreatheUnderwater() {
-        return true;
+    public boolean canDrownInFluidType(FluidType type) {
+        return false;
     }
 
     @Override
@@ -222,7 +223,7 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
             if (source.getEntity() == this.getFamiliarOwner()) {
                 this.setAngry(true);
                 this.setSitting(true);
-                OccultismAdvancements.FAMILIAR.trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.CTHULHU_SAD);
+                OccultismAdvancements.FAMILIAR.get().trigger(this.getFamiliarOwner(), FamiliarTrigger.Type.CTHULHU_SAD);
             } else if (source.getEntity() != null) {
                 Vec3 tp = DefaultRandomPos.getPos(this, 8, 4);
                 if (tp != null) {

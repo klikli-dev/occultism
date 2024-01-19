@@ -31,7 +31,6 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -149,7 +148,7 @@ public class CrushingRecipeProvider implements DataProvider {
         var recipe = new JsonObject();
         recipe.addProperty("type", "occultism:crushing");
         var conditions = this.buildCrushingCondition(inputTag, outputTag);
-        recipe.add("conditions", conditions);
+        recipe.add("neoforge:conditions", conditions);
         var ingredient = new JsonObject();
         ingredient.addProperty("tag", inputTag);
         recipe.add("ingredient", ingredient);
@@ -166,16 +165,16 @@ public class CrushingRecipeProvider implements DataProvider {
         var conditions = new JsonArray();
         //multiple conditions on the root level array are treated as AND by forge
         var condition = new JsonObject();
-        condition.addProperty("type", "forge:not");
+        condition.addProperty("type", "neoforge:not");
         var value = new JsonObject();
-        value.addProperty("type", "forge:tag_empty");
+        value.addProperty("type", "neoforge:tag_empty");
         value.addProperty("tag", inputTag);
         condition.add("value", value);
         conditions.add(condition);
         condition = new JsonObject();
-        condition.addProperty("type", "forge:not");
+        condition.addProperty("type", "neoforge:not");
         value = new JsonObject();
-        value.addProperty("type", "forge:tag_empty");
+        value.addProperty("type", "neoforge:tag_empty");
         value.addProperty("tag", outputTag);
         condition.add("value", value);
         conditions.add(condition);

@@ -22,18 +22,21 @@
 
 package com.klikli_dev.occultism.registry;
 
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.common.advancement.RitualTrigger;
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.CriterionTrigger;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class OccultismAdvancements {
-    // region Fields
-    public static RitualTrigger RITUAL;
-    public static FamiliarTrigger FAMILIAR;
-    // endregion Fields
 
-    public static void register() {
-        RITUAL = CriteriaTriggers.register(new RitualTrigger());
-        FAMILIAR = CriteriaTriggers.register(new FamiliarTrigger());
-    }
+    public static final DeferredRegister<CriterionTrigger<?>> TRIGGER_TYPES = DeferredRegister.create(BuiltInRegistries.TRIGGER_TYPES, Occultism.MODID);
+
+    public static final DeferredHolder<CriterionTrigger<?>, FamiliarTrigger> FAMILIAR = TRIGGER_TYPES.register("familiar", FamiliarTrigger::new);
+
+    public static final DeferredHolder<CriterionTrigger<?>, RitualTrigger> RITUAL = TRIGGER_TYPES.register("ritual", RitualTrigger::new);
+
+
 }

@@ -35,9 +35,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
-
 import java.util.List;
 
 public class SatchelItem extends Item {
@@ -50,11 +48,11 @@ public class SatchelItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         final ItemStack stack = player.getItemInHand(hand);
 
-        if (!level.isClientSide && player instanceof ServerPlayer) {
+        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
             //here we use main hand item as selected slot
             int selectedSlot = hand == InteractionHand.MAIN_HAND ? player.getInventory().selected : -1;
 
-            NetworkHooks.openScreen((ServerPlayer) player,
+            serverPlayer.openMenu(
                     new SimpleMenuProvider((id, playerInventory, unused) -> {
                         return new SatchelContainer(id, playerInventory,
                                 this.getInventory((ServerPlayer) player, stack), selectedSlot);
@@ -75,15 +73,9 @@ public class SatchelItem extends Item {
     }
 
     @Override
-    public @Nullable CompoundTag getShareTag(ItemStack stack) {
-        var tag = super.getShareTag(stack);
-        if (tag != null) {
-            tag = tag.copy();
-            tag.remove("Items");
-        }
-        return tag;
+    public boolean shouldOverrideMultiplayerNbt() {
+        return super.shouldOverrideMultiplayerNbt();
     }
-
 
     public Container getInventory(ServerPlayer player, ItemStack stack) {
         return new SatchelInventory(stack, SatchelContainer.SATCHEL_SIZE);

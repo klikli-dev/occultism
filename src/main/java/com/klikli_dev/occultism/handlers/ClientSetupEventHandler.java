@@ -34,11 +34,10 @@ import com.klikli_dev.occultism.client.itemproperties.*;
 import com.klikli_dev.occultism.client.keybindings.BackpackKeyConflictContext;
 import com.klikli_dev.occultism.client.keybindings.StorageRemoteKeyConflictContext;
 import com.klikli_dev.occultism.client.model.entity.*;
-import com.klikli_dev.occultism.client.render.ThirdEyeEffectRenderer;
 import com.klikli_dev.occultism.client.render.blockentity.SacrificialBowlRenderer;
 import com.klikli_dev.occultism.client.render.blockentity.StorageControllerGeoRenderer;
 import com.klikli_dev.occultism.client.render.entity.*;
-import com.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
+import com.klikli_dev.occultism.common.capability.FamiliarSettingsData;
 import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.klikli_dev.occultism.integration.modonomicon.PageRenderers;
 import com.klikli_dev.occultism.registry.*;
@@ -48,18 +47,20 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.client.settings.KeyConflictContext;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiOverlaysEvent;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.settings.KeyConflictContext;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.HashMap;
@@ -148,8 +149,8 @@ public class ClientSetupEventHandler {
         event.register(KEY_STORAGE_REMOTE);
 
         keysFamiliars = new HashMap<>();
-        for (EntityType<?> familiar : FamiliarSettingsCapability.getFamiliars()) {
-            KeyMapping kb = new KeyMapping("key.occultism.familiar." + ForgeRegistries.ENTITY_TYPES.getKey(familiar).getPath(), KeyConflictContext.IN_GAME,
+        for (EntityType<?> familiar : FamiliarSettingsData.getFamiliars()) {
+            KeyMapping kb = new KeyMapping("key.occultism.familiar." + BuiltInRegistries.ENTITY_TYPE.getKey(familiar).getPath(), KeyConflictContext.IN_GAME,
                     InputConstants.Type.KEYSYM.getOrCreate(-1), "key.occultism.category");
             keysFamiliars.put(familiar, kb);
             event.register(kb);
@@ -159,34 +160,31 @@ public class ClientSetupEventHandler {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         //Register client side event handlers
-        MinecraftForge.EVENT_BUS.register(Occultism.SELECTED_BLOCK_RENDERER);
-        MinecraftForge.EVENT_BUS.register(Occultism.THIRD_EYE_EFFECT_RENDERER);
+        NeoForge.EVENT_BUS.register(Occultism.SELECTED_BLOCK_RENDERER);
+        NeoForge.EVENT_BUS.register(Occultism.THIRD_EYE_EFFECT_RENDERER);
 
         //Register Tile Entity Renderers
-        BlockEntityRenderers.register(OccultismTiles.STORAGE_CONTROLLER.get(), StorageControllerGeoRenderer::new);
-        BlockEntityRenderers.register(OccultismTiles.SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
-        BlockEntityRenderers.register(OccultismTiles.GOLDEN_SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
+        BlockEntityRenderers.register(OccultismBlockEntities.STORAGE_CONTROLLER.get(), StorageControllerGeoRenderer::new);
+        BlockEntityRenderers.register(OccultismBlockEntities.SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
+        BlockEntityRenderers.register(OccultismBlockEntities.GOLDEN_SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
 
         registerItemModelProperties(event);
-
-        //Not safe to call during parallel load, so register to run threadsafe.
-        event.enqueueWork(() -> {
-            //Register screen factories
-            MenuScreens.register(OccultismContainers.STORAGE_CONTROLLER.get(), StorageControllerGui::new);
-            MenuScreens.register(OccultismContainers.STABLE_WORMHOLE.get(), StableWormholeGui::new);
-            MenuScreens.register(OccultismContainers.STORAGE_REMOTE.get(), StorageRemoteGui::new);
-            MenuScreens.register(OccultismContainers.SPIRIT.get(), SpiritGui<SpiritContainer>::new);
-            MenuScreens.register(OccultismContainers.SPIRIT_TRANSPORTER.get(), SpiritTransporterGui::new);
-            MenuScreens.register(OccultismContainers.OTHERWORLD_MINER.get(), DimensionalMineshaftScreen::new);
-            MenuScreens.register(OccultismContainers.SATCHEL.get(), SatchelScreen::new);
-            Occultism.LOGGER.debug("Registered Screen Containers");
-        });
 
         PageRenderers.onClientSetup(event);
 
         Occultism.LOGGER.debug("Registered Overlays");
 
         Occultism.LOGGER.info("Client setup complete.");
+    }
+
+    public static void onRegisterMenuScreens(RegisterMenuScreensEvent event){
+        event.register(OccultismContainers.STORAGE_CONTROLLER.get(), StorageControllerGui::new);
+        event.register(OccultismContainers.STABLE_WORMHOLE.get(), StableWormholeGui::new);
+        event.register(OccultismContainers.STORAGE_REMOTE.get(), StorageRemoteGui::new);
+        event.register(OccultismContainers.SPIRIT.get(), SpiritGui<SpiritContainer>::new);
+        event.register(OccultismContainers.SPIRIT_TRANSPORTER.get(), SpiritTransporterGui::new);
+        event.register(OccultismContainers.OTHERWORLD_MINER.get(), DimensionalMineshaftScreen::new);
+        event.register(OccultismContainers.SATCHEL.get(), SatchelScreen::new);
     }
 
     public static void registerItemModelProperties(FMLClientSetupEvent event) {
@@ -212,7 +210,7 @@ public class ClientSetupEventHandler {
 
     @SubscribeEvent
     public static void onRegisterGuiOverlays(RegisterGuiOverlaysEvent event) {
-        event.registerAboveAll("third_eye", (gui, guiGraphics, partialTick, screenWidth, screenHeight) -> {
+        event.registerAboveAll(new ResourceLocation(Occultism.MODID, "third_eye"), (gui, guiGraphics, partialTick, screenWidth, screenHeight) -> {
             if (Occultism.THIRD_EYE_EFFECT_RENDERER.gogglesActiveLastTick || Occultism.THIRD_EYE_EFFECT_RENDERER.thirdEyeActiveLastTick) {
                 gui.setupOverlayRenderState(true, false);
                 Occultism.THIRD_EYE_EFFECT_RENDERER.renderOverlay(guiGraphics.pose());

@@ -3,9 +3,9 @@ package com.klikli_dev.occultism.common.entity.ai.behaviour;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
-import com.klikli_dev.occultism.network.MessageSelectBlock;
-import com.klikli_dev.occultism.network.OccultismPackets;
+
+import com.klikli_dev.occultism.network.messages.MessageSelectBlock;
+import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.util.StorageUtil;
 import com.mojang.datafixers.util.Pair;
@@ -20,7 +20,6 @@ import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraft.world.phys.Vec3;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
 import net.tslat.smartbrainlib.util.BrainUtils;
-
 import java.util.HashSet;
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class SetWalkTargetToDepositBehaviour<E extends SpiritEntity> extends Ext
 
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
-        return StorageUtil.getFirstFilledSlot(entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new)) != -1;
+        return StorageUtil.getFirstFilledSlot(entity.inventory) != -1;
     }
 
     @Override
@@ -66,8 +65,8 @@ public class SetWalkTargetToDepositBehaviour<E extends SpiritEntity> extends Ext
 
                 if (Occultism.DEBUG.debugAI) {
 
-                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(depositPos, 5000, OccultismConstants.Color.MAGENTA));
-                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(walkPos, 5000, OccultismConstants.Color.GREEN));
+                    Networking.sendToTracking(entity, new MessageSelectBlock(depositPos, 5000, OccultismConstants.Color.MAGENTA));
+                    Networking.sendToTracking(entity, new MessageSelectBlock(walkPos, 5000, OccultismConstants.Color.GREEN));
                 }
 
             } else {
@@ -76,7 +75,7 @@ public class SetWalkTargetToDepositBehaviour<E extends SpiritEntity> extends Ext
                 BrainUtils.clearMemory(entity, MemoryModuleType.WALK_TARGET);
 
                 if (Occultism.DEBUG.debugAI) {
-                    OccultismPackets.sendToTracking(entity, new MessageSelectBlock(depositPos, 50000, OccultismConstants.Color.RED));
+                    Networking.sendToTracking(entity, new MessageSelectBlock(depositPos, 50000, OccultismConstants.Color.RED));
                 }
             }
         }

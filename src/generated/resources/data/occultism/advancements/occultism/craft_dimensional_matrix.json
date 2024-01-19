@@ -3,9 +3,7 @@
   "criteria": {
     "craft_dimensional_matrix": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/craft_dimensional_matrix"
-        }
+        "ritual_id": "occultism:ritual/craft_dimensional_matrix"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.craft_dimensional_matrix.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

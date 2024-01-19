@@ -25,7 +25,7 @@ package com.klikli_dev.occultism.api.common.blockentity;
 import com.klikli_dev.occultism.api.common.container.IItemStackComparator;
 import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.klikli_dev.occultism.api.common.data.MachineReference;
-import com.klikli_dev.occultism.network.MessageUpdateStacks;
+import com.klikli_dev.occultism.network.messages.MessageUpdateStacks;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;

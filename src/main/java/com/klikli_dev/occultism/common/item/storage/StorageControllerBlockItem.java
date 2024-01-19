@@ -32,14 +32,4 @@ public class StorageControllerBlockItem extends BlockItem {
     public StorageControllerBlockItem(Block pBlock, Properties pProperties) {
         super(pBlock, pProperties);
     }
-
-    @Override
-    public @Nullable CompoundTag getShareTag(ItemStack stack) {
-        var tag = super.getShareTag(stack);
-        if (tag != null) {
-            tag = tag.copy();
-            tag.remove("BlockEntityTag");
-        }
-        return tag;
-    }
 }

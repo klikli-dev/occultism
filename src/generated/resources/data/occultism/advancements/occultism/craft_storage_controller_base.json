@@ -3,9 +3,7 @@
   "criteria": {
     "craft_storage_controller_base": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/craft_storage_controller_base"
-        }
+        "ritual_id": "occultism:ritual/craft_storage_controller_base"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.craft_storage_controller_base.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

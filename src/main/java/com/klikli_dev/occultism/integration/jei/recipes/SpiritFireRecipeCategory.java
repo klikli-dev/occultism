@@ -42,8 +42,9 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
-public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecipe> {
+public class SpiritFireRecipeCategory implements IRecipeCategory<RecipeHolder<SpiritFireRecipe>> {
 
     private final IDrawable background;
     private final Component localizedName;
@@ -61,7 +62,7 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecip
     }
 
     @Override
-    public RecipeType<SpiritFireRecipe> getRecipeType() {
+    public RecipeType<RecipeHolder<SpiritFireRecipe>> getRecipeType() {
         return JeiRecipeTypes.SPIRIT_FIRE;
     }
 
@@ -81,19 +82,19 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<SpiritFireRecip
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, SpiritFireRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<SpiritFireRecipe> recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 40, 12)
-                .addIngredients(recipe.getIngredients().get(0));
+                .addIngredients(recipe.value().getIngredients().get(0));
 
         builder.addSlot(RecipeIngredientRole.CATALYST, 75, 12)
                 .addItemStack(this.renderStack);
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 110, 12)
-                .addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
+                .addItemStack(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess()));
     }
 
     @Override
-    public void draw(SpiritFireRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<SpiritFireRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
         this.overlay.draw(guiGraphics, 48, 0);
     }

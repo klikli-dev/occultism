@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
 import com.klikli_dev.occultism.registry.OccultismCapabilities;
+import com.klikli_dev.occultism.registry.OccultismDataStorage;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -97,8 +98,7 @@ public interface IFamiliar {
     default boolean isEffectEnabled(LivingEntity owner) {
         if (owner == null)
             return false;
-        return owner.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS)
-                .map(cap -> cap.isFamiliarEnabled(this.getFamiliarEntity().getType())).orElse(false);
+        return owner.getData(OccultismDataStorage.FAMILIAR_SETTINGS.get()).isFamiliarEnabled(this.getFamiliarEntity().getType());
     }
 
     /***

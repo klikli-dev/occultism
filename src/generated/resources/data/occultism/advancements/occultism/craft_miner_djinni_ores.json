@@ -3,9 +3,7 @@
   "criteria": {
     "craft_miner_djinni_ores": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/craft_miner_djinni_ores"
-        }
+        "ritual_id": "occultism:ritual/craft_miner_djinni_ores"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.craft_miner_djinni_ores.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

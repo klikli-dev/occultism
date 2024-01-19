@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.client.render.entity;
 
+import com.klikli_dev.occultism.Occultism;
 import net.minecraft.client.model.ParrotModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -30,10 +31,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.animal.Parrot;
 
-import static com.klikli_dev.occultism.util.StaticUtil.modLoc;
-
 public class OtherworldBirdRenderer extends MobRenderer<Parrot, ParrotModel> {
-    public static final ResourceLocation TEXTURE = modLoc("textures/entity/otherworld_bird.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(Occultism.MODID, "textures/entity/otherworld_bird.png");
 
     public OtherworldBirdRenderer(EntityRendererProvider.Context context) {
         super(context, new ParrotModel(context.bakeLayer(ModelLayers.PARROT)), 0.3F);

@@ -2,25 +2,19 @@
   "criteria": {
     "summon_familiar": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_factory_id": "occultism:familiar"
-        }
+        "ritual_factory_id": "occultism:familiar"
       },
       "trigger": "occultism:ritual"
     }
   },
   "display": {
-    "announce_to_chat": true,
     "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
     "description": {
       "translate": "advancements.occultism.familiars.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "occultism:jei_dummy/none"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.occultism.familiars.title"
     }

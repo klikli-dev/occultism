@@ -2,8 +2,8 @@ package com.klikli_dev.occultism.client.keybindings;
 
 import com.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.client.settings.IKeyConflictContext;
-import net.minecraftforge.client.settings.KeyConflictContext;
+import net.neoforged.neoforge.client.settings.IKeyConflictContext;
+import net.neoforged.neoforge.client.settings.KeyConflictContext;
 
 public class StorageRemoteKeyConflictContext implements IKeyConflictContext {
 

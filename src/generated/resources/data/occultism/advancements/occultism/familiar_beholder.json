@@ -3,9 +3,7 @@
   "criteria": {
     "familiar_beholder": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/familiar_beholder"
-        }
+        "ritual_id": "occultism:ritual/familiar_beholder"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.familiar_beholder.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

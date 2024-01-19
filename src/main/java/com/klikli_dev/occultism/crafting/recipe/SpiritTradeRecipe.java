@@ -22,12 +22,15 @@
 
 package com.klikli_dev.occultism.crafting.recipe;
 
-import com.google.gson.JsonObject;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
@@ -42,8 +45,8 @@ import java.util.stream.Collectors;
 public class SpiritTradeRecipe extends ShapelessRecipe {
     public static Serializer SERIALIZER = new Serializer();
 
-    public SpiritTradeRecipe(ResourceLocation id, String group, ItemStack result, NonNullList<Ingredient> input) {
-        super(id, group, CraftingBookCategory.MISC, result, input);
+    public SpiritTradeRecipe(String group, ItemStack result, NonNullList<Ingredient> input) {
+        super(group, CraftingBookCategory.MISC, result, input);
     }
 
     @Override
@@ -120,25 +123,50 @@ public class SpiritTradeRecipe extends ShapelessRecipe {
 
     public static class Serializer implements RecipeSerializer<SpiritTradeRecipe> {
 
-        private static final ShapelessRecipe.Serializer serializer = new ShapelessRecipe.Serializer();
+        //Codec copied from ShaplessRecipe, because xmap throws errors
+        private static final Codec<SpiritTradeRecipe> CODEC = RecordCodecBuilder.create(
+                p_311734_ -> p_311734_.group(
+                                ExtraCodecs.strictOptionalField(Codec.STRING, "group", "").forGetter(p_301127_ -> p_301127_.getGroup()),
+                                CraftingBookCategory.CODEC.fieldOf("category").orElse(CraftingBookCategory.MISC).forGetter(p_301133_ -> p_301133_.category()),
+                                ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter(p_301142_ -> p_301142_.getResultItem(RegistryAccess.EMPTY)),
+                                Ingredient.CODEC_NONEMPTY
+                                        .listOf()
+                                        .fieldOf("ingredients")
+                                        .flatXmap(
+                                                p_301021_ -> {
+                                                    Ingredient[] aingredient = p_301021_
+                                                            .toArray(Ingredient[]::new); //Forge skip the empty check and immediatly create the array.
+                                                    if (aingredient.length == 0) {
+                                                        return DataResult.error(() -> "No ingredients for shapeless recipe");
+                                                    } else {
+                                                        return aingredient.length > ShapedRecipePattern.getMaxHeight() * ShapedRecipePattern.getMaxWidth()
+                                                                ? DataResult.error(() -> "Too many ingredients for shapeless recipe. The maximum is: %s".formatted(ShapedRecipePattern.getMaxHeight() * ShapedRecipePattern.getMaxWidth()))
+                                                                : DataResult.success(NonNullList.of(Ingredient.EMPTY, aingredient));
+                                                    }
+                                                },
+                                                DataResult::success
+                                        )
+                                        .forGetter(p_300975_ -> p_300975_.getIngredients())
+                        )
+                        .apply(p_311734_, (group, category, result, ingredients) -> new SpiritTradeRecipe(group, result, ingredients))
+        );
+
 
         @Override
-        public SpiritTradeRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-            ShapelessRecipe recipe = serializer.fromJson(recipeId, json);
-            //we can pass null because shapeless recipe doesn't use the registryaccess.
-            return new SpiritTradeRecipe(recipe.getId(), recipe.getGroup(), recipe.getResultItem(RegistryAccess.EMPTY), recipe.getIngredients());
+        public Codec<SpiritTradeRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public SpiritTradeRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            ShapelessRecipe recipe = serializer.fromNetwork(recipeId, buffer);
-            //we can pass null because shapeless recipe doesn't use the registryaccess.
-            return new SpiritTradeRecipe(recipe.getId(), recipe.getGroup(), recipe.getResultItem(RegistryAccess.EMPTY), recipe.getIngredients());
+        public SpiritTradeRecipe fromNetwork(FriendlyByteBuf pBuffer) {
+            //noinspection deprecation
+            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf buffer, SpiritTradeRecipe recipe) {
-            serializer.toNetwork(buffer, recipe);
+        public void toNetwork(FriendlyByteBuf pBuffer, SpiritTradeRecipe pRecipe) {
+            //noinspection deprecation
+            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
         }
 
     }

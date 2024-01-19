@@ -3,22 +3,18 @@
   "criteria": {
     "beholder_eat": {
       "conditions": {
-        "type": "BEHOLDER_EAT"
+        "type": "beholder_eat"
       },
       "trigger": "occultism:familiar"
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.occultism.familiar.beholder_eat.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "minecraft:pumpkin_pie"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.occultism.familiar.beholder_eat.title"
     }

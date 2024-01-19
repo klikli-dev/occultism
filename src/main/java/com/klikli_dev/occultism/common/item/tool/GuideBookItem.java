@@ -40,8 +40,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -121,8 +119,9 @@ public class GuideBookItem extends ModonomiconItem {
     }
 
     @Override
-    public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-        stack.getOrCreateTag().putString(ModonomiconConstants.Nbt.ITEM_BOOK_ID_TAG, DICTIONARY_OF_SPIRITS.toString());
-        return super.initCapabilities(stack, nbt);
+    public void verifyTagAfterLoad(CompoundTag pTag) {
+        //here this is ok to use as we do not access the (at that time not yet loaded) config
+        if (!pTag.contains(ModonomiconConstants.Nbt.ITEM_BOOK_ID_TAG))
+            pTag.putString(ModonomiconConstants.Nbt.ITEM_BOOK_ID_TAG, DICTIONARY_OF_SPIRITS.toString());
     }
 }

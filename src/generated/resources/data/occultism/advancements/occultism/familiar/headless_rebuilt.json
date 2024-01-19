@@ -3,22 +3,18 @@
   "criteria": {
     "headless_rebuilt": {
       "conditions": {
-        "type": "HEADLESS_REBUILT"
+        "type": "headless_rebuilt"
       },
       "trigger": "occultism:familiar"
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.occultism.familiar.headless_rebuilt.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "minecraft:hay_block"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.occultism.familiar.headless_rebuilt.title"
     }

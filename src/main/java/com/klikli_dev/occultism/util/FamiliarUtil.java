@@ -24,12 +24,10 @@ package com.klikli_dev.occultism.util;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.familiar.IFamiliar;
-import com.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
-import com.klikli_dev.occultism.registry.OccultismCapabilities;
+import com.klikli_dev.occultism.registry.OccultismDataStorage;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -57,8 +55,7 @@ public class FamiliarUtil {
     }
 
     public static boolean isFamiliarEnabled(LivingEntity owner, EntityType<? extends IFamiliar> familiar) {
-        return owner.getCapability(OccultismCapabilities.FAMILIAR_SETTINGS).lazyMap(c -> c.isFamiliarEnabled(familiar))
-                .orElse(false);
+        return owner.getData(OccultismDataStorage.FAMILIAR_SETTINGS).isFamiliarEnabled(familiar);
     }
 
     public static <T extends Entity & IFamiliar> boolean hasFamiliar(LivingEntity owner, EntityType<T> type) {
@@ -110,18 +107,20 @@ public class FamiliarUtil {
     public static <T extends Entity & IFamiliar> List<T> getAllEquippedFamiliars(LivingEntity owner, EntityType<T> type,
                                                                                  Predicate<T> pred) {
         List<T> familiars = new ArrayList<>();
-        var curios = CuriosApi.getCuriosHelper().getEquippedCurios(owner).orElse(null);
-        if (curios == null)
-            return familiars;
-
-        for (int i = 0; i < curios.getSlots(); i++) {
-            IFamiliar familiar = FamiliarRingItem.getFamiliar(curios.getStackInSlot(i), owner.level());
-            if (familiar != null && familiar.getFamiliarEntity().getType() == type) {
-                T fam = (T) familiar.getFamiliarEntity();
-                if (pred.test(fam))
-                    familiars.add(fam);
-            }
-        }
+        //TODO: enable once curios is available
+//        var cap = owner.getCapability(CuriosCapability.INVENTORY);
+//        if(cap == null)
+//            return familiars;
+//
+//        var curios = cap.getEquippedCurios();
+//        for (int i = 0; i < curios.getSlots(); i++) {
+//            IFamiliar familiar = FamiliarRingItem.getFamiliar(curios.getStackInSlot(i), owner.level());
+//            if (familiar != null && familiar.getFamiliarEntity().getType() == type) {
+//                T fam = (T) familiar.getFamiliarEntity();
+//                if (pred.test(fam))
+//                    familiars.add(fam);
+//            }
+//        }
 
         return familiars;
     }

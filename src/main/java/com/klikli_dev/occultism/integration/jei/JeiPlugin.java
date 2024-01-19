@@ -26,10 +26,6 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
-import com.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
-import com.klikli_dev.occultism.crafting.recipe.MinerRecipe;
-import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
-import com.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
 import com.klikli_dev.occultism.integration.jei.recipes.CrushingRecipeCategory;
 import com.klikli_dev.occultism.integration.jei.recipes.MinerRecipeCategory;
 import com.klikli_dev.occultism.integration.jei.recipes.RitualRecipeCategory;
@@ -49,14 +45,12 @@ import mezz.jei.api.registration.IRecipeTransferRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.List;
 
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
@@ -85,16 +79,16 @@ public class JeiPlugin implements IModPlugin {
         ClientLevel level = Minecraft.getInstance().level;
         RecipeManager recipeManager = level.getRecipeManager();
 
-        List<SpiritFireRecipe> spiritFireRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get());
+        var spiritFireRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get());
         registration.addRecipes(JeiRecipeTypes.SPIRIT_FIRE, spiritFireRecipes);
 
-        List<CrushingRecipe> crushingRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.CRUSHING_TYPE.get());
+        var crushingRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.CRUSHING_TYPE.get());
         registration.addRecipes(JeiRecipeTypes.CRUSHING, crushingRecipes);
 
-        List<MinerRecipe> minerRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.MINER_TYPE.get());
+        var minerRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.MINER_TYPE.get());
         registration.addRecipes(JeiRecipeTypes.MINER, minerRecipes);
 
-        List<RitualRecipe> ritualRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get());
+        var ritualRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get());
         registration.addRecipes(JeiRecipeTypes.RITUAL, ritualRecipes);
 
         this.registerIngredientInfo(registration, OccultismItems.TALLOW.get());
@@ -115,9 +109,9 @@ public class JeiPlugin implements IModPlugin {
         IStackHelper stackHelper = registration.getJeiHelpers().getStackHelper();
         IRecipeTransferHandlerHelper handlerHelper = registration.getTransferHelper();
 
-        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>( StorageControllerContainer.class, handlerHelper), RecipeTypes.CRAFTING);
-        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>( StorageRemoteContainer.class, handlerHelper), RecipeTypes.CRAFTING);
-        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>( StableWormholeContainer.class, handlerHelper), RecipeTypes.CRAFTING);
+        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(StorageControllerContainer.class, handlerHelper), RecipeTypes.CRAFTING);
+        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(StorageRemoteContainer.class, handlerHelper), RecipeTypes.CRAFTING);
+        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(StableWormholeContainer.class, handlerHelper), RecipeTypes.CRAFTING);
     }
 
     @Override
@@ -129,13 +123,13 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()),
                 JeiRecipeTypes.RITUAL);
 
-        registration.addRecipeCatalyst(new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_marid_crusher"))),
+        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_marid_crusher"))),
                 JeiRecipeTypes.CRUSHING);
-        registration.addRecipeCatalyst(new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_afrit_crusher"))),
+        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_afrit_crusher"))),
                 JeiRecipeTypes.CRUSHING);
-        registration.addRecipeCatalyst(new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_djinni_crusher"))),
+        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_djinni_crusher"))),
                 JeiRecipeTypes.CRUSHING);
-        registration.addRecipeCatalyst(new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_foliot_crusher"))),
+        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_foliot_crusher"))),
                 JeiRecipeTypes.CRUSHING);
     }
 
@@ -147,6 +141,6 @@ public class JeiPlugin implements IModPlugin {
 
     public void registerIngredientInfo(IRecipeRegistration registration, ItemLike ingredient) {
         registration.addIngredientInfo(new ItemStack(ingredient.asItem()), VanillaTypes.ITEM_STACK,
-                Component.translatable("jei." + Occultism.MODID + ".ingredient." + ForgeRegistries.ITEMS.getKey(ingredient.asItem()).getPath().replace("/", ".") + ".description"));
+                Component.translatable("jei." + Occultism.MODID + ".ingredient." + BuiltInRegistries.ITEM.getKey(ingredient.asItem()).getPath().replace("/", ".") + ".description"));
     }
 }

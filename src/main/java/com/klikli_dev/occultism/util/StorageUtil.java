@@ -24,8 +24,9 @@ package com.klikli_dev.occultism.util;
 
 import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
-import com.klikli_dev.occultism.network.OccultismPackets;
+import com.klikli_dev.occultism.network.Networking;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Containers;
@@ -36,10 +37,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOCase;
 
@@ -87,7 +87,7 @@ public class StorageUtil {
 
             //finally if requested, send the updated storage controller contents to the player.
             if (sendStackUpdate) {
-                OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
+                Networking.sendTo(player, storageController.getMessageUpdateStacks());
                 ((AbstractContainerMenu) container).broadcastChanges();
             }
 
@@ -127,7 +127,7 @@ public class StorageUtil {
 
             //finally if requested, send the updated storage controller contents to the player.
             if (sendStackUpdate) {
-                OccultismPackets.sendTo(player, storageController.getMessageUpdateStacks());
+                Networking.sendTo(player, storageController.getMessageUpdateStacks());
                 ((AbstractContainerMenu) container).broadcastChanges();
             }
         }
@@ -237,7 +237,7 @@ public class StorageUtil {
 
             if (filter.startsWith("item:")) {
                 filter = filter.substring(5);
-                if (FilenameUtils.wildcardMatch(ForgeRegistries.ITEMS.getKey(stack.getItem()).toString(), filter, IOCase.INSENSITIVE))
+                if (FilenameUtils.wildcardMatch(BuiltInRegistries.ITEM.getKey(stack.getItem()).toString(), filter, IOCase.INSENSITIVE))
                     return true;
             } else {
                 //tags should not be prefixed, but we allow it and handle it
@@ -265,9 +265,10 @@ public class StorageUtil {
      * @param blockEntity the block entity to drop contents for.
      */
     public static void dropInventoryItems(BlockEntity blockEntity) {
-        blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
+        var handler = blockEntity.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, null);
+        if (handler != null) {
             dropInventoryItems(blockEntity.getLevel(), blockEntity.getBlockPos(), handler);
-        });
+        }
     }
 
     public static void dropInventoryItems(Level worldIn, BlockPos pos, IItemHandler itemHandler) {

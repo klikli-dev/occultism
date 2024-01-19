@@ -23,13 +23,7 @@
 package com.klikli_dev.occultism.common.entity.ai.target;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class EntityMoveTarget implements IMoveTarget {
 
@@ -52,11 +46,5 @@ public class EntityMoveTarget implements IMoveTarget {
     @Override
     public boolean isChest() {
         return false;
-    }
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        return this.target.getCapability(cap, side);
     }
 }

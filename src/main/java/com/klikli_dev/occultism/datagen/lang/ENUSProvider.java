@@ -25,11 +25,9 @@ package com.klikli_dev.occultism.datagen.lang;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.AbstractModonomiconLanguageProvider;
 import com.klikli_dev.modonomicon.api.datagen.BookContextHelper;
-import com.klikli_dev.modonomicon.api.datagen.ModonomiconLanguageProvider;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.TranslationKeys;
-import com.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
-import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
+import com.klikli_dev.occultism.datagen.OccultismAdvancementSubProvider;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismEntities;
@@ -39,7 +37,6 @@ import net.minecraft.Util;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.data.LanguageProvider;
 
 public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
@@ -2970,19 +2967,19 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addModonomiconIntegration() {
-        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_ITEM_USE, "Item to use:");
-        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SUMMON, "Summon: %s");
-        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_JOB, "Job: %s");
-        this.add(OccultismModonomiconConstants.I18n.RITUAL_RECIPE_SACRIFICE, "Sacrifice: %s");
+        this.add(I18n.RITUAL_RECIPE_ITEM_USE, "Item to use:");
+        this.add(I18n.RITUAL_RECIPE_SUMMON, "Summon: %s");
+        this.add(I18n.RITUAL_RECIPE_JOB, "Job: %s");
+        this.add(I18n.RITUAL_RECIPE_SACRIFICE, "Sacrifice: %s");
         this.add(I18n.RITUAL_RECIPE_GO_TO_PENTACLE, "Open Pentacle Page: %s");
     }
 
     private void advancementTitle(String name, String s) {
-        this.add(((TranslatableContents) OccultismAdvancementProvider.title(name).getContents()).getKey(), s);
+        this.add(((TranslatableContents) OccultismAdvancementSubProvider.title(name).getContents()).getKey(), s);
     }
 
     private void advancementDescr(String name, String s) {
-        this.add(((TranslatableContents) OccultismAdvancementProvider.descr(name).getContents()).getKey(), s);
+        this.add(((TranslatableContents) OccultismAdvancementSubProvider.descr(name).getContents()).getKey(), s);
     }
 
     @Override

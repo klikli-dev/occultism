@@ -44,16 +44,16 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.random.WeightedRandom;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
-
+import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
+public class MinerRecipeCategory implements IRecipeCategory<RecipeHolder<MinerRecipe>> {
 
     private final IDrawable background;
     private final Component localizedName;
@@ -73,7 +73,7 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
     }
 
     @Override
-    public RecipeType<MinerRecipe> getRecipeType() {
+    public RecipeType<RecipeHolder<MinerRecipe>> getRecipeType() {
         return JeiRecipeTypes.MINER;
     }
 
@@ -93,28 +93,28 @@ public class MinerRecipeCategory implements IRecipeCategory<MinerRecipe> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, MinerRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<MinerRecipe> recipe, IFocusGroup focuses) {
         //set up a simulated handler to get all possible results
         Level level = Minecraft.getInstance().level;
         ItemStackHandler simulatedHandler = new ItemStackHandler(1);
-        simulatedHandler.setStackInSlot(0, recipe.getIngredients().get(0).getItems()[0]);
-        List<MinerRecipe> recipes = level.getRecipeManager()
+        simulatedHandler.setStackInSlot(0, recipe.value().getIngredients().get(0).getItems()[0]);
+        var recipes = level.getRecipeManager()
                 .getRecipesFor(OccultismRecipes.MINER_TYPE.get(),
                         new RecipeWrapper(simulatedHandler), level);
-        List<WeightedOutputIngredient> possibleResults = recipes.stream().map(MinerRecipe::getWeightedOutput).collect(Collectors.toList());
+        List<WeightedOutputIngredient> possibleResults = recipes.stream().map(RecipeHolder::value).map(MinerRecipe::getWeightedOutput).toList();
 
-        float chance = (float) recipe.getWeightedOutput().getWeight().asInt()/100;
-        this.chances.put(recipe, chance);
+        float chance = (float) recipe.value().getWeightedOutput().getWeight().asInt()/100;
+        this.chances.put(recipe.value(), chance);
 
         builder.addSlot(RecipeIngredientRole.INPUT, 56, 12)
-                .addIngredients(recipe.getIngredients().get(0));
+                .addIngredients(recipe.value().getIngredients().get(0));
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 94, 12)
-                .addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
+                .addItemStack(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess()));
     }
 
     @Override
-    public void draw(MinerRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<MinerRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
         this.overlay.draw(guiGraphics, 76, 14); //(center=84) - (width/16=8) = 76
         this.drawStringCentered(guiGraphics, Minecraft.getInstance().font,

@@ -124,7 +124,7 @@ public class ShubNiggurathSpawnEntity extends PathfinderMob {
             e.hurt(owner == null ? this.damageSources().generic() : this.damageSources().mobAttack(owner), damage);
 
         if (!enemies.isEmpty())
-            OccultismAdvancements.FAMILIAR.trigger(this.getCreatorOwner(), FamiliarTrigger.Type.SHUB_NIGGURATH_SPAWN);
+            OccultismAdvancements.FAMILIAR.get().trigger(this.getCreatorOwner(), FamiliarTrigger.Type.SHUB_NIGGURATH_SPAWN);
 
         this.kill();
     }

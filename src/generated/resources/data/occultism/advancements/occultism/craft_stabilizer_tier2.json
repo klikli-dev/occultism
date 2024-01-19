@@ -3,9 +3,7 @@
   "criteria": {
     "craft_stabilizer_tier2": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/craft_stabilizer_tier2"
-        }
+        "ritual_id": "occultism:ritual/craft_stabilizer_tier2"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.craft_stabilizer_tier2.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

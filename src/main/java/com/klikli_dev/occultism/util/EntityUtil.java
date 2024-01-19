@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.util;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -30,9 +31,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.server.ServerLifecycleHooks;
-
+import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -92,7 +91,7 @@ public class EntityUtil {
     public static Entity entityFromNBT(Level level, CompoundTag nbtTagCompound) {
         ResourceLocation typeId = new ResourceLocation(nbtTagCompound.getString("id"));
 
-        Entity entity = ForgeRegistries.ENTITY_TYPES.getValue(typeId).create(level);
+        Entity entity = BuiltInRegistries.ENTITY_TYPE.get(typeId).create(level);
         entity.deserializeNBT(nbtTagCompound);
         return entity;
     }
@@ -105,7 +104,7 @@ public class EntityUtil {
      */
     public static EntityType<?> entityTypeFromNbt(CompoundTag nbtTagCompound) {
         ResourceLocation typeId = new ResourceLocation(nbtTagCompound.getString("id"));
-        return ForgeRegistries.ENTITY_TYPES.getValue(typeId);
+        return BuiltInRegistries.ENTITY_TYPE.get(typeId);
     }
     //endregion Static Methods
 

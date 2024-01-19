@@ -25,8 +25,8 @@ package com.klikli_dev.occultism.common.entity.familiar;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
-import com.klikli_dev.occultism.network.MessageHeadlessDie;
-import com.klikli_dev.occultism.network.OccultismPackets;
+import com.klikli_dev.occultism.network.messages.MessageHeadlessDie;
+import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import net.minecraft.core.particles.DustParticleOptions;
@@ -55,7 +55,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.Tags;
+import net.neoforged.neoforge.common.Tags;
 import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
@@ -203,7 +203,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
             if (success) {
                 stack.shrink(1);
                 if (this.isFullyRebuilt())
-                    OccultismAdvancements.FAMILIAR.trigger(playerIn, FamiliarTrigger.Type.HEADLESS_REBUILT);
+                    OccultismAdvancements.FAMILIAR.get().trigger(playerIn, FamiliarTrigger.Type.HEADLESS_REBUILT);
 
                 return InteractionResult.sidedSuccess(!this.level().isClientSide);
             }
@@ -215,7 +215,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasGlasses())
-            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 
@@ -247,7 +247,7 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
         super.actuallyHurt(pDamageSrc, pDamageAmount);
         if (this.getHealth() / this.getMaxHealth() < 0.5 && !this.isHeadlessDead()) {
             this.setHeadlessDead(true);
-            OccultismPackets.sendToTracking(this, new MessageHeadlessDie(this.getId()));
+            Networking.sendToTracking(this, new MessageHeadlessDie(this.getId()));
         }
     }
 

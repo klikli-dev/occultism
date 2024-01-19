@@ -3,23 +3,19 @@
   "criteria": {
     "mummy_dodge": {
       "conditions": {
-        "type": "MUMMY_DODGE"
+        "type": "mummy_dodge"
       },
       "trigger": "occultism:familiar"
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.occultism.familiar.mummy_dodge.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "occultism:advancement_icon",
       "nbt": "{CustomModelData:15}"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.occultism.familiar.mummy_dodge.title"
     }

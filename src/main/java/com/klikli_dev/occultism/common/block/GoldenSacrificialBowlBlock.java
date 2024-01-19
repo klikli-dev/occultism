@@ -23,7 +23,7 @@
 package com.klikli_dev.occultism.common.block;
 
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
-import com.klikli_dev.occultism.registry.OccultismTiles;
+import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -102,7 +102,7 @@ public class GoldenSacrificialBowlBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return OccultismTiles.GOLDEN_SACRIFICIAL_BOWL.get().create(blockPos, blockState);
+        return OccultismBlockEntities.GOLDEN_SACRIFICIAL_BOWL.get().create(blockPos, blockState);
     }
 
     @Nullable

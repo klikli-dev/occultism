@@ -3,9 +3,9 @@ package com.klikli_dev.occultism.common.entity.ai.behaviour;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
-import com.klikli_dev.occultism.network.MessageSelectBlock;
-import com.klikli_dev.occultism.network.OccultismPackets;
+
+import com.klikli_dev.occultism.network.messages.MessageSelectBlock;
+import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.util.StorageUtil;
 import com.mojang.datafixers.util.Pair;
@@ -19,7 +19,6 @@ import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraft.world.phys.Vec3;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
 import net.tslat.smartbrainlib.util.BrainUtils;
-
 import java.util.List;
 
 /**
@@ -35,7 +34,7 @@ public class SetWalkTargetToReplantSaplingBehaviour<E extends SpiritEntity> exte
 
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
-        return StorageUtil.getFirstMatchingSlot(entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new), ItemTags.SAPLINGS) != -1;
+        return StorageUtil.getFirstMatchingSlot(entity.inventory, ItemTags.SAPLINGS) != -1;
     }
 
     @Override
@@ -48,7 +47,7 @@ public class SetWalkTargetToReplantSaplingBehaviour<E extends SpiritEntity> exte
             BrainUtils.setMemory(entity, MemoryModuleType.WALK_TARGET, new WalkTarget(treePos, 1.0f, 0));
 
             if (Occultism.DEBUG.debugAI) {
-                OccultismPackets.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, OccultismConstants.Color.GREEN));
+                Networking.sendToTracking(entity, new MessageSelectBlock(treePos, 5000, OccultismConstants.Color.GREEN));
             }
         }
     }

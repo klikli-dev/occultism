@@ -3,9 +3,7 @@
   "criteria": {
     "possess_ghast": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/possess_ghast"
-        }
+        "ritual_id": "occultism:ritual/possess_ghast"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.possess_ghast.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

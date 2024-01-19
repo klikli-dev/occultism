@@ -6,7 +6,7 @@
 # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
 modLoader = "javafml" #mandatory
 # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-loaderVersion = "${loader_version_range}" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+loaderVersion = "${neo_loader_version_range}" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 # The license for you mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
 # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
 license = "${mod_license}"
@@ -21,7 +21,7 @@ version="${mod_version}" #mandatory
 # A display name for the mod
 displayName="${mod_name}" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification <here>
-updateJSONURL = "https://raw.githubusercontent.com/klikli-dev/occultism/meta/updates.json" #optional
+# updateJSONURL = "https://raw.githubusercontent.com/klikli-dev/occultism/meta/updates.json" #optional
 # A URL for the "homepage" for this mod, displayed in the mod UI
 displayURL = "https://www.curseforge.com/minecraft/mc-mods/occultism" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
@@ -34,55 +34,56 @@ authors="${mod_authors}" #optional
 description='''${mod_description}'''
 
 [[dependencies.occultism]]
-modId = "forge"
-mandatory = true
-versionRange = "${forge_version_range}"
+modId = "neoforge"
+type = "required"
+versionRange = "${neo_version_range}"
 side = "BOTH"
 
 [[dependencies.occultism]]
 modId = "modonomicon"
-mandatory = true
+type = "required"
 versionRange = "${modonomicon_version_range}"
 side = "BOTH"
 
 [[dependencies.occultism]]
 modId = "theurgy"
-mandatory = false
+type = "optional"
 versionRange = "${theurgy_version_range}"
 side = "BOTH"
 
-[[dependencies.occultism]]
-modId = "curios"
-mandatory = true
-versionRange = "${curios_version_range}"
-side = "BOTH"
+#TODO: enable once curios is available
+#[[dependencies.occultism]]
+#modId = "curios"
+#type = "required"
+#versionRange = "${curios_version_range}"
+#side = "BOTH"
 
 [[dependencies.occultism]]
 modId = "geckolib"
-mandatory = true
+type = "required"
 versionRange = "${geckolib_version_range}"
 side = "BOTH"
 
 [[dependencies.occultism]]
 modId = "smartbrainlib"
-mandatory = true
+type = "required"
 versionRange = "${smartbrainlib_version_range}"
 side = "BOTH"
 
 [[dependencies.occultism]]
 modId = "almostunified"
-mandatory = false
+type = "optional"
 versionRange = "${almost_unified_version_range}"
 side = "BOTH"
 
 [[dependencies.occultism]]
 modId = "per_viam_invenire"
-mandatory = false
+type = "optional"
 versionRange = "${per_viam_invenire_version_range}"
 side = "BOTH"
 
 [[dependencies.occultism]]
 modId = "jei"
-mandatory = false
+type = "optional"
 versionRange = "${jei_version_range}"
 side = "BOTH"

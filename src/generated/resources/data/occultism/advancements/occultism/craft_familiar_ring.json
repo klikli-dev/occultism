@@ -3,9 +3,7 @@
   "criteria": {
     "craft_familiar_ring": {
       "conditions": {
-        "ritual_predicate": {
-          "ritual_id": "occultism:ritual/craft_familiar_ring"
-        }
+        "ritual_id": "occultism:ritual/craft_familiar_ring"
       },
       "trigger": "occultism:ritual"
     }
@@ -15,7 +13,6 @@
     "description": {
       "translate": "advancements.occultism.craft_familiar_ring.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "occultism:jei_dummy/none"

@@ -43,7 +43,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraftforge.common.ForgeMod;
+import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.fluids.FluidType;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -66,7 +67,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return FamiliarEntity.createMobAttributes().add(ForgeMod.SWIM_SPEED.get(), 1f);
+        return FamiliarEntity.createMobAttributes().add(NeoForgeMod.SWIM_SPEED.value(), 1f);
     }
 
     @Override
@@ -85,7 +86,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
     @Override
     public void setFamiliarOwner(LivingEntity owner) {
         if (this.hasBigTail())
-            OccultismAdvancements.FAMILIAR.trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
+            OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
     }
 
@@ -110,8 +111,8 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    public boolean canBreatheUnderwater() {
-        return true;
+    public boolean canDrownInFluidType(FluidType type) {
+        return false;
     }
 
     public boolean hasWhiskers() {
@@ -206,7 +207,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
                 for (BlockPos p : harvesting)
                     this.beaver.level().destroyBlock(p, true);
                 this.beaver.treeTarget = null;
-                OccultismAdvancements.FAMILIAR.trigger(this.beaver.getFamiliarOwner(), FamiliarTrigger.Type.BEAVER_WOODCHOP);
+                OccultismAdvancements.FAMILIAR.get().trigger(this.beaver.getFamiliarOwner(), FamiliarTrigger.Type.BEAVER_WOODCHOP);
             }
         }
     }

@@ -26,20 +26,21 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.ai.sensor.NearestJobItemSensor;
 import com.klikli_dev.occultism.common.entity.ai.sensor.NearestTreeSensor;
 import com.klikli_dev.occultism.common.entity.ai.sensor.UnreachableTreeWalkTargetSensor;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.ai.sensing.SensorType;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.function.Supplier;
 
 public class OccultismSensors {
-    public static DeferredRegister<SensorType<?>> SENSORS = DeferredRegister.create(ForgeRegistries.Keys.SENSOR_TYPES, Occultism.MODID);
+    public static DeferredRegister<SensorType<?>> SENSORS = DeferredRegister.create(BuiltInRegistries.SENSOR_TYPE, Occultism.MODID);
 
-    public static final RegistryObject<SensorType<NearestTreeSensor<?>>> NEAREST_TREE = SENSORS.register("nearest_tree",
+    public static final Supplier<SensorType<NearestTreeSensor<?>>> NEAREST_TREE = SENSORS.register("nearest_tree",
             () -> new SensorType<>(NearestTreeSensor::new));
 
-    public static final RegistryObject<SensorType<UnreachableTreeWalkTargetSensor<?>>> UNREACHABLE_WALK_TARGET = SENSORS.register("unreachable_walk_target",
+    public static final Supplier<SensorType<UnreachableTreeWalkTargetSensor<?>>> UNREACHABLE_WALK_TARGET = SENSORS.register("unreachable_walk_target",
             () -> new SensorType<>(UnreachableTreeWalkTargetSensor::new));
 
-    public static final RegistryObject<SensorType<NearestJobItemSensor<?>>> NEAREST_JOB_ITEM = SENSORS.register("nearest_job_item",
+    public static final Supplier<SensorType<NearestJobItemSensor<?>>> NEAREST_JOB_ITEM = SENSORS.register("nearest_job_item",
             () -> new SensorType<>(NearestJobItemSensor::new));
 }

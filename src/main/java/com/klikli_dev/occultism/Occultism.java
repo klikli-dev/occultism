@@ -31,26 +31,25 @@ import com.klikli_dev.occultism.common.entity.spirit.*;
 import com.klikli_dev.occultism.config.OccultismClientConfig;
 import com.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.klikli_dev.occultism.config.OccultismServerConfig;
+import com.klikli_dev.occultism.handlers.ClientSetupEventHandler;
 import com.klikli_dev.occultism.integration.modonomicon.PageLoaders;
-import com.klikli_dev.occultism.network.OccultismPackets;
+import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.*;
+import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.registry.ParticleRegistry;
 import com.mojang.logging.LogUtils;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.InterModComms;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import org.slf4j.Logger;
 import software.bernie.geckolib.GeckoLib;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotTypeMessage;
-import top.theillusivec4.curios.api.SlotTypePreset;
 
 @Mod(Occultism.MODID)
 public class Occultism {
@@ -65,12 +64,11 @@ public class Occultism {
     public static final DebugHelper DEBUG = new DebugHelper();
     public static Occultism INSTANCE;
 
-    public Occultism() {
+    public Occultism(IEventBus modEventBus) {
         INSTANCE = this;
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG.spec);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG.spec);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG.spec);
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         OccultismEffects.EFFECTS.register(modEventBus);
         OccultismRecipes.RECIPE_TYPES.register(modEventBus);
@@ -78,7 +76,7 @@ public class Occultism {
         OccultismBlocks.BLOCKS.register(modEventBus);
         OccultismItems.ITEMS.register(modEventBus);
         OccultismCreativeModeTabs.CREATIVE_MODE_TABS.register(modEventBus);
-        OccultismTiles.TILES.register(modEventBus);
+        OccultismBlockEntities.BLOCK_ENTITIES.register(modEventBus);
         OccultismContainers.CONTAINERS.register(modEventBus);
         OccultismEntities.ENTITIES.register(modEventBus);
         OccultismSounds.SOUNDS.register(modEventBus);
@@ -87,31 +85,32 @@ public class Occultism {
         OccultismLootModifiers.LOOT_MODIFIERS.register(modEventBus);
         OccultismSensors.SENSORS.register(modEventBus);
         OccultismMemoryTypes.MEMORY_MODULE_TYPES.register(modEventBus);
+        OccultismDataStorage.ATTACHMENT_TYPES.register(modEventBus);
+        OccultismAdvancements.TRIGGER_TYPES.register(modEventBus);
 
 
         //now register the custom registries
         OccultismSpiritJobs.JOBS.register(modEventBus);
         OccultismRituals.RITUAL_FACTORIES.register(modEventBus);
 
-        OccultismAdvancements.register();
-
         //register event buses
         modEventBus.addListener(OccultismCapabilities::onRegisterCapabilities);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::onEntityAttributeCreation);
         modEventBus.addListener(this::serverSetup);
-        modEventBus.addListener(this::enqueueIMC);
+        modEventBus.addListener(Networking::register);
 
-        MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.addListener(OccultismCapabilities::onPlayerClone);
-        MinecraftForge.EVENT_BUS.addListener(OccultismCapabilities::onJoinWorld);
+        NeoForge.EVENT_BUS.addListener(OccultismDataStorage::onPlayerClone);
+        NeoForge.EVENT_BUS.addListener(OccultismDataStorage::onJoinWorld);
 
-        GeckoLib.initialize();
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            modEventBus.addListener(ClientSetupEventHandler::onRegisterMenuScreens);
+        }
+
+        GeckoLib.initialize(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        OccultismPackets.registerMessages();
-
         OccultismItems.registerCompostables();
 
         PageLoaders.onCommonSetup(event);
@@ -159,12 +158,5 @@ public class Occultism {
 
     private void serverSetup(final FMLDedicatedServerSetupEvent event) {
         LOGGER.info("Dedicated server setup complete.");
-    }
-
-    private void enqueueIMC(final InterModEnqueueEvent event) {
-        InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.BELT.getMessageBuilder().build());
-        InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.HEAD.getMessageBuilder().build());
-        InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.RING.getMessageBuilder().build());
-        InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.HANDS.getMessageBuilder().build());
     }
 }

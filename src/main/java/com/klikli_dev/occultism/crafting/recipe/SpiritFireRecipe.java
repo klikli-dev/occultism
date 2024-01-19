@@ -25,22 +25,30 @@ package com.klikli_dev.occultism.crafting.recipe;
 import com.google.gson.JsonObject;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
 public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
 
     public static Serializer SERIALIZER = new Serializer();
 
-    public SpiritFireRecipe(ResourceLocation id, Ingredient input, ItemStack output) {
-        super(id, input, output);
+    public static final Codec<SpiritFireRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            Ingredient.CODEC
+                    .fieldOf("ingredient").forGetter((r) -> r.input),
+            ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter(r -> r.output)
+    ).apply(instance, SpiritFireRecipe::new));
+
+    public SpiritFireRecipe(Ingredient input, ItemStack output) {
+        super(input, output);
     }
 
     @Override
@@ -77,11 +85,6 @@ public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
     }
 
     @Override
-    public ResourceLocation getId() {
-        return this.id;
-    }
-
-    @Override
     public RecipeSerializer<?> getSerializer() {
         return SERIALIZER;
     }
@@ -99,19 +102,20 @@ public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
     public static class Serializer implements RecipeSerializer<SpiritFireRecipe> {
 
         @Override
-        public SpiritFireRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-            return ItemStackFakeInventoryRecipe.SERIALIZER.read(SpiritFireRecipe::new, recipeId, json);
+        public Codec<SpiritFireRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public SpiritFireRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            return ItemStackFakeInventoryRecipe.SERIALIZER.read(SpiritFireRecipe::new, recipeId, buffer);
+        public SpiritFireRecipe fromNetwork(FriendlyByteBuf pBuffer) {
+            //noinspection deprecation
+            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf buffer, SpiritFireRecipe recipe) {
-            ItemStackFakeInventoryRecipe.SERIALIZER.write(buffer, recipe);
+        public void toNetwork(FriendlyByteBuf pBuffer, SpiritFireRecipe pRecipe) {
+            //noinspection deprecation
+            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
         }
-
     }
 }

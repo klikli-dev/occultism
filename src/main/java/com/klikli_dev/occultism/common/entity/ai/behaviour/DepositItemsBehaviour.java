@@ -1,7 +1,6 @@
 package com.klikli_dev.occultism.common.entity.ai.behaviour;
 
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.util.StorageUtil;
 import com.mojang.datafixers.util.Pair;
@@ -13,8 +12,8 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
 import net.tslat.smartbrainlib.util.BrainUtils;
 
@@ -44,7 +43,7 @@ public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehav
     protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
         var depositPos = BrainUtils.getMemory(entity, OccultismMemoryTypes.DEPOSIT_POSITION.get());
         var dist = entity.distanceToSqr(Vec3.atCenterOf(depositPos));
-        return StorageUtil.getFirstFilledSlot(entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new)) != -1
+        return StorageUtil.getFirstFilledSlot(entity.inventory) != -1
                 && dist <= DepositItemsBehaviour.DEPOSIT_ITEM_RANGE_SQUARE;
     }
 
@@ -56,13 +55,12 @@ public class DepositItemsBehaviour<E extends SpiritEntity> extends ExtendedBehav
         if (blockEntity != null) {
             BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(depositPos));
 
-            var depositItemHandlerCap = blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, depositFacing);
+            var depositItemHandler = entity.level().getCapability(Capabilities.ItemHandler.BLOCK, depositPos, blockEntity.getBlockState(), blockEntity, depositFacing);
 
             this.toggleContainer(blockEntity, true);
 
-            if (depositItemHandlerCap.isPresent()) {
-                var depositItemHandler = depositItemHandlerCap.orElseThrow(ItemHandlerMissingException::new);
-                var entityItemHandler = entity.itemStackHandler.orElseThrow(ItemHandlerMissingException::new);
+            if (depositItemHandler != null) {
+                var entityItemHandler = entity.inventory;
                 var firstFilledSlot = StorageUtil.getFirstFilledSlot(entityItemHandler);
                 ItemStack duplicate = entityItemHandler.getStackInSlot(firstFilledSlot).copy();
 

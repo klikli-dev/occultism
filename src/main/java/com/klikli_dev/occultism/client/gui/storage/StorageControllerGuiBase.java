@@ -35,9 +35,10 @@ import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.klikli_dev.occultism.client.gui.controls.MachineSlotWidget;
 import com.klikli_dev.occultism.client.gui.controls.SizedImageButton;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
-import com.klikli_dev.occultism.integration.jei.JeiAccess;
 import com.klikli_dev.occultism.integration.jei.JeiSettings;
+import com.klikli_dev.occultism.integration.jei.OccultismJeiIntegration;
 import com.klikli_dev.occultism.network.*;
+import com.klikli_dev.occultism.network.messages.*;
 import com.klikli_dev.occultism.util.InputUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import com.mojang.blaze3d.platform.InputConstants;
@@ -125,7 +126,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         this.lastClick = System.currentTimeMillis();
 
-        OccultismPackets.sendToServer(new MessageRequestStacks());
+        Networking.sendToServer(new MessageRequestStacks());
     }
 
     //region Getter / Setter
@@ -240,7 +241,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         this.searchBar.setValue(searchBarText);
         if (JeiSettings.isJeiLoaded() && JeiSettings.isJeiSearchSynced()) {
-            this.searchBar.setValue(JeiAccess.getFilterText());
+            this.searchBar.setValue(OccultismJeiIntegration.get().getFilterText());
         }
 
         int storageSpaceInfoLabelLeft = 186;
@@ -256,7 +257,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(guiGraphics);
+//        this.renderBackground(guiGraphics, mouseX, mouseY, partialTicks); //called by super
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
 
         this.renderTooltip(guiGraphics, mouseX, mouseY);
@@ -325,13 +326,13 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                     (mouseButton == InputUtil.MOUSE_BUTTON_LEFT || mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) &&
                     stackCarriedByMouse.isEmpty() && this.canClick()) {
                 //take item out of storage
-                OccultismPackets.sendToServer(
+                Networking.sendToServer(
                         new MessageTakeItem(this.stackUnderMouse, mouseButton, Screen.hasShiftDown(),
                                 Screen.hasControlDown()));
                 this.lastClick = System.currentTimeMillis();
             } else if (!stackCarriedByMouse.isEmpty() && this.isPointInItemArea(mouseX, mouseY) && this.canClick()) {
                 //put item into storage
-                OccultismPackets.sendToServer(new MessageInsertMouseHeldItem(mouseButton));
+                Networking.sendToServer(new MessageInsertMouseHeldItem(mouseButton));
                 this.lastClick = System.currentTimeMillis();
             }
         } else if (this.guiMode == StorageControllerGuiMode.AUTOCRAFTING) {
@@ -347,7 +348,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                             //this message both clears the order slot and creates the order
                             GlobalBlockPos storageControllerPos = this.storageControllerContainer.getStorageControllerGlobalBlockPos();
                             if (storageControllerPos != null) {
-                                OccultismPackets.sendToServer(new MessageRequestOrder(
+                                Networking.sendToServer(new MessageRequestOrder(
                                         storageControllerPos,
                                         slot.getMachine().insertGlobalPos, orderStack));
                             } else {
@@ -369,7 +370,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     public boolean keyPressed(int keyCode, int scanCode, int p_keyPressed_3_) {
         if (this.searchBar.isFocused() && this.searchBar.keyPressed(keyCode, scanCode, p_keyPressed_3_)) {
             if (JeiSettings.isJeiLoaded() && JeiSettings.isJeiSearchSynced()) {
-                JeiAccess.setFilterText(this.searchBar.getValue());
+                OccultismJeiIntegration.get().setFilterText(this.searchBar.getValue());
             }
             return true;
         }
@@ -399,15 +400,15 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public boolean mouseScrolled(double x, double y, double mouseButton) {
-        super.mouseScrolled(x, y, mouseButton);
+    public boolean mouseScrolled(double pMouseX, double pMouseY, double pScrollX, double pScrollY) {
+        super.mouseScrolled(pMouseX, pMouseY, pScrollX, pScrollY);
 
         //check if mouse is over item area, then handle scrolling
-        if (this.isPointInItemArea(x, y)) {
-            if (mouseButton > 0 && this.currentPage > 1) {
+        if (this.isPointInItemArea(pMouseX, pMouseY)) {
+            if (pScrollX > 0 && this.currentPage > 1) {
                 this.currentPage--;
             }
-            if (mouseButton < 0 && this.currentPage < this.totalPages) {
+            if (pScrollX < 0 && this.currentPage < this.totalPages) {
                 this.currentPage++;
             }
         }
@@ -417,9 +418,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     @Override
     public boolean charTyped(char typedChar, int keyCode) {
         if (this.searchBar.isFocused() && this.searchBar.charTyped(typedChar, keyCode)) {
-            OccultismPackets.sendToServer(new MessageRequestStacks());
+            Networking.sendToServer(new MessageRequestStacks());
             if (JeiSettings.isJeiLoaded() && JeiSettings.isJeiSearchSynced()) {
-                JeiAccess.setFilterText(this.searchBar.getValue());
+                OccultismJeiIntegration.get().setFilterText(this.searchBar.getValue());
             }
         }
 
@@ -434,8 +435,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.clearRecipeButton = new SizedImageButton(this.leftPos + clearRecipeButtonLeft,
                 this.topPos + clearRecipeButtonTop, controlButtonSize, controlButtonSize, 0, 196, 28, 28, 28, 256, 256,
                 BUTTONS, (button) -> {
-            OccultismPackets.sendToServer(new MessageClearCraftingMatrix());
-            OccultismPackets.sendToServer(new MessageRequestStacks());
+            Networking.sendToServer(new MessageClearCraftingMatrix());
+            Networking.sendToServer(new MessageRequestStacks());
             this.init();
         });
         this.addRenderableWidget(this.clearRecipeButton);
@@ -458,7 +459,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 this.topPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, sortTypeOffset, 28, 28, 28,
                 256, 256, BUTTONS, (button) -> {
             this.setSortType(this.getSortType().next());
-            OccultismPackets.sendToServer(
+            Networking.sendToServer(
                     new MessageSortItems(this.getEntityPosition(), this.getSortDirection(), this.getSortType()));
             this.init();
         });
@@ -470,7 +471,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 this.topPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, sortDirectionOffset, 28, 28,
                 28, 256, 256, BUTTONS, (button) -> {
             this.setSortDirection(this.getSortDirection().next());
-            OccultismPackets.sendToServer(
+            Networking.sendToServer(
                     new MessageSortItems(this.getEntityPosition(), this.getSortDirection(), this.getSortType()));
             this.init();
         });
@@ -860,7 +861,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected void clearSearch() {
         this.searchBar.setValue("");
         if (JeiSettings.isJeiLoaded() && JeiSettings.isJeiSearchSynced()) {
-            JeiAccess.setFilterText("");
+            OccultismJeiIntegration.get().setFilterText("");
         }
     }
 

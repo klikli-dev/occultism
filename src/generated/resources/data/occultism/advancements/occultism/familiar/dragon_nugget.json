@@ -3,22 +3,18 @@
   "criteria": {
     "dragon_nugget": {
       "conditions": {
-        "type": "DRAGON_NUGGET"
+        "type": "dragon_nugget"
       },
       "trigger": "occultism:familiar"
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.occultism.familiar.dragon_nugget.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "minecraft:gold_nugget"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.occultism.familiar.dragon_nugget.title"
     }

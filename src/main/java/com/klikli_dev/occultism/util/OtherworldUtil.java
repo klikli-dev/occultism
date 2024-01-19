@@ -26,10 +26,10 @@ import com.klikli_dev.occultism.common.item.otherworld.OtherworldBlockItem;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.fml.util.thread.SidedThreadGroups;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.fml.util.thread.SidedThreadGroups;
 
 public class OtherworldUtil {
 

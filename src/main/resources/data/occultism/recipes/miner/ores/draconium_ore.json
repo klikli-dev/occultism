@@ -7,9 +7,9 @@
     "item": "draconicevolution:draconium_ore"
   },
   "weight": 142,
-  "conditions": [
+  "neoforge:conditions": [
     {
-      "type": "forge:item_exists",
+      "type": "neoforge:item_exists",
       "item": "draconicevolution:draconium_ore"
     }
   ]

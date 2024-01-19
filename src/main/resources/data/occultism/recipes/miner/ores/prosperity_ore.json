@@ -7,11 +7,11 @@
     "tag": "forge:ores/prosperity"
   },
   "weight": 155,
-  "conditions": [
+  "neoforge:conditions": [
     {
-      "type": "forge:not",
+      "type": "neoforge:not",
       "value": {
-        "type": "forge:tag_empty",
+        "type": "neoforge:tag_empty",
         "tag": "forge:ores/prosperity"
       }
     }

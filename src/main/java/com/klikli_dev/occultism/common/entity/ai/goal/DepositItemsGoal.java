@@ -27,7 +27,7 @@ import com.klikli_dev.occultism.common.entity.ai.target.BlockPosMoveTarget;
 import com.klikli_dev.occultism.common.entity.ai.target.EntityMoveTarget;
 import com.klikli_dev.occultism.common.entity.ai.target.IMoveTarget;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.klikli_dev.occultism.exceptions.ItemHandlerMissingException;
+
 import com.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -37,11 +37,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
-
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import java.util.EnumSet;
 import java.util.Optional;
 import java.util.UUID;
@@ -120,14 +118,11 @@ public class DepositItemsGoal extends PausableGoal {
                 //when close enough insert item
                 if (distance < accessDistance && this.canSeeTarget()) {
 
-                    LazyOptional<IItemHandler> handlerCapability = this.moveTarget.getCapability(
-                            ForgeCapabilities.ITEM_HANDLER, this.entity.getDepositFacing());
-                    if (!handlerCapability
-                            .isPresent()) { //worst case scenario if block entity or entity changes since last target reset.
+                    var handler = this.entity.level().getCapability(Capabilities.ItemHandler.BLOCK, this.moveTarget.getBlockPos(), this.entity.getDepositFacing());
+                    if (handler == null) { //worst case scenario if block entity or entity changes since last target reset.
                         this.resetTarget();
                         return;
                     }
-                    IItemHandler handler = handlerCapability.orElseThrow(ItemHandlerMissingException::new);
                     ItemStack duplicate = this.entity.getItemInHand(InteractionHand.MAIN_HAND).copy();
 
                     //simulate insertion
@@ -198,8 +193,8 @@ public class DepositItemsGoal extends PausableGoal {
         Optional<BlockPos> targetPos = this.entity.getDepositPosition();
         targetPos.ifPresent((pos) -> {
             this.moveTarget = new BlockPosMoveTarget(this.entity.level(), pos);
-            if (!this.moveTarget.getCapability(ForgeCapabilities.ITEM_HANDLER, this.entity.getDepositFacing())
-                    .isPresent()) {
+            var handler = this.entity.level().getCapability(Capabilities.ItemHandler.BLOCK, this.moveTarget.getBlockPos(), this.entity.getDepositFacing());
+            if (handler == null) {
                 //the deposit block is not valid for depositing, so we disable this to allow exiting this task.
                 this.entity.setDepositPosition(null);
             }

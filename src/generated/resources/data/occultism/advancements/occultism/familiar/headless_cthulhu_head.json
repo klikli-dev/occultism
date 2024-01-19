@@ -3,23 +3,19 @@
   "criteria": {
     "headless_cthulhu_head": {
       "conditions": {
-        "type": "HEADLESS_CTHULHU_HEAD"
+        "type": "headless_cthulhu_head"
       },
       "trigger": "occultism:familiar"
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.occultism.familiar.headless_cthulhu_head.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "occultism:advancement_icon",
       "nbt": "{CustomModelData:9}"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.occultism.familiar.headless_cthulhu_head.title"
     }

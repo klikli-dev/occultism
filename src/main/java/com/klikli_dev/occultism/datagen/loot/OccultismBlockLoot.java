@@ -6,6 +6,7 @@ import com.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlags;
@@ -24,8 +25,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePrope
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.Set;
 import java.util.function.BiConsumer;
@@ -49,10 +49,10 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
     @Override
     protected void generate() {
         OccultismBlocks.BLOCKS.getEntries().stream()
-                .map(RegistryObject::get)
+                .map(DeferredHolder::get)
                 .forEach(block -> {
                     OccultismBlocks.BlockDataGenSettings settings = OccultismBlocks.BLOCK_DATA_GEN_SETTINGS
-                            .get(ForgeRegistries.BLOCKS.getKey(block));
+                            .get(BuiltInRegistries.BLOCK.getKey(block));
                     if (settings.lootTableType == OccultismBlocks.LootTableType.EMPTY)
                         this.registerDropNothingLootTable(block);
                     else if (settings.lootTableType == OccultismBlocks.LootTableType.REPLANTABLE_CROP) {
@@ -88,7 +88,7 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
             this.add(block, this.createOtherworldBlockTable(block));
         else
             Occultism.LOGGER.warn("Tried to register otherworld block loot table for non-otherworld block {}",
-                    ForgeRegistries.BLOCKS.getKey(block));
+                    BuiltInRegistries.BLOCK.getKey(block));
     }
 
     protected LootTable.Builder createOtherworldBlockTable(Block block) {
