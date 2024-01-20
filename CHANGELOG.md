@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.105.0] - 2024-01-20
+### :sparkles: New Features
+- [`79d2c0f`](https://github.com/klikli-dev/occultism/commit/79d2c0f5c252fa5a4255ea269cdae4d7f1a924b0) - add demonic partner *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`cc779f6`](https://github.com/klikli-dev/occultism/commit/cc779f615d27697a4d5a6adcd6e944dea5c0b2c6) - beholder size *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.104.1] - 2024-01-16
 ### :bug: Bug Fixes
 - [`56521a1`](https://github.com/klikli-dev/occultism/commit/56521a1894dc11a7863410ecf4c9b11b8f164fc4) - items being able to be transferred into the Golden Sacrificial Bowl ([#1031](https://github.com/klikli-dev/occultism/pull/1031)) - thanks @irishgreencitrus *(commit by [@irishgreencitrus](https://github.com/irishgreencitrus))*
@@ -813,3 +821,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.103.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.102.0...release/v1.20.1-1.103.0
 [release/v1.20.1-1.104.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.103.0...release/v1.20.1-1.104.0
 [release/v1.20.1-1.104.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.104.0...release/v1.20.1-1.104.1
+[release/v1.20.1-1.105.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.104.1...release/v1.20.1-1.105.0
