@@ -23,12 +23,15 @@
 package com.klikli_dev.occultism.datagen;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,12 +49,19 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.registerRitualDummy("item/" + key.getPath());
             }
         });
-
         this.registerAdvancementItem();
+
+
+        this.registerSpawnEgg(OccultismItems.SPAWN_EGG_DEMONIC_WIFE);
+        this.registerSpawnEgg(OccultismItems.SPAWN_EGG_DEMONIC_HUSBAND);
     }
 
     private void registerRitualDummy(String name) {
         this.getBuilder(name).parent(new ModelFile.UncheckedModelFile("occultism:item/ritual_dummy"));
+    }
+
+    private void registerSpawnEgg(RegistryObject<Item> spawnEgg) {
+        this.getBuilder("item/" + spawnEgg.getId().getPath()).parent(new ModelFile.UncheckedModelFile("item/template_spawn_egg"));
     }
 
     private void registerAdvancementItem() {

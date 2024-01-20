@@ -369,6 +369,13 @@ public class OccultismItems {
     public static final RegistryObject<Item> SPAWN_EGG_PARROT_FAMILIAR = ITEMS.register("spawn_egg/familiar_parrot",
             () -> new ForgeSpawnEggItem(() -> EntityType.PARROT, 894731, 16711680, defaultProperties()));
 
+    public static final RegistryObject<Item> SPAWN_EGG_DEMONIC_WIFE = ITEMS.register("spawn_egg/demonic_wife", () -> new ForgeSpawnEggItem(OccultismEntities.DEMONIC_WIFE::get, 0xf2f0d7, 0xa01d1d, defaultProperties()));
+    public static final RegistryObject<Item> SPAWN_EGG_DEMONIC_HUSBAND = ITEMS.register("spawn_egg/demonic_husband", () -> new ForgeSpawnEggItem(OccultismEntities.DEMONIC_HUSBAND::get, 0xf2f0d7, 0xa01d1d, defaultProperties()));
+
+
+    public static final RegistryObject<Item> RITUAL_DUMMY_SUMMON_DEMONIC_WIFE = ITEMS.register("ritual_dummy/summon_demonic_wife", () -> new DummyTooltipItem(defaultProperties()));
+    public static final RegistryObject<Item> RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND = ITEMS.register("ritual_dummy/summon_demonic_husband", () -> new DummyTooltipItem(defaultProperties()));
+
     //Ritual Dummy Items
     static {
         ITEMS.register("ritual_dummy/custom_ritual", () -> new DummyTooltipItem(defaultProperties()));

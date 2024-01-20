@@ -26,6 +26,8 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.familiar.*;
 import com.klikli_dev.occultism.common.entity.possessed.*;
 import com.klikli_dev.occultism.common.entity.spirit.*;
+import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.husband.DemonicHusband;
+import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife.DemonicWife;
 import com.klikli_dev.occultism.util.StaticUtil;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -231,6 +233,7 @@ public class OccultismEntities {
                     .clientTrackingRange(8)
                     .build(StaticUtil.modLoc("shub_niggurath_spawn").toString()));
 
+
     public static final RegistryObject<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
     public static final RegistryObject<EntityType<DjinniEntity>> DJINNI = ENTITIES.register("djinni", DJINNI_TYPE::get);
     public static final RegistryObject<EntityType<AfritEntity>> AFRIT = ENTITIES.register("afrit", AFRIT_TYPE::get);
@@ -297,4 +300,6 @@ public class OccultismEntities {
     public static final RegistryObject<EntityType<ShubNiggurathSpawnEntity>> SHUB_NIGGURATH_SPAWN =
             ENTITIES.register("shub_niggurath_spawn", SHUB_NIGGURATH_SPAWN_TYPE::get);
 
+    public static final RegistryObject<EntityType<DemonicWife>> DEMONIC_WIFE = ENTITIES.register(DemonicWife.ID.getPath(), DemonicWife.ENTITY_TYPE::get);
+    public static final RegistryObject<EntityType<DemonicHusband>> DEMONIC_HUSBAND = ENTITIES.register(DemonicHusband.ID.getPath(), DemonicHusband.ENTITY_TYPE::get);
 }

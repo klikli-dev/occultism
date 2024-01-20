@@ -34,12 +34,13 @@ import com.klikli_dev.occultism.client.itemproperties.*;
 import com.klikli_dev.occultism.client.keybindings.BackpackKeyConflictContext;
 import com.klikli_dev.occultism.client.keybindings.StorageRemoteKeyConflictContext;
 import com.klikli_dev.occultism.client.model.entity.*;
-import com.klikli_dev.occultism.client.render.ThirdEyeEffectRenderer;
 import com.klikli_dev.occultism.client.render.blockentity.SacrificialBowlRenderer;
 import com.klikli_dev.occultism.client.render.blockentity.StorageControllerGeoRenderer;
 import com.klikli_dev.occultism.client.render.entity.*;
 import com.klikli_dev.occultism.common.capability.FamiliarSettingsCapability;
 import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
+import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.husband.DemonicHusbandRenderer;
+import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife.DemonicWifeRenderer;
 import com.klikli_dev.occultism.integration.modonomicon.PageRenderers;
 import com.klikli_dev.occultism.registry.*;
 import com.mojang.blaze3d.platform.InputConstants;
@@ -140,6 +141,12 @@ public class ClientSetupEventHandler {
         event.registerEntityRenderer(OccultismEntities.WILD_HUNT_SKELETON.get(), SkeletonRenderer::new);
         event.registerEntityRenderer(OccultismEntities.WILD_HUNT_WITHER_SKELETON.get(), WitherSkeletonRenderer::new);
         event.registerEntityRenderer(OccultismEntities.OTHERWORLD_BIRD.get(), OtherworldBirdRenderer::new);
+
+
+        event.registerEntityRenderer(OccultismEntities.DEMONIC_WIFE.get(), DemonicWifeRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.DEMONIC_HUSBAND.get(), DemonicHusbandRenderer::new);
+
+
     }
 
     @SubscribeEvent
