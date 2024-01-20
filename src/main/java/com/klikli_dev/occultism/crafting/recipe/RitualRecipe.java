@@ -71,7 +71,7 @@ public class RitualRecipe implements Recipe<Container> {
                     Ingredient.CODEC.optionalFieldOf("item_to_use").forGetter(r -> Optional.ofNullable(r.itemToUse)),
                     Codec.STRING.optionalFieldOf("command").forGetter(r -> Optional.ofNullable(r.command))
             ).apply(instance, (pentacleId, ritualType, ritualDummy, result, entityToSummon, entityNbt, activationItem, ingredients, duration, spiritMaxAge, spiritJobType, entityToSacrifice, itemToUse, command) -> new RitualRecipe(pentacleId, ritualType, ritualDummy, result, entityToSummon.orElse(null), entityNbt.orElse(null), activationItem,
-                    NonNullList.copyOf(ingredients), duration, spiritMaxAge, spiritJobType.orElse(null), entityToSacrifice.orElse(null), itemToUse.orElse(null), command.orElse(null)))
+                    NonNullList.copyOf(ingredients), duration, spiritMaxAge, spiritJobType.orElse(null), entityToSacrifice.orElse(null), itemToUse.orElse(Ingredient.EMPTY), command.orElse(null)))
     );
     public static Serializer SERIALIZER = new Serializer();
     final ItemStack result;
@@ -224,7 +224,7 @@ public class RitualRecipe implements Recipe<Container> {
     }
 
     public String getEntityToSacrificeDisplayName() {
-        return this.entityToSacrifice.displayName();
+        return this.entityToSacrifice != null ? this.entityToSacrifice.displayName() : "";
     }
 
     public ResourceLocation getSpiritJobType() {
