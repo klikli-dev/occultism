@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.105.0] - 2024-01-20
+### :sparkles: New Features
+- [`5c37e0f`](https://github.com/klikli-dev/occultism/commit/5c37e0f1d3f747644bc3a0e51900af5e991f1dc2) - add demonic partner *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`f3ed14b`](https://github.com/klikli-dev/occultism/commit/f3ed14ba52f95c12dbe954ffaffbe941a76d5f07) - beholder size *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`0205c01`](https://github.com/klikli-dev/occultism/commit/0205c01e7f75744791587b6586e31b8046809b85) - crashes due to recipe codec null handling *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.104.1] - 2024-01-20
 ### :bug: Bug Fixes
 - [`a64834c`](https://github.com/klikli-dev/occultism/commit/a64834c8d24ad521618c3f1816899e13fe573841) - jei integratgion *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -825,3 +834,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.104.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.104.0...release/v1.20.1-1.104.1
 [release/v1.20.4-1.104.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-0.0.0...release/v1.20.4-1.104.0
 [release/v1.20.4-1.104.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.104.0...release/v1.20.4-1.104.1
+[release/v1.20.4-1.105.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.104.1...release/v1.20.4-1.105.0
