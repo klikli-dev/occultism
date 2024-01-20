@@ -28,6 +28,8 @@ import com.klikli_dev.occultism.common.DebugHelper;
 import com.klikli_dev.occultism.common.entity.familiar.*;
 import com.klikli_dev.occultism.common.entity.possessed.*;
 import com.klikli_dev.occultism.common.entity.spirit.*;
+import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.husband.DemonicHusband;
+import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife.DemonicWife;
 import com.klikli_dev.occultism.config.OccultismClientConfig;
 import com.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.klikli_dev.occultism.config.OccultismServerConfig;
@@ -154,6 +156,9 @@ public class Occultism {
         event.put(OccultismEntities.MUMMY_FAMILIAR_TYPE.get(), MummyFamiliarEntity.createAttributes().build());
         event.put(OccultismEntities.BEAVER_FAMILIAR_TYPE.get(), BeaverFamiliarEntity.createAttributes().build());
         event.put(OccultismEntities.SHUB_NIGGURATH_SPAWN_TYPE.get(), ShubNiggurathSpawnEntity.createAttributes().build());
+
+        event.put(OccultismEntities.DEMONIC_WIFE.get(), DemonicWife.createAttributes().build());
+        event.put(OccultismEntities.DEMONIC_HUSBAND.get(), DemonicHusband.createAttributes().build());
     }
 
     private void serverSetup(final FMLDedicatedServerSetupEvent event) {

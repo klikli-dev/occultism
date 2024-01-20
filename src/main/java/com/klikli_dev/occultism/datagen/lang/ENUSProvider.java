@@ -37,6 +37,7 @@ import net.minecraft.Util;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.ItemLike;
 
 public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
@@ -246,6 +247,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_MUMMY_FAMILIAR, "Mummy Familiar Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_BEAVER_FAMILIAR, "Beaver Familiar Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_PARROT_FAMILIAR, "Parrot Familiar Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_DEMONIC_WIFE, "Demonic Wife Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_DEMONIC_HUSBAND, "Demonic Husband Spawn Egg");
     }
 
     private void addBlocks() {
@@ -331,6 +334,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.BEAVER_FAMILIAR, "Beaver Familiar");
         this.addEntityType(OccultismEntities.SHUB_NIGGURATH_SPAWN, "Shub Niggurath Spawn");
         this.addEntityType(OccultismEntities.THROWN_SWORD, "Thrown Sword");
+        this.addEntityType(OccultismEntities.DEMONIC_WIFE, "Demonic Wife");
+        this.addEntityType(OccultismEntities.DEMONIC_HUSBAND, "Demonic Husband");
     }
 
     private void addMiscTranslations() {
@@ -2059,7 +2064,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
     private void addFamiliarRitualsCategory(BookContextHelper helper) {
         helper.category("familiar_rituals");
-        this.add(helper.categoryName(), "Familiar Rituals");
 
         helper.entry("return_to_rituals");
         this.add(helper.entryName(), "Return to Rituals Category");
@@ -2959,6 +2963,17 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.summon_wild_otherworld_bird.tooltip", "Summons a Drikwing Familiar that can be tamed by anyone, not just the summoner.");
         this.add("item.occultism.ritual_dummy.summon_wild_parrot", "Ritual: Summon Wild Parrot");
         this.add("item.occultism.ritual_dummy.summon_wild_parrot.tooltip", "Summons a Parrot that can be tamed by anyone, not just the summoner.");
+
+
+        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Ritual: Summon Demonic Wife");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Summons a Demonic Wife to support you: She will fight for you, help with cooking, and extend potion durations.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND.get(), "Ritual: Summon Demonic Husband");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND.get(), "Summons a Demonic Husband to support you: He will fight for you, help with cooking, and extend potion durations.");
+    }
+
+    public void addTooltip(ItemLike key, String value) {
+        this.add(key.asItem().getDescriptionId() + ".tooltip", value);
     }
 
     private void addDialogs() {

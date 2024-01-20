@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.registry;
 
+import com.klikli_dev.modonomicon.registry.RegistryObject;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.api.common.misc.OccultismItemTier;
@@ -367,6 +368,13 @@ public class OccultismItems {
             () -> new DeferredSpawnEggItem(OccultismEntities.BEAVER_FAMILIAR_TYPE::get, 0x824a2b, 0xdd9973, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_PARROT_FAMILIAR = ITEMS.register("spawn_egg/familiar_parrot",
             () -> new DeferredSpawnEggItem(() -> EntityType.PARROT, 894731, 16711680, defaultProperties()));
+
+    public static final DeferredItem<Item> SPAWN_EGG_DEMONIC_WIFE = ITEMS.register("spawn_egg/demonic_wife", () -> new DeferredSpawnEggItem(OccultismEntities.DEMONIC_WIFE::get, 0xf2f0d7, 0xa01d1d, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_DEMONIC_HUSBAND = ITEMS.register("spawn_egg/demonic_husband", () -> new DeferredSpawnEggItem(OccultismEntities.DEMONIC_HUSBAND::get, 0xf2f0d7, 0xa01d1d, defaultProperties()));
+
+
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DEMONIC_WIFE = ITEMS.register("ritual_dummy/summon_demonic_wife", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND = ITEMS.register("ritual_dummy/summon_demonic_husband", () -> new DummyTooltipItem(defaultProperties()));
 
     //Ritual Dummy Items
     static {

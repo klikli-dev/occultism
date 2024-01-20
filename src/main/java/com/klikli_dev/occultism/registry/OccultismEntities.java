@@ -22,10 +22,13 @@
 
 package com.klikli_dev.occultism.registry;
 
+import com.klikli_dev.modonomicon.registry.RegistryObject;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.familiar.*;
 import com.klikli_dev.occultism.common.entity.possessed.*;
 import com.klikli_dev.occultism.common.entity.spirit.*;
+import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.husband.DemonicHusband;
+import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife.DemonicWife;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -298,4 +301,6 @@ public class OccultismEntities {
     public static final Supplier<EntityType<ShubNiggurathSpawnEntity>> SHUB_NIGGURATH_SPAWN =
             ENTITIES.register("shub_niggurath_spawn", SHUB_NIGGURATH_SPAWN_TYPE::get);
 
+    public static final Supplier<EntityType<DemonicWife>> DEMONIC_WIFE = ENTITIES.register(DemonicWife.ID.getPath(), DemonicWife.ENTITY_TYPE::get);
+    public static final Supplier<EntityType<DemonicHusband>> DEMONIC_HUSBAND = ENTITIES.register(DemonicHusband.ID.getPath(), DemonicHusband.ENTITY_TYPE::get);
 }
