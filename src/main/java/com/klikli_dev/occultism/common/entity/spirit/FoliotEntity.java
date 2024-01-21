@@ -26,14 +26,24 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class FoliotEntity extends SpiritEntity {
+public class FoliotEntity extends SpiritEntity implements GeoEntity {
+
+    AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
     public FoliotEntity(EntityType<? extends SpiritEntity> type, Level level) {
         super(type, level);
     }
 
-    //region Static Methods
     public static AttributeSupplier.Builder createAttributes() {
         return SpiritEntity.createAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 1.0)
@@ -43,5 +53,30 @@ public class FoliotEntity extends SpiritEntity {
                 .add(Attributes.ARMOR_TOUGHNESS, 1.0)
                 .add(Attributes.FOLLOW_RANGE, 50.0);
     }
-    //endregion Static Methods
+
+    @Override
+    public int getCurrentSwingDuration() {
+        return 11; //to match our attack animation speed + 1 tick
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        var mainController = new AnimationController<>(this, "mainController", 0, this::animPredicate);
+        controllers.add(mainController);
+    }
+
+    private <T extends GeoAnimatable> PlayState animPredicate(AnimationState<T> tAnimationState) {
+
+        if (this.swinging) {
+            return tAnimationState.setAndContinue(RawAnimation.begin().thenLoop("attack"));
+        }
+
+        return tAnimationState.setAndContinue(tAnimationState.isMoving() ? RawAnimation.begin().thenPlay("walk") : RawAnimation.begin().thenPlay("idle"));
+    }
+
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.animatableInstanceCache;
+    }
 }
