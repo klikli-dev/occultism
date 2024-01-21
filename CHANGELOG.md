@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.107.0] - 2024-01-21
+### :sparkles: New Features
+- [`b73195f`](https://github.com/klikli-dev/occultism/commit/b73195f61084fa2c7f3c853af80c94f9df6de0e9) - Warden and Hoglin Posses *(PR [#1037](https://github.com/klikli-dev/occultism/pull/1037) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`81b63b4`](https://github.com/klikli-dev/occultism/commit/81b63b42d6742691593495819ad1e0c4ea47e9a8) - let demonic partner set enemies on fire *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`5bbe87f`](https://github.com/klikli-dev/occultism/commit/5bbe87fd836da362b01260242c32689a536c20ae) - ritual start/stop messages for demonic partner *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`4d9cc1e`](https://github.com/klikli-dev/occultism/commit/4d9cc1e06db7cc43d6d1ce78b715dd713b870e46) - mention that a demonic partner is not a familiar *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.105.0] - 2024-01-20
 ### :sparkles: New Features
 - [`5c37e0f`](https://github.com/klikli-dev/occultism/commit/5c37e0f1d3f747644bc3a0e51900af5e991f1dc2) - add demonic partner *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -835,3 +847,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.104.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-0.0.0...release/v1.20.4-1.104.0
 [release/v1.20.4-1.104.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.104.0...release/v1.20.4-1.104.1
 [release/v1.20.4-1.105.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.104.1...release/v1.20.4-1.105.0
+[release/v1.20.4-1.107.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.105.0...release/v1.20.4-1.107.0
