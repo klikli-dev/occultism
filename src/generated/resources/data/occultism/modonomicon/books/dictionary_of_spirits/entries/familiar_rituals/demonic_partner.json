@@ -47,6 +47,14 @@
       "use_markdown_in_title": false
     },
     {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.demonic_partner.familiar.text",
+      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.demonic_partner.familiar.title",
+      "use_markdown_in_title": false
+    },
+    {
       "type": "modonomicon:entity",
       "anchor": "",
       "default_rotation": -45.0,
