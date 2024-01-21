@@ -544,8 +544,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         var changedPage = this.previousPage != this.currentPage;
         this.previousPage = this.currentPage;
 
-        var changedStacksToDisplay = this.lastCachedStacksToDisplayCount != this.cachedStacksToDisplay.size();
-        this.lastCachedStacksToDisplayCount = this.cachedStacksToDisplay.size();
+        var changedStacksToDisplay = this.lastCachedStacksToDisplayCount != stacksToDisplay.size();
+        this.lastCachedStacksToDisplayCount = stacksToDisplay.size();
 
         if(changedPage || changedStacksToDisplay){
             this.sortItemStacks(stacksToDisplay);
