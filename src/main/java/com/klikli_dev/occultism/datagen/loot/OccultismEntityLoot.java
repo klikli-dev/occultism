@@ -48,7 +48,10 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .add(LootItem.lootTableItem(Items.ENDER_PEARL)
                                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 3.0F)))
                                         .apply(LootingEnchantFunction.lootingMultiplier(
-                                                UniformGenerator.between(0.0F, 1.0F))))));
+                                                UniformGenerator.between(0.0F, 1.0F)))))
+                        .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(Items.EYE_ARMOR_TRIM_SMITHING_TEMPLATE)
+                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.1f, 1.0F))))));
 
         //Guaranteed skeleton skull drop for skeleton
         this.add(OccultismEntities.POSSESSED_SKELETON_TYPE.get(),
@@ -99,8 +102,12 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                 ).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(Blocks.WITHER_SKELETON_SKULL))
                         .when(LootItemKilledByPlayerCondition.killedByPlayer())
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1f, 1.0F)))
-                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))));
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.334f, 1.0F)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+                ).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(Items.RIB_ARMOR_TRIM_SMITHING_TEMPLATE))
+                        .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.1f, 1.0F)))));
 
         //normal drop from wild hunt skeletons
         this.add(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get(), LootTable.lootTable()
