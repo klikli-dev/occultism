@@ -117,6 +117,20 @@ public class OccultismEntities {
                     .sized(2F, 2F)
                     .clientTrackingRange(24)
                     .build(new ResourceLocation(Occultism.MODID, "possessed_elder_guardian").toString()));
+    public static final NonNullLazy<EntityType<PossessedWardenEntity>> POSSESSED_WARDEN_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.of(PossessedWardenEntity::new, MobCategory.MONSTER)
+                    .sized(1.8F, 5.8F)
+                    .fireImmune()
+                    .clientTrackingRange(48)
+                    .build(new ResourceLocation(Occultism.MODID,"possessed_warden").toString()));
+
+    public static final NonNullLazy<EntityType<PossessedHoglinEntity>> POSSESSED_HOGLIN_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.of(PossessedHoglinEntity::new, MobCategory.MONSTER)
+                    .sized(1.88F, 1.88F)
+
+                    .fireImmune()
+                    .clientTrackingRange(24)
+                    .build(new ResourceLocation(Occultism.MODID, "possessed_hoglin").toString()));
     public static final NonNullLazy<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(WildHuntSkeletonEntity::new, MobCategory.MONSTER)
                     .sized(0.6F, 2.9F)
@@ -258,8 +272,9 @@ public class OccultismEntities {
             ENTITIES.register("possessed_shulker", POSSESSED_SHULKER_TYPE::get);
     public static final Supplier<EntityType<PossessedElderGuardianEntity>> POSSESSED_ELDER_GUARDIAN =
             ENTITIES.register("possessed_elder_guardian", POSSESSED_ELDER_GUARDIAN_TYPE::get);
-    public static final Supplier<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON =
-            ENTITIES.register("wild_hunt_skeleton", WILD_HUNT_SKELETON_TYPE::get);
+    public static final Supplier<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON = ENTITIES.register("wild_hunt_skeleton", WILD_HUNT_SKELETON_TYPE::get);
+    public static final Supplier<EntityType<PossessedWardenEntity>> POSSESSED_WARDEN = ENTITIES.register("possessed_warden", POSSESSED_WARDEN_TYPE::get);
+    public static final Supplier<EntityType<PossessedHoglinEntity>> POSSESSED_HOGLIN = ENTITIES.register("possessed_hoglin", POSSESSED_HOGLIN_TYPE::get);
     public static final Supplier<EntityType<WildHuntWitherSkeletonEntity>> WILD_HUNT_WITHER_SKELETON =
             ENTITIES.register("wild_hunt_wither_skeleton", WILD_HUNT_WITHER_SKELETON_TYPE::get);
     public static final Supplier<EntityType<OtherworldBirdEntity>> OTHERWORLD_BIRD =

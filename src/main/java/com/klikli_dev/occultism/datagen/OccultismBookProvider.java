@@ -4667,9 +4667,9 @@ public class OccultismBookProvider extends BookProvider {
                 "___________________________",
                 "___________________________",
                 "___________________________",
-                "_______D_E_A_I_L___________",
+                "_______D_E_A_I_L_M_________",
                 "___r_o_____________________",
-                "_______F_G_H_J_K___________",
+                "_______F_G_H_J_K_N_________",
                 "___________________________",
                 "___________________________",
                 "___________________________"
@@ -4696,6 +4696,10 @@ public class OccultismBookProvider extends BookProvider {
         possessShulker.withParent(BookEntryParentModel.create(overview.getId()));
         var possessElderGuardian = this.makePossessElderGuardianEntry(entryMap, 'L');
         possessElderGuardian.withParent(BookEntryParentModel.create(overview.getId()));
+        var possessWarden = this.makePossessWardenEntry(entryMap, 'M');
+        possessWarden.withParent(BookEntryParentModel.create(overview.getId()));
+        var possessHoglin = this.makePossessHoglinEntry(entryMap, 'N');
+        possessHoglin.withParent(BookEntryParentModel.create(overview.getId()));
 
         this.context().category("summoning_rituals"); //re-use the entries from the summoning rituals category
         var possessWitherSkeleton = this.makeWitherSkullEntry(entryMap, 'H');
@@ -4714,6 +4718,8 @@ public class OccultismBookProvider extends BookProvider {
         possessWeakShulker.withCondition(BookTrueConditionModel.builder().build());
         possessShulker.withCondition(BookTrueConditionModel.builder().build());
         possessElderGuardian.withCondition(BookTrueConditionModel.builder().build());
+        possessWarden.withCondition(BookTrueConditionModel.builder().build());
+        possessHoglin.withCondition(BookTrueConditionModel.builder().build());
         possessWitherSkeleton.withCondition(BookTrueConditionModel.builder().build());
         afritEssence.withCondition(BookTrueConditionModel.builder().build());
 
@@ -4731,6 +4737,8 @@ public class OccultismBookProvider extends BookProvider {
                         possessWeakShulker,
                         possessShulker,
                         possessElderGuardian,
+                        possessWarden,
+                        possessHoglin,
                         possessWitherSkeleton,
                         afritEssence
                 );
@@ -5039,6 +5047,87 @@ public class OccultismBookProvider extends BookProvider {
                         description
                 );
     }
+
+    private BookEntryModel makePossessWardenEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("possess_warden");
+        this.lang.add(this.context().entryName(), "Possessed Warden");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.builder()
+                .withEntityId("occultism:possessed_warden")
+                .withScale(1f)
+                .withText(this.context().pageText())
+                .build();
+        this.lang.add(this.context().pageText(),
+                """
+                        **Drops**: 1x [](item://minecraft:echo_shard)
+                        and items related to ancient city;
+                                """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/possess_warden"))
+                .build();
+
+        this.context().page("description");
+        var description = BookTextPageModel.builder()
+                .withText(this.context().pageText())
+                .build();
+        this.lang.add(this.context().pageText(),
+                """
+                        In this ritual a [#](%1$s)Warden[#]() is spawned using the life energy of a [#](%1$s)Axolotl[#]() and immediately possessed by the summoned [#](%1$s)Djinni[#](). The [#](%1$s)Possessed Warden[#]() will always drop at least one [](item://minecraft:echo_shard) when killed and as a chance to drop [](item://minecraft:disc_fragment_5), [](item://minecraft:music_disc_otherside), [](item://minecraft:silence_armor_trim_smithing_template), [](item://minecraft:ward_armor_trim_smithing_template). If you try to escape, this possessed Warden will go to the floor like a normal warden.
+                        """.formatted(COLOR_PURPLE));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.ECHO_SHARD)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+
+    private BookEntryModel makePossessHoglinEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("possess_hoglin");
+        this.lang.add(this.context().entryName(), "Possessed Hoglin");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.builder()
+                .withEntityId("occultism:possessed_hoglin")
+                .withScale(0.7f)
+                .withText(this.context().pageText())
+                .build();
+        this.lang.add(this.context().pageText(),
+                """
+                        **Drops**: Can drop: [](item://minecraft:netherite_upgrade_smithing_template),
+                        return back [](item://minecraft:netherite_scrap) or nothing;
+                      """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("ritual/possess_hoglin"))
+                .build();
+
+        this.context().page("description");
+        var description = BookTextPageModel.builder()
+                .withText(this.context().pageText())
+                .build();
+        this.lang.add(this.context().pageText(),
+                """
+                        In this ritual a [#](%1$s)Hoglin[#]() is spawned using the life energy of a [#](%1$s)Pig[#]() and immediately possessed by the summoned [#](%1$s)Afrit[#](). The [#](%1$s)Possessed Hoglin[#]() can drop a [](item://minecraft:netherite_upgrade_smithing_template), [](item://minecraft:snout_armor_trim_smithing_template), return back [](item://minecraft:netherite_scrap) or nothing when killed. You need to kill this mob before the transformation to a Zoglin if you don't want to perform the ritual in the nether.
+                        """.formatted(COLOR_PURPLE));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+
     //endregion
 
     private BookCategoryModel makeStorageCategory() {

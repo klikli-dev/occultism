@@ -227,6 +227,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WEAK_SHULKER, "Possessed Weak Shulker Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_SHULKER, "Possessed Shulker Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ELDER_GUARDIAN, "Possessed Elder Guardian Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WARDEN, "Possessed Warden Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_HOGLIN, "Possessed Hoglin Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HUNT_SKELETON, "Wild Hunt Skeleton Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HUNT_WITHER_SKELETON, "Wild Hunt Wither Skeleton Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_OTHERWORLD_BIRD, "Drikwing Spawn Egg");
@@ -313,6 +315,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.POSSESSED_WEAK_SHULKER, "Possessed Weak Shulker");
         this.addEntityType(OccultismEntities.POSSESSED_SHULKER, "Possessed Shulker");
         this.addEntityType(OccultismEntities.POSSESSED_ELDER_GUARDIAN, "Possessed Elder Guardian");
+        this.addEntityType(OccultismEntities.POSSESSED_WARDEN, "Possessed Warden");
+        this.addEntityType(OccultismEntities.POSSESSED_HOGLIN, "Possessed Hoglin");
         this.addEntityType(OccultismEntities.WILD_HUNT_SKELETON, "Wild Hunt Skeleton");
         this.addEntityType(OccultismEntities.WILD_HUNT_WITHER_SKELETON, "Wild Hunt Wither Skeleton");
         this.addEntityType(OccultismEntities.OTHERWORLD_BIRD, "Drikwing");
@@ -403,7 +407,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.sacrifice.spiders", "Spider");
         this.add("ritual.occultism.sacrifice.flying_passive", "Allay, Bat, Bee or Parrot");
         this.add("ritual.occultism.sacrifice.cubemob", "Slime or Magma Cube");
-        this.add("ritual.occultism.sacrifice.fishs", "Any Fish");
+        this.add("ritual.occultism.sacrifice.fish", "Any Fish");
+        this.add("ritual.occultism.sacrifice.axolotls", "Axolotl");
 
         //Network Message
         this.add("network.messages.occultism.request_order.order_received", "Order received!");
@@ -655,6 +660,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.possess_elder_guardian.started", "Started summoning possessed elder_guardian.");
         this.add("ritual.occultism.possess_elder_guardian.finished", "Summoned possessed elder_guardian successfully.");
         this.add("ritual.occultism.possess_elder_guardian.interrupted", "Summoning of possessed elder_guardian interrupted.");
+        this.add("ritual.occultism.possess_warden.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_warden.started", "Started summoning possessed warden.");
+        this.add("ritual.occultism.possess_warden.finished", "Summoned possessed warden successfully.");
+        this.add("ritual.occultism.possess_warden.interrupted", "Summoning of possessed warden interrupted.");
+        this.add("ritual.occultism.possess_hoglin.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_hoglin.started", "Started summoning possessed hoglin.");
+        this.add("ritual.occultism.possess_hoglin.finished", "Summoned possessed hoglin successfully.");
+        this.add("ritual.occultism.possess_hoglin.interrupted", "Summoning of possessed hoglin interrupted.");
         this.add("ritual.occultism.familiar_otherworld_bird.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.familiar_otherworld_bird.started", "Started summoning drikwing familiar.");
         this.add("ritual.occultism.familiar_otherworld_bird.finished", "Summoned drikwing familiar successfully.");
@@ -1156,7 +1169,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                 """
                         - [Possessed Enderman](entry://possession_rituals/possess_enderman)
                         - [Possessed Ghast](entry://possession_rituals/possess_ghast)
-                        - [Possessed Weak Shulker](entry://possession_rituals/possess_weak_shulker)                        
+                        - [Possessed Weak Shulker](entry://possession_rituals/possess_weak_shulker)
+                        - [Possessed Warden](entry://possession_rituals/possess_warden)
                         - [Drikwing Familiar](entry://familiar_rituals/familiar_otherworld_bird)
                         - [Bat Familiar](entry://familiar_rituals/familiar_bat)
                         - [Cthulhu Familiar](entry://familiar_rituals/familiar_cthulhu)
@@ -1196,6 +1210,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         - [Guardian Familiar](entry://familiar_rituals/familiar_guardian)
                         - [Possessed Shulker](entry://possession_rituals/possess_shulker)
                         - [Possessed Elder Guardian](entry://possession_rituals/possess_elder_guardian)
+                        - [Possessed Hoglin](entry://possession_rituals/possess_hoglin)
                         """.formatted(COLOR_PURPLE));
 
         helper.entry("craft_foliot");
@@ -2922,9 +2937,13 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.possess_weak_shulker", "Ritual: Summon Possessed Weak Shulker");
         this.add("item.occultism.ritual_dummy.possess_weak_shulker.tooltip", "The possessed Weak Shulker will drop at least one chorus fruit when killed and can drop shulker shell.");
         this.add("item.occultism.ritual_dummy.possess_shulker", "Ritual: Summon Possessed Shulker");
-        this.add("item.occultism.ritual_dummy.possess_shulker.tooltip", "The possessed shulker will always drop at least one shulker shell when killed.");
+        this.add("item.occultism.ritual_dummy.possess_shulker.tooltip", "The possessed Shulker will always drop at least one shulker shell when killed.");
         this.add("item.occultism.ritual_dummy.possess_elder_guardian", "Ritual: Summon Possessed Elder Guardian");
         this.add("item.occultism.ritual_dummy.possess_elder_guardian.tooltip", "The possessed elder guardian will drop at least one nautilus shell when killed, also can drop heart of the sea and the commom drops.");
+        this.add("item.occultism.ritual_dummy.possess_warden", "Ritual: Summon Possessed Warden");
+        this.add("item.occultism.ritual_dummy.possess_warden.tooltip", "The possessed Warden will always drop a echo shard and can drop anothers ancient stuff (smithing templates and discs) when killed.");
+        this.add("item.occultism.ritual_dummy.possess_hoglin", "Ritual: Summon Possessed Hoglin");
+        this.add("item.occultism.ritual_dummy.possess_hoglin.tooltip", "The possessed Hoglin has a chance to drop smithing template of netherite upgrade when killed.");
         this.add("item.occultism.ritual_dummy.summon_afrit_rain_weather", "Ritual: Rainy Weather");
         this.add("item.occultism.ritual_dummy.summon_afrit_rain_weather.tooltip", "Summons an bound Afrit that creates rain.");
         this.add("item.occultism.ritual_dummy.summon_afrit_thunder_weather", "Ritual: Thunderstorm");
@@ -2958,7 +2977,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.summon_wild_afrit", "Ritual: Summon Unbound Afrit");
         this.add("item.occultism.ritual_dummy.summon_wild_afrit.tooltip", "Summons an unbound Afrit that can be killed to obtain Afrit Essence");
         this.add("item.occultism.ritual_dummy.summon_wild_hunt", "Ritual: Summon The Wild Hunt");
-        this.add("item.occultism.ritual_dummy.summon_wild_hunt.tooltip", "The Wild Hunt consists of Wither Skeletons that are guaranteed to drop Wither Skeleton Skulls, and their minions.");
+        this.add("item.occultism.ritual_dummy.summon_wild_hunt.tooltip", "The Wild Hunt consists of Wither Skeletons that as a big chance to drop Wither Skeleton Skulls, and their minions.");
         this.add("item.occultism.ritual_dummy.summon_wild_otherworld_bird", "Ritual: Summon Wild Drikwing");
         this.add("item.occultism.ritual_dummy.summon_wild_otherworld_bird.tooltip", "Summons a Drikwing Familiar that can be tamed by anyone, not just the summoner.");
         this.add("item.occultism.ritual_dummy.summon_wild_parrot", "Ritual: Summon Wild Parrot");

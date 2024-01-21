@@ -29,6 +29,27 @@
         }
       ],
       "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 1.0,
+                "min": 0.1
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:eye_armor_trim_smithing_template"
+        }
+      ],
+      "rolls": 1.0
     }
   ],
   "random_sequence": "occultism:entities/possessed_enderman"
