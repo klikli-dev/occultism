@@ -61,8 +61,8 @@ public class OccultismBookProvider extends BookProvider {
 
         var pentaclesCategory = this.makePentaclesCategory().withSortNumber(sortNum++);
 
-        var introReadCondition = BookEntryReadConditionModel.builder()
-                .withEntry(this.modLoc("getting_started/intro")).build();
+        var introReadCondition = BookEntryReadConditionModel.create()
+                .withEntry(this.modLoc("getting_started/intro"));
 
         storageCategory.withCondition(introReadCondition);
         ritualsCategory.withCondition(introReadCondition);
@@ -136,12 +136,12 @@ public class OccultismBookProvider extends BookProvider {
         theurgyDivinationRodEntry
                 .withParent(BookEntryParentModel.create(divinationRodEntry.getId()))
                 .withCondition(
-                        BookAndConditionModel.builder().withChildren(
-                                BookEntryReadConditionModel.builder()
-                                        .withEntry(divinationRodEntry.getId()).build(),
-                                BookModLoadedConditionModel.builder()
-                                        .withModId("theurgy").build()
-                        ).build()
+                        BookAndConditionModel.create().withChildren(
+                                BookEntryReadConditionModel.create()
+                                        .withEntry(divinationRodEntry.getId()),
+                                BookModLoadedConditionModel.create()
+                                        .withModId("theurgy")
+                        )
                 )
                 .hideWhileLocked(true);
 
@@ -255,10 +255,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "About using the Dictionary of Spirits");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "About");
         this.lang().add(this.context().pageText(),
                 """
@@ -267,10 +266,9 @@ public class OccultismBookProvider extends BookProvider {
                         """);
 
         this.context().page("help");
-        var help = BookTextPageModel.builder()
+        var help = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Getting Help");
         this.lang().add(this.context().pageText(),
                 """
@@ -297,10 +295,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "Learn about the Otherworld and the Third Eye.");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "The Otherworld");
         this.lang().add(this.context().pageText(),
                 """
@@ -309,9 +306,8 @@ public class OccultismBookProvider extends BookProvider {
                         """.formatted(COLOR_PURPLE));
 
         this.context().page("intro2");
-        var intro2 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var intro2 = BookTextPageModel.create()
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         These Demons possess a wide variety of powers and useful skills, and for centuries magicians have sought to summon them for their own gain.
@@ -319,10 +315,9 @@ public class OccultismBookProvider extends BookProvider {
                         """);
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.DATURA.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         %1$s is a herb that gives humans the [#](%2$s)Third Eye[#](),
@@ -332,9 +327,8 @@ public class OccultismBookProvider extends BookProvider {
                         """.formatted(DEMONS_DREAM, COLOR_PURPLE));
 
         this.context().page("harvest_effect");
-        var harvestEffect = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var harvestEffect = BookTextPageModel.create()
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         An additional side effect of %1$s, is **the ability to interact with [#](%2$s)Otherworld[#]() materials**.
@@ -343,15 +337,13 @@ public class OccultismBookProvider extends BookProvider {
                          """.formatted(DEMONS_DREAM, COLOR_PURPLE));
 
         this.context().page("datura_screenshot");
-        var datureScreenshot = BookImagePageModel.builder()
-                .withImages(this.modLoc("textures/gui/book/datura_effect.png"))
-                .build();
+        var datureScreenshot = BookImagePageModel.create()
+                .withImages(this.modLoc("textures/gui/book/datura_effect.png"));
         //no text
 
         this.context().page("note_on_spirit_fire");
-        var spiritFire = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var spiritFire = BookTextPageModel.create()
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         **Hint**: The otherworld materials you obtain by harvesting under the effects of[#](%2$s)Third Eye[#]() **can be obtained more easily using [](item://occultism:spirit_fire)**. Proceed with the next entry in this book to learn more about spirit fire.
@@ -376,10 +368,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "Or does it?");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.SPIRIT_FIRE.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         [#](%1$s)Spiritfire[#]() is a special type of fire that exists mostly in [#](%1$s)The Other Place[#]()
@@ -388,19 +379,17 @@ public class OccultismBookProvider extends BookProvider {
                         """.formatted(COLOR_PURPLE));
 
         this.context().page("spirit_fire_screenshot");
-        var spiritFireScreenshot = BookImagePageModel.builder()
+        var spiritFireScreenshot = BookImagePageModel.create()
                 .withImages(this.modLoc("textures/gui/book/spiritfire_instructions.png"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         Throw [](item://occultism:datura) to the ground and light it on fire with [](item://minecraft:flint_and_steel).
                          """);
 
         this.context().page("main_uses");
-        var mainUses = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var mainUses = BookTextPageModel.create()
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         The main uses of [](item://occultism:spirit_fire) are to convert [](item://minecraft:diamond) into [](item://occultism:spirit_attuned_gem),
@@ -409,35 +398,31 @@ public class OccultismBookProvider extends BookProvider {
                          """);
 
         this.context().page("otherstone_recipe");
-        var otherstoneRecipe = BookSpiritFireRecipePageModel.builder()
+        var otherstoneRecipe = BookSpiritFireRecipePageModel.create()
                 .withRecipeId1(this.modLoc("spirit_fire/otherstone"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         An easier way to obtain [](item://occultism:otherstone) than via divination.
                               """);
 
         this.context().page("otherworld_sapling_natural_recipe");
-        var otherworldSaplingNaturalRecipe = BookSpiritFireRecipePageModel.builder()
+        var otherworldSaplingNaturalRecipe = BookSpiritFireRecipePageModel.create()
                 .withRecipeId1(this.modLoc("spirit_fire/otherworld_sapling_natural"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         An easier way to obtain [Otherworld Saplings](item://occultism:otherworld_sapling_natural) than via divination.
                               """);
 
         this.context().page("otherworld_ashes_recipe");
-        var otherworldAshesRecipe = BookSpiritFireRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("spirit_fire/otherworld_ashes"))
-                .build();
+        var otherworldAshesRecipe = BookSpiritFireRecipePageModel.create()
+                .withRecipeId1(this.modLoc("spirit_fire/otherworld_ashes"));
         //no text
 
         this.context().page("gem_recipe");
-        var gemRecipe = BookSpiritFireRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("spirit_fire/spirit_attuned_gem"))
-                .build();
+        var gemRecipe = BookSpiritFireRecipePageModel.create()
+                .withRecipeId1(this.modLoc("spirit_fire/spirit_attuned_gem"));
         //no text
 
 
@@ -462,10 +447,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "Fix up your spirit!");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.DATURA.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         Right-click a spirit with [](item://occultism:datura) to heal it. 
@@ -489,10 +473,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "Do you see now?");
 
         this.context().page("about");
-        var about = BookTextPageModel.builder()
+        var about = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Third Eye");
         this.lang().add(this.context().pageText(),
                 """
@@ -502,9 +485,8 @@ public class OccultismBookProvider extends BookProvider {
                          """.formatted(COLOR_PURPLE));
 
         this.context().page("how_to_obtain");
-        var howToObtain = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var howToObtain = BookTextPageModel.create()
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         The most comfortable, and most *expensive*, way to obtain this ability, is to wear spectacles
@@ -514,10 +496,9 @@ public class OccultismBookProvider extends BookProvider {
                          """.formatted(DEMONS_DREAM));
 
         this.context().page("otherworld_goggles");
-        var otherworldGoggles = BookSpotlightPageModel.builder()
+        var otherworldGoggles = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.OTHERWORLD_GOGGLES.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         [These goggles](entry://occultism:dictionary_of_spirits/crafting_rituals/craft_otherworld_goggles) allow to see even more hidden Otherworld blocks,
@@ -539,10 +520,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "Obtaining otherworld materials");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Divination");
         this.lang().add(this.context().pageText(),
                 """
@@ -552,16 +532,14 @@ public class OccultismBookProvider extends BookProvider {
                                 """);
 
         this.context().page("otherstone_recipe");
-        var otherstoneRecipe = BookSpiritFireRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("spirit_fire/otherstone"))
-                .build();
+        var otherstoneRecipe = BookSpiritFireRecipePageModel.create()
+                .withRecipeId1(this.modLoc("spirit_fire/otherstone"));
         //no text
 
         this.context().page("otherworld_sapling_natural_recipe");
-        var otherworldSaplingNaturalRecipe = BookSpiritFireRecipePageModel.builder()
+        var otherworldSaplingNaturalRecipe = BookSpiritFireRecipePageModel.create()
                 .withRecipeId1(this.modLoc("spirit_fire/otherworld_sapling_natural"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         **Beware**: the tree growing from the sapling will look like a normal oak tree.
@@ -570,11 +548,10 @@ public class OccultismBookProvider extends BookProvider {
                                 """);
 
         this.context().page("divination_rod");
-        var divinationRod = BookSpotlightPageModel.builder()
+        var divinationRod = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.DIVINATION_ROD.get()))
                 .withText(this.context().pageText())
-                .withAnchor("divination_instructions")
-                .build();
+                .withAnchor("divination_instructions");
         this.lang().add(this.context().pageText(),
                 """
                         Otherworld materials play an important role in interacting with spirits.
@@ -583,19 +560,16 @@ public class OccultismBookProvider extends BookProvider {
                                  """);
 
         this.context().page("spirit_attuned_gem_recipe");
-        var spiritAttunedGemRecipe = BookSpiritFireRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("spirit_fire/spirit_attuned_gem"))
-                .build();
+        var spiritAttunedGemRecipe = BookSpiritFireRecipePageModel.create()
+                .withRecipeId1(this.modLoc("spirit_fire/spirit_attuned_gem"));
 
         this.context().page("divination_rod_recipe");
-        var divinationRodRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/divination_rod"))
-                .build();
+        var divinationRodRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/divination_rod"));
 
         this.context().page("about_divination_rod");
-        var aboutDivinationRod = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var aboutDivinationRod = BookTextPageModel.create()
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         The divination rod uses a spirit attuned gem attached to a wooden rod.
@@ -608,10 +582,9 @@ public class OccultismBookProvider extends BookProvider {
                                  """);
 
         this.context().page("how_to_use");
-        var howToUse = BookTextPageModel.builder()
+        var howToUse = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Use of the Rod");
         this.lang().add(this.context().pageText(),
                 """
@@ -624,9 +597,8 @@ public class OccultismBookProvider extends BookProvider {
                         Then [#](%1$s)right-click[#]() and hold until the rod animation finishes.""".formatted(COLOR_PURPLE));
 
         this.context().page("how_to_use2");
-        var howToUse2 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var howToUse2 = BookTextPageModel.create()
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         After the animation finishes, the closest **found block will be highlighted
@@ -636,9 +608,8 @@ public class OccultismBookProvider extends BookProvider {
                         that the target is rather far away.""");
 
         this.context().page("how_to_use3");
-        var howToUse3 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var howToUse3 = BookTextPageModel.create()
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         [#](%1$s)Right-clicking[#]() without holding after a successful search will show the last found target block again.
@@ -648,14 +619,13 @@ public class OccultismBookProvider extends BookProvider {
                         """.formatted(COLOR_PURPLE));
 
         this.context().page("divination_rod_screenshots");
-        var divinationRodScreenshots = BookImagePageModel.builder()
+        var divinationRodScreenshots = BookImagePageModel.create()
                 .withImages(
                         this.modLoc("textures/gui/book/rod_far.png"),
                         this.modLoc("textures/gui/book/rod_mid.png"),
                         this.modLoc("textures/gui/book/rod_near.png")
                 )
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         White means nothing was found.
@@ -663,10 +633,9 @@ public class OccultismBookProvider extends BookProvider {
                         """);
 
         this.context().page("troubleshooting");
-        var troubleshooting = BookTextPageModel.builder()
+        var troubleshooting = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Troubleshooting");
         this.lang().add(this.context().pageText(),
                 """
@@ -677,10 +646,9 @@ public class OccultismBookProvider extends BookProvider {
 
 
         this.context().page("otherworld_groves");
-        var otherworldGroves = BookTextPageModel.builder()
+        var otherworldGroves = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Otherworld Groves");
         this.lang().add(this.context().pageText(),
                 """
@@ -692,19 +660,17 @@ public class OccultismBookProvider extends BookProvider {
                          """.formatted(COLOR_PURPLE));
 
         this.context().page("otherworld_groves_2");
-        var otherworldGroves2 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var otherworldGroves2 = BookTextPageModel.create()
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         **Hint:** In the Overworld, look **down**.
                           """);
 
         this.context().page("otherworld_trees");
-        var otherworldTrees = BookTextPageModel.builder()
+        var otherworldTrees = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Otherworld Trees");
         this.lang().add(this.context().pageText(),
                 """
@@ -714,9 +680,8 @@ public class OccultismBookProvider extends BookProvider {
                          """);
 
         this.context().page("otherworld_trees_2");
-        var otherworldTrees2 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var otherworldTrees2 = BookTextPageModel.create()
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         Trees grown from Stable Otherworld Saplings as obtained from spirit traders do not have that limitation.
@@ -753,10 +718,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "Finding other ores and resources.");
 
         this.context().page("intro");
-        var intro = BookSpotlightPageModel.builder()
+        var intro = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.DIVINATION_ROD_T1.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.lang().add(this.context().pageText(),
                 """
@@ -767,15 +731,13 @@ public class OccultismBookProvider extends BookProvider {
                                 """.formatted(COLOR_PURPLE));
 
         this.context().page("recipe_rod");
-        var recipeRod = BookCraftingRecipePageModel.builder()
-                .withRecipeId1("theurgy:crafting/shaped/divination_rod_t1")
-                .build();
+        var recipeRod = BookCraftingRecipePageModel.create()
+                .withRecipeId1("theurgy:crafting/shaped/divination_rod_t1");
 
         this.context().page("more_info");
-        var moreInfo = BookTextPageModel.builder()
+        var moreInfo = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.lang().add(this.context().pageTitle(), "More Information");
         this.lang().add(this.context().pageText(),
@@ -785,9 +747,8 @@ public class OccultismBookProvider extends BookProvider {
                         """);
 
         this.context().page("recipe_hermetica");
-        var recipeHermetica = BookCraftingRecipePageModel.builder()
-                .withRecipeId1("theurgy:crafting/shapeless/the_hermetica")
-                .build();
+        var recipeHermetica = BookCraftingRecipePageModel.create()
+                .withRecipeId1("theurgy:crafting/shapeless/the_hermetica");
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
@@ -807,10 +768,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "Let there be light!");
 
         this.context().page("intro");
-        var intro = BookSpotlightPageModel.builder()
+        var intro = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismBlocks.CANDLE_WHITE.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         Candles provide stability to rituals and are an important part of almost all pentacles.
@@ -821,10 +781,9 @@ public class OccultismBookProvider extends BookProvider {
                             """);
 
         this.context().page("tallow");
-        var tallow = BookSpotlightPageModel.builder()
+        var tallow = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.TALLOW.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         Key ingredient for candles. Kill large animals like pigs, cows or sheep with a [](item://occultism:butcher_knife)
@@ -832,15 +791,13 @@ public class OccultismBookProvider extends BookProvider {
                             """);
 
         this.context().page("cleaver_recipe");
-        var cleaverRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/butcher_knife"))
-                .build();
+        var cleaverRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/butcher_knife"));
         //no text
 
         this.context().page("candle_recipe");
-        var candleRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/candle"))
-                .build();
+        var candleRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/candle"));
         //no text
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
@@ -861,10 +818,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "Signs to find them, Signs to bring them all, and in the darkness bind them.");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Ritual Preparations: Chalks");
         this.lang().add(this.context().pageText(),
                 """
@@ -873,11 +829,10 @@ public class OccultismBookProvider extends BookProvider {
                          """.formatted(COLOR_PURPLE));
 
         this.context().page("white_chalk");
-        var whiteChalkSpotlight = BookSpotlightPageModel.builder()
+        var whiteChalkSpotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.CHALK_WHITE.get()))
                 .withText(this.context().pageText())
-                .withAnchor("white_chalk")
-                .build();
+                .withAnchor("white_chalk");
         this.lang().add(this.context().pageText(),
                 """
                         White chalk is used to draw the most basic pentacles, such as for our first ritual.
@@ -887,33 +842,28 @@ public class OccultismBookProvider extends BookProvider {
                             """);
 
         this.context().page("burnt_otherstone_recipe");
-        var burntOtherstoneRecipe = BookSmeltingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("smelting/burnt_otherstone"))
-                .build();
+        var burntOtherstoneRecipe = BookSmeltingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("smelting/burnt_otherstone"));
         //no text
 
         this.context().page("otherworld_ashes_recipe");
-        var otherworldAshesRecipe = BookSpiritFireRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("spirit_fire/otherworld_ashes"))
-                .build();
+        var otherworldAshesRecipe = BookSpiritFireRecipePageModel.create()
+                .withRecipeId1(this.modLoc("spirit_fire/otherworld_ashes"));
         //no text
         this.context().page("impure_white_chalk_recipe");
-        var impureWhiteChalkRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/chalk_white_impure"))
-                .build();
+        var impureWhiteChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_white_impure"));
         //no text
 
         this.context().page("white_chalk_recipe");
-        var whiteChalkRecipe = BookSpiritFireRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("spirit_fire/chalk_white"))
-                .build();
+        var whiteChalkRecipe = BookSpiritFireRecipePageModel.create()
+                .withRecipeId1(this.modLoc("spirit_fire/chalk_white"));
         //no text
 
         this.context().page("usage");
-        var usage = BookTextPageModel.builder()
+        var usage = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Usage");
         this.lang().add(this.context().pageText(),
                 """
@@ -941,11 +891,10 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "There is no power without sacrifice.");
 
         this.context().page("sacrificial_bowl");
-        var sacrificialBowlSpotlight = BookSpotlightPageModel.builder()
+        var sacrificialBowlSpotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismBlocks.SACRIFICIAL_BOWL.get()))
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Ritual Preparations: Sacrificial Bowls");
         this.lang().add(this.context().pageText(),
                 """
@@ -954,17 +903,15 @@ public class OccultismBookProvider extends BookProvider {
                              """);
 
         this.context().page("sacrificial_bowl_recipe");
-        var sacrificialBowlRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/sacrificial_bowl"))
-                .build();
+        var sacrificialBowlRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/sacrificial_bowl"));
         //no text
 
 
         this.context().page("golden_sacrificial_bowl");
-        var goldenSacrificialBowlSpotlight = BookSpotlightPageModel.builder()
+        var goldenSacrificialBowlSpotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         Once everything has been set up and you are ready to start, this special sacrificial bowl is used to activate the ritual by [#](%1$s)right-clicking[#]() it with the activation item,
@@ -972,9 +919,8 @@ public class OccultismBookProvider extends BookProvider {
                              """.formatted(COLOR_PURPLE));
 
         this.context().page("golden_sacrificial_bowl_recipe");
-        var goldenSacrificialBowlRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/golden_sacrificial_bowl"))
-                .build();
+        var goldenSacrificialBowlRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/golden_sacrificial_bowl"));
         //no text
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
@@ -995,10 +941,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "Or how to identify your spirit");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Books of Binding");
         this.lang().add(this.context().pageText(),
                 """
@@ -1008,99 +953,88 @@ public class OccultismBookProvider extends BookProvider {
                          """.formatted(COLOR_PURPLE));
 
         this.context().page("intro2");
-        var intro2 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var intro2 = BookTextPageModel.create()
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         **Note:** *The spirit names are eye candy only*, that means they are not relevant for the recipe. As long as you have the right spirit type in your book of binding it can be used.
                          """.formatted(COLOR_PURPLE));
 
         this.context().page("purified_ink_recipe");
-        var purifiedInkRecipe = BookSpiritFireRecipePageModel.builder()
+        var purifiedInkRecipe = BookSpiritFireRecipePageModel.create()
                 .withRecipeId1(this.modLoc("spirit_fire/purified_ink"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         In order to craft [#](%1$s)Books of Binding[#]() to summon spirits, you need purified ink. Simply drop any black dye into [](item://occultism:spirit_fire) to purify it.
                             """.formatted(COLOR_PURPLE));
 
         this.context().page("awakened_feather_recipe");
-        var awakenedFeatherRecipe = BookSpiritFireRecipePageModel.builder()
+        var awakenedFeatherRecipe = BookSpiritFireRecipePageModel.create()
                 .withRecipeId1(this.modLoc("spirit_fire/awakened_feather"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         In order to craft [#](%1$s)Books of Binding[#]() to summon spirits, you also need awakened feather. Simply drop any feather into [](item://occultism:spirit_fire) to awakened it.
                             """.formatted(COLOR_PURPLE));
 
         this.context().page("taboo_book_recipe");
-        var tabooBookRecipe = BookSpiritFireRecipePageModel.builder()
+        var tabooBookRecipe = BookSpiritFireRecipePageModel.create()
                 .withRecipeId1(this.modLoc("spirit_fire/taboo_book"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         Lastly you need taboo book to craft [#](%1$s)Books of Binding[#]() to summon spirits. Simply drop a book into [](item://occultism:spirit_fire) to get it.
                         """.formatted(COLOR_PURPLE));
 
         this.context().page("book_of_binding_foliot_recipe");
-        var bookOfBindingFoliotRecipe = BookCraftingRecipePageModel.builder()
+        var bookOfBindingFoliotRecipe = BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/book_of_binding_foliot"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         Craft a book of binding that will be used to call forth a [#](%1$s)Foliot[#]() spirit.
                            """.formatted(COLOR_PURPLE));
 
         this.context().page("book_of_binding_bound_foliot_recipe");
-        var bookOfBindingBoundFoliotRecipe = BookCraftingRecipePageModel.builder()
+        var bookOfBindingBoundFoliotRecipe = BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/book_of_binding_bound_foliot"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         Add the name of the spirit to summon to your book of binding by crafting it with the Dictionary of Spirits. The Dictionary will not be used up.
                            """);
 
         this.context().page("book_of_binding_djinni_recipe");
-        var bookOfBindingDjinniRecipe = BookCraftingRecipePageModel.builder()
+        var bookOfBindingDjinniRecipe = BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/book_of_binding_djinni"))
-                .withRecipeId2(this.modLoc("crafting/book_of_binding_bound_djinni"))
-                .build();
+                .withRecipeId2(this.modLoc("crafting/book_of_binding_bound_djinni"));
         //no text
 
         this.context().page("book_of_binding_afrit_recipe");
-        var bookOfBindingAfritRecipe = BookCraftingRecipePageModel.builder()
+        var bookOfBindingAfritRecipe = BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/book_of_binding_afrit"))
-                .withRecipeId2(this.modLoc("crafting/book_of_binding_bound_afrit"))
-                .build();
+                .withRecipeId2(this.modLoc("crafting/book_of_binding_bound_afrit"));
         //no text
 
         this.context().page("book_of_binding_marid_recipe");
-        var bookOfBindingMaridRecipe = BookCraftingRecipePageModel.builder()
+        var bookOfBindingMaridRecipe = BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/book_of_binding_marid"))
-                .withRecipeId2(this.modLoc("crafting/book_of_binding_bound_marid"))
-                .build();
+                .withRecipeId2(this.modLoc("crafting/book_of_binding_bound_marid"));
         //no text
 
         this.context().page("book_of_binding_empty");
-        var alternativeBooks = BookSpiritFireRecipePageModel.builder()
+        var alternativeBooks = BookSpiritFireRecipePageModel.create()
                 .withRecipeId1(this.modLoc("spirit_fire/book_of_binding_empty"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                          Alternatively, you can directly use the Binding Book: Empty instead of the previous three items. There are two ways to obtain this book. Place this book in the center of dyes to get specific book of binding.
                         """.formatted(COLOR_PURPLE));
 
         this.context().page("book_of_binding_empty_recipe");
-        var bookOfBindingEmptyRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId2(this.modLoc("crafting/book_of_binding_empty"))
-                .build();
+        var bookOfBindingEmptyRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId2(this.modLoc("crafting/book_of_binding_empty"));
         //no text
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
@@ -1129,10 +1063,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "Telling your spirits what to do");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Books of Calling");
         this.lang().add(this.context().pageText(),
                 """
@@ -1143,10 +1076,9 @@ public class OccultismBookProvider extends BookProvider {
                         """);
 
         this.context().page("usage");
-        var usage = BookTextPageModel.builder()
+        var usage = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Usage");
         this.lang().add(this.context().pageText(),
                 """
@@ -1157,10 +1089,9 @@ public class OccultismBookProvider extends BookProvider {
                         """.formatted(COLOR_PURPLE));
 
         this.context().page("obtaining");
-        var obtaining = BookTextPageModel.builder()
+        var obtaining = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "How to obtain Books of Calling");
         this.lang().add(this.context().pageText(),
                 """
@@ -1171,9 +1102,8 @@ public class OccultismBookProvider extends BookProvider {
                         """.formatted(COLOR_PURPLE));
 
         this.context().page("obtaining2");
-        var obtaining2 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var obtaining2 = BookTextPageModel.create()
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         The recipes can be found in this book or via JEI.
@@ -1183,10 +1113,9 @@ public class OccultismBookProvider extends BookProvider {
                         """.formatted(COLOR_PURPLE));
 
         this.context().page("storage");
-        var storage = BookTextPageModel.builder()
+        var storage = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Storing Spirits");
         this.lang().add(this.context().pageText(),
                 """
@@ -1213,10 +1142,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang.add(this.context().entryDescription(), "We're actually getting started now!");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageTitle(), "The Ritual (tm)");
         this.lang.add(this.context().pageText(),
                 """
@@ -1226,20 +1154,18 @@ public class OccultismBookProvider extends BookProvider {
                           """.formatted(COLOR_PURPLE));
 
         this.context().page("multiblock");
-        var multiblock = BookMultiblockPageModel.builder()
+        var multiblock = BookMultiblockPageModel.create()
                 .withMultiblockId(this.modLoc("summon_foliot"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageText(),
                 """
                         Only the color and location of the chalk marks is relevant, not the glyph/sign.
                           """.formatted(COLOR_PURPLE));
 
         this.context().page("bowl_text");
-        var bowlText = BookTextPageModel.builder()
+        var bowlText = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageTitle(), "Sacrificial Bowls");
         this.lang.add(this.context().pageText(),
                 """
@@ -1250,21 +1176,19 @@ public class OccultismBookProvider extends BookProvider {
                           """.formatted(COLOR_PURPLE));
 
         this.context().page("bowl_placement");
-        var bowlPlacementImage = BookImagePageModel.builder()
+        var bowlPlacementImage = BookImagePageModel.create()
                 .withImages(this.modLoc("textures/gui/book/bowl_placement.png"))
                 .withBorder(true)
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageText(),
                 """
                         Possible locations for the sacrificial bowls.
                           """.formatted(COLOR_PURPLE));
 
         this.context().page("ritual_text");
-        var ritualText = BookTextPageModel.builder()
+        var ritualText = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageTitle(), "Placing Ingredients");
         this.lang.add(this.context().pageText(),
                 """
@@ -1272,16 +1196,14 @@ public class OccultismBookProvider extends BookProvider {
                           """.formatted(COLOR_PURPLE));
 
         this.context().page("ritual_recipe");
-        var ritualRecipe = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/summon_foliot_crusher"))
-                .build();
+        var ritualRecipe = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_foliot_crusher"));
         //no text
 
         this.context().page("pentacle_link_hint");
-        var pentacleLinkHint = BookTextPageModel.builder()
+        var pentacleLinkHint = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageTitle(), "A Note about Ritual Recipes");
         this.lang.add(this.context().pageText(),
                 """
@@ -1292,10 +1214,9 @@ public class OccultismBookProvider extends BookProvider {
                           """.formatted(COLOR_PURPLE));
 
         this.context().page("start_ritual");
-        var startRitualText = BookTextPageModel.builder()
+        var startRitualText = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageTitle(), "Let there be ... spirits!");
         this.lang.add(this.context().pageText(),
                 """
@@ -1328,10 +1249,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "Cleaning up!");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Next Steps");
         this.lang().add(this.context().pageText(),
                 """
@@ -1339,9 +1259,8 @@ public class OccultismBookProvider extends BookProvider {
                           """.formatted(COLOR_PURPLE));
 
         this.context().page("brushRecipe");
-        var brushRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/brush"))
-                .build();
+        var brushRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/brush"));
         //no text
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
@@ -1373,10 +1292,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "What to do when a ritual seems stuck!");
 
         this.context().page("text");
-        var text = BookTextPageModel.builder()
+        var text = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Ritual stuck?");
         this.lang().add(this.context().pageText(),
                 """
@@ -1411,10 +1329,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "Better chalks for better rituals!");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "More Chalks");
         this.lang().add(this.context().pageText(),
                 """
@@ -1422,50 +1339,43 @@ public class OccultismBookProvider extends BookProvider {
                         """);
 
         this.context().page("impure_gold_chalk_recipe");
-        var impureGoldChalkRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/chalk_gold_impure"))
-                .build();
+        var impureGoldChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_gold_impure"));
         //no text
 
         this.context().page("gold_chalk_recipe");
-        var goldChalkRecipe = BookSpiritFireRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("spirit_fire/chalk_gold"))
-                .build();
+        var goldChalkRecipe = BookSpiritFireRecipePageModel.create()
+                .withRecipeId1(this.modLoc("spirit_fire/chalk_gold"));
         //no text
 
         this.context().page("impure_purple_chalk_recipe");
-        var impurePurpleChalkRecipe = BookCraftingRecipePageModel.builder()
+        var impurePurpleChalkRecipe = BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/chalk_purple_impure"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         You do not need to visit the [#](%1$s)The End[#]() to obtain Endstone. You can summon a [Possessed Endermite](entry://possession_rituals/possess_endermite) which has a high chance to drop it.
                              """.formatted(COLOR_PURPLE));
 
         this.context().page("purple_chalk_recipe");
-        var purpleChalkRecipe = BookSpiritFireRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("spirit_fire/chalk_purple"))
-                .build();
+        var purpleChalkRecipe = BookSpiritFireRecipePageModel.create()
+                .withRecipeId1(this.modLoc("spirit_fire/chalk_purple"));
         //no text
 
         this.context().page("impure_red_chalk_recipe");
-        var impureRedChalkRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/chalk_red_impure"))
-                .build();
+        var impureRedChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_red_impure"));
         //no text
 
         this.context().page("red_chalk_recipe");
-        var redChalkRecipe = BookSpiritFireRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("spirit_fire/chalk_red"))
-                .build();
+        var redChalkRecipe = BookSpiritFireRecipePageModel.create()
+                .withRecipeId1(this.modLoc("spirit_fire/chalk_red"));
         //no text
 
         this.context().page("afrit_essence");
-        var afritEssenceSpotlight = BookSpotlightPageModel.builder()
+        var afritEssenceSpotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.AFRIT_ESSENCE.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         To obtain the essence of an [#](%1$s)Afrit[#]() for [](item://occultism:chalk_red) you need to [summon and kill an Unbound Afrit](entry://summoning_rituals/afrit_essence).
@@ -1493,10 +1403,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "Say no to drugs!");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.OTHERWORLD_GOGGLES.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         The [](item://occultism:otherworld_goggles) are what advanced summoners use to see the [#](%1$s)Otherworld[#](), to avoid the negative side effects of [](entry://occultism:dictionary_of_spirits/getting_started/demons_dream).
@@ -1506,10 +1415,9 @@ public class OccultismBookProvider extends BookProvider {
                         """.formatted(COLOR_PURPLE));
 
         this.context().page("crafting");
-        var crafting = BookTextPageModel.builder()
+        var crafting = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Crafting Goggles");
         this.lang().add(this.context().pageText(),
                 """
@@ -1532,10 +1440,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "Tackling Otherworld Ores");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.INFUSED_PICKAXE.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         Beyond [](item://occultism:otherworld_log) and [](item://occultism:otherstone) there are also otherworld materials that require special tools to harvest. 
@@ -1545,26 +1452,23 @@ public class OccultismBookProvider extends BookProvider {
                         """);
 
         this.context().page("gem_recipe");
-        var gemRecipe = BookSpiritFireRecipePageModel.builder()
+        var gemRecipe = BookSpiritFireRecipePageModel.create()
                 .withRecipeId1(this.modLoc("spirit_fire/spirit_attuned_gem"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         These gems, when infused with a spirit, can be used to interact with Otherword materials and are the key to crafting the pickaxe.
                         """);
 
         this.context().page("head_recipe");
-        var headRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/spirit_attuned_pickaxe_head"))
-                .build();
+        var headRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/spirit_attuned_pickaxe_head"));
         //no text
 
         this.context().page("crafting");
-        var crafting = BookTextPageModel.builder()
+        var crafting = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Crafting");
         this.lang().add(this.context().pageText(),
                 """
@@ -1592,10 +1496,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "Myterious metals ...");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismBlocks.IESNIUM_ORE.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         This is a rare metal that, to the naked eye, looks like [](item://minecraft:netherrack) and cannot be mined with a regular pickaxe.
@@ -1605,10 +1508,9 @@ public class OccultismBookProvider extends BookProvider {
                              """.formatted(COLOR_PURPLE));
 
         this.context().page("where");
-        var where = BookTextPageModel.builder()
+        var where = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Where to find it");
         this.lang().add(this.context().pageText(),
                 """
@@ -1619,10 +1521,9 @@ public class OccultismBookProvider extends BookProvider {
                              """.formatted(COLOR_PURPLE));
 
         this.context().page("how");
-        var how = BookTextPageModel.builder()
+        var how = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "How to mine it");
         this.lang().add(this.context().pageText(),
                 """
@@ -1633,10 +1534,9 @@ public class OccultismBookProvider extends BookProvider {
                              """.formatted(COLOR_PURPLE));
 
         this.context().page("processing");
-        var processing = BookTextPageModel.builder()
+        var processing = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Processing");
         this.lang().add(this.context().pageText(),
                 """
@@ -1644,10 +1544,9 @@ public class OccultismBookProvider extends BookProvider {
                              """.formatted(COLOR_PURPLE));
 
         this.context().page("uses");
-        var uses = BookTextPageModel.builder()
+        var uses = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Uses");
         this.lang().add(this.context().pageText(),
                 """
@@ -1673,19 +1572,17 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "A more durable otherworld-appropriate pickaxe");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.IESNIUM_PICKAXE.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         Like the [Infused Pickaxe](entry://getting_started/infused_pickaxe), this pickaxe can be used to mine Tier 2 Otherworld Materials such as [](item://occultism:iesnium_ore). As it is made from metal, instead of brittle [](item://occultism:spirit_attuned_gem), it is very durable and can be used for a long time.
                              """.formatted(COLOR_PURPLE));
 
         this.context().page("crafting");
-        var crafting = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/iesnium_pickaxe"))
-                .build();
+        var crafting = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/iesnium_pickaxe"));
         //no text
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
@@ -1704,11 +1601,10 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "Three wishes? Close, but not quite..");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Magic Lamps");
         this.lang().add(this.context().pageText(),
                 """
@@ -1716,9 +1612,8 @@ public class OccultismBookProvider extends BookProvider {
                              """.formatted(COLOR_PURPLE));
 
         this.context().page("crafting");
-        var crafting = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/magic_lamp_empty"))
-                .build();
+        var crafting = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/magic_lamp_empty"));
         //no text
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
@@ -1737,11 +1632,10 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "It's Free Real Estate (-> Resources)");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get()))
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Spirit Miners");
         this.lang().add(this.context().pageText(),
                 """
@@ -1749,10 +1643,9 @@ public class OccultismBookProvider extends BookProvider {
                              """.formatted(COLOR_PURPLE));
 
         this.context().page("crafting");
-        var crafting = BookTextPageModel.builder()
+        var crafting = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Crafting");
         this.lang().add(this.context().pageText(),
                 """
@@ -1775,20 +1668,18 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "Ethically questionable, but very profitable");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismBlocks.DIMENSIONAL_MINESHAFT.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         This block acts as a portal, for spirits only, to the [#](%1$s)Mining Dimension[#](). Place a Magic Lamp with a Miner Spirit in it, to make it mine for you.
                              """.formatted(COLOR_PURPLE));
 
         this.context().page("crafting");
-        var crafting = BookTextPageModel.builder()
+        var crafting = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Crafting");
         this.lang().add(this.context().pageText(),
                 """
@@ -1824,10 +1715,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "A different way to get rare drops ...");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Possession Rituals");
         this.lang().add(this.context().pageText(),
                 """
@@ -1838,10 +1728,9 @@ public class OccultismBookProvider extends BookProvider {
                              """.formatted(COLOR_PURPLE));
 
         this.context().page("more");
-        var more = BookTextPageModel.builder()
+        var more = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "More Information");
         this.lang().add(this.context().pageText(),
                 """
@@ -1865,10 +1754,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "Personal helpers that provide buffs or fight for you");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Familiar Rituals");
         this.lang().add(this.context().pageText(),
                 """
@@ -1879,10 +1767,9 @@ public class OccultismBookProvider extends BookProvider {
                              """.formatted(COLOR_PURPLE));
 
         this.context().page("more");
-        var more = BookTextPageModel.builder()
+        var more = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "More Information");
         this.lang().add(this.context().pageText(),
                 """
@@ -1906,10 +1793,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "Spirit helpers for your daily work life");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Summoning Rituals");
         this.lang().add(this.context().pageText(),
                 """
@@ -1917,10 +1803,9 @@ public class OccultismBookProvider extends BookProvider {
                              """.formatted(COLOR_PURPLE));
 
         this.context().page("more");
-        var more = BookTextPageModel.builder()
+        var more = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "More Information");
         this.lang().add(this.context().pageText(),
                 """
@@ -1944,10 +1829,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "Infuse spirits into items to create powerful tools");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Infusion Rituals");
         this.lang().add(this.context().pageText(),
                 """
@@ -1955,10 +1839,9 @@ public class OccultismBookProvider extends BookProvider {
                              """.formatted(COLOR_PURPLE));
 
         this.context().page("more");
-        var more = BookTextPageModel.builder()
+        var more = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "More Information");
         this.lang().add(this.context().pageText(),
                 """
@@ -1995,7 +1878,7 @@ public class OccultismBookProvider extends BookProvider {
         var overview = this.makeSpiritsOverviewEntry(entryMap, '0');
         var returnToGettingStarted = this.makeReturnToGettingStartedEntry(entryMap, '<');
         returnToGettingStarted.withParent(BookEntryParentModel.create(overview.getId()));
-        returnToGettingStarted.withCondition(BookTrueConditionModel.builder().build());
+        returnToGettingStarted.withCondition(BookTrueConditionModel.create());
 
         var essenceDecay = this.makeEssenceDecayEntry(entryMap, 'd');
         essenceDecay.withParent(BookEntryParentModel.create(overview.getId()));
@@ -2038,10 +1921,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryName(), "On Spirits");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "On Spirits");
         this.lang().add(this.context().pageText(),
                 """
@@ -2049,10 +1931,9 @@ public class OccultismBookProvider extends BookProvider {
                         """.formatted(COLOR_PURPLE));
 
         this.context().page("shapes");
-        var shapes = BookTextPageModel.builder()
+        var shapes = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Shapes");
         this.lang().add(this.context().pageText(),
                 """
@@ -2060,10 +1941,9 @@ public class OccultismBookProvider extends BookProvider {
                           """.formatted(COLOR_PURPLE));
 
         this.context().page("tiers");
-        var tiers = BookTextPageModel.builder()
+        var tiers = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Types of Spirits");
         this.lang().add(this.context().pageText(),
                 """
@@ -2071,10 +1951,9 @@ public class OccultismBookProvider extends BookProvider {
                          """.formatted(COLOR_PURPLE));
 
         this.context().page("foliot");
-        var foliot = BookTextPageModel.builder()
+        var foliot = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Foliot");
         this.lang().add(this.context().pageText(),
                 """
@@ -2082,10 +1961,9 @@ public class OccultismBookProvider extends BookProvider {
                          """.formatted(COLOR_PURPLE));
 
         this.context().page("djinni");
-        var djinni = BookTextPageModel.builder()
+        var djinni = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Djinni");
         this.lang().add(this.context().pageText(),
                 """
@@ -2093,10 +1971,9 @@ public class OccultismBookProvider extends BookProvider {
                          """.formatted(COLOR_PURPLE));
 
         this.context().page("afrit");
-        var afrit = BookTextPageModel.builder()
+        var afrit = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Afrit");
         this.lang().add(this.context().pageText(),
                 """
@@ -2105,10 +1982,9 @@ public class OccultismBookProvider extends BookProvider {
 
 
         this.context().page("marid");
-        var marid = BookTextPageModel.builder()
+        var marid = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Marid");
         this.lang().add(this.context().pageText(),
                 """
@@ -2116,10 +1992,9 @@ public class OccultismBookProvider extends BookProvider {
                          """.formatted(COLOR_PURPLE));
 
         this.context().page("greater_spirits");
-        var greaterSpirits = BookTextPageModel.builder()
+        var greaterSpirits = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Greater Spirits");
         this.lang().add(this.context().pageText(),
                 """
@@ -2150,10 +2025,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "Even the immortal are not immune to time.");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Essence Decay");
         this.lang().add(this.context().pageText(),
                 """
@@ -2161,10 +2035,9 @@ public class OccultismBookProvider extends BookProvider {
                         """.formatted(COLOR_PURPLE));
 
         this.context().page("countermeasures");
-        var countermeasures = BookTextPageModel.builder()
+        var countermeasures = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Countermeasures");
         this.lang().add(this.context().pageText(),
                 """
@@ -2173,10 +2046,9 @@ public class OccultismBookProvider extends BookProvider {
 
 
         this.context().page("affected_spirits");
-        var affectedSpirits = BookTextPageModel.builder()
+        var affectedSpirits = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Affected Spirits");
         this.lang().add(this.context().pageText(),
                 """
@@ -2200,10 +2072,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "How to call spirits.");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "True Names");
         this.lang().add(this.context().pageText(),
                 """
@@ -2214,10 +2085,9 @@ public class OccultismBookProvider extends BookProvider {
                          """.formatted(COLOR_PURPLE));
 
         this.context().page("finding_names");
-        var findingNames = BookTextPageModel.builder()
+        var findingNames = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Finding Names");
         this.lang().add(this.context().pageText(),
                 """
@@ -2225,10 +2095,9 @@ public class OccultismBookProvider extends BookProvider {
                         """.formatted(COLOR_PURPLE));
 
         this.context().page("using_names");
-        var usingNames = BookTextPageModel.builder()
+        var usingNames = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Using Names to Summon a Spirit");
         this.lang().add(this.context().pageText(),
                 """
@@ -2252,10 +2121,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryDescription(), "Try not to lose your spirits!");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Unbound Spirits");
         this.lang().add(this.context().pageText(),
                 """
@@ -2263,10 +2131,9 @@ public class OccultismBookProvider extends BookProvider {
                         """.formatted(COLOR_PURPLE));
 
         this.context().page("unbound");
-        var unbound = BookTextPageModel.builder()
+        var unbound = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Forego the Leash");
         this.lang().add(this.context().pageText(),
                 """
@@ -2274,10 +2141,9 @@ public class OccultismBookProvider extends BookProvider {
                         """.formatted(COLOR_PURPLE));
 
         this.context().page("unbound2");
-        var unbound2 = BookTextPageModel.builder()
+        var unbound2 = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Beware!");
         this.lang().add(this.context().pageText(),
                 """
@@ -2285,10 +2151,9 @@ public class OccultismBookProvider extends BookProvider {
                         """.formatted(COLOR_PURPLE));
 
         this.context().page("essence");
-        var essence = BookTextPageModel.builder()
+        var essence = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Spirit Essence");
         this.lang().add(this.context().pageText(),
                 """
@@ -2312,10 +2177,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang().add(this.context().entryName(), "The Wild Hunt");
         this.lang().add(this.context().entryDescription(), "You better watch out, you better not cry ...");
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "The Wild Hunt");
         this.lang().add(this.context().pageText(),
                 """
@@ -2323,10 +2187,9 @@ public class OccultismBookProvider extends BookProvider {
                         """.formatted(COLOR_PURPLE));
 
         this.context().page("wither_skull");
-        var witherSkull = BookTextPageModel.builder()
+        var witherSkull = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context().pageTitle(), "Wither Skeleton Skulls");
         this.lang().add(this.context().pageText(),
                 """
@@ -2395,22 +2258,22 @@ public class OccultismBookProvider extends BookProvider {
         craftMarid.withParent(BookEntryParentModel.create(craftAfrit.getId()));
 
         //add true condition to all entries to enable them by default
-        overview.withCondition(BookTrueConditionModel.builder().build());
-        paraphernalia.withCondition(BookTrueConditionModel.builder().build());
-        chalkUses.withCondition(BookTrueConditionModel.builder().build());
-        summonFoliot.withCondition(BookTrueConditionModel.builder().build());
-        summonDjinni.withCondition(BookTrueConditionModel.builder().build());
-        summonWildAfrit.withCondition(BookTrueConditionModel.builder().build());
-        summonAfrit.withCondition(BookTrueConditionModel.builder().build());
-        summonMarid.withCondition(BookTrueConditionModel.builder().build());
-        summonWildGreaterSpirit.withCondition(BookTrueConditionModel.builder().build());
-        possessFoliot.withCondition(BookTrueConditionModel.builder().build());
-        possessDjinni.withCondition(BookTrueConditionModel.builder().build());
-        possessAfrit.withCondition(BookTrueConditionModel.builder().build());
-        craftFoliot.withCondition(BookTrueConditionModel.builder().build());
-        craftDjinni.withCondition(BookTrueConditionModel.builder().build());
-        craftAfrit.withCondition(BookTrueConditionModel.builder().build());
-        craftMarid.withCondition(BookTrueConditionModel.builder().build());
+        overview.withCondition(BookTrueConditionModel.create());
+        paraphernalia.withCondition(BookTrueConditionModel.create());
+        chalkUses.withCondition(BookTrueConditionModel.create());
+        summonFoliot.withCondition(BookTrueConditionModel.create());
+        summonDjinni.withCondition(BookTrueConditionModel.create());
+        summonWildAfrit.withCondition(BookTrueConditionModel.create());
+        summonAfrit.withCondition(BookTrueConditionModel.create());
+        summonMarid.withCondition(BookTrueConditionModel.create());
+        summonWildGreaterSpirit.withCondition(BookTrueConditionModel.create());
+        possessFoliot.withCondition(BookTrueConditionModel.create());
+        possessDjinni.withCondition(BookTrueConditionModel.create());
+        possessAfrit.withCondition(BookTrueConditionModel.create());
+        craftFoliot.withCondition(BookTrueConditionModel.create());
+        craftDjinni.withCondition(BookTrueConditionModel.create());
+        craftAfrit.withCondition(BookTrueConditionModel.create());
+        craftMarid.withCondition(BookTrueConditionModel.create());
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon(OccultismItems.PENTACLE.get())
@@ -2441,56 +2304,47 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("pentacles_overview");
 
         this.context().page("intro1");
-        var intro1 = BookTextPageModel.builder()
+        var intro1 = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("intro2");
-        var intro2 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var intro2 = BookTextPageModel.create()
+                .withText(this.context().pageText());
 
         this.context().page("intro3");
-        var intro3 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var intro3 = BookTextPageModel.create()
+                .withText(this.context().pageText());
 
         this.context().page("intro4");
-        var intro4 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var intro4 = BookTextPageModel.create()
+                .withText(this.context().pageText());
 
         //exact copy found in first ritual entry
         this.context().page("bowl_placement");
-        var bowlPlacementImage = BookImagePageModel.builder()
+        var bowlPlacementImage = BookImagePageModel.create()
                 .withImages(this.modLoc("textures/gui/book/bowl_placement.png"))
-                .withBorder(true)
-                .build();
+                .withBorder(true);
 
         //exact copy found in first ritual entry
         this.context().page("bowl_text");
-        var bowlText = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var bowlText = BookTextPageModel.create()
+                .withText(this.context().pageText());
 
         this.context().page("summoning_pentacles");
-        var summoningPentacles = BookTextPageModel.builder()
+        var summoningPentacles = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("infusion_pentacles");
-        var infusionPentacles = BookTextPageModel.builder()
+        var infusionPentacles = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("possession_pentacles");
-        var possessionPentacles = BookTextPageModel.builder()
+        var possessionPentacles = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get())
@@ -2513,38 +2367,32 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("paraphernalia");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("candle");
-        var candle = BookSpotlightPageModel.builder()
+        var candle = BookSpotlightPageModel.create()
                 .withText(this.context().pageText())
-                .withItem(Ingredient.of(OccultismBlocks.CANDLE_WHITE.get()))
-                .build();
+                .withItem(Ingredient.of(OccultismBlocks.CANDLE_WHITE.get()));
 
         this.context().page("crystal");
-        var crystal = BookSpotlightPageModel.builder()
+        var crystal = BookSpotlightPageModel.create()
                 .withText(this.context().pageText())
-                .withItem(Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()))
-                .build();
+                .withItem(Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()));
 
         this.context().page("gem_recipe");
-        var gemRecipe = BookSpiritFireRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("spirit_fire/spirit_attuned_gem"))
-                .build();
+        var gemRecipe = BookSpiritFireRecipePageModel.create()
+                .withRecipeId1(this.modLoc("spirit_fire/spirit_attuned_gem"));
 
         this.context().page("crystal_recipe");
-        var crystalRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/spirit_attuned_crystal"))
-                .build();
+        var crystalRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/spirit_attuned_crystal"));
 
         this.context().page("skeleton_skull");
-        var skeletonSkull = BookSpotlightPageModel.builder()
+        var skeletonSkull = BookSpotlightPageModel.create()
                 .withText(this.context().pageText())
-                .withItem(Ingredient.of(Blocks.SKELETON_SKULL))
-                .build();
+                .withItem(Ingredient.of(Blocks.SKELETON_SKULL));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(Blocks.SKELETON_SKULL)
@@ -2563,69 +2411,58 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("chalk_uses");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("intro2");
-        var intro2 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var intro2 = BookTextPageModel.create()
+                .withText(this.context().pageText());
 
         this.context().page("white_chalk");
-        var whiteChalk = BookSpotlightPageModel.builder()
+        var whiteChalk = BookSpotlightPageModel.create()
                 .withText(this.context().pageText())
-                .withItem(Ingredient.of(OccultismItems.CHALK_WHITE.get()))
-                .build();
+                .withItem(Ingredient.of(OccultismItems.CHALK_WHITE.get()));
 
         this.context().page("white_chalk_uses");
-        var whiteChalkUses = BookTextPageModel.builder()
+        var whiteChalkUses = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("white_chalk_uses2");
-        var whiteChalkUses2 = BookTextPageModel.builder()
+        var whiteChalkUses2 = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("golden_chalk");
-        var goldChalk = BookSpotlightPageModel.builder()
+        var goldChalk = BookSpotlightPageModel.create()
                 .withText(this.context().pageText())
-                .withItem(Ingredient.of(OccultismItems.CHALK_GOLD.get()))
-                .build();
+                .withItem(Ingredient.of(OccultismItems.CHALK_GOLD.get()));
 
         this.context().page("golden_chalk_uses");
-        var goldChalkUses = BookTextPageModel.builder()
+        var goldChalkUses = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("purple_chalk");
-        var purpleChalk = BookSpotlightPageModel.builder()
+        var purpleChalk = BookSpotlightPageModel.create()
                 .withText(this.context().pageText())
-                .withItem(Ingredient.of(OccultismItems.CHALK_PURPLE.get()))
-                .build();
+                .withItem(Ingredient.of(OccultismItems.CHALK_PURPLE.get()));
 
         this.context().page("purple_chalk_uses");
-        var purpleChalkUses = BookTextPageModel.builder()
+        var purpleChalkUses = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("red_chalk");
-        var redChalk = BookSpotlightPageModel.builder()
+        var redChalk = BookSpotlightPageModel.create()
                 .withText(this.context().pageText())
-                .withItem(Ingredient.of(OccultismItems.CHALK_RED.get()))
-                .build();
+                .withItem(Ingredient.of(OccultismItems.CHALK_RED.get()));
 
         this.context().page("red_chalk_uses");
-        var redChalkUses = BookTextPageModel.builder()
+        var redChalkUses = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.CHALK_PURPLE.get())
@@ -2649,21 +2486,18 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("summon_foliot");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("multiblock");
-        var multiblock = BookMultiblockPageModel.builder()
-                .withMultiblockId(this.modLoc("summon_foliot"))
-                .build();
+        var multiblock = BookMultiblockPageModel.create()
+                .withMultiblockId(this.modLoc("summon_foliot"));
 
         this.context().page("uses");
-        var uses = BookTextPageModel.builder()
+        var uses = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.get())
@@ -2679,21 +2513,18 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("possess_foliot");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("multiblock");
-        var multiblock = BookMultiblockPageModel.builder()
-                .withMultiblockId(this.modLoc("possess_foliot"))
-                .build();
+        var multiblock = BookMultiblockPageModel.create()
+                .withMultiblockId(this.modLoc("possess_foliot"));
 
         this.context().page("uses");
-        var uses = BookTextPageModel.builder()
+        var uses = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.get())
@@ -2709,21 +2540,18 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("craft_foliot");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("multiblock");
-        var multiblock = BookMultiblockPageModel.builder()
-                .withMultiblockId(this.modLoc("craft_foliot"))
-                .build();
+        var multiblock = BookMultiblockPageModel.create()
+                .withMultiblockId(this.modLoc("craft_foliot"));
 
         this.context().page("uses");
-        var uses = BookTextPageModel.builder()
+        var uses = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.get())
@@ -2739,21 +2567,18 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("summon_djinni");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("multiblock");
-        var multiblock = BookMultiblockPageModel.builder()
-                .withMultiblockId(this.modLoc("summon_djinni"))
-                .build();
+        var multiblock = BookMultiblockPageModel.create()
+                .withMultiblockId(this.modLoc("summon_djinni"));
 
         this.context().page("uses");
-        var uses = BookTextPageModel.builder()
+        var uses = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.get())
@@ -2769,27 +2594,23 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("possess_djinni");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("multiblock");
-        var multiblock = BookMultiblockPageModel.builder()
-                .withMultiblockId(this.modLoc("possess_djinni"))
-                .build();
+        var multiblock = BookMultiblockPageModel.create()
+                .withMultiblockId(this.modLoc("possess_djinni"));
 
         this.context().page("uses");
-        var uses = BookTextPageModel.builder()
+        var uses = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("uses2");
-        var uses2 = BookTextPageModel.builder()
+        var uses2 = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.get())
@@ -2806,21 +2627,18 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("craft_djinni");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("multiblock");
-        var multiblock = BookMultiblockPageModel.builder()
-                .withMultiblockId(this.modLoc("craft_djinni"))
-                .build();
+        var multiblock = BookMultiblockPageModel.create()
+                .withMultiblockId(this.modLoc("craft_djinni"));
 
         this.context().page("uses");
-        var uses = BookTextPageModel.builder()
+        var uses = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.get())
@@ -2836,21 +2654,18 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("summon_afrit");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("multiblock");
-        var multiblock = BookMultiblockPageModel.builder()
-                .withMultiblockId(this.modLoc("summon_afrit"))
-                .build();
+        var multiblock = BookMultiblockPageModel.create()
+                .withMultiblockId(this.modLoc("summon_afrit"));
 
         this.context().page("uses");
-        var uses = BookTextPageModel.builder()
+        var uses = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.get())
@@ -2866,21 +2681,18 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("summon_wild_afrit");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("multiblock");
-        var multiblock = BookMultiblockPageModel.builder()
-                .withMultiblockId(this.modLoc("summon_wild_afrit"))
-                .build();
+        var multiblock = BookMultiblockPageModel.create()
+                .withMultiblockId(this.modLoc("summon_wild_afrit"));
 
         this.context().page("uses");
-        var uses = BookTextPageModel.builder()
+        var uses = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.get())
@@ -2896,21 +2708,18 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("possess_afrit");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("multiblock");
-        var multiblock = BookMultiblockPageModel.builder()
-                .withMultiblockId(this.modLoc("possess_afrit"))
-                .build();
+        var multiblock = BookMultiblockPageModel.create()
+                .withMultiblockId(this.modLoc("possess_afrit"));
 
         this.context().page("uses");
-        var uses = BookTextPageModel.builder()
+        var uses = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.get())
@@ -2926,21 +2735,18 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("craft_afrit");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("multiblock");
-        var multiblock = BookMultiblockPageModel.builder()
-                .withMultiblockId(this.modLoc("craft_afrit"))
-                .build();
+        var multiblock = BookMultiblockPageModel.create()
+                .withMultiblockId(this.modLoc("craft_afrit"));
 
         this.context().page("uses");
-        var uses = BookTextPageModel.builder()
+        var uses = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.get())
@@ -2956,21 +2762,18 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("summon_marid");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("multiblock");
-        var multiblock = BookMultiblockPageModel.builder()
-                .withMultiblockId(this.modLoc("summon_marid"))
-                .build();
+        var multiblock = BookMultiblockPageModel.create()
+                .withMultiblockId(this.modLoc("summon_marid"));
 
         this.context().page("uses");
-        var uses = BookTextPageModel.builder()
+        var uses = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.get())
@@ -2986,21 +2789,18 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("craft_marid");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("multiblock");
-        var multiblock = BookMultiblockPageModel.builder()
-                .withMultiblockId(this.modLoc("craft_marid"))
-                .build();
+        var multiblock = BookMultiblockPageModel.create()
+                .withMultiblockId(this.modLoc("craft_marid"));
 
         this.context().page("uses");
-        var uses = BookTextPageModel.builder()
+        var uses = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.get())
@@ -3016,21 +2816,18 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("summon_wild_greater_spirit");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("multiblock");
-        var multiblock = BookMultiblockPageModel.builder()
-                .withMultiblockId(this.modLoc("summon_wild_greater_spirit"))
-                .build();
+        var multiblock = BookMultiblockPageModel.create()
+                .withMultiblockId(this.modLoc("summon_wild_greater_spirit"));
 
         this.context().page("uses");
-        var uses = BookTextPageModel.builder()
+        var uses = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.PENTACLE.get())
@@ -3073,12 +2870,12 @@ public class OccultismBookProvider extends BookProvider {
         familiars.withParent(BookEntryParentModel.create(sacrifice.getId()));
 
         //enable all entries by default
-        itemUse.withCondition(BookTrueConditionModel.builder().build());
-        sacrifice.withCondition(BookTrueConditionModel.builder().build());
-        summoning.withCondition(BookTrueConditionModel.builder().build());
-        possession.withCondition(BookTrueConditionModel.builder().build());
-        crafting.withCondition(BookTrueConditionModel.builder().build());
-        familiars.withCondition(BookTrueConditionModel.builder().build());
+        itemUse.withCondition(BookTrueConditionModel.create());
+        sacrifice.withCondition(BookTrueConditionModel.create());
+        summoning.withCondition(BookTrueConditionModel.create());
+        possession.withCondition(BookTrueConditionModel.create());
+        crafting.withCondition(BookTrueConditionModel.create());
+        familiars.withCondition(BookTrueConditionModel.create());
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon(this.modLoc("textures/gui/book/robe.png"))
@@ -3097,22 +2894,19 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("overview");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("steps");
-        var steps = BookTextPageModel.builder()
+        var steps = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("additional_requirements");
-        var additional_requirements = BookTextPageModel.builder()
+        var additional_requirements = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/robe.png"))
@@ -3129,10 +2923,9 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("sacrifice");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(Items.IRON_SWORD)
@@ -3146,10 +2939,9 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("item_use");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(Items.FLINT_AND_STEEL)
@@ -3234,7 +3026,7 @@ public class OccultismBookProvider extends BookProvider {
         var overview = this.makeSummoningRitualsOverviewEntry(entryMap, 'o');
         var returnToRituals = this.makeReturnToRitualsEntry(entryMap, 'r');
         returnToRituals.withParent(BookEntryParentModel.create(overview.getId()));
-        returnToRituals.withCondition(BookTrueConditionModel.builder().build());
+        returnToRituals.withCondition(BookTrueConditionModel.create());
 
         var summonT1Crusher = this.makeSummonCrusherT1Entry(entryMap, '1');
         summonT1Crusher.withParent(BookEntryParentModel.create(overview.getId()));
@@ -3279,24 +3071,24 @@ public class OccultismBookProvider extends BookProvider {
         witherSkull.withParent(BookEntryParentModel.create(overview.getId()));
 
         //add true condition to all entries to enable them by default
-        overview.withCondition(BookTrueConditionModel.builder().build());
-        summonT1Crusher.withCondition(BookTrueConditionModel.builder().build());
-        summonT2Crusher.withCondition(BookTrueConditionModel.builder().build());
-        summonT3Crusher.withCondition(BookTrueConditionModel.builder().build());
-        summonT4Crusher.withCondition(BookTrueConditionModel.builder().build());
-        summonLumberjack.withCondition(BookTrueConditionModel.builder().build());
-        summonTransportItems.withCondition(BookTrueConditionModel.builder().build());
-        summonCleaner.withCondition(BookTrueConditionModel.builder().build());
-        summonManageMachine.withCondition(BookTrueConditionModel.builder().build());
-        tradeSpirits.withCondition(BookTrueConditionModel.builder().build());
-        summonOtherworldSaplingTrader.withCondition(BookTrueConditionModel.builder().build());
-        summonOtherstoneTrader.withCondition(BookTrueConditionModel.builder().build());
-        summonWildParrot.withCondition(BookTrueConditionModel.builder().build());
-        summonWildOtherworldBird.withCondition(BookTrueConditionModel.builder().build());
-        weatherMagic.withCondition(BookTrueConditionModel.builder().build());
-        timeMagic.withCondition(BookTrueConditionModel.builder().build());
-        afritEssence.withCondition(BookTrueConditionModel.builder().build());
-        witherSkull.withCondition(BookTrueConditionModel.builder().build());
+        overview.withCondition(BookTrueConditionModel.create());
+        summonT1Crusher.withCondition(BookTrueConditionModel.create());
+        summonT2Crusher.withCondition(BookTrueConditionModel.create());
+        summonT3Crusher.withCondition(BookTrueConditionModel.create());
+        summonT4Crusher.withCondition(BookTrueConditionModel.create());
+        summonLumberjack.withCondition(BookTrueConditionModel.create());
+        summonTransportItems.withCondition(BookTrueConditionModel.create());
+        summonCleaner.withCondition(BookTrueConditionModel.create());
+        summonManageMachine.withCondition(BookTrueConditionModel.create());
+        tradeSpirits.withCondition(BookTrueConditionModel.create());
+        summonOtherworldSaplingTrader.withCondition(BookTrueConditionModel.create());
+        summonOtherstoneTrader.withCondition(BookTrueConditionModel.create());
+        summonWildParrot.withCondition(BookTrueConditionModel.create());
+        summonWildOtherworldBird.withCondition(BookTrueConditionModel.create());
+        weatherMagic.withCondition(BookTrueConditionModel.create());
+        timeMagic.withCondition(BookTrueConditionModel.create());
+        afritEssence.withCondition(BookTrueConditionModel.create());
+        witherSkull.withCondition(BookTrueConditionModel.create());
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon(this.modLoc("textures/gui/book/summoning.png"))
@@ -3329,10 +3121,9 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("overview");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/summoning.png"))
@@ -3347,15 +3138,13 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("afrit_essence");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/summon_wild_afrit"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_wild_afrit"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.AFRIT_ESSENCE.get())
@@ -3371,10 +3160,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang.add(this.context().entryName(), "Summon Foliot Crusher");
 
         this.context().page("about_crushers");
-        var aboutCrushers = BookTextPageModel.builder()
+        var aboutCrushers = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageTitle(), "Crusher Spirits");
         this.lang.add(this.context().pageText(),
                 """
@@ -3382,10 +3170,9 @@ public class OccultismBookProvider extends BookProvider {
                           """);
 
         this.context().page("automation");
-        var automation = BookTextPageModel.builder()
+        var automation = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageTitle(), "Automation");
         this.lang.add(this.context().pageText(),
                 """
@@ -3394,10 +3181,9 @@ public class OccultismBookProvider extends BookProvider {
                          """);
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageTitle(), "Foliot Crusher");
         this.lang.add(this.context().pageText(),
                 """
@@ -3408,9 +3194,8 @@ public class OccultismBookProvider extends BookProvider {
                          """);
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/summon_foliot_crusher"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_foliot_crusher"));
         //no text
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
@@ -3428,15 +3213,13 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("summon_crusher_t2");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/summon_djinni_crusher"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_djinni_crusher"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.IRON_DUST.get())
@@ -3451,15 +3234,13 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("summon_crusher_t3");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/summon_afrit_crusher"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_afrit_crusher"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.SILVER_DUST.get())
@@ -3474,15 +3255,13 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("summon_crusher_t4");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/summon_marid_crusher"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_marid_crusher"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.GOLD_DUST.get())
@@ -3498,10 +3277,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang.add(this.context().entryName(), "Summon Foliot Lumberjack");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageTitle(), "Foliot Lumberjack");
         this.lang.add(this.context().pageText(),
                 """
@@ -3509,10 +3287,9 @@ public class OccultismBookProvider extends BookProvider {
                           """);
 
         this.context().page("prerequisites");
-        var prerequisites = BookTextPageModel.builder()
+        var prerequisites = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageTitle(), "Prerequisites");
         this.lang.add(this.context().pageText(),
                 """
@@ -3522,16 +3299,14 @@ public class OccultismBookProvider extends BookProvider {
 
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/summon_foliot_lumberjack"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_foliot_lumberjack"));
         //no text
 
         this.context().page("book_of_calling");
-        var bookOfCalling = BookCraftingRecipePageModel.builder()
+        var bookOfCalling = BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/book_of_calling_foliot_lumberjack"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageText(),
                 """
                         If you lose the book of calling, you can craft a new one.
@@ -3539,10 +3314,9 @@ public class OccultismBookProvider extends BookProvider {
                         """.formatted(COLOR_PURPLE));
 
         this.context().page("usage");
-        var usage = BookTextPageModel.builder()
+        var usage = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageTitle(), "Usage");
         this.lang.add(this.context().pageText(),
                 """
@@ -3553,10 +3327,9 @@ public class OccultismBookProvider extends BookProvider {
                            """);
 
         this.context().page("usage2");
-        var usage2 = BookTextPageModel.builder()
+        var usage2 = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageTitle(), "Lazy Lumberjack?");
         this.lang.add(this.context().pageText(),
                 """
@@ -3585,10 +3358,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang.add(this.context().entryName(), "Summon Foliot Transporter");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageTitle(), "Foliot Transporter");
         this.lang.add(this.context().pageText(),
                 """
@@ -3599,9 +3371,8 @@ public class OccultismBookProvider extends BookProvider {
                                """);
 
         this.context().page("intro2");
-        var intro2 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var intro2 = BookTextPageModel.create()
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageText(),
                 """
                         You can also dictate which inventory it deposits to in the same way.
@@ -3610,10 +3381,9 @@ public class OccultismBookProvider extends BookProvider {
                            """);
 
         this.context().page("spirit_inventories");
-        var spirit_inventories = BookTextPageModel.builder()
+        var spirit_inventories = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageTitle(), "Spirit Inventories");
         this.lang.add(this.context().pageText(),
                 """
@@ -3621,10 +3391,9 @@ public class OccultismBookProvider extends BookProvider {
                            """);
 
         this.context().page("item_filters");
-        var itemFilters = BookTextPageModel.builder()
+        var itemFilters = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageTitle(), "Item Filters");
         this.lang.add(this.context().pageText(),
                 """
@@ -3632,16 +3401,14 @@ public class OccultismBookProvider extends BookProvider {
                            """);
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/summon_foliot_transport_items"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_foliot_transport_items"));
         //no text
 
         this.context().page("book_of_calling");
-        var bookOfCalling = BookCraftingRecipePageModel.builder()
+        var bookOfCalling = BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/book_of_calling_foliot_transport_items"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageText(),
                 """
                         If you lose the book of calling, you can craft a new one.
@@ -3666,10 +3433,9 @@ public class OccultismBookProvider extends BookProvider {
         this.lang.add(this.context().entryName(), "Summon Foliot Janitor");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageTitle(), "Foliot Janitor");
         this.lang.add(this.context().pageText(),
                 """
@@ -3678,19 +3444,17 @@ public class OccultismBookProvider extends BookProvider {
                           """);
 
         this.context().page("intro2");
-        var intro2 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var intro2 = BookTextPageModel.create()
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageText(),
                 """
                         To bind the janitor to an inventory simply sneak and interact with the janitor book of calling on that inventory. You can also interact with a block while holding the janitor book of calling to have it deposit items there. You can also have it wander around a select area by pulling up that interface. To configure an allow/block list sneak and interact with the janitor.
                           """);
 
         this.context().page("tip");
-        var tip = BookTextPageModel.builder()
+        var tip = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageTitle(), "Pro tip");
         this.lang.add(this.context().pageText(),
                 """
@@ -3701,16 +3465,14 @@ public class OccultismBookProvider extends BookProvider {
                            """);
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/summon_foliot_cleaner"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_foliot_cleaner"));
         //no text
 
         this.context().page("book_of_calling");
-        var bookOfCalling = BookCraftingRecipePageModel.builder()
+        var bookOfCalling = BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/book_of_calling_foliot_cleaner"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageText(),
                 """
                         If you lose the book of calling, you can craft a new one.
@@ -3733,31 +3495,26 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("summon_manage_machine");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("tutorial");
-        var tutorial = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var tutorial = BookTextPageModel.create()
+                .withText(this.context().pageText());
 
         this.context().page("tutorial2");
-        var tutorial2 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var tutorial2 = BookTextPageModel.create()
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/summon_djinni_manage_machine"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_djinni_manage_machine"));
 
         this.context().page("book_of_calling");
-        var bookOfCalling = BookCraftingRecipePageModel.builder()
+        var bookOfCalling = BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/book_of_calling_djinni_manage_machine"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(Items.LEVER)
@@ -3775,15 +3532,13 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("trade_spirits");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("intro2");
-        var intro2 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var intro2 = BookTextPageModel.create()
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/cash.png"))
@@ -3798,20 +3553,17 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("summon_otherstone_trader");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("trade");
-        var trade = BookSpiritTradeRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("spirit_trade/stone_to_otherstone"))
-                .build();
+        var trade = BookSpiritTradeRecipePageModel.create()
+                .withRecipeId1(this.modLoc("spirit_trade/stone_to_otherstone"));
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/summon_foliot_otherstone_trader"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_foliot_otherstone_trader"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.OTHERSTONE.get())
@@ -3827,24 +3579,21 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("summon_otherworld_sapling_trader");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("trade");
-        var trade = BookSpiritTradeRecipePageModel.builder()
+        var trade = BookSpiritTradeRecipePageModel.create()
                 .withRecipeId1(this.modLoc("spirit_trade/otherworld_sapling"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang().add(this.context.pageText(), """
                 To trade, drop an your offered item next to the trader, he will pick it up and drop the exchanged item.
                 """);
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/summon_foliot_sapling_trader"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_foliot_sapling_trader"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.OTHERWORLD_SAPLING.get())
@@ -3860,25 +3609,21 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("summon_wild_parrot");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("minecraft:parrot")
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/summon_wild_parrot"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_wild_parrot"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
 
         this.context().page("description2");
-        var description2 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var description2 = BookTextPageModel.create()
+                .withText(this.context().pageText());
 
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
@@ -3896,20 +3641,17 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("summon_wild_otherworld_bird");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:otherworld_bird")
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/summon_wild_otherworld_bird"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_wild_otherworld_bird"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/otherworld_bird.png"))
@@ -3925,28 +3667,24 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("weather_magic");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual_clear");
-        var ritualClear = BookRitualRecipePageModel.builder()
+        var ritualClear = BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/summon_djinni_clear_weather"))
-                .withAnchor("clear")
-                .build();
+                .withAnchor("clear");
 
         this.context().page("ritual_rain");
-        var ritualRain = BookRitualRecipePageModel.builder()
+        var ritualRain = BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/summon_afrit_rain_weather"))
-                .withAnchor("rain")
-                .build();
+                .withAnchor("rain");
 
         this.context().page("ritual_thunder");
-        var ritualThunder = BookRitualRecipePageModel.builder()
+        var ritualThunder = BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/summon_afrit_thunder_weather"))
-                .withAnchor("thunder")
-                .build();
+                .withAnchor("thunder");
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(Items.WHEAT)
@@ -3963,22 +3701,19 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("time_magic");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual_day");
-        var ritualDay = BookRitualRecipePageModel.builder()
+        var ritualDay = BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/summon_djinni_day_time"))
-                .withAnchor("day")
-                .build();
+                .withAnchor("day");
 
         this.context().page("ritual_night");
-        var ritualNight = BookRitualRecipePageModel.builder()
+        var ritualNight = BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/summon_djinni_night_time"))
-                .withAnchor("night")
-                .build();
+                .withAnchor("night");
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(Items.CLOCK)
@@ -3994,15 +3729,13 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("wither_skull");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/summon_wild_hunt"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_wild_hunt"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(Items.WITHER_SKELETON_SKULL)
@@ -4038,7 +3771,7 @@ public class OccultismBookProvider extends BookProvider {
         var overview = this.makeCraftingRitualsOverviewEntry(entryMap, '0');
         var returnToRituals = this.makeReturnToRitualsEntry(entryMap, '9');
         returnToRituals.withParent(BookEntryParentModel.create(overview.getId()));
-        returnToRituals.withCondition(BookTrueConditionModel.builder().build());
+        returnToRituals.withCondition(BookTrueConditionModel.create());
 
         var craftInfusedPickaxe = this.makeCraftInfusedPickaxeEntry(entryMap, 'd');
         craftInfusedPickaxe.withParent(BookEntryParentModel.create(overview.getId()));
@@ -4086,26 +3819,26 @@ public class OccultismBookProvider extends BookProvider {
         craftFamiliarRing.withParent(BookEntryParentModel.create(craftSoulGem.getId()));
 
         //add true condition to all entries to enable them by default
-        overview.withCondition(BookTrueConditionModel.builder().build());
-        craftInfusedPickaxe.withCondition(BookTrueConditionModel.builder().build());
-        craftDimensionalMineshaft.withCondition(BookTrueConditionModel.builder().build());
-        craftFoliotMiner.withCondition(BookTrueConditionModel.builder().build());
-        craftDjinniMiner.withCondition(BookTrueConditionModel.builder().build());
-        craftAfritMiner.withCondition(BookTrueConditionModel.builder().build());
-        craftMaridMiner.withCondition(BookTrueConditionModel.builder().build());
-        craftStorageSystem.withCondition(BookTrueConditionModel.builder().build());
-        craftDimensionalMatrix.withCondition(BookTrueConditionModel.builder().build());
-        craftStorageControllerBase.withCondition(BookTrueConditionModel.builder().build());
-        craftStabilizerTier1.withCondition(BookTrueConditionModel.builder().build());
-        craftStabilizerTier2.withCondition(BookTrueConditionModel.builder().build());
-        craftStabilizerTier3.withCondition(BookTrueConditionModel.builder().build());
-        craftStabilizerTier4.withCondition(BookTrueConditionModel.builder().build());
-        craftStableWormhole.withCondition(BookTrueConditionModel.builder().build());
-        craftStorageRemote.withCondition(BookTrueConditionModel.builder().build());
-        craftOtherworldGoggles.withCondition(BookTrueConditionModel.builder().build());
-        craftSatchel.withCondition(BookTrueConditionModel.builder().build());
-        craftSoulGem.withCondition(BookTrueConditionModel.builder().build());
-        craftFamiliarRing.withCondition(BookTrueConditionModel.builder().build());
+        overview.withCondition(BookTrueConditionModel.create());
+        craftInfusedPickaxe.withCondition(BookTrueConditionModel.create());
+        craftDimensionalMineshaft.withCondition(BookTrueConditionModel.create());
+        craftFoliotMiner.withCondition(BookTrueConditionModel.create());
+        craftDjinniMiner.withCondition(BookTrueConditionModel.create());
+        craftAfritMiner.withCondition(BookTrueConditionModel.create());
+        craftMaridMiner.withCondition(BookTrueConditionModel.create());
+        craftStorageSystem.withCondition(BookTrueConditionModel.create());
+        craftDimensionalMatrix.withCondition(BookTrueConditionModel.create());
+        craftStorageControllerBase.withCondition(BookTrueConditionModel.create());
+        craftStabilizerTier1.withCondition(BookTrueConditionModel.create());
+        craftStabilizerTier2.withCondition(BookTrueConditionModel.create());
+        craftStabilizerTier3.withCondition(BookTrueConditionModel.create());
+        craftStabilizerTier4.withCondition(BookTrueConditionModel.create());
+        craftStableWormhole.withCondition(BookTrueConditionModel.create());
+        craftStorageRemote.withCondition(BookTrueConditionModel.create());
+        craftOtherworldGoggles.withCondition(BookTrueConditionModel.create());
+        craftSatchel.withCondition(BookTrueConditionModel.create());
+        craftSoulGem.withCondition(BookTrueConditionModel.create());
+        craftFamiliarRing.withCondition(BookTrueConditionModel.create());
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon(this.modLoc("textures/gui/book/infusion.png"))
@@ -4139,10 +3872,9 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("overview");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/infusion.png"))
@@ -4157,10 +3889,9 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("craft_storage_system");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismBlocks.STORAGE_CONTROLLER.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(Items.CHEST)
@@ -4174,15 +3905,13 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("craft_dimensional_matrix");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.DIMENSIONAL_MATRIX.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/craft_dimensional_matrix"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_dimensional_matrix"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.DIMENSIONAL_MATRIX.get())
@@ -4197,21 +3926,18 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("craft_dimensional_mineshaft");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismBlocks.DIMENSIONAL_MINESHAFT.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/craft_dimensional_mineshaft"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_dimensional_mineshaft"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
+        var description = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.DIMENSIONAL_MINESHAFT.get())
@@ -4227,15 +3953,13 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("craft_infused_pickaxe");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.INFUSED_PICKAXE.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/craft_infused_pickaxe"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_infused_pickaxe"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.INFUSED_PICKAXE.get())
@@ -4250,15 +3974,13 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("craft_storage_controller_base");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismBlocks.STORAGE_CONTROLLER_BASE.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/craft_storage_controller_base"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_storage_controller_base"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.STORAGE_CONTROLLER_BASE.get())
@@ -4273,15 +3995,13 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("craft_stabilizer_tier1");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER1.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier1"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier1"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.STORAGE_STABILIZER_TIER1.get())
@@ -4296,15 +4016,13 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("craft_stabilizer_tier2");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER2.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier2"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier2"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.STORAGE_STABILIZER_TIER2.get())
@@ -4319,15 +4037,13 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("craft_stabilizer_tier3");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER3.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier3"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier3"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.STORAGE_STABILIZER_TIER3.get())
@@ -4342,15 +4058,13 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("craft_stabilizer_tier4");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER4.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier4"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier4"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.STORAGE_STABILIZER_TIER4.get())
@@ -4365,15 +4079,13 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("craft_stable_wormhole");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismBlocks.STABLE_WORMHOLE.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/craft_stable_wormhole"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_stable_wormhole"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.STABLE_WORMHOLE.get())
@@ -4388,15 +4100,13 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("craft_storage_remote");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.STORAGE_REMOTE.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/craft_storage_remote"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_storage_remote"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.STORAGE_REMOTE.get())
@@ -4411,32 +4121,27 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("craft_foliot_miner");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("magic_lamp");
-        var lamp = BookTextPageModel.builder()
+        var lamp = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("magic_lamp_recipe");
-        var lampRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/magic_lamp_empty"))
-                .build();
+        var lampRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/magic_lamp_empty"));
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/craft_miner_foliot_unspecialized"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_miner_foliot_unspecialized"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get())
@@ -4454,15 +4159,13 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("craft_djinni_miner");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.MINER_DJINNI_ORES.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/craft_miner_djinni_ores"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_miner_djinni_ores"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.MINER_DJINNI_ORES.get())
@@ -4477,15 +4180,13 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("craft_afrit_miner");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.MINER_AFRIT_DEEPS.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/craft_miner_afrit_deeps"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_miner_afrit_deeps"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.MINER_AFRIT_DEEPS.get())
@@ -4500,15 +4201,13 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("craft_marid_miner");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.MINER_MARID_MASTER.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/craft_miner_marid_master"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_miner_marid_master"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.MINER_MARID_MASTER.get())
@@ -4523,15 +4222,13 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("craft_satchel");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.SATCHEL.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/craft_satchel"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_satchel"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.SATCHEL.get())
@@ -4546,21 +4243,18 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("craft_soul_gem");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.SOUL_GEM_ITEM.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("usage");
-        var usage = BookTextPageModel.builder()
+        var usage = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/craft_soul_gem"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_soul_gem"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.SOUL_GEM_ITEM.get())
@@ -4576,21 +4270,18 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("craft_familiar_ring");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.FAMILIAR_RING.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("usage");
-        var usage = BookTextPageModel.builder()
+        var usage = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/craft_familiar_ring"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_familiar_ring"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.FAMILIAR_RING.get())
@@ -4606,42 +4297,35 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("craft_otherworld_goggles");
 
         this.context().page("goggles_spotlight");
-        var gogglesSpotlight = BookSpotlightPageModel.builder()
+        var gogglesSpotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.OTHERWORLD_GOGGLES.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("goggles_more");
-        var gogglesMore = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var gogglesMore = BookTextPageModel.create()
+                .withText(this.context().pageText());
 
         this.context().page("lenses_spotlight");
-        var lensesSpotlight = BookSpotlightPageModel.builder()
+        var lensesSpotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismItems.LENSES.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("lenses_more");
-        var lensesMore = BookTextPageModel.builder()
+        var lensesMore = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("lenses_recipe");
-        var lensesRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/lenses"))
-                .build();
+        var lensesRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/lenses"));
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/craft_infused_lenses"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_infused_lenses"));
 
         this.context().page("goggles_recipe");
-        var gogglesRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/goggles"))
-                .build();
+        var gogglesRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/goggles"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.OTHERWORLD_GOGGLES.get())
@@ -4678,7 +4362,7 @@ public class OccultismBookProvider extends BookProvider {
         var overview = this.makePossessionRitualsOverviewEntry(entryMap, 'o');
         var returnToRituals = this.makeReturnToRitualsEntry(entryMap, 'r');
         returnToRituals.withParent(BookEntryParentModel.create(overview.getId()));
-        returnToRituals.withCondition(BookTrueConditionModel.builder().build());
+        returnToRituals.withCondition(BookTrueConditionModel.create());
 
         var possessEndermite = this.makePossessEndermiteEntry(entryMap, 'D');
         possessEndermite.withParent(BookEntryParentModel.create(overview.getId()));
@@ -4709,19 +4393,19 @@ public class OccultismBookProvider extends BookProvider {
         this.context().category("possession_rituals");
 
         //add true condition to all entries to enable them by default
-        overview.withCondition(BookTrueConditionModel.builder().build());
-        possessEnderman.withCondition(BookTrueConditionModel.builder().build());
-        possessEndermite.withCondition(BookTrueConditionModel.builder().build());
-        possessGhast.withCondition(BookTrueConditionModel.builder().build());
-        possessSkeleton.withCondition(BookTrueConditionModel.builder().build());
-        possessPhantom.withCondition(BookTrueConditionModel.builder().build());
-        possessWeakShulker.withCondition(BookTrueConditionModel.builder().build());
-        possessShulker.withCondition(BookTrueConditionModel.builder().build());
-        possessElderGuardian.withCondition(BookTrueConditionModel.builder().build());
-        possessWarden.withCondition(BookTrueConditionModel.builder().build());
-        possessHoglin.withCondition(BookTrueConditionModel.builder().build());
-        possessWitherSkeleton.withCondition(BookTrueConditionModel.builder().build());
-        afritEssence.withCondition(BookTrueConditionModel.builder().build());
+        overview.withCondition(BookTrueConditionModel.create());
+        possessEnderman.withCondition(BookTrueConditionModel.create());
+        possessEndermite.withCondition(BookTrueConditionModel.create());
+        possessGhast.withCondition(BookTrueConditionModel.create());
+        possessSkeleton.withCondition(BookTrueConditionModel.create());
+        possessPhantom.withCondition(BookTrueConditionModel.create());
+        possessWeakShulker.withCondition(BookTrueConditionModel.create());
+        possessShulker.withCondition(BookTrueConditionModel.create());
+        possessElderGuardian.withCondition(BookTrueConditionModel.create());
+        possessWarden.withCondition(BookTrueConditionModel.create());
+        possessHoglin.withCondition(BookTrueConditionModel.create());
+        possessWitherSkeleton.withCondition(BookTrueConditionModel.create());
+        afritEssence.withCondition(BookTrueConditionModel.create());
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon(this.modLoc("textures/gui/book/possession.png"))
@@ -4748,10 +4432,9 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("overview");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/possession.png"))
@@ -4766,20 +4449,17 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("possess_enderman");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:possessed_enderman")
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/possess_enderman"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_enderman"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(Items.ENDER_PEARL)
@@ -4795,20 +4475,17 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("possess_endermite");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:possessed_endermite")
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/possess_endermite"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_endermite"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(Blocks.END_STONE)
@@ -4825,26 +4502,23 @@ public class OccultismBookProvider extends BookProvider {
         this.lang.add(this.context().entryName(), "Possessed Ghast");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:possessed_ghast")
                 .withScale(0.5f)
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageText(),
                 """
                         **Drops**: 1-3x [](item://minecraft:ghast_tear)
                                 """);
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/possess_ghast"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_ghast"));
         //no text
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageText(),
                 """
                         In this ritual a [#](%1$s)Ghast[#]() is spawned using the life energy of a [#](%1$s)Cow[#]() and immediately possessed by the summoned [#](%1$s)Djinni[#](). The [#](%1$s)Possessed Ghast[#]() will always drop at least one [](item://minecraft:ghast_tear) when killed.
@@ -4864,20 +4538,17 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("possess_skeleton");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:possessed_skeleton")
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/possess_skeleton"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_skeleton"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(Items.SKELETON_SKULL)
@@ -4894,25 +4565,22 @@ public class OccultismBookProvider extends BookProvider {
         this.lang.add(this.context().entryName(), "Possessed Phantom");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:possessed_phantom")
                 .withScale(0.5f)
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageText(),
                 """
                         **Drops**: 1-4x [](item://minecraft:phantom_membrane)
                                 """);
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/possess_phantom"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_phantom"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageText(),
                 """
                         In this ritual a [#](%1$s)Phantom[#]() is spawned using the life energy of a [#](%1$s)Flying Passive Mob[#]() and immediately possessed by the summoned [#](%1$s)Foliot[#](). The [#](%1$s)Possessed Phantom[#]() will always drop at least one [](item://minecraft:phantom_membrane) when killed. Using this ritual is easy to trap the phantom and you can has comfy sleep.
@@ -4933,11 +4601,10 @@ public class OccultismBookProvider extends BookProvider {
         this.lang.add(this.context().entryName(), "Possessed Weak Shulker");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:possessed_weak_shulker")
                 .withScale(0.5f)
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageText(),
                 """
                         **Drops**: 1-3x [](item://minecraft:chorus_fruit);
@@ -4945,14 +4612,12 @@ public class OccultismBookProvider extends BookProvider {
                                 """);
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/possess_weak_shulker"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_weak_shulker"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageText(),
                 """
                         In this ritual a [#](%1$s)Shulker[#]() is spawned using the life energy of a [#](%1$s)Cube Mob[#]() and immediately possessed by the summoned [#](%1$s)Djinni[#](). The [#](%1$s)Possessed Weak Shulker[#]() will always drop at least one [](item://minecraft:chorus_fruit) when killed and as a chance to drop [](item://minecraft:shulker_shell). You can use vanilla shulker multiplication to get normal shulkers with more chance to drop their shells.
@@ -4973,25 +4638,22 @@ public class OccultismBookProvider extends BookProvider {
         this.lang.add(this.context().entryName(), "Possessed Shulker");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:possessed_shulker")
                 .withScale(0.5f)
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageText(),
                 """
                         **Drops**: 1-2x [](item://minecraft:shulker_shell);
                                 """);
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/possess_shulker"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_shulker"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageText(),
                 """
                         In this ritual a [#](%1$s)Shulker[#]() is spawned using the life energy of a [#](%1$s)Cube Mob[#]() and immediately possessed by the summoned [#](%1$s)Afrit[#](). The [#](%1$s)Possessed Shulker[#]() will always drop at least one [](item://minecraft:shulker_shell) when killed. You can use vanilla shulker multiplication to get normal shulkers but their have less chance to drop shells.
@@ -5012,11 +4674,10 @@ public class OccultismBookProvider extends BookProvider {
         this.lang.add(this.context().entryName(), "Possessed Elder Guardian");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:possessed_elder_guardian")
                 .withScale(0.5f)
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageText(),
                 """
                         **Drops**: 2-4x [](item://minecraft:nautilus_shell);
@@ -5025,14 +4686,12 @@ public class OccultismBookProvider extends BookProvider {
                                 """);
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/possess_elder_guardian"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_elder_guardian"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageText(),
                 """
                         In this ritual a [#](%1$s)Elder Guardian[#]() is spawned using the life energy of a [#](%1$s)Fish[#]() and immediately possessed by the summoned [#](%1$s)Afrit[#](). The [#](%1$s)Possessed Elder Guardian[#]() will always drop at least one [](item://minecraft:nautilus_shell), having a chance to drop [](item://minecraft:heart_of_the_sea) and a lot of things that normal Elder Guardian drops.
@@ -5053,11 +4712,10 @@ public class OccultismBookProvider extends BookProvider {
         this.lang.add(this.context().entryName(), "Possessed Warden");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:possessed_warden")
                 .withScale(1f)
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageText(),
                 """
                         **Drops**: 1x [](item://minecraft:echo_shard)
@@ -5065,14 +4723,12 @@ public class OccultismBookProvider extends BookProvider {
                                 """);
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/possess_warden"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_warden"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageText(),
                 """
                         In this ritual a [#](%1$s)Warden[#]() is spawned using the life energy of a [#](%1$s)Axolotl[#]() and immediately possessed by the summoned [#](%1$s)Djinni[#](). The [#](%1$s)Possessed Warden[#]() will always drop at least one [](item://minecraft:echo_shard) when killed and as a chance to drop [](item://minecraft:disc_fragment_5), [](item://minecraft:music_disc_otherside), [](item://minecraft:silence_armor_trim_smithing_template), [](item://minecraft:ward_armor_trim_smithing_template). If you try to escape, this possessed Warden will go to the floor like a normal warden.
@@ -5093,26 +4749,23 @@ public class OccultismBookProvider extends BookProvider {
         this.lang.add(this.context().entryName(), "Possessed Hoglin");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:possessed_hoglin")
                 .withScale(0.7f)
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageText(),
                 """
-                        **Drops**: Can drop: [](item://minecraft:netherite_upgrade_smithing_template),
-                        return back [](item://minecraft:netherite_scrap) or nothing;
-                      """);
+                          **Drops**: Can drop: [](item://minecraft:netherite_upgrade_smithing_template),
+                          return back [](item://minecraft:netherite_scrap) or nothing;
+                        """);
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/possess_hoglin"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_hoglin"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
         this.lang.add(this.context().pageText(),
                 """
                         In this ritual a [#](%1$s)Hoglin[#]() is spawned using the life energy of a [#](%1$s)Pig[#]() and immediately possessed by the summoned [#](%1$s)Afrit[#](). The [#](%1$s)Possessed Hoglin[#]() can drop a [](item://minecraft:netherite_upgrade_smithing_template), [](item://minecraft:snout_armor_trim_smithing_template), return back [](item://minecraft:netherite_scrap) or nothing when killed. You need to kill this mob before the transformation to a Zoglin if you don't want to perform the ritual in the nether.
@@ -5214,15 +4867,13 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("overview");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("intro2");
-        var intro2 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var intro2 = BookTextPageModel.create()
+                .withText(this.context().pageText());
 
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
@@ -5239,62 +4890,52 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("storage_controller");
 
         this.context().page("intro");
-        var intro = BookSpotlightPageModel.builder()
+        var intro = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismBlocks.STORAGE_CONTROLLER.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("usage");
-        var usage = BookTextPageModel.builder()
+        var usage = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("safety");
-        var safety = BookTextPageModel.builder()
+        var safety = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("size");
-        var size = BookTextPageModel.builder()
+        var size = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("unique_items");
-        var uniqueItems = BookTextPageModel.builder()
+        var uniqueItems = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("config");
-        var config = BookTextPageModel.builder()
+        var config = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("mods");
-        var mods = BookTextPageModel.builder()
+        var mods = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("matrix_ritual");
-        var matrixRitual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/craft_dimensional_matrix"))
-                .build();
+        var matrixRitual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_dimensional_matrix"));
 
         this.context().page("base_ritual");
-        var baseRitual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/craft_storage_controller_base"))
-                .build();
+        var baseRitual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_storage_controller_base"));
 
         this.context().page("recipe");
-        var recipe = BookCraftingRecipePageModel.builder()
+        var recipe = BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/storage_controller"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.STORAGE_CONTROLLER.get())
@@ -5317,28 +4958,24 @@ public class OccultismBookProvider extends BookProvider {
         this.context().entry("storage_stabilizer");
 
         this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.builder()
+        var spotlight = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER1.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("upgrade");
-        var upgrade = BookTextPageModel.builder()
+        var upgrade = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("build_instructions");
-        var buildInstructions = BookTextPageModel.builder()
+        var buildInstructions = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("demo");
-        var demo = BookMultiblockPageModel.builder()
+        var demo = BookMultiblockPageModel.create()
                 .withMultiblockId(this.modLoc("storage_stabilizer_demo"))
-                .withMultiblockName(this.context().pageTitle())
-                .build();
+                .withMultiblockName(this.context().pageTitle());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.STORAGE_CONTROLLER.get())

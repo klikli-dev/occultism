@@ -39,7 +39,7 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         var overview = this.add(this.makeFamiliarsRitualsOverviewEntry(entryMap, 'o'));
         var returnToRituals = this.add(this.makeReturnToRitualsEntry(entryMap, 'r'));
         returnToRituals.withParent(BookEntryParentModel.create(overview.getId()));
-        returnToRituals.withCondition(BookTrueConditionModel.builder().build());
+        returnToRituals.withCondition(BookTrueConditionModel.create());
 
         var familiarBat = this.add(this.makeFamiliarBatEntry(entryMap, 'I'));
         familiarBat.withParent(BookEntryParentModel.create(overview.getId()));
@@ -77,28 +77,28 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         familiarShubNiggurath.withParent(BookEntryParentModel.create(overview.getId()));
 
         //add true condition to all entries to enable them by default
-        overview.withCondition(BookTrueConditionModel.builder().build());
-        familiarBat.withCondition(BookTrueConditionModel.builder().build());
-        familiarBeaver.withCondition(BookTrueConditionModel.builder().build());
-        familiarBeholder.withCondition(BookTrueConditionModel.builder().build());
-        familiarBlacksmith.withCondition(BookTrueConditionModel.builder().build());
-        familiarChimera.withCondition(BookTrueConditionModel.builder().build());
-        familiarCthulhu.withCondition(BookTrueConditionModel.builder().build());
-        familiarDeer.withCondition(BookTrueConditionModel.builder().build());
-        familiarDevil.withCondition(BookTrueConditionModel.builder().build());
-        familiarDragon.withCondition(BookTrueConditionModel.builder().build());
-        familiarFairy.withCondition(BookTrueConditionModel.builder().build());
-        familiarGreedy.withCondition(BookTrueConditionModel.builder().build());
-        familiarGuardian.withCondition(BookTrueConditionModel.builder().build());
-        familiarHeadlessRatman.withCondition(BookTrueConditionModel.builder().build());
-        familiarMummy.withCondition(BookTrueConditionModel.builder().build());
-        familiarOtherworldBird.withCondition(BookTrueConditionModel.builder().build());
-        familiarParrot.withCondition(BookTrueConditionModel.builder().build());
-        familiarShubNiggurath.withCondition(BookTrueConditionModel.builder().build());
+        overview.withCondition(BookTrueConditionModel.create());
+        familiarBat.withCondition(BookTrueConditionModel.create());
+        familiarBeaver.withCondition(BookTrueConditionModel.create());
+        familiarBeholder.withCondition(BookTrueConditionModel.create());
+        familiarBlacksmith.withCondition(BookTrueConditionModel.create());
+        familiarChimera.withCondition(BookTrueConditionModel.create());
+        familiarCthulhu.withCondition(BookTrueConditionModel.create());
+        familiarDeer.withCondition(BookTrueConditionModel.create());
+        familiarDevil.withCondition(BookTrueConditionModel.create());
+        familiarDragon.withCondition(BookTrueConditionModel.create());
+        familiarFairy.withCondition(BookTrueConditionModel.create());
+        familiarGreedy.withCondition(BookTrueConditionModel.create());
+        familiarGuardian.withCondition(BookTrueConditionModel.create());
+        familiarHeadlessRatman.withCondition(BookTrueConditionModel.create());
+        familiarMummy.withCondition(BookTrueConditionModel.create());
+        familiarOtherworldBird.withCondition(BookTrueConditionModel.create());
+        familiarParrot.withCondition(BookTrueConditionModel.create());
+        familiarShubNiggurath.withCondition(BookTrueConditionModel.create());
 
         var demonicPartner = new DemonicPartnerEntry(this).generate('Z');
         demonicPartner.withParent(BookEntryParentModel.create(overview.getId()));
-        demonicPartner.withCondition(BookTrueConditionModel.builder().build());
+        demonicPartner.withCondition(BookTrueConditionModel.create());
     }
 
     @Override
@@ -114,22 +114,19 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         this.context().entry("overview");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
+        var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ring");
-        var ring = BookTextPageModel.builder()
+        var ring = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("trading");
-        var trading = BookTextPageModel.builder()
+        var trading = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/parrot.png"))
@@ -146,23 +143,20 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         this.context().entry("familiar_bat");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:bat_familiar")
                 .withText(this.context().pageText())
                 .withScale(0.7f)
-                .withOffset(0.3f)
-                .build();
+                .withOffset(0.3f);
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/familiar_bat"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/familiar_bat"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
+        var description = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/bat_familiar.png"))
@@ -178,21 +172,18 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         this.context().entry("familiar_beaver");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:beaver_familiar")
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/familiar_beaver"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/familiar_beaver"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
+        var description = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/familiar_beaver.png"))
@@ -208,23 +199,20 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         this.context().entry("familiar_beholder");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:beholder_familiar")
                 .withText(this.context().pageText())
                 .withScale(0.7f)
-                .withOffset(0.3f)
-                .build();
+                .withOffset(0.3f);
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/familiar_beholder"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/familiar_beholder"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
+        var description = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/familiar_beholder.png"))
@@ -240,27 +228,23 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         this.context().entry("familiar_blacksmith");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:blacksmith_familiar")
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/familiar_blacksmith"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/familiar_blacksmith"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
+        var description = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("description2");
-        var description2 = BookTextPageModel.builder()
+        var description2 = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/familiar_blacksmith.png"))
@@ -277,28 +261,24 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         this.context().entry("familiar_chimera");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:chimera_familiar")
                 .withText(this.context().pageText())
                 .withScale(0.7f)
-                .withOffset(0.3f)
-                .build();
+                .withOffset(0.3f);
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/familiar_chimera"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/familiar_chimera"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
+        var description = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("description2");
-        var description2 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var description2 = BookTextPageModel.create()
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/familiar_chimera.png"))
@@ -315,23 +295,20 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         this.context().entry("familiar_cthulhu");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:cthulhu_familiar")
                 .withText(this.context().pageText())
                 .withScale(0.5f)
-                .withOffset(0.3f)
-                .build();
+                .withOffset(0.3f);
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/familiar_cthulhu"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/familiar_cthulhu"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
+        var description = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/familiar_cthulhu.png"))
@@ -347,23 +324,20 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         this.context().entry("familiar_deer");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:deer_familiar")
                 .withText(this.context().pageText())
                 .withScale(0.7f)
-                .withOffset(0.3f)
-                .build();
+                .withOffset(0.3f);
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/familiar_deer"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/familiar_deer"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
+        var description = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/familiar_deer.png"))
@@ -379,23 +353,20 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         this.context().entry("familiar_devil");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:devil_familiar")
                 .withText(this.context().pageText())
                 .withScale(0.5f)
-                .withOffset(0.3f)
-                .build();
+                .withOffset(0.3f);
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/familiar_devil"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/familiar_devil"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
+        var description = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/familiar_devil.png"))
@@ -411,23 +382,20 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         this.context().entry("familiar_dragon");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:dragon_familiar")
                 .withText(this.context().pageText())
                 .withScale(0.7f)
-                .withOffset(0.3f)
-                .build();
+                .withOffset(0.3f);
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/familiar_dragon"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/familiar_dragon"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
+        var description = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/familiar_dragon.png"))
@@ -443,23 +411,20 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         this.context().entry("familiar_fairy");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:fairy_familiar")
                 .withText(this.context().pageText())
                 .withScale(0.8f)
-                .withOffset(0.3f)
-                .build();
+                .withOffset(0.3f);
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/familiar_fairy"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/familiar_fairy"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
+        var description = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/familiar_fairy.png"))
@@ -475,21 +440,18 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         this.context().entry("familiar_greedy");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:greedy_familiar")
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/familiar_greedy"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/familiar_greedy"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
+        var description = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/familiar_greedy.png"))
@@ -505,26 +467,22 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         this.context().entry("familiar_guardian");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:guardian_familiar{for_book:true}")
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/familiar_guardian"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/familiar_guardian"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
+        var description = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("description2");
-        var description2 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var description2 = BookTextPageModel.create()
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/familiar_guardian.png"))
@@ -541,22 +499,19 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         this.context().entry("familiar_headless");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:headless_familiar")
                 .withScale(0.7f)
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/familiar_headless"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/familiar_headless"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
+        var description = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/familiar_headless_ratman.png"))
@@ -572,21 +527,18 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         this.context().entry("familiar_mummy");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:mummy_familiar")
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/familiar_mummy"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/familiar_mummy"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
+        var description = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/familiar_mummy.png"))
@@ -602,26 +554,22 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         this.context().entry("familiar_otherworld_bird");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:otherworld_bird")
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/familiar_otherworld_bird"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/familiar_otherworld_bird"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
+        var description = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("description2");
-        var description2 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var description2 = BookTextPageModel.create()
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/otherworld_bird.png"))
@@ -638,26 +586,22 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         this.context().entry("familiar_parrot");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("minecraft:parrot")
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("ritual/familiar_parrot"))
-                .build();
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/familiar_parrot"));
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
+        var description = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("description2");
-        var description2 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
+        var description2 = BookTextPageModel.create()
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/parrot.png"))
@@ -674,22 +618,19 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         this.context().entry("familiar_shub_niggurath");
 
         this.context().page("entity");
-        var entity = BookEntityPageModel.builder()
+        var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:shub_niggurath_familiar")
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("ritual");
-        var ritual = BookTextPageModel.builder()
+        var ritual = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.context().page("description");
-        var description = BookTextPageModel.builder()
+        var description = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/familiar_shub_niggurath.png"))

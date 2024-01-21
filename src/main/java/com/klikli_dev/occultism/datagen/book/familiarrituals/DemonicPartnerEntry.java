@@ -23,10 +23,10 @@ public class DemonicPartnerEntry extends EntryProvider {
     protected void generatePages() {
 
 
-        this.page("description", () -> BookTextPageModel.builder()
+        this.page("description", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build());
+        );
         this.pageTitle("Demonic Partner");
         this.pageText("""
                 Magicians practicing the occult are a diverse crowd, coming from all creeds and all corners of the world. However one thing unites them all - they are as lonely as any human without a partner.
@@ -35,29 +35,29 @@ public class DemonicPartnerEntry extends EntryProvider {
                 Of course being a magician, there is a way to solve this problem once and for all.
                 """);
 
-        this.page("description2", () -> BookTextPageModel.builder()
+        this.page("description2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build());
+        );
         this.pageTitle("Demonic Partner");
         this.pageText("""
                 As beings of immense powers Demons can have it all ... except love.\\
                 No demon will freely admit this, but at times they are impressed by the power and strength that some mortal occultists acquire. And in such cases, the impossible can happen - the demon can fall in love with a mortal.
                 """);
 
-        this.page("description3", () -> BookTextPageModel.builder()
+        this.page("description3", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build());
+        );
         this.pageTitle("Demonic Partner");
         this.pageText("""
                 Demons, of course, deal in contracts, and what better contract than a marriage contract?
                 """);
 
-        this.page("about", () -> BookTextPageModel.builder()
+        this.page("about", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build());
+        );
         this.pageTitle("Demonic Partner");
         this.pageText("""
                 The Demonic Partner - a Husband or Wife - can fight for you and help with household chores.
@@ -69,44 +69,40 @@ public class DemonicPartnerEntry extends EntryProvider {
                 Right-Click with a potion to get the effect for a significantly longer time.
                 """);
 
-        this.page("familiar", () -> BookTextPageModel.builder()
+        this.page("familiar", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build());
+        );
         this.pageTitle("Not a Familiar");
         this.pageText("""
-                The Demonic Partner Chapter is part of the Familiar Category of this book because of the similarities, however a Partner is obviously not a familiar.
-                \\
-                \\
-                As such, they also cannot be stored in a {0}. You can, however, use a {1} as for any other being.
-                """,
+                        The Demonic Partner Chapter is part of the Familiar Category of this book because of the similarities, however a Partner is obviously not a familiar.
+                        \\
+                        \\
+                        As such, they also cannot be stored in a {0}. You can, however, use a {1} as for any other being.
+                        """,
                 this.itemLink(OccultismItems.FAMILIAR_RING.get()),
                 this.itemLink(OccultismItems.SOUL_GEM_ITEM.get())
         );
 
-        this.page("wife", () -> BookEntityPageModel.builder()
+        this.page("wife", () -> BookEntityPageModel.create()
                 .withEntityId("occultism:demonic_wife")
                 .withEntityName(this.context().pageTitle())
-                .build()
         );
         this.pageTitle("Demonic Wife");
 
 
-        this.page("ritual1", () -> BookRitualRecipePageModel.builder()
+        this.page("ritual1", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/summon_demonic_wife"))
-                .build()
         );
 
-        this.page("husband", () -> BookEntityPageModel.builder()
+        this.page("husband", () -> BookEntityPageModel.create()
                 .withEntityId("occultism:demonic_husband")
                 .withEntityName(this.context().pageTitle())
-                .build()
         );
         this.pageTitle("Demonic Husband");
 
-        this.page("ritual2", () -> BookRitualRecipePageModel.builder()
+        this.page("ritual2", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/summon_demonic_husband"))
-                .build()
         );
     }
 
