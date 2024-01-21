@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.106.0] - 2024-01-21
+### :sparkles: New Features
+- [`23fce09`](https://github.com/klikli-dev/occultism/commit/23fce0968de6d7e878f4febac14fd7220652c62a) - Warden and Hoglin Posses *(PR [#1037](https://github.com/klikli-dev/occultism/pull/1037) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+
+
 ## [release/v1.20.1-1.105.0] - 2024-01-20
 ### :sparkles: New Features
 - [`79d2c0f`](https://github.com/klikli-dev/occultism/commit/79d2c0f5c252fa5a4255ea269cdae4d7f1a924b0) - add demonic partner *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -822,3 +827,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.104.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.103.0...release/v1.20.1-1.104.0
 [release/v1.20.1-1.104.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.104.0...release/v1.20.1-1.104.1
 [release/v1.20.1-1.105.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.104.1...release/v1.20.1-1.105.0
+[release/v1.20.1-1.106.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.105.0...release/v1.20.1-1.106.0
