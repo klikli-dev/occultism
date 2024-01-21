@@ -40,7 +40,7 @@ public class PossessedWardenEntity extends Warden {
         return Warden.createAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 15.0)
                 .add(Attributes.MAX_HEALTH, 250.0)
-                .add(Attributes.MOVEMENT_SPEED, (double) 0.6F)
+                .add(Attributes.MOVEMENT_SPEED, 0.6F)
                 .add(Attributes.ATTACK_KNOCKBACK, 0.5);
     }
 
