@@ -44,7 +44,7 @@ public class OccultismEntities {
 
     public static final NonNullLazy<EntityType<FoliotEntity>> FOLIOT_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(FoliotEntity::new, MobCategory.CREATURE)
-                    .sized(0.6f, 1.1f)
+                    .sized(0.6f, 0.7f)
                     .clientTrackingRange(8)
                     .build(StaticUtil.modLoc("foliot").toString()));
     public static final NonNullLazy<EntityType<DjinniEntity>> DJINNI_TYPE =
