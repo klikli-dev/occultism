@@ -740,6 +740,16 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.familiar_beaver.started", "Started summoning beaver familiar.");
         this.add("ritual.occultism.familiar_beaver.finished", "Summoned beaver familiar successfully.");
         this.add("ritual.occultism.familiar_beaver.interrupted", "Summoning of beaver familiar interrupted.");
+
+
+        this.add("ritual.occultism.summon_demonic_wife.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.summon_demonic_wife.started", "Started summoning.");
+        this.add("ritual.occultism.summon_demonic_wife.finished", "Summoned successfully.");
+        this.add("ritual.occultism.summon_demonic_wife.interrupted", "Summoning interrupted.");
+        this.add("ritual.occultism.summon_demonic_husband.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.summon_demonic_husband.started", "Started summoning.");
+        this.add("ritual.occultism.summon_demonic_husband.finished", "Summoned successfully.");
+        this.add("ritual.occultism.summon_demonic_husband.interrupted", "Summoning interrupted.");
     }
 
     private void addBook() {
