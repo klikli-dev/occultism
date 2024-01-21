@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.108.0] - 2024-01-21
+### :wrench: Chores
+- [`cc9c29e`](https://github.com/klikli-dev/occultism/commit/cc9c29e80d6f2aa916e416f9666a462fb5d69713) - update to latest modonomicon *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.107.0] - 2024-01-21
 ### :sparkles: New Features
 - [`b73195f`](https://github.com/klikli-dev/occultism/commit/b73195f61084fa2c7f3c853af80c94f9df6de0e9) - Warden and Hoglin Posses *(PR [#1037](https://github.com/klikli-dev/occultism/pull/1037) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -848,3 +853,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.104.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.104.0...release/v1.20.4-1.104.1
 [release/v1.20.4-1.105.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.104.1...release/v1.20.4-1.105.0
 [release/v1.20.4-1.107.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.105.0...release/v1.20.4-1.107.0
+[release/v1.20.4-1.108.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.107.0...release/v1.20.4-1.108.0
