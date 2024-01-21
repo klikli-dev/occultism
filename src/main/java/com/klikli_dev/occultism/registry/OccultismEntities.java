@@ -51,7 +51,7 @@ public class OccultismEntities {
                     .build(new ResourceLocation(Occultism.MODID, "foliot").toString()));
     public static final NonNullLazy<EntityType<DjinniEntity>> DJINNI_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(DjinniEntity::new, MobCategory.CREATURE)
-                    .sized(0.6f, 1.1f)
+                    .sized(0.6f, 0.8f)
                     .clientTrackingRange(8)
                     .build(new ResourceLocation(Occultism.MODID, "djinni").toString()));
     public static final NonNullLazy<EntityType<AfritEntity>> AFRIT_TYPE =
@@ -170,7 +170,7 @@ public class OccultismEntities {
 
     public static final NonNullLazy<EntityType<DevilFamiliarEntity>> DEVIL_FAMILIAR_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(DevilFamiliarEntity::new, MobCategory.CREATURE)
-                    .sized(0.8F, 1.5F)
+                    .sized(0.8F, 1.8F)
                     .fireImmune()
                     .clientTrackingRange(8)
                     .build(new ResourceLocation(Occultism.MODID, "devil_familiar").toString()));

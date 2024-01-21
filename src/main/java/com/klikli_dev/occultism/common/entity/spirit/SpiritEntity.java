@@ -109,7 +109,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     /**
      * The spirit job registry name/id.
      */
-    private static final EntityDataAccessor<String> JOB_ID = SynchedEntityData
+    protected static final EntityDataAccessor<String> JOB_ID = SynchedEntityData
             .defineId(SpiritEntity.class, EntityDataSerializers.STRING);
 
     /**
@@ -209,6 +209,8 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
                     this.filterItemStackHandler.deserializeNBT(compound);
             }
         }
+
+        //TODO job
     }
 
     public Optional<BlockPos> getDepositPosition() {
