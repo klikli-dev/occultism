@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.107.0] - 2024-01-21
+### :sparkles: New Features
+- [`e89ad81`](https://github.com/klikli-dev/occultism/commit/e89ad81c2f070b4b511e85e7cb85d0b67b54e36c) - let demonic partner set enemies on fire *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`6905dbf`](https://github.com/klikli-dev/occultism/commit/6905dbf4e307884ccddce8d3c1aa9a80ffed8150) - cow tag *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`984bd49`](https://github.com/klikli-dev/occultism/commit/984bd49a1f1cb3d46c174408181727f9deb3ee47) - mention that a demonic partner is not a familiar *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.106.1] - 2024-01-21
 ### :bug: Bug Fixes
 - [`59e35df`](https://github.com/klikli-dev/occultism/commit/59e35dfe72909047a47b17cebc730094e2784141) - ritual start/stop messages for demonic partner *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -834,3 +845,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.105.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.104.1...release/v1.20.1-1.105.0
 [release/v1.20.1-1.106.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.105.0...release/v1.20.1-1.106.0
 [release/v1.20.1-1.106.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.106.0...release/v1.20.1-1.106.1
+[release/v1.20.1-1.107.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.106.1...release/v1.20.1-1.107.0
