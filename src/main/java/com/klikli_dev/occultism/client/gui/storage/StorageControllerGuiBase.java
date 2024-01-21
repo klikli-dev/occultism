@@ -97,11 +97,14 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected int rows;
     protected int columns;
 
+    protected int previousPage;
     protected int currentPage;
     protected int totalPages;
 
     protected boolean forceFocus;
     protected long lastClick;
+
+    private int lastCachedStacksToDisplayCount;
 
     private List<ItemStack> cachedStacksToDisplay;
     private String cachedSearchString;
@@ -537,9 +540,19 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     protected void drawItems(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
         List<ItemStack> stacksToDisplay = this.applySearchToItems();
-        this.sortItemStacks(stacksToDisplay);
-        this.buildPage(stacksToDisplay);
-        this.buildItemSlots(stacksToDisplay);
+
+        var changedPage = this.previousPage != this.currentPage;
+        this.previousPage = this.currentPage;
+
+        var changedStacksToDisplay = this.lastCachedStacksToDisplayCount != this.cachedStacksToDisplay.size();
+        this.lastCachedStacksToDisplayCount = this.cachedStacksToDisplay.size();
+
+        if(changedPage || changedStacksToDisplay){
+            this.sortItemStacks(stacksToDisplay);
+            this.buildPage(stacksToDisplay);
+            this.buildItemSlots(stacksToDisplay);
+        }
+
         this.drawItemSlots(guiGraphics, mouseX, mouseY);
     }
 

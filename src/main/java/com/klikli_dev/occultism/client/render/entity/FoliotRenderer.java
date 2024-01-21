@@ -29,25 +29,12 @@ import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class FoliotRenderer extends BipedSpiritRenderer<FoliotEntity, FoliotModel> {
-
-    private static final ResourceLocation[] TEXTURES = {new ResourceLocation(Occultism.MODID,
-            "textures/entity/foliot.png")};
+public class FoliotRenderer extends GeoEntityRenderer<FoliotEntity> {
 
     public FoliotRenderer(EntityRendererProvider.Context context) {
-        super(context, new FoliotModel(context.bakeLayer(OccultismModelLayers.FOLIOT)), 0.25f);
-    }
-
-    @Override
-    public ResourceLocation getTextureLocation(FoliotEntity entity) {
-        return TEXTURES[entity.getEntityData().get(entity.getDataParameterSkin())];
-    }
-
-    @Override
-    protected void scale(FoliotEntity entity, PoseStack matrixStackIn, float partialTickTime) {
-        super.scale(entity, matrixStackIn, partialTickTime);
-        matrixStackIn.scale(0.6f, 0.6f, 0.6f);
+        super(context, new FoliotModel());
     }
 
 }

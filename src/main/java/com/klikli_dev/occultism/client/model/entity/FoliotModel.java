@@ -22,80 +22,79 @@
 
 package com.klikli_dev.occultism.client.model.entity;
 
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
-import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.*;
+import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
+import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib.model.DefaultedEntityGeoModel;
+
+import java.util.Objects;
 
 
-public class FoliotModel extends HumanoidModel<FoliotEntity> {
+public class FoliotModel extends DefaultedEntityGeoModel<FoliotEntity> {
 
-    private final ModelPart leftHorn;
-    private final ModelPart rightHorn;
+    public final static String ASSET_SUBPATH = "foliot";
 
-    public FoliotModel(ModelPart part) {
-        super(part);
-        this.leftHorn = this.head.getChild("left_horn");
-        this.rightHorn = this.head.getChild("right_horn");
+    public final ModelData crusher;
+    public final ModelData transporter;
+    public final ModelData janitor;
+    public final ModelData lumberjack;
+
+    public FoliotModel() {
+        super(new ResourceLocation(Occultism.MODID, ASSET_SUBPATH), false);
+
+        this.crusher = this.buildModelData("crusher");
+        this.transporter = this.buildModelData("transporter");
+        this.janitor = this.buildModelData("janitor");
+        this.lumberjack = this.buildModelData("lumberjack");
     }
 
-    public static LayerDefinition createBodyLayer() {
-        MeshDefinition mesh = new MeshDefinition();
-        PartDefinition parts = mesh.getRoot();
-        PartDefinition head = parts.addOrReplaceChild("head", CubeListBuilder.create()
-                        .addBox("", -4.0F, -8.0F, -4.0F, 8, 8, 8, CubeDeformation.NONE, 0, 0),
-                PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0, 0, 0));
+    public ModelData getModelData(FoliotEntity animatable) {
+        var job = animatable.getJobID();
 
-        PartDefinition hat = parts.addOrReplaceChild("hat", CubeListBuilder.create()
-                        .addBox("", -5.0F, -10.0F, -5.0F, 10, 10, 10, CubeDeformation.NONE, 24, 44),
-                PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0, 0, 0));
+        if (Objects.equals(job, OccultismSpiritJobs.TRANSPORT_ITEMS.getId().toString())) {
+            return this.transporter;
+        }
 
-        PartDefinition body = parts.addOrReplaceChild("body", CubeListBuilder.create()
-                        .addBox("", -4.0F, 0.0F, -3.0F, 8, 12, 6, CubeDeformation.NONE, 0, 16),
-                PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0, 0, 0));
+        if (Objects.equals(job, OccultismSpiritJobs.CLEANER.getId().toString())) {
+            return this.janitor;
+        }
 
-        PartDefinition rightArm = parts.addOrReplaceChild("right_arm", CubeListBuilder.create()
-                        .addBox("", -1.0F, -1.6816F, -1.2683F, 3, 11, 3, CubeDeformation.NONE, 12, 34),
-                PartPose.offsetAndRotation(5.0F, 3.0F, -1.0F, -0.75F, 0.0F, 0.0F));
-        PartDefinition leftArm = parts.addOrReplaceChild("left_arm", CubeListBuilder.create().
-                        addBox("", -2.0F, -2.0F, -2.0F, 3, 11, 3, CubeDeformation.NONE, 0, 34),
-                PartPose.offsetAndRotation(-5.0F, 3.0F, -1.0F, -0.75F, 0.0F, 0.0F));
-        PartDefinition rightLeg = parts.addOrReplaceChild("right_leg", CubeListBuilder.create()
-                        .addBox("", -2.0F, 0.0F, -2.0F, 4, 12, 4, CubeDeformation.NONE, 28, 28),
-                PartPose.offsetAndRotation(2.0F, 12.0F, 0.0F, 0, 0, 0));
-        PartDefinition leftLeg = parts.addOrReplaceChild("left_leg", CubeListBuilder.create().
-                        addBox("", -2.0F, 0.0F, -2.0F, 4, 12, 4, CubeDeformation.NONE, 28, 12),
-                PartPose.offsetAndRotation(-2.0F, 12.0F, 0.0F, 0, 0, 0));
+        if (Objects.equals(job, OccultismSpiritJobs.LUMBERJACK.getId().toString())) {
+            return this.lumberjack;
+        }
 
-        PartDefinition leftHorn = head.addOrReplaceChild("left_horn", CubeListBuilder.create()
-                        .addBox("", 0.5F, -0.5F, -2.5F, 1, 1, 6, CubeDeformation.NONE, 24, 0)
-                        .addBox("", 0.5F, 4.5F, -1.5F, 1, 1, 5, CubeDeformation.NONE, 32, 0)
-                        .addBox("", 0.5F, 5.5F, -0.5F, 1, 1, 3, CubeDeformation.NONE, 0, 0)
-                        .addBox("", 0.5F, 0.5F, 1.5F, 1, 1, 3, CubeDeformation.NONE, 39, 0)
-                        .addBox("", 0.5F, 1.5F, 2.5F, 1, 1, 3, CubeDeformation.NONE, 37, 6)
-                        .addBox("", 0.5F, 2.5F, 2.5F, 1, 1, 3, CubeDeformation.NONE, 32, 7)
-                        .addBox("", 0.5F, 3.5F, 1.5F, 1, 1, 3, CubeDeformation.NONE, 0, 4)
-                        .addBox("", 0.5F, 0.5F, -2.5F, 1, 1, 2, CubeDeformation.NONE, 0, 16)
-                        .addBox("", 0.5F, 3.5F, -1.5F, 1, 1, 1, CubeDeformation.NONE, 22, 20)
-                        .addBox("", 0.5F, 1.5F, -2.5F, 1, 1, 1, CubeDeformation.NONE, 0, 19),
-                PartPose.offsetAndRotation(3.5F, -8.5F, -1.5F, 0, 0, 0));
-
-        PartDefinition rightHorn = head.addOrReplaceChild("right_horn", CubeListBuilder.create()
-                        .addBox("", 0.5F, -0.5F, -2.5F, 1, 1, 6, CubeDeformation.NONE, 24, 0)
-                        .addBox("", 0.5F, 4.5F, -1.5F, 1, 1, 5, CubeDeformation.NONE, 32, 0)
-                        .addBox("", 0.5F, 5.5F, -0.5F, 1, 1, 3, CubeDeformation.NONE, 0, 0)
-                        .addBox("", 0.5F, 0.5F, 1.5F, 1, 1, 3, CubeDeformation.NONE, 39, 0)
-                        .addBox("", 0.5F, 1.5F, 2.5F, 1, 1, 3, CubeDeformation.NONE, 37, 6)
-                        .addBox("", 0.5F, 2.5F, 2.5F, 1, 1, 3, CubeDeformation.NONE, 32, 7)
-                        .addBox("", 0.5F, 3.5F, 1.5F, 1, 1, 3, CubeDeformation.NONE, 0, 4)
-                        .addBox("", 0.5F, 0.5F, -2.5F, 1, 1, 2, CubeDeformation.NONE, 0, 16)
-                        .addBox("", 0.5F, 3.5F, -1.5F, 1, 1, 1, CubeDeformation.NONE, 22, 20)
-                        .addBox("", 0.5F, 1.5F, -2.5F, 1, 1, 1, CubeDeformation.NONE, 0, 19),
-                PartPose.offsetAndRotation(-5.5F, -8.5F, -1.5F, 0, 0, 0));
-
-
-        return LayerDefinition.create(mesh, 64, 64);
+        return this.crusher;
     }
 
+    @Override
+    public ResourceLocation getModelResource(FoliotEntity animatable) {
+        return this.getModelData(animatable).model();
+    }
+
+    @Override
+    public ResourceLocation getTextureResource(FoliotEntity animatable) {
+        return this.getModelData(animatable).texture();
+    }
+
+    @Override
+    public ResourceLocation getAnimationResource(FoliotEntity animatable) {
+        return this.getModelData(animatable).animation();
+    }
+
+    public ModelData buildModelData(String job) {
+        return this.buildModelData(job, "_");
+    }
+
+    public ModelData buildModelData(String job, String separator) {
+        return new ModelData(
+                this.buildFormattedModelPath(new ResourceLocation(Occultism.MODID, ASSET_SUBPATH + separator + job)),
+                this.buildFormattedTexturePath(new ResourceLocation(Occultism.MODID, ASSET_SUBPATH + separator + job)),
+                this.buildFormattedAnimationPath(new ResourceLocation(Occultism.MODID, ASSET_SUBPATH + separator + job))
+        );
+    }
+
+    public record ModelData(ResourceLocation model, ResourceLocation texture, ResourceLocation animation) {
+    }
 }
+

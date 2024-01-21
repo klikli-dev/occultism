@@ -59,7 +59,7 @@ public class FellTreeBehaviour<E extends SpiritEntity> extends ExtendedBehaviour
         if (NearestTreeSensor.isLog(entity.level(), treePos)) {
             BrainUtils.setMemory(entity, MemoryModuleType.LOOK_TARGET, new BlockPosTracker(treePos));
             this.breakingTime++;
-            entity.swing(InteractionHand.MAIN_HAND);
+            entity.swing(InteractionHand.MAIN_HAND, true);
             int i = (int) ((float) this.breakingTime / 160.0F * 10.0F);
             if (this.breakingTime % 10 == 0) {
                 entity.playSound(SoundEvents.WOOD_HIT, 1, 1);
