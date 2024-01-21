@@ -22,32 +22,15 @@
 
 package com.klikli_dev.occultism.client.render.entity;
 
-import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.model.entity.DjinniModel;
 import com.klikli_dev.occultism.common.entity.spirit.DjinniEntity;
-import com.klikli_dev.occultism.registry.OccultismModelLayers;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class DjinniRenderer extends BipedSpiritRenderer<DjinniEntity, DjinniModel> {
-
-    private static final ResourceLocation[] TEXTURES = {new ResourceLocation(Occultism.MODID,
-            "textures/entity/djinni.png")};
+public class DjinniRenderer extends GeoEntityRenderer<DjinniEntity> {
 
     public DjinniRenderer(EntityRendererProvider.Context context) {
-        super(context, new DjinniModel(context.bakeLayer(OccultismModelLayers.DJINNI)), 0.25f);
-    }
-
-    @Override
-    public ResourceLocation getTextureLocation(DjinniEntity entity) {
-        return TEXTURES[entity.getEntityData().get(entity.getDataParameterSkin())];
-    }
-
-    @Override
-    protected void scale(DjinniEntity entity, PoseStack matrixStackIn, float partialTickTime) {
-        super.scale(entity, matrixStackIn, partialTickTime);
-        matrixStackIn.scale(0.6f, 0.6f, 0.6f);
+        super(context, new DjinniModel());
     }
 
 }

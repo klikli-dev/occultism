@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.entity.job;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.ai.goal.PickupItemsGoal;
+import com.klikli_dev.occultism.common.entity.spirit.DjinniEntity;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.klikli_dev.occultism.crafting.recipe.TieredItemStackFakeInventory;
@@ -34,6 +35,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -46,6 +49,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class CrusherJob extends SpiritJob {
+
 
     public static final String DROPPED_BY_CRUSHER = "occultism:dropped_by_crusher";
 

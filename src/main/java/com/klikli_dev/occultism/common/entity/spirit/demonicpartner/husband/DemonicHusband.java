@@ -23,7 +23,7 @@ public class DemonicHusband extends DemonicPartner implements GeoEntity {
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "demonic_husband");
     public static final NonNullLazy<EntityType<DemonicHusband>> ENTITY_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(DemonicHusband::new, MobCategory.CREATURE)
-                    .sized(0.6F, 2)
+                    .sized(0.6F, 1.8f)
                     .fireImmune()
                     .clientTrackingRange(8)
                     .build(ID.toString()));
