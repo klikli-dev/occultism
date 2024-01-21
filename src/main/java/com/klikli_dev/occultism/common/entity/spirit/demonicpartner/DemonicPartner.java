@@ -206,6 +206,8 @@ public class DemonicPartner extends TamableAnimal {
             this.doEnchantDamageEffects(this, pEntity);
         }
 
+        pEntity.setSecondsOnFire(2);
+
         return flag;
     }
 }
