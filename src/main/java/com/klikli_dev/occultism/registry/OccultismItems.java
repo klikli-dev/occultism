@@ -324,7 +324,14 @@ public class OccultismItems {
     public static final RegistryObject<Item> SPAWN_EGG_POSSESSED_SHULKER = ITEMS.register("spawn_egg/possessed_shulker",
             () -> new ForgeSpawnEggItem(OccultismEntities.POSSESSED_SHULKER_TYPE::get, 0x8c628c, 0x342638, defaultProperties()));
     public static final RegistryObject<Item> SPAWN_EGG_POSSESSED_ELDER_GUARDIAN = ITEMS.register("spawn_egg/possessed_elder_guardian",
-            () -> new ForgeSpawnEggItem(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE::get, 0xb5b3a3, 0x4b4d60, defaultProperties()));
+            () -> new ForgeSpawnEggItem(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE::get, 0xb5b3a3, 0x39d6e0, defaultProperties()));
+
+    public static final RegistryObject<Item> SPAWN_EGG_POSSESSED_WARDEN = ITEMS.register("spawn_egg/possessed_warden",
+            () -> new ForgeSpawnEggItem(OccultismEntities.POSSESSED_WARDEN_TYPE::get, 0x0f4649, 0x39d6e0, defaultProperties()));
+
+    public static final RegistryObject<Item> SPAWN_EGG_POSSESSED_HOGLIN = ITEMS.register("spawn_egg/possessed_hoglin",
+            () -> new ForgeSpawnEggItem(OccultismEntities.POSSESSED_HOGLIN_TYPE::get, 0x592a10, 0xf9f3a4, defaultProperties()));
+
     public static final RegistryObject<Item> SPAWN_EGG_WILD_HUNT_SKELETON = ITEMS.register("spawn_egg/wild_hunt_skeleton",
             () -> new ForgeSpawnEggItem(OccultismEntities.WILD_HUNT_SKELETON_TYPE::get, 12698049, 4802889, defaultProperties()));
     public static final RegistryObject<Item> SPAWN_EGG_WILD_HUNT_WITHER_SKELETON = ITEMS.register("spawn_egg/wild_hunt_wither_skeleton",
@@ -421,6 +428,8 @@ public class OccultismItems {
         ITEMS.register("ritual_dummy/possess_weak_shulker", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/possess_shulker", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/possess_elder_guardian", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/possess_warden", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/possess_hoglin", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_afrit_rain_weather", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_afrit_thunder_weather", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_djinni_clear_weather", () -> new DummyTooltipItem(defaultProperties()));
