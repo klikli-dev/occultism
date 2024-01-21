@@ -102,7 +102,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                 ).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(Blocks.WITHER_SKELETON_SKULL))
                         .when(LootItemKilledByPlayerCondition.killedByPlayer())
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.334f, 1.0F)))
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.67f, 1.0F)))
                         .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
                 ).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(Items.RIB_ARMOR_TRIM_SMITHING_TEMPLATE))
