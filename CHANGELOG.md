@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.109.0] - 2024-01-21
+### :sparkles: New Features
+- [`c1d2cfb`](https://github.com/klikli-dev/occultism/commit/c1d2cfbc6eb3d1e8211d3e178b7f02b7c0b8c004) - add storage controller page caching - may improve GUI FPS *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.108.1] - 2024-01-21
 ### :sparkles: New Features
 - [`0e8ef2d`](https://github.com/klikli-dev/occultism/commit/0e8ef2d817f6fccd845e5c53f9a73c546f28745e) - new foliot models - thanks @FeellianSinger *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -860,3 +865,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.107.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.105.0...release/v1.20.4-1.107.0
 [release/v1.20.4-1.108.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.107.0...release/v1.20.4-1.108.0
 [release/v1.20.4-1.108.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.108.0...release/v1.20.4-1.108.1
+[release/v1.20.4-1.109.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.108.1...release/v1.20.4-1.109.0
