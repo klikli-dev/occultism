@@ -7,6 +7,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookEntityPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import com.mojang.datafixers.util.Pair;
 
 public class DemonicPartnerEntry extends EntryProvider {
@@ -67,6 +68,21 @@ public class DemonicPartnerEntry extends EntryProvider {
                 \\
                 Right-Click with a potion to get the effect for a significantly longer time.
                 """);
+
+        this.page("familiar", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build());
+        this.pageTitle("Not a Familiar");
+        this.pageText("""
+                The Demonic Partner Chapter is part of the Familiar Category of this book because of the similarities, however a Partner is obviously not a familiar.
+                \\
+                \\
+                As such, they also cannot be stored in a {0}. You can, however, use a {1} as for any other being.
+                """,
+                this.itemLink(OccultismItems.FAMILIAR_RING.get()),
+                this.itemLink(OccultismItems.SOUL_GEM_ITEM.get())
+        );
 
         this.page("wife", () -> BookEntityPageModel.builder()
                 .withEntityId("occultism:demonic_wife")
