@@ -23,8 +23,10 @@
 package com.klikli_dev.occultism.client.model.entity;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.common.entity.spirit.AfritEntity;
 import com.klikli_dev.occultism.common.entity.spirit.DjinniEntity;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 
@@ -52,6 +54,11 @@ public class DjinniModel extends DefaultedEntityGeoModel<DjinniEntity> {
         }
 
         return this.worker;
+    }
+
+    @Override
+    public RenderType getRenderType(DjinniEntity animatable, ResourceLocation texture) {
+        return RenderType.entityTranslucent(this.getTextureResource(animatable));
     }
 
     @Override

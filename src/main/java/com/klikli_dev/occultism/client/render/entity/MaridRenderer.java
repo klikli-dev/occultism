@@ -32,7 +32,5 @@ public class MaridRenderer extends GeoEntityRenderer<MaridEntity> {
 
     public MaridRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new MaridModel());
-
-        this.addRenderLayer(new AutoGlowingGeoLayer<>(this));
     }
 }
