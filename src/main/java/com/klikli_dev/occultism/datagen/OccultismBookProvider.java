@@ -328,7 +328,7 @@ public class OccultismBookProvider extends BookProvider {
                         %1$s is a herb that gives humans the [#](%2$s)Third Eye[#](),
                         allowing them to see where the [#](%2$s)Otherworld[#]() intersects with our own.
                         Seeds can be found **by breaking grass**.
-                        **Consuming** the grown fruit activates the ability.
+                        **Consuming** the grown fruit activates the ability *with a certain chance*.
                         """.formatted(DEMONS_DREAM, COLOR_PURPLE));
 
         this.context().page("harvest_effect");
@@ -357,6 +357,41 @@ public class OccultismBookProvider extends BookProvider {
                         **Hint**: The otherworld materials you obtain by harvesting under the effects of[#](%2$s)Third Eye[#]() **can be obtained more easily using [](item://occultism:spirit_fire)**. Proceed with the next entry in this book to learn more about spirit fire.
                          """.formatted(DEMONS_DREAM, COLOR_PURPLE));
 
+        this.context().page("spotlight2");
+        var spotlight2 = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.DEMONS_DREAM_ESSENCE.get()))
+                .withText(this.context().pageText())
+                .build();
+        this.lang().add(this.context().pageText(),
+                """
+                    Multiple Demon's Dream fruits or seeds can be compressed into an essence that is much more potent. It *guarantees* the [#](%2$s)Third Eye[#]() and provides it for a longer amount of time, but comes with a lot of (positive and negative) side effects.
+                        """.formatted(DEMONS_DREAM, COLOR_PURPLE)
+        );
+
+        this.context().page("recipe_essence");
+        var recipeEssence = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("crafting/demons_dream_essence_from_fruit"))
+                .withRecipeId2(this.modLoc("crafting/demons_dream_essence_from_seeds"))
+                .build();
+        //no text
+
+        this.context().page("spotlight3");
+        var spotlight3 = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.DEMONS_DREAM_ESSENCE.get()))
+                .withText(this.context().pageText())
+                .build();
+        this.lang().add(this.context().pageText(),
+                """
+                    The essence can be purified in spirit fire (more on that later!) to obtain a version free from all negative side effects, while retaining the positive.
+                        """.formatted(DEMONS_DREAM, COLOR_PURPLE)
+        );
+
+        this.context().page("recipe_essence_pure");
+        var recipeEssencePure = BookSpiritFireRecipePageModel.builder()
+                .withRecipeId1(this.modLoc("spirit_fire/otherworld_essence"))
+                .build();
+        //no text
+
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismItems.DATURA.get())
@@ -367,7 +402,12 @@ public class OccultismBookProvider extends BookProvider {
                         spotlight,
                         harvestEffect,
                         datureScreenshot,
-                        spiritFire);
+                        spiritFire,
+                        spotlight2,
+                        recipeEssence,
+                        spotlight3,
+                        recipeEssencePure
+                );
     }
 
     private BookEntryModel makeSpiritFireEntry(CategoryEntryMap entryMap, char icon) {
@@ -474,12 +514,34 @@ public class OccultismBookProvider extends BookProvider {
                         This will work on **Familiars**, **Summoned Spirits** and also **Possessed Mobs**.
                         """);
 
+        this.context().page("spotlight2");
+        var spotlight2 = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.DEMONS_DREAM_ESSENCE.get()))
+                .withText(this.context().pageText())
+                .build();
+        this.lang().add(this.context().pageText(),
+                """
+                        When compressing Demon's Dream fruits or seeds into essence, a much stronger instant healing effect can be achieved. This comes at the cost of efficiency: Feeding 9 fruits to a spirit in succession will heal it more than feeding it 9 fruits worth of essence.
+                        """);
+
+        this.context().page("spotlight3");
+        var spotlight3 = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE.get()))
+                .withText(this.context().pageText())
+                .build();
+        this.lang().add(this.context().pageText(),
+                """
+                        Purifying the Demon's Dream Essence will yield a version that heals even more, negating the efficiency loss.
+                        """);
+
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(Items.SPLASH_POTION)
                 .withLocation(entryMap.get(icon))
                 .withPages(
-                        spotlight
+                        spotlight,
+                        spotlight2,
+                        spotlight3
                 );
     }
 

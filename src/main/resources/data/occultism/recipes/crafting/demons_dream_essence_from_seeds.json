@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ppp",
+    "ppp",
+    "ppp"
+  ],
+  "key": {
+    "p": {
+      "item": "occultism:datura_seeds"
+    }
+  },
+  "result": {
+    "item": "occultism:demons_dream_essence"
+  }
+}

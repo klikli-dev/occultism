@@ -62,6 +62,10 @@ public class OccultismRituals {
             RITUAL_FACTORIES.register("familiar",
                     () -> new RitualFactory(FamiliarRitual::new));
 
+    public static final RegistryObject<RitualFactory> RESURRECT_FAMILIAR_RITUAL =
+            RITUAL_FACTORIES.register("resurrect_familiar",
+                    () -> new RitualFactory(ResurrectFamiliarRitual::new));
+
     //Crafting
     public static final RegistryObject<RitualFactory> CRAFT_RITUAL =
             RITUAL_FACTORIES.register("craft",

@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.common.item.spirit;
 
+import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -38,10 +39,22 @@ public class SpiritHealingItem extends Item {
     @Override
     public InteractionResult interactLivingEntity(ItemStack pStack, Player pPlayer, LivingEntity pInteractionTarget, InteractionHand pUsedHand) {
         if (pInteractionTarget.getType().is(OccultismTags.HEALED_BY_DEMONS_DREAM_FRUIT) && pInteractionTarget.getHealth() < pInteractionTarget.getMaxHealth()) {
-            pInteractionTarget.heal(2);
+            pInteractionTarget.heal(this.getHealAmount(pStack));
             pStack.shrink(1);
             return InteractionResult.sidedSuccess(pPlayer.level().isClientSide);
         }
         return super.interactLivingEntity(pStack, pPlayer, pInteractionTarget, pUsedHand);
+    }
+
+    protected int getHealAmount(ItemStack pStack) {
+        if (pStack.is(OccultismItems.DATURA.get())) {
+            return 2;
+        } else if (pStack.is(OccultismItems.DEMONS_DREAM_ESSENCE.get())) {
+            return 10;
+        } else if (pStack.is(OccultismItems.OTHERWORLD_ESSENCE.get())) {
+            return 20;
+        } else {
+            return 0;
+        }
     }
 }

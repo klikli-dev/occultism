@@ -10,6 +10,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.condition.BookTrueConditionMo
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookEntityPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.occultism.datagen.book.familiarrituals.DemonicPartnerEntry;
+import com.klikli_dev.occultism.datagen.book.familiarrituals.ResurrectionEntry;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 
 public class FamiliarRitualsCategory extends CategoryProvider {
@@ -24,7 +25,7 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         return new String[]{
                 "________R_T_V_X____________",
                 "___________________________",
-                "_______Q_S_U_W_Z___________",
+                "_____a_Q_S_U_W_Z___________",
                 "___________________________",
                 "___r_o_____________________",
                 "___________________________",
@@ -40,6 +41,9 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         var returnToRituals = this.add(this.makeReturnToRitualsEntry(entryMap, 'r'));
         returnToRituals.withParent(BookEntryParentModel.create(overview.getId()));
         returnToRituals.withCondition(BookTrueConditionModel.builder().build());
+
+        var resurrection = new ResurrectionEntry(this).generate('a');
+        resurrection.withParent(BookEntryParentModel.create(overview.getId()));
 
         var familiarBat = this.add(this.makeFamiliarBatEntry(entryMap, 'I'));
         familiarBat.withParent(BookEntryParentModel.create(overview.getId()));

@@ -25,9 +25,11 @@ package com.klikli_dev.occultism.handlers;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
+import com.klikli_dev.theurgy.TheurgyConstants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -57,6 +59,16 @@ public class TooltipHandler {
                     tooltips.add(Component.literal(key.toString()).withStyle(ChatFormatting.DARK_GRAY));
                 });
             });
+        }
+
+        var namespace = ForgeRegistries.ITEMS.getKey(stack.getItem()).getNamespace();
+
+        if(namespace.equals(Occultism.MODID)){
+            String tooltipKey = stack.getDescriptionId() + ".auto_tooltip";
+            boolean tooltipExists = I18n.exists(tooltipKey);
+            if (tooltipExists) {
+                event.getToolTip().add(Component.translatable(tooltipKey).withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
+            }
         }
     }
 }

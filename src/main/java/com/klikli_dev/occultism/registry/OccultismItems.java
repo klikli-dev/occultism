@@ -187,6 +187,9 @@ public class OccultismItems {
     public static final RegistryObject<SoulGemItem> SOUL_GEM_ITEM = ITEMS.register("soul_gem",
             () -> new SoulGemItem(defaultProperties().stacksTo(1)));
 
+    public static final RegistryObject<SoulShardItem> SOUL_SHARD_ITEM = ITEMS.register("soul_shard",
+            () -> new SoulShardItem(defaultProperties().stacksTo(1)));
+
     public static final RegistryObject<Item> SATCHEL = ITEMS.register("satchel",
             () -> new SatchelItem(defaultProperties().stacksTo(1).rarity(Rarity.RARE)));
 
@@ -252,11 +255,17 @@ public class OccultismItems {
 
     //Crops
     public static final RegistryObject<Item> DATURA_SEEDS =
-            ITEMS.register("datura_seeds", () -> new ItemNameBlockItem(OccultismBlocks.DATURA.get(), defaultProperties()));
+            ITEMS.register("datura_seeds", () -> new ItemNameBlockItem(OccultismBlocks.DATURA.get(), defaultProperties().food(OccultismFoods.DATURA.get())));
 
     //Foods
     public static final RegistryObject<Item> DATURA = ITEMS.register("datura",
             () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.DATURA.get())));
+
+    public static final RegistryObject<Item> DEMONS_DREAM_ESSENCE = ITEMS.register("demons_dream_essence",
+            () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.DEMONS_DREAM_ESSENCE.get())));
+
+    public static final RegistryObject<Item> OTHERWORLD_ESSENCE = ITEMS.register("otherworld_essence",
+            () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.OTHERWORLD_ESSENCE.get())));
 
     //Miner Spirits
     public static final RegistryObject<Item> MAGIC_LAMP_EMPTY = ITEMS.register("magic_lamp_empty",
@@ -382,6 +391,8 @@ public class OccultismItems {
 
     public static final RegistryObject<Item> RITUAL_DUMMY_SUMMON_DEMONIC_WIFE = ITEMS.register("ritual_dummy/summon_demonic_wife", () -> new DummyTooltipItem(defaultProperties()));
     public static final RegistryObject<Item> RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND = ITEMS.register("ritual_dummy/summon_demonic_husband", () -> new DummyTooltipItem(defaultProperties()));
+
+    public static final RegistryObject<Item> RITUAL_RESURRECT_FAMILIAR = ITEMS.register("ritual_dummy/resurrect_familiar", () -> new DummyTooltipItem(defaultProperties()));
 
     //Ritual Dummy Items
     static {
