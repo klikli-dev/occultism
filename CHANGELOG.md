@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.110.0] - 2024-01-22
+### :sparkles: New Features
+- [`a6ed2cb`](https://github.com/klikli-dev/occultism/commit/a6ed2cba8e675590398d169c3f7f3b08415958ab) - add djinni models  - thank @FeellianSinger *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`160c929`](https://github.com/klikli-dev/occultism/commit/160c9298213772cdbd60ba66498ef0573b5481ac) - add new foliot trader models - thank @FeellianSinger *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`966835d`](https://github.com/klikli-dev/occultism/commit/966835d08126dbbd61164492b0b5dfca9b5c8eae) - add new marid model - thank @FeellianSinger *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`cd2c122`](https://github.com/klikli-dev/occultism/commit/cd2c122f34c531ef461e0b98f712c616045e0592) - model rendering *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.109.0] - 2024-01-21
 ### :sparkles: New Features
 - [`645176b`](https://github.com/klikli-dev/occultism/commit/645176bea54f7d9d276c909088207f7d200d0b70) - add storage controller page caching - may improve GUI FPS *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -861,3 +871,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.107.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.106.1...release/v1.20.1-1.107.0
 [release/v1.20.1-1.108.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.107.0...release/v1.20.1-1.108.0
 [release/v1.20.1-1.109.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.108.0...release/v1.20.1-1.109.0
+[release/v1.20.1-1.110.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.109.0...release/v1.20.1-1.110.0
