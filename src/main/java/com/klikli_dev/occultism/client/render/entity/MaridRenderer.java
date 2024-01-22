@@ -22,32 +22,17 @@
 
 package com.klikli_dev.occultism.client.render.entity;
 
-import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.model.entity.MaridModel;
 import com.klikli_dev.occultism.common.entity.spirit.MaridEntity;
-import com.klikli_dev.occultism.registry.OccultismModelLayers;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import software.bernie.geckolib.renderer.layer.AutoGlowingGeoLayer;
 
-public class MaridRenderer extends BipedSpiritRenderer<MaridEntity, MaridModel> {
+public class MaridRenderer extends GeoEntityRenderer<MaridEntity> {
 
-    private static final ResourceLocation[] TEXTURES = {new ResourceLocation(Occultism.MODID,
-            "textures/entity/marid.png")};
+    public MaridRenderer(EntityRendererProvider.Context renderManager) {
+        super(renderManager, new MaridModel());
 
-    public MaridRenderer(EntityRendererProvider.Context context) {
-        super(context, new MaridModel(context.bakeLayer(OccultismModelLayers.MARID)), 0.5f);
+        this.addRenderLayer(new AutoGlowingGeoLayer<>(this));
     }
-
-    @Override
-    public ResourceLocation getTextureLocation(MaridEntity entity) {
-        return TEXTURES[entity.getEntityData().get(entity.getDataParameterSkin())];
-    }
-
-    @Override
-    protected void scale(MaridEntity entity, PoseStack matrixStackIn, float partialTickTime) {
-        super.scale(entity, matrixStackIn, partialTickTime);
-        matrixStackIn.scale(1.2f, 1.2f, 1.2f);
-    }
-
 }
