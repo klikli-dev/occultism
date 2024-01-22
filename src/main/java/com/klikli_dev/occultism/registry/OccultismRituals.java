@@ -60,9 +60,13 @@ public class OccultismRituals {
     public static final Supplier<RitualFactory> SUMMON_WILD_HUNT =
             RITUAL_FACTORIES.register("summon_wild_hunt",
                     () -> new RitualFactory(SummonWildHuntRitual::new));
-    public static final DeferredHolder< RitualFactory,RitualFactory> FAMILIAR_RITUAL =
+    public static final DeferredHolder<RitualFactory, RitualFactory> FAMILIAR_RITUAL =
             RITUAL_FACTORIES.register("familiar",
                     () -> new RitualFactory(FamiliarRitual::new));
+
+    public static final DeferredHolder<RitualFactory, RitualFactory> RESURRECT_FAMILIAR_RITUAL =
+            RITUAL_FACTORIES.register("resurrect_familiar",
+                    () -> new RitualFactory(ResurrectFamiliarRitual::new));
 
     //Crafting
     public static final Supplier<RitualFactory> CRAFT_RITUAL =

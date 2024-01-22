@@ -31,17 +31,21 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
+
 import java.util.EnumSet;
 import java.util.Optional;
 import java.util.UUID;
@@ -71,6 +75,31 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
                 .add(Attributes.ARMOR, 2.0)
                 .add(Attributes.ARMOR_TOUGHNESS, 2.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.3);
+    }
+
+    @Override
+    protected void dropFromLootTable(DamageSource pDamageSource, boolean pAttackedRecently) {
+        super.dropFromLootTable(pDamageSource, pAttackedRecently);
+
+        var owner = this.getFamiliarOwner();
+
+        var shard = new ItemStack(OccultismItems.SOUL_SHARD_ITEM.get());
+
+        var health = this.getHealth();
+        this.setHealth(this.getMaxHealth()); //simulate a healthy familiar to avoid death on respawn
+        shard.getOrCreateTag().put("entityData", this.serializeNBT());
+        this.setHealth(health);
+
+        if(owner instanceof Player player){
+            ItemHandlerHelper.giveItemToPlayer(player, shard);
+        }
+        else {
+            ItemEntity entityitem = new ItemEntity(this.level(), this.getX(), this.getY() + 0.5, this.getZ(), shard);
+            entityitem.setPickUpDelay(5);
+            entityitem.setDeltaMovement(entityitem.getDeltaMovement().multiply(0, 1, 0));
+
+            this.level().addFreshEntity(entityitem);
+        }
     }
 
     @Override

@@ -51,10 +51,28 @@ public class ItemModelsGenerator extends ItemModelProvider {
         });
         this.registerAdvancementItem();
 
-
         this.registerSpawnEgg(OccultismItems.SPAWN_EGG_DEMONIC_WIFE);
         this.registerSpawnEgg(OccultismItems.SPAWN_EGG_DEMONIC_HUSBAND);
+
+        this.registerItemGenerated(this.name(OccultismItems.SOUL_SHARD_ITEM.get()));
+        this.registerItemGenerated(this.name(OccultismItems.DEMONS_DREAM_ESSENCE.get()));
+        this.registerItemGenerated(this.name(OccultismItems.OTHERWORLD_ESSENCE.get()));
     }
+
+    protected String name(Item item) {
+        return BuiltInRegistries.ITEM.getKey(item).getPath();
+    }
+
+    private ItemModelBuilder registerItemGenerated(String name) {
+        return this.registerItemGenerated(name, name);
+    }
+
+    private ItemModelBuilder registerItemGenerated(String name, String texture) {
+        return this.getBuilder(name)
+                .parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", this.modLoc("item/" + texture));
+    }
+
 
     private void registerRitualDummy(String name) {
         this.getBuilder(name).parent(new ModelFile.UncheckedModelFile("occultism:item/ritual_dummy"));

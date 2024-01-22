@@ -27,17 +27,20 @@ import com.klikli_dev.modonomicon.api.datagen.AbstractModonomiconLanguageProvide
 import com.klikli_dev.modonomicon.api.datagen.BookContextHelper;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.TranslationKeys;
+import com.klikli_dev.occultism.common.ritual.RitualFactory;
 import com.klikli_dev.occultism.datagen.OccultismAdvancementSubProvider;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.registry.OccultismRituals;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
@@ -124,6 +127,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.SOUL_GEM_ITEM.get().getDescriptionId() + ".tooltip_filled", "Contains a captured %s.");
         this.add(OccultismItems.SOUL_GEM_ITEM.get().getDescriptionId() + ".tooltip_empty", "Use on a creature to capture it.");
         this.add(OccultismItems.SATCHEL.get().getDescriptionId() + ".tooltip", "%s is bound to this satchel.");
+
+        this.add(OccultismItems.SOUL_SHARD_ITEM.get().getDescriptionId() + ".tooltip_filled", "Contains the soul of a %s.\nCan be used to resurrect it.");
+        this.add(OccultismItems.SOUL_SHARD_ITEM.get().getDescriptionId() + ".tooltip_empty", "Dropped by a Familiar after their untimely death. Can be used to resurrect it.");
     }
 
     private void addItems() {
@@ -173,7 +179,13 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.DIMENSIONAL_MATRIX, "Dimensional Crystal Matrix");
         this.addItem(OccultismItems.DIVINATION_ROD, "Divination Rod");
         this.addItem(OccultismItems.DATURA_SEEDS, "Demon's Dream Seeds");
+        this.addAutoTooltip(OccultismItems.DATURA_SEEDS.get(), "Plant to grow Demon's Dream Fruit.\nConsumption may allow to see beyond the veil ... it may also cause general un-wellness.");
         this.addItem(OccultismItems.DATURA, "Demon's Dream Fruit");
+        this.addAutoTooltip(OccultismItems.DATURA.get(), "Consumption may allow to see beyond the veil ... it may also cause general un-wellness.");
+        this.addItem(OccultismItems.DEMONS_DREAM_ESSENCE, "Demon's Dream Essence");
+        this.addAutoTooltip(OccultismItems.DEMONS_DREAM_ESSENCE.get(), "Consumption allows to see beyond the veil ... and a whole lot of other effects.");
+        this.addItem(OccultismItems.OTHERWORLD_ESSENCE, "Otherworld Essence");
+        this.addAutoTooltip(OccultismItems.OTHERWORLD_ESSENCE.get(), "Purified Demon's Dream Essence, no longer provides any of the negative effects.");
         this.addItem(OccultismItems.SPIRIT_ATTUNED_GEM, "Spirit Attuned Gem");
         this.add("item.occultism.otherworld_sapling", "Otherworld Sapling");
         this.add("item.occultism.otherworld_sapling_natural", "Unstable Otherworld Sapling");
@@ -212,6 +224,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.MINER_MARID_MASTER, "Master Miner Marid");
         this.addItem(OccultismItems.SOUL_GEM_ITEM, "Soul Gem");
         this.add(OccultismItems.SOUL_GEM_ITEM.get().getDescriptionId() + "_empty", "Empty Soul Gem");
+        this.addItem(OccultismItems.SOUL_SHARD_ITEM, "Soul Shard");
         this.addItem(OccultismItems.SATCHEL, "Surprisingly Substantial Satchel");
         this.addItem(OccultismItems.FAMILIAR_RING, "Familiar Ring");
         this.addItem(OccultismItems.SPAWN_EGG_FOLIOT, "Foliot Spawn Egg");
@@ -750,6 +763,15 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.summon_demonic_husband.started", "Started summoning.");
         this.add("ritual.occultism.summon_demonic_husband.finished", "Summoned successfully.");
         this.add("ritual.occultism.summon_demonic_husband.interrupted", "Summoning interrupted.");
+
+        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR_RITUAL, "conditions", "Not all requirements for this ritual are met.");
+        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR_RITUAL, "started", "Started resurrecting familiar.");
+        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR_RITUAL, "finished", "Successfully resurrected familiar.");
+        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR_RITUAL, "interrupted", "Resurrection interrupted.");
+    }
+
+    public void addRitualMessage(DeferredHolder<RitualFactory,RitualFactory> ritual, String key, String message) {
+        this.add("ritual.%s.%s".formatted(ritual.getId().getNamespace(), ritual.getId().getPath()) + "." + key, message);
     }
 
     private void addBook() {
@@ -1010,7 +1032,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         - [Foliot Janitor](entry://summoning_rituals/summon_cleaner)
                         - [Otherstone Trader](entry://summoning_rituals/summon_otherstone_trader)
                         - [Otherworld Sapling Trader](entry://summoning_rituals/summon_otherworld_sapling_trader)
+                        - [Resurrect Familiar](entry://familiar_rituals/resurrection)
                         """);
+
 
         helper.entry("summon_djinni");
         this.add(helper.entryName(), "Ophyx' Calling");
@@ -2999,10 +3023,18 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         this.add(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND.get(), "Ritual: Summon Demonic Husband");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND.get(), "Summons a Demonic Husband to support you: He will fight for you, help with cooking, and extend potion durations.");
+
+
+        this.add(OccultismItems.RITUAL_RESURRECT_FAMILIAR.get(), "Ritual: Resurrect Familiar");
+        this.addTooltip(OccultismItems.RITUAL_RESURRECT_FAMILIAR.get(), "Resurrects a Familiar from a Soul Shard.");
     }
 
     public void addTooltip(ItemLike key, String value) {
         this.add(key.asItem().getDescriptionId() + ".tooltip", value);
+    }
+
+    public void addAutoTooltip(ItemLike key, String value) {
+        this.add(key.asItem().getDescriptionId() + ".auto_tooltip", value);
     }
 
     private void addDialogs() {

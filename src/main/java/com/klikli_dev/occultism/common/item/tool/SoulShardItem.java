@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright 2022 klikli-dev
+ * Copyright 2020 klikli-dev
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -20,41 +20,45 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.occultism.common.item.spirit;
+package com.klikli_dev.occultism.common.item.tool;
 
-import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.util.EntityUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
-public class SpiritHealingItem extends Item {
-    public SpiritHealingItem(Properties pProperties) {
-        super(pProperties);
+import java.util.Arrays;
+import java.util.List;
+
+public class SoulShardItem extends Item {
+
+    public SoulShardItem(Properties properties) {
+        super(properties);
     }
+
 
     @Override
-    public InteractionResult interactLivingEntity(ItemStack pStack, Player pPlayer, LivingEntity pInteractionTarget, InteractionHand pUsedHand) {
-        if (pInteractionTarget.getType().is(OccultismTags.HEALED_BY_DEMONS_DREAM_FRUIT) && pInteractionTarget.getHealth() < pInteractionTarget.getMaxHealth()) {
-            pInteractionTarget.heal(this.getHealAmount(pStack));
-            pStack.shrink(1);
-            return InteractionResult.sidedSuccess(pPlayer.level().isClientSide);
-        }
-        return super.interactLivingEntity(pStack, pPlayer, pInteractionTarget, pUsedHand);
-    }
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
+                                TooltipFlag flagIn) {
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
 
-    protected int getHealAmount(ItemStack pStack) {
-        if (pStack.is(OccultismItems.DATURA.get())) {
-            return 2;
-        } else if (pStack.is(OccultismItems.DEMONS_DREAM_ESSENCE.get())) {
-            return 10;
-        } else if (pStack.is(OccultismItems.OTHERWORLD_ESSENCE.get())) {
-            return 20;
+        if (stack.getOrCreateTag().contains("entityData")) {
+            EntityType<?> type = EntityUtil.entityTypeFromNbt(stack.getTag().getCompound("entityData"));
+            tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip_filled", type.getDescription()));
         } else {
-            return 0;
+            tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip_empty"));
         }
     }
 }
