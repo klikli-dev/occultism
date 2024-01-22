@@ -39,6 +39,8 @@ public class FoliotModel extends DefaultedEntityGeoModel<FoliotEntity> {
     public final ModelData transporter;
     public final ModelData janitor;
     public final ModelData lumberjack;
+    public final ModelData saplingTrader;
+    public final ModelData otherstoneTrader;
 
     public FoliotModel() {
         super(new ResourceLocation(Occultism.MODID, ASSET_SUBPATH), false);
@@ -47,6 +49,8 @@ public class FoliotModel extends DefaultedEntityGeoModel<FoliotEntity> {
         this.transporter = this.buildModelData("transporter");
         this.janitor = this.buildModelData("janitor");
         this.lumberjack = this.buildModelData("lumberjack");
+        this.otherstoneTrader = this.buildModelData("otherstone_trader");
+        this.saplingTrader = this.buildModelData("sapling_trader");
     }
 
     public ModelData getModelData(FoliotEntity animatable) {
@@ -62,6 +66,14 @@ public class FoliotModel extends DefaultedEntityGeoModel<FoliotEntity> {
 
         if (Objects.equals(job, OccultismSpiritJobs.LUMBERJACK.getId().toString())) {
             return this.lumberjack;
+        }
+
+        if (Objects.equals(job, OccultismSpiritJobs.TRADE_OTHERSTONE_T1.getId().toString())) {
+            return this.otherstoneTrader;
+        }
+
+        if (Objects.equals(job, OccultismSpiritJobs.TRADE_OTHERWORLD_SAPLINGS_T2.getId().toString())) {
+            return this.saplingTrader;
         }
 
         return this.crusher;
