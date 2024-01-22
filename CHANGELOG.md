@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.111.0] - 2024-01-22
+### :sparkles: New Features
+- [`dc99eaf`](https://github.com/klikli-dev/occultism/commit/dc99eaf44277a6ec6da332db441a8ea33053da92) - add familiar resurrection *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`4812fd1`](https://github.com/klikli-dev/occultism/commit/4812fd12d7843b238a9b4588348992c7760e6466) - optimize textures *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`064c565`](https://github.com/klikli-dev/occultism/commit/064c56506124d18c2b8dca17ffb31f1e54f00d90) - sheep tallow drop *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.110.0] - 2024-01-22
 ### :sparkles: New Features
 - [`a6ed2cb`](https://github.com/klikli-dev/occultism/commit/a6ed2cba8e675590398d169c3f7f3b08415958ab) - add djinni models  - thank @FeellianSinger *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -872,3 +881,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.108.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.107.0...release/v1.20.1-1.108.0
 [release/v1.20.1-1.109.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.108.0...release/v1.20.1-1.109.0
 [release/v1.20.1-1.110.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.109.0...release/v1.20.1-1.110.0
+[release/v1.20.1-1.111.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.110.0...release/v1.20.1-1.111.0
