@@ -24,13 +24,41 @@ package com.klikli_dev.occultism.client.render.entity;
 
 import com.klikli_dev.occultism.client.model.entity.MaridModel;
 import com.klikli_dev.occultism.common.entity.spirit.MaridEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
-import software.bernie.geckolib.renderer.layer.AutoGlowingGeoLayer;
+import software.bernie.geckolib.renderer.layer.BlockAndItemGeoLayer;
+
+import java.util.Objects;
 
 public class MaridRenderer extends GeoEntityRenderer<MaridEntity> {
 
     public MaridRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new MaridModel());
+
+        this.addRenderLayer(new BlockAndItemGeoLayer<>(this, (bone, animatable) -> {
+            if (Objects.equals(bone.getName(), "bone")) //left hand
+                return animatable.getItemInHand(InteractionHand.MAIN_HAND);
+            return null;
+        }, (bone, animatable) -> null) {
+            @Override
+            protected ItemDisplayContext getTransformTypeForStack(GeoBone bone, ItemStack stack, MaridEntity animatable) {
+                return ItemDisplayContext.THIRD_PERSON_LEFT_HAND;
+            }
+
+            @Override
+            protected void renderStackForBone(PoseStack poseStack, GeoBone bone, ItemStack stack, MaridEntity animatable, MultiBufferSource bufferSource, float partialTick, int packedLight, int packedOverlay) {
+                poseStack.pushPose();
+                poseStack.translate(0, -0.4, 0);
+
+                super.renderStackForBone(poseStack, bone, stack, animatable, bufferSource, partialTick, packedLight, packedOverlay);
+                poseStack.popPose();
+            }
+        });
     }
 }
