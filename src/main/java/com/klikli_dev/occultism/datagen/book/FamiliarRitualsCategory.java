@@ -111,7 +111,7 @@ public class FamiliarRitualsCategory extends CategoryProvider {
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon(this.modLoc("textures/gui/book/parrot.png"))
-                .withShowCategoryButton(false);
+                .withShowCategoryButton(true);
     }
 
     private BookEntryModel makeFamiliarsRitualsOverviewEntry(CategoryEntryMap entryMap, char icon) {
