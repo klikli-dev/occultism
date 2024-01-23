@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.112.0] - 2024-01-23
+### :sparkles: New Features
+- [`b031b33`](https://github.com/klikli-dev/occultism/commit/b031b33d410bb519f7ba1cec5f4764c3cf01d2a0) - enable category buttons for sub-categories *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`bf49f4b`](https://github.com/klikli-dev/occultism/commit/bf49f4b94b00f3d48ada6e62b332e908d8ab1d45) - crushers do not show the ore they are crushing *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.111.0] - 2024-01-22
 ### :sparkles: New Features
 - [`dc99eaf`](https://github.com/klikli-dev/occultism/commit/dc99eaf44277a6ec6da332db441a8ea33053da92) - add familiar resurrection *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -882,3 +890,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.109.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.108.0...release/v1.20.1-1.109.0
 [release/v1.20.1-1.110.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.109.0...release/v1.20.1-1.110.0
 [release/v1.20.1-1.111.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.110.0...release/v1.20.1-1.111.0
+[release/v1.20.1-1.112.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.111.0...release/v1.20.1-1.112.0
