@@ -2073,7 +2073,7 @@ public class OccultismBookProvider extends BookProvider {
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon(this.modLoc("textures/gui/book/spirits.png"))
-                .withShowCategoryButton(false)
+                .withShowCategoryButton(true)
                 .withEntries(
                         overview,
                         returnToGettingStarted,
@@ -2098,6 +2098,7 @@ public class OccultismBookProvider extends BookProvider {
     private BookEntryModel makeSpiritsOverviewEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("overview");
         this.lang().add(this.context().entryName(), "On Spirits");
+        this.lang().add(this.context().entryDescription(), "An overview of the supernatural");
 
         this.context().page("intro");
         var intro = BookTextPageModel.builder()
@@ -3362,7 +3363,7 @@ public class OccultismBookProvider extends BookProvider {
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon(this.modLoc("textures/gui/book/summoning.png"))
-                .withShowCategoryButton(false)
+                .withShowCategoryButton(true)
                 .withEntries(
                         overview,
                         returnToRituals,
@@ -4171,7 +4172,7 @@ public class OccultismBookProvider extends BookProvider {
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon(this.modLoc("textures/gui/book/infusion.png"))
-                .withShowCategoryButton(false)
+                .withShowCategoryButton(true)
                 .withEntries(
                         overview,
                         returnToRituals,
@@ -4787,7 +4788,7 @@ public class OccultismBookProvider extends BookProvider {
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon(this.modLoc("textures/gui/book/possession.png"))
-                .withShowCategoryButton(false)
+                .withShowCategoryButton(true)
                 .withEntries(
                         overview,
                         returnToRituals,
