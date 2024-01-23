@@ -24,17 +24,50 @@ package com.klikli_dev.occultism.client.render.entity;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.model.entity.FoliotModel;
+import com.klikli_dev.occultism.common.entity.spirit.DjinniEntity;
 import com.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import com.klikli_dev.occultism.registry.OccultismModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import software.bernie.geckolib.renderer.layer.BlockAndItemGeoLayer;
+
+import java.util.Objects;
 
 public class FoliotRenderer extends GeoEntityRenderer<FoliotEntity> {
 
     public FoliotRenderer(EntityRendererProvider.Context context) {
         super(context, new FoliotModel());
+
+        this.addRenderLayer(new BlockAndItemGeoLayer<>(this, (bone, animatable) -> {
+            if (Objects.equals(bone.getName(), "RARM")) //right hand
+                return animatable.getItemInHand(InteractionHand.MAIN_HAND);
+            return null;
+        }, (bone, animatable) -> null) {
+            @Override
+            protected ItemDisplayContext getTransformTypeForStack(GeoBone bone, ItemStack stack, FoliotEntity animatable) {
+                return ItemDisplayContext.THIRD_PERSON_RIGHT_HAND;
+            }
+
+            @Override
+            protected void renderStackForBone(PoseStack poseStack, GeoBone bone, ItemStack stack, FoliotEntity animatable, MultiBufferSource bufferSource, float partialTick, int packedLight, int packedOverlay) {
+                poseStack.pushPose();
+
+                poseStack.translate(-0.1, -0.3, 0);
+
+                final float scale = 0.4f;
+                poseStack.scale(scale, scale, scale);
+
+                super.renderStackForBone(poseStack, bone, stack, animatable, bufferSource, partialTick, packedLight, packedOverlay);
+                poseStack.popPose();
+            }
+        });
     }
 
 }
