@@ -133,6 +133,8 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int x, int y) {
+        this.renderBackground(guiGraphics);
+
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         guiGraphics.blit(TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
 
@@ -159,7 +161,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         }
 
         if (!this.tooltip.isEmpty())
-            guiGraphics.renderTooltip(this.font, this.tooltip, Optional.empty(), mouseX - this.leftPos, mouseY - this.topPos);
+            guiGraphics.renderTooltip(this.font, this.tooltip, Optional.empty(), mouseX, mouseY);
     }
 
     @Override
