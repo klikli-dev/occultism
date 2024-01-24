@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.112.2] - 2024-01-24
+### :bug: Bug Fixes
+- [`a900005`](https://github.com/klikli-dev/occultism/commit/a90000566b13877a6d2eadbb38e401d6fde7966f) - janitor gui *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.112.1] - 2024-01-24
 ### :bug: Bug Fixes
 - [`fbdc276`](https://github.com/klikli-dev/occultism/commit/fbdc2766a4a84f65571fadf28becd8994bea716d) - spirit campfire provides light even when off *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -905,3 +910,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.111.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.110.0...release/v1.20.4-1.111.0
 [release/v1.20.4-1.112.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.111.0...release/v1.20.4-1.112.0
 [release/v1.20.4-1.112.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.112.0...release/v1.20.4-1.112.1
+[release/v1.20.4-1.112.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.112.1...release/v1.20.4-1.112.2
