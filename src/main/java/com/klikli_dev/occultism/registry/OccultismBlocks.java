@@ -45,6 +45,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.AABB;
@@ -55,6 +56,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
 
 public class OccultismBlocks {
 
@@ -254,7 +256,8 @@ public class OccultismBlocks {
     public static final RegistryObject<Block> SPIRIT_CAMPFIRE = register("spirit_campfire",
             () -> new CampfireBlock(false, 2, BlockBehaviour.Properties.of()
                     .mapColor(MapColor.PODZOL)
-                    .strength(2.0F).sound(SoundType.WOOD).lightLevel((state) -> 10).noOcclusion()));
+                    .strength(2.0F).sound(SoundType.WOOD).lightLevel(
+                            litBlockEmission(10)).noOcclusion()));
 
     public static final RegistryObject<Block> SPIRIT_TORCH = register("spirit_torch",
             () -> new SpiritTorchBlock(BlockBehaviour.Properties.of()
@@ -285,6 +288,13 @@ public class OccultismBlocks {
 
         return object;
     }
+
+    private static ToIntFunction<BlockState> litBlockEmission(int pLightValue) {
+        return (p_50763_) -> {
+            return p_50763_.getValue(BlockStateProperties.LIT) ? pLightValue : 0;
+        };
+    }
+
 
     public enum LootTableType {
         EMPTY,
