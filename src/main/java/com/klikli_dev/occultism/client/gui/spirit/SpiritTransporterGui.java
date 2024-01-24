@@ -157,7 +157,7 @@ public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> 
         }
 
         if (!this.tooltip.isEmpty())
-            guiGraphics.renderTooltip(this.font, this.tooltip, Optional.empty(), mouseX - this.leftPos, mouseY - this.topPos);
+            guiGraphics.renderTooltip(this.font, this.tooltip, Optional.empty(), mouseX, mouseY);
     }
 
     @Override
