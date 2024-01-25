@@ -53,12 +53,10 @@ import java.util.List;
 
 public class LumberjackJob extends SpiritJob {
 
-    protected EntityDimensions lumberJackDimensions;
     protected List<Ingredient> itemsToPickUp = new ArrayList<>();
 
     public LumberjackJob(SpiritEntity entity) {
         super(entity);
-        this.lumberJackDimensions = EntityDimensions.scalable(0.8f, 0.8f);
     }
 
     @Override
@@ -117,7 +115,6 @@ public class LumberjackJob extends SpiritJob {
 
     @Override
     public void onInit() {
-        this.entity.refreshDimensions(); //will apply getDimensions()
         this.itemsToPickUp.add(Ingredient.of(ItemTags.LOGS));
         this.itemsToPickUp.add(Ingredient.of(ItemTags.LEAVES));
         this.itemsToPickUp.add(Ingredient.of(ItemTags.SAPLINGS));
@@ -127,7 +124,6 @@ public class LumberjackJob extends SpiritJob {
 
     @Override
     public void cleanup() {
-        this.entity.refreshDimensions();
     }
 
     @Override
@@ -139,11 +135,6 @@ public class LumberjackJob extends SpiritJob {
     @Override
     public List<Ingredient> getItemsToPickUp() {
         return this.itemsToPickUp;
-    }
-
-    @Override
-    public EntityDimensions getDimensions(Pose pPose, EntityDimensions original) {
-        return this.lumberJackDimensions;
     }
 
     @Override

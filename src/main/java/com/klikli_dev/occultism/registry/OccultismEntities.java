@@ -46,12 +46,12 @@ public class OccultismEntities {
 
     public static final NonNullLazy<EntityType<FoliotEntity>> FOLIOT_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(FoliotEntity::new, MobCategory.CREATURE)
-                    .sized(0.6f, 0.7f)
+                    .sized(0.6f, 1.2f)
                     .clientTrackingRange(8)
                     .build(new ResourceLocation(Occultism.MODID, "foliot").toString()));
     public static final NonNullLazy<EntityType<DjinniEntity>> DJINNI_TYPE =
             NonNullLazy.of(() -> EntityType.Builder.of(DjinniEntity::new, MobCategory.CREATURE)
-                    .sized(0.6f, 0.8f)
+                    .sized(0.6f, 1.2f)
                     .clientTrackingRange(8)
                     .build(new ResourceLocation(Occultism.MODID, "djinni").toString()));
     public static final NonNullLazy<EntityType<AfritEntity>> AFRIT_TYPE =

@@ -22,7 +22,13 @@
 
 package com.klikli_dev.occultism.common.entity.spirit;
 
+import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
@@ -36,8 +42,12 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import java.util.Objects;
+
 public class FoliotEntity extends SpiritEntity implements GeoEntity {
 
+    private static final EntityDataAccessor<Integer> SIZE_STATE = SynchedEntityData.defineId(DjinniEntity.class, EntityDataSerializers.INT);
+    protected EntityDimensions lumberJackDimensions = EntityDimensions.scalable(0.8f, 0.8f);
     AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
     public FoliotEntity(EntityType<? extends SpiritEntity> type, Level level) {
@@ -53,6 +63,43 @@ public class FoliotEntity extends SpiritEntity implements GeoEntity {
                 .add(Attributes.ARMOR_TOUGHNESS, 1.0)
                 .add(Attributes.FOLLOW_RANGE, 50.0);
     }
+
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(SIZE_STATE, 0);
+    }
+
+    public int getSizeState() {
+        return this.entityData.get(SIZE_STATE);
+    }
+
+    public void setSizeState(int sizeState) {
+        this.entityData.set(SIZE_STATE, sizeState);
+    }
+
+    public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
+        if (SIZE_STATE.equals(pKey)) {
+            this.refreshDimensions();
+        }
+
+        if (JOB_ID.equals(pKey)) {
+            if (Objects.equals(this.getJobID(), OccultismSpiritJobs.LUMBERJACK.getId().toString()) && this.getSizeState() != 1) {
+                this.setSizeState(1);
+            }
+        }
+
+        super.onSyncedDataUpdated(pKey);
+    }
+
+    @Override
+    public EntityDimensions getDimensions(Pose pPose) {
+
+        if (this.getSizeState() == 1)
+            return this.lumberJackDimensions;
+
+        return super.getDimensions(pPose);
+    }
+
 
     @Override
     public int getCurrentSwingDuration() {

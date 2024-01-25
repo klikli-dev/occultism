@@ -31,7 +31,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.animal.Pufferfish;
 import net.minecraft.world.level.Level;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -47,15 +46,22 @@ import java.util.Objects;
 
 public class DjinniEntity extends SpiritEntity implements GeoEntity {
 
-    protected EntityDimensions t2CrusherDimensions = new EntityDimensions(1.2f, 2.4f, false);
-
-
     private static final EntityDataAccessor<Integer> SIZE_STATE = SynchedEntityData.defineId(DjinniEntity.class, EntityDataSerializers.INT);
-
+    protected EntityDimensions t2CrusherDimensions = new EntityDimensions(1.2f, 2.4f, false);
     AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
     public DjinniEntity(EntityType<? extends SpiritEntity> type, Level level) {
         super(type, level);
+    }
+
+    public static AttributeSupplier.Builder createAttributes() {
+        return SpiritEntity.createAttributes()
+                .add(Attributes.ATTACK_DAMAGE, 3.0)
+                .add(Attributes.MAX_HEALTH, 100.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.30000001192092896)
+                .add(Attributes.ARMOR, 4.0)
+                .add(Attributes.ARMOR_TOUGHNESS, 5.0)
+                .add(Attributes.FOLLOW_RANGE, 50.0);
     }
 
     protected void defineSynchedData() {
@@ -77,7 +83,7 @@ public class DjinniEntity extends SpiritEntity implements GeoEntity {
         }
 
         if (JOB_ID.equals(pKey)) {
-            if(Objects.equals(this.getJobID(), OccultismSpiritJobs.CRUSH_TIER2.getId().toString()) && this.getSizeState() != 1){
+            if (Objects.equals(this.getJobID(), OccultismSpiritJobs.CRUSH_TIER2.getId().toString()) && this.getSizeState() != 1) {
                 this.setSizeState(1);
             }
         }
@@ -88,20 +94,10 @@ public class DjinniEntity extends SpiritEntity implements GeoEntity {
     @Override
     public EntityDimensions getDimensions(Pose pPose) {
 
-        if(this.getSizeState() == 1)
+        if (this.getSizeState() == 1)
             return this.t2CrusherDimensions;
 
         return super.getDimensions(pPose);
-    }
-
-    public static AttributeSupplier.Builder createAttributes() {
-        return SpiritEntity.createAttributes()
-                .add(Attributes.ATTACK_DAMAGE, 3.0)
-                .add(Attributes.MAX_HEALTH, 100.0)
-                .add(Attributes.MOVEMENT_SPEED, 0.30000001192092896)
-                .add(Attributes.ARMOR, 4.0)
-                .add(Attributes.ARMOR_TOUGHNESS, 5.0)
-                .add(Attributes.FOLLOW_RANGE, 50.0);
     }
 
     @Override
