@@ -76,6 +76,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             "textures/gui/storage_controller_droparea.png");
     protected static final ResourceLocation BUTTONS = new ResourceLocation(Occultism.MODID, "textures/gui/buttons.png");
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".storage_controller";
+    public int lastStacksCount;
     public List<ItemStack> stacks;
     public List<MachineReference> linkedMachines;
     public IStorageControllerContainer storageControllerContainer;
@@ -547,7 +548,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         var changedStacksToDisplay = this.lastCachedStacksToDisplayCount != stacksToDisplay.size();
         this.lastCachedStacksToDisplayCount = stacksToDisplay.size();
 
-        if(changedPage || changedStacksToDisplay){
+        var changedStacks = this.lastStacksCount != this.stacks.size();
+        this.lastStacksCount = this.stacks.size();
+
+        if(changedPage || changedStacksToDisplay || changedStacks){
             this.sortItemStacks(stacksToDisplay);
             this.buildPage(stacksToDisplay);
             this.buildItemSlots(stacksToDisplay);
