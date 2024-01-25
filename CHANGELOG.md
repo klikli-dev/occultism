@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.113.0] - 2024-01-25
+### :sparkles: New Features
+- [`6f9b119`](https://github.com/klikli-dev/occultism/commit/6f9b119b8b45e3111e2a2effe0e5cbab017e0bda) - increase foliot size slightly *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`d01f460`](https://github.com/klikli-dev/occultism/commit/d01f4608420f253d74a8d10424a9296ff69924a7) - rename fishs.json to fish.json *(PR [#1043](https://github.com/klikli-dev/occultism/pull/1043) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+- [`3dd390b`](https://github.com/klikli-dev/occultism/commit/3dd390b1c47863bbeb06e90240ab8a8a5848cef4) - add additional storage controller gui cache refresh case *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.112.2] - 2024-01-24
 ### :bug: Bug Fixes
 - [`7b41a89`](https://github.com/klikli-dev/occultism/commit/7b41a897b34c32c50bf0d2398d48b51d42d5bf6a) - janitor gui *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -903,3 +912,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.112.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.111.0...release/v1.20.1-1.112.0
 [release/v1.20.1-1.112.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.112.0...release/v1.20.1-1.112.1
 [release/v1.20.1-1.112.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.112.1...release/v1.20.1-1.112.2
+[release/v1.20.1-1.113.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.112.2...release/v1.20.1-1.113.0
