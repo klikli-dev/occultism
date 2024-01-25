@@ -45,6 +45,8 @@ public class FoliotRenderer extends GeoEntityRenderer<FoliotEntity> {
     public FoliotRenderer(EntityRendererProvider.Context context) {
         super(context, new FoliotModel());
 
+        this.withScale(1.5f);
+
         this.addRenderLayer(new BlockAndItemGeoLayer<>(this, (bone, animatable) -> {
             if (Objects.equals(bone.getName(), "RARM")) //right hand
                 return animatable.getItemInHand(InteractionHand.MAIN_HAND);
