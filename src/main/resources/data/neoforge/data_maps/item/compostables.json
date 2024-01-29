@@ -1,0 +1,22 @@
+{
+  "values": {
+    "occultism:datura_seeds": {
+      "chance": 0.3
+    },
+    "occultism:otherworld_leaves": {
+      "chance": 0.3
+    },
+    "occultism:otherworld_leaves_natural": {
+      "chance": 0.3
+    },
+    "occultism:otherworld_sapling": {
+      "chance": 0.3
+    },
+    "occultism:otherworld_sapling_natural": {
+      "chance": 0.3
+    },
+    "occultism:datura": {
+      "chance": 0.65
+    }
+  }
+}

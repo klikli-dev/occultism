@@ -464,18 +464,7 @@ public class OccultismItems {
         //historically used to add to occultism tab
         return new Item.Properties();
     }
-
-    public static void registerCompostables() {
-        ComposterBlock.COMPOSTABLES.put(OccultismItems.DATURA_SEEDS.get(), 0.3f);
-        ComposterBlock.COMPOSTABLES.put(OccultismBlocks.OTHERWORLD_LEAVES.get().asItem(), 0.3f);
-        ComposterBlock.COMPOSTABLES.put(OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get().asItem(), 0.3f);
-        ComposterBlock.COMPOSTABLES.put(OccultismBlocks.OTHERWORLD_SAPLING.get().asItem(), 0.3f);
-        ComposterBlock.COMPOSTABLES.put(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get().asItem(), 0.3f);
-
-        ComposterBlock.COMPOSTABLES.put(OccultismItems.DATURA.get(), 0.65f);
-        Occultism.LOGGER.info("Registered compostable Items");
-    }
-
+    
     public static boolean shouldSkipCreativeModTab(Item item) {
         if (item == PENTACLE.get()
                 || item == DICTIONARY_OF_SPIRITS_ICON.get()

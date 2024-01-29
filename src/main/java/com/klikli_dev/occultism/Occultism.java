@@ -113,8 +113,6 @@ public class Occultism {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        OccultismItems.registerCompostables();
-
         PageLoaders.onCommonSetup(event);
 
         //Register entity attributes on single thread
