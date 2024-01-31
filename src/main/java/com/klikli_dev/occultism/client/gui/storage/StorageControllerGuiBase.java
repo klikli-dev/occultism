@@ -371,23 +371,20 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int p_keyPressed_3_) {
-        if (this.searchBar.isFocused() && this.searchBar.keyPressed(keyCode, scanCode, p_keyPressed_3_)) {
-            if (JeiSettings.isJeiLoaded() && JeiSettings.isJeiSearchSynced()) {
-                OccultismJeiIntegration.get().setFilterText(this.searchBar.getValue());
-            }
-            return true;
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (keyCode == InputConstants.KEY_ESCAPE) {
+            this.minecraft.player.closeContainer();
         }
 
-        //Handle inventory key down in search bar:
-        if (this.searchBar.isFocused()) {
-            InputConstants.Key mouseKey = InputConstants.getKey(keyCode, scanCode);
-            if (this.minecraft.options.keyInventory.isActiveAndMatches(mouseKey)) {
-                return true;
-            }
-        }
 
-        return super.keyPressed(keyCode, scanCode, p_keyPressed_3_);
+        var nothandled = !this.searchBar.keyPressed(keyCode, scanCode, modifiers) && !this.searchBar.canConsumeInput();
+        if(nothandled)
+            return super.keyPressed(keyCode, scanCode, modifiers);
+
+        if (JeiSettings.isJeiLoaded() && JeiSettings.isJeiSearchSynced()) {
+            JeiAccess.setFilterText(this.searchBar.getValue());
+        }
+        return true;
     }
 
     @Override
