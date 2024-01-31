@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.113.1] - 2024-01-31
+### :sparkles: New Features
+- [`6153ebe`](https://github.com/klikli-dev/occultism/commit/6153ebe761968ebb31fd97367d406f1ac79c3471) - switch to new neo compostables system *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`5c24986`](https://github.com/klikli-dev/occultism/commit/5c24986b72e86259a5d7037af781de122c5d4015) - adapt editbox usage to work like in anvilscreen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`ceb7acb`](https://github.com/klikli-dev/occultism/commit/ceb7acb717e890339ce484dd39ca77a7c8f9d9b6) - listen to mouse clicked pre event to handle jei vs search bar focus *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`e1a2bcb`](https://github.com/klikli-dev/occultism/commit/e1a2bcbcab38a67e5131dcad72c12d24db75bb93) - add cache invalidation *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`d4fe87e`](https://github.com/klikli-dev/occultism/commit/d4fe87e744cddc5f69a695dbb82fdc0c16fb8500) - divergences to 1.20.4 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`80eb2a8`](https://github.com/klikli-dev/occultism/commit/80eb2a86b8d31fd569858a2f287c4999d6c12105) - reset to neo version where effects did not crash yet *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.113.0] - 2024-01-25
 ### :sparkles: New Features
 - [`f295c7a`](https://github.com/klikli-dev/occultism/commit/f295c7a7a0ba5c7298c51dd8a46e19e62dd16500) - increase foliot size slightly *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -921,3 +935,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.112.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.112.0...release/v1.20.4-1.112.1
 [release/v1.20.4-1.112.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.112.1...release/v1.20.4-1.112.2
 [release/v1.20.4-1.113.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.112.2...release/v1.20.4-1.113.0
+[release/v1.20.4-1.113.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.113.0...release/v1.20.4-1.113.1
