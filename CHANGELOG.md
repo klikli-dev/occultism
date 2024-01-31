@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.113.1] - 2024-01-31
+### :bug: Bug Fixes
+- [`5f79b88`](https://github.com/klikli-dev/occultism/commit/5f79b88b5de3810988ce69dc0bd1a72d78d3cac9) - adapt editbox usage to work like in anvilscreen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`3c7e623`](https://github.com/klikli-dev/occultism/commit/3c7e6233a58a4085c2a9cd73a5f66471e93944f1) - listen to mouse clicked pre event to handle jei vs search bar focus *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`59904dc`](https://github.com/klikli-dev/occultism/commit/59904dc11d7664528aaba6228d3bc6afc69a772e) - add cache invalidation *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.113.0] - 2024-01-25
 ### :sparkles: New Features
 - [`6f9b119`](https://github.com/klikli-dev/occultism/commit/6f9b119b8b45e3111e2a2effe0e5cbab017e0bda) - increase foliot size slightly *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -913,3 +920,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.112.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.112.0...release/v1.20.1-1.112.1
 [release/v1.20.1-1.112.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.112.1...release/v1.20.1-1.112.2
 [release/v1.20.1-1.113.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.112.2...release/v1.20.1-1.113.0
+[release/v1.20.1-1.113.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.113.0...release/v1.20.1-1.113.1
