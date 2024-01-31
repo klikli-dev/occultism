@@ -26,10 +26,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.gui.DimensionalMineshaftScreen;
 import com.klikli_dev.occultism.client.gui.spirit.SpiritGui;
 import com.klikli_dev.occultism.client.gui.spirit.SpiritTransporterGui;
-import com.klikli_dev.occultism.client.gui.storage.SatchelScreen;
-import com.klikli_dev.occultism.client.gui.storage.StableWormholeGui;
-import com.klikli_dev.occultism.client.gui.storage.StorageControllerGui;
-import com.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
+import com.klikli_dev.occultism.client.gui.storage.*;
 import com.klikli_dev.occultism.client.itemproperties.*;
 import com.klikli_dev.occultism.client.keybindings.BackpackKeyConflictContext;
 import com.klikli_dev.occultism.client.keybindings.StorageRemoteKeyConflictContext;
@@ -169,6 +166,7 @@ public class ClientSetupEventHandler {
         //Register client side event handlers
         NeoForge.EVENT_BUS.register(Occultism.SELECTED_BLOCK_RENDERER);
         NeoForge.EVENT_BUS.register(Occultism.THIRD_EYE_EFFECT_RENDERER);
+        MinecraftForge.EVENT_BUS.addListener((ScreenEvent.MouseButtonPressed.Pre e) -> StorageControllerGuiBase.onScreenMouseClickedPre(e));
 
         //Register Tile Entity Renderers
         BlockEntityRenderers.register(OccultismBlockEntities.STORAGE_CONTROLLER.get(), StorageControllerGeoRenderer::new);

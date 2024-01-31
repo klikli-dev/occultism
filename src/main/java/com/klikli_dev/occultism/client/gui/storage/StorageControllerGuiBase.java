@@ -62,6 +62,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.client.event.ScreenEvent;
+import net.minecraftforge.eventbus.api.Event;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -312,9 +314,20 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.searchBar.render(guiGraphics, mouseX, mouseY, partialTicks);
     }
 
+    public static void onScreenMouseClickedPre(ScreenEvent.MouseButtonPressed.Pre event){
+        //JEI correctly consumes the mouseClicked event if we click in their search bar
+        //That leads to our search bar never getting unfocused
+        //so we use the pre-event to unfocus -> if the click was in the search bar then the mouseClicked of our gui will handle it
+        if(event.getScreen() instanceof StorageControllerGuiBase<?> gui){
+            gui.searchBar.setFocused(false);
+        }
+    }
+
+
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
         super.mouseClicked(mouseX, mouseY, mouseButton);
+
         this.searchBar.setFocused(false);
 
         //right mouse button clears search bar
@@ -375,7 +388,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         if (keyCode == InputConstants.KEY_ESCAPE) {
             this.minecraft.player.closeContainer();
         }
-
 
         var nothandled = !this.searchBar.keyPressed(keyCode, scanCode, modifiers) && !this.searchBar.canConsumeInput();
         if(nothandled)
@@ -878,5 +890,4 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             OccultismJeiIntegration.get().setFilterText("");
         }
     }
-
 }
