@@ -62,8 +62,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.client.event.ScreenEvent;
-import net.minecraftforge.eventbus.api.Event;
+import net.neoforged.neoforge.client.event.ScreenEvent;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -397,7 +396,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             return super.keyPressed(keyCode, scanCode, modifiers);
 
         if (JeiSettings.isJeiLoaded() && JeiSettings.isJeiSearchSynced()) {
-            JeiAccess.setFilterText(this.searchBar.getValue());
+            OccultismJeiIntegration.get().setFilterText(this.searchBar.getValue());
         }
         return true;
     }
