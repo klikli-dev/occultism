@@ -131,6 +131,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         this.lastClick = System.currentTimeMillis();
 
+        this.resetDisplayCaches();
+
         OccultismPackets.sendToServer(new MessageRequestStacks());
     }
 
@@ -192,6 +194,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     @Override
     public void setStacks(List<ItemStack> stacks) {
         this.stacks = stacks;
+        this.resetDisplayCaches();
     }
 
     @Override
@@ -748,6 +751,12 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             }
 
         });
+    }
+
+    protected void resetDisplayCaches(){
+        this.lastStacksCount = 0;
+        this.cachedStacksToDisplay = null;
+        this.previousPage = -1;
     }
 
     protected List<ItemStack> applySearchToItems() {
