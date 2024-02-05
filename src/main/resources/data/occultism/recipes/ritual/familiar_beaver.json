@@ -12,16 +12,16 @@
   },
   "ingredients": [
     {
-      "tag": "minecraft:saplings"
+      "tag": "minecraft:logs"
     },
     {
-      "tag": "minecraft:saplings"
+      "tag": "minecraft:logs"
     },
     {
-      "tag": "minecraft:saplings"
+      "tag": "minecraft:logs"
     },
     {
-      "tag": "minecraft:saplings"
+      "tag": "minecraft:logs"
     }
   ],
   "result": {
