@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.114.0] - 2024-02-05
+### :sparkles: New Features
+- [`d6eb881`](https://github.com/klikli-dev/occultism/commit/d6eb88159f5a3f219225ff8026e2af6fb3551cf2) - Modify beaver recipe to avoid recipe conflict *(PR [#1051](https://github.com/klikli-dev/occultism/pull/1051) by [@Kevin-Marsh](https://github.com/Kevin-Marsh))*
+
+
 ## [release/v1.20.1-1.113.1] - 2024-01-31
 ### :bug: Bug Fixes
 - [`5f79b88`](https://github.com/klikli-dev/occultism/commit/5f79b88b5de3810988ce69dc0bd1a72d78d3cac9) - adapt editbox usage to work like in anvilscreen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -921,3 +926,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.112.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.112.1...release/v1.20.1-1.112.2
 [release/v1.20.1-1.113.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.112.2...release/v1.20.1-1.113.0
 [release/v1.20.1-1.113.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.113.0...release/v1.20.1-1.113.1
+[release/v1.20.1-1.114.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.113.1...release/v1.20.1-1.114.0
