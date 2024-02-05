@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.114.0] - 2024-02-05
+### :sparkles: New Features
+- [`4e23dbd`](https://github.com/klikli-dev/occultism/commit/4e23dbd4d2d4b519cdbfe9e46b6610d9b9fc6e83) - Modify beaver recipe to avoid recipe conflict *(PR [#1051](https://github.com/klikli-dev/occultism/pull/1051) by [@Kevin-Marsh](https://github.com/Kevin-Marsh))*
+
+
 ## [release/v1.20.4-1.113.1] - 2024-01-31
 ### :sparkles: New Features
 - [`6153ebe`](https://github.com/klikli-dev/occultism/commit/6153ebe761968ebb31fd97367d406f1ac79c3471) - switch to new neo compostables system *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -936,3 +941,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.112.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.112.1...release/v1.20.4-1.112.2
 [release/v1.20.4-1.113.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.112.2...release/v1.20.4-1.113.0
 [release/v1.20.4-1.113.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.113.0...release/v1.20.4-1.113.1
+[release/v1.20.4-1.114.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.113.1...release/v1.20.4-1.114.0
