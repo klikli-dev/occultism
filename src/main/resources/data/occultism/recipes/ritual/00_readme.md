@@ -8,7 +8,7 @@ and thus shelved until further notice.
 
 ## Properties
 
-- `ingredients`: can be freely configured, the only limitation being that JEI can display a maximum of 12 ingredients -
+- `ingredients`: can be freely configured as long as it is not a empty list, the only limitation being that JEI can display a maximum of 12 ingredients -
   but the crafting itself supports as many ingredients as bowls can be placed in the 8x8 area around the pentacle's
   golden sacrificial bowl.
 - `entity_to_sacrifice`:
@@ -35,6 +35,7 @@ and thus shelved until further notice.
   "ritual_type": "occultism:craft",
   "ritual_type": "occultism:craft_with_spirit_name",
   "ritual_type": "occultism:craft_miner_spirit",
+  "ritual_type": "occultism:execute_command",
   "activation_item": {
     "item": "occultism:book_of_binding_bound_foliot"
   },
@@ -66,6 +67,7 @@ and thus shelved until further notice.
   ],
   "result": {
     "item": "occultism:jei_dummy/none"
-  }
+  },
+  "command": "execute run say hi"
 }
 ```
