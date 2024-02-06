@@ -22,61 +22,61 @@
 
 package com.klikli_dev.occultism.util;
 
+import com.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.klikli_dev.occultism.common.item.storage.SatchelItem;
 import com.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import top.theillusivec4.curios.api.CuriosCapability;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
+import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
+import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
 public class CuriosUtil {
     public static boolean hasGoggles(Player player) {
-        return false;
+        ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
+        if (OtherworldGogglesItem.isGogglesItem(helmet))
+            return true;
 
-        //TODO: enable once curios is available
-//        ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
-//        if (OtherworldGogglesItem.isGogglesItem(helmet))
-//            return true;
-//
-//        var curiosHandler = player.getCapability(CuriosCapability.INVENTORY);
-//        if (curiosHandler == null)
-//            return false;
-//
-//        var slotsHandler = curiosHandler.getCurios().values();
-//        return slotsHandler.stream().map(ICurioStacksHandler::getStacks).anyMatch(
-//                stackHandler -> {
-//                    for (int i = 0; i < stackHandler.getSlots(); i++) {
-//                        ItemStack stack = stackHandler.getStackInSlot(i);
-//                        if (OtherworldGogglesItem.isGogglesItem(stack)) {
-//                            return true;
-//
-//                        }
-//                    }
-//                    return false;
-//                }
-//        );
+        var curiosHandler = player.getCapability(CuriosCapability.INVENTORY);
+        if (curiosHandler == null)
+            return false;
+
+        var slotsHandler = curiosHandler.getCurios().values();
+        return slotsHandler.stream().map(ICurioStacksHandler::getStacks).anyMatch(
+                stackHandler -> {
+                    for (int i = 0; i < stackHandler.getSlots(); i++) {
+                        ItemStack stack = stackHandler.getStackInSlot(i);
+                        if (OtherworldGogglesItem.isGogglesItem(stack)) {
+                            return true;
+
+                        }
+                    }
+                    return false;
+                }
+        );
     }
 
     public static ItemStack getBackpack(Player player) {
-        return ItemStack.EMPTY;
+        var curiosHandler = player.getCapability(CuriosCapability.INVENTORY);
+        if (curiosHandler == null)
+            return ItemStack.EMPTY;
 
-        //TODO: enable once curios is available
-//        var curiosHandler = player.getCapability(CuriosCapability.INVENTORY);
-//        if (curiosHandler == null)
-//            return ItemStack.EMPTY;
-//
-//        var belt = curiosHandler.getStacksHandler("belt");
-//        if (!belt.isPresent())
-//            return ItemStack.EMPTY;
-//
-//        IDynamicStackHandler stackHandler = belt.get().getStacks();
-//        ItemStack hasBackpack = ItemStack.EMPTY;
-//        for (int i = 0; i < stackHandler.getSlots(); i++) {
-//            ItemStack stack = stackHandler.getStackInSlot(i);
-//            if (stack.getItem() instanceof SatchelItem) {
-//                hasBackpack = stack;
-//                break;
-//            }
-//        }
-//        return hasBackpack;
+        var belt = curiosHandler.getStacksHandler("belt");
+        if (!belt.isPresent())
+            return ItemStack.EMPTY;
+
+        IDynamicStackHandler stackHandler = belt.get().getStacks();
+        ItemStack hasBackpack = ItemStack.EMPTY;
+        for (int i = 0; i < stackHandler.getSlots(); i++) {
+            ItemStack stack = stackHandler.getStackInSlot(i);
+            if (stack.getItem() instanceof SatchelItem) {
+                hasBackpack = stack;
+                break;
+            }
+        }
+        return hasBackpack;
     }
 
     public static SelectedCurio getStorageRemote(Player player) {
@@ -104,24 +104,22 @@ public class CuriosUtil {
 
     public static ItemStack getStorageRemoteCurio(Player player) {
 
-        return ItemStack.EMPTY;
-        //TODO: enable once curios is available
-//        ICuriosItemHandler curiosHandler = player.getCapability(CuriosCapability.INVENTORY);
-//        ItemStack hasStorageRemote = ItemStack.EMPTY;
-//        for (ICurioStacksHandler curiosStackshandler : curiosHandler.getCurios().values()) {
-//            IDynamicStackHandler stackHandler = curiosStackshandler.getStacks();
-//            for (int i = 0; i < stackHandler.getSlots(); i++) {
-//                ItemStack stack = stackHandler.getStackInSlot(i);
-//                if (stack.getItem() instanceof StorageRemoteItem) {
-//                    hasStorageRemote = stack;
-//                    break;
-//                }
-//            }
-//            if (!hasStorageRemote.isEmpty()) {
-//                break;
-//            }
-//        }
-//        return hasStorageRemote;
+        ICuriosItemHandler curiosHandler = player.getCapability(CuriosCapability.INVENTORY);
+        ItemStack hasStorageRemote = ItemStack.EMPTY;
+        for (ICurioStacksHandler curiosStackshandler : curiosHandler.getCurios().values()) {
+            IDynamicStackHandler stackHandler = curiosStackshandler.getStacks();
+            for (int i = 0; i < stackHandler.getSlots(); i++) {
+                ItemStack stack = stackHandler.getStackInSlot(i);
+                if (stack.getItem() instanceof StorageRemoteItem) {
+                    hasStorageRemote = stack;
+                    break;
+                }
+            }
+            if (!hasStorageRemote.isEmpty()) {
+                break;
+            }
+        }
+        return hasStorageRemote;
     }
 
     public static int getFirstBackpackSlot(Player player) {
