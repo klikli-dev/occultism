@@ -66,8 +66,8 @@ public class MummyFamiliarEntity extends FamiliarEntity {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return FamiliarEntity.createAttributes().add(Attributes.MAX_HEALTH, 18).add(Attributes.ARMOR, 2)
-                .add(Attributes.ATTACK_DAMAGE, 4).add(Attributes.FOLLOW_RANGE, 30);
+        return FamiliarEntity.createAttributes()
+                .add(Attributes.ATTACK_DAMAGE, 9).add(Attributes.FOLLOW_RANGE, 30);
     }
 
     @Override

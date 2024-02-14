@@ -456,7 +456,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
         @Override
         public void start() {
             super.start();
-            this.attackTimer = 20;
+            this.attackTimer = 10;
         }
 
         @Override
@@ -477,17 +477,17 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
             if(this.canPerformAttack(pEnemy)) {
                 this.fairy.setMagicTarget(pEnemy);
                 if (this.attackTimer <= 0) {
-                    this.attackTimer = 20;
+                    this.attackTimer = 10;
                     LivingEntity owner = this.fairy.getFamiliarOwner();
                     if (owner != null) {
-                        pEnemy.hurt(this.fairy.damageSources().mobAttack(owner), 1);
+                        pEnemy.hurt(this.fairy.damageSources().mobAttack(owner), 3);
                         pEnemy.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 1));
                         List<LivingEntity> allies = this.fairy.level().getEntitiesOfClass(LivingEntity.class,
                                 this.fairy.getBoundingBox().inflate(7), e -> e != this.fairy && e instanceof IFamiliar
                                         && ((IFamiliar) e).getFamiliarOwner() == owner);
                         allies.add(owner);
                         for (LivingEntity ally : allies) {
-                            ally.heal(1);
+                            ally.heal(3);
                             ((ServerLevel) this.fairy.level()).sendParticles(ParticleTypes.HEART, ally.getX(),
                                     ally.getY() + ally.getBbHeight(), ally.getZ(), 1, 0, 0, 0, 1);
                         }

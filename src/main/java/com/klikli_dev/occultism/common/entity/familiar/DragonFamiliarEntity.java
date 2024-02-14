@@ -69,7 +69,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return FamiliarEntity.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 4);
+        return FamiliarEntity.createAttributes().add(Attributes.ARMOR, 25);
     }
 
     @Override
