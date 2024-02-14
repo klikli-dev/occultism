@@ -64,10 +64,6 @@ public class FamiliarRingItem extends Item {
     private static Curio getCurio(ItemStack stack) {
         ICurio icurio = stack.getCapability(CuriosCapability.ITEM);
         if (icurio != null && icurio instanceof Curio curio) {
-            if (stack.getTag() != null && stack.getTag().contains("familiar")) {
-                curio.deserializeNBT(stack.getTag().getCompound("familiar"));
-                stack.getTag().remove("familiar");
-            }
             return curio;
         }
         return null;
@@ -186,7 +182,7 @@ public class FamiliarRingItem extends Item {
     public static class Curio implements ICurio, INBTSerializable<CompoundTag> {
         private final ItemStack stack;
         private IFamiliar familiar;
-        private CompoundTag nbt;
+        private CompoundTag cachedNbt;
 
         public Curio(ItemStack stack) {
             this.stack = stack;
@@ -256,11 +252,11 @@ public class FamiliarRingItem extends Item {
         @Override
         public CompoundTag serializeNBT() {
             CompoundTag compound = new CompoundTag();
-            compound.putBoolean("hasFamiliar", this.familiar != null || this.nbt != null);
+            compound.putBoolean("hasFamiliar", this.familiar != null || this.cachedNbt != null);
             if (this.familiar != null)
                 compound.put("familiar", this.familiar.getFamiliarEntity().serializeNBT());
-            else if (this.nbt != null)
-                compound.put("familiar", this.nbt);
+            else if (this.cachedNbt != null)
+                compound.put("familiar", this.cachedNbt);
 
             return compound;
         }
@@ -268,7 +264,7 @@ public class FamiliarRingItem extends Item {
         @Override
         public void deserializeNBT(CompoundTag compound) {
             if (compound.getBoolean("hasFamiliar"))
-                this.nbt = compound.getCompound("familiar");
+                this.cachedNbt = compound.getCompound("familiar");
         }
 
         // Need this because we cannot deserialize the familiar in deserializeNBT()
@@ -276,9 +272,15 @@ public class FamiliarRingItem extends Item {
         private IFamiliar getFamiliar(Level level) {
             if (this.familiar != null)
                 return this.familiar;
-            if (this.nbt != null) {
-                this.familiar = (IFamiliar) EntityType.loadEntityRecursive(this.nbt, level, Function.identity());
-                this.nbt = null;
+
+            var tag = this.stack.getTagElement("curio");
+            if(tag != null && (this.cachedNbt == null || !this.cachedNbt.equals(tag))){
+                this.deserializeNBT(tag);
+            }
+
+            if (this.cachedNbt != null) {
+                this.familiar = (IFamiliar) EntityType.loadEntityRecursive(this.cachedNbt, level, Function.identity());
+                return this.familiar;
             }
 
             return this.familiar;
@@ -286,7 +288,9 @@ public class FamiliarRingItem extends Item {
 
         private void setFamiliar(IFamiliar familiar) {
             this.familiar = familiar;
-            this.nbt = null;
+
+            this.cachedNbt = this.familiar != null ? this.familiar.getFamiliarEntity().serializeNBT() : null;
+            this.stack.getOrCreateTag().put("curio", this.serializeNBT());
         }
 
     }
