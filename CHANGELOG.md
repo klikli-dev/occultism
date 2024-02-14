@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.115.0] - 2024-02-14
+### :sparkles: New Features
+- [`bf327aa`](https://github.com/klikli-dev/occultism/commit/bf327aab2977d75ad4b47c2eceab64deaa5acd8c) - buff familiars *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`c7fa14b`](https://github.com/klikli-dev/occultism/commit/c7fa14b1aedcc84e8b95da4655d5a69b1530b418) - familiar rings (needs testing) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.114.1] - 2024-02-06
 ### :sparkles: New Features
 - [`d2cf647`](https://github.com/klikli-dev/occultism/commit/d2cf6478e048415ce6b316d42836ff397733feeb) - Update 00_readme.md *(PR [#1052](https://github.com/klikli-dev/occultism/pull/1052) by [@AiDSl](https://github.com/AiDSl))*
@@ -949,3 +957,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.113.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.113.0...release/v1.20.4-1.113.1
 [release/v1.20.4-1.114.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.113.1...release/v1.20.4-1.114.0
 [release/v1.20.4-1.114.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.114.0...release/v1.20.4-1.114.1
+[release/v1.20.4-1.115.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.114.1...release/v1.20.4-1.115.0
