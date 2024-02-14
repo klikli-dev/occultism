@@ -266,7 +266,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
 
     private static class RayGoal extends Goal {
 
-        private static final int MAX_COOLDOWN = 20 * 5;
+        private static final int MAX_COOLDOWN = 20 * 1;
 
         protected final BeholderFamiliarEntity entity;
         private int cooldown = MAX_COOLDOWN;
@@ -319,7 +319,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
 
             for (int id : this.targetIds) {
                 Entity e = this.entity.level().getEntity(id);
-                float damage = 6;
+                float damage = 9;
                 if (this.entity.hasEffect(MobEffects.DAMAGE_BOOST))
                     damage *= this.entity.getEffect(MobEffects.DAMAGE_BOOST).getAmplifier() + 2;
 

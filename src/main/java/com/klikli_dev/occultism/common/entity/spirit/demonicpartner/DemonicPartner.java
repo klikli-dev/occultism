@@ -43,7 +43,7 @@ public class DemonicPartner extends TamableAnimal {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return FamiliarEntity.createAttributes().add(Attributes.ATTACK_DAMAGE, 3.0D);
+        return FamiliarEntity.createAttributes().add(Attributes.ATTACK_DAMAGE, 9.0D);
     }
 
     protected void defineSynchedData() {
