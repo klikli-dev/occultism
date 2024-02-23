@@ -114,7 +114,7 @@ public class Occultism {
     private void commonSetup(final FMLCommonSetupEvent event) {
         OccultismPackets.registerMessages();
 
-        OccultismItems.registerCompostables();
+        event.enqueueWork(OccultismItems::registerCompostables);
 
         PageLoaders.onCommonSetup(event);
 
