@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.116.1] - 2024-02-23
+### :bug: Bug Fixes
+- [`ef68dca`](https://github.com/klikli-dev/occultism/commit/ef68dca9c889f18a1b25064945db16e3fa34440f) - compostable registration *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.116.0] - 2024-02-16
 ### :sparkles: New Features
 - [`3e10b6b`](https://github.com/klikli-dev/occultism/commit/3e10b6bc33eec9db0222760e839c4e9c262ff51f) - disable spirit campfire damage *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -940,3 +945,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.114.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.113.1...release/v1.20.1-1.114.0
 [release/v1.20.1-1.115.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.114.0...release/v1.20.1-1.115.0
 [release/v1.20.1-1.116.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.115.0...release/v1.20.1-1.116.0
+[release/v1.20.1-1.116.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.116.0...release/v1.20.1-1.116.1
