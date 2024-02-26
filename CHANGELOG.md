@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.19.2-1.90.0] - 2024-02-26
+### :sparkles: New Features
+- [`fa678b2`](https://github.com/klikli-dev/occultism/commit/fa678b2bff984f11bcd5aa7fff970294f623a8ab) - Backport https://github.com/klikli-dev/occultism/commit/3e10b6bc33eec9db0222760e839c4e9c262ff51f to 1.19.2 *(PR [#1065](https://github.com/klikli-dev/occultism/pull/1065) by [@blockgoblin31](https://github.com/blockgoblin31))*
+
+
 ## [release/v1.19.2-1.89.0] - 2023-12-30
 ### :sparkles: New Features
 - [`ef9e244`](https://github.com/klikli-dev/occultism/commit/ef9e244986874363dff052d0d5a62c514d408b0f) - cache storage actuator search results for better performance *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -565,3 +570,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.19.2-1.88.1]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.88.0...release/v1.19.2-1.88.1
 [release/v1.19.2-1.88.2]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.88.1...release/v1.19.2-1.88.2
 [release/v1.19.2-1.89.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.88.2...release/v1.19.2-1.89.0
+[release/v1.19.2-1.90.0]: https://github.com/klikli-dev/occultism/compare/release/v1.19.2-1.89.0...release/v1.19.2-1.90.0
