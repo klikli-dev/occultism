@@ -220,7 +220,7 @@ public class OccultismBlocks {
                     .lightLevel((state) -> 10).noOcclusion()));
 
     public static final RegistryObject<Block> SPIRIT_CAMPFIRE = register("spirit_campfire",
-            () -> new CampfireBlock(false, 2, BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.PODZOL)
+            () -> new CampfireBlock(false, 0, BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.PODZOL)
                     .strength(2.0F).sound(SoundType.WOOD).lightLevel((state) -> 10).noOcclusion()));
 
     public static final RegistryObject<Block> SPIRIT_TORCH = register("spirit_torch",
