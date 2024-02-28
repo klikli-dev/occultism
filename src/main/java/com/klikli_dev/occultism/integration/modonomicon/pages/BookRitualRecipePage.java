@@ -8,6 +8,8 @@ package com.klikli_dev.occultism.integration.modonomicon.pages;
 
 import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.book.BookTextHolder;
+import com.klikli_dev.modonomicon.book.conditions.BookCondition;
+import com.klikli_dev.modonomicon.book.conditions.BookNoneCondition;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
@@ -20,20 +22,24 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 
 public class BookRitualRecipePage extends BookRecipePage<RitualRecipe> {
-    public BookRitualRecipePage(BookTextHolder title1, ResourceLocation recipeId1, BookTextHolder title2, ResourceLocation recipeId2, BookTextHolder text, String anchor) {
-        super(OccultismRecipes.RITUAL_TYPE.get(), title1, recipeId1, title2, recipeId2, text, anchor);
+    public BookRitualRecipePage(BookTextHolder title1, ResourceLocation recipeId1, BookTextHolder title2, ResourceLocation recipeId2, BookTextHolder text, String anchor, BookCondition condition) {
+        super(OccultismRecipes.RITUAL_TYPE.get(), title1, recipeId1, title2, recipeId2, text, anchor, condition);
     }
 
     public static BookRitualRecipePage fromJson(JsonObject json) {
         var common = BookRecipePage.commonFromJson(json);
         var anchor = GsonHelper.getAsString(json, "anchor", "");
-        return new BookRitualRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor);
+        var condition = json.has("condition")
+                ? BookCondition.fromJson(json.getAsJsonObject("condition"))
+                : new BookNoneCondition();
+        return new BookRitualRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
     }
 
     public static BookRitualRecipePage fromNetwork(FriendlyByteBuf buffer) {
         var common = BookRecipePage.commonFromNetwork(buffer);
         var anchor = buffer.readUtf();
-        return new BookRitualRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor);
+        var condition = BookCondition.fromNetwork(buffer);
+        return new BookRitualRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
     }
 
     @Override
@@ -48,11 +54,5 @@ public class BookRitualRecipePage extends BookRecipePage<RitualRecipe> {
         }
 
         return recipe.value().getRitualDummy();
-    }
-
-    @Override
-    public void toNetwork(FriendlyByteBuf buffer) {
-        super.toNetwork(buffer);
-        buffer.writeUtf(this.anchor);
     }
 }
