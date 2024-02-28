@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.117.0] - 2024-02-28
+### :sparkles: New Features
+- [`e2f8257`](https://github.com/klikli-dev/occultism/commit/e2f8257a6da27ede65fbde672adc5b74fd6ed88e) - update to work with modonomicon 1.60 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.116.2] - 2024-02-26
 ### :bug: Bug Fixes
 - [`a2e02e6`](https://github.com/klikli-dev/occultism/commit/a2e02e66451f1c39e53bbe19b11668fc937db94c) - entirely remove raw_ores tags *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -952,3 +957,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.116.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.115.0...release/v1.20.1-1.116.0
 [release/v1.20.1-1.116.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.116.0...release/v1.20.1-1.116.1
 [release/v1.20.1-1.116.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.116.1...release/v1.20.1-1.116.2
+[release/v1.20.1-1.117.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.116.2...release/v1.20.1-1.117.0
