@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.storage.overview.intro.text",
       "title": "book.occultism.dictionary_of_spirits.storage.overview.intro.title",
@@ -20,12 +23,16 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.storage.overview.intro2.text",
       "title": "",
       "use_markdown_in_title": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -8,
   "y": 0
 }

@@ -15,6 +15,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.about_crushers.text",
       "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.about_crushers.title",
@@ -23,6 +26,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.automation.text",
       "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.automation.title",
@@ -31,6 +37,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.intro.text",
       "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t1.intro.title",
@@ -39,6 +48,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/summon_foliot_crusher",
       "text": "",
       "title1": "",
@@ -53,6 +65,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -2,
   "y": 0
 }

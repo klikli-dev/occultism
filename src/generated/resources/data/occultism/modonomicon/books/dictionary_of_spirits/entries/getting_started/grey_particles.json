@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.grey_particles.text.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.grey_particles.text.title",
@@ -26,6 +29,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": 3,
   "y": 4
 }

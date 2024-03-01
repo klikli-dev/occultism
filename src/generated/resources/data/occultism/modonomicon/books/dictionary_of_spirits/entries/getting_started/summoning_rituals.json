@@ -14,6 +14,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.summoning_rituals.intro.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.summoning_rituals.intro.title",
@@ -22,6 +25,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.summoning_rituals.more.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.summoning_rituals.more.title",
@@ -36,6 +42,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": 13,
   "y": 4
 }

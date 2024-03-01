@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:datura"
       },
@@ -21,6 +24,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:demons_dream_essence"
       },
@@ -30,6 +36,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:otherworld_essence"
       },
@@ -45,6 +54,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -9,
   "y": 2
 }

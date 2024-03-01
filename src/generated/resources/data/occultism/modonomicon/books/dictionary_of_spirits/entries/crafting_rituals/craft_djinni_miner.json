@@ -15,6 +15,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:miner_djinni_ores"
       },
@@ -24,6 +27,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/craft_miner_djinni_ores",
       "text": "",
       "title1": "",
@@ -38,6 +44,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -2,
   "y": -5
 }

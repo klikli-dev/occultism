@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:infused_pickaxe"
       },
@@ -21,6 +24,9 @@
     {
       "type": "occultism:spirit_fire_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:spirit_fire/spirit_attuned_gem",
       "text": "book.occultism.dictionary_of_spirits.getting_started.infused_pickaxe.gem_recipe.text",
       "title1": "",
@@ -29,6 +35,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:crafting/spirit_attuned_pickaxe_head",
       "text": "",
       "title1": "",
@@ -37,6 +46,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.infused_pickaxe.crafting.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.infused_pickaxe.crafting.title",
@@ -51,6 +63,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": 7,
   "y": -2
 }

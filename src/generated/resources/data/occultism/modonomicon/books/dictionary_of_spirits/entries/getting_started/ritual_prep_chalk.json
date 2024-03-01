@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_chalk.intro.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_chalk.intro.title",
@@ -20,6 +23,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "white_chalk",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:chalk_white"
       },
@@ -29,6 +35,9 @@
     {
       "type": "modonomicon:smelting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:smelting/burnt_otherstone",
       "text": "",
       "title1": "",
@@ -37,6 +46,9 @@
     {
       "type": "occultism:spirit_fire_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:spirit_fire/otherworld_ashes",
       "text": "",
       "title1": "",
@@ -45,6 +57,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:crafting/chalk_white_impure",
       "text": "",
       "title1": "",
@@ -53,6 +68,9 @@
     {
       "type": "occultism:spirit_fire_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:spirit_fire/chalk_white",
       "text": "",
       "title1": "",
@@ -61,6 +79,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_chalk.usage.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_chalk.usage.title",
@@ -75,6 +96,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -3,
   "y": -2
 }

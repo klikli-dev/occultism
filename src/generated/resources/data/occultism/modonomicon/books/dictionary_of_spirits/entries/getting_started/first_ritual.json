@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.intro.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.intro.title",
@@ -20,6 +23,9 @@
     {
       "type": "modonomicon:multiblock",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "multiblock_id": "occultism:summon_foliot",
       "multiblock_name": "",
       "show_visualize_button": true,
@@ -28,6 +34,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.bowl_text.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.bowl_text.title",
@@ -37,6 +46,9 @@
       "type": "modonomicon:image",
       "anchor": "",
       "border": true,
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "images": [
         "occultism:textures/gui/book/bowl_placement.png"
       ],
@@ -46,6 +58,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.ritual_text.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.ritual_text.title",
@@ -54,6 +69,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/summon_foliot_crusher",
       "text": "",
       "title1": "",
@@ -62,6 +80,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.pentacle_link_hint.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.pentacle_link_hint.title",
@@ -70,6 +91,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.start_ritual.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.start_ritual.title",
@@ -90,6 +114,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": 1,
   "y": 0
 }

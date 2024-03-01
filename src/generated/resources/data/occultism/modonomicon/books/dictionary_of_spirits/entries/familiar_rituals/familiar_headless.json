@@ -17,6 +17,9 @@
     {
       "type": "modonomicon:entity",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "default_rotation": -45.0,
       "entity_id": "occultism:headless_familiar",
       "name": "",
@@ -28,6 +31,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/familiar_headless",
       "text": "",
       "title1": "",
@@ -36,6 +42,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_headless.description.text",
       "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_headless.description.title",
@@ -50,6 +59,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -2,
   "y": -2
 }

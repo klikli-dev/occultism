@@ -15,6 +15,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t3.intro.text",
       "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crusher_t3.intro.title",
@@ -23,6 +26,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/summon_afrit_crusher",
       "text": "",
       "title1": "",
@@ -37,6 +43,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -2,
   "y": 4
 }

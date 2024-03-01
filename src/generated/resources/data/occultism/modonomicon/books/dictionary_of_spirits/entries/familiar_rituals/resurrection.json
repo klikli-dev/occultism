@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:soul_shard"
       },
@@ -21,6 +24,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.familiar_rituals.resurrection.description.text",
       "title": "book.occultism.dictionary_of_spirits.familiar_rituals.resurrection.description.title",
@@ -29,6 +35,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:crafting/demons_dream_essence_from_fruit",
       "recipe_id_2": "occultism:crafting/demons_dream_essence_from_seeds",
       "text": "",
@@ -38,6 +47,9 @@
     {
       "type": "occultism:spirit_fire_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:spirit_fire/otherworld_essence",
       "text": "",
       "title1": "",
@@ -46,6 +58,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/resurrect_familiar",
       "text": "",
       "title1": "",
@@ -60,6 +75,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -8,
   "y": -2
 }

@@ -15,6 +15,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.intro.text",
       "title": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.intro.title",
@@ -23,6 +26,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.magic_lamp.text",
       "title": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.magic_lamp.title",
@@ -31,6 +37,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:crafting/magic_lamp_empty",
       "text": "",
       "title1": "",
@@ -39,6 +48,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:miner_foliot_unspecialized"
       },
@@ -48,6 +60,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/craft_miner_foliot_unspecialized",
       "text": "",
       "title1": "",
@@ -62,6 +77,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -4,
   "y": -5
 }

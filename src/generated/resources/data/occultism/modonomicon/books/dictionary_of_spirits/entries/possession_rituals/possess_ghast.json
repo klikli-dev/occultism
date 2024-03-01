@@ -15,6 +15,9 @@
     {
       "type": "modonomicon:entity",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "default_rotation": -45.0,
       "entity_id": "occultism:possessed_ghast",
       "name": "",
@@ -26,6 +29,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/possess_ghast",
       "text": "",
       "title1": "",
@@ -34,6 +40,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_ghast.description.text",
       "title": "",
@@ -48,6 +57,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -6,
   "y": 1
 }

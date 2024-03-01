@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.intro.text",
       "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.intro.title",
@@ -20,6 +23,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.tutorial.text",
       "title": "",
@@ -28,6 +34,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.tutorial2.text",
       "title": "",
@@ -36,6 +45,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/summon_djinni_manage_machine",
       "text": "",
       "title1": "",
@@ -44,6 +56,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:crafting/book_of_calling_djinni_manage_machine",
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.book_of_calling.text",
       "title1": "",
@@ -58,6 +73,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -4,
   "y": 2
 }

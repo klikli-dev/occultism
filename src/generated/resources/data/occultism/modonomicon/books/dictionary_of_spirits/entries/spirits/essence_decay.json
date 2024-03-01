@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.spirits.essence_decay.intro.text",
       "title": "book.occultism.dictionary_of_spirits.spirits.essence_decay.intro.title",
@@ -20,6 +23,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.spirits.essence_decay.countermeasures.text",
       "title": "book.occultism.dictionary_of_spirits.spirits.essence_decay.countermeasures.title",
@@ -28,6 +34,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.spirits.essence_decay.affected_spirits.text",
       "title": "book.occultism.dictionary_of_spirits.spirits.essence_decay.affected_spirits.title",
@@ -42,6 +51,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -8,
   "y": 1
 }

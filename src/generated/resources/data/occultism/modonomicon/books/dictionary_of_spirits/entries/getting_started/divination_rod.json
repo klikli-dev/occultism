@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.intro.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.intro.title",
@@ -20,6 +23,9 @@
     {
       "type": "occultism:spirit_fire_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:spirit_fire/otherstone",
       "text": "",
       "title1": "",
@@ -28,6 +34,9 @@
     {
       "type": "occultism:spirit_fire_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:spirit_fire/otherworld_sapling_natural",
       "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.otherworld_sapling_natural_recipe.text",
       "title1": "",
@@ -36,6 +45,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "divination_instructions",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:divination_rod"
       },
@@ -45,6 +57,9 @@
     {
       "type": "occultism:spirit_fire_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:spirit_fire/spirit_attuned_gem",
       "text": "",
       "title1": "",
@@ -53,6 +68,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:crafting/divination_rod",
       "text": "",
       "title1": "",
@@ -61,6 +79,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.about_divination_rod.text",
       "title": "",
@@ -69,6 +90,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.how_to_use.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.how_to_use.title",
@@ -77,6 +101,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.how_to_use2.text",
       "title": "",
@@ -85,6 +112,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.how_to_use3.text",
       "title": "",
@@ -94,6 +124,9 @@
       "type": "modonomicon:image",
       "anchor": "",
       "border": true,
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "images": [
         "occultism:textures/gui/book/rod_far.png",
         "occultism:textures/gui/book/rod_mid.png",
@@ -105,6 +138,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.troubleshooting.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.troubleshooting.title",
@@ -113,6 +149,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.otherworld_groves.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.otherworld_groves.title",
@@ -121,6 +160,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.otherworld_groves_2.text",
       "title": "",
@@ -129,6 +171,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.otherworld_trees.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.otherworld_trees.title",
@@ -137,6 +182,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.otherworld_trees_2.text",
       "title": "",
@@ -151,6 +199,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -7,
   "y": -2
 }
