@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.119.0] - 2024-03-03
+### :sparkles: New Features
+- [`a552e45`](https://github.com/klikli-dev/occultism/commit/a552e45532b8d6417cd3f323c377f2ccac2ba17b) - add clientconfig.misc.disableSpiritFireSuccessSound *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.118.0] - 2024-03-03
 ### :sparkles: New Features
 - [`9cb79a4`](https://github.com/klikli-dev/occultism/commit/9cb79a4d20155b2361a1555679e556208bff11bf) - extend tooltip handler to allow additional namespaces *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -967,3 +972,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.116.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.116.1...release/v1.20.1-1.116.2
 [release/v1.20.1-1.117.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.116.2...release/v1.20.1-1.117.0
 [release/v1.20.1-1.118.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.117.0...release/v1.20.1-1.118.0
+[release/v1.20.1-1.119.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.118.0...release/v1.20.1-1.119.0
