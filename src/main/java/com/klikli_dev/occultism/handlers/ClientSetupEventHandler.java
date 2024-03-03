@@ -162,6 +162,8 @@ public class ClientSetupEventHandler {
 
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
+        TooltipHandler.registerNamespaceToListenTo(Occultism.MODID);
+
         //Register client side event handlers
         MinecraftForge.EVENT_BUS.register(Occultism.SELECTED_BLOCK_RENDERER);
         MinecraftForge.EVENT_BUS.register(Occultism.THIRD_EYE_EFFECT_RENDERER);

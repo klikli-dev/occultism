@@ -37,8 +37,21 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class TooltipHandler {
+
+    private static final List<String> namespacesToListenFor = new ArrayList<>();
+
+    /**
+     * Register a namespace (= mod id) of items to listen for during tooltip handling.
+     * Should be called in @{@link net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent}
+     */
+    public static void registerNamespaceToListenTo(String namespace) {
+        namespacesToListenFor.add(namespace);
+    }
 
     @SubscribeEvent
     public static void onAddInformation(ItemTooltipEvent event) {
@@ -62,8 +75,7 @@ public class TooltipHandler {
         }
 
         var namespace = ForgeRegistries.ITEMS.getKey(stack.getItem()).getNamespace();
-
-        if(namespace.equals(Occultism.MODID)){
+        if (namespacesToListenFor.contains(namespace)) {
             String tooltipKey = stack.getDescriptionId() + ".auto_tooltip";
             boolean tooltipExists = I18n.exists(tooltipKey);
             if (tooltipExists) {
