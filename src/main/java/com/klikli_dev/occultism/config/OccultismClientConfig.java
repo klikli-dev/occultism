@@ -97,6 +97,7 @@ public class OccultismClientConfig {
         public final BooleanValue syncJeiSearch;
         public final BooleanValue divinationRodHighlightAllResults;
         public final IntValue divinationRodScanRange;
+        public final BooleanValue disableSpiritFireSuccessSound;
 
         public MiscSettings(ModConfigSpec.Builder builder) {
             builder.comment("Misc Settings").push("misc");
@@ -109,6 +110,10 @@ public class OccultismClientConfig {
                     .define("divinationRodHighlightAllResults", false);
             this.divinationRodScanRange = builder.comment("The scan range in blocks for the divination rod. Too high might cause lags")
                     .defineInRange("divinationRodScanRange", 129, 1, Integer.MAX_VALUE);
+            this.disableSpiritFireSuccessSound = builder.comment(
+                            "Disables the sound played when a spirit fire successfully crafted an item."
+                    )
+                    .define("disableSpiritFireSuccessSound", false);
             builder.pop();
         }
     }
