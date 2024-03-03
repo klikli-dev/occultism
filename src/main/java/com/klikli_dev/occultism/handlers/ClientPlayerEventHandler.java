@@ -26,15 +26,19 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.gui.storage.SatchelScreen;
 import com.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
 import com.klikli_dev.occultism.network.*;
+import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.registry.OccultismSounds;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import com.klikli_dev.occultism.util.MovementUtil;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.event.PlayLevelSoundEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -47,6 +51,17 @@ import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class ClientPlayerEventHandler {
     //region Static Methods
+
+    @SubscribeEvent
+    public static void onPlaySoundAt(PlayLevelSoundEvent.AtPosition event){
+        //handle spirit fire sound disable config
+        if(event.getLevel().isClientSide &&
+                Occultism.CLIENT_CONFIG.misc.disableSpiritFireSuccessSound.get() &&
+                event.getSound().value() == OccultismSounds.START_RITUAL.get() &&
+                event.getLevel().getBlockState(BlockPos.containing(event.getPosition())).getBlock() == OccultismBlocks.SPIRIT_FIRE.get()){
+            event.setCanceled(true);
+        }
+    }
 
     @SubscribeEvent
     public static void onKeyInput(final InputEvent.Key event) {
