@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.118.0] - 2024-03-03
+### :sparkles: New Features
+- [`9cb79a4`](https://github.com/klikli-dev/occultism/commit/9cb79a4d20155b2361a1555679e556208bff11bf) - extend tooltip handler to allow additional namespaces *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`51e0760`](https://github.com/klikli-dev/occultism/commit/51e0760aaed1a306d0c6b853b4d3e5b1b214fb8a) - run datagen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.117.0] - 2024-02-28
 ### :sparkles: New Features
 - [`e2f8257`](https://github.com/klikli-dev/occultism/commit/e2f8257a6da27ede65fbde672adc5b74fd6ed88e) - update to work with modonomicon 1.60 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -958,3 +966,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.116.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.116.0...release/v1.20.1-1.116.1
 [release/v1.20.1-1.116.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.116.1...release/v1.20.1-1.116.2
 [release/v1.20.1-1.117.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.116.2...release/v1.20.1-1.117.0
+[release/v1.20.1-1.118.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.117.0...release/v1.20.1-1.118.0
