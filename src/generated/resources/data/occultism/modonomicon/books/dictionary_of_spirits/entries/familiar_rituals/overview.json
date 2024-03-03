@@ -17,6 +17,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.familiar_rituals.overview.intro.text",
       "title": "book.occultism.dictionary_of_spirits.familiar_rituals.overview.intro.title",
@@ -25,6 +28,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.familiar_rituals.overview.ring.text",
       "title": "book.occultism.dictionary_of_spirits.familiar_rituals.overview.ring.title",
@@ -33,6 +39,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.familiar_rituals.overview.trading.text",
       "title": "book.occultism.dictionary_of_spirits.familiar_rituals.overview.trading.title",

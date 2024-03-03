@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:storage_stabilizer_tier1"
       },
@@ -21,6 +24,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.upgrade.text",
       "title": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.upgrade.title",
@@ -29,6 +35,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.build_instructions.text",
       "title": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.build_instructions.title",
@@ -37,6 +46,9 @@
     {
       "type": "modonomicon:multiblock",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "multiblock_id": "occultism:storage_stabilizer_demo",
       "multiblock_name": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.demo.title",
       "show_visualize_button": true,

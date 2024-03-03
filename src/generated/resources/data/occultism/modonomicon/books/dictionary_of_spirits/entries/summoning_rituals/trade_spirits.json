@@ -17,6 +17,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.trade_spirits.intro.text",
       "title": "book.occultism.dictionary_of_spirits.summoning_rituals.trade_spirits.intro.title",
@@ -25,6 +28,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.trade_spirits.intro2.text",
       "title": "",

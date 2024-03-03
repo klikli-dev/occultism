@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:storage_controller"
       },
@@ -21,6 +24,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.usage.text",
       "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.usage.title",
@@ -29,6 +35,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.safety.text",
       "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.safety.title",
@@ -37,6 +46,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.size.text",
       "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.size.title",
@@ -45,6 +57,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.unique_items.text",
       "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.unique_items.title",
@@ -53,6 +68,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.config.text",
       "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.config.title",
@@ -61,6 +79,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.mods.text",
       "title": "book.occultism.dictionary_of_spirits.storage.storage_controller.mods.title",
@@ -69,6 +90,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/craft_dimensional_matrix",
       "text": "",
       "title1": "",
@@ -77,6 +101,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/craft_storage_controller_base",
       "text": "",
       "title1": "",
@@ -85,6 +112,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:crafting/storage_controller",
       "text": "book.occultism.dictionary_of_spirits.storage.storage_controller.recipe.text",
       "title1": "",

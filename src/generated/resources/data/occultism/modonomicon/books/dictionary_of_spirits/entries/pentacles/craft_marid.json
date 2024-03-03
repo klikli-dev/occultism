@@ -15,6 +15,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.craft_marid.intro.text",
       "title": "book.occultism.dictionary_of_spirits.pentacles.craft_marid.intro.title",
@@ -23,6 +26,9 @@
     {
       "type": "modonomicon:multiblock",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "multiblock_id": "occultism:craft_marid",
       "multiblock_name": "",
       "show_visualize_button": true,
@@ -31,6 +37,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.craft_marid.uses.text",
       "title": "book.occultism.dictionary_of_spirits.pentacles.craft_marid.uses.title",

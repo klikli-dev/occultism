@@ -17,6 +17,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.overview.intro.text",
       "title": "book.occultism.dictionary_of_spirits.crafting_rituals.overview.intro.title",

@@ -15,6 +15,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:familiar_ring"
       },
@@ -24,6 +27,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_ring.usage.text",
       "title": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_familiar_ring.usage.title",
@@ -32,6 +38,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/craft_familiar_ring",
       "text": "",
       "title1": "",
