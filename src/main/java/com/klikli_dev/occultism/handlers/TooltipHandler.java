@@ -37,8 +37,21 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class TooltipHandler {
+
+    private static final List<String> namespacesToListenFor = new ArrayList<>();
+
+    /**
+     * Register a namespace (= mod id) of items to listen for during tooltip handling.
+     * Should be called in @{@link net.neoforged.fml.event.lifecycle.FMLClientSetupEvent}
+     */
+    public static void registerNamespaceToListenTo(String namespace) {
+        namespacesToListenFor.add(namespace);
+    }
 
     @SubscribeEvent
     public static void onAddInformation(ItemTooltipEvent event) {
@@ -61,7 +74,7 @@ public class TooltipHandler {
 
         var namespace = BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace();
 
-        if(namespace.equals(Occultism.MODID)){
+        if (namespacesToListenFor.contains(namespace)) {
             String tooltipKey = stack.getDescriptionId() + ".auto_tooltip";
             boolean tooltipExists = I18n.exists(tooltipKey);
             if (tooltipExists) {
