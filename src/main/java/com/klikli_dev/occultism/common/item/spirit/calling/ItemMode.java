@@ -2,7 +2,9 @@ package com.klikli_dev.occultism.common.item.spirit.calling;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.data.WorkAreaSize;
+import com.klikli_dev.occultism.client.gui.GuiHelper;
 import com.klikli_dev.occultism.client.gui.spirit.BookOfCallingGui;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.particle.MobAppearanceParticle;
 import net.minecraft.core.BlockPos;
@@ -11,13 +13,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 
 import java.util.function.Supplier;
 
 /**
  * Represents the different modes of the calling item
  */
-public class ItemMode implements IItemModeSubset<ItemMode>{
+public class ItemMode {
     private static final String TRANSLATION_KEY_BASE =
             "enum." + Occultism.MODID + ".book_of_calling.item_mode";
 
@@ -84,7 +87,7 @@ public class ItemMode implements IItemModeSubset<ItemMode>{
      * The value of the mode
      * @return the value of the mode
      */
-    public int value() {
+    private int value() {
         return value;
     }
 
@@ -98,21 +101,8 @@ public class ItemMode implements IItemModeSubset<ItemMode>{
         return this;
     }
 
-    @Override
-    public ItemMode getItemMode() {
-        return this;
-    }
-
-    /**
-     * Gets the next item mode in the list
-     * @return the next item mode
-     */
-    public ItemMode next() {
-        return ItemModes.get((this.value + 1) % ItemModes.getSize());
-    }
-
-    public Supplier<Screen> getGUI(WorkAreaSize workAreaSize) {
-        return ()->new BookOfCallingGui(this, workAreaSize);
+    public void openGUI(WorkAreaSize workAreaSize) {
+        GuiHelper.openBookOfCallingGui_internal(this, workAreaSize);
     }
     /**
      * Handles the mode's action

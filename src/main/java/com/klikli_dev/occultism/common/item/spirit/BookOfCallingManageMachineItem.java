@@ -27,7 +27,6 @@ import com.klikli_dev.occultism.api.common.data.MachineReference;
 import com.klikli_dev.occultism.client.gui.GuiHelper;
 import com.klikli_dev.occultism.common.entity.job.ManageMachineJob;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.klikli_dev.occultism.common.item.spirit.calling.IItemModeSubset;
 import com.klikli_dev.occultism.common.item.spirit.calling.ItemMode;
 import com.klikli_dev.occultism.common.item.spirit.calling.ItemModes;
 import com.klikli_dev.occultism.util.BlockEntityUtil;
@@ -52,16 +51,12 @@ public class BookOfCallingManageMachineItem extends BookOfCallingItem {
         super(properties, translationKeyBase, spirit -> spirit.getJob().orElse(null) instanceof ManageMachineJob);
     }
 
-    @Override
-    public IItemModeSubset<?> getItemModeSubset(ItemStack stack) {
-        ItemModeSubset subset = ItemModeSubset.get(ItemModes.get(this.getItemMode(stack)));
-        return subset != null ? subset : ItemModeSubset.SET_STORAGE_CONTROLLER;
-    }
+
 
 
     public InteractionResult handleItemMode(Player player, Level world, BlockPos pos, ItemStack stack,
                                             Direction facing) {
-        ItemMode itemMode = ItemModes.get(this.getItemMode(stack));
+        ItemMode itemMode = this.getCurrentItemMode(stack);
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (!world.isClientSide) {
 
@@ -143,39 +138,8 @@ public class BookOfCallingManageMachineItem extends BookOfCallingItem {
         return false;
     }
 
-    public enum ItemModeSubset implements IItemModeSubset<ItemModeSubset> {
-        SET_MANAGED_MACHINE(ItemModes.SET_MANAGED_MACHINE),
-        SET_EXTRACT(ItemModes.SET_EXTRACT),
-        SET_STORAGE_CONTROLLER(ItemModes.SET_STORAGE_CONTROLLER);
-
-        private static final Map<ItemMode, ItemModeSubset> lookup = new HashMap<>();
-
-        static {
-            for (ItemModeSubset subset : ItemModeSubset.values()) {
-                lookup.put(subset.getItemMode(), subset);
-            }
-        }
-
-        private final ItemMode itemMode;
-
-        ItemModeSubset(ItemMode itemMode) {
-            this.itemMode = itemMode;
-        }
-
-        //region Static Methods
-        public static ItemModeSubset get(ItemMode value) {
-            return lookup.get(value);
-        }
-
-        @Override
-        public ItemMode getItemMode() {
-            return this.itemMode;
-        }
-
-        @Override
-        public ItemModeSubset next() {
-            return values()[(this.ordinal() + 1) % values().length];
-        }
-        //endregion Static Methods
+    @Override
+    public List<ItemMode> getItemModes() {
+        return Arrays.asList(ItemModes.SET_MANAGED_MACHINE, ItemModes.SET_EXTRACT, ItemModes.SET_STORAGE_CONTROLLER);
     }
 }

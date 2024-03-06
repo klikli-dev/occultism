@@ -32,7 +32,6 @@ import com.klikli_dev.occultism.api.common.item.IHandleItemMode;
 import com.klikli_dev.occultism.client.gui.GuiHelper;
 import com.klikli_dev.occultism.common.entity.job.ManageMachineJob;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.klikli_dev.occultism.common.item.spirit.calling.IItemModeSubset;
 import com.klikli_dev.occultism.common.item.spirit.calling.ItemMode;
 import com.klikli_dev.occultism.common.item.spirit.calling.ItemModes;
 import com.klikli_dev.occultism.util.BlockEntityUtil;
@@ -68,6 +67,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
     public String translationKeyBase;
     public Predicate<SpiritEntity> targetSpirit;
 
+
     public BookOfCallingItem(Properties properties, String translationKeyBase, Predicate<SpiritEntity> targetSpirit) {
         super(properties);
         this.translationKeyBase = translationKeyBase;
@@ -85,6 +85,8 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
 
     //endregion Getter / Setter
 
+    public List<ItemMode> getItemModes() { return new ArrayList<>();}
+
     @Override
     public int getItemMode(ItemStack stack) {
         return ItemNBTUtil.getItemMode(stack);
@@ -93,6 +95,16 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
     @Override
     public void setItemMode(ItemStack stack, int mode) {
         ItemNBTUtil.setItemMode(stack, mode);
+    }
+
+    public ItemMode nextItemMode(ItemStack stack) {
+        int mode = this.getItemMode(stack);
+        mode = (mode + 1) % this.getItemModes().size();
+        this.setItemMode(stack, mode);
+        return this.getCurrentItemMode(stack);
+    }
+    public int modeValue(ItemMode mode) {
+        return this.getItemModes().indexOf(mode) ;
     }
 
     @Override
@@ -154,9 +166,9 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
                 return this.handleItemMode(player, world, pos, itemStack, facing);
             } else if (world.isClientSide) {
                 //if not sneaking, open general ui
-                IItemModeSubset<?> subset = this.getItemModeSubset(itemStack);
+                ItemMode curr = this.getCurrentItemMode(itemStack);
                 WorkAreaSize workAreaSize = ItemNBTUtil.getWorkAreaSize(itemStack);
-                GuiHelper.openBookOfCallingGui(subset, workAreaSize);
+                GuiHelper.openBookOfCallingGui(curr, workAreaSize);
             }
         }
 
@@ -191,7 +203,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
                 } else {
                     //if our mode is "set deposit" then we check if the target is appropriate for depositing
                     //Note: we filter above for spirits -> so for now only spirits are an appropriate target
-                    if (ItemModes.get(this.getItemMode(stack)) == ItemModes.SET_DEPOSIT) {
+                    if (this.getCurrentItemMode(stack) == ItemModes.SET_DEPOSIT) {
                         if (targetSpirit.getCapability(ForgeCapabilities.ITEM_HANDLER).isPresent()) {
                             UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
                             if (boundSpiritId != null) {
@@ -302,8 +314,13 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
         return ItemNBTUtil.getSpiritEntityUUID(stack) != null ? Rarity.RARE : Rarity.COMMON;
     }
 
-    public IItemModeSubset<?> getItemModeSubset(ItemStack stack) {
-        return ItemModes.get(this.getItemMode(stack));
+    public ItemMode getCurrentItemMode(ItemStack stack) {
+        int mode= this.getItemMode(stack);
+        if(mode<0 || mode>=getItemModes().size()){
+            mode=0;
+            setItemMode(stack,mode);
+        }
+        return getItemModes().get(mode);
     }
 
     public boolean useWorkAreaSize() {
@@ -312,22 +329,13 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
 
     public InteractionResult handleItemMode(Player player, Level world, BlockPos pos, ItemStack stack,
                                             Direction facing) {
-        ItemMode itemMode = ItemModes.get(this.getItemMode(stack));
+        ItemMode itemMode = this.getCurrentItemMode(stack);
         BlockEntity blockEntity = world.getBlockEntity(pos);
-
+        Occultism.LOGGER.info("Handling item mode {}", itemMode.translationKey());
         //handle the serverside item modes
         if (!world.isClientSide) {
-            if(itemMode == ItemModes.SET_DEPOSIT) {
-                return itemMode.handle(blockEntity, player, world, pos, stack, facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
-            } else if(itemMode == ItemModes.SET_EXTRACT) {
-               return itemMode.handle(blockEntity, player, world, pos, stack, facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
-            } else if(itemMode == ItemModes.SET_BASE) {
-                return itemMode.handle(blockEntity, player, world, pos, stack, facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
-            } else if(itemMode == ItemModes.SET_STORAGE_CONTROLLER) {
-                return itemMode.handle(blockEntity, player, world, pos, stack, facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
-            } else if(itemMode == ItemModes.SET_MANAGED_MACHINE) {
+
                 return itemMode.handle(blockEntity,player, world, pos, stack, facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
-            }
 
         }
         return InteractionResult.PASS;

@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.common.item.spirit;
 
 import com.klikli_dev.occultism.common.entity.job.TransportItemsJob;
-import com.klikli_dev.occultism.common.item.spirit.calling.IItemModeSubset;
 import com.klikli_dev.occultism.common.item.spirit.calling.ItemMode;
 import com.klikli_dev.occultism.common.item.spirit.calling.ItemModes;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
@@ -35,6 +34,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,12 +43,6 @@ public class BookOfCallingTransportItems extends BookOfCallingItem {
 
     public BookOfCallingTransportItems(Properties properties, String translationKeyBase) {
         super(properties, translationKeyBase, spirit -> spirit.getJob().orElse(null) instanceof TransportItemsJob);
-    }
-
-    @Override
-    public IItemModeSubset<?> getItemModeSubset(ItemStack stack) {
-        ItemModeSubset subset = ItemModeSubset.get(ItemModes.get(this.getItemMode(stack)));
-        return subset != null ? subset : ItemModeSubset.SET_DEPOSIT;
     }
 
     @Override
@@ -70,38 +64,8 @@ public class BookOfCallingTransportItems extends BookOfCallingItem {
         }
     }
 
-    public enum ItemModeSubset implements IItemModeSubset<ItemModeSubset> {
-        SET_EXTRACT(ItemModes.SET_EXTRACT),
-        SET_DEPOSIT(ItemModes.SET_DEPOSIT);
-
-        private static final Map<ItemMode, ItemModeSubset> lookup = new HashMap<>();
-
-        static {
-            for (ItemModeSubset subset : ItemModeSubset.values()) {
-                lookup.put(subset.getItemMode(), subset);
-            }
-        }
-
-        private final ItemMode itemMode;
-
-        ItemModeSubset(ItemMode itemMode) {
-            this.itemMode = itemMode;
-        }
-
-        //region Static Methods
-        public static ItemModeSubset get(ItemMode value) {
-            return lookup.get(value);
-        }
-
-        @Override
-        public ItemMode getItemMode() {
-            return this.itemMode;
-        }
-
-        @Override
-        public ItemModeSubset next() {
-            return values()[(this.ordinal() + 1) % values().length];
-        }
-        //endregion Static Methods
+    @Override
+    public List<ItemMode> getItemModes() {
+        return Arrays.asList(ItemModes.SET_EXTRACT, ItemModes.SET_DEPOSIT);
     }
 }

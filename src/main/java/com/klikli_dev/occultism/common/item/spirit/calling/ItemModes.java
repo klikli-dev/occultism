@@ -29,9 +29,9 @@ public class ItemModes {
         lookup.put(getSize(), itemMode);
     }
 
-    public static ItemMode get(int value) {
-        return lookup.get(value);
-    }
+//    public static ItemMode get(int value) {
+//        return lookup.get(value);
+//    }
 
     public static int getSize() {
         return lookup.size();
