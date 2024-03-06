@@ -23,6 +23,9 @@
 package com.klikli_dev.occultism.common.item.spirit;
 
 import com.klikli_dev.occultism.common.entity.job.LumberjackJob;
+import com.klikli_dev.occultism.common.item.spirit.calling.IItemModeSubset;
+import com.klikli_dev.occultism.common.item.spirit.calling.ItemMode;
+import com.klikli_dev.occultism.common.item.spirit.calling.ItemModes;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.HashMap;
@@ -36,13 +39,13 @@ public class BookOfCallingLumberjackItem extends BookOfCallingItem {
 
     @Override
     public IItemModeSubset<?> getItemModeSubset(ItemStack stack) {
-        ItemModeSubset subset = ItemModeSubset.get(ItemMode.get(this.getItemMode(stack)));
+        ItemModeSubset subset = ItemModeSubset.get(ItemModes.get(this.getItemMode(stack)));
         return subset != null ? subset : ItemModeSubset.SET_BASE;
     }
 
     public enum ItemModeSubset implements IItemModeSubset<ItemModeSubset> {
-        SET_BASE(ItemMode.SET_BASE),
-        SET_DEPOSIT(ItemMode.SET_DEPOSIT);
+        SET_BASE(ItemModes.SET_BASE),
+        SET_DEPOSIT(ItemModes.SET_DEPOSIT);
 
         private static final Map<ItemMode, ItemModeSubset> lookup = new HashMap<>();
 

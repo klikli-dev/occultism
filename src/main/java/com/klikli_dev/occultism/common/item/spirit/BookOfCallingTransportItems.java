@@ -23,6 +23,9 @@
 package com.klikli_dev.occultism.common.item.spirit;
 
 import com.klikli_dev.occultism.common.entity.job.TransportItemsJob;
+import com.klikli_dev.occultism.common.item.spirit.calling.IItemModeSubset;
+import com.klikli_dev.occultism.common.item.spirit.calling.ItemMode;
+import com.klikli_dev.occultism.common.item.spirit.calling.ItemModes;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.core.BlockPos;
@@ -44,7 +47,7 @@ public class BookOfCallingTransportItems extends BookOfCallingItem {
 
     @Override
     public IItemModeSubset<?> getItemModeSubset(ItemStack stack) {
-        ItemModeSubset subset = ItemModeSubset.get(ItemMode.get(this.getItemMode(stack)));
+        ItemModeSubset subset = ItemModeSubset.get(ItemModes.get(this.getItemMode(stack)));
         return subset != null ? subset : ItemModeSubset.SET_DEPOSIT;
     }
 
@@ -68,8 +71,8 @@ public class BookOfCallingTransportItems extends BookOfCallingItem {
     }
 
     public enum ItemModeSubset implements IItemModeSubset<ItemModeSubset> {
-        SET_EXTRACT(ItemMode.SET_EXTRACT),
-        SET_DEPOSIT(ItemMode.SET_DEPOSIT);
+        SET_EXTRACT(ItemModes.SET_EXTRACT),
+        SET_DEPOSIT(ItemModes.SET_DEPOSIT);
 
         private static final Map<ItemMode, ItemModeSubset> lookup = new HashMap<>();
 

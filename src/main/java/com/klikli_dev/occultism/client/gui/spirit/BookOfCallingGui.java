@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.OccultismConstants;
 import com.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
+import com.klikli_dev.occultism.common.item.spirit.calling.IItemModeSubset;
 import com.klikli_dev.occultism.network.MessageSetItemMode;
 import com.klikli_dev.occultism.network.MessageSetWorkAreaSize;
 import com.klikli_dev.occultism.network.OccultismPackets;
@@ -38,10 +39,10 @@ import net.minecraftforge.client.gui.widget.ExtendedButton;
 
 public class BookOfCallingGui extends Screen {
 
-    public BookOfCallingItem.IItemModeSubset<?> mode;
+    public IItemModeSubset<?> mode;
     public WorkAreaSize workAreaSize;
 
-    public BookOfCallingGui(BookOfCallingItem.IItemModeSubset<?> mode, WorkAreaSize workAreaSize) {
+    public BookOfCallingGui(IItemModeSubset<?> mode, WorkAreaSize workAreaSize) {
         super(Component.literal(""));
 
         this.mode = mode;
@@ -76,13 +77,13 @@ public class BookOfCallingGui extends Screen {
 
         //Item mode button
         this.addRenderableWidget((new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + 60, buttonWidth, 20,
-                Component.translatable(this.mode.getItemMode().getDescriptionId()), (b) -> {
+                Component.translatable(this.mode.getItemMode().translationKey()), (b) -> {
             this.mode = this.mode.next();
-            OccultismPackets.sendToServer(new MessageSetItemMode(this.mode.getItemMode().getValue()));
+            OccultismPackets.sendToServer(new MessageSetItemMode(this.mode.getItemMode().value()));
             this.init();
         })));
 
-        boolean showSize = this.mode.getItemMode() == BookOfCallingItem.ItemMode.SET_BASE;
+        boolean showSize = this.mode.getItemMode().hasSize();
         if (showSize) {
             LabelWidget workAreaLabel = new LabelWidget(
                     guiLeft - 80, guiTop + 91, true, -1, 2, OccultismConstants.Color.WHITE).alignRight(true);

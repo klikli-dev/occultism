@@ -32,6 +32,9 @@ import com.klikli_dev.occultism.api.common.item.IHandleItemMode;
 import com.klikli_dev.occultism.client.gui.GuiHelper;
 import com.klikli_dev.occultism.common.entity.job.ManageMachineJob;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.klikli_dev.occultism.common.item.spirit.calling.IItemModeSubset;
+import com.klikli_dev.occultism.common.item.spirit.calling.ItemMode;
+import com.klikli_dev.occultism.common.item.spirit.calling.ItemModes;
 import com.klikli_dev.occultism.util.BlockEntityUtil;
 import com.klikli_dev.occultism.util.EntityUtil;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
@@ -188,7 +191,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
                 } else {
                     //if our mode is "set deposit" then we check if the target is appropriate for depositing
                     //Note: we filter above for spirits -> so for now only spirits are an appropriate target
-                    if (ItemMode.get(this.getItemMode(stack)) == ItemMode.SET_DEPOSIT) {
+                    if (ItemModes.get(this.getItemMode(stack)) == ItemModes.SET_DEPOSIT) {
                         if (targetSpirit.getCapability(ForgeCapabilities.ITEM_HANDLER).isPresent()) {
                             UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
                             if (boundSpiritId != null) {
@@ -300,357 +303,33 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
     }
 
     public IItemModeSubset<?> getItemModeSubset(ItemStack stack) {
-        return ItemMode.get(this.getItemMode(stack));
+        return ItemModes.get(this.getItemMode(stack));
     }
 
     public boolean useWorkAreaSize() {
         return true;
     }
 
-    public boolean setSpiritManagedMachineExtractLocation(Player player, Level world, BlockPos pos, ItemStack stack,
-                                                          Direction face) {
-        UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
-        if (boundSpiritId != null) {
-            Optional<SpiritEntity> boundSpirit = EntityUtil.getEntityByUuiDGlobal(world.getServer(), boundSpiritId)
-                    .map(e -> (SpiritEntity) e);
-            BlockEntity extractBlockEntity = world.getBlockEntity(pos);
-            if (boundSpirit.isPresent() && extractBlockEntity != null) {
-                if (boundSpirit.get().getJob().isPresent() &&
-                        boundSpirit.get().getJob().get() instanceof ManageMachineJob manageMachine) {
-
-                    if (manageMachine.getManagedMachine() != null) {
-
-                    } else {
-                        player.displayClientMessage(
-                                Component.translatable(
-                                        TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_managed_machine_extract_location",
-                                        TextUtil.formatDemonName(boundSpirit.get().getName().getString())), true);
-                        return true;
-                    }
-
-                    //get the existing insert reference here, or if null reuse extract
-                    var oldManagedMachineBlockEntity = manageMachine.getManagedMachineBlockEntity();
-                    MachineReference newReference = MachineReference.from(extractBlockEntity, oldManagedMachineBlockEntity != null ? oldManagedMachineBlockEntity : extractBlockEntity);
-                    newReference.extractFacing = face;
-                    if (manageMachine.getManagedMachine() == null ||
-                            !manageMachine.getManagedMachine().extractGlobalPos.equals(newReference.extractGlobalPos)) {
-                        //if we are setting a completely new extract entity, just overwrite the reference.
-                        manageMachine.setManagedMachine(newReference);
-                    } else {
-                        //otherwise just update the registry name in case the extract block type was switched out
-                        manageMachine.getManagedMachine().extractRegistryName = newReference.extractRegistryName;
-                        manageMachine.getManagedMachine().extractFacing = newReference.extractFacing;
-                    }
-
-                    //write data into item nbt for client side usage
-                    ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
-
-                    String blockName = world.getBlockState(pos).getBlock().getDescriptionId();
-                    player.displayClientMessage(
-                            Component.translatable(
-                                    TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_managed_machine_extract_location",
-                                    TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
-                                    Component.translatable(blockName), face.getSerializedName()), true);
-                    return true;
-                }
-            } else {
-                player.displayClientMessage(
-                        Component.translatable(
-                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
-                        true);
-            }
-        }
-        return false;
-    }
-
-    public boolean setSpiritManagedMachine(Player player, Level world, BlockPos pos, ItemStack stack,
-                                           Direction face) {
-        UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
-        if (boundSpiritId != null) {
-            Optional<SpiritEntity> boundSpirit = EntityUtil.getEntityByUuiDGlobal(world.getServer(), boundSpiritId)
-                    .map(e -> (SpiritEntity) e);
-            BlockEntity managedMachineBlockEntity = world.getBlockEntity(pos);
-            if (boundSpirit.isPresent() && managedMachineBlockEntity != null) {
-
-                if (boundSpirit.get().getJob().isPresent() &&
-                        boundSpirit.get().getJob().get() instanceof ManageMachineJob manageMachine) {
-
-                    //Old code:
-                    //  //get the existing extract reference here, or if null reuse insert
-                    //  var oldExtractBlockEntity = manageMachine.getExtractBlockEntity();
-                    //now we just use the new machine as extract target, because otherwise we would insert into the new machine, but extract from the old
-                    MachineReference newReference = MachineReference.from(managedMachineBlockEntity, managedMachineBlockEntity);
-                    if (manageMachine.getManagedMachine() == null ||
-                            !manageMachine.getManagedMachine().insertGlobalPos.equals(newReference.insertGlobalPos)) {
-                        //if we are setting a completely new machine, just overwrite the reference.
-                        manageMachine.setManagedMachine(newReference);
-                    } else {
-                        //otherwise just update the registry name in case the block type was switched out
-                        manageMachine.getManagedMachine().insertRegistryName = newReference.insertRegistryName;
-                    }
-
-                    //write data into item nbt for client side usage
-                    ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
-
-                    player.displayClientMessage(
-                            Component.translatable(
-                                    TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_managed_machine",
-                                    TextUtil.formatDemonName(boundSpirit.get().getName().getString())), true);
-                    return true;
-                }
-            } else {
-                player.displayClientMessage(
-                        Component.translatable(
-                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
-                        true);
-            }
-        }
-        return false;
-    }
-
-    public boolean setSpiritStorageController(Player player, Level world, BlockPos pos, ItemStack stack,
-                                              Direction face) {
-        UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
-        if (boundSpiritId != null) {
-            Optional<SpiritEntity> boundSpirit = EntityUtil.getEntityByUuiDGlobal(world.getServer(), boundSpiritId)
-                    .map(e -> (SpiritEntity) e);
-
-            if (boundSpirit.isPresent() && boundSpirit.get().getJob().isPresent()) {
-                if (boundSpirit.get().getJob().get() instanceof ManageMachineJob job) {
-                    job.setStorageControllerPosition(new GlobalBlockPos(pos, world));
-                    //write data into item nbt for client side usage
-                    ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
-
-                    String blockName = world.getBlockState(pos).getBlock().getDescriptionId();
-                    player.displayClientMessage(Component.translatable(
-                            TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_storage_controller",
-                            TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
-                            Component.translatable(blockName)), true);
-                    return true;
-                }
-            } else {
-                player.displayClientMessage(
-                        Component.translatable(
-                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
-                        true);
-            }
-        }
-        return false;
-    }
-
-    public boolean setSpiritDepositLocation(Player player, Level world, BlockPos pos, ItemStack stack,
-                                            Direction face) {
-        UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
-        if (boundSpiritId != null) {
-            Optional<SpiritEntity> boundSpirit = EntityUtil.getEntityByUuiDGlobal(world.getServer(), boundSpiritId)
-                    .map(e -> (SpiritEntity) e);
-
-            if (boundSpirit.isPresent()) {
-                //update properties on entity
-                boundSpirit.get().setDepositPosition(pos);
-                boundSpirit.get().setDepositFacing(face);
-                //also update control item with latest data
-                ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
-
-                String blockName = world.getBlockState(pos).getBlock().getDescriptionId();
-                player.displayClientMessage(
-                        Component.translatable(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_deposit",
-                                TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
-                                Component.translatable(blockName), face.getSerializedName()), true);
-                return true;
-            } else {
-                player.displayClientMessage(
-                        Component.translatable(
-                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
-                        true);
-            }
-        }
-        return false;
-    }
-
-    public boolean setSpiritExtractLocation(Player player, Level world, BlockPos pos, ItemStack stack,
-                                            Direction face) {
-        UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
-        if (boundSpiritId != null) {
-            Optional<SpiritEntity> boundSpirit = EntityUtil.getEntityByUuiDGlobal(world.getServer(), boundSpiritId)
-                    .map(e -> (SpiritEntity) e);
-
-            if (boundSpirit.isPresent()) {
-                //update properties on entity
-                boundSpirit.get().setExtractPosition(pos);
-                boundSpirit.get().setExtractFacing(face);
-                //also update control item with latest data
-                ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
-
-                String blockName = world.getBlockState(pos).getBlock().getDescriptionId();
-                player.displayClientMessage(
-                        Component.translatable(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_extract",
-                                TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
-                                Component.translatable(blockName), face.getSerializedName()), true);
-                return true;
-            } else {
-                player.displayClientMessage(
-                        Component.translatable(
-                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
-                        true);
-            }
-        }
-        return false;
-    }
-
-    public boolean setSpiritBaseLocation(Player player, Level world, BlockPos pos, ItemStack stack,
-                                         Direction face) {
-        UUID boundSpiritId = ItemNBTUtil.getSpiritEntityUUID(stack);
-        if (boundSpiritId != null) {
-            Optional<SpiritEntity> boundSpirit = EntityUtil.getEntityByUuiDGlobal(world.getServer(), boundSpiritId)
-                    .map(e -> (SpiritEntity) e);
-            if (boundSpirit.isPresent()) {
-                //update properties on entity
-                boundSpirit.get().setWorkAreaPosition(pos);
-                //also update control item with latest data
-                ItemNBTUtil.updateItemNBTFromEntity(stack, boundSpirit.get());
-
-                String blockName = world.getBlockState(pos).getBlock().getDescriptionId();
-                player.displayClientMessage(
-                        Component.translatable(TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_set_base",
-                                TextUtil.formatDemonName(boundSpirit.get().getName().getString()),
-                                Component.translatable(blockName)), true);
-                return true;
-            } else {
-                player.displayClientMessage(
-                        Component.translatable(
-                                TranslationKeys.BOOK_OF_CALLING_GENERIC + ".message_spirit_not_found"),
-                        true);
-            }
-        }
-        return false;
-    }
-
     public InteractionResult handleItemMode(Player player, Level world, BlockPos pos, ItemStack stack,
                                             Direction facing) {
-        ItemMode itemMode = ItemMode.get(this.getItemMode(stack));
+        ItemMode itemMode = ItemModes.get(this.getItemMode(stack));
         BlockEntity blockEntity = world.getBlockEntity(pos);
 
         //handle the serverside item modes
         if (!world.isClientSide) {
-            switch (itemMode) {
-                case SET_DEPOSIT:
-                    if (blockEntity != null &&
-                            blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, facing).isPresent()) {
-                        return this.setSpiritDepositLocation(player, world, pos, stack,
-                                facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
-                    }
-                    break;
-                case SET_EXTRACT:
-                    if (this instanceof BookOfCallingManageMachineItem) {
-                        if (blockEntity != null &&
-                                blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, facing).isPresent()) {
-                            return this.setSpiritManagedMachineExtractLocation(player, world, pos, stack,
-                                    facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
-                        }
-                    } else if (blockEntity != null &&
-                            blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, facing).isPresent()) {
-                        return this.setSpiritExtractLocation(player, world, pos, stack,
-                                facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
-                    }
-                    break;
-                case SET_BASE:
-                    return this.setSpiritBaseLocation(player, world, pos, stack,
-                            facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
-                case SET_STORAGE_CONTROLLER:
-                    if (blockEntity instanceof IStorageController) {
-                        return this.setSpiritStorageController(player, world, pos, stack,
-                                facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
-                    }
-                    break;
-                case SET_MANAGED_MACHINE:
-                    if (blockEntity != null && BlockEntityUtil.hasCapabilityOnAnySide(blockEntity,
-                            ForgeCapabilities.ITEM_HANDLER)) {
-                        this.setSpiritManagedMachine(player, world, pos, stack, facing);
-                        return InteractionResult.SUCCESS;
-                    }
-                    break;
+            if(itemMode == ItemModes.SET_DEPOSIT) {
+                return itemMode.handle(blockEntity, player, world, pos, stack, facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
+            } else if(itemMode == ItemModes.SET_EXTRACT) {
+               return itemMode.handle(blockEntity, player, world, pos, stack, facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
+            } else if(itemMode == ItemModes.SET_BASE) {
+                return itemMode.handle(blockEntity, player, world, pos, stack, facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
+            } else if(itemMode == ItemModes.SET_STORAGE_CONTROLLER) {
+                return itemMode.handle(blockEntity, player, world, pos, stack, facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
+            } else if(itemMode == ItemModes.SET_MANAGED_MACHINE) {
+                return itemMode.handle(blockEntity,player, world, pos, stack, facing) ? InteractionResult.SUCCESS : InteractionResult.PASS;
             }
-        } else {
-            if (Objects.requireNonNull(itemMode) == ItemMode.SET_MANAGED_MACHINE) {
-                if (blockEntity != null && BlockEntityUtil.hasCapabilityOnAnySide(blockEntity,
-                        ForgeCapabilities.ITEM_HANDLER)) {
-                    MachineReference machine = ItemNBTUtil.getManagedMachine(stack);
-                    if (machine != null) {
-                        GuiHelper.openBookOfCallingManagedMachineGui(machine.insertFacing, machine.extractFacing,
-                                machine.customName);
-                    }
-                }
-            }
+
         }
-
-
         return InteractionResult.PASS;
-    }
-
-    public enum ItemMode implements IItemModeSubset<ItemMode> {
-
-        SET_DEPOSIT(0, "set_deposit"),
-        SET_EXTRACT(1, "set_extract"),
-        SET_BASE(2, "set_base"),
-        SET_STORAGE_CONTROLLER(3, "set_storage_controller"),
-        SET_MANAGED_MACHINE(4, "set_managed_machine");
-
-        private static final Map<Integer, ItemMode> lookup = new HashMap<Integer, ItemMode>();
-        private static final String TRANSLATION_KEY_BASE =
-                "enum." + Occultism.MODID + ".book_of_calling.item_mode";
-
-        static {
-            for (ItemMode itemMode : ItemMode.values()) {
-                lookup.put(itemMode.getValue(), itemMode);
-            }
-        }
-
-        private final int value;
-        private final String translationKey;
-
-        ItemMode(int value, String translationKey) {
-            this.value = value;
-            this.translationKey = TRANSLATION_KEY_BASE + "." + translationKey;
-        }
-
-        //region Static Methods
-        public static ItemMode get(int value) {
-            return lookup.get(value);
-        }
-
-        //region Getter / Setter
-        public int getValue() {
-            return this.value;
-        }
-        //endregion Getter / Setter
-
-        public String getDescriptionId() {
-            return this.translationKey;
-        }
-
-        @Override
-        public ItemMode getItemMode() {
-            return this;
-        }
-
-        public ItemMode next() {
-            return values()[(this.ordinal() + 1) % values().length];
-        }
-        //endregion Static Methods
-
-        public boolean equals(int value) {
-            return this.value == value;
-        }
-
-    }
-
-    public interface IItemModeSubset<T extends IItemModeSubset<T>> {
-        //region Getter / Setter
-        ItemMode getItemMode();
-        //endregion Getter / Setter
-
-        T next();
-
     }
 }
