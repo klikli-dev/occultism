@@ -44,7 +44,7 @@ public class GuiHelper {
 
     @OnlyIn(Dist.CLIENT)
     public static void openBookOfCallingGui(IItemModeSubset<?> itemMode, WorkAreaSize workAreaSize) {
-        Minecraft.getInstance().setScreen(new BookOfCallingGui(itemMode, workAreaSize));
+        Minecraft.getInstance().setScreen(itemMode.getItemMode().getGUI(workAreaSize).get());
     }
     //endregion Static Methods
 }

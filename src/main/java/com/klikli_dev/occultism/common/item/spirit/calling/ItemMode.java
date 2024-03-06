@@ -1,12 +1,18 @@
 package com.klikli_dev.occultism.common.item.spirit.calling;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.api.common.data.WorkAreaSize;
+import com.klikli_dev.occultism.client.gui.spirit.BookOfCallingGui;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.particle.MobAppearanceParticle;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+
+import java.util.function.Supplier;
 
 /**
  * Represents the different modes of the calling item
@@ -105,6 +111,9 @@ public class ItemMode implements IItemModeSubset<ItemMode>{
         return ItemModes.get((this.value + 1) % ItemModes.getSize());
     }
 
+    public Supplier<Screen> getGUI(WorkAreaSize workAreaSize) {
+        return ()->new BookOfCallingGui(this, workAreaSize);
+    }
     /**
      * Handles the mode's action
      * @param blockEntity the block entity
