@@ -23,7 +23,7 @@ import java.util.UUID;
 public class SetStorageLocationMode extends ItemMode {
 
     public SetStorageLocationMode() {
-        super(0, "set_storage_controller");
+        super("set_storage_controller");
     }
 
     public boolean setSpiritStorageController(Player player, Level world, BlockPos pos, ItemStack stack,

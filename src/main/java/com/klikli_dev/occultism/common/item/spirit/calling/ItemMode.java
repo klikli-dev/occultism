@@ -27,23 +27,20 @@ public class ItemMode {
 
     /**
      * Creates a new item mode
-     * @param value the value of the mode
      * @param translationKey the translation key for the mode
      * @param hasSize if the mode has an area size
      */
-    public ItemMode(int value, String translationKey, boolean hasSize) {
-        this.value = value;
+    public ItemMode(String translationKey, boolean hasSize) {;
         this.translationKey = translationKey;
         this.hasSize = hasSize;
     }
 
     /**
      * Creates a new item mode
-     * @param value the value of the mode
      * @param translationKey the translation key for the mode
      */
-    public ItemMode(int value, String translationKey)  {
-        this(value, translationKey, false);
+    public ItemMode(String translationKey)  {
+        this( translationKey, false);
     }
 
     /**
@@ -120,7 +117,7 @@ public class ItemMode {
         return true;
     }
 
-    private  int value;
+    private  int value = -1;
     private String translationKey;
     private boolean hasSize;
 

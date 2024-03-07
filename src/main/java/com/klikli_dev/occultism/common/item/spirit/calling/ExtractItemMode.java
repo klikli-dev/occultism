@@ -20,7 +20,7 @@ import java.util.UUID;
 
 public class ExtractItemMode extends ItemMode{
     public ExtractItemMode() {
-        super(0, "set_extract");
+        super( "set_extract");
     }
 
     public boolean setSpiritExtractLocation(Player player, Level world, BlockPos pos, ItemStack stack,

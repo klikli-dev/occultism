@@ -20,7 +20,7 @@ import java.util.UUID;
 public class SetBaseItemMode extends ItemMode {
 
     public SetBaseItemMode() {
-        super(0, "set_base",true);
+        super( "set_base",true);
     }
 
     public boolean setSpiritBaseLocation(Player player, Level world, BlockPos pos, ItemStack stack,

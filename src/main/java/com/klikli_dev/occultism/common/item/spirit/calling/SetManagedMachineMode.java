@@ -23,7 +23,7 @@ import java.util.UUID;
 
 public class SetManagedMachineMode extends ItemMode {
     public SetManagedMachineMode() {
-        super(0, "set_managed_machine");
+        super( "set_managed_machine");
     }
 
     public boolean setSpiritManagedMachine(Player player, Level world, BlockPos pos, ItemStack stack,

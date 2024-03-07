@@ -316,6 +316,9 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
 
     public ItemMode getCurrentItemMode(ItemStack stack) {
         int mode= this.getItemMode(stack);
+
+        // sanity check.
+        // here to prevent crashes if old system has invalid mode
         if(mode<0 || mode>=getItemModes().size()){
             mode=0;
             setItemMode(stack,mode);

@@ -21,7 +21,7 @@ import java.util.UUID;
 public class DepositItemMode extends ItemMode {
 
     public DepositItemMode() {
-        super(0, "set_deposit");
+        super("set_deposit");
     }
 
     public boolean setSpiritDepositLocation(Player player, Level world, BlockPos pos, ItemStack stack,
