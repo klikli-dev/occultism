@@ -25,7 +25,7 @@ package com.klikli_dev.occultism.client.gui;
 import com.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.klikli_dev.occultism.client.gui.spirit.BookOfCallingGui;
 import com.klikli_dev.occultism.client.gui.spirit.BookOfCallingManagedMachineGui;
-import com.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
+import com.klikli_dev.occultism.common.item.spirit.calling.ItemMode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
 import net.neoforged.api.distmarker.Dist;
@@ -42,7 +42,11 @@ public class GuiHelper {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void openBookOfCallingGui(BookOfCallingItem.IItemModeSubset<?> itemMode, WorkAreaSize workAreaSize) {
+    public static void openBookOfCallingGui(ItemMode itemMode, WorkAreaSize workAreaSize) {
+        itemMode.openGUI(workAreaSize);
+    }
+
+    public static void openBookOfCallingGui_internal(ItemMode itemMode, WorkAreaSize workAreaSize) {
         Minecraft.getInstance().setScreen(new BookOfCallingGui(itemMode, workAreaSize));
     }
     //endregion Static Methods

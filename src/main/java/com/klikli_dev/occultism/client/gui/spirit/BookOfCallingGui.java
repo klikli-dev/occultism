@@ -27,20 +27,24 @@ import com.klikli_dev.occultism.OccultismConstants;
 import com.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
+import com.klikli_dev.occultism.common.item.spirit.calling.ItemMode;
+import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSetItemMode;
 import com.klikli_dev.occultism.network.messages.MessageSetWorkAreaSize;
-import com.klikli_dev.occultism.network.Networking;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.gui.widget.ExtendedButton;
 
 public class BookOfCallingGui extends Screen {
 
-    public BookOfCallingItem.IItemModeSubset<?> mode;
+    public ItemMode mode;
     public WorkAreaSize workAreaSize;
 
-    public BookOfCallingGui(BookOfCallingItem.IItemModeSubset<?> mode, WorkAreaSize workAreaSize) {
+    public BookOfCallingGui(ItemMode mode, WorkAreaSize workAreaSize) {
         super(Component.literal(""));
 
         this.mode = mode;
@@ -75,13 +79,18 @@ public class BookOfCallingGui extends Screen {
 
         //Item mode button
         this.addRenderableWidget((new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + 60, buttonWidth, 20,
-                Component.translatable(this.mode.getItemMode().getDescriptionId()), (b) -> {
-            this.mode = this.mode.next();
-            Networking.sendToServer(new MessageSetItemMode(this.mode.getItemMode().getValue()));
-            this.init();
+                Component.translatable(this.mode.translationKey()), (b) -> {
+            LocalPlayer player = Minecraft.getInstance().player;
+            ItemStack stack = player.getItemInHand(player.getUsedItemHand());
+            this.mode = stack.getItem() instanceof BookOfCallingItem bookOfCalling ?
+                    bookOfCalling.nextItemMode(stack) : null;
+            if (this.mode != null) {
+                Networking.sendToServer(new MessageSetItemMode(((BookOfCallingItem) stack.getItem()).modeValue(this.mode)));
+                this.init();
+            }
         })));
 
-        boolean showSize = this.mode.getItemMode() == BookOfCallingItem.ItemMode.SET_BASE;
+        boolean showSize = this.mode.hasSize();
         if (showSize) {
             LabelWidget workAreaLabel = new LabelWidget(
                     guiLeft - 80, guiTop + 91, true, -1, 2, OccultismConstants.Color.WHITE).alignRight(true);
