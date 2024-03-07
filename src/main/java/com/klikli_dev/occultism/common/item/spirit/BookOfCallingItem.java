@@ -334,7 +334,6 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
                                             Direction facing) {
         ItemMode itemMode = this.getCurrentItemMode(stack);
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        Occultism.LOGGER.info("Handling item mode {}", itemMode.translationKey());
         //handle the serverside item modes
         if (!world.isClientSide) {
 

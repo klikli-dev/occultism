@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.fml.loading.FMLEnvironment;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.function.Supplier;
 
@@ -121,4 +122,12 @@ public class ItemMode {
     private String translationKey;
     private boolean hasSize;
 
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("value", value)
+                .append("translationKey", translationKey)
+                .append("hasSize", hasSize)
+                .toString();
+    }
 }
