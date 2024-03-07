@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.120.0] - 2024-03-07
+### :sparkles: New Features
+- [`c892040`](https://github.com/klikli-dev/occultism/commit/c892040af2d0446d9375ea36fc630c47efe2d2b8) - Move ItemModes from an enum system to classes ([#1071](https://github.com/klikli-dev/occultism/pull/1071)) - thanks @GaeaKat! *(commit by [@GaeaKat](https://github.com/GaeaKat))*
+
+### :wrench: Chores
+- [`e02ab8e`](https://github.com/klikli-dev/occultism/commit/e02ab8e53f0e04d6cce17677272b22a19b7e9375) - remove file *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.119.0] - 2024-03-03
 ### :sparkles: New Features
 - [`a552e45`](https://github.com/klikli-dev/occultism/commit/a552e45532b8d6417cd3f323c377f2ccac2ba17b) - add clientconfig.misc.disableSpiritFireSuccessSound *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -973,3 +981,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.117.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.116.2...release/v1.20.1-1.117.0
 [release/v1.20.1-1.118.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.117.0...release/v1.20.1-1.118.0
 [release/v1.20.1-1.119.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.118.0...release/v1.20.1-1.119.0
+[release/v1.20.1-1.120.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.119.0...release/v1.20.1-1.120.0
