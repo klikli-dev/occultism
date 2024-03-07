@@ -23,9 +23,13 @@
 package com.klikli_dev.occultism.common.item.spirit;
 
 import com.klikli_dev.occultism.common.entity.job.CleanerJob;
+import com.klikli_dev.occultism.common.item.spirit.calling.ItemMode;
+import com.klikli_dev.occultism.common.item.spirit.calling.ItemModes;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BookOfCallingCleanerItem extends BookOfCallingItem {
@@ -35,43 +39,7 @@ public class BookOfCallingCleanerItem extends BookOfCallingItem {
     }
 
     @Override
-    public IItemModeSubset<?> getItemModeSubset(ItemStack stack) {
-        ItemModeSubset subset = ItemModeSubset.get(ItemMode.get(this.getItemMode(stack)));
-        return subset != null ? subset : ItemModeSubset.SET_BASE;
-    }
-
-    public enum ItemModeSubset implements IItemModeSubset<ItemModeSubset> {
-        SET_BASE(ItemMode.SET_BASE),
-        SET_DEPOSIT(ItemMode.SET_DEPOSIT);
-
-        private static final Map<ItemMode, ItemModeSubset> lookup = new HashMap<>();
-
-        static {
-            for (ItemModeSubset subset : ItemModeSubset.values()) {
-                lookup.put(subset.getItemMode(), subset);
-            }
-        }
-
-        private final ItemMode itemMode;
-
-        ItemModeSubset(ItemMode itemMode) {
-            this.itemMode = itemMode;
-        }
-
-        //region Static Methods
-        public static ItemModeSubset get(ItemMode value) {
-            return lookup.get(value);
-        }
-
-        @Override
-        public ItemMode getItemMode() {
-            return this.itemMode;
-        }
-
-        @Override
-        public ItemModeSubset next() {
-            return values()[(this.ordinal() + 1) % values().length];
-        }
-        //endregion Static Methods
+    public List<ItemMode> getItemModes() {
+        return Arrays.asList(ItemModes.SET_BASE, ItemModes.SET_DEPOSIT);
     }
 }
