@@ -39,10 +39,10 @@ import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import software.bernie.geckolib.model.DefaultedGeoModel;
 
 
-public class MaridModel extends DefaultedEntityGeoModel<MaridEntity> {
-
+public class MaridModel extends DefaultedJobEntityModel<MaridEntity,MaridEntity> {
+    public final static String ASSET_SUBPATH = "marid";
     public MaridModel() {
-        super(new ResourceLocation(Occultism.MODID, "marid"), true);
+        super(new ResourceLocation(Occultism.MODID, "marid"), true,ASSET_SUBPATH);
     }
 
     @Override
