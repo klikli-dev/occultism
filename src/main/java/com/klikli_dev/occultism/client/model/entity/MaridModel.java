@@ -44,10 +44,5 @@ public class MaridModel extends DefaultedJobEntityModel<MaridEntity,MaridEntity>
     public MaridModel() {
         super(new ResourceLocation(Occultism.MODID, "marid"), true,ASSET_SUBPATH);
     }
-
-    @Override
-    public RenderType getRenderType(MaridEntity animatable, ResourceLocation texture) {
-        return RenderType.entityTranslucent(this.getTextureResource(animatable));
-    }
 }
 

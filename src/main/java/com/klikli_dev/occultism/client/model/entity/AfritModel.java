@@ -36,10 +36,4 @@ public class AfritModel extends DefaultedJobEntityModel<AfritEntity,AfritEntity>
     public AfritModel() {
         super(new ResourceLocation(Occultism.MODID, "afrit"), true,ASSET_SUBPATH);
     }
-
-    @Override
-    public RenderType getRenderType(AfritEntity animatable, ResourceLocation texture) {
-        return RenderType.entityTranslucent(this.getTextureResource(animatable));
-    }
-
 }

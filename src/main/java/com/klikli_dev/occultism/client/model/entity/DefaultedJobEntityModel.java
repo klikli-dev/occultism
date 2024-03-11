@@ -28,7 +28,6 @@ public abstract class DefaultedJobEntityModel<T extends GeoAnimatable,E extends 
             SpiritJobFactory factory = job.get();
             jobModels.put(job.getId().toString(), this.buildModelData(factory.client().modelID(),"_"));
         }
-        Occultism.LOGGER.info("Job models: "+jobModels);
     }
 
     public ModelData getModelData(E animatable) {
