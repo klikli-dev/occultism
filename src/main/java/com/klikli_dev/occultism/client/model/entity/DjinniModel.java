@@ -33,62 +33,12 @@ import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import java.util.Objects;
 
 
-public class DjinniModel extends DefaultedEntityGeoModel<DjinniEntity> {
+public class DjinniModel extends DefaultedJobEntityModel<DjinniEntity> {
 
     public final static String ASSET_SUBPATH = "djinni";
-    public final ModelData worker;
-    public final ModelData machineManager;
 
     public DjinniModel() {
-        super(new ResourceLocation(Occultism.MODID, ASSET_SUBPATH), false);
-
-        this.worker = this.buildModelData("worker");
-        this.machineManager = this.buildModelData("machine_manager");
-    }
-
-    public ModelData getModelData(DjinniEntity animatable) {
-        var job = animatable.getJobID();
-
-        if (Objects.equals(job, OccultismSpiritJobs.MANAGE_MACHINE.getId().toString())) {
-            return this.machineManager;
-        }
-
-        return this.worker;
-    }
-
-    @Override
-    public RenderType getRenderType(DjinniEntity animatable, ResourceLocation texture) {
-        return RenderType.entityTranslucent(this.getTextureResource(animatable));
-    }
-
-    @Override
-    public ResourceLocation getModelResource(DjinniEntity animatable) {
-        return this.getModelData(animatable).model();
-    }
-
-    @Override
-    public ResourceLocation getTextureResource(DjinniEntity animatable) {
-        return this.getModelData(animatable).texture();
-    }
-
-    @Override
-    public ResourceLocation getAnimationResource(DjinniEntity animatable) {
-        return this.getModelData(animatable).animation();
-    }
-
-    public ModelData buildModelData(String job) {
-        return this.buildModelData(job, "_");
-    }
-
-    public ModelData buildModelData(String job, String separator) {
-        return new ModelData(
-                this.buildFormattedModelPath(new ResourceLocation(Occultism.MODID, ASSET_SUBPATH + separator + job)),
-                this.buildFormattedTexturePath(new ResourceLocation(Occultism.MODID, ASSET_SUBPATH + separator + job)),
-                this.buildFormattedAnimationPath(new ResourceLocation(Occultism.MODID, ASSET_SUBPATH + separator + job))
-        );
-    }
-
-    public record ModelData(ResourceLocation model, ResourceLocation texture, ResourceLocation animation) {
+        super(new ResourceLocation(Occultism.MODID, ASSET_SUBPATH), false,ASSET_SUBPATH);
     }
 
 }

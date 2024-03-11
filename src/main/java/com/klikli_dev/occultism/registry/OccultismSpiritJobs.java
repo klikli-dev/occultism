@@ -23,14 +23,13 @@
 package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.client.entities.SpiritJobClient;
 import com.klikli_dev.occultism.common.entity.job.*;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-
-import java.util.function.Supplier;
 
 public class OccultismSpiritJobs {
 
@@ -41,13 +40,13 @@ public class OccultismSpiritJobs {
     });
 
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> LUMBERJACK = JOBS.register("lumberjack",
-            () -> new SpiritJobFactory(LumberjackJob::new));
+            () -> new SpiritJobFactory(LumberjackJob::new, SpiritJobClient.create("lumberjack")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> MANAGE_MACHINE = JOBS.register("manage_machine",
-            () -> new SpiritJobFactory(ManageMachineJob::new));
+            () -> new SpiritJobFactory(ManageMachineJob::new, SpiritJobClient.create("machine_manager")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> TRANSPORT_ITEMS = JOBS.register("transport_items",
-            () -> new SpiritJobFactory(TransportItemsJob::new));
+            () -> new SpiritJobFactory(TransportItemsJob::new, SpiritJobClient.create("transporter")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> CLEANER = JOBS.register("cleaner",
-            () -> new SpiritJobFactory(CleanerJob::new));
+            () -> new SpiritJobFactory(CleanerJob::new, SpiritJobClient.create("janitor")));
 
     //Trade jobs
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> TRADE_OTHERSTONE_T1 = JOBS.register("trade_otherstone_t1",
@@ -56,14 +55,14 @@ public class OccultismSpiritJobs {
                 job.setTimeToConvert(15);
                 job.setMaxTradesPerRound(4);
                 return job;
-            }));
+            }, SpiritJobClient.create("sapling_trader")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> TRADE_OTHERWORLD_SAPLINGS_T2 = JOBS.register("trade_otherworld_saplings_t1",
             () -> new SpiritJobFactory((entity) -> {
                 TraderJob job = new TraderJob(entity, new ResourceLocation(Occultism.MODID, "spirit_trade/otherworld_sapling"));
                 job.setTimeToConvert(20);
                 job.setMaxTradesPerRound(1);
                 return job;
-            }));
+            }, SpiritJobClient.create("otherstone_trader")));
 
     //Crushing jobs
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> CRUSH_TIER1 = JOBS.register("crush_tier1",
@@ -71,38 +70,38 @@ public class OccultismSpiritJobs {
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier1CrusherTimeMultiplier.get().floatValue(),
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier1CrusherOutputMultiplier.get().floatValue(),
                     () -> 1
-            )));
+            ), SpiritJobClient.create("crusher")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> CRUSH_TIER2 = JOBS.register("crush_tier2",
             () -> new SpiritJobFactory((entity) -> new CrusherJob(entity,
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier2CrusherTimeMultiplier.get().floatValue(),
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier2CrusherOutputMultiplier.get().floatValue(),
                     () -> 2
-            )));
+            ), SpiritJobClient.create("crusher")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> CRUSH_TIER3 = JOBS.register("crush_tier3",
             () -> new SpiritJobFactory((entity) -> new CrusherJob(entity,
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier3CrusherTimeMultiplier.get().floatValue(),
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier3CrusherOutputMultiplier.get().floatValue(),
                     () -> 3
-            )));
+            ), SpiritJobClient.create("crusher")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> CRUSH_TIER4 = JOBS.register("crush_tier4",
             () -> new SpiritJobFactory((entity) -> new CrusherJob(entity,
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier4CrusherTimeMultiplier.get().floatValue(),
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier4CrusherOutputMultiplier.get().floatValue(),
                     () -> 4
-            )));
+            ), SpiritJobClient.create("crusher")));
 
     //Weather Jobs
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> CLEAR_WEATHER = JOBS.register("clear_weather",
-            () -> new SpiritJobFactory((entity) -> new ClearWeatherJob(entity, 20 * 15)));
+            () -> new SpiritJobFactory((entity) -> new ClearWeatherJob(entity, 20 * 15), SpiritJobClient.create()));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> RAIN_WEATHER = JOBS.register("rain_weather",
-            () -> new SpiritJobFactory((entity) -> new RainWeatherJob(entity, 20 * 30)));
+            () -> new SpiritJobFactory((entity) -> new RainWeatherJob(entity, 20 * 30), SpiritJobClient.create()));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> THUNDER_WEATHER = JOBS.register("thunder_weather",
-            () -> new SpiritJobFactory((entity) -> new ThunderWeatherJob(entity, 20 * 60)));
+            () -> new SpiritJobFactory((entity) -> new ThunderWeatherJob(entity, 20 * 60), SpiritJobClient.create()));
 
     //Time Jobs
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> DAY_TIME = JOBS.register("day_time",
-            () -> new SpiritJobFactory((entity) -> new DayTimeJob(entity, 20 * 5)));
+            () -> new SpiritJobFactory((entity) -> new DayTimeJob(entity, 20 * 5), SpiritJobClient.create()));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> NIGHT_TIME = JOBS.register("night_time",
-            () -> new SpiritJobFactory((entity) -> new NightTimeJob(entity, 20 * 5)));
+            () -> new SpiritJobFactory((entity) -> new NightTimeJob(entity, 20 * 5), SpiritJobClient.create()));
 
 }

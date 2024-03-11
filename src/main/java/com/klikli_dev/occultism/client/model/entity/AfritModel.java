@@ -31,15 +31,9 @@ import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import software.bernie.geckolib.model.DefaultedGeoModel;
 
 
-public class AfritModel extends DefaultedEntityGeoModel<AfritEntity> {
-
+public class AfritModel extends DefaultedJobEntityModel<AfritEntity> {
+    public final static String ASSET_SUBPATH = "afrit";
     public AfritModel() {
-        super(new ResourceLocation(Occultism.MODID, "afrit"), true);
+        super(new ResourceLocation(Occultism.MODID, "afrit"), true,ASSET_SUBPATH);
     }
-
-    @Override
-    public RenderType getRenderType(AfritEntity animatable, ResourceLocation texture) {
-        return RenderType.entityTranslucent(this.getTextureResource(animatable));
-    }
-
 }

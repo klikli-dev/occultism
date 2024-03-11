@@ -39,15 +39,10 @@ import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import software.bernie.geckolib.model.DefaultedGeoModel;
 
 
-public class MaridModel extends DefaultedEntityGeoModel<MaridEntity> {
-
+public class MaridModel extends DefaultedJobEntityModel<MaridEntity> {
+    public final static String ASSET_SUBPATH = "marid";
     public MaridModel() {
-        super(new ResourceLocation(Occultism.MODID, "marid"), true);
-    }
-
-    @Override
-    public RenderType getRenderType(MaridEntity animatable, ResourceLocation texture) {
-        return RenderType.entityTranslucent(this.getTextureResource(animatable));
+        super(new ResourceLocation(Occultism.MODID, "marid"), true,ASSET_SUBPATH);
     }
 }
 

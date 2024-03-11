@@ -22,23 +22,31 @@
 
 package com.klikli_dev.occultism.common.entity.job;
 
+import com.klikli_dev.occultism.client.entities.SpiritJobClient;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.function.Function;
 
 public class SpiritJobFactory {
 
     Function<SpiritEntity, ? extends SpiritJob> constructor;
+    SpiritJobClient client;
 
-    public SpiritJobFactory(Function<SpiritEntity, ? extends SpiritJob> constructor) {
+    public SpiritJobFactory(Function<SpiritEntity, ? extends SpiritJob> constructor, SpiritJobClient client) {
         this.constructor = constructor;
+        this.client = client;
     }
 
     public SpiritJob create(SpiritEntity entity) {
         SpiritJob job = this.constructor.apply(entity);
         job.setFactoryId(OccultismSpiritJobs.REGISTRY.getKey(this));
         return job;
+    }
+
+    public SpiritJobClient client() {
+        return this.client;
     }
 
 }
