@@ -33,7 +33,7 @@ import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import java.util.Objects;
 
 
-public class DjinniModel extends DefaultedJobEntityModel<DjinniEntity,DjinniEntity> {
+public class DjinniModel extends DefaultedJobEntityModel<DjinniEntity> {
 
     public final static String ASSET_SUBPATH = "djinni";
 

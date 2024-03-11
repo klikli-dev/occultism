@@ -14,7 +14,7 @@ import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class DefaultedJobEntityModel<T extends GeoAnimatable,E extends SpiritEntity> extends DefaultedEntityGeoModel<T> {
+public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimatable> extends DefaultedEntityGeoModel<T> {
     private final String entity_subpath;
     protected final Map<String, ModelData> jobModels;
     protected final ModelData worker;
@@ -30,7 +30,7 @@ public abstract class DefaultedJobEntityModel<T extends GeoAnimatable,E extends 
         }
     }
 
-    public ModelData getModelData(E animatable) {
+    public ModelData getModelData(T animatable) {
         var job = animatable.getJobID();
         var model = jobModels.getOrDefault(job, this.worker);
         if(!GeckoLibCache.getBakedModels().containsKey(model.model()))
@@ -65,16 +65,16 @@ public abstract class DefaultedJobEntityModel<T extends GeoAnimatable,E extends 
 
     @Override
     public ResourceLocation getModelResource(T animatable) {
-        return this.getModelData((E) animatable).model();
+        return this.getModelData(animatable).model();
     }
 
     @Override
     public ResourceLocation getTextureResource(T animatable) {
-        return this.getModelData((E) animatable).texture();
+        return this.getModelData(animatable).texture();
     }
 
     @Override
     public ResourceLocation getAnimationResource(T animatable) {
-        return this.getModelData((E) animatable).animation();
+        return this.getModelData(animatable).animation();
     }
 }

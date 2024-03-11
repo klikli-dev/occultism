@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.Objects;
 
 
-public class FoliotModel extends DefaultedJobEntityModel<FoliotEntity,FoliotEntity> {
+public class FoliotModel extends DefaultedJobEntityModel<FoliotEntity> {
 
     public final static String ASSET_SUBPATH = "foliot";
 
