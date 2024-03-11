@@ -57,6 +57,11 @@ public class GuideBookItem extends ModonomiconItem {
         //Copied from parent but statically gets DICTIONARY_OF_SPIRITS instead of from nbt
         var itemInHand = pPlayer.getItemInHand(pUsedHand);
 
+        var pTag = itemInHand.getOrCreateTag();
+
+        if (!pTag.contains(ModonomiconConstants.Nbt.ITEM_BOOK_ID_TAG))
+            pTag.putString(ModonomiconConstants.Nbt.ITEM_BOOK_ID_TAG, DICTIONARY_OF_SPIRITS.toString());
+
         if (pLevel.isClientSide) {
 
             if (itemInHand.hasTag()) {

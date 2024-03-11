@@ -9,6 +9,9 @@
     }
   ],
   "result": {
-    "item": "occultism:dictionary_of_spirits"
+    "item": "occultism:dictionary_of_spirits",
+    "nbt": {
+      "modonomicon:book_id": "occultism:dictionary_of_spirits"
+    }
   }
 }
