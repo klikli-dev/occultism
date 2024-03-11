@@ -24,9 +24,9 @@ public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimat
         this.entity_subpath = entity_subpath;
         jobModels = new HashMap<>();
         this.worker = this.buildModelData("worker");
-        for(var job: OccultismSpiritJobs.JOBS.getEntries()) {
-            SpiritJobFactory factory = job.get();
-            jobModels.put(job.getId().toString(), this.buildModelData(factory.client().modelID(),"_"));
+        for(var job: OccultismSpiritJobs.REGISTRY.entrySet()) {
+            SpiritJobFactory factory = job.getValue();
+            jobModels.put(job.getKey().location().toString(), this.buildModelData(factory.client().modelID(),"_"));
         }
     }
 
