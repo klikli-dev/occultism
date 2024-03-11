@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.121.0] - 2024-03-11
+### :sparkles: New Features
+- [`28e43f2`](https://github.com/klikli-dev/occultism/commit/28e43f21b05e6aad8adba5dd61fdb45d96279852) - generalize job models for client ([#1074](https://github.com/klikli-dev/occultism/pull/1074)) - thanks @GaeaKat *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.120.1] - 2024-03-11
 ### :bug: Bug Fixes
 - [`0d11adb`](https://github.com/klikli-dev/occultism/commit/0d11adb71d73b1b77bd6eeb027e16bf59037e129) - dictionary of spirits nbt sanitation not working *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1003,3 +1008,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.119.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.118.0...release/v1.20.4-1.119.0
 [release/v1.20.4-1.120.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.119.0...release/v1.20.4-1.120.0
 [release/v1.20.4-1.120.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.120.0...release/v1.20.4-1.120.1
+[release/v1.20.4-1.121.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.120.1...release/v1.20.4-1.121.0
