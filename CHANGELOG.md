@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.121.1] - 2024-03-11
+### :bug: Bug Fixes
+- [`45a9f33`](https://github.com/klikli-dev/occultism/commit/45a9f33f33be9838938e3d41e93484ce38c7c029) - fix use of registry to properly iterate over new jobs *(PR [#1077](https://github.com/klikli-dev/occultism/pull/1077) by [@GaeaKat](https://github.com/GaeaKat))*
+
+
 ## [release/v1.20.1-1.121.0] - 2024-03-11
 ### :sparkles: New Features
 - [`a174399`](https://github.com/klikli-dev/occultism/commit/a174399d3664257ff3d1a6082e103942bdc644ba) - generalize job models for client ([#1074](https://github.com/klikli-dev/occultism/pull/1074)) - thanks @GaeaKat *(commit by [@GaeaKat](https://github.com/GaeaKat))*
@@ -988,3 +993,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.119.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.118.0...release/v1.20.1-1.119.0
 [release/v1.20.1-1.120.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.119.0...release/v1.20.1-1.120.0
 [release/v1.20.1-1.121.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.120.0...release/v1.20.1-1.121.0
+[release/v1.20.1-1.121.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.121.0...release/v1.20.1-1.121.1
