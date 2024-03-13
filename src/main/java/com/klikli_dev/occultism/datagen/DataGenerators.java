@@ -26,6 +26,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.datagen.lang.ENUSProvider;
 import com.klikli_dev.occultism.datagen.loot.OccultismBlockLoot;
 import com.klikli_dev.occultism.datagen.loot.OccultismEntityLoot;
+import com.klikli_dev.occultism.datagen.loot.OccultismLootModifiers;
 import com.klikli_dev.occultism.datagen.worldgen.OccultismRegistries;
 import com.klikli_dev.theurgy.datagen.advancement.TheurgyAdvancementSubProvider;
 import net.minecraft.data.DataGenerator;
@@ -62,7 +63,7 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new MinerRecipeProvider(generator.getPackOutput()));
         generator.addProvider(event.includeClient(), new ItemModelsGenerator(generator.getPackOutput(), event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new StandardBlockStateProvider(generator.getPackOutput(), event.getExistingFileHelper()));
-
+        generator.addProvider(event.includeClient(), new OccultismLootModifiers(generator.getPackOutput()));
 
         var enUSProvider = new ENUSProvider(generator.getPackOutput());
         generator.addProvider(event.includeServer(), new OccultismBookProvider(generator.getPackOutput(), Occultism.MODID, enUSProvider));
