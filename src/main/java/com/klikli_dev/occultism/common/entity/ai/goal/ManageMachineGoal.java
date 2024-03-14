@@ -198,18 +198,18 @@ public class ManageMachineGoal extends Goal {
     }
 
     public boolean canSeeTarget() {
-        BlockState targetBlockState = this.entity.level().getBlockState(this.targetBlock);
-        ClipContext context = new ClipContext(this.entity.getEyePosition(0),
-                Math3DUtil.center(this.targetBlock), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE,
-                this.entity);
-        BlockHitResult rayTrace = this.entity.level().clip(context);
-
-        if (rayTrace.getType() != BlockHitResult.Type.MISS) {
-            BlockPos sidePos = rayTrace.getBlockPos();
-            BlockPos pos = BlockPos.containing(rayTrace.getLocation());
-            return this.entity.level().isEmptyBlock(sidePos) || this.entity.level().isEmptyBlock(pos) ||
-                    this.entity.level().getBlockEntity(pos) == this.entity.level().getBlockEntity(this.targetBlock);
-        }
+//        BlockState targetBlockState = this.entity.level().getBlockState(this.targetBlock);
+//        ClipContext context = new ClipContext(this.entity.getEyePosition(0),
+//                Math3DUtil.center(this.targetBlock), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE,
+//                this.entity);
+//        BlockHitResult rayTrace = this.entity.level().clip(context);
+//
+//        if (rayTrace.getType() != BlockHitResult.Type.MISS) {
+//            BlockPos sidePos = rayTrace.getBlockPos();
+//            BlockPos pos = BlockPos.containing(rayTrace.getLocation());
+//            return this.entity.level().isEmptyBlock(sidePos) || this.entity.level().isEmptyBlock(pos) ||
+//                    this.entity.level().getBlockEntity(pos) == this.entity.level().getBlockEntity(this.targetBlock);
+//        }
 
         return true;
     }

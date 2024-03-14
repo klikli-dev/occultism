@@ -156,17 +156,17 @@ public class ExtractItemsGoal extends PausableGoal {
 
     public boolean canSeeTarget() {
 
-        ClipContext context = new ClipContext(this.entity.position(),
-                Math3DUtil.center(this.targetBlock), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE,
-                this.entity);
-        BlockHitResult result = this.entity.level().clip(context);
-
-        if (result.getType() != BlockHitResult.Type.MISS) {
-            BlockPos sidePos = result.getBlockPos();
-            BlockPos pos = BlockPos.containing(result.getLocation());
-            return this.entity.level().isEmptyBlock(sidePos) || this.entity.level().isEmptyBlock(pos) ||
-                    this.entity.level().getBlockEntity(pos) == this.entity.level().getBlockEntity(this.targetBlock);
-        }
+//        ClipContext context = new ClipContext(this.entity.position(),
+//                Math3DUtil.center(this.targetBlock), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE,
+//                this.entity);
+//        BlockHitResult result = this.entity.level().clip(context);
+//
+//        if (result.getType() != BlockHitResult.Type.MISS) {
+//            BlockPos sidePos = result.getBlockPos();
+//            BlockPos pos = BlockPos.containing(result.getLocation());
+//            return this.entity.level().isEmptyBlock(sidePos) || this.entity.level().isEmptyBlock(pos) ||
+//                    this.entity.level().getBlockEntity(pos) == this.entity.level().getBlockEntity(this.targetBlock);
+//        }
 
         return true;
     }
