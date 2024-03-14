@@ -139,7 +139,7 @@ public class SoulGemItem extends Item {
             return InteractionResult.FAIL;
 
         //do not capture entities on deny lists
-        if (target.getType().is(OccultismTags.SOUL_GEM_DENY_LIST)) {
+        if (target.getType().is(OccultismTags.Entities.SOUL_GEM_DENY_LIST)) {
             player.sendSystemMessage(
                     Component.translatable(this.getDescriptionId() + ".message.entity_type_denied"));
             return InteractionResult.FAIL;

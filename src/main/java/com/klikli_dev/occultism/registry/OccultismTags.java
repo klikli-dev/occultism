@@ -32,33 +32,101 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 
 public class OccultismTags {
-    // Block Tags
-    public static final TagKey<Block> TREE_SOIL = makeBlockTag(new ResourceLocation(Occultism.MODID, "tree_soil"));
-    public static final TagKey<Block> CAVE_WALL_BLOCKS = makeBlockTag(new ResourceLocation(Occultism.MODID, "cave_wall_blocks"));
-    public static final TagKey<Block> WORLDGEN_BLACKLIST = makeBlockTag(new ResourceLocation(Occultism.MODID, "worldgen_blacklist"));
-    public static final TagKey<Block> NETHERRACK = makeBlockTag(new ResourceLocation(Occultism.MODID, "netherrack"));
-    public static final TagKey<Block> CANDLES = makeBlockTag(new ResourceLocation("minecraft", "candles"));
+    public static class Blocks {
 
-    //Item Tags
-    public static final TagKey<Item> OTHERWORLD_GOGGLES = makeItemTag(new ResourceLocation(Occultism.MODID, "otherworld_goggles"));
-    public static final TagKey<Item> ELYTRA = makeItemTag(new ResourceLocation(Occultism.MODID, "elytra"));
-    public static final TagKey<Item> FRUITS = makeItemTag(new ResourceLocation("forge", "fruits"));
+        // Block Tags
+        public static final TagKey<Block> TREE_SOIL = makeBlockTag(new ResourceLocation(Occultism.MODID, "tree_soil"));
+        public static final TagKey<Block> CAVE_WALL_BLOCKS = makeBlockTag(new ResourceLocation(Occultism.MODID, "cave_wall_blocks"));
+        public static final TagKey<Block> WORLDGEN_BLACKLIST = makeBlockTag(new ResourceLocation(Occultism.MODID, "worldgen_blacklist"));
+        public static final TagKey<Block> NETHERRACK = makeBlockTag(new ResourceLocation(Occultism.MODID, "netherrack"));
+        public static final TagKey<Block> CANDLES = makeBlockTag(new ResourceLocation("minecraft", "candles"));
+        public static final TagKey<Block> IESNIUM_ORE = makeBlockTag(new ResourceLocation("forge", "ores/iesnium"));
+        public static final TagKey<Block> SILVER_ORE = makeBlockTag(new ResourceLocation("forge", "ores/silver"));
+        // Storage Bock Tags
+        public static final TagKey<Block> STORAGE_BLOCKS_IESNIUM = makeBlockTag(new ResourceLocation("forge", "storage_blocks/iesnium"));
+        public static final TagKey<Block> STORAGE_BLOCKS_SILVER = makeBlockTag(new ResourceLocation("forge", "storage_blocks/silver"));
+        public static final TagKey<Block> STORAGE_BLOCKS_RAW_IESNIUM = makeBlockTag(new ResourceLocation("forge", "storage_blocks/raw_iesnium"));
+        public static final TagKey<Block> STORAGE_BLOCKS_RAW_SILVER = makeBlockTag(new ResourceLocation("forge", "storage_blocks/raw_silver"));
 
-    //Entity Tags
-    public static final TagKey<EntityType<?>> SOUL_GEM_DENY_LIST = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "soul_gem_deny_list"));
-    public static final TagKey<EntityType<?>> AFRIT_ALLIES = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "afrit_allies"));
-    public static final TagKey<EntityType<?>> WILD_HUNT = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "wild_hunt"));
+    }
 
-    public static final TagKey<EntityType<?>> HEALED_BY_DEMONS_DREAM_FRUIT = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "healed_by_demons_dream_fruit"));
+    public static class Items {
 
 
-    public static final TagKey<EntityType<?>> CHICKEN = makeEntityTypeTag(new ResourceLocation("forge", "chicken"));
-    public static final TagKey<EntityType<?>> PARROTS = makeEntityTypeTag(new ResourceLocation("forge", "parrots"));
-    public static final TagKey<EntityType<?>> PIGS = makeEntityTypeTag(new ResourceLocation("forge", "pigs"));
-    public static final TagKey<EntityType<?>> COWS = makeEntityTypeTag(new ResourceLocation("forge", "cows"));
-    public static final TagKey<EntityType<?>> VILLAGERS = makeEntityTypeTag(new ResourceLocation("forge", "villagers"));
-    public static final TagKey<EntityType<?>> ZOMBIES = makeEntityTypeTag(new ResourceLocation("forge", "zombies"));
-    public static final TagKey<EntityType<?>> BATS = makeEntityTypeTag(new ResourceLocation("forge", "bats"));
+
+        public static final TagKey<Item> IESNIUM_ORE = makeItemTag(new ResourceLocation("forge", "ores/iesnium"));
+        public static final TagKey<Item> SILVER_ORE = makeItemTag(new ResourceLocation("forge", "ores/silver"));
+        public static final TagKey<Item> RAW_IESNIUM = makeItemTag(new ResourceLocation("forge", "raw_materials/iesnium"));
+        public static final TagKey<Item> RAW_SILVER = makeItemTag(new ResourceLocation("forge", "raw_materials/silver"));
+        public static final TagKey<Item> STORAGE_BLOCK_IESNIUM = makeItemTag(new ResourceLocation("forge", "storage_blocks/iesnium"));
+        public static final TagKey<Item> STORAGE_BLOCK_SILVER = makeItemTag(new ResourceLocation("forge", "storage_blocks/silver"));
+        public static final TagKey<Item> STORAGE_BLOCK_RAW_IESNIUM = makeItemTag(new ResourceLocation("forge", "storage_blocks/raw_iesnium"));
+        public static final TagKey<Item> STORAGE_BLOCK_RAW_SILVER = makeItemTag(new ResourceLocation("forge", "storage_blocks/raw_silver"));
+
+        // Dusts
+        public static final TagKey<Item> COPPER_DUST=makeItemTag(new ResourceLocation("forge","dusts/copper"));
+        public static final TagKey<Item> END_STONE_DUST=makeItemTag(new ResourceLocation("forge","dusts/end_stone"));
+        public static final TagKey<Item> GOLD_DUST=makeItemTag(new ResourceLocation("forge","dusts/gold"));
+        public static final TagKey<Item> IRON_DUST=makeItemTag(new ResourceLocation("forge","dusts/iron"));
+        public static final TagKey<Item> IESNIUM_DUST=makeItemTag(new ResourceLocation("forge","dusts/iesnium"));
+        public static final TagKey<Item> SILVER_DUST=makeItemTag(new ResourceLocation("forge","dusts/silver"));
+        public static final TagKey<Item> OBSIDIAN_DUST=makeItemTag(new ResourceLocation("forge","dusts/obsidian"));
+
+        public static final TagKey<Item> DATURA_CROP = makeItemTag(new ResourceLocation("forge", "crops/datura"));
+
+        // Ingots
+        public static final TagKey<Item> IESNIUM_INGOT = makeItemTag(new ResourceLocation("forge", "ingots/iesnium"));
+        public static final TagKey<Item> SILVER_INGOT = makeItemTag(new ResourceLocation("forge", "ingots/silver"));
+
+        // Nuggets
+        public static final TagKey<Item> IESNIUM_NUGGET = makeItemTag(new ResourceLocation("forge", "nuggets/iesnium"));
+        public static final TagKey<Item> SILVER_NUGGET = makeItemTag(new ResourceLocation("forge", "nuggets/silver"));
+
+        // Seeds
+        public static final TagKey<Item> DATURA_SEEDS = makeItemTag(new ResourceLocation("forge", "seeds/datura"));
+
+        //Item Tags
+        public static final TagKey<Item> OTHERWORLD_GOGGLES = makeItemTag(new ResourceLocation(Occultism.MODID, "otherworld_goggles"));
+        public static final TagKey<Item> ELYTRA = makeItemTag(new ResourceLocation(Occultism.MODID, "elytra"));
+        public static final TagKey<Item> BOOKS = makeItemTag(new ResourceLocation("forge", "books"));
+        public static final TagKey<Item> FRUITS = makeItemTag(new ResourceLocation("forge", "fruits"));
+        public static final TagKey<Item> TALLOW = makeItemTag(new ResourceLocation("forge", "tallow"));
+
+
+        public static final TagKey<Item> MAGMA = makeItemTag(new ResourceLocation("forge", "magma"));
+
+        public static final TagKey<Item> MANUALS = makeItemTag(new ResourceLocation("forge", "manuals"));
+
+        public static final TagKey<Item> METAL_AXES = makeItemTag(new ResourceLocation("forge", "tools/metal/axes"));
+    }
+
+    public static class Entities {
+        public static final TagKey<EntityType<?>> AXOLOTL = makeEntityTypeTag(new ResourceLocation("forge", "axolotls"));
+        public static final TagKey<EntityType<?>> CHICKEN = makeEntityTypeTag(new ResourceLocation("forge", "chicken"));
+        public static final TagKey<EntityType<?>> PARROTS = makeEntityTypeTag(new ResourceLocation("forge", "parrots"));
+        public static final TagKey<EntityType<?>> PIGS = makeEntityTypeTag(new ResourceLocation("forge", "pigs"));
+        public static final TagKey<EntityType<?>> COWS = makeEntityTypeTag(new ResourceLocation("forge", "cows"));
+        public static final TagKey<EntityType<?>> VILLAGERS = makeEntityTypeTag(new ResourceLocation("forge", "villagers"));
+        public static final TagKey<EntityType<?>> ZOMBIES = makeEntityTypeTag(new ResourceLocation("forge", "zombies"));
+        public static final TagKey<EntityType<?>> BATS = makeEntityTypeTag(new ResourceLocation("forge", "bats"));
+        public static final TagKey<EntityType<?>> SNOW_GOLEM=makeEntityTypeTag(new ResourceLocation("forge", "golems/snow"));
+        public static final TagKey<EntityType<?>> DONKEYS = makeEntityTypeTag(new ResourceLocation("forge", "donkeys"));
+        public static final TagKey<EntityType<?>> FISH = makeEntityTypeTag(new ResourceLocation("forge", "fish"));
+        public static final TagKey<EntityType<?>> GOATS = makeEntityTypeTag(new ResourceLocation("forge", "goats"));
+        public static final TagKey<EntityType<?>> HOGLINS = makeEntityTypeTag(new ResourceLocation("forge", "hoglins"));
+        public static final TagKey<EntityType<?>> HORSES = makeEntityTypeTag(new ResourceLocation("forge", "horses"));
+        public static final TagKey<EntityType<?>> LLAMAS = makeEntityTypeTag(new ResourceLocation("forge", "llamas"));
+        public static final TagKey<EntityType<?>> MULES = makeEntityTypeTag(new ResourceLocation("forge", "mules"));
+        public static final TagKey<EntityType<?>> PANDAS = makeEntityTypeTag(new ResourceLocation("forge", "pandas"));
+        public static final TagKey<EntityType<?>> SHEEP = makeEntityTypeTag(new ResourceLocation("forge", "sheep"));
+        public static final TagKey<EntityType<?>> SPIDERS = makeEntityTypeTag(new ResourceLocation("forge", "spiders"));
+        public static final TagKey<EntityType<?>> SQUID = makeEntityTypeTag(new ResourceLocation("forge", "squid"));
+        //Entity Tags
+        public static final TagKey<EntityType<?>> SOUL_GEM_DENY_LIST = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "soul_gem_deny_list"));
+        public static final TagKey<EntityType<?>> AFRIT_ALLIES = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "afrit_allies"));
+        public static final TagKey<EntityType<?>> WILD_HUNT = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "wild_hunt"));
+        public static final TagKey<EntityType<?>> HEALED_BY_DEMONS_DREAM_FRUIT = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "healed_by_demons_dream_fruit"));
+    }
 
 
     //Biome Tags

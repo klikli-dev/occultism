@@ -150,7 +150,7 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
     }
 
     protected void setBlockSafely(WorldGenLevel level, BlockPos pPos, BlockState pCurrentState, BlockState pNewState, int pFlags) {
-        if (pCurrentState.hasBlockEntity() || pCurrentState.getBlock() == Blocks.BEDROCK || pCurrentState.is(OccultismTags.WORLDGEN_BLACKLIST)) {
+        if (pCurrentState.hasBlockEntity() || pCurrentState.getBlock() == Blocks.BEDROCK || pCurrentState.is(OccultismTags.Blocks.WORLDGEN_BLACKLIST)) {
             return;
         }
         level.setBlock(pPos, pNewState, pFlags);

@@ -117,7 +117,7 @@ public class AfritWildEntity extends Monster implements GeoEntity {
     public boolean isInvulnerableTo(DamageSource source) {
         if (source.is(DamageTypeTags.IS_FIRE))
             return true;
-        TagKey<EntityType<?>> alliesTags = OccultismTags.AFRIT_ALLIES;
+        TagKey<EntityType<?>> alliesTags = OccultismTags.Entities.AFRIT_ALLIES;
 
         //alliesTags should never be null - should in fact be impossible - but somehow for some people sometimes is.
         if (alliesTags != null) {
