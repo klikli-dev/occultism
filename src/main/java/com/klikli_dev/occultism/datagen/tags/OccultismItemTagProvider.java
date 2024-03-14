@@ -3,9 +3,11 @@ package com.klikli_dev.occultism.datagen.tags;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
@@ -13,6 +15,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
+import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -25,6 +28,39 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
         addForgeTags(provider);
         addMinecraftTags(provider);
+        addOccultismTags(provider);
+        addCuriosTags(provider);
+
+    }
+
+
+
+    private void addCuriosTags(HolderLookup.Provider provider) {
+        this.tag(OccultismTags.makeItemTag(new ResourceLocation(CuriosApi.MODID, "belt"))).add(OccultismItems.SATCHEL.get()).replace(false);
+        this.tag(OccultismTags.makeItemTag(new ResourceLocation(CuriosApi.MODID, "hands"))).add(OccultismItems.STORAGE_REMOTE.get()).replace(false);
+        this.tag(OccultismTags.makeItemTag(new ResourceLocation(CuriosApi.MODID, "head"))).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
+        this.tag(OccultismTags.makeItemTag(new ResourceLocation(CuriosApi.MODID, "ring"))).add(OccultismItems.FAMILIAR_RING.get()).replace(false);
+    }
+
+    private void addOccultismTags(HolderLookup.Provider provider) {
+        this.tag(OccultismTags.Items.BOOK_OF_CALLING_FOLIOT)
+                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get())
+                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get())
+                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get()).replace(false);
+        this.tag(OccultismTags.Items.BOOK_OF_CALLING_DJINNI)
+                .add(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get()).replace(false);
+        this.tag(OccultismTags.Items.Miners.BASIC_RESOURCES).add(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get(),
+                OccultismItems.MINER_DEBUG_UNSPECIALIZED.get()).replace(false);
+        this.tag(OccultismTags.Items.Miners.DEEPS).add(OccultismItems.MINER_AFRIT_DEEPS.get(), OccultismItems.MINER_MARID_MASTER.get()).replace(false);
+        this.tag(OccultismTags.Items.Miners.MASTER).add(OccultismItems.MINER_MARID_MASTER.get()).replace(false);
+        this.tag(OccultismTags.Items.Miners.ORES).add(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get(),
+                OccultismItems.MINER_DEBUG_UNSPECIALIZED.get(), OccultismItems.MINER_AFRIT_DEEPS.get(), OccultismItems.MINER_MARID_MASTER.get()).replace(false);
+        this.copy(OccultismTags.Blocks.OTHERWORLD_SAPLINGS,OccultismTags.Items.OTHERWORLD_SAPLINGS);
+        this.tag(OccultismTags.Items.TOOL_KNIVES).add(OccultismItems.BUTCHER_KNIFE.get()).replace(false);
+        this.tag(OccultismTags.Items.ELYTRA).add(Items.ELYTRA).addOptional(new ResourceLocation("mana-and-artifice","spectral_elytra")).replace(false);
+        this.tag(OccultismTags.Items.OTHERWORLD_GOGGLES).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
+
+
 
     }
 

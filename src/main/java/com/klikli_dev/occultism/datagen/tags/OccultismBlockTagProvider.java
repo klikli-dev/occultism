@@ -8,6 +8,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -67,6 +68,17 @@ this.tag(BlockTags.SAPLINGS).addTags(OccultismTags.Blocks.OTHERWORLD_SAPLINGS).r
     private void addOccultismTags(HolderLookup.Provider provider) {
         this.tag(OccultismTags.Blocks.OTHERWORLD_SAPLINGS)
                 .add(OccultismBlocks.OTHERWORLD_SAPLING.get(),OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get()).replace(false);
+        this.tag(OccultismTags.Blocks.OCCULTISM_CANDLES).add(OccultismBlocks.CANDLE_WHITE.get()).replace(false);
+        this.tag(OccultismTags.Blocks.CAVE_WALL_BLOCKS).add(Blocks.STONE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE).replace(false);
+        this.tag(OccultismTags.Blocks.NETHERRACK).add(Blocks.NETHERRACK).replace(false);
+        this.tag(OccultismTags.Blocks.STORAGE_STABILIZER)
+                .add(OccultismBlocks.STORAGE_STABILIZER_TIER1.get())
+                .add(OccultismBlocks.STORAGE_STABILIZER_TIER2.get())
+                .add(OccultismBlocks.STORAGE_STABILIZER_TIER3.get())
+                .add(OccultismBlocks.STORAGE_STABILIZER_TIER4.get()).replace(false);
+        this.tag(OccultismTags.Blocks.TREE_SOIL).add(Blocks.DIRT).replace(false);
+        this.tag(OccultismTags.Blocks.WORLDGEN_BLACKLIST).add(Blocks.END_PORTAL,Blocks.END_PORTAL_FRAME).replace(false);
+
     }
 
     private void addForgeTags(HolderLookup.Provider provider) {

@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.datagen.lang.ENUSProvider;
 import com.klikli_dev.occultism.datagen.loot.OccultismBlockLoot;
 import com.klikli_dev.occultism.datagen.loot.OccultismEntityLoot;
 import com.klikli_dev.occultism.datagen.loot.OccultismLootModifiers;
+import com.klikli_dev.occultism.datagen.tags.OccultismBiomeTagProvider;
 import com.klikli_dev.occultism.datagen.tags.OccultismEntityTypeTagProvider;
 import com.klikli_dev.occultism.datagen.tags.OccultismBlockTagProvider;
 import com.klikli_dev.occultism.datagen.tags.OccultismItemTagProvider;
@@ -63,6 +64,7 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), forgeBlockProvider);
         generator.addProvider(event.includeServer(),new OccultismEntityTypeTagProvider(generator.getPackOutput(),event.getLookupProvider(),event.getExistingFileHelper()));
         generator.addProvider(event.includeServer(), new OccultismItemTagProvider(generator.getPackOutput(), event.getLookupProvider(), forgeBlockProvider.contentsGetter(),event.getExistingFileHelper()));
+        generator.addProvider(event.includeServer(), new OccultismBiomeTagProvider(generator.getPackOutput(), event.getLookupProvider(),event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new ItemModelsGenerator(generator.getPackOutput(), event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new StandardBlockStateProvider(generator.getPackOutput(), event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new OccultismLootModifiers(generator.getPackOutput()));
