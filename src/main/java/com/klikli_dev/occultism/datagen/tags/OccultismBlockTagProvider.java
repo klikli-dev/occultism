@@ -54,7 +54,7 @@ this.tag(BlockTags.CROPS).add(OccultismBlocks.DATURA.get()).replace(false);
 this.tag(BlockTags.LEAVES).add(OccultismBlocks.OTHERWORLD_LEAVES.get(),OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get()).replace(false);
 this.tag(BlockTags.LOGS).add(OccultismBlocks.OTHERWORLD_LOG.get(),OccultismBlocks.OTHERWORLD_LOG_NATURAL.get()).replace(false);
 this.tag(BlockTags.PIGLIN_REPELLENTS).add(OccultismBlocks.SPIRIT_CAMPFIRE.get()).replace(false);
-this.tag(BlockTags.SAPLINGS).add(OccultismBlocks.OTHERWORLD_SAPLING.get()).replace(false);
+this.tag(BlockTags.SAPLINGS).addTags(OccultismTags.Blocks.OTHERWORLD_SAPLINGS).replace(false);
     }
 
     @Override
@@ -65,7 +65,8 @@ this.tag(BlockTags.SAPLINGS).add(OccultismBlocks.OTHERWORLD_SAPLING.get()).repla
     }
 
     private void addOccultismTags(HolderLookup.Provider provider) {
-
+        this.tag(OccultismTags.Blocks.OTHERWORLD_SAPLINGS)
+                .add(OccultismBlocks.OTHERWORLD_SAPLING.get(),OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get()).replace(false);
     }
 
     private void addForgeTags(HolderLookup.Provider provider) {

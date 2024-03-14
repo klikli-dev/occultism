@@ -38,6 +38,7 @@ public class OccultismTags {
         public static final TagKey<Block> TREE_SOIL = makeBlockTag(new ResourceLocation(Occultism.MODID, "tree_soil"));
         public static final TagKey<Block> CAVE_WALL_BLOCKS = makeBlockTag(new ResourceLocation(Occultism.MODID, "cave_wall_blocks"));
         public static final TagKey<Block> WORLDGEN_BLACKLIST = makeBlockTag(new ResourceLocation(Occultism.MODID, "worldgen_blacklist"));
+
         public static final TagKey<Block> NETHERRACK = makeBlockTag(new ResourceLocation(Occultism.MODID, "netherrack"));
         public static final TagKey<Block> CANDLES = makeBlockTag(new ResourceLocation("minecraft", "candles"));
         public static final TagKey<Block> IESNIUM_ORE = makeBlockTag(new ResourceLocation("forge", "ores/iesnium"));
@@ -48,7 +49,9 @@ public class OccultismTags {
         public static final TagKey<Block> STORAGE_BLOCKS_RAW_IESNIUM = makeBlockTag(new ResourceLocation("forge", "storage_blocks/raw_iesnium"));
         public static final TagKey<Block> STORAGE_BLOCKS_RAW_SILVER = makeBlockTag(new ResourceLocation("forge", "storage_blocks/raw_silver"));
 
+        public static final TagKey<Block> OTHERWORLD_SAPLINGS = makeBlockTag(new ResourceLocation(Occultism.MODID, "saplings/otherworld"));
     }
+
 
     public static class Items {
 
