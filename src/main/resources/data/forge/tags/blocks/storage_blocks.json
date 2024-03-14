@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "#forge:storage_blocks/iesnium",
-    "#forge:storage_blocks/raw_iesnium",
-    "#forge:storage_blocks/silver",
-    "#forge:storage_blocks/raw_silver"
-  ]
-}

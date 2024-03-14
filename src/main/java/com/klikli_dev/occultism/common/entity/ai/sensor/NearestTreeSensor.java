@@ -43,7 +43,7 @@ public class NearestTreeSensor<E extends SpiritEntity> extends ExtendedSensor<E>
     }
 
     public static boolean isTreeSoil(Level level, BlockPos pos) {
-        return level.getBlockState(pos).is(OccultismTags.TREE_SOIL);
+        return level.getBlockState(pos).is(OccultismTags.Blocks.TREE_SOIL);
     }
 
     public static boolean isLog(Level level, BlockPos pos) {

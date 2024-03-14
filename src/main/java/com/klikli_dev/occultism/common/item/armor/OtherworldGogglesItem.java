@@ -46,7 +46,7 @@ public class OtherworldGogglesItem extends ArmorItem {
 
     public static boolean isGogglesItem(ItemStack stack) {
         return stack.getItem() instanceof OtherworldGogglesItem ||
-                stack.is(OccultismTags.OTHERWORLD_GOGGLES) ||
+                stack.is(OccultismTags.Items.OTHERWORLD_GOGGLES) ||
                 (stack.hasTag() && stack.getTag().getBoolean(NBT_GOGGLES));
     }
 
