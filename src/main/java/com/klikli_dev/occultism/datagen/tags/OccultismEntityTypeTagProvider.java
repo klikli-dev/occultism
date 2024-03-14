@@ -11,13 +11,19 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
-public class OccultismForgeEntityTypeTagProvider extends EntityTypeTagsProvider {
-    public OccultismForgeEntityTypeTagProvider(PackOutput p_256095_, CompletableFuture<HolderLookup.Provider> p_256572_, @Nullable ExistingFileHelper existingFileHelper) {
+public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
+    public OccultismEntityTypeTagProvider(PackOutput p_256095_, CompletableFuture<HolderLookup.Provider> p_256572_, @Nullable ExistingFileHelper existingFileHelper) {
         super(p_256095_, p_256572_, Occultism.MODID, existingFileHelper);
     }
 
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
+        addForgeTags();
+
+
+    }
+
+    private void addForgeTags() {
         this.tag(OccultismTags.Entities.SNOW_GOLEM).add(EntityType.SNOW_GOLEM).replace(false);
         this.tag(OccultismTags.Entities.AXOLOTL).add(EntityType.AXOLOTL).replace(false);
         this.tag(OccultismTags.Entities.BATS).add(EntityType.BAT).replace(false);
@@ -38,7 +44,5 @@ public class OccultismForgeEntityTypeTagProvider extends EntityTypeTagsProvider 
         this.tag(OccultismTags.Entities.SQUID).add(EntityType.SQUID).add(EntityType.GLOW_SQUID).replace(false);
         this.tag(OccultismTags.Entities.VILLAGERS).add(EntityType.VILLAGER).add(EntityType.WANDERING_TRADER).replace(false);
         this.tag(OccultismTags.Entities.ZOMBIES).add(EntityType.ZOMBIE).add(EntityType.ZOMBIE_VILLAGER).add(EntityType.HUSK).add(EntityType.DROWNED).replace(false);
-
-
     }
 }

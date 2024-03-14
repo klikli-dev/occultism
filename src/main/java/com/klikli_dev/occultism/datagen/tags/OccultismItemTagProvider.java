@@ -6,7 +6,8 @@ import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
@@ -15,13 +16,29 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
-public class OccultismForgeItemTagProvider extends ItemTagsProvider {
-    public OccultismForgeItemTagProvider(PackOutput p_275343_, CompletableFuture<HolderLookup.Provider> p_275729_, CompletableFuture<TagLookup<Block>> p_275322_,  @Nullable ExistingFileHelper existingFileHelper) {
+public class OccultismItemTagProvider extends ItemTagsProvider {
+    public OccultismItemTagProvider(PackOutput p_275343_, CompletableFuture<HolderLookup.Provider> p_275729_, CompletableFuture<TagLookup<Block>> p_275322_, @Nullable ExistingFileHelper existingFileHelper) {
         super(p_275343_, p_275729_, p_275322_, Occultism.MODID, existingFileHelper);
     }
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        addForgeTags(provider);
+        addMinecraftTags(provider);
+
+    }
+
+    private void addMinecraftTags(HolderLookup.Provider provider) {
+        this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(OccultismItems.INFUSED_PICKAXE.get(),OccultismItems.INFUSED_PICKAXE.get()).replace(false);
+        this.copy(BlockTags.LEAVES,ItemTags.LEAVES);
+        this.copy(BlockTags.LOGS,ItemTags.LOGS);
+        this.copy(BlockTags.PIGLIN_REPELLENTS,ItemTags.PIGLIN_REPELLENTS);
+        this.copy(BlockTags.SAPLINGS,ItemTags.SAPLINGS);
+        this.tag(ItemTags.PICKAXES).add(OccultismItems.INFUSED_PICKAXE.get(),OccultismItems.INFUSED_PICKAXE.get()).replace(false);
+        this.tag(ItemTags.SWORDS).add(OccultismItems.BUTCHER_KNIFE.get()).replace(false);
+    }
+
+    private void addForgeTags(HolderLookup.Provider provider) {
         // Ore Blocks
         this.copy(OccultismTags.Blocks.IESNIUM_ORE,OccultismTags.Items.IESNIUM_ORE);
         this.copy(OccultismTags.Blocks.SILVER_ORE,OccultismTags.Items.SILVER_ORE);
@@ -81,8 +98,6 @@ public class OccultismForgeItemTagProvider extends ItemTagsProvider {
 
         // Tallow
         this.tag(OccultismTags.Items.TALLOW).add(OccultismItems.TALLOW.get()).replace(false);
-
-
     }
 
     private void addDusts(HolderLookup.Provider provider) {
