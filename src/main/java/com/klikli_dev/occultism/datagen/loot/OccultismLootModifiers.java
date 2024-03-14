@@ -7,6 +7,7 @@ import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
@@ -33,7 +34,7 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
         return builder.build();
     }
 
-    private AddItemModifier tallow(EntityType<?> entityType, int count ) {
+    private AddItemModifier tallow(String entityType, int count ) {
             return new AddItemModifier(
                     new LootItemCondition[]{
                             LootItemEntityPropertyCondition
@@ -41,14 +42,14 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
                                             EntityPredicate.Builder.entity()
                                                     .equipment(mainHand(ItemPredicate.Builder.item().of(OccultismTags.makeItemTag(new ResourceLocation(Occultism.MODID,"tools/knives")))))).build(),
                             LootItemEntityPropertyCondition
-                                    .hasProperties(LootContext.EntityTarget.THIS,EntityPredicate.Builder.entity().of(entityType)).build()
+                                    .hasProperties(LootContext.EntityTarget.THIS,EntityPredicate.Builder.entity().of(OccultismTags.makeEntityTypeTag(new ResourceLocation("forge",entityType)))).build()
                     },OccultismItems.TALLOW.get(),count);
     }
 
     @Override
     protected void start() {
         this.add("datura_seed_from_grass", new AddItemModifier(new LootItemCondition[]{
-                new LootItemRandomChanceCondition(0.2f),
+                new LootItemRandomChanceCondition(0.02f),
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.SHORT_GRASS).build(),
                 new InvertedLootItemCondition(
                         MatchTool.toolMatches(ItemPredicate.Builder.item().of(Tags.Items.SHEARS)).build()
@@ -56,21 +57,21 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
         }, OccultismItems.DATURA_SEEDS.get(),1));
 
         this.add("datura_seed_from_tall_grass",new AddItemModifier(new LootItemCondition[]{
-                new LootItemRandomChanceCondition(0.2f),
+                new LootItemRandomChanceCondition(0.02f),
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.TALL_GRASS).build(),
                 new InvertedLootItemCondition(
                         MatchTool.toolMatches(ItemPredicate.Builder.item().of(Tags.Items.SHEARS)).build()
                 )
         }, OccultismItems.DATURA_SEEDS.get(),1));
-        this.add("tallow_from_cows",tallow(EntityType.COW,4));
-        this.add("tallow_from_donkeys",tallow(EntityType.DONKEY,3));
-        this.add("tallow_from_goats",tallow(EntityType.GOAT,2));
-        this.add("tallow_from_hoglins",tallow(EntityType.HOGLIN,4));
-        this.add("tallow_from_horses",tallow(EntityType.HORSE,3));
-        this.add("tallow_from_llamas",tallow(EntityType.LLAMA,3));
-        this.add("tallow_from_mules",tallow(EntityType.MULE,3));
-        this.add("tallow_from_pandas",tallow(EntityType.PANDA,3));
-        this.add("tallow_from_pigs",tallow(EntityType.PIG,2));
-        this.add("tallow_from_sheep",tallow(EntityType.SHEEP,2));
+        this.add("tallow_from_cows",tallow("cows",4));
+        this.add("tallow_from_donkeys",tallow("donkeys",3));
+        this.add("tallow_from_goats",tallow("goats",2));
+        this.add("tallow_from_hoglins",tallow("hoglins",4));
+        this.add("tallow_from_horses",tallow("horses",3));
+        this.add("tallow_from_llamas",tallow("llamas",3));
+        this.add("tallow_from_mules",tallow("mules",3));
+        this.add("tallow_from_pandas",tallow("pandas",3));
+        this.add("tallow_from_pigs",tallow("pigs",2));
+        this.add("tallow_from_sheep",tallow("sheep",2));
     }
 }

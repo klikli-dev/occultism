@@ -2,7 +2,7 @@
   "type": "occultism:add_item",
   "conditions": [
     {
-      "chance": 0.2,
+      "chance": 0.02,
       "condition": "minecraft:random_chance"
     },
     {
