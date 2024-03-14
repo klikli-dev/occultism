@@ -50,7 +50,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.RAW_IESNIUM_BLOCK.get())
                 .add(OccultismBlocks.SPIRIT_LANTERN.get());
 this.tag(BlockTags.CAMPFIRES).add(OccultismBlocks.SPIRIT_CAMPFIRE.get()).replace(false);
-this.tag(BlockTags.CANDLES).add(OccultismBlocks.CANDLE_WHITE.get()).replace(false);
+this.tag(BlockTags.CANDLES).addTags(OccultismTags.Blocks.CANDLES).replace(false);
 this.tag(BlockTags.CROPS).add(OccultismBlocks.DATURA.get()).replace(false);
 this.tag(BlockTags.LEAVES).add(OccultismBlocks.OTHERWORLD_LEAVES.get(),OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get()).replace(false);
 this.tag(BlockTags.LOGS).add(OccultismBlocks.OTHERWORLD_LOG.get(),OccultismBlocks.OTHERWORLD_LOG_NATURAL.get()).replace(false);
@@ -76,7 +76,7 @@ this.tag(BlockTags.SAPLINGS).addTags(OccultismTags.Blocks.OTHERWORLD_SAPLINGS).r
                 .add(OccultismBlocks.STORAGE_STABILIZER_TIER2.get())
                 .add(OccultismBlocks.STORAGE_STABILIZER_TIER3.get())
                 .add(OccultismBlocks.STORAGE_STABILIZER_TIER4.get()).replace(false);
-        this.tag(OccultismTags.Blocks.TREE_SOIL).add(Blocks.DIRT).replace(false);
+        this.tag(OccultismTags.Blocks.TREE_SOIL).addTags(BlockTags.DIRT).replace(false);
         this.tag(OccultismTags.Blocks.WORLDGEN_BLACKLIST).add(Blocks.END_PORTAL,Blocks.END_PORTAL_FRAME).replace(false);
 
     }
