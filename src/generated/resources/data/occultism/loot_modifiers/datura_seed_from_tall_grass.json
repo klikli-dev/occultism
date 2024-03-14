@@ -1,13 +1,13 @@
 {
   "type": "occultism:add_item",
-  "neoforge:conditions": [
+  "conditions": [
     {
-      "condition": "minecraft:random_chance",
-      "chance": 0.02
+      "chance": 0.02,
+      "condition": "minecraft:random_chance"
     },
     {
-      "condition": "minecraft:block_state_property",
-      "block": "minecraft:grass"
+      "block": "minecraft:tall_grass",
+      "condition": "minecraft:block_state_property"
     },
     {
       "condition": "minecraft:inverted",
@@ -19,6 +19,6 @@
       }
     }
   ],
-  "item": "occultism:datura_seeds",
-  "count": 1
+  "count": 1,
+  "item": "occultism:datura_seeds"
 }

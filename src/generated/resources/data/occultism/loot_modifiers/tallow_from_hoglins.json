@@ -1,6 +1,6 @@
 {
   "type": "occultism:add_item",
-  "neoforge:conditions": [
+  "conditions": [
     {
       "condition": "minecraft:entity_properties",
       "entity": "killer",
@@ -16,10 +16,10 @@
       "condition": "minecraft:entity_properties",
       "entity": "this",
       "predicate": {
-        "type": "#forge:donkeys"
+        "type": "#forge:hoglins"
       }
     }
   ],
-  "item": "occultism:tallow",
-  "count": 3
+  "count": 4,
+  "item": "occultism:tallow"
 }

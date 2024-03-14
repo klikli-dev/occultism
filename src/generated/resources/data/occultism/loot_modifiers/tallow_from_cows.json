@@ -1,6 +1,6 @@
 {
   "type": "occultism:add_item",
-  "neoforge:conditions": [
+  "conditions": [
     {
       "condition": "minecraft:entity_properties",
       "entity": "killer",
@@ -20,6 +20,6 @@
       }
     }
   ],
-  "item": "occultism:tallow",
-  "count": 4
+  "count": 4,
+  "item": "occultism:tallow"
 }
