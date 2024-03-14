@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "minecraft:zombie",
-    "minecraft:zombie_villager",
-    "minecraft:husk",
-    "minecraft:drowned"
-  ]
-}

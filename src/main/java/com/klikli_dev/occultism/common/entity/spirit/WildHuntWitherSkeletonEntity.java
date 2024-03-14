@@ -95,7 +95,7 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeleton {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        TagKey<EntityType<?>> wildHuntTag = OccultismTags.WILD_HUNT;
+        TagKey<EntityType<?>> wildHuntTag = OccultismTags.Entities.WILD_HUNT;
 
         Entity trueSource = source.getEntity();
         if (trueSource != null && trueSource.getType().is(wildHuntTag))

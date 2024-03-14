@@ -367,7 +367,7 @@ public class PentacleProvider implements DataProvider {
         }
 
         private MappingBuilder candle() {
-            return this.tag('C', OccultismTags.CANDLES);
+            return this.tag('C', OccultismTags.Blocks.CANDLES);
         }
 
         private MappingBuilder whiteChalk() {

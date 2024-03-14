@@ -23,19 +23,14 @@
 package com.klikli_dev.occultism.common.entity.job;
 
 import com.google.common.collect.ImmutableList;
-import com.klikli_dev.occultism.api.common.container.IItemStackComparator;
 import com.klikli_dev.occultism.common.entity.ai.behaviour.*;
 import com.klikli_dev.occultism.common.entity.ai.sensor.NearestJobItemSensor;
 import com.klikli_dev.occultism.common.entity.ai.sensor.NearestTreeSensor;
 import com.klikli_dev.occultism.common.entity.ai.sensor.UnreachableTreeWalkTargetSensor;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.klikli_dev.occultism.common.misc.ItemStackComparator;
-import com.klikli_dev.occultism.common.misc.ItemTagComparator;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -118,7 +113,7 @@ public class LumberjackJob extends SpiritJob {
         this.itemsToPickUp.add(Ingredient.of(ItemTags.LOGS));
         this.itemsToPickUp.add(Ingredient.of(ItemTags.LEAVES));
         this.itemsToPickUp.add(Ingredient.of(ItemTags.SAPLINGS));
-        this.itemsToPickUp.add(Ingredient.of(OccultismTags.FRUITS));
+        this.itemsToPickUp.add(Ingredient.of(OccultismTags.Items.FRUITS));
         this.itemsToPickUp.add(Ingredient.of(Items.STICK));
     }
 

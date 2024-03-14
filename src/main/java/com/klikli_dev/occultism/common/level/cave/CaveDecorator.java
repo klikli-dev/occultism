@@ -160,7 +160,7 @@ public abstract class CaveDecorator implements ICaveDecorator {
 
     public boolean isStone(BlockState state) {
         if (state != null) {
-            return state.is(OccultismTags.CAVE_WALL_BLOCKS);
+            return state.is(OccultismTags.Blocks.CAVE_WALL_BLOCKS);
         }
         return false;
     }
