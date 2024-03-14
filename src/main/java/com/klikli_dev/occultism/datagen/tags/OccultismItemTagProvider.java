@@ -29,12 +29,12 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
     }
 
     private void addMinecraftTags(HolderLookup.Provider provider) {
-        this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(OccultismItems.INFUSED_PICKAXE.get(),OccultismItems.INFUSED_PICKAXE.get()).replace(false);
+        this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(OccultismItems.INFUSED_PICKAXE.get(),OccultismItems.IESNIUM_PICKAXE.get()).replace(false);
         this.copy(BlockTags.LEAVES,ItemTags.LEAVES);
         this.copy(BlockTags.LOGS,ItemTags.LOGS);
         this.copy(BlockTags.PIGLIN_REPELLENTS,ItemTags.PIGLIN_REPELLENTS);
         this.copy(BlockTags.SAPLINGS,ItemTags.SAPLINGS);
-        this.tag(ItemTags.PICKAXES).add(OccultismItems.INFUSED_PICKAXE.get(),OccultismItems.INFUSED_PICKAXE.get()).replace(false);
+        this.tag(ItemTags.PICKAXES).add(OccultismItems.INFUSED_PICKAXE.get(),OccultismItems.IESNIUM_PICKAXE.get()).replace(false);
         this.tag(ItemTags.SWORDS).add(OccultismItems.BUTCHER_KNIFE.get()).replace(false);
     }
 
