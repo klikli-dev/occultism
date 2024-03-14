@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.121.4] - 2024-03-14
+### :sparkles: New Features
+- [`021dbe6`](https://github.com/klikli-dev/occultism/commit/021dbe61e820e99023ac0290e6df5cc17f623115) - move Forge Tags to datagen ([#1085](https://github.com/klikli-dev/occultism/pull/1085)) - thanks @GaeaKat *(commit by [@GaeaKat](https://github.com/GaeaKat))*
+
+
 ## [release/v1.20.4-1.121.3] - 2024-03-14
 ### :bug: Bug Fixes
 - [`d372212`](https://github.com/klikli-dev/occultism/commit/d3722122d1a94ee6d621c2c5067c497f74f6d246) - patch out line of sight checks *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1027,3 +1032,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.121.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.121.0...release/v1.20.4-1.121.1
 [release/v1.20.4-1.121.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.121.1...release/v1.20.4-1.121.2
 [release/v1.20.4-1.121.3]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.121.2...release/v1.20.4-1.121.3
+[release/v1.20.4-1.121.4]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.121.3...release/v1.20.4-1.121.4
