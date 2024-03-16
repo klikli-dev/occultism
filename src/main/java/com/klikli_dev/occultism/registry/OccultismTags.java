@@ -38,6 +38,7 @@ public class OccultismTags {
         public static final TagKey<Block> TREE_SOIL = makeBlockTag(new ResourceLocation(Occultism.MODID, "tree_soil"));
         public static final TagKey<Block> CAVE_WALL_BLOCKS = makeBlockTag(new ResourceLocation(Occultism.MODID, "cave_wall_blocks"));
         public static final TagKey<Block> WORLDGEN_BLACKLIST = makeBlockTag(new ResourceLocation(Occultism.MODID, "worldgen_blacklist"));
+
         public static final TagKey<Block> NETHERRACK = makeBlockTag(new ResourceLocation(Occultism.MODID, "netherrack"));
         public static final TagKey<Block> CANDLES = makeBlockTag(new ResourceLocation("minecraft", "candles"));
         public static final TagKey<Block> IESNIUM_ORE = makeBlockTag(new ResourceLocation("forge", "ores/iesnium"));
@@ -48,7 +49,11 @@ public class OccultismTags {
         public static final TagKey<Block> STORAGE_BLOCKS_RAW_IESNIUM = makeBlockTag(new ResourceLocation("forge", "storage_blocks/raw_iesnium"));
         public static final TagKey<Block> STORAGE_BLOCKS_RAW_SILVER = makeBlockTag(new ResourceLocation("forge", "storage_blocks/raw_silver"));
 
+        public static final TagKey<Block> OTHERWORLD_SAPLINGS = makeBlockTag(new ResourceLocation(Occultism.MODID, "saplings/otherworld"));
+        public static final TagKey<Block> OCCULTISM_CANDLES = makeBlockTag(new ResourceLocation(Occultism.MODID, "candles"));
+        public static final TagKey<Block> STORAGE_STABILIZER = makeBlockTag(new ResourceLocation(Occultism.MODID, "storage_stabilizer"));
     }
+
 
     public static class Items {
 
@@ -86,11 +91,14 @@ public class OccultismTags {
         public static final TagKey<Item> DATURA_SEEDS = makeItemTag(new ResourceLocation("forge", "seeds/datura"));
 
         //Item Tags
+        public static final TagKey<Item> TOOL_KNIVES = makeItemTag(new ResourceLocation(Occultism.MODID, "tools/knives"));
         public static final TagKey<Item> OTHERWORLD_GOGGLES = makeItemTag(new ResourceLocation(Occultism.MODID, "otherworld_goggles"));
         public static final TagKey<Item> ELYTRA = makeItemTag(new ResourceLocation(Occultism.MODID, "elytra"));
         public static final TagKey<Item> BOOKS = makeItemTag(new ResourceLocation("forge", "books"));
         public static final TagKey<Item> FRUITS = makeItemTag(new ResourceLocation("forge", "fruits"));
         public static final TagKey<Item> TALLOW = makeItemTag(new ResourceLocation("forge", "tallow"));
+        public static final TagKey<Item> BOOK_OF_CALLING_FOLIOT = makeItemTag(new ResourceLocation(Occultism.MODID, "books/book_of_calling_foliot"));
+        public static final TagKey<Item> BOOK_OF_CALLING_DJINNI = makeItemTag(new ResourceLocation(Occultism.MODID, "books/book_of_calling_djinni"));
 
 
         public static final TagKey<Item> MAGMA = makeItemTag(new ResourceLocation("forge", "magma"));
@@ -98,6 +106,14 @@ public class OccultismTags {
         public static final TagKey<Item> MANUALS = makeItemTag(new ResourceLocation("forge", "manuals"));
 
         public static final TagKey<Item> METAL_AXES = makeItemTag(new ResourceLocation("forge", "tools/metal/axes"));
+        public static final TagKey<Item> OTHERWORLD_SAPLINGS = makeItemTag(new ResourceLocation(Occultism.MODID, "saplings/otherworld"));
+
+        public static class Miners {
+            public static final TagKey<Item> BASIC_RESOURCES = makeItemTag(new ResourceLocation(Occultism.MODID, "miners/basic_resources"));
+            public static final TagKey<Item> DEEPS = makeItemTag(new ResourceLocation(Occultism.MODID, "miners/deeps"));
+            public static final TagKey<Item> MASTER = makeItemTag(new ResourceLocation(Occultism.MODID, "miners/master"));
+            public static final TagKey<Item> ORES = makeItemTag(new ResourceLocation(Occultism.MODID,"miners/ores"));
+        }
     }
 
     public static class Entities {
@@ -126,6 +142,9 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> AFRIT_ALLIES = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "afrit_allies"));
         public static final TagKey<EntityType<?>> WILD_HUNT = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "wild_hunt"));
         public static final TagKey<EntityType<?>> HEALED_BY_DEMONS_DREAM_FRUIT = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "healed_by_demons_dream_fruit"));
+        public static final TagKey<EntityType<?>> CUBEMOB = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "cubemob"));
+        public static final TagKey<EntityType<?>> FLYING_PASSIVE = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "flying_passive"));
+        public static final TagKey<EntityType<?>> HUMANS = makeEntityTypeTag(new ResourceLocation(Occultism.MODID, "humans"));
     }
 
 
