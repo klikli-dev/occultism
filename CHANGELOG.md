@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.122.1] - 2024-03-16
+### :bug: Bug Fixes
+- [`1102c55`](https://github.com/klikli-dev/occultism/commit/1102c55962e16db8480e0cae8d46b93d084c5208) - made candle tag no longer recursive. *(PR [#1089](https://github.com/klikli-dev/occultism/pull/1089) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.122.0] - 2024-03-16
 ### :sparkles: New Features
 - [`8c664dc`](https://github.com/klikli-dev/occultism/commit/8c664dcf6d5f8c5688975f88287e436902cd3099) - move all tags to datagen *(PR [#1086](https://github.com/klikli-dev/occultism/pull/1086) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1042,3 +1047,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.121.3]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.121.2...release/v1.20.4-1.121.3
 [release/v1.20.4-1.121.4]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.121.3...release/v1.20.4-1.121.4
 [release/v1.20.4-1.122.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.121.4...release/v1.20.4-1.122.0
+[release/v1.20.4-1.122.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.122.0...release/v1.20.4-1.122.1
