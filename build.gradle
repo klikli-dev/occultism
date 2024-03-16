@@ -201,7 +201,6 @@ dependencies {
     if(System.getenv("EMI") == "true") {
         runtimeOnly fg.deobf("dev.emi:emi-forge:${emi_version}")
     }
-    //runtimeOnly fg.deobf("dev.emi:emi-forge:${emi_version}")
 
     //runtime only helper mods for dev env, placed in ./runtime-mods, example: Hwyla-forge-1.10.11-B78_1.16.2.jar
     //runtimeOnly fg.deobf("ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2")

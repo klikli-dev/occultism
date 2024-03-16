@@ -3070,6 +3070,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlockTag(OccultismTags.Blocks.STORAGE_STABILIZER,"Storage Stabilizer Blocks");
         this.addBlockTag(OccultismTags.Blocks.TREE_SOIL,"Tree Soil Blocks");
         this.addBlockTag(OccultismTags.Blocks.WORLDGEN_BLACKLIST,"Worldgen Blacklisted Blocks");
+        this.addBlockTag(OccultismTags.Blocks.IESNIUM_ORE,"Iesnium Ore");
+        this.addBlockTag(OccultismTags.Blocks.SILVER_ORE,"Silver Ore");
+        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_IESNIUM,"Iesnium Storage Blocks");
+        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_SILVER,"Silver Storage Blocks");
+        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_RAW_IESNIUM,"Raw Iesnium Storage Blocks");
+        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_RAW_SILVER,"Raw Silver Storage Blocks");
 
 
         // Item tags
@@ -3084,6 +3090,29 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.ELYTRA,"Elytras");
         this.addItemTag(OccultismTags.Items.OTHERWORLD_GOGGLES,"Otherworld Goggles");
         this.addItemTag(OccultismTags.Items.DATURA_SEEDS,"Demon's Dream Seeds");
+        this.addItemTag(OccultismTags.Items.DATURA_CROP,"Demon's Dream");
+        this.addItemTag(OccultismTags.Items.COPPER_DUST,"Copper Dust");
+        this.addItemTag(OccultismTags.Items.GOLD_DUST,"Gold Dust");
+        this.addItemTag(OccultismTags.Items.IESNIUM_DUST,"Iesnium Dust");
+        this.addItemTag(OccultismTags.Items.IRON_DUST,"Iron Dust");
+        this.addItemTag(OccultismTags.Items.SILVER_DUST,"Silver Dust");
+        this.addItemTag(OccultismTags.Items.END_STONE_DUST,"Crushed End Stone");
+        this.addItemTag(OccultismTags.Items.OBSIDIAN_DUST,"Crushed Obsidian");
+        this.addItemTag(OccultismTags.Items.IESNIUM_INGOT,"Iesnium Ingot");
+        this.addItemTag(OccultismTags.Items.SILVER_INGOT,"Silver Ingot");
+        this.addItemTag(OccultismTags.Items.IESNIUM_NUGGET,"Iesnium Nugget");
+        this.addItemTag(OccultismTags.Items.SILVER_NUGGET,"Silver Nugget");
+        this.addItemTag(OccultismTags.Items.IESNIUM_ORE,"Iesnium Ore");
+        this.addItemTag(OccultismTags.Items.SILVER_ORE,"Silver Ore");
+        this.addItemTag(OccultismTags.Items.RAW_IESNIUM,"Raw Iesnium");
+        this.addItemTag(OccultismTags.Items.RAW_SILVER,"Raw Silver");
+        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_IESNIUM,"Iesnium Storage Blocks");
+        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_SILVER,"Silver Storage Blocks");
+        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM,"Raw Iesnium Storage Blocks");
+        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER,"Raw Silver Storage Blocks");
+        this.addItemTag(OccultismTags.Items.TALLOW,"Tallow");
+        this.addItemTag(OccultismTags.Items.METAL_AXES,"Metal Axes");
+        this.addItemTag(OccultismTags.Items.MAGMA,"Magma");
     }
 
     private void addItemTag(ResourceLocation resourceLocation, String string) {
