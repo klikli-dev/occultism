@@ -16,6 +16,7 @@ import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePa
 public class FamiliarRitualsCategory extends CategoryProvider {
 
     public static final String CATEGORY_ID = "familiar_rituals";
+
     public FamiliarRitualsCategory(BookProvider parent) {
         super(parent, CATEGORY_ID);
     }
@@ -37,47 +38,47 @@ public class FamiliarRitualsCategory extends CategoryProvider {
 
     @Override
     protected void generateEntries() {
-        var overview = this.add(this.makeFamiliarsRitualsOverviewEntry(entryMap, 'o'));
-        var returnToRituals = this.add(this.makeReturnToRitualsEntry(entryMap, 'r'));
+        var overview = this.add(this.makeFamiliarsRitualsOverviewEntry(this.entryMap, 'o'));
+        var returnToRituals = this.add(this.makeReturnToRitualsEntry(this.entryMap, 'r'));
         returnToRituals.withParent(BookEntryParentModel.create(overview.getId()));
         returnToRituals.withCondition(BookTrueConditionModel.create());
 
         var resurrection = new ResurrectionEntry(this).generate('a');
         resurrection.withParent(BookEntryParentModel.create(overview.getId()));
 
-        var familiarBat = this.add(this.makeFamiliarBatEntry(entryMap, 'I'));
+        var familiarBat = this.add(this.makeFamiliarBatEntry(this.entryMap, 'I'));
         familiarBat.withParent(BookEntryParentModel.create(overview.getId()));
-        var familiarBeaver = this.add(this.makeFamiliarBeaverEntry(entryMap, 'J'));
+        var familiarBeaver = this.add(this.makeFamiliarBeaverEntry(this.entryMap, 'J'));
         familiarBeaver.withParent(BookEntryParentModel.create(overview.getId()));
-        var familiarBeholder = this.add(this.makeFamiliarBeholderEntry(entryMap, 'K'));
+        var familiarBeholder = this.add(this.makeFamiliarBeholderEntry(this.entryMap, 'K'));
         familiarBeholder.withParent(BookEntryParentModel.create(overview.getId()));
-        var familiarBlacksmith = this.add(this.makeFamiliarBlacksmithEntry(entryMap, 'L'));
+        var familiarBlacksmith = this.add(this.makeFamiliarBlacksmithEntry(this.entryMap, 'L'));
         familiarBlacksmith.withParent(BookEntryParentModel.create(overview.getId()));
-        var familiarChimera = this.add(this.makeFamiliarChimeraEntry(entryMap, 'M'));
+        var familiarChimera = this.add(this.makeFamiliarChimeraEntry(this.entryMap, 'M'));
         familiarChimera.withParent(BookEntryParentModel.create(overview.getId()));
-        var familiarCthulhu = this.add(this.makeFamiliarCthulhuEntry(entryMap, 'N'));
+        var familiarCthulhu = this.add(this.makeFamiliarCthulhuEntry(this.entryMap, 'N'));
         familiarCthulhu.withParent(BookEntryParentModel.create(overview.getId()));
-        var familiarDeer = this.add(this.makeFamiliarDeerEntry(entryMap, 'O'));
+        var familiarDeer = this.add(this.makeFamiliarDeerEntry(this.entryMap, 'O'));
         familiarDeer.withParent(BookEntryParentModel.create(overview.getId()));
-        var familiarDevil = this.add(this.makeFamiliarDevilEntry(entryMap, 'P'));
+        var familiarDevil = this.add(this.makeFamiliarDevilEntry(this.entryMap, 'P'));
         familiarDevil.withParent(BookEntryParentModel.create(overview.getId()));
-        var familiarDragon = this.add(this.makeFamiliarDragonEntry(entryMap, 'Q'));
+        var familiarDragon = this.add(this.makeFamiliarDragonEntry(this.entryMap, 'Q'));
         familiarDragon.withParent(BookEntryParentModel.create(overview.getId()));
-        var familiarFairy = this.add(this.makeFamiliarFairyEntry(entryMap, 'R'));
+        var familiarFairy = this.add(this.makeFamiliarFairyEntry(this.entryMap, 'R'));
         familiarFairy.withParent(BookEntryParentModel.create(overview.getId()));
-        var familiarGreedy = this.add(this.makeFamiliarGreedyEntry(entryMap, 'S'));
+        var familiarGreedy = this.add(this.makeFamiliarGreedyEntry(this.entryMap, 'S'));
         familiarGreedy.withParent(BookEntryParentModel.create(overview.getId()));
-        var familiarGuardian = this.add(this.makeFamiliarGuardianEntry(entryMap, 'T'));
+        var familiarGuardian = this.add(this.makeFamiliarGuardianEntry(this.entryMap, 'T'));
         familiarGuardian.withParent(BookEntryParentModel.create(overview.getId()));
-        var familiarHeadlessRatman = this.add(this.makeFamiliarHeadlessRatmanEntry(entryMap, 'U'));
+        var familiarHeadlessRatman = this.add(this.makeFamiliarHeadlessRatmanEntry(this.entryMap, 'U'));
         familiarHeadlessRatman.withParent(BookEntryParentModel.create(overview.getId()));
-        var familiarMummy = this.add(this.makeFamiliarMummyEntry(entryMap, 'V'));
+        var familiarMummy = this.add(this.makeFamiliarMummyEntry(this.entryMap, 'V'));
         familiarMummy.withParent(BookEntryParentModel.create(overview.getId()));
-        var familiarOtherworldBird = this.add(this.makeFamiliarOtherworldBirdEntry(entryMap, 'W'));
+        var familiarOtherworldBird = this.add(this.makeFamiliarOtherworldBirdEntry(this.entryMap, 'W'));
         familiarOtherworldBird.withParent(BookEntryParentModel.create(overview.getId()));
-        var familiarParrot = this.add(this.makeFamiliarParrotEntry(entryMap, 'X'));
+        var familiarParrot = this.add(this.makeFamiliarParrotEntry(this.entryMap, 'X'));
         familiarParrot.withParent(BookEntryParentModel.create(overview.getId()));
-        var familiarShubNiggurath = this.add(this.makeFamiliarShubNiggurathEntry(entryMap, 'Y'));
+        var familiarShubNiggurath = this.add(this.makeFamiliarShubNiggurathEntry(this.entryMap, 'Y'));
         familiarShubNiggurath.withParent(BookEntryParentModel.create(overview.getId()));
 
         //add true condition to all entries to enable them by default

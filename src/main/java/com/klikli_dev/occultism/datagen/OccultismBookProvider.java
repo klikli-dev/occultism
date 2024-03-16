@@ -355,8 +355,8 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                    Multiple Demon's Dream fruits or seeds can be compressed into an essence that is much more potent. It *guarantees* the [#](%2$s)Third Eye[#]() and provides it for a longer amount of time, but comes with a lot of (positive and negative) side effects.
-                        """.formatted(DEMONS_DREAM, COLOR_PURPLE)
+                        Multiple Demon's Dream fruits or seeds can be compressed into an essence that is much more potent. It *guarantees* the [#](%2$s)Third Eye[#]() and provides it for a longer amount of time, but comes with a lot of (positive and negative) side effects.
+                            """.formatted(DEMONS_DREAM, COLOR_PURPLE)
         );
 
         this.context().page("recipe_essence");
@@ -371,8 +371,8 @@ public class OccultismBookProvider extends BookProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                    The essence can be purified in spirit fire (more on that later!) to obtain a version free from all negative side effects, while retaining the positive.
-                        """.formatted(DEMONS_DREAM, COLOR_PURPLE)
+                        The essence can be purified in spirit fire (more on that later!) to obtain a version free from all negative side effects, while retaining the positive.
+                            """.formatted(DEMONS_DREAM, COLOR_PURPLE)
         );
 
         this.context().page("recipe_essence_pure");

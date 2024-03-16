@@ -44,11 +44,11 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
         //Guaranteed ender pearl drop for enderman
         this.add(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get(),
                 LootTable.lootTable().withPool(
-                        LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                                .add(LootItem.lootTableItem(Items.ENDER_PEARL)
-                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 3.0F)))
-                                        .apply(LootingEnchantFunction.lootingMultiplier(
-                                                UniformGenerator.between(0.0F, 1.0F)))))
+                                LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                                        .add(LootItem.lootTableItem(Items.ENDER_PEARL)
+                                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 3.0F)))
+                                                .apply(LootingEnchantFunction.lootingMultiplier(
+                                                        UniformGenerator.between(0.0F, 1.0F)))))
                         .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                                 .add(LootItem.lootTableItem(Items.EYE_ARMOR_TRIM_SMITHING_TEMPLATE)
                                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.1f, 1.0F))))));

@@ -770,7 +770,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR_RITUAL, "interrupted", "Resurrection interrupted.");
     }
 
-    public void addRitualMessage(DeferredHolder<RitualFactory,RitualFactory> ritual, String key, String message) {
+    public void addRitualMessage(DeferredHolder<RitualFactory, RitualFactory> ritual, String key, String message) {
         this.add("ritual.%s.%s".formatted(ritual.getId().getNamespace(), ritual.getId().getPath()) + "." + key, message);
     }
 

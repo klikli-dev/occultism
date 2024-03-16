@@ -5,7 +5,6 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookEntityPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
@@ -44,15 +43,15 @@ public class ResurrectionEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Resurrection");
         this.pageText("""
-                The resurrection is a relatively simple process. The soul shard is strengthened with {0} until it is strong enough to allow the familiar to return to the mortal realm and create a new body for itself.
-                \\
-                \\
-                The essence is obtained by growing (lots of) Demon's Dream plants.
-                """,
+                        The resurrection is a relatively simple process. The soul shard is strengthened with {0} until it is strong enough to allow the familiar to return to the mortal realm and create a new body for itself.
+                        \\
+                        \\
+                        The essence is obtained by growing (lots of) Demon's Dream plants.
+                        """,
                 this.itemLink(OccultismItems.OTHERWORLD_ESSENCE.get())
-                );
+        );
 
-        this.page("recipe_essence", () ->BookCraftingRecipePageModel.create()
+        this.page("recipe_essence", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/demons_dream_essence_from_fruit"))
                 .withRecipeId2(this.modLoc("crafting/demons_dream_essence_from_seeds")));
         //no text

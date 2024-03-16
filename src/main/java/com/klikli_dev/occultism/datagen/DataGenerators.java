@@ -27,8 +27,9 @@ import com.klikli_dev.occultism.datagen.lang.ENUSProvider;
 import com.klikli_dev.occultism.datagen.loot.OccultismBlockLoot;
 import com.klikli_dev.occultism.datagen.loot.OccultismEntityLoot;
 import com.klikli_dev.occultism.datagen.loot.OccultismLootModifiers;
-import com.klikli_dev.occultism.datagen.tags.OccultismEntityTypeTagProvider;
+import com.klikli_dev.occultism.datagen.tags.OccultismBiomeTagProvider;
 import com.klikli_dev.occultism.datagen.tags.OccultismBlockTagProvider;
+import com.klikli_dev.occultism.datagen.tags.OccultismEntityTypeTagProvider;
 import com.klikli_dev.occultism.datagen.tags.OccultismItemTagProvider;
 import com.klikli_dev.occultism.datagen.worldgen.OccultismRegistries;
 import net.minecraft.data.DataGenerator;
@@ -40,6 +41,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.data.AdvancementProvider;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+
 import java.util.List;
 import java.util.Set;
 
@@ -63,10 +65,12 @@ public class DataGenerators {
 
         generator.addProvider(event.includeServer(), new CrushingRecipeProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new MinerRecipeProvider(generator.getPackOutput()));
-        OccultismBlockTagProvider forgeBlockProvider=new OccultismBlockTagProvider(generator.getPackOutput(),event.getLookupProvider() ,event.getExistingFileHelper());
+        // Forge Tags
+        OccultismBlockTagProvider forgeBlockProvider = new OccultismBlockTagProvider(generator.getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper());
         generator.addProvider(event.includeServer(), forgeBlockProvider);
-        generator.addProvider(event.includeServer(),new OccultismEntityTypeTagProvider(generator.getPackOutput(),event.getLookupProvider(),event.getExistingFileHelper()));
-        generator.addProvider(event.includeServer(), new OccultismItemTagProvider(generator.getPackOutput(), event.getLookupProvider(), forgeBlockProvider.contentsGetter(),event.getExistingFileHelper()));
+        generator.addProvider(event.includeServer(), new OccultismEntityTypeTagProvider(generator.getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper()));
+        generator.addProvider(event.includeServer(), new OccultismItemTagProvider(generator.getPackOutput(), event.getLookupProvider(), forgeBlockProvider.contentsGetter(), event.getExistingFileHelper()));
+        generator.addProvider(event.includeServer(), new OccultismBiomeTagProvider(generator.getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new ItemModelsGenerator(generator.getPackOutput(), event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new StandardBlockStateProvider(generator.getPackOutput(), event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new OccultismLootModifiers(generator.getPackOutput()));
