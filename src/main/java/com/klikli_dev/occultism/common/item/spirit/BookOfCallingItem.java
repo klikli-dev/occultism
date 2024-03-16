@@ -44,6 +44,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -105,6 +106,18 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
     }
     public int modeValue(ItemMode mode) {
         return this.getItemModes().indexOf(mode) ;
+    }
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
+        ItemStack itemStack = pPlayer.getItemInHand(pUsedHand);
+        if(!pPlayer.isShiftKeyDown() && pLevel.isClientSide) {
+            ItemMode curr = this.getCurrentItemMode(itemStack);
+            WorkAreaSize workAreaSize = ItemNBTUtil.getWorkAreaSize(itemStack);
+            GuiHelper.openBookOfCallingGui(curr, workAreaSize);
+        }
+        return super.use(pLevel, pPlayer, pUsedHand);
+
     }
 
     @Override
@@ -178,12 +191,13 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target,
                                                   InteractionHand hand) {
-        if (target.level().isClientSide)
-            return InteractionResult.PASS;
 
         //Ignore anything that is not a spirit
         if (!(target instanceof SpiritEntity targetSpirit))
             return InteractionResult.PASS;
+
+        if (target.level().isClientSide)
+            return InteractionResult.SUCCESS;
 
         //books can only control the spirit that is bound to them.
         if (!targetSpirit.getUUID().equals(ItemNBTUtil.getSpiritEntityUUID(stack))) {
