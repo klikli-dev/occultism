@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.122.0] - 2024-03-16
+### :sparkles: New Features
+- [`4725758`](https://github.com/klikli-dev/occultism/commit/4725758812a672e565b4974bdb8485be503cbf65) - move all tags to datagen *(PR [#1086](https://github.com/klikli-dev/occultism/pull/1086) by [@GaeaKat](https://github.com/GaeaKat))*
+
+### :bug: Bug Fixes
+- [`ee46fc8`](https://github.com/klikli-dev/occultism/commit/ee46fc8a4ee75852754f10abe020c0755e30ece0) - made book work when right clicking thin air. *(PR [#1087](https://github.com/klikli-dev/occultism/pull/1087) by [@GaeaKat](https://github.com/GaeaKat))*
+
+
 ## [release/v1.20.1-1.121.3] - 2024-03-14
 ### :sparkles: New Features
 - [`eda1515`](https://github.com/klikli-dev/occultism/commit/eda15151d53ea69f377fb7990a2ef36e04b72d9e) - move LootModifiers to datagen ([#1083](https://github.com/klikli-dev/occultism/pull/1083)) - thanks @GaeaKat *(commit by [@GaeaKat](https://github.com/GaeaKat))*
@@ -1007,3 +1015,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.121.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.121.0...release/v1.20.1-1.121.1
 [release/v1.20.1-1.121.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.121.1...release/v1.20.1-1.121.2
 [release/v1.20.1-1.121.3]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.121.2...release/v1.20.1-1.121.3
+[release/v1.20.1-1.122.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.121.3...release/v1.20.1-1.122.0
