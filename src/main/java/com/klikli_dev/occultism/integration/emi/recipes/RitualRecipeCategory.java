@@ -22,6 +22,7 @@ import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.Nullable;
 
@@ -56,7 +57,16 @@ public class RitualRecipeCategory implements EmiRecipe {
 
     @Override
     public List<EmiStack> getOutputs() {
-        return List.of(EmiStack.of(recipe.getResultItem(Minecraft.getInstance().level.registryAccess())));
+        List<EmiStack> outputs = new ArrayList<>();
+        outputs.add(EmiStack.of(recipe.getResultItem(Minecraft.getInstance().level.registryAccess())));
+        if(recipe.getEntityToSummon()!=null) {
+            for(SpawnEggItem egg:SpawnEggItem.eggs()) {
+                if(egg.getType(null).equals(recipe.getEntityToSummon())) {
+                    outputs.add(EmiStack.of(egg));
+                }
+            }
+        }
+        return outputs;
     }
 
     @Override

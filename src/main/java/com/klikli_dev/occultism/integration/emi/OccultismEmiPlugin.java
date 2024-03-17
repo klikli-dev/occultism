@@ -37,9 +37,9 @@ public class OccultismEmiPlugin implements EmiPlugin {
     public static final EmiStack GOLDEN_SACRIFICIAL_BOWL = EmiStack.of(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get());
     public static final ResourceLocation EMI_WIDGETS = new ResourceLocation(Occultism.MODID, "textures/gui/emi/widgets.png");
     public static final EmiRecipeCategory SPIRIT_FIRE_CATEGORY = new EmiRecipeCategory(new ResourceLocation(Occultism.MODID, "spirit_fire"),SPIRIT_FIRE, new EmiTexture(EMI_WIDGETS, 0, 0, 16, 16));
-    public static final EmiRecipeCategory CRUSHING_CATEGORY = new EmiRecipeCategory(new ResourceLocation(Occultism.MODID, "crushing"), new SpiritRenderable<FoliotEntity>(OccultismEntities.FOLIOT.get()), new EmiTexture(EMI_WIDGETS, 16, 0, 16, 16));
-    public static final EmiRecipeCategory MINER_CATEGORY = new EmiRecipeCategory(new ResourceLocation(Occultism.MODID, "miner"), DIMENSIONAL_MINESHAFT, new EmiTexture(EMI_WIDGETS, 32, 0, 16, 16));
-    public static final EmiRecipeCategory RITUAL_CATEGORY = new EmiRecipeCategory(new ResourceLocation(Occultism.MODID, "ritual"),GOLDEN_SACRIFICIAL_BOWL , new EmiTexture(EMI_WIDGETS, 48, 0, 16, 16));
+    public static final EmiRecipeCategory CRUSHING_CATEGORY = new EmiRecipeCategory(new ResourceLocation(Occultism.MODID, "crushing"), new SpiritRenderable<FoliotEntity>(OccultismEntities.FOLIOT.get()), new EmiTexture(EMI_WIDGETS, 32, 0, 16, 16));
+    public static final EmiRecipeCategory MINER_CATEGORY = new EmiRecipeCategory(new ResourceLocation(Occultism.MODID, "miner"), DIMENSIONAL_MINESHAFT, new EmiTexture(EMI_WIDGETS, 48, 0, 16, 16));
+    public static final EmiRecipeCategory RITUAL_CATEGORY = new EmiRecipeCategory(new ResourceLocation(Occultism.MODID, "ritual"),GOLDEN_SACRIFICIAL_BOWL , new EmiTexture(EMI_WIDGETS, 64, 0, 16, 16));
 
     @Override
     public void initialize(EmiInitRegistry registry) {
