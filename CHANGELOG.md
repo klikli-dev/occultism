@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.123.0] - 2024-03-17
+### :sparkles: New Features
+- [`c01097d`](https://github.com/klikli-dev/occultism/commit/c01097df3b122ac3a010d1380c9304b7b056fd84) - Add native EMI support to Occultism ([#1090](https://github.com/klikli-dev/occultism/pull/1090)) - thanks @GaeaKat *(commit by [@GaeaKat](https://github.com/GaeaKat))*
+- [`3fa1404`](https://github.com/klikli-dev/occultism/commit/3fa14045ac3ab91ba2574cc4c86b84b0ba1f7f39) - New Crowdin updates *(PR [#1036](https://github.com/klikli-dev/occultism/pull/1036) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`e29b3c8`](https://github.com/klikli-dev/occultism/commit/e29b3c8092aa3008d5d88b1b3c05ab3a71615c7c) - remove raw silver recipe from defaulted recipes *(PR [#1092](https://github.com/klikli-dev/occultism/pull/1092) by [@GaeaKat](https://github.com/GaeaKat))*
+
+
 ## [release/v1.20.1-1.122.1] - 2024-03-16
 ### :bug: Bug Fixes
 - [`aa3bd1f`](https://github.com/klikli-dev/occultism/commit/aa3bd1f9ca0e1f527c88e279f4a5b9a141e9b431) - made candle tag no longer recursive. *(PR [#1089](https://github.com/klikli-dev/occultism/pull/1089) by [@GaeaKat](https://github.com/GaeaKat))*
@@ -1022,3 +1031,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.121.3]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.121.2...release/v1.20.1-1.121.3
 [release/v1.20.1-1.122.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.121.3...release/v1.20.1-1.122.0
 [release/v1.20.1-1.122.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.122.0...release/v1.20.1-1.122.1
+[release/v1.20.1-1.123.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.122.1...release/v1.20.1-1.123.0
