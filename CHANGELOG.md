@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.123.0] - 2024-03-17
+### :sparkles: New Features
+- [`82f5c8a`](https://github.com/klikli-dev/occultism/commit/82f5c8af0f820cff0dc5d571613668ee35974a59) - add EMI to 1.20.4 ([#1091](https://github.com/klikli-dev/occultism/pull/1091)) - thanks @GaeaKat *(commit by [@GaeaKat](https://github.com/GaeaKat))*
+- [`da1ff3d`](https://github.com/klikli-dev/occultism/commit/da1ff3df1a9cb02604fabd190910a7c3a4db96b4) - New Crowdin updates *(PR [#1036](https://github.com/klikli-dev/occultism/pull/1036) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.122.1] - 2024-03-16
 ### :bug: Bug Fixes
 - [`1102c55`](https://github.com/klikli-dev/occultism/commit/1102c55962e16db8480e0cae8d46b93d084c5208) - made candle tag no longer recursive. *(PR [#1089](https://github.com/klikli-dev/occultism/pull/1089) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1048,3 +1054,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.121.4]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.121.3...release/v1.20.4-1.121.4
 [release/v1.20.4-1.122.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.121.4...release/v1.20.4-1.122.0
 [release/v1.20.4-1.122.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.122.0...release/v1.20.4-1.122.1
+[release/v1.20.4-1.123.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.122.1...release/v1.20.4-1.123.0
