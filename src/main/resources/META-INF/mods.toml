@@ -87,3 +87,9 @@ modId = "jei"
 type = "optional"
 versionRange = "${jei_version_range}"
 side = "BOTH"
+
+[[dependencies.occultism]]
+modId = "emi"
+type = "optional"
+versionRange = "${emi_version_range}"
+side = "BOTH"

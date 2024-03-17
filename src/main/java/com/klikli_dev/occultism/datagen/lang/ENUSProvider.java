@@ -30,16 +30,16 @@ import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.common.ritual.RitualFactory;
 import com.klikli_dev.occultism.datagen.OccultismAdvancementSubProvider;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
-import com.klikli_dev.occultism.registry.OccultismBlocks;
-import com.klikli_dev.occultism.registry.OccultismEntities;
-import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.occultism.registry.OccultismRituals;
+import com.klikli_dev.occultism.registry.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 public class ENUSProvider extends AbstractModonomiconLanguageProvider {
@@ -3058,6 +3058,83 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(((TranslatableContents) OccultismAdvancementSubProvider.descr(name).getContents()).getKey(), s);
     }
 
+    private void addTags() {
+        // Block tags
+        this.addBlockTag(OccultismTags.Blocks.OTHERWORLD_SAPLINGS,"Otherworld Saplings");
+        this.addBlockTag(OccultismTags.Blocks.CANDLES,"Candles");
+        this.addBlockTag(OccultismTags.Blocks.CAVE_WALL_BLOCKS,"Cave Wall Blocks");
+        this.addBlockTag(OccultismTags.Blocks.NETHERRACK,"Netherrack");
+        this.addBlockTag(OccultismTags.Blocks.STORAGE_STABILIZER,"Storage Stabilizer Blocks");
+        this.addBlockTag(OccultismTags.Blocks.TREE_SOIL,"Tree Soil Blocks");
+        this.addBlockTag(OccultismTags.Blocks.WORLDGEN_BLACKLIST,"Worldgen Blacklisted Blocks");
+        this.addBlockTag(OccultismTags.Blocks.IESNIUM_ORE,"Iesnium Ore");
+        this.addBlockTag(OccultismTags.Blocks.SILVER_ORE,"Silver Ore");
+        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_IESNIUM,"Iesnium Storage Blocks");
+        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_SILVER,"Silver Storage Blocks");
+        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_RAW_IESNIUM,"Raw Iesnium Storage Blocks");
+        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_RAW_SILVER,"Raw Silver Storage Blocks");
+
+
+        // Item tags
+        this.addItemTag(OccultismTags.Items.OTHERWORLD_SAPLINGS,"Otherworld Saplings");
+        this.addItemTag(OccultismTags.Items.BOOK_OF_CALLING_DJINNI,"Book of Calling Djinni");
+        this.addItemTag(OccultismTags.Items.BOOK_OF_CALLING_FOLIOT,"Book of Calling Foliot");
+        this.addItemTag(OccultismTags.Items.Miners.BASIC_RESOURCES,"Basic Resource Miners");
+        this.addItemTag(OccultismTags.Items.Miners.DEEPS,"Deepslate Miners");
+        this.addItemTag(OccultismTags.Items.Miners.MASTER,"Rare Resource Miners");
+        this.addItemTag(OccultismTags.Items.Miners.ORES,"General Miners");
+        this.addItemTag(OccultismTags.Items.TOOL_KNIVES,"Knives");
+        this.addItemTag(OccultismTags.Items.ELYTRA,"Elytras");
+        this.addItemTag(OccultismTags.Items.OTHERWORLD_GOGGLES,"Otherworld Goggles");
+        this.addItemTag(OccultismTags.Items.DATURA_SEEDS,"Demon's Dream Seeds");
+        this.addItemTag(OccultismTags.Items.DATURA_CROP,"Demon's Dream");
+        this.addItemTag(OccultismTags.Items.COPPER_DUST,"Copper Dust");
+        this.addItemTag(OccultismTags.Items.GOLD_DUST,"Gold Dust");
+        this.addItemTag(OccultismTags.Items.IESNIUM_DUST,"Iesnium Dust");
+        this.addItemTag(OccultismTags.Items.IRON_DUST,"Iron Dust");
+        this.addItemTag(OccultismTags.Items.SILVER_DUST,"Silver Dust");
+        this.addItemTag(OccultismTags.Items.END_STONE_DUST,"Crushed End Stone");
+        this.addItemTag(OccultismTags.Items.OBSIDIAN_DUST,"Crushed Obsidian");
+        this.addItemTag(OccultismTags.Items.IESNIUM_INGOT,"Iesnium Ingot");
+        this.addItemTag(OccultismTags.Items.SILVER_INGOT,"Silver Ingot");
+        this.addItemTag(OccultismTags.Items.IESNIUM_NUGGET,"Iesnium Nugget");
+        this.addItemTag(OccultismTags.Items.SILVER_NUGGET,"Silver Nugget");
+        this.addItemTag(OccultismTags.Items.IESNIUM_ORE,"Iesnium Ore");
+        this.addItemTag(OccultismTags.Items.SILVER_ORE,"Silver Ore");
+        this.addItemTag(OccultismTags.Items.RAW_IESNIUM,"Raw Iesnium");
+        this.addItemTag(OccultismTags.Items.RAW_SILVER,"Raw Silver");
+        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_IESNIUM,"Iesnium Storage Blocks");
+        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_SILVER,"Silver Storage Blocks");
+        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM,"Raw Iesnium Storage Blocks");
+        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER,"Raw Silver Storage Blocks");
+        this.addItemTag(OccultismTags.Items.TALLOW,"Tallow");
+        this.addItemTag(OccultismTags.Items.METAL_AXES,"Metal Axes");
+        this.addItemTag(OccultismTags.Items.MAGMA,"Magma");
+        this.addItemTag(OccultismTags.Items.BOOKS,"Books");
+        this.addItemTag(OccultismTags.Items.FRUITS,"Fruits");
+    }
+
+    private void addItemTag(ResourceLocation resourceLocation, String string) {
+        this.add("tag.item."+resourceLocation.getNamespace()+"."+resourceLocation.getPath().replace("/","."), string);
+    }
+    private void addBlockTag(TagKey<Block> block, String string) {
+        this.addBlockTag(block.location(),string);
+    }
+    private void addItemTag(TagKey<Item> item, String string) {
+        this.addItemTag(item.location(),string);
+    }
+    private void addBlockTag(ResourceLocation resourceLocation, String string) {
+        this.add("tag.block."+resourceLocation.getNamespace()+"."+resourceLocation.getPath().replace("/","."), string);
+    }
+
+    private void addEmiTranslations() {
+        this.add("emi.category.occultism.spirit_fire","Spirit Fire");
+        this.add("emi.category.occultism.crushing","Crushing");
+        this.add("emi.category.occultism.miner","Dimensional Mineshaft");
+        this.add("emi.category.occultism.ritual","Rituals");
+        this.add("emi.occultism.item_to_use", "Item to use: %s");
+    }
+
     @Override
     protected void addTranslations() {
         this.addAdvancements();
@@ -3077,5 +3154,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addDialogs();
         this.addPentacles();
         this.addModonomiconIntegration();
+        this.addEmiTranslations();
+        this.addTags();
     }
 }
