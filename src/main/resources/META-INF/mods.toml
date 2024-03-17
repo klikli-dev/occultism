@@ -86,3 +86,10 @@ modId = "jei"
 mandatory = false
 versionRange = "${jei_version_range}"
 side = "BOTH"
+
+[[dependencies.occultism]]
+modId = "emi"
+mandatory = false
+versionRange = "${emi_version_range}"
+side = "BOTH"
+
