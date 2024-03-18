@@ -2,53 +2,49 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "rolls": 1,
-      "bonus_rolls": 0,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:prismarine_shard",
           "functions": [
             {
-              "function": "minecraft:set_count",
+              "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "min": 0,
-                "max": 2
+                "max": 2.0,
+                "min": 0.0
               },
-              "add": false
+              "function": "minecraft:set_count"
             },
             {
-              "function": "minecraft:looting_enchant",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 0,
-                "max": 1
-              }
+                "max": 1.0,
+                "min": 0.0
+              },
+              "function": "minecraft:looting_enchant"
             }
-          ]
+          ],
+          "name": "minecraft:prismarine_shard"
         }
-      ]
+      ],
+      "rolls": 1.0
     },
     {
-      "rolls": 1,
-      "bonus_rolls": 0,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 3,
-          "name": "minecraft:cod",
           "functions": [
             {
-              "function": "minecraft:looting_enchant",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 0,
-                "max": 1
-              }
+                "max": 1.0,
+                "min": 0.0
+              },
+              "function": "minecraft:looting_enchant"
             },
             {
-              "function": "minecraft:furnace_smelt",
               "conditions": [
                 {
                   "condition": "minecraft:entity_properties",
@@ -59,55 +55,66 @@
                     }
                   }
                 }
-              ]
+              ],
+              "function": "minecraft:furnace_smelt"
             }
-          ]
+          ],
+          "name": "minecraft:cod",
+          "weight": 3
         },
         {
           "type": "minecraft:item",
-          "weight": 2,
-          "name": "minecraft:prismarine_crystals",
           "functions": [
             {
-              "function": "minecraft:looting_enchant",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 0,
-                "max": 1
-              }
+                "max": 1.0,
+                "min": 0.0
+              },
+              "function": "minecraft:looting_enchant"
             }
-          ]
+          ],
+          "name": "minecraft:prismarine_crystals",
+          "weight": 2
         },
         {
           "type": "minecraft:empty"
         }
-      ]
+      ],
+      "rolls": 1.0
     },
     {
-      "rolls": 1,
-      "bonus_rolls": 0,
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        }
+      ],
       "entries": [
         {
           "type": "minecraft:item",
           "name": "minecraft:wet_sponge"
         }
       ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
       "conditions": [
         {
           "condition": "minecraft:killed_by_player"
+        },
+        {
+          "chance": 0.025,
+          "condition": "minecraft:random_chance_with_looting",
+          "looting_multiplier": 0.01
         }
-      ]
-    },
-    {
-      "rolls": 1,
-      "bonus_rolls": 0,
+      ],
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:gameplay/fishing/fish",
           "functions": [
             {
-              "function": "minecraft:furnace_smelt",
               "conditions": [
                 {
                   "condition": "minecraft:entity_properties",
@@ -118,25 +125,17 @@
                     }
                   }
                 }
-              ]
+              ],
+              "function": "minecraft:furnace_smelt"
             }
-          ]
+          ],
+          "name": "minecraft:gameplay/fishing/fish"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:killed_by_player"
-        },
-        {
-          "condition": "minecraft:random_chance_with_looting",
-          "chance": 0.025,
-          "looting_multiplier": 0.01
-        }
-      ]
+      "rolls": 1.0
     },
     {
-      "rolls": 1,
-      "bonus_rolls": 0,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:empty",
@@ -150,42 +149,47 @@
           "type": "minecraft:item",
           "name": "minecraft:coast_armor_trim_smithing_template"
         }
-      ]
+      ],
+      "rolls": 1.0
     },
     {
-      "rolls": 1,
-      "bonus_rolls": 0,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:nautilus_shell",
           "functions": [
             {
-              "function": "minecraft:set_count",
+              "add": false,
               "count": {
-                "min": 2,
-                "max": 4
-              }
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
             }
-          ]
+          ],
+          "name": "minecraft:nautilus_shell"
         }
-      ]
+      ],
+      "rolls": 1.0
     },
     {
-      "rolls": 1,
-      "bonus_rolls": 0,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:heart_of_the_sea",
           "conditions": [
             {
-              "condition": "minecraft:random_chance",
-              "chance": 0.4
+              "chance": 0.4,
+              "condition": "minecraft:random_chance_with_looting",
+              "looting_multiplier": 0.01
             }
-          ]
+          ],
+          "name": "minecraft:heart_of_the_sea"
         }
-      ]
+      ],
+      "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "occultism:entities/possessed_elder_guardian"
 }
