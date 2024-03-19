@@ -5,14 +5,14 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:ingots/gold"
+        "tag": "forge:dusts/gold"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/gold"
+        "tag": "forge:ingots/gold"
       }
     }
   ],

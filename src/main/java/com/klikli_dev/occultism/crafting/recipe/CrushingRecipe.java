@@ -99,6 +99,7 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
 
     public static class Serializer implements RecipeSerializer<CrushingRecipe> {
 
+
         @Override
         public CrushingRecipe fromJson(ResourceLocation recipeId, JsonObject originalJson) {
             var json = originalJson.deepCopy(); //we are modifying the json, so we need a copy to avoid side effects to e.g. KubeJS

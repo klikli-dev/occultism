@@ -5,19 +5,19 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:gems/emerald"
+        "tag": "forge:dusts/emerald"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/emerald"
+        "tag": "forge:gems/emerald"
       }
     }
   ],
   "crushing_time": 200,
-  "ignore_crushing_multiplier": true,
+  "ignore_crushing_multiplier": false,
   "ingredient": {
     "tag": "forge:gems/emerald"
   },

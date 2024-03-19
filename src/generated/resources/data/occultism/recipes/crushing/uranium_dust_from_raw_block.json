@@ -5,18 +5,18 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:storage_blocks/raw_uranium"
+        "tag": "forge:dusts/uranium"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/uranium"
+        "tag": "forge:storage_blocks/raw_uranium"
       }
     }
   ],
-  "crushing_time": 1600,
+  "crushing_time": 200,
   "ignore_crushing_multiplier": false,
   "ingredient": {
     "tag": "forge:storage_blocks/raw_uranium"

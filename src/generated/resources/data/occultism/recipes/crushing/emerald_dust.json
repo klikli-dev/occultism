@@ -5,14 +5,14 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:ores/emerald"
+        "tag": "forge:dusts/emerald"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/emerald"
+        "tag": "forge:ores/emerald"
       }
     }
   ],

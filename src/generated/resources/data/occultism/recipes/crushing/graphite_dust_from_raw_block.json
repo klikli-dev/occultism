@@ -5,18 +5,18 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:storage_blocks/raw_graphite"
+        "tag": "forge:dusts/graphite"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/graphite"
+        "tag": "forge:storage_blocks/raw_graphite"
       }
     }
   ],
-  "crushing_time": 1600,
+  "crushing_time": 200,
   "ignore_crushing_multiplier": false,
   "ingredient": {
     "tag": "forge:storage_blocks/raw_graphite"

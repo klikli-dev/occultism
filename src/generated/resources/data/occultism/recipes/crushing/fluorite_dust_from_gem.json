@@ -5,19 +5,19 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:gems/fluorite"
+        "tag": "forge:dusts/fluorite"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/fluorite"
+        "tag": "forge:gems/fluorite"
       }
     }
   ],
   "crushing_time": 200,
-  "ignore_crushing_multiplier": true,
+  "ignore_crushing_multiplier": false,
   "ingredient": {
     "tag": "forge:gems/fluorite"
   },

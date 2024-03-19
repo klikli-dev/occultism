@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_sulfur_gem": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:gems/sulfur"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crushing/sulfur_dust_from_gem"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_sulfur_gem",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crushing/sulfur_dust_from_gem"
+    ]
+  },
+  "sends_telemetry_event": true
+}

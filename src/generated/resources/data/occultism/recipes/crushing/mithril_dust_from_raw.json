@@ -5,14 +5,14 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:raw_materials/mithril"
+        "tag": "forge:dusts/mithril"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/mithril"
+        "tag": "forge:raw_materials/mithril"
       }
     }
   ],
