@@ -103,7 +103,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(Tags.Items.NUGGETS).addTags(OccultismTags.Items.IESNIUM_NUGGET,OccultismTags.Items.SILVER_NUGGET).replace(false);
 
         // Seeds
-        this.tag(OccultismTags.Items.DATURA_SEEDS).add(OccultismItems.DATURA.get()).replace(false);
+        this.tag(OccultismTags.Items.DATURA_SEEDS).add(OccultismItems.DATURA_SEEDS.get()).replace(false);
         this.tag(Tags.Items.SEEDS).addTags(OccultismTags.Items.DATURA_SEEDS).replace(false);
 
         // Storage Blocks

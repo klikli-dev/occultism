@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "i": {
+      "tag": "forge:ingots/iesnium"
+    },
+    "s": {
+      "tag": "forge:ingots/silver"
+    }
+  },
+  "pattern": [
+    " s ",
+    "sis",
+    " ss"
+  ],
+  "result": {
+    "item": "occultism:magic_lamp_empty"
+  },
+  "show_notification": true
+}

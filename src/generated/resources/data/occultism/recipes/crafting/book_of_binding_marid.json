@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "b": {
+      "item": "occultism:taboo_book"
+    },
+    "c": {
+      "item": "occultism:purified_ink"
+    },
+    "f": {
+      "item": "occultism:awakened_feather"
+    },
+    "o": {
+      "tag": "forge:dyes/orange"
+    },
+    "p": {
+      "tag": "forge:dyes/purple"
+    }
+  },
+  "pattern": [
+    "cof",
+    "pbp",
+    " o "
+  ],
+  "result": {
+    "item": "occultism:book_of_binding_marid"
+  },
+  "show_notification": true
+}
