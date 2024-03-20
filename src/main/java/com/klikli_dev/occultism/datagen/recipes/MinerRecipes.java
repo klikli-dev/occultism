@@ -27,6 +27,9 @@ public class MinerRecipes extends RecipeProvider {
         makeOreRecipe("amethyst",200,consumer);
         makeOreRecipe("aquamarine",200,consumer);
         makeOreRecipe("ardite",159,consumer);
+        MinerRecipeBuilder.minerRecipe(Ingredient.of(OccultismTags.Items.Miners.ORES),Ingredient.of(OccultismTags.makeItemTag(new ResourceLocation("forge","ores/"+"arcane_crystal"))),200)
+                .unlockedBy("has_miner",has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
+                .save(consumer, new ResourceLocation(Occultism.MODID, "miner/ores/"+"arcane_crystal"));
         makeOreRecipe("beryl",200,consumer);
         makeOreRecipe("boron",199,consumer);
         makeOreRecipe("certus_quartz",187,consumer);
@@ -83,8 +86,14 @@ public class MinerRecipes extends RecipeProvider {
         makeOreRecipe("topaz",200,consumer);
         makeOreRecipe("tungsten",192,consumer);
         makeOreRecipe("uranium",140,consumer);
+        MinerRecipeBuilder.minerRecipe(Ingredient.of(OccultismTags.Items.Miners.ORES),Ingredient.of(OccultismTags.makeItemTag(new ResourceLocation("forge","ores/"+"xpetrified_ore"))),200)
+                .unlockedBy("has_miner",has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
+                .save(consumer, new ResourceLocation(Occultism.MODID, "miner/ores/"+"xpetrified_ore"));
         makeOreRecipe("zinc",186,consumer);
-
+        MinerRecipeBuilder.minerRecipe(Ingredient.of(OccultismTags.Items.Miners.ORES),"forbidden_arcanus:runic_stones",200)
+                .unlockedBy("has_miner",has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
+                .allowEmpty()
+                .save(consumer, new ResourceLocation(Occultism.MODID, "miner/ores/runic_stone"));
 
 
     }
