@@ -56,6 +56,11 @@ public class MinerRecipeCategory implements EmiRecipe {
     }
 
     @Override
+    public boolean supportsRecipeTree() {
+        return false;
+    }
+
+    @Override
     public void addWidgets(WidgetHolder widgetHolder) {
         widgetHolder.addTexture(EmiTexture.EMPTY_ARROW, 26, 1);
         widgetHolder.addSlot(input.get(0), 0, 0);
