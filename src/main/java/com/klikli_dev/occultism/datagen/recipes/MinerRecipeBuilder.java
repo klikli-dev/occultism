@@ -92,6 +92,16 @@ public class MinerRecipeBuilder implements RecipeBuilder {
         this.advancement.parent(new ResourceLocation("recipes/root")).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(resourceLocation)).rewards(AdvancementRewards.Builder.recipe(resourceLocation)).requirements(RequirementsStrategy.OR);
         consumer.accept(new MinerRecipeBuilder.Result(resourceLocation,this.advancement, new ResourceLocation(resourceLocation.getNamespace(),"recipes/miner/"+resourceLocation.getPath()), this.group ==null ? "": this.group, this.serializer, this.ingredient, this.outputItem, this.outputTag, this.weight,this.allowEmpty, this.itemExists));
     }
+
+    public void save(Consumer<FinishedRecipe> p_176499_) {
+       throw new IllegalStateException("Recipe must be saved with a unique ID");
+    }
+
+
+    public void save(Consumer<FinishedRecipe> p_176501_, String p_176502_) {
+        throw new IllegalStateException("Recipe must be saved with a unique ID");
+    }
+
     private void ensureValid(ResourceLocation id) {
         if (this.advancement.getCriteria().isEmpty()) {
             throw new IllegalStateException("No way of obtaining recipe " + id);
