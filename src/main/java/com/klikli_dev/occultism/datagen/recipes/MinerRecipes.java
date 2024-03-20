@@ -92,7 +92,6 @@ public class MinerRecipes extends RecipeProvider {
         makeOreRecipe("zinc",186,consumer);
         MinerRecipeBuilder.minerRecipe(Ingredient.of(OccultismTags.Items.Miners.ORES),"forbidden_arcanus:runic_stones",200)
                 .unlockedBy("has_miner",has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
-                .allowEmpty()
                 .save(consumer, new ResourceLocation(Occultism.MODID, "miner/ores/runic_stone"));
 
 
