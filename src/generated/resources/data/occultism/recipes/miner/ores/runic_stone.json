@@ -1,0 +1,10 @@
+{
+  "type": "occultism:miner",
+  "ingredient": {
+    "tag": "occultism:miners/ores"
+  },
+  "result": {
+    "tag": "forbidden_arcanus:runic_stones"
+  },
+  "weight": 200
+}
