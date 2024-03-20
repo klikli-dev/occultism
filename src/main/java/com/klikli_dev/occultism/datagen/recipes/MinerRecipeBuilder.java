@@ -26,19 +26,37 @@ public class MinerRecipeBuilder implements RecipeBuilder {
     private final RecipeSerializer<MinerRecipe> serializer;
 
     private final Ingredient ingredient;
-    private final Ingredient output;
+    @Nullable
+    private final ResourceLocation outputItem;
+    @Nullable
+    private final String outputTag;
     private final int weight;
     private boolean allowEmpty;
+    private boolean itemExists;
 
-    public MinerRecipeBuilder(Ingredient ingredient, Ingredient output, int weight) {
+    public MinerRecipeBuilder(Ingredient ingredient, @Nullable ResourceLocation outputItem, @Nullable String outputTag, int weight) {
         this.serializer = MinerRecipe.SERIALIZER;
         this.ingredient = ingredient;
-        this.output = output;
+        this.outputItem = outputItem;
+        this.outputTag = outputTag;
         this.weight = weight;
         this.allowEmpty=false;
+        this.itemExists=false;
     }
     public static MinerRecipeBuilder minerRecipe(Ingredient ingredient, Ingredient output, int weight) {
-        return new MinerRecipeBuilder(ingredient, output, weight);
+        if(output.values.length==1 && output.values[0] instanceof Ingredient.ItemValue) {
+           var item=output.getItems()[0].getItem().builtInRegistryHolder().key().location();
+            return new MinerRecipeBuilder(ingredient, item, null, weight);
+        } else if(output.values.length==1 && output.values[0] instanceof Ingredient.TagValue) {
+            return new MinerRecipeBuilder(ingredient, null, ((Ingredient.TagValue) output.values[0]).tag.location().toString(), weight);
+        }
+        return null;
+    }
+    public static MinerRecipeBuilder minerRecipe(Ingredient ingredient, ResourceLocation output, int weight) {
+        return new MinerRecipeBuilder(ingredient, output, null, weight);
+    }
+    public static MinerRecipeBuilder minerRecipe(Ingredient ingredient, String outputTag, int weight) {
+        return new MinerRecipeBuilder(ingredient, null, outputTag, weight);
     }
     @Override
     public MinerRecipeBuilder unlockedBy(String s, CriterionTriggerInstance criterionTriggerInstance) {
@@ -54,8 +72,8 @@ public class MinerRecipeBuilder implements RecipeBuilder {
 
     @Override
     public Item getResult() {
-            if(output.getItems().length==1)
-                return output.getItems()[0].getItem();
+//            if(output.getItems().length==1)
+//                return output.getItems()[0].getItem();
             return null;
     }
 
@@ -64,11 +82,15 @@ public class MinerRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
+    public MinerRecipeBuilder itemExists() {
+        this.itemExists = true;
+        return this;
+    }
     @Override
     public void save(Consumer<FinishedRecipe> consumer, ResourceLocation resourceLocation) {
         this.ensureValid(resourceLocation);
         this.advancement.parent(new ResourceLocation("recipes/root")).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(resourceLocation)).rewards(AdvancementRewards.Builder.recipe(resourceLocation)).requirements(RequirementsStrategy.OR);
-        consumer.accept(new MinerRecipeBuilder.Result(resourceLocation,this.advancement, new ResourceLocation(resourceLocation.getNamespace(),"recipes/miner/"+resourceLocation.getPath()), this.group ==null ? "": this.group, this.serializer, this.ingredient, this.output, this.weight,this.allowEmpty));
+        consumer.accept(new MinerRecipeBuilder.Result(resourceLocation,this.advancement, new ResourceLocation(resourceLocation.getNamespace(),"recipes/miner/"+resourceLocation.getPath()), this.group ==null ? "": this.group, this.serializer, this.ingredient, this.outputItem, this.outputTag, this.weight,this.allowEmpty, this.itemExists));
     }
     private void ensureValid(ResourceLocation id) {
         if (this.advancement.getCriteria().isEmpty()) {
@@ -85,21 +107,27 @@ public class MinerRecipeBuilder implements RecipeBuilder {
         private final RecipeSerializer<MinerRecipe> serializer;
 
         private final Ingredient ingredient;
-        private final Ingredient output;
+        @Nullable
+        private final ResourceLocation outputItem;
+        @Nullable
+        private final String outputTag;
         private final int weight;
 
         private final boolean allowEmpty;
+        private final boolean itemExists;
 
-        public Result(ResourceLocation id,Advancement.Builder advancement,ResourceLocation advancementId, @Nullable String group, RecipeSerializer<MinerRecipe> serializer, Ingredient ingredient, Ingredient output, int weight, boolean allowEmpty) {
+        public Result(ResourceLocation id,Advancement.Builder advancement,ResourceLocation advancementId, @Nullable String group, RecipeSerializer<MinerRecipe> serializer, Ingredient ingredient, ResourceLocation outputItem, String outputTag, int weight, boolean allowEmpty, boolean itemExists) {
             this.id=id;
             this.advancement = advancement;
             this.advancementId=advancementId;
             this.group = group;
             this.serializer = serializer;
             this.ingredient = ingredient;
-            this.output = output;
+            this.outputItem = outputItem;
+            this.outputTag = outputTag;
             this.weight = weight;
             this.allowEmpty=allowEmpty;
+            this.itemExists=itemExists;
         }
         @Override
         public void serializeRecipeData(JsonObject jsonObject) {
@@ -108,24 +136,41 @@ public class MinerRecipeBuilder implements RecipeBuilder {
             }
             jsonObject.add("ingredient", this.ingredient.toJson());
             var output=new JsonObject();
-            if(this.output.values.length==1 && this.output.values[0] instanceof Ingredient.TagValue) {
-                output.addProperty("tag", ((Ingredient.TagValue) this.output.values[0]).tag.location().toString());
+            if(outputTag!=null) {
+                output.addProperty("tag", outputTag);
                 jsonObject.add("result", output);
             }
-            else
-                jsonObject.add("result", ((Ingredient.ItemValue)this.output.values[0]).serialize());
+            else {
+                var item = new JsonObject();
+                item.addProperty("item", outputItem.toString());
+
+                jsonObject.add("result", item);
+            }
 
             if(!this.allowEmpty){
                 var conditions=new JsonArray();
-                if(this.output.values.length==1 && this.output.values[0] instanceof Ingredient.TagValue){
-                    conditions.add(makeTagNotEmptyCondition(((Ingredient.TagValue)this.output.values[0]).tag.location().toString()));
+                if(this.outputTag!=null){
+                    conditions.add(makeTagNotEmptyCondition(this.outputTag));
                 }
                 // conditions.add(makeTagNotEmptyCondition(this.ingredient.values[0].));
+                jsonObject.add("conditions", conditions);
+            }
+            if(this.itemExists) {
+                var conditions=new JsonArray();
+
+                conditions.add(makeItemExistsCondition(this.outputItem));
                 jsonObject.add("conditions", conditions);
             }
 
             jsonObject.addProperty("weight", this.weight);
 
+        }
+
+        public JsonObject makeItemExistsCondition(ResourceLocation item) {
+            var condition = new JsonObject();
+            condition.addProperty("type", "forge:item_exists");
+            condition.addProperty("item", item.toString());
+            return condition;
         }
 
         public JsonObject makeTagNotEmptyCondition(String tag) {

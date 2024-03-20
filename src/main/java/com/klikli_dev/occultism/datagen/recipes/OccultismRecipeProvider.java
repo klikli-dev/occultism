@@ -39,6 +39,10 @@ public class OccultismRecipeProvider extends RecipeProvider {
             MinerRecipes.deeps(consumer);
             MinerRecipes.master_resources(consumer);
             MinerRecipes.ores(consumer);
+        MinerRecipeBuilder.minerRecipe(Ingredient.of(OccultismItems.DEBUG_WAND.get()),Ingredient.of(OccultismBlocks.OTHERSTONE.get().asItem()),200)
+                .unlockedBy("has_miner",has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
+                .allowEmpty()
+                .save(consumer, new ResourceLocation(Occultism.MODID, "miner/debug_wand"));
     }
 
     private void crushingRecipes(Consumer<FinishedRecipe> consumer) {

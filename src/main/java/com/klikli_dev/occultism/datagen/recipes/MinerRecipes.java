@@ -1,5 +1,6 @@
 package com.klikli_dev.occultism.datagen.recipes;
 
+import com.google.gson.JsonObject;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
@@ -8,6 +9,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -20,8 +22,90 @@ public class MinerRecipes extends RecipeProvider {
 
     public static void ores(Consumer<FinishedRecipe> consumer) {
         makeOreRecipe("agate",200,consumer);
-    }
+        makeOreRecipe("aluminum",422,consumer);
+        makeOreRecipe("amber",184,consumer);
+        makeOreRecipe("amethyst",200,consumer);
+        makeOreRecipe("aquamarine",200,consumer);
+        makeOreRecipe("ardite",159,consumer);
+        makeOreRecipe("beryl",200,consumer);
+        makeOreRecipe("boron",199,consumer);
+        makeOreRecipe("certus_quartz",187,consumer);
+        makeOreRecipe("cinnabar",190,consumer);
+        makeVanillaItemRecipe(Items.CLAY,300,consumer);
+        makeVanillaOreRecipe("coal",1000,consumer);
+        makeOreRecipe("cobalt",163,consumer);
+        makeVanillaOreRecipe("copper",584,consumer);
+        makeVanillaOreRecipe("diamond",218,consumer);
+//        makeOreRecipe("dimensional_shard",127,consumer);
+        makeModOreItemRecipe(new ResourceLocation("rftools","dimensional_shard_ore"),127,consumer);
+        makeModOreItemRecipe(new ResourceLocation("draconicevolution","draconium_ore"),142,consumer);
+        makeOreRecipe("electrotine",155,consumer);
+        makeVanillaOreRecipe("emerald",156,consumer);
+        makeOreRecipe("garnet",200,consumer);
+        makeVanillaItemRecipe(Items.GLOWSTONE,234,consumer);
+        makeVanillaOreRecipe("gold",311,consumer);
+        makeVanillaItemRecipe(Items.GRAVEL,300,consumer);
+        makeOreRecipe("heliodor",200,consumer);
+        makeOreRecipe("indicolite",200,consumer);
+        makeOreRecipe("inferium",190,consumer);
+        makeOreRecipe("iolite",200,consumer);
+        makeVanillaOreRecipe("iron",750,consumer);
+        makeVanillaOreRecipe("lapis",343,consumer);
+        makeOreRecipe("lead",500,consumer);
+        makeOreRecipe("lithium",201,consumer);
+        makeVanillaItemRecipe(Items.MAGMA_BLOCK,300,consumer);
+        makeOreRecipe("magnesium",233,consumer);
+        makeOreRecipe("malachite",200,consumer);
+        makeOreRecipe("mithril",169,consumer);
+        makeOreRecipe("morganite",200,consumer);
+        makeVanillaItemRecipe(Items.NETHER_GOLD_ORE,373,consumer);
+        makeVanillaItemRecipe(Items.NETHER_QUARTZ_ORE,560,consumer);
+        makeOreRecipe("nickel",232,consumer);
+        makeOreRecipe("niter",244,consumer);
+        makeVanillaItemRecipe(Items.OBSIDIAN,300,consumer);
+        makeOreRecipe("onyx",200,consumer);
+        makeOreRecipe("opal",200,consumer);
+        makeOreRecipe("osmium",203,consumer);
+        makeVanillaItemRecipe(OccultismBlocks.OTHERSTONE.get().asItem(),50,consumer);
+        makeOreRecipe("peridot",200,consumer);
+        makeOreRecipe("platinum",150,consumer);
+        makeOreRecipe("prosperity",155,consumer);
+        makeVanillaItemRecipe(Items.REDSTONE_ORE,515,consumer);
+        makeOreRecipe("ruby",200,consumer);
+        makeOreRecipe("salt",160,consumer);
+        makeOreRecipe("sapphire",200,consumer);
+        makeOreRecipe("silver",381,consumer);
+        makeModOreItemRecipe(new ResourceLocation("ae2","sky_stone_block"),50,consumer);
+        makeOreRecipe("sulfur",222,consumer);
+        makeOreRecipe("tanzanite",200,consumer);
+        makeOreRecipe("thorium",222,consumer);
+        makeOreRecipe("tin",602,consumer);
+        makeOreRecipe("topaz",200,consumer);
+        makeOreRecipe("tungsten",192,consumer);
+        makeOreRecipe("uranium",140,consumer);
+        makeOreRecipe("zinc",186,consumer);
 
+
+
+    }
+    public static void makeModOreItemRecipe(ResourceLocation item,int weight, Consumer<FinishedRecipe> consumer) {
+        MinerRecipeBuilder.minerRecipe(Ingredient.of(OccultismTags.Items.Miners.ORES),item,weight)
+                .unlockedBy("has_miner",has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
+                .itemExists()
+                .save(consumer, new ResourceLocation(Occultism.MODID, "miner/ores/"+item.getPath()));
+    }
+    public static void makeVanillaItemRecipe(Item type, int weight, Consumer<FinishedRecipe> consumer) {
+        MinerRecipeBuilder.minerRecipe(Ingredient.of(OccultismTags.Items.Miners.ORES),Ingredient.of(type),weight)
+                .unlockedBy("has_miner",has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
+                .allowEmpty()
+                .save(consumer, new ResourceLocation(Occultism.MODID, "miner/ores/"+getItemName(type)));
+    }
+    public static void makeVanillaOreRecipe(String type,int weight,Consumer<FinishedRecipe> consumer) {
+        MinerRecipeBuilder.minerRecipe(Ingredient.of(OccultismTags.Items.Miners.ORES),Ingredient.of(OccultismTags.makeItemTag(new ResourceLocation("forge","ores/"+type))),weight)
+                .unlockedBy("has_miner",has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
+                .allowEmpty()
+                .save(consumer, new ResourceLocation(Occultism.MODID, "miner/ores/"+type+"_ore"));
+    }
     public static void makeOreRecipe(String type,int weight,Consumer<FinishedRecipe> consumer) {
         MinerRecipeBuilder.minerRecipe(Ingredient.of(OccultismTags.Items.Miners.ORES),Ingredient.of(OccultismTags.makeItemTag(new ResourceLocation("forge","ores/"+type))),weight)
                 .unlockedBy("has_miner",has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
