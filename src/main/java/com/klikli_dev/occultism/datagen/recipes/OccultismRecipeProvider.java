@@ -32,6 +32,20 @@ public class OccultismRecipeProvider extends RecipeProvider {
         crushingRecipes(consumer);
         miningRecipes(consumer);
         spiritFireRecipes(consumer);
+        spiritTradeRecipes(consumer);
+
+    }
+
+    private void spiritTradeRecipes(Consumer<FinishedRecipe> consumer) {
+        SpiritTradeRecipeBuilder.spiritTradeRecipe(Ingredient.of(OccultismItems.OTHERWORLD_SAPLING_NATURAL.get()),new ItemStack(OccultismBlocks.OTHERWORLD_SAPLING.get()))
+                .unlockedBy("has_otherworld_sapling_natural", has(OccultismItems.OTHERWORLD_SAPLING_NATURAL.get()))
+                .save(consumer, new ResourceLocation(Occultism.MODID, "spirit_trade/otherworld_sapling"));
+        SpiritTradeRecipeBuilder.spiritTradeRecipe(Ingredient.of(Tags.Items.STONE),new ItemStack(OccultismBlocks.OTHERSTONE.get(),2))
+                .unlockedBy("has_stone", has(Tags.Items.STONE))
+                .save(consumer, new ResourceLocation(Occultism.MODID, "spirit_trade/stone_to_otherstone"));
+        SpiritTradeRecipeBuilder.spiritTradeRecipe(Ingredient.of(Tags.Items.STONE),new ItemStack(OccultismBlocks.OTHERSTONE.get(),4))
+                .unlockedBy("has_stone", has(Tags.Items.STONE))
+                .save(consumer, new ResourceLocation(Occultism.MODID, "spirit_trade/test"));
 
     }
 
