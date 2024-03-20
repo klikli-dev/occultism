@@ -28,12 +28,22 @@ public class OccultismRecipeProvider extends RecipeProvider {
         craftingRecipes(consumer);
         smeltingRecipes(consumer);
         crushingRecipes(consumer);
+        miningRecipes(consumer);
+    }
+
+    private void miningRecipes(Consumer<FinishedRecipe> consumer) {
+        MinerRecipeBuilder.minerRecipe(Ingredient.of(OccultismTags.Items.Miners.MASTER),Ingredient.of(OccultismTags.makeItemTag(new ResourceLocation("forge","ores/stella_arcanum"))),100)
+                .unlockedBy("has_stella_arcanum_ore", has(OccultismTags.makeItemTag(new ResourceLocation("forge","ores/stella_arcanum"))))
+                .save(consumer, new ResourceLocation(Occultism.MODID, "miner/master/stella_arcanum"));
+            MinerRecipes.basic_resources(consumer);
+            MinerRecipes.deeps(consumer);
+            MinerRecipes.master_resources(consumer);
+            MinerRecipes.ores(consumer);
     }
 
     private void crushingRecipes(Consumer<FinishedRecipe> consumer) {
-        CrushingRecipeBuilder.crushingRecipe(Ingredient.of(OccultismTags.Items.DATURA_CROP), 200)
+        CrushingRecipeBuilder.crushingRecipe(Ingredient.of(OccultismTags.Items.DATURA_CROP),Ingredient.of(OccultismTags.Items.DATURA_SEEDS), 200)
                 .unlockedBy("has_datura", has(OccultismTags.Items.DATURA_CROP))
-                .setOutputTag(OccultismTags.Items.DATURA_SEEDS.location())
                 .setAllowEmpty(false)
                 .setOutputAmount(2)
                 .save(consumer, new ResourceLocation(Occultism.MODID, "crushing/datura"));
@@ -92,70 +102,63 @@ public class OccultismRecipeProvider extends RecipeProvider {
         crushingGemRecipe("topaz",consumer);
         crushingGemRecipe("arcane_crystal",consumer);
 
-        CrushingRecipeBuilder.crushingRecipe(Ingredient.of(Tags.Items.RODS_BLAZE),200)
+        CrushingRecipeBuilder.crushingRecipe(Ingredient.of(Tags.Items.RODS_BLAZE),
+                        Ingredient.of(OccultismTags.Items.BLAZE_DUST),200)
                 .allowEmpty()
                 .unlockedBy("has_blaze_rod", has(Tags.Items.RODS_BLAZE))
-                .setOutputTag(OccultismTags.Items.BLAZE_DUST.location())
+
                 .save(consumer, new ResourceLocation(Occultism.MODID, "crushing/blaze_powder_from_rod"));
 
-        CrushingRecipeBuilder.crushingRecipe(Ingredient.of(Tags.Items.OBSIDIAN),200)
+        CrushingRecipeBuilder.crushingRecipe(Ingredient.of(Tags.Items.OBSIDIAN),Ingredient.of(OccultismTags.Items.OBSIDIAN_DUST),200)
                 .allowEmpty()
                 .unlockedBy("has_obsidian", has(Tags.Items.OBSIDIAN))
-                .setOutputTag(OccultismTags.Items.OBSIDIAN_DUST.location())
                 .save(consumer, new ResourceLocation(Occultism.MODID, "crushing/obsidian_dust"));
-        CrushingRecipeBuilder.crushingRecipe(Ingredient.of(Tags.Items.END_STONES),200)
+        CrushingRecipeBuilder.crushingRecipe(Ingredient.of(Tags.Items.END_STONES),Ingredient.of(OccultismTags.Items.END_STONE_DUST),200)
                 .allowEmpty()
                 .unlockedBy("has_end_stone", has(Tags.Items.END_STONES))
-                .setOutputTag(OccultismTags.Items.END_STONE_DUST.location())
                 .save(consumer, new ResourceLocation(Occultism.MODID, "crushing/end_stone_dust"));
 
     }
 
     private void crushingGemRecipe(String gemName, Consumer<FinishedRecipe> consumer) {
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(new ResourceLocation("forge","ores/"+gemName)),200)
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(new ResourceLocation("forge","ores/"+gemName)),OccultismTags.makeItemTag(new ResourceLocation("forge","dusts/"+gemName)),200)
                 .unlockedBy("has_"+gemName, has(OccultismTags.makeItemTag(new ResourceLocation("forge","ores/"+gemName))))
 .setOutputAmount(4)
-                .setOutputTag(new ResourceLocation("forge","dusts/"+gemName))
                 .setAllowEmpty(false)
                 .save(consumer, new ResourceLocation(Occultism.MODID, "crushing/"+gemName+"_dust"));
 
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(new ResourceLocation("forge","gems/"+gemName)),200)
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(new ResourceLocation("forge","gems/"+gemName)),OccultismTags.makeItemTag(new ResourceLocation("forge","dusts/"+gemName)),200)
                 .unlockedBy("has_"+gemName+"_gem", has(OccultismTags.makeItemTag(new ResourceLocation("forge","gems/"+gemName))))
                 .setOutputAmount(1)
-                .setOutputTag(new ResourceLocation("forge","dusts/"+gemName))
                 .setAllowEmpty(false)
                 .save(consumer, new ResourceLocation(Occultism.MODID, "crushing/"+gemName+"_dust_from_gem"));
 
     }
 
     private void crushingMetalRecipe(String metalName, Consumer<FinishedRecipe> consumer) {
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(new ResourceLocation("forge","ores/"+metalName)),200)
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(new ResourceLocation("forge","ores/"+metalName)),OccultismTags.makeItemTag(new ResourceLocation("forge","dusts/"+metalName)),200)
                 .unlockedBy("has_"+metalName, has(OccultismTags.makeItemTag(new ResourceLocation("forge","ores/"+metalName))))
                 .setOutputAmount(2)
                 .setAllowEmpty(false)
-                .setOutputTag(new ResourceLocation("forge","dusts/"+metalName))
                 .save(consumer, new ResourceLocation(Occultism.MODID, "crushing/"+metalName+"_dust"));
 
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(new ResourceLocation("forge","raw_materials/"+metalName)),200)
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(new ResourceLocation("forge","raw_materials/"+metalName)),OccultismTags.makeItemTag(new ResourceLocation("forge","dusts/"+metalName)),200)
                 .unlockedBy("has_raw_"+metalName, has(OccultismTags.makeItemTag(new ResourceLocation("forge","raw_materials/"+metalName))))
                 .setOutputAmount(2)
                 .setAllowEmpty(false)
-                .setOutputTag(new ResourceLocation("forge","dusts/"+metalName))
                 .save(consumer, new ResourceLocation(Occultism.MODID, "crushing/"+metalName+"_dust_from_raw"));
 
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(new ResourceLocation("forge","storage_blocks/raw_"+metalName)),200)
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(new ResourceLocation("forge","storage_blocks/raw_"+metalName)),OccultismTags.makeItemTag(new ResourceLocation("forge","dusts/"+metalName)),200)
                 .unlockedBy("has_raw_"+metalName+"_block", has(OccultismTags.makeItemTag(new ResourceLocation("forge","storage_blocks/raw_"+metalName))))
                 .setOutputAmount(18)
                 .setAllowEmpty(false)
-                .setOutputTag(new ResourceLocation("forge","dusts/"+metalName))
                 .save(consumer, new ResourceLocation(Occultism.MODID, "crushing/"+metalName+"_dust_from_raw_block"));
 
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(new ResourceLocation("forge","ingots/"+metalName)),200)
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(new ResourceLocation("forge","ingots/"+metalName)),OccultismTags.makeItemTag(new ResourceLocation("forge","dusts/"+metalName)),200)
                 .unlockedBy("has_"+metalName+"_ingot", has(OccultismTags.makeItemTag(new ResourceLocation("forge","ingots/"+metalName))))
                 .setOutputAmount(1)
                 .setAllowEmpty(false)
                 .setIgnoreCrushingMultiplier(true)
-                .setOutputTag(new ResourceLocation("forge","dusts/"+metalName))
                 .save(consumer, new ResourceLocation(Occultism.MODID, "crushing/"+metalName+"_dust_from_ingot"));
 
 

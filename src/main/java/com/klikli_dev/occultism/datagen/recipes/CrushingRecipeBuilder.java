@@ -17,8 +17,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.level.ClipContext;
-import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
@@ -30,30 +28,28 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
     private String group;
     private final RecipeSerializer<CrushingRecipe> serializer;
     private final Ingredient ingredient;
-    @Nullable
-    private ResourceLocation outputTag;
-    @Nullable
-    private Item outputItem;
+    private final Ingredient output;
     private int outputAmount;
     private final int crushingTime;
     private boolean ignoreCrushingMultiplier;
     private int minTier;
     private boolean allowEmpty;
 
-    public CrushingRecipeBuilder(Ingredient ingredient, int crushingTime) {
+    public CrushingRecipeBuilder(Ingredient ingredient, Ingredient output, int crushingTime) {
         this.serializer = OccultismRecipes.CRUSHING.get();
         this.ingredient=ingredient;
         this.allowEmpty=false;
         this.crushingTime=crushingTime;
         this.outputAmount=1;
+        this.output = output;
         minTier=-1;
     }
 
-    public static CrushingRecipeBuilder crushingRecipe(Ingredient ingredient, int crushingTime) {
-        return new CrushingRecipeBuilder(ingredient, crushingTime);
+    public static CrushingRecipeBuilder crushingRecipe(Ingredient ingredient, Ingredient output, int crushingTime) {
+        return new CrushingRecipeBuilder(ingredient, output,crushingTime);
     }
-    public static CrushingRecipeBuilder crushingRecipe(TagKey<Item> ingredient, int crushingTime) {
-        return new CrushingRecipeBuilder(Ingredient.of(ingredient), crushingTime);
+    public static CrushingRecipeBuilder crushingRecipe(TagKey<Item> ingredient, TagKey<Item>  output, int crushingTime) {
+        return new CrushingRecipeBuilder(Ingredient.of(ingredient), Ingredient.of(output), crushingTime);
     }
 
     @Override
@@ -70,13 +66,18 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
 
     @Override
     public Item getResult() {
-        if(outputItem!=null)
-            return outputItem;
-        JsonObject jsonobject = new JsonObject();
-        jsonobject.addProperty("tag", outputTag.toString());
-        Ingredient ingredient = Ingredient.fromJson(jsonobject);
-        var output=new OutputIngredient(ingredient);
-        return output.getStack().getItem();
+        if(output.getItems().length==1)
+            return output.getItems()[0].getItem();
+        return null;
+//        if(output.values.length==1 && output.values[0] instanceof Ingredient.ItemValue)
+//            return ((Ingredient.ItemValue)output.values[0]).getItems().
+//        if(outputItem!=null)
+//            return outputItem;
+//        JsonObject jsonobject = new JsonObject();
+//        jsonobject.addProperty("tag", outputTag.toString());
+//        Ingredient ingredient = Ingredient.fromJson(jsonobject);
+//        var output=new OutputIngredient(ingredient);
+//        return output.getStack().getItem();
     }
 
     public CrushingRecipeBuilder allowEmpty() {
@@ -115,21 +116,13 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
         this.ignoreCrushingMultiplier=ignoreCrushingMultiplier;
         return this;
     }
-    public CrushingRecipeBuilder setOutputItem(Item item) {
-        this.outputItem=item;
-        return this;
-    }
-    public CrushingRecipeBuilder setOutputTag(ResourceLocation item) {
-        this.outputTag=item;
-        return this;
-    }
 
 
     @Override
     public void save(Consumer<FinishedRecipe> consumer, ResourceLocation resourceLocation) {
         this.ensureValid(resourceLocation);
         this.advancement.parent(new ResourceLocation("recipes/root")).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(resourceLocation)).rewards(AdvancementRewards.Builder.recipe(resourceLocation)).requirements(RequirementsStrategy.OR);
-        consumer.accept(new Result(resourceLocation, this.group==null?"":this.group, this.serializer, this.advancement,new ResourceLocation(resourceLocation.getNamespace(),"recipes/crushing/"+resourceLocation.getPath()), this.ingredient, this.outputItem,this.outputTag, this.crushingTime, this.ignoreCrushingMultiplier, this.minTier, this.allowEmpty,this.outputAmount));
+        consumer.accept(new Result(resourceLocation, this.group==null?"":this.group, this.serializer, this.advancement,new ResourceLocation(resourceLocation.getNamespace(),"recipes/crushing/"+resourceLocation.getPath()), this.ingredient, this.output, this.crushingTime, this.ignoreCrushingMultiplier, this.minTier, this.allowEmpty,this.outputAmount));
     }
     private void ensureValid(ResourceLocation id) {
         if (this.advancement.getCriteria().isEmpty()) {
@@ -143,10 +136,7 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
         private final RecipeSerializer<CrushingRecipe> serializer;
         private final Advancement.Builder advancement;
         private final Ingredient ingredient;
-        @Nullable
-        private final Item outputItem;
-        @Nullable
-        private final ResourceLocation outputTag;
+        private final Ingredient output;
         private final int crushingTime;
         private final boolean ignoreCrushingMultiplier;
         private final int minTier;
@@ -154,14 +144,13 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
         private final ResourceLocation advancementId;
         @Nullable
         private final int outputAmount;
-        public Result(ResourceLocation id, String group, RecipeSerializer<CrushingRecipe> serializer,Advancement.Builder advancement,ResourceLocation advancementId, Ingredient ingredient, @Nullable Item outputItem,@Nullable ResourceLocation outputTag, int crushingTime, boolean ignoreCrushingMultiplier, int minTier, boolean allowEmpty, int outputAmount) {
+        public Result(ResourceLocation id, String group, RecipeSerializer<CrushingRecipe> serializer,Advancement.Builder advancement,ResourceLocation advancementId, Ingredient ingredient, Ingredient output, int crushingTime, boolean ignoreCrushingMultiplier, int minTier, boolean allowEmpty, int outputAmount) {
             this.id = id;
             this.group = group;
             this.serializer=serializer;
             this.advancement=advancement;
             this.ingredient=ingredient;
-            this.outputItem=outputItem;
-            this.outputTag=outputTag;
+            this.output=output;
             this.crushingTime=crushingTime;
             this.ignoreCrushingMultiplier=ignoreCrushingMultiplier;
             this.minTier=minTier;
@@ -177,22 +166,26 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
             }
             jsonObject.add("ingredient", this.ingredient.toJson());
             var output=new JsonObject();
-            if(this.outputTag!=null) {
-                output.addProperty("tag", this.outputTag.toString());
-            } else {
-                output.addProperty("item", this.outputItem.builtInRegistryHolder().key().toString());
+            if(this.output.values.length==1 && this.output.values[0] instanceof Ingredient.TagValue) {
+                output.addProperty("tag", ((Ingredient.TagValue) this.output.values[0]).tag.location().toString());
+                output.addProperty("count", outputAmount);
+                jsonObject.add("result", output);
             }
+            else
+                jsonObject.add("result", ((Ingredient.ItemValue)this.output.values[0]).serialize());
+
             if(!this.allowEmpty){
                 var conditions=new JsonArray();
-                conditions.add(makeTagNotEmptyCondition(this.outputTag.toString()));
+                if(this.output.values.length==1 && this.output.values[0] instanceof Ingredient.TagValue){
+                    conditions.add(makeTagNotEmptyCondition(((Ingredient.TagValue)this.output.values[0]).tag.location().toString()));
+                }
                 if(ingredient.values.length==1 && ingredient.values[0] instanceof Ingredient.TagValue){
                     conditions.add(makeTagNotEmptyCondition(((Ingredient.TagValue)ingredient.values[0]).tag.location().toString()));
                 }
                // conditions.add(makeTagNotEmptyCondition(this.ingredient.values[0].));
                 jsonObject.add("conditions", conditions);
             }
-            output.addProperty("count", outputAmount);
-            jsonObject.add("result", output);
+
             jsonObject.addProperty("crushing_time", this.crushingTime);
             jsonObject.addProperty("ignore_crushing_multiplier", this.ignoreCrushingMultiplier);
             if(minTier!=-1)
