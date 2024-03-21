@@ -11,10 +11,7 @@ import com.klikli_dev.occultism.integration.emi.recipes.MinerRecipeCategory;
 import com.klikli_dev.occultism.integration.emi.recipes.RitualRecipeCategory;
 import com.klikli_dev.occultism.integration.emi.recipes.SpiritFireRecipeCategory;
 import com.klikli_dev.occultism.integration.emi.render.SpiritRenderable;
-import com.klikli_dev.occultism.registry.OccultismBlocks;
-import com.klikli_dev.occultism.registry.OccultismEntities;
-import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.occultism.registry.OccultismRecipes;
+import com.klikli_dev.occultism.registry.*;
 import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiInitRegistry;
 import dev.emi.emi.api.EmiPlugin;
@@ -25,6 +22,7 @@ import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -67,6 +65,19 @@ public class OccultismEmiPlugin implements EmiPlugin {
         }
         for(CrushingRecipe recipe:manager.getAllRecipesFor(OccultismRecipes.CRUSHING_TYPE.get())){
             emiRegistry.addRecipe(new CrushingRecipeCategory(recipe));
+        }
+
+        for(MinerRecipe recipe:manager.getAllRecipesFor(OccultismRecipes.MINER_TYPE.get())){
+            if(recipe.getIngredients().get(0).values.length==1) {
+                if (recipe.getIngredients().get(0).values[0] instanceof Ingredient.TagValue) {
+                    var tag = ((Ingredient.TagValue) recipe.getIngredients().get(0).values[0]).tag;
+                    if(!MinerRecipeCategory.totalWeights.containsKey(tag))
+                        MinerRecipeCategory.totalWeights.put(tag,0L);
+                    MinerRecipeCategory.totalWeights.put(tag,MinerRecipeCategory.totalWeights.get(tag)+recipe.getWeightedOutput().getWeight().asInt());
+
+
+                }
+            }
         }
         for(MinerRecipe recipe:manager.getAllRecipesFor(OccultismRecipes.MINER_TYPE.get())){
             emiRegistry.addRecipe(new MinerRecipeCategory(recipe));
