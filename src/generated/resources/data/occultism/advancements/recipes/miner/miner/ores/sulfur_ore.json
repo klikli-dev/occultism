@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_miner": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "occultism:magic_lamp_empty"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:miner/ores/sulfur_ore"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_miner",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:miner/ores/sulfur_ore"
+    ]
+  },
+  "sends_telemetry_event": true
+}

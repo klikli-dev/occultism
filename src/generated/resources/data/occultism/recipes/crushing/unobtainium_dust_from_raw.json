@@ -5,14 +5,14 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:raw_materials/unobtainium"
+        "tag": "forge:dusts/unobtainium"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/unobtainium"
+        "tag": "forge:raw_materials/unobtainium"
       }
     }
   ],

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "occultism:book_of_binding_marid"
+    },
+    {
+      "item": "occultism:dictionary_of_spirits"
+    }
+  ],
+  "result": {
+    "item": "occultism:book_of_binding_bound_marid"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "g": {
+      "item": "occultism:spirit_attuned_gem"
+    }
+  },
+  "pattern": [
+    "gg",
+    "gg"
+  ],
+  "result": {
+    "item": "occultism:spirit_attuned_crystal"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_demons_dream_essence": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "occultism:demons_dream_essence"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:spirit_fire/otherworld_essence"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_demons_dream_essence",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:spirit_fire/otherworld_essence"
+    ]
+  },
+  "sends_telemetry_event": true
+}

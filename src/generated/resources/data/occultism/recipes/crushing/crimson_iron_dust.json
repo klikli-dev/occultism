@@ -5,14 +5,14 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:ores/crimson_iron"
+        "tag": "forge:dusts/crimson_iron"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/crimson_iron"
+        "tag": "forge:ores/crimson_iron"
       }
     }
   ],

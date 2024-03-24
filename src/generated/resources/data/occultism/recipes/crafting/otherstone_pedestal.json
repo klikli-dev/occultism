@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "o": {
+      "item": "occultism:otherstone"
+    },
+    "s": {
+      "item": "occultism:otherstone_slab"
+    }
+  },
+  "pattern": [
+    "s s",
+    " o ",
+    "sss"
+  ],
+  "result": {
+    "item": "occultism:otherstone_pedestal"
+  },
+  "show_notification": true
+}

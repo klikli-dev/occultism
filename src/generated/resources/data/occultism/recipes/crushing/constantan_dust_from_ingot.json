@@ -5,14 +5,14 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:ingots/constantan"
+        "tag": "forge:dusts/constantan"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/constantan"
+        "tag": "forge:ingots/constantan"
       }
     }
   ],

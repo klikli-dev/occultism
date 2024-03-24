@@ -5,19 +5,19 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:gems/coal"
+        "tag": "forge:dusts/coal"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/coal"
+        "tag": "forge:gems/coal"
       }
     }
   ],
   "crushing_time": 200,
-  "ignore_crushing_multiplier": true,
+  "ignore_crushing_multiplier": false,
   "ingredient": {
     "tag": "forge:gems/coal"
   },

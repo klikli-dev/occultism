@@ -5,14 +5,14 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:ores/lumium"
+        "tag": "forge:dusts/lumium"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/lumium"
+        "tag": "forge:ores/lumium"
       }
     }
   ],

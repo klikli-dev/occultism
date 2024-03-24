@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "occultism:book_of_binding_bound_foliot"
+    },
+    {
+      "item": "occultism:brush"
+    }
+  ],
+  "result": {
+    "item": "occultism:book_of_calling_foliot_cleaner"
+  }
+}

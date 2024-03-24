@@ -5,14 +5,14 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:ores/sapphire"
+        "tag": "forge:dusts/sapphire"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/sapphire"
+        "tag": "forge:ores/sapphire"
       }
     }
   ],

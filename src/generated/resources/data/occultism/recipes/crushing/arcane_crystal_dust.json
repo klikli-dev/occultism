@@ -5,14 +5,14 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:ores/arcane_crystal"
+        "tag": "forge:dusts/arcane_crystal"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/arcane_crystal"
+        "tag": "forge:ores/arcane_crystal"
       }
     }
   ],

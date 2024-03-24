@@ -5,14 +5,14 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:ores/redstone"
+        "tag": "forge:dusts/redstone"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/redstone"
+        "tag": "forge:ores/redstone"
       }
     }
   ],

@@ -103,7 +103,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(Tags.Items.NUGGETS).addTags(OccultismTags.Items.IESNIUM_NUGGET,OccultismTags.Items.SILVER_NUGGET).replace(false);
 
         // Seeds
-        this.tag(OccultismTags.Items.DATURA_SEEDS).add(OccultismItems.DATURA.get()).replace(false);
+        this.tag(OccultismTags.Items.DATURA_SEEDS).add(OccultismItems.DATURA_SEEDS.get()).replace(false);
         this.tag(Tags.Items.SEEDS).addTags(OccultismTags.Items.DATURA_SEEDS).replace(false);
 
         // Storage Blocks
@@ -144,10 +144,11 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(OccultismTags.Items.IESNIUM_DUST).add(OccultismItems.IESNIUM_DUST.get()).replace(false);
         this.tag(OccultismTags.Items.SILVER_DUST).add(OccultismItems.SILVER_DUST.get()).replace(false);
         this.tag(OccultismTags.Items.OBSIDIAN_DUST).add(OccultismItems.OBSIDIAN_DUST.get()).replace(false);
+        this.tag(OccultismTags.Items.BLAZE_DUST).add(Items.BLAZE_POWDER).replace(false);
         this.tag(Tags.Items.DUSTS)
                 .addTags(OccultismTags.Items.COPPER_DUST,OccultismTags.Items.END_STONE_DUST,
                         OccultismTags.Items.GOLD_DUST,OccultismTags.Items.IRON_DUST,OccultismTags.Items.IESNIUM_DUST,
-                        OccultismTags.Items.SILVER_DUST,OccultismTags.Items.OBSIDIAN_DUST)
+                        OccultismTags.Items.SILVER_DUST,OccultismTags.Items.OBSIDIAN_DUST,OccultismTags.Items.BLAZE_DUST)
                 .add(OccultismItems.BURNT_OTHERSTONE.get(),OccultismItems.OTHERWORLD_ASHES.get()).replace(false);
 
     }
