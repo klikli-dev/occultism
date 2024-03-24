@@ -132,7 +132,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .setAllowEmpty(false)
                 .save(recipeOutput, new ResourceLocation(Occultism.MODID, "crushing/"+metalName+"_dust_from_raw"));
 
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(new ResourceLocation("forge","storage_blocks/raw_"+metalName)),OccultismTags.makeItemTag(new ResourceLocation("forge","dusts/"+metalName)),200)
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(new ResourceLocation("forge","storage_blocks/raw_"+metalName)),OccultismTags.makeItemTag(new ResourceLocation("forge","dusts/"+metalName)),1600)
                 .unlockedBy("has_raw_"+metalName+"_block", has(OccultismTags.makeItemTag(new ResourceLocation("forge","storage_blocks/raw_"+metalName))))
                 .setOutputAmount(18)
                 .setAllowEmpty(false)

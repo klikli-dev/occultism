@@ -16,6 +16,7 @@
     }
   ],
   "type": "occultism:crushing",
+  "crushing_time": 1600,
   "ingredient": {
     "tag": "forge:storage_blocks/raw_crimson_iron"
   },
