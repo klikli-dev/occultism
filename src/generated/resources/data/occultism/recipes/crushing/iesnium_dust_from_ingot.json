@@ -16,13 +16,13 @@
     }
   ],
   "type": "occultism:crushing",
-  "crushing_time": 200,
   "ignore_crushing_multiplier": true,
   "ingredient": {
     "tag": "forge:ingots/iesnium"
   },
   "result": {
-    "count": 1,
-    "tag": "forge:dusts/iesnium"
+    "item": {
+      "tag": "forge:dusts/iesnium"
+    }
   }
 }

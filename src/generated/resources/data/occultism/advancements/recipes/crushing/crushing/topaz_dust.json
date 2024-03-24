@@ -1,0 +1,48 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:ores/topaz"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:dusts/topaz"
+      }
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crushing/topaz_dust"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_topaz": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:ores/topaz"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_topaz"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crushing/topaz_dust"
+    ]
+  }
+}

@@ -16,13 +16,12 @@
     }
   ],
   "type": "occultism:crushing",
-  "crushing_time": 200,
-  "ignore_crushing_multiplier": true,
   "ingredient": {
     "tag": "forge:gems/charged_certus_quartz"
   },
   "result": {
-    "count": 1,
-    "tag": "forge:dusts/charged_certus_quartz"
+    "item": {
+      "tag": "forge:dusts/charged_certus_quartz"
+    }
   }
 }

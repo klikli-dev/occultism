@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.misc.OutputIngredient;
+import com.klikli_dev.occultism.common.misc.WeightedOutputIngredient;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.neoforged.neoforge.common.crafting.IngredientType;

@@ -18,10 +18,16 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.neoforged.neoforge.common.conditions.ConditionalOps;
+import net.neoforged.neoforge.common.conditions.ICondition;
+import net.neoforged.neoforge.common.conditions.NotCondition;
+import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CrushingRecipeBuilder implements RecipeBuilder {
@@ -120,11 +126,33 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
                 .rewards(AdvancementRewards.Builder.recipe(pId))
                 .requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
+        ICondition[] conditions=getConditions(allowEmpty,ingredient,output);
         OutputIngredient ingredient1=OutputIngredient.of(output, outputAmount);
 
         CrushingRecipe recipe = new CrushingRecipe(this.ingredient, ingredient1,this.minTier,this.crushingTime,this.ignoreCrushingMultiplier);
-        pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.withPrefix("recipes/crushing")));
+        pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.withPrefix("recipes/crushing/")),conditions);
 }
+
+    protected ICondition[] getConditions(boolean allowEmpty, Ingredient ingredient, Ingredient output) {
+        List<ICondition> conditions=new ArrayList<>();
+        if(!allowEmpty) {
+            ICondition notCondition = getNoTagCondition(ingredient);
+            if(notCondition!=null)
+                conditions.add(notCondition);
+            notCondition = getNoTagCondition(output);
+            if(notCondition!=null)
+                conditions.add(notCondition);
+        }
+        return conditions.toArray(new ICondition[0]);
+    }
+
+    protected ICondition getNoTagCondition(Ingredient ingredient) {
+        if(ingredient.values.length==1 && ingredient.values[0] instanceof Ingredient.TagValue tagValue) {
+            return new NotCondition(new TagEmptyCondition(tagValue.tag()));
+        }
+        return null;
+    }
+
     private void ensureValid(ResourceLocation pId) {
         if (this.criteria.isEmpty()) {
             throw new IllegalStateException("No way of obtaining recipe " + pId);

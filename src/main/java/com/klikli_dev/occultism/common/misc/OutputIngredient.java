@@ -34,7 +34,7 @@ public class OutputIngredient extends Ingredient {
             builder -> builder
                     .group(
                             NeoForgeExtraCodecs.singularOrPluralCodec(Value.CODEC, "item").forGetter(OutputIngredient::getContainedValues),
-                            CraftingHelper.TAG_CODEC.fieldOf("nbt").forGetter(OutputIngredient::nbt),
+                            CompoundTag.CODEC.optionalFieldOf("nbt",new CompoundTag()).forGetter(OutputIngredient::nbt),
                             ExtraCodecs.POSITIVE_INT.optionalFieldOf("count", 1).forGetter(OutputIngredient::count))
                         .apply(builder, OutputIngredient::new));
 
@@ -42,7 +42,7 @@ public class OutputIngredient extends Ingredient {
             builder -> builder
                     .group(
                             NeoForgeExtraCodecs.singularOrPluralCodecNotEmpty(Value.CODEC, "item").forGetter(OutputIngredient::getContainedValues),
-                            CraftingHelper.TAG_CODEC.fieldOf("nbt").forGetter(OutputIngredient::nbt),
+                            CompoundTag.CODEC.optionalFieldOf("nbt",new CompoundTag()).forGetter(OutputIngredient::nbt),
                             ExtraCodecs.POSITIVE_INT.optionalFieldOf("count", 1).forGetter(OutputIngredient::count))
                     .apply(builder, OutputIngredient::new));
 

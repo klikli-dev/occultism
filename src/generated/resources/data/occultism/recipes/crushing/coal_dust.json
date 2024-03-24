@@ -16,13 +16,13 @@
     }
   ],
   "type": "occultism:crushing",
-  "crushing_time": 200,
-  "ignore_crushing_multiplier": false,
   "ingredient": {
     "tag": "forge:ores/coal"
   },
   "result": {
     "count": 4,
-    "tag": "forge:dusts/coal"
+    "item": {
+      "tag": "forge:dusts/coal"
+    }
   }
 }

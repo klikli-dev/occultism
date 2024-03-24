@@ -16,13 +16,13 @@
     }
   ],
   "type": "occultism:crushing",
-  "crushing_time": 1600,
-  "ignore_crushing_multiplier": false,
   "ingredient": {
     "tag": "forge:storage_blocks/raw_steel"
   },
   "result": {
     "count": 18,
-    "tag": "forge:dusts/steel"
+    "item": {
+      "tag": "forge:dusts/steel"
+    }
   }
 }
