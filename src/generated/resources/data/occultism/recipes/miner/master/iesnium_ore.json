@@ -1,0 +1,10 @@
+{
+  "type": "occultism:miner",
+  "ingredient": {
+    "tag": "occultism:miners/master"
+  },
+  "result": {
+    "item": "occultism:iesnium_ore"
+  },
+  "weight": 100
+}

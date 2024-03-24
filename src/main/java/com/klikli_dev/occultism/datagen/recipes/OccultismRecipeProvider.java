@@ -1,6 +1,10 @@
 package com.klikli_dev.occultism.datagen.recipes;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.datagen.builders.CrushingRecipeBuilder;
+import com.klikli_dev.occultism.datagen.builders.MinerRecipeBuilder;
+import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -20,9 +24,23 @@ public class OccultismRecipeProvider extends RecipeProvider {
     @Override
     protected void buildRecipes(RecipeOutput pRecipeOutput) {
         crushingRecipes(pRecipeOutput);
+        miningRecipes(pRecipeOutput);
 
     }
 
+    private void miningRecipes(RecipeOutput pRecipeOutput) {
+        MinerRecipeBuilder.minerRecipe(Ingredient.of(OccultismTags.Items.Miners.MASTER),Ingredient.of(OccultismTags.makeItemTag(new ResourceLocation("forge","ores/stella_arcanum"))),100)
+                .unlockedBy("has_stella_arcanum_ore", has(OccultismTags.makeItemTag(new ResourceLocation("forge","ores/stella_arcanum"))))
+                .save(pRecipeOutput, new ResourceLocation(Occultism.MODID, "miner/master/stella_arcanum"));
+        MinerRecipes.basic_resources(pRecipeOutput);
+        MinerRecipes.deeps(pRecipeOutput);
+        MinerRecipes.master_resources(pRecipeOutput);
+        MinerRecipes.ores(pRecipeOutput);
+        MinerRecipeBuilder.minerRecipe(Ingredient.of(OccultismItems.DEBUG_WAND.get()),Ingredient.of(OccultismBlocks.OTHERSTONE.get().asItem()),200)
+                .unlockedBy("has_miner",has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
+                .allowEmpty()
+                .save(pRecipeOutput, new ResourceLocation(Occultism.MODID, "miner/debug_wand"));
+    }
 
 
     private void crushingRecipes(RecipeOutput pRecipeOutput) {

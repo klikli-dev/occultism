@@ -1,14 +1,14 @@
 {
-  "type": "occultism:miner",
-  "conditions": [
+  "neoforge:conditions": [
     {
-      "type": "forge:not",
+      "type": "neoforge:not",
       "value": {
-        "type": "forge:tag_empty",
+        "type": "neoforge:tag_empty",
         "tag": "forge:ores/stella_arcanum"
       }
     }
   ],
+  "type": "occultism:miner",
   "ingredient": {
     "tag": "occultism:miners/master"
   },
