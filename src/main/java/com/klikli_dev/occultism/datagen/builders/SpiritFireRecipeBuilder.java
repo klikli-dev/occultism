@@ -1,8 +1,7 @@
-package com.klikli_dev.occultism.datagen.recipes;
-import com.google.gson.JsonArray;
+package com.klikli_dev.occultism.datagen.builders;
+
 import com.google.gson.JsonObject;
 import com.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
-import com.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;
@@ -15,29 +14,27 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
-public class SpiritTradeRecipeBuilder implements RecipeBuilder {
+public class SpiritFireRecipeBuilder implements RecipeBuilder {
     private final Advancement.Builder advancement = Advancement.Builder.advancement();
     @Nullable
     private String group;
-    private final RecipeSerializer<SpiritTradeRecipe> serializer;
+    private final RecipeSerializer<SpiritFireRecipe> serializer;
     private final Ingredient ingredient;
     private final ItemStack output;
-    public SpiritTradeRecipeBuilder(Ingredient ingredient, ItemStack output) {
-        this.serializer = SpiritTradeRecipe.SERIALIZER;
+
+    public SpiritFireRecipeBuilder(Ingredient ingredient, ItemStack output) {
+        this.serializer = SpiritFireRecipe.SERIALIZER;
         this.ingredient = ingredient;
         this.output = output;
     }
-
-    @Contract("_, _ -> new")
-    public static @NotNull SpiritTradeRecipeBuilder spiritTradeRecipe(Ingredient ingredient, ItemStack output) {
-        return new SpiritTradeRecipeBuilder(ingredient, output);
+    public static SpiritFireRecipeBuilder spiritFireRecipe(Ingredient ingredient, ItemStack output) {
+        return new SpiritFireRecipeBuilder(ingredient, output);
     }
+
     @Override
     public RecipeBuilder unlockedBy(String pCriterionName, CriterionTriggerInstance pCriterionTrigger) {
         this.advancement.addCriterion(pCriterionName, pCriterionTrigger);
@@ -46,7 +43,7 @@ public class SpiritTradeRecipeBuilder implements RecipeBuilder {
 
     @Override
     public RecipeBuilder group(@Nullable String pGroupName) {
-        this.group= pGroupName;
+        this.group = pGroupName;
         return this;
     }
 
@@ -57,28 +54,29 @@ public class SpiritTradeRecipeBuilder implements RecipeBuilder {
 
     @Override
     public void save(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ResourceLocation pRecipeId) {
-        this.ensureValid(pRecipeId);
-        this.advancement.parent(new ResourceLocation("recipes/root"))
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pRecipeId))
-                .rewards(AdvancementRewards.Builder.recipe(pRecipeId))
-                .requirements(RequirementsStrategy.OR);
-        pFinishedRecipeConsumer.accept(new Result(pRecipeId, this.advancement, new ResourceLocation(pRecipeId.getNamespace(), "recipes/spirit_trade/"+ pRecipeId.getPath()), this.group==null ? "": this.group, this.serializer, this.ingredient, this.output));
+    this.ensureValid(pRecipeId);
+    this.advancement.parent(new ResourceLocation("recipes/root"))
+            .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pRecipeId))
+            .rewards(AdvancementRewards.Builder.recipe(pRecipeId))
+            .requirements(RequirementsStrategy.OR);
+    pFinishedRecipeConsumer.accept(new Result(pRecipeId, this.advancement, new ResourceLocation(pRecipeId.getNamespace(), "recipes/spirit_fire/"+ pRecipeId.getPath()), this.group==null ? "": this.group, this.serializer, this.ingredient, this.output));
     }
     private void ensureValid(ResourceLocation id) {
         if (this.advancement.getCriteria().isEmpty()) {
             throw new IllegalStateException("No way of obtaining recipe " + id);
         }
     }
+
     public class Result implements FinishedRecipe {
         private final ResourceLocation id;
         private final Advancement.Builder advancement;
         private final ResourceLocation advancementId;
         private final String group;
-        private final RecipeSerializer<SpiritTradeRecipe> serializer;
+        private final RecipeSerializer<SpiritFireRecipe> serializer;
         private final Ingredient ingredient;
         private final ItemStack output;
 
-        public Result(ResourceLocation id,Advancement.Builder advancement, ResourceLocation advancementId,String group, RecipeSerializer<SpiritTradeRecipe> serializer, Ingredient ingredient, ItemStack output) {
+        public Result(ResourceLocation id,Advancement.Builder advancement, ResourceLocation advancementId,String group, RecipeSerializer<SpiritFireRecipe> serializer, Ingredient ingredient, ItemStack output) {
             this.id = id;
             this.advancement = advancement;
             this.advancementId = advancementId;
@@ -93,14 +91,9 @@ public class SpiritTradeRecipeBuilder implements RecipeBuilder {
             if (!this.group.isEmpty()) {
                 pJson.addProperty("group", this.group);
             }
-            var ingredientArray = new JsonArray();
-            ingredientArray.add(ingredient.toJson());
-            pJson.add("ingredients", ingredientArray);
-            var output = new JsonObject();
-            output.addProperty("item", this.output.getItem().builtInRegistryHolder().key().location().toString());
-            if(this.output.getCount() > 1)
-                output.addProperty("count", this.output.getCount());
-            pJson.add("result", output);
+            pJson.add("ingredient", this.ingredient.toJson());
+
+            pJson.add("result", RecipeNBTHelper.serializeItemStack(output));
         }
 
         @Override

@@ -1,8 +1,7 @@
-package com.klikli_dev.occultism.datagen.recipes;
+package com.klikli_dev.occultism.datagen.builders;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.klikli_dev.occultism.common.misc.OutputIngredient;
 import com.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.advancements.Advancement;

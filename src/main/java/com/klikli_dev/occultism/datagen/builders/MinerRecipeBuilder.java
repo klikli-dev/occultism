@@ -1,4 +1,4 @@
-package com.klikli_dev.occultism.datagen.recipes;
+package com.klikli_dev.occultism.datagen.builders;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

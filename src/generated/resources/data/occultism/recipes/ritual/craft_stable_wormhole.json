@@ -1,0 +1,29 @@
+{
+  "type": "occultism:ritual",
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_foliot"
+  },
+  "duration": 120,
+  "ingredients": [
+    {
+      "item": "occultism:wormhole_frame"
+    },
+    {
+      "tag": "forge:ender_pearls"
+    },
+    {
+      "tag": "forge:gems/quartz"
+    },
+    {
+      "tag": "forge:gems/quartz"
+    }
+  ],
+  "pentacle_id": "occultism:craft_foliot",
+  "result": {
+    "item": "occultism:stable_wormhole"
+  },
+  "ritual_dummy": {
+    "item": "occultism:ritual_dummy/craft_stable_wormhole"
+  },
+  "ritual_type": "occultism:craft"
+}

@@ -1,18 +1,18 @@
 package com.klikli_dev.occultism.datagen.recipes;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.datagen.builders.*;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 
@@ -33,7 +33,12 @@ public class OccultismRecipeProvider extends RecipeProvider {
         miningRecipes(consumer);
         spiritFireRecipes(consumer);
         spiritTradeRecipes(consumer);
+        ritualRecipes(consumer);
+    }
 
+
+    private void ritualRecipes(Consumer<FinishedRecipe> consumer)  {
+        RitualRecipes.ritualRecipes(consumer);
     }
 
     private void spiritTradeRecipes(Consumer<FinishedRecipe> consumer) {
