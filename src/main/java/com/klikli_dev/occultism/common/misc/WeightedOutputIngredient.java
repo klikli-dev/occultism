@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.common.misc;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -32,7 +33,7 @@ public class WeightedOutputIngredient extends WeightedEntry.IntrusiveBase {
 
     public WeightedOutputIngredient(Ingredient ingredient, int itemWeightIn) {
         super(itemWeightIn);
-        this.ingredient = new OutputIngredient(ingredient);
+        this.ingredient = OutputIngredient.of(ingredient);
         this.weight = itemWeightIn;
     }
 
@@ -48,7 +49,10 @@ public class WeightedOutputIngredient extends WeightedEntry.IntrusiveBase {
         return this.ingredient.getIngredient();
     }
 
-    public OutputIngredient.OutputStackInfo getOutputStackInfo() {
-        return this.ingredient.getOutputStackInfo();
+    public int count() {
+        return this.ingredient.count();
+    }
+    public CompoundTag nbt() {
+        return this.ingredient.nbt();
     }
 }

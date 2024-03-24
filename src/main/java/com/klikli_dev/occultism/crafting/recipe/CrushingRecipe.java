@@ -49,29 +49,36 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
 
     public static int DEFAULT_CRUSHING_TIME = 200;
 
-    public static final Codec<CrushingRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Ingredient.CODEC
-                    .fieldOf("ingredient").forGetter((r) -> r.input),
-            Ingredient.CODEC.fieldOf("result").forGetter(r -> r.output.getIngredient()),
-            OutputIngredient.OutputStackInfo.CODEC.fieldOf("result").forGetter(r -> r.output.getOutputStackInfo()),
-            Codec.INT.optionalFieldOf("min_tier", -1).forGetter(r -> r.minTier),
-            Codec.INT.optionalFieldOf("crushing_time", DEFAULT_CRUSHING_TIME).forGetter(r -> r.crushingTime),
-            Codec.BOOL.optionalFieldOf("ignore_crushing_multiplier", false).forGetter(r -> r.ignoreCrushingMultiplier)
-    ).apply(instance, (input, output, outputStackInfo, minTier, crushingTime, ignoreCrushingMultiplier) -> {
-        return new CrushingRecipe(input, new OutputIngredient(output, outputStackInfo), minTier, crushingTime, ignoreCrushingMultiplier);
-    }));
+//    public static final Codec<CrushingRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+//            Ingredient.CODEC
+//                    .fieldOf("ingredient").forGetter((r) -> r.input),
+//            Ingredient.CODEC.fieldOf("result").forGetter(r -> r.output.getIngredient()),
+//            OutputIngredient.OutputStackInfo.CODEC.fieldOf("result").forGetter(r -> r.output.getOutputStackInfo()),
+//            Codec.INT.optionalFieldOf("min_tier", -1).forGetter(r -> r.minTier),
+//            Codec.INT.optionalFieldOf("crushing_time", DEFAULT_CRUSHING_TIME).forGetter(r -> r.crushingTime),
+//            Codec.BOOL.optionalFieldOf("ignore_crushing_multiplier", false).forGetter(r -> r.ignoreCrushingMultiplier)
+//    ).apply(instance, (input, output, outputStackInfo, minTier, crushingTime, ignoreCrushingMultiplier) -> {
+//        return new CrushingRecipe(input, new OutputIngredient(output, outputStackInfo), minTier, crushingTime, ignoreCrushingMultiplier);
+//    }));
+public static final Codec<CrushingRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+        Ingredient.CODEC
+                .fieldOf("ingredient").forGetter((r) -> r.input),
+//        Ingredient.CODEC.fieldOf("result").forGetter(r -> r.output.getIngredient()),
+//        OutputIngredient.OutputStackInfo.CODEC.fieldOf("result").forGetter(r -> r.output.getOutputStackInfo()),
+        OutputIngredient.CODEC.fieldOf("result").forGetter(r -> r.output),
+        Codec.INT.optionalFieldOf("min_tier", -1).forGetter(r -> r.minTier),
+        Codec.INT.optionalFieldOf("crushing_time", DEFAULT_CRUSHING_TIME).forGetter(r -> r.crushingTime),
+        Codec.BOOL.optionalFieldOf("ignore_crushing_multiplier", false).forGetter(r -> r.ignoreCrushingMultiplier)
+).apply(instance, CrushingRecipe::new));
 
     public static final Codec<CrushingRecipe> NETWORK_CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Ingredient.CODEC
                     .fieldOf("ingredient").forGetter((r) -> r.input),
-            Ingredient.CODEC.fieldOf("result").forGetter(r -> r.output.getIngredient()),
-            OutputIngredient.OutputStackInfo.CODEC.fieldOf("result_stack_info").forGetter(r -> r.output.getOutputStackInfo()),
+            OutputIngredient.CODEC.fieldOf("result").forGetter(r -> r.output),
             Codec.INT.optionalFieldOf("min_tier", -1).forGetter(r -> r.minTier),
             Codec.INT.optionalFieldOf("crushing_time", DEFAULT_CRUSHING_TIME).forGetter(r -> r.crushingTime),
             Codec.BOOL.optionalFieldOf("ignore_crushing_multiplier", false).forGetter(r -> r.ignoreCrushingMultiplier)
-    ).apply(instance, (input, output, outputStackInfo, minTier, crushingTime, ignoreCrushingMultiplier) -> {
-        return new CrushingRecipe(input, new OutputIngredient(output, outputStackInfo), minTier, crushingTime, ignoreCrushingMultiplier);
-    }));
+    ).apply(instance, CrushingRecipe::new));
 
     public static Serializer SERIALIZER = new Serializer();
 
