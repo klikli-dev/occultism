@@ -1,0 +1,48 @@
+{
+  "type": "occultism:ritual",
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_foliot"
+  },
+  "duration": 15,
+  "entity_to_sacrifice": {
+    "display_name": "ritual.occultism.sacrifice.cows",
+    "tag": "forge:cows"
+  },
+  "entity_to_summon": "occultism:deer_familiar",
+  "ingredients": [
+    {
+      "tag": "forge:rods/wooden"
+    },
+    {
+      "tag": "forge:rods/wooden"
+    },
+    {
+      "tag": "forge:rods/wooden"
+    },
+    {
+      "tag": "forge:rods/wooden"
+    },
+    {
+      "tag": "forge:string"
+    },
+    {
+      "tag": "forge:string"
+    }
+  ],
+  "pentacle_id": "occultism:possess_foliot",
+  "result": {
+    "item": "occultism:spawn_egg/familiar_deer",
+    "nbt": {
+      "display": {
+        "Lore": [
+          "[{\"translate\":\"item.occultism.ritual_dummy.familiar_deer.tooltip\"}]"
+        ],
+        "Name": "{\"translate\":\"item.occultism.ritual_dummy.familiar_deer\"}"
+      }
+    }
+  },
+  "ritual_dummy": {
+    "item": "occultism:ritual_dummy/familiar_deer"
+  },
+  "ritual_type": "occultism:familiar"
+}

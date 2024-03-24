@@ -4,6 +4,9 @@
     "item": "occultism:chalk_gold_impure"
   },
   "result": {
-    "item": "occultism:chalk_gold"
+    "item": "occultism:chalk_gold",
+    "nbt": {
+      "Damage": 0
+    }
   }
 }

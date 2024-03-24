@@ -1,0 +1,38 @@
+{
+  "type": "occultism:ritual",
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_djinni"
+  },
+  "duration": 60,
+  "ingredients": [
+    {
+      "item": "occultism:miner_foliot_unspecialized"
+    },
+    {
+      "item": "occultism:iesnium_pickaxe"
+    },
+    {
+      "item": "occultism:spirit_attuned_crystal"
+    },
+    {
+      "tag": "forge:ingots/gold"
+    },
+    {
+      "tag": "forge:gems/lapis"
+    },
+    {
+      "item": "occultism:spirit_attuned_crystal"
+    }
+  ],
+  "pentacle_id": "occultism:craft_djinni",
+  "result": {
+    "item": "occultism:miner_djinni_ores",
+    "nbt": {
+      "Damage": 0
+    }
+  },
+  "ritual_dummy": {
+    "item": "occultism:ritual_dummy/craft_miner_djinni_ores"
+  },
+  "ritual_type": "occultism:craft_miner_spirit"
+}

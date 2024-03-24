@@ -1,7 +1,7 @@
 package com.klikli_dev.occultism.datagen.recipes;
 
-import com.google.gson.JsonObject;
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.datagen.builders.MinerRecipeBuilder;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;

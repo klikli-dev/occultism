@@ -4,6 +4,9 @@
     "item": "occultism:chalk_red_impure"
   },
   "result": {
-    "item": "occultism:chalk_red"
+    "item": "occultism:chalk_red",
+    "nbt": {
+      "Damage": 0
+    }
   }
 }
