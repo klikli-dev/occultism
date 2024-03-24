@@ -1,0 +1,13 @@
+{
+  "type": "occultism:crushing",
+  "ingredient": {
+    "tag": "forge:crops/datura"
+  },
+  "result": {
+    "count": 2,
+    "item": {
+      "tag": "forge:seeds/datura"
+    },
+    "nbt": "{}"
+  }
+}
