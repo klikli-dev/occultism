@@ -1,7 +1,5 @@
 package com.klikli_dev.occultism.integration.emi.recipes;
 
-import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.klikli_dev.occultism.crafting.recipe.MinerRecipe;
 import com.klikli_dev.occultism.integration.emi.OccultismEmiPlugin;
 import dev.emi.emi.api.recipe.EmiRecipe;
@@ -12,21 +10,37 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MinerRecipeCategory implements EmiRecipe {
+    public static Map<TagKey<Item>, Long> totalWeights = new HashMap<>();
     private final ResourceLocation id;
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
 
     public MinerRecipeCategory(RecipeHolder<MinerRecipe> recipe) {
-        id=recipe.id();
+        this.id = recipe.id();
         this.input = List.of(EmiIngredient.of(recipe.value().getIngredients().get(0)));
-        this.output = List.of(EmiStack.of(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess())));
+
+        var stack = EmiStack.of(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess()));
+        if (recipe.value().getIngredients().get(0).values.length == 1) {
+            if (recipe.value().getIngredients().get(0).values[0] instanceof Ingredient.TagValue) {
+                double chance = (double) recipe.value().getWeightedOutput().getWeight().asInt() / totalWeights.get(((Ingredient.TagValue) recipe.value().getIngredients().get(0).values[0]).tag());
+                stack.setChance((float) chance);
+            }
+        }
+        this.output = List.of(stack);
     }
+
     @Override
     public EmiRecipeCategory getCategory() {
         return OccultismEmiPlugin.MINER_CATEGORY;
@@ -34,7 +48,7 @@ public class MinerRecipeCategory implements EmiRecipe {
 
     @Override
     public @Nullable ResourceLocation getId() {
-        return id;
+        return this.id;
     }
 
     @Override
@@ -58,13 +72,18 @@ public class MinerRecipeCategory implements EmiRecipe {
     }
 
     @Override
-    public void addWidgets(WidgetHolder widgetHolder) {
+    public boolean supportsRecipeTree() {
+        return false;
+    }
+
+    @Override
+    public void addWidgets(@NotNull WidgetHolder widgetHolder) {
         widgetHolder.addTexture(EmiTexture.EMPTY_ARROW, 26, 1);
-        widgetHolder.addSlot(input.get(0), 0, 0);
+        widgetHolder.addSlot(this.input.get(0), 0, 0);
 
         // Adds an output slot on the right
         // Note that output slots need to call `recipeContext` to inform EMI about their recipe context
         // This includes being able to resolve recipe trees, favorite stacks with recipe context, and more
-        widgetHolder.addSlot(output.get(0), 58, 0).recipeContext(this);
+        widgetHolder.addSlot(this.output.get(0), 58, 0).recipeContext(this);
     }
 }
