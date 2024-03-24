@@ -16,13 +16,13 @@
     }
   ],
   "type": "occultism:crushing",
-  "crushing_time": 200,
   "ignore_crushing_multiplier": true,
   "ingredient": {
     "tag": "forge:ingots/netherite"
   },
   "result": {
-    "count": 1,
-    "tag": "forge:dusts/netherite"
+    "item": {
+      "tag": "forge:dusts/netherite"
+    }
   }
 }

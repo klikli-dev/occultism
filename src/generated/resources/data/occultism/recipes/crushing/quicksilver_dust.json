@@ -16,13 +16,13 @@
     }
   ],
   "type": "occultism:crushing",
-  "crushing_time": 200,
-  "ignore_crushing_multiplier": false,
   "ingredient": {
     "tag": "forge:ores/quicksilver"
   },
   "result": {
     "count": 2,
-    "tag": "forge:dusts/quicksilver"
+    "item": {
+      "tag": "forge:dusts/quicksilver"
+    }
   }
 }

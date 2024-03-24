@@ -16,13 +16,13 @@
     }
   ],
   "type": "occultism:crushing",
-  "crushing_time": 1600,
-  "ignore_crushing_multiplier": false,
   "ingredient": {
     "tag": "forge:storage_blocks/raw_electrum"
   },
   "result": {
     "count": 18,
-    "tag": "forge:dusts/electrum"
+    "item": {
+      "tag": "forge:dusts/electrum"
+    }
   }
 }

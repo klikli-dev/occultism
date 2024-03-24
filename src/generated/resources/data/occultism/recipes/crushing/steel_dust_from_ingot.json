@@ -16,13 +16,13 @@
     }
   ],
   "type": "occultism:crushing",
-  "crushing_time": 200,
   "ignore_crushing_multiplier": true,
   "ingredient": {
     "tag": "forge:ingots/steel"
   },
   "result": {
-    "count": 1,
-    "tag": "forge:dusts/steel"
+    "item": {
+      "tag": "forge:dusts/steel"
+    }
   }
 }

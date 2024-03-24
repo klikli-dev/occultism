@@ -16,13 +16,12 @@
     }
   ],
   "type": "occultism:crushing",
-  "crushing_time": 200,
-  "ignore_crushing_multiplier": true,
   "ingredient": {
     "tag": "forge:gems/ruby"
   },
   "result": {
-    "count": 1,
-    "tag": "forge:dusts/ruby"
+    "item": {
+      "tag": "forge:dusts/ruby"
+    }
   }
 }

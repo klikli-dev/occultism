@@ -16,13 +16,13 @@
     }
   ],
   "type": "occultism:crushing",
-  "crushing_time": 200,
   "ignore_crushing_multiplier": true,
   "ingredient": {
     "tag": "forge:ingots/invar"
   },
   "result": {
-    "count": 1,
-    "tag": "forge:dusts/invar"
+    "item": {
+      "tag": "forge:dusts/invar"
+    }
   }
 }

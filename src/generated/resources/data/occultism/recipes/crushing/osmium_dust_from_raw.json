@@ -16,13 +16,13 @@
     }
   ],
   "type": "occultism:crushing",
-  "crushing_time": 200,
-  "ignore_crushing_multiplier": false,
   "ingredient": {
     "tag": "forge:raw_materials/osmium"
   },
   "result": {
     "count": 2,
-    "tag": "forge:dusts/osmium"
+    "item": {
+      "tag": "forge:dusts/osmium"
+    }
   }
 }

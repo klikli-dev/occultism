@@ -16,13 +16,13 @@
     }
   ],
   "type": "occultism:crushing",
-  "crushing_time": 200,
-  "ignore_crushing_multiplier": false,
   "ingredient": {
     "tag": "forge:ores/sulfur"
   },
   "result": {
     "count": 4,
-    "tag": "forge:dusts/sulfur"
+    "item": {
+      "tag": "forge:dusts/sulfur"
+    }
   }
 }

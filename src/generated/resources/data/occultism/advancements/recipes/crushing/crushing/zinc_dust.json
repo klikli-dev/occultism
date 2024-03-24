@@ -1,0 +1,48 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:ores/zinc"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:dusts/zinc"
+      }
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crushing/zinc_dust"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_zinc": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:ores/zinc"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_zinc"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crushing/zinc_dust"
+    ]
+  }
+}
