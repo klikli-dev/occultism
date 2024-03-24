@@ -23,6 +23,7 @@ import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 
@@ -67,13 +68,13 @@ public class OccultismEmiPlugin implements EmiPlugin {
             emiRegistry.addRecipe(new CrushingRecipeCategory(recipe));
         }
 
-        for(MinerRecipe recipe:manager.getAllRecipesFor(OccultismRecipes.MINER_TYPE.get())){
-            if(recipe.getIngredients().get(0).values.length==1) {
-                if (recipe.getIngredients().get(0).values[0] instanceof Ingredient.TagValue) {
-                    var tag = ((Ingredient.TagValue) recipe.getIngredients().get(0).values[0]).tag;
+        for(RecipeHolder<MinerRecipe> recipe:manager.getAllRecipesFor(OccultismRecipes.MINER_TYPE.get())){
+            if(recipe.value().getIngredients().get(0).values.length==1) {
+                if (recipe.value().getIngredients().get(0).values[0] instanceof Ingredient.TagValue) {
+                    var tag = ((Ingredient.TagValue) recipe.value().getIngredients().get(0).values[0]).tag();
                     if(!MinerRecipeCategory.totalWeights.containsKey(tag))
                         MinerRecipeCategory.totalWeights.put(tag,0L);
-                    MinerRecipeCategory.totalWeights.put(tag,MinerRecipeCategory.totalWeights.get(tag)+recipe.getWeightedOutput().getWeight().asInt());
+                    MinerRecipeCategory.totalWeights.put(tag,MinerRecipeCategory.totalWeights.get(tag)+recipe.value().getWeightedOutput().getWeight().asInt());
 
 
                 }
