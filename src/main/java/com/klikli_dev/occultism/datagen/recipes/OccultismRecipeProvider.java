@@ -3,6 +3,7 @@ package com.klikli_dev.occultism.datagen.recipes;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.datagen.builders.CrushingRecipeBuilder;
 import com.klikli_dev.occultism.datagen.builders.MinerRecipeBuilder;
+import com.klikli_dev.occultism.datagen.builders.SpiritFireRecipeBuilder;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
@@ -11,7 +12,10 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.concurrent.CompletableFuture;
@@ -25,7 +29,50 @@ public class OccultismRecipeProvider extends RecipeProvider {
     protected void buildRecipes(RecipeOutput pRecipeOutput) {
         crushingRecipes(pRecipeOutput);
         miningRecipes(pRecipeOutput);
+        spiritFireRecipes(pRecipeOutput);
 
+    }
+
+    private void spiritFireRecipes(RecipeOutput pRecipeOutput) {
+        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(Tags.Items.FEATHERS),new ItemStack(OccultismItems.AWAKENED_FEATHER.get()))
+                .unlockedBy("has_feather", has(Tags.Items.FEATHERS))
+                .save(pRecipeOutput, new ResourceLocation(Occultism.MODID, "spirit_fire/awakened_feather"));
+        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(Items.WRITABLE_BOOK),new ItemStack(OccultismItems.BOOK_OF_BINDING_EMPTY.get()))
+                .unlockedBy("has_writable_book", has(Items.WRITABLE_BOOK))
+                .save(pRecipeOutput, new ResourceLocation(Occultism.MODID, "spirit_fire/book_of_binding_empty"));
+        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismItems.CHALK_GOLD_IMPURE.get()),new ItemStack(OccultismItems.CHALK_GOLD.get()))
+                .unlockedBy("has_chalk_gold_impure", has(OccultismItems.CHALK_GOLD_IMPURE.get()))
+                .save(pRecipeOutput, new ResourceLocation(Occultism.MODID, "spirit_fire/chalk_gold"));
+        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismItems.CHALK_PURPLE_IMPURE.get()),new ItemStack(OccultismItems.CHALK_PURPLE.get()))
+                .unlockedBy("has_chalk_purple_impure", has(OccultismItems.CHALK_PURPLE.get()))
+                .save(pRecipeOutput, new ResourceLocation(Occultism.MODID, "spirit_fire/chalk_purple"));
+        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismItems.CHALK_RED_IMPURE.get()),new ItemStack(OccultismItems.CHALK_RED.get()))
+                .unlockedBy("has_chalk_red_impure", has(OccultismItems.CHALK_RED.get()))
+                .save(pRecipeOutput, new ResourceLocation(Occultism.MODID, "spirit_fire/chalk_red"));
+        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismItems.CHALK_WHITE_IMPURE.get()),new ItemStack(OccultismItems.CHALK_WHITE.get()))
+                .unlockedBy("has_chalk_white_impure", has(OccultismItems.CHALK_WHITE.get()))
+                .save(pRecipeOutput, new ResourceLocation(Occultism.MODID, "spirit_fire/chalk_white"));
+        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(Blocks.ANDESITE),new ItemStack(OccultismBlocks.OTHERSTONE.get()))
+                .unlockedBy("has_andesite", has(Blocks.ANDESITE))
+                .save(pRecipeOutput, new ResourceLocation(Occultism.MODID, "spirit_fire/otherstone"));
+        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismBlocks.OTHERWORLD_LOG.get()),new ItemStack(OccultismItems.OTHERWORLD_ASHES.get()))
+                .unlockedBy("has_otherworld_log", has(OccultismBlocks.OTHERWORLD_LOG.get()))
+                .save(pRecipeOutput, new ResourceLocation(Occultism.MODID, "spirit_fire/otherworld_ashes"));
+        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismItems.DEMONS_DREAM_ESSENCE.get()),new ItemStack(OccultismItems.OTHERWORLD_ESSENCE.get()))
+                .unlockedBy("has_demons_dream_essence", has(OccultismItems.DEMONS_DREAM_ESSENCE.get()))
+                .save(pRecipeOutput, new ResourceLocation(Occultism.MODID, "spirit_fire/otherworld_essence"));
+        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(Items.OAK_SAPLING),new ItemStack(OccultismItems.OTHERWORLD_SAPLING_NATURAL.get()))
+                .unlockedBy("has_oak_sapling", has(Items.OAK_SAPLING))
+                .save(pRecipeOutput, new ResourceLocation(Occultism.MODID, "spirit_fire/otherworld_sapling_natural"));
+        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(Items.BLACK_DYE),new ItemStack(OccultismItems.PURIFIED_INK.get()))
+                .unlockedBy("has_black_dye", has(Items.BLACK_DYE))
+                .save(pRecipeOutput, new ResourceLocation(Occultism.MODID, "spirit_fire/purified_ink"));
+        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(Tags.Items.GEMS_DIAMOND),new ItemStack(OccultismItems.SPIRIT_ATTUNED_GEM.get()))
+                .unlockedBy("has_diamond", has(Tags.Items.GEMS_DIAMOND))
+                .save(pRecipeOutput, new ResourceLocation(Occultism.MODID, "spirit_fire/spirit_attuned_gem"));
+        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(Items.BOOK),new ItemStack(OccultismItems.TABOO_BOOK.get()))
+                .unlockedBy("has_book", has(Items.BOOK))
+                .save(pRecipeOutput, new ResourceLocation(Occultism.MODID, "spirit_fire/taboo_book"));
     }
 
     private void miningRecipes(RecipeOutput pRecipeOutput) {
