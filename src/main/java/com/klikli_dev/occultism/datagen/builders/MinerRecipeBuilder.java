@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.datagen.builders;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.misc.WeightedOutputIngredient;
 import com.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.klikli_dev.occultism.crafting.recipe.MinerRecipe;
@@ -106,14 +107,24 @@ public class MinerRecipeBuilder implements RecipeBuilder {
         ICondition[] conditions=getConditions(allowEmpty,itemExists,ingredient,this.outputTag);
         Ingredient output;
         JsonObject json = new JsonObject();
-        if(this.outputItem!=null) {
-            json.addProperty("item", this.outputItem.toString());
-        } else {
-            json.addProperty("tag", this.outputTag);
+        if(this.outputItem!=null && BuiltInRegistries.ITEM.containsKey(outputItem)) {
+            if (this.outputItem != null) {
+                json.addProperty("item", this.outputItem.toString());
+            } else {
+                json.addProperty("tag", this.outputTag);
+            }
+            output = Ingredient.fromJson(json, false);
+            MinerRecipe recipe = new MinerRecipe(ingredient, new WeightedOutputIngredient(output, this.weight));
+            pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.withPrefix("recipes/crushing/")), conditions);
+        } else if(this.outputItem!=null) {
+            Occultism.LOGGER.error("Could not find item with id {}",this.outputItem);
         }
-        output=Ingredient.fromJson(json,false);
-        MinerRecipe recipe=new MinerRecipe(ingredient,new WeightedOutputIngredient(output,this.weight));
-        pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.withPrefix("recipes/crushing/")),conditions);
+        if(outputTag!=null) {
+            json.addProperty("tag", this.outputTag);
+            output = Ingredient.fromJson(json, false);
+            MinerRecipe recipe = new MinerRecipe(ingredient, new WeightedOutputIngredient(output, this.weight));
+            pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.withPrefix("recipes/crushing/")), conditions);
+        }
 
     }
 
@@ -144,7 +155,6 @@ public class MinerRecipeBuilder implements RecipeBuilder {
 
     protected ICondition getNoTagCondition(String ingredient) {
         return new NotCondition(new TagEmptyCondition(ingredient));
-
     }
     protected ICondition getItemExistsCondition(Ingredient ingredient) {
         if(ingredient.values.length==1 && ingredient.values[0] instanceof Ingredient.ItemValue itemValue) {

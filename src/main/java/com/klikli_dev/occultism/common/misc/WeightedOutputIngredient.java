@@ -22,10 +22,14 @@
 
 package com.klikli_dev.occultism.common.misc;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.neoforged.neoforge.common.util.NeoForgeExtraCodecs;
 
 public class WeightedOutputIngredient extends WeightedEntry.IntrusiveBase {
     protected OutputIngredient ingredient;

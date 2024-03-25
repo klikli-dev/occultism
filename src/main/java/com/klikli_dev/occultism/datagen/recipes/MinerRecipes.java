@@ -44,8 +44,6 @@ public abstract class MinerRecipes extends RecipeProvider {
         makeVanillaOreRecipe("copper",584,recipeOutput);
         makeVanillaOreRecipe("diamond",218,recipeOutput);
 //        makeOreRecipe("dimensional_shard",127,recipeOutput);
-        makeModOreItemRecipe(new ResourceLocation("rftools","dimensional_shard_ore"),127,recipeOutput);
-        makeModOreItemRecipe(new ResourceLocation("draconicevolution","draconium_ore"),142,recipeOutput);
         makeOreRecipe("electrotine",155,recipeOutput);
         makeVanillaOreRecipe("emerald",156,recipeOutput);
         makeOreRecipe("garnet",200,recipeOutput);
@@ -82,7 +80,6 @@ public abstract class MinerRecipes extends RecipeProvider {
         makeOreRecipe("salt",160,recipeOutput);
         makeOreRecipe("sapphire",200,recipeOutput);
         makeOreRecipe("silver",381,recipeOutput);
-        makeModOreItemRecipe(new ResourceLocation("ae2","sky_stone_block"),50,recipeOutput);
         makeOreRecipe("sulfur",222,recipeOutput);
         makeOreRecipe("tanzanite",200,recipeOutput);
         makeOreRecipe("thorium",222,recipeOutput);
