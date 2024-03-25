@@ -4,6 +4,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.datagen.builders.CrushingRecipeBuilder;
 import com.klikli_dev.occultism.datagen.builders.MinerRecipeBuilder;
 import com.klikli_dev.occultism.datagen.builders.SpiritFireRecipeBuilder;
+import com.klikli_dev.occultism.datagen.builders.SpiritTradeRecipeBuilder;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
@@ -30,6 +31,20 @@ public class OccultismRecipeProvider extends RecipeProvider {
         crushingRecipes(pRecipeOutput);
         miningRecipes(pRecipeOutput);
         spiritFireRecipes(pRecipeOutput);
+        spiritTradeRecipes(pRecipeOutput);
+
+    }
+
+    private void spiritTradeRecipes(RecipeOutput pRecipeOutput) {
+        SpiritTradeRecipeBuilder.spiritTradeRecipe(Ingredient.of(OccultismItems.OTHERWORLD_SAPLING_NATURAL.get()),new ItemStack(OccultismBlocks.OTHERWORLD_SAPLING.get()))
+                .unlockedBy("has_otherworld_sapling_natural", has(OccultismItems.OTHERWORLD_SAPLING_NATURAL.get()))
+                .save(pRecipeOutput, new ResourceLocation(Occultism.MODID, "spirit_trade/otherworld_sapling"));
+        SpiritTradeRecipeBuilder.spiritTradeRecipe(Ingredient.of(Tags.Items.STONE),new ItemStack(OccultismBlocks.OTHERSTONE.get(),2))
+                .unlockedBy("has_stone", has(Tags.Items.STONE))
+                .save(pRecipeOutput, new ResourceLocation(Occultism.MODID, "spirit_trade/stone_to_otherstone"));
+        SpiritTradeRecipeBuilder.spiritTradeRecipe(Ingredient.of(Tags.Items.STONE),new ItemStack(OccultismBlocks.OTHERSTONE.get(),4))
+                .unlockedBy("has_stone", has(Tags.Items.STONE))
+                .save(pRecipeOutput, new ResourceLocation(Occultism.MODID, "spirit_trade/test"));
 
     }
 
