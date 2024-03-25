@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "s": {
+      "tag": "forge:string"
+    },
+    "t": {
+      "tag": "forge:tallow"
+    }
+  },
+  "pattern": [
+    "s",
+    "t"
+  ],
+  "result": {
+    "item": "occultism:candle_white"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_tallow": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:tallow"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crafting/candle"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_tallow"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crafting/candle"
+    ]
+  }
+}

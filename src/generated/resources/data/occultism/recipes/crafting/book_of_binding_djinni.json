@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "b": {
+      "item": "occultism:taboo_book"
+    },
+    "c": {
+      "item": "occultism:purified_ink"
+    },
+    "f": {
+      "item": "occultism:awakened_feather"
+    },
+    "g": {
+      "tag": "forge:dyes/green"
+    }
+  },
+  "pattern": [
+    "cgf",
+    "gbg",
+    " g "
+  ],
+  "result": {
+    "item": "occultism:book_of_binding_djinni"
+  }
+}

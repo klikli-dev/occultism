@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ashes": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "occultism:otherworld_ashes"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crafting/chalk_white_impure"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_ashes"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crafting/chalk_white_impure"
+    ]
+  }
+}
