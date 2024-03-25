@@ -4,7 +4,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forbidden_arcanus:runic_stones"
+        "tag": "forge:ores/thorium"
       }
     }
   ],
@@ -13,7 +13,7 @@
     "tag": "occultism:miners/ores"
   },
   "result": {
-    "tag": "forbidden_arcanus:runic_stones"
+    "tag": "forge:ores/thorium"
   },
-  "weight": 200
+  "weight": 222
 }

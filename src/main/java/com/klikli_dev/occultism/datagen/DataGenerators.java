@@ -64,7 +64,6 @@ public class DataGenerators {
                 )));
 
 
-        generator.addProvider(event.includeServer(), new MinerRecipeProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new OccultismRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
         // Forge Tags
         OccultismBlockTagProvider forgeBlockProvider = new OccultismBlockTagProvider(generator.getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper());

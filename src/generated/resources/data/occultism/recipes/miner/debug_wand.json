@@ -1,0 +1,10 @@
+{
+  "type": "occultism:miner",
+  "ingredient": {
+    "item": "occultism:debug_wand"
+  },
+  "result": {
+    "item": "occultism:otherstone"
+  },
+  "weight": 200
+}

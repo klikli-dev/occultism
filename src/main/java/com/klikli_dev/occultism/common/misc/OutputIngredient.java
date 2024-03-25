@@ -1,5 +1,6 @@
 package com.klikli_dev.occultism.common.misc;
 
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.integration.almostunified.AlmostUnifiedIntegration;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -51,6 +52,8 @@ public class OutputIngredient extends Ingredient {
     protected ItemStack cachedOutputStack;
     private int count;
     private CompoundTag nbt;
+
+
     public Set<Value> getContainedValues() {
     return Arrays.stream(getValues()).collect(Collectors.toSet());
 }
@@ -102,6 +105,7 @@ public class OutputIngredient extends Ingredient {
                     }
 
                     //copied from Ingredient.TagValue.getItems to handle empty tags
+                    Occultism.LOGGER.error("Empty Tag: {}", tagValue.tag().location());
                     return Stream.of(new ItemStack(Blocks.BARRIER).setHoverName(Component.literal("Empty Tag: " + tagValue.tag().location())));
                 }
                 return value.getItems().stream();
