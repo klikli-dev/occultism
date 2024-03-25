@@ -115,7 +115,7 @@ public class MinerRecipeBuilder implements RecipeBuilder {
             }
             output = Ingredient.fromJson(json, false);
             MinerRecipe recipe = new MinerRecipe(ingredient, new WeightedOutputIngredient(output, this.weight));
-            pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.withPrefix("recipes/crushing/")), conditions);
+            pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.withPrefix("recipes/miner/")), conditions);
         } else if(this.outputItem!=null) {
             Occultism.LOGGER.error("Could not find item with id {}",this.outputItem);
         }
@@ -123,7 +123,7 @@ public class MinerRecipeBuilder implements RecipeBuilder {
             json.addProperty("tag", this.outputTag);
             output = Ingredient.fromJson(json, false);
             MinerRecipe recipe = new MinerRecipe(ingredient, new WeightedOutputIngredient(output, this.weight));
-            pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.withPrefix("recipes/crushing/")), conditions);
+            pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.withPrefix("recipes/miner/")), conditions);
         }
 
     }

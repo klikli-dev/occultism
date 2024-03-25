@@ -1,0 +1,9 @@
+{
+  "type": "occultism:spirit_fire",
+  "ingredient": {
+    "tag": "forge:feathers"
+  },
+  "result": {
+    "item": "occultism:awakened_feather"
+  }
+}
