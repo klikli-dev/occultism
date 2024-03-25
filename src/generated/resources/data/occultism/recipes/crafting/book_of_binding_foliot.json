@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "b": {
+      "item": "occultism:taboo_book"
+    },
+    "c": {
+      "item": "occultism:purified_ink"
+    },
+    "f": {
+      "item": "occultism:awakened_feather"
+    },
+    "w": {
+      "tag": "forge:dyes/white"
+    }
+  },
+  "pattern": [
+    "cwf",
+    "wbw",
+    " w "
+  ],
+  "result": {
+    "item": "occultism:book_of_binding_foliot"
+  }
+}
