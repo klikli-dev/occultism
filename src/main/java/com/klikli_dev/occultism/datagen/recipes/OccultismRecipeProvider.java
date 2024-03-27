@@ -1,6 +1,7 @@
 package com.klikli_dev.occultism.datagen.recipes;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.datagen.builders.CrushingRecipeBuilder;
 import com.klikli_dev.occultism.datagen.builders.MinerRecipeBuilder;
 import com.klikli_dev.occultism.datagen.builders.SpiritFireRecipeBuilder;
@@ -35,7 +36,12 @@ public class OccultismRecipeProvider extends RecipeProvider {
         miningRecipes(pRecipeOutput);
         spiritFireRecipes(pRecipeOutput);
         spiritTradeRecipes(pRecipeOutput);
+        ritualRecipes(pRecipeOutput);
 
+    }
+
+    private void ritualRecipes(RecipeOutput recipeOutput) {
+        RitualRecipes.ritualRecipes(recipeOutput);
     }
 
     private void spiritTradeRecipes(RecipeOutput pRecipeOutput) {
