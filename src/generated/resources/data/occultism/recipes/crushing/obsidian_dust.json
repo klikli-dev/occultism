@@ -1,0 +1,11 @@
+{
+  "type": "occultism:crushing",
+  "ingredient": {
+    "tag": "forge:obsidian"
+  },
+  "result": {
+    "item": {
+      "tag": "forge:dusts/obsidian"
+    }
+  }
+}

@@ -16,13 +16,13 @@
     }
   ],
   "type": "occultism:crushing",
-  "crushing_time": 200,
   "ignore_crushing_multiplier": true,
   "ingredient": {
     "tag": "forge:ingots/lead"
   },
   "result": {
-    "count": 1,
-    "tag": "forge:dusts/lead"
+    "item": {
+      "tag": "forge:dusts/lead"
+    }
   }
 }

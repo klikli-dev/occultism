@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "b": {
+      "tag": "minecraft:stone_buttons"
+    },
+    "g": {
+      "tag": "forge:ingots/gold"
+    },
+    "t": {
+      "item": "occultism:otherstone_tablet"
+    }
+  },
+  "pattern": [
+    "gtg",
+    "bgb",
+    "bbb"
+  ],
+  "result": {
+    "item": "occultism:storage_remote_inert"
+  }
+}

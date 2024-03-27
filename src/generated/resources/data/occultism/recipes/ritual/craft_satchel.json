@@ -1,0 +1,32 @@
+{
+  "type": "occultism:ritual",
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_foliot"
+  },
+  "duration": 240,
+  "ingredients": [
+    {
+      "tag": "forge:chests/wooden"
+    },
+    {
+      "tag": "forge:leather"
+    },
+    {
+      "tag": "forge:leather"
+    },
+    {
+      "tag": "forge:string"
+    },
+    {
+      "tag": "forge:ingots/silver"
+    }
+  ],
+  "pentacle_id": "occultism:craft_foliot",
+  "result": {
+    "item": "occultism:satchel"
+  },
+  "ritual_dummy": {
+    "item": "occultism:ritual_dummy/craft_satchel"
+  },
+  "ritual_type": "occultism:craft_with_spirit_name"
+}

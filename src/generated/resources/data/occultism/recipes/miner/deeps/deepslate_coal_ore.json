@@ -1,0 +1,10 @@
+{
+  "type": "occultism:miner",
+  "ingredient": {
+    "tag": "occultism:miners/deeps"
+  },
+  "result": {
+    "item": "minecraft:deepslate_coal_ore"
+  },
+  "weight": 1000
+}

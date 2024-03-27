@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "forge:seeds/datura"
+    },
+    {
+      "tag": "forge:books"
+    }
+  ],
+  "result": {
+    "item": "occultism:dictionary_of_spirits"
+  }
+}

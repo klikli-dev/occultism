@@ -16,13 +16,13 @@
     }
   ],
   "type": "occultism:crushing",
-  "crushing_time": 200,
   "ignore_crushing_multiplier": true,
   "ingredient": {
     "tag": "forge:ingots/vibranium"
   },
   "result": {
-    "count": 1,
-    "tag": "forge:dusts/vibranium"
+    "item": {
+      "tag": "forge:dusts/vibranium"
+    }
   }
 }

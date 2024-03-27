@@ -1,0 +1,32 @@
+{
+  "type": "occultism:ritual",
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_djinni"
+  },
+  "duration": 60,
+  "ingredients": [
+    {
+      "tag": "forge:rods/wooden"
+    },
+    {
+      "tag": "forge:rods/wooden"
+    },
+    {
+      "item": "occultism:spirit_attuned_pickaxe_head"
+    },
+    {
+      "tag": "forge:ingots/silver"
+    },
+    {
+      "tag": "forge:ingots/silver"
+    }
+  ],
+  "pentacle_id": "occultism:craft_djinni",
+  "result": {
+    "item": "occultism:infused_pickaxe"
+  },
+  "ritual_dummy": {
+    "item": "occultism:ritual_dummy/craft_dimensional_matrix"
+  },
+  "ritual_type": "occultism:craft_with_spirit_name"
+}
