@@ -99,6 +99,7 @@ public class MinerRecipeBuilder implements RecipeBuilder {
     }
     @Override
     public void save(RecipeOutput pRecipeOutput, ResourceLocation pId) {
+        this.ensureValid(pId);
         Advancement.Builder advancement$builder = pRecipeOutput.advancement()
                 .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId))
                 .rewards(AdvancementRewards.Builder.recipe(pId))
@@ -110,8 +111,6 @@ public class MinerRecipeBuilder implements RecipeBuilder {
         if(this.outputItem!=null && BuiltInRegistries.ITEM.containsKey(outputItem)) {
             if (this.outputItem != null) {
                 json.addProperty("item", this.outputItem.toString());
-            } else {
-                json.addProperty("tag", this.outputTag);
             }
             output = Ingredient.fromJson(json, false);
             MinerRecipe recipe = new MinerRecipe(ingredient, new WeightedOutputIngredient(output, this.weight));
