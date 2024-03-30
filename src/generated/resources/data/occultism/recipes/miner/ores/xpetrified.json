@@ -1,14 +1,14 @@
 {
-  "type": "occultism:miner",
-  "conditions": [
+  "neoforge:conditions": [
     {
-      "type": "forge:not",
+      "type": "neoforge:not",
       "value": {
-        "type": "forge:tag_empty",
+        "type": "neoforge:tag_empty",
         "tag": "forge:ores/xpetrified_ore"
       }
     }
   ],
+  "type": "occultism:miner",
   "ingredient": {
     "tag": "occultism:miners/ores"
   },

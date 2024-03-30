@@ -1,14 +1,14 @@
 {
-  "type": "occultism:miner",
-  "conditions": [
+  "neoforge:conditions": [
     {
-      "type": "forge:not",
+      "type": "neoforge:not",
       "value": {
-        "type": "forge:tag_empty",
+        "type": "neoforge:tag_empty",
         "tag": "forbidden_arcanus:runic_stones"
       }
     }
   ],
+  "type": "occultism:miner",
   "ingredient": {
     "tag": "occultism:miners/ores"
   },

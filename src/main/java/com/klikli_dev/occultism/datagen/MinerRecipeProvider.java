@@ -105,7 +105,7 @@ public class MinerRecipeProvider implements DataProvider {
         var recipe = new JsonObject();
         recipe.addProperty("type", "occultism:miner");
         var conditions = this.buildMinerRecipeConditionJson(outputTag);
-        recipe.add("conditions", conditions);
+        recipe.add("neoforge:conditions", conditions);
         var ingredient = new JsonObject();
         ingredient.addProperty("tag", minerTag);
         recipe.add("ingredient", ingredient);
@@ -120,9 +120,9 @@ public class MinerRecipeProvider implements DataProvider {
         var conditions = new JsonArray();
         //multiple conditions on the root level array are treated as AND by forge, but we only have one
         var condition = new JsonObject();
-        condition.addProperty("type", "forge:not");
+        condition.addProperty("type", "neoforge:not");
         var value = new JsonObject();
-        value.addProperty("type", "forge:tag_empty");
+        value.addProperty("type", "neoforge:tag_empty");
         value.addProperty("tag", outputTag);
         condition.add("value", value);
         conditions.add(condition);
