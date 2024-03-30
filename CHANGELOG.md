@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.123.1] - 2024-03-30
+### :bug: Bug Fixes
+- [`eb45ea7`](https://github.com/klikli-dev/occultism/commit/eb45ea77d3c364931744810f6191ca3151c20317) - remove Recipe tree from miner recipes and adds chance to miner recipes *(PR [#1096](https://github.com/klikli-dev/occultism/pull/1096) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`a608359`](https://github.com/klikli-dev/occultism/commit/a60835934b42d4c2a2b1a20d73ddac8e5910a9d9) - fix Miner recipe handling in EMI *(PR [#1099](https://github.com/klikli-dev/occultism/pull/1099) by [@GaeaKat](https://github.com/GaeaKat))*
+- [`34b7726`](https://github.com/klikli-dev/occultism/commit/34b7726512a491f14419ec060456ebcac25fbf48) - merge error causing regression on conditional recipe loading *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.123.0] - 2024-03-17
 ### :sparkles: New Features
 - [`82f5c8a`](https://github.com/klikli-dev/occultism/commit/82f5c8af0f820cff0dc5d571613668ee35974a59) - add EMI to 1.20.4 ([#1091](https://github.com/klikli-dev/occultism/pull/1091)) - thanks @GaeaKat *(commit by [@GaeaKat](https://github.com/GaeaKat))*
@@ -1055,3 +1062,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.122.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.121.4...release/v1.20.4-1.122.0
 [release/v1.20.4-1.122.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.122.0...release/v1.20.4-1.122.1
 [release/v1.20.4-1.123.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.122.1...release/v1.20.4-1.123.0
+[release/v1.20.4-1.123.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.123.0...release/v1.20.4-1.123.1
