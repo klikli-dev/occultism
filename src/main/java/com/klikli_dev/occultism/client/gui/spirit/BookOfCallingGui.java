@@ -31,7 +31,6 @@ import com.klikli_dev.occultism.common.item.spirit.calling.ItemMode;
 import com.klikli_dev.occultism.network.MessageSetItemMode;
 import com.klikli_dev.occultism.network.MessageSetWorkAreaSize;
 import com.klikli_dev.occultism.network.OccultismPackets;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
@@ -83,13 +82,13 @@ public class BookOfCallingGui extends Screen {
                 Component.translatable(this.mode.translationKey()), (b) -> {
             LocalPlayer player = Minecraft.getInstance().player;
             ItemStack stack = player.getItemInHand(player.getUsedItemHand());
-            this.mode = stack.getItem() instanceof BookOfCallingItem ?
-                    ((BookOfCallingItem) stack.getItem()).nextItemMode(stack):null;
-            if(this.mode!=null)
-            {
-                OccultismPackets.sendToServer(new MessageSetItemMode(((BookOfCallingItem)stack.getItem()).modeValue(this.mode)));
-                this.init();
-            }
+
+            //go to the next mode, if the selected item somehow changed keep the old mode.
+            this.mode = stack.getItem() instanceof BookOfCallingItem bookOfCallingItem ?
+                    bookOfCallingItem.nextItemMode(stack) : this.mode;
+
+            OccultismPackets.sendToServer(new MessageSetItemMode(((BookOfCallingItem) stack.getItem()).modeValue(this.mode)));
+            this.init();
         })));
 
         boolean showSize = this.mode.hasSize();
