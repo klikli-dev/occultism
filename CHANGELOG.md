@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.124.1] - 2024-03-31
+### :bug: Bug Fixes
+- [`0196afc`](https://github.com/klikli-dev/occultism/commit/0196afce6067e7635240676ce52b7fffab4e5bb8) - book of calling sometimes using offhand item *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.124.0] - 2024-03-31
 ### :sparkles: New Features
 - [`550406d`](https://github.com/klikli-dev/occultism/commit/550406d6434d07dd43856bf2cfb331f4e7827b03) - move loot tables and vanilla crafting to DataGenerators *(PR [#1094](https://github.com/klikli-dev/occultism/pull/1094) by [@GaeaKat](https://github.com/GaeaKat))*
@@ -1042,3 +1047,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.122.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.122.0...release/v1.20.1-1.122.1
 [release/v1.20.1-1.123.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.122.1...release/v1.20.1-1.123.0
 [release/v1.20.1-1.124.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.123.0...release/v1.20.1-1.124.0
+[release/v1.20.1-1.124.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.124.0...release/v1.20.1-1.124.1
