@@ -22,6 +22,8 @@
 
 package com.klikli_dev.occultism;
 
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import com.klikli_dev.occultism.client.render.SelectedBlockRenderer;
 import com.klikli_dev.occultism.client.render.ThirdEyeEffectRenderer;
 import com.klikli_dev.occultism.common.DebugHelper;
@@ -40,6 +42,7 @@ import com.klikli_dev.occultism.registry.*;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.ParticleRegistry;
 import com.mojang.logging.LogUtils;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModLoadingContext;
@@ -52,6 +55,10 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import org.slf4j.Logger;
 import software.bernie.geckolib.GeckoLib;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Stream;
 
 @Mod(Occultism.MODID)
 public class Occultism {
@@ -114,6 +121,13 @@ public class Occultism {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         PageLoaders.onCommonSetup(event);
+
+        event.enqueueWork(() -> {
+            BlockEntityType.CAMPFIRE.validBlocks = Stream.concat(
+                    BlockEntityType.CAMPFIRE.validBlocks.stream(),
+                    Stream.of(OccultismBlocks.SPIRIT_CAMPFIRE.get())
+            ).collect(ImmutableSet.toImmutableSet());
+        });
 
         //Register entity attributes on single thread
 

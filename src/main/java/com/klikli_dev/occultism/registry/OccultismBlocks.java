@@ -248,6 +248,7 @@ public class OccultismBlocks {
                     .requiresCorrectToolForDrops().strength(3.5F).sound(SoundType.LANTERN)
                     .lightLevel((state) -> 10).noOcclusion()));
 
+    //See Occultism#commonSetup for extending the campfire blockentity type to accept our spirit campfire
     public static final DeferredBlock<Block> SPIRIT_CAMPFIRE = register("spirit_campfire",
             () -> new CampfireBlock(false, 0, BlockBehaviour.Properties.of()
                     .mapColor(MapColor.PODZOL)
