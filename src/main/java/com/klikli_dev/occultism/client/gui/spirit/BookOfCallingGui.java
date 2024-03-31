@@ -82,12 +82,13 @@ public class BookOfCallingGui extends Screen {
                 Component.translatable(this.mode.translationKey()), (b) -> {
             LocalPlayer player = Minecraft.getInstance().player;
             ItemStack stack = player.getItemInHand(player.getUsedItemHand());
-            this.mode = stack.getItem() instanceof BookOfCallingItem bookOfCalling ?
-                    bookOfCalling.nextItemMode(stack) : null;
-            if (this.mode != null) {
-                Networking.sendToServer(new MessageSetItemMode(((BookOfCallingItem) stack.getItem()).modeValue(this.mode)));
-                this.init();
-            }
+
+            //go to the next mode, if the selected item somehow changed keep the old mode.
+            this.mode = stack.getItem() instanceof BookOfCallingItem bookOfCallingItem ?
+                    bookOfCallingItem.nextItemMode(stack) : this.mode;
+
+            Networking.sendToServer(new MessageSetItemMode(((BookOfCallingItem) stack.getItem()).modeValue(this.mode)));
+            this.init();
         })));
 
         boolean showSize = this.mode.hasSize();
