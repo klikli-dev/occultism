@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.124.0] - 2024-03-31
+### :sparkles: New Features
+- [`550406d`](https://github.com/klikli-dev/occultism/commit/550406d6434d07dd43856bf2cfb331f4e7827b03) - move loot tables and vanilla crafting to DataGenerators *(PR [#1094](https://github.com/klikli-dev/occultism/pull/1094) by [@GaeaKat](https://github.com/GaeaKat))*
+
+### :bug: Bug Fixes
+- [`663f3cb`](https://github.com/klikli-dev/occultism/commit/663f3cbd4776c761f388f6fdac3fc7498848abe8) - remove Recipe tree from miner recipes and adds chance to miner recipes *(PR [#1096](https://github.com/klikli-dev/occultism/pull/1096) by [@GaeaKat](https://github.com/GaeaKat))*
+- [`40b533b`](https://github.com/klikli-dev/occultism/commit/40b533b0e90dfb102d63c9e921d7a8328382fea4) - prevent mode from being null in certain edge cases *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.123.0] - 2024-03-17
 ### :sparkles: New Features
 - [`c01097d`](https://github.com/klikli-dev/occultism/commit/c01097df3b122ac3a010d1380c9304b7b056fd84) - Add native EMI support to Occultism ([#1090](https://github.com/klikli-dev/occultism/pull/1090)) - thanks @GaeaKat *(commit by [@GaeaKat](https://github.com/GaeaKat))*
@@ -1032,3 +1041,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.122.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.121.3...release/v1.20.1-1.122.0
 [release/v1.20.1-1.122.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.122.0...release/v1.20.1-1.122.1
 [release/v1.20.1-1.123.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.122.1...release/v1.20.1-1.123.0
+[release/v1.20.1-1.124.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.123.0...release/v1.20.1-1.124.0
