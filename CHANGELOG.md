@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.124.1] - 2024-03-31
+### :bug: Bug Fixes
+- [`9a5adbe`](https://github.com/klikli-dev/occultism/commit/9a5adbef7b6c5a870f35d3a6509f5e820caa15f2) - book of calling sometimes using offhand item *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.124.0] - 2024-03-31
 ### :bug: Bug Fixes
 - [`655c65d`](https://github.com/klikli-dev/occultism/commit/655c65d5c189a4f65a03f82a755b36afa49051cc) - prevent mode from being null in certain edge cases *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1069,3 +1074,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.123.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.122.1...release/v1.20.4-1.123.0
 [release/v1.20.4-1.123.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.123.0...release/v1.20.4-1.123.1
 [release/v1.20.4-1.124.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.123.1...release/v1.20.4-1.124.0
+[release/v1.20.4-1.124.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.124.0...release/v1.20.4-1.124.1
