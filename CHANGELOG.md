@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.124.2] - 2024-03-31
+### :bug: Bug Fixes
+- [`faaad40`](https://github.com/klikli-dev/occultism/commit/faaad40976bf6d36ac37d9a422a5eaa0be91b765) - spirit campfire cooking *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.124.1] - 2024-03-31
 ### :bug: Bug Fixes
 - [`9a5adbe`](https://github.com/klikli-dev/occultism/commit/9a5adbef7b6c5a870f35d3a6509f5e820caa15f2) - book of calling sometimes using offhand item *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1075,3 +1080,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.123.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.123.0...release/v1.20.4-1.123.1
 [release/v1.20.4-1.124.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.123.1...release/v1.20.4-1.124.0
 [release/v1.20.4-1.124.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.124.0...release/v1.20.4-1.124.1
+[release/v1.20.4-1.124.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.124.1...release/v1.20.4-1.124.2
