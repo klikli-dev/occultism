@@ -118,7 +118,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(OccultismTags.Items.METAL_AXES).add(Items.IRON_AXE,Items.GOLDEN_AXE,Items.DIAMOND_AXE,Items.NETHERITE_AXE).replace(false);
 
         // Books
-        this.tag(OccultismTags.Items.BOOKS).add(OccultismItems.DICTIONARY_OF_SPIRITS.get()).replace(false);
+        this.tag(OccultismTags.Items.BOOKS).add(OccultismItems.DICTIONARY_OF_SPIRITS.get(),Items.BOOK).replace(false);
 
         // Fruits
         this.tag(OccultismTags.Items.FRUITS).add(Items.APPLE).replace(false);
