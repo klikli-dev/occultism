@@ -81,14 +81,14 @@ public class BookOfCallingGui extends Screen {
         this.addRenderableWidget((new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + 60, buttonWidth, 20,
                 Component.translatable(this.mode.translationKey()), (b) -> {
             LocalPlayer player = Minecraft.getInstance().player;
-            ItemStack stack = player.getItemInHand(player.getUsedItemHand());
+            ItemStack stack = player.getMainHandItem(); //important: use main hand otherwise we may get a shield or other non-book item here
 
-            //go to the next mode, if the selected item somehow changed keep the old mode.
-            this.mode = stack.getItem() instanceof BookOfCallingItem bookOfCallingItem ?
-                    bookOfCallingItem.nextItemMode(stack) : this.mode;
-
-            Networking.sendToServer(new MessageSetItemMode(((BookOfCallingItem) stack.getItem()).modeValue(this.mode)));
-            this.init();
+            if(stack.getItem() instanceof BookOfCallingItem bookOfCallingItem){
+                this.mode = bookOfCallingItem.nextItemMode(stack);
+                Networking.sendToServer(new MessageSetItemMode(((BookOfCallingItem) stack.getItem()).modeValue(this.mode)));
+                this.init();
+            }
+            
         })));
 
         boolean showSize = this.mode.hasSize();
