@@ -1,19 +1,14 @@
 {
   "type": "occultism:ritual",
-  "ritual_type": "occultism:summon",
   "activation_item": {
     "item": "occultism:book_of_binding_bound_djinni"
   },
-  "pentacle_id": "occultism:possess_djinni",
   "duration": 60,
   "entity_to_sacrifice": {
-    "tag": "forge:axolotls",
-    "display_name": "ritual.occultism.sacrifice.axolotls"
+    "display_name": "ritual.occultism.sacrifice.axolotls",
+    "tag": "forge:axolotls"
   },
   "entity_to_summon": "occultism:possessed_warden",
-  "ritual_dummy": {
-    "item": "occultism:ritual_dummy/possess_warden"
-  },
   "ingredients": [
     {
       "item": "minecraft:sculk_shrieker"
@@ -52,15 +47,13 @@
       "item": "minecraft:sculk"
     }
   ],
+  "pentacle_id": "occultism:possess_djinni",
   "result": {
     "item": "minecraft:echo_shard",
-    "nbt": {
-      "display": {
-        "Lore": [
-          "[{\"translate\":\"item.occultism.ritual_dummy.possess_warden.tooltip\"}]"
-        ],
-        "Name": "[{\"translate\":\"item.occultism.ritual_dummy.possess_warden\"}]"
-      }
-    }
-  }
+    "nbt": "{display:{Lore:['[{\"translate\":\"item.occultism.ritual_dummy.possess_warden.tooltip\"}]'],Name:'{\"translate\":\"item.occultism.ritual_dummy.possess_warden\"}'}}"
+  },
+  "ritual_dummy": {
+    "item": "occultism:ritual_dummy/possess_warden"
+  },
+  "ritual_type": "occultism:summon"
 }
