@@ -52,13 +52,11 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(OccultismTags.Items.Miners.DEEPS).add(OccultismItems.MINER_AFRIT_DEEPS.get(), OccultismItems.MINER_MARID_MASTER.get()).replace(false);
         this.tag(OccultismTags.Items.Miners.MASTER).add(OccultismItems.MINER_MARID_MASTER.get()).replace(false);
         this.tag(OccultismTags.Items.Miners.ORES).add(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get(),
-                OccultismItems.MINER_DEBUG_UNSPECIALIZED.get(), OccultismItems.MINER_AFRIT_DEEPS.get(), OccultismItems.MINER_MARID_MASTER.get()).replace(false);
+                OccultismItems.MINER_DEBUG_UNSPECIALIZED.get(), OccultismItems.MINER_AFRIT_DEEPS.get(), OccultismItems.MINER_MARID_MASTER.get(), OccultismItems.MINER_DJINNI_ORES.get()).replace(false);
         this.copy(OccultismTags.Blocks.OTHERWORLD_SAPLINGS, OccultismTags.Items.OTHERWORLD_SAPLINGS);
         this.tag(OccultismTags.Items.TOOL_KNIVES).add(OccultismItems.BUTCHER_KNIFE.get()).replace(false);
         this.tag(OccultismTags.Items.ELYTRA).add(Items.ELYTRA).addOptional(new ResourceLocation("mana-and-artifice", "spectral_elytra")).replace(false);
         this.tag(OccultismTags.Items.OTHERWORLD_GOGGLES).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
-
-
     }
 
     private void addMinecraftTags(HolderLookup.Provider provider) {
@@ -115,7 +113,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(OccultismTags.Items.METAL_AXES).add(Items.IRON_AXE, Items.GOLDEN_AXE, Items.DIAMOND_AXE, Items.NETHERITE_AXE).replace(false);
 
         // Books
-        this.tag(OccultismTags.Items.BOOKS).add(OccultismItems.DICTIONARY_OF_SPIRITS.get(),Items.BOOK).replace(false);
+        this.tag(OccultismTags.Items.BOOKS).add(OccultismItems.DICTIONARY_OF_SPIRITS.get(), Items.BOOK).replace(false);
 
         // Fruits
         this.tag(OccultismTags.Items.FRUITS).add(Items.APPLE).replace(false);
