@@ -36,6 +36,7 @@ public abstract class RitualRecipes extends RecipeProvider {
     private static ResourceLocation RITUAL_CRAFT=new ResourceLocation(Occultism.MODID, "craft");
     private static ResourceLocation RITUAL_CRAFT_MINER_SPIRIT=new ResourceLocation(Occultism.MODID, "craft_miner_spirit");
     private static final ResourceLocation RITUAL_SUMMON = new ResourceLocation(Occultism.MODID, "summon");
+    private static final ResourceLocation RITUAL_SUMMON_JOB = new ResourceLocation(Occultism.MODID,"summon_spirit_with_job");
     private static final ResourceLocation RITUAL_RESURRECT_FAMILIAR = new ResourceLocation(Occultism.MODID, "resurrect_familiar");
 
     // Pentacle IDs
@@ -47,6 +48,7 @@ public abstract class RitualRecipes extends RecipeProvider {
     private static ResourceLocation PENTACLE_CRAFT_AFRIT = new ResourceLocation(Occultism.MODID, "craft_afrit");
     private static ResourceLocation PENTACLE_CRAFT_MARID = new ResourceLocation(Occultism.MODID, "craft_marid");
     private static final ResourceLocation PENTACLE_SUMMON_FOLIOT = new ResourceLocation(Occultism.MODID,"summon_foliot");
+    private static final ResourceLocation PENTACLE_SUMMON_AFRIT = new ResourceLocation(Occultism.MODID,"summon_afrit");
 
 
     public RitualRecipes(PackOutput p_248933_, CompletableFuture<HolderLookup.Provider> lookupProvider) {
@@ -71,12 +73,15 @@ public abstract class RitualRecipes extends RecipeProvider {
     private static ItemStack makeJeiDummy(ResourceLocation location) {
         return new ItemStack(BuiltInRegistries.ITEM.get(location));
     }
+    private static ItemStack makeJeiNoneDummy() {
+        return makeJeiDummy(new ResourceLocation("occultism","jei_dummy/none"));
+    }
     public static void ritualRecipes(RecipeOutput recipeOutput) {
         craftingRituals(recipeOutput);
         familiarRituals(recipeOutput);
         possessRituals(recipeOutput);
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.SOUL_SHARD_ITEM.get()),
-               makeJeiDummy(new ResourceLocation("occultism","jei_dummy/none")),
+                        makeJeiNoneDummy(),
                 makeRitualDummy(new ResourceLocation(Occultism.MODID,"ritual_dummy/resurrect_familiar")),
                 15,
                         RITUAL_RESURRECT_FAMILIAR,
@@ -87,7 +92,43 @@ public abstract class RitualRecipes extends RecipeProvider {
                 Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE.get()))
                 .unlockedBy("has_otherworld_essence",has(OccultismItems.OTHERWORLD_ESSENCE.get()))
                 .save(recipeOutput,new ResourceLocation(Occultism.MODID,"ritual/resurrect_familiar"));
+        summonRituals(recipeOutput);
 
+    }
+
+    private static void summonRituals(RecipeOutput recipeOutput) {
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
+            makeJeiNoneDummy(),
+                makeRitualDummy(new ResourceLocation(Occultism.MODID,"ritual_dummy/summon_afrit_crusher")),
+                120,
+                RITUAL_SUMMON_JOB,
+                PENTACLE_SUMMON_AFRIT,
+                Ingredient.of(Tags.Items.GEMS_DIAMOND),
+                Ingredient.of(OccultismTags.Items.IESNIUM_DUST),
+                Ingredient.of(OccultismTags.Items.IESNIUM_DUST),
+                Ingredient.of(Tags.Items.GEMS_EMERALD))
+                .unlockedBy("has_bound_afrit",has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .spiritMaxAge(-1)
+                .spiritJobType(new ResourceLocation(Occultism.MODID,"crush_tier3"))
+                .entityToSummon(OccultismEntities.AFRIT_TYPE.get())
+                .save(recipeOutput,new ResourceLocation(Occultism.MODID,"ritual/summon_afrit_crusher"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
+                makeJeiNoneDummy(),
+                makeRitualDummy(new ResourceLocation(Occultism.MODID,"ritual_dummy/summon_afrit_rain_weather")),
+                60,
+                RITUAL_SUMMON_JOB,
+                PENTACLE_SUMMON_AFRIT,
+                Ingredient.of(Tags.Items.SAND),
+                Ingredient.of(Tags.Items.GEMS_DIAMOND),
+                Ingredient.of(Items.CACTUS),
+                Ingredient.of(Items.DEAD_BUSH))
+                .unlockedBy("has_bound_afrit",has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .spiritMaxAge(120)
+                .entityToSummon(OccultismEntities.AFRIT_TYPE.get())
+                .spiritJobType(new ResourceLocation(Occultism.MODID,"rain_weather"))
+                .entityToSacrifice(OccultismTags.Entities.COWS)
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.cows")
+                .save(recipeOutput,new ResourceLocation(Occultism.MODID,"ritual/rain_weather"));
 
     }
 
