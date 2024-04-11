@@ -80,10 +80,10 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
 
             // Adjust the translation based on the facing direction
             double xOffset = facing.getAxis() == Direction.Axis.X ? (facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? offset + fixedOffset : -offset - fixedOffset) : 0.0;
-            double yOffset = facing == Direction.UP ? offset + fixedOffset : (facing == Direction.DOWN ? -offset - fixedOffset : 0.6);
+            double yOffset = facing.getAxis() == Direction.Axis.Y ? (facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? offset + fixedOffset : -offset - fixedOffset) : 0.0;
             double zOffset = facing.getAxis() == Direction.Axis.Z ? (facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? offset + fixedOffset : -offset - fixedOffset) : 0.0;
 
-            poseStack.translate(0.5 + xOffset, yOffset, 0.5 + zOffset);
+            poseStack.translate(0.5 + xOffset, 0.5 + yOffset, 0.5 + zOffset);
 
             //use system time to become independent of game time
             long systemTime = System.currentTimeMillis();
