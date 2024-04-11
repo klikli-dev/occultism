@@ -70,17 +70,20 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
             //TODO: Currently the items bob up and down, instead of away from the bowl facing and back
 
             poseStack.pushPose();
+
             //slowly bob up and down following a sine
             double offset = Math.sin((time - blockEntity.lastChangeTime + partialTicks) / 16) * 0.5f + 0.5f; // * 0.5f + 0.5f;  move sine between 0.0-1.0
-            offset = offset / 3.0f; //reduce amplitude
+            offset = offset / 4.0f; //reduce amplitude
+
+            // Fixed offset to push the item away from the bowl
+            double fixedOffset = 0.2;
 
             // Adjust the translation based on the facing direction
-            double xOffset = facing.getAxis() == Direction.Axis.X ? offset : 0.0;
-            double yOffset = facing == Direction.UP ? offset : 0.6;
-            double zOffset = facing.getAxis() == Direction.Axis.Z ? offset : 0.0;
+            double xOffset = facing.getAxis() == Direction.Axis.X ? (facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? offset + fixedOffset : -offset - fixedOffset) : 0.0;
+            double yOffset = facing == Direction.UP ? offset + fixedOffset : (facing == Direction.DOWN ? -offset - fixedOffset : 0.6);
+            double zOffset = facing.getAxis() == Direction.Axis.Z ? (facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? offset + fixedOffset : -offset - fixedOffset) : 0.0;
 
             poseStack.translate(0.5 + xOffset, yOffset, 0.5 + zOffset);
-
 
             //use system time to become independent of game time
             long systemTime = System.currentTimeMillis();
