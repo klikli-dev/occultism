@@ -72,9 +72,15 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
             poseStack.pushPose();
             //slowly bob up and down following a sine
             double offset = Math.sin((time - blockEntity.lastChangeTime + partialTicks) / 16) * 0.5f + 0.5f; // * 0.5f + 0.5f;  move sine between 0.0-1.0
-            offset = offset / 4.0f; //reduce amplitude
+            offset = offset / 3.0f; //reduce amplitude
 
-            poseStack.translate(0.5, 0.6 + offset, 0.5);
+            // Adjust the translation based on the facing direction
+            double xOffset = facing.getAxis() == Direction.Axis.X ? offset : 0.0;
+            double yOffset = facing == Direction.UP ? offset : 0.6;
+            double zOffset = facing.getAxis() == Direction.Axis.Z ? offset : 0.0;
+
+            poseStack.translate(0.5 + xOffset, yOffset, 0.5 + zOffset);
+
 
             //use system time to become independent of game time
             long systemTime = System.currentTimeMillis();
@@ -90,7 +96,6 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
             BakedModel model = itemRenderer.getModel(stack, blockEntity.getLevel(), null, 0);
             itemRenderer.render(stack, ItemDisplayContext.FIXED, true, poseStack, buffer,
                     combinedLight, combinedOverlay, model);
-
 
             poseStack.popPose();
 
