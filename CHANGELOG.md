@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.125.0] - 2024-04-11
+### :sparkles: New Features
+- [`b181f5d`](https://github.com/klikli-dev/occultism/commit/b181f5d9b5b7fe38bba7261780d46eb485c7836d) - rotatable bowls *(PR [#1111](https://github.com/klikli-dev/occultism/pull/1111) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`88d36e8`](https://github.com/klikli-dev/occultism/commit/88d36e8dbb7300d3aa75570bfc2aa5a8c5768ebb) - remove complete todos *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.124.4] - 2024-04-10
 ### :bug: Bug Fixes
 - [`2853888`](https://github.com/klikli-dev/occultism/commit/285388850afc15125636de08f7481a070415d115) - re-add djini miner to ores tag, fixes [#1107](https://github.com/klikli-dev/occultism/pull/1107) *(PR [#1108](https://github.com/klikli-dev/occultism/pull/1108) by [@GaeaKat](https://github.com/GaeaKat))*
@@ -1066,3 +1074,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.124.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.124.1...release/v1.20.1-1.124.2
 [release/v1.20.1-1.124.3]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.124.2...release/v1.20.1-1.124.3
 [release/v1.20.1-1.124.4]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.124.3...release/v1.20.1-1.124.4
+[release/v1.20.1-1.125.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.124.4...release/v1.20.1-1.125.0
