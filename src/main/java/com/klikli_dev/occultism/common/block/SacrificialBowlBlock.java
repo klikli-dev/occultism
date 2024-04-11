@@ -55,8 +55,6 @@ public class SacrificialBowlBlock extends DirectionalBlock implements EntityBloc
 
     private static final DirectionalBlockShape SHAPE = new DirectionalBlockShape(12, 12, 2.3f);
 
-    //TODO Rotate renderer
-
     public SacrificialBowlBlock(Properties properties) {
         super(properties);
 

@@ -67,8 +67,6 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
 
             poseStack.pushPose();
 
-            //TODO: Currently the items bob up and down, instead of away from the bowl facing and back
-
             poseStack.pushPose();
 
             //slowly bob up and down following a sine
