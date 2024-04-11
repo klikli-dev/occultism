@@ -31,7 +31,6 @@ import com.klikli_dev.occultism.common.item.spirit.calling.ItemMode;
 import com.klikli_dev.occultism.network.MessageSetItemMode;
 import com.klikli_dev.occultism.network.MessageSetWorkAreaSize;
 import com.klikli_dev.occultism.network.OccultismPackets;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
@@ -82,14 +81,14 @@ public class BookOfCallingGui extends Screen {
         this.addRenderableWidget((new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + 60, buttonWidth, 20,
                 Component.translatable(this.mode.translationKey()), (b) -> {
             LocalPlayer player = Minecraft.getInstance().player;
-            ItemStack stack = player.getItemInHand(player.getUsedItemHand());
-            this.mode = stack.getItem() instanceof BookOfCallingItem ?
-                    ((BookOfCallingItem) stack.getItem()).nextItemMode(stack):null;
-            if(this.mode!=null)
-            {
-                OccultismPackets.sendToServer(new MessageSetItemMode(((BookOfCallingItem)stack.getItem()).modeValue(this.mode)));
+            ItemStack stack = player.getMainHandItem(); //important: use main hand otherwise we may get a shield or other non-book item here
+
+            if(stack.getItem() instanceof BookOfCallingItem bookOfCallingItem){
+                this.mode = bookOfCallingItem.nextItemMode(stack);
+                OccultismPackets.sendToServer(new MessageSetItemMode(((BookOfCallingItem) stack.getItem()).modeValue(this.mode)));
                 this.init();
             }
+
         })));
 
         boolean showSize = this.mode.hasSize();

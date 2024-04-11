@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.124.4] - 2024-04-10
+### :bug: Bug Fixes
+- [`2853888`](https://github.com/klikli-dev/occultism/commit/285388850afc15125636de08f7481a070415d115) - re-add djini miner to ores tag, fixes [#1107](https://github.com/klikli-dev/occultism/pull/1107) *(PR [#1108](https://github.com/klikli-dev/occultism/pull/1108) by [@GaeaKat](https://github.com/GaeaKat))*
+
+
+## [release/v1.20.1-1.124.3] - 2024-03-31
+### :bug: Bug Fixes
+- [`569bfb1`](https://github.com/klikli-dev/occultism/commit/569bfb190ef04881c6bcd9da656c2152a5b7d315) - add books to Books tag *(PR [#1105](https://github.com/klikli-dev/occultism/pull/1105) by [@GaeaKat](https://github.com/GaeaKat))*
+
+
+## [release/v1.20.1-1.124.2] - 2024-03-31
+### :bug: Bug Fixes
+- [`d75a4bb`](https://github.com/klikli-dev/occultism/commit/d75a4bbf6e51d59ef171f5027c9a613dc89893d8) - spirit campfire cooking *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.20.1-1.124.1] - 2024-03-31
+### :bug: Bug Fixes
+- [`0196afc`](https://github.com/klikli-dev/occultism/commit/0196afce6067e7635240676ce52b7fffab4e5bb8) - book of calling sometimes using offhand item *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.20.1-1.124.0] - 2024-03-31
+### :sparkles: New Features
+- [`550406d`](https://github.com/klikli-dev/occultism/commit/550406d6434d07dd43856bf2cfb331f4e7827b03) - move loot tables and vanilla crafting to DataGenerators *(PR [#1094](https://github.com/klikli-dev/occultism/pull/1094) by [@GaeaKat](https://github.com/GaeaKat))*
+
+### :bug: Bug Fixes
+- [`663f3cb`](https://github.com/klikli-dev/occultism/commit/663f3cbd4776c761f388f6fdac3fc7498848abe8) - remove Recipe tree from miner recipes and adds chance to miner recipes *(PR [#1096](https://github.com/klikli-dev/occultism/pull/1096) by [@GaeaKat](https://github.com/GaeaKat))*
+- [`40b533b`](https://github.com/klikli-dev/occultism/commit/40b533b0e90dfb102d63c9e921d7a8328382fea4) - prevent mode from being null in certain edge cases *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.123.0] - 2024-03-17
 ### :sparkles: New Features
 - [`c01097d`](https://github.com/klikli-dev/occultism/commit/c01097df3b122ac3a010d1380c9304b7b056fd84) - Add native EMI support to Occultism ([#1090](https://github.com/klikli-dev/occultism/pull/1090)) - thanks @GaeaKat *(commit by [@GaeaKat](https://github.com/GaeaKat))*
@@ -1032,3 +1061,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.122.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.121.3...release/v1.20.1-1.122.0
 [release/v1.20.1-1.122.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.122.0...release/v1.20.1-1.122.1
 [release/v1.20.1-1.123.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.122.1...release/v1.20.1-1.123.0
+[release/v1.20.1-1.124.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.123.0...release/v1.20.1-1.124.0
+[release/v1.20.1-1.124.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.124.0...release/v1.20.1-1.124.1
+[release/v1.20.1-1.124.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.124.1...release/v1.20.1-1.124.2
+[release/v1.20.1-1.124.3]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.124.2...release/v1.20.1-1.124.3
+[release/v1.20.1-1.124.4]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.124.3...release/v1.20.1-1.124.4

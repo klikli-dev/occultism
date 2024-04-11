@@ -88,7 +88,6 @@ public class ItemNBTUtil {
     }
 
     public static int getItemMode(ItemStack stack) {
-        CompoundTag compound = stack.getTag();
         if (!stack.getOrCreateTag().contains(ITEM_MODE_TAG))
             setItemMode(stack, 0);
 

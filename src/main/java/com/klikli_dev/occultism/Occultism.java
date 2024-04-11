@@ -22,6 +22,8 @@
 
 package com.klikli_dev.occultism;
 
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import com.klikli_dev.occultism.client.render.SelectedBlockRenderer;
 import com.klikli_dev.occultism.client.render.ThirdEyeEffectRenderer;
 import com.klikli_dev.occultism.common.DebugHelper;
@@ -37,6 +39,7 @@ import com.klikli_dev.occultism.integration.modonomicon.PageLoaders;
 import com.klikli_dev.occultism.network.OccultismPackets;
 import com.klikli_dev.occultism.registry.*;
 import com.mojang.logging.LogUtils;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -53,6 +56,10 @@ import software.bernie.geckolib.GeckoLib;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Stream;
 
 @Mod(Occultism.MODID)
 public class Occultism {
@@ -115,6 +122,13 @@ public class Occultism {
         OccultismPackets.registerMessages();
 
         event.enqueueWork(OccultismItems::registerCompostables);
+
+        event.enqueueWork(() -> {
+            BlockEntityType.CAMPFIRE.validBlocks = Stream.concat(
+                    BlockEntityType.CAMPFIRE.validBlocks.stream(),
+                    Stream.of(OccultismBlocks.SPIRIT_CAMPFIRE.get())
+            ).collect(ImmutableSet.toImmutableSet());
+        });
 
         PageLoaders.onCommonSetup(event);
 
