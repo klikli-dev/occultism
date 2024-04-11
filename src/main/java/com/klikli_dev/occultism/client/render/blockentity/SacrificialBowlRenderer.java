@@ -32,9 +32,13 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 
 public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialBowlBlockEntity> {
 
@@ -57,12 +61,29 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
         blockEntity.itemStackHandler.ifPresent(handler -> {
             ItemStack stack = handler.getStackInSlot(0);
             long time = blockEntity.getLevel().getGameTime();
+
+            var facing = blockEntity.getBlockState().hasProperty(BlockStateProperties.FACING) ?
+                    blockEntity.getBlockState().getValue(BlockStateProperties.FACING) : Direction.UP;
+
+            poseStack.pushPose();
+
+            //TODO: Currently the items bob up and down, instead of away from the bowl facing and back
+
             poseStack.pushPose();
 
             //slowly bob up and down following a sine
             double offset = Math.sin((time - blockEntity.lastChangeTime + partialTicks) / 16) * 0.5f + 0.5f; // * 0.5f + 0.5f;  move sine between 0.0-1.0
             offset = offset / 4.0f; //reduce amplitude
-            poseStack.translate(0.5, 0.6 + offset, 0.5);
+
+            // Fixed offset to push the item away from the bowl
+            double fixedOffset = 0.2;
+
+            // Adjust the translation based on the facing direction
+            double xOffset = facing.getAxis() == Direction.Axis.X ? (facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? offset + fixedOffset : -offset - fixedOffset) : 0.0;
+            double yOffset = facing.getAxis() == Direction.Axis.Y ? (facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? offset + fixedOffset : -offset - fixedOffset) : 0.0;
+            double zOffset = facing.getAxis() == Direction.Axis.Z ? (facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? offset + fixedOffset : -offset - fixedOffset) : 0.0;
+
+            poseStack.translate(0.5 + xOffset, 0.5 + yOffset, 0.5 + zOffset);
 
             //use system time to become independent of game time
             long systemTime = System.currentTimeMillis();
@@ -78,6 +99,10 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
             BakedModel model = itemRenderer.getModel(stack, blockEntity.getLevel(), null, 0);
             itemRenderer.render(stack, ItemDisplayContext.FIXED, true, poseStack, buffer,
                     combinedLight, combinedOverlay, model);
+
+            poseStack.popPose();
+
+            poseStack.mulPose(facing.getRotation());
 
             poseStack.popPose();
         });
