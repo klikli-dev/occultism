@@ -1,5 +1,6 @@
 package com.klikli_dev.occultism.integration.emi.recipes;
 
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import com.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
@@ -15,10 +16,14 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.DrawableWidget;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CrushingRecipeCategory implements EmiRecipe {
@@ -74,5 +79,21 @@ public class CrushingRecipeCategory implements EmiRecipe {
         // Note that output slots need to call `recipeContext` to inform EMI about their recipe context
         // This includes being able to resolve recipe trees, favorite stacks with recipe context, and more
         widgetHolder.addSlot(output.get(0), 90, 2).recipeContext(this);
+    }
+
+    private static final List<EmiIngredient> tiers = List.of(
+            EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
+                    new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_marid_crusher"))))),
+            EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
+                    new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_afrit_crusher"))))),
+            EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
+                    new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_djinni_crusher"))))),
+            EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
+                    new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_foliot_crusher")))))
+    );
+
+    @Override
+    public List<EmiIngredient> getCatalysts() {
+        return tiers;
     }
 }
