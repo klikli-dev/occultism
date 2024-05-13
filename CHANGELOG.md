@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.126.0] - 2024-05-13
+### :sparkles: New Features
+- [`b4aaa89`](https://github.com/klikli-dev/occultism/commit/b4aaa8955d8f3c7b7984272864285fa1a5293237) - remove requirement for sponge from elder guardian ritual *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.125.0] - 2024-04-11
 ### :sparkles: New Features
 - [`b181f5d`](https://github.com/klikli-dev/occultism/commit/b181f5d9b5b7fe38bba7261780d46eb485c7836d) - rotatable bowls *(PR [#1111](https://github.com/klikli-dev/occultism/pull/1111) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1075,3 +1080,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.124.3]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.124.2...release/v1.20.1-1.124.3
 [release/v1.20.1-1.124.4]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.124.3...release/v1.20.1-1.124.4
 [release/v1.20.1-1.125.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.124.4...release/v1.20.1-1.125.0
+[release/v1.20.1-1.126.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.125.0...release/v1.20.1-1.126.0
