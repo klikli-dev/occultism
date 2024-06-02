@@ -47,6 +47,7 @@ import com.klikli_dev.occultism.util.EntityUtil;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -66,12 +67,8 @@ import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nonnull;
@@ -164,7 +161,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     protected void mergeIntoList(List<ItemStack> list, ItemStack stackToAdd) {
         boolean merged = false;
         for (ItemStack stack : list) {
-            if (ItemHandlerHelper.canItemStacksStack(stackToAdd, stack)) {
+            if (ItemStack.isSameItemSameComponents(stackToAdd, stack)) {
                 stack.setCount(stack.getCount() + stackToAdd.getCount());
                 merged = true;
                 break;
@@ -436,7 +433,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
                 firstMatchedStack = stack.copy();
             } else {
                 //we already found something, so we need to make sure the stacks match up, if not we move on.
-                if (!ItemHandlerHelper.canItemStacksStack(firstMatchedStack, stack)) {
+                if (!ItemStack.isSameItemSameComponents(firstMatchedStack, stack)) {
                     continue;
                 }
             }
@@ -485,26 +482,26 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     }
 
     @Override
-    public void load(CompoundTag compound) {
+    public void loadAdditional(CompoundTag compound, HolderLookup.Provider provider) {
         compound.remove("linkedMachines"); //linked machines are not saved, they self-register.
-        super.load(compound);
+        super.loadAdditional(compound, provider);
 
         //read stored items
         if (compound.contains("items")) {
-            this.itemStackHandler.deserializeNBT(compound.getCompound("items"));
+            this.itemStackHandler.deserializeNBT(provider, compound.getCompound("items"));
             this.cachedMessageUpdateStacks = null;
         }
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compound) {
-        super.saveAdditional(compound);
+    protected void saveAdditional(CompoundTag compound, HolderLookup.Provider provider) {
+        super.saveAdditional(compound, provider);
         compound.remove("linkedMachines"); //linked machines are not saved, they self-register.
-        compound.put("items", this.itemStackHandler.serializeNBT());
+        compound.put("items", this.itemStackHandler.serializeNBT(provider));
     }
 
     @Override
-    public void loadNetwork(CompoundTag compound) {
+    public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
         this.setSortDirection(SortDirection.get(compound.getInt("sortDirection")));
         this.setSortType(SortType.get(compound.getInt("sortType")));
 
@@ -519,13 +516,13 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
             for (int i = 0; i < matrixNbt.size(); i++) {
                 CompoundTag stackTag = matrixNbt.getCompound(i);
                 int slot = stackTag.getByte("slot");
-                ItemStack s = ItemStack.of(stackTag);
+                ItemStack s = ItemStack.parseOptional(provider, stackTag);
                 this.matrix.put(slot, s);
             }
         }
 
         if (compound.contains("orderStack"))
-            this.orderStack = ItemStack.of(compound.getCompound("orderStack"));
+            this.orderStack = ItemStack.parseOptional(provider, compound.getCompound("orderStack"));
 
         //read the linked machines
         this.linkedMachines = new HashMap<>();
@@ -539,7 +536,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     }
 
     @Override
-    public CompoundTag saveNetwork(CompoundTag compound) {
+    public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
         compound.putInt("sortDirection", this.getSortDirection().getValue());
         compound.putInt("sortType", this.getSortType().getValue());
         compound.putInt("maxSlots", this.maxSlots);
@@ -550,14 +547,14 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
             if (this.matrix.get(i) != null && !this.matrix.get(i).isEmpty()) {
                 CompoundTag stackTag = new CompoundTag();
                 stackTag.putByte("slot", (byte) i);
-                this.matrix.get(i).save(stackTag);
+                this.matrix.get(i).save(provider, stackTag);
                 matrixNbt.add(stackTag);
             }
         }
         compound.put("matrix", matrixNbt);
 
         if (!this.orderStack.isEmpty())
-            compound.put("orderStack", this.orderStack.save(new CompoundTag()));
+            compound.put("orderStack", this.orderStack.save(provider, new CompoundTag()));
 
         //write linked machines
         ListTag machinesNbt = new ListTag();

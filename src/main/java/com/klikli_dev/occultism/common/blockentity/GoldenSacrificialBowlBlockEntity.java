@@ -523,7 +523,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compound) {
+    protected void saveAdditional(CompoundTag compound, HolderLookup.Provider provider) {
         if (this.getCurrentRitualRecipe() != null) {
             if (!this.consumedIngredients.isEmpty()) {
                 ListTag list = new ListTag();
@@ -535,11 +535,11 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             compound.putBoolean("sacrificeProvided", this.sacrificeProvided);
             compound.putBoolean("requiredItemUsed", this.itemUseProvided);
         }
-        super.saveAdditional(compound);
+        super.saveAdditional(compound, provider);
     }
 
     @Override
-    public void loadNetwork(CompoundTag compound) {
+    public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
         super.loadNetwork(compound);
         if (compound.contains("currentRitual")) {
             this.currentRitualRecipeId = new ResourceLocation(compound.getString("currentRitual"));
@@ -553,7 +553,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     }
 
     @Override
-    public CompoundTag saveNetwork(CompoundTag compound) {
+    public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
         var recipe = this.getCurrentRitualRecipe();
         if (recipe != null) {
             compound.putString("currentRitual", recipe.id().toString());

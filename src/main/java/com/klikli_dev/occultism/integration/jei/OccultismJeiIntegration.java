@@ -8,7 +8,7 @@ package com.klikli_dev.occultism.integration.jei;
 
 public interface OccultismJeiIntegration {
 
-    OccultismJeiIntegration instance = new OccultismJeiIntegrationImpl();
+    OccultismJeiIntegration instance = new OccultismJeiIntegrationDummy();
 
     static OccultismJeiIntegration get() {
         return instance;

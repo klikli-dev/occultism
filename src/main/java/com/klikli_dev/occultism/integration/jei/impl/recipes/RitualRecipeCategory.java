@@ -20,12 +20,12 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.occultism.integration.jei.recipes;
+package com.klikli_dev.occultism.integration.jei.impl.recipes;
 
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
-import com.klikli_dev.occultism.integration.jei.JeiRecipeTypes;
+import com.klikli_dev.occultism.integration.jei.impl.JeiRecipeTypes;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.GuiGraphicsExt;

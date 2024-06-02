@@ -20,15 +20,14 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.occultism.integration.jei.recipes;
+package com.klikli_dev.occultism.integration.jei.impl.recipes;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
-import com.klikli_dev.occultism.integration.jei.JeiRecipeTypes;
-import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.TranslationKeys;
+import com.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
+import com.klikli_dev.occultism.integration.jei.impl.JeiRecipeTypes;
+import com.klikli_dev.occultism.util.GuiGraphicsExt;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -38,32 +37,32 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-public class SpiritFireRecipeCategory implements IRecipeCategory<RecipeHolder<SpiritFireRecipe>> {
+public class CrushingRecipeCategory implements IRecipeCategory<RecipeHolder<CrushingRecipe>> {
 
     private final IDrawable background;
     private final Component localizedName;
     private final IDrawable overlay;
-    private final IDrawable icon;
-    private final ItemStack renderStack = new ItemStack(OccultismItems.SPIRIT_FIRE.get());
 
-    public SpiritFireRecipeCategory(IGuiHelper guiHelper) {
+    public CrushingRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(168, 46); //64
-        this.localizedName = Component.translatable(Occultism.MODID + ".jei.spirit_fire");
+        this.localizedName = Component.translatable(Occultism.MODID + ".jei.crushing");
         this.overlay = guiHelper.createDrawable(
-                new ResourceLocation(Occultism.MODID, "textures/gui/jei/spirit_fire.png"), 0, 0, 64, 46);
-        this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, this.renderStack);
-        this.renderStack.getOrCreateTag().putBoolean("RenderFull", true);
+                new ResourceLocation(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
+    }
+
+    protected void drawStringCentered(GuiGraphics guiGraphics, Font font, Component text, int x, int y) {
+        GuiGraphicsExt.drawString(guiGraphics, font, text, (x - font.width(text) / 2.0f), y, 0, false);
     }
 
     @Override
-    public RecipeType<RecipeHolder<SpiritFireRecipe>> getRecipeType() {
-        return JeiRecipeTypes.SPIRIT_FIRE;
+    public RecipeType<RecipeHolder<CrushingRecipe>> getRecipeType() {
+        return JeiRecipeTypes.CRUSHING;
     }
 
     @Override
@@ -78,24 +77,26 @@ public class SpiritFireRecipeCategory implements IRecipeCategory<RecipeHolder<Sp
 
     @Override
     public IDrawable getIcon() {
-        return this.icon;
+        return null;
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<SpiritFireRecipe> recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 40, 12)
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<CrushingRecipe> recipe, IFocusGroup focuses) {
+        builder.addSlot(RecipeIngredientRole.INPUT, 56, 12)
                 .addIngredients(recipe.value().getIngredients().get(0));
 
-        builder.addSlot(RecipeIngredientRole.CATALYST, 75, 12)
-                .addItemStack(this.renderStack);
-
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 110, 12)
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 94, 12)
                 .addItemStack(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess()));
     }
 
     @Override
-    public void draw(RecipeHolder<SpiritFireRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<CrushingRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
-        this.overlay.draw(guiGraphics, 48, 0);
+        this.overlay.draw(guiGraphics, 76, 14); //(center=84) - (width/16=8) = 76
+        this.drawStringCentered(guiGraphics, Minecraft.getInstance().font, this.getTitle(), 84, 0);
+        if (recipe.value().getMinTier() >= 0) {
+            this.drawStringCentered(guiGraphics, Minecraft.getInstance().font, Component.translatable(TranslationKeys.JEI_CRUSHING_RECIPE_TIER, recipe.value().getMinTier()), 84, 35);
+        }
     }
 }
+

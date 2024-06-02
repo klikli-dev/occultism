@@ -40,6 +40,7 @@ import com.klikli_dev.occultism.integration.modonomicon.PageLoaders;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.*;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.ParticleRegistry;
 import com.mojang.logging.LogUtils;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -96,7 +97,7 @@ public class Occultism {
         OccultismMemoryTypes.MEMORY_MODULE_TYPES.register(modEventBus);
         OccultismDataStorage.ATTACHMENT_TYPES.register(modEventBus);
         OccultismAdvancements.TRIGGER_TYPES.register(modEventBus);
-
+        DataComponentRegistry.DATA_COMPONENTS.register(modEventBus);
 
         //now register the custom registries
         OccultismSpiritJobs.JOBS.register(modEventBus);

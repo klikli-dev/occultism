@@ -62,13 +62,13 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
 
 
     @Override
-    public void loadNetwork(CompoundTag compound) {
+    public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
         this.itemStackHandler.deserializeNBT(compound.getCompound("inventory"));
         this.lastChangeTime = compound.getLong("lastChangeTime");
     }
 
     @Override
-    public CompoundTag saveNetwork(CompoundTag compound) {
+    public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
         compound.put("inventory", this.itemStackHandler.serializeNBT());
         compound.putLong("lastChangeTime", this.lastChangeTime);
         return compound;

@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -40,9 +41,10 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 
@@ -88,13 +90,12 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
         var health = this.getHealth();
         this.setHealth(this.getMaxHealth()); //simulate a healthy familiar to avoid death on respawn
-        shard.getOrCreateTag().put("entityData", this.serializeNBT());
+        shard.set(DataComponents.ENTITY_DATA, CustomData.of(this.serializeNBT(this.level().registryAccess())));
         this.setHealth(health);
 
-        if(owner instanceof Player player){
+        if (owner instanceof Player player) {
             ItemHandlerHelper.giveItemToPlayer(player, shard);
-        }
-        else {
+        } else {
             ItemEntity entityitem = new ItemEntity(this.level(), this.getX(), this.getY() + 0.5, this.getZ(), shard);
             entityitem.setPickUpDelay(5);
             entityitem.setDeltaMovement(entityitem.getDeltaMovement().multiply(0, 1, 0));
@@ -114,12 +115,12 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(SITTING, false);
-        this.entityData.define(BLACKSMITH_UPGRADE, false);
-        this.entityData.define(OWNER_UNIQUE_ID, Optional.empty());
-        this.entityData.define(VARIANTS, (byte) 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(SITTING, false);
+        builder.define(BLACKSMITH_UPGRADE, false);
+        builder.define(OWNER_UNIQUE_ID, Optional.empty());
+        builder.define(VARIANTS, (byte) 0);
     }
 
     public boolean hasBlacksmithUpgrade() {
@@ -166,7 +167,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
     @Override
     protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
-        if(hand != InteractionHand.MAIN_HAND)
+        if (hand != InteractionHand.MAIN_HAND)
             return InteractionResult.PASS;
 
         ItemStack stack = playerIn.getItemInHand(hand);
@@ -317,8 +318,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         }
 
         private boolean tryTeleport(BlockPos pos) {
-            boolean walkable = BlockPathTypes.WALKABLE == WalkNodeEvaluator.getBlockPathTypeStatic(this.entity.level(),
-                    pos.mutable());
+            boolean walkable = PathType.WALKABLE == WalkNodeEvaluator.getPathTypeStatic(this.entity, pos.mutable());
             boolean noCollision = this.entity.level().noCollision(this.entity,
                     this.entity.getBoundingBox().move(pos.subtract(this.entity.blockPosition())));
             if (walkable && noCollision) {

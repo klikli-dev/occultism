@@ -129,21 +129,21 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compound) {
+    protected void saveAdditional(CompoundTag compound, HolderLookup.Provider provider) {
         compound.put("inputHandler", inputHandler.serializeNBT());
         compound.put("outputHandler", outputHandler.serializeNBT());
-        super.saveAdditional(compound);
+        super.saveAdditional(compound, provider);
     }
 
     @Override
-    public void loadNetwork(CompoundTag compound) {
+    public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
         super.loadNetwork(compound);
         this.miningTime = compound.getInt("miningTime");
         this.maxMiningTime = compound.getInt("maxMiningTime");
     }
 
     @Override
-    public CompoundTag saveNetwork(CompoundTag compound) {
+    public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
         compound.putInt("miningTime", this.miningTime);
         compound.putInt("maxMiningTime", this.maxMiningTime);
         return super.saveNetwork(compound);

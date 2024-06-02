@@ -140,7 +140,7 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
     }
 
     @Override
-    public void loadNetwork(CompoundTag compound) {
+    public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
         if (compound.contains("linkedStorageControllerPosition"))
             this.linkedStorageControllerPosition = GlobalBlockPos.from(compound.getCompound(
                     "linkedStorageControllerPosition"));
@@ -166,7 +166,7 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
     }
 
     @Override
-    public CompoundTag saveNetwork(CompoundTag compound) {
+    public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
         if (this.linkedStorageControllerPosition != null)
             compound.put("linkedStorageControllerPosition", this.linkedStorageControllerPosition.serializeNBT());
 

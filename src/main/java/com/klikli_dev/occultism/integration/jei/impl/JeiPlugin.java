@@ -20,16 +20,17 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.occultism.integration.jei;
+package com.klikli_dev.occultism.integration.jei.impl;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
-import com.klikli_dev.occultism.integration.jei.recipes.CrushingRecipeCategory;
-import com.klikli_dev.occultism.integration.jei.recipes.MinerRecipeCategory;
-import com.klikli_dev.occultism.integration.jei.recipes.RitualRecipeCategory;
-import com.klikli_dev.occultism.integration.jei.recipes.SpiritFireRecipeCategory;
+import com.klikli_dev.occultism.integration.jei.JeiSettings;
+import com.klikli_dev.occultism.integration.jei.impl.recipes.CrushingRecipeCategory;
+import com.klikli_dev.occultism.integration.jei.impl.recipes.MinerRecipeCategory;
+import com.klikli_dev.occultism.integration.jei.impl.recipes.RitualRecipeCategory;
+import com.klikli_dev.occultism.integration.jei.impl.recipes.SpiritFireRecipeCategory;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismRecipes;

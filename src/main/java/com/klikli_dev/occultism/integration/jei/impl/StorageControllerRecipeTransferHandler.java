@@ -20,7 +20,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.occultism.integration.jei;
+package com.klikli_dev.occultism.integration.jei.impl;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;

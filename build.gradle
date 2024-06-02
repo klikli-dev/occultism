@@ -18,7 +18,7 @@ sourceSets {
     main {
         java {
             exclude '**/AlmostUnifiedIntegrationImpl.java'
-            exclude '**/jei/**/*.java'
+            exclude '**/jei/impl/**/*.java'
         }
     }
 }
