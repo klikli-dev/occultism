@@ -74,13 +74,6 @@ public class StorageControllerBlock extends Block implements EntityBlock {
 
     @Override
     @SuppressWarnings("deprecation")
-    public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-        BlockEntityUtil.onBlockChangeDropWithNbt(this, state, worldIn, pos, newState);
-        super.onRemove(state, worldIn, pos, newState, isMoving);
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
                                  InteractionHand handIn, BlockHitResult rayTraceResult) {
         if (!level.isClientSide) {
