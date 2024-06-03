@@ -62,13 +62,13 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeleton {
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason,
-                                        @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+                                        @Nullable SpawnGroupData spawnDataIn) {
         int maxSkeletons = 3 + level.getRandom().nextInt(6);
 
         for (int i = 0; i < maxSkeletons; i++) {
             WildHuntSkeletonEntity entity = OccultismEntities.WILD_HUNT_SKELETON.get().create(this.level());
 
-            EventHooks.onFinalizeSpawn(entity, level, difficultyIn, reason, spawnDataIn, dataTag);
+            EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
 
             double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
             double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
@@ -80,7 +80,7 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeleton {
             this.minions.add(entity);
         }
 
-        return super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn, dataTag);
+        return super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn);
     }
 
     @Override

@@ -51,7 +51,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.fluids.FluidType;
@@ -70,14 +70,14 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     public CthulhuFamiliarEntity(EntityType<? extends CthulhuFamiliarEntity> type, Level level) {
         super(type, level);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0);
+        this.setPathfindingMalus(PathType.WATER, 0);
         this.waterNavigator = new WaterBoundPathNavigation(this, level);
         this.groundNavigator = new GroundPathNavigation(this, level);
         this.moveControl = new MoveController(this);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return createMobAttributes().add(NeoForgeMod.SWIM_SPEED.value(), 1f);
+        return createMobAttributes().add(NeoForgeMod.SWIM_SPEED, 1f);
     }
 
     @Override
@@ -123,10 +123,10 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
         this.setHat(this.getRandom().nextDouble() < 0.1);
         this.setTrunk(this.getRandom().nextDouble() < 0.5);
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 
     @Override
@@ -297,9 +297,11 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
             this.setAngry(compound.getBoolean("isAngry"));
         }
         if (compound.contains("lightPos"))
-            this.lightPos = NbtUtils.readBlockPos(compound.getCompound("lightPos"));
+            //noinspection OptionalGetWithoutIsPresent
+            this.lightPos = NbtUtils.readBlockPos(compound, "lightPos").get();
         if (compound.contains("lightPos0"))
-            this.lightPos0 = NbtUtils.readBlockPos(compound.getCompound("lightPos0"));
+            //noinspection OptionalGetWithoutIsPresent
+            this.lightPos0 = NbtUtils.readBlockPos(compound, "lightPos0").get();
     }
 
     @Override

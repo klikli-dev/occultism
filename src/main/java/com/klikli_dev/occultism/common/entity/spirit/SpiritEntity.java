@@ -512,22 +512,22 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.registerSkinDataParameter();
-        this.entityData.define(DEPOSIT_POSITION, Optional.empty());
-        this.entityData.define(DEPOSIT_ENTITY_UUID, Optional.empty());
-        this.entityData.define(DEPOSIT_FACING, Direction.UP);
-        this.entityData.define(EXTRACT_POSITION, Optional.empty());
-        this.entityData.define(EXTRACT_FACING, Direction.DOWN);
-        this.entityData.define(WORK_AREA_POSITION, Optional.empty());
-        this.entityData.define(WORK_AREA_SIZE, WorkAreaSize.SMALL.getValue());
-        this.entityData.define(SPIRIT_AGE, 0);
-        this.entityData.define(SPIRIT_MAX_AGE, DEFAULT_MAX_AGE);
-        this.entityData.define(JOB_ID, "");
-        this.entityData.define(IS_FILTER_BLACKLIST, false);
-        this.entityData.define(FILTER_ITEMS, new CompoundTag());
-        this.entityData.define(TAG_FILTER, "");
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        this.registerSkinDataParameter(builder);
+        builder.define(DEPOSIT_POSITION, Optional.empty());
+        builder.define(DEPOSIT_ENTITY_UUID, Optional.empty());
+        builder.define(DEPOSIT_FACING, Direction.UP);
+        builder.define(EXTRACT_POSITION, Optional.empty());
+        builder.define(EXTRACT_FACING, Direction.DOWN);
+        builder.define(WORK_AREA_POSITION, Optional.empty());
+        builder.define(WORK_AREA_SIZE, WorkAreaSize.SMALL.getValue());
+        builder.define(SPIRIT_AGE, 0);
+        builder.define(SPIRIT_MAX_AGE, DEFAULT_MAX_AGE);
+        builder.define(JOB_ID, "");
+        builder.define(IS_FILTER_BLACKLIST, false);
+        builder.define(FILTER_ITEMS, new CompoundTag());
+        builder.define(TAG_FILTER, "");
     }
 
     @Override
@@ -692,6 +692,9 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     @Override
     public EntityDimensions getDimensions(Pose pPose) {
+        //TODO: lets use this to set up proper scaling stuff!
+        //      we need to override get default dimensions (maybe) OR provide a scale in the scalable entities/jobs
+        //      then we can sync the scale via entity data maybe?
         return this.getJob().map(job -> job.getDimensions(pPose, super.getDimensions(pPose))).orElse(super.getDimensions(pPose));
     }
 

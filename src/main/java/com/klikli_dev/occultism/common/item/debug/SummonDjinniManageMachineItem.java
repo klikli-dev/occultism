@@ -48,7 +48,7 @@ public class SummonDjinniManageMachineItem extends Item {
 
             DjinniEntity spirit = OccultismEntities.DJINNI.get().create(context.getLevel());
 
-            EventHooks.onFinalizeSpawn(spirit, (ServerLevel) context.getLevel(), context.getLevel().getCurrentDifficultyAt(context.getClickedPos()), MobSpawnType.SPAWN_EGG, null, null);
+            EventHooks.finalizeMobSpawn(spirit, (ServerLevel) context.getLevel(), context.getLevel().getCurrentDifficultyAt(context.getClickedPos()), MobSpawnType.SPAWN_EGG, null);
 
             spirit.tame(context.getPlayer());
             spirit.setPos(context.getClickedPos().getX(), context.getClickedPos().getY() + 1.0f, context.getClickedPos().getZ());

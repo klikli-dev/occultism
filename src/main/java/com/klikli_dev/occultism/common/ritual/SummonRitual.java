@@ -173,7 +173,7 @@ public class SummonRitual extends Ritual {
         if (spiritName.length() > 0)
             livingEntity.setCustomName(Component.literal(spiritName));
         if (livingEntity instanceof Mob mob) {
-            EventHooks.onFinalizeSpawn(mob, (ServerLevelAccessor) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED, null, null);
+            EventHooks.finalizeMobSpawn(mob, (ServerLevelAccessor) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED, null);
         }
     }
 }
