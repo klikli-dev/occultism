@@ -124,9 +124,9 @@ public class GuardianFamiliarEntity extends ColoredFamiliarEntity {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(LIVES, (byte) 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(LIVES, (byte) 0);
     }
 
     public boolean sacrifice() {

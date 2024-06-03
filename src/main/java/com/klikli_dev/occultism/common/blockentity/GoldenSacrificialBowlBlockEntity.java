@@ -500,7 +500,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     }
 
     @Override
-    public void load(CompoundTag compound) {
+    public void loadAdditional(CompoundTag compound, HolderLookup.Provider provider) {
         super.load(compound);
 
         this.consumedIngredients.clear();

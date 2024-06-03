@@ -44,11 +44,11 @@ public abstract class ColoredFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
         builder.define(RED, 0f);
         builder.define(GREEN, 0f);
-        this.entityData.define(BLUE, 0f);
+        builder.define(BLUE, 0f);
     }
 
     @Override

@@ -105,9 +105,9 @@ public class BlacksmithFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(BARS, (byte) 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(BARS, (byte) 0);
     }
 
     public boolean hasEarring() {

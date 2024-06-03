@@ -142,10 +142,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                 int remainingItems = storageController.insertStack(slotStack, false);
 
                 //get the stack of remaining items
-                ItemStack remainingItemStack = remainingItems == 0 ? ItemStack.EMPTY : ItemHandlerHelper
-                        .copyStackWithSize(
-                                slotStack,
-                                remainingItems);
+                ItemStack remainingItemStack = remainingItems == 0 ? ItemStack.EMPTY : slotStack.copyWithCount(remainingItems);
                 slot.set(remainingItemStack);
 
                 //sync slots
@@ -329,7 +326,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
                         this.matrix.setItem(i, currentCraftingItem);
                     }
                     //handle "normal items" ie non-damagable
-                    else if (!stackInSlot.isDamageableItem() && ItemStack.isSameItemSameTags(stackInSlot, currentCraftingItem)) {
+                    else if (!stackInSlot.isDamageableItem() && ItemStack.isSameItemSameComponents(stackInSlot, currentCraftingItem)) {
                         //Used to call grow here, but that causes dupes of unbreakable items
                         //removing it seems not to cause any harm?
                         //  currentCraftingItem.grow(stackInSlot.getCount());
@@ -371,7 +368,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
 
         //now actually give to the players
         ItemStack finalResult = new ItemStack(result.getItem(), 0);
-        finalResult.setTag(result.getTag());
+        finalResult.applyComponents(result.getComponents());
         for (ItemStack intermediateResult : resultList) {
             finalResult.setCount(finalResult.getCount() + intermediateResult.getCount());
         }

@@ -33,6 +33,7 @@ import com.klikli_dev.occultism.common.container.storage.StableWormholeContainer
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -154,15 +155,15 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
             for (int i = 0; i < matrixNbt.size(); i++) {
                 CompoundTag stackTag = matrixNbt.getCompound(i);
                 int slot = stackTag.getByte("slot");
-                ItemStack s = ItemStack.of(stackTag);
+                ItemStack s = ItemStack.parseOptional(provider, stackTag);
                 this.matrix.put(slot, s);
             }
         }
 
         if (compound.contains("orderStack"))
-            this.orderStack = ItemStack.of(compound.getCompound("orderStack"));
+            this.orderStack = ItemStack.parseOptional(provider, compound.getCompound("orderStack"));
 
-        super.loadNetwork(compound);
+        super.loadNetwork(compound, provider);
     }
 
     @Override
@@ -178,16 +179,16 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
             if (this.matrix.get(i) != null && !this.matrix.get(i).isEmpty()) {
                 CompoundTag stackTag = new CompoundTag();
                 stackTag.putByte("slot", (byte) i);
-                this.matrix.get(i).save(stackTag);
+                this.matrix.get(i).save(provider, stackTag);
                 matrixNbt.add(stackTag);
             }
         }
         compound.put("matrix", matrixNbt);
 
         if (!this.orderStack.isEmpty())
-            compound.put("orderStack", this.orderStack.save(new CompoundTag()));
+            compound.put("orderStack", this.orderStack.save(provider, new CompoundTag()));
 
-        return super.saveNetwork(compound);
+        return super.saveNetwork(compound, provider);
     }
 
     @Nullable

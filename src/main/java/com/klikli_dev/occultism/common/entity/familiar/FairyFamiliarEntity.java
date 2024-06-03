@@ -23,8 +23,8 @@
 package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
-import com.klikli_dev.occultism.network.messages.MessageFairySupport;
 import com.klikli_dev.occultism.network.Networking;
+import com.klikli_dev.occultism.network.messages.MessageFairySupport;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismParticles;
 import com.klikli_dev.occultism.util.FamiliarUtil;
@@ -32,7 +32,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -56,11 +55,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
+
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.Map.Entry;
@@ -71,13 +71,13 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
             EntityDataSerializers.INT);
 
     private static final float ANIMATION_HEIGHT_SPEED = 0.2f;
-
+    private static final double DEFAULT_ATTACK_REACH = Math.sqrt(2.04F) - 0.6F;
     private int saveCooldown = 0;
     private int supportAnim;
 
     public FairyFamiliarEntity(EntityType<? extends FairyFamiliarEntity> type, Level level) {
         super(type, level);
-        this.setPathfindingMalus(BlockPathTypes.WALKABLE, -1);
+        this.setPathfindingMalus(PathType.WALKABLE, -1);
         this.moveControl = new FlyingMoveControl(this, 20, true);
         this.noCulling = true;
     }
@@ -87,9 +87,9 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(MAGIC_TARGET, -1);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(MAGIC_TARGET, -1);
     }
 
     @Override
@@ -170,8 +170,8 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
-        var data = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
+        var data = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
         this.setTeeth(this.getRandom().nextBoolean());
         this.setLeftHanded(this.getRandom().nextBoolean());
         this.setFlower(this.getRandom().nextDouble() < 0.1);
@@ -213,7 +213,6 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
         return FamiliarUtil.isChristmas() ? OccultismParticles.SNOWFLAKE.get()
                 : new DustParticleOptions(new Vector3f(0.9f, 0.9f, 0.5f), 1);
     }
-
 
     private void magicParticle() {
         Vec3 pos = this.getMagicPosition(1);
@@ -319,7 +318,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
 
         return super.hurt(pSource, pAmount);
     }
-    private static final double DEFAULT_ATTACK_REACH = Math.sqrt(2.04F) - 0.6F;
+
     @Override
     protected AABB getAttackBoundingBox() {
         //copied from parent and set reach * 3
@@ -474,7 +473,7 @@ public class FairyFamiliarEntity extends FamiliarEntity implements FlyingAnimal 
         protected void checkAndPerformAttack(LivingEntity pEnemy) {
             this.attackTimer--;
 
-            if(this.canPerformAttack(pEnemy)) {
+            if (this.canPerformAttack(pEnemy)) {
                 this.fairy.setMagicTarget(pEnemy);
                 if (this.attackTimer <= 0) {
                     this.attackTimer = 10;

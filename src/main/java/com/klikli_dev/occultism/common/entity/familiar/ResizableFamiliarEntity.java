@@ -50,9 +50,9 @@ public abstract class ResizableFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(SIZE, (byte) 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(SIZE, (byte) 0);
     }
 
     @Override

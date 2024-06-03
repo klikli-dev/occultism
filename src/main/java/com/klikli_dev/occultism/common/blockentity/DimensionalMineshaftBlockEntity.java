@@ -25,11 +25,11 @@ package com.klikli_dev.occultism.common.blockentity;
 import com.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
 import com.klikli_dev.occultism.common.misc.WeightedOutputIngredient;
 import com.klikli_dev.occultism.crafting.recipe.MinerRecipe;
-
-import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
+import com.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -46,12 +46,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.FakePlayerFactory;
-import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
-import javax.annotation.Nonnull;
+
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +64,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     public static final int DEFAULT_MAX_MINING_TIME = 400;
     public static int DEFAULT_ROLLS_PER_OPERATION = 1;
     public static String ROLLS_PER_OPERATION_TAG = "rollsPerOperation";
-    public ItemStackHandler inputHandler =new ItemStackHandler(1) {
+    public ItemStackHandler inputHandler = new ItemStackHandler(1) {
 
         @Override
         protected void onContentsChanged(int slot) {
@@ -100,19 +99,11 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     }
 
     public static int getMaxMiningTime(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-        if (tag == null)
-            return 0;
-        int time = tag.getInt(MAX_MINING_TIME_TAG);
-        return time <= 0 ? DEFAULT_MAX_MINING_TIME : time;
+        return stack.getOrDefault(OccultismDataComponents.MAX_MINING_TIME, DEFAULT_MAX_MINING_TIME);
     }
 
     public static int getRollsPerOperation(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-        if (tag == null)
-            return 0;
-        int rolls = tag.getInt(ROLLS_PER_OPERATION_TAG);
-        return rolls <= 0 ? DEFAULT_ROLLS_PER_OPERATION : rolls;
+        return stack.getOrDefault(OccultismDataComponents.ROLLS_PER_OPERATION, DEFAULT_ROLLS_PER_OPERATION);
     }
 
     @Override
@@ -122,22 +113,22 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
 
     @Override
-    public void load(CompoundTag compound) {
-        super.load(compound);
-        inputHandler.deserializeNBT(compound.getCompound("inputHandler"));
-        outputHandler.deserializeNBT(compound.getCompound("outputHandler"));
+    public void loadAdditional(CompoundTag compound, HolderLookup.Provider provider) {
+        super.loadAdditional(compound, provider);
+        this.inputHandler.deserializeNBT(provider, compound.getCompound("inputHandler"));
+        this.outputHandler.deserializeNBT(provider, compound.getCompound("outputHandler"));
     }
 
     @Override
     protected void saveAdditional(CompoundTag compound, HolderLookup.Provider provider) {
-        compound.put("inputHandler", inputHandler.serializeNBT());
-        compound.put("outputHandler", outputHandler.serializeNBT());
+        compound.put("inputHandler", this.inputHandler.serializeNBT(provider));
+        compound.put("outputHandler", this.outputHandler.serializeNBT(provider));
         super.saveAdditional(compound, provider);
     }
 
     @Override
     public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
-        super.loadNetwork(compound);
+        super.loadNetwork(compound, provider);
         this.miningTime = compound.getInt("miningTime");
         this.maxMiningTime = compound.getInt("maxMiningTime");
     }
@@ -146,13 +137,13 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
         compound.putInt("miningTime", this.miningTime);
         compound.putInt("maxMiningTime", this.maxMiningTime);
-        return super.saveNetwork(compound);
+        return super.saveNetwork(compound, provider);
     }
 
 
     public void tick() {
         if (!this.level.isClientSide) {
-            ItemStack input = inputHandler.getStackInSlot(0);
+            ItemStack input = this.inputHandler.getStackInSlot(0);
 
             //handle unusing enchantment from evilcraft, see https://github.com/klikli-dev/occultism/issues/909
             if (input.getMaxDamage() - input.getDamageValue() < 6 &&
@@ -215,7 +206,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         if (this.possibleResults == null) {
             List<RecipeHolder<MinerRecipe>> recipes = this.level.getRecipeManager()
                     .getRecipesFor(OccultismRecipes.MINER_TYPE.get(),
-                            new RecipeWrapper(inputHandler), this.level);
+                            new RecipeWrapper(this.inputHandler), this.level);
             if (recipes == null || recipes.size() == 0) {
                 this.possibleResults = new ArrayList<>();
             } else {
@@ -230,17 +221,17 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             Optional<WeightedOutputIngredient> result = WeightedRandom.getRandomItem(this.level.random, this.possibleResults);
             //Important: copy the result, don't use it raw!
             result.ifPresent(r -> {
-                ItemHandlerHelper.insertItemStacked(outputHandler, r.getStack().copy(), false);
+                ItemHandlerHelper.insertItemStacked(this.outputHandler, r.getStack().copy(), false);
             });
             //If there is no space, we simply continue. The otherworld miner spirit keeps working,
             // but the miner block entity simply discards the results
         }
 
-        //damage and eventually consume item.
-        ItemStack input = inputHandler.getStackInSlot(0);
-        if (input.hurt(1, this.level.random, null)) {
+        //damage and eventually consume item
+        ItemStack input = this.inputHandler.getStackInSlot(0);
+        input.hurtAndBreak(1, this.level.random, null, () -> {
             input.shrink(1);
             input.setDamageValue(0);
-        }
+        });
     }
 }

@@ -47,9 +47,9 @@ public class DemonicPartner extends TamableAnimal {
         return FamiliarEntity.createAttributes().add(Attributes.ATTACK_DAMAGE, 9.0D);
     }
 
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(IS_LYING, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(IS_LYING, false);
     }
 
     public boolean isLying() {

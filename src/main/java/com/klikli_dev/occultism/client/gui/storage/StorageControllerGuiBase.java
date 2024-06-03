@@ -59,6 +59,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerListener;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -801,7 +802,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             String name = TextUtil.getModNameForGameObject(stack.getItem());
             return name.toLowerCase().contains(searchText.toLowerCase().substring(1));
         } else if (searchText.startsWith("#")) {
-            List<String> tooltip = stack.getTooltipLines(this.minecraft.player, TooltipFlag.Default.NORMAL).stream()
+            List<String> tooltip = stack.getTooltipLines(Item.TooltipContext.of(this.minecraft.level), this.minecraft.player, TooltipFlag.Default.NORMAL).stream()
                     .map(Component::getString).collect(
                             Collectors.toList());
             String tooltipString = Joiner.on(' ').join(tooltip).toLowerCase().trim();

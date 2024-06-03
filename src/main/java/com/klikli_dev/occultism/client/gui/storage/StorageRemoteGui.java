@@ -25,8 +25,9 @@ package com.klikli_dev.occultism.client.gui.storage;
 import com.klikli_dev.occultism.api.common.data.SortDirection;
 import com.klikli_dev.occultism.api.common.data.SortType;
 import com.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
-import com.klikli_dev.occultism.network.messages.MessageUpdateStorageSettings;
 import com.klikli_dev.occultism.network.Networking;
+import com.klikli_dev.occultism.network.messages.MessageUpdateStorageSettings;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -53,24 +54,23 @@ public class StorageRemoteGui extends StorageControllerGuiBase<StorageRemoteCont
 
     @Override
     public SortDirection getSortDirection() {
-        return SortDirection.get(this.container.getStorageRemote().getOrCreateTag().getInt("sortDirection"));
+        return this.container.getStorageRemote().getOrDefault(OccultismDataComponents.SORT_DIRECTION, SortDirection.DOWN);
     }
 
     @Override
     public void setSortDirection(SortDirection sortDirection) {
-        this.container.getStorageRemote().getOrCreateTag().putInt("sortDirection", sortDirection.getValue());
+        this.container.getStorageRemote().set(OccultismDataComponents.SORT_DIRECTION, sortDirection);
         Networking.sendToServer(new MessageUpdateStorageSettings(sortDirection, this.getSortType()));
     }
 
     @Override
     public SortType getSortType() {
-        return SortType.get(this.container.getStorageRemote().getOrCreateTag().getInt("sortType"));
+        return this.container.getStorageRemote().getOrDefault(OccultismDataComponents.SORT_TYPE, SortType.AMOUNT);
     }
 
     @Override
     public void setSortType(SortType sortType) {
-        this.container.getStorageRemote().getOrCreateTag().putInt("sortType", sortType.getValue());
+        this.container.getStorageRemote().set(OccultismDataComponents.SORT_TYPE, sortType);
         Networking.sendToServer(new MessageUpdateStorageSettings(this.getSortDirection(), sortType));
     }
-
 }

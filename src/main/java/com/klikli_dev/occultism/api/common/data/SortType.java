@@ -23,46 +23,38 @@
 package com.klikli_dev.occultism.api.common.data;
 
 
+import com.mojang.serialization.Codec;
+import io.netty.buffer.ByteBuf;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ByIdMap;
 import net.minecraft.util.StringRepresentable;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.function.IntFunction;
 
 public enum SortType implements StringRepresentable {
-    AMOUNT(0),
-    NAME(1),
-    MOD(2);
+    AMOUNT,
+    NAME,
+    MOD;
 
-    private static final Map<Integer, SortType> lookup = new HashMap<Integer, SortType>();
+    private static final Map<String, SortType> TYPES = new Object2ObjectArrayMap<>();
+    public static final Codec<SortType> CODEC = Codec.stringResolver(SortType::getSerializedName, TYPES::get);
+    private static final IntFunction<SortType> BY_ID = ByIdMap.continuous(Enum::ordinal, SortType.values(), ByIdMap.OutOfBoundsStrategy.WRAP);
+    public static final StreamCodec<ByteBuf, SortType> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, Enum::ordinal);
 
     static {
-        for (SortType sortType : SortType.values()) {
-            lookup.put(sortType.getValue(), sortType);
+        for (SortType type : values()) {
+            TYPES.put(type.getSerializedName(), type);
         }
     }
 
-    private final int value;
-
-    SortType(int value) {
-        this.value = value;
-    }
-
-    //region Static Methods
-    public static SortType get(int value) {
-        return lookup.get(value);
-    }
-    //endregion Getter / Setter
-
-    //region Getter / Setter
-    public int getValue() {
-        return this.value;
-    }
 
     @Override
     public String getSerializedName() {
         return this.name().toLowerCase();
     }
-    //endregion Static Methods
 
     public SortType next() {
         return values()[(this.ordinal() + 1) % SortType.values().length];

@@ -165,9 +165,9 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(ATTACKER, NO_ATTACKER);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(ATTACKER, NO_ATTACKER);
     }
 
     @Override

@@ -167,11 +167,11 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(HEAD, NO_HEAD);
-        this.entityData.define(WEAPON, (byte) 0);
-        this.entityData.define(REBUILT, (byte) 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(HEAD, NO_HEAD);
+        builder.define(WEAPON, (byte) 0);
+        builder.define(REBUILT, (byte) 0);
     }
 
     @Override
