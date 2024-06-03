@@ -185,7 +185,8 @@ public class OccultismBlocks {
                     Block.Properties.of()
                             .mapColor(MapColor.STONE)
                             .sound(SoundType.STONE)
-                            .strength(5f, 100).noOcclusion()), false, LootTableType.EMPTY);
+                            .strength(5f, 100).noOcclusion()), false, LootTableType.CUSTOM);
+                            
     public static final DeferredBlock<StorageStabilizerBlock> STORAGE_STABILIZER_TIER1 = register(
             "storage_stabilizer_tier1", () -> new StorageStabilizerBlock(
                     Block.Properties.of()
@@ -216,7 +217,7 @@ public class OccultismBlocks {
                     Block.Properties.of()
                             .mapColor(MapColor.STONE)
                             .sound(SoundType.STONE).noCollission()
-                            .strength(2f, 2).noOcclusion()), false, LootTableType.EMPTY);
+                            .strength(2f, 2).noOcclusion()), false, LootTableType.CUSTOM);
 
     public static final DeferredBlock<DimensionalMineshaftBlock> DIMENSIONAL_MINESHAFT =
             register("dimensional_mineshaft", () -> new DimensionalMineshaftBlock(
