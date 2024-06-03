@@ -3,7 +3,50 @@
   "pools": [
     {
       "bonus_rolls": 0.0,
-      "entries": [],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_nbt",
+              "ops": [
+                {
+                  "op": "replace",
+                  "source": "linkedStorageControllerPosition",
+                  "target": "BlockEntityTag.linkedStorageControllerPosition"
+                },
+                {
+                  "op": "replace",
+                  "source": "sortDirection",
+                  "target": "BlockEntityTag.sortDirection"
+                },
+                {
+                  "op": "replace",
+                  "source": "sortType",
+                  "target": "BlockEntityTag.sortType"
+                },
+                {
+                  "op": "replace",
+                  "source": "matrix",
+                  "target": "BlockEntityTag.matrix"
+                },
+                {
+                  "op": "replace",
+                  "source": "orderStack",
+                  "target": "BlockEntityTag.orderStack"
+                }
+              ],
+              "source": "block_entity"
+            }
+          ],
+          "name": "occultism:stable_wormhole"
+        }
+      ],
       "rolls": 1.0
     }
   ],

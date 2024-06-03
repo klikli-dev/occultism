@@ -5,6 +5,8 @@ import com.klikli_dev.occultism.common.block.crops.IReplantableCrops;
 import com.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.theurgy.registry.BlockRegistry;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.loot.BlockLootSubProvider;
@@ -19,14 +21,17 @@ import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
+import java.util.Arrays;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
@@ -81,6 +86,24 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
         this.add(OccultismBlocks.SILVER_ORE.get(), this.createOreDrop(OccultismBlocks.SILVER_ORE.get(), OccultismItems.RAW_SILVER.get()));
         this.add(OccultismBlocks.SILVER_ORE_DEEPSLATE.get(), this.createOreDrop(OccultismBlocks.SILVER_ORE_DEEPSLATE.get(), OccultismItems.RAW_SILVER.get()));
         this.add(OccultismBlocks.IESNIUM_ORE.get(), this.createOreDrop(OccultismBlocks.IESNIUM_ORE.get(), OccultismItems.RAW_IESNIUM.get()));
+
+        this.dropSelfWithNbt(OccultismBlocks.STORAGE_CONTROLLER.get(),
+                "items",
+                "sortDirection",
+                "sortType",
+                "maxSlots",
+                "matrix",
+                "orderStack"
+        );
+
+
+        this.dropSelfWithNbt(OccultismBlocks.STABLE_WORMHOLE.get(),
+                "linkedStorageControllerPosition",
+                "sortDirection",
+                "sortType",
+                "matrix",
+                "orderStack"
+        );
     }
 
     protected void registerOtherworldBlockTable(Block block) {
@@ -134,5 +157,37 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
 
     public void registerDropNothingLootTable(Block block) {
         this.add(block, LootTable.lootTable().withPool(LootPool.lootPool()));
+    }
+
+    @SuppressWarnings("unchecked")
+    protected final void dropSelfWithNbt(Block pBlock, String... sourcePaths) {
+        this.dropSelfWithNbt(pBlock, Arrays.stream(sourcePaths).map(s -> Pair.of(s, "BlockEntityTag." + s)).toArray(Pair[]::new));
+    }
+
+    @SafeVarargs
+    protected final void dropSelfWithNbt(Block pBlock, Pair<String, String>... sourceTargetPathPairs) {
+        this.add(pBlock, this.createSelfWithNbtDrop(pBlock, this.copyData(sourceTargetPathPairs)));
+    }
+
+    protected LootTable.Builder createSelfWithNbtDrop(Block pBlock, CopyNbtFunction.Builder data) {
+        return LootTable.lootTable()
+                .withPool(
+                        this.applyExplosionCondition(pBlock,
+                                LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(
+                                        LootItem.lootTableItem(pBlock)
+                                                .apply(
+                                                        data
+                                                )
+                                )
+                        )
+                );
+    }
+
+    protected CopyNbtFunction.Builder copyData(Pair<String, String>... sourceTargetPathPairs) {
+        var builder = CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY);
+        for (var pair : sourceTargetPathPairs) {
+            builder.copy(pair.getFirst(), pair.getSecond());
+        }
+        return builder;
     }
 }

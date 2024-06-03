@@ -218,7 +218,6 @@ public class StableWormholeBlock extends Block implements EntityBlock {
                 }
             }
         }
-        BlockEntityUtil.onBlockChangeDropWithNbt(this, state, worldIn, pos, newState);
         super.onRemove(state, worldIn, pos, newState, isMoving);
     }
 
