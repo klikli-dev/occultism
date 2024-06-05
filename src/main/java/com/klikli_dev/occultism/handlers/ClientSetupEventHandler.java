@@ -41,8 +41,10 @@ import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife.Demonic
 import com.klikli_dev.occultism.integration.modonomicon.PageRenderers;
 import com.klikli_dev.occultism.registry.*;
 import com.mojang.blaze3d.platform.InputConstants;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -213,10 +215,16 @@ public class ClientSetupEventHandler {
     }
 
     @SubscribeEvent
-    public static void onRegisterGuiOverlays(RegisterGuiOverlaysEvent event) {
-        event.registerAboveAll(new ResourceLocation(Occultism.MODID, "third_eye"), (gui, guiGraphics, partialTick, screenWidth, screenHeight) -> {
+    public static void onRegisterGuiOverlays(RegisterGuiLayersEvent event) {
+        event.registerAboveAll(new ResourceLocation(Occultism.MODID, "third_eye"), (guiGraphics, partialTick) -> {
             if (Occultism.THIRD_EYE_EFFECT_RENDERER.gogglesActiveLastTick || Occultism.THIRD_EYE_EFFECT_RENDERER.thirdEyeActiveLastTick) {
-                gui.setupOverlayRenderState(true, false);
+//                gui.setupOverlayRenderState(true, false);
+                //copied from 1.20.4 to:
+                RenderSystem.enableBlend();
+                RenderSystem.defaultBlendFunc();
+                RenderSystem.disableDepthTest();
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 Occultism.THIRD_EYE_EFFECT_RENDERER.renderOverlay(guiGraphics.pose());
             }
         });

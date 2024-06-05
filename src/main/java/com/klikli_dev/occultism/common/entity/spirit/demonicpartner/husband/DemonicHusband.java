@@ -7,21 +7,18 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.util.NonNullLazy;
+import net.neoforged.neoforge.common.util.Lazy;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.AnimationState;
-import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class DemonicHusband extends DemonicPartner implements GeoEntity {
 
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "demonic_husband");
-    public static final NonNullLazy<EntityType<DemonicHusband>> ENTITY_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.of(DemonicHusband::new, MobCategory.CREATURE)
+    public static final Lazy<EntityType<DemonicHusband>> ENTITY_TYPE =
+            Lazy.of(() -> EntityType.Builder.of(DemonicHusband::new, MobCategory.CREATURE)
                     .sized(0.6F, 1.8f)
                     .fireImmune()
                     .clientTrackingRange(8)

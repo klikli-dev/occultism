@@ -34,13 +34,13 @@ import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.event.TickEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -57,8 +57,8 @@ public class ThirdEyeEffectRenderer {
     public Set<BlockPos> uncoveredBlocks = new HashSet<>();
 
     @SubscribeEvent
-    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (event.player.level().isClientSide && event.player == Minecraft.getInstance().player) {
+    public void onPlayerTick(PlayerTickEvent.Post event) {
+        if (event.getEntity().level().isClientSide && event.getEntity() == Minecraft.getInstance().player) {
             this.onThirdEyeTick(event);
             this.onGogglesTick(event);
         }
@@ -140,12 +140,12 @@ public class ThirdEyeEffectRenderer {
         });
     }
 
-    public void onThirdEyeTick(TickEvent.PlayerTickEvent event) {
-        boolean hasGoggles = CuriosUtil.hasGoggles(event.player);
+    public void onThirdEyeTick(PlayerTickEvent.Post event) {
+        boolean hasGoggles = CuriosUtil.hasGoggles(event.getEntity());
         if (hasGoggles)
             return;
 
-        MobEffectInstance effect = event.player.getEffect(OccultismEffects.THIRD_EYE.get());
+        var effect = event.getEntity().getEffect(OccultismEffects.THIRD_EYE);
         int duration = effect == null ? 0 : effect.getDuration();
         if (duration > 1) {
             if (!this.thirdEyeActiveLastTick) {
@@ -157,11 +157,11 @@ public class ThirdEyeEffectRenderer {
                 }
             }
             //also handle goggles in one if we have them
-            this.uncoverBlocks(event.player, event.player.level(), OtherworldBlockTier.ONE);
+            this.uncoverBlocks(event.getEntity(), event.getEntity().level(), OtherworldBlockTier.ONE);
         } else {
             //if we don't have goggles, cover blocks
             //Try twice, but on the last effect tick, clear the list.
-            this.resetUncoveredBlocks(event.player.level(), duration == 0);
+            this.resetUncoveredBlocks(event.getEntity().level(), duration == 0);
 
             if (this.thirdEyeActiveLastTick) {
                 this.thirdEyeActiveLastTick = false;
@@ -174,22 +174,22 @@ public class ThirdEyeEffectRenderer {
         }
     }
 
-    public void onGogglesTick(TickEvent.PlayerTickEvent event) {
-        boolean hasGoggles = CuriosUtil.hasGoggles(event.player);
+    public void onGogglesTick(PlayerTickEvent.Post event) {
+        boolean hasGoggles = CuriosUtil.hasGoggles(event.getEntity());
         if (hasGoggles) {
             if (!this.gogglesActiveLastTick) {
                 this.gogglesActiveLastTick = true;
             }
-            this.uncoverBlocks(event.player, event.player.level(), OtherworldBlockTier.TWO);
+            this.uncoverBlocks(event.getEntity(), event.getEntity().level(), OtherworldBlockTier.TWO);
         } else {
             if (this.gogglesActiveLastTick) {
                 this.gogglesActiveLastTick = false;
 
                 //only cover blocks if third eye is not active and still needs them visible.
-                this.resetUncoveredBlocks(event.player.level(), true);
+                this.resetUncoveredBlocks(event.getEntity().level(), true);
                 if (this.thirdEyeActiveLastTick) {
                     //this uncovers tier 1 blocks that we still can see under normal third eye
-                    this.uncoverBlocks(event.player, event.player.level(), OtherworldBlockTier.ONE);
+                    this.uncoverBlocks(event.getEntity(), event.getEntity().level(), OtherworldBlockTier.ONE);
                 }
             }
         }

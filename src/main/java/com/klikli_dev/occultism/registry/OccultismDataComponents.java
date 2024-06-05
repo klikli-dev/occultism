@@ -1,11 +1,13 @@
 package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.klikli_dev.occultism.api.common.data.SortDirection;
 import com.klikli_dev.occultism.api.common.data.SortType;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -30,9 +32,33 @@ public class OccultismDataComponents {
             .cacheEncoding()
     );
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<SortType>> SORT_TYPE = DATA_COMPONENTS.registerComponentType("SORT_TYPE", builder -> builder
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<SortType>> SORT_TYPE = DATA_COMPONENTS.registerComponentType("sort_type", builder -> builder
             .persistent(SortType.CODEC)
             .networkSynchronized(SortType.STREAM_CODEC)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<CustomData>> CRAFTING_MATRIX = DATA_COMPONENTS.registerComponentType("crafting_matrix", builder -> builder
+            .persistent(CustomData.CODEC)
+            .networkSynchronized(CustomData.STREAM_CODEC)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<CustomData>> ORDER_STACK = DATA_COMPONENTS.registerComponentType("order_stack", builder -> builder
+            .persistent(CustomData.CODEC)
+            .networkSynchronized(CustomData.STREAM_CODEC)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<GlobalBlockPos>> LINKED_STORAGE_CONTROLLER = DATA_COMPONENTS.registerComponentType("linked_storage_controller", builder -> builder
+            .persistent(GlobalBlockPos.CODEC)
+            .networkSynchronized(GlobalBlockPos.STREAM_CODEC)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> MAX_SLOTS = DATA_COMPONENTS.registerComponentType("max_slots", builder -> builder
+            .persistent(Codec.INT)
+            .networkSynchronized(ByteBufCodecs.INT)
             .cacheEncoding()
     );
 

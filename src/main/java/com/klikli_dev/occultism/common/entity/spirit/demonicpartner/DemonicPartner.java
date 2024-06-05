@@ -1,11 +1,14 @@
 package com.klikli_dev.occultism.common.entity.spirit.demonicpartner;
 
 import com.klikli_dev.occultism.common.entity.familiar.FamiliarEntity;
+import com.klikli_dev.occultism.registry.OccultismTags;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -22,7 +25,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SmokingRecipe;
@@ -81,9 +83,7 @@ public class DemonicPartner extends TamableAnimal {
 
     @Override
     public boolean isFood(ItemStack pStack) {
-        //Demons eat meat
-        Item item = pStack.getItem();
-        return item.isEdible() && pStack.getFoodProperties(this).isMeat();
+        return pStack.is(OccultismTags.Items.DEMONIC_PARTNER_FOOD);
     }
 
     public Optional<RecipeHolder<SmokingRecipe>> getRecipe(ItemStack pStack) {

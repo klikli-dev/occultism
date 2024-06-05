@@ -28,20 +28,19 @@ import com.klikli_dev.occultism.network.messages.MessageSetJumps;
 import com.klikli_dev.occultism.registry.OccultismDataStorage;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.event.TickEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
-@Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = Occultism.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class CapabilityEventHandler {
     @SubscribeEvent
-    public static void onPlayerTick(final TickEvent.PlayerTickEvent evt) {
-        if (evt.phase == TickEvent.Phase.END) {
+    public static void onPlayerTick(final PlayerTickEvent.Post evt) {
             //Reset the double jump capability
-            if (evt.player.onGround()) {
-                evt.player.setData(OccultismDataStorage.DOUBLE_JUMP, 0);
+            if (evt.getEntity().onGround()) {
+                evt.getEntity().setData(OccultismDataStorage.DOUBLE_JUMP, 0);
             }
-        }
     }
 
     @SubscribeEvent

@@ -57,7 +57,7 @@ public class OccultismTags {
 
     public static class Items {
 
-
+        public static final TagKey<Item> DEMONIC_PARTNER_FOOD = makeItemTag(new ResourceLocation("occultism", "demonic_partner_food"));
 
         public static final TagKey<Item> IESNIUM_ORE = makeItemTag(new ResourceLocation("forge", "ores/iesnium"));
         public static final TagKey<Item> SILVER_ORE = makeItemTag(new ResourceLocation("forge", "ores/silver"));

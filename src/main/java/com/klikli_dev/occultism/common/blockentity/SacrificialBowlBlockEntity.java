@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.blockentity;
 
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -63,13 +64,13 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
 
     @Override
     public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
-        this.itemStackHandler.deserializeNBT(compound.getCompound("inventory"));
+        this.itemStackHandler.deserializeNBT(provider, compound.getCompound("inventory"));
         this.lastChangeTime = compound.getLong("lastChangeTime");
     }
 
     @Override
     public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
-        compound.put("inventory", this.itemStackHandler.serializeNBT());
+        compound.put("inventory", this.itemStackHandler.serializeNBT(provider));
         compound.putLong("lastChangeTime", this.lastChangeTime);
         return compound;
     }

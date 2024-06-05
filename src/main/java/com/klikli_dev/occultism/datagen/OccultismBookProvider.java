@@ -20,19 +20,22 @@ import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritTradeRec
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 
+import java.util.concurrent.CompletableFuture;
+
 public class OccultismBookProvider extends BookProvider {
 
     public static final String COLOR_PURPLE = "ad03fc";
     public static final String DEMONS_DREAM = "Demon's Dream";
 
-    public OccultismBookProvider(PackOutput packOutput, String modid, ModonomiconLanguageProvider lang) {
-        super("dictionary_of_spirits", packOutput, modid, lang);
+    public OccultismBookProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> registries, String modid, ModonomiconLanguageProvider lang) {
+        super("dictionary_of_spirits", packOutput, registries, modid, lang);
     }
 
     @Override
