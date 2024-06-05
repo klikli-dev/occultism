@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.common.misc;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.neoforged.neoforge.common.util.INBTSerializable;
 
@@ -39,9 +40,10 @@ public class DepositOrder implements INBTSerializable<CompoundTag> {
     }
 
     //region Static Methods
-    public static DepositOrder from(CompoundTag compound) {
+    public static DepositOrder from(CompoundTag compound, HolderLookup.Provider provider
+    ) {
         DepositOrder depositOrder = new DepositOrder();
-        depositOrder.deserializeNBT(compound);
+        depositOrder.deserializeNBT(provider, compound);
         return depositOrder;
     }
     //endregion Static Methods
@@ -58,12 +60,14 @@ public class DepositOrder implements INBTSerializable<CompoundTag> {
     }
 
     @Override
-    public CompoundTag serializeNBT() {
+    public CompoundTag serializeNBT(HolderLookup.Provider provider
+    ) {
         return this.writeToNBT(new CompoundTag());
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt) {
+    public void deserializeNBT(HolderLookup.Provider provider
+, CompoundTag nbt) {
         this.readFromNBT(nbt);
     }
 

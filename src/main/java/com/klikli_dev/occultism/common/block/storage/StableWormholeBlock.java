@@ -34,6 +34,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -222,21 +223,19 @@ public class StableWormholeBlock extends Block implements EntityBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
-                                 InteractionHand handIn, BlockHitResult rayTraceResult) {
-        if (!level.isClientSide) {
-            BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof StableWormholeBlockEntity wormhole && StorageControllerContainerBase.canOpen(player, pos)) {
-                if (wormhole.getLinkedStorageController() != null && player instanceof ServerPlayer serverPlayer) {
-                    serverPlayer.openMenu(wormhole, pos);
-                    StorageControllerContainerBase.reserve(player, pos);
+    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+        if (!pLevel.isClientSide) {
+            BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+            if (blockEntity instanceof StableWormholeBlockEntity wormhole && StorageControllerContainerBase.canOpen(pPlayer, pPos)) {
+                if (wormhole.getLinkedStorageController() != null && pPlayer instanceof ServerPlayer serverPlayer) {
+                    serverPlayer.openMenu(wormhole, pPos);
+                    StorageControllerContainerBase.reserve(pPlayer, pPos);
                 } else {
-                    level.setBlock(pos, state.setValue(LINKED, false), 2);
+                    pLevel.setBlock(pPos, pState.setValue(LINKED, false), 2);
                 }
             }
         }
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
     @Nullable

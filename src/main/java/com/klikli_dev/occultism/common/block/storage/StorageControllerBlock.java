@@ -31,6 +31,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -67,26 +68,23 @@ public class StorageControllerBlock extends Block implements EntityBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
-        return super.isPathfindable(pState, pLevel, pPos, pType);
+    protected boolean isPathfindable(BlockState pState, PathComputationType pPathComputationType) {
+        return false;
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
-                                 InteractionHand handIn, BlockHitResult rayTraceResult) {
-        if (!level.isClientSide) {
-            BlockEntity blockEntity = level.getBlockEntity(pos);
+    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+        if (!pLevel.isClientSide) {
+            BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
             if (blockEntity instanceof MenuProvider provider &&
-                    StorageControllerContainerBase.canOpen(player, pos) &&
-                    player instanceof ServerPlayer serverPlayer
+                    StorageControllerContainerBase.canOpen(pPlayer, pPos) &&
+                    pPlayer instanceof ServerPlayer serverPlayer
             ) {
-                serverPlayer.openMenu(provider, pos);
-                StorageControllerContainerBase.reserve(player, pos);
+                serverPlayer.openMenu(provider, pPos);
+                StorageControllerContainerBase.reserve(pPlayer, pPos);
             }
         }
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
     @Override

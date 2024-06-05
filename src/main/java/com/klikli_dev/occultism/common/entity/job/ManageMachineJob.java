@@ -31,8 +31,10 @@ import com.klikli_dev.occultism.common.entity.ai.goal.ManageMachineGoal;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.common.misc.DepositOrder;
 import com.klikli_dev.occultism.util.BlockEntityUtil;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.ai.goal.OpenDoorGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
@@ -175,12 +177,12 @@ public class ManageMachineJob extends SpiritJob {
     }
 
     @Override
-    public CompoundTag writeJobToNBT(CompoundTag compound) {
+    public CompoundTag writeJobToNBT(CompoundTag compound, HolderLookup.Provider provider) {
         if (this.storageControllerPosition != null)
-            compound.put("storageControllerPosition", this.storageControllerPosition.serializeNBT());
+            compound.put("storageControllerPosition", this.storageControllerPosition.serializeNBT(provider));
 
         if (this.managedMachine != null)
-            compound.put("managedMachine", this.managedMachine.serializeNBT());
+            compound.put("managedMachine", this.managedMachine.serializeNBT(provider));
 
         if (this.getCurrentDepositOrder() != null)
             compound.put("currentDepositOrder", this.getCurrentDepositOrder().writeToNBT(new CompoundTag()));
@@ -190,16 +192,16 @@ public class ManageMachineJob extends SpiritJob {
             nbtOrderList.add(depositOrder.writeToNBT(new CompoundTag()));
         }
         compound.put("depositOrders", nbtOrderList);
-        return super.writeJobToNBT(compound);
+        return super.writeJobToNBT(compound, provider);
     }
 
     @Override
-    public void readJobFromNBT(CompoundTag compound) {
+    public void readJobFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
         if (compound.contains("storageControllerPosition"))
-            this.storageControllerPosition = GlobalBlockPos.from(compound.getCompound("storageControllerPosition"));
+            this.storageControllerPosition = GlobalBlockPos.CODEC.decode(NbtOps.INSTANCE, compound.get("storageControllerPosition")).getOrThrow().getFirst();
 
         if (compound.contains("managedMachine"))
-            this.managedMachine = MachineReference.from(compound.getCompound("managedMachine"));
+            this.managedMachine = MachineReference.CODEC.decode(NbtOps.INSTANCE, compound.get("managedMachine")).getOrThrow().getFirst();
 
         if (compound.contains("currentDepositOrder"))
             this.setCurrentDepositOrder(DepositOrder.from(compound.getCompound("currentDepositOrder")));
@@ -213,7 +215,7 @@ public class ManageMachineJob extends SpiritJob {
             }
         }
 
-        super.readJobFromNBT(compound);
+        super.readJobFromNBT(compound, provider);
     }
 
     public void addDepsitOrder(DepositOrder order) {

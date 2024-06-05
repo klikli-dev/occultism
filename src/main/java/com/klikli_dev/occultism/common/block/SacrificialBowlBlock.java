@@ -31,7 +31,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -69,9 +69,8 @@ public class SacrificialBowlBlock extends DirectionalBlock implements EntityBloc
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
-        return super.isPathfindable(pState, pLevel, pPos, pType);
+    protected boolean isPathfindable(BlockState pState, PathComputationType pPathComputationType) {
+        return false;
     }
 
     @Override
@@ -87,35 +86,34 @@ public class SacrificialBowlBlock extends DirectionalBlock implements EntityBloc
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
-                                 InteractionHand hand, BlockHitResult hit) {
-        if (!level.isClientSide) {
-            ItemStack heldItem = player.getItemInHand(hand);
-            SacrificialBowlBlockEntity bowl = (SacrificialBowlBlockEntity) level.getBlockEntity(pos);
+    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+        if (!pLevel.isClientSide) {
+            ItemStack heldItem = pPlayer.getItemInHand(pHand);
+            SacrificialBowlBlockEntity bowl = (SacrificialBowlBlockEntity) pLevel.getBlockEntity(pPos);
             var handler = bowl.itemStackHandler;
-            if (!player.isShiftKeyDown()) {
+            if (!pPlayer.isShiftKeyDown()) {
                 ItemStack itemStack = handler.getStackInSlot(0);
                 if (itemStack.isEmpty()) {
                     //if there is nothing in the bowl, put the hand held item in
-                    player.setItemInHand(hand, handler.insertItem(0, heldItem, false));
-                    level.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1, 1);
+                    pPlayer.setItemInHand(pHand, handler.insertItem(0, heldItem, false));
+                    pLevel.playSound(null, pPos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1, 1);
                 } else {
                     //otherwise take out the item.
                     if (heldItem.isEmpty()) {
                         //place it in the hand if possible
-                        player.setItemInHand(hand, handler.extractItem(0, 64, false));
+                        pPlayer.setItemInHand(pHand, handler.extractItem(0, 64, false));
                     } else {
                         //and if not, just put it in the inventory
-                        ItemHandlerHelper.giveItemToPlayer(player, handler.extractItem(0, 64, false));
+                        ItemHandlerHelper.giveItemToPlayer(pPlayer, handler.extractItem(0, 64, false));
                     }
-                    level.playSound(null, pos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 1, 1);
+                    pLevel.playSound(null, pPos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 1, 1);
                 }
                 bowl.setChanged();
             }
         }
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
+
 
     @Override
     @SuppressWarnings("deprecation")

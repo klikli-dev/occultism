@@ -46,6 +46,7 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
@@ -74,11 +75,11 @@ public class Occultism {
     public static final DebugHelper DEBUG = new DebugHelper();
     public static Occultism INSTANCE;
 
-    public Occultism(IEventBus modEventBus) {
+    public Occultism(IEventBus modEventBus, ModContainer modContainer) {
         INSTANCE = this;
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG.spec);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG.spec);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG.spec);
+        modContainer.registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG.spec);
+        modContainer.registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG.spec);
+        modContainer.registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG.spec);
 
         OccultismEffects.EFFECTS.register(modEventBus);
         OccultismRecipes.RECIPE_TYPES.register(modEventBus);
@@ -117,7 +118,6 @@ public class Occultism {
             modEventBus.addListener(ClientSetupEventHandler::onRegisterMenuScreens);
         }
 
-        GeckoLib.initialize(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

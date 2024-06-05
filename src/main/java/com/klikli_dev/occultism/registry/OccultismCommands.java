@@ -43,7 +43,6 @@ public class OccultismCommands {
         //register dispatcher for subcommands of /occultism
         LiteralCommandNode<CommandSourceStack> occultismCommand = dispatcher.register(
                 Commands.literal(Occultism.MODID)
-                        .then(NbtCommand.register(dispatcher))
                         .then(debugCommand)
         );
 
