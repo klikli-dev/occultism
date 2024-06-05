@@ -27,6 +27,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
@@ -49,7 +50,7 @@ public interface IReplantableCrops {
 
     //endregion Getter / Setter
 
-    default InteractionResult onHarvest(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
+    default ItemInteractionResult onHarvest(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand) {
         if (!level.isClientSide) {
             if (state.getValue(CropBlock.AGE) >= 7) {
                 List<ItemStack> drops = Block.getDrops(state, (ServerLevel) level, pos, null, player,
@@ -69,10 +70,10 @@ public interface IReplantableCrops {
                 player.swing(hand);
                 player.causeFoodExhaustion(EXHAUSTION_PER_HARVEST);
 
-                return InteractionResult.SUCCESS;
+                return ItemInteractionResult.SUCCESS;
             }
         }
-        return InteractionResult.PASS;
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
 }

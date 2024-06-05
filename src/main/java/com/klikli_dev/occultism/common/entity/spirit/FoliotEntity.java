@@ -90,7 +90,7 @@ public class FoliotEntity extends SpiritEntity implements GeoEntity {
 
     @Override
     public EntityDimensions getDimensions(Pose pPose) {
-
+        //TODO: Dimension stuff!
         if (this.getSizeState() == 1)
             return this.lumberJackDimensions;
 

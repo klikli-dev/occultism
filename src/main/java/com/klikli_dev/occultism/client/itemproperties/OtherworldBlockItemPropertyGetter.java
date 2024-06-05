@@ -38,7 +38,7 @@ public class OtherworldBlockItemPropertyGetter implements ItemPropertyFunction {
 
     @Override
     public float call(ItemStack itemStack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity, int i) {
-        boolean thirdEye = Minecraft.getInstance().player.hasEffect(OccultismEffects.THIRD_EYE.get());
+        boolean thirdEye = Minecraft.getInstance().player.hasEffect(OccultismEffects.THIRD_EYE);
         return itemStack.getOrCreateTag().getBoolean("isInventoryItem") || thirdEye ? 1.0f : 0.0f;
     }
 }

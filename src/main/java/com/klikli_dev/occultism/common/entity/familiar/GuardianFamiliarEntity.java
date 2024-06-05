@@ -72,13 +72,13 @@ public class GuardianFamiliarEntity extends ColoredFamiliarEntity {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
         this.setColor();
         this.setTree(this.getRandom().nextDouble() < 0.1);
         this.setBird(this.getRandom().nextDouble() < 0.5);
         this.setTools(this.getRandom().nextDouble() < 0.5);
         this.setLives((byte) (this.getRandom().nextInt(5) + 1));
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 
     public boolean hasLegs() {

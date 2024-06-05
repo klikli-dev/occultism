@@ -29,8 +29,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -79,12 +81,6 @@ public class DimensionalMineshaftBlock extends Block implements EntityBlock {
 
     @Override
     @SuppressWarnings("deprecation")
-    public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
-        return super.isPathfindable(pState, pLevel, pPos, pType);
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
     public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = worldIn.getBlockEntity(pos);
@@ -96,16 +92,14 @@ public class DimensionalMineshaftBlock extends Block implements EntityBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
-                                 InteractionHand hand, BlockHitResult hit) {
-        if (!level.isClientSide) {
-            BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof MenuProvider menu && player instanceof ServerPlayer serverPlayer) {
-                serverPlayer.openMenu(menu, pos);
+    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+        if (!pLevel.isClientSide) {
+            BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+            if (blockEntity instanceof MenuProvider menu && pPlayer instanceof ServerPlayer serverPlayer) {
+                serverPlayer.openMenu(menu, pPos);
             }
         }
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
     @Override

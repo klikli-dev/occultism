@@ -56,8 +56,8 @@ public class FamiliarTrigger extends SimpleCriterionTrigger<FamiliarTrigger.Trig
                                   Optional<Type> type) implements SimpleCriterionTrigger.SimpleInstance {
         public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(
                 instance -> instance.group(
-                                ExtraCodecs.strictOptionalField(EntityPredicate.ADVANCEMENT_CODEC, "player").forGetter(TriggerInstance::player),
-                                ExtraCodecs.strictOptionalField(StringRepresentable.fromEnum(Type::values), "type")
+                                EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf( "player").forGetter(TriggerInstance::player),
+                                StringRepresentable.fromEnum(Type::values).optionalFieldOf("type")
                                         .forGetter(TriggerInstance::type)
                         )
                         .apply(instance, TriggerInstance::new)

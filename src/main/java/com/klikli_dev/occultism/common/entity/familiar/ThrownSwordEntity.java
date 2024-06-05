@@ -52,8 +52,10 @@ public class ThrownSwordEntity extends ThrowableItemProjectile {
             this.remove(RemovalReason.DISCARDED);
     }
 
+
+
     @Override
-    protected float getGravity() {
+    protected double getDefaultGravity() {
         return 0;
     }
 

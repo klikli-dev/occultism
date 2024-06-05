@@ -24,18 +24,14 @@ package com.klikli_dev.occultism.common.advancement;
 
 import com.klikli_dev.occultism.common.ritual.Ritual;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
-import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.PlayerTrigger;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.ExtraCodecs;
 
 import java.util.Optional;
 
@@ -55,18 +51,18 @@ public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.TriggerI
                                   Optional<ResourceLocation> ritualId,
                                   Optional<ResourceLocation> ritualFactoryId) implements SimpleCriterionTrigger.SimpleInstance {
 
-        public static Criterion<RitualTrigger.TriggerInstance> ritualFactory(ResourceLocation ritualFactoryId) {
-            return OccultismAdvancements.RITUAL.get().createCriterion(new TriggerInstance(Optional.empty(), Optional.empty(), Optional.of(ritualFactoryId)));
-        }
-
         public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(
                 instance -> instance.group(
-                                ExtraCodecs.strictOptionalField(EntityPredicate.ADVANCEMENT_CODEC, "player").forGetter(TriggerInstance::player),
-                                ExtraCodecs.strictOptionalField(ResourceLocation.CODEC, "ritual_id").forGetter(TriggerInstance::ritualId),
-                                ExtraCodecs.strictOptionalField(ResourceLocation.CODEC, "ritual_factory_id").forGetter(TriggerInstance::ritualFactoryId)
+                                EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
+                                ResourceLocation.CODEC.optionalFieldOf("ritual_id").forGetter(TriggerInstance::ritualId),
+                                ResourceLocation.CODEC.optionalFieldOf("ritual_factory_id").forGetter(TriggerInstance::ritualFactoryId)
                         )
                         .apply(instance, TriggerInstance::new)
         );
+
+        public static Criterion<RitualTrigger.TriggerInstance> ritualFactory(ResourceLocation ritualFactoryId) {
+            return OccultismAdvancements.RITUAL.get().createCriterion(new TriggerInstance(Optional.empty(), Optional.empty(), Optional.of(ritualFactoryId)));
+        }
 
         public boolean matches(ServerPlayer player, Ritual ritual) {
             if (this.ritualId.isPresent() && !this.ritualId.get().equals(ritual.getRecipeHolder(player).id()))

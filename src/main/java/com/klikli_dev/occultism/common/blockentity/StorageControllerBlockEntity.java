@@ -51,6 +51,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
@@ -502,8 +503,9 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
     @Override
     public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
-        this.setSortDirection(SortDirection.get(compound.getInt("sortDirection")));
-        this.setSortType(SortType.get(compound.getInt("sortType")));
+
+        this.setSortDirection(SortDirection.BY_ID.apply(compound.getInt("sortDirection")));
+        this.setSortType(SortType.BY_ID.apply(compound.getInt("sortType")));
 
         if (compound.contains("maxSlots")) {
             this.setMaxSlots(compound.getInt("maxSlots"));
@@ -529,7 +531,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         if (compound.contains("linkedMachines")) {
             ListTag machinesNbt = compound.getList("linkedMachines", Tag.TAG_COMPOUND);
             for (int i = 0; i < machinesNbt.size(); i++) {
-                MachineReference reference = MachineReference.from(machinesNbt.getCompound(i));
+                MachineReference reference = MachineReference.CODEC.parse(NbtOps.INSTANCE, machinesNbt.getCompound(i)).getOrThrow();
                 this.linkedMachines.put(reference.insertGlobalPos, reference);
             }
         }
@@ -537,8 +539,8 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
     @Override
     public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
-        compound.putInt("sortDirection", this.getSortDirection().getValue());
-        compound.putInt("sortType", this.getSortType().getValue());
+        compound.putInt("sortDirection", this.getSortDirection().ordinal());
+        compound.putInt("sortType", this.getSortType().ordinal());
         compound.putInt("maxSlots", this.maxSlots);
 
         //write stored crafting matrix
@@ -559,7 +561,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         //write linked machines
         ListTag machinesNbt = new ListTag();
         for (Map.Entry<GlobalBlockPos, MachineReference> entry : this.linkedMachines.entrySet()) {
-            machinesNbt.add(entry.getValue().serializeNBT());
+            machinesNbt.add(entry.getValue().serializeNBT(provider));
         }
         compound.put("linkedMachines", machinesNbt);
 

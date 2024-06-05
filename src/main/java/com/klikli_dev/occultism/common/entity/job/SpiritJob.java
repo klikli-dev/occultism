@@ -26,6 +26,7 @@ import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityDimensions;
@@ -65,12 +66,12 @@ public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
     }
 
     @Override
-    public CompoundTag serializeNBT() {
+    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
         return this.writeJobToNBT(new CompoundTag());
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt) {
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
         this.readJobFromNBT(nbt);
     }
 

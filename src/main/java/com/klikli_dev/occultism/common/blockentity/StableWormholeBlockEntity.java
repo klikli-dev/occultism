@@ -37,6 +37,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
@@ -143,11 +144,11 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
     @Override
     public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
         if (compound.contains("linkedStorageControllerPosition"))
-            this.linkedStorageControllerPosition = GlobalBlockPos.from(compound.getCompound(
-                    "linkedStorageControllerPosition"));
+            this.linkedStorageControllerPosition = GlobalBlockPos.CODEC.decode(NbtOps.INSTANCE, compound.getCompound(
+                    "linkedStorageControllerPosition")).getOrThrow().getFirst();
 
-        this.setSortDirection(SortDirection.get(compound.getInt("sortDirection")));
-        this.setSortType(SortType.get(compound.getInt("sortType")));
+        this.setSortDirection(SortDirection.BY_ID.apply(compound.getInt("sortDirection")));
+        this.setSortType(SortType.BY_ID.apply(compound.getInt("sortType")));
 
         this.matrix = new HashMap<>();
         if (compound.contains("matrix")) {
@@ -169,10 +170,10 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
     @Override
     public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
         if (this.linkedStorageControllerPosition != null)
-            compound.put("linkedStorageControllerPosition", this.linkedStorageControllerPosition.serializeNBT());
+            compound.put("linkedStorageControllerPosition", this.linkedStorageControllerPosition.serializeNBT(provider));
 
-        compound.putInt("sortDirection", this.getSortDirection().getValue());
-        compound.putInt("sortType", this.getSortType().getValue());
+        compound.putInt("sortDirection", this.getSortDirection().ordinal());
+        compound.putInt("sortType", this.getSortType().ordinal());
 
         ListTag matrixNbt = new ListTag();
         for (int i = 0; i < this.matrix.size(); i++) {

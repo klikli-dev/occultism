@@ -149,11 +149,11 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
         this.setWeapon((byte) this.getRandom().nextInt(3));
         this.setHairy(this.getRandom().nextBoolean());
         this.setGlasses(this.getRandom().nextDouble() < 0.1);
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 
     @Override

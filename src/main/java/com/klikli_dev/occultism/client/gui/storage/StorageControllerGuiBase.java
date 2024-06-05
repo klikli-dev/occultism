@@ -471,7 +471,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.addRenderableWidget(this.clearTextButton);
 
 
-        int sortTypeOffset = this.getSortType().getValue() * 28;
+        int sortTypeOffset = this.getSortType().ordinal() * 28;
         this.sortTypeButton = new SizedImageButton(this.leftPos + clearTextButtonLeft + controlButtonSize + 3,
                 this.topPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, sortTypeOffset, 28, 28, 28,
                 256, 256, BUTTONS, (button) -> {
@@ -482,7 +482,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         });
         this.addRenderableWidget(this.sortTypeButton);
 
-        int sortDirectionOffset = 84 + (1 - this.getSortDirection().getValue()) * 28;
+        int sortDirectionOffset = 84 + (1 - this.getSortDirection().ordinal()) * 28;
         this.sortDirectionButton = new SizedImageButton(
                 this.leftPos + clearTextButtonLeft + controlButtonSize + 3 + controlButtonSize + 3,
                 this.topPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, sortDirectionOffset, 28, 28,

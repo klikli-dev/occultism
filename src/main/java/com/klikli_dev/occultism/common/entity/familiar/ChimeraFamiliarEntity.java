@@ -30,6 +30,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -138,14 +139,14 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
         this.setGoat(true);
         this.setSize((byte) 0);
         this.setFlaps(this.getRandom().nextBoolean());
         this.setRing(this.getRandom().nextBoolean());
         this.setBeard(this.getRandom().nextBoolean());
         this.setHat(this.getRandom().nextDouble() < 0.1);
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 
     @Override
@@ -263,9 +264,9 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
         this.getAttribute(Attributes.ATTACK_DAMAGE).removeModifier(DAMAGE_BONUS);
         this.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(SPEED_BONUS);
         this.getAttribute(Attributes.ATTACK_DAMAGE).addTransientModifier(
-                new AttributeModifier(DAMAGE_BONUS, "Chimera attack bonus", this.getAttackBonus(), Operation.ADDITION));
+                new AttributeModifier(DAMAGE_BONUS, "Chimera attack bonus", this.getAttackBonus(), Operation.ADD_VALUE));
         this.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(
-                new AttributeModifier(SPEED_BONUS, "Chimera speed bonus", this.getSpeedBonus(), Operation.ADDITION));
+                new AttributeModifier(SPEED_BONUS, "Chimera speed bonus", this.getSpeedBonus(), Operation.ADD_VALUE));
     }
 
     public float getNoseGoatRot(float partialTicks) {
@@ -290,7 +291,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     @Override
     protected InteractionResult mobInteract(Player playerIn, InteractionHand hand) {
         ItemStack stack = playerIn.getItemInHand(hand);
-        FoodProperties food = stack.getItem().getFoodProperties();
+        FoodProperties food = stack.getItem().getFoodProperties(stack, this);
         if (this.hasGoat() && stack.getItem() == Items.GOLDEN_APPLE && playerIn == this.getFamiliarOwner()) {
             if (!this.level().isClientSide) {
                 stack.shrink(1);
@@ -303,9 +304,9 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
             }
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
-        if (this.getSize() < MAX_SIZE && food != null && food.isMeat()) {
+        if (this.getSize() < MAX_SIZE && food != null && stack.is(ItemTags.MEAT)) {
             stack.shrink(1);
-            this.setSize((byte) (this.getSize() + food.getNutrition()));
+            this.setSize((byte) (this.getSize() + food.nutrition()));
             this.heal(4);
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         } else if (!this.isSitting() && !this.isVehicle() && !playerIn.isSecondaryUseActive()
@@ -536,7 +537,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
 
                 switch (attacker) {
                     case LION_ATTACKER:
-                        e.setSecondsOnFire(4);
+                        e.setRemainingFireTicks(4 * 20);
                         break;
                     case GOAT_ATTACKER:
                         Vec3 direction = e.position().vectorTo(this.chimera.position());

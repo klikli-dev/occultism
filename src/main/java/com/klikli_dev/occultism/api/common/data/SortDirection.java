@@ -39,7 +39,7 @@ public enum SortDirection implements StringRepresentable {
     UP;
     private static final Map<String, SortDirection> TYPES = new Object2ObjectArrayMap<>();
     public static final Codec<SortDirection> CODEC = Codec.stringResolver(SortDirection::getSerializedName, TYPES::get);
-    private static final IntFunction<SortDirection> BY_ID = ByIdMap.continuous(Enum::ordinal, SortDirection.values(), ByIdMap.OutOfBoundsStrategy.WRAP);
+    public static final IntFunction<SortDirection> BY_ID = ByIdMap.continuous(Enum::ordinal, SortDirection.values(), ByIdMap.OutOfBoundsStrategy.WRAP);
     public static final StreamCodec<ByteBuf, SortDirection> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, Enum::ordinal);
 
     static {
