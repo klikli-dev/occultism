@@ -1,6 +1,7 @@
 package com.klikli_dev.occultism.common.entity.spirit.demonicpartner;
 
 import com.klikli_dev.occultism.common.entity.familiar.FamiliarEntity;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -8,6 +9,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
@@ -18,6 +20,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -45,6 +48,31 @@ public class DemonicPartner extends TamableAnimal {
 
     public static AttributeSupplier.Builder createAttributes() {
         return FamiliarEntity.createAttributes().add(Attributes.ATTACK_DAMAGE, 9.0D);
+    }
+
+    @Override
+    protected void dropFromLootTable(DamageSource pDamageSource, boolean pAttackedRecently) {
+        super.dropFromLootTable(pDamageSource, pAttackedRecently);
+
+        var owner = this.getOwner();
+
+        var shard = new ItemStack(OccultismItems.SOUL_SHARD_ITEM.get());
+
+        var health = this.getHealth();
+        this.setHealth(this.getMaxHealth()); //simulate a healthy familiar to avoid death on respawn
+        shard.getOrCreateTag().put("entityData", this.serializeNBT());
+        this.setHealth(health);
+
+        if(owner instanceof Player player){
+            ItemHandlerHelper.giveItemToPlayer(player, shard);
+        }
+        else {
+            ItemEntity entityitem = new ItemEntity(this.level(), this.getX(), this.getY() + 0.5, this.getZ(), shard);
+            entityitem.setPickUpDelay(5);
+            entityitem.setDeltaMovement(entityitem.getDeltaMovement().multiply(0, 1, 0));
+
+            this.level().addFreshEntity(entityitem);
+        }
     }
 
     protected void defineSynchedData() {
