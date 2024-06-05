@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.127.0] - 2024-06-05
+### :sparkles: New Features
+- [`a0a5a12`](https://github.com/klikli-dev/occultism/commit/a0a5a1288252696f30617af3ddc432212a84ec9f) - enable soul shards for demonic partners *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.126.1] - 2024-06-03
 ### :bug: Bug Fixes
 - [`8569d29`](https://github.com/klikli-dev/occultism/commit/8569d290c07ac6300f38ec8afbd4e2e75bca0ce5) - switch to loot tables for nbt dropping blocks *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1087,3 +1092,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.125.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.124.4...release/v1.20.1-1.125.0
 [release/v1.20.1-1.126.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.125.0...release/v1.20.1-1.126.0
 [release/v1.20.1-1.126.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.126.0...release/v1.20.1-1.126.1
+[release/v1.20.1-1.127.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.126.1...release/v1.20.1-1.127.0
