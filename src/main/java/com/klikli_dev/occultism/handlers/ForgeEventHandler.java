@@ -25,10 +25,11 @@ package com.klikli_dev.occultism.handlers;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismCommands;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
-@Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = Occultism.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class ForgeEventHandler {
 
     //region Static Methods

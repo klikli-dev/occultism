@@ -32,12 +32,14 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.util.TriState;
 import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent;
-import net.neoforged.neoforge.event.entity.player.EntityItemPickupEvent;
+import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 
-@Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = Occultism.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class LootEventHandler {
 
     @SubscribeEvent
@@ -47,7 +49,7 @@ public class LootEventHandler {
 
         Player attackingPlayer = event.getAttackingPlayer();
         if (attackingPlayer != null) {
-            MobEffectInstance greed = attackingPlayer.getEffect(OccultismEffects.DRAGON_GREED.get());
+            MobEffectInstance greed = attackingPlayer.getEffect(OccultismEffects.DRAGON_GREED);
             if (greed == null)
                 return;
             event.setDroppedExperience(event.getDroppedExperience() + greed.getAmplifier() + 1);
@@ -55,14 +57,14 @@ public class LootEventHandler {
     }
 
     @SubscribeEvent
-    public static void giveStoneToBlacksmith(EntityItemPickupEvent event) {
-        ItemEntity entity = event.getItem();
+    public static void giveStoneToBlacksmith(ItemEntityPickupEvent.Pre event) {
+        ItemEntity entity = event.getItemEntity();
         ItemStack stack = entity.getItem();
 
-        if (!(stack.is(Tags.Items.COBBLESTONE) || stack.is(Tags.Items.STONE)))
+        if (!(stack.is(Tags.Items.COBBLESTONES) || stack.is(Tags.Items.STONES)))
             return;
 
-        Player player = event.getEntity();
+        Player player = event.getPlayer();
 
         if (!FamiliarUtil.isFamiliarEnabled(player, OccultismEntities.BLACKSMITH_FAMILIAR.get()) || !FamiliarUtil.hasFamiliar(player, OccultismEntities.BLACKSMITH_FAMILIAR.get()))
             return;
@@ -70,7 +72,7 @@ public class LootEventHandler {
         if (player.getRandom().nextDouble() < Occultism.SERVER_CONFIG.spiritJobs.blacksmithFamiliarRepairChance.get() * stack.getCount())
             repairEquipment(player);
 
-        event.setCanceled(true);
+        event.setCanPickup(TriState.FALSE);
         entity.remove(Entity.RemovalReason.DISCARDED);
     }
 

@@ -45,11 +45,12 @@ import net.minecraft.world.level.block.JukeboxBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = Occultism.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class PlayerEventHandler {
     //region Static Methods
     @SubscribeEvent
@@ -87,9 +88,7 @@ public class PlayerEventHandler {
 
                 //now handle used item
                 if (isFlintAndSteel) {
-                    event.getItemStack().hurtAndBreak(1, event.getEntity(), (player) -> {
-                        player.broadcastBreakEvent(event.getHand());
-                    });
+                    event.getItemStack().hurtAndBreak(1, event.getEntity(), LivingEntity.getSlotForHand(event.getHand()));
                 } else if (isFireCharge) {
                     event.getItemStack().shrink(1);
                 }

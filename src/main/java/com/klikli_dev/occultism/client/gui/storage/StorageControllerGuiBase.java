@@ -64,6 +64,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.client.event.ScreenEvent;
+import org.apache.commons.lang3.StringUtils;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -178,7 +179,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     public void renderToolTip(GuiGraphics guiGraphics, MachineReference machine, int x, int y) {
         List<Component> tooltip = new ArrayList<>();
         tooltip.add(machine.getInsertItemStack().getDisplayName());
-        if (machine.customName != null) {
+        if (!StringUtils.isBlank(machine.customName)) {
             tooltip.add(Component.literal(ChatFormatting.GRAY.toString() +
                     ChatFormatting.BOLD + machine.customName +
                     ChatFormatting.RESET));
@@ -826,7 +827,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             String name = TextUtil.getModNameForGameObject(machine.getInsertItem());
             return name.toLowerCase().contains(searchText.toLowerCase().substring(1));
         } else {
-            String customName = machine.customName == null ? "" : machine.customName.toLowerCase();
+            String customName = StringUtils.isBlank(machine.customName) ? "" : machine.customName.toLowerCase();
             return machine.getInsertItemStack().getDisplayName().getString().toLowerCase()
                     .contains(searchText.toLowerCase()) ||
                     customName.contains(searchText.toLowerCase().substring(1));

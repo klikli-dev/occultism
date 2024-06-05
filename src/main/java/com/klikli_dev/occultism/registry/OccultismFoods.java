@@ -25,18 +25,18 @@ package com.klikli_dev.occultism.registry;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
-import net.neoforged.neoforge.common.util.NonNullLazy;
+import net.neoforged.neoforge.common.util.Lazy;
 
 public class OccultismFoods {
-    public static final NonNullLazy<FoodProperties> DATURA = NonNullLazy.of(
-            () -> new FoodProperties.Builder().nutrition(0).saturationMod(0).alwaysEat()
-                    .effect(() -> new MobEffectInstance(OccultismEffects.THIRD_EYE.get(), 15 * 20, 1), 0.7f)
+    public static final Lazy<FoodProperties> DATURA = Lazy.of(
+            () -> new FoodProperties.Builder().nutrition(0).saturationModifier(0).alwaysEdible()
+                    .effect(() -> new MobEffectInstance(OccultismEffects.THIRD_EYE, 15 * 20, 1), 0.7f)
                     .effect(() -> new MobEffectInstance(MobEffects.HUNGER, 15 * 20, 1), 1.0f)
                     .build());
 
-    public static final NonNullLazy<FoodProperties> DEMONS_DREAM_ESSENCE = NonNullLazy.of(
-            () -> new FoodProperties.Builder().nutrition(0).saturationMod(0).alwaysEat()
-                    .effect(() -> new MobEffectInstance(OccultismEffects.THIRD_EYE.get(), 60 * 20, 1), 1.0f)
+    public static final Lazy<FoodProperties> DEMONS_DREAM_ESSENCE = Lazy.of(
+            () -> new FoodProperties.Builder().nutrition(0).saturationModifier(0).alwaysEdible()
+                    .effect(() -> new MobEffectInstance(OccultismEffects.THIRD_EYE, 60 * 20, 1), 1.0f)
                     .effect(() -> new MobEffectInstance(MobEffects.HUNGER, 15 * 20, 1), 1.0f)
                     .effect(() -> new MobEffectInstance(MobEffects.DARKNESS, 15 * 20, 1), 0.2f)
                     .effect(() -> new MobEffectInstance(MobEffects.GLOWING, 15 * 20, 1), 0.2f)
@@ -47,9 +47,9 @@ public class OccultismFoods {
                     .effect(() -> new MobEffectInstance(MobEffects.LEVITATION,  15 * 20, 1), 0.2f)
                     .build());
 
-    public static final NonNullLazy<FoodProperties> OTHERWORLD_ESSENCE = NonNullLazy.of(
-            () -> new FoodProperties.Builder().nutrition(0).saturationMod(0).alwaysEat()
-                    .effect(() -> new MobEffectInstance(OccultismEffects.THIRD_EYE.get(), 60 * 20, 1), 1.0f)
+    public static final Lazy<FoodProperties> OTHERWORLD_ESSENCE = Lazy.of(
+            () -> new FoodProperties.Builder().nutrition(0).saturationModifier(0).alwaysEdible()
+                    .effect(() -> new MobEffectInstance(OccultismEffects.THIRD_EYE, 60 * 20, 1), 1.0f)
                     .effect(() -> new MobEffectInstance(MobEffects.LUCK,  5* 60 * 20, 1), 1.0f)
                     .build());
 }

@@ -23,10 +23,19 @@
 package com.klikli_dev.occultism.api.common.data;
 
 import com.klikli_dev.occultism.util.BlockEntityUtil;
+import com.klikli_dev.occultism.util.OccultismExtraStreamCodecs;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -36,7 +45,43 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.INBTSerializable;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Optional;
+
 public class MachineReference implements INBTSerializable<CompoundTag> {
+    public static final Codec<MachineReference> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            GlobalBlockPos.CODEC.fieldOf("extractGlobalPos").forGetter(m -> m.extractGlobalPos),
+            ResourceLocation.CODEC.fieldOf("extractRegistryName").forGetter(m -> m.extractRegistryName),
+            Codec.BOOL.fieldOf("extractChunkLoaded").forGetter(m -> m.extractChunkLoaded),
+            Direction.CODEC.fieldOf("extractFacing").forGetter(m -> m.extractFacing),
+            GlobalBlockPos.CODEC.fieldOf("insertGlobalPos").forGetter(m -> m.insertGlobalPos),
+            ResourceLocation.CODEC.fieldOf("insertRegistryName").forGetter(m -> m.insertRegistryName),
+            Codec.BOOL.fieldOf("insertChunkLoaded").forGetter(m -> m.insertChunkLoaded),
+            Direction.CODEC.fieldOf("insertFacing").forGetter(m -> m.insertFacing),
+            Codec.STRING.fieldOf("customName").forGetter(m -> m.customName)
+    ).apply(instance, MachineReference::new));
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, MachineReference> STREAM_CODEC = OccultismExtraStreamCodecs.composite(
+            GlobalBlockPos.STREAM_CODEC,
+            (m) -> m.extractGlobalPos,
+            ResourceLocation.STREAM_CODEC,
+            (m) -> m.extractRegistryName,
+            Codec.BOOL,
+            (m) -> m.extractChunkLoaded,
+            Direction.STREAM_CODEC,
+            (m) -> m.extractFacing,
+            GlobalBlockPos.STREAM_CODEC,
+            (m) -> m.insertGlobalPos,
+            ResourceLocation.STREAM_CODEC,
+            (m) -> m.insertRegistryName,
+            Codec.BOOL,
+            (m) -> m.insertChunkLoaded,
+            Direction.STREAM_CODEC,
+            (m) -> m.insertFacing,
+            Codec.STRING,
+            (m) -> m.customName,
+            MachineReference::new
+    );
+
     //extract is a potentially separate output block entity
     public GlobalBlockPos extractGlobalPos;
     public ResourceLocation extractRegistryName;
@@ -47,7 +92,7 @@ public class MachineReference implements INBTSerializable<CompoundTag> {
     public ResourceLocation insertRegistryName;
     public boolean insertChunkLoaded;
     public Direction insertFacing = Direction.UP;
-    public String customName = null;
+    public String customName = "";
     protected ItemStack cachedExtractItemStack = ItemStack.EMPTY;
     protected Item cachedExtractItem = null;
     protected ItemStack cachedInsertItemStack = ItemStack.EMPTY;
@@ -58,13 +103,26 @@ public class MachineReference implements INBTSerializable<CompoundTag> {
     }
 
     public MachineReference(GlobalBlockPos extractGlobalPos, ResourceLocation extractRegistryName, boolean extractChunkLoaded,
-                            GlobalBlockPos insertGlobalPos, ResourceLocation insertRegistryName, boolean insertChunkLoaded) {
+                            Direction extractFacing,
+                            GlobalBlockPos insertGlobalPos, ResourceLocation insertRegistryName, boolean insertChunkLoaded,
+                            Direction insertFacing) {
+        this(extractGlobalPos, extractRegistryName, extractChunkLoaded, extractFacing, insertGlobalPos, insertRegistryName, insertChunkLoaded, insertFacing, "");
+    }
+
+    public MachineReference(GlobalBlockPos extractGlobalPos, ResourceLocation extractRegistryName, boolean extractChunkLoaded,
+                            Direction extractFacing,
+                            GlobalBlockPos insertGlobalPos, ResourceLocation insertRegistryName, boolean insertChunkLoaded,
+                            Direction insertFacing,
+                            String customName) {
         this.extractGlobalPos = extractGlobalPos;
         this.extractRegistryName = extractRegistryName;
         this.extractChunkLoaded = extractChunkLoaded;
+        this.extractFacing = extractFacing;
         this.insertGlobalPos = insertGlobalPos;
         this.insertRegistryName = insertRegistryName;
         this.insertChunkLoaded = insertChunkLoaded;
+        this.insertFacing = insertFacing;
+        this.customName = customName;
     }
 
     /**
@@ -85,20 +143,12 @@ public class MachineReference implements INBTSerializable<CompoundTag> {
         boolean insertIsLoaded = insertBlockEntity.getLevel().isLoaded(insertPos.getPos());
 
         return new MachineReference(extractPos,
-                BuiltInRegistries.ITEM.getKey(extractItem.getItem()), extractIsLoaded, insertPos,
-                BuiltInRegistries.ITEM.getKey(insertItem.getItem()), insertIsLoaded);
-    }
-
-    public static MachineReference from(CompoundTag compound) {
-        MachineReference reference = new MachineReference();
-        reference.deserializeNBT(compound);
-        return reference;
-    }
-
-    public static MachineReference from(FriendlyByteBuf buf) {
-        MachineReference reference = new MachineReference();
-        reference.decode(buf);
-        return reference;
+                BuiltInRegistries.ITEM.getKey(extractItem.getItem()), extractIsLoaded,
+                Direction.DOWN,
+                insertPos,
+                BuiltInRegistries.ITEM.getKey(insertItem.getItem()), insertIsLoaded,
+                Direction.UP
+        );
     }
 
     public Item getExtractItem() {
@@ -126,80 +176,13 @@ public class MachineReference implements INBTSerializable<CompoundTag> {
     }
 
     @Override
-    public CompoundTag serializeNBT() {
-        return this.write(new CompoundTag());
+    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+        return this.write(new CompoundTag(), provider);
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt) {
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
         this.read(nbt);
-    }
-
-    public CompoundTag write(CompoundTag compound) {
-        if (this.insertGlobalPos != null)
-            compound.put("insertGlobalPos", this.insertGlobalPos.serializeNBT());
-        if (this.insertRegistryName != null)
-            compound.putString("insertRegistryName", this.insertRegistryName.toString());
-        compound.putBoolean("insertChunkLoaded", this.insertChunkLoaded);
-        compound.putByte("insertFacing", (byte) this.insertFacing.get3DDataValue());
-
-
-        if (this.extractGlobalPos != null)
-            compound.put("extractGlobalPos", this.extractGlobalPos.serializeNBT());
-        if (this.extractRegistryName != null)
-            compound.putString("extractRegistryName", this.extractRegistryName.toString());
-        compound.putBoolean("extractChunkLoaded", this.extractChunkLoaded);
-        compound.putByte("extractFacing", (byte) this.extractFacing.get3DDataValue());
-
-        if (!StringUtils.isBlank(this.customName))
-            compound.putString("customName", this.customName);
-
-        return compound;
-    }
-
-    public void read(CompoundTag compound) {
-
-        //recover nbt saved in old versions
-        if (compound.contains("globalPos")) {
-            this.insertGlobalPos = GlobalBlockPos.from(compound.getCompound("globalPos"));
-            this.extractGlobalPos = GlobalBlockPos.from(compound.getCompound("globalPos"));
-        }
-        if (compound.contains("registryName")) {
-            this.insertRegistryName = new ResourceLocation(compound.getString("registryName"));
-            this.extractRegistryName = new ResourceLocation(compound.getString("registryName"));
-        }
-        this.insertChunkLoaded = compound.getBoolean("isChunkLoaded");
-        this.extractChunkLoaded = compound.getBoolean("isChunkLoaded");
-
-
-        //then load actual nbt
-        if (compound.contains("insertGlobalPos"))
-            this.insertGlobalPos = GlobalBlockPos.from(compound.getCompound("insertGlobalPos"));
-        if (compound.contains("insertRegistryName"))
-            this.insertRegistryName = new ResourceLocation(compound.getString("insertRegistryName"));
-        if (compound.contains("insertChunkLoaded"))
-            this.insertChunkLoaded = compound.getBoolean("insertChunkLoaded");
-        this.insertFacing = Direction.from3DDataValue(compound.getInt("insertFacing"));
-
-
-        if (compound.contains("extractGlobalPos"))
-            this.extractGlobalPos = GlobalBlockPos.from(compound.getCompound("extractGlobalPos"));
-        if (compound.contains("extractRegistryName"))
-            this.extractRegistryName = new ResourceLocation(compound.getString("extractRegistryName"));
-        if (compound.contains("extractChunkLoaded"))
-            this.extractChunkLoaded = compound.getBoolean("extractChunkLoaded");
-        this.extractFacing = Direction.from3DDataValue(compound.getInt("extractFacing"));
-
-        if (compound.contains("customName"))
-            this.customName = compound.getString("customName");
-    }
-
-    public void encode(FriendlyByteBuf buf) {
-        buf.writeNbt(this.write(new CompoundTag()));
-    }
-
-    public void decode(FriendlyByteBuf buf) {
-        this.deserializeNBT(buf.readNbt());
     }
 
     public BlockEntity getExtractBlockEntity(Level level) {
