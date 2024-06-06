@@ -7,6 +7,8 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.IntTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.util.INBTSerializable;
@@ -16,14 +18,28 @@ import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Map;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
 public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable, IMapItemHandlerModifiable, INBTSerializable<CompoundTag> {
+    protected static final int VIRTUAL_SLOT = -1;
 
+    //Note: liliandev (Neo Discord) in response to "not a string" error for our codec when using codec.unboundedmap:
+    //unboundedMap turns a map into
+    //{
+    //"key1":{data},
+    //"key2":{data},
+    //[...]
+    //}
+    //and ItemStackKey Codec doesn't return things that can be turned into Strings. You would have to codec them as a list of key, value pairs and you can xmap that back to a map
+    private static final Codec<Map<ItemStackKey, Integer>> MAP_CODEC = Codec.list(Codec.pair(ItemStackKey.CODEC, Codec.INT)).xmap(
+            list -> list.stream().collect(Collectors.toMap(Pair::getFirst, Pair::getSecond)),
+            map -> map.entrySet().stream().map(e -> Pair.of(e.getKey(), e.getValue())).collect(Collectors.toList())
+    );
     public static final Codec<MapItemStackHandler> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                    Codec.unboundedMap(ItemStackKey.CODEC, Codec.INT).fieldOf("keyToCountMap").forGetter(handler -> handler.keyToCountMap), 
-                    Codec.unboundedMap(ItemStackKey.CODEC, Codec.INT).fieldOf("keyToSlot").forGetter(handler -> handler.keyToSlot),
+                    MAP_CODEC.fieldOf("keyToCountMap").forGetter(handler -> handler.keyToCountMap),
+                    MAP_CODEC.fieldOf("keyToSlot").forGetter(handler -> handler.keyToSlot),
                     Codec.INT.listOf().fieldOf("emptySlots").forGetter(handler -> handler.emptySlots),
                     Codec.INT.fieldOf("nextSlot").forGetter(handler -> handler.nextSlotIndex),
                     Codec.INT.fieldOf("maxSlots").forGetter(handler -> handler.maxItemTypes),
@@ -32,8 +48,6 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
             ).apply(instance, (keyToCountMap, keyToSlot, emptySlots, nextSlot, maxSlots, totalItemCount, maxTotalItemCount) ->
                     new MapItemStackHandler(new Object2IntOpenHashMap<>(keyToCountMap), HashBiMap.create(keyToSlot), emptySlots.stream().collect(Collectors.toCollection(Stack::new)), nextSlot, maxSlots, totalItemCount, maxTotalItemCount))
     );
-
-    protected static final int VIRTUAL_SLOT = -1;
     /**
      * The source of truth for contents of this handler.
      */
@@ -111,31 +125,113 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
         return this.get(ItemStackKey.of(stack));
     }
 
-    public int get(ItemStackKey key){
+    public int get(ItemStackKey key) {
         return this.keyToCountMap.getOrDefault(key, 0);
     }
 
     @Override
     public CompoundTag serializeNBT() {
-        return (CompoundTag) CODEC.encodeStart(NbtOps.INSTANCE, this).getOrThrow(false, e -> {
-            throw new RuntimeException("Failed to encode MapItemStackHandler: " + e);
-        });
+        // Codec.unboundedMap(ItemStackKey.CODEC, Codec.INT).fieldOf("keyToCountMap").forGetter(handler ->
+        //                                   handler.keyToCountMap
+        //                            ),
+        //                    Codec.unboundedMap(ItemStackKey.CODEC, Codec.INT).fieldOf("keyToSlot").forGetter(handler ->
+        //                                    handler.keyToSlot
+        //                    ),
+        //                    Codec.INT.listOf().fieldOf("emptySlots").forGetter(handler -> handler.emptySlots),
+        //                    Codec.INT.fieldOf("nextSlot").forGetter(handler -> handler.nextSlotIndex),
+        //                    Codec.INT.fieldOf("maxSlots").forGetter(handler -> handler.maxItemTypes),
+        //                    Codec.LONG.fieldOf("totalItemCount").forGetter(handler -> handler.totalItemCount),
+        //                    Codec.LONG.fieldOf("maxTotalItemCount").forGetter(handler -> handler.maxTotalItemCount)
+
+        //do normal compound tag serialization without codecs
+        var result = new CompoundTag();
+        var keyToCountMap = new ListTag();
+        for (var entry : this.keyToCountMap.object2IntEntrySet()) {
+            var tag = new CompoundTag();
+
+            tag.put("key", entry.getKey().stack().save(new CompoundTag()));
+            tag.putInt("count", entry.getIntValue());
+
+            keyToCountMap.add(tag);
+        }
+        result.put("keyToCountMap", keyToCountMap);
+
+        var keyToSlot = new ListTag();
+        for (var entry : this.keyToSlot.entrySet()) {
+            var tag = new CompoundTag();
+
+            tag.put("key", entry.getKey().stack().save(new CompoundTag()));
+            tag.putInt("slot", entry.getValue());
+
+            keyToSlot.add(tag);
+        }
+        result.put("keyToSlot", keyToSlot);
+
+        var emptySlots = new ListTag();
+        for (var slot : this.emptySlots) {
+            emptySlots.add(IntTag.valueOf(slot));
+        }
+        result.put("emptySlots", emptySlots);
+
+        result.putInt("nextSlot", this.nextSlotIndex);
+        result.putInt("maxSlots", this.maxItemTypes);
+        result.putLong("totalItemCount", this.totalItemCount);
+        result.putLong("maxTotalItemCount", this.maxTotalItemCount);
+
+//        return (CompoundTag) CODEC.encodeStart(NbtOps.INSTANCE, this).getOrThrow(false, e -> {
+//            throw new RuntimeException("Failed to encode MapItemStackHandler: " + e);
+//        });
+
+        //unboundedMap turns a map into
+        //{
+        //"key1":{data},
+        //"key2":{data},
+        //[...]
+        //}
+        //and ItemStackKey Codec doesn't return things that can be turned into Strings. You would have to codec them as a list of key, value pairs and you can xmap that back to a map
+
+        return result;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        CODEC.parse(NbtOps.INSTANCE, nbt).resultOrPartial(e -> {
-            throw new RuntimeException("Failed to decode MapItemStackHandler: " + e);
-        }).ifPresent(handler -> {
-            this.keyToCountMap = handler.keyToCountMap;
-            this.keyToSlot = handler.keyToSlot;
-            this.emptySlots = handler.emptySlots;
-            this.nextSlotIndex = handler.nextSlotIndex;
-            this.maxItemTypes = handler.maxItemTypes;
-            this.totalItemCount = handler.totalItemCount;
-            this.maxTotalItemCount = handler.maxTotalItemCount;
+        this.keyToCountMap = new Object2IntOpenHashMap<>();
+        nbt.getList("keyToCountMap", ListTag.TAG_COMPOUND).forEach(tag -> {
+            var compound = (CompoundTag) tag;
+            var key = ItemStackKey.of(ItemStack.of(compound.getCompound("key")));
+            var count = compound.getInt("count");
+            this.keyToCountMap.put(key, count);
         });
-        //TODO: Ensure before calling this that we are ready to upgrade old data
+
+        this.keyToSlot = HashBiMap.create();
+        nbt.getList("keyToSlot", ListTag.TAG_COMPOUND).forEach(tag -> {
+            var compound = (CompoundTag) tag;
+            var key = ItemStackKey.of(ItemStack.of(compound.getCompound("key")));
+            var slot = compound.getInt("slot");
+            this.keyToSlot.put(key, slot);
+        });
+
+        this.emptySlots = new Stack<>();
+        nbt.getList("emptySlots", ListTag.TAG_INT).forEach(tag -> {
+            this.emptySlots.push(((IntTag) tag).getAsInt());
+        });
+
+        this.nextSlotIndex = nbt.getInt("nextSlot");
+        this.maxItemTypes = nbt.getInt("maxSlots");
+        this.totalItemCount = nbt.getLong("totalItemCount");
+        this.maxTotalItemCount = nbt.getLong("maxTotalItemCount");
+
+//        CODEC.parse(NbtOps.INSTANCE, nbt).resultOrPartial(e -> {
+//            throw new RuntimeException("Failed to decode MapItemStackHandler: " + e);
+//        }).ifPresent(handler -> {
+//            this.keyToCountMap = handler.keyToCountMap;
+//            this.keyToSlot = handler.keyToSlot;
+//            this.emptySlots = handler.emptySlots;
+//            this.nextSlotIndex = handler.nextSlotIndex;
+//            this.maxItemTypes = handler.maxItemTypes;
+//            this.totalItemCount = handler.totalItemCount;
+//            this.maxTotalItemCount = handler.maxTotalItemCount;
+//        });
     }
 
     @Override
@@ -188,8 +284,8 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
 
     @Override
     public int getSlots() {
-        //report at least one to allow inserting items, otherwise it just skips
-        return Math.min(this.nextSlotIndex, 1);
+        //report at least one empty slot to allow inserting items, otherwise some handler code might not work.
+        return this.nextSlotIndex + 1;
     }
 
     @Override
