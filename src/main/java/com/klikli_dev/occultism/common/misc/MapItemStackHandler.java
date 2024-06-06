@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.common.misc;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
@@ -33,7 +34,6 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
     );
 
     protected static final int VIRTUAL_SLOT = -1;
-
     /**
      * The source of truth for contents of this handler.
      */
@@ -50,18 +50,14 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
      * The next slot index to use if there are no empty slots.
      */
     protected int nextSlotIndex;
-
     /**
      * The maximum amount of different item types supported. This effectively is a max slot count due to the 1 slot per item type limit.
      */
     protected int maxItemTypes;
-
     /**
      * The total amount of items in the handler.
      */
     protected long totalItemCount;
-
-
     /**
      * The maximum allowed total amount of items in the handler.
      */
@@ -70,6 +66,7 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
     public MapItemStackHandler() {
         this(-1, -1);
     }
+
 
     public MapItemStackHandler(int maxItemTypes, long maxTotalItemCount) {
         this(new Object2IntOpenHashMap<>(), HashBiMap.create(), new Stack<>(), 0, maxItemTypes, 0, maxTotalItemCount);
@@ -83,6 +80,14 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
         this.maxItemTypes = maxItemTypes;
         this.totalItemCount = totalItemCount;
         this.maxTotalItemCount = maxTotalItemCount;
+    }
+
+    public Object2IntOpenHashMap<ItemStackKey> keyToCountMap() {
+        return this.keyToCountMap;
+    }
+
+    public long totalItemCount() {
+        return this.totalItemCount;
     }
 
     public int maxItemTypes() {
@@ -99,6 +104,15 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
 
     public void maxTotalItemCount(long maxTotalItemCount) {
         this.maxTotalItemCount = maxTotalItemCount;
+    }
+
+    @Override
+    public int get(ItemStack stack) {
+        return this.get(ItemStackKey.of(stack));
+    }
+
+    public int get(ItemStackKey key){
+        return this.keyToCountMap.getOrDefault(key, 0);
     }
 
     @Override

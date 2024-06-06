@@ -8,6 +8,17 @@ import org.jetbrains.annotations.NotNull;
 
 public interface IMapItemHandlerModifiable extends IItemHandlerModifiable {
 
+
+    /**
+     * Gets the amount of items in the slot that match the given key (exact match including nbt/components!)
+     */
+    int get(ItemStackKey key);
+
+    /**
+     * Gets the amount of items in the slot that match the given stack (exact match/components!)
+     */
+    int get(ItemStack stack);
+
     /**
      * <p>
      * Inserts an ItemStack into the fitting slot and return the remainder.
