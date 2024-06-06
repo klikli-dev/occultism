@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable, IMapItemHandlerModifiable, INBTSerializable<CompoundTag> {
 
     public static final Codec<MapItemStackHandler> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                    Codec.unboundedMap(ItemStackKey.CODEC, Codec.INT).fieldOf("keyToCountMap").forGetter(handler -> handler.keyToCountMap),
+                    Codec.unboundedMap(ItemStackKey.CODEC, Codec.INT).fieldOf("keyToCountMap").forGetter(handler -> handler.keyToCountMap), 
                     Codec.unboundedMap(ItemStackKey.CODEC, Codec.INT).fieldOf("keyToSlot").forGetter(handler -> handler.keyToSlot),
                     Codec.INT.listOf().fieldOf("emptySlots").forGetter(handler -> handler.emptySlots),
                     Codec.INT.fieldOf("nextSlot").forGetter(handler -> handler.nextSlotIndex),
@@ -118,14 +118,14 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
     @Override
     public CompoundTag serializeNBT() {
         return (CompoundTag) CODEC.encodeStart(NbtOps.INSTANCE, this).getOrThrow(false, e -> {
-            throw new RuntimeException("Failed to encode MapItemStackHandler");
+            throw new RuntimeException("Failed to encode MapItemStackHandler: " + e);
         });
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
         CODEC.parse(NbtOps.INSTANCE, nbt).resultOrPartial(e -> {
-            throw new RuntimeException("Failed to decode MapItemStackHandler");
+            throw new RuntimeException("Failed to decode MapItemStackHandler: " + e);
         }).ifPresent(handler -> {
             this.keyToCountMap = handler.keyToCountMap;
             this.keyToSlot = handler.keyToSlot;
@@ -188,7 +188,8 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
 
     @Override
     public int getSlots() {
-        return this.nextSlotIndex;
+        //report at least one to allow inserting items, otherwise it just skips
+        return Math.min(this.nextSlotIndex, 1);
     }
 
     @Override

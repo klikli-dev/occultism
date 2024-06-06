@@ -36,7 +36,9 @@ import com.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.klikli_dev.occultism.common.entity.job.ManageMachineJob;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.klikli_dev.occultism.common.misc.*;
+import com.klikli_dev.occultism.common.misc.DepositOrder;
+import com.klikli_dev.occultism.common.misc.ItemStackComparator;
+import com.klikli_dev.occultism.common.misc.StorageControllerMapItemStackHandler;
 import com.klikli_dev.occultism.datafixer.StorageControllerMapItemStackHandlerDataFixer;
 import com.klikli_dev.occultism.network.messages.MessageUpdateStacks;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
@@ -62,7 +64,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -263,7 +264,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     public List<ItemStack> getStacks() {
 
         List<ItemStack> result = new ArrayList<>(this.itemStackHandler.getSlots());
-        for(var entry : this.itemStackHandler.keyToCountMap().object2IntEntrySet()){
+        for (var entry : this.itemStackHandler.keyToCountMap().object2IntEntrySet()) {
             result.add(entry.getKey().stack().copyWithCount(entry.getIntValue()));
         }
 
@@ -367,8 +368,8 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         if (this.isBlacklisted(stack))
             return stack.getCount();
 
-        if (ItemHandlerHelper.insertItem(this.itemStackHandler, stack, true).getCount() < stack.getCount()) {
-            stack = ItemHandlerHelper.insertItem(this.itemStackHandler, stack, simulate);
+        if (this.itemStackHandler.insertItem(stack, true).getCount() < stack.getCount()) {
+            stack = this.itemStackHandler.insertItem(stack, simulate);
         }
 
         return stack.getCount();
@@ -413,7 +414,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         }
 
         //Shortcut for exact matches
-        if(comparator instanceof ItemStackComparator itemStackComparator && itemStackComparator.getMatchNbt()){
+        if (comparator instanceof ItemStackComparator itemStackComparator && itemStackComparator.getMatchNbt()) {
             return this.itemStackHandler.extractItem(itemStackComparator.getFilterStack(), requestedSize, simulate);
         }
 
@@ -471,7 +472,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         }
 
         //Shortcut for exact matches
-        if(comparator instanceof ItemStackComparator itemStackComparator && itemStackComparator.getMatchNbt()){
+        if (comparator instanceof ItemStackComparator itemStackComparator && itemStackComparator.getMatchNbt()) {
             return this.itemStackHandler.get(itemStackComparator.getFilterStack());
         }
 
@@ -500,7 +501,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         //read stored items
         if (compound.contains("items")) {
             var items = compound.getCompound("items");
-            if(StorageControllerMapItemStackHandlerDataFixer.needsFixing(items)){
+            if (StorageControllerMapItemStackHandlerDataFixer.needsFixing(items)) {
                 items = StorageControllerMapItemStackHandlerDataFixer.fix(items);
             }
             this.itemStackHandler.deserializeNBT(items);
