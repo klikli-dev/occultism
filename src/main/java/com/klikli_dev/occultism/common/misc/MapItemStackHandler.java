@@ -18,18 +18,18 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
-public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable, INBTSerializable<CompoundTag> {
+public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable, IMapItemHandlerModifiable, INBTSerializable<CompoundTag> {
 
     public static final Codec<MapItemStackHandler> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.unboundedMap(ItemStackKey.CODEC, Codec.INT).fieldOf("keyToCountMap").forGetter(handler -> handler.keyToCountMap),
-            Codec.unboundedMap(ItemStackKey.CODEC, Codec.INT).fieldOf("keyToSlot").forGetter(handler -> handler.keyToSlot),
-            Codec.INT.listOf().fieldOf("emptySlots").forGetter(handler -> handler.emptySlots),
-            Codec.INT.fieldOf("nextSlot").forGetter(handler -> handler.nextSlotIndex),
-            Codec.INT.fieldOf("maxSlots").forGetter(handler -> handler.maxItemTypes),
-            Codec.LONG.fieldOf("totalItemCount").forGetter(handler -> handler.totalItemCount),
-            Codec.LONG.fieldOf("maxTotalItemCount").forGetter(handler -> handler.maxTotalItemCount)
-    ).apply(instance, (keyToCountMap, keyToSlot, emptySlots, nextSlot, maxSlots, totalItemCount, maxTotalItemCount) ->
-            new MapItemStackHandler(new Object2IntOpenHashMap<>(keyToCountMap), HashBiMap.create(keyToSlot), emptySlots.stream().collect(Collectors.toCollection(Stack::new)), nextSlot, maxSlots, totalItemCount, maxTotalItemCount))
+                    Codec.unboundedMap(ItemStackKey.CODEC, Codec.INT).fieldOf("keyToCountMap").forGetter(handler -> handler.keyToCountMap),
+                    Codec.unboundedMap(ItemStackKey.CODEC, Codec.INT).fieldOf("keyToSlot").forGetter(handler -> handler.keyToSlot),
+                    Codec.INT.listOf().fieldOf("emptySlots").forGetter(handler -> handler.emptySlots),
+                    Codec.INT.fieldOf("nextSlot").forGetter(handler -> handler.nextSlotIndex),
+                    Codec.INT.fieldOf("maxSlots").forGetter(handler -> handler.maxItemTypes),
+                    Codec.LONG.fieldOf("totalItemCount").forGetter(handler -> handler.totalItemCount),
+                    Codec.LONG.fieldOf("maxTotalItemCount").forGetter(handler -> handler.maxTotalItemCount)
+            ).apply(instance, (keyToCountMap, keyToSlot, emptySlots, nextSlot, maxSlots, totalItemCount, maxTotalItemCount) ->
+                    new MapItemStackHandler(new Object2IntOpenHashMap<>(keyToCountMap), HashBiMap.create(keyToSlot), emptySlots.stream().collect(Collectors.toCollection(Stack::new)), nextSlot, maxSlots, totalItemCount, maxTotalItemCount))
     );
 
     protected static final int VIRTUAL_SLOT = -1;
@@ -82,6 +82,22 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
         this.nextSlotIndex = nextSlotIndex;
         this.maxItemTypes = maxItemTypes;
         this.totalItemCount = totalItemCount;
+        this.maxTotalItemCount = maxTotalItemCount;
+    }
+
+    public int maxItemTypes() {
+        return this.maxItemTypes;
+    }
+
+    public void maxItemTypes(int maxItemTypes) {
+        this.maxItemTypes = maxItemTypes;
+    }
+
+    public long maxTotalItemCount() {
+        return this.maxTotalItemCount;
+    }
+
+    public void maxTotalItemCount(long maxTotalItemCount) {
         this.maxTotalItemCount = maxTotalItemCount;
     }
 
@@ -186,6 +202,7 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
      * May be the same as the input ItemStack if unchanged, otherwise a new ItemStack.
      * The returned ItemStack can be safely modified after.
      **/
+    @Override
     public @NotNull ItemStack insertItem(@NotNull ItemStack stack, boolean simulate) {
         if (stack.isEmpty())
             return ItemStack.EMPTY;
@@ -207,7 +224,7 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
             limit -= existing;
         }
 
-        if(existing == 0){
+        if (existing == 0) {
             //enforce max item types, if this type is not already present
             if (this.maxItemTypes != -1 && this.keyToCountMap.size() >= this.maxItemTypes)
                 return stack;
@@ -242,7 +259,6 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
             return ItemStack.EMPTY;
 
         this.validateSlotIndex(slot);
-
 
         var key = this.keyToSlot.inverse().get(slot);
         if (key == null)
@@ -280,6 +296,20 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
         }
     }
 
+    public @NotNull ItemStack extractItem(ItemStackKey key, int amount, boolean simulate) {
+        var slot = this.keyToSlot.get(key);
+
+        if (slot == null)
+            return ItemStack.EMPTY;
+
+        return this.extractItem(slot, amount, simulate);
+    }
+
+    public @NotNull ItemStack extractItem(ItemStack stack, int amount, boolean simulate) {
+        var key = ItemStackKey.of(stack);
+        return this.extractItem(key, amount, simulate);
+    }
+
     @Override
     public int getSlotLimit(int slot) {
         return Integer.MAX_VALUE;
@@ -290,6 +320,7 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
         return this.isItemValid(slot, ItemStackKey.of(stack));
     }
 
+    @Override
     public boolean isItemValid(int slot, @NotNull ItemStackKey key) {
         return true; //just like ItemStackHandler
     }
