@@ -24,7 +24,6 @@ package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.command.DebugAICommand;
-import com.klikli_dev.occultism.common.command.NbtCommand;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.minecraft.commands.CommandSourceStack;

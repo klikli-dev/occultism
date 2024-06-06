@@ -52,7 +52,7 @@ public class ItemStackComparator implements IItemStackComparator {
     //region Static Methods
     public static ItemStackComparator from(CompoundTag nbt, HolderLookup.Provider provider) {
         ItemStackComparator comparator = new ItemStackComparator();
-        comparator.deserializeNBT(nbt, provider);
+        comparator.deserializeNBT(provider, nbt);
         return !comparator.filterStack.isEmpty() ? comparator : null;
     }
 

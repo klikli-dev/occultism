@@ -22,10 +22,8 @@
 
 package com.klikli_dev.occultism.registry;
 
-import com.klikli_dev.modonomicon.registry.RegistryObject;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.TranslationKeys;
-import com.klikli_dev.occultism.api.common.misc.OccultismItemTier;
 import com.klikli_dev.occultism.common.item.DummyTooltipItem;
 import com.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.klikli_dev.occultism.common.item.debug.*;
@@ -37,7 +35,6 @@ import com.klikli_dev.occultism.common.item.tool.*;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.ComposterBlock;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -175,7 +172,7 @@ public class OccultismItems {
     public static final DeferredItem<BrushItem> BRUSH = ITEMS.register("brush",
             () -> new BrushItem(defaultProperties().stacksTo(1)));
     public static final DeferredItem<SwordItem> BUTCHER_KNIFE = ITEMS.register("butcher_knife",
-            () -> new SwordItem(Tiers.IRON, 3, -2.4F, defaultProperties()));
+            () -> new SwordItem(Tiers.IRON, defaultProperties().attributes(SwordItem.createAttributes(Tiers.IRON, 3, -2.4F))));
 
     public static final DeferredItem<Item> SPIRIT_ATTUNED_PICKAXE_HEAD = ITEMS.register("spirit_attuned_pickaxe_head",
             () -> new Item(defaultProperties()));
@@ -243,7 +240,7 @@ public class OccultismItems {
 
     //Armor
     public static final DeferredItem<OtherworldGogglesItem> OTHERWORLD_GOGGLES = ITEMS.register("otherworld_goggles",
-            () -> new OtherworldGogglesItem(ArmorMaterials.IRON,
+            () -> new OtherworldGogglesItem(ArmorMaterials.IRON.value(),
                     ArmorItem.Type.HELMET, defaultProperties().stacksTo(1)));
 
     //Machines

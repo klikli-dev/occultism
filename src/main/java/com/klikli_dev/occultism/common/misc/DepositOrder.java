@@ -48,27 +48,25 @@ public class DepositOrder implements INBTSerializable<CompoundTag> {
     }
     //endregion Static Methods
 
-    public CompoundTag writeToNBT(CompoundTag compound) {
-        compound.put("comparator", this.comparator.serializeNBT());
+    public CompoundTag writeToNBT(CompoundTag compound, HolderLookup.Provider provider) {
+        compound.put("comparator", this.comparator.serializeNBT(provider));
         compound.putInt("amount", this.amount);
         return compound;
     }
 
-    public void readFromNBT(CompoundTag compound) {
-        this.comparator = ItemStackComparator.from(compound.getCompound("comparator"));
+    public void readFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
+        this.comparator = ItemStackComparator.from(compound.getCompound("comparator"), provider);
         this.amount = compound.getInt("amount");
     }
 
     @Override
-    public CompoundTag serializeNBT(HolderLookup.Provider provider
-    ) {
-        return this.writeToNBT(new CompoundTag());
+    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+        return this.writeToNBT(new CompoundTag(), provider);
     }
 
     @Override
-    public void deserializeNBT(HolderLookup.Provider provider
-, CompoundTag nbt) {
-        this.readFromNBT(nbt);
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
+        this.readFromNBT(nbt, provider);
     }
 
 }

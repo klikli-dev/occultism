@@ -185,11 +185,11 @@ public class ManageMachineJob extends SpiritJob {
             compound.put("managedMachine", this.managedMachine.serializeNBT(provider));
 
         if (this.getCurrentDepositOrder() != null)
-            compound.put("currentDepositOrder", this.getCurrentDepositOrder().writeToNBT(new CompoundTag()));
+            compound.put("currentDepositOrder", this.getCurrentDepositOrder().writeToNBT(new CompoundTag(), provider));
 
         ListTag nbtOrderList = new ListTag();
         for (DepositOrder depositOrder : this.depositOrderQueue) {
-            nbtOrderList.add(depositOrder.writeToNBT(new CompoundTag()));
+            nbtOrderList.add(depositOrder.writeToNBT(new CompoundTag(), provider));
         }
         compound.put("depositOrders", nbtOrderList);
         return super.writeJobToNBT(compound, provider);
@@ -204,13 +204,13 @@ public class ManageMachineJob extends SpiritJob {
             this.managedMachine = MachineReference.CODEC.decode(NbtOps.INSTANCE, compound.get("managedMachine")).getOrThrow().getFirst();
 
         if (compound.contains("currentDepositOrder"))
-            this.setCurrentDepositOrder(DepositOrder.from(compound.getCompound("currentDepositOrder")));
+            this.setCurrentDepositOrder(DepositOrder.from(compound.getCompound("currentDepositOrder"), provider));
 
         this.depositOrderQueue = new ArrayDeque<>();
         if (compound.contains("depositOrders")) {
             ListTag nbtOrderList = compound.getList("depositOrders", Tag.TAG_COMPOUND);
             for (int i = 0; i < nbtOrderList.size(); i++) {
-                DepositOrder depositOrder = DepositOrder.from(nbtOrderList.getCompound(i));
+                DepositOrder depositOrder = DepositOrder.from(nbtOrderList.getCompound(i), provider);
                 this.depositOrderQueue.add(depositOrder);
             }
         }
