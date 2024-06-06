@@ -54,17 +54,19 @@ public interface IStorageController {
     /**
      * @return the max slots available in this storage controller.
      */
-    int getMaxSlots();
+    int getMaxItemTypes();
 
     /**
-     * @param slots the max slots available in the storage controller.
+     *
+     * @param maxItemTypes the maximum amount of different items the controller can hold.
+     * @param maxTotalItemCount the maximum total amount of items (all item types added up) the controller can hold.
      */
-    void setMaxSlots(int slots);
+    void setStorageLimits(int maxItemTypes, long maxTotalItemCount);
 
     /**
      * @return the used up slots. Usually lazily updated when calling getStacks.
      */
-    int getUsedSlots();
+    int getUsedItemTypes();
 
     /**
      * @return a list of block entity references for the machines liked for autocrafting

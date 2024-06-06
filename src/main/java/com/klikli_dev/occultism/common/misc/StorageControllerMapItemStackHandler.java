@@ -20,23 +20,21 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.occultism.api.client.gui;
+package com.klikli_dev.occultism.common.misc;
 
-import com.klikli_dev.occultism.api.common.data.MachineReference;
-import net.minecraft.world.item.ItemStack;
+import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 
-import java.util.List;
+public class StorageControllerMapItemStackHandler extends MapItemStackHandler {
 
-public interface IStorageControllerGui {
-    //region Getter / Setter
-    void setStacks(List<ItemStack> stacks);
+    protected IStorageController storageController;
 
-    void setUsedStorageSize(int usedItemTypes, long usedTotalItemCount);
+    public StorageControllerMapItemStackHandler(IStorageController storageController, int maxItemTypes, long maxTotalItemCount) {
+        super(maxItemTypes, maxTotalItemCount);
+        this.storageController = storageController;
+    }
 
-    void setMaxStorageSize(int maxItemTypes, long maxTotalItemCount);
-
-    void markDirty();
-
-    void setLinkedMachines(List<MachineReference> machines);
-    //endregion Getter / Setter
+    @Override
+    protected void onContentsChanged(ItemStackKey key) {
+        this.storageController.onContentsChanged();
+    }
 }

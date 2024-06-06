@@ -38,7 +38,8 @@ import com.klikli_dev.occultism.common.entity.job.ManageMachineJob;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.common.misc.DepositOrder;
 import com.klikli_dev.occultism.common.misc.ItemStackComparator;
-import com.klikli_dev.occultism.common.misc.StorageControllerItemStackHandler;
+import com.klikli_dev.occultism.common.misc.StorageControllerMapItemStackHandler;
+import com.klikli_dev.occultism.datafixer.StorageControllerMapItemStackHandlerDataFixer;
 import com.klikli_dev.occultism.network.messages.MessageUpdateStacks;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
@@ -63,7 +64,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -92,15 +92,17 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     public ItemStack orderStack = ItemStack.EMPTY;
     public Map<GlobalBlockPos, MachineReference> linkedMachines = new HashMap<>();
     public Map<GlobalBlockPos, UUID> depositOrderSpirits = new HashMap<>();
-    public ItemStackHandler itemStackHandler = new StorageControllerItemStackHandler(this,
-            Occultism.SERVER_CONFIG.storage.controllerBaseSlots.get(),
-            Occultism.SERVER_CONFIG.storage.controllerStackSize.get(),
-            Occultism.SERVER_CONFIG.storage.overrideItemStackSizes.get()
+    public StorageControllerMapItemStackHandler itemStackHandler = new StorageControllerMapItemStackHandler(this,
+            Occultism.SERVER_CONFIG.storage.controllerMaxItemTypes.get(),
+            Occultism.SERVER_CONFIG.storage.controllerMaxTotalItemCount.get()
     );
     protected SortDirection sortDirection = SortDirection.DOWN;
     protected SortType sortType = SortType.AMOUNT;
-    protected int maxSlots = Occultism.SERVER_CONFIG.storage.controllerBaseSlots.get();
-    protected int usedSlots = 0;
+    protected int maxItemTypes = Occultism.SERVER_CONFIG.storage.controllerMaxItemTypes.get();
+    protected int usedItemTypes = 0;
+    protected long maxTotalItemCount = Occultism.SERVER_CONFIG.storage.controllerMaxTotalItemCount.get();
+    protected long usedTotalItemCount = 0;
+
     protected boolean stabilizersInitialized = false;
     protected GlobalBlockPos globalPos;
     protected MessageUpdateStacks cachedMessageUpdateStacks;
@@ -119,13 +121,15 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     }
 
     public void updateStabilizers() {
-        int additionalSlots = 0;
+        int additionalMaxItemTypes = 0;
+        long additionalTotalItemCount = 0;
         List<BlockPos> stabilizerLocations = this.findValidStabilizers();
         for (BlockPos pos : stabilizerLocations) {
-            additionalSlots += this.getSlotsForStabilizer(this.level.getBlockState(pos));
+            additionalMaxItemTypes += this.getAdditionalMaxItemTypesForStabilizer(this.level.getBlockState(pos));
+            additionalTotalItemCount += this.getAdditionalMaxTotalItemCountForStabilizer(this.level.getBlockState(pos));
         }
 
-        this.setMaxSlots(Occultism.SERVER_CONFIG.storage.controllerBaseSlots.get() + additionalSlots);
+        this.setStorageLimits(Occultism.SERVER_CONFIG.storage.controllerMaxItemTypes.get() + additionalMaxItemTypes, Occultism.SERVER_CONFIG.storage.controllerMaxTotalItemCount.get() + additionalTotalItemCount);
     }
 
     public List<BlockPos> findValidStabilizers() {
@@ -148,31 +152,30 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         return validStabilizers;
     }
 
-    protected int getSlotsForStabilizer(BlockState state) {
+    protected int getAdditionalMaxItemTypesForStabilizer(BlockState state) {
         Block block = state.getBlock();
         if (block == OccultismBlocks.STORAGE_STABILIZER_TIER1.get())
-            return Occultism.SERVER_CONFIG.storage.stabilizerTier1Slots.get();
+            return Occultism.SERVER_CONFIG.storage.stabilizerTier1AdditionalMaxItemTypes.get();
         if (block == OccultismBlocks.STORAGE_STABILIZER_TIER2.get())
-            return Occultism.SERVER_CONFIG.storage.stabilizerTier2Slots.get();
+            return Occultism.SERVER_CONFIG.storage.stabilizerTier2AdditionalMaxItemTypes.get();
         if (block == OccultismBlocks.STORAGE_STABILIZER_TIER3.get())
-            return Occultism.SERVER_CONFIG.storage.stabilizerTier3Slots.get();
+            return Occultism.SERVER_CONFIG.storage.stabilizerTier3AdditionalMaxItemTypes.get();
         if (block == OccultismBlocks.STORAGE_STABILIZER_TIER4.get())
-            return Occultism.SERVER_CONFIG.storage.stabilizerTier4Slots.get();
+            return Occultism.SERVER_CONFIG.storage.stabilizerTier4AdditionalMaxItemTypes.get();
         return 0;
     }
 
-    protected void mergeIntoList(List<ItemStack> list, ItemStack stackToAdd) {
-        boolean merged = false;
-        for (ItemStack stack : list) {
-            if (ItemHandlerHelper.canItemStacksStack(stackToAdd, stack)) {
-                stack.setCount(stack.getCount() + stackToAdd.getCount());
-                merged = true;
-                break;
-            }
-        }
-        if (!merged) {
-            list.add(stackToAdd);
-        }
+    protected long getAdditionalMaxTotalItemCountForStabilizer(BlockState state) {
+        Block block = state.getBlock();
+        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER1.get())
+            return Occultism.SERVER_CONFIG.storage.stabilizerTier1AdditionalMaxTotalItemCount.get();
+        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER2.get())
+            return Occultism.SERVER_CONFIG.storage.stabilizerTier2AdditionalMaxTotalItemCount.get();
+        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER3.get())
+            return Occultism.SERVER_CONFIG.storage.stabilizerTier3AdditionalMaxTotalItemCount.get();
+        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER4.get())
+            return Occultism.SERVER_CONFIG.storage.stabilizerTier4AdditionalMaxTotalItemCount.get();
+        return 0;
     }
 
     protected void validateLinkedMachines() {
@@ -259,18 +262,14 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
     @Override
     public List<ItemStack> getStacks() {
-        ItemStackHandler handler = this.itemStackHandler;
-        int size = handler.getSlots();
-        int usedSlots = 0;
-        List<ItemStack> result = new ArrayList<>(size);
-        for (int slot = 0; slot < size; slot++) {
-            ItemStack stack = handler.getStackInSlot(slot);
-            if (!stack.isEmpty()) {
-                usedSlots++;
-                this.mergeIntoList(result, stack.copy());
-            }
+
+        List<ItemStack> result = new ArrayList<>(this.itemStackHandler.getSlots());
+        for (var entry : this.itemStackHandler.keyToCountMap().object2IntEntrySet()) {
+            result.add(entry.getKey().stack().copyWithCount(entry.getIntValue()));
         }
-        this.usedSlots = usedSlots;
+
+        this.usedItemTypes = this.itemStackHandler.getSlots();
+        this.usedTotalItemCount = this.itemStackHandler.totalItemCount();
         return result;
     }
 
@@ -278,28 +277,31 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     public MessageUpdateStacks getMessageUpdateStacks() {
         if (this.cachedMessageUpdateStacks == null) {
             List<ItemStack> stacks = this.getStacks();
-            this.cachedMessageUpdateStacks = new MessageUpdateStacks(stacks, this.getUsedSlots(), this.getMaxSlots());
+            this.cachedMessageUpdateStacks = new MessageUpdateStacks(stacks, this.maxItemTypes, this.usedItemTypes,
+                    this.maxTotalItemCount, this.usedTotalItemCount);
         }
         return this.cachedMessageUpdateStacks;
     }
 
     @Override
-    public int getMaxSlots() {
-        return this.maxSlots;
+    public int getMaxItemTypes() {
+        return this.maxItemTypes;
     }
 
     @Override
-    public void setMaxSlots(int slots) {
-        this.maxSlots = slots;
-        this.itemStackHandler.setSize(this.maxSlots);
+    public void setStorageLimits(int maxItemTypes, long maxTotalItemCount) {
+        this.maxItemTypes = maxItemTypes;
+        this.maxTotalItemCount = maxTotalItemCount;
+        this.itemStackHandler.maxItemTypes(this.maxItemTypes);
+        this.itemStackHandler.maxTotalItemCount(this.maxTotalItemCount);
         //force resync
         this.cachedMessageUpdateStacks = null;
         this.markNetworkDirty();
     }
 
     @Override
-    public int getUsedSlots() {
-        return this.usedSlots;
+    public int getUsedItemTypes() {
+        return this.usedItemTypes;
     }
 
     @Override
@@ -367,9 +369,8 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         if (this.isBlacklisted(stack))
             return stack.getCount();
 
-        ItemStackHandler handler = this.itemStackHandler;
-        if (ItemHandlerHelper.insertItem(handler, stack, true).getCount() < stack.getCount()) {
-            stack = ItemHandlerHelper.insertItem(handler, stack, simulate);
+        if (this.itemStackHandler.insertItem(stack, true).getCount() < stack.getCount()) {
+            stack = this.itemStackHandler.insertItem(stack, simulate);
         }
 
         return stack.getCount();
@@ -383,22 +384,20 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
         var comparators = this.getComparatorsSortedByAmount(comparator);
 
-        ItemStackHandler handler = this.itemStackHandler;
-
         //we start with the comparator representing the most common item, and if we don't find anything we move on.
         //Note: unless something weird happens we should always find something.
         for (var currentComparator : comparators) {
-            for (int slot = 0; slot < handler.getSlots(); slot++) {
+            for (int slot = 0; slot < this.itemStackHandler.getSlots(); slot++) {
 
                 //first we force a simulation to check if the stack fits
-                ItemStack stack = handler.extractItem(slot, 1, true);
+                ItemStack stack = this.itemStackHandler.extractItem(slot, 1, true);
                 if (stack.isEmpty()) {
                     continue;
                 }
 
                 if (currentComparator.test(stack)) {
                     //now we do the actual operation (note: can still be a simulation, if caller wants to simulate=
-                    return handler.extractItem(slot, 1, simulate);
+                    return this.itemStackHandler.extractItem(slot, 1, simulate);
                 }
 
                 //this slot does not match so we move on in the loop.
@@ -414,13 +413,18 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         if (requestedSize <= 0 || comparator == null) {
             return ItemStack.EMPTY;
         }
-        ItemStackHandler handler = this.itemStackHandler;
+
+        //Shortcut for exact matches
+        if (comparator instanceof ItemStackComparator itemStackComparator && itemStackComparator.getMatchNbt()) {
+            return this.itemStackHandler.extractItem(itemStackComparator.getFilterStack(), requestedSize, simulate);
+        }
+
         ItemStack firstMatchedStack = ItemStack.EMPTY;
         int remaining = requestedSize;
-        for (int slot = 0; slot < handler.getSlots(); slot++) {
+        for (int slot = 0; slot < this.itemStackHandler.getSlots(); slot++) {
 
             //first we force a simulation
-            ItemStack stack = handler.extractItem(slot, remaining, true);
+            ItemStack stack = this.itemStackHandler.extractItem(slot, remaining, true);
             if (stack.isEmpty()) {
                 continue;
             }
@@ -445,7 +449,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
             int toExtract = Math.min(stack.getCount(), remaining);
 
             //now we can leave simulation up to the caller
-            ItemStack extractedStack = handler.extractItem(slot, toExtract, simulate);
+            ItemStack extractedStack = this.itemStackHandler.extractItem(slot, toExtract, simulate);
             remaining -= extractedStack.getCount();
 
             //if we got all we need we can exit here.
@@ -467,11 +471,17 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         if (comparator == null) {
             return 0;
         }
+
+        //Shortcut for exact matches
+        if (comparator instanceof ItemStackComparator itemStackComparator && itemStackComparator.getMatchNbt()) {
+            return this.itemStackHandler.get(itemStackComparator.getFilterStack());
+        }
+
         int totalCount = 0;
-        ItemStackHandler handler = this.itemStackHandler;
-        int size = handler.getSlots();
+
+        int size = this.itemStackHandler.getSlots();
         for (int slot = 0; slot < size; slot++) {
-            ItemStack stack = handler.getStackInSlot(slot);
+            ItemStack stack = this.itemStackHandler.getStackInSlot(slot);
             if (comparator.matches(stack))
                 totalCount += stack.getCount();
         }
@@ -491,7 +501,11 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
         //read stored items
         if (compound.contains("items")) {
-            this.itemStackHandler.deserializeNBT(compound.getCompound("items"));
+            var items = compound.getCompound("items");
+            if (StorageControllerMapItemStackHandlerDataFixer.needsFixing(items)) {
+                items = StorageControllerMapItemStackHandlerDataFixer.fix(items);
+            }
+            this.itemStackHandler.deserializeNBT(items);
             this.cachedMessageUpdateStacks = null;
         }
     }
@@ -508,8 +522,8 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         this.setSortDirection(SortDirection.get(compound.getInt("sortDirection")));
         this.setSortType(SortType.get(compound.getInt("sortType")));
 
-        if (compound.contains("maxSlots")) {
-            this.setMaxSlots(compound.getInt("maxSlots"));
+        if (compound.contains("maxItemTypes") && compound.contains("maxTotalItemCount")) {
+            this.setStorageLimits(compound.getInt("maxItemTypes"), compound.getLong("maxTotalItemCount"));
         }
 
         //read stored crafting matrix
@@ -542,7 +556,8 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     public CompoundTag saveNetwork(CompoundTag compound) {
         compound.putInt("sortDirection", this.getSortDirection().getValue());
         compound.putInt("sortType", this.getSortType().getValue());
-        compound.putInt("maxSlots", this.maxSlots);
+        compound.putInt("maxItemTypes", this.maxItemTypes);
+        compound.putLong("maxTotalItemCount", this.maxTotalItemCount);
 
         //write stored crafting matrix
         ListTag matrixNbt = new ListTag();

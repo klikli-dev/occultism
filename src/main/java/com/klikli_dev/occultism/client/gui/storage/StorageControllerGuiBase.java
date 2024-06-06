@@ -81,8 +81,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     public List<ItemStack> stacks;
     public List<MachineReference> linkedMachines;
     public IStorageControllerContainer storageControllerContainer;
-    public int usedSlots;
-    public int maxSlots;
+    protected int maxItemTypes;
+    protected int usedItemTypes;
+    protected long maxTotalItemCount;
+    protected long usedTotalItemCount;
     public StorageControllerGuiMode guiMode = StorageControllerGuiMode.INVENTORY;
     protected ItemStack stackUnderMouse = ItemStack.EMPTY;
     protected EditBox searchBar;
@@ -96,6 +98,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected Button autocraftingModeButton;
     protected Button inventoryModeButton;
     protected LabelWidget storageSpaceLabel;
+    protected LabelWidget storageTypesLabel;
     protected int rows;
     protected int columns;
 
@@ -198,8 +201,15 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public void setUsedSlots(int slots) {
-        this.usedSlots = slots;
+    public void setMaxStorageSize(int maxItemTypes, long maxTotalItemCount) {
+        this.maxItemTypes = maxItemTypes;
+        this.maxTotalItemCount = maxTotalItemCount;
+    }
+
+    @Override
+    public void setUsedStorageSize(int usedItemTypes, long usedTotalItemCount) {
+        this.usedItemTypes = usedItemTypes;
+        this.usedTotalItemCount = usedTotalItemCount;
     }
 
     @Override
@@ -207,10 +217,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.init();
     }
 
-    @Override
-    public void setMaxSlots(int slots) {
-        this.maxSlots = slots;
-    }
 
     @Override
     public void setLinkedMachines(List<MachineReference> machines) {
@@ -258,8 +264,18 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 new LabelWidget(this.leftPos + storageSpaceInfoLabelLeft, this.topPos + storageSpaceInfoLabelTop, true,
                         -1, 2, 0x404040);
         this.storageSpaceLabel
-                .addLine(I18n.get(TRANSLATION_KEY_BASE + ".space_info_label", this.usedSlots, this.maxSlots), false);
+                .addLine(I18n.get(TRANSLATION_KEY_BASE + ".space_info_label_new",
+                        String.format("%.2f", (double)this.usedTotalItemCount / (double)this.maxTotalItemCount * 100)
+
+                ), false);
         this.addRenderableWidget(this.storageSpaceLabel);
+
+        this.storageTypesLabel =
+                new LabelWidget(this.leftPos + storageSpaceInfoLabelLeft - 7, this.topPos + storageSpaceInfoLabelTop + 40, true,
+                        -1, 2, 0x404040);
+        this.storageTypesLabel
+                .addLine(I18n.get(TRANSLATION_KEY_BASE + ".space_info_label_types", String.format("%.0f", (double)this.usedItemTypes / (double)this.maxItemTypes * 100)), false);
+        this.addRenderableWidget(this.storageTypesLabel);
         this.initButtons();
     }
 
