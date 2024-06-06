@@ -67,8 +67,13 @@ public class OccultismBookProvider extends BookProvider {
         var introReadCondition = BookEntryReadConditionModel.create()
                 .withEntry(this.modLoc("getting_started/intro"));
 
+        spiritsCategory.withCondition(introReadCondition);
         storageCategory.withCondition(introReadCondition);
         ritualsCategory.withCondition(introReadCondition);
+        summoningRitualsCategory.withCondition(introReadCondition);
+        possessionRitualsCategory.withCondition(introReadCondition);
+        craftingRitualsCategory.withCondition(introReadCondition);
+        familiarRitualsCategory.withCondition(introReadCondition);
         pentaclesCategory.withCondition(introReadCondition);
 
         //https://tinyurl.com/occultism-graph

@@ -24,8 +24,7 @@ package com.klikli_dev.occultism.config;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
 import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
@@ -247,41 +246,54 @@ public class OccultismServerConfig {
     }
 
     public static class StorageSettings {
-        public final ConfigValue<Integer> stabilizerTier1Slots;
-        public final ConfigValue<Integer> stabilizerTier2Slots;
-        public final ConfigValue<Integer> stabilizerTier3Slots;
-        public final ConfigValue<Integer> stabilizerTier4Slots;
-        public final ConfigValue<Integer> controllerBaseSlots;
-        public final ConfigValue<Integer> controllerStackSize;
-        public final BooleanValue overrideItemStackSizes;
+        public final ConfigValue<Integer> stabilizerTier1AdditionalMaxItemTypes;
+        public final ConfigValue<Long> stabilizerTier1AdditionalMaxTotalItemCount;
+        public final ConfigValue<Integer> stabilizerTier2AdditionalMaxItemTypes;
+
+        public final ConfigValue<Long> stabilizerTier2AdditionalMaxTotalItemCount;
+        public final ConfigValue<Integer> stabilizerTier3AdditionalMaxItemTypes;
+
+        public final ConfigValue<Long> stabilizerTier3AdditionalMaxTotalItemCount;
+        public final ConfigValue<Integer> stabilizerTier4AdditionalMaxItemTypes;
+
+        public final ConfigValue<Long> stabilizerTier4AdditionalMaxTotalItemCount;
+        public final ConfigValue<Integer> controllerMaxItemTypes;
+        public final ConfigValue<Long> controllerMaxTotalItemCount;
         public final BooleanValue unlinkWormholeOnBreak;
 
         public StorageSettings(ModConfigSpec.Builder builder) {
             builder.comment("Storage Settings").push("storage");
-            this.stabilizerTier1Slots =
-                    builder.comment("The amount of slots the storage stabilizer tier 1 provides.")
-                            .define("stabilizerTier1Slots", 256);
-            this.stabilizerTier2Slots =
+            this.stabilizerTier1AdditionalMaxItemTypes =
+                    builder.comment("The amount of additional slots the storage stabilizer tier 1 provides. 1 Slot holds one item type.")
+                            .define("stabilizerTier1AdditionalMaxItemTypes", 64);
+            this.stabilizerTier1AdditionalMaxTotalItemCount =
+                    builder.comment("The amount by which the stabilizer increases the maximum total item count the controller can hold. This is not per slot but the total amount of all items combined.")
+                            .define("stabilizerTier1AdditionalMaxTotalItemCount", 512 * 1000L);
+            this.stabilizerTier2AdditionalMaxItemTypes =
                     builder.comment("The amount of slots the storage stabilizer tier 2 provides.")
-                            .define("stabilizerTier2Slots", 512);
-            this.stabilizerTier3Slots =
+                            .define("stabilizerTier2AdditionalMaxItemTypes", 128);
+            this.stabilizerTier2AdditionalMaxTotalItemCount =
+                    builder.comment("The amount by which the stabilizer increases the maximum total item count the controller can hold. This is not per slot but the total amount of all items combined.")
+                            .define("stabilizerTier2AdditionalMaxTotalItemCount", 1024 * 1000L);
+            this.stabilizerTier3AdditionalMaxItemTypes =
                     builder.comment("The amount of slots the storage stabilizer tier 3 provides.")
-                            .define("stabilizerTier3Slots", 1024);
-            this.stabilizerTier4Slots =
+                            .define("stabilizerTier3AdditionalMaxItemTypes", 256);
+            this.stabilizerTier3AdditionalMaxTotalItemCount =
+                    builder.comment("The amount by which the stabilizer increases the maximum total item count the controller can hold. This is not per slot but the total amount of all items combined.")
+                            .define("stabilizerTier3AdditionalMaxTotalItemCount", 2048 * 1000L);
+            this.stabilizerTier4AdditionalMaxItemTypes =
                     builder.comment("The amount of slots the storage stabilizer tier 4 provides.")
-                            .define("stabilizerTier4Slots", 2048);
-            this.controllerBaseSlots =
+                            .define("stabilizerTier4AdditionalMaxItemTypes", 512);
+            this.stabilizerTier4AdditionalMaxTotalItemCount =
+                    builder.comment("The amount by which the stabilizer increases the maximum total item count the controller can hold. This is not per slot but the total amount of all items combined.")
+                            .define("stabilizerTier4AdditionalMaxTotalItemCount", 4096 * 1000L);
+            this.controllerMaxItemTypes =
                     builder.comment("The amount of slots the storage actuator provides.")
-                            .define("controllerBaseSlots", 128);
-            this.controllerStackSize =
+                            .define("controllerMaxItemTypes", 128);
+            this.controllerMaxTotalItemCount =
                     builder.comment("The stack size the storage actuator uses.")
-                            .define("controllerStackSize", 1024);
-            this.overrideItemStackSizes =
-                    builder.comment(
-                                    "True to use the configured controllerStackSize for all items, instead of the stack sizes provided by " +
-                                            "item type (such as 16 for ender pearls, 64 for iron ingot). WARNING: Setting this to " +
-                                            "false may have a negative impact on performance.")
-                            .define("overrideItemStackSizes", true);
+                            .define("controllerMaxTotalItemCount",  256 * 1000L);
+
             this.unlinkWormholeOnBreak =
                     builder.comment(
                                     "True to use the configured controllerStackSize for all items, instead of the stack sizes provided by " +

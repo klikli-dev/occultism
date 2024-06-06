@@ -172,7 +172,8 @@ public class StorageControllerItemStackHandler extends ItemStackHandler {
 
     @Override
     protected void onContentsChanged(int slot) {
-        this.storageController.onContentsChanged();
+        if(this.storageController != null)
+            this.storageController.onContentsChanged();
     }
 
     public void prune() {

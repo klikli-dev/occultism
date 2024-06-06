@@ -464,6 +464,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         // Storage Controller GUI
         this.add("gui.occultism.storage_controller.space_info_label", "%d/%d");
+        this.add("gui.occultism.storage_controller.space_info_label_new", "%s%% filled");
+        this.add("gui.occultism.storage_controller.space_info_label_types", "%s%% of types");
         this.add("gui.occultism.storage_controller.shift", "Hold shift for more information.");
         this.add("gui.occultism.storage_controller.search.tooltip@", "Prefix @: Search mod id.");
         this.add("gui.occultism.storage_controller.search.tooltip#", "Prefix #: Search in item tooltip.");
@@ -1909,7 +1911,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         This simple storage stabilizer is inhabited by a [#](%1$s)Foliot[#]() that supports the dimensional matrix in keeping the storage dimension stable, thus allowing to store more items.
                         \\
                         \\
-                        By default each Tier 1 Stabilizer adds **256** slots.
+                        By default each Tier 1 Stabilizer adds **64** item types and 512000 items storage capacity.
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
@@ -1924,7 +1926,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         This improved stabilizer is inhabited by a [#](%1$s)Djinni[#]() that supports the dimensional matrix in keeping the storage dimension stable, thus allowing to store even more items.
                         \\
                         \\
-                        By default each Tier 2 Stabilizer adds **512** slots.
+                        By default each Tier 2 Stabilizer adds **128** item types and 1024000 items storage capacity.
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
@@ -1939,7 +1941,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         This advanced stabilizer is inhabited by an [#](%1$s)Afrit[#]() that supports the dimensional matrix in keeping the storage dimension stable, thus allowing to store even more items.
                         \\
                         \\
-                        By default each Tier 3 Stabilizer adds **1024** slots.
+                        By default each Tier 3 Stabilizer adds **256** item types and 2048000 items storage capacity.
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
@@ -1954,7 +1956,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         This highly advanced stabilizer is inhabited by a [#](%1$s)Marid[#]() that supports the dimensional matrix in keeping the storage dimension stable, thus allowing to store even more items.
                         \\
                         \\
-                        By default each Tier 4 Stabilizer adds **2048** slots.
+                        By default each Tier 4 Stabilizer adds **512** item types and 4098000 items storage capacity.
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
@@ -2624,24 +2626,21 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageTitle(), "So much storage!");
         this.add(helper.pageText(),
                 """
-                        The storage controller by default provides **128** slots (_You will learn later how to increase that_). Each slot can hold up to **1024** items, even items that usually have smaller stack sizes or are not stackable at all.
+                        The storage controller holds up to **128** different types of items (_You will learn later how to increase that_). Additionally it is limited to 256000 items in total. It does not matter if you have 256000 different items or 256000 of one item, or any mix.
                         """.formatted(COLOR_PURPLE));
 
         helper.page("unique_items");
         this.add(helper.pageTitle(), "Unique Items");
         this.add(helper.pageText(),
                 """
-                        The only exception to the increased stack size are **items with unique properties** ("NBT data"), such as damaged equipment, which cannot stack at all and will take up a full slot. For optimal storage results you should limit the amount of these items in your system.
+                        Items with unique properties ("NBT data"), such as damaged or enchanted equipment will take up one item type for each variation. For example two wooden swords with two different damage values take up two item types. Two wooden swords with the same (or no) damage take up one item type.
                         """.formatted(COLOR_PURPLE));
 
         helper.page("config");
         this.add(helper.pageTitle(), "Configurablity");
         this.add(helper.pageText(),
                 """
-                        Slot amount and slot size can be configured in the "[#](%1$s)occultism-server.toml[#]()" config file in the save directory of your world.
-                        \\
-                        \\
-                        Increasing slot size does not impact performance, increasing slot amount (by a lot) can have a negative impact on performance.
+                        The item type amount and storage size can be configured in the "[#](%1$s)occultism-server.toml[#]()" config file in the save directory of your world.
                         """.formatted(COLOR_PURPLE));
 
         helper.page("mods");
@@ -2649,7 +2648,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         For other mods the storage controller behaves like a shulker box, anything that can interact with vanilla chests and shulker boxes can interact with the storage controller.
-                        Devices that count storage contents may have trouble with the stack sizes, if you run into this issue have your server admin set [this option](https://github.com/klikli-dev/occultism/issues/221#issuecomment-944904459).
+                        Devices that count storage contents may have trouble with the stack sizes.
                         """.formatted(COLOR_PURPLE));
 
 
@@ -2674,7 +2673,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("spotlight");
         this.add(helper.pageText(),
                 """
-                        Storage Stabilizers increase the storage space in the storage dimension of the storage actuator. The higher the tier of the stabilizer, the more additional storage slots it provides. The following entries will show you how to craft each tier.
+                        Storage Stabilizers increase the storage space in the storage dimension of the storage actuator. The higher the tier of the stabilizer, the more additional storage it provides. The following entries will show you how to craft each tier.
                         \\
                         \\
                         """.formatted(COLOR_PURPLE));

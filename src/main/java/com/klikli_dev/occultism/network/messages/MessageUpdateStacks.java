@@ -50,18 +50,22 @@ public class MessageUpdateStacks implements IMessage {
     private static final int DEFAULT_BUFFER_SIZE = 2 * 1024;
 
     private List<ItemStack> stacks;
-    private int usedSlots;
-    private int maxSlots;
+    private int maxItemTypes;
+    private int usedItemTypes;
+    private long maxTotalItemCount;
+    private long usedTotalItemCount;
     private ByteBuf payload;
 
     public MessageUpdateStacks(FriendlyByteBuf buf) {
         this.decode(buf);
     }
 
-    public MessageUpdateStacks(List<ItemStack> stacks, int usedSlots, int maxSlots) {
+    public MessageUpdateStacks(List<ItemStack> stacks, int maxItemTypes, int usedItemTypes, long maxTotalItemCount, long usedTotalItemCount) {
         this.stacks = stacks;
-        this.usedSlots = usedSlots;
-        this.maxSlots = maxSlots;
+        this.maxItemTypes = maxItemTypes;
+        this.usedItemTypes = usedItemTypes;
+        this.maxTotalItemCount = maxTotalItemCount;
+        this.usedTotalItemCount = usedTotalItemCount;
         this.compress();
     }
 
@@ -72,8 +76,8 @@ public class MessageUpdateStacks implements IMessage {
         if (minecraft.screen instanceof IStorageControllerGui gui) {
             if (gui != null) {
                 gui.setStacks(this.stacks);
-                gui.setUsedSlots(this.usedSlots);
-                gui.setMaxSlots(this.maxSlots);
+                gui.setUsedStorageSize(this.usedItemTypes, this.usedTotalItemCount);
+                gui.setMaxStorageSize(this.maxItemTypes, this.maxTotalItemCount);
                 gui.markDirty();
             }
         }
@@ -81,8 +85,10 @@ public class MessageUpdateStacks implements IMessage {
 
     @Override
     public void encode(FriendlyByteBuf buf) {
-        buf.writeVarInt(this.usedSlots);
-        buf.writeVarInt(this.maxSlots);
+        buf.writeVarInt(this.usedItemTypes);
+        buf.writeVarLong(this.usedTotalItemCount);
+        buf.writeVarInt(this.maxItemTypes);
+        buf.writeVarLong(this.maxTotalItemCount);
 
         //write compressed size, then compressed data
         buf.writeVarInt(this.payload.readableBytes());
@@ -91,8 +97,11 @@ public class MessageUpdateStacks implements IMessage {
 
     @Override
     public void decode(FriendlyByteBuf buf) {
-        this.usedSlots = buf.readVarInt();
-        this.maxSlots = buf.readVarInt();
+        this.usedItemTypes = buf.readVarInt();
+        this.usedTotalItemCount = buf.readVarLong();
+        this.maxItemTypes = buf.readVarInt();
+        this.maxTotalItemCount = buf.readVarLong();
+
         //read compressed size, then compressed data.
         int compressedSize = buf.readVarInt();
         this.payload = Unpooled.buffer(compressedSize);
