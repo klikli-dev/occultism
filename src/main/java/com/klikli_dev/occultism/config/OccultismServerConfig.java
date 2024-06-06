@@ -286,7 +286,7 @@ public class OccultismServerConfig {
                             .define("stabilizerTier4AdditionalMaxItemTypes", 512);
             this.stabilizerTier4AdditionalMaxTotalItemCount =
                     builder.comment("The amount by which the stabilizer increases the maximum total item count the controller can hold. This is not per slot but the total amount of all items combined.")
-                            .define("stabilizerTier4AdditionalMaxTotalItemCount", 4028 * 1000L);
+                            .define("stabilizerTier4AdditionalMaxTotalItemCount", 4096 * 1000L);
             this.controllerMaxItemTypes =
                     builder.comment("The amount of slots the storage actuator provides.")
                             .define("controllerMaxItemTypes", 128);
