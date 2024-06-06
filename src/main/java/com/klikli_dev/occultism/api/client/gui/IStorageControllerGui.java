@@ -31,9 +31,9 @@ public interface IStorageControllerGui {
     //region Getter / Setter
     void setStacks(List<ItemStack> stacks);
 
-    void setUsedSlots(int slots);
+    void setUsedStorageSize(int usedItemTypes, long usedTotalItemCount);
 
-    void setMaxSlots(int slots);
+    void setMaxStorageSize(int maxItemTypes, long maxTotalItemCount);
 
     void markDirty();
 
