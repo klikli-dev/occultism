@@ -98,6 +98,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected Button autocraftingModeButton;
     protected Button inventoryModeButton;
     protected LabelWidget storageSpaceLabel;
+    protected LabelWidget storageTypesLabel;
     protected int rows;
     protected int columns;
 
@@ -263,8 +264,18 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 new LabelWidget(this.leftPos + storageSpaceInfoLabelLeft, this.topPos + storageSpaceInfoLabelTop, true,
                         -1, 2, 0x404040);
         this.storageSpaceLabel
-                .addLine(I18n.get(TRANSLATION_KEY_BASE + ".space_info_label_new", Math.floor((double)this.usedTotalItemCount / (double)this.maxTotalItemCount * 100)), false);
+                .addLine(I18n.get(TRANSLATION_KEY_BASE + ".space_info_label_new",
+                        String.format("%.2f", (double)this.usedTotalItemCount / (double)this.maxTotalItemCount * 100)
+
+                ), false);
         this.addRenderableWidget(this.storageSpaceLabel);
+
+        this.storageTypesLabel =
+                new LabelWidget(this.leftPos + storageSpaceInfoLabelLeft - 7, this.topPos + storageSpaceInfoLabelTop + 40, true,
+                        -1, 2, 0x404040);
+        this.storageTypesLabel
+                .addLine(I18n.get(TRANSLATION_KEY_BASE + ".space_info_label_types", String.format("%.0f", (double)this.usedItemTypes / (double)this.maxItemTypes * 100)), false);
+        this.addRenderableWidget(this.storageTypesLabel);
         this.initButtons();
     }
 

@@ -464,7 +464,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         // Storage Controller GUI
         this.add("gui.occultism.storage_controller.space_info_label", "%d/%d");
-        this.add("gui.occultism.storage_controller.space_info_label_new", "%s filled");
+        this.add("gui.occultism.storage_controller.space_info_label_new", "%s%% filled");
+        this.add("gui.occultism.storage_controller.space_info_label_types", "%s%% of types");
         this.add("gui.occultism.storage_controller.shift", "Hold shift for more information.");
         this.add("gui.occultism.storage_controller.search.tooltip@", "Prefix @: Search mod id.");
         this.add("gui.occultism.storage_controller.search.tooltip#", "Prefix #: Search in item tooltip.");
