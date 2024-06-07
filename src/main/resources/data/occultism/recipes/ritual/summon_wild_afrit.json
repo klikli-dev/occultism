@@ -12,7 +12,7 @@
   },
   "entity_to_summon": "occultism:afrit_wild",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/summon_wild_afrit"
+    "id": "occultism:ritual_dummy/summon_wild_afrit"
   },
   "ingredients": [
     {

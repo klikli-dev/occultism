@@ -3,7 +3,9 @@
   "ingredient": {
     "tag": "forge:raw_materials/silver"
   },
-  "result": "occultism:silver_ingot",
+  "result": {
+    "id": "occultism:silver_ingot"
+  },
   "experience": 0.7,
   "cookingtime": 100
 }

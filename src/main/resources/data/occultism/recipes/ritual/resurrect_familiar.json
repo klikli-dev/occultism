@@ -7,7 +7,7 @@
   "pentacle_id": "occultism:summon_foliot",
   "duration": 15,
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/resurrect_familiar"
+    "id": "occultism:ritual_dummy/resurrect_familiar"
   },
   "ingredients": [
     {

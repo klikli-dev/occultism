@@ -12,7 +12,7 @@
   },
   "entity_to_summon": "occultism:possessed_phantom",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/possess_phantom"
+    "id": "occultism:ritual_dummy/possess_phantom"
   },
   "ingredients": [
     {

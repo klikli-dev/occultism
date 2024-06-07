@@ -12,7 +12,7 @@
   },
   "entity_to_summon": "occultism:headless_familiar",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/familiar_headless"
+    "id": "occultism:ritual_dummy/familiar_headless"
   },
   "ingredients": [
     {

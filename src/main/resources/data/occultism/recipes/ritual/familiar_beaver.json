@@ -8,7 +8,7 @@
   "duration": 30,
   "entity_to_summon": "occultism:beaver_familiar",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/familiar_beaver"
+    "id": "occultism:ritual_dummy/familiar_beaver"
   },
   "ingredients": [
     {

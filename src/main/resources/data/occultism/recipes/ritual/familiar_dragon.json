@@ -12,7 +12,7 @@
   },
   "entity_to_summon": "occultism:dragon_familiar",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/familiar_dragon"
+    "id": "occultism:ritual_dummy/familiar_dragon"
   },
   "ingredients": [
     {

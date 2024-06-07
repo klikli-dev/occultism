@@ -10,7 +10,7 @@
   "spirit_job_type": "occultism:crush_tier4",
   "entity_to_summon": "occultism:marid",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/summon_marid_crusher"
+    "id": "occultism:ritual_dummy/summon_marid_crusher"
   },
   "ingredients": [
     {

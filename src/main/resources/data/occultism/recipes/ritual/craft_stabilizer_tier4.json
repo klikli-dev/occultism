@@ -7,7 +7,7 @@
   "pentacle_id": "occultism:craft_marid",
   "duration": 240,
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/craft_stabilizer_tier4"
+    "id": "occultism:ritual_dummy/craft_stabilizer_tier4"
   },
   "ingredients": [
     {

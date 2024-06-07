@@ -55,7 +55,7 @@ and thus shelved until further notice.
     "RabbitType": 99
   },
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/custom_ritual"
+    "id": "occultism:ritual_dummy/custom_ritual"
   },
   "ingredients": [
     {

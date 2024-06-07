@@ -10,7 +10,7 @@
   "spirit_job_type": "occultism:manage_machine",
   "entity_to_summon": "occultism:djinni",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/summon_djinni_manage_machine"
+    "id": "occultism:ritual_dummy/summon_djinni_manage_machine"
   },
   "ingredients": [
     {

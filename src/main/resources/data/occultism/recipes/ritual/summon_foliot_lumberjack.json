@@ -10,7 +10,7 @@
   "spirit_job_type": "occultism:lumberjack",
   "entity_to_summon": "occultism:foliot",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/summon_foliot_lumberjack"
+    "id": "occultism:ritual_dummy/summon_foliot_lumberjack"
   },
   "ingredients": [
     {

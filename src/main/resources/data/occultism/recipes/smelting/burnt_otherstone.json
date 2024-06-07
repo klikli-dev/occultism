@@ -3,7 +3,9 @@
   "ingredient": {
     "item": "occultism:otherstone"
   },
-  "result": "occultism:burnt_otherstone",
+  "result": {
+    "id": "occultism:burnt_otherstone"
+  },
   "experience": 0.15,
   "cookingtime": 200
 }

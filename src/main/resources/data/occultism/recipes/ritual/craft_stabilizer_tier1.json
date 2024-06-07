@@ -7,7 +7,7 @@
   "pentacle_id": "occultism:craft_foliot",
   "duration": 120,
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/craft_stabilizer_tier1"
+    "id": "occultism:ritual_dummy/craft_stabilizer_tier1"
   },
   "ingredients": [
     {

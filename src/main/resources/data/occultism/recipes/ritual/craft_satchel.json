@@ -7,7 +7,7 @@
   "pentacle_id": "occultism:craft_foliot",
   "duration": 240,
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/craft_satchel"
+    "id": "occultism:ritual_dummy/craft_satchel"
   },
   "ingredients": [
     {

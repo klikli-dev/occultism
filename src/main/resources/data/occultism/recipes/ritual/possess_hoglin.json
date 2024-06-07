@@ -12,7 +12,7 @@
   },
   "entity_to_summon": "occultism:possessed_hoglin",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/possess_hoglin"
+    "id": "occultism:ritual_dummy/possess_hoglin"
   },
   "ingredients": [
     {

@@ -12,7 +12,7 @@
   },
   "entity_to_summon": "occultism:wild_hunt_wither_skeleton",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/summon_wild_hunt"
+    "id": "occultism:ritual_dummy/summon_wild_hunt"
   },
   "ingredients": [
     {

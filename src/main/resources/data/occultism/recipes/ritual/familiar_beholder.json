@@ -12,7 +12,7 @@
   },
   "entity_to_summon": "occultism:beholder_familiar",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/familiar_beholder"
+    "id": "occultism:ritual_dummy/familiar_beholder"
   },
   "ingredients": [
     {

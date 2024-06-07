@@ -12,7 +12,7 @@
   },
   "entity_to_summon": "occultism:devil_familiar",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/familiar_devil"
+    "id": "occultism:ritual_dummy/familiar_devil"
   },
   "ingredients": [
     {

@@ -12,7 +12,7 @@
   },
   "entity_to_summon": "occultism:possessed_skeleton",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/possess_skeleton"
+    "id": "occultism:ritual_dummy/possess_skeleton"
   },
   "ingredients": [
     {
