@@ -263,7 +263,8 @@ public class FamiliarRingItem extends Item {
             if (this.familiar != null)
                 return this.familiar;
 
-            var tag = this.stack.get(OccultismDataComponents.FAMILIAR_DATA).getUnsafe();
+            var data = this.stack.get(OccultismDataComponents.FAMILIAR_DATA);
+            var tag = data == null ?  null : data.getUnsafe();
             if (tag != null && (this.cachedNbt == null || !this.cachedNbt.equals(tag))) {
                 this.deserializeNBT(level.registryAccess(), tag);
             }
