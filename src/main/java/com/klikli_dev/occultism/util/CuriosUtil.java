@@ -28,6 +28,7 @@ import com.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
@@ -63,21 +64,32 @@ public class CuriosUtil {
         if (curiosHandler == null)
             return ItemStack.EMPTY;
 
-        var belt = curiosHandler.getStacksHandler("belt");
-        if (!belt.isPresent())
-            return ItemStack.EMPTY;
+       for (var curio : curiosHandler.getCurios().keySet()) {
+            var stack = getSatchelItemFromSlot(curiosHandler, curio);
+            if (!stack.isEmpty()) {
+                return stack;
+            }
+        }
+        return ItemStack.EMPTY;
+    }
 
-        IDynamicStackHandler stackHandler = belt.get().getStacks();
-        ItemStack hasBackpack = ItemStack.EMPTY;
+    protected static ItemStack getSatchelItemFromSlot(ICuriosItemHandler curiosHandler, String identifier) {
+        ICurioStacksHandler slotHandler = curiosHandler.getStacksHandler(identifier).orElse(null);
+        if (slotHandler == null) {
+            return ItemStack.EMPTY;
+        }
+
+        IDynamicStackHandler stackHandler = slotHandler.getStacks();
         for (int i = 0; i < stackHandler.getSlots(); i++) {
             ItemStack stack = stackHandler.getStackInSlot(i);
             if (stack.getItem() instanceof SatchelItem) {
-                hasBackpack = stack;
-                break;
+                return stack;
             }
         }
-        return hasBackpack;
+
+        return ItemStack.EMPTY;
     }
+
 
     public static SelectedCurio getStorageRemote(Player player) {
         int selectedSlot = player.getInventory().selected;
