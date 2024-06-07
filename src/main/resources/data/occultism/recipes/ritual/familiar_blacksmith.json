@@ -41,7 +41,7 @@
     }
   ],
   "result": {
-    "item": "occultism:spawn_egg/familiar_blacksmith",
+    "id": "occultism:spawn_egg/familiar_blacksmith",
     "nbt": {
       "display": {
         "Lore": [

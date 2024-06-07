@@ -53,7 +53,7 @@
     }
   ],
   "result": {
-    "item": "minecraft:echo_shard",
+    "id": "minecraft:echo_shard",
     "nbt": {
       "display": {
         "Lore": [

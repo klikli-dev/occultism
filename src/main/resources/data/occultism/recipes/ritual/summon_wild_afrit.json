@@ -29,7 +29,7 @@
     }
   ],
   "result": {
-    "item": "occultism:afrit_essence",
+    "id": "occultism:afrit_essence",
     "nbt": {
       "display": {
         "Lore": [

@@ -4,6 +4,6 @@
     "item": "minecraft:book"
   },
   "result": {
-    "item": "occultism:taboo_book"
+    "id": "occultism:taboo_book"
   }
 }

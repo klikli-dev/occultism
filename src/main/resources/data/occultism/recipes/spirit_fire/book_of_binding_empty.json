@@ -4,6 +4,6 @@
     "item": "minecraft:writable_book"
   },
   "result": {
-    "item": "occultism:book_of_binding_empty"
+    "id": "occultism:book_of_binding_empty"
   }
 }

@@ -44,7 +44,7 @@
     }
   ],
   "result": {
-    "item": "occultism:spawn_egg/familiar_chimera",
+    "id": "occultism:spawn_egg/familiar_chimera",
     "nbt": {
       "display": {
         "Lore": [

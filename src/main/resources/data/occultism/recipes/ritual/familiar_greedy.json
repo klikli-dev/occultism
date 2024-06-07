@@ -29,7 +29,7 @@
     }
   ],
   "result": {
-    "item": "occultism:spawn_egg/familiar_greedy",
+    "id": "occultism:spawn_egg/familiar_greedy",
     "nbt": {
       "display": {
         "Lore": [

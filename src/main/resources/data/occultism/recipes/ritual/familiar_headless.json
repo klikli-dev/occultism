@@ -35,7 +35,7 @@
     }
   ],
   "result": {
-    "item": "occultism:spawn_egg/familiar_headless",
+    "id": "occultism:spawn_egg/familiar_headless",
     "nbt": {
       "display": {
         "Lore": [

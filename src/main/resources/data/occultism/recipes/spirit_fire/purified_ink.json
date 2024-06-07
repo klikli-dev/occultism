@@ -4,6 +4,6 @@
     "tag": "forge:dyes/black"
   },
   "result": {
-    "item": "occultism:purified_ink"
+    "id": "occultism:purified_ink"
   }
 }

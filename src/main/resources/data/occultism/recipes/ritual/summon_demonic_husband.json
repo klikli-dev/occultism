@@ -35,7 +35,7 @@
     }
   ],
   "result": {
-    "item": "occultism:spawn_egg/demonic_husband",
+    "id": "occultism:spawn_egg/demonic_husband",
     "nbt": {
       "display": {
         "Lore": [

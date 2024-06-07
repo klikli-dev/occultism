@@ -29,7 +29,7 @@
     }
   ],
   "result": {
-    "item": "minecraft:ender_pearl",
+    "id": "minecraft:ender_pearl",
     "nbt": {
       "display": {
         "Lore": [

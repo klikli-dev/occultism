@@ -66,7 +66,7 @@ and thus shelved until further notice.
     }
   ],
   "result": {
-    "item": "occultism:jei_dummy/none"
+    "id": "occultism:jei_dummy/none"
   },
   "command": "execute run say hi"
 }

@@ -29,7 +29,7 @@
     }
   ],
   "result": {
-    "item": "minecraft:phantom_membrane",
+    "id": "minecraft:phantom_membrane",
     "nbt": {
       "display": {
         "Lore": [

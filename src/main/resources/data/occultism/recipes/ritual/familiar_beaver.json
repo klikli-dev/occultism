@@ -25,7 +25,7 @@
     }
   ],
   "result": {
-    "item": "occultism:spawn_egg/familiar_beaver",
+    "id": "occultism:spawn_egg/familiar_beaver",
     "nbt": {
       "display": {
         "Lore": [

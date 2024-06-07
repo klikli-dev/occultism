@@ -41,7 +41,7 @@
     }
   ],
   "result": {
-    "item": "occultism:spawn_egg/familiar_devil",
+    "id": "occultism:spawn_egg/familiar_devil",
     "nbt": {
       "display": {
         "Lore": [

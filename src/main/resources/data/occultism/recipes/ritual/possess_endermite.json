@@ -28,7 +28,7 @@
     }
   ],
   "result": {
-    "item": "minecraft:end_stone",
+    "id": "minecraft:end_stone",
     "nbt": {
       "display": {
         "Lore": [

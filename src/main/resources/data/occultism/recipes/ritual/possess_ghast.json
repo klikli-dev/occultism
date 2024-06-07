@@ -47,7 +47,7 @@
     }
   ],
   "result": {
-    "item": "minecraft:ghast_tear",
+    "id": "minecraft:ghast_tear",
     "nbt": {
       "display": {
         "Lore": [

@@ -32,7 +32,7 @@
     }
   ],
   "result": {
-    "item": "occultism:spawn_egg/otherworld_bird",
+    "id": "occultism:spawn_egg/otherworld_bird",
     "nbt": {
       "display": {
         "Lore": [

@@ -35,7 +35,7 @@
     }
   ],
   "result": {
-    "item": "minecraft:parrot_spawn_egg",
+    "id": "minecraft:parrot_spawn_egg",
     "nbt": {
       "display": {
         "Lore": [
