@@ -22,15 +22,17 @@
 
 package com.klikli_dev.occultism.common.item.tool;
 
-import com.klikli_dev.modonomicon.Modonomicon;
 import com.klikli_dev.modonomicon.api.ModonomiconConstants;
 import com.klikli_dev.modonomicon.book.Book;
 import com.klikli_dev.modonomicon.client.gui.BookGuiManager;
 import com.klikli_dev.modonomicon.data.BookDataManager;
 import com.klikli_dev.modonomicon.item.ModonomiconItem;
+import com.klikli_dev.modonomicon.registry.DataComponentRegistry;
 import com.klikli_dev.occultism.Occultism;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -56,20 +58,12 @@ public class GuideBookItem extends ModonomiconItem {
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         //Copied from parent but statically gets DICTIONARY_OF_SPIRITS instead of from nbt
         var itemInHand = pPlayer.getItemInHand(pUsedHand);
-
-        var pTag = itemInHand.getOrCreateTag();
-
-        if (!pTag.contains(ModonomiconConstants.Nbt.ITEM_BOOK_ID_TAG))
-            pTag.putString(ModonomiconConstants.Nbt.ITEM_BOOK_ID_TAG, DICTIONARY_OF_SPIRITS.toString());
+        if (!itemInHand.has(DataComponentRegistry.BOOK_ID))
+            itemInHand.set(DataComponentRegistry.BOOK_ID, DICTIONARY_OF_SPIRITS);
 
         if (pLevel.isClientSide) {
-
-            if (itemInHand.hasTag()) {
-                var book = BookDataManager.get().getBook(DICTIONARY_OF_SPIRITS);
-                BookGuiManager.get().openBook(book.getId());
-            } else {
-                Modonomicon.LOG.error("ModonomiconItem: ItemStack has no tag!");
-            }
+            var book = BookDataManager.get().getBook(DICTIONARY_OF_SPIRITS);
+            BookGuiManager.get().openBook(book.getId());
         }
 
         return InteractionResultHolder.sidedSuccess(itemInHand, pLevel.isClientSide);
@@ -86,26 +80,32 @@ public class GuideBookItem extends ModonomiconItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-        //super.appendHoverText(stack, worldIn, tooltip, flagIn);
+    public void appendHoverText(ItemStack itemStack, TooltipContext tooltipContext, List<Component> list, TooltipFlag tooltipFlag) {
+//        super.appendHoverText(itemStack, tooltipContext, list, tooltipFlag);
 
         Book book = BookDataManager.get().getBook(DICTIONARY_OF_SPIRITS);
         if (book != null) {
-            if (flagIn.isAdvanced()) {
-                tooltip.add(Component.literal("Book ID: ").withStyle(ChatFormatting.DARK_GRAY)
+            if (tooltipFlag.isAdvanced()) {
+                list.add(Component.literal("Book ID: ").withStyle(ChatFormatting.DARK_GRAY)
                         .append(Component.literal(book.getId().toString()).withStyle(ChatFormatting.RED)));
             }
 
             if (!book.getTooltip().isBlank()) {
-                tooltip.add(Component.translatable(book.getTooltip()).withStyle(ChatFormatting.GRAY));
+                list.add(Component.translatable(book.getTooltip()).withStyle(ChatFormatting.GRAY));
             }
         } else {
-            tooltip.add(Component.translatable(ModonomiconConstants.I18n.Tooltips.ITEM_NO_BOOK_FOUND_FOR_STACK,
-                            !stack.hasTag() ? Component.literal("{}") : NbtUtils.toPrettyComponent(stack.getTag()))
+            var compound = new CompoundTag();
+            for (var entry : itemStack.getComponents()) {
+                var tag = entry.encodeValue(NbtOps.INSTANCE).getOrThrow();
+                var key = BuiltInRegistries.DATA_COMPONENT_TYPE.getKey(entry.type());
+
+                compound.put(key.toString(), tag);
+            }
+
+            list.add(Component.translatable(ModonomiconConstants.I18n.Tooltips.ITEM_NO_BOOK_FOUND_FOR_STACK, NbtUtils.toPrettyComponent(compound))
                     .withStyle(ChatFormatting.DARK_GRAY));
         }
     }
-
 
     @Override
     public ItemStack getCraftingRemainingItem(ItemStack itemStack) {
@@ -116,17 +116,8 @@ public class GuideBookItem extends ModonomiconItem {
     public ItemStack getCreativeModeTabDisplayStack() {
         ItemStack stack = new ItemStack(this);
 
-        CompoundTag cmp = new CompoundTag();
-        cmp.putString(ModonomiconConstants.Nbt.ITEM_BOOK_ID_TAG, DICTIONARY_OF_SPIRITS.toString());
-        stack.setTag(cmp);
+        stack.set(DataComponentRegistry.BOOK_ID, DICTIONARY_OF_SPIRITS);
 
         return stack;
-    }
-
-    @Override
-    public void verifyTagAfterLoad(CompoundTag pTag) {
-        //here this is ok to use as we do not access the (at that time not yet loaded) config
-        if (!pTag.contains(ModonomiconConstants.Nbt.ITEM_BOOK_ID_TAG))
-            pTag.putString(ModonomiconConstants.Nbt.ITEM_BOOK_ID_TAG, DICTIONARY_OF_SPIRITS.toString());
     }
 }

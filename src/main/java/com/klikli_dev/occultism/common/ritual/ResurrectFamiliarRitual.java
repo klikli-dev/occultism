@@ -29,6 +29,7 @@ import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import com.klikli_dev.occultism.util.EntityUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -62,9 +63,9 @@ public class ResurrectFamiliarRitual extends SummonRitual {
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         //copied and modified from soul gem item
-        if (shard.getOrCreateTag().contains("entityData")) {
+        if (shard.has(DataComponents.ENTITY_DATA)) {
             //whenever we have an entity stored we can do nothing but release it
-            var entityData = shard.getTag().getCompound("entityData");
+            var entityData = shard.get(DataComponents.ENTITY_DATA).getUnsafe();
             var type = EntityUtil.entityTypeFromNbt(entityData);
 
             BlockPos spawnPos = goldenBowlPosition;

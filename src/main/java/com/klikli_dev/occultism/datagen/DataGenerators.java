@@ -75,7 +75,7 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new OccultismBiomeTagProvider(generator.getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new ItemModelsGenerator(generator.getPackOutput(), event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new StandardBlockStateProvider(generator.getPackOutput(), event.getExistingFileHelper()));
-        generator.addProvider(event.includeClient(), new OccultismLootModifiers(generator.getPackOutput()));
+        generator.addProvider(event.includeClient(), new OccultismLootModifiers(generator.getPackOutput(), event.getLookupProvider()));
 
         var enUSProvider = new ENUSProvider(generator.getPackOutput());
         generator.addProvider(event.includeServer(), new OccultismBookProvider(generator.getPackOutput(), event.getLookupProvider(), Occultism.MODID, enUSProvider));

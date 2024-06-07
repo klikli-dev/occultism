@@ -177,9 +177,9 @@ public class OccultismItems {
     public static final DeferredItem<Item> SPIRIT_ATTUNED_PICKAXE_HEAD = ITEMS.register("spirit_attuned_pickaxe_head",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<InfusedPickaxeItem> INFUSED_PICKAXE = ITEMS.register("infused_pickaxe",
-            () -> new InfusedPickaxeItem(Tiers.DIAMOND, 1, -2.8F, defaultProperties()));
+            () -> new InfusedPickaxeItem(Tiers.DIAMOND, defaultProperties().attributes(PickaxeItem.createAttributes(Tiers.DIAMOND, 1.0F, -2.8F))));
     public static final DeferredItem<OtherworldPickaxeItem> IESNIUM_PICKAXE = ITEMS.register("iesnium_pickaxe",
-            () -> new OtherworldPickaxeItem(Tiers.DIAMOND, 1, -2.8F, defaultProperties()));
+            () -> new OtherworldPickaxeItem(Tiers.DIAMOND, defaultProperties().attributes(PickaxeItem.createAttributes(Tiers.DIAMOND, 1.0F, -2.8F))));
 
     public static final DeferredItem<SoulGemItem> SOUL_GEM_ITEM = ITEMS.register("soul_gem",
             () -> new SoulGemItem(defaultProperties().stacksTo(1)));

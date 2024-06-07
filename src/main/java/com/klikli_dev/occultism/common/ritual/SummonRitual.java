@@ -65,8 +65,9 @@ public class SummonRitual extends Ritual {
 
         //should never happen, but apparently there is a scenario where it does (item cheated in with non jei?)
         //https://github.com/klikli-dev/occultism/issues/183
-        if (activationItem.hasTag())
-            result.setTag(activationItem.getTag().copy());
+
+        if (!activationItem.isComponentsPatchEmpty())
+            result.applyComponents(activationItem.getComponents());
         return result;
     }
 

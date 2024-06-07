@@ -30,9 +30,9 @@ import net.minecraft.world.item.Tier;
 
 public class OtherworldPickaxeItem extends PickaxeItem implements IOtherworldTool {
 
-    public OtherworldPickaxeItem(Tier tier, int attackDamageIn, float attackSpeedIn,
+    public OtherworldPickaxeItem(Tier tier,
                                  Properties builder) {
-        super(tier, attackDamageIn, attackSpeedIn, builder);
+        super(tier, builder);
     }
 
     @Override

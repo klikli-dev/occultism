@@ -7,6 +7,7 @@ import com.klikli_dev.occultism.api.common.data.SortType;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -59,6 +60,24 @@ public class OccultismDataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> MAX_SLOTS = DATA_COMPONENTS.registerComponentType("max_slots", builder -> builder
             .persistent(Codec.INT)
             .networkSynchronized(ByteBufCodecs.INT)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> OCCUPIED = DATA_COMPONENTS.registerComponentType("occupied", builder -> builder
+            .persistent(Codec.BOOL)
+            .networkSynchronized(ByteBufCodecs.BOOL)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<CustomData>> FAMILIAR_DATA = DATA_COMPONENTS.registerComponentType("familiar_data", builder -> builder
+            .persistent(CustomData.CODEC)
+            .networkSynchronized(CustomData.STREAM_CODEC)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ResourceLocation>> FAMILIAR_TYPE = DATA_COMPONENTS.registerComponentType("FAMILIAR_TYPE", builder -> builder
+            .persistent(ResourceLocation.CODEC)
+            .networkSynchronized(ResourceLocation.STREAM_CODEC)
             .cacheEncoding()
     );
 }
