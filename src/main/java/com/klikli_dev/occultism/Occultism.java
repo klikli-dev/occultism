@@ -35,6 +35,7 @@ import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife.Demonic
 import com.klikli_dev.occultism.config.OccultismClientConfig;
 import com.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.klikli_dev.occultism.config.OccultismServerConfig;
+import com.klikli_dev.occultism.config.OccultismStartupConfig;
 import com.klikli_dev.occultism.handlers.ClientSetupEventHandler;
 import com.klikli_dev.occultism.integration.modonomicon.PageLoaders;
 import com.klikli_dev.occultism.network.Networking;
@@ -70,6 +71,7 @@ public class Occultism {
     public static final OccultismServerConfig SERVER_CONFIG = new OccultismServerConfig();
     public static final OccultismCommonConfig COMMON_CONFIG = new OccultismCommonConfig();
     public static final OccultismClientConfig CLIENT_CONFIG = new OccultismClientConfig();
+    public static final OccultismStartupConfig STARTUP_CONFIG = new OccultismStartupConfig();
     public static final SelectedBlockRenderer SELECTED_BLOCK_RENDERER = new SelectedBlockRenderer();
     public static final ThirdEyeEffectRenderer THIRD_EYE_EFFECT_RENDERER = new ThirdEyeEffectRenderer();
     public static final DebugHelper DEBUG = new DebugHelper();
@@ -80,6 +82,7 @@ public class Occultism {
         modContainer.registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG.spec);
         modContainer.registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG.spec);
         modContainer.registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG.spec);
+        modContainer.registerConfig(ModConfig.Type.STARTUP, STARTUP_CONFIG.spec);
 
         OccultismEffects.EFFECTS.register(modEventBus);
         OccultismRecipes.RECIPE_TYPES.register(modEventBus);

@@ -256,8 +256,8 @@ public class TextUtil {
      * @return a random name from the 3 syllable variations.
      */
     public static String generateName() {
-        var possibleSpiritNames = Occultism.SERVER_CONFIG.rituals.possibleSpiritNames.get();
-        var usePossibleSpiritNames = random.nextDouble() > Occultism.SERVER_CONFIG.rituals.usePossibleSpiritNamesChance.get();
+        var possibleSpiritNames = Occultism.STARTUP_CONFIG.rituals.possibleSpiritNames.get();
+        var usePossibleSpiritNames = random.nextDouble() > Occultism.STARTUP_CONFIG.rituals.usePossibleSpiritNamesChance.get();
 
         //if possible spirit names is not empty, and the random chance is met we use a name from the list
         if (!possibleSpiritNames.isEmpty() && usePossibleSpiritNames) {

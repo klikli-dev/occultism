@@ -196,9 +196,6 @@ public class OccultismServerConfig {
         public final BooleanValue enableRemainingIngredientCountMatching;
         public final DoubleValue ritualDurationMultiplier;
 
-        public final ConfigValue<List<String>> possibleSpiritNames;
-        public final DoubleValue usePossibleSpiritNamesChance;
-
 
         public RitualSettings(ModConfigSpec.Builder builder) {
             builder.comment("Ritual Settings").push("rituals");
@@ -227,19 +224,6 @@ public class OccultismServerConfig {
             this.ritualDurationMultiplier =
                     builder.comment("Set a value below 1.0 to speed up rituals.")
                             .defineInRange("ritualDurationMultiplier", 1.0, 0.05, Double.MAX_VALUE);
-
-            this.possibleSpiritNames =
-                    builder.comment("By default spirit names are generated randomly. " +
-                                    "This list can be used as an additional source of spirit names, or even a full replacement, depending on the configuration of \"usePossibleSpiritNamesChance\".")
-                            .define("possibleSpiritNames", new ArrayList<>());
-
-            this.usePossibleSpiritNamesChance =
-                    builder.comment(
-                                    "0.0 (default) to only use random names.",
-                                    "1.0 to only use the names in \"possibleSpiritNames\"",
-                                    "0.1-0.9 to use a mix of both, the higher the value the higher the chance of using a name from this list instead of a random name.",
-                                    "Will be ignored if \"possibleSpiritNames\" is empty.")
-                            .defineInRange("usePossibleSpiritNamesChance", 0.0, 0.0, 1.0);
 
             builder.pop();
         }
