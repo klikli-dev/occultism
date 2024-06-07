@@ -29,7 +29,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotTypePreset;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
@@ -59,21 +59,37 @@ public class CuriosUtil {
     }
 
     public static ItemStack getBackpack(Player player) {
-        Optional<ItemStack> hasBackpack = CuriosApi.getCuriosHelper().getCuriosHandler(player).map(curiosHandler -> {
-            Optional<ItemStack> hasBackpackStack = curiosHandler.getStacksHandler(SlotTypePreset.BELT.getIdentifier()).map(slotHandler -> {
-                IDynamicStackHandler stackHandler = slotHandler.getStacks();
-                for (int i = 0; i < stackHandler.getSlots(); i++) {
-                    ItemStack stack = stackHandler.getStackInSlot(i);
-                    if (stack.getItem() instanceof SatchelItem) {
-                        return stack;
-                    }
-                }
-                return ItemStack.EMPTY;
-            });
-            return hasBackpackStack.orElse(ItemStack.EMPTY);
-        });
-        return hasBackpack.orElse(ItemStack.EMPTY);
+        ICuriosItemHandler curiosHandler = CuriosApi.getCuriosHelper().getCuriosHandler(player).orElse(null);
+        if (curiosHandler == null) {
+            return ItemStack.EMPTY;
+        }
+
+        for (var curio : curiosHandler.getCurios().keySet()) {
+            var stack = getSatchelItemFromSlot(curiosHandler, curio);
+            if (!stack.isEmpty()) {
+                return stack;
+            }
+        }
+        return ItemStack.EMPTY;
     }
+
+    protected static ItemStack getSatchelItemFromSlot(ICuriosItemHandler curiosHandler, String identifier) {
+        ICurioStacksHandler slotHandler = curiosHandler.getStacksHandler(identifier).orElse(null);
+        if (slotHandler == null) {
+            return ItemStack.EMPTY;
+        }
+
+        IDynamicStackHandler stackHandler = slotHandler.getStacks();
+        for (int i = 0; i < stackHandler.getSlots(); i++) {
+            ItemStack stack = stackHandler.getStackInSlot(i);
+            if (stack.getItem() instanceof SatchelItem) {
+                return stack;
+            }
+        }
+
+        return ItemStack.EMPTY;
+    }
+
 
     public static SelectedCurio getStorageRemote(Player player) {
         int selectedSlot = player.getInventory().selected;
