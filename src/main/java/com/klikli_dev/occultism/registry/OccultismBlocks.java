@@ -67,7 +67,9 @@ public class OccultismBlocks {
                             .noCollission()
                             .instabreak()
                             .lightLevel((state) -> 12)
-                            .sound(SoundType.WOOL)), false, LootTableType.EMPTY);
+                            .sound(SoundType.WOOL)
+                            .noLootTable()
+            ), false, LootTableType.EMPTY);
 
     public static final DeferredBlock<Block> LIGHTED_AIR = register("lighted_air", () -> new AirBlock(
             Block.Properties.of().noCollission().air().noLootTable().lightLevel(s -> 15).randomTicks()) {
@@ -85,6 +87,7 @@ public class OccultismBlocks {
             .pushReaction(PushReaction.DESTROY)
             .replaceable()
             .noCollission()
+            .noLootTable()
             .strength(5f, 30);
     public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_WHITE = register("chalk_glyph_white",
             () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.whiteChalkGlyphColor, () -> OccultismItems.CHALK_WHITE.get()),
