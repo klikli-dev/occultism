@@ -554,7 +554,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         compound.put("inventory", this.inventory.serializeNBT(this.level().registryAccess()));
 
         //store job
-        this.getJob().ifPresent(job -> compound.put("spiritJob", job.serializeNBT()));
+        this.getJob().ifPresent(job -> compound.put("spiritJob", job.serializeNBT(this.level().registryAccess())));
 
         compound.putBoolean("isFilterBlacklist", this.isFilterBlacklist());
         compound.put("filterItems", this.filterItemStackHandler.serializeNBT(this.level().registryAccess()));

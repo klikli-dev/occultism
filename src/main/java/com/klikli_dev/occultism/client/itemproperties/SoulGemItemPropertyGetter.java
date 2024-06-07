@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.client.itemproperties;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
@@ -37,6 +38,6 @@ public class SoulGemItemPropertyGetter implements ItemPropertyFunction {
     @OnlyIn(Dist.CLIENT)
     @Override
     public float call(ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn, int i) {
-        return stack.getOrCreateTag().contains("entityData") ? 1.0f : 0.0f;
+        return stack.has(DataComponents.ENTITY_DATA) ? 1.0f : 0.0f;
     }
 }

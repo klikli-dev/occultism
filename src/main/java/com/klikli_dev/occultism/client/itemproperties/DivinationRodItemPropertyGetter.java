@@ -22,14 +22,15 @@
 
 package com.klikli_dev.occultism.client.itemproperties;
 
-import com.klikli_dev.occultism.OccultismConstants;
 import com.klikli_dev.occultism.common.item.tool.DivinationRodItem;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+
 import javax.annotation.Nullable;
 
 @OnlyIn(Dist.CLIENT)
@@ -38,9 +39,8 @@ public class DivinationRodItemPropertyGetter implements ItemPropertyFunction {
 
     @Override
     public float call(ItemStack itemStack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity, int i) {
-        if (!itemStack.getOrCreateTag().contains(OccultismConstants.Nbt.Divination.DISTANCE) ||
-                itemStack.getTag().getFloat(OccultismConstants.Nbt.Divination.DISTANCE) < 0)
+        if (!itemStack.has(OccultismDataComponents.DIVINATION_DISTANCE) || itemStack.get(OccultismDataComponents.DIVINATION_DISTANCE) < 0)
             return DivinationRodItem.NOT_FOUND;
-        return itemStack.getTag().getFloat(OccultismConstants.Nbt.Divination.DISTANCE);
+        return itemStack.getOrDefault(OccultismDataComponents.DIVINATION_DISTANCE, DivinationRodItem.NOT_FOUND);
     }
 }

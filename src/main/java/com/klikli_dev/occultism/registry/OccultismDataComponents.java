@@ -204,4 +204,16 @@ public class OccultismDataComponents {
             .networkSynchronized(ByteBufCodecs.BOOL)
             .cacheEncoding()
     );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> OTHERWORLD_GOGGLES = DATA_COMPONENTS.registerComponentType("otherworld_goggles", builder -> builder
+            .persistent(Codec.BOOL)
+            .networkSynchronized(ByteBufCodecs.BOOL)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> OTHERWORLD_TOOL_TIER = DATA_COMPONENTS.registerComponentType("otherworld_tool_tier", builder -> builder
+            .persistent(Codec.INT)
+            .networkSynchronized(ByteBufCodecs.INT)
+            .cacheEncoding()
+    );
 }

@@ -1,14 +1,16 @@
 package com.klikli_dev.occultism.common.misc;
 
 import com.mojang.serialization.Codec;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 
 public record ItemStackKey(ItemStack stack) {
 
-    public static final Codec<ItemStackKey> CODEC = ItemStack.ITEM_WITH_COUNT_CODEC.xmap(ItemStackKey::new, ItemStackKey::stack);
+    public static final Codec<ItemStackKey> CODEC = ItemStack.STRICT_CODEC.xmap(ItemStackKey::new, ItemStackKey::stack);
 
     public static ItemStackKey of(ItemStack stack) {
         return new ItemStackKey(stack.copyWithCount(1));
@@ -16,15 +18,23 @@ public record ItemStackKey(ItemStack stack) {
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof ItemStackKey key && ItemStack.isSameItemSameTags(this.stack, key.stack);
+        return obj instanceof ItemStackKey key && ItemStack.isSameItemSameComponents(this.stack, key.stack);
     }
 
     @Override
     public int hashCode() {
         int result = this.stack.getItem().hashCode();
 
-        if (this.stack.hasTag()) {
-            result = this.hashCode(this.stack.getTag(), result);
+        if (!this.stack.getComponents().isEmpty()) {
+            var compound = new CompoundTag();
+            for (var entry : this.stack.getComponents()) {
+                var tag = entry.encodeValue(NbtOps.INSTANCE).getOrThrow();
+                var key = BuiltInRegistries.DATA_COMPONENT_TYPE.getKey(entry.type());
+
+                compound.put(key.toString(), tag);
+            }
+
+            result = this.hashCode(compound, result);
         }
 
         return result;

@@ -33,8 +33,10 @@ import com.klikli_dev.occultism.common.item.storage.*;
 import com.klikli_dev.occultism.common.item.tool.BrushItem;
 import com.klikli_dev.occultism.common.item.tool.*;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -188,7 +190,7 @@ public class OccultismItems {
             () -> new SoulShardItem(defaultProperties().stacksTo(1)));
 
     public static final DeferredItem<Item> SATCHEL = ITEMS.register("satchel",
-            () -> new SatchelItem(defaultProperties().stacksTo(1).rarity(Rarity.RARE)));
+            () -> new SatchelItem(defaultProperties().stacksTo(1).rarity(Rarity.RARE).component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)));
 
     public static final DeferredItem<Item> FAMILIAR_RING = ITEMS.register("familiar_ring",
             () -> new FamiliarRingItem(defaultProperties().stacksTo(1)));
@@ -240,7 +242,7 @@ public class OccultismItems {
 
     //Armor
     public static final DeferredItem<OtherworldGogglesItem> OTHERWORLD_GOGGLES = ITEMS.register("otherworld_goggles",
-            () -> new OtherworldGogglesItem(ArmorMaterials.IRON.value(),
+            () -> new OtherworldGogglesItem(ArmorMaterials.IRON,
                     ArmorItem.Type.HELMET, defaultProperties().stacksTo(1)));
 
     //Machines

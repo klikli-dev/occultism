@@ -67,12 +67,12 @@ public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
 
     @Override
     public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-        return this.writeJobToNBT(new CompoundTag());
+        return this.writeJobToNBT(new CompoundTag(), provider);
     }
 
     @Override
     public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
-        this.readJobFromNBT(nbt);
+        this.readJobFromNBT(nbt, provider);
     }
 
 

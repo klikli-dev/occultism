@@ -28,6 +28,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SmokingRecipe;
@@ -62,7 +64,7 @@ public class DemonicPartner extends TamableAnimal {
 
         var health = this.getHealth();
         this.setHealth(this.getMaxHealth()); //simulate a healthy familiar to avoid death on respawn
-        shard.getOrCreateTag().put("entityData", this.serializeNBT());
+        shard.set(DataComponents.ENTITY_DATA, CustomData.of(this.serializeNBT(this.registryAccess())));
         this.setHealth(health);
 
         if(owner instanceof Player player){
@@ -145,11 +147,11 @@ public class DemonicPartner extends TamableAnimal {
         }
 
         if (this.isTame()) {
-            var effects = PotionUtils.getMobEffects(itemstack);
-            if (!effects.isEmpty()) {
-                for (var instance : effects) {
-                    if (instance.getEffect().isInstantenous()) {
-                        instance.getEffect().applyInstantenousEffect(this, this, pPlayer, instance.getAmplifier(), 1.0D);
+            var effects = itemstack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
+            if (!effects.hasEffects()) {
+                for (var instance : effects.getAllEffects()) {
+                    if (instance.getEffect().value().isInstantenous()) {
+                        instance.getEffect().value().applyInstantenousEffect(this, this, pPlayer, instance.getAmplifier(), 1.0D);
                     } else {
                         pPlayer.addEffect(new MobEffectInstance(instance.getEffect(), instance.getDuration() * 5, instance.getAmplifier(), instance.isAmbient(), instance.isVisible()));
                     }
@@ -185,7 +187,7 @@ public class DemonicPartner extends TamableAnimal {
 
             //heal with food
             if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
-                this.heal((float) itemstack.getFoodProperties(this).getNutrition());
+                this.heal((float) itemstack.getFoodProperties(this).nutrition());
                 if (!pPlayer.getAbilities().instabuild) {
                     itemstack.shrink(1);
                 }
@@ -234,7 +236,7 @@ public class DemonicPartner extends TamableAnimal {
             this.doEnchantDamageEffects(this, pEntity);
         }
 
-        pEntity.setSecondsOnFire(2);
+        pEntity.setRemainingFireTicks(2 * 20);
 
         return flag;
     }

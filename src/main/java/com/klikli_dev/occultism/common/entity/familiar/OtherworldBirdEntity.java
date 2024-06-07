@@ -121,7 +121,7 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
                 new MobEffectInstance(MobEffects.SLOW_FALLING,
                         20 * Occultism.SERVER_CONFIG.spiritJobs.drikwingFamiliarSlowFallingSeconds.get(), 0, false,
                         false),
-                new MobEffectInstance(OccultismEffects.DOUBLE_JUMP.get(), 120, 4, false, false));
+                new MobEffectInstance(OccultismEffects.DOUBLE_JUMP, 120, 4, false, false));
     }
     // endregion Overrides
 

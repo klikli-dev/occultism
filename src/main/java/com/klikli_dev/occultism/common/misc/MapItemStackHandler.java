@@ -6,6 +6,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.world.item.ItemStack;
@@ -130,14 +131,12 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
     }
 
     @Override
-    public CompoundTag serializeNBT() {
-        return (CompoundTag) CODEC.encodeStart(NbtOps.INSTANCE, this).getOrThrow(false, e -> {
-            throw new RuntimeException("Failed to encode MapItemStackHandler: " + e);
-        });
+    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+        return (CompoundTag) CODEC.encodeStart(NbtOps.INSTANCE, this).getOrThrow();
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt) {
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
         CODEC.parse(NbtOps.INSTANCE, nbt).resultOrPartial(e -> {
             throw new RuntimeException("Failed to decode MapItemStackHandler: " + e);
         }).ifPresent(handler -> {

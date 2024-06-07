@@ -23,22 +23,21 @@
 package com.klikli_dev.occultism.common.item.armor;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismTags;
+import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 
-import javax.annotation.Nullable;
-
 public class OtherworldGogglesItem extends ArmorItem {
 
-    public static final String NBT_GOGGLES = "occultism:otherworld_goggles";
+    public static final ResourceLocation TEXTURE = new ResourceLocation(Occultism.MODID, "textures/item/armor/otherworld_goggles_model.png");
 
-    public static final String TEXTURE = Occultism.MODID + ":textures/item/armor/otherworld_goggles_model.png";
-
-    public OtherworldGogglesItem(ArmorMaterial materialIn,
+    public OtherworldGogglesItem(Holder<ArmorMaterial> materialIn,
                                  ArmorItem.Type type,
                                  Properties builder) {
         super(materialIn, type, builder);
@@ -47,7 +46,7 @@ public class OtherworldGogglesItem extends ArmorItem {
     public static boolean isGogglesItem(ItemStack stack) {
         return stack.getItem() instanceof OtherworldGogglesItem ||
                 stack.is(OccultismTags.Items.OTHERWORLD_GOGGLES) ||
-                (stack.hasTag() && stack.getTag().getBoolean(NBT_GOGGLES));
+                stack.getOrDefault(OccultismDataComponents.OTHERWORLD_GOGGLES, false);
     }
 
     @Override
@@ -55,9 +54,8 @@ public class OtherworldGogglesItem extends ArmorItem {
         return false;
     }
 
-    @Nullable
     @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
+    public @org.jetbrains.annotations.Nullable ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
         return TEXTURE;
     }
 }

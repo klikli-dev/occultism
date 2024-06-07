@@ -31,6 +31,7 @@ import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -242,8 +243,7 @@ public class StableWormholeBlock extends Block implements EntityBlock {
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockState state = this.defaultBlockState().setValue(BlockStateProperties.FACING, context.getClickedFace());
-        if (context.getItemInHand().getOrCreateTag().getCompound("BlockEntityTag")
-                .contains("linkedStorageControllerPosition")) {
+        if (context.getItemInHand().get(DataComponents.BLOCK_ENTITY_DATA).getUnsafe().contains("linkedStorageControllerPosition")) {
             state = state.setValue(LINKED, true);
         }
         return state;

@@ -133,7 +133,7 @@ public class DemonicPartnerLieNextToPartnerGoal extends Goal {
         blockpos$mutableblockpos.set(this.entity.isLeashed() ? this.entity.getLeashHolder().blockPosition() : this.entity.blockPosition());
         this.entity.randomTeleport(blockpos$mutableblockpos.getX() + randomsource.nextInt(11) - 5, blockpos$mutableblockpos.getY() + randomsource.nextInt(5) - 2, blockpos$mutableblockpos.getZ() + randomsource.nextInt(11) - 5, false);
         blockpos$mutableblockpos.set(this.entity.blockPosition());
-        LootTable loottable = this.entity.level().getServer().getLootData().getLootTable(BuiltInLootTables.CAT_MORNING_GIFT);
+        LootTable loottable = this.entity.level().getServer().reloadableRegistries().getLootTable(BuiltInLootTables.CAT_MORNING_GIFT);
         LootParams lootparams = (new LootParams.Builder((ServerLevel) this.entity.level())).withParameter(LootContextParams.ORIGIN, this.entity.position()).withParameter(LootContextParams.THIS_ENTITY, this.entity).create(LootContextParamSets.GIFT);
 
         for (ItemStack itemstack : loottable.getRandomItems(lootparams)) {

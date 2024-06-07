@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.entity.job;
 
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -94,16 +95,16 @@ public abstract class ChangeTimeJob extends SpiritJob {
     }
 
     @Override
-    public CompoundTag writeJobToNBT(CompoundTag compound) {
+    public CompoundTag writeJobToNBT(CompoundTag compound, HolderLookup.Provider provider) {
         compound.putInt("currentChangeTicks", this.currentChangeTicks);
         compound.putInt("requiredChangeTicks", this.requiredChangeTicks);
         compound.putLong("newTime", this.newTime);
-        return super.writeJobToNBT(compound);
+        return super.writeJobToNBT(compound, provider);
     }
 
     @Override
-    public void readJobFromNBT(CompoundTag compound) {
-        super.readJobFromNBT(compound);
+    public void readJobFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
+        super.readJobFromNBT(compound, provider);
         this.currentChangeTicks = compound.getInt("currentChangeTicks");
         this.requiredChangeTicks = compound.getInt("requiredChangeTicks");
         this.newTime = compound.getLong("newTime");

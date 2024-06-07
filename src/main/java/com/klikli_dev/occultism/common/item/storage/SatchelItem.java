@@ -73,11 +73,6 @@ public class SatchelItem extends Item {
     }
 
 
-    @Override
-    public boolean shouldOverrideMultiplayerNbt() {
-        return super.shouldOverrideMultiplayerNbt();
-    }
-
     public Container getInventory(ServerPlayer player, ItemStack stack) {
         return new SatchelInventory(stack, SatchelContainer.SATCHEL_SIZE);
     }

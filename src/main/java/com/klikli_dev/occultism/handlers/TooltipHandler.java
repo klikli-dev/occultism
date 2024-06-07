@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.handlers;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import com.klikli_dev.theurgy.TheurgyConstants;
@@ -57,7 +58,7 @@ public class TooltipHandler {
     @SubscribeEvent
     public static void onAddInformation(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
-        if (stack.hasTag() && stack.getTag().contains(ItemNBTUtil.SPIRIT_NAME_TAG)) {
+        if (stack.has(OccultismDataComponents.SPIRIT_NAME)){
             String translationKey = stack.getDescriptionId() + ".occultism_spirit_tooltip";
 
             if (I18n.exists(translationKey))

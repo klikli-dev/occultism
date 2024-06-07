@@ -22,11 +22,10 @@
 
 package com.klikli_dev.occultism.common.container.storage;
 
-import net.minecraft.core.NonNullList;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.ContainerHelper;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemContainerContents;
 
 public class SatchelInventory extends SimpleContainer {
 
@@ -38,40 +37,15 @@ public class SatchelInventory extends SimpleContainer {
         this.readItemStack();
     }
 
-    //region Getter / Setter
     public ItemStack getItemStack() {
         return this.itemStack;
     }
-    //endregion Getter / Setter
 
     public void readItemStack() {
-        this.readNBT(this.itemStack.getOrCreateTag());
+        this.itemStack.get(DataComponents.CONTAINER).copyInto(this.getItems());
     }
 
     public void writeItemStack() {
-        if (this.isEmpty()) {
-            this.itemStack.removeTagKey("Items");
-        } else {
-            this.writeNBT(this.itemStack.getOrCreateTag());
-        }
+        this.itemStack.set(DataComponents.CONTAINER, ItemContainerContents.fromItems(this.getItems()));
     }
-
-    private void readNBT(CompoundTag compound) {
-        final NonNullList<ItemStack> list = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-        if (compound.contains("Items")) {
-            ContainerHelper.loadAllItems(compound, list);
-            for (int index = 0; index < list.size(); index++) {
-                this.setItem(index, list.get(index));
-            }
-        }
-    }
-
-    private void writeNBT(CompoundTag compound) {
-        final NonNullList<ItemStack> list = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-        for (int index = 0; index < list.size(); index++) {
-            list.set(index, this.getItem(index));
-        }
-        ContainerHelper.saveAllItems(compound, list, false);
-    }
-
 }
