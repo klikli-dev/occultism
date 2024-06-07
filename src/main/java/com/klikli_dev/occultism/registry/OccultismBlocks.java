@@ -71,7 +71,8 @@ public class OccultismBlocks {
                             .noLootTable()
             ), false, LootTableType.EMPTY);
 
-    public static final DeferredBlock<Block> LIGHTED_AIR = register("lighted_air", () -> new AirBlock(
+    public static final DeferredBlock<Block> LIGHTED_AIR = register("lighted_air",
+            () -> new AirBlock(
             Block.Properties.of().noCollission().air().noLootTable().lightLevel(s -> 15).randomTicks()) {
         @Override
         @SuppressWarnings("deprecation")
@@ -80,7 +81,7 @@ public class OccultismBlocks {
                     FamiliarEntity::hasBlacksmithUpgrade).isEmpty())
                 pLevel.setBlockAndUpdate(pPos, Blocks.AIR.defaultBlockState());
         }
-    });
+    }, false, LootTableType.EMPTY);
 
     public static final Block.Properties GLYPH_PROPERTIES = Block.Properties.of()
             .sound(SoundType.WOOL)

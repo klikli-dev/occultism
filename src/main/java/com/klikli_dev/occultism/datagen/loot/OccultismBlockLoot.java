@@ -168,7 +168,7 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
     }
 
     public void registerDropNothingLootTable(Block block) {
-//        this.add(block, LootTable.lootTable().withPool(LootPool.lootPool()));
+//       this.add(block, noDrop());
     }
 
     protected final void dropSelfWithComponents(Block pBlock, DataComponentType<?>... pIncludes) {
