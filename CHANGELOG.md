@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.129.0] - 2024-06-07
+### :sparkles: New Features
+- [`fbbe4ea`](https://github.com/klikli-dev/occultism/commit/fbbe4ea0495ef09f4737dbed39c2f1fce68283c3) - allow curios to find satchel in any curios slot type *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.128.0] - 2024-06-06
 ### :sparkles: New Features
 - [`ab8d5f5`](https://github.com/klikli-dev/occultism/commit/ab8d5f598887423909d90ff804d6c9475a9c24a6) - make storage much more efficient *(PR [#1122](https://github.com/klikli-dev/occultism/pull/1122) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1129,3 +1134,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.126.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.126.0...release/v1.20.4-1.126.1
 [release/v1.20.4-1.127.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.126.1...release/v1.20.4-1.127.0
 [release/v1.20.4-1.128.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.127.0...release/v1.20.4-1.128.0
+[release/v1.20.4-1.129.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.128.0...release/v1.20.4-1.129.0
