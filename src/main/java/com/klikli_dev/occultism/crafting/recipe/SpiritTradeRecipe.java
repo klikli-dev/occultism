@@ -185,7 +185,7 @@ public class SpiritTradeRecipe extends ShapelessRecipe {
 
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, SpiritTradeRecipe> streamCodec() {
-            return null;
+            return STREAM_CODEC;
         }
     }
 }
