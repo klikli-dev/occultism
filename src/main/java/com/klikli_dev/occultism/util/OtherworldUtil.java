@@ -54,7 +54,7 @@ public class OtherworldUtil {
         if (Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER)
             return item.getOrCreateDescriptionId();
         boolean thirdEye = Minecraft.getInstance() != null && Minecraft.getInstance().player != null
-                && Minecraft.getInstance().player.hasEffect(OccultismEffects.THIRD_EYE.get());
+                && Minecraft.getInstance().player.hasEffect(OccultismEffects.THIRD_EYE);
         return stack.getOrCreateTag().getBoolean("isInventoryItem") ||
                 thirdEye ? item.getOrCreateDescriptionId() : item.getDescriptionId();
     }

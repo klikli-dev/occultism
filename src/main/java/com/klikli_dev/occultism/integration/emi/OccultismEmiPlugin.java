@@ -69,9 +69,9 @@ public class OccultismEmiPlugin implements EmiPlugin {
         }
 
         for(RecipeHolder<MinerRecipe> recipe:manager.getAllRecipesFor(OccultismRecipes.MINER_TYPE.get())){
-            if(recipe.value().getIngredients().get(0).values.length==1) {
-                if (recipe.value().getIngredients().get(0).values[0] instanceof Ingredient.TagValue) {
-                    var tag = ((Ingredient.TagValue) recipe.value().getIngredients().get(0).values[0]).tag();
+            if(recipe.value().getIngredients().get(0).getValues().length==1) {
+                if (recipe.value().getIngredients().get(0).getValues()[0] instanceof Ingredient.TagValue) {
+                    var tag = ((Ingredient.TagValue) recipe.value().getIngredients().get(0).getValues()[0]).tag();
                     if(!MinerRecipeCategory.totalWeights.containsKey(tag))
                         MinerRecipeCategory.totalWeights.put(tag,0L);
                     MinerRecipeCategory.totalWeights.put(tag,MinerRecipeCategory.totalWeights.get(tag)+recipe.value().getWeightedOutput().getWeight().asInt());

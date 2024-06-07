@@ -39,7 +39,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOCase;
 
@@ -82,7 +81,7 @@ public class StorageUtil {
                     craftMatrix.setItem(i, ItemStack.EMPTY);
                 else
                     craftMatrix.setItem(i,
-                            ItemHandlerHelper.copyStackWithSize(stackInSlot, remainingAfterInsert));
+                            stackInSlot.copyWithCount(remainingAfterInsert));
             }
 
             //finally if requested, send the updated storage controller contents to the player.
@@ -121,7 +120,7 @@ public class StorageUtil {
                         orderSlot.setItem(0, ItemStack.EMPTY);
                     else
                         orderSlot.setItem(0,
-                                ItemHandlerHelper.copyStackWithSize(stackInSlot, remainingAfterInsert));
+                                stackInSlot.copyWithCount(remainingAfterInsert));
                 }
             }
 
@@ -161,7 +160,7 @@ public class StorageUtil {
 
                     //once we found enough, use the current slot to create a stack with the desired amount and return it
                     if (amountExtracted == amount)
-                        return ItemHandlerHelper.copyStackWithSize(slot, amount);
+                        return slot.copyWithCount(amount);
                     else
                         //continue extracting from this slot until we get nothing back.
                         i--;
@@ -265,6 +264,7 @@ public class StorageUtil {
      * @param blockEntity the block entity to drop contents for.
      */
     public static void dropInventoryItems(BlockEntity blockEntity) {
+        //TODO: switch to loot table
         var handler = blockEntity.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, null);
         if (handler != null) {
             dropInventoryItems(blockEntity.getLevel(), blockEntity.getBlockPos(), handler);

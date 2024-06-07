@@ -2,7 +2,9 @@ package com.klikli_dev.occultism.datagen.loot;
 
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismItems;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.EntityLootSubProvider;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
@@ -24,12 +26,13 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
     }
 
     @Override
-    public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
+    public void generate(HolderLookup.Provider pRegistries, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> pGenerator) {
         this.generate();
         this.map.forEach((key, entityType) -> {
-            entityType.forEach(consumer::accept);
+            entityType.forEach(pGenerator::accept);
         });
     }
+
 
     @Override
     public void generate() {

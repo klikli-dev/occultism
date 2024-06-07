@@ -10,7 +10,10 @@ import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -92,5 +95,13 @@ public class OutputIngredient {
                 ExtraCodecs.POSITIVE_INT.optionalFieldOf("count", 1).forGetter(OutputStackInfo::count),
                 DataComponentPatch.CODEC.optionalFieldOf("components", DataComponentPatch.EMPTY).forGetter(OutputStackInfo::components)
         ).apply(instance, OutputStackInfo::new));
+
+        public static final StreamCodec<RegistryFriendlyByteBuf, OutputStackInfo> STREAM_CODEC = StreamCodec.composite(
+                ByteBufCodecs.INT,
+                OutputStackInfo::count,
+                DataComponentPatch.STREAM_CODEC,
+                OutputStackInfo::components,
+                OutputStackInfo::new
+        );
     }
 }

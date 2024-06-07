@@ -22,30 +22,36 @@
 
 package com.klikli_dev.occultism.crafting.recipe;
 
-import com.google.gson.JsonObject;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
 
-    public static Serializer SERIALIZER = new Serializer();
-
-    public static final Codec<SpiritFireRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final MapCodec<SpiritFireRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Ingredient.CODEC
                     .fieldOf("ingredient").forGetter((r) -> r.input),
-            ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter(r -> r.output)
+            ItemStack.OPTIONAL_CODEC.fieldOf("result").forGetter(r -> r.output)
     ).apply(instance, SpiritFireRecipe::new));
+    public static final StreamCodec<RegistryFriendlyByteBuf, SpiritFireRecipe> STREAM_CODEC = StreamCodec.composite(
+            Ingredient.CONTENTS_STREAM_CODEC,
+            (r) -> r.input,
+            ItemStack.OPTIONAL_STREAM_CODEC,
+            (r) -> r.output,
+            SpiritFireRecipe::new
+    );
+    public static Serializer SERIALIZER = new Serializer();
 
     public SpiritFireRecipe(Ingredient input, ItemStack output) {
         super(input, output);
@@ -62,9 +68,9 @@ public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
     }
 
     @Override
-    public ItemStack assemble(ItemStackFakeInventory inv, RegistryAccess access) {
-        ItemStack result = this.getResultItem(access).copy();
-        result.setCount(inv.input.getCount());
+    public ItemStack assemble(ItemStackFakeInventory pCraftingContainer, HolderLookup.Provider pRegistries) {
+        ItemStack result = this.getResultItem(pRegistries).copy();
+        result.setCount(pCraftingContainer.input.getCount());
         return result;
     }
 
@@ -75,7 +81,7 @@ public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess access) {
+    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return this.output;
     }
 
@@ -102,20 +108,13 @@ public class SpiritFireRecipe extends ItemStackFakeInventoryRecipe {
     public static class Serializer implements RecipeSerializer<SpiritFireRecipe> {
 
         @Override
-        public Codec<SpiritFireRecipe> codec() {
+        public MapCodec<SpiritFireRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public SpiritFireRecipe fromNetwork(FriendlyByteBuf pBuffer) {
-            //noinspection deprecation
-            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
-        }
-
-        @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, SpiritFireRecipe pRecipe) {
-            //noinspection deprecation
-            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
+        public StreamCodec<RegistryFriendlyByteBuf, SpiritFireRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 }

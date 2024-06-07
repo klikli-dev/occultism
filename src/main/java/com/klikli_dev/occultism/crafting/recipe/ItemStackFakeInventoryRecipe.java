@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.crafting.recipe;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.item.ItemStack;
@@ -45,9 +46,10 @@ public abstract class ItemStackFakeInventoryRecipe implements Recipe<ItemStackFa
     }
 
     @Override
-    public ItemStack assemble(ItemStackFakeInventory inv, RegistryAccess registryAccess) {
-        return this.getResultItem(registryAccess).copy();
+    public ItemStack assemble(ItemStackFakeInventory pCraftingContainer, HolderLookup.Provider pRegistries) {
+        return this.getResultItem(pRegistries).copy();
     }
+
 
     @Override
     public boolean canCraftInDimensions(int width, int height) {
@@ -56,7 +58,7 @@ public abstract class ItemStackFakeInventoryRecipe implements Recipe<ItemStackFa
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return this.output;
     }
 

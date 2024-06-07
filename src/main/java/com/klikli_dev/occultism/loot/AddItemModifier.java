@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.loot;
 
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -38,8 +39,8 @@ import java.util.function.Supplier;
 
 public class AddItemModifier extends LootModifier {
 
-    public static final Supplier<Codec<AddItemModifier>> CODEC = Suppliers.memoize(() ->
-            RecordCodecBuilder.create(instance ->
+    public static final Supplier<MapCodec<AddItemModifier>> CODEC = Suppliers.memoize(() ->
+            RecordCodecBuilder.mapCodec(instance ->
                     instance.group(
                                     LOOT_CONDITIONS_CODEC.fieldOf("conditions").forGetter(lm -> lm.conditions),
                                     BuiltInRegistries.ITEM.byNameCodec().fieldOf("item").forGetter(lm -> lm.addedItem),
@@ -64,7 +65,7 @@ public class AddItemModifier extends LootModifier {
     }
 
     @Override
-    public Codec<? extends IGlobalLootModifier> codec() {
+    public MapCodec<? extends IGlobalLootModifier> codec() {
         return CODEC.get();
     }
 }

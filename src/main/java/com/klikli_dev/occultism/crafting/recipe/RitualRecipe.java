@@ -22,24 +22,25 @@
 
 package com.klikli_dev.occultism.crafting.recipe;
 
-import com.google.common.base.Suppliers;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.multiblock.Multiblock;
 import com.klikli_dev.occultism.common.ritual.Ritual;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismRituals;
+import com.klikli_dev.occultism.util.OccultismExtraStreamCodecs;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.EntityType;
@@ -55,11 +56,11 @@ import java.util.function.Supplier;
 
 public class RitualRecipe implements Recipe<Container> {
 
-    public static final Codec<RitualRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final MapCodec<RitualRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     ResourceLocation.CODEC.fieldOf("pentacle_id").forGetter((r) -> r.pentacleId),
                     ResourceLocation.CODEC.fieldOf("ritual_type").forGetter((r) -> r.ritualType),
-                    ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("ritual_dummy").forGetter((r) -> r.ritualDummy),
-                    ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter((r) -> r.result),
+                    ItemStack.STRICT_CODEC.fieldOf("ritual_dummy").forGetter((r) -> r.ritualDummy),
+                    ItemStack.OPTIONAL_CODEC.fieldOf("result").forGetter((r) -> r.result),
                     BuiltInRegistries.ENTITY_TYPE.byNameCodec().optionalFieldOf("entity_to_summon").forGetter(r -> Optional.ofNullable(r.entityToSummon)),
                     CompoundTag.CODEC.optionalFieldOf("entity_nbt").forGetter(r -> Optional.ofNullable(r.entityNbt)),
                     Ingredient.CODEC.fieldOf("activation_item").forGetter((r) -> r.activationItem),
@@ -73,6 +74,41 @@ public class RitualRecipe implements Recipe<Container> {
             ).apply(instance, (pentacleId, ritualType, ritualDummy, result, entityToSummon, entityNbt, activationItem, ingredients, duration, spiritMaxAge, spiritJobType, entityToSacrifice, itemToUse, command) -> new RitualRecipe(pentacleId, ritualType, ritualDummy, result, entityToSummon.orElse(null), entityNbt.orElse(null), activationItem,
                     NonNullList.copyOf(ingredients), duration, spiritMaxAge, spiritJobType.orElse(null), entityToSacrifice.orElse(null), itemToUse.orElse(Ingredient.EMPTY), command.orElse(null)))
     );
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, RitualRecipe> STREAM_CODEC = OccultismExtraStreamCodecs.composite(
+            ResourceLocation.STREAM_CODEC,
+            (r) -> r.pentacleId,
+            ResourceLocation.STREAM_CODEC,
+            (r) -> r.ritualType,
+            ItemStack.STREAM_CODEC,
+            (r) -> r.ritualDummy,
+            ItemStack.OPTIONAL_STREAM_CODEC,
+            (r) -> r.result,
+            ByteBufCodecs.optional(ByteBufCodecs.registry(Registries.ENTITY_TYPE)),
+            (r) -> Optional.ofNullable(r.entityToSummon),
+            ByteBufCodecs.optional(ByteBufCodecs.COMPOUND_TAG),
+            (r) -> Optional.ofNullable(r.entityNbt),
+            Ingredient.CONTENTS_STREAM_CODEC,
+            (r) -> r.activationItem,
+            Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()),
+            (r) -> r.ingredients,
+            ByteBufCodecs.INT,
+            (r) -> r.duration,
+            ByteBufCodecs.INT,
+            (r) -> r.spiritMaxAge,
+            ByteBufCodecs.optional(ResourceLocation.STREAM_CODEC),
+            (r) -> Optional.ofNullable(r.spiritJobType),
+            ByteBufCodecs.optional(EntityToSacrifice.STREAM_CODEC),
+            (r) -> Optional.ofNullable(r.entityToSacrifice),
+            ByteBufCodecs.optional(Ingredient.CONTENTS_STREAM_CODEC),
+            (r) -> Optional.ofNullable(r.itemToUse),
+            ByteBufCodecs.optional(ByteBufCodecs.STRING_UTF8),
+            (r) -> Optional.ofNullable(r.command),
+            (pentacleId, ritualType, ritualDummy, result, entityToSummon, entityNbt, activationItem, ingredients, duration, spiritMaxAge, spiritJobType, entityToSacrifice, itemToUse, command) ->
+                    new RitualRecipe(pentacleId, ritualType, ritualDummy, result, entityToSummon.orElse(null), entityNbt.orElse(null), activationItem,
+                            NonNullList.copyOf(ingredients), duration, spiritMaxAge, spiritJobType.orElse(null), entityToSacrifice.orElse(null), itemToUse.orElse(Ingredient.EMPTY), command.orElse(null))
+    );
+
     public static Serializer SERIALIZER = new Serializer();
     final ItemStack result;
     final NonNullList<Ingredient> ingredients;
@@ -90,6 +126,7 @@ public class RitualRecipe implements Recipe<Container> {
     private final int spiritMaxAge;
     private final float durationPerIngredient;
     private final String command;
+
     public RitualRecipe(ResourceLocation pentacleId, ResourceLocation ritualType, ItemStack ritualDummy,
                         ItemStack result, EntityType<?> entityToSummon, CompoundTag entityNbt, Ingredient activationItem, NonNullList<Ingredient> ingredients, int duration, int spiritMaxAge, ResourceLocation spiritJobType, EntityToSacrifice entityToSacrifice, Ingredient itemToUse, String command) {
         this.result = result;
@@ -157,11 +194,13 @@ public class RitualRecipe implements Recipe<Container> {
         return false;
     }
 
+
     @Override
-    public ItemStack assemble(Container pInv, RegistryAccess access) {
+    public ItemStack assemble(Container pCraftingContainer, HolderLookup.Provider pRegistries) {
         //as we don't have an inventory this is ignored.
         return null;
     }
+
 
     @Override
     public boolean canCraftInDimensions(int i, int i1) {
@@ -169,7 +208,7 @@ public class RitualRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return this.result;
     }
 
@@ -237,28 +276,29 @@ public class RitualRecipe implements Recipe<Container> {
 
     public record EntityToSacrifice(TagKey<EntityType<?>> tag, String displayName) {
         public static Codec<EntityToSacrifice> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                TagKey.codec(BuiltInRegistries.ENTITY_TYPE.key()).fieldOf("tag").forGetter(EntityToSacrifice::tag),
+                TagKey.codec(Registries.ENTITY_TYPE).fieldOf("tag").forGetter(EntityToSacrifice::tag),
                 Codec.STRING.fieldOf("display_name").forGetter(EntityToSacrifice::displayName)
         ).apply(instance, EntityToSacrifice::new));
+
+        public static StreamCodec<RegistryFriendlyByteBuf, EntityToSacrifice> STREAM_CODEC = StreamCodec.composite(
+                OccultismExtraStreamCodecs.tagKey(Registries.ENTITY_TYPE),
+                (r) -> r.tag,
+                ByteBufCodecs.STRING_UTF8,
+                (r) -> r.displayName,
+                EntityToSacrifice::new
+        );
     }
 
     public static class Serializer implements RecipeSerializer<RitualRecipe> {
 
         @Override
-        public Codec<RitualRecipe> codec() {
+        public MapCodec<RitualRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public RitualRecipe fromNetwork(FriendlyByteBuf pBuffer) {
-            //noinspection deprecation
-            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
-        }
-
-        @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, RitualRecipe pRecipe) {
-            //noinspection deprecation
-            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
+        public StreamCodec<RegistryFriendlyByteBuf, RitualRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 }

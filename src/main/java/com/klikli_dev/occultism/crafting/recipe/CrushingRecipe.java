@@ -22,34 +22,41 @@
 
 package com.klikli_dev.occultism.crafting.recipe;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.klikli_dev.occultism.common.misc.OutputIngredient;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
-import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ExtraCodecs;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.crafting.CraftingHelper;
-
-import java.util.Optional;
 
 public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
 
+    public static final StreamCodec<RegistryFriendlyByteBuf, CrushingRecipe> STREAM_CODEC = StreamCodec.composite(
+            Ingredient.CONTENTS_STREAM_CODEC,
+            (r) -> r.input,
+            Ingredient.CONTENTS_STREAM_CODEC,
+            (r) -> r.output.getIngredient(),
+            OutputIngredient.OutputStackInfo.STREAM_CODEC,
+            (r) -> r.output.getOutputStackInfo(),
+            ByteBufCodecs.INT,
+            (r) -> r.minTier,
+            ByteBufCodecs.INT,
+            (r) -> r.crushingTime,
+            ByteBufCodecs.BOOL,
+            (r) -> r.ignoreCrushingMultiplier,
+            (input, output, outputStackInfo, minTier, crushingTime, ignoreCrushingMultiplier) ->
+                    new CrushingRecipe(input, new OutputIngredient(output, outputStackInfo), minTier, crushingTime, ignoreCrushingMultiplier)
+    );
     public static int DEFAULT_CRUSHING_TIME = 200;
-
-    public static final Codec<CrushingRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final MapCodec<CrushingRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Ingredient.CODEC
                     .fieldOf("ingredient").forGetter((r) -> r.input),
             Ingredient.CODEC.fieldOf("result").forGetter(r -> r.output.getIngredient()),
@@ -60,19 +67,6 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     ).apply(instance, (input, output, outputStackInfo, minTier, crushingTime, ignoreCrushingMultiplier) -> {
         return new CrushingRecipe(input, new OutputIngredient(output, outputStackInfo), minTier, crushingTime, ignoreCrushingMultiplier);
     }));
-
-    public static final Codec<CrushingRecipe> NETWORK_CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Ingredient.CODEC
-                    .fieldOf("ingredient").forGetter((r) -> r.input),
-            Ingredient.CODEC.fieldOf("result").forGetter(r -> r.output.getIngredient()),
-            OutputIngredient.OutputStackInfo.CODEC.fieldOf("result_stack_info").forGetter(r -> r.output.getOutputStackInfo()),
-            Codec.INT.optionalFieldOf("min_tier", -1).forGetter(r -> r.minTier),
-            Codec.INT.optionalFieldOf("crushing_time", DEFAULT_CRUSHING_TIME).forGetter(r -> r.crushingTime),
-            Codec.BOOL.optionalFieldOf("ignore_crushing_multiplier", false).forGetter(r -> r.ignoreCrushingMultiplier)
-    ).apply(instance, (input, output, outputStackInfo, minTier, crushingTime, ignoreCrushingMultiplier) -> {
-        return new CrushingRecipe(input, new OutputIngredient(output, outputStackInfo), minTier, crushingTime, ignoreCrushingMultiplier);
-    }));
-
     public static Serializer SERIALIZER = new Serializer();
 
     protected final int crushingTime;
@@ -116,7 +110,7 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return this.output.getStack();
     }
 
@@ -134,20 +128,13 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     public static class Serializer implements RecipeSerializer<CrushingRecipe> {
 
         @Override
-        public Codec<CrushingRecipe> codec() {
+        public MapCodec<CrushingRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public CrushingRecipe fromNetwork(FriendlyByteBuf pBuffer) {
-            //noinspection deprecation
-            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, NETWORK_CODEC);
-        }
-
-        @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, CrushingRecipe pRecipe) {
-            //noinspection deprecation
-            pBuffer.writeWithCodec(NbtOps.INSTANCE, NETWORK_CODEC, pRecipe);
+        public StreamCodec<RegistryFriendlyByteBuf, CrushingRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 }

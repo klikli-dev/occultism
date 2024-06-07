@@ -61,5 +61,4 @@ public class OccultismDataComponents {
             .networkSynchronized(ByteBufCodecs.INT)
             .cacheEncoding()
     );
-
 }
