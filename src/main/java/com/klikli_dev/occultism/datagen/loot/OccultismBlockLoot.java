@@ -20,6 +20,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -31,9 +32,12 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 
 public class OccultismBlockLoot extends BlockLootSubProvider {
 
@@ -51,6 +55,14 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
         this.map.forEach(pGenerator::accept);
     }
 
+    @Override
+    public @NotNull Iterable<Block> getKnownBlocks() {
+        return BuiltInRegistries.BLOCK.stream()
+                .filter(block -> Optional.of(BuiltInRegistries.BLOCK.getKey(block))
+                        .filter(key -> key.getNamespace().equals(Occultism.MODID))
+                        .isPresent())
+                .collect(Collectors.toSet());
+    }
     @Override
     protected void generate() {
         OccultismBlocks.BLOCKS.getEntries().stream()

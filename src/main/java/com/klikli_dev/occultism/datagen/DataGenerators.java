@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.datagen.lang.ENUSProvider;
 import com.klikli_dev.occultism.datagen.loot.OccultismBlockLoot;
 import com.klikli_dev.occultism.datagen.loot.OccultismEntityLoot;
 import com.klikli_dev.occultism.datagen.loot.OccultismLootModifiers;
+import com.klikli_dev.occultism.datagen.loot.OccultismLootTableProvider;
 import com.klikli_dev.occultism.datagen.tags.OccultismBiomeTagProvider;
 import com.klikli_dev.occultism.datagen.tags.OccultismBlockTagProvider;
 import com.klikli_dev.occultism.datagen.tags.OccultismEntityTypeTagProvider;
@@ -41,6 +42,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.data.AdvancementProvider;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
+import net.neoforged.neoforge.common.data.internal.NeoForgeLootTableProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.List;
@@ -54,7 +56,7 @@ public class DataGenerators {
         DataGenerator generator = event.getGenerator();
 
         generator.addProvider(event.includeServer(),
-                new LootTableProvider(generator.getPackOutput(), Set.of(), List.of(
+                new OccultismLootTableProvider(generator.getPackOutput(), Set.of(), List.of(
                         new LootTableProvider.SubProviderEntry(OccultismBlockLoot::new, LootContextParamSets.BLOCK),
                         new LootTableProvider.SubProviderEntry(OccultismEntityLoot::new, LootContextParamSets.ENTITY)
                 ), event.getLookupProvider()));
