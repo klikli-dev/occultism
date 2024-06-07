@@ -84,7 +84,7 @@ public class OccultismDataComponents {
             .cacheEncoding()
     );
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ResourceLocation>> FAMILIAR_TYPE = DATA_COMPONENTS.registerComponentType("FAMILIAR_TYPE", builder -> builder
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ResourceLocation>> FAMILIAR_TYPE = DATA_COMPONENTS.registerComponentType("familiar_type", builder -> builder
             .persistent(ResourceLocation.CODEC)
             .networkSynchronized(ResourceLocation.STREAM_CODEC)
             .cacheEncoding()

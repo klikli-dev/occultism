@@ -98,7 +98,7 @@ public class Occultism {
         OccultismMemoryTypes.MEMORY_MODULE_TYPES.register(modEventBus);
         OccultismDataStorage.ATTACHMENT_TYPES.register(modEventBus);
         OccultismAdvancements.TRIGGER_TYPES.register(modEventBus);
-        DataComponentRegistry.DATA_COMPONENTS.register(modEventBus);
+        OccultismDataComponents.DATA_COMPONENTS.register(modEventBus);
 
         //now register the custom registries
         OccultismSpiritJobs.JOBS.register(modEventBus);
