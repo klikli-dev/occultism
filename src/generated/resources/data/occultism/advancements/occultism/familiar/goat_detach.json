@@ -13,7 +13,8 @@
       "translate": "advancements.occultism.familiar.goat_detach.description"
     },
     "icon": {
-      "item": "minecraft:golden_apple"
+      "count": 1,
+      "id": "minecraft:golden_apple"
     },
     "title": {
       "translate": "advancements.occultism.familiar.goat_detach.title"

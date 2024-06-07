@@ -13,8 +13,11 @@
       "translate": "advancements.occultism.familiar.shub_niggurath_summon.description"
     },
     "icon": {
-      "item": "occultism:advancement_icon",
-      "nbt": "{CustomModelData:11}"
+      "components": {
+        "minecraft:custom_model_data": 11
+      },
+      "count": 1,
+      "id": "occultism:advancement_icon"
     },
     "title": {
       "translate": "advancements.occultism.familiar.shub_niggurath_summon.title"

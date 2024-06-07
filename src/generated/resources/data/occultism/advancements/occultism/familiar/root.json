@@ -13,7 +13,8 @@
       "translate": "advancements.occultism.familiars.description"
     },
     "icon": {
-      "item": "occultism:jei_dummy/none"
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
     },
     "title": {
       "translate": "advancements.occultism.familiars.title"

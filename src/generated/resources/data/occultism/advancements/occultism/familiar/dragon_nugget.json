@@ -13,7 +13,8 @@
       "translate": "advancements.occultism.familiar.dragon_nugget.description"
     },
     "icon": {
-      "item": "minecraft:gold_nugget"
+      "count": 1,
+      "id": "minecraft:gold_nugget"
     },
     "title": {
       "translate": "advancements.occultism.familiar.dragon_nugget.title"
