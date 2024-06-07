@@ -28,6 +28,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -76,6 +77,10 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
         return new GlobalBlockPos(blockEntity.getBlockPos(), blockEntity.getLevel());
     }
 
+    public static GlobalBlockPos from(CompoundTag tag){
+        return GlobalBlockPos.CODEC.decode(NbtOps.INSTANCE, tag).getOrThrow().getFirst();
+    }
+
     public ResourceKey<Level> getDimensionKey() {
         return this.dimensionKey;
     }
@@ -110,19 +115,6 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
                 .add("z=" + this.pos.getZ()).toString();
     }
 
-
-    public CompoundTag write(CompoundTag compound) {
-        compound.putLong("pos", this.getPos().asLong());
-        compound.putString("dimension", this.dimensionKey.location().toString());
-        return compound;
-    }
-
-    public void read(CompoundTag compound) {
-        this.pos = BlockPos.of(compound.getLong("pos"));
-        this.dimensionKey =
-                ResourceKey.create(Registries.DIMENSION, new ResourceLocation(compound.getString("dimension")));
-    }
-
     public void encode(FriendlyByteBuf buf) {
         buf.writeBlockPos(this.pos);
         buf.writeResourceLocation(this.dimensionKey.location());
@@ -135,11 +127,14 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
 
     @Override
     public @UnknownNullability CompoundTag serializeNBT(HolderLookup.Provider provider) {
-        return this.write(new CompoundTag());
+        return (CompoundTag) GlobalBlockPos.CODEC.encodeStart(NbtOps.INSTANCE, this).getOrThrow();
     }
 
     @Override
     public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
-        this.read(nbt);
+        GlobalBlockPos.CODEC.decode(NbtOps.INSTANCE, nbt).ifSuccess(p -> {
+            this.pos = p.getFirst().getPos();
+            this.dimensionKey = p.getFirst().getDimensionKey();
+        });
     }
 }

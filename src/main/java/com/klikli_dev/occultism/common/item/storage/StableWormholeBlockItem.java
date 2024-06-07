@@ -24,8 +24,11 @@ package com.klikli_dev.occultism.common.item.storage;
 
 import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -33,6 +36,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -48,9 +52,13 @@ public class StableWormholeBlockItem extends BlockItem {
     }
 
     @Override
-    public Rarity getRarity(ItemStack stack) {
-        return stack.getOrCreateTag().getCompound("BlockEntityTag")
-                .contains("linkedStorageControllerPosition") ? Rarity.RARE : Rarity.COMMON;
+    public void verifyComponentsAfterLoad(ItemStack pStack) {
+        super.verifyComponentsAfterLoad(pStack);
+
+        if(pStack.has(DataComponents.BLOCK_ENTITY_DATA) && pStack.get(DataComponents.BLOCK_ENTITY_DATA).contains("linkedStorageControllerPosition"))
+            pStack.set(DataComponents.RARITY, Rarity.RARE);
+        else
+            pStack.set(DataComponents.RARITY, Rarity.COMMON);
     }
 
     @Override
@@ -64,8 +72,15 @@ public class StableWormholeBlockItem extends BlockItem {
                 BlockEntity blockEntity = level.getBlockEntity(pos);
                 if (blockEntity instanceof IStorageController) {
                     //if this is a storage controller, write the position into the block entity tag that will be used to spawn the block entity.
-                    stack.getOrCreateTagElement("BlockEntityTag")
-                            .put("linkedStorageControllerPosition", GlobalBlockPos.from(blockEntity).serializeNBT());
+
+
+                    CustomData.update(DataComponents.BLOCK_ENTITY_DATA, stack, (data) -> {
+                        data.put("linkedStorageControllerPosition", GlobalBlockPos.from(blockEntity).serializeNBT(level.registryAccess()));
+                    });
+
+                    stack.set(OccultismDataComponents.LINKED_STORAGE_CONTROLLER, GlobalBlockPos.from(blockEntity));
+                    stack.set(DataComponents.RARITY, Rarity.RARE);
+
                     player.displayClientMessage(
                             Component.translatable(this.getDescriptionId() + ".message.set_storage_controller"),
                             true);
@@ -77,19 +92,18 @@ public class StableWormholeBlockItem extends BlockItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
-                                TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        if (stack.getOrCreateTag().getCompound("BlockEntityTag")
-                .contains("linkedStorageControllerPosition")) {
-            GlobalBlockPos globalPos = GlobalBlockPos.from(stack.getTagElement("BlockEntityTag")
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+
+        if (pStack.has(DataComponents.BLOCK_ENTITY_DATA) && pStack.get(DataComponents.BLOCK_ENTITY_DATA).contains("linkedStorageControllerPosition")) {
+            GlobalBlockPos globalPos = GlobalBlockPos.from(pStack.get(DataComponents.BLOCK_ENTITY_DATA).getUnsafe()
                     .getCompound("linkedStorageControllerPosition"));
             String formattedPosition =
                     ChatFormatting.GOLD.toString() + ChatFormatting.BOLD + globalPos.getPos().toString() +
                             ChatFormatting.RESET;
-            tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip.linked", formattedPosition));
+            pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip.linked", formattedPosition));
         } else {
-            tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip.unlinked"));
+            pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip.unlinked"));
         }
     }
 

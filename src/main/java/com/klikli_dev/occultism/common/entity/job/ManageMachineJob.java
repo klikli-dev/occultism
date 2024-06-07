@@ -198,7 +198,7 @@ public class ManageMachineJob extends SpiritJob {
     @Override
     public void readJobFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
         if (compound.contains("storageControllerPosition"))
-            this.storageControllerPosition = GlobalBlockPos.CODEC.decode(NbtOps.INSTANCE, compound.get("storageControllerPosition")).getOrThrow().getFirst();
+            this.storageControllerPosition = GlobalBlockPos.from(compound.getCompound("storageControllerPosition"));
 
         if (compound.contains("managedMachine"))
             this.managedMachine = MachineReference.CODEC.decode(NbtOps.INSTANCE, compound.get("managedMachine")).getOrThrow().getFirst();

@@ -25,8 +25,10 @@ package com.klikli_dev.occultism.common.item.storage;
 import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.util.BlockEntityUtil;
 import com.klikli_dev.occultism.util.CuriosUtil;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -59,13 +61,23 @@ public class StorageRemoteItem extends Item implements MenuProvider {
             return null;
         }
         //no storage controller linked
-        if (!stack.getOrCreateTag().contains("linkedStorageController"))
+        if (!stack.has(OccultismDataComponents.LINKED_STORAGE_CONTROLLER))
             return null;
 
-        GlobalBlockPos globalPos = GlobalBlockPos.from(stack.getTag().getCompound("linkedStorageController"));
+        GlobalBlockPos globalPos = stack.get(OccultismDataComponents.LINKED_STORAGE_CONTROLLER);
         BlockEntity blockEntity = BlockEntityUtil.get(level, globalPos);
 
         return blockEntity instanceof IStorageController ? (IStorageController) blockEntity : null;
+    }
+
+    @Override
+    public void verifyComponentsAfterLoad(ItemStack pStack) {
+        super.verifyComponentsAfterLoad(pStack);
+
+        if(pStack.has(OccultismDataComponents.LINKED_STORAGE_CONTROLLER))
+            pStack.set(DataComponents.RARITY, Rarity.RARE);
+        else
+            pStack.set(DataComponents.RARITY, Rarity.COMMON);
     }
 
     @Override
@@ -79,7 +91,8 @@ public class StorageRemoteItem extends Item implements MenuProvider {
             ItemStack stack = context.getItemInHand();
             BlockEntity blockEntity = context.getLevel().getBlockEntity(context.getClickedPos());
             if (blockEntity instanceof IStorageController) {
-                stack.addTagElement("linkedStorageController", GlobalBlockPos.from(blockEntity).serializeNBT());
+                stack.set(OccultismDataComponents.LINKED_STORAGE_CONTROLLER, GlobalBlockPos.from(blockEntity));
+                stack.set(DataComponents.RARITY, Rarity.RARE);
                 context.getPlayer()
                         .sendSystemMessage(Component.translatable(this.getDescriptionId() + ".message.linked"));
             }
@@ -92,11 +105,10 @@ public class StorageRemoteItem extends Item implements MenuProvider {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
-        if (level.isClientSide || !stack.getOrCreateTag().contains("linkedStorageController"))
+        if (level.isClientSide || !stack.has(OccultismDataComponents.LINKED_STORAGE_CONTROLLER))
             return super.use(level, player, hand);
 
-        GlobalBlockPos storageControllerPos = GlobalBlockPos.from(
-                stack.getTag().getCompound("linkedStorageController"));
+        GlobalBlockPos storageControllerPos = stack.get(OccultismDataComponents.LINKED_STORAGE_CONTROLLER);
         Level storageControllerWorld = level.getServer().getLevel(storageControllerPos.getDimensionKey());
 
         //ensure TE is available
@@ -114,20 +126,14 @@ public class StorageRemoteItem extends Item implements MenuProvider {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
-                                TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
 
-        tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip"));
-        if (stack.getOrCreateTag().contains("linkedStorageController")) {
-            GlobalBlockPos pos = GlobalBlockPos.from(stack.getTag().getCompound("linkedStorageController"));
-            tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip.linked", pos.toString()));
+        pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip"));
+        if (pStack.has(OccultismDataComponents.LINKED_STORAGE_CONTROLLER)) {
+            GlobalBlockPos pos = pStack.get(OccultismDataComponents.LINKED_STORAGE_CONTROLLER);
+            pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip.linked", pos.toString()));
         }
-    }
-
-    @Override
-    public Rarity getRarity(ItemStack stack) {
-        return stack.getOrCreateTag().contains("linkedStorageController") ? Rarity.RARE : Rarity.COMMON;
     }
 
     @Nullable

@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.api.common.data.MachineReference;
 import com.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.klikli_dev.occultism.common.entity.job.ManageMachineJob;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -78,13 +79,13 @@ public class ItemNBTUtil {
     }
 
     public static void setBoundSpiritName(ItemStack stack, String name) {
-        stack.getOrCreateTag().putString(SPIRIT_NAME_TAG, name);
+        stack.set(OccultismDataComponents.SPIRIT_NAME, name);
     }
 
     public static String getBoundSpiritName(ItemStack stack) {
-        if (!stack.getOrCreateTag().contains(SPIRIT_NAME_TAG))
+        if(!stack.has(OccultismDataComponents.SPIRIT_NAME))
             generateBoundSpiritName(stack);
-        return stack.getTag().getString(SPIRIT_NAME_TAG);
+        return stack.get(OccultismDataComponents.SPIRIT_NAME);
     }
 
     public static int getItemMode(ItemStack stack) {
@@ -99,15 +100,12 @@ public class ItemNBTUtil {
     }
 
     public static GlobalBlockPos getStorageControllerPosition(ItemStack stack) {
-        if (!stack.getOrCreateTag().contains(STORAGE_CONTROLLER_POSITION_TAG))
-            return null;
-
-        return GlobalBlockPos.from(stack.getTag().getCompound(STORAGE_CONTROLLER_POSITION_TAG));
+        return stack.get(OccultismDataComponents.LINKED_STORAGE_CONTROLLER);
     }
 
     public static void setStorageControllerPosition(ItemStack stack, GlobalBlockPos position) {
         if (position != null)
-            stack.addTagElement(STORAGE_CONTROLLER_POSITION_TAG, position.serializeNBT());
+            stack.set(OccultismDataComponents.LINKED_STORAGE_CONTROLLER, position);
     }
 
     public static MachineReference getManagedMachine(ItemStack stack) {
@@ -244,6 +242,4 @@ public class ItemNBTUtil {
     public static Optional<SpiritEntity> getSpiritEntity(ItemStack itemStack) {
         return EntityUtil.getEntityByUuiDGlobal(getSpiritEntityUUID(itemStack)).map(e -> (SpiritEntity) e);
     }
-    //endregion Static Methods
-
 }
