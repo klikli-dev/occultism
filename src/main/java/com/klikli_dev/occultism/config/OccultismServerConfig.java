@@ -22,13 +22,8 @@
 
 package com.klikli_dev.occultism.config;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
-import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
-import net.neoforged.neoforge.common.ModConfigSpec.DoubleValue;
+import net.neoforged.neoforge.common.ModConfigSpec.*;
 
 public class OccultismServerConfig {
 
@@ -68,10 +63,10 @@ public class OccultismServerConfig {
         public final ConfigValue<Double> tier2CrusherOutputMultiplier;
         public final ConfigValue<Double> tier3CrusherOutputMultiplier;
         public final ConfigValue<Double> tier4CrusherOutputMultiplier;
-        public final ConfigValue<Integer> drikwingFamiliarSlowFallingSeconds;
-        public final ConfigValue<Integer> crusherResultPickupDelay;
-        public final ConfigValue<Integer> blacksmithFamiliarUpgradeCost;
-        public final ConfigValue<Integer> blacksmithFamiliarUpgradeCooldown;
+        public final IntValue drikwingFamiliarSlowFallingSeconds;
+        public final IntValue crusherResultPickupDelay;
+        public final IntValue blacksmithFamiliarUpgradeCost;
+        public final IntValue blacksmithFamiliarUpgradeCooldown;
         public final ConfigValue<Double> blacksmithFamiliarRepairChance;
 
         public SpiritJobSettings(ModConfigSpec.Builder builder) {
@@ -79,7 +74,7 @@ public class OccultismServerConfig {
             this.drikwingFamiliarSlowFallingSeconds =
                     builder.comment(
                                     "The duration for the slow falling effect applied by a drikwing.")
-                            .define("drikwingFamiliarSlowFallingSeconds", 15);
+                            .defineInRange("drikwingFamiliarSlowFallingSeconds", 15, 0, Integer.MAX_VALUE);
 
             this.tier1CrusherTimeMultiplier =
                     builder.comment(
@@ -118,7 +113,7 @@ public class OccultismServerConfig {
             this.crusherResultPickupDelay =
                     builder.comment(
                                     "The minimum ticks before a crusher can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
-                            .define("crusherResultPickupDelay", 20 * 3);
+                            .defineInRange("crusherResultPickupDelay", 20 * 3, 0, Integer.MAX_VALUE);
 
             this.blacksmithFamiliarRepairChance =
                     builder.comment(
@@ -127,11 +122,11 @@ public class OccultismServerConfig {
             this.blacksmithFamiliarUpgradeCost =
                     builder.comment(
                                     "The amount of iron required for a blacksmith familiar to upgrade another familiar.")
-                            .define("blacksmithFamiliarUpgradeCost", 18);
+                            .defineInRange("blacksmithFamiliarUpgradeCost", 18, 0, Integer.MAX_VALUE);
             this.blacksmithFamiliarUpgradeCooldown =
                     builder.comment(
                                     "The cooldown for a blacksmith familiar to upgrade another familiar.")
-                            .define("blacksmithFamiliarUpgradeCooldown", 20 * 20);
+                            .defineInRange("blacksmithFamiliarUpgradeCooldown", 20 * 20, 0, Integer.MAX_VALUE);
 
 
             builder.pop();
@@ -163,9 +158,9 @@ public class OccultismServerConfig {
         }
 
         public static class MinerSpiritSettings {
-            public final ConfigValue<Integer> maxMiningTime;
-            public final ConfigValue<Integer> rollsPerOperation;
-            public final ConfigValue<Integer> durability;
+            public final IntValue maxMiningTime;
+            public final IntValue rollsPerOperation;
+            public final IntValue durability;
 
             public MinerSpiritSettings(String oreName, ModConfigSpec.Builder builder,
                                        int maxMiningTime, int rollsPerOperation, int durability) {
@@ -173,13 +168,13 @@ public class OccultismServerConfig {
 
                 this.maxMiningTime =
                         builder.comment("The amount of time it takes the spirit to perform one mining operation.")
-                                .define("maxMiningTime", maxMiningTime);
+                                .defineInRange("maxMiningTime", maxMiningTime, 0, Integer.MAX_VALUE);
                 this.rollsPerOperation =
                         builder.comment("The amount of blocks the spirit will obtain per mining operation")
-                                .define("rollsPerOperation", rollsPerOperation);
+                                .defineInRange("rollsPerOperation", rollsPerOperation, 0, Integer.MAX_VALUE);
                 this.durability =
                         builder.comment("The amount of mining operations the spirit can perform before breaking.")
-                                .define("durability", durability);
+                                .defineInRange("durability", durability, 0, Integer.MAX_VALUE);
 
                 builder.pop();
             }
@@ -230,53 +225,53 @@ public class OccultismServerConfig {
     }
 
     public static class StorageSettings {
-        public final ConfigValue<Integer> stabilizerTier1AdditionalMaxItemTypes;
-        public final ConfigValue<Long> stabilizerTier1AdditionalMaxTotalItemCount;
-        public final ConfigValue<Integer> stabilizerTier2AdditionalMaxItemTypes;
+        public final IntValue stabilizerTier1AdditionalMaxItemTypes;
+        public final LongValue stabilizerTier1AdditionalMaxTotalItemCount;
+        public final IntValue stabilizerTier2AdditionalMaxItemTypes;
 
-        public final ConfigValue<Long> stabilizerTier2AdditionalMaxTotalItemCount;
-        public final ConfigValue<Integer> stabilizerTier3AdditionalMaxItemTypes;
+        public final LongValue stabilizerTier2AdditionalMaxTotalItemCount;
+        public final IntValue stabilizerTier3AdditionalMaxItemTypes;
 
-        public final ConfigValue<Long> stabilizerTier3AdditionalMaxTotalItemCount;
-        public final ConfigValue<Integer> stabilizerTier4AdditionalMaxItemTypes;
+        public final LongValue stabilizerTier3AdditionalMaxTotalItemCount;
+        public final IntValue stabilizerTier4AdditionalMaxItemTypes;
 
-        public final ConfigValue<Long> stabilizerTier4AdditionalMaxTotalItemCount;
-        public final ConfigValue<Integer> controllerMaxItemTypes;
-        public final ConfigValue<Long> controllerMaxTotalItemCount;
+        public final LongValue stabilizerTier4AdditionalMaxTotalItemCount;
+        public final IntValue controllerMaxItemTypes;
+        public final LongValue controllerMaxTotalItemCount;
         public final BooleanValue unlinkWormholeOnBreak;
 
         public StorageSettings(ModConfigSpec.Builder builder) {
             builder.comment("Storage Settings").push("storage");
             this.stabilizerTier1AdditionalMaxItemTypes =
                     builder.comment("The amount of additional slots the storage stabilizer tier 1 provides. 1 Slot holds one item type.")
-                            .define("stabilizerTier1AdditionalMaxItemTypes", 64);
+                            .defineInRange("stabilizerTier1AdditionalMaxItemTypes", 64, 0, Integer.MAX_VALUE);
             this.stabilizerTier1AdditionalMaxTotalItemCount =
                     builder.comment("The amount by which the stabilizer increases the maximum total item count the controller can hold. This is not per slot but the total amount of all items combined.")
-                            .define("stabilizerTier1AdditionalMaxTotalItemCount", 512 * 1000L);
+                            .defineInRange("stabilizerTier1AdditionalMaxTotalItemCount", 512 * 1000L, 0, Integer.MAX_VALUE);
             this.stabilizerTier2AdditionalMaxItemTypes =
                     builder.comment("The amount of slots the storage stabilizer tier 2 provides.")
-                            .define("stabilizerTier2AdditionalMaxItemTypes", 128);
+                            .defineInRange("stabilizerTier2AdditionalMaxItemTypes", 128, 0, Integer.MAX_VALUE);
             this.stabilizerTier2AdditionalMaxTotalItemCount =
                     builder.comment("The amount by which the stabilizer increases the maximum total item count the controller can hold. This is not per slot but the total amount of all items combined.")
-                            .define("stabilizerTier2AdditionalMaxTotalItemCount", 1024 * 1000L);
+                            .defineInRange("stabilizerTier2AdditionalMaxTotalItemCount", 1024 * 1000L, 0, Integer.MAX_VALUE);
             this.stabilizerTier3AdditionalMaxItemTypes =
                     builder.comment("The amount of slots the storage stabilizer tier 3 provides.")
-                            .define("stabilizerTier3AdditionalMaxItemTypes", 256);
+                            .defineInRange("stabilizerTier3AdditionalMaxItemTypes", 256, 0, Integer.MAX_VALUE);
             this.stabilizerTier3AdditionalMaxTotalItemCount =
                     builder.comment("The amount by which the stabilizer increases the maximum total item count the controller can hold. This is not per slot but the total amount of all items combined.")
-                            .define("stabilizerTier3AdditionalMaxTotalItemCount", 2048 * 1000L);
+                            .defineInRange("stabilizerTier3AdditionalMaxTotalItemCount", 2048 * 1000L, 0, Integer.MAX_VALUE);
             this.stabilizerTier4AdditionalMaxItemTypes =
                     builder.comment("The amount of slots the storage stabilizer tier 4 provides.")
-                            .define("stabilizerTier4AdditionalMaxItemTypes", 512);
+                            .defineInRange("stabilizerTier4AdditionalMaxItemTypes", 512, 0, Integer.MAX_VALUE);
             this.stabilizerTier4AdditionalMaxTotalItemCount =
                     builder.comment("The amount by which the stabilizer increases the maximum total item count the controller can hold. This is not per slot but the total amount of all items combined.")
-                            .define("stabilizerTier4AdditionalMaxTotalItemCount", 4096 * 1000L);
+                            .defineInRange("stabilizerTier4AdditionalMaxTotalItemCount", 4096 * 1000L, 0, Long.MAX_VALUE);
             this.controllerMaxItemTypes =
                     builder.comment("The amount of slots the storage actuator provides.")
-                            .define("controllerMaxItemTypes", 128);
+                            .defineInRange("controllerMaxItemTypes", 128, 0, Integer.MAX_VALUE);
             this.controllerMaxTotalItemCount =
                     builder.comment("The stack size the storage actuator uses.")
-                            .define("controllerMaxTotalItemCount",  256 * 1000L);
+                            .defineInRange("controllerMaxTotalItemCount", 256 * 1000L, 0, Long.MAX_VALUE);
 
             this.unlinkWormholeOnBreak =
                     builder.comment(
