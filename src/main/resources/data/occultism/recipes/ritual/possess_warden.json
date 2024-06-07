@@ -7,7 +7,7 @@
   "pentacle_id": "occultism:possess_djinni",
   "duration": 60,
   "entity_to_sacrifice": {
-    "tag": "forge:axolotls",
+    "tag": "c:axolotls",
     "display_name": "ritual.occultism.sacrifice.axolotls"
   },
   "entity_to_summon": "occultism:possessed_warden",

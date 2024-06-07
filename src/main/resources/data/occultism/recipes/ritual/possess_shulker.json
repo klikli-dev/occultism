@@ -19,10 +19,10 @@
       "item": "minecraft:dragon_breath"
     },
     {
-      "tag": "forge:obsidian"
+      "tag": "c:obsidian"
     },
     {
-      "tag": "forge:end_stones"
+      "tag": "c:end_stones"
     },
     {
       "item": "minecraft:purple_glazed_terracotta"

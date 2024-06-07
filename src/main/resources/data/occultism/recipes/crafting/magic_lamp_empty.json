@@ -7,10 +7,10 @@
   ],
   "key": {
     "s": {
-      "tag": "forge:ingots/silver"
+      "tag": "c:ingots/silver"
     },
     "i": {
-      "tag": "forge:ingots/iesnium"
+      "tag": "c:ingots/iesnium"
     }
   },
   "result": {

@@ -7,7 +7,7 @@
   "pentacle_id": "occultism:possess_djinni",
   "duration": 60,
   "entity_to_sacrifice": {
-    "tag": "forge:horses",
+    "tag": "c:horses",
     "display_name": "ritual.occultism.sacrifice.horses"
   },
   "entity_to_summon": "occultism:dragon_familiar",
@@ -22,22 +22,22 @@
       "item": "minecraft:flint_and_steel"
     },
     {
-      "tag": "forge:storage_blocks/coal"
+      "tag": "c:storage_blocks/coal"
     },
     {
-      "tag": "forge:storage_blocks/quartz"
+      "tag": "c:storage_blocks/quartz"
     },
     {
-      "tag": "forge:storage_blocks/gold"
+      "tag": "c:storage_blocks/gold"
     },
     {
-      "tag": "forge:gunpowder"
+      "tag": "c:gunpowder"
     },
     {
-      "tag": "forge:obsidian"
+      "tag": "c:obsidian"
     },
     {
-      "tag": "forge:obsidian"
+      "tag": "c:obsidian"
     }
   ],
   "result": {

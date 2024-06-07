@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:raw_materials/steel"
+        "tag": "c:raw_materials/steel"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/steel"
+        "tag": "c:dusts/steel"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 200,
   "ignore_crushing_multiplier": false,
   "ingredient": {
-    "tag": "forge:raw_materials/steel"
+    "tag": "c:raw_materials/steel"
   },
   "result": {
     "count": 2,
-    "tag": "forge:dusts/steel"
+    "tag": "c:dusts/steel"
   }
 }

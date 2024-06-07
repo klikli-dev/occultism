@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/signalum"
+        "tag": "c:ores/signalum"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/signalum"
+        "tag": "c:dusts/signalum"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 200,
   "ignore_crushing_multiplier": false,
   "ingredient": {
-    "tag": "forge:ores/signalum"
+    "tag": "c:ores/signalum"
   },
   "result": {
     "count": 2,
-    "tag": "forge:dusts/signalum"
+    "tag": "c:dusts/signalum"
   }
 }

@@ -18,7 +18,7 @@ They support "tag" outputs instead of "item" too, and use AlmostUnified (if pres
 {
   "type": "occultism:crushing",
   "ingredient": {
-    "tag": "forge:ores/copper"
+    "tag": "c:ores/copper"
   },
   "min_tier": 3,
   "result": {

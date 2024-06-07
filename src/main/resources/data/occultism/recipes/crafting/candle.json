@@ -6,10 +6,10 @@
   ],
   "key": {
     "t": {
-      "tag": "forge:tallow"
+      "tag": "c:tallow"
     },
     "s": {
-      "tag": "forge:string"
+      "tag": "c:string"
     }
   },
   "result": {

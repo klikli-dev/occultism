@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "tag": "forge:raw_materials/iesnium"
+    "tag": "c:raw_materials/iesnium"
   },
   "result": {
     "id": "occultism:iesnium_ingot"

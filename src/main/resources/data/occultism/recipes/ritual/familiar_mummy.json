@@ -7,7 +7,7 @@
   "pentacle_id": "occultism:possess_djinni",
   "duration": 30,
   "entity_to_sacrifice": {
-    "tag": "forge:llamas",
+    "tag": "c:llamas",
     "display_name": "ritual.occultism.sacrifice.llamas"
   },
   "entity_to_summon": "occultism:mummy_familiar",
@@ -16,10 +16,10 @@
   },
   "ingredients": [
     {
-      "tag": "forge:slimeballs"
+      "tag": "c:slimeballs"
     },
     {
-      "tag": "forge:slimeballs"
+      "tag": "c:slimeballs"
     },
     {
       "item": "minecraft:paper"

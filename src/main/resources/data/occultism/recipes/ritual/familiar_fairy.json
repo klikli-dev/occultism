@@ -7,7 +7,7 @@
   "pentacle_id": "occultism:possess_djinni",
   "duration": 30,
   "entity_to_sacrifice": {
-    "tag": "forge:horses",
+    "tag": "c:horses",
     "display_name": "ritual.occultism.sacrifice.horses"
   },
   "entity_to_summon": "occultism:fairy_familiar",

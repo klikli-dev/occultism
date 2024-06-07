@@ -26,7 +26,7 @@
       "item": "minecraft:spruce_sapling"
     },
     {
-      "tag": "forge:tools/metal/axes"
+      "tag": "c:tools/metal/axes"
     }
   ],
   "result": {

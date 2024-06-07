@@ -23,7 +23,7 @@
       "item": "minecraft:wheat"
     },
     {
-      "tag": "forge:dyes/yellow"
+      "tag": "c:dyes/yellow"
     }
   ],
   "result": {

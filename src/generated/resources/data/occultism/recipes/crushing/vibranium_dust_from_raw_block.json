@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:storage_blocks/raw_vibranium"
+        "tag": "c:storage_blocks/raw_vibranium"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/vibranium"
+        "tag": "c:dusts/vibranium"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 1600,
   "ignore_crushing_multiplier": false,
   "ingredient": {
-    "tag": "forge:storage_blocks/raw_vibranium"
+    "tag": "c:storage_blocks/raw_vibranium"
   },
   "result": {
     "count": 18,
-    "tag": "forge:dusts/vibranium"
+    "tag": "c:dusts/vibranium"
   }
 }

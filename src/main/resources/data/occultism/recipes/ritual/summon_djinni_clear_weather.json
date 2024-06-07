@@ -14,16 +14,16 @@
   },
   "ingredients": [
     {
-      "tag": "forge:crops/beetroot"
+      "tag": "c:crops/beetroot"
     },
     {
-      "tag": "forge:crops/carrot"
+      "tag": "c:crops/carrot"
     },
     {
-      "tag": "forge:crops/potato"
+      "tag": "c:crops/potato"
     },
     {
-      "tag": "forge:crops/wheat"
+      "tag": "c:crops/wheat"
     }
   ],
   "result": {

@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/brass"
+        "tag": "c:ores/brass"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/brass"
+        "tag": "c:dusts/brass"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 200,
   "ignore_crushing_multiplier": false,
   "ingredient": {
-    "tag": "forge:ores/brass"
+    "tag": "c:ores/brass"
   },
   "result": {
     "count": 2,
-    "tag": "forge:dusts/brass"
+    "tag": "c:dusts/brass"
   }
 }

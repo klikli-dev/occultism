@@ -1,7 +1,7 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "tag": "forge:dusts/gold"
+    "tag": "c:dusts/gold"
   },
   "result": {
     "id": "minecraft:gold_ingot"

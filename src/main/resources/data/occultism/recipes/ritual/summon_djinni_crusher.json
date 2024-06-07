@@ -14,16 +14,16 @@
   },
   "ingredients": [
     {
-      "tag": "forge:dusts/iron"
+      "tag": "c:dusts/iron"
     },
     {
-      "tag": "forge:dusts/gold"
+      "tag": "c:dusts/gold"
     },
     {
-      "tag": "forge:dusts/copper"
+      "tag": "c:dusts/copper"
     },
     {
-      "tag": "forge:dusts/silver"
+      "tag": "c:dusts/silver"
     }
   ],
   "result": {

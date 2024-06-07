@@ -14,16 +14,16 @@
   },
   "ingredients": [
     {
-      "tag": "forge:storage_blocks/diamond"
+      "tag": "c:storage_blocks/diamond"
     },
     {
       "item": "minecraft:ghast_tear"
     },
     {
-      "tag": "forge:storage_blocks/iesnium"
+      "tag": "c:storage_blocks/iesnium"
     },
     {
-      "tag": "forge:storage_blocks/emerald"
+      "tag": "c:storage_blocks/emerald"
     }
   ],
   "result": {

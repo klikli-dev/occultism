@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/gold"
+        "tag": "c:ores/gold"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/gold"
+        "tag": "c:dusts/gold"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 200,
   "ignore_crushing_multiplier": false,
   "ingredient": {
-    "tag": "forge:ores/gold"
+    "tag": "c:ores/gold"
   },
   "result": {
     "count": 2,
-    "tag": "forge:dusts/gold"
+    "tag": "c:dusts/gold"
   }
 }

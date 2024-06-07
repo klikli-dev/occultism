@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:gems/certus_quartz"
+        "tag": "c:gems/certus_quartz"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/certus_quartz"
+        "tag": "c:dusts/certus_quartz"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 200,
   "ignore_crushing_multiplier": true,
   "ingredient": {
-    "tag": "forge:gems/certus_quartz"
+    "tag": "c:gems/certus_quartz"
   },
   "result": {
     "count": 1,
-    "tag": "forge:dusts/certus_quartz"
+    "tag": "c:dusts/certus_quartz"
   }
 }

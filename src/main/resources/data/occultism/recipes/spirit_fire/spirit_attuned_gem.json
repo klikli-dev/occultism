@@ -2,7 +2,7 @@
   "type": "occultism:spirit_fire",
   "ingredient": [
     {
-      "tag": "forge:gems/diamond"
+      "tag": "c:gems/diamond"
     }
   ],
   "result": {

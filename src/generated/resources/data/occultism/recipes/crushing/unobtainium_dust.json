@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/unobtainium"
+        "tag": "c:ores/unobtainium"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/unobtainium"
+        "tag": "c:dusts/unobtainium"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 200,
   "ignore_crushing_multiplier": false,
   "ingredient": {
-    "tag": "forge:ores/unobtainium"
+    "tag": "c:ores/unobtainium"
   },
   "result": {
     "count": 2,
-    "tag": "forge:dusts/unobtainium"
+    "tag": "c:dusts/unobtainium"
   }
 }

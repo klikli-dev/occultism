@@ -17,10 +17,10 @@
       "item": "occultism:iesnium_pickaxe"
     },
     {
-      "tag": "forge:raw_materials/gold"
+      "tag": "c:raw_materials/gold"
     },
     {
-      "tag": "forge:storage_blocks/lapis"
+      "tag": "c:storage_blocks/lapis"
     },
     {
       "item": "occultism:spirit_attuned_crystal"

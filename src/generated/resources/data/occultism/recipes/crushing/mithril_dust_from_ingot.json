@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/mithril"
+        "tag": "c:ingots/mithril"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/mithril"
+        "tag": "c:dusts/mithril"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 200,
   "ignore_crushing_multiplier": true,
   "ingredient": {
-    "tag": "forge:ingots/mithril"
+    "tag": "c:ingots/mithril"
   },
   "result": {
     "count": 1,
-    "tag": "forge:dusts/mithril"
+    "tag": "c:dusts/mithril"
   }
 }

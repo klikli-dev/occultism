@@ -4,7 +4,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/xpetrified_ore"
+        "tag": "c:ores/xpetrified_ore"
       }
     }
   ],
@@ -13,7 +13,7 @@
     "tag": "occultism:miners/ores"
   },
   "result": {
-    "tag": "forge:ores/xpetrified_ore"
+    "tag": "c:ores/xpetrified_ore"
   },
   "weight": 200
 }

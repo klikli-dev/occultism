@@ -1,7 +1,7 @@
 {
   "type": "occultism:crushing",
   "ingredient": {
-    "tag": "forge:end_stones"
+    "tag": "c:end_stones"
   },
   "result": {
     "item": "occultism:crushed_end_stone",

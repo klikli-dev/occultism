@@ -16,13 +16,13 @@
   },
   "ingredients": [
     {
-      "tag": "forge:ender_pearls"
+      "tag": "c:ender_pearls"
     },
     {
       "item": "minecraft:purple_concrete"
     },
     {
-      "tag": "forge:end_stones"
+      "tag": "c:end_stones"
     },
     {
       "item": "minecraft:magenta_concrete"

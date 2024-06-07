@@ -4,7 +4,7 @@
     "tag": "occultism:miners/ores"
   },
   "result": {
-    "tag": "forge:ores/tanzanite"
+    "tag": "c:ores/tanzanite"
   },
   "weight": 200,
   "neoforge:conditions": [
@@ -12,7 +12,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/tanzanite"
+        "tag": "c:ores/tanzanite"
       }
     }
   ]

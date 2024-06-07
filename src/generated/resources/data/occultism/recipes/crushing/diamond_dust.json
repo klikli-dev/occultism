@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/diamond"
+        "tag": "c:ores/diamond"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/diamond"
+        "tag": "c:dusts/diamond"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 200,
   "ignore_crushing_multiplier": false,
   "ingredient": {
-    "tag": "forge:ores/diamond"
+    "tag": "c:ores/diamond"
   },
   "result": {
     "count": 4,
-    "tag": "forge:dusts/diamond"
+    "tag": "c:dusts/diamond"
   }
 }

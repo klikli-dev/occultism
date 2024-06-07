@@ -1,6 +1,6 @@
 {
   "values": [
-    "#forge:raw_materials/iesnium",
-    "#forge:raw_materials/silver"
+    "#c:raw_materials/iesnium",
+    "#c:raw_materials/silver"
   ]
 }

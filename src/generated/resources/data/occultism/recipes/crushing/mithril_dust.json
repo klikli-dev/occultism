@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/mithril"
+        "tag": "c:ores/mithril"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/mithril"
+        "tag": "c:dusts/mithril"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 200,
   "ignore_crushing_multiplier": false,
   "ingredient": {
-    "tag": "forge:ores/mithril"
+    "tag": "c:ores/mithril"
   },
   "result": {
     "count": 2,
-    "tag": "forge:dusts/mithril"
+    "tag": "c:dusts/mithril"
   }
 }

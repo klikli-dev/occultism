@@ -4,7 +4,7 @@
     "tag": "occultism:miners/ores"
   },
   "result": {
-    "tag": "forge:ores/agate"
+    "tag": "c:ores/agate"
   },
   "weight": 200,
   "neoforge:conditions": [
@@ -12,7 +12,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/agate"
+        "tag": "c:ores/agate"
       }
     }
   ]

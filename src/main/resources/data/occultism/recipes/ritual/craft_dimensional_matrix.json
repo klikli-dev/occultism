@@ -11,16 +11,16 @@
   },
   "ingredients": [
     {
-      "tag": "forge:storage_blocks/quartz"
+      "tag": "c:storage_blocks/quartz"
     },
     {
-      "tag": "forge:storage_blocks/quartz"
+      "tag": "c:storage_blocks/quartz"
     },
     {
-      "tag": "forge:storage_blocks/quartz"
+      "tag": "c:storage_blocks/quartz"
     },
     {
-      "tag": "forge:ender_pearls"
+      "tag": "c:ender_pearls"
     }
   ],
   "result": {

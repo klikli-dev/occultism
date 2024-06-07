@@ -7,7 +7,7 @@
   ],
   "key": {
     "w": {
-      "tag": "forge:dyes/white"
+      "tag": "c:dyes/white"
     },
     "b": {
       "item": "occultism:book_of_binding_empty"

@@ -1,7 +1,7 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "tag": "forge:dusts/iesnium"
+    "tag": "c:dusts/iesnium"
   },
   "result": {
     "id": "occultism:iesnium_ingot"

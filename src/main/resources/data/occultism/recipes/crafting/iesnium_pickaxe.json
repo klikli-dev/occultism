@@ -7,10 +7,10 @@
   ],
   "key": {
     "i": {
-      "tag": "forge:ingots/iesnium"
+      "tag": "c:ingots/iesnium"
     },
     "s": {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     }
   },
   "result": {

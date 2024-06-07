@@ -4,7 +4,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/arcane_crystal"
+        "tag": "c:ores/arcane_crystal"
       }
     }
   ],
@@ -13,7 +13,7 @@
     "tag": "occultism:miners/ores"
   },
   "result": {
-    "tag": "forge:ores/arcane_crystal"
+    "tag": "c:ores/arcane_crystal"
   },
   "weight": 200
 }

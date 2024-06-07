@@ -7,7 +7,7 @@
   "pentacle_id": "occultism:possess_foliot",
   "duration": 30,
   "entity_to_sacrifice": {
-    "tag": "forge:zombies",
+    "tag": "c:zombies",
     "display_name": "ritual.occultism.sacrifice.zombies"
   },
   "entity_to_summon": "occultism:greedy_familiar",
@@ -16,10 +16,10 @@
   },
   "ingredients": [
     {
-      "tag": "forge:chests"
+      "tag": "c:chests"
     },
     {
-      "tag": "forge:storage_blocks/iron"
+      "tag": "c:storage_blocks/iron"
     },
     {
       "item": "minecraft:dispenser"

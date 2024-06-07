@@ -14,16 +14,16 @@
   },
   "ingredients": [
     {
-      "tag": "forge:gems/diamond"
+      "tag": "c:gems/diamond"
     },
     {
-      "tag": "forge:dusts/iesnium"
+      "tag": "c:dusts/iesnium"
     },
     {
-      "tag": "forge:dusts/iesnium"
+      "tag": "c:dusts/iesnium"
     },
     {
-      "tag": "forge:gems/emerald"
+      "tag": "c:gems/emerald"
     }
   ],
   "result": {

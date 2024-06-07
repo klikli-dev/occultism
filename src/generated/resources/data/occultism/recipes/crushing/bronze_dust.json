@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/bronze"
+        "tag": "c:ores/bronze"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/bronze"
+        "tag": "c:dusts/bronze"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 200,
   "ignore_crushing_multiplier": false,
   "ingredient": {
-    "tag": "forge:ores/bronze"
+    "tag": "c:ores/bronze"
   },
   "result": {
     "count": 2,
-    "tag": "forge:dusts/bronze"
+    "tag": "c:dusts/bronze"
   }
 }

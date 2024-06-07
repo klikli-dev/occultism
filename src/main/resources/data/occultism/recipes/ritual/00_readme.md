@@ -47,7 +47,7 @@ and thus shelved until further notice.
     "item": "minecraft:egg"
   },
   "entity_to_sacrifice": {
-    "tag": "forge:cows",
+    "tag": "c:cows",
     "display_name": "ritual.occultism.sacrifice.cows"
   },
   "entity_to_summon": "minecraft:sheep",
@@ -59,7 +59,7 @@ and thus shelved until further notice.
   },
   "ingredients": [
     {
-      "tag": "forge:ores/iron"
+      "tag": "c:ores/iron"
     },
     {
       "item": "minecraft:egg"

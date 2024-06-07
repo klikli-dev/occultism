@@ -17,7 +17,7 @@
       "item": "minecraft:minecart"
     },
     {
-      "tag": "forge:chests"
+      "tag": "c:chests"
     },
     {
       "item": "minecraft:dispenser"

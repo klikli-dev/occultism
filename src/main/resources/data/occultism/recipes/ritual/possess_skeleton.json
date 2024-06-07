@@ -7,7 +7,7 @@
   "pentacle_id": "occultism:possess_foliot",
   "duration": 30,
   "entity_to_sacrifice": {
-    "tag": "forge:chicken",
+    "tag": "c:chicken",
     "display_name": "ritual.occultism.sacrifice.chicken"
   },
   "entity_to_summon": "occultism:possessed_skeleton",
@@ -16,16 +16,16 @@
   },
   "ingredients": [
     {
-      "tag": "forge:bones"
+      "tag": "c:bones"
     },
     {
-      "tag": "forge:bones"
+      "tag": "c:bones"
     },
     {
-      "tag": "forge:bones"
+      "tag": "c:bones"
     },
     {
-      "tag": "forge:bones"
+      "tag": "c:bones"
     }
   ],
   "result": {

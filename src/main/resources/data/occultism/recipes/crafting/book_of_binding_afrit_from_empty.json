@@ -7,7 +7,7 @@
   ],
   "key": {
     "p": {
-      "tag": "forge:dyes/purple"
+      "tag": "c:dyes/purple"
     },
     "b": {
       "item": "occultism:book_of_binding_empty"

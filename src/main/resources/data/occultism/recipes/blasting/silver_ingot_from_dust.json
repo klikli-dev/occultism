@@ -1,7 +1,7 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "tag": "forge:dusts/silver"
+    "tag": "c:dusts/silver"
   },
   "result": {
     "id": "occultism:silver_ingot"

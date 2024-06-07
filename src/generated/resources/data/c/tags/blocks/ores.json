@@ -1,6 +1,6 @@
 {
   "values": [
-    "#forge:ores/iesnium",
-    "#forge:ores/silver"
+    "#c:ores/iesnium",
+    "#c:ores/silver"
   ]
 }

@@ -11,19 +11,19 @@
   },
   "ingredients": [
     {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     },
     {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     },
     {
       "item": "occultism:spirit_attuned_pickaxe_head"
     },
     {
-      "tag": "forge:ingots/silver"
+      "tag": "c:ingots/silver"
     },
     {
-      "tag": "forge:ingots/silver"
+      "tag": "c:ingots/silver"
     }
   ],
   "result": {

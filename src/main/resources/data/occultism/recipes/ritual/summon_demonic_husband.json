@@ -7,7 +7,7 @@
   "pentacle_id": "occultism:summon_djinni",
   "duration": 60,
   "entity_to_sacrifice": {
-    "tag": "forge:chicken",
+    "tag": "c:chicken",
     "display_name": "ritual.occultism.sacrifice.chicken"
   },
   "entity_to_summon": "occultism:demonic_husband",
@@ -16,10 +16,10 @@
   },
   "ingredients": [
     {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     },
     {
-      "tag": "forge:gems/emerald"
+      "tag": "c:gems/emerald"
     },
     {
       "item": "minecraft:gunpowder"

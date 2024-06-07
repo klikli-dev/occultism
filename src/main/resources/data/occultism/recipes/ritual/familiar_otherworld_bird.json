@@ -7,7 +7,7 @@
   "pentacle_id": "occultism:possess_djinni",
   "duration": 30,
   "entity_to_sacrifice": {
-    "tag": "forge:parrots",
+    "tag": "c:parrots",
     "display_name": "ritual.occultism.sacrifice.parrots"
   },
   "entity_to_summon": "occultism:otherworld_bird",
@@ -16,10 +16,10 @@
   },
   "ingredients": [
     {
-      "tag": "forge:feathers"
+      "tag": "c:feathers"
     },
     {
-      "tag": "forge:feathers"
+      "tag": "c:feathers"
     },
     {
       "item": "minecraft:cobweb"
@@ -28,7 +28,7 @@
       "tag": "minecraft:leaves"
     },
     {
-      "tag": "forge:string"
+      "tag": "c:string"
     }
   ],
   "result": {

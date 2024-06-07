@@ -14,13 +14,13 @@
   },
   "ingredients": [
     {
-      "tag": "forge:storage_blocks/coal"
+      "tag": "c:storage_blocks/coal"
     },
     {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     },
     {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     {
       "item": "minecraft:furnace"

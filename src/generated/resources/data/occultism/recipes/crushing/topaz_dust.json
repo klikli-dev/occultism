@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/topaz"
+        "tag": "c:ores/topaz"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/topaz"
+        "tag": "c:dusts/topaz"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 200,
   "ignore_crushing_multiplier": false,
   "ingredient": {
-    "tag": "forge:ores/topaz"
+    "tag": "c:ores/topaz"
   },
   "result": {
     "count": 4,
-    "tag": "forge:dusts/topaz"
+    "tag": "c:dusts/topaz"
   }
 }

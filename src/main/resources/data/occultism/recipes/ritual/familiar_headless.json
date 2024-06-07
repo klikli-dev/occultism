@@ -7,7 +7,7 @@
   "pentacle_id": "occultism:possess_djinni",
   "duration": 60,
   "entity_to_sacrifice": {
-    "tag": "forge:golems/snow",
+    "tag": "c:golems/snow",
     "display_name": "ritual.occultism.sacrifice.snow_golem"
   },
   "entity_to_summon": "occultism:headless_familiar",
@@ -16,19 +16,19 @@
   },
   "ingredients": [
     {
-      "tag": "forge:crops/wheat"
+      "tag": "c:crops/wheat"
     },
     {
-      "tag": "forge:crops/wheat"
+      "tag": "c:crops/wheat"
     },
     {
       "item": "minecraft:hay_block"
     },
     {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     },
     {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     },
     {
       "item": "minecraft:carved_pumpkin"

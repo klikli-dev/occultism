@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "tag": "forge:dusts/copper"
+    "tag": "c:dusts/copper"
   },
   "result": {
     "id": "minecraft:copper_ingot"

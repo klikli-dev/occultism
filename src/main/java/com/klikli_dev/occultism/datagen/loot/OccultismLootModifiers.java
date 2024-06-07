@@ -38,7 +38,7 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
                                         EntityPredicate.Builder.entity()
                                                 .equipment(this.mainHand(ItemPredicate.Builder.item().of(OccultismTags.makeItemTag(new ResourceLocation(Occultism.MODID, "tools/knives")))))).build(),
                         LootItemEntityPropertyCondition
-                                .hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(OccultismTags.makeEntityTypeTag(new ResourceLocation("forge", entityType)))).build()
+                                .hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(OccultismTags.makeEntityTypeTag(new ResourceLocation("c", entityType)))).build()
                 }, OccultismItems.TALLOW.get(), count);
     }
 

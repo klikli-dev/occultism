@@ -23,10 +23,10 @@
       "item": "occultism:otherstone"
     },
     {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     },
     {
-      "tag": "forge:storage_blocks/iesnium"
+      "tag": "c:storage_blocks/iesnium"
     },
     {
       "item": "occultism:spirit_attuned_crystal"
