@@ -197,4 +197,11 @@ public class OccultismDataComponents {
             .networkSynchronized(CustomData.STREAM_CODEC)
             .cacheEncoding()
     );
+
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> IS_INVENTORY_ITEM = DATA_COMPONENTS.registerComponentType("is_inventory_item", builder -> builder
+            .persistent(Codec.BOOL)
+            .networkSynchronized(ByteBufCodecs.BOOL)
+            .cacheEncoding()
+    );
 }

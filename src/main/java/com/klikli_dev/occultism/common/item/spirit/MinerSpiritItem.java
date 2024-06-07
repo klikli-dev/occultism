@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.item.spirit;
 
 import com.klikli_dev.occultism.common.blockentity.DimensionalMineshaftBlockEntity;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.nbt.CompoundTag;
@@ -54,16 +55,15 @@ public class MinerSpiritItem extends Item {
     @Override
     public void onCraftedBy(ItemStack stack, Level worldIn, Player playerIn) {
         super.onCraftedBy(stack, worldIn, playerIn);
-        stack.getOrCreateTag().putInt(DimensionalMineshaftBlockEntity.MAX_MINING_TIME_TAG, this.maxMiningTime.get());
-        stack.getOrCreateTag().putInt(DimensionalMineshaftBlockEntity.ROLLS_PER_OPERATION_TAG, this.rollsPerOperation.get());
+        stack.set(OccultismDataComponents.MAX_MINING_TIME, this.maxMiningTime.get());
+        stack.set(OccultismDataComponents.ROLLS_PER_OPERATION, this.rollsPerOperation.get());
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
-                                TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip",
-                TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+        pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip",
+                TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack))));
     }
 
     @Override
@@ -74,12 +74,10 @@ public class MinerSpiritItem extends Item {
     @Override
     public int getMaxStackSize(ItemStack stack) {
         //cannot use verifyTagAfterLoad as config is not available at that time
-        var pTag = stack.getOrCreateTag();
-        if(!pTag.contains(DimensionalMineshaftBlockEntity.MAX_MINING_TIME_TAG))
-            pTag.putInt(DimensionalMineshaftBlockEntity.MAX_MINING_TIME_TAG, this.maxMiningTime.get());
-
-        if(!pTag.contains(DimensionalMineshaftBlockEntity.ROLLS_PER_OPERATION_TAG))
-            pTag.putInt(DimensionalMineshaftBlockEntity.ROLLS_PER_OPERATION_TAG, this.rollsPerOperation.get());
+        if(!stack.has(OccultismDataComponents.MAX_MINING_TIME))
+            stack.set(OccultismDataComponents.MAX_MINING_TIME, this.maxMiningTime.get());
+        if(!stack.has(OccultismDataComponents.ROLLS_PER_OPERATION))
+            stack.set(OccultismDataComponents.ROLLS_PER_OPERATION, this.rollsPerOperation.get());
         return super.getMaxStackSize(stack);
     }
 }

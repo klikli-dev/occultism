@@ -42,13 +42,12 @@ public class BookOfBindingBoundItem extends Item {
 
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
-                                TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip",
-                TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
-    }
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
 
+        pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip",
+                TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack))));
+    }
 
     @Override
     public void onCraftedBy(ItemStack pStack, Level pLevel, Player pPlayer) {

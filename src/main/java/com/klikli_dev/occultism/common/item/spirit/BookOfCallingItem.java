@@ -34,12 +34,14 @@ import com.klikli_dev.occultism.common.entity.job.ManageMachineJob;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.common.item.spirit.calling.ItemMode;
 import com.klikli_dev.occultism.common.item.spirit.calling.ItemModes;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.util.BlockEntityUtil;
 import com.klikli_dev.occultism.util.EntityUtil;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -140,11 +142,6 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
                     spawnPos = spawnPos.relative(facing);
                 }
 
-                Component customName = null;
-                if (entityData.contains("CustomName")) {
-                    customName = Component.Serializer.fromJson(entityData.getString("CustomName"));
-                }
-
                 //remove position from tag to allow the entity to spawn where it should be
                 entityData.remove("Pos");
 
@@ -169,7 +166,8 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
 
                 world.addFreshEntity(entity);
 
-                itemStack.getTag().remove(ItemNBTUtil.SPIRIT_DATA_TAG); //delete entity from item
+                itemStack.remove(OccultismDataComponents.SPIRIT_ENTITY_DATA);
+                itemStack.set(DataComponents.RARITY, Rarity.COMMON);
                 player.inventoryMenu.broadcastChanges();
             }
         } else {
@@ -205,6 +203,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
             if (player.isShiftKeyDown()) {
                 if (this.targetSpirit.test(targetSpirit)) {
                     ItemNBTUtil.setSpiritEntityUUID(stack, targetSpirit.getUUID());
+                    stack.set(DataComponents.RARITY, Rarity.RARE);
                     ItemNBTUtil.setBoundSpiritName(stack, targetSpirit.getName().getString());
                     player.displayClientMessage(
                             Component.translatable(
@@ -281,7 +280,7 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
         }
 
         //serialize entity
-        ItemNBTUtil.setSpiritEntityData(stack, targetSpirit.serializeNBT());
+        ItemNBTUtil.setSpiritEntityData(stack, targetSpirit.serializeNBT(player.registryAccess()));
         ItemNBTUtil.setSpiritEntityUUID(stack, targetSpirit.getUUID());
         ItemNBTUtil.setBoundSpiritName(stack, targetSpirit.getName().getString());
         //show player swing anim
@@ -300,8 +299,8 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
                 Long deathTime = spiritDeathRegister.get(spiritID);
                 if (deathTime != null && deathTime < worldIn.getGameTime()) {
                     spiritDeathRegister.remove(spiritID);
-                    stack.getTag().putBoolean(ItemNBTUtil.SPIRIT_DEAD_TAG, true);
-                    stack.getTag().remove(ItemNBTUtil.SPIRIT_UUID_TAG);
+                    stack.set(OccultismDataComponents.SPIRIT_DEAD, true);
+                    stack.remove(OccultismDataComponents.SPIRIT_ENTITY_UUID);
                 }
             }
         }
@@ -310,12 +309,12 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
-                                TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(Component.translatable(this.getTranslationKeyBase() +
-                        (ItemNBTUtil.getSpiritDead(stack) ? ".tooltip_dead" : ".tooltip"),
-                TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+
+        pTooltipComponents.add(Component.translatable(this.getTranslationKeyBase() +
+                        (ItemNBTUtil.getSpiritDead(pStack) ? ".tooltip_dead" : ".tooltip"),
+                TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack))));
     }
 
     @Override
@@ -324,8 +323,13 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
     }
 
     @Override
-    public Rarity getRarity(ItemStack stack) {
-        return ItemNBTUtil.getSpiritEntityUUID(stack) != null ? Rarity.RARE : Rarity.COMMON;
+    public void verifyComponentsAfterLoad(ItemStack pStack) {
+        super.verifyComponentsAfterLoad(pStack);
+
+        if(pStack.has(OccultismDataComponents.SPIRIT_ENTITY_UUID))
+            pStack.set(DataComponents.RARITY, Rarity.RARE);
+        else
+            pStack.set(DataComponents.RARITY, Rarity.COMMON);
     }
 
     public ItemMode getCurrentItemMode(ItemStack stack) {
