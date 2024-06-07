@@ -274,7 +274,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         if (this.cachedMessageUpdateStacks == null) {
             List<ItemStack> stacks = this.getStacks();
             this.cachedMessageUpdateStacks = new MessageUpdateStacks(stacks, this.maxItemTypes, this.usedItemTypes,
-                    this.maxTotalItemCount, this.usedTotalItemCount);
+                    this.maxTotalItemCount, this.usedTotalItemCount, this.level.registryAccess());
         }
         return this.cachedMessageUpdateStacks;
     }

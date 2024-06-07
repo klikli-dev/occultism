@@ -25,7 +25,9 @@ package com.klikli_dev.occultism.network.messages;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.network.IMessage;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -38,10 +40,12 @@ import net.neoforged.api.distmarker.OnlyIn;
 public class MessageUpdateMouseHeldItem implements IMessage {
 
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "update_mouse_held_item");
+    public static final Type<MessageUpdateMouseHeldItem> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageUpdateMouseHeldItem> STREAM_CODEC = CustomPacketPayload.codec(MessageUpdateMouseHeldItem::encode, MessageUpdateMouseHeldItem::new);
 
     private ItemStack stack;
 
-    public MessageUpdateMouseHeldItem(FriendlyByteBuf buf) {
+    public MessageUpdateMouseHeldItem(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -50,23 +54,22 @@ public class MessageUpdateMouseHeldItem implements IMessage {
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
     public void onClientReceived(Minecraft minecraft, Player player) {
         player.containerMenu.setCarried(this.stack);
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
-        buf.writeItem(this.stack);
+    public void encode(RegistryFriendlyByteBuf buf) {
+        ItemStack.OPTIONAL_STREAM_CODEC.encode(buf, this.stack);
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
-        this.stack = buf.readItem();
+    public void decode(RegistryFriendlyByteBuf buf) {
+        this.stack = ItemStack.OPTIONAL_STREAM_CODEC.decode(buf);
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

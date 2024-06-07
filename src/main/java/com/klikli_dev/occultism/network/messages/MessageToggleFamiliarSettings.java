@@ -25,11 +25,12 @@ package com.klikli_dev.occultism.network.messages;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.capability.FamiliarSettingsData;
 import com.klikli_dev.occultism.network.IMessage;
-import com.klikli_dev.occultism.registry.OccultismCapabilities;
 import com.klikli_dev.occultism.registry.OccultismDataStorage;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -42,10 +43,12 @@ import java.util.Map.Entry;
 public class MessageToggleFamiliarSettings implements IMessage {
 
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "toggle_familiar_settings");
+    public static final Type<MessageToggleFamiliarSettings> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageToggleFamiliarSettings> STREAM_CODEC = CustomPacketPayload.codec(MessageToggleFamiliarSettings::encode, MessageToggleFamiliarSettings::new);
 
     public Map<EntityType<?>, Boolean> familiarsPressed;
 
-    public MessageToggleFamiliarSettings(FriendlyByteBuf buf) {
+    public MessageToggleFamiliarSettings(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -69,20 +72,20 @@ public class MessageToggleFamiliarSettings implements IMessage {
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(RegistryFriendlyByteBuf buf) {
         for (EntityType<?> familiar : FamiliarSettingsData.getFamiliars())
             buf.writeBoolean(this.familiarsPressed.get(familiar));
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
+    public void decode(RegistryFriendlyByteBuf buf) {
         this.familiarsPressed = new HashMap<>();
         for (EntityType<?> familiar : FamiliarSettingsData.getFamiliars())
             this.familiarsPressed.put(familiar, buf.readBoolean());
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

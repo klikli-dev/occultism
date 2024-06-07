@@ -28,7 +28,9 @@ import com.klikli_dev.occultism.common.entity.job.ManageMachineJob;
 import com.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -37,10 +39,12 @@ import net.minecraft.world.item.ItemStack;
 
 public class MessageSetManagedMachine implements IMessage {
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "set_managed_machine");
+    public static final Type<MessageSetManagedMachine> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetManagedMachine> STREAM_CODEC = CustomPacketPayload.codec(MessageSetManagedMachine::encode, MessageSetManagedMachine::new);
 
     public MachineReference managedMachine;
 
-    public MessageSetManagedMachine(FriendlyByteBuf buf) {
+    public MessageSetManagedMachine(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -70,17 +74,17 @@ public class MessageSetManagedMachine implements IMessage {
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
-        this.managedMachine.encode(buf);
+    public void encode(RegistryFriendlyByteBuf buf) {
+        MachineReference.STREAM_CODEC.encode(buf, this.managedMachine);
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
-        this.managedMachine = MachineReference.from(buf);
+    public void decode(RegistryFriendlyByteBuf buf) {
+        this.managedMachine = MachineReference.STREAM_CODEC.decode(buf);
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

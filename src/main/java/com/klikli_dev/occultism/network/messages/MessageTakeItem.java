@@ -29,7 +29,9 @@ import com.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.util.InputUtil;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -43,13 +45,15 @@ import net.neoforged.neoforge.items.ItemHandlerHelper;
 public class MessageTakeItem implements IMessage {
 
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "take_item");
+    public static final Type<MessageTakeItem> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageTakeItem> STREAM_CODEC = CustomPacketPayload.codec(MessageTakeItem::encode, MessageTakeItem::new);
 
     private ItemStack stack = ItemStack.EMPTY;
     private int mouseButton;
     private boolean isShiftDown;
     private boolean isCtrlDown;
 
-    public MessageTakeItem(FriendlyByteBuf buf) {
+    public MessageTakeItem(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -114,10 +118,9 @@ public class MessageTakeItem implements IMessage {
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
-        ItemStack toWrite = this.stack.copy();
-        toWrite.setCount(1);
-        buf.writeItem(toWrite);
+    public void encode(RegistryFriendlyByteBuf buf) {
+        ItemStack toWrite = this.stack.copyWithCount(1);
+        ItemStack.OPTIONAL_STREAM_CODEC.encode(buf, toWrite);
         buf.writeInt(this.stack.getCount());
         buf.writeByte(this.mouseButton);
 
@@ -126,8 +129,8 @@ public class MessageTakeItem implements IMessage {
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
-        this.stack = buf.readItem();
+    public void decode(RegistryFriendlyByteBuf buf) {
+        this.stack = ItemStack.OPTIONAL_STREAM_CODEC.decode(buf);
         this.stack.setCount(buf.readInt());
         this.mouseButton = buf.readByte();
         this.isShiftDown = buf.readBoolean();
@@ -135,7 +138,7 @@ public class MessageTakeItem implements IMessage {
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

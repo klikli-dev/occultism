@@ -31,7 +31,10 @@ import com.klikli_dev.occultism.common.container.storage.StableWormholeContainer
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
 import com.klikli_dev.occultism.network.IMessage;
-import net.minecraft.network.FriendlyByteBuf;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -43,11 +46,13 @@ import net.minecraft.world.item.ItemStack;
 public class MessageUpdateStorageSettings implements IMessage {
 
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "update_storage_settings");
+    public static final Type<MessageUpdateStorageSettings> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageUpdateStorageSettings> STREAM_CODEC = CustomPacketPayload.codec(MessageUpdateStorageSettings::encode, MessageUpdateStorageSettings::new);
     private SortDirection sortDirection;
     private SortType sortType;
 
 
-    public MessageUpdateStorageSettings(FriendlyByteBuf buf) {
+    public MessageUpdateStorageSettings(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -65,8 +70,8 @@ public class MessageUpdateStorageSettings implements IMessage {
             if (storageContainer instanceof StorageRemoteContainer storageRemoteContainer) {
                 ItemStack remote = storageRemoteContainer.getStorageRemote();
                 if (remote != ItemStack.EMPTY) {
-                    remote.getOrCreateTag().putInt("sortDirection", this.sortDirection.getValue());
-                    remote.getOrCreateTag().putInt("sortType", this.sortType.getValue());
+                    remote.set(OccultismDataComponents.SORT_DIRECTION, this.sortDirection);
+                    remote.set(OccultismDataComponents.SORT_TYPE, this.sortType);
                     player.containerMenu.broadcastChanges();
                 }
             }
@@ -88,19 +93,19 @@ public class MessageUpdateStorageSettings implements IMessage {
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(RegistryFriendlyByteBuf buf) {
         buf.writeEnum(this.sortDirection);
         buf.writeEnum(this.sortType);
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
+    public void decode(RegistryFriendlyByteBuf buf) {
         this.sortDirection = buf.readEnum(SortDirection.class);
         this.sortType = buf.readEnum(SortType.class);
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

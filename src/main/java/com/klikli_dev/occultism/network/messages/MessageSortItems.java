@@ -28,8 +28,11 @@ import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer
 import com.klikli_dev.occultism.api.common.data.SortDirection;
 import com.klikli_dev.occultism.api.common.data.SortType;
 import com.klikli_dev.occultism.network.IMessage;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -38,11 +41,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class MessageSortItems implements IMessage {
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "sort_items");
+    public static final Type<MessageSortItems> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageSortItems> STREAM_CODEC = CustomPacketPayload.codec(MessageSortItems::encode, MessageSortItems::new);
     private BlockPos entityPosition;
     private SortDirection sortDirection;
     private SortType sortType;
 
-    public MessageSortItems(FriendlyByteBuf buf) {
+    public MessageSortItems(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -70,28 +75,28 @@ public class MessageSortItems implements IMessage {
             } else {
                 //for item remotes, we just set the nbt.
                 ItemStack stack = player.getInventory().getSelected();
-                stack.getOrCreateTag().putInt("sortDirection", this.sortDirection.getValue());
-                stack.getTag().putInt("sortType", this.sortType.getValue());
+                stack.set(OccultismDataComponents.SORT_DIRECTION, this.sortDirection);
+                stack.set(OccultismDataComponents.SORT_TYPE, this.sortType);
             }
         }
     }
 
     @Override
-    public void encode(FriendlyByteBuf byteBuf) {
+    public void encode(RegistryFriendlyByteBuf byteBuf) {
         byteBuf.writeBlockPos(this.entityPosition);
-        byteBuf.writeByte(this.sortDirection.getValue());
-        byteBuf.writeByte(this.sortType.getValue());
+        SortDirection.STREAM_CODEC.encode(byteBuf, this.sortDirection);
+        SortType.STREAM_CODEC.encode(byteBuf, this.sortType);
     }
 
     @Override
-    public void decode(FriendlyByteBuf byteBuf) {
+    public void decode(RegistryFriendlyByteBuf byteBuf) {
         this.entityPosition = byteBuf.readBlockPos();
-        this.sortDirection = SortDirection.get(byteBuf.readByte());
-        this.sortType = SortType.get(byteBuf.readByte());
+        this.sortDirection = SortDirection.STREAM_CODEC.decode(byteBuf);
+        this.sortType = SortType.STREAM_CODEC.decode(byteBuf);
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

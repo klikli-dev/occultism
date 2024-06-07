@@ -28,12 +28,13 @@ import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer
 import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.util.InputUtil;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 /**
  * Inserts the mouse held item into the opened storage controller.
@@ -41,10 +42,11 @@ import net.neoforged.neoforge.items.ItemHandlerHelper;
 public class MessageInsertMouseHeldItem implements IMessage {
 
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "insert_mouse_held_item");
-
+    public static final Type<MessageInsertMouseHeldItem> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageInsertMouseHeldItem> STREAM_CODEC = CustomPacketPayload.codec(MessageInsertMouseHeldItem::encode, MessageInsertMouseHeldItem::new);
     private int mouseButton;
 
-    public MessageInsertMouseHeldItem(FriendlyByteBuf buf) {
+    public MessageInsertMouseHeldItem(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -66,7 +68,7 @@ public class MessageInsertMouseHeldItem implements IMessage {
                 int remainder = storageController.insertStack(carriedByMouse, false);
                 //if not everything could be inserted, leave the rest in hand
                 if (remainder != 0)
-                    result = ItemHandlerHelper.copyStackWithSize(carriedByMouse, remainder);
+                    result = carriedByMouse.copyWithCount(remainder);
             } else if (this.mouseButton == InputUtil.MOUSE_BUTTON_RIGHT) {
                 //right mouse button means insert one
 
@@ -77,7 +79,7 @@ public class MessageInsertMouseHeldItem implements IMessage {
                 //handle correct result depending on if the stack was inserted or not
                 int remainder = storageController.insertStack(toInsert, false) + carriedByMouse.getCount();
                 if (remainder != 0)
-                    result = ItemHandlerHelper.copyStackWithSize(carriedByMouse, remainder);
+                    result = carriedByMouse.copyWithCount(remainder);
             }
 
             //store result mouse held item
@@ -92,17 +94,17 @@ public class MessageInsertMouseHeldItem implements IMessage {
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(RegistryFriendlyByteBuf buf) {
         buf.writeInt(this.mouseButton);
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
+    public void decode(RegistryFriendlyByteBuf buf) {
         this.mouseButton = buf.readInt();
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

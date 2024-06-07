@@ -26,7 +26,9 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.network.IMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 
@@ -35,11 +37,14 @@ import java.awt.*;
 public class MessageSelectBlock implements IMessage {
 
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "select_block");
+    public static final Type<MessageSelectBlock> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageSelectBlock> STREAM_CODEC = CustomPacketPayload.codec(MessageSelectBlock::encode, MessageSelectBlock::new);
+
     public BlockPos blockPos;
     public int durationMilliseconds;
     public int color;
 
-    public MessageSelectBlock(FriendlyByteBuf buf) {
+    public MessageSelectBlock(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -56,21 +61,21 @@ public class MessageSelectBlock implements IMessage {
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(RegistryFriendlyByteBuf buf) {
         buf.writeBlockPos(this.blockPos);
         buf.writeInt(this.durationMilliseconds);
         buf.writeInt(this.color);
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
+    public void decode(RegistryFriendlyByteBuf buf) {
         this.blockPos = buf.readBlockPos();
         this.durationMilliseconds = buf.readInt();
         this.color = buf.readInt();
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

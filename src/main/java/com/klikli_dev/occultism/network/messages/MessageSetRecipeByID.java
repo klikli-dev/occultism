@@ -28,7 +28,9 @@ import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.NonNullList;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -45,9 +47,11 @@ import net.neoforged.neoforge.items.wrapper.PlayerMainInvWrapper;
 public class MessageSetRecipeByID implements IMessage {
 
     public static final ResourceLocation ID = new ResourceLocation("occultism", "set_recipe_by_id");
+    public static final Type<MessageSetRecipeByID> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetRecipeByID> STREAM_CODEC = CustomPacketPayload.codec(MessageSetRecipeByID::encode, MessageSetRecipeByID::new);
     private ResourceLocation id;
 
-    public MessageSetRecipeByID(FriendlyByteBuf buf) {
+    public MessageSetRecipeByID(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -100,12 +104,12 @@ public class MessageSetRecipeByID implements IMessage {
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(RegistryFriendlyByteBuf buf) {
         buf.writeResourceLocation(this.id);
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
+    public void decode(RegistryFriendlyByteBuf buf) {
         this.id = buf.readResourceLocation();
     }
 
@@ -117,8 +121,8 @@ public class MessageSetRecipeByID implements IMessage {
 
 
         if (recipe instanceof IShapedRecipe<?> shapedRecipe) {
-            int width = shapedRecipe.getRecipeWidth();
-            int height = shapedRecipe.getRecipeHeight();
+            int width = shapedRecipe.getWidth();
+            int height = shapedRecipe.getHeight();
             Preconditions.checkArgument(width <= 3 && height <= 3);
 
             for (int h = 0; h < height; h++) {
@@ -139,7 +143,7 @@ public class MessageSetRecipeByID implements IMessage {
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

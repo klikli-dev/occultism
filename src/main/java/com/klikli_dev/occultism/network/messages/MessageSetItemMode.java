@@ -25,7 +25,9 @@ package com.klikli_dev.occultism.network.messages;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.item.IHandleItemMode;
 import com.klikli_dev.occultism.network.IMessage;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -34,9 +36,12 @@ import net.minecraft.world.item.ItemStack;
 
 public class MessageSetItemMode implements IMessage {
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "set_item_mode");
+    public static final Type<MessageSetItemMode> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetItemMode> STREAM_CODEC = CustomPacketPayload.codec(MessageSetItemMode::encode, MessageSetItemMode::new);
+
     public int mode;
 
-    public MessageSetItemMode(FriendlyByteBuf buf) {
+    public MessageSetItemMode(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -54,17 +59,17 @@ public class MessageSetItemMode implements IMessage {
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(RegistryFriendlyByteBuf buf) {
         buf.writeInt(this.mode);
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
+    public void decode(RegistryFriendlyByteBuf buf) {
         this.mode = buf.readInt();
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

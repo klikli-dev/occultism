@@ -27,7 +27,9 @@ import com.klikli_dev.occultism.common.container.storage.SatchelContainer;
 import com.klikli_dev.occultism.common.item.storage.SatchelItem;
 import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.util.CuriosUtil;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -37,8 +39,10 @@ import net.minecraft.world.item.ItemStack;
 public class MessageOpenSatchel implements IMessage {
 
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "open_satchel");
+    public static final Type<MessageOpenSatchel> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageOpenSatchel> STREAM_CODEC = CustomPacketPayload.codec(MessageOpenSatchel::encode, MessageOpenSatchel::new);
 
-    public MessageOpenSatchel(FriendlyByteBuf buf) {
+    public MessageOpenSatchel(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -74,17 +78,17 @@ public class MessageOpenSatchel implements IMessage {
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(RegistryFriendlyByteBuf buf) {
 
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
+    public void decode(RegistryFriendlyByteBuf buf) {
 
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

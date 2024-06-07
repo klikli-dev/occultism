@@ -26,7 +26,9 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.util.MovementUtil;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -34,12 +36,14 @@ import net.minecraft.server.level.ServerPlayer;
 public class MessageDoubleJump implements IMessage {
 
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "double_jump");
+    public static final Type<MessageDoubleJump> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageDoubleJump> STREAM_CODEC = CustomPacketPayload.codec(MessageDoubleJump::encode, MessageDoubleJump::new);
 
     public MessageDoubleJump() {
 
     }
 
-    public MessageDoubleJump(FriendlyByteBuf buf) {
+    public MessageDoubleJump(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -54,17 +58,17 @@ public class MessageDoubleJump implements IMessage {
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(RegistryFriendlyByteBuf buf) {
 
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
+    public void decode(RegistryFriendlyByteBuf buf) {
 
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

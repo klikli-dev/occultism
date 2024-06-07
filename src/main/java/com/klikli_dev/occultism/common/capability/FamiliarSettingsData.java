@@ -99,7 +99,7 @@ public class FamiliarSettingsData implements INBTSerializable<CompoundTag> {
     }
 
     public void sync(ServerPlayer player) {
-        Networking.sendTo(player, new MessageSyncFamiliarSettings(this));
+        Networking.sendTo(player, new MessageSyncFamiliarSettings(this, player.registryAccess()));
     }
 
     @Override

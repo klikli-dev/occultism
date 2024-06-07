@@ -29,9 +29,11 @@ import com.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -40,9 +42,11 @@ import net.minecraft.world.item.ItemStack;
 
 public class MessageSetWorkAreaSize implements IMessage {
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "set_work_area_size");
+    public static final Type<MessageSetWorkAreaSize> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetWorkAreaSize> STREAM_CODEC = CustomPacketPayload.codec(MessageSetWorkAreaSize::encode, MessageSetWorkAreaSize::new);
     public int workAreaSize;
 
-    public MessageSetWorkAreaSize(FriendlyByteBuf buf) {
+    public MessageSetWorkAreaSize(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -72,17 +76,17 @@ public class MessageSetWorkAreaSize implements IMessage {
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(RegistryFriendlyByteBuf buf) {
         buf.writeInt(this.workAreaSize);
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
+    public void decode(RegistryFriendlyByteBuf buf) {
         this.workAreaSize = buf.readInt();
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

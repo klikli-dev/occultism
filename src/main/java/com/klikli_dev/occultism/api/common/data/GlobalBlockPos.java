@@ -81,6 +81,10 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
         return GlobalBlockPos.CODEC.decode(NbtOps.INSTANCE, tag).getOrThrow().getFirst();
     }
 
+    public static GlobalBlockPos from(RegistryFriendlyByteBuf buf){
+        return GlobalBlockPos.STREAM_CODEC.decode(buf);
+    }
+
     public ResourceKey<Level> getDimensionKey() {
         return this.dimensionKey;
     }
