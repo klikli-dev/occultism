@@ -690,11 +690,8 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     @Override
-    public EntityDimensions getDimensions(Pose pPose) {
-        //TODO: lets use this to set up proper scaling stuff!
-        //      we need to override get default dimensions (maybe) OR provide a scale in the scalable entities/jobs
-        //      then we can sync the scale via entity data maybe?
-        return this.getJob().map(job -> job.getDimensions(pPose, super.getDimensions(pPose))).orElse(super.getDimensions(pPose));
+    public EntityDimensions getDefaultDimensions(Pose pPose) {
+        return this.getJob().map(job -> job.getDimensions(pPose, super.getDefaultDimensions(pPose))).orElse(super.getDefaultDimensions(pPose));
     }
 
     public void removeJob() {

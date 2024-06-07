@@ -89,12 +89,11 @@ public class DjinniEntity extends SpiritEntity implements GeoEntity {
     }
 
     @Override
-    public EntityDimensions getDimensions(Pose pPose) {
-        //TODO: Dimension stuff!
+    public EntityDimensions getDefaultDimensions(Pose pPose) {
         if (this.getSizeState() == 1)
             return this.t2CrusherDimensions;
 
-        return super.getDimensions(pPose);
+        return super.getDefaultDimensions(pPose);
     }
 
     @Override
