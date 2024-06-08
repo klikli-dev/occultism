@@ -56,9 +56,6 @@ public class OccultismTags {
 
 
     public static class Items {
-
-
-
         public static final TagKey<Item> IESNIUM_ORE = makeItemTag(new ResourceLocation("forge", "ores/iesnium"));
         public static final TagKey<Item> SILVER_ORE = makeItemTag(new ResourceLocation("forge", "ores/silver"));
         public static final TagKey<Item> RAW_IESNIUM = makeItemTag(new ResourceLocation("forge", "raw_materials/iesnium"));
