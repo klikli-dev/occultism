@@ -41,6 +41,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.neoforged.neoforge.event.EventHooks;
+import org.jetbrains.annotations.Nullable;
 
 public class FamiliarRitual extends SummonRitual {
 
@@ -50,12 +51,16 @@ public class FamiliarRitual extends SummonRitual {
 
     @Override
     public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                       ServerPlayer castingPlayer, ItemStack activationItem) {
+                       @Nullable ServerPlayer castingPlayer, ItemStack activationItem) {
         //manually call content of Ritual.finish(), because we cannot access it via super
         level.playSound(null, goldenBowlPosition, OccultismSounds.POOF.get(), SoundSource.BLOCKS, 0.7f,
                 0.7f);
-        castingPlayer.displayClientMessage(Component.translatable(this.getFinishedMessage(castingPlayer)), true);
-        OccultismAdvancements.RITUAL.get().trigger(castingPlayer, this);
+
+        if (castingPlayer != null){
+            castingPlayer.displayClientMessage(Component.translatable(this.getFinishedMessage(castingPlayer)), true);
+            OccultismAdvancements.RITUAL.get().trigger(castingPlayer, this);
+        }
+
 
         String entityName = ItemNBTUtil.getBoundSpiritName(activationItem);
         activationItem.shrink(1); //remove original activation item.
@@ -74,7 +79,8 @@ public class FamiliarRitual extends SummonRitual {
                 familiar.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                         level.random.nextInt(360), 0);
                 familiar.setCustomName(Component.literal(entityName));
-                familiar.setFamiliarOwner(castingPlayer);
+                if(castingPlayer != null)
+                    familiar.setFamiliarOwner(castingPlayer);
 
                 //notify players nearby and spawn
                 this.spawnEntity(familiar, level);

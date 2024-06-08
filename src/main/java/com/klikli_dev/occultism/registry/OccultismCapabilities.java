@@ -49,7 +49,14 @@ public class OccultismCapabilities {
                     return blockEntity.itemStackHandler;
                 }
         );
-        //note the golden sacrificial bowl intentionally does not get a capability!
+
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                OccultismBlockEntities.GOLDEN_SACRIFICIAL_BOWL.get(),
+                (blockEntity, side) -> {
+                    return blockEntity.itemStackHandler;
+                }
+        );
 
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
