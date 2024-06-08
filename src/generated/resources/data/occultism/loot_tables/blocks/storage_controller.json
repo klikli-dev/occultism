@@ -15,10 +15,9 @@
             {
               "function": "minecraft:copy_components",
               "include": [
-                "minecraft:container",
+                "occultism:storage_controller_contents",
                 "occultism:sort_direction",
                 "occultism:sort_type",
-                "occultism:max_slots",
                 "occultism:crafting_matrix",
                 "occultism:order_stack"
               ],
