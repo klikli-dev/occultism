@@ -148,7 +148,7 @@ public class DemonicPartner extends TamableAnimal {
 
         if (this.isTame()) {
             var effects = itemstack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
-            if (!effects.hasEffects()) {
+            if (effects.hasEffects()) {
                 for (var instance : effects.getAllEffects()) {
                     if (instance.getEffect().value().isInstantenous()) {
                         instance.getEffect().value().applyInstantenousEffect(this, this, pPlayer, instance.getAmplifier(), 1.0D);
