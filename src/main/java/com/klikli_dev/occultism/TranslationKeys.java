@@ -28,7 +28,8 @@ public class TranslationKeys {
 
     protected static final String JEI = "jei." + Occultism.MODID;
 
-    public static final String JEI_CRUSHING_RECIPE_TIER = JEI + ".crushing.tier";
+    public static final String JEI_CRUSHING_RECIPE_MIN_TIER = JEI + ".crushing.min_tier";
+    public static final String JEI_CRUSHING_RECIPE_MAX_TIER = JEI + ".crushing.max_tier";
 
     public static final String MESSAGE_CONTAINER_ALREADY_OPEN = "messages." + Occultism.MODID + ".container_already_open";
 }

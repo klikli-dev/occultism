@@ -43,15 +43,17 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
 
     protected final int crushingTime;
     protected final int minTier;
+    protected final int maxTier;
     protected final boolean ignoreCrushingMultiplier;
 
     protected OutputIngredient output;
 
-    public CrushingRecipe(ResourceLocation id, Ingredient input, OutputIngredient output, int minTier, int crushingTime, boolean ignoreCrushingMultiplier) {
+    public CrushingRecipe(ResourceLocation id, Ingredient input, OutputIngredient output, int minTier, int maxTier, int crushingTime, boolean ignoreCrushingMultiplier) {
         super(id, input, ItemStack.EMPTY); //hand over empty item stack, because we cannot resolve output.getStack() yet as tags are not resolved yet.
         this.output = output;
         this.crushingTime = crushingTime;
         this.minTier = minTier;
+        this.maxTier = maxTier;
         this.ignoreCrushingMultiplier = ignoreCrushingMultiplier;
     }
 
@@ -72,10 +74,23 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
         return this.minTier;
     }
 
+    public int getMaxTier() {
+        return this.maxTier;
+    }
+
     @Override
     public boolean matches(ItemStackFakeInventory inv, Level level) {
         if (inv instanceof TieredItemStackFakeInventory tieredInv) {
-            return tieredInv.getTier() >= this.minTier && this.input.test(inv.getItem(0));
+            boolean tierMatches = true;
+            //tiers can be -1 in which case they are ignored, only if >= 0 we check
+            if (this.minTier >= 0 && this.maxTier >= 0) {
+                tierMatches = tieredInv.getTier() >= this.minTier && tieredInv.getTier() <= this.maxTier;
+            } else if (this.minTier >= 0) {
+                tierMatches = tieredInv.getTier() >= this.minTier;
+            } else if (this.maxTier >= 0) {
+                tierMatches = tieredInv.getTier() <= this.maxTier;
+            }
+            return tierMatches && this.input.test(inv.getItem(0));
         }
 
         return this.input.test(inv.getItem(0));
@@ -107,6 +122,7 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
             int crushingTime = GsonHelper.getAsInt(json, "crushing_time", DEFAULT_CRUSHING_TIME);
             boolean ignoreCrushingMultiplier = GsonHelper.getAsBoolean(json, "ignore_crushing_multiplier", false);
             int minTier = GsonHelper.getAsInt(json, "min_tier", -1);
+            int maxTier = GsonHelper.getAsInt(json, "max_tier", -1);
 
             var resultElement = GsonHelper.getAsJsonObject(json, "result");
 
@@ -127,7 +143,7 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
                     "ingredient") : GsonHelper.getAsJsonObject(json, "ingredient");
             Ingredient ingredient = Ingredient.fromJson(ingredientElement);
 
-            return  new CrushingRecipe(recipeId, ingredient, new OutputIngredient(outputIngredient, outputStackInfo), minTier, crushingTime, ignoreCrushingMultiplier);
+            return  new CrushingRecipe(recipeId, ingredient, new OutputIngredient(outputIngredient, outputStackInfo), minTier, maxTier, crushingTime, ignoreCrushingMultiplier);
         }
 
         @Override
@@ -135,10 +151,11 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
             int crushingTime = buffer.readInt();
             boolean ignoreCrushingMultiplier = buffer.readBoolean();
             int minTier = buffer.readInt();
+            int maxTier = buffer.readInt();
             Ingredient ingredient = Ingredient.fromNetwork(buffer);
             Ingredient outputIngredient = Ingredient.fromNetwork(buffer);
             ItemStack outputStackInfo = buffer.readItem();
-            return new CrushingRecipe(recipeId, ingredient, new OutputIngredient(outputIngredient, outputStackInfo), minTier, crushingTime, ignoreCrushingMultiplier);
+            return new CrushingRecipe(recipeId, ingredient, new OutputIngredient(outputIngredient, outputStackInfo), minTier, maxTier, crushingTime, ignoreCrushingMultiplier);
         }
 
         @Override
@@ -146,6 +163,7 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
             buffer.writeInt(recipe.crushingTime);
             buffer.writeBoolean(recipe.ignoreCrushingMultiplier);
             buffer.writeInt(recipe.minTier);
+            buffer.writeInt(recipe.maxTier);
             recipe.input.toNetwork(buffer);
             recipe.output.getIngredient().toNetwork(buffer);
             buffer.writeItem(recipe.output.getOutputStackInfo());
