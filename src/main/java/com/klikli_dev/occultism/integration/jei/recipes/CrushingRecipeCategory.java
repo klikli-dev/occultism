@@ -50,7 +50,7 @@ public class CrushingRecipeCategory implements IRecipeCategory<RecipeHolder<Crus
     private final IDrawable overlay;
 
     public CrushingRecipeCategory(IGuiHelper guiHelper) {
-        this.background = guiHelper.createBlankDrawable(168, 46); //64
+        this.background = guiHelper.createBlankDrawable(168, 56); //64
         this.localizedName = Component.translatable(Occultism.MODID + ".jei.crushing");
         this.overlay = guiHelper.createDrawable(
                 new ResourceLocation(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
@@ -94,8 +94,13 @@ public class CrushingRecipeCategory implements IRecipeCategory<RecipeHolder<Crus
         RenderSystem.enableBlend();
         this.overlay.draw(guiGraphics, 76, 14); //(center=84) - (width/16=8) = 76
         this.drawStringCentered(guiGraphics, Minecraft.getInstance().font, this.getTitle(), 84, 0);
+        int y = 35;
         if (recipe.value().getMinTier() >= 0) {
-            this.drawStringCentered(guiGraphics, Minecraft.getInstance().font, Component.translatable(TranslationKeys.JEI_CRUSHING_RECIPE_TIER, recipe.value().getMinTier()), 84, 35);
+            this.drawStringCentered(guiGraphics, Minecraft.getInstance().font, Component.translatable(TranslationKeys.JEI_CRUSHING_RECIPE_MIN_TIER, recipe.value().getMinTier()), 84, y);
+            y += 10;
+        }
+        if (recipe.value().getMaxTier() >= 0) {
+            this.drawStringCentered(guiGraphics, Minecraft.getInstance().font, Component.translatable(TranslationKeys.JEI_CRUSHING_RECIPE_MAX_TIER, recipe.value().getMaxTier()), 84, y);
         }
     }
 }
