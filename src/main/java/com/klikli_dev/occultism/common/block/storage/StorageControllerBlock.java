@@ -88,6 +88,11 @@ public class StorageControllerBlock extends Block implements EntityBlock {
     }
 
     @Override
+    protected void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
+        super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
+    }
+
+    @Override
     @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return SHAPE;

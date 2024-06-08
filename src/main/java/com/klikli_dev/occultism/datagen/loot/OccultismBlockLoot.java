@@ -171,7 +171,7 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
     }
 
     protected final void dropSelfWithComponents(Block pBlock, DataComponentType<?>... pIncludes) {
-        this.add(pBlock, this.createSelfWithComponentsDrop(pBlock, this.copyComponents(pIncludes)));
+        this.dropSelfWithComponents(pBlock, this.copyComponents(pIncludes));
     }
 
     protected void dropSelfWithComponents(Block pBlock, CopyComponentsFunction.Builder data) {
@@ -181,13 +181,16 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
     protected LootTable.Builder createSelfWithComponentsDrop(Block pBlock, CopyComponentsFunction.Builder data) {
         return LootTable.lootTable()
                 .withPool(
-                        this.applyExplosionCondition(pBlock,
-                                LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(
-                                        LootItem.lootTableItem(pBlock)
-                                                .apply(
-                                                        data
-                                                )
-                                )
+                        this.applyExplosionCondition(
+                                pBlock,
+                                LootPool.lootPool()
+                                        .setRolls(ConstantValue.exactly(1.0F))
+                                        .add(
+                                                LootItem.lootTableItem(pBlock)
+                                                        .apply(
+                                                                data
+                                                        )
+                                        )
                         )
                 );
     }

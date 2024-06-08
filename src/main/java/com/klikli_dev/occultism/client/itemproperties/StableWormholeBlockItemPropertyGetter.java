@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.client.itemproperties;
 
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.component.DataComponents;
@@ -38,7 +39,6 @@ public class StableWormholeBlockItemPropertyGetter implements ItemPropertyFuncti
     @OnlyIn(Dist.CLIENT)
     @Override
     public float call(ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn, int i) {
-        return stack.get(DataComponents.BLOCK_ENTITY_DATA).getUnsafe()
-                .contains("linkedStorageControllerPosition") ? 1.0f : 0.0f;
+        return stack.has(OccultismDataComponents.LINKED_STORAGE_CONTROLLER) ? 1.0f : 0.0f;
     }
 }
