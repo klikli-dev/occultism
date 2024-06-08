@@ -22,14 +22,8 @@
 
 package com.klikli_dev.occultism.config;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
-import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
-import net.neoforged.neoforge.common.ModConfigSpec.DoubleValue;
+import net.neoforged.neoforge.common.ModConfigSpec.*;
 
 public class OccultismServerConfig {
 
@@ -69,10 +63,10 @@ public class OccultismServerConfig {
         public final ConfigValue<Double> tier2CrusherOutputMultiplier;
         public final ConfigValue<Double> tier3CrusherOutputMultiplier;
         public final ConfigValue<Double> tier4CrusherOutputMultiplier;
-        public final ConfigValue<Integer> drikwingFamiliarSlowFallingSeconds;
-        public final ConfigValue<Integer> crusherResultPickupDelay;
-        public final ConfigValue<Integer> blacksmithFamiliarUpgradeCost;
-        public final ConfigValue<Integer> blacksmithFamiliarUpgradeCooldown;
+        public final IntValue drikwingFamiliarSlowFallingSeconds;
+        public final IntValue crusherResultPickupDelay;
+        public final IntValue blacksmithFamiliarUpgradeCost;
+        public final IntValue blacksmithFamiliarUpgradeCooldown;
         public final ConfigValue<Double> blacksmithFamiliarRepairChance;
 
         public SpiritJobSettings(ModConfigSpec.Builder builder) {
@@ -80,7 +74,7 @@ public class OccultismServerConfig {
             this.drikwingFamiliarSlowFallingSeconds =
                     builder.comment(
                                     "The duration for the slow falling effect applied by a drikwing.")
-                            .define("drikwingFamiliarSlowFallingSeconds", 15);
+                            .defineInRange("drikwingFamiliarSlowFallingSeconds", 15, 0, Integer.MAX_VALUE);
 
             this.tier1CrusherTimeMultiplier =
                     builder.comment(
@@ -119,7 +113,7 @@ public class OccultismServerConfig {
             this.crusherResultPickupDelay =
                     builder.comment(
                                     "The minimum ticks before a crusher can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
-                            .define("crusherResultPickupDelay", 20 * 3);
+                            .defineInRange("crusherResultPickupDelay", 20 * 3, 0, Integer.MAX_VALUE);
 
             this.blacksmithFamiliarRepairChance =
                     builder.comment(
@@ -128,11 +122,11 @@ public class OccultismServerConfig {
             this.blacksmithFamiliarUpgradeCost =
                     builder.comment(
                                     "The amount of iron required for a blacksmith familiar to upgrade another familiar.")
-                            .define("blacksmithFamiliarUpgradeCost", 18);
+                            .defineInRange("blacksmithFamiliarUpgradeCost", 18, 0, Integer.MAX_VALUE);
             this.blacksmithFamiliarUpgradeCooldown =
                     builder.comment(
                                     "The cooldown for a blacksmith familiar to upgrade another familiar.")
-                            .define("blacksmithFamiliarUpgradeCooldown", 20 * 20);
+                            .defineInRange("blacksmithFamiliarUpgradeCooldown", 20 * 20, 0, Integer.MAX_VALUE);
 
 
             builder.pop();
@@ -164,9 +158,9 @@ public class OccultismServerConfig {
         }
 
         public static class MinerSpiritSettings {
-            public final ConfigValue<Integer> maxMiningTime;
-            public final ConfigValue<Integer> rollsPerOperation;
-            public final ConfigValue<Integer> durability;
+            public final IntValue maxMiningTime;
+            public final IntValue rollsPerOperation;
+            public final IntValue durability;
 
             public MinerSpiritSettings(String oreName, ModConfigSpec.Builder builder,
                                        int maxMiningTime, int rollsPerOperation, int durability) {
@@ -174,13 +168,13 @@ public class OccultismServerConfig {
 
                 this.maxMiningTime =
                         builder.comment("The amount of time it takes the spirit to perform one mining operation.")
-                                .define("maxMiningTime", maxMiningTime);
+                                .defineInRange("maxMiningTime", maxMiningTime, 0, Integer.MAX_VALUE);
                 this.rollsPerOperation =
                         builder.comment("The amount of blocks the spirit will obtain per mining operation")
-                                .define("rollsPerOperation", rollsPerOperation);
+                                .defineInRange("rollsPerOperation", rollsPerOperation, 0, Integer.MAX_VALUE);
                 this.durability =
                         builder.comment("The amount of mining operations the spirit can perform before breaking.")
-                                .define("durability", durability);
+                                .defineInRange("durability", durability, 0, Integer.MAX_VALUE);
 
                 builder.pop();
             }
@@ -196,9 +190,6 @@ public class OccultismServerConfig {
         public final BooleanValue enableNightTimeRitual;
         public final BooleanValue enableRemainingIngredientCountMatching;
         public final DoubleValue ritualDurationMultiplier;
-
-        public final ConfigValue<List<String>> possibleSpiritNames;
-        public final DoubleValue usePossibleSpiritNamesChance;
 
 
         public RitualSettings(ModConfigSpec.Builder builder) {
@@ -229,59 +220,59 @@ public class OccultismServerConfig {
                     builder.comment("Set a value below 1.0 to speed up rituals.")
                             .defineInRange("ritualDurationMultiplier", 1.0, 0.05, Double.MAX_VALUE);
 
-            this.possibleSpiritNames =
-                    builder.comment("By default spirit names are generated randomly. " +
-                                    "This list can be used as an additional source of spirit names, or even a full replacement, depending on the configuration of \"usePossibleSpiritNamesChance\".")
-                            .define("possibleSpiritNames", new ArrayList<>());
-
-            this.usePossibleSpiritNamesChance =
-                    builder.comment(
-                                    "0.0 (default) to only use random names.",
-                                    "1.0 to only use the names in \"possibleSpiritNames\"",
-                                    "0.1-0.9 to use a mix of both, the higher the value the higher the chance of using a name from this list instead of a random name.",
-                                    "Will be ignored if \"possibleSpiritNames\" is empty.")
-                            .defineInRange("usePossibleSpiritNamesChance", 0.0, 0.0, 1.0);
-
             builder.pop();
         }
     }
 
     public static class StorageSettings {
-        public final ConfigValue<Integer> stabilizerTier1Slots;
-        public final ConfigValue<Integer> stabilizerTier2Slots;
-        public final ConfigValue<Integer> stabilizerTier3Slots;
-        public final ConfigValue<Integer> stabilizerTier4Slots;
-        public final ConfigValue<Integer> controllerBaseSlots;
-        public final ConfigValue<Integer> controllerStackSize;
-        public final BooleanValue overrideItemStackSizes;
+        public final IntValue stabilizerTier1AdditionalMaxItemTypes;
+        public final LongValue stabilizerTier1AdditionalMaxTotalItemCount;
+        public final IntValue stabilizerTier2AdditionalMaxItemTypes;
+
+        public final LongValue stabilizerTier2AdditionalMaxTotalItemCount;
+        public final IntValue stabilizerTier3AdditionalMaxItemTypes;
+
+        public final LongValue stabilizerTier3AdditionalMaxTotalItemCount;
+        public final IntValue stabilizerTier4AdditionalMaxItemTypes;
+
+        public final LongValue stabilizerTier4AdditionalMaxTotalItemCount;
+        public final IntValue controllerMaxItemTypes;
+        public final LongValue controllerMaxTotalItemCount;
         public final BooleanValue unlinkWormholeOnBreak;
 
         public StorageSettings(ModConfigSpec.Builder builder) {
             builder.comment("Storage Settings").push("storage");
-            this.stabilizerTier1Slots =
-                    builder.comment("The amount of slots the storage stabilizer tier 1 provides.")
-                            .define("stabilizerTier1Slots", 256);
-            this.stabilizerTier2Slots =
+            this.stabilizerTier1AdditionalMaxItemTypes =
+                    builder.comment("The amount of additional slots the storage stabilizer tier 1 provides. 1 Slot holds one item type.")
+                            .defineInRange("stabilizerTier1AdditionalMaxItemTypes", 64, 0, Integer.MAX_VALUE);
+            this.stabilizerTier1AdditionalMaxTotalItemCount =
+                    builder.comment("The amount by which the stabilizer increases the maximum total item count the controller can hold. This is not per slot but the total amount of all items combined.")
+                            .defineInRange("stabilizerTier1AdditionalMaxTotalItemCount", 512 * 1000L, 0, Integer.MAX_VALUE);
+            this.stabilizerTier2AdditionalMaxItemTypes =
                     builder.comment("The amount of slots the storage stabilizer tier 2 provides.")
-                            .define("stabilizerTier2Slots", 512);
-            this.stabilizerTier3Slots =
+                            .defineInRange("stabilizerTier2AdditionalMaxItemTypes", 128, 0, Integer.MAX_VALUE);
+            this.stabilizerTier2AdditionalMaxTotalItemCount =
+                    builder.comment("The amount by which the stabilizer increases the maximum total item count the controller can hold. This is not per slot but the total amount of all items combined.")
+                            .defineInRange("stabilizerTier2AdditionalMaxTotalItemCount", 1024 * 1000L, 0, Integer.MAX_VALUE);
+            this.stabilizerTier3AdditionalMaxItemTypes =
                     builder.comment("The amount of slots the storage stabilizer tier 3 provides.")
-                            .define("stabilizerTier3Slots", 1024);
-            this.stabilizerTier4Slots =
+                            .defineInRange("stabilizerTier3AdditionalMaxItemTypes", 256, 0, Integer.MAX_VALUE);
+            this.stabilizerTier3AdditionalMaxTotalItemCount =
+                    builder.comment("The amount by which the stabilizer increases the maximum total item count the controller can hold. This is not per slot but the total amount of all items combined.")
+                            .defineInRange("stabilizerTier3AdditionalMaxTotalItemCount", 2048 * 1000L, 0, Integer.MAX_VALUE);
+            this.stabilizerTier4AdditionalMaxItemTypes =
                     builder.comment("The amount of slots the storage stabilizer tier 4 provides.")
-                            .define("stabilizerTier4Slots", 2048);
-            this.controllerBaseSlots =
+                            .defineInRange("stabilizerTier4AdditionalMaxItemTypes", 512, 0, Integer.MAX_VALUE);
+            this.stabilizerTier4AdditionalMaxTotalItemCount =
+                    builder.comment("The amount by which the stabilizer increases the maximum total item count the controller can hold. This is not per slot but the total amount of all items combined.")
+                            .defineInRange("stabilizerTier4AdditionalMaxTotalItemCount", 4096 * 1000L, 0, Long.MAX_VALUE);
+            this.controllerMaxItemTypes =
                     builder.comment("The amount of slots the storage actuator provides.")
-                            .define("controllerBaseSlots", 128);
-            this.controllerStackSize =
+                            .defineInRange("controllerMaxItemTypes", 128, 0, Integer.MAX_VALUE);
+            this.controllerMaxTotalItemCount =
                     builder.comment("The stack size the storage actuator uses.")
-                            .define("controllerStackSize", 1024);
-            this.overrideItemStackSizes =
-                    builder.comment(
-                                    "True to use the configured controllerStackSize for all items, instead of the stack sizes provided by " +
-                                            "item type (such as 16 for ender pearls, 64 for iron ingot). WARNING: Setting this to " +
-                                            "false may have a negative impact on performance.")
-                            .define("overrideItemStackSizes", true);
+                            .defineInRange("controllerMaxTotalItemCount", 256 * 1000L, 0, Long.MAX_VALUE);
+
             this.unlinkWormholeOnBreak =
                     builder.comment(
                                     "True to use the configured controllerStackSize for all items, instead of the stack sizes provided by " +

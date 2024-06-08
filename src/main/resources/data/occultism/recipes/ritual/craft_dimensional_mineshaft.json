@@ -7,7 +7,7 @@
   "pentacle_id": "occultism:craft_djinni",
   "duration": 240,
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/craft_dimensional_mineshaft"
+    "id": "occultism:ritual_dummy/craft_dimensional_mineshaft"
   },
   "ingredients": [
     {
@@ -23,16 +23,16 @@
       "item": "occultism:otherstone"
     },
     {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     },
     {
-      "tag": "forge:storage_blocks/iesnium"
+      "tag": "c:storage_blocks/iesnium"
     },
     {
       "item": "occultism:spirit_attuned_crystal"
     }
   ],
   "result": {
-    "item": "occultism:dimensional_mineshaft"
+    "id": "occultism:dimensional_mineshaft"
   }
 }

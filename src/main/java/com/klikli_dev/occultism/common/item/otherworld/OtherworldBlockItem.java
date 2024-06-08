@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.common.item.otherworld;
 
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.util.OtherworldUtil;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.BlockItem;
@@ -54,7 +55,7 @@ public class OtherworldBlockItem extends BlockItem {
     @Override
     public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
         super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
-        stack.getOrCreateTag().putBoolean("isInventoryItem", true);
+        stack.set(OccultismDataComponents.IS_INVENTORY_ITEM, true);
     }
 
 }

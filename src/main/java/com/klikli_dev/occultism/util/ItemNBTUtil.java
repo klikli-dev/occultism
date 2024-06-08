@@ -27,48 +27,32 @@ import com.klikli_dev.occultism.api.common.data.MachineReference;
 import com.klikli_dev.occultism.api.common.data.WorkAreaSize;
 import com.klikli_dev.occultism.common.entity.job.ManageMachineJob;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 
 import java.util.Optional;
 import java.util.UUID;
 
 public class ItemNBTUtil {
 
-    public static final String SPIRIT_NAME_TAG = "spiritName";
-    public static final String SPIRIT_UUID_TAG = "spiritUUID";
-    public static final String SPIRIT_DEAD_TAG = "spiritDead";
-    public static final String SPIRIT_DATA_TAG = "spiritData";
-    public static final String ITEM_MODE_TAG = "itemMode";
-    public static final String WORK_AREA_SIZE_TAG = "workAreaSize";
-    public static final String WORK_AREA_POSITION_TAG = "workAreaPosition";
-    public static final String DEPOSIT_POSITION_TAG = "depositPosition";
-    public static final String DEPOSIT_ENTITY_UUID_TAG = "depositEntityUUID";
-    public static final String DEPOSIT_ENTITY_NAME_TAG = "depositEntityName";
-    public static final String DEPOSIT_FACING_TAG = "depositFacing";
-    public static final String EXTRACT_POSITION_TAG = "extractPosition";
-    public static final String EXTRACT_FACING_TAG = "extractFacing";
-    public static final String STORAGE_CONTROLLER_POSITION_TAG = "storageControllerPosition";
-    public static final String MANAGED_MACHINE = "managedMachine";
-
-    //region Static Methods
-
     public static void updateItemNBTFromEntity(ItemStack stack, SpiritEntity entity) {
-        ItemNBTUtil.setWorkAreaPosition(stack, entity.getWorkAreaPosition());
-        ItemNBTUtil.setDepositPosition(stack, entity.getDepositPosition());
-        ItemNBTUtil.setDepositEntityUUID(stack, entity.getDepositEntityUUID());
-        ItemNBTUtil.setDepositFacing(stack, entity.getDepositFacing());
-        ItemNBTUtil.setExtractPosition(stack, entity.getExtractPosition());
-        ItemNBTUtil.setExtractFacing(stack, entity.getExtractFacing());
-        ItemNBTUtil.setWorkAreaSize(stack, entity.getWorkAreaSize());
+        setWorkAreaPosition(stack, entity.getWorkAreaPosition());
+        setDepositPosition(stack, entity.getDepositPosition());
+        setDepositEntityUUID(stack, entity.getDepositEntityUUID());
+        setDepositFacing(stack, entity.getDepositFacing());
+        setExtractPosition(stack, entity.getExtractPosition());
+        setExtractFacing(stack, entity.getExtractFacing());
+        setWorkAreaSize(stack, entity.getWorkAreaSize());
 
         entity.getJob().filter(ManageMachineJob.class::isInstance).map(ManageMachineJob.class::cast).ifPresent(job -> {
             if (job.getStorageControllerPosition() != null)
-                ItemNBTUtil.setStorageControllerPosition(stack, job.getStorageControllerPosition());
+                setStorageControllerPosition(stack, job.getStorageControllerPosition());
             if (job.getManagedMachine() != null)
-                ItemNBTUtil.setManagedMachine(stack, job.getManagedMachine());
+                setManagedMachine(stack, job.getManagedMachine());
         });
 
     }
@@ -78,172 +62,178 @@ public class ItemNBTUtil {
     }
 
     public static void setBoundSpiritName(ItemStack stack, String name) {
-        stack.getOrCreateTag().putString(SPIRIT_NAME_TAG, name);
+        stack.set(OccultismDataComponents.SPIRIT_NAME, name);
     }
 
     public static String getBoundSpiritName(ItemStack stack) {
-        if (!stack.getOrCreateTag().contains(SPIRIT_NAME_TAG))
+        if (!stack.has(OccultismDataComponents.SPIRIT_NAME))
             generateBoundSpiritName(stack);
-        return stack.getTag().getString(SPIRIT_NAME_TAG);
+        return stack.get(OccultismDataComponents.SPIRIT_NAME);
     }
 
     public static int getItemMode(ItemStack stack) {
-        if (!stack.getOrCreateTag().contains(ITEM_MODE_TAG))
+        if (!stack.has(OccultismDataComponents.ITEM_MODE))
             setItemMode(stack, 0);
 
-        return stack.getTag().getInt(ITEM_MODE_TAG);
+        return stack.get(OccultismDataComponents.ITEM_MODE);
     }
 
     public static void setItemMode(ItemStack stack, int mode) {
-        stack.getOrCreateTag().putInt(ITEM_MODE_TAG, mode);
+        stack.set(OccultismDataComponents.ITEM_MODE, mode);
     }
 
     public static GlobalBlockPos getStorageControllerPosition(ItemStack stack) {
-        if (!stack.getOrCreateTag().contains(STORAGE_CONTROLLER_POSITION_TAG))
-            return null;
-
-        return GlobalBlockPos.from(stack.getTag().getCompound(STORAGE_CONTROLLER_POSITION_TAG));
+        return stack.get(OccultismDataComponents.LINKED_STORAGE_CONTROLLER);
     }
 
     public static void setStorageControllerPosition(ItemStack stack, GlobalBlockPos position) {
         if (position != null)
-            stack.addTagElement(STORAGE_CONTROLLER_POSITION_TAG, position.serializeNBT());
+            stack.set(OccultismDataComponents.LINKED_STORAGE_CONTROLLER, position);
     }
 
     public static MachineReference getManagedMachine(ItemStack stack) {
-        if (!stack.getOrCreateTag().contains(MANAGED_MACHINE))
+        if (!stack.has(OccultismDataComponents.MANAGED_MACHINE))
             return null;
 
-        return MachineReference.from(stack.getTag().getCompound(MANAGED_MACHINE));
+        return stack.get(OccultismDataComponents.MANAGED_MACHINE);
     }
 
     public static void setManagedMachine(ItemStack stack, MachineReference position) {
         if (position != null)
-            stack.addTagElement(MANAGED_MACHINE, position.serializeNBT());
+            stack.set(OccultismDataComponents.MANAGED_MACHINE, position);
     }
 
     public static BlockPos getDepositPosition(ItemStack stack) {
-        if (!stack.getOrCreateTag().contains(DEPOSIT_POSITION_TAG))
+        if (!stack.has(OccultismDataComponents.DEPOSIT_POSITION))
             return null;
 
-        return BlockPos.of(stack.getTag().getLong(DEPOSIT_POSITION_TAG));
+        return stack.get(OccultismDataComponents.DEPOSIT_POSITION);
     }
 
     public static void setDepositPosition(ItemStack stack, Optional<BlockPos> position) {
         if (position.isPresent()) {
-            stack.getOrCreateTag().putLong(DEPOSIT_POSITION_TAG, position.get().asLong());
-        } else if (stack.hasTag()) {
-            stack.getTag().remove(DEPOSIT_POSITION_TAG);
+            stack.set(OccultismDataComponents.DEPOSIT_POSITION, position.get());
+        } else if (stack.has(OccultismDataComponents.DEPOSIT_POSITION)) {
+            stack.remove(OccultismDataComponents.DEPOSIT_POSITION);
         }
     }
 
     public static UUID getDepositEntityUUID(ItemStack stack) {
-        if (!stack.getOrCreateTag().contains(DEPOSIT_ENTITY_UUID_TAG))
+        if (!stack.has(OccultismDataComponents.DEPOSIT_ENTITY_UUID))
             return null;
 
-        return stack.getTag().getUUID(DEPOSIT_ENTITY_UUID_TAG);
+        return stack.get(OccultismDataComponents.DEPOSIT_ENTITY_UUID);
     }
 
     public static void setDepositEntityUUID(ItemStack stack, Optional<UUID> uuid) {
         if (uuid.isPresent()) {
-            stack.getOrCreateTag().putUUID(DEPOSIT_ENTITY_UUID_TAG, uuid.get());
-        } else if (stack.hasTag()) {
-            stack.getTag().remove(DEPOSIT_ENTITY_UUID_TAG);
+            stack.set(OccultismDataComponents.DEPOSIT_ENTITY_UUID, uuid.get());
+        } else if (stack.has(OccultismDataComponents.DEPOSIT_ENTITY_UUID)) {
+            stack.remove(OccultismDataComponents.DEPOSIT_ENTITY_UUID);
         }
     }
 
     public static void setDepositEntityName(ItemStack stack, String string) {
-        stack.getOrCreateTag().putString(DEPOSIT_ENTITY_NAME_TAG, string);
+        stack.set(OccultismDataComponents.DEPOSIT_ENTITY_NAME, string);
     }
 
     public static String getDepositEntityName(ItemStack stack) {
-        if (!stack.getOrCreateTag().contains(DEPOSIT_ENTITY_NAME_TAG))
+        if (!stack.has(OccultismDataComponents.DEPOSIT_ENTITY_NAME))
             return null;
 
-        return stack.getTag().getString(DEPOSIT_ENTITY_NAME_TAG);
+        return stack.get(OccultismDataComponents.DEPOSIT_ENTITY_NAME);
     }
 
     public static Direction getDepositFacing(ItemStack stack) {
-        if (!stack.getOrCreateTag().contains(DEPOSIT_FACING_TAG))
+        if (!stack.has(OccultismDataComponents.DEPOSIT_FACING))
             return null;
-        return Direction.values()[stack.getTag().getInt(DEPOSIT_FACING_TAG)];
+
+        return stack.get(OccultismDataComponents.DEPOSIT_FACING);
     }
 
     public static void setDepositFacing(ItemStack stack, Direction facing) {
-        stack.getOrCreateTag().putInt(DEPOSIT_FACING_TAG, facing.ordinal());
+        stack.set(OccultismDataComponents.DEPOSIT_FACING, facing);
     }
 
     public static BlockPos getExtractPosition(ItemStack stack) {
-        if (!stack.getOrCreateTag().contains(EXTRACT_POSITION_TAG))
+        if (!stack.has(OccultismDataComponents.EXTRACT_POS))
             return null;
 
-        return BlockPos.of(stack.getTag().getLong(EXTRACT_POSITION_TAG));
+        return stack.get(OccultismDataComponents.EXTRACT_POS);
     }
 
     public static void setExtractPosition(ItemStack stack, Optional<BlockPos> position) {
-        position.ifPresent(p -> stack.getOrCreateTag().putLong(EXTRACT_POSITION_TAG, p.asLong()));
+        if (position.isPresent()) {
+            stack.set(OccultismDataComponents.EXTRACT_POS, position.get());
+        } else if (stack.has(OccultismDataComponents.EXTRACT_POS)) {
+            stack.remove(OccultismDataComponents.EXTRACT_POS);
+        }
     }
 
     public static Direction getExtractFacing(ItemStack stack) {
-        if (!stack.getOrCreateTag().contains(EXTRACT_FACING_TAG))
+        if (!stack.has(OccultismDataComponents.EXTRACT_FACING))
             return null;
-        return Direction.values()[stack.getTag().getInt(EXTRACT_FACING_TAG)];
+
+        return stack.get(OccultismDataComponents.EXTRACT_FACING);
     }
 
     public static void setExtractFacing(ItemStack stack, Direction facing) {
-        stack.getOrCreateTag().putInt(EXTRACT_FACING_TAG, facing.ordinal());
+        stack.set(OccultismDataComponents.EXTRACT_FACING, facing);
     }
 
     public static BlockPos getWorkAreaPosition(ItemStack stack) {
-        if (!stack.getOrCreateTag().contains(WORK_AREA_POSITION_TAG))
+        if (!stack.has(OccultismDataComponents.WORK_AREA_POS))
             return null;
 
-        return BlockPos.of(stack.getTag().getLong(WORK_AREA_POSITION_TAG));
+        return stack.get(OccultismDataComponents.WORK_AREA_POS);
     }
 
     public static void setWorkAreaPosition(ItemStack stack, Optional<BlockPos> position) {
-        position.ifPresent(p -> stack.getOrCreateTag().putLong(WORK_AREA_POSITION_TAG, p.asLong()));
+        if (position.isPresent()) {
+            stack.set(OccultismDataComponents.WORK_AREA_POS, position.get());
+        } else if (stack.has(OccultismDataComponents.WORK_AREA_POS)) {
+            stack.remove(OccultismDataComponents.WORK_AREA_POS);
+        }
     }
 
     public static WorkAreaSize getWorkAreaSize(ItemStack stack) {
-        if (!stack.getOrCreateTag().contains(WORK_AREA_SIZE_TAG))
+        if (!stack.has(OccultismDataComponents.WORK_AREA_SIZE))
             setWorkAreaSize(stack, WorkAreaSize.SMALL);
-        return WorkAreaSize.get(stack.getTag().getInt(WORK_AREA_SIZE_TAG));
+
+        return stack.get(OccultismDataComponents.WORK_AREA_SIZE);
     }
 
     public static void setWorkAreaSize(ItemStack stack, WorkAreaSize workAreaSize) {
-        stack.getOrCreateTag().putInt(WORK_AREA_SIZE_TAG, workAreaSize.getValue());
+        stack.set(OccultismDataComponents.WORK_AREA_SIZE, workAreaSize);
     }
 
     public static UUID getSpiritEntityUUID(ItemStack stack) {
-        if (!stack.getOrCreateTag().contains(SPIRIT_UUID_TAG))
+        if (!stack.has(OccultismDataComponents.SPIRIT_ENTITY_UUID))
             return null;
-        return stack.getTag().getCompound(SPIRIT_UUID_TAG).getUUID("");
+
+        return stack.get(OccultismDataComponents.SPIRIT_ENTITY_UUID);
     }
 
     public static void setSpiritEntityUUID(ItemStack stack, UUID id) {
-        CompoundTag uuidCompound = new CompoundTag();
-        uuidCompound.putUUID("", id);
-        stack.addTagElement(SPIRIT_UUID_TAG, uuidCompound);
+        stack.set(OccultismDataComponents.SPIRIT_ENTITY_UUID, id);
     }
 
     public static boolean getSpiritDead(ItemStack stack) {
-        return stack.getOrCreateTag().getBoolean(SPIRIT_DEAD_TAG);
+        return stack.getOrDefault(OccultismDataComponents.SPIRIT_DEAD, false);
     }
 
     public static CompoundTag getSpiritEntityData(ItemStack stack) {
-        if (!stack.getOrCreateTag().contains(SPIRIT_DATA_TAG))
+        if (!stack.has(OccultismDataComponents.SPIRIT_ENTITY_DATA))
             return null;
-        return stack.getTag().getCompound(SPIRIT_DATA_TAG);
+
+        return stack.get(OccultismDataComponents.SPIRIT_ENTITY_DATA).getUnsafe();
     }
 
     public static void setSpiritEntityData(ItemStack stack, CompoundTag entityData) {
-        stack.getOrCreateTag().put(SPIRIT_DATA_TAG, entityData);
+        stack.set(OccultismDataComponents.SPIRIT_ENTITY_DATA, CustomData.of(entityData));
     }
 
     public static Optional<SpiritEntity> getSpiritEntity(ItemStack itemStack) {
         return EntityUtil.getEntityByUuiDGlobal(getSpiritEntityUUID(itemStack)).map(e -> (SpiritEntity) e);
     }
-    //endregion Static Methods
-
 }

@@ -7,14 +7,14 @@
   "pentacle_id": "occultism:craft_foliot",
   "duration": 120,
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/craft_stabilizer_tier1"
+    "id": "occultism:ritual_dummy/craft_stabilizer_tier1"
   },
   "ingredients": [
     {
       "item": "occultism:otherstone_pedestal"
     },
     {
-      "tag": "forge:storage_blocks/copper"
+      "tag": "c:storage_blocks/copper"
     },
     {
       "item": "minecraft:blaze_powder"
@@ -24,6 +24,6 @@
     }
   ],
   "result": {
-    "item": "occultism:storage_stabilizer_tier1"
+    "id": "occultism:storage_stabilizer_tier1"
   }
 }

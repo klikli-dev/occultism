@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.blockentity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -37,15 +38,15 @@ public abstract class NetworkedBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void load(CompoundTag compound) {
-        this.loadNetwork(compound);
-        super.load(compound);
+    public void loadAdditional(CompoundTag compound,  HolderLookup.Provider provider) {
+        this.loadNetwork(compound, provider);
+        super.loadAdditional(compound, provider);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compound) {
-        this.saveNetwork(compound);
-        super.saveAdditional(compound);
+    protected void saveAdditional(CompoundTag compound, HolderLookup.Provider provider) {
+        this.saveNetwork(compound, provider);
+        super.saveAdditional(compound, provider);
     }
 
     @Override
@@ -54,19 +55,19 @@ public abstract class NetworkedBlockEntity extends BlockEntity {
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
-        return this.saveNetwork(super.getUpdateTag());
+    public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+        return this.saveNetwork(super.getUpdateTag(provider), provider);
     }
 
     @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        this.loadNetwork(pkt.getTag());
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt, HolderLookup.Provider lookupProvider) {
+        this.loadNetwork(pkt.getTag(), lookupProvider);
     }
 
     @Override
-    public void handleUpdateTag(CompoundTag tag) {
-        super.load(tag);
-        this.loadNetwork(tag);
+    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider provider) {
+        super.loadAdditional(tag, provider);
+        this.loadNetwork(tag, provider);
     }
 
     /**
@@ -74,7 +75,7 @@ public abstract class NetworkedBlockEntity extends BlockEntity {
      *
      * @param compound the compound to read from.
      */
-    public void loadNetwork(CompoundTag compound) {
+    public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
     }
 
     /**
@@ -83,7 +84,7 @@ public abstract class NetworkedBlockEntity extends BlockEntity {
      * @param compound the compound to write to.
      * @return the compound written to,
      */
-    public CompoundTag saveNetwork(CompoundTag compound) {
+    public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
         return compound;
     }
 

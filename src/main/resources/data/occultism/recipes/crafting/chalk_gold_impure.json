@@ -5,13 +5,13 @@
       "item": "occultism:chalk_white_impure"
     },
     {
-      "tag": "forge:dusts/gold"
+      "tag": "c:dusts/gold"
     },
     {
-      "tag": "forge:dusts/glowstone"
+      "tag": "c:dusts/glowstone"
     }
   ],
   "result": {
-    "item": "occultism:chalk_gold_impure"
+    "id": "occultism:chalk_gold_impure"
   }
 }

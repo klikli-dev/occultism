@@ -7,34 +7,31 @@
   "pentacle_id": "occultism:possess_djinni",
   "duration": 60,
   "entity_to_sacrifice": {
-    "tag": "forge:cows",
+    "tag": "c:cows",
     "display_name": "ritual.occultism.sacrifice.cows"
   },
   "entity_to_summon": "occultism:possessed_ghast",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/possess_ghast"
+    "id": "occultism:ritual_dummy/possess_ghast"
   },
   "ingredients": [
     {
-      "tag": "forge:netherrack"
+      "tag": "c:netherrack"
     },
     {
-      "tag": "forge:netherrack"
+      "tag": "c:netherrack"
     },
     {
-      "tag": "forge:netherrack"
+      "tag": "c:netherrack"
     },
     {
-      "tag": "forge:magma"
+      "tag": "c:magma"
     },
     {
-      "tag": "forge:magma"
+      "tag": "c:magma"
     },
     {
-      "tag": "forge:magma"
-    },
-    {
-      "item": "minecraft:lava_bucket"
+      "tag": "c:magma"
     },
     {
       "item": "minecraft:lava_bucket"
@@ -43,11 +40,14 @@
       "item": "minecraft:lava_bucket"
     },
     {
-      "tag": "forge:gems/diamond"
+      "item": "minecraft:lava_bucket"
+    },
+    {
+      "tag": "c:gems/diamond"
     }
   ],
   "result": {
-    "item": "minecraft:ghast_tear",
+    "id": "minecraft:ghast_tear",
     "nbt": {
       "display": {
         "Lore": [

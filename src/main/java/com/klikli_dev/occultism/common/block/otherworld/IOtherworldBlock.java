@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.block.otherworld;
 
 import com.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import com.klikli_dev.occultism.api.common.item.IOtherworldTool;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
@@ -48,13 +49,13 @@ public interface IOtherworldBlock {
 
     default OtherworldBlockTier getPlayerHarvestTier(Player player, ItemStack tool) {
         OtherworldBlockTier toolTier = OtherworldBlockTier.NONE;
-        OtherworldBlockTier effectTier = player.hasEffect(OccultismEffects.THIRD_EYE.get()) ?
+        OtherworldBlockTier effectTier = player.hasEffect(OccultismEffects.THIRD_EYE) ?
                 OtherworldBlockTier.ONE : OtherworldBlockTier.NONE;
         if (tool.getItem() instanceof IOtherworldTool) {
             toolTier = ((IOtherworldTool) tool.getItem()).getHarvestTier(tool);
         }
-        if (tool.hasTag() && tool.getTag().contains("occultism:otherworldToolTier")) {
-            toolTier = OtherworldBlockTier.get(tool.getTag().getInt("occultism:otherworldToolTier"));
+        if (tool.has(OccultismDataComponents.OTHERWORLD_TOOL_TIER)) {
+            toolTier = OtherworldBlockTier.get(tool.get(OccultismDataComponents.OTHERWORLD_TOOL_TIER));
         }
         return OtherworldBlockTier.max(toolTier, effectTier);
     }

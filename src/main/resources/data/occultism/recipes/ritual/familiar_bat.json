@@ -7,12 +7,12 @@
   "pentacle_id": "occultism:possess_djinni",
   "duration": 60,
   "entity_to_sacrifice": {
-    "tag": "forge:bats",
+    "tag": "c:bats",
     "display_name": "ritual.occultism.sacrifice.bats"
   },
   "entity_to_summon": "occultism:bat_familiar",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/familiar_bat"
+    "id": "occultism:ritual_dummy/familiar_bat"
   },
   "ingredients": [
     {
@@ -32,7 +32,7 @@
     }
   ],
   "result": {
-    "item": "occultism:spawn_egg/familiar_bat",
+    "id": "occultism:spawn_egg/familiar_bat",
     "nbt": {
       "display": {
         "Lore": [

@@ -28,7 +28,9 @@ import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.network.Networking;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -36,12 +38,14 @@ import net.minecraft.server.level.ServerPlayer;
 public class MessageRequestStacks implements IMessage {
 
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "request_stacks");
+    public static final Type<MessageRequestStacks> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageRequestStacks> STREAM_CODEC = CustomPacketPayload.codec(MessageRequestStacks::encode, MessageRequestStacks::new);
 
     public MessageRequestStacks() {
 
     }
 
-    public MessageRequestStacks(FriendlyByteBuf buf) {
+    public MessageRequestStacks(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -60,17 +64,17 @@ public class MessageRequestStacks implements IMessage {
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(RegistryFriendlyByteBuf buf) {
 
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
+    public void decode(RegistryFriendlyByteBuf buf) {
 
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

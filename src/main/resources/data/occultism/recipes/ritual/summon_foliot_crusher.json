@@ -10,23 +10,23 @@
   "spirit_job_type": "occultism:crush_tier1",
   "entity_to_summon": "occultism:foliot",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/summon_foliot_crusher"
+    "id": "occultism:ritual_dummy/summon_foliot_crusher"
   },
   "ingredients": [
     {
-      "tag": "forge:raw_materials/iron"
+      "tag": "c:raw_materials/iron"
     },
     {
-      "tag": "forge:raw_materials/gold"
+      "tag": "c:raw_materials/gold"
     },
     {
-      "tag": "forge:raw_materials/copper"
+      "tag": "c:raw_materials/copper"
     },
     {
-      "tag": "forge:raw_materials/silver"
+      "tag": "c:raw_materials/silver"
     }
   ],
   "result": {
-    "item": "occultism:jei_dummy/none"
+    "id": "occultism:jei_dummy/none"
   }
 }

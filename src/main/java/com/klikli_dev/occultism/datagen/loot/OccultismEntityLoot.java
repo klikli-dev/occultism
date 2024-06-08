@@ -2,17 +2,26 @@ package com.klikli_dev.occultism.datagen.loot;
 
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismItems;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.EntityLootSubProvider;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithLootingCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
@@ -24,15 +33,17 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
     }
 
     @Override
-    public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
+    public void generate(HolderLookup.Provider pRegistries, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> pGenerator) {
         this.generate();
         this.map.forEach((key, entityType) -> {
-            entityType.forEach(consumer::accept);
+            entityType.forEach(pGenerator::accept);
         });
     }
 
+
     @Override
     public void generate() {
+        this.add(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE.get(), elderGuardianLootTable());
         this.add(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(),
                 LootTable.lootTable().withPool(
                         LootPool.lootPool().setRolls(ConstantValue.exactly(1))
@@ -119,5 +130,83 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                         .add(LootItem.lootTableItem(Items.BONE)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
                                 .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F))))));
+    }
+
+    /**
+     * Copied from VanillaEntityLoot and modified
+     * @return
+     */
+    public static LootTable.Builder elderGuardianLootTable() {
+        return LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(
+                                        LootItem.lootTableItem(Items.PRISMARINE_SHARD)
+                                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
+                                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+                                )
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(
+                                        LootItem.lootTableItem(Items.COD)
+                                                .setWeight(3)
+                                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+                                                .apply(
+                                                        SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, ENTITY_ON_FIRE))
+                                                )
+                                )
+                                .add(
+                                        LootItem.lootTableItem(Items.PRISMARINE_CRYSTALS)
+                                                .setWeight(2)
+                                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+                                )
+                                .add(EmptyLootItem.emptyItem())
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(Blocks.WET_SPONGE))
+                                .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(
+                                        NestedLootTable.lootTableReference(BuiltInLootTables.FISHING_FISH)
+                                                .apply(
+                                                        SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, ENTITY_ON_FIRE))
+                                                )
+                                )
+                                .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                                .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
+                )
+
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(EmptyLootItem.emptyItem().setWeight(8))
+                                .add(LootItem.lootTableItem(Items.TIDE_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(
+                                        LootItem.lootTableItem(Items.NAUTILUS_SHELL)
+                                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
+                                                )
+                                )
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(
+                                        LootItem.lootTableItem(Items.HEART_OF_THE_SEA)
+                                                .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.4F, 0.1F))
+                                )
+                );
     }
 }

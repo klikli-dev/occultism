@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/constantan"
+        "tag": "c:ingots/constantan"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/constantan"
+        "tag": "c:dusts/constantan"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 200,
   "ignore_crushing_multiplier": true,
   "ingredient": {
-    "tag": "forge:ingots/constantan"
+    "tag": "c:ingots/constantan"
   },
   "result": {
     "count": 1,
-    "tag": "forge:dusts/constantan"
+    "tag": "c:dusts/constantan"
   }
 }

@@ -5,16 +5,16 @@
       "item": "occultism:chalk_white_impure"
     },
     {
-      "tag": "forge:dusts/end_stone"
+      "tag": "c:dusts/end_stone"
     },
     {
-      "tag": "forge:dusts/obsidian"
+      "tag": "c:dusts/obsidian"
     },
     {
-      "tag": "forge:dusts/obsidian"
+      "tag": "c:dusts/obsidian"
     }
   ],
   "result": {
-    "item": "occultism:chalk_purple_impure"
+    "id": "occultism:chalk_purple_impure"
   }
 }

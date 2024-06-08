@@ -40,22 +40,23 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.bus.api.Event.Result;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingHurtEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import net.neoforged.neoforge.event.level.SaplingGrowTreeEvent;
+import net.neoforged.neoforge.event.level.BlockGrowFeatureEvent;
+
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = Occultism.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class FamiliarEventHandler {
 
     @SubscribeEvent
-    public static void beaverFindTree(SaplingGrowTreeEvent event) {
+    public static void beaverFindTree(BlockGrowFeatureEvent event) {
         LevelAccessor world = event.getLevel();
         BlockPos pos = event.getPos();
         List<BeaverFamiliarEntity> beavers = event.getLevel().getEntitiesOfClass(BeaverFamiliarEntity.class,
@@ -75,10 +76,10 @@ public class FamiliarEventHandler {
         if (!event.getState().is(BlockTags.LOGS))
             return;
 
-        if (!player.hasEffect(OccultismEffects.BEAVER_HARVEST.get()))
+        if (!player.hasEffect(OccultismEffects.BEAVER_HARVEST))
             return;
 
-        int level = player.getEffect(OccultismEffects.BEAVER_HARVEST.get()).getAmplifier();
+        int level = player.getEffect(OccultismEffects.BEAVER_HARVEST).getAmplifier();
 
         event.setNewSpeed(event.getNewSpeed() * (level + 3));
     }
@@ -88,7 +89,7 @@ public class FamiliarEventHandler {
     public static void dodge(LivingHurtEvent event) {
         LivingEntity entity = event.getEntity();
 
-        if (!entity.hasEffect(OccultismEffects.MUMMY_DODGE.get()))
+        if (!entity.hasEffect(OccultismEffects.MUMMY_DODGE))
             return;
 
         DamageSource source = event.getSource();
@@ -96,7 +97,7 @@ public class FamiliarEventHandler {
         if (source.getEntity() == null | source.is(DamageTypeTags.IS_EXPLOSION) || source.is(DamageTypeTags.BYPASSES_INVULNERABILITY))
             return;
 
-        int level = entity.getEffect(OccultismEffects.MUMMY_DODGE.get()).getAmplifier();
+        int level = entity.getEffect(OccultismEffects.MUMMY_DODGE).getAmplifier();
         boolean dodge = entity.getRandom().nextDouble() < (level + 1) * 0.1f;
         event.setCanceled(dodge);
 
@@ -116,10 +117,10 @@ public class FamiliarEventHandler {
         if (!(event.getSource().getEntity() instanceof LivingEntity attacker))
             return;
 
-        if (!attacker.hasEffect(OccultismEffects.BAT_LIFESTEAL.get()))
+        if (!attacker.hasEffect(OccultismEffects.BAT_LIFESTEAL))
             return;
 
-        attacker.heal(1 + attacker.getEffect(OccultismEffects.BAT_LIFESTEAL.get()).getAmplifier());
+        attacker.heal(1 + attacker.getEffect(OccultismEffects.BAT_LIFESTEAL).getAmplifier());
     }
 
     private static void fairySave(LivingDeathEvent event) {
@@ -213,6 +214,6 @@ public class FamiliarEventHandler {
         if (!FamiliarUtil.hasFamiliar(entity, beholder, FamiliarEntity::hasBlacksmithUpgrade))
             return;
 
-        event.setResult(Result.DENY);
+        event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
     }
 }

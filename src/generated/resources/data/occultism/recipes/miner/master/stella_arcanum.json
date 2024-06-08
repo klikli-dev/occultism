@@ -4,7 +4,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/stella_arcanum"
+        "tag": "c:ores/stella_arcanum"
       }
     }
   ],
@@ -13,7 +13,7 @@
     "tag": "occultism:miners/master"
   },
   "result": {
-    "tag": "forge:ores/stella_arcanum"
+    "tag": "c:ores/stella_arcanum"
   },
   "weight": 100
 }

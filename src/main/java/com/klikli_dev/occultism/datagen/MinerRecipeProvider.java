@@ -80,19 +80,19 @@ public class MinerRecipeProvider implements DataProvider {
         recipes.accept(this.buildMinerRecipe(
                 this.modLoc("master/stella_arcanum"),
                 this.modLoc("miners/master"),
-                this.loc("forge", "ores/stella_arcanum"),
+                this.loc("c", "ores/stella_arcanum"),
                 100));
 
         recipes.accept(this.buildMinerRecipe(
                 this.modLoc("ores/arcane_crystal"),
                 this.modLoc("miners/ores"),
-                this.loc("forge", "ores/arcane_crystal"),
+                this.loc("c", "ores/arcane_crystal"),
                 200));
 
         recipes.accept(this.buildMinerRecipe(
                 this.modLoc("ores/xpetrified"),
                 this.modLoc("miners/ores"),
-                this.loc("forge", "ores/xpetrified_ore"),
+                this.loc("c", "ores/xpetrified_ore"),
                 200));
     }
 

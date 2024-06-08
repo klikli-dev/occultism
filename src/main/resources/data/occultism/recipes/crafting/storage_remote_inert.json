@@ -13,10 +13,10 @@
       "item": "minecraft:stone_button"
     },
     "g": {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     }
   },
   "result": {
-    "item": "occultism:storage_remote_inert"
+    "id": "occultism:storage_remote_inert"
   }
 }

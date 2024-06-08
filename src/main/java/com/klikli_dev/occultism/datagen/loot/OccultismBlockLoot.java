@@ -4,11 +4,15 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.block.crops.IReplantableCrops;
 import com.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -16,9 +20,11 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
@@ -26,9 +32,12 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 
 public class OccultismBlockLoot extends BlockLootSubProvider {
 
@@ -41,11 +50,19 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
     }
 
     @Override
-    public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
+    public void generate(HolderLookup.Provider pRegistries, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> pGenerator) {
         this.generate();
-        this.map.forEach(consumer::accept);
+        this.map.forEach(pGenerator::accept);
     }
 
+    @Override
+    public @NotNull Iterable<Block> getKnownBlocks() {
+        return BuiltInRegistries.BLOCK.stream()
+                .filter(block -> Optional.of(BuiltInRegistries.BLOCK.getKey(block))
+                        .filter(key -> key.getNamespace().equals(Occultism.MODID))
+                        .isPresent())
+                .collect(Collectors.toSet());
+    }
     @Override
     protected void generate() {
         OccultismBlocks.BLOCKS.getEntries().stream()
@@ -81,6 +98,23 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
         this.add(OccultismBlocks.SILVER_ORE.get(), this.createOreDrop(OccultismBlocks.SILVER_ORE.get(), OccultismItems.RAW_SILVER.get()));
         this.add(OccultismBlocks.SILVER_ORE_DEEPSLATE.get(), this.createOreDrop(OccultismBlocks.SILVER_ORE_DEEPSLATE.get(), OccultismItems.RAW_SILVER.get()));
         this.add(OccultismBlocks.IESNIUM_ORE.get(), this.createOreDrop(OccultismBlocks.IESNIUM_ORE.get(), OccultismItems.RAW_IESNIUM.get()));
+
+        this.dropSelfWithComponents(OccultismBlocks.STORAGE_CONTROLLER.get(),
+                OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS.get(),
+                OccultismDataComponents.SORT_DIRECTION.get(),
+                OccultismDataComponents.SORT_TYPE.get(),
+                OccultismDataComponents.CRAFTING_MATRIX.get(),
+                OccultismDataComponents.ORDER_STACK.get()
+        );
+
+
+        this.dropSelfWithComponents(OccultismBlocks.STABLE_WORMHOLE.get(),
+                OccultismDataComponents.LINKED_STORAGE_CONTROLLER.get(),
+                OccultismDataComponents.SORT_DIRECTION.get(),
+                OccultismDataComponents.SORT_TYPE.get(),
+                OccultismDataComponents.CRAFTING_MATRIX.get(),
+                OccultismDataComponents.ORDER_STACK.get()
+        );
     }
 
     protected void registerOtherworldBlockTable(Block block) {
@@ -124,15 +158,48 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
 
         return createSilkTouchOrShearsDispatchTable(leavesBlock,
                 this.applyExplosionCondition(leavesBlock, saplingLootItem)
-                        .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, chances)))
+                        .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, chances)))
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
                         .when(HAS_NO_SHEARS_OR_SILK_TOUCH)
                         .add(this.applyExplosionDecay(leavesBlock, LootItem.lootTableItem(Items.STICK)
                                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
-                                .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.02F, 0.022222223F, 0.025F, 0.033333335F, 0.1F))));
+                                .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, 0.02F, 0.022222223F, 0.025F, 0.033333335F, 0.1F))));
     }
 
     public void registerDropNothingLootTable(Block block) {
-        this.add(block, LootTable.lootTable().withPool(LootPool.lootPool()));
+//       this.add(block, noDrop());
+    }
+
+    protected final void dropSelfWithComponents(Block pBlock, DataComponentType<?>... pIncludes) {
+        this.dropSelfWithComponents(pBlock, this.copyComponents(pIncludes));
+    }
+
+    protected void dropSelfWithComponents(Block pBlock, CopyComponentsFunction.Builder data) {
+        this.add(pBlock, this.createSelfWithComponentsDrop(pBlock, data));
+    }
+
+    protected LootTable.Builder createSelfWithComponentsDrop(Block pBlock, CopyComponentsFunction.Builder data) {
+        return LootTable.lootTable()
+                .withPool(
+                        this.applyExplosionCondition(
+                                pBlock,
+                                LootPool.lootPool()
+                                        .setRolls(ConstantValue.exactly(1.0F))
+                                        .add(
+                                                LootItem.lootTableItem(pBlock)
+                                                        .apply(
+                                                                data
+                                                        )
+                                        )
+                        )
+                );
+    }
+
+    protected CopyComponentsFunction.Builder copyComponents(DataComponentType<?>... pIncludes) {
+        var builder = CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY);
+        for (var include : pIncludes) {
+            builder.include(include);
+        }
+        return builder;
     }
 }

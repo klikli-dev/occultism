@@ -102,11 +102,11 @@ public class MummyFamiliarEntity extends FamiliarEntity {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
         this.setCrown(this.getRandom().nextDouble() < 0.1);
         this.setTooth(this.getRandom().nextBoolean());
         this.setHeka(this.getRandom().nextBoolean());
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 
     @Override
@@ -118,7 +118,7 @@ public class MummyFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
-        return ImmutableList.of(new MobEffectInstance(OccultismEffects.MUMMY_DODGE.get(), 300, 0, false, false));
+        return ImmutableList.of(new MobEffectInstance(OccultismEffects.MUMMY_DODGE, 300, 0, false, false));
     }
 
     @Override
@@ -145,7 +145,7 @@ public class MummyFamiliarEntity extends FamiliarEntity {
     @Override
     public void blacksmithUpgrade() {
         super.blacksmithUpgrade();
-        AttributeModifier damage = new AttributeModifier(DAMAGE_BONUS, "Mummy attack bonus", 3, Operation.ADDITION);
+        AttributeModifier damage = new AttributeModifier(DAMAGE_BONUS, "Mummy attack bonus", 3, Operation.ADD_VALUE);
         if (!this.getAttribute(Attributes.ATTACK_DAMAGE).hasModifier(damage))
             this.getAttribute(Attributes.ATTACK_DAMAGE).addPermanentModifier(damage);
 

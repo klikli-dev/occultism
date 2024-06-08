@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.util;
 
 import com.klikli_dev.occultism.common.item.otherworld.OtherworldBlockItem;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
@@ -54,8 +55,8 @@ public class OtherworldUtil {
         if (Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER)
             return item.getOrCreateDescriptionId();
         boolean thirdEye = Minecraft.getInstance() != null && Minecraft.getInstance().player != null
-                && Minecraft.getInstance().player.hasEffect(OccultismEffects.THIRD_EYE.get());
-        return stack.getOrCreateTag().getBoolean("isInventoryItem") ||
+                && Minecraft.getInstance().player.hasEffect(OccultismEffects.THIRD_EYE);
+        return stack.getOrDefault(OccultismDataComponents.IS_INVENTORY_ITEM, false) ||
                 thirdEye ? item.getOrCreateDescriptionId() : item.getDescriptionId();
     }
     //endregion Static Methods

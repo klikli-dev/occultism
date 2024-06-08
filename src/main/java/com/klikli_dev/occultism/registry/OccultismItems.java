@@ -22,10 +22,8 @@
 
 package com.klikli_dev.occultism.registry;
 
-import com.klikli_dev.modonomicon.registry.RegistryObject;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.TranslationKeys;
-import com.klikli_dev.occultism.api.common.misc.OccultismItemTier;
 import com.klikli_dev.occultism.common.item.DummyTooltipItem;
 import com.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.klikli_dev.occultism.common.item.debug.*;
@@ -35,9 +33,10 @@ import com.klikli_dev.occultism.common.item.storage.*;
 import com.klikli_dev.occultism.common.item.tool.BrushItem;
 import com.klikli_dev.occultism.common.item.tool.*;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.ComposterBlock;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -175,14 +174,14 @@ public class OccultismItems {
     public static final DeferredItem<BrushItem> BRUSH = ITEMS.register("brush",
             () -> new BrushItem(defaultProperties().stacksTo(1)));
     public static final DeferredItem<SwordItem> BUTCHER_KNIFE = ITEMS.register("butcher_knife",
-            () -> new SwordItem(Tiers.IRON, 3, -2.4F, defaultProperties()));
+            () -> new SwordItem(Tiers.IRON, defaultProperties().attributes(SwordItem.createAttributes(Tiers.IRON, 3, -2.4F))));
 
     public static final DeferredItem<Item> SPIRIT_ATTUNED_PICKAXE_HEAD = ITEMS.register("spirit_attuned_pickaxe_head",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<InfusedPickaxeItem> INFUSED_PICKAXE = ITEMS.register("infused_pickaxe",
-            () -> new InfusedPickaxeItem(OccultismItemTier.SPIRIT_ATTUNED_GEM, 1, -2.8F, defaultProperties()));
+            () -> new InfusedPickaxeItem(Tiers.DIAMOND, defaultProperties().attributes(PickaxeItem.createAttributes(Tiers.DIAMOND, 1.0F, -2.8F))));
     public static final DeferredItem<OtherworldPickaxeItem> IESNIUM_PICKAXE = ITEMS.register("iesnium_pickaxe",
-            () -> new OtherworldPickaxeItem(Tiers.DIAMOND, 1, -2.8F, defaultProperties()));
+            () -> new OtherworldPickaxeItem(Tiers.DIAMOND, defaultProperties().attributes(PickaxeItem.createAttributes(Tiers.DIAMOND, 1.0F, -2.8F))));
 
     public static final DeferredItem<SoulGemItem> SOUL_GEM_ITEM = ITEMS.register("soul_gem",
             () -> new SoulGemItem(defaultProperties().stacksTo(1)));
@@ -191,7 +190,7 @@ public class OccultismItems {
             () -> new SoulShardItem(defaultProperties().stacksTo(1)));
 
     public static final DeferredItem<Item> SATCHEL = ITEMS.register("satchel",
-            () -> new SatchelItem(defaultProperties().stacksTo(1).rarity(Rarity.RARE)));
+            () -> new SatchelItem(defaultProperties().stacksTo(1).rarity(Rarity.RARE).component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)));
 
     public static final DeferredItem<Item> FAMILIAR_RING = ITEMS.register("familiar_ring",
             () -> new FamiliarRingItem(defaultProperties().stacksTo(1)));

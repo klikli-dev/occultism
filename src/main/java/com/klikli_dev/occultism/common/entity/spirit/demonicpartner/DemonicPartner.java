@@ -1,13 +1,18 @@
 package com.klikli_dev.occultism.common.entity.spirit.demonicpartner;
 
 import com.klikli_dev.occultism.common.entity.familiar.FamiliarEntity;
+import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.registry.OccultismTags;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
@@ -18,11 +23,13 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SmokingRecipe;
@@ -47,9 +54,34 @@ public class DemonicPartner extends TamableAnimal {
         return FamiliarEntity.createAttributes().add(Attributes.ATTACK_DAMAGE, 9.0D);
     }
 
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(IS_LYING, false);
+    @Override
+    protected void dropFromLootTable(DamageSource pDamageSource, boolean pAttackedRecently) {
+        super.dropFromLootTable(pDamageSource, pAttackedRecently);
+
+        var owner = this.getOwner();
+
+        var shard = new ItemStack(OccultismItems.SOUL_SHARD_ITEM.get());
+
+        var health = this.getHealth();
+        this.setHealth(this.getMaxHealth()); //simulate a healthy familiar to avoid death on respawn
+        shard.set(DataComponents.ENTITY_DATA, CustomData.of(this.serializeNBT(this.registryAccess())));
+        this.setHealth(health);
+
+        if(owner instanceof Player player){
+            ItemHandlerHelper.giveItemToPlayer(player, shard);
+        }
+        else {
+            ItemEntity entityitem = new ItemEntity(this.level(), this.getX(), this.getY() + 0.5, this.getZ(), shard);
+            entityitem.setPickUpDelay(5);
+            entityitem.setDeltaMovement(entityitem.getDeltaMovement().multiply(0, 1, 0));
+
+            this.level().addFreshEntity(entityitem);
+        }
+    }
+
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(IS_LYING, false);
     }
 
     public boolean isLying() {
@@ -81,9 +113,7 @@ public class DemonicPartner extends TamableAnimal {
 
     @Override
     public boolean isFood(ItemStack pStack) {
-        //Demons eat meat
-        Item item = pStack.getItem();
-        return item.isEdible() && pStack.getFoodProperties(this).isMeat();
+        return pStack.is(OccultismTags.Items.DEMONIC_PARTNER_FOOD);
     }
 
     public Optional<RecipeHolder<SmokingRecipe>> getRecipe(ItemStack pStack) {
@@ -117,11 +147,11 @@ public class DemonicPartner extends TamableAnimal {
         }
 
         if (this.isTame()) {
-            var effects = PotionUtils.getMobEffects(itemstack);
-            if (!effects.isEmpty()) {
-                for (var instance : effects) {
-                    if (instance.getEffect().isInstantenous()) {
-                        instance.getEffect().applyInstantenousEffect(this, this, pPlayer, instance.getAmplifier(), 1.0D);
+            var effects = itemstack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
+            if (effects.hasEffects()) {
+                for (var instance : effects.getAllEffects()) {
+                    if (instance.getEffect().value().isInstantenous()) {
+                        instance.getEffect().value().applyInstantenousEffect(this, this, pPlayer, instance.getAmplifier(), 1.0D);
                     } else {
                         pPlayer.addEffect(new MobEffectInstance(instance.getEffect(), instance.getDuration() * 5, instance.getAmplifier(), instance.isAmbient(), instance.isVisible()));
                     }
@@ -157,7 +187,7 @@ public class DemonicPartner extends TamableAnimal {
 
             //heal with food
             if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
-                this.heal((float) itemstack.getFoodProperties(this).getNutrition());
+                this.heal((float) itemstack.getFoodProperties(this).nutrition());
                 if (!pPlayer.getAbilities().instabuild) {
                     itemstack.shrink(1);
                 }
@@ -206,7 +236,7 @@ public class DemonicPartner extends TamableAnimal {
             this.doEnchantDamageEffects(this, pEntity);
         }
 
-        pEntity.setSecondsOnFire(2);
+        pEntity.setRemainingFireTicks(2 * 20);
 
         return flag;
     }

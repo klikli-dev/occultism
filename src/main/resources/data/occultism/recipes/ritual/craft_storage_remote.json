@@ -7,23 +7,23 @@
   "pentacle_id": "occultism:craft_djinni",
   "duration": 120,
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/craft_storage_remote"
+    "id": "occultism:ritual_dummy/craft_storage_remote"
   },
   "ingredients": [
     {
       "item": "occultism:storage_remote_inert"
     },
     {
-      "tag": "forge:ender_pearls"
+      "tag": "c:ender_pearls"
     },
     {
-      "tag": "forge:ender_pearls"
+      "tag": "c:ender_pearls"
     },
     {
-      "tag": "forge:gems/quartz"
+      "tag": "c:gems/quartz"
     }
   ],
   "result": {
-    "item": "occultism:storage_remote"
+    "id": "occultism:storage_remote"
   }
 }

@@ -24,67 +24,63 @@ package com.klikli_dev.occultism.network;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.network.messages.*;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraft.world.level.ChunkPos;
 import net.neoforged.neoforge.network.PacketDistributor;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlerEvent;
-import net.neoforged.neoforge.network.registration.IPayloadRegistrar;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 
 public class Networking {
 
-    public static void register(final RegisterPayloadHandlerEvent event) {
-        final IPayloadRegistrar registrar = event.registrar(Occultism.MODID);
+    public static void register(final RegisterPayloadHandlersEvent event) {
+        final var registrar = event.registrar(Occultism.MODID);
 
-        registrar.play(MessageBeholderAttack.ID, MessageBeholderAttack::new, MessageHandler::handle);
-        registrar.play(MessageClearCraftingMatrix.ID, MessageClearCraftingMatrix::new, MessageHandler::handle);
-        registrar.play(MessageDoubleJump.ID, MessageDoubleJump::new, MessageHandler::handle);
-        registrar.play(MessageFairySupport.ID, MessageFairySupport::new, MessageHandler::handle);
-        registrar.play(MessageHeadlessDie.ID, MessageHeadlessDie::new, MessageHandler::handle);
-        registrar.play(MessageInsertMouseHeldItem.ID, MessageInsertMouseHeldItem::new, MessageHandler::handle);
-        registrar.play(MessageOpenSatchel.ID, MessageOpenSatchel::new, MessageHandler::handle);
-        registrar.play(MessageOpenStorageRemote.ID, MessageOpenStorageRemote::new, MessageHandler::handle);
-        registrar.play(MessageRequestOrder.ID, MessageRequestOrder::new, MessageHandler::handle);
-        registrar.play(MessageRequestStacks.ID, MessageRequestStacks::new, MessageHandler::handle);
-        registrar.play(MessageSelectBlock.ID, MessageSelectBlock::new, MessageHandler::handle);
-        registrar.play(MessageSetDivinationResult.ID, MessageSetDivinationResult::new, MessageHandler::handle);
-        registrar.play(MessageSetFilterMode.ID, MessageSetFilterMode::new, MessageHandler::handle);
-        registrar.play(MessageSetItemMode.ID, MessageSetItemMode::new, MessageHandler::handle);
-        registrar.play(MessageSetJumps.ID, MessageSetJumps::new, MessageHandler::handle);
-        registrar.play(MessageSetManagedMachine.ID, MessageSetManagedMachine::new, MessageHandler::handle);
-        registrar.play(MessageSetRecipe.ID, MessageSetRecipe::new, MessageHandler::handle);
-        registrar.play(MessageSetRecipeByID.ID, MessageSetRecipeByID::new, MessageHandler::handle);
-        registrar.play(MessageSetTagFilterText.ID, MessageSetTagFilterText::new, MessageHandler::handle);
-        registrar.play(MessageSetWorkAreaSize.ID, MessageSetWorkAreaSize::new, MessageHandler::handle);
-        registrar.play(MessageSortItems.ID, MessageSortItems::new, MessageHandler::handle);
-        registrar.play(MessageSyncFamiliarSettings.ID, MessageSyncFamiliarSettings::new, MessageHandler::handle);
-        registrar.play(MessageTakeItem.ID, MessageTakeItem::new, MessageHandler::handle);
-        registrar.play(MessageToggleFamiliarSettings.ID, MessageToggleFamiliarSettings::new, MessageHandler::handle);
-        registrar.play(MessageUpdateLinkedMachines.ID, MessageUpdateLinkedMachines::new, MessageHandler::handle);
-        registrar.play(MessageUpdateMouseHeldItem.ID, MessageUpdateMouseHeldItem::new, MessageHandler::handle);
-        registrar.play(MessageUpdateStacks.ID, MessageUpdateStacks::new, MessageHandler::handle);
-        registrar.play(MessageUpdateStorageSettings.ID, MessageUpdateStorageSettings::new, MessageHandler::handle);
+        //to server
+        registrar.playToServer(MessageClearCraftingMatrix.TYPE, MessageClearCraftingMatrix.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToServer(MessageDoubleJump.TYPE, MessageDoubleJump.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToServer(MessageInsertMouseHeldItem.TYPE, MessageInsertMouseHeldItem.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToServer(MessageOpenSatchel.TYPE, MessageOpenSatchel.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToServer(MessageOpenStorageRemote.TYPE, MessageOpenStorageRemote.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToServer(MessageRequestOrder.TYPE, MessageRequestOrder.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToServer(MessageRequestStacks.TYPE, MessageRequestStacks.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToServer(MessageSetDivinationResult.TYPE, MessageSetDivinationResult.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToServer(MessageSetFilterMode.TYPE, MessageSetFilterMode.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToServer(MessageSetItemMode.TYPE, MessageSetItemMode.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToServer(MessageSetManagedMachine.TYPE, MessageSetManagedMachine.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToServer(MessageSetRecipe.TYPE, MessageSetRecipe.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToServer(MessageSetRecipeByID.TYPE, MessageSetRecipeByID.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToServer(MessageSetTagFilterText.TYPE, MessageSetTagFilterText.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToServer(MessageSetWorkAreaSize.TYPE, MessageSetWorkAreaSize.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToServer(MessageSortItems.TYPE, MessageSortItems.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToServer(MessageTakeItem.TYPE, MessageTakeItem.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToServer(MessageToggleFamiliarSettings.TYPE, MessageToggleFamiliarSettings.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToServer(MessageUpdateStorageSettings.TYPE, MessageUpdateStorageSettings.STREAM_CODEC, MessageHandler::handle);
+        //to client
+        registrar.playToClient(MessageBeholderAttack.TYPE, MessageBeholderAttack.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToClient(MessageFairySupport.TYPE, MessageFairySupport.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToClient(MessageHeadlessDie.TYPE, MessageHeadlessDie.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToClient(MessageSelectBlock.TYPE, MessageSelectBlock.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToClient(MessageSetJumps.TYPE, MessageSetJumps.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToClient(MessageSyncFamiliarSettings.TYPE, MessageSyncFamiliarSettings.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToClient(MessageUpdateLinkedMachines.TYPE, MessageUpdateLinkedMachines.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToClient(MessageUpdateMouseHeldItem.TYPE, MessageUpdateMouseHeldItem.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToClient(MessageUpdateStacks.TYPE, MessageUpdateStacks.STREAM_CODEC, MessageHandler::handle);
     }
 
     public static <T extends IMessage> void sendTo(ServerPlayer player, T message) {
-        PacketDistributor.PLAYER.with(player).send(message);
+        PacketDistributor.sendToPlayer(player, message);
     }
 
-    public static <T extends IMessage> void sendToServer(T message) {
-        PacketDistributor.SERVER.noArg().send(message);
+    public static <T extends IMessage> void sendToTracking(ServerLevel level, ChunkPos chunkPos, T message) {
+        PacketDistributor.sendToPlayersTrackingChunk(level, chunkPos, message);
     }
 
     public static <T extends IMessage> void sendToTracking(Entity entity, T message) {
-        PacketDistributor.TRACKING_ENTITY.with(entity).send(message);
+        PacketDistributor.sendToPlayersTrackingEntity(entity, message);
     }
 
-    public static <T extends IMessage> void sendToTracking(LevelChunk chunk, T message) {
-        PacketDistributor.TRACKING_CHUNK.with(chunk).send(message);
-    }
-
-    public static <T extends IMessage> void sendToDimension(ResourceKey<Level> dimensionKey, T message) {
-        PacketDistributor.DIMENSION.with(dimensionKey).send(message);
+    public static <T extends IMessage> void sendToServer(T message) {
+        PacketDistributor.sendToServer(message);
     }
 }

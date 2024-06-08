@@ -7,23 +7,23 @@
   "pentacle_id": "occultism:craft_foliot",
   "duration": 60,
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/craft_storage_controller_base"
+    "id": "occultism:ritual_dummy/craft_storage_controller_base"
   },
   "ingredients": [
     {
       "item": "occultism:otherstone_pedestal"
     },
     {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     },
     {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     },
     {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     }
   ],
   "result": {
-    "item": "occultism:storage_controller_base"
+    "id": "occultism:storage_controller_base"
   }
 }

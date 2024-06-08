@@ -7,13 +7,13 @@
   ],
   "key": {
     "s": {
-      "tag": "forge:ingots/silver"
+      "tag": "c:ingots/silver"
     },
     "i": {
-      "tag": "forge:ingots/iesnium"
+      "tag": "c:ingots/iesnium"
     }
   },
   "result": {
-    "item": "occultism:magic_lamp_empty"
+    "id": "occultism:magic_lamp_empty"
   }
 }

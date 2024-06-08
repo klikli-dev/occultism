@@ -36,8 +36,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod.EventBusSubscriber;
-import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderLivingEvent;
 
 public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, DragonFamiliarModel> {
@@ -57,7 +56,7 @@ public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, Dr
         return TEXTURES;
     }
 
-    @EventBusSubscriber(bus = Bus.FORGE, modid = Occultism.MODID, value = Dist.CLIENT)
+    @EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME, modid = Occultism.MODID, value = Dist.CLIENT)
     private static class RenderText {
 
         @SubscribeEvent

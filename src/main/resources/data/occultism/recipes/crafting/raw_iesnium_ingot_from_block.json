@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "forge:storage_blocks/raw_iesnium"
+      "tag": "c:storage_blocks/raw_iesnium"
     }
   ],
   "result": {
-    "item": "occultism:raw_iesnium",
+    "id": "occultism:raw_iesnium",
     "count": 9
   }
 }

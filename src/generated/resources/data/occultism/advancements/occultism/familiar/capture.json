@@ -13,7 +13,11 @@
       "translate": "advancements.occultism.familiar.capture.description"
     },
     "icon": {
-      "item": "occultism:familiar_ring"
+      "components": {
+        "occultism:spirit_name": "EqisEdu"
+      },
+      "count": 1,
+      "id": "occultism:familiar_ring"
     },
     "title": {
       "translate": "advancements.occultism.familiar.capture.title"

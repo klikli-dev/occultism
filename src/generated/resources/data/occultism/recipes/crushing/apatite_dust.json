@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/apatite"
+        "tag": "c:ores/apatite"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/apatite"
+        "tag": "c:dusts/apatite"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 200,
   "ignore_crushing_multiplier": false,
   "ingredient": {
-    "tag": "forge:ores/apatite"
+    "tag": "c:ores/apatite"
   },
   "result": {
     "count": 4,
-    "tag": "forge:dusts/apatite"
+    "tag": "c:dusts/apatite"
   }
 }

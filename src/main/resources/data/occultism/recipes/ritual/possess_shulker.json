@@ -12,24 +12,24 @@
   },
   "entity_to_summon": "occultism:possessed_shulker",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/possess_shulker"
+    "id": "occultism:ritual_dummy/possess_shulker"
   },
   "ingredients": [
     {
       "item": "minecraft:dragon_breath"
     },
     {
-      "tag": "forge:obsidian"
+      "tag": "c:obsidian"
     },
     {
-      "tag": "forge:end_stones"
+      "tag": "c:end_stones"
     },
     {
       "item": "minecraft:purple_glazed_terracotta"
     }
   ],
   "result": {
-    "item": "minecraft:shulker_shell",
+    "id": "minecraft:shulker_shell",
     "nbt": {
       "display": {
         "Lore": [

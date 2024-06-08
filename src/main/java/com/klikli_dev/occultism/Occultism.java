@@ -35,16 +35,19 @@ import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife.Demonic
 import com.klikli_dev.occultism.config.OccultismClientConfig;
 import com.klikli_dev.occultism.config.OccultismCommonConfig;
 import com.klikli_dev.occultism.config.OccultismServerConfig;
+import com.klikli_dev.occultism.config.OccultismStartupConfig;
 import com.klikli_dev.occultism.handlers.ClientSetupEventHandler;
 import com.klikli_dev.occultism.integration.modonomicon.PageLoaders;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.*;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.ParticleRegistry;
 import com.mojang.logging.LogUtils;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
@@ -68,16 +71,18 @@ public class Occultism {
     public static final OccultismServerConfig SERVER_CONFIG = new OccultismServerConfig();
     public static final OccultismCommonConfig COMMON_CONFIG = new OccultismCommonConfig();
     public static final OccultismClientConfig CLIENT_CONFIG = new OccultismClientConfig();
+    public static final OccultismStartupConfig STARTUP_CONFIG = new OccultismStartupConfig();
     public static final SelectedBlockRenderer SELECTED_BLOCK_RENDERER = new SelectedBlockRenderer();
     public static final ThirdEyeEffectRenderer THIRD_EYE_EFFECT_RENDERER = new ThirdEyeEffectRenderer();
     public static final DebugHelper DEBUG = new DebugHelper();
     public static Occultism INSTANCE;
 
-    public Occultism(IEventBus modEventBus) {
+    public Occultism(IEventBus modEventBus, ModContainer modContainer) {
         INSTANCE = this;
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG.spec);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG.spec);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG.spec);
+        modContainer.registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG.spec);
+        modContainer.registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG.spec);
+        modContainer.registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG.spec);
+        modContainer.registerConfig(ModConfig.Type.STARTUP, STARTUP_CONFIG.spec);
 
         OccultismEffects.EFFECTS.register(modEventBus);
         OccultismRecipes.RECIPE_TYPES.register(modEventBus);
@@ -96,7 +101,7 @@ public class Occultism {
         OccultismMemoryTypes.MEMORY_MODULE_TYPES.register(modEventBus);
         OccultismDataStorage.ATTACHMENT_TYPES.register(modEventBus);
         OccultismAdvancements.TRIGGER_TYPES.register(modEventBus);
-
+        OccultismDataComponents.DATA_COMPONENTS.register(modEventBus);
 
         //now register the custom registries
         OccultismSpiritJobs.JOBS.register(modEventBus);
@@ -116,7 +121,6 @@ public class Occultism {
             modEventBus.addListener(ClientSetupEventHandler::onRegisterMenuScreens);
         }
 
-        GeckoLib.initialize(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

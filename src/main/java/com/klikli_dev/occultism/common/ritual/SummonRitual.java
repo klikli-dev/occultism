@@ -65,8 +65,9 @@ public class SummonRitual extends Ritual {
 
         //should never happen, but apparently there is a scenario where it does (item cheated in with non jei?)
         //https://github.com/klikli-dev/occultism/issues/183
-        if (activationItem.hasTag())
-            result.setTag(activationItem.getTag().copy());
+
+        if (!activationItem.isComponentsPatchEmpty())
+            result.applyComponents(activationItem.getComponents());
         return result;
     }
 
@@ -173,7 +174,7 @@ public class SummonRitual extends Ritual {
         if (spiritName.length() > 0)
             livingEntity.setCustomName(Component.literal(spiritName));
         if (livingEntity instanceof Mob mob) {
-            EventHooks.onFinalizeSpawn(mob, (ServerLevelAccessor) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED, null, null);
+            EventHooks.finalizeMobSpawn(mob, (ServerLevelAccessor) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED, null);
         }
     }
 }

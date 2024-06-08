@@ -5,10 +5,10 @@
       "item": "occultism:book_of_binding_bound_foliot"
     },
     {
-      "tag": "forge:chests"
+      "tag": "c:chests"
     }
   ],
   "result": {
-    "item": "occultism:book_of_calling_foliot_transport_items"
+    "id": "occultism:book_of_calling_foliot_transport_items"
   }
 }

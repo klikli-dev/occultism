@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "forge:storage_blocks/silver"
+      "tag": "c:storage_blocks/silver"
     }
   ],
   "result": {
-    "item": "occultism:silver_ingot",
+    "id": "occultism:silver_ingot",
     "count": 9
   }
 }

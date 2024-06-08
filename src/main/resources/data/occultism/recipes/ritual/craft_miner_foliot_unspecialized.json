@@ -7,7 +7,7 @@
   "pentacle_id": "occultism:craft_foliot",
   "duration": 60,
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/craft_miner_foliot_unspecialized"
+    "id": "occultism:ritual_dummy/craft_miner_foliot_unspecialized"
   },
   "ingredients": [
     {
@@ -17,13 +17,13 @@
       "item": "occultism:iesnium_pickaxe"
     },
     {
-      "tag": "forge:raw_materials/iron"
+      "tag": "c:raw_materials/iron"
     },
     {
       "item": "minecraft:gravel"
     }
   ],
   "result": {
-    "item": "occultism:miner_foliot_unspecialized"
+    "id": "occultism:miner_foliot_unspecialized"
   }
 }

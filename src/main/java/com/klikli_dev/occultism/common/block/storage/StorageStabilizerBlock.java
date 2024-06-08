@@ -67,9 +67,8 @@ public class StorageStabilizerBlock extends Block {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
-        return super.isPathfindable(pState, pLevel, pPos, pType);
+    protected boolean isPathfindable(BlockState pState, PathComputationType pPathComputationType) {
+        return false;
     }
 
     @Override

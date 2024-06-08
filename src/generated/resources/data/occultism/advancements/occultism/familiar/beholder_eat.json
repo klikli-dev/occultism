@@ -13,7 +13,8 @@
       "translate": "advancements.occultism.familiar.beholder_eat.description"
     },
     "icon": {
-      "item": "minecraft:pumpkin_pie"
+      "count": 1,
+      "id": "minecraft:pumpkin_pie"
     },
     "title": {
       "translate": "advancements.occultism.familiar.beholder_eat.title"

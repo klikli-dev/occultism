@@ -22,15 +22,23 @@
 
 package com.klikli_dev.occultism.api.common.data;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.INBTSerializable;
+import org.jetbrains.annotations.UnknownNullability;
+
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -38,6 +46,19 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
 
     protected BlockPos pos;
     protected ResourceKey<Level> dimensionKey;
+
+    public static final Codec<GlobalBlockPos> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            BlockPos.CODEC.fieldOf("pos").forGetter(GlobalBlockPos::getPos),
+            ResourceKey.codec(Registries.DIMENSION).fieldOf("dimension").forGetter(GlobalBlockPos::getDimensionKey)
+    ).apply(instance, GlobalBlockPos::new));
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, GlobalBlockPos> STREAM_CODEC = StreamCodec.composite(
+            BlockPos.STREAM_CODEC,
+            GlobalBlockPos::getPos,
+            ResourceKey.streamCodec(Registries.DIMENSION),
+            GlobalBlockPos::getDimensionKey,
+            GlobalBlockPos::new
+    );
 
     public GlobalBlockPos() {
     }
@@ -52,25 +73,18 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
         this.dimensionKey = level.dimension();
     }
 
-    //region Static Methods
-    public static GlobalBlockPos from(CompoundTag compound) {
-        GlobalBlockPos globalBlockPos = new GlobalBlockPos();
-        globalBlockPos.deserializeNBT(compound);
-        return globalBlockPos;
-    }
-
-    public static GlobalBlockPos from(FriendlyByteBuf buf) {
-        GlobalBlockPos globalBlockPos = new GlobalBlockPos();
-        globalBlockPos.decode(buf);
-        return globalBlockPos;
-    }
-    //endregion Getter / Setter
-
     public static GlobalBlockPos from(BlockEntity blockEntity) {
         return new GlobalBlockPos(blockEntity.getBlockPos(), blockEntity.getLevel());
     }
 
-    //region Getter / Setter
+    public static GlobalBlockPos from(CompoundTag tag){
+        return GlobalBlockPos.CODEC.decode(NbtOps.INSTANCE, tag).getOrThrow().getFirst();
+    }
+
+    public static GlobalBlockPos from(RegistryFriendlyByteBuf buf){
+        return GlobalBlockPos.STREAM_CODEC.decode(buf);
+    }
+
     public ResourceKey<Level> getDimensionKey() {
         return this.dimensionKey;
     }
@@ -105,29 +119,6 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
                 .add("z=" + this.pos.getZ()).toString();
     }
 
-    @Override
-    public CompoundTag serializeNBT() {
-        return this.write(new CompoundTag());
-    }
-
-    @Override
-    public void deserializeNBT(CompoundTag nbt) {
-        this.read(nbt);
-    }
-    //endregion Static Methods
-
-    public CompoundTag write(CompoundTag compound) {
-        compound.putLong("pos", this.getPos().asLong());
-        compound.putString("dimension", this.dimensionKey.location().toString());
-        return compound;
-    }
-
-    public void read(CompoundTag compound) {
-        this.pos = BlockPos.of(compound.getLong("pos"));
-        this.dimensionKey =
-                ResourceKey.create(Registries.DIMENSION, new ResourceLocation(compound.getString("dimension")));
-    }
-
     public void encode(FriendlyByteBuf buf) {
         buf.writeBlockPos(this.pos);
         buf.writeResourceLocation(this.dimensionKey.location());
@@ -138,4 +129,16 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
         this.dimensionKey = ResourceKey.create(Registries.DIMENSION, buf.readResourceLocation());
     }
 
+    @Override
+    public @UnknownNullability CompoundTag serializeNBT(HolderLookup.Provider provider) {
+        return (CompoundTag) GlobalBlockPos.CODEC.encodeStart(NbtOps.INSTANCE, this).getOrThrow();
+    }
+
+    @Override
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
+        GlobalBlockPos.CODEC.decode(NbtOps.INSTANCE, nbt).ifSuccess(p -> {
+            this.pos = p.getFirst().getPos();
+            this.dimensionKey = p.getFirst().getDimensionKey();
+        });
+    }
 }

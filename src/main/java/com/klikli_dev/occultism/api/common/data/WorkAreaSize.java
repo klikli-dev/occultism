@@ -23,23 +23,36 @@
 package com.klikli_dev.occultism.api.common.data;
 
 import com.klikli_dev.occultism.Occultism;
+import com.mojang.serialization.Codec;
+import io.netty.buffer.ByteBuf;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ByIdMap;
+import net.minecraft.util.StringRepresentable;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.IntFunction;
 
-public enum WorkAreaSize {
+public enum WorkAreaSize implements StringRepresentable {
     SMALL(16, "small"),
     MEDIUM(32, "medium"),
     LARGE(64, "large");
 
-    private static final Map<Integer, WorkAreaSize> lookup = new HashMap<Integer, WorkAreaSize>();
     private static final String TRANSLATION_KEY_BASE = "enum." + Occultism.MODID + ".work_area_size";
 
+    private static final Map<String, WorkAreaSize> TYPES = new Object2ObjectArrayMap<>();
+    public static final Codec<WorkAreaSize> CODEC = Codec.stringResolver(WorkAreaSize::getSerializedName, TYPES::get);
+    public static final IntFunction<WorkAreaSize> BY_ID = ByIdMap.continuous(Enum::ordinal, WorkAreaSize.values(), ByIdMap.OutOfBoundsStrategy.WRAP);
+    public static final StreamCodec<ByteBuf, WorkAreaSize> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, Enum::ordinal);
+
     static {
-        for (WorkAreaSize workAreaSize : WorkAreaSize.values()) {
-            lookup.put(workAreaSize.getValue(), workAreaSize);
+        for (WorkAreaSize type : values()) {
+            TYPES.put(type.getSerializedName(), type);
         }
     }
+
 
     private final int value;
     private final String translationKey;
@@ -51,7 +64,7 @@ public enum WorkAreaSize {
 
     //region Static Methods
     public static WorkAreaSize get(int value) {
-        return lookup.get(value);
+        return TYPES.get(value);
     }
 
     //region Getter / Setter
@@ -71,5 +84,10 @@ public enum WorkAreaSize {
 
     public boolean equals(int value) {
         return this.value == value;
+    }
+
+    @Override
+    public String getSerializedName() {
+        return this.translationKey;
     }
 }

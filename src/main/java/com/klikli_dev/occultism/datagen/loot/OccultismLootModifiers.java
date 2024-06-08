@@ -7,6 +7,7 @@ import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.advancements.critereon.EntityEquipmentPredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
@@ -15,10 +16,12 @@ import net.minecraft.world.level.storage.loot.predicates.*;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
 
+import java.util.concurrent.CompletableFuture;
+
 public class OccultismLootModifiers extends GlobalLootModifierProvider {
 
-    public OccultismLootModifiers(PackOutput output) {
-        super(output, Occultism.MODID);
+    public OccultismLootModifiers(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+        super(output, registries, Occultism.MODID);
     }
 
     private EntityEquipmentPredicate mainHand(ItemPredicate.Builder itemPredicate) {
@@ -35,7 +38,7 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
                                         EntityPredicate.Builder.entity()
                                                 .equipment(this.mainHand(ItemPredicate.Builder.item().of(OccultismTags.makeItemTag(new ResourceLocation(Occultism.MODID, "tools/knives")))))).build(),
                         LootItemEntityPropertyCondition
-                                .hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(OccultismTags.makeEntityTypeTag(new ResourceLocation("forge", entityType)))).build()
+                                .hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(OccultismTags.makeEntityTypeTag(new ResourceLocation("c", entityType)))).build()
                 }, OccultismItems.TALLOW.get(), count);
     }
 
@@ -45,7 +48,7 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
                 new LootItemRandomChanceCondition(0.02f),
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.SHORT_GRASS).build(),
                 new InvertedLootItemCondition(
-                        MatchTool.toolMatches(ItemPredicate.Builder.item().of(Tags.Items.SHEARS)).build()
+                        MatchTool.toolMatches(ItemPredicate.Builder.item().of(Tags.Items.TOOLS_SHEARS)).build()
                 )
         }, OccultismItems.DATURA_SEEDS.get(), 1));
 
@@ -53,7 +56,7 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
                 new LootItemRandomChanceCondition(0.02f),
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.TALL_GRASS).build(),
                 new InvertedLootItemCondition(
-                        MatchTool.toolMatches(ItemPredicate.Builder.item().of(Tags.Items.SHEARS)).build()
+                        MatchTool.toolMatches(ItemPredicate.Builder.item().of(Tags.Items.TOOLS_SHEARS)).build()
                 )
         }, OccultismItems.DATURA_SEEDS.get(), 1));
         this.add("tallow_from_cows", this.tallow("cows", 4));

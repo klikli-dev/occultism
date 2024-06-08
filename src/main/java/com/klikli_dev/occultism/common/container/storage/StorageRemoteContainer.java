@@ -25,11 +25,13 @@ package com.klikli_dev.occultism.common.container.storage;
 import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
+import com.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
 import com.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.klikli_dev.occultism.network.messages.MessageUpdateLinkedMachines;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.OccultismContainers;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -39,6 +41,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -82,7 +85,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     @Override
     public GlobalBlockPos getStorageControllerGlobalBlockPos() {
         ItemStack storageRemote = this.getStorageRemote();
-        return storageRemote != ItemStack.EMPTY ? GlobalBlockPos.from(this.getStorageRemote().getTag().getCompound("linkedStorageController")) : null;
+        return storageRemote != ItemStack.EMPTY ? storageRemote.get(OccultismDataComponents.LINKED_STORAGE_CONTROLLER) : null;
     }
 
     @Override
@@ -183,39 +186,41 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     public void updateCraftingSlots(boolean force) {
         ListTag nbtTagList = new ListTag();
         for (int i = 0; i < this.matrix.getContainerSize(); i++) {
-            nbtTagList.add(this.matrix.getItem(i).save(new CompoundTag()));
+            nbtTagList.add(this.matrix.getItem(i).saveOptional(this.player.registryAccess()));
         }
+        var compoundTag = new CompoundTag();
+        compoundTag.put("craftingMatrix", nbtTagList);
         ItemStack storageRemote = this.getStorageRemote();
         if (storageRemote != ItemStack.EMPTY)
-            storageRemote.getOrCreateTag().put("craftingMatrix", nbtTagList);
+            storageRemote.set(OccultismDataComponents.CRAFTING_MATRIX, CustomData.of(compoundTag));
     }
 
     @Override
     public void updateOrderSlot(boolean force) {
         ItemStack storageRemote = this.getStorageRemote();
         if (storageRemote != ItemStack.EMPTY)
-            storageRemote.getOrCreateTag().put("orderStack", this.orderInventory.getItem(0).save(new CompoundTag()));
+            storageRemote.set(OccultismDataComponents.ORDER_STACK, CustomData.of((CompoundTag)this.orderInventory.getItem(0).saveOptional(this.player.registryAccess())));
     }
 
     protected List<ItemStack> getCraftingMatrixFromItemStack(ItemStack stack) {
         List<ItemStack> craftingMatrix = new ArrayList<>(Collections.nCopies(9, ItemStack.EMPTY));
-        if (!stack.getOrCreateTag().contains("craftingMatrix"))
+        if (!stack.has(OccultismDataComponents.CRAFTING_MATRIX))
             return craftingMatrix;
 
-        ListTag nbtTagList = stack.getTag().getList("craftingMatrix", Tag.TAG_COMPOUND);
+        ListTag nbtTagList = stack.get(OccultismDataComponents.CRAFTING_MATRIX).getUnsafe().getList("craftingMatrix", Tag.TAG_COMPOUND);
 
         for (int i = 0; i < nbtTagList.size(); i++) {
-            craftingMatrix.set(i, ItemStack.of(nbtTagList.getCompound(i)));
+            craftingMatrix.set(i, ItemStack.parseOptional(this.player.registryAccess(), nbtTagList.getCompound(i)));
         }
 
         return craftingMatrix;
     }
 
     protected ItemStack getOrderStackFromItemStack(ItemStack stack) {
-        if (!stack.getOrCreateTag().contains("orderStack"))
+        if (!stack.has(OccultismDataComponents.ORDER_STACK))
             return ItemStack.EMPTY;
 
-        return ItemStack.of(stack.getTag().getCompound("orderStack"));
+        return ItemStack.parseOptional(this.player.registryAccess(), stack.get(OccultismDataComponents.ORDER_STACK).copyTag());
     }
 
 }

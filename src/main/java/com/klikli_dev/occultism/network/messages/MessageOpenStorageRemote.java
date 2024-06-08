@@ -26,9 +26,12 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.klikli_dev.occultism.network.IMessage;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.CuriosUtil;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -37,8 +40,10 @@ import net.minecraft.world.level.Level;
 public class MessageOpenStorageRemote implements IMessage {
 
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "open_storage_remote");
+    public static final Type<MessageOpenStorageRemote> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageOpenStorageRemote> STREAM_CODEC = CustomPacketPayload.codec(MessageOpenStorageRemote::encode, MessageOpenStorageRemote::new);
 
-    public MessageOpenStorageRemote(FriendlyByteBuf buf) {
+    public MessageOpenStorageRemote(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -51,11 +56,10 @@ public class MessageOpenStorageRemote implements IMessage {
         CuriosUtil.SelectedCurio selectedCurio = CuriosUtil.getStorageRemote(player);
         if (selectedCurio != null) {
 
-            if (!selectedCurio.itemStack.getOrCreateTag().contains("linkedStorageController"))
+            if (!selectedCurio.itemStack.has(OccultismDataComponents.LINKED_STORAGE_CONTROLLER))
                 return;
 
-            GlobalBlockPos storageControllerPos = GlobalBlockPos.from(
-                    selectedCurio.itemStack.getTag().getCompound("linkedStorageController"));
+            GlobalBlockPos storageControllerPos = selectedCurio.itemStack.get(OccultismDataComponents.LINKED_STORAGE_CONTROLLER);
             Level storageControllerWorld = minecraftServer.getLevel(storageControllerPos.getDimensionKey());
             if (storageControllerWorld.getBlockEntity(storageControllerPos.getPos()) instanceof IStorageController) {
                 player.openMenu(OccultismItems.STORAGE_REMOTE.get(), buffer -> buffer.writeVarInt(selectedCurio.selectedSlot));
@@ -64,17 +68,17 @@ public class MessageOpenStorageRemote implements IMessage {
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(RegistryFriendlyByteBuf buf) {
 
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
+    public void decode(RegistryFriendlyByteBuf buf) {
 
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

@@ -59,10 +59,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerListener;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.client.event.ScreenEvent;
+import org.apache.commons.lang3.StringUtils;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -81,8 +83,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     public List<ItemStack> stacks;
     public List<MachineReference> linkedMachines;
     public IStorageControllerContainer storageControllerContainer;
-    public int usedSlots;
-    public int maxSlots;
+    protected int maxItemTypes;
+    protected int usedItemTypes;
+    protected long maxTotalItemCount;
+    protected long usedTotalItemCount;
     public StorageControllerGuiMode guiMode = StorageControllerGuiMode.INVENTORY;
     protected ItemStack stackUnderMouse = ItemStack.EMPTY;
     protected EditBox searchBar;
@@ -96,6 +100,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected Button autocraftingModeButton;
     protected Button inventoryModeButton;
     protected LabelWidget storageSpaceLabel;
+    protected LabelWidget storageTypesLabel;
     protected int rows;
     protected int columns;
 
@@ -177,7 +182,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     public void renderToolTip(GuiGraphics guiGraphics, MachineReference machine, int x, int y) {
         List<Component> tooltip = new ArrayList<>();
         tooltip.add(machine.getInsertItemStack().getDisplayName());
-        if (machine.customName != null) {
+        if (!StringUtils.isBlank(machine.customName)) {
             tooltip.add(Component.literal(ChatFormatting.GRAY.toString() +
                     ChatFormatting.BOLD + machine.customName +
                     ChatFormatting.RESET));
@@ -198,8 +203,15 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     }
 
     @Override
-    public void setUsedSlots(int slots) {
-        this.usedSlots = slots;
+    public void setMaxStorageSize(int maxItemTypes, long maxTotalItemCount) {
+        this.maxItemTypes = maxItemTypes;
+        this.maxTotalItemCount = maxTotalItemCount;
+    }
+
+    @Override
+    public void setUsedStorageSize(int usedItemTypes, long usedTotalItemCount) {
+        this.usedItemTypes = usedItemTypes;
+        this.usedTotalItemCount = usedTotalItemCount;
     }
 
     @Override
@@ -207,10 +219,6 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.init();
     }
 
-    @Override
-    public void setMaxSlots(int slots) {
-        this.maxSlots = slots;
-    }
 
     @Override
     public void setLinkedMachines(List<MachineReference> machines) {
@@ -258,8 +266,18 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 new LabelWidget(this.leftPos + storageSpaceInfoLabelLeft, this.topPos + storageSpaceInfoLabelTop, true,
                         -1, 2, 0x404040);
         this.storageSpaceLabel
-                .addLine(I18n.get(TRANSLATION_KEY_BASE + ".space_info_label", this.usedSlots, this.maxSlots), false);
+                .addLine(I18n.get(TRANSLATION_KEY_BASE + ".space_info_label_new",
+                        String.format("%.2f", (double)this.usedTotalItemCount / (double)this.maxTotalItemCount * 100)
+
+                ), false);
         this.addRenderableWidget(this.storageSpaceLabel);
+
+        this.storageTypesLabel =
+                new LabelWidget(this.leftPos + storageSpaceInfoLabelLeft - 7, this.topPos + storageSpaceInfoLabelTop + 40, true,
+                        -1, 2, 0x404040);
+        this.storageTypesLabel
+                .addLine(I18n.get(TRANSLATION_KEY_BASE + ".space_info_label_types", String.format("%.0f", (double)this.usedItemTypes / (double)this.maxItemTypes * 100)), false);
+        this.addRenderableWidget(this.storageTypesLabel);
         this.initButtons();
     }
 
@@ -469,7 +487,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.addRenderableWidget(this.clearTextButton);
 
 
-        int sortTypeOffset = this.getSortType().getValue() * 28;
+        int sortTypeOffset = this.getSortType().ordinal() * 28;
         this.sortTypeButton = new SizedImageButton(this.leftPos + clearTextButtonLeft + controlButtonSize + 3,
                 this.topPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, sortTypeOffset, 28, 28, 28,
                 256, 256, BUTTONS, (button) -> {
@@ -480,7 +498,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         });
         this.addRenderableWidget(this.sortTypeButton);
 
-        int sortDirectionOffset = 84 + (1 - this.getSortDirection().getValue()) * 28;
+        int sortDirectionOffset = 84 + (1 - this.getSortDirection().ordinal()) * 28;
         this.sortDirectionButton = new SizedImageButton(
                 this.leftPos + clearTextButtonLeft + controlButtonSize + 3 + controlButtonSize + 3,
                 this.topPos + controlButtonTop, controlButtonSize, controlButtonSize, 0, sortDirectionOffset, 28, 28,
@@ -801,7 +819,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             String name = TextUtil.getModNameForGameObject(stack.getItem());
             return name.toLowerCase().contains(searchText.toLowerCase().substring(1));
         } else if (searchText.startsWith("#")) {
-            List<String> tooltip = stack.getTooltipLines(this.minecraft.player, TooltipFlag.Default.NORMAL).stream()
+            List<String> tooltip = stack.getTooltipLines(Item.TooltipContext.of(this.minecraft.level), this.minecraft.player, TooltipFlag.Default.NORMAL).stream()
                     .map(Component::getString).collect(
                             Collectors.toList());
             String tooltipString = Joiner.on(' ').join(tooltip).toLowerCase().trim();
@@ -825,7 +843,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
             String name = TextUtil.getModNameForGameObject(machine.getInsertItem());
             return name.toLowerCase().contains(searchText.toLowerCase().substring(1));
         } else {
-            String customName = machine.customName == null ? "" : machine.customName.toLowerCase();
+            String customName = StringUtils.isBlank(machine.customName) ? "" : machine.customName.toLowerCase();
             return machine.getInsertItemStack().getDisplayName().getString().toLowerCase()
                     .contains(searchText.toLowerCase()) ||
                     customName.contains(searchText.toLowerCase().substring(1));

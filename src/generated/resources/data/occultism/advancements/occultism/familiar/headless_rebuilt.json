@@ -13,7 +13,8 @@
       "translate": "advancements.occultism.familiar.headless_rebuilt.description"
     },
     "icon": {
-      "item": "minecraft:hay_block"
+      "count": 1,
+      "id": "minecraft:hay_block"
     },
     "title": {
       "translate": "advancements.occultism.familiar.headless_rebuilt.title"

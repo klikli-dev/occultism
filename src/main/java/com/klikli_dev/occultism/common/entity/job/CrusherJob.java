@@ -30,6 +30,7 @@ import com.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.klikli_dev.occultism.crafting.recipe.TieredItemStackFakeInventory;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -164,14 +165,14 @@ public class CrusherJob extends SpiritJob {
     }
 
     @Override
-    public CompoundTag writeJobToNBT(CompoundTag compound) {
+    public CompoundTag writeJobToNBT(CompoundTag compound, HolderLookup.Provider provider) {
         compound.putInt("conversionTimer", this.crushingTimer);
-        return super.writeJobToNBT(compound);
+        return super.writeJobToNBT(compound, provider);
     }
 
     @Override
-    public void readJobFromNBT(CompoundTag compound) {
-        super.readJobFromNBT(compound);
+    public void readJobFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
+        super.readJobFromNBT(compound, provider);
         this.crushingTimer = compound.getInt("conversionTimer");
     }
 

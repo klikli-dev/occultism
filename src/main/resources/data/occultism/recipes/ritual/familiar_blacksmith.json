@@ -7,12 +7,12 @@
   "pentacle_id": "occultism:possess_foliot",
   "duration": 30,
   "entity_to_sacrifice": {
-    "tag": "forge:zombies",
+    "tag": "c:zombies",
     "display_name": "ritual.occultism.sacrifice.zombies"
   },
   "entity_to_summon": "occultism:blacksmith_familiar",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/familiar_blacksmith"
+    "id": "occultism:ritual_dummy/familiar_blacksmith"
   },
   "ingredients": [
     {
@@ -28,20 +28,20 @@
       "item": "minecraft:anvil"
     },
     {
-      "tag": "forge:stone"
+      "tag": "c:stone"
     },
     {
-      "tag": "forge:stone"
+      "tag": "c:stone"
     },
     {
-      "tag": "forge:stone"
+      "tag": "c:stone"
     },
     {
-      "tag": "forge:stone"
+      "tag": "c:stone"
     }
   ],
   "result": {
-    "item": "occultism:spawn_egg/familiar_blacksmith",
+    "id": "occultism:spawn_egg/familiar_blacksmith",
     "nbt": {
       "display": {
         "Lore": [

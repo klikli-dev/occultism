@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "forge:storage_blocks/raw_silver"
+      "tag": "c:storage_blocks/raw_silver"
     }
   ],
   "result": {
-    "item": "occultism:raw_silver",
+    "id": "occultism:raw_silver",
     "count": 9
   }
 }

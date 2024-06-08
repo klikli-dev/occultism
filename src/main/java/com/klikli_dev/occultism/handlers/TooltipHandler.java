@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.handlers;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import com.klikli_dev.theurgy.TheurgyConstants;
@@ -34,13 +35,14 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+@EventBusSubscriber(modid = Occultism.MODID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
 public class TooltipHandler {
 
     private static final List<String> namespacesToListenFor = new ArrayList<>();
@@ -56,7 +58,7 @@ public class TooltipHandler {
     @SubscribeEvent
     public static void onAddInformation(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
-        if (stack.hasTag() && stack.getTag().contains(ItemNBTUtil.SPIRIT_NAME_TAG)) {
+        if (stack.has(OccultismDataComponents.SPIRIT_NAME)){
             String translationKey = stack.getDescriptionId() + ".occultism_spirit_tooltip";
 
             if (I18n.exists(translationKey))

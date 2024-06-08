@@ -7,13 +7,13 @@
   ],
   "key": {
     "x": {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     },
     "y": {
       "item": "occultism:spirit_attuned_gem"
     }
   },
   "result": {
-    "item": "occultism:divination_rod"
+    "id": "occultism:divination_rod"
   }
 }

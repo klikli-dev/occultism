@@ -10,10 +10,10 @@
       "item": "occultism:otherstone_frame"
     },
     "g": {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     }
   },
   "result": {
-    "item": "occultism:wormhole_frame"
+    "id": "occultism:wormhole_frame"
   }
 }

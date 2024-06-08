@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.datagen.lang.ENUSProvider;
 import com.klikli_dev.occultism.datagen.loot.OccultismBlockLoot;
 import com.klikli_dev.occultism.datagen.loot.OccultismEntityLoot;
 import com.klikli_dev.occultism.datagen.loot.OccultismLootModifiers;
+import com.klikli_dev.occultism.datagen.loot.OccultismLootTableProvider;
 import com.klikli_dev.occultism.datagen.tags.OccultismBiomeTagProvider;
 import com.klikli_dev.occultism.datagen.tags.OccultismBlockTagProvider;
 import com.klikli_dev.occultism.datagen.tags.OccultismEntityTypeTagProvider;
@@ -37,25 +38,28 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.data.AdvancementProvider;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
+import net.neoforged.neoforge.common.data.internal.NeoForgeLootTableProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.List;
 import java.util.Set;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class DataGenerators {
 
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
+
         generator.addProvider(event.includeServer(),
-                new LootTableProvider(generator.getPackOutput(), Set.of(), List.of(
+                new OccultismLootTableProvider(generator.getPackOutput(), Set.of(), List.of(
                         new LootTableProvider.SubProviderEntry(OccultismBlockLoot::new, LootContextParamSets.BLOCK),
                         new LootTableProvider.SubProviderEntry(OccultismEntityLoot::new, LootContextParamSets.ENTITY)
-                )));
+                ), event.getLookupProvider()));
         generator.addProvider(event.includeServer(), new PentacleProvider(generator));
         generator.addProvider(event.includeServer(),
                 new AdvancementProvider(generator.getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper(), List.of(
@@ -73,10 +77,10 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new OccultismBiomeTagProvider(generator.getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new ItemModelsGenerator(generator.getPackOutput(), event.getExistingFileHelper()));
         generator.addProvider(event.includeClient(), new StandardBlockStateProvider(generator.getPackOutput(), event.getExistingFileHelper()));
-        generator.addProvider(event.includeClient(), new OccultismLootModifiers(generator.getPackOutput()));
+        generator.addProvider(event.includeClient(), new OccultismLootModifiers(generator.getPackOutput(), event.getLookupProvider()));
 
         var enUSProvider = new ENUSProvider(generator.getPackOutput());
-        generator.addProvider(event.includeServer(), new OccultismBookProvider(generator.getPackOutput(), Occultism.MODID, enUSProvider));
+        generator.addProvider(event.includeServer(), new OccultismBookProvider(generator.getPackOutput(), event.getLookupProvider(), Occultism.MODID, enUSProvider));
 
         //Important: Lang provider (in this case enus) needs to be added after the book provider to process the texts added by the book provider
         generator.addProvider(event.includeClient(), enUSProvider);

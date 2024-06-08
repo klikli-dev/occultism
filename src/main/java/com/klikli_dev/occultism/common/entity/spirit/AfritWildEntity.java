@@ -46,13 +46,9 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.event.EventHooks;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.GeoAnimatable;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import javax.annotation.Nullable;
 
@@ -77,13 +73,13 @@ public class AfritWildEntity extends Monster implements GeoEntity {
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason,
-                                        @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+                                        @Nullable SpawnGroupData spawnDataIn) {
         int maxBlazes = 3 + level.getRandom().nextInt(6);
 
         for (int i = 0; i < maxBlazes; i++) {
             Blaze entity = EntityType.BLAZE.create(level.getLevel());
 
-            EventHooks.onFinalizeSpawn(entity, level, difficultyIn, reason, spawnDataIn, dataTag);
+            EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
 
             double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
             double offsetZ = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
@@ -92,7 +88,7 @@ public class AfritWildEntity extends Monster implements GeoEntity {
             level.addFreshEntity(entity);
         }
 
-        return super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn, dataTag);
+        return super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn);
     }
 
     @Override

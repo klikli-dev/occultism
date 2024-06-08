@@ -35,10 +35,10 @@ import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.constant.DataTickets;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.object.Color;
+import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
+import software.bernie.geckolib.util.Color;
 
 public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageControllerBlockEntity> {
 

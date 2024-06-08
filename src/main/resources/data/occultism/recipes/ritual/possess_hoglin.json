@@ -7,25 +7,25 @@
   "pentacle_id": "occultism:possess_afrit",
   "duration": 60,
   "entity_to_sacrifice": {
-    "tag": "forge:pigs",
+    "tag": "c:pigs",
     "display_name": "ritual.occultism.sacrifice.pigs"
   },
   "entity_to_summon": "occultism:possessed_hoglin",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/possess_hoglin"
+    "id": "occultism:ritual_dummy/possess_hoglin"
   },
   "ingredients": [
     {
       "item": "minecraft:netherite_scrap"
     },
     {
-      "tag": "forge:leather"
+      "tag": "c:leather"
     },
     {
-      "tag": "forge:netherrack"
+      "tag": "c:netherrack"
     },
     {
-      "tag": "forge:netherrack"
+      "tag": "c:netherrack"
     },
     {
       "item": "minecraft:porkchop"
@@ -41,7 +41,7 @@
     }
   ],
   "result": {
-    "item": "minecraft:netherite_upgrade_smithing_template",
+    "id": "minecraft:netherite_upgrade_smithing_template",
     "nbt": {
       "display": {
         "Lore": [

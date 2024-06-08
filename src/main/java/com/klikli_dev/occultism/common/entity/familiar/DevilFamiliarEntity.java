@@ -46,13 +46,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.GeoAnimatable;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import java.util.List;
 
@@ -174,7 +170,7 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
         protected void attack(List<LivingEntity> enemies) {
             for (Entity e : enemies) {
                 e.hurt(this.entity.damageSources().playerAttack((Player) this.entity.getFamiliarOwner()), 4);
-                e.setSecondsOnFire(4);
+                e.setRemainingFireTicks(4 * 20);
             }
         }
 

@@ -10,14 +10,14 @@
   "spirit_job_type": "occultism:transport_items",
   "entity_to_summon": "occultism:foliot",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/summon_foliot_transport_items"
+    "id": "occultism:ritual_dummy/summon_foliot_transport_items"
   },
   "ingredients": [
     {
       "item": "minecraft:minecart"
     },
     {
-      "tag": "forge:chests"
+      "tag": "c:chests"
     },
     {
       "item": "minecraft:dispenser"
@@ -27,6 +27,6 @@
     }
   ],
   "result": {
-    "item": "occultism:book_of_calling_foliot_transport_items"
+    "id": "occultism:book_of_calling_foliot_transport_items"
   }
 }

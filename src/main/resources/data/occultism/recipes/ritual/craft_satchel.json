@@ -7,26 +7,26 @@
   "pentacle_id": "occultism:craft_foliot",
   "duration": 240,
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/craft_satchel"
+    "id": "occultism:ritual_dummy/craft_satchel"
   },
   "ingredients": [
     {
-      "tag": "forge:chests/wooden"
+      "tag": "c:chests/wooden"
     },
     {
-      "tag": "forge:leather"
+      "tag": "c:leather"
     },
     {
-      "tag": "forge:leather"
+      "tag": "c:leather"
     },
     {
-      "tag": "forge:string"
+      "tag": "c:string"
     },
     {
-      "tag": "forge:ingots/silver"
+      "tag": "c:ingots/silver"
     }
   ],
   "result": {
-    "item": "occultism:satchel"
+    "id": "occultism:satchel"
   }
 }

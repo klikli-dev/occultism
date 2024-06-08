@@ -9,28 +9,28 @@
   "spirit_max_age": 240,
   "spirit_job_type": "occultism:thunder_weather",
   "entity_to_sacrifice": {
-    "tag": "forge:cows",
+    "tag": "c:cows",
     "display_name": "ritual.occultism.sacrifice.cows"
   },
   "entity_to_summon": "occultism:afrit",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/summon_afrit_thunder_weather"
+    "id": "occultism:ritual_dummy/summon_afrit_thunder_weather"
   },
   "ingredients": [
     {
-      "tag": "forge:bones"
+      "tag": "c:bones"
     },
     {
-      "tag": "forge:gunpowder"
+      "tag": "c:gunpowder"
     },
     {
-      "tag": "forge:gunpowder"
+      "tag": "c:gunpowder"
     },
     {
       "item": "minecraft:ghast_tear"
     }
   ],
   "result": {
-    "item": "occultism:jei_dummy/none"
+    "id": "occultism:jei_dummy/none"
   }
 }

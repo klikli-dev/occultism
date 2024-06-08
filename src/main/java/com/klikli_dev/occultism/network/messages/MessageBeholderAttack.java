@@ -25,8 +25,11 @@ package com.klikli_dev.occultism.network.messages;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.familiar.BeholderFamiliarEntity;
 import com.klikli_dev.occultism.network.IMessage;
+import com.klikli_dev.theurgy.network.messages.MessageAddWires;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -37,6 +40,8 @@ import java.util.List;
 public class MessageBeholderAttack implements IMessage {
 
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "beholder_attack");
+    public static final Type<MessageBeholderAttack> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageBeholderAttack> STREAM_CODEC = CustomPacketPayload.codec(MessageBeholderAttack::encode, MessageBeholderAttack::new);
 
     private int beholderId;
     private List<Integer> targetIds;
@@ -46,12 +51,12 @@ public class MessageBeholderAttack implements IMessage {
         this.targetIds = targetIds;
     }
 
-    public MessageBeholderAttack(FriendlyByteBuf buf) {
+    public MessageBeholderAttack(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(RegistryFriendlyByteBuf buf) {
         buf.writeInt(this.beholderId);
         buf.writeInt(this.targetIds.size());
         for (int id : this.targetIds)
@@ -59,7 +64,7 @@ public class MessageBeholderAttack implements IMessage {
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
+    public void decode(RegistryFriendlyByteBuf buf) {
         this.beholderId = buf.readInt();
         this.targetIds = new ArrayList<>();
         int length = buf.readInt();
@@ -75,7 +80,7 @@ public class MessageBeholderAttack implements IMessage {
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

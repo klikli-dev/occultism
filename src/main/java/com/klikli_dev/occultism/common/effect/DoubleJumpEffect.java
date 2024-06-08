@@ -69,7 +69,7 @@ public class DoubleJumpEffect extends MobEffect {
      * @return the max amount of jumps.
      */
     public static int getMaxJumps(Player player) {
-        MobEffectInstance effect = player.getEffect(OccultismEffects.DOUBLE_JUMP.get());
+        MobEffectInstance effect = player.getEffect(OccultismEffects.DOUBLE_JUMP);
         if (effect != null) {
             return 1 + effect.getAmplifier();
         }
@@ -77,7 +77,8 @@ public class DoubleJumpEffect extends MobEffect {
     }
 
     @Override
-    public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
+    public boolean applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
+        return true;
     }
 
 

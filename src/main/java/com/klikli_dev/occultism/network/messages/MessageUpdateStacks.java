@@ -28,7 +28,11 @@ import com.klikli_dev.occultism.network.IMessage;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -46,43 +50,50 @@ import java.util.zip.Inflater;
 public class MessageUpdateStacks implements IMessage {
 
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "update_stacks");
+    public static final Type<MessageUpdateStacks> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageUpdateStacks> STREAM_CODEC = CustomPacketPayload.codec(MessageUpdateStacks::encode, MessageUpdateStacks::new);
 
     private static final int DEFAULT_BUFFER_SIZE = 2 * 1024;
 
     private List<ItemStack> stacks;
-    private int usedSlots;
-    private int maxSlots;
+    private int maxItemTypes;
+    private int usedItemTypes;
+    private long maxTotalItemCount;
+    private long usedTotalItemCount;
     private ByteBuf payload;
 
-    public MessageUpdateStacks(FriendlyByteBuf buf) {
+    public MessageUpdateStacks(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
-    public MessageUpdateStacks(List<ItemStack> stacks, int usedSlots, int maxSlots) {
+    public MessageUpdateStacks(List<ItemStack> stacks, int maxItemTypes, int usedItemTypes, long maxTotalItemCount, long usedTotalItemCount, RegistryAccess registryAccess) {
         this.stacks = stacks;
-        this.usedSlots = usedSlots;
-        this.maxSlots = maxSlots;
-        this.compress();
+        this.maxItemTypes = maxItemTypes;
+        this.usedItemTypes = usedItemTypes;
+        this.maxTotalItemCount = maxTotalItemCount;
+        this.usedTotalItemCount = usedTotalItemCount;
+        this.compress(registryAccess);
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
     public void onClientReceived(Minecraft minecraft, Player player) {
-        this.uncompress();
+        this.uncompress(player.registryAccess());
         if (minecraft.screen instanceof IStorageControllerGui gui) {
             if (gui != null) {
                 gui.setStacks(this.stacks);
-                gui.setUsedSlots(this.usedSlots);
-                gui.setMaxSlots(this.maxSlots);
+                gui.setUsedStorageSize(this.usedItemTypes, this.usedTotalItemCount);
+                gui.setMaxStorageSize(this.maxItemTypes, this.maxTotalItemCount);
                 gui.markDirty();
             }
         }
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
-        buf.writeVarInt(this.usedSlots);
-        buf.writeVarInt(this.maxSlots);
+    public void encode(RegistryFriendlyByteBuf buf) {
+        buf.writeVarInt(this.usedItemTypes);
+        buf.writeVarLong(this.usedTotalItemCount);
+        buf.writeVarInt(this.maxItemTypes);
+        buf.writeVarLong(this.maxTotalItemCount);
 
         //write compressed size, then compressed data
         buf.writeVarInt(this.payload.readableBytes());
@@ -90,21 +101,24 @@ public class MessageUpdateStacks implements IMessage {
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
-        this.usedSlots = buf.readVarInt();
-        this.maxSlots = buf.readVarInt();
+    public void decode(RegistryFriendlyByteBuf buf) {
+        this.usedItemTypes = buf.readVarInt();
+        this.usedTotalItemCount = buf.readVarLong();
+        this.maxItemTypes = buf.readVarInt();
+        this.maxTotalItemCount = buf.readVarLong();
+
         //read compressed size, then compressed data.
         int compressedSize = buf.readVarInt();
         this.payload = Unpooled.buffer(compressedSize);
         buf.readBytes(this.payload, 0, compressedSize);
     }
 
-    public void uncompress() {
+    public void uncompress(RegistryAccess registryAccess) {
         Inflater decompressor = new Inflater();
         decompressor.setInput(this.payload.array());
 
         // Create an expandable packet buffer to hold the decompressed data
-        FriendlyByteBuf uncompressed = new FriendlyByteBuf(Unpooled.buffer(this.payload.readableBytes() * 4));
+        var uncompressed = RegistryFriendlyByteBuf.decorator(registryAccess).apply(new FriendlyByteBuf(Unpooled.buffer(this.payload.readableBytes() * 4)));
 
         // Decompress the data
         byte[] buf = new byte[1024];
@@ -119,23 +133,23 @@ public class MessageUpdateStacks implements IMessage {
         int stacksSize = uncompressed.readInt();
         this.stacks = new ArrayList<>(stacksSize);
         for (int i = 0; i < stacksSize; i++) {
-            ItemStack stack = uncompressed.readItem();
+            ItemStack stack = ItemStack.OPTIONAL_STREAM_CODEC.decode(uncompressed);
             stack.setCount(uncompressed.readInt());
             this.stacks.add(stack);
         }
     }
 
-    public void compress() {
+    public void compress(RegistryAccess registryAccess) {
         Deflater compressor = new Deflater();
         compressor.setLevel(Deflater.BEST_SPEED);
 
         // Give the compressor the data to compress
         //create buffer with reasonable size (will increase automatically as needed
-        FriendlyByteBuf uncompressed = new FriendlyByteBuf(Unpooled.buffer(DEFAULT_BUFFER_SIZE * this.stacks.size()));
+        var uncompressed = RegistryFriendlyByteBuf.decorator(registryAccess).apply(new FriendlyByteBuf(Unpooled.buffer(DEFAULT_BUFFER_SIZE * this.stacks.size())));
         uncompressed.writeInt(this.stacks.size());
 
         for (ItemStack stack : this.stacks) {
-            uncompressed.writeItem(stack);
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(uncompressed, stack);
             uncompressed.writeInt(stack.getCount());
         }
 
@@ -153,7 +167,7 @@ public class MessageUpdateStacks implements IMessage {
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

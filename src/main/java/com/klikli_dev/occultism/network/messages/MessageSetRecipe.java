@@ -31,7 +31,9 @@ import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -48,10 +50,12 @@ import java.util.Map;
 public class MessageSetRecipe implements IMessage {
 
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "set_recipe");
+    public static final Type<MessageSetRecipe> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetRecipe> STREAM_CODEC = CustomPacketPayload.codec(MessageSetRecipe::encode, MessageSetRecipe::new);
     private CompoundTag nbt;
     private int index = 0;
 
-    public MessageSetRecipe(FriendlyByteBuf buf) {
+    public MessageSetRecipe(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -79,7 +83,7 @@ public class MessageSetRecipe implements IMessage {
             //parse the slots
             ListTag invList = this.nbt.getList("s" + slot, Tag.TAG_COMPOUND);
             for (int i = 0; i < invList.size(); i++) {
-                ItemStack s = ItemStack.of(invList.getCompound(i));
+                ItemStack s = ItemStack.parseOptional(minecraftServer.registryAccess(), invList.getCompound(i));
                 map.put(i, s);
             }
 
@@ -121,19 +125,19 @@ public class MessageSetRecipe implements IMessage {
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(RegistryFriendlyByteBuf buf) {
         buf.writeNbt(this.nbt);
         buf.writeInt(this.index);
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
+    public void decode(RegistryFriendlyByteBuf buf) {
         this.nbt = buf.readNbt();
         this.index = buf.readInt();
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

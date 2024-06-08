@@ -7,26 +7,26 @@
   "pentacle_id": "occultism:craft_djinni",
   "duration": 90,
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/craft_familiar_ring"
+    "id": "occultism:ritual_dummy/craft_familiar_ring"
   },
   "ingredients": [
     {
       "item": "occultism:soul_gem"
     },
     {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     },
     {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     },
     {
-      "tag": "forge:ingots/silver"
+      "tag": "c:ingots/silver"
     },
     {
-      "tag": "forge:ingots/silver"
+      "tag": "c:ingots/silver"
     }
   ],
   "result": {
-    "item": "occultism:familiar_ring"
+    "id": "occultism:familiar_ring"
   }
 }

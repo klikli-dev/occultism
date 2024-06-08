@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:gems/emerald"
+        "tag": "c:gems/emerald"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/emerald"
+        "tag": "c:dusts/emerald"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 200,
   "ignore_crushing_multiplier": true,
   "ingredient": {
-    "tag": "forge:gems/emerald"
+    "tag": "c:gems/emerald"
   },
   "result": {
     "count": 1,
-    "tag": "forge:dusts/emerald"
+    "tag": "c:dusts/emerald"
   }
 }

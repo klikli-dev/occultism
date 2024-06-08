@@ -38,6 +38,7 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -500,15 +501,15 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     }
 
     @Override
-    public void load(CompoundTag compound) {
-        super.load(compound);
+    public void loadAdditional(CompoundTag compound, HolderLookup.Provider provider) {
+        super.loadAdditional(compound, provider);
 
         this.consumedIngredients.clear();
         if (this.currentRitualRecipeId != null || this.getCurrentRitualRecipe() != null) {
             if (compound.contains("consumedIngredients")) {
                 ListTag list = compound.getList("consumedIngredients", Tag.TAG_COMPOUND);
                 for (int i = 0; i < list.size(); i++) {
-                    ItemStack stack = ItemStack.of(list.getCompound(i));
+                    ItemStack stack = ItemStack.parseOptional(provider, list.getCompound(i));
                     this.consumedIngredients.add(stack);
                 }
             }
@@ -523,24 +524,24 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compound) {
+    protected void saveAdditional(CompoundTag compound, HolderLookup.Provider provider) {
         if (this.getCurrentRitualRecipe() != null) {
             if (!this.consumedIngredients.isEmpty()) {
                 ListTag list = new ListTag();
                 for (ItemStack stack : this.consumedIngredients) {
-                    list.add(stack.save(new CompoundTag()));
+                    list.add(stack.saveOptional(provider));
                 }
                 compound.put("consumedIngredients", list);
             }
             compound.putBoolean("sacrificeProvided", this.sacrificeProvided);
             compound.putBoolean("requiredItemUsed", this.itemUseProvided);
         }
-        super.saveAdditional(compound);
+        super.saveAdditional(compound, provider);
     }
 
     @Override
-    public void loadNetwork(CompoundTag compound) {
-        super.loadNetwork(compound);
+    public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
+        super.loadNetwork(compound, provider);
         if (compound.contains("currentRitual")) {
             this.currentRitualRecipeId = new ResourceLocation(compound.getString("currentRitual"));
         }
@@ -553,7 +554,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     }
 
     @Override
-    public CompoundTag saveNetwork(CompoundTag compound) {
+    public CompoundTag saveNetwork(CompoundTag compound, HolderLookup.Provider provider) {
         var recipe = this.getCurrentRitualRecipe();
         if (recipe != null) {
             compound.putString("currentRitual", recipe.id().toString());
@@ -562,6 +563,6 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             compound.putUUID("castingPlayerId", this.castingPlayerId);
         }
         compound.putInt("currentTime", this.currentTime);
-        return super.saveNetwork(compound);
+        return super.saveNetwork(compound, provider);
     }
 }

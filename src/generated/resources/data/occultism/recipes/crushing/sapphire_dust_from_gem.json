@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:gems/sapphire"
+        "tag": "c:gems/sapphire"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/sapphire"
+        "tag": "c:dusts/sapphire"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 200,
   "ignore_crushing_multiplier": true,
   "ingredient": {
-    "tag": "forge:gems/sapphire"
+    "tag": "c:gems/sapphire"
   },
   "result": {
     "count": 1,
-    "tag": "forge:dusts/sapphire"
+    "tag": "c:dusts/sapphire"
   }
 }

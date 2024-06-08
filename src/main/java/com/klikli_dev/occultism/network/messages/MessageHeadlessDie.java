@@ -26,7 +26,9 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.familiar.HeadlessFamiliarEntity;
 import com.klikli_dev.occultism.network.IMessage;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -34,24 +36,25 @@ import net.minecraft.world.entity.player.Player;
 public class MessageHeadlessDie implements IMessage {
 
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "headless_die");
-
+    public static final Type<MessageHeadlessDie> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageHeadlessDie> STREAM_CODEC = CustomPacketPayload.codec(MessageHeadlessDie::encode, MessageHeadlessDie::new);
     private int id;
 
     public MessageHeadlessDie(int id) {
         this.id = id;
     }
 
-    public MessageHeadlessDie(FriendlyByteBuf buf) {
+    public MessageHeadlessDie(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(RegistryFriendlyByteBuf buf) {
         buf.writeInt(this.id);
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
+    public void decode(RegistryFriendlyByteBuf buf) {
         this.id = buf.readInt();
     }
 
@@ -63,7 +66,7 @@ public class MessageHeadlessDie implements IMessage {
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

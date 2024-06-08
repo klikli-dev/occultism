@@ -24,8 +24,11 @@ package com.klikli_dev.occultism.common.item.tool;
 
 import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.EntityUtil;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -37,13 +40,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
-import java.util.Arrays;
+
 import java.util.List;
 
 public class SoulGemItem extends Item {
+
+    private static final MapCodec<EntityType<?>> ENTITY_TYPE_FIELD_CODEC = BuiltInRegistries.ENTITY_TYPE.byNameCodec().fieldOf("id");
 
     public SoulGemItem(Properties properties) {
         super(properties);
@@ -61,12 +66,11 @@ public class SoulGemItem extends Item {
         Level level = context.getLevel();
         Direction facing = context.getClickedFace();
         BlockPos pos = context.getClickedPos();
-        if (itemStack.getOrCreateTag().contains("entityData")) {
+        if (itemStack.has(DataComponents.ENTITY_DATA)) {
             //whenever we have an entity stored we can do nothing but release it
             if (!level.isClientSide) {
-                CompoundTag entityData = itemStack.getTag().getCompound("entityData");
-                itemStack.getTag()
-                        .remove("entityData"); //delete entity from item right away to avoid duplicate in case of unexpected error
+                CompoundTag entityData = itemStack.get(DataComponents.ENTITY_DATA).getUnsafe();
+                itemStack.remove(DataComponents.ENTITY_DATA); //delete entity from item right away to avoid duplicate in case of unexpected error
 
                 EntityType type = EntityUtil.entityTypeFromNbt(entityData);
 
@@ -75,11 +79,6 @@ public class SoulGemItem extends Item {
                 BlockPos spawnPos = pos.immutable();
                 if (!level.getBlockState(spawnPos).getCollisionShape(level, spawnPos).isEmpty()) {
                     spawnPos = spawnPos.relative(facing);
-                }
-
-                Component customName = null;
-                if (entityData.contains("CustomName")) {
-                    customName = Component.Serializer.fromJson(entityData.getString("CustomName"));
                 }
 
                 //remove position from tag to allow the entity to spawn where it should be
@@ -134,7 +133,7 @@ public class SoulGemItem extends Item {
             return InteractionResult.FAIL;
 
         //Already got an entity in there.
-        if (stack.getOrCreateTag().contains("entityData"))
+        if (stack.has(DataComponents.ENTITY_DATA))
             return InteractionResult.FAIL;
 
         //do not capture entities on deny lists
@@ -145,7 +144,7 @@ public class SoulGemItem extends Item {
         }
 
         //serialize entity
-        stack.getTag().put("entityData", target.serializeNBT());
+        stack.set(DataComponents.ENTITY_DATA, CustomData.of(target.serializeNBT(player.level().registryAccess())));
         //show player swing anim
         player.swing(hand);
         player.setItemInHand(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
@@ -156,20 +155,24 @@ public class SoulGemItem extends Item {
 
     @Override
     public String getDescriptionId(ItemStack stack) {
-        return stack.getOrCreateTag().contains("entityData") ? this.getDescriptionId() :
+        return stack.has(DataComponents.ENTITY_DATA) ? this.getDescriptionId() :
                 this.getDescriptionId() + "_empty";
     }
 
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
-                                TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+    protected EntityType<?> getType(ItemStack pStack) {
+        CustomData customdata = pStack.getOrDefault(DataComponents.ENTITY_DATA, CustomData.EMPTY);
+        return customdata.read(ENTITY_TYPE_FIELD_CODEC).getOrThrow();
+    }
 
-        if (stack.getOrCreateTag().contains("entityData")) {
-            EntityType<?> type = EntityUtil.entityTypeFromNbt(stack.getTag().getCompound("entityData"));
-            tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip_filled", type.getDescription()));
+    @Override
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+
+        if (pStack.has(DataComponents.ENTITY_DATA)) {
+            EntityType<?> type = this.getType(pStack);
+            pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip_filled", type.getDescription()));
         } else {
-            tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip_empty"));
+            pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip_empty"));
         }
     }
 }

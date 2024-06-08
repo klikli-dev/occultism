@@ -67,9 +67,12 @@ public class OccultismBlocks {
                             .noCollission()
                             .instabreak()
                             .lightLevel((state) -> 12)
-                            .sound(SoundType.WOOL)), false, LootTableType.EMPTY);
+                            .sound(SoundType.WOOL)
+                            .noLootTable()
+            ), false, LootTableType.EMPTY);
 
-    public static final DeferredBlock<Block> LIGHTED_AIR = register("lighted_air", () -> new AirBlock(
+    public static final DeferredBlock<Block> LIGHTED_AIR = register("lighted_air",
+            () -> new AirBlock(
             Block.Properties.of().noCollission().air().noLootTable().lightLevel(s -> 15).randomTicks()) {
         @Override
         @SuppressWarnings("deprecation")
@@ -78,13 +81,14 @@ public class OccultismBlocks {
                     FamiliarEntity::hasBlacksmithUpgrade).isEmpty())
                 pLevel.setBlockAndUpdate(pPos, Blocks.AIR.defaultBlockState());
         }
-    });
+    }, false, LootTableType.EMPTY);
 
     public static final Block.Properties GLYPH_PROPERTIES = Block.Properties.of()
             .sound(SoundType.WOOL)
             .pushReaction(PushReaction.DESTROY)
             .replaceable()
             .noCollission()
+            .noLootTable()
             .strength(5f, 30);
     public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_WHITE = register("chalk_glyph_white",
             () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.whiteChalkGlyphColor, () -> OccultismItems.CHALK_WHITE.get()),
@@ -185,7 +189,8 @@ public class OccultismBlocks {
                     Block.Properties.of()
                             .mapColor(MapColor.STONE)
                             .sound(SoundType.STONE)
-                            .strength(5f, 100).noOcclusion()), false, LootTableType.EMPTY);
+                            .strength(5f, 100).noOcclusion()), false, LootTableType.CUSTOM);
+                            
     public static final DeferredBlock<StorageStabilizerBlock> STORAGE_STABILIZER_TIER1 = register(
             "storage_stabilizer_tier1", () -> new StorageStabilizerBlock(
                     Block.Properties.of()
@@ -216,7 +221,7 @@ public class OccultismBlocks {
                     Block.Properties.of()
                             .mapColor(MapColor.STONE)
                             .sound(SoundType.STONE).noCollission()
-                            .strength(2f, 2).noOcclusion()), false, LootTableType.EMPTY);
+                            .strength(2f, 2).noOcclusion()), false, LootTableType.CUSTOM);
 
     public static final DeferredBlock<DimensionalMineshaftBlock> DIMENSIONAL_MINESHAFT =
             register("dimensional_mineshaft", () -> new DimensionalMineshaftBlock(

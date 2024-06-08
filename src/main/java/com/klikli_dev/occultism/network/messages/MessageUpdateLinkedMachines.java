@@ -28,7 +28,9 @@ import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.klikli_dev.occultism.api.common.data.MachineReference;
 import com.klikli_dev.occultism.network.IMessage;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
@@ -44,10 +46,12 @@ import java.util.Map;
 public class MessageUpdateLinkedMachines implements IMessage {
 
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "update_linked_machines");
+    public static final Type<MessageUpdateLinkedMachines> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageUpdateLinkedMachines> STREAM_CODEC = CustomPacketPayload.codec(MessageUpdateLinkedMachines::encode, MessageUpdateLinkedMachines::new);
 
     private List<MachineReference> linkedMachines;
 
-    public MessageUpdateLinkedMachines(FriendlyByteBuf buf) {
+    public MessageUpdateLinkedMachines(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -60,7 +64,6 @@ public class MessageUpdateLinkedMachines implements IMessage {
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
     public void onClientReceived(Minecraft minecraft, Player player) {
         if (minecraft.screen instanceof IStorageControllerGui gui) {
             if (gui != null) {
@@ -70,26 +73,26 @@ public class MessageUpdateLinkedMachines implements IMessage {
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(RegistryFriendlyByteBuf buf) {
         buf.writeInt(this.linkedMachines.size());
         for (MachineReference machineReference : this.linkedMachines) {
-            machineReference.encode(buf);
+            MachineReference.STREAM_CODEC.encode(buf, machineReference);
         }
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
+    public void decode(RegistryFriendlyByteBuf buf) {
         int linkedMachinesSize = buf.readInt();
         this.linkedMachines = new ArrayList<>(linkedMachinesSize);
 
         for (int i = 0; i < linkedMachinesSize; i++) {
-            MachineReference machineReference = MachineReference.from(buf);
+            MachineReference machineReference = MachineReference.STREAM_CODEC.decode(buf);
             this.linkedMachines.add(machineReference);
         }
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

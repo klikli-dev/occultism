@@ -1,13 +1,19 @@
 package com.klikli_dev.occultism.common.misc;
 
+import com.klikli_dev.modonomicon.util.Codecs;
 import com.klikli_dev.occultism.integration.almostunified.AlmostUnifiedIntegration;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -27,7 +33,7 @@ public class OutputIngredient {
     protected OutputStackInfo outputStackInfo;
     protected ItemStack cachedOutputStack;
     public OutputIngredient(Ingredient ingredient) {
-        this(ingredient, new OutputStackInfo(1, null));
+        this(ingredient, new OutputStackInfo(1, DataComponentPatch.EMPTY));
         //have to use dirt, because EMPTY/AIR will cause output count to be 0
     }
 
@@ -47,7 +53,7 @@ public class OutputIngredient {
         //copied from Ingredient.dissolve, but modified to handle tag ingredient preferred items
         if (this.cachedOutputStack == null) {
 
-            var itemStacks = Arrays.stream(this.ingredient.values).flatMap((value) -> {
+            var itemStacks = Arrays.stream(this.ingredient.getValues()).flatMap((value) -> {
                 if (value instanceof Ingredient.TagValue tagValue) {
                     var item = AlmostUnifiedIntegration.get().getPreferredItemForTag(tagValue.tag());
 
@@ -63,14 +69,14 @@ public class OutputIngredient {
                     }
 
                     //copied from Ingredient.TagValue.getItems to handle empty tags
-                    return Stream.of(new ItemStack(Blocks.BARRIER).setHoverName(Component.literal("Empty Tag: " + tagValue.tag().location())));
+                    return Stream.of(new ItemStack(Blocks.BARRIER).set(DataComponents.CUSTOM_NAME, Component.literal("Empty Tag: " + tagValue.tag().location())));
                 }
                 return value.getItems().stream();
             }).distinct().toArray(ItemStack[]::new);
 
             var outputStack = itemStacks[0].copy();
             outputStack.setCount(this.outputStackInfo.count());
-            outputStack.setTag(this.outputStackInfo.nbt());
+            outputStack.applyComponents(this.outputStackInfo.components());
             this.cachedOutputStack = outputStack;
         }
         return this.cachedOutputStack;
@@ -84,10 +90,18 @@ public class OutputIngredient {
         return this.outputStackInfo;
     }
 
-    public record OutputStackInfo(int count, CompoundTag nbt) {
+    public record OutputStackInfo(int count, DataComponentPatch components) {
         public static final Codec<OutputStackInfo> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                ExtraCodecs.strictOptionalField(ExtraCodecs.POSITIVE_INT, "count", 1).forGetter(OutputStackInfo::count),
-                ExtraCodecs.strictOptionalField(net.neoforged.neoforge.common.crafting.CraftingHelper.TAG_CODEC, "nbt").forGetter(stack -> Optional.ofNullable(stack.nbt))
-        ).apply(instance, (count, nbt) -> new OutputStackInfo(count, nbt.orElse(null))));
+                ExtraCodecs.POSITIVE_INT.optionalFieldOf("count", 1).forGetter(OutputStackInfo::count),
+                DataComponentPatch.CODEC.optionalFieldOf("components", DataComponentPatch.EMPTY).forGetter(OutputStackInfo::components)
+        ).apply(instance, OutputStackInfo::new));
+
+        public static final StreamCodec<RegistryFriendlyByteBuf, OutputStackInfo> STREAM_CODEC = StreamCodec.composite(
+                ByteBufCodecs.INT,
+                OutputStackInfo::count,
+                DataComponentPatch.STREAM_CODEC,
+                OutputStackInfo::components,
+                OutputStackInfo::new
+        );
     }
 }

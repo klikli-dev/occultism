@@ -3,7 +3,30 @@
   "pools": [
     {
       "bonus_rolls": 0.0,
-      "entries": [],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "include": [
+                "occultism:storage_controller_contents",
+                "occultism:sort_direction",
+                "occultism:sort_type",
+                "occultism:crafting_matrix",
+                "occultism:order_stack"
+              ],
+              "source": "block_entity"
+            }
+          ],
+          "name": "occultism:storage_controller"
+        }
+      ],
       "rolls": 1.0
     }
   ],

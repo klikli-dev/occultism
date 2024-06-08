@@ -7,12 +7,12 @@
   "pentacle_id": "occultism:possess_djinni",
   "duration": 30,
   "entity_to_sacrifice": {
-    "tag": "forge:horses",
+    "tag": "c:horses",
     "display_name": "ritual.occultism.sacrifice.horses"
   },
   "entity_to_summon": "occultism:fairy_familiar",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/familiar_fairy"
+    "id": "occultism:ritual_dummy/familiar_fairy"
   },
   "ingredients": [
     {
@@ -38,7 +38,7 @@
     }
   ],
   "result": {
-    "item": "occultism:spawn_egg/familiar_fairy",
+    "id": "occultism:spawn_egg/familiar_fairy",
     "nbt": {
       "display": {
         "Lore": [

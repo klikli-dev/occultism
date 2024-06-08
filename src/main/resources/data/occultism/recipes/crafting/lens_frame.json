@@ -10,10 +10,10 @@
       "item": "occultism:otherstone"
     },
     "s": {
-      "tag": "forge:ingots/silver"
+      "tag": "c:ingots/silver"
     }
   },
   "result": {
-    "item": "occultism:lens_frame"
+    "id": "occultism:lens_frame"
   }
 }

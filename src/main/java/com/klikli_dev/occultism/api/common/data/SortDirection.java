@@ -22,49 +22,40 @@
 
 package com.klikli_dev.occultism.api.common.data;
 
+import com.mojang.serialization.Codec;
+import io.netty.buffer.ByteBuf;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ByIdMap;
 import net.minecraft.util.StringRepresentable;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.function.IntFunction;
 
 public enum SortDirection implements StringRepresentable {
-    DOWN(0),
-    UP(1);
-
-    private static final Map<Integer, SortDirection> lookup = new HashMap<Integer, SortDirection>();
+    DOWN,
+    UP;
+    private static final Map<String, SortDirection> TYPES = new Object2ObjectArrayMap<>();
+    public static final Codec<SortDirection> CODEC = Codec.stringResolver(SortDirection::getSerializedName, TYPES::get);
+    public static final IntFunction<SortDirection> BY_ID = ByIdMap.continuous(Enum::ordinal, SortDirection.values(), ByIdMap.OutOfBoundsStrategy.WRAP);
+    public static final StreamCodec<ByteBuf, SortDirection> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, Enum::ordinal);
 
     static {
-        for (SortDirection sortDirection : SortDirection.values()) {
-            lookup.put(sortDirection.getValue(), sortDirection);
+        for (SortDirection sortDirection : values()) {
+            TYPES.put(sortDirection.getSerializedName(), sortDirection);
         }
     }
-
-    private final int value;
-
-    SortDirection(int value) {
-        this.value = value;
-    }
-
-    //region Static Methods
-    public static SortDirection get(int value) {
-        return lookup.get(value);
-    }
-
-    //region Getter / Setter
-    public int getValue() {
-        return this.value;
-    }
-    //endregion Getter / Setter
 
     public boolean isDown() {
         return this == DOWN;
     }
 
     @Override
-    public String getSerializedName() {
+    public @NotNull String getSerializedName() {
         return this.name().toLowerCase();
     }
-    //endregion Static Methods
 
     public SortDirection next() {
         return values()[(this.ordinal() + 1) % SortDirection.values().length];

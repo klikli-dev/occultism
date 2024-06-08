@@ -7,12 +7,12 @@
   "pentacle_id": "occultism:possess_afrit",
   "duration": 90,
   "entity_to_sacrifice": {
-    "tag": "forge:fish",
+    "tag": "c:fish",
     "display_name": "ritual.occultism.sacrifice.fish"
   },
   "entity_to_summon": "occultism:possessed_elder_guardian",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/possess_elder_guardian"
+    "id": "occultism:ritual_dummy/possess_elder_guardian"
   },
   "ingredients": [
     {
@@ -43,11 +43,11 @@
       "item": "minecraft:water_bucket"
     },
     {
-      "tag": "forge:gems/emerald"
+      "tag": "c:gems/emerald"
     }
   ],
   "result": {
-    "item": "minecraft:heart_of_the_sea",
+    "id": "minecraft:heart_of_the_sea",
     "nbt": {
       "display": {
         "Lore": [

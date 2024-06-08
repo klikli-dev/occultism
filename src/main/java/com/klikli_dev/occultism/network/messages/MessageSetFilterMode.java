@@ -25,7 +25,9 @@ package com.klikli_dev.occultism.network.messages;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.network.IMessage;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -34,10 +36,13 @@ import net.minecraft.world.entity.Entity;
 public class MessageSetFilterMode implements IMessage {
 
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "set_filter_mode");
+    public static final Type<MessageSetFilterMode> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetFilterMode> STREAM_CODEC = CustomPacketPayload.codec(MessageSetFilterMode::encode, MessageSetFilterMode::new);
+
     public boolean isBlacklistFilter;
     public int entityId;
 
-    public MessageSetFilterMode(FriendlyByteBuf buf) {
+    public MessageSetFilterMode(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -56,19 +61,19 @@ public class MessageSetFilterMode implements IMessage {
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(RegistryFriendlyByteBuf buf) {
         buf.writeBoolean(this.isBlacklistFilter);
         buf.writeInt(this.entityId);
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
+    public void decode(RegistryFriendlyByteBuf buf) {
         this.isBlacklistFilter = buf.readBoolean();
         this.entityId = buf.readInt();
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

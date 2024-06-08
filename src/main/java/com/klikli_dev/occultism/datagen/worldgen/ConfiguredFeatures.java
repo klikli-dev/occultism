@@ -5,7 +5,7 @@ import com.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismFeatures;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -34,7 +34,7 @@ public class ConfiguredFeatures {
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> GROVE_UNDERGROUND = ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(Occultism.MODID, "grove_underground"));
 
-    public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+    public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         var placedFeatures = context.lookup(Registries.PLACED_FEATURE);
 
         FeatureUtils.register(context, ORE_SILVER, Feature.ORE, new OreConfiguration(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), OccultismBlocks.SILVER_ORE.get().defaultBlockState(), 5));

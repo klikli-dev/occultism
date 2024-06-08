@@ -1,7 +1,7 @@
 {
   "type": "occultism:crushing",
   "ingredient": {
-    "tag": "forge:rods/blaze"
+    "tag": "c:rods/blaze"
   },
   "result": {
     "item": "minecraft:blaze_powder",

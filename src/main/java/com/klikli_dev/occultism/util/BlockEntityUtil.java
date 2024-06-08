@@ -26,11 +26,9 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,8 +37,6 @@ import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
 public class BlockEntityUtil {
-    //region Static Methods
-
     public static boolean isLoaded(Level level, GlobalBlockPos pos) {
         if (pos == null)
             return false;
@@ -123,67 +119,23 @@ public class BlockEntityUtil {
     }
 
     /**
-     * Creates the item entity with nbt from the block entity. Default pickup delay is set.
-     *
-     * @param itemStack   the stack to drop.
-     * @param blockEntity the block entity to get nbt from.
-     * @return the item entity.
-     */
-    public static ItemEntity getDroppedItemWithNbt(ItemStack itemStack, BlockEntity blockEntity) {
-        CompoundTag CompoundTag = blockEntity.saveWithoutMetadata();
-        if (!CompoundTag.isEmpty()) {
-            itemStack.addTagElement("BlockEntityTag", CompoundTag);
-        }
-        ItemEntity itementity =
-                new ItemEntity(blockEntity.getLevel(), blockEntity.getBlockPos().getX(), blockEntity.getBlockPos().getY(),
-                        blockEntity.getBlockPos().getZ(), itemStack);
-        itementity.setDefaultPickUpDelay();
-        return itementity;
-    }
-
-    /**
-     * Handles the common use case of dropping self with block entity nbt on block change during replace.
-     *
-     * @param block    the current block.
-     * @param state    the old state.
-     * @param level    the level
-     * @param pos      the position.
-     * @param newState the new state
-     */
-    public static void onBlockChangeDropWithNbt(Block block, BlockState state, Level level, BlockPos pos,
-                                                BlockState newState) {
-        if (state.getBlock() != newState.getBlock()) {
-            if (!level.isClientSide) {
-                BlockEntity blockEntity = level.getBlockEntity(pos);
-                if (blockEntity != null) {
-                    level.addFreshEntity(BlockEntityUtil.getDroppedItemWithNbt(new ItemStack(block), blockEntity));
-                }
-            }
-            level.updateNeighbourForOutputSignal(pos, block);
-        }
-    }
-
-    /**
      * Handles the common use case of giving self as item with block entity nbt.
      *
      * @param block the current block.
      * @param level the level
      * @param pos   the position.
      */
-    public static ItemStack getItemWithNbt(Block block, BlockGetter level, BlockPos pos) {
+    public static ItemStack getItemWithNbt(Block block, LevelReader level, BlockPos pos) {
         ItemStack itemStack = new ItemStack(block);
         BlockEntity blockEntity = level.getBlockEntity(pos);
 
         if (blockEntity != null) {
-            CompoundTag CompoundTag = blockEntity.serializeNBT();
-            if (!CompoundTag.isEmpty()) {
-                itemStack.addTagElement("BlockEntityTag", CompoundTag);
-            }
+
+            blockEntity.saveToItem(itemStack, level.registryAccess());
         } else {
-            Occultism.LOGGER.warn("BlockEntity is null for block {} at pos {}, cannot get ItemStack with NBT", block, pos);
+            Occultism.LOGGER.warn("BlockEntity is null for block {} at pos {}, cannot get ItemStack with Components", block, pos);
         }
 
         return itemStack;
     }
-    //endregion Static Methods
 }

@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/cinnabar"
+        "tag": "c:ores/cinnabar"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/cinnabar"
+        "tag": "c:dusts/cinnabar"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 200,
   "ignore_crushing_multiplier": false,
   "ingredient": {
-    "tag": "forge:ores/cinnabar"
+    "tag": "c:ores/cinnabar"
   },
   "result": {
     "count": 4,
-    "tag": "forge:dusts/cinnabar"
+    "tag": "c:dusts/cinnabar"
   }
 }

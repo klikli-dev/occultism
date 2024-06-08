@@ -7,29 +7,29 @@
   "pentacle_id": "occultism:possess_djinni",
   "duration": 60,
   "entity_to_sacrifice": {
-    "tag": "forge:pigs",
+    "tag": "c:pigs",
     "display_name": "ritual.occultism.sacrifice.pigs"
   },
   "entity_to_summon": "occultism:possessed_enderman",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/possess_enderman"
+    "id": "occultism:ritual_dummy/possess_enderman"
   },
   "ingredients": [
     {
-      "tag": "forge:bones"
+      "tag": "c:bones"
     },
     {
-      "tag": "forge:string"
+      "tag": "c:string"
     },
     {
-      "tag": "forge:end_stones"
+      "tag": "c:end_stones"
     },
     {
       "item": "minecraft:rotten_flesh"
     }
   ],
   "result": {
-    "item": "minecraft:ender_pearl",
+    "id": "minecraft:ender_pearl",
     "nbt": {
       "display": {
         "Lore": [

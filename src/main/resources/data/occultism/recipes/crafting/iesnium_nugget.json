@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "forge:ingots/iesnium"
+      "tag": "c:ingots/iesnium"
     }
   ],
   "result": {
-    "item": "occultism:iesnium_nugget",
+    "id": "occultism:iesnium_nugget",
     "count": 9
   }
 }

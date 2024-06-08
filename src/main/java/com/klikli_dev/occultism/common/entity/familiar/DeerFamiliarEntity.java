@@ -101,7 +101,7 @@ public class DeerFamiliarEntity extends FamiliarEntity {
             if (owner != null && this.distanceToSqr(owner) > 50) {
                 if (this.getAttribute(Attributes.MOVEMENT_SPEED).getModifier(SPEED_UUID) == null)
                     this.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(
-                            new AttributeModifier(SPEED_UUID, "deer_speedup", 0.15, AttributeModifier.Operation.ADDITION));
+                            new AttributeModifier(SPEED_UUID, "deer_speedup", 0.15, AttributeModifier.Operation.ADD_VALUE));
             } else if (this.getAttribute(Attributes.MOVEMENT_SPEED).getModifier(SPEED_UUID) != null) {
                 this.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(SPEED_UUID);
             }
@@ -128,16 +128,16 @@ public class DeerFamiliarEntity extends FamiliarEntity {
         return ImmutableList.of(
                 new MobEffectInstance(MobEffects.JUMP, 300, 0, false, true),
                 new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 300, 0, false, true),
-                new MobEffectInstance(OccultismEffects.STEP_HEIGHT.get(), 300, 0, false, true)
+                new MobEffectInstance(OccultismEffects.STEP_HEIGHT, 300, 0, false, true)
 
         );
     }
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason,
-                                        @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+                                        @Nullable SpawnGroupData spawnDataIn) {
         this.setRedNose(this.getRandom().nextDouble() < 0.1);
-        return super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn, dataTag);
+        return super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn);
     }
 
     @Override

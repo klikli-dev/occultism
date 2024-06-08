@@ -12,20 +12,20 @@
   },
   "entity_to_summon": "occultism:guardian_familiar",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/familiar_guardian"
+    "id": "occultism:ritual_dummy/familiar_guardian"
   },
   "ingredients": [
     {
-      "tag": "forge:gems/diamond"
+      "tag": "c:gems/diamond"
     },
     {
-      "tag": "forge:gems/diamond"
+      "tag": "c:gems/diamond"
     },
     {
-      "tag": "forge:gems/diamond"
+      "tag": "c:gems/diamond"
     },
     {
-      "tag": "forge:gems/diamond"
+      "tag": "c:gems/diamond"
     },
     {
       "item": "minecraft:golden_apple"
@@ -35,7 +35,7 @@
     }
   ],
   "result": {
-    "item": "occultism:spawn_egg/familiar_guardian",
+    "id": "occultism:spawn_egg/familiar_guardian",
     "nbt": {
       "display": {
         "Lore": [

@@ -149,11 +149,11 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
         this.setWeapon((byte) this.getRandom().nextInt(3));
         this.setHairy(this.getRandom().nextBoolean());
         this.setGlasses(this.getRandom().nextDouble() < 0.1);
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 
     @Override
@@ -167,11 +167,11 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(HEAD, NO_HEAD);
-        this.entityData.define(WEAPON, (byte) 0);
-        this.entityData.define(REBUILT, (byte) 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(HEAD, NO_HEAD);
+        builder.define(WEAPON, (byte) 0);
+        builder.define(REBUILT, (byte) 0);
     }
 
     @Override

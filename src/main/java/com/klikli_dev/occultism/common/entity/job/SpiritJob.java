@@ -26,6 +26,7 @@ import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityDimensions;
@@ -52,7 +53,7 @@ public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
         SpiritJobFactory factory = OccultismSpiritJobs.REGISTRY
                 .get(new ResourceLocation(nbt.getString("factoryId")));
         SpiritJob job = factory.create(entity);
-        job.deserializeNBT(nbt);
+        job.deserializeNBT(entity.level().registryAccess(), nbt);
         return job;
     }
 
@@ -65,13 +66,13 @@ public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
     }
 
     @Override
-    public CompoundTag serializeNBT() {
-        return this.writeJobToNBT(new CompoundTag());
+    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+        return this.writeJobToNBT(new CompoundTag(), provider);
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt) {
-        this.readJobFromNBT(nbt);
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
+        this.readJobFromNBT(nbt, provider);
     }
 
 
@@ -123,7 +124,8 @@ public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
      * @param compound the compound to write to.
      * @return the written to compound.
      */
-    public CompoundTag writeJobToNBT(CompoundTag compound) {
+    public CompoundTag writeJobToNBT(CompoundTag compound, HolderLookup.Provider provider
+    ) {
         compound.putString("factoryId", this.getFactoryID().toString());
         return compound;
     }
@@ -133,7 +135,8 @@ public abstract class SpiritJob implements INBTSerializable<CompoundTag> {
      *
      * @param compound the NBT to read from.
      */
-    public void readJobFromNBT(CompoundTag compound) {
+    public void readJobFromNBT(CompoundTag compound, HolderLookup.Provider provider
+    ) {
     }
 
     /**

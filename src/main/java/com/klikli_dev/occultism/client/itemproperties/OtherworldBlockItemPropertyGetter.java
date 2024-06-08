@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.client.itemproperties;
 
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -38,7 +39,7 @@ public class OtherworldBlockItemPropertyGetter implements ItemPropertyFunction {
 
     @Override
     public float call(ItemStack itemStack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity, int i) {
-        boolean thirdEye = Minecraft.getInstance().player.hasEffect(OccultismEffects.THIRD_EYE.get());
-        return itemStack.getOrCreateTag().getBoolean("isInventoryItem") || thirdEye ? 1.0f : 0.0f;
+        boolean thirdEye = Minecraft.getInstance().player.hasEffect(OccultismEffects.THIRD_EYE);
+        return itemStack.getOrDefault(OccultismDataComponents.IS_INVENTORY_ITEM, false) || thirdEye ? 1.0f : 0.0f;
     }
 }

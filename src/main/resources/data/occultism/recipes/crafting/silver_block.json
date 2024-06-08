@@ -7,10 +7,10 @@
   ],
   "key": {
     "s": {
-      "tag": "forge:ingots/silver"
+      "tag": "c:ingots/silver"
     }
   },
   "result": {
-    "item": "occultism:silver_block"
+    "id": "occultism:silver_block"
   }
 }

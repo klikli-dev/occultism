@@ -12,7 +12,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/certus_quartz"
+        "tag": "c:ores/certus_quartz"
       }
     }
   ]

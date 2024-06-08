@@ -12,10 +12,10 @@
       "tag": "minecraft:wool"
     },
     "s": {
-      "tag": "forge:string"
+      "tag": "c:string"
     }
   },
   "result": {
-    "item": "occultism:brush"
+    "id": "occultism:brush"
   }
 }

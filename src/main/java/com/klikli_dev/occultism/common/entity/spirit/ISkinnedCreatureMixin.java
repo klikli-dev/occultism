@@ -74,8 +74,8 @@ public interface ISkinnedCreatureMixin {
     /**
      * registers the skin data parameter with the data manager.
      */
-    default void registerSkinDataParameter() {
-        this.getEntity().getEntityData().define(this.getDataParameterSkin(), 0);
+    default void registerSkinDataParameter(SynchedEntityData.Builder builder) {
+        builder.define(this.getDataParameterSkin(), 0);
     }
 
 }

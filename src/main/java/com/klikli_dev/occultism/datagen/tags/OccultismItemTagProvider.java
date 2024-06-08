@@ -41,6 +41,9 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
     }
 
     private void addOccultismTags(HolderLookup.Provider provider) {
+        this.tag(OccultismTags.Items.DEMONIC_PARTNER_FOOD)
+                .addTag(ItemTags.MEAT);
+
         this.tag(OccultismTags.Items.BOOK_OF_CALLING_FOLIOT)
                 .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get())
                 .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get())

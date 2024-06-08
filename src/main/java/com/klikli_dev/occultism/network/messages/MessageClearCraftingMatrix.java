@@ -25,7 +25,9 @@ package com.klikli_dev.occultism.network.messages;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.util.StorageUtil;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -33,12 +35,14 @@ import net.minecraft.server.level.ServerPlayer;
 public class MessageClearCraftingMatrix implements IMessage {
 
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "clear_crafting_matrix");
+    public static final Type<MessageClearCraftingMatrix> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageClearCraftingMatrix> STREAM_CODEC = CustomPacketPayload.codec(MessageClearCraftingMatrix::encode, MessageClearCraftingMatrix::new);
 
     public MessageClearCraftingMatrix() {
 
     }
 
-    public MessageClearCraftingMatrix(FriendlyByteBuf buf) {
+    public MessageClearCraftingMatrix(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -48,17 +52,17 @@ public class MessageClearCraftingMatrix implements IMessage {
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(RegistryFriendlyByteBuf buf) {
 
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
+    public void decode(RegistryFriendlyByteBuf buf) {
 
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

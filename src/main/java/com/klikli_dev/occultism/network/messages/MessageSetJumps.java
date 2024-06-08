@@ -26,15 +26,19 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.registry.OccultismDataStorage;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 
 public class MessageSetJumps implements IMessage {
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "set_jumps");
+    public static final Type<MessageSetJumps> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetJumps> STREAM_CODEC = CustomPacketPayload.codec(MessageSetJumps::encode, MessageSetJumps::new);
     public int jumps;
 
-    public MessageSetJumps(FriendlyByteBuf buf) {
+    public MessageSetJumps(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -50,17 +54,17 @@ public class MessageSetJumps implements IMessage {
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(RegistryFriendlyByteBuf buf) {
         buf.writeInt(this.jumps);
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
+    public void decode(RegistryFriendlyByteBuf buf) {
         this.jumps = buf.readInt();
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

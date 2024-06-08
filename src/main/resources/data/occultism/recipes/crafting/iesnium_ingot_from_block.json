@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "forge:storage_blocks/iesnium"
+      "tag": "c:storage_blocks/iesnium"
     }
   ],
   "result": {
-    "item": "occultism:iesnium_ingot",
+    "id": "occultism:iesnium_ingot",
     "count": 9
   }
 }

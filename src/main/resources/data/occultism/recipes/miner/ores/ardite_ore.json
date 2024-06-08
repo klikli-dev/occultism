@@ -4,7 +4,7 @@
     "tag": "occultism:miners/ores"
   },
   "result": {
-    "tag": "forge:ores/ardite"
+    "tag": "c:ores/ardite"
   },
   "weight": 159,
   "neoforge:conditions": [
@@ -12,7 +12,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/ardite"
+        "tag": "c:ores/ardite"
       }
     }
   ]

@@ -42,7 +42,7 @@ import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.fluids.FluidType;
 
@@ -60,14 +60,14 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
 
     public BeaverFamiliarEntity(EntityType<? extends BeaverFamiliarEntity> type, Level level) {
         super(type, level);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0);
+        this.setPathfindingMalus(PathType.WATER, 0);
         this.waterNavigator = new WaterBoundPathNavigation(this, level);
         this.groundNavigator = new GroundPathNavigation(this, level);
         this.moveControl = new CthulhuFamiliarEntity.MoveController(this);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return FamiliarEntity.createMobAttributes().add(NeoForgeMod.SWIM_SPEED.value(), 1f);
+        return FamiliarEntity.createMobAttributes().add(NeoForgeMod.SWIM_SPEED, 1f);
     }
 
     @Override
@@ -103,11 +103,11 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
         this.setBigTail(this.getRandom().nextDouble() < 0.1);
         this.setEars(this.getRandom().nextBoolean());
         this.setWhiskers(this.getRandom().nextBoolean());
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 
     @Override
@@ -141,7 +141,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
-        return ImmutableList.of(new MobEffectInstance(OccultismEffects.BEAVER_HARVEST.get(), 300));
+        return ImmutableList.of(new MobEffectInstance(OccultismEffects.BEAVER_HARVEST, 300));
     }
 
     public void setTreeTarget(BlockPos pos) {

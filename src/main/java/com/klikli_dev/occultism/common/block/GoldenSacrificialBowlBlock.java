@@ -28,7 +28,9 @@ import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -50,12 +52,6 @@ public class GoldenSacrificialBowlBlock extends Block implements EntityBlock {
 
     public GoldenSacrificialBowlBlock(Properties properties) {
         super(properties);
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
-    public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
-        return super.isPathfindable(pState, pLevel, pPos, pType);
     }
 
     @Override
@@ -82,15 +78,13 @@ public class GoldenSacrificialBowlBlock extends Block implements EntityBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
-                                 InteractionHand hand, BlockHitResult hit) {
-        BlockEntity blockEntity = level.getBlockEntity(pos);
+    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+        BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
         if (blockEntity instanceof GoldenSacrificialBowlBlockEntity bowl) {
-            return bowl.activate(level, pos, player, hand,
-                    hit.getDirection()) ? InteractionResult.SUCCESS : InteractionResult.PASS;
+            return bowl.activate(pLevel, pPos, pPlayer, pHand,
+                    pHitResult.getDirection()) ? ItemInteractionResult.SUCCESS : ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
-        return super.use(state, level, pos, player, hand, hit);
+        return super.useItemOn(pStack, pState, pLevel, pPos, pPlayer, pHand, pHitResult);
     }
 
     @Override

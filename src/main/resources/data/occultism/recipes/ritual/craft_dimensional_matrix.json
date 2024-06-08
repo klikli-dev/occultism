@@ -7,23 +7,23 @@
   "pentacle_id": "occultism:craft_djinni",
   "duration": 240,
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/craft_dimensional_matrix"
+    "id": "occultism:ritual_dummy/craft_dimensional_matrix"
   },
   "ingredients": [
     {
-      "tag": "forge:storage_blocks/quartz"
+      "tag": "c:storage_blocks/quartz"
     },
     {
-      "tag": "forge:storage_blocks/quartz"
+      "tag": "c:storage_blocks/quartz"
     },
     {
-      "tag": "forge:storage_blocks/quartz"
+      "tag": "c:storage_blocks/quartz"
     },
     {
-      "tag": "forge:ender_pearls"
+      "tag": "c:ender_pearls"
     }
   ],
   "result": {
-    "item": "occultism:dimensional_matrix"
+    "id": "occultism:dimensional_matrix"
   }
 }

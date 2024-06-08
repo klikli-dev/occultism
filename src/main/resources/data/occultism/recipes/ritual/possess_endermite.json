@@ -11,7 +11,7 @@
   },
   "entity_to_summon": "occultism:possessed_endermite",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/possess_endermite"
+    "id": "occultism:ritual_dummy/possess_endermite"
   },
   "ingredients": [
     {
@@ -28,7 +28,7 @@
     }
   ],
   "result": {
-    "item": "minecraft:end_stone",
+    "id": "minecraft:end_stone",
     "nbt": {
       "display": {
         "Lore": [

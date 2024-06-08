@@ -10,23 +10,23 @@
   "spirit_job_type": "occultism:clear_weather",
   "entity_to_summon": "occultism:djinni",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/summon_djinni_clear_weather"
+    "id": "occultism:ritual_dummy/summon_djinni_clear_weather"
   },
   "ingredients": [
     {
-      "tag": "forge:crops/beetroot"
+      "tag": "c:crops/beetroot"
     },
     {
-      "tag": "forge:crops/carrot"
+      "tag": "c:crops/carrot"
     },
     {
-      "tag": "forge:crops/potato"
+      "tag": "c:crops/potato"
     },
     {
-      "tag": "forge:crops/wheat"
+      "tag": "c:crops/wheat"
     }
   ],
   "result": {
-    "item": "occultism:jei_dummy/none"
+    "id": "occultism:jei_dummy/none"
   }
 }

@@ -10,23 +10,23 @@
   "spirit_job_type": "occultism:crush_tier3",
   "entity_to_summon": "occultism:afrit",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/summon_afrit_crusher"
+    "id": "occultism:ritual_dummy/summon_afrit_crusher"
   },
   "ingredients": [
     {
-      "tag": "forge:gems/diamond"
+      "tag": "c:gems/diamond"
     },
     {
-      "tag": "forge:dusts/iesnium"
+      "tag": "c:dusts/iesnium"
     },
     {
-      "tag": "forge:dusts/iesnium"
+      "tag": "c:dusts/iesnium"
     },
     {
-      "tag": "forge:gems/emerald"
+      "tag": "c:gems/emerald"
     }
   ],
   "result": {
-    "item": "occultism:jei_dummy/none"
+    "id": "occultism:jei_dummy/none"
   }
 }

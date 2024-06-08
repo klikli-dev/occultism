@@ -10,10 +10,10 @@
       "item": "occultism:spirit_attuned_gem"
     },
     "p": {
-      "tag": "forge:glass_panes"
+      "tag": "c:glass_panes"
     }
   },
   "result": {
-    "item": "occultism:lenses"
+    "id": "occultism:lenses"
   }
 }

@@ -57,9 +57,9 @@ public class DummyTooltipItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(Component.translatable(stack.getDescriptionId() + ".tooltip"));
-    }
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
 
+        pTooltipComponents.add(Component.translatable(pStack.getDescriptionId() + ".tooltip"));
+    }
 }

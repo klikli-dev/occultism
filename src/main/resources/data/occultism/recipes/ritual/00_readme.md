@@ -47,7 +47,7 @@ and thus shelved until further notice.
     "item": "minecraft:egg"
   },
   "entity_to_sacrifice": {
-    "tag": "forge:cows",
+    "tag": "c:cows",
     "display_name": "ritual.occultism.sacrifice.cows"
   },
   "entity_to_summon": "minecraft:sheep",
@@ -55,18 +55,18 @@ and thus shelved until further notice.
     "RabbitType": 99
   },
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/custom_ritual"
+    "id": "occultism:ritual_dummy/custom_ritual"
   },
   "ingredients": [
     {
-      "tag": "forge:ores/iron"
+      "tag": "c:ores/iron"
     },
     {
       "item": "minecraft:egg"
     }
   ],
   "result": {
-    "item": "occultism:jei_dummy/none"
+    "id": "occultism:jei_dummy/none"
   },
   "command": "execute run say hi"
 }

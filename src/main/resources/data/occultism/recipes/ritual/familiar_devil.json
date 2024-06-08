@@ -7,12 +7,12 @@
   "pentacle_id": "occultism:possess_djinni",
   "duration": 60,
   "entity_to_sacrifice": {
-    "tag": "forge:horses",
+    "tag": "c:horses",
     "display_name": "ritual.occultism.sacrifice.horses"
   },
   "entity_to_summon": "occultism:devil_familiar",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/familiar_devil"
+    "id": "occultism:ritual_dummy/familiar_devil"
   },
   "ingredients": [
     {
@@ -28,20 +28,20 @@
       "item": "minecraft:lava_bucket"
     },
     {
-      "tag": "forge:bones"
+      "tag": "c:bones"
     },
     {
-      "tag": "forge:bones"
+      "tag": "c:bones"
     },
     {
-      "tag": "forge:bones"
+      "tag": "c:bones"
     },
     {
-      "tag": "forge:bones"
+      "tag": "c:bones"
     }
   ],
   "result": {
-    "item": "occultism:spawn_egg/familiar_devil",
+    "id": "occultism:spawn_egg/familiar_devil",
     "nbt": {
       "display": {
         "Lore": [

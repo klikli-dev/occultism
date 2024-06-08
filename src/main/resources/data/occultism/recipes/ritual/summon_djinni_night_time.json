@@ -10,7 +10,7 @@
   "spirit_job_type": "occultism:night_time",
   "entity_to_summon": "occultism:djinni",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/summon_djinni_night_time"
+    "id": "occultism:ritual_dummy/summon_djinni_night_time"
   },
   "ingredients": [
     {
@@ -20,13 +20,13 @@
       "item": "minecraft:rotten_flesh"
     },
     {
-      "tag": "forge:bones"
+      "tag": "c:bones"
     },
     {
-      "tag": "forge:dyes/black"
+      "tag": "c:dyes/black"
     }
   ],
   "result": {
-    "item": "occultism:jei_dummy/none"
+    "id": "occultism:jei_dummy/none"
   }
 }

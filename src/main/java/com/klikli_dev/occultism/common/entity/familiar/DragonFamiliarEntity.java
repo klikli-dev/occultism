@@ -86,11 +86,11 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
         this.setFez(this.getRandom().nextDouble() < 0.1);
         this.setEars(this.getRandom().nextDouble() < 0.5);
         this.setArms(this.getRandom().nextDouble() < 0.5);
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 
     @Override
@@ -264,7 +264,7 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
-        return ImmutableList.of(new MobEffectInstance(OccultismEffects.DRAGON_GREED.get(), 300,
+        return ImmutableList.of(new MobEffectInstance(OccultismEffects.DRAGON_GREED, 300,
                 this.greedyTimer > 0 ? 1 : 0, false, false));
     }
 

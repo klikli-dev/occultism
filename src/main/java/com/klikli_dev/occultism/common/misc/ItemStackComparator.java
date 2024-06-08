@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.misc;
 
 import com.klikli_dev.occultism.api.common.container.IItemStackComparator;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 
@@ -49,9 +50,9 @@ public class ItemStackComparator implements IItemStackComparator {
     }
 
     //region Static Methods
-    public static ItemStackComparator from(CompoundTag nbt) {
+    public static ItemStackComparator from(CompoundTag nbt, HolderLookup.Provider provider) {
         ItemStackComparator comparator = new ItemStackComparator();
-        comparator.deserializeNBT(nbt);
+        comparator.deserializeNBT(provider, nbt);
         return !comparator.filterStack.isEmpty() ? comparator : null;
     }
 
@@ -78,30 +79,30 @@ public class ItemStackComparator implements IItemStackComparator {
         if (stack.isEmpty())
             return false;
 
-        if (this.matchNbt && !ItemStack.isSameItemSameTags(this.filterStack, stack))
+        if (this.matchNbt && !ItemStack.isSameItemSameComponents(this.filterStack, stack))
             return false;
         return stack.getItem() == this.filterStack.getItem();
     }
 
     @Override
-    public CompoundTag serializeNBT() {
-        return this.write(new CompoundTag());
+    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+        return this.write(new CompoundTag(), provider);
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt) {
-        this.read(nbt);
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
+        this.read(nbt, provider);
     }
     //endregion Static Methods
 
-    public void read(CompoundTag compound) {
+    public void read(CompoundTag compound, HolderLookup.Provider provider) {
         CompoundTag nbt = compound.getCompound("stack");
-        this.filterStack = ItemStack.of(nbt);
+        this.filterStack = ItemStack.parseOptional(provider, nbt);
         this.matchNbt = compound.getBoolean("matchNbt");
     }
 
-    public CompoundTag write(CompoundTag compound) {
-        compound.put("stack", this.filterStack.save(new CompoundTag()));
+    public CompoundTag write(CompoundTag compound, HolderLookup.Provider provider) {
+        compound.put("stack", this.filterStack.saveOptional(provider));
         compound.putBoolean("matchNbt", this.matchNbt);
         return compound;
     }

@@ -7,35 +7,35 @@
   "pentacle_id": "occultism:possess_foliot",
   "duration": 15,
   "entity_to_sacrifice": {
-    "tag": "forge:cows",
+    "tag": "c:cows",
     "display_name": "ritual.occultism.sacrifice.cows"
   },
   "entity_to_summon": "occultism:deer_familiar",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/familiar_deer"
+    "id": "occultism:ritual_dummy/familiar_deer"
   },
   "ingredients": [
     {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     },
     {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     },
     {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     },
     {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     },
     {
-      "tag": "forge:string"
+      "tag": "c:string"
     },
     {
-      "tag": "forge:string"
+      "tag": "c:string"
     }
   ],
   "result": {
-    "item": "occultism:spawn_egg/familiar_deer",
+    "id": "occultism:spawn_egg/familiar_deer",
     "nbt": {
       "display": {
         "Lore": [

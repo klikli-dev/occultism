@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/uranium"
+        "tag": "c:ores/uranium"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/uranium"
+        "tag": "c:dusts/uranium"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 200,
   "ignore_crushing_multiplier": false,
   "ingredient": {
-    "tag": "forge:ores/uranium"
+    "tag": "c:ores/uranium"
   },
   "result": {
     "count": 2,
-    "tag": "forge:dusts/uranium"
+    "tag": "c:dusts/uranium"
   }
 }

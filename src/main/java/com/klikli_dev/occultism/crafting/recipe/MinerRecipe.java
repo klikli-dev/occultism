@@ -25,11 +25,16 @@ package com.klikli_dev.occultism.crafting.recipe;
 import com.klikli_dev.occultism.common.misc.WeightedOutputIngredient;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -40,7 +45,7 @@ import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
 public class MinerRecipe implements Recipe<RecipeWrapper> {
 
-    public static final Codec<MinerRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final MapCodec<MinerRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Ingredient.CODEC
                     .fieldOf("ingredient").forGetter((r) -> r.input),
             Ingredient.CODEC.fieldOf("result").forGetter(r -> r.output.getIngredient()),
@@ -48,6 +53,16 @@ public class MinerRecipe implements Recipe<RecipeWrapper> {
     ).apply(instance, (input, output, weight) -> {
         return new MinerRecipe(input, new WeightedOutputIngredient(output, weight));
     }));
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, MinerRecipe> STREAM_CODEC = StreamCodec.composite(
+            Ingredient.CONTENTS_STREAM_CODEC,
+            (r) -> r.input,
+            Ingredient.CONTENTS_STREAM_CODEC,
+            (r) -> r.output.getIngredient(),
+            ByteBufCodecs.INT,
+            (r) -> r.output.weight(),
+            (input, output, weight) -> new MinerRecipe(input, new WeightedOutputIngredient(output, weight))
+    );
 
     public static Serializer SERIALIZER = new Serializer();
     protected final Ingredient input;
@@ -73,18 +88,18 @@ public class MinerRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public ItemStack assemble(RecipeWrapper inv, RegistryAccess access) {
-        return this.getResultItem(access).copy();
-    }
-
-    @Override
     public boolean canCraftInDimensions(int width, int height) {
         //we only ever use one slot, and we only support miners, so return true.
         return true;
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess access) {
+    public ItemStack assemble(RecipeWrapper pCraftingContainer, HolderLookup.Provider pRegistries) {
+        return this.getResultItem(pRegistries).copy();
+    }
+
+    @Override
+    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return this.output.getStack();
     }
 
@@ -107,20 +122,13 @@ public class MinerRecipe implements Recipe<RecipeWrapper> {
     public static class Serializer implements RecipeSerializer<MinerRecipe> {
 
         @Override
-        public Codec<MinerRecipe> codec() {
+        public MapCodec<MinerRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public MinerRecipe fromNetwork(FriendlyByteBuf pBuffer) {
-            //noinspection deprecation
-            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
-        }
-
-        @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, MinerRecipe pRecipe) {
-            //noinspection deprecation
-            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
+        public StreamCodec<RegistryFriendlyByteBuf, MinerRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 }

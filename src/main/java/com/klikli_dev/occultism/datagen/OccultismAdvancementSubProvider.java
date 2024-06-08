@@ -26,6 +26,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.common.advancement.RitualTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismRituals;
 import net.minecraft.advancements.Advancement;
@@ -33,12 +34,13 @@ import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.critereon.PlayerTrigger;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.IntTag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomModelData;
 import net.neoforged.neoforge.common.data.AdvancementProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
@@ -303,7 +305,7 @@ public class OccultismAdvancementSubProvider implements AdvancementProvider.Adva
 
     private ItemStack icon(int data) {
         ItemStack icon = OccultismItems.ADVANCEMENT_ICON.get().getDefaultInstance();
-        icon.addTagElement("CustomModelData", IntTag.valueOf(data));
+        icon.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(data));
         return icon;
     }
 

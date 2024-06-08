@@ -67,7 +67,7 @@ public class FamiliarRitual extends SummonRitual {
         if (entityType != null) {
             Entity entity = this.createSummonedEntity(entityType, level, goldenBowlPosition, blockEntity, castingPlayer);
             if (entity instanceof FamiliarEntity familiar) {
-                EventHooks.onFinalizeSpawn(familiar, (ServerLevelAccessor) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED, null, null);
+                EventHooks.finalizeMobSpawn(familiar, (ServerLevelAccessor) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED, null);
 
                 this.applyEntityNbt(familiar);
 

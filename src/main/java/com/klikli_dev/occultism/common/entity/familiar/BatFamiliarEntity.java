@@ -107,11 +107,11 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
         this.setRibbon(this.getRandom().nextDouble() < 0.1);
         this.setTail(this.getRandom().nextBoolean());
         this.setHair(this.getRandom().nextBoolean());
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 
     @Override
@@ -141,7 +141,7 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
         List<MobEffectInstance> effects = new ArrayList<>();
         effects.add(new MobEffectInstance(MobEffects.NIGHT_VISION, 300, 1, false, false));
         if (this.hasBlacksmithUpgrade())
-            effects.add(new MobEffectInstance(OccultismEffects.BAT_LIFESTEAL.get(), 300, 0, false, false));
+            effects.add(new MobEffectInstance(OccultismEffects.BAT_LIFESTEAL, 300, 0, false, false));
         return effects;
     }
 

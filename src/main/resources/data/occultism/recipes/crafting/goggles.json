@@ -13,10 +13,10 @@
       "item": "occultism:infused_lenses"
     },
     "l": {
-      "tag": "forge:leather"
+      "tag": "c:leather"
     }
   },
   "result": {
-    "item": "occultism:otherworld_goggles"
+    "id": "occultism:otherworld_goggles"
   }
 }

@@ -4,7 +4,7 @@
     "tag": "occultism:miners/ores"
   },
   "result": {
-    "tag": "forge:ores/boron"
+    "tag": "c:ores/boron"
   },
   "weight": 199,
   "neoforge:conditions": [
@@ -12,7 +12,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/boron"
+        "tag": "c:ores/boron"
       }
     }
   ]

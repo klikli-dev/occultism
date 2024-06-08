@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.common.misc;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.neoforged.neoforge.common.util.INBTSerializable;
 
@@ -39,32 +40,33 @@ public class DepositOrder implements INBTSerializable<CompoundTag> {
     }
 
     //region Static Methods
-    public static DepositOrder from(CompoundTag compound) {
+    public static DepositOrder from(CompoundTag compound, HolderLookup.Provider provider
+    ) {
         DepositOrder depositOrder = new DepositOrder();
-        depositOrder.deserializeNBT(compound);
+        depositOrder.deserializeNBT(provider, compound);
         return depositOrder;
     }
     //endregion Static Methods
 
-    public CompoundTag writeToNBT(CompoundTag compound) {
-        compound.put("comparator", this.comparator.serializeNBT());
+    public CompoundTag writeToNBT(CompoundTag compound, HolderLookup.Provider provider) {
+        compound.put("comparator", this.comparator.serializeNBT(provider));
         compound.putInt("amount", this.amount);
         return compound;
     }
 
-    public void readFromNBT(CompoundTag compound) {
-        this.comparator = ItemStackComparator.from(compound.getCompound("comparator"));
+    public void readFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
+        this.comparator = ItemStackComparator.from(compound.getCompound("comparator"), provider);
         this.amount = compound.getInt("amount");
     }
 
     @Override
-    public CompoundTag serializeNBT() {
-        return this.writeToNBT(new CompoundTag());
+    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+        return this.writeToNBT(new CompoundTag(), provider);
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt) {
-        this.readFromNBT(nbt);
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
+        this.readFromNBT(nbt, provider);
     }
 
 }

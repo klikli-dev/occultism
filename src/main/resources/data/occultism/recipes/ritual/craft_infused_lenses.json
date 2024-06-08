@@ -7,23 +7,23 @@
   "pentacle_id": "occultism:craft_foliot",
   "duration": 60,
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/craft_infused_lenses"
+    "id": "occultism:ritual_dummy/craft_infused_lenses"
   },
   "ingredients": [
     {
       "item": "occultism:lenses"
     },
     {
-      "tag": "forge:ingots/silver"
+      "tag": "c:ingots/silver"
     },
     {
-      "tag": "forge:ingots/silver"
+      "tag": "c:ingots/silver"
     },
     {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     }
   ],
   "result": {
-    "item": "occultism:infused_lenses"
+    "id": "occultism:infused_lenses"
   }
 }

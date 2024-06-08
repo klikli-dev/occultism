@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/azure_silver"
+        "tag": "c:ingots/azure_silver"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/azure_silver"
+        "tag": "c:dusts/azure_silver"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 200,
   "ignore_crushing_multiplier": true,
   "ingredient": {
-    "tag": "forge:ingots/azure_silver"
+    "tag": "c:ingots/azure_silver"
   },
   "result": {
     "count": 1,
-    "tag": "forge:dusts/azure_silver"
+    "tag": "c:dusts/azure_silver"
   }
 }

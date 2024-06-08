@@ -7,14 +7,14 @@
   "pentacle_id": "occultism:craft_marid",
   "duration": 240,
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/craft_stabilizer_tier4"
+    "id": "occultism:ritual_dummy/craft_stabilizer_tier4"
   },
   "ingredients": [
     {
       "item": "occultism:storage_stabilizer_tier3"
     },
     {
-      "tag": "forge:storage_blocks/iesnium"
+      "tag": "c:storage_blocks/iesnium"
     },
     {
       "item": "minecraft:dragon_head"
@@ -27,6 +27,6 @@
     }
   ],
   "result": {
-    "item": "occultism:storage_stabilizer_tier4"
+    "id": "occultism:storage_stabilizer_tier4"
   }
 }

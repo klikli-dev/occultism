@@ -28,8 +28,10 @@ import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.util.StorageUtil;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -43,12 +45,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public class MessageRequestOrder implements IMessage {
 
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "request_order");
-
+    public static final Type<MessageRequestOrder> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageRequestOrder> STREAM_CODEC = CustomPacketPayload.codec(MessageRequestOrder::encode, MessageRequestOrder::new);
     private GlobalBlockPos storageControllerPosition;
     private GlobalBlockPos targetMachinePosition;
     private ItemStack stack = ItemStack.EMPTY;
 
-    public MessageRequestOrder(FriendlyByteBuf buf) {
+    public MessageRequestOrder(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -83,22 +86,23 @@ public class MessageRequestOrder implements IMessage {
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(RegistryFriendlyByteBuf buf) {
         this.storageControllerPosition.encode(buf);
         this.targetMachinePosition.encode(buf);
-        buf.writeItem(this.stack);
+
+        ItemStack.OPTIONAL_STREAM_CODEC.encode(buf, this.stack);
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
+    public void decode(RegistryFriendlyByteBuf buf) {
         this.storageControllerPosition = GlobalBlockPos.from(buf);
         this.targetMachinePosition = GlobalBlockPos.from(buf);
-        this.stack = buf.readItem();
+        this.stack = ItemStack.OPTIONAL_STREAM_CODEC.decode(buf);
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 
 }

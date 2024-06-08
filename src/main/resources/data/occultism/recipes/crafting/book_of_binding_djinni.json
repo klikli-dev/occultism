@@ -7,7 +7,7 @@
   ],
   "key": {
     "g": {
-      "tag": "forge:dyes/green"
+      "tag": "c:dyes/green"
     },
     "b": {
       "item": "occultism:taboo_book"
@@ -20,6 +20,6 @@
     }
   },
   "result": {
-    "item": "occultism:book_of_binding_djinni"
+    "id": "occultism:book_of_binding_djinni"
   }
 }

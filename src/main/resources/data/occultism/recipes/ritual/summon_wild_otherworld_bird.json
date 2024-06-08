@@ -7,19 +7,19 @@
   "pentacle_id": "occultism:possess_djinni",
   "duration": 30,
   "entity_to_sacrifice": {
-    "tag": "forge:parrots",
+    "tag": "c:parrots",
     "display_name": "ritual.occultism.sacrifice.parrots"
   },
   "entity_to_summon": "occultism:otherworld_bird",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/summon_wild_otherworld_bird"
+    "id": "occultism:ritual_dummy/summon_wild_otherworld_bird"
   },
   "ingredients": [
     {
-      "tag": "forge:feathers"
+      "tag": "c:feathers"
     },
     {
-      "tag": "forge:feathers"
+      "tag": "c:feathers"
     },
     {
       "item": "minecraft:cobweb"
@@ -28,11 +28,11 @@
       "tag": "minecraft:leaves"
     },
     {
-      "tag": "forge:eggs"
+      "tag": "c:eggs"
     }
   ],
   "result": {
-    "item": "occultism:spawn_egg/otherworld_bird",
+    "id": "occultism:spawn_egg/otherworld_bird",
     "nbt": {
       "display": {
         "Lore": [

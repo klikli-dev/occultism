@@ -140,7 +140,7 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
                     this.mouthRot = Mth.sin(this.tickCount) * FamiliarUtil.toRads(50) + FamiliarUtil.toRads(20);
                 }
                 if (this.eatTimer == 51)
-                    this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.GENERIC_EXPLODE,
+                    this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.GENERIC_EXPLODE.value(),
                             SoundSource.HOSTILE, this.getSoundVolume(), 0.2f, false);
             }
             this.actualMouthRot = Mth.lerp(0.2f, this.actualMouthRot, this.mouthRot);
@@ -153,12 +153,12 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
         this.setColor();
         this.setBeard(this.getRandom().nextBoolean());
         this.setSpikes(this.getRandom().nextBoolean());
         this.setTongue(this.getRandom().nextDouble() < 0.1);
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 
     public float getAnimationHeight(float partialTicks) {

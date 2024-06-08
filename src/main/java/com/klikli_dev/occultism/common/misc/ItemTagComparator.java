@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.misc;
 
 import com.klikli_dev.occultism.api.common.container.IItemStackComparator;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -45,9 +46,9 @@ public class ItemTagComparator implements IItemStackComparator {
     private ItemTagComparator() {
     }
 
-    public static ItemTagComparator from(CompoundTag nbt) {
+    public static ItemTagComparator from(CompoundTag nbt, HolderLookup.Provider provider) {
         ItemTagComparator comparator = new ItemTagComparator();
-        comparator.deserializeNBT(nbt);
+        comparator.deserializeNBT(provider, nbt);
         return comparator;
     }
 
@@ -60,12 +61,12 @@ public class ItemTagComparator implements IItemStackComparator {
     }
 
     @Override
-    public CompoundTag serializeNBT() {
+    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
         return this.write(new CompoundTag());
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt) {
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
         this.read(nbt);
     }
 

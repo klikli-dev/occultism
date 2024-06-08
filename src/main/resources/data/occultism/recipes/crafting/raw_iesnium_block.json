@@ -7,10 +7,10 @@
   ],
   "key": {
     "p": {
-      "tag": "forge:raw_materials/iesnium"
+      "tag": "c:raw_materials/iesnium"
     }
   },
   "result": {
-    "item": "occultism:raw_iesnium_block"
+    "id": "occultism:raw_iesnium_block"
   }
 }

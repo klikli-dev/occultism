@@ -4,6 +4,6 @@
     "item": "minecraft:andesite"
   },
   "result": {
-    "item": "occultism:otherstone"
+    "id": "occultism:otherstone"
   }
 }

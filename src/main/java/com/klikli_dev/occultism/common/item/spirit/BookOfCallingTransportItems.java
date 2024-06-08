@@ -46,21 +46,21 @@ public class BookOfCallingTransportItems extends BookOfCallingItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
-                                TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        BlockPos extract = ItemNBTUtil.getExtractPosition(stack);
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+
+        BlockPos extract = ItemNBTUtil.getExtractPosition(pStack);
         if (extract != null) {
-            tooltip.add(Component.translatable(this.getTranslationKeyBase() + ".tooltip.extract", extract.toString()));
+            pTooltipComponents.add(Component.translatable(this.getTranslationKeyBase() + ".tooltip.extract", extract.toString()));
         }
 
-        BlockPos deposit = ItemNBTUtil.getDepositPosition(stack);
-        String depositName = ItemNBTUtil.getDepositEntityName(stack);
+        BlockPos deposit = ItemNBTUtil.getDepositPosition(pStack);
+        String depositName = ItemNBTUtil.getDepositEntityName(pStack);
 
         if (deposit != null) {
-            tooltip.add(Component.translatable(this.getTranslationKeyBase() + ".tooltip.deposit", deposit.toString()));
+            pTooltipComponents.add(Component.translatable(this.getTranslationKeyBase() + ".tooltip.deposit", deposit.toString()));
         } else if (depositName != null) {
-            tooltip.add(Component.translatable(this.getTranslationKeyBase() + ".tooltip.deposit_entity", TextUtil.formatDemonName(depositName)));
+            pTooltipComponents.add(Component.translatable(this.getTranslationKeyBase() + ".tooltip.deposit_entity", TextUtil.formatDemonName(depositName)));
         }
     }
 

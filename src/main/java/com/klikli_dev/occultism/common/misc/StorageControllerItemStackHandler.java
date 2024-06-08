@@ -24,12 +24,13 @@ package com.klikli_dev.occultism.common.misc;
 
 import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.common.data.NonNullArrayList;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.ItemStackHandler;
+
 import javax.annotation.Nonnull;
 import java.util.Collections;
 
@@ -115,11 +116,11 @@ public class StorageControllerItemStackHandler extends ItemStackHandler {
             }
         } else {
             if (!simulate) {
-                this.stacks.set(slot, ItemHandlerHelper.copyStackWithSize(existing, existing.getCount() - toExtract));
+                this.stacks.set(slot, existing.copyWithCount(existing.getCount() - toExtract));
                 this.onContentsChanged(slot);
             }
 
-            return ItemHandlerHelper.copyStackWithSize(existing, toExtract);
+            return existing.copyWithCount(toExtract);
         }
     }
 
@@ -135,14 +136,14 @@ public class StorageControllerItemStackHandler extends ItemStackHandler {
     }
 
     @Override
-    public CompoundTag serializeNBT() {
+    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
         ListTag nbtTagList = new ListTag();
         for (int i = 0; i < this.stacks.size(); i++) {
             if (!this.stacks.get(i).isEmpty()) {
                 CompoundTag itemTag = new CompoundTag();
                 ItemStack stack = this.stacks.get(i);
                 itemTag.putInt("Slot", i);
-                stack.save(itemTag);
+                stack.save(provider, itemTag);
                 itemTag.putInt("RealSize", stack.getCount());
                 nbtTagList.add(itemTag);
             }
@@ -154,7 +155,7 @@ public class StorageControllerItemStackHandler extends ItemStackHandler {
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt) {
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
         this.setSize(nbt.contains("Size", Tag.TAG_INT) ? nbt.getInt("Size") : this.stacks.size());
         ListTag tagList = nbt.getList("Items", Tag.TAG_COMPOUND);
         for (int i = 0; i < tagList.size(); i++) {
@@ -162,7 +163,7 @@ public class StorageControllerItemStackHandler extends ItemStackHandler {
             int slot = itemTags.getInt("Slot");
 
             if (slot >= 0 && slot < this.stacks.size()) {
-                ItemStack stack = ItemStack.of(itemTags);
+                ItemStack stack = ItemStack.parseOptional(provider, itemTags);
                 stack.setCount(itemTags.getInt("RealSize"));
                 this.stacks.set(slot, stack);
             }
@@ -172,7 +173,8 @@ public class StorageControllerItemStackHandler extends ItemStackHandler {
 
     @Override
     protected void onContentsChanged(int slot) {
-        this.storageController.onContentsChanged();
+        if (this.storageController != null)
+            this.storageController.onContentsChanged();
     }
 
     public void prune() {

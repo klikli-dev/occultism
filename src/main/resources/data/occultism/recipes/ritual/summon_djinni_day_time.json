@@ -10,7 +10,7 @@
   "spirit_job_type": "occultism:day_time",
   "entity_to_summon": "occultism:djinni",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/summon_djinni_day_time"
+    "id": "occultism:ritual_dummy/summon_djinni_day_time"
   },
   "ingredients": [
     {
@@ -23,10 +23,10 @@
       "item": "minecraft:wheat"
     },
     {
-      "tag": "forge:dyes/yellow"
+      "tag": "c:dyes/yellow"
     }
   ],
   "result": {
-    "item": "occultism:jei_dummy/none"
+    "id": "occultism:jei_dummy/none"
   }
 }

@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.common.entity.job;
 import com.klikli_dev.occultism.common.entity.ai.goal.PickupItemsGoal;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.crafting.recipe.SpiritTradeRecipe;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -149,18 +150,18 @@ public class TraderJob extends SpiritJob {
     }
 
     @Override
-    public CompoundTag writeJobToNBT(CompoundTag compound) {
+    public CompoundTag writeJobToNBT(CompoundTag compound, HolderLookup.Provider provider) {
         compound.putInt("timeToConvert", this.timeToConvert);
         compound.putInt("conversionTimer", this.conversionTimer);
         compound.putInt("maxTradesPerRound", this.maxTradesPerRound);
         if (this.trade != null)
             compound.putString("spiritTradeId", this.trade.id().toString());
-        return super.writeJobToNBT(compound);
+        return super.writeJobToNBT(compound, provider);
     }
 
     @Override
-    public void readJobFromNBT(CompoundTag compound) {
-        super.readJobFromNBT(compound);
+    public void readJobFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
+        super.readJobFromNBT(compound, provider);
         this.timeToConvert = compound.getInt("timeToConvert");
         this.conversionTimer = compound.getInt("conversionTimer");
         this.maxTradesPerRound = compound.getInt("maxTradesPerRound");

@@ -23,11 +23,13 @@
 package com.klikli_dev.occultism.network.messages;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.OccultismConstants;
 import com.klikli_dev.occultism.common.item.tool.DivinationRodItem;
 import com.klikli_dev.occultism.network.IMessage;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -37,11 +39,12 @@ import net.minecraft.world.item.ItemStack;
 public class MessageSetDivinationResult implements IMessage {
 
     public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "set_divination_result");
-
+    public static final Type<MessageSetDivinationResult> TYPE = new Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetDivinationResult> STREAM_CODEC = CustomPacketPayload.codec(MessageSetDivinationResult::encode, MessageSetDivinationResult::new);
     public BlockPos pos;
     public byte distance;
 
-    public MessageSetDivinationResult(FriendlyByteBuf buf) {
+    public MessageSetDivinationResult(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
@@ -55,17 +58,16 @@ public class MessageSetDivinationResult implements IMessage {
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
         ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
         if (stack.getItem() instanceof DivinationRodItem) {
-            var tag = stack.getOrCreateTag();
-            tag.putFloat(OccultismConstants.Nbt.Divination.DISTANCE, this.distance);
+            stack.set(OccultismDataComponents.DIVINATION_DISTANCE, (float) this.distance);
             if (this.pos != null) {
-                tag.putLong(OccultismConstants.Nbt.Divination.POS, this.pos.asLong());
+                stack.set(OccultismDataComponents.DIVINATION_POS, this.pos);
             }
             player.inventoryMenu.broadcastChanges();
         }
     }
 
     @Override
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(RegistryFriendlyByteBuf buf) {
         buf.writeBoolean(this.pos != null);
         if (this.pos != null) {
             buf.writeBlockPos(this.pos);
@@ -74,7 +76,7 @@ public class MessageSetDivinationResult implements IMessage {
     }
 
     @Override
-    public void decode(FriendlyByteBuf buf) {
+    public void decode(RegistryFriendlyByteBuf buf) {
         if (buf.readBoolean()) {
             this.pos = buf.readBlockPos();
         }
@@ -82,7 +84,7 @@ public class MessageSetDivinationResult implements IMessage {
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

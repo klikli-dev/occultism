@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/allthemodium"
+        "tag": "c:ores/allthemodium"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/allthemodium"
+        "tag": "c:dusts/allthemodium"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 200,
   "ignore_crushing_multiplier": false,
   "ingredient": {
-    "tag": "forge:ores/allthemodium"
+    "tag": "c:ores/allthemodium"
   },
   "result": {
     "count": 2,
-    "tag": "forge:dusts/allthemodium"
+    "tag": "c:dusts/allthemodium"
   }
 }

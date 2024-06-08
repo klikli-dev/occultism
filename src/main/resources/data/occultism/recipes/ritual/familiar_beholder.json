@@ -7,12 +7,12 @@
   "pentacle_id": "occultism:possess_djinni",
   "duration": 30,
   "entity_to_sacrifice": {
-    "tag": "forge:spiders",
+    "tag": "c:spiders",
     "display_name": "ritual.occultism.sacrifice.spiders"
   },
   "entity_to_summon": "occultism:beholder_familiar",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/familiar_beholder"
+    "id": "occultism:ritual_dummy/familiar_beholder"
   },
   "ingredients": [
     {
@@ -28,20 +28,20 @@
       "item": "minecraft:spider_eye"
     },
     {
-      "tag": "forge:dusts/glowstone"
+      "tag": "c:dusts/glowstone"
     },
     {
-      "tag": "forge:dusts/glowstone"
+      "tag": "c:dusts/glowstone"
     },
     {
-      "tag": "forge:dusts/glowstone"
+      "tag": "c:dusts/glowstone"
     },
     {
-      "tag": "forge:dusts/glowstone"
+      "tag": "c:dusts/glowstone"
     }
   ],
   "result": {
-    "item": "occultism:spawn_egg/familiar_beholder",
+    "id": "occultism:spawn_egg/familiar_beholder",
     "nbt": {
       "display": {
         "Lore": [

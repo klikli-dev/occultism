@@ -31,16 +31,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class InfusedPickaxeItem extends PickaxeItem implements IOtherworldTool {
 
-    public InfusedPickaxeItem(Tier tier, int attackDamageIn, float attackSpeedIn,
+    public InfusedPickaxeItem(Tier tier,
                               Properties builder) {
-        super(tier, attackDamageIn, attackSpeedIn, builder);
+        super(tier, builder);
     }
 
     @Override
@@ -49,11 +47,9 @@ public class InfusedPickaxeItem extends PickaxeItem implements IOtherworldTool {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
-                                TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip",
-                TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+        pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip",
+                TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack))));
     }
-
 }

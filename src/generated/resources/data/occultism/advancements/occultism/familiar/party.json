@@ -13,7 +13,8 @@
       "translate": "advancements.occultism.familiar.party.description"
     },
     "icon": {
-      "item": "minecraft:jukebox"
+      "count": 1,
+      "id": "minecraft:jukebox"
     },
     "title": {
       "translate": "advancements.occultism.familiar.party.title"

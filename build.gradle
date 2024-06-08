@@ -18,11 +18,12 @@ sourceSets {
     main {
         java {
             exclude '**/AlmostUnifiedIntegrationImpl.java'
+            exclude '**/jei/impl/**/*.java'
         }
     }
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 java.withSourcesJar()
 
 if (file('src/main/resources/META-INF/accesstransformer.cfg').exists()) {
@@ -105,6 +106,13 @@ repositories {
         }
     }
     maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+        content {
+            includeGroup "maven.modrinth"
+        }
+    }
+    maven {
         name = "TerraformersMC"
         url = "https://maven.terraformersmc.com/"
     }
@@ -116,10 +124,11 @@ repositories {
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
 
+    //TODO: enable once available
     //Jei
-    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
-    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
-    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+//    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+//    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+//    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     //curios
     compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api"
@@ -161,7 +170,7 @@ dependencies {
 }
 
 processResources {
-    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+    filesMatching(['META-INF/neoforge.mods.toml', 'pack.mcmeta']) {
         expand project.properties
     }
 }
@@ -229,4 +238,12 @@ afterEvaluate {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+// IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+    }
 }

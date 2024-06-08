@@ -3,7 +3,30 @@
   "pools": [
     {
       "bonus_rolls": 0.0,
-      "entries": [],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "include": [
+                "occultism:linked_storage_controller",
+                "occultism:sort_direction",
+                "occultism:sort_type",
+                "occultism:crafting_matrix",
+                "occultism:order_stack"
+              ],
+              "source": "block_entity"
+            }
+          ],
+          "name": "occultism:stable_wormhole"
+        }
+      ],
       "rolls": 1.0
     }
   ],

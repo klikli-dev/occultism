@@ -8,7 +8,7 @@ import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.cache.GeckoLibCache;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 
 import java.util.HashMap;

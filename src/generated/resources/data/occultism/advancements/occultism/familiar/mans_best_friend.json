@@ -19,7 +19,8 @@
       "translate": "advancements.occultism.familiar.mans_best_friend.description"
     },
     "icon": {
-      "item": "minecraft:stick"
+      "count": 1,
+      "id": "minecraft:stick"
     },
     "title": {
       "translate": "advancements.occultism.familiar.mans_best_friend.title"

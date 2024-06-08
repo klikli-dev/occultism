@@ -82,6 +82,11 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
      */
     public static final int DEFAULT_MAX_AGE = -1;//default age is unlimited.
     public static final int MAX_FILTER_SLOTS = 14;
+    /**
+     * The spirit job registry name/id.
+     */
+    protected static final EntityDataAccessor<String> JOB_ID = SynchedEntityData
+            .defineId(SpiritEntity.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<Optional<BlockPos>> DEPOSIT_POSITION =
             SynchedEntityData.defineId(SpiritEntity.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
     private static final EntityDataAccessor<Optional<UUID>> DEPOSIT_ENTITY_UUID =
@@ -107,12 +112,6 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     private static final EntityDataAccessor<Integer> SPIRIT_MAX_AGE = SynchedEntityData.defineId(SpiritEntity.class,
             EntityDataSerializers.INT);
     /**
-     * The spirit job registry name/id.
-     */
-    protected static final EntityDataAccessor<String> JOB_ID = SynchedEntityData
-            .defineId(SpiritEntity.class, EntityDataSerializers.STRING);
-
-    /**
      * The filter mode (blacklist/whitelist)
      */
     private static final EntityDataAccessor<Boolean> IS_FILTER_BLACKLIST = SynchedEntityData
@@ -135,7 +134,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         @Override
         protected void onContentsChanged(int slot) {
             super.onContentsChanged(slot);
-            SpiritEntity.this.entityData.set(FILTER_ITEMS, this.serializeNBT());
+            SpiritEntity.this.entityData.set(FILTER_ITEMS, this.serializeNBT(SpiritEntity.this.level().registryAccess()));
         }
     };
 
@@ -206,7 +205,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
             if (this.level().isClientSide) {
                 CompoundTag compound = this.entityData.get(FILTER_ITEMS);
                 if (!compound.isEmpty())
-                    this.filterItemStackHandler.deserializeNBT(compound);
+                    this.filterItemStackHandler.deserializeNBT(this.level().registryAccess(), compound);
             }
         }
 
@@ -430,9 +429,9 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason,
-                                        @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+                                        @Nullable SpawnGroupData spawnDataIn) {
         this.selectRandomSkin();
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn);
     }
 
     @Nullable
@@ -512,22 +511,22 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.registerSkinDataParameter();
-        this.entityData.define(DEPOSIT_POSITION, Optional.empty());
-        this.entityData.define(DEPOSIT_ENTITY_UUID, Optional.empty());
-        this.entityData.define(DEPOSIT_FACING, Direction.UP);
-        this.entityData.define(EXTRACT_POSITION, Optional.empty());
-        this.entityData.define(EXTRACT_FACING, Direction.DOWN);
-        this.entityData.define(WORK_AREA_POSITION, Optional.empty());
-        this.entityData.define(WORK_AREA_SIZE, WorkAreaSize.SMALL.getValue());
-        this.entityData.define(SPIRIT_AGE, 0);
-        this.entityData.define(SPIRIT_MAX_AGE, DEFAULT_MAX_AGE);
-        this.entityData.define(JOB_ID, "");
-        this.entityData.define(IS_FILTER_BLACKLIST, false);
-        this.entityData.define(FILTER_ITEMS, new CompoundTag());
-        this.entityData.define(TAG_FILTER, "");
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        this.registerSkinDataParameter(builder);
+        builder.define(DEPOSIT_POSITION, Optional.empty());
+        builder.define(DEPOSIT_ENTITY_UUID, Optional.empty());
+        builder.define(DEPOSIT_FACING, Direction.UP);
+        builder.define(EXTRACT_POSITION, Optional.empty());
+        builder.define(EXTRACT_FACING, Direction.DOWN);
+        builder.define(WORK_AREA_POSITION, Optional.empty());
+        builder.define(WORK_AREA_SIZE, WorkAreaSize.SMALL.getValue());
+        builder.define(SPIRIT_AGE, 0);
+        builder.define(SPIRIT_MAX_AGE, DEFAULT_MAX_AGE);
+        builder.define(JOB_ID, "");
+        builder.define(IS_FILTER_BLACKLIST, false);
+        builder.define(FILTER_ITEMS, new CompoundTag());
+        builder.define(TAG_FILTER, "");
     }
 
     @Override
@@ -552,13 +551,13 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         compound.putInt("extractFacing", this.getExtractFacing().ordinal());
 
         //store current inventory
-        compound.put("inventory", this.inventory.serializeNBT());
+        compound.put("inventory", this.inventory.serializeNBT(this.level().registryAccess()));
 
         //store job
-        this.getJob().ifPresent(job -> compound.put("spiritJob", job.serializeNBT()));
+        this.getJob().ifPresent(job -> compound.put("spiritJob", job.serializeNBT(this.level().registryAccess())));
 
         compound.putBoolean("isFilterBlacklist", this.isFilterBlacklist());
-        compound.put("filterItems", this.filterItemStackHandler.serializeNBT());
+        compound.put("filterItems", this.filterItemStackHandler.serializeNBT(this.level().registryAccess()));
 
         compound.putString("tagFilter", this.getTagFilter());
     }
@@ -605,7 +604,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         //set up inventory and read items
 
         if (compound.contains("inventory")) {
-            this.inventory.deserializeNBT(compound.getCompound("inventory"));
+            this.inventory.deserializeNBT(this.level().registryAccess(), compound.getCompound("inventory"));
         }
 
         //read job
@@ -624,7 +623,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
         if (compound.contains("filterItems")) {
             compound.getCompound("filterItems").putInt("Size", MAX_FILTER_SLOTS); //override legacy filter size
-            this.filterItemStackHandler.deserializeNBT(compound.getCompound("filterItems"));
+            this.filterItemStackHandler.deserializeNBT(this.level().registryAccess(), compound.getCompound("filterItems"));
         }
 
         if (compound.contains("tagFilter")) {
@@ -633,9 +632,9 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     @Override
-    public void setTame(boolean tamed) {
-        super.setTame(tamed);
-        if (!tamed)
+    public void setTame(boolean pTame, boolean pApplyTamingSideEffects) {
+        super.setTame(pTame, pApplyTamingSideEffects);
+        if (!pTame)
             this.setJob(null); //remove job if not tamed
     }
 
@@ -691,8 +690,8 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     @Override
-    public EntityDimensions getDimensions(Pose pPose) {
-        return this.getJob().map(job -> job.getDimensions(pPose, super.getDimensions(pPose))).orElse(super.getDimensions(pPose));
+    public EntityDimensions getDefaultDimensions(Pose pPose) {
+        return this.getJob().map(job -> job.getDimensions(pPose, super.getDefaultDimensions(pPose))).orElse(super.getDefaultDimensions(pPose));
     }
 
     public void removeJob() {

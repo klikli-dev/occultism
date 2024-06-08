@@ -53,7 +53,8 @@ public class ThirdEyeEffect extends MobEffect {
     }
 
     @Override
-    public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
+    public boolean applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
+        return true;
     }
 
     @Override

@@ -7,28 +7,28 @@
   "pentacle_id": "occultism:possess_djinni",
   "duration": 60,
   "entity_to_sacrifice": {
-    "tag": "forge:sheep",
+    "tag": "c:sheep",
     "display_name": "ritual.occultism.sacrifice.sheep"
   },
   "entity_to_summon": "occultism:chimera_familiar",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/familiar_chimera"
+    "id": "occultism:ritual_dummy/familiar_chimera"
   },
   "ingredients": [
     {
-      "tag": "forge:leather"
+      "tag": "c:leather"
     },
     {
-      "tag": "forge:string"
+      "tag": "c:string"
     },
     {
-      "tag": "forge:feathers"
+      "tag": "c:feathers"
     },
     {
       "tag": "minecraft:wool"
     },
     {
-      "tag": "forge:bones"
+      "tag": "c:bones"
     },
     {
       "item": "minecraft:mutton"
@@ -44,7 +44,7 @@
     }
   ],
   "result": {
-    "item": "occultism:spawn_egg/familiar_chimera",
+    "id": "occultism:spawn_egg/familiar_chimera",
     "nbt": {
       "display": {
         "Lore": [

@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:storage_blocks/raw_osmium"
+        "tag": "c:storage_blocks/raw_osmium"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/osmium"
+        "tag": "c:dusts/osmium"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 1600,
   "ignore_crushing_multiplier": false,
   "ingredient": {
-    "tag": "forge:storage_blocks/raw_osmium"
+    "tag": "c:storage_blocks/raw_osmium"
   },
   "result": {
     "count": 18,
-    "tag": "forge:dusts/osmium"
+    "tag": "c:dusts/osmium"
   }
 }

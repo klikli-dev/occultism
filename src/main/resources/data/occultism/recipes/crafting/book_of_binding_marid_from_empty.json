@@ -7,16 +7,16 @@
   ],
   "key": {
     "p": {
-      "tag": "forge:dyes/purple"
+      "tag": "c:dyes/purple"
     },
     "o": {
-      "tag": "forge:dyes/orange"
+      "tag": "c:dyes/orange"
     },
     "b": {
       "item": "occultism:book_of_binding_empty"
     }
   },
   "result": {
-    "item": "occultism:book_of_binding_marid"
+    "id": "occultism:book_of_binding_marid"
   }
 }

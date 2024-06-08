@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.common.item.tool;
 import com.klikli_dev.occultism.util.EntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -48,17 +49,15 @@ public class SoulShardItem extends Item {
         super(properties);
     }
 
-
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
-                                TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
-
-        if (stack.getOrCreateTag().contains("entityData")) {
-            EntityType<?> type = EntityUtil.entityTypeFromNbt(stack.getTag().getCompound("entityData"));
-            tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip_filled", type.getDescription()));
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+        if (pStack.has(DataComponents.ENTITY_DATA)) {
+            EntityType<?> type = EntityUtil.entityTypeFromNbt(pStack.get(DataComponents.ENTITY_DATA).getUnsafe());
+            pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip_filled", type.getDescription()));
         } else {
-            tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip_empty"));
+            pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip_empty"));
         }
     }
+
 }

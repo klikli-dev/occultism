@@ -9,19 +9,19 @@
   "spirit_max_age": 120,
   "spirit_job_type": "occultism:rain_weather",
   "entity_to_sacrifice": {
-    "tag": "forge:cows",
+    "tag": "c:cows",
     "display_name": "ritual.occultism.sacrifice.cows"
   },
   "entity_to_summon": "occultism:afrit",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/summon_afrit_rain_weather"
+    "id": "occultism:ritual_dummy/summon_afrit_rain_weather"
   },
   "ingredients": [
     {
-      "tag": "forge:sand"
+      "tag": "c:sand"
     },
     {
-      "tag": "forge:gems/diamond"
+      "tag": "c:gems/diamond"
     },
     {
       "item": "minecraft:cactus"
@@ -31,6 +31,6 @@
     }
   ],
   "result": {
-    "item": "occultism:jei_dummy/none"
+    "id": "occultism:jei_dummy/none"
   }
 }

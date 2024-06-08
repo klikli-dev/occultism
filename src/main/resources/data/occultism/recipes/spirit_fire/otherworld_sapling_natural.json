@@ -4,6 +4,6 @@
     "item": "minecraft:oak_sapling"
   },
   "result": {
-    "item": "occultism:otherworld_sapling_natural"
+    "id": "occultism:otherworld_sapling_natural"
   }
 }

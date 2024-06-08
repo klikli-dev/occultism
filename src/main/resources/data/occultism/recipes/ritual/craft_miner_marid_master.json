@@ -7,7 +7,7 @@
   "pentacle_id": "occultism:craft_marid",
   "duration": 120,
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/craft_miner_marid_master"
+    "id": "occultism:ritual_dummy/craft_miner_marid_master"
   },
   "ingredients": [
     {
@@ -33,6 +33,6 @@
     }
   ],
   "result": {
-    "item": "occultism:miner_marid_master"
+    "id": "occultism:miner_marid_master"
   }
 }

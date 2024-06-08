@@ -10,23 +10,23 @@
   "spirit_job_type": "occultism:crush_tier4",
   "entity_to_summon": "occultism:marid",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/summon_marid_crusher"
+    "id": "occultism:ritual_dummy/summon_marid_crusher"
   },
   "ingredients": [
     {
-      "tag": "forge:storage_blocks/diamond"
+      "tag": "c:storage_blocks/diamond"
     },
     {
       "item": "minecraft:ghast_tear"
     },
     {
-      "tag": "forge:storage_blocks/iesnium"
+      "tag": "c:storage_blocks/iesnium"
     },
     {
-      "tag": "forge:storage_blocks/emerald"
+      "tag": "c:storage_blocks/emerald"
     }
   ],
   "result": {
-    "item": "occultism:jei_dummy/none"
+    "id": "occultism:jei_dummy/none"
   }
 }

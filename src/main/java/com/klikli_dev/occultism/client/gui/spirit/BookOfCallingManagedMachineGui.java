@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.client.gui.spirit;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
+import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
 import com.klikli_dev.occultism.api.common.data.MachineReference;
 import com.klikli_dev.occultism.client.gui.controls.LabelWidget;
 import com.klikli_dev.occultism.network.messages.MessageSetManagedMachine;
@@ -172,11 +173,7 @@ public class BookOfCallingManagedMachineGui extends Screen {
     }
 
     public MachineReference makeMachineReference() {
-        MachineReference reference = new MachineReference(null, null, false, null, null, false);
-        reference.insertFacing = this.insertFacing;
-        reference.extractFacing = this.extractFacing;
-        reference.customName = this.customName;
-        return reference;
+        return new MachineReference((GlobalBlockPos) null, null, false, this.extractFacing, (GlobalBlockPos) null, null, false, this.insertFacing, this.customName);
     }
 
 }

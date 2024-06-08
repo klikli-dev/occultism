@@ -7,35 +7,35 @@
   "pentacle_id": "occultism:possess_foliot",
   "duration": 30,
   "entity_to_sacrifice": {
-    "tag": "forge:chicken",
+    "tag": "c:chicken",
     "display_name": "ritual.occultism.sacrifice.chicken"
   },
   "entity_to_summon": "minecraft:parrot",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/familiar_parrot"
+    "id": "occultism:ritual_dummy/familiar_parrot"
   },
   "ingredients": [
     {
-      "tag": "forge:feathers"
+      "tag": "c:feathers"
     },
     {
-      "tag": "forge:dyes/green"
+      "tag": "c:dyes/green"
     },
     {
-      "tag": "forge:dyes/yellow"
+      "tag": "c:dyes/yellow"
     },
     {
-      "tag": "forge:dyes/red"
+      "tag": "c:dyes/red"
     },
     {
-      "tag": "forge:dyes/blue"
+      "tag": "c:dyes/blue"
     },
     {
-      "tag": "forge:string"
+      "tag": "c:string"
     }
   ],
   "result": {
-    "item": "occultism:spawn_egg/familiar_parrot",
+    "id": "occultism:spawn_egg/familiar_parrot",
     "nbt": {
       "display": {
         "Lore": [

@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/peridot"
+        "tag": "c:ores/peridot"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/peridot"
+        "tag": "c:dusts/peridot"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 200,
   "ignore_crushing_multiplier": false,
   "ingredient": {
-    "tag": "forge:ores/peridot"
+    "tag": "c:ores/peridot"
   },
   "result": {
     "count": 4,
-    "tag": "forge:dusts/peridot"
+    "tag": "c:dusts/peridot"
   }
 }

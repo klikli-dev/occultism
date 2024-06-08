@@ -7,13 +7,13 @@
   ],
   "key": {
     "i": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     "s": {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     }
   },
   "result": {
-    "item": "occultism:butcher_knife"
+    "id": "occultism:butcher_knife"
   }
 }

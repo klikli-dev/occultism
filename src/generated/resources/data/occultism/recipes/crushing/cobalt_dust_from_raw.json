@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:raw_materials/cobalt"
+        "tag": "c:raw_materials/cobalt"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/cobalt"
+        "tag": "c:dusts/cobalt"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 200,
   "ignore_crushing_multiplier": false,
   "ingredient": {
-    "tag": "forge:raw_materials/cobalt"
+    "tag": "c:raw_materials/cobalt"
   },
   "result": {
     "count": 2,
-    "tag": "forge:dusts/cobalt"
+    "tag": "c:dusts/cobalt"
   }
 }

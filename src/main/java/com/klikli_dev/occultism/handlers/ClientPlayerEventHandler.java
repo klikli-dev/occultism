@@ -42,7 +42,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.event.PlayLevelSoundEvent;
 
@@ -52,17 +52,17 @@ import java.util.Map.Entry;
 
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 
-@Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+@EventBusSubscriber(modid = Occultism.MODID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
 public class ClientPlayerEventHandler {
     //region Static Methods
 
     @SubscribeEvent
-    public static void onPlaySoundAt(PlayLevelSoundEvent.AtPosition event){
+    public static void onPlaySoundAt(PlayLevelSoundEvent.AtPosition event) {
         //handle spirit fire sound disable config
-        if(event.getLevel().isClientSide &&
+        if (event.getLevel().isClientSide &&
                 Occultism.CLIENT_CONFIG.misc.disableSpiritFireSuccessSound.get() &&
                 event.getSound().value() == OccultismSounds.START_RITUAL.get() &&
-                event.getLevel().getBlockState(BlockPos.containing(event.getPosition())).getBlock() == OccultismBlocks.SPIRIT_FIRE.get()){
+                event.getLevel().getBlockState(BlockPos.containing(event.getPosition())).getBlock() == OccultismBlocks.SPIRIT_FIRE.get()) {
             event.setCanceled(true);
         }
     }
@@ -100,7 +100,7 @@ public class ClientPlayerEventHandler {
             if (!CuriosUtil.getBackpack(minecraft.player).isEmpty() ||
                     CuriosUtil.getFirstBackpackSlot(minecraft.player) > 0) {
                 Networking.sendToServer(new MessageOpenSatchel());
-                minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.ARMOR_EQUIP_LEATHER, 0.75F, 1.0F));
+                minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.ARMOR_EQUIP_LEATHER.value(), 0.75F, 1.0F));
             }
         }
     }
@@ -118,7 +118,7 @@ public class ClientPlayerEventHandler {
             if (!CuriosUtil.getStorageRemoteCurio(minecraft.player).isEmpty() ||
                     CuriosUtil.getFirstStorageRemoteSlot(minecraft.player) > 0) {
                 Networking.sendToServer(new MessageOpenStorageRemote());
-                minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.ARMOR_EQUIP_DIAMOND, 0.75F, 1.0F));
+                minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.ARMOR_EQUIP_DIAMOND.value(), 0.75F, 1.0F));
             }
         }
     }

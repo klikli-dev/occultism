@@ -7,7 +7,7 @@
       "predicate": {
         "equipment": {
           "mainhand": {
-            "tag": "occultism:tools/knives"
+            "items": "#occultism:tools/knives"
           }
         }
       }
@@ -16,7 +16,7 @@
       "condition": "minecraft:entity_properties",
       "entity": "this",
       "predicate": {
-        "type": "#forge:horses"
+        "type": "#c:horses"
       }
     }
   ],

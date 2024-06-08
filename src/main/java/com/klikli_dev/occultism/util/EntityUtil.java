@@ -82,21 +82,6 @@ public class EntityUtil {
     }
 
     /**
-     * Creates an entity from the given nbt tag
-     *
-     * @param level          the level to create the entity in.
-     * @param nbtTagCompound the tag compound to create the entity from.
-     * @return the entity if successful or null otherwise.
-     */
-    public static Entity entityFromNBT(Level level, CompoundTag nbtTagCompound) {
-        ResourceLocation typeId = new ResourceLocation(nbtTagCompound.getString("id"));
-
-        Entity entity = BuiltInRegistries.ENTITY_TYPE.get(typeId).create(level);
-        entity.deserializeNBT(nbtTagCompound);
-        return entity;
-    }
-
-    /**
      * Creates an entity type from the given nbt tag
      *
      * @param nbtTagCompound the tag compound to create the entity from.

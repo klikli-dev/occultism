@@ -12,24 +12,24 @@
   },
   "entity_to_summon": "occultism:possessed_weak_shulker",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/possess_weak_shulker"
+    "id": "occultism:ritual_dummy/possess_weak_shulker"
   },
   "ingredients": [
     {
-      "tag": "forge:ender_pearls"
+      "tag": "c:ender_pearls"
     },
     {
       "item": "minecraft:purple_concrete"
     },
     {
-      "tag": "forge:end_stones"
+      "tag": "c:end_stones"
     },
     {
       "item": "minecraft:magenta_concrete"
     }
   ],
   "result": {
-    "item": "minecraft:chorus_fruit",
+    "id": "minecraft:chorus_fruit",
     "nbt": {
       "display": {
         "Lore": [

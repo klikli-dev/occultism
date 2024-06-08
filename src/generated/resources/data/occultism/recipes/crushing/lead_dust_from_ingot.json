@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/lead"
+        "tag": "c:ingots/lead"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/lead"
+        "tag": "c:dusts/lead"
       }
     }
   ],
@@ -19,10 +19,10 @@
   "crushing_time": 200,
   "ignore_crushing_multiplier": true,
   "ingredient": {
-    "tag": "forge:ingots/lead"
+    "tag": "c:ingots/lead"
   },
   "result": {
     "count": 1,
-    "tag": "forge:dusts/lead"
+    "tag": "c:dusts/lead"
   }
 }

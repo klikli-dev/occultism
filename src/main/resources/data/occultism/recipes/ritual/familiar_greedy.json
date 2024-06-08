@@ -7,19 +7,19 @@
   "pentacle_id": "occultism:possess_foliot",
   "duration": 30,
   "entity_to_sacrifice": {
-    "tag": "forge:zombies",
+    "tag": "c:zombies",
     "display_name": "ritual.occultism.sacrifice.zombies"
   },
   "entity_to_summon": "occultism:greedy_familiar",
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/familiar_greedy"
+    "id": "occultism:ritual_dummy/familiar_greedy"
   },
   "ingredients": [
     {
-      "tag": "forge:chests"
+      "tag": "c:chests"
     },
     {
-      "tag": "forge:storage_blocks/iron"
+      "tag": "c:storage_blocks/iron"
     },
     {
       "item": "minecraft:dispenser"
@@ -29,7 +29,7 @@
     }
   ],
   "result": {
-    "item": "occultism:spawn_egg/familiar_greedy",
+    "id": "occultism:spawn_egg/familiar_greedy",
     "nbt": {
       "display": {
         "Lore": [
