@@ -102,7 +102,7 @@ public class ItemStackComparator implements IItemStackComparator {
     }
 
     public CompoundTag write(CompoundTag compound, HolderLookup.Provider provider) {
-        compound.put("stack", this.filterStack.save(provider, new CompoundTag()));
+        compound.put("stack", this.filterStack.saveOptional(provider));
         compound.putBoolean("matchNbt", this.matchNbt);
         return compound;
     }

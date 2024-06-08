@@ -529,7 +529,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             if (!this.consumedIngredients.isEmpty()) {
                 ListTag list = new ListTag();
                 for (ItemStack stack : this.consumedIngredients) {
-                    list.add(stack.save(provider, new CompoundTag()));
+                    list.add(stack.saveOptional(provider));
                 }
                 compound.put("consumedIngredients", list);
             }

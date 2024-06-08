@@ -42,18 +42,22 @@ import com.klikli_dev.occultism.common.misc.StorageControllerMapItemStackHandler
 import com.klikli_dev.occultism.network.messages.MessageUpdateStacks;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.EntityUtil;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.LockCode;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -61,8 +65,11 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
@@ -564,7 +571,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         compound.put("matrix", matrixNbt);
 
         if (!this.orderStack.isEmpty())
-            compound.put("orderStack", this.orderStack.save(provider, new CompoundTag()));
+            compound.put("orderStack", this.orderStack.saveOptional(provider));
 
         //write linked machines
         ListTag machinesNbt = new ListTag();
@@ -574,6 +581,71 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         compound.put("linkedMachines", machinesNbt);
 
         return compound;
+    }
+
+    @Override
+    protected void applyImplicitComponents(BlockEntity.DataComponentInput pComponentInput) {
+        super.applyImplicitComponents(pComponentInput);
+
+        if(pComponentInput.get(OccultismDataComponents.SORT_DIRECTION) != null)
+            this.sortDirection = pComponentInput.get(OccultismDataComponents.SORT_DIRECTION);
+        if(pComponentInput.get(OccultismDataComponents.SORT_TYPE) != null)
+            this.sortType = pComponentInput.get(OccultismDataComponents.SORT_TYPE);
+
+        if(pComponentInput.get(OccultismDataComponents.CRAFTING_MATRIX) != null){
+            this.matrix = new HashMap<>();
+            var matrixCompound = pComponentInput.get(OccultismDataComponents.CRAFTING_MATRIX).getUnsafe();
+            if (matrixCompound.contains("matrix")) {
+                ListTag matrixNbt = matrixCompound.getList("matrix", Tag.TAG_COMPOUND);
+                for (int i = 0; i < matrixNbt.size(); i++) {
+                    CompoundTag stackTag = matrixNbt.getCompound(i);
+                    int slot = stackTag.getByte("slot");
+                    ItemStack s = ItemStack.parseOptional(this.level.registryAccess(), stackTag);
+                    this.matrix.put(slot, s);
+                }
+            }
+        }
+        if(pComponentInput.get(OccultismDataComponents.ORDER_STACK) != null)
+            this.orderStack = ItemStack.parseOptional(this.level.registryAccess(), pComponentInput.get(OccultismDataComponents.ORDER_STACK).getUnsafe());
+
+        if(pComponentInput.get(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS.get()) != null){
+            this.itemStackHandler.deserializeNBT(this.level.registryAccess(), pComponentInput.get(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS.get()).getUnsafe());
+        }
+    }
+
+    @Override
+    protected void collectImplicitComponents(DataComponentMap.Builder pComponents) {
+        super.collectImplicitComponents(pComponents);
+
+        pComponents.set(OccultismDataComponents.SORT_DIRECTION, this.sortDirection);
+        pComponents.set(OccultismDataComponents.SORT_TYPE, this.sortType);
+
+        var matrixCompound = new CompoundTag();
+        ListTag matrixNbt = new ListTag();
+        for (int i = 0; i < 9; i++) {
+            if (this.matrix.get(i) != null && !this.matrix.get(i).isEmpty()) {
+                CompoundTag stackTag = new CompoundTag();
+                stackTag.putByte("slot", (byte) i);
+                this.matrix.get(i).save(this.level.registryAccess(), stackTag);
+                matrixNbt.add(stackTag);
+            }
+        }
+        matrixCompound.put("matrix", matrixNbt);
+        pComponents.set(OccultismDataComponents.CRAFTING_MATRIX, CustomData.of(matrixCompound));
+
+        pComponents.set(OccultismDataComponents.ORDER_STACK, CustomData.of((CompoundTag)this.orderStack.saveOptional(this.level.registryAccess())));
+
+        pComponents.set(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS, CustomData.of(this.itemStackHandler.serializeNBT(this.level.registryAccess())));
+    }
+
+    @Override
+    public void removeComponentsFromTag(CompoundTag pTag) {
+        pTag.remove("items");
+        pTag.remove("matrix");
+        pTag.remove("orderStack");
+        pTag.remove("sortDirection");
+        pTag.remove("sortType");
+        pTag.remove("linkedMachines");
     }
 
     @Nullable

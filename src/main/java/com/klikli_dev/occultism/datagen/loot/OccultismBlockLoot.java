@@ -100,10 +100,9 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
         this.add(OccultismBlocks.IESNIUM_ORE.get(), this.createOreDrop(OccultismBlocks.IESNIUM_ORE.get(), OccultismItems.RAW_IESNIUM.get()));
 
         this.dropSelfWithComponents(OccultismBlocks.STORAGE_CONTROLLER.get(),
-                DataComponents.CONTAINER,
+                OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS.get(),
                 OccultismDataComponents.SORT_DIRECTION.get(),
                 OccultismDataComponents.SORT_TYPE.get(),
-                OccultismDataComponents.MAX_SLOTS.get(),
                 OccultismDataComponents.CRAFTING_MATRIX.get(),
                 OccultismDataComponents.ORDER_STACK.get()
         );

@@ -60,17 +60,18 @@ public class OccultismDataComponents {
             .cacheEncoding()
     );
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<CustomData>> STORAGE_CONTROLLER_CONTENTS = DATA_COMPONENTS.registerComponentType("storage_controller_contents", builder -> builder
+            .persistent(CustomData.CODEC)
+            .networkSynchronized(CustomData.STREAM_CODEC)
+            .cacheEncoding()
+    );
+
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<GlobalBlockPos>> LINKED_STORAGE_CONTROLLER = DATA_COMPONENTS.registerComponentType("linked_storage_controller", builder -> builder
             .persistent(GlobalBlockPos.CODEC)
             .networkSynchronized(GlobalBlockPos.STREAM_CODEC)
             .cacheEncoding()
     );
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> MAX_SLOTS = DATA_COMPONENTS.registerComponentType("max_slots", builder -> builder
-            .persistent(Codec.INT)
-            .networkSynchronized(ByteBufCodecs.INT)
-            .cacheEncoding()
-    );
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> OCCUPIED = DATA_COMPONENTS.registerComponentType("occupied", builder -> builder
             .persistent(Codec.BOOL)

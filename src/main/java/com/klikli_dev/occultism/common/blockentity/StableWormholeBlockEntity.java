@@ -37,7 +37,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
@@ -186,7 +185,7 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
         compound.put("matrix", matrixNbt);
 
         if (!this.orderStack.isEmpty())
-            compound.put("orderStack", this.orderStack.save(provider, new CompoundTag()));
+            compound.put("orderStack", this.orderStack.saveOptional(provider));
 
         return super.saveNetwork(compound, provider);
     }

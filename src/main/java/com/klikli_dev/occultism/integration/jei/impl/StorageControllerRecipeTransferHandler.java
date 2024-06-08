@@ -92,7 +92,7 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
                     //if stack is not empty, write to result
                     ItemStack itemStack = possibleItems.get(i);
                     if (!itemStack.isEmpty()) {
-                        invList.add(itemStack.save(new CompoundTag()));
+                        invList.add(itemStack.saveOptional(new CompoundTag()));
                     }
                 }
                 nbt.put("s" + (slot.getSlotIndex()), invList);

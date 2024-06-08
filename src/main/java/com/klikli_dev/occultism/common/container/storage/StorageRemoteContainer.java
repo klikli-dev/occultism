@@ -186,7 +186,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     public void updateCraftingSlots(boolean force) {
         ListTag nbtTagList = new ListTag();
         for (int i = 0; i < this.matrix.getContainerSize(); i++) {
-            nbtTagList.add(this.matrix.getItem(i).save(this.player.registryAccess(), new CompoundTag()));
+            nbtTagList.add(this.matrix.getItem(i).saveOptional(this.player.registryAccess()));
         }
         var compoundTag = new CompoundTag();
         compoundTag.put("craftingMatrix", nbtTagList);
@@ -199,7 +199,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
     public void updateOrderSlot(boolean force) {
         ItemStack storageRemote = this.getStorageRemote();
         if (storageRemote != ItemStack.EMPTY)
-            storageRemote.set(OccultismDataComponents.ORDER_STACK, CustomData.of((CompoundTag)this.orderInventory.getItem(0).save(this.player.registryAccess(), new CompoundTag())));
+            storageRemote.set(OccultismDataComponents.ORDER_STACK, CustomData.of((CompoundTag)this.orderInventory.getItem(0).saveOptional(this.player.registryAccess())));
     }
 
     protected List<ItemStack> getCraftingMatrixFromItemStack(ItemStack stack) {
