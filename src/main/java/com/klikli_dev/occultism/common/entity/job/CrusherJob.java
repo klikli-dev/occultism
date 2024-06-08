@@ -80,7 +80,13 @@ public class CrusherJob extends SpiritJob {
         this.entity.targetSelector.addGoal(1, this.pickupItemsGoal = new PickupItemsGoal(this.entity));
         this.itemsToPickUp = this.entity.level().getRecipeManager().getAllRecipesFor(OccultismRecipes.CRUSHING_TYPE.get()).stream()
                 .filter(
-                        recipe -> recipe.value().getMinTier() <= this.tier.get()
+                        recipe -> {
+                            //we filter by tier, but only if the recipe has an "active" min and max tier set = min/max >= -1
+                            int minTier = recipe.value().getMinTier();
+                            int maxTier = recipe.value().getMaxTier();
+                            int currentTier = this.tier.get();
+                            return (minTier < 0 || minTier <= currentTier) && (maxTier < 0 || maxTier >= currentTier);
+                        }
                 )
                 .flatMap(recipe -> recipe.value().getIngredients().stream()).collect(Collectors.toList());
     }

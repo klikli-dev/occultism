@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.crafting.recipe;
 
 import com.klikli_dev.occultism.common.misc.OutputIngredient;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
+import com.klikli_dev.occultism.util.OccultismExtraStreamCodecs;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -39,7 +40,7 @@ import net.minecraft.world.level.Level;
 
 public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, CrushingRecipe> STREAM_CODEC = StreamCodec.composite(
+    public static final StreamCodec<RegistryFriendlyByteBuf, CrushingRecipe> STREAM_CODEC = OccultismExtraStreamCodecs.composite(
             Ingredient.CONTENTS_STREAM_CODEC,
             (r) -> r.input,
             Ingredient.CONTENTS_STREAM_CODEC,
@@ -49,11 +50,13 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
             ByteBufCodecs.INT,
             (r) -> r.minTier,
             ByteBufCodecs.INT,
+            (r) -> r.maxTier,
+            ByteBufCodecs.INT,
             (r) -> r.crushingTime,
             ByteBufCodecs.BOOL,
             (r) -> r.ignoreCrushingMultiplier,
-            (input, output, outputStackInfo, minTier, crushingTime, ignoreCrushingMultiplier) ->
-                    new CrushingRecipe(input, new OutputIngredient(output, outputStackInfo), minTier, crushingTime, ignoreCrushingMultiplier)
+            (input, output, outputStackInfo, minTier, maxTier, crushingTime, ignoreCrushingMultiplier) ->
+                    new CrushingRecipe(input, new OutputIngredient(output, outputStackInfo), minTier, maxTier, crushingTime, ignoreCrushingMultiplier)
     );
     public static int DEFAULT_CRUSHING_TIME = 200;
     public static final MapCodec<CrushingRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -62,24 +65,27 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
             Ingredient.CODEC.fieldOf("result").forGetter(r -> r.output.getIngredient()),
             OutputIngredient.OutputStackInfo.CODEC.fieldOf("result").forGetter(r -> r.output.getOutputStackInfo()),
             Codec.INT.optionalFieldOf("min_tier", -1).forGetter(r -> r.minTier),
+            Codec.INT.optionalFieldOf("max_tier", -1).forGetter(r -> r.maxTier),
             Codec.INT.optionalFieldOf("crushing_time", DEFAULT_CRUSHING_TIME).forGetter(r -> r.crushingTime),
             Codec.BOOL.optionalFieldOf("ignore_crushing_multiplier", false).forGetter(r -> r.ignoreCrushingMultiplier)
-    ).apply(instance, (input, output, outputStackInfo, minTier, crushingTime, ignoreCrushingMultiplier) -> {
-        return new CrushingRecipe(input, new OutputIngredient(output, outputStackInfo), minTier, crushingTime, ignoreCrushingMultiplier);
+    ).apply(instance, (input, output, outputStackInfo, minTier, maxTier, crushingTime, ignoreCrushingMultiplier) -> {
+        return new CrushingRecipe(input, new OutputIngredient(output, outputStackInfo), minTier, maxTier, crushingTime, ignoreCrushingMultiplier);
     }));
     public static Serializer SERIALIZER = new Serializer();
 
     protected final int crushingTime;
     protected final int minTier;
+    protected final int maxTier;
     protected final boolean ignoreCrushingMultiplier;
 
     protected OutputIngredient output;
 
-    public CrushingRecipe(Ingredient input, OutputIngredient output, int minTier, int crushingTime, boolean ignoreCrushingMultiplier) {
+    public CrushingRecipe(Ingredient input, OutputIngredient output, int minTier, int maxTier, int crushingTime, boolean ignoreCrushingMultiplier) {
         super(input, ItemStack.EMPTY); //hand over empty item stack, because we cannot resolve output.getStack() yet as tags are not resolved yet.
         this.output = output;
         this.crushingTime = crushingTime;
         this.minTier = minTier;
+        this.maxTier = maxTier;
         this.ignoreCrushingMultiplier = ignoreCrushingMultiplier;
     }
 
@@ -100,10 +106,23 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
         return this.minTier;
     }
 
+    public int getMaxTier() {
+        return this.maxTier;
+    }
+
     @Override
     public boolean matches(ItemStackFakeInventory inv, Level level) {
         if (inv instanceof TieredItemStackFakeInventory tieredInv) {
-            return tieredInv.getTier() >= this.minTier && this.input.test(inv.getItem(0));
+            boolean tierMatches = true;
+            //tiers can be -1 in which case they are ignored, only if >= 0 we check
+            if (this.minTier >= 0 && this.maxTier >= 0) {
+                tierMatches = tieredInv.getTier() >= this.minTier && tieredInv.getTier() <= this.maxTier;
+            } else if (this.minTier >= 0) {
+                tierMatches = tieredInv.getTier() >= this.minTier;
+            } else if (this.maxTier >= 0) {
+                tierMatches = tieredInv.getTier() <= this.maxTier;
+            }
+            return tierMatches && this.input.test(inv.getItem(0));
         }
 
         return this.input.test(inv.getItem(0));

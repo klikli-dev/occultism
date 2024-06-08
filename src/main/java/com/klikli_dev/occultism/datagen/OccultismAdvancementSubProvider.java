@@ -32,6 +32,7 @@ import com.klikli_dev.occultism.registry.OccultismRituals;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
+import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.advancements.critereon.PlayerTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
@@ -134,9 +135,12 @@ public class OccultismAdvancementSubProvider implements AdvancementProvider.Adva
                 .display(Items.JUKEBOX, familiarTitle("party"), familiarDescr("party"), null, AdvancementType.TASK, true, true, false)
                 .addCriterion("party", FamiliarTrigger.of(FamiliarTrigger.Type.PARTY))
                 .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/party")));
+        var familiarRingStack = new ItemStack(OccultismItems.FAMILIAR_RING.get());
+        familiarRingStack.set(OccultismDataComponents.SPIRIT_NAME, "Gardelldor");
         this.add(Advancement.Builder.advancement().parent(familiarsRoot)
-                .display(OccultismItems.FAMILIAR_RING.get(), familiarTitle("capture"), familiarDescr("capture"), null,
-                        AdvancementType.TASK, true, true, false)
+                .display(new DisplayInfo(
+                        familiarRingStack, familiarTitle("capture"), familiarDescr("capture"), Optional.ofNullable(null), AdvancementType.TASK, true, true, false)
+                )
                 .addCriterion("capture", FamiliarTrigger.of(FamiliarTrigger.Type.CAPTURE))
                 .build(new ResourceLocation(Occultism.MODID, "occultism/familiar/capture")));
         this.add(Advancement.Builder.advancement().parent(familiarsRoot)
