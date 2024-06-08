@@ -31,6 +31,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 public class CraftMinerSpiritRitual extends Ritual {
 
@@ -39,9 +40,9 @@ public class CraftMinerSpiritRitual extends Ritual {
     }
 
     @Override
-    public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity BlockEntity,
-                       ServerPlayer castingPlayer, ItemStack activationItem) {
-        super.finish(level, goldenBowlPosition, BlockEntity, castingPlayer, activationItem);
+    public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
+                       @Nullable ServerPlayer castingPlayer, ItemStack activationItem) {
+        super.finish(level, goldenBowlPosition, blockEntity, castingPlayer, activationItem);
         ItemStack copy = activationItem.copy();
         activationItem.shrink(1); //remove activation item.
 
@@ -51,12 +52,12 @@ public class CraftMinerSpiritRitual extends Ritual {
         ItemStack result = this.recipe.getResultItem(level.registryAccess()).copy();
 
         //sets up nbt configuration for miner
-        result.getItem().onCraftedBy(result, level, castingPlayer);
+        result.getItem().onCraftedBy(result, level, castingPlayer); //handing over a null player should be fine here
 
         //copy over spirit name
         ItemNBTUtil.setBoundSpiritName(result, ItemNBTUtil.getBoundSpiritName(copy));
 
-        this.dropResult(level, goldenBowlPosition, BlockEntity, castingPlayer, result);
+        this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, result);
     }
 
 }

@@ -30,6 +30,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 public class CraftRitual extends Ritual {
 
@@ -38,7 +39,7 @@ public class CraftRitual extends Ritual {
     }
 
     @Override
-    public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity, ServerPlayer castingPlayer, ItemStack activationItem) {
+    public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity, @Nullable ServerPlayer castingPlayer, ItemStack activationItem) {
         super.finish(level, goldenBowlPosition, blockEntity, castingPlayer, activationItem);
 
 
