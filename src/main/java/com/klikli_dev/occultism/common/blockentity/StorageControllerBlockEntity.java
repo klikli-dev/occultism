@@ -50,14 +50,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentMap;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.LockCode;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -66,7 +64,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
-import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -205,6 +202,36 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
                 .thenLoop("animation.dimensional_matrix.new"));
         return PlayState.CONTINUE;
     }
+
+    public static CompoundTag saveMatrix(Map<Integer, ItemStack> matrix, HolderLookup.Provider provider) {
+        CompoundTag matrixCompound = new CompoundTag();
+        ListTag matrixNbt = new ListTag();
+        for (int i = 0; i < 9; i++) {
+            if (matrix.get(i) != null && !matrix.get(i).isEmpty()) {
+                CompoundTag stackTag = new CompoundTag();
+                stackTag.putByte("slot", (byte) i);
+                stackTag.put("stack", matrix.get(i).save(provider));
+                matrixNbt.add(stackTag);
+            }
+        }
+        matrixCompound.put("matrix", matrixNbt);
+        return matrixCompound;
+    }
+
+    public static Map<Integer, ItemStack> loadMatrix(CompoundTag matrixCompound, HolderLookup.Provider provider) {
+        Map<Integer, ItemStack> matrix = new HashMap<>();
+        if (matrixCompound.contains("matrix")) {
+            ListTag matrixNbt = matrixCompound.getList("matrix", Tag.TAG_COMPOUND);
+            for (int i = 0; i < matrixNbt.size(); i++) {
+                CompoundTag stackTag = matrixNbt.getCompound(i);
+                int slot = stackTag.getByte("slot");
+                ItemStack s = ItemStack.parseOptional(provider, stackTag.getCompound("stack"));
+                matrix.put(slot, s);
+            }
+        }
+        return matrix;
+    }
+
 
     @Override
     public Component getDisplayName() {
@@ -518,7 +545,6 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
     @Override
     public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
-
         this.setSortDirection(SortDirection.BY_ID.apply(compound.getInt("sortDirection")));
         this.setSortType(SortType.BY_ID.apply(compound.getInt("sortType")));
         if (compound.contains("maxItemTypes") && compound.contains("maxTotalItemCount")) {
@@ -526,15 +552,8 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         }
 
         //read stored crafting matrix
-        this.matrix = new HashMap<Integer, ItemStack>();
         if (compound.contains("matrix")) {
-            ListTag matrixNbt = compound.getList("matrix", Tag.TAG_COMPOUND);
-            for (int i = 0; i < matrixNbt.size(); i++) {
-                CompoundTag stackTag = matrixNbt.getCompound(i);
-                int slot = stackTag.getByte("slot");
-                ItemStack s = ItemStack.parseOptional(provider, stackTag);
-                this.matrix.put(slot, s);
-            }
+            this.matrix = loadMatrix(compound.getCompound("matrix"), provider);
         }
 
         if (compound.contains("orderStack"))
@@ -559,16 +578,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         compound.putLong("maxTotalItemCount", this.maxTotalItemCount);
 
         //write stored crafting matrix
-        ListTag matrixNbt = new ListTag();
-        for (int i = 0; i < 9; i++) {
-            if (this.matrix.get(i) != null && !this.matrix.get(i).isEmpty()) {
-                CompoundTag stackTag = new CompoundTag();
-                stackTag.putByte("slot", (byte) i);
-                this.matrix.get(i).save(provider, stackTag);
-                matrixNbt.add(stackTag);
-            }
-        }
-        compound.put("matrix", matrixNbt);
+        compound.put("matrix", saveMatrix(this.matrix, provider));
 
         if (!this.orderStack.isEmpty())
             compound.put("orderStack", this.orderStack.saveOptional(provider));
@@ -587,28 +597,18 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     protected void applyImplicitComponents(BlockEntity.DataComponentInput pComponentInput) {
         super.applyImplicitComponents(pComponentInput);
 
-        if(pComponentInput.get(OccultismDataComponents.SORT_DIRECTION) != null)
+        if (pComponentInput.get(OccultismDataComponents.SORT_DIRECTION) != null)
             this.sortDirection = pComponentInput.get(OccultismDataComponents.SORT_DIRECTION);
-        if(pComponentInput.get(OccultismDataComponents.SORT_TYPE) != null)
+        if (pComponentInput.get(OccultismDataComponents.SORT_TYPE) != null)
             this.sortType = pComponentInput.get(OccultismDataComponents.SORT_TYPE);
 
-        if(pComponentInput.get(OccultismDataComponents.CRAFTING_MATRIX) != null){
-            this.matrix = new HashMap<>();
-            var matrixCompound = pComponentInput.get(OccultismDataComponents.CRAFTING_MATRIX).getUnsafe();
-            if (matrixCompound.contains("matrix")) {
-                ListTag matrixNbt = matrixCompound.getList("matrix", Tag.TAG_COMPOUND);
-                for (int i = 0; i < matrixNbt.size(); i++) {
-                    CompoundTag stackTag = matrixNbt.getCompound(i);
-                    int slot = stackTag.getByte("slot");
-                    ItemStack s = ItemStack.parseOptional(this.level.registryAccess(), stackTag);
-                    this.matrix.put(slot, s);
-                }
-            }
+        if (pComponentInput.get(OccultismDataComponents.CRAFTING_MATRIX) != null) {
+            this.matrix = loadMatrix(pComponentInput.get(OccultismDataComponents.CRAFTING_MATRIX).getUnsafe(), this.level.registryAccess());
         }
-        if(pComponentInput.get(OccultismDataComponents.ORDER_STACK) != null)
+        if (pComponentInput.get(OccultismDataComponents.ORDER_STACK) != null)
             this.orderStack = ItemStack.parseOptional(this.level.registryAccess(), pComponentInput.get(OccultismDataComponents.ORDER_STACK).getUnsafe());
 
-        if(pComponentInput.get(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS.get()) != null){
+        if (pComponentInput.get(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS.get()) != null) {
             this.itemStackHandler.deserializeNBT(this.level.registryAccess(), pComponentInput.get(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS.get()).getUnsafe());
         }
     }
@@ -620,32 +620,22 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         pComponents.set(OccultismDataComponents.SORT_DIRECTION, this.sortDirection);
         pComponents.set(OccultismDataComponents.SORT_TYPE, this.sortType);
 
-        var matrixCompound = new CompoundTag();
-        ListTag matrixNbt = new ListTag();
-        for (int i = 0; i < 9; i++) {
-            if (this.matrix.get(i) != null && !this.matrix.get(i).isEmpty()) {
-                CompoundTag stackTag = new CompoundTag();
-                stackTag.putByte("slot", (byte) i);
-                this.matrix.get(i).save(this.level.registryAccess(), stackTag);
-                matrixNbt.add(stackTag);
-            }
-        }
-        matrixCompound.put("matrix", matrixNbt);
-        pComponents.set(OccultismDataComponents.CRAFTING_MATRIX, CustomData.of(matrixCompound));
+        pComponents.set(OccultismDataComponents.CRAFTING_MATRIX, CustomData.of(saveMatrix(this.matrix, this.level.registryAccess())));
 
-        pComponents.set(OccultismDataComponents.ORDER_STACK, CustomData.of((CompoundTag)this.orderStack.saveOptional(this.level.registryAccess())));
+        pComponents.set(OccultismDataComponents.ORDER_STACK, CustomData.of((CompoundTag) this.orderStack.saveOptional(this.level.registryAccess())));
 
         pComponents.set(OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS, CustomData.of(this.itemStackHandler.serializeNBT(this.level.registryAccess())));
     }
 
     @Override
     public void removeComponentsFromTag(CompoundTag pTag) {
-        pTag.remove("items");
-        pTag.remove("matrix");
-        pTag.remove("orderStack");
-        pTag.remove("sortDirection");
-        pTag.remove("sortType");
-        pTag.remove("linkedMachines");
+        //this causes stuff to get lost. Not sure why / how it is used in vanilla shulker boxes
+//        pTag.remove("items");
+//        pTag.remove("matrix");
+//        pTag.remove("orderStack");
+//        pTag.remove("sortDirection");
+//        pTag.remove("sortType");
+//        pTag.remove("linkedMachines");
     }
 
     @Nullable

@@ -207,7 +207,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
         if (!stack.has(OccultismDataComponents.CRAFTING_MATRIX))
             return craftingMatrix;
 
-        ListTag nbtTagList = stack.get(OccultismDataComponents.CRAFTING_MATRIX).copyTag().getList("craftingMatrix", Tag.TAG_COMPOUND);
+        ListTag nbtTagList = stack.get(OccultismDataComponents.CRAFTING_MATRIX).getUnsafe().getList("craftingMatrix", Tag.TAG_COMPOUND);
 
         for (int i = 0; i < nbtTagList.size(); i++) {
             craftingMatrix.set(i, ItemStack.parseOptional(this.player.registryAccess(), nbtTagList.getCompound(i)));
