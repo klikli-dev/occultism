@@ -1290,6 +1290,17 @@ public class OccultismBookProvider extends BookProvider {
                         Now all that remains is to drop appropriate ores near the crusher and wait for it to turn it into dust.
                           """.formatted(COLOR_PURPLE));
 
+        this.context().page("automation");
+        var automationText = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang.add(this.context().pageTitle(), "Automatic Rituals");
+        this.lang.add(this.context().pageText(),
+                """
+                        Instead of right-clicking the golden sacrificial bowl with the final ingredient, you can also use a Hopper or any type of pipe to insert the item into the bowl. The ritual will start automatically.\\
+                        Note that any rituals that summon tamed animals or familiars will summon them untamed instead.
+                          """.formatted(COLOR_PURPLE));
+
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
@@ -1303,7 +1314,8 @@ public class OccultismBookProvider extends BookProvider {
                         ritualText,
                         ritualRecipe,
                         pentacleLinkHint,
-                        startRitualText
+                        startRitualText,
+                        automationText
                 );
     }
 

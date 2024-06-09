@@ -338,6 +338,8 @@
   "book.occultism.dictionary_of_spirits.getting_started.familiar_rituals.more.text": "To find more about Familiars, see the [Familiar Rituals](category://familiar_rituals) Category.\n",
   "book.occultism.dictionary_of_spirits.getting_started.familiar_rituals.more.title": "More Information",
   "book.occultism.dictionary_of_spirits.getting_started.familiar_rituals.name": "Familiar Rituals",
+  "book.occultism.dictionary_of_spirits.getting_started.first_ritual.automation.text": "Instead of right-clicking the golden sacrificial bowl with the final ingredient, you can also use a Hopper or any type of pipe to insert the item into the bowl. The ritual will start automatically.\\\nNote that any rituals that summon tamed animals or familiars will summon them untamed instead.\n",
+  "book.occultism.dictionary_of_spirits.getting_started.first_ritual.automation.title": "Automatic Rituals",
   "book.occultism.dictionary_of_spirits.getting_started.first_ritual.bowl_placement.text": "Possible locations for the sacrificial bowls.\n",
   "book.occultism.dictionary_of_spirits.getting_started.first_ritual.bowl_text.text": "Next, place *at least* 4 [Sacrificial Bowls](item://occultism:sacrificial_bowl) close to the pentacle.\n\\\n\\\nThey must be placed **anywhere** within 8 blocks of the central [](item://occultism:golden_sacrificial_bowl). **The exact location does not matter.**\n",
   "book.occultism.dictionary_of_spirits.getting_started.first_ritual.bowl_text.title": "Sacrificial Bowls",
