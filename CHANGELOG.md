@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.6-1.132.0] - 2024-06-09
+### :sparkles: New Features
+- [`76b7d73`](https://github.com/klikli-dev/occultism/commit/76b7d736d74f2cf71ddab91df0b9ba897dfa7c0f) - recipe datagen (manually merge [#1101](https://github.com/klikli-dev/occultism/pull/1101)) - thanks @GaeaKat *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`b1494d2`](https://github.com/klikli-dev/occultism/commit/b1494d20d9c6adbdf8910426f7e368ab3f0ef0a0) - add remaining miner recipes to datagen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`f0c6779`](https://github.com/klikli-dev/occultism/commit/f0c6779cb4f86a6a0d275275d9a3ff0340c1dc1d) - add remaining ritual recipes to datagen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.6-1.131.1] - 2024-06-09
 ### :sparkles: New Features
 - [`6ec5987`](https://github.com/klikli-dev/occultism/commit/6ec598775e3bddc97e431b79b0a1f520c559384c) - **translations**: New Crowdin updates *(PR [#1115](https://github.com/klikli-dev/occultism/pull/1115) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1138,3 +1145,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.6-1.130.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.6-1.129.0...release/v1.20.6-1.130.0
 [release/v1.20.6-1.131.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.6-1.130.0...release/v1.20.6-1.131.0
 [release/v1.20.6-1.131.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.6-1.131.0...release/v1.20.6-1.131.1
+[release/v1.20.6-1.132.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.6-1.131.1...release/v1.20.6-1.132.0
