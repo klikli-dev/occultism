@@ -37,8 +37,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.phys.Vec3;
-import org.joml.Vector3f;
 
 public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialBowlBlockEntity> {
 
@@ -58,7 +56,7 @@ public class SacrificialBowlRenderer implements BlockEntityRenderer<SacrificialB
     @Override
     public void render(SacrificialBowlBlockEntity blockEntity, float partialTicks, PoseStack poseStack,
                        MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
-        blockEntity.itemStackHandler.ifPresent(handler -> {
+        blockEntity.lazyItemStackHandler.ifPresent(handler -> {
             ItemStack stack = handler.getStackInSlot(0);
             long time = blockEntity.getLevel().getGameTime();
 

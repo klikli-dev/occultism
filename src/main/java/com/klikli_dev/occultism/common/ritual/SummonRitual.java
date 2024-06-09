@@ -36,12 +36,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.items.ItemHandlerHelper;
+import org.jetbrains.annotations.Nullable;
 
 public class SummonRitual extends Ritual {
 
@@ -77,9 +79,18 @@ public class SummonRitual extends Ritual {
      * @param spirit        the spirit to link to the book.
      * @param player        the player to give the book to.
      */
-    public void finishBookOfCallingSetup(ItemStack bookOfCalling, SpiritEntity spirit, Player player) {
+    public void finishBookOfCallingSetup(ItemStack bookOfCalling, SpiritEntity spirit, @Nullable Player player) {
         ItemNBTUtil.setSpiritEntityUUID(bookOfCalling, spirit.getUUID());
-        ItemHandlerHelper.giveItemToPlayer(player, bookOfCalling);
+
+        if (player != null)
+            ItemHandlerHelper.giveItemToPlayer(player, bookOfCalling);
+        else {
+            ItemEntity entityitem = new ItemEntity(spirit.level(), spirit.getX(), spirit.getY() + 0.5, spirit.getZ(), bookOfCalling);
+            entityitem.setPickUpDelay(40);
+            entityitem.setDeltaMovement(entityitem.getDeltaMovement().multiply(0, 1, 0));
+
+            spirit.level().addFreshEntity(entityitem);
+        }
     }
 
     /**
@@ -108,7 +119,7 @@ public class SummonRitual extends Ritual {
 
     @Override
     public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                       Player castingPlayer, ItemStack activationItem) {
+                       @Nullable ServerPlayer castingPlayer, ItemStack activationItem) {
         super.finish(level, goldenBowlPosition, blockEntity, castingPlayer, activationItem);
 
         ItemStack copy = activationItem.copy();
@@ -141,12 +152,11 @@ public class SummonRitual extends Ritual {
     }
 
     public Entity createSummonedEntity(EntityType<?> entityType, Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                                       Player castingPlayer) {
+                                       @Nullable Player castingPlayer) {
         return entityType.create(level);
     }
 
-    public void initSummoned(LivingEntity living, Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                             Player castingPlayer) {
+    public void initSummoned(LivingEntity living, Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity, @Nullable Player castingPlayer) {
         if (living instanceof SpiritEntity spirit) {
             spirit.setSpiritMaxAge(this.recipe.getSpiritMaxAge());
         }
@@ -164,13 +174,13 @@ public class SummonRitual extends Ritual {
      * @param setTamed           true to tame the spirit
      */
     public void prepareLivingEntityForSpawn(LivingEntity livingEntity, Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                                            Player castingPlayer, String spiritName, boolean setTamed) {
-        if (setTamed && livingEntity instanceof TamableAnimal tamableAnimal) {
+                                            @Nullable Player castingPlayer, String spiritName, boolean setTamed) {
+        if (setTamed && livingEntity instanceof TamableAnimal tamableAnimal && castingPlayer != null) {
             tamableAnimal.tame(castingPlayer);
         }
         livingEntity.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
                 level.random.nextInt(360), 0);
-        if (spiritName.length() > 0)
+        if (!spiritName.isEmpty())
             livingEntity.setCustomName(Component.literal(spiritName));
         if (livingEntity instanceof Mob mob) {
             ForgeEventFactory.onFinalizeSpawn(mob, (ServerLevelAccessor) level, level.getCurrentDifficultyAt(goldenBowlPosition), MobSpawnType.MOB_SUMMONED, null, null);

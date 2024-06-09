@@ -36,9 +36,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 public class ResurrectFamiliarRitual extends SummonRitual {
 
@@ -48,12 +48,14 @@ public class ResurrectFamiliarRitual extends SummonRitual {
 
     @Override
     public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                       Player castingPlayer, ItemStack activationItem) {
+                       @Nullable ServerPlayer castingPlayer, ItemStack activationItem) {
         //manually call content of Ritual.finish(), because we cannot access it via super
         level.playSound(null, goldenBowlPosition, OccultismSounds.POOF.get(), SoundSource.BLOCKS, 0.7f,
                 0.7f);
-        castingPlayer.displayClientMessage(Component.translatable(this.getFinishedMessage()), true);
-        OccultismAdvancements.RITUAL.trigger((ServerPlayer) castingPlayer, this);
+        if (castingPlayer != null) {
+            castingPlayer.displayClientMessage(Component.translatable(this.getFinishedMessage()), true);
+            OccultismAdvancements.RITUAL.trigger(castingPlayer, this);
+        }
 
         var shard = activationItem.copy();
         activationItem.shrink(1); //remove original activation item.
@@ -81,7 +83,7 @@ public class ResurrectFamiliarRitual extends SummonRitual {
             entity.absMoveTo(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
             level.addFreshEntity(entity);
 
-            if (entity instanceof FamiliarEntity familiar)
+            if (entity instanceof FamiliarEntity familiar && castingPlayer != null)
                 familiar.setFamiliarOwner(castingPlayer);
         }
     }

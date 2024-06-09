@@ -39,25 +39,27 @@ import javax.annotation.Nullable;
 public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
 
     public long lastChangeTime;
-    public LazyOptional<ItemStackHandler> itemStackHandler = LazyOptional.of(
-            () -> new ItemStackHandler(1) {
+    public ItemStackHandler itemStackHandler = new ItemStackHandler(1) {
 
-                @Override
-                public int getSlotLimit(int slot) {
-                    return 1;
-                }
+        @Override
+        public int getSlotLimit(int slot) {
+            return 1;
+        }
 
-                @Override
-                protected void onContentsChanged(
-                        int slot) {
-                    if (!SacrificialBowlBlockEntity.this.level.isClientSide) {
-                        SacrificialBowlBlockEntity.this.lastChangeTime = SacrificialBowlBlockEntity.this.level
-                                .getGameTime();
-                        SacrificialBowlBlockEntity.this.markNetworkDirty();
-                    }
-                }
+        @Override
+        protected void onContentsChanged(
+                int slot) {
+            if (!SacrificialBowlBlockEntity.this.level.isClientSide) {
+                SacrificialBowlBlockEntity.this.lastChangeTime = SacrificialBowlBlockEntity.this.level
+                        .getGameTime();
+                SacrificialBowlBlockEntity.this.markNetworkDirty();
+            }
+        }
 
-            });
+    };
+
+    public LazyOptional<ItemStackHandler> lazyItemStackHandler = LazyOptional.of(() -> this.itemStackHandler);
+
     protected boolean initialized = false;
 
     public SacrificialBowlBlockEntity(BlockPos worldPos, BlockState state) {
@@ -72,20 +74,20 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction direction) {
         if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            return this.itemStackHandler.cast();
+            return this.lazyItemStackHandler.cast();
         }
         return super.getCapability(cap, direction);
     }
 
     @Override
     public void loadNetwork(CompoundTag compound) {
-        this.itemStackHandler.ifPresent((handler) -> handler.deserializeNBT(compound.getCompound("inventory")));
+        this.lazyItemStackHandler.ifPresent((handler) -> handler.deserializeNBT(compound.getCompound("inventory")));
         this.lastChangeTime = compound.getLong("lastChangeTime");
     }
 
     @Override
     public CompoundTag saveNetwork(CompoundTag compound) {
-        this.itemStackHandler.ifPresent(handler -> compound.put("inventory", handler.serializeNBT()));
+        this.lazyItemStackHandler.ifPresent(handler -> compound.put("inventory", handler.serializeNBT()));
         compound.putLong("lastChangeTime", this.lastChangeTime);
         return compound;
     }
@@ -93,7 +95,7 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
     @Override
     public void invalidateCaps() {
         super.invalidateCaps();
-        this.itemStackHandler.invalidate();
+        this.lazyItemStackHandler.invalidate();
     }
 
 }

@@ -34,11 +34,11 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraftforge.event.ForgeEventFactory;
+import org.jetbrains.annotations.Nullable;
 
 public class SummonWildHuntRitual extends SummonRitual {
 
@@ -48,12 +48,15 @@ public class SummonWildHuntRitual extends SummonRitual {
 
     @Override
     public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                       Player castingPlayer, ItemStack activationItem) {
+                       @Nullable ServerPlayer castingPlayer, ItemStack activationItem) {
         //manually call content of Ritual.finish(), because we cannot access it via super
         level.playSound(null, goldenBowlPosition, OccultismSounds.POOF.get(), SoundSource.BLOCKS, 0.7f,
                 0.7f);
-        castingPlayer.displayClientMessage(Component.translatable(this.getFinishedMessage()), true);
-        OccultismAdvancements.RITUAL.trigger((ServerPlayer) castingPlayer, this);
+        if (castingPlayer != null) {
+            castingPlayer.displayClientMessage(Component.translatable(this.getFinishedMessage()), true);
+            OccultismAdvancements.RITUAL.trigger(castingPlayer, this);
+        }
+
 
         activationItem.shrink(1); //remove original activation item.
 

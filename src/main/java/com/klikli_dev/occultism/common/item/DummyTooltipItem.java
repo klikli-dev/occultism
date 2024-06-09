@@ -27,11 +27,13 @@ import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,11 +48,12 @@ public class DummyTooltipItem extends Item {
     }
 
     public void performRitual(Level level, BlockPos pos, GoldenSacrificialBowlBlockEntity blockEntity,
-                              Player player, ItemStack activationItem) {
-        Optional<RitualRecipe> ritualRecipe = level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get())
+                              @Nullable Player player, ItemStack activationItem) {
+        var ritualRecipe = level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get())
                 .stream().filter(r -> r.getRitualDummy().getItem() == this).findFirst();
 
-        ritualRecipe.ifPresent(r -> r.getRitual().finish(level, pos, blockEntity, player, activationItem));
+        var serverPlayer = player instanceof ServerPlayer s? s : null;
+        ritualRecipe.ifPresent(r -> r.getRitual().finish(level, pos, blockEntity, serverPlayer, activationItem));
     }
 
     @Override

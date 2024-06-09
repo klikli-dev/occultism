@@ -31,6 +31,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 public class SummonSpiritWithJobRitual extends SummonRitual {
 
@@ -40,7 +41,7 @@ public class SummonSpiritWithJobRitual extends SummonRitual {
 
     @Override
     public void initSummoned(LivingEntity living, Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                             Player castingPlayer) {
+                             @Nullable Player castingPlayer) {
         super.initSummoned(living, level, goldenBowlPosition, blockEntity, castingPlayer);
 
         if (living instanceof SpiritEntity spirit) {

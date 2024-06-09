@@ -44,6 +44,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -168,7 +169,7 @@ public abstract class Ritual {
      * @return true if a valid ritual is found.
      */
     public boolean isValid(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                           Player castingPlayer, ItemStack activationItem,
+                           @Nullable Player castingPlayer, ItemStack activationItem,
                            List<Ingredient> remainingAdditionalIngredients) {
         return this.recipe.getPentacle() != null && this.recipe.getActivationItem().test(activationItem) &&
                 this.areAdditionalIngredientsFulfilled(level, goldenBowlPosition, remainingAdditionalIngredients) &&
@@ -185,9 +186,11 @@ public abstract class Ritual {
      * @param activationItem     the item used to start the ritual.
      */
     public void start(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                      Player castingPlayer, ItemStack activationItem) {
+                      @Nullable ServerPlayer castingPlayer, ItemStack activationItem) {
         level.playSound(null, goldenBowlPosition, OccultismSounds.START_RITUAL.get(), SoundSource.BLOCKS, 1, 1);
-        castingPlayer.displayClientMessage(Component.translatable(this.getStartedMessage()), true);
+
+        if (castingPlayer != null)
+            castingPlayer.displayClientMessage(Component.translatable(this.getStartedMessage()), true);
     }
 
     /**
@@ -200,11 +203,14 @@ public abstract class Ritual {
      * @param activationItem     the item used to start the ritual.
      */
     public void finish(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                       Player castingPlayer, ItemStack activationItem) {
+                       @Nullable ServerPlayer castingPlayer, ItemStack activationItem) {
         level.playSound(null, goldenBowlPosition, OccultismSounds.POOF.get(), SoundSource.BLOCKS, 0.7f,
                 0.7f);
-        castingPlayer.displayClientMessage(Component.translatable(this.getFinishedMessage()), true);
-        OccultismAdvancements.RITUAL.trigger((ServerPlayer) castingPlayer, this);
+
+        if (castingPlayer != null) {
+            castingPlayer.displayClientMessage(Component.translatable(this.getFinishedMessage()), true);
+            OccultismAdvancements.RITUAL.trigger(castingPlayer, this);
+        }
     }
 
     /**
@@ -217,13 +223,14 @@ public abstract class Ritual {
      * @param activationItem     the item used to start the ritual.
      */
     public void interrupt(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                          Player castingPlayer, ItemStack activationItem) {
+                          @Nullable ServerPlayer castingPlayer, ItemStack activationItem) {
         level.playSound(null, goldenBowlPosition, SoundEvents.CHICKEN_EGG, SoundSource.BLOCKS, 0.7f, 0.7f);
-        castingPlayer.displayClientMessage(Component.translatable(this.getInterruptedMessage()), true);
+        if (castingPlayer != null)
+            castingPlayer.displayClientMessage(Component.translatable(this.getInterruptedMessage()), true);
     }
 
     /**
-     * Called when interrupting the ritual.
+     * Called when updating the ritual.
      *
      * @param level                          the level.
      * @param goldenBowlPosition             the position of the golden bowl.
@@ -234,12 +241,12 @@ public abstract class Ritual {
      * @param time                           the current ritual time.
      */
     public void update(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                       Player castingPlayer, ItemStack activationItem,
+                       @Nullable Player castingPlayer, ItemStack activationItem,
                        List<Ingredient> remainingAdditionalIngredients, int time) {
     }
 
     /**
-     * Called when interrupting the ritual.
+     * Called when updating the ritual.
      *
      * @param level              the level.
      * @param goldenBowlPosition the position of the golden bowl.
@@ -249,13 +256,13 @@ public abstract class Ritual {
      * @param time               the current ritual time.
      */
     public void update(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                       Player castingPlayer, ItemStack activationItem, int time) {
+                       @Nullable Player castingPlayer, ItemStack activationItem, int time) {
         this.update(level, goldenBowlPosition, blockEntity, castingPlayer, activationItem, new ArrayList<Ingredient>(),
                 time);
     }
 
     /**
-     * Identifies the ritual by it's activation item and pentacle level shape.
+     * Identifies the ritual by it's activation item, pentacle shape and ingredients.
      *
      * @param level              the level.
      * @param goldenBowlPosition the position of the golden bowl.
@@ -325,7 +332,7 @@ public abstract class Ritual {
                                                Ingredient ingredient, List<ItemStack> consumedIngredients) {
         for (SacrificialBowlBlockEntity sacrificialBowl : sacrificialBowls) {
             //first simulate removal to check the ingredient
-            if (sacrificialBowl.itemStackHandler.map(handler -> {
+            if (sacrificialBowl.lazyItemStackHandler.map(handler -> {
                 ItemStack stack = handler.extractItem(0, 1, true);
                 if (ingredient.test(stack)) {
                     //now take for real
@@ -415,7 +422,7 @@ public abstract class Ritual {
 
         List<SacrificialBowlBlockEntity> sacrificialBowls = this.getSacrificialBowls(level, goldenBowlPosition);
         for (SacrificialBowlBlockEntity sacrificialBowl : sacrificialBowls) {
-            sacrificialBowl.itemStackHandler.ifPresent(handler -> {
+            sacrificialBowl.lazyItemStackHandler.ifPresent(handler -> {
                 ItemStack stack = handler.getStackInSlot(0);
                 if (!stack.isEmpty()) {
                     result.add(stack);
@@ -509,7 +516,7 @@ public abstract class Ritual {
      * @param stack              the result stack to drop.
      */
     public void dropResult(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                           Player castingPlayer, ItemStack stack) {
+                           @Nullable Player castingPlayer, ItemStack stack) {
         double angle = level.random.nextDouble() * Math.PI * 2;
         ItemEntity entity = new ItemEntity(level, goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY() + 0.75,
                 goldenBowlPosition.getZ() + 0.5, stack);
