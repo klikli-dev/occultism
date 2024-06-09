@@ -55,6 +55,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Rotation;
@@ -311,6 +312,20 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         return this.currentRitualRecipe;
     }
 
+    public int getSignal(BlockState pBlockState, BlockGetter pBlockAccess, BlockPos pPos, Direction pSide) {
+        if(this.getCurrentRitualRecipe() == null)
+            return 0;
+
+        if(!this.sacrificeFulfilled())
+            return 1;
+
+        if(!this.itemUseFulfilled())
+            return 2;
+
+
+        return 8;
+    }
+
     public void tick() {
         RitualRecipe recipe = this.getCurrentRitualRecipe();
         if (!this.level.isClientSide && recipe != null) {
@@ -335,6 +350,9 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
             //if we do not have a sacrifice yet, we cannot advance time
             if (!this.sacrificeFulfilled() || !this.itemUseFulfilled()) {
+                if(this.level.getGameTime() % 20 == 0)
+                    this.level.updateNeighborsAt(this.getBlockPos(), this.getBlockState().getBlock());
+
                 if (this.level.random.nextInt(16) == 0) {
                     ((ServerLevel) this.level)
                             .sendParticles(OccultismParticles.RITUAL_WAITING.get(),
@@ -468,6 +486,8 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
             this.setChanged();
             this.markNetworkDirty();
+
+            this.level.updateNeighborsAt(this.getBlockPos(), this.getBlockState().getBlock());
         }
     }
 
@@ -502,6 +522,8 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
             this.setChanged();
             this.markNetworkDirty();
+
+            this.level.updateNeighborsAt(this.getBlockPos(), this.getBlockState().getBlock());
         }
     }
 
