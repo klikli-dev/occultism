@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.131.0] - 2024-06-09
+### :sparkles: New Features
+- [`cf1549d`](https://github.com/klikli-dev/occultism/commit/cf1549d1b4bf2ceff8cc63f9198773848fb3a821) - add max tier to crushing recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`71b9c99`](https://github.com/klikli-dev/occultism/commit/71b9c997dec3f51f8ce1fb17a0c202604998d492) - allow golden bowl automation - start ritual on item insert via capability *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`067bf21`](https://github.com/klikli-dev/occultism/commit/067bf2195834d00422ff11afa8080c0751ffa944) - add ritual automation page to dictionary of spirits *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`01ead5b`](https://github.com/klikli-dev/occultism/commit/01ead5b4077874edaba08fa37a052ae72a7312e7) - add redstone signal to golden bowl *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.130.0] - 2024-06-08
 ### :sparkles: New Features
 - [`20cb3bd`](https://github.com/klikli-dev/occultism/commit/20cb3bdc984c37d2943db4cccc29859eeecbf13a) - improve tag QoL *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1141,3 +1149,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.128.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.127.0...release/v1.20.4-1.128.0
 [release/v1.20.4-1.129.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.128.0...release/v1.20.4-1.129.0
 [release/v1.20.4-1.130.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.129.0...release/v1.20.4-1.130.0
+[release/v1.20.4-1.131.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.130.0...release/v1.20.4-1.131.0
