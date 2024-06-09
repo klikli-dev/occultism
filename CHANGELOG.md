@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.6-1.131.0] - 2024-06-09
+### :sparkles: New Features
+- [`c64ae04`](https://github.com/klikli-dev/occultism/commit/c64ae0429556685ebbf317586b2b13430acb3ca6) - add max tier to crushing recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`a28d6dc`](https://github.com/klikli-dev/occultism/commit/a28d6dc44a2b8a82d115180d18b3c5bb15f29a0c) - allow golden bowl automation - start ritual on item insert via capability *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`90e69d6`](https://github.com/klikli-dev/occultism/commit/90e69d68125b9b38ec859c7a2cdee0cf1307aa69) - add ritual automation page to dictionary of spirits *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`da095be`](https://github.com/klikli-dev/occultism/commit/da095bef7fa38e6767bfc64d068e16301bd80df7) - add redstone signal to golden bowl *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.6-1.130.0] - 2024-06-08
 ### :sparkles: New Features
 - [`f9315b8`](https://github.com/klikli-dev/occultism/commit/f9315b8ba639bf5ddc14628b7609eaf8ab87783f) - improve tag QoL *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1123,3 +1131,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.126.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.125.1...release/v1.20.4-1.126.0
 [release/v1.20.6-1.129.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.6-0.0.0...release/v1.20.6-1.129.0
 [release/v1.20.6-1.130.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.6-1.129.0...release/v1.20.6-1.130.0
+[release/v1.20.6-1.131.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.6-1.130.0...release/v1.20.6-1.131.0
