@@ -16,12 +16,12 @@
     }
   ],
   "type": "occultism:crushing",
-  "crushing_time": 200,
   "ignore_crushing_multiplier": true,
   "ingredient": {
     "tag": "c:ingots/azure_silver"
   },
   "result": {
+    "type": "occultism:tag",
     "count": 1,
     "tag": "c:dusts/azure_silver"
   }

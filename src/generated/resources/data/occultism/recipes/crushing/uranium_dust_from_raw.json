@@ -16,12 +16,11 @@
     }
   ],
   "type": "occultism:crushing",
-  "crushing_time": 200,
-  "ignore_crushing_multiplier": false,
   "ingredient": {
     "tag": "c:raw_materials/uranium"
   },
   "result": {
+    "type": "occultism:tag",
     "count": 2,
     "tag": "c:dusts/uranium"
   }

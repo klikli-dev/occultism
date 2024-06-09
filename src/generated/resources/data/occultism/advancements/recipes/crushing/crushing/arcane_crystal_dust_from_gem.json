@@ -1,0 +1,48 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:gems/arcane_crystal"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/arcane_crystal"
+      }
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_arcane_crystal_gem": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:gems/arcane_crystal"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crushing/arcane_crystal_dust_from_gem"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_arcane_crystal_gem"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crushing/arcane_crystal_dust_from_gem"
+    ]
+  }
+}

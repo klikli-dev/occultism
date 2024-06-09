@@ -1,0 +1,14 @@
+{
+  "type": "occultism:miner",
+  "ingredient": {
+    "tag": "occultism:miners/master"
+  },
+  "result": {
+    "type": "occultism:weighted_item",
+    "stack": {
+      "count": 1,
+      "id": "minecraft:ancient_debris"
+    },
+    "weight": 100
+  }
+}

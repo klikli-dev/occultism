@@ -1,0 +1,42 @@
+{
+  "type": "occultism:ritual",
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_djinni"
+  },
+  "duration": 60,
+  "entity_to_sacrifice": {
+    "display_name": "ritual.occultism.sacrifice.pigs",
+    "tag": "c:pigs"
+  },
+  "entity_to_summon": "occultism:possessed_enderman",
+  "ingredients": [
+    {
+      "tag": "c:bones"
+    },
+    {
+      "tag": "c:strings"
+    },
+    {
+      "tag": "c:end_stones"
+    },
+    {
+      "item": "minecraft:rotten_flesh"
+    }
+  ],
+  "pentacle_id": "occultism:possess_djinni",
+  "result": {
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_enderman\"}",
+      "minecraft:lore": [
+        "{\"translate\":\"item.occultism.ritual_dummy.possess_enderman.tooltip\"}"
+      ]
+    },
+    "count": 1,
+    "id": "minecraft:ender_pearl"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/possess_enderman"
+  },
+  "ritual_type": "occultism:summon"
+}

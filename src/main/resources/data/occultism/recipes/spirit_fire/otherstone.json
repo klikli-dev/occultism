@@ -1,9 +1,0 @@
-{
-  "type": "occultism:spirit_fire",
-  "ingredient": {
-    "item": "minecraft:andesite"
-  },
-  "result": {
-    "id": "occultism:otherstone"
-  }
-}

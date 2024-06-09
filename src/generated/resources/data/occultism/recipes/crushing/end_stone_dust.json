@@ -1,0 +1,11 @@
+{
+  "type": "occultism:crushing",
+  "ingredient": {
+    "tag": "c:end_stones"
+  },
+  "result": {
+    "type": "occultism:tag",
+    "count": 1,
+    "tag": "c:dusts/end_stone"
+  }
+}

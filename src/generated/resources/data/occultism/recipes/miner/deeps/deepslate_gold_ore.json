@@ -1,0 +1,14 @@
+{
+  "type": "occultism:miner",
+  "ingredient": {
+    "tag": "occultism:miners/deeps"
+  },
+  "result": {
+    "type": "occultism:weighted_item",
+    "stack": {
+      "count": 1,
+      "id": "minecraft:deepslate_gold_ore"
+    },
+    "weight": 311
+  }
+}

@@ -76,6 +76,7 @@ public class OccultismTags {
         public static final TagKey<Item> IESNIUM_DUST=makeItemTag(new ResourceLocation("c","dusts/iesnium"));
         public static final TagKey<Item> SILVER_DUST=makeItemTag(new ResourceLocation("c","dusts/silver"));
         public static final TagKey<Item> OBSIDIAN_DUST=makeItemTag(new ResourceLocation("c","dusts/obsidian"));
+        public static final TagKey<Item> BLAZE_DUST = makeItemTag(new ResourceLocation("c", "dusts/blaze"));
 
         public static final TagKey<Item> DATURA_CROP = makeItemTag(new ResourceLocation("c", "crops/datura"));
 

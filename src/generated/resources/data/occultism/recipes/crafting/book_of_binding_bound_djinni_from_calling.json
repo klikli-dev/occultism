@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "occultism:books/book_of_calling_djinni"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "occultism:book_of_binding_bound_djinni"
+  }
+}

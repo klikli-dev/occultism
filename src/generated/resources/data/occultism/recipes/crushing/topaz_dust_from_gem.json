@@ -16,12 +16,11 @@
     }
   ],
   "type": "occultism:crushing",
-  "crushing_time": 200,
-  "ignore_crushing_multiplier": true,
   "ingredient": {
     "tag": "c:gems/topaz"
   },
   "result": {
+    "type": "occultism:tag",
     "count": 1,
     "tag": "c:dusts/topaz"
   }

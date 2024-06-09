@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_book_of_calling_foliot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#occultism:books/book_of_calling_foliot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crafting/book_of_binding_bound_foliot_from_calling"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_book_of_calling_foliot"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crafting/book_of_binding_bound_foliot_from_calling"
+    ]
+  }
+}

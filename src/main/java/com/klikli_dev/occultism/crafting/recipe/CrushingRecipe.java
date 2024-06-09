@@ -22,9 +22,8 @@
 
 package com.klikli_dev.occultism.crafting.recipe;
 
-import com.klikli_dev.occultism.common.misc.OutputIngredient;
+import com.klikli_dev.occultism.crafting.recipe.result.RecipeResult;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
-import com.klikli_dev.occultism.util.OccultismExtraStreamCodecs;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -40,13 +39,11 @@ import net.minecraft.world.level.Level;
 
 public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, CrushingRecipe> STREAM_CODEC = OccultismExtraStreamCodecs.composite(
+    public static final StreamCodec<RegistryFriendlyByteBuf, CrushingRecipe> STREAM_CODEC = StreamCodec.composite(
             Ingredient.CONTENTS_STREAM_CODEC,
             (r) -> r.input,
-            Ingredient.CONTENTS_STREAM_CODEC,
-            (r) -> r.output.getIngredient(),
-            OutputIngredient.OutputStackInfo.STREAM_CODEC,
-            (r) -> r.output.getOutputStackInfo(),
+            RecipeResult.STREAM_CODEC,
+            (r) -> r.result,
             ByteBufCodecs.INT,
             (r) -> r.minTier,
             ByteBufCodecs.INT,
@@ -55,22 +52,19 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
             (r) -> r.crushingTime,
             ByteBufCodecs.BOOL,
             (r) -> r.ignoreCrushingMultiplier,
-            (input, output, outputStackInfo, minTier, maxTier, crushingTime, ignoreCrushingMultiplier) ->
-                    new CrushingRecipe(input, new OutputIngredient(output, outputStackInfo), minTier, maxTier, crushingTime, ignoreCrushingMultiplier)
+            CrushingRecipe::new
     );
     public static int DEFAULT_CRUSHING_TIME = 200;
     public static final MapCodec<CrushingRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Ingredient.CODEC
                     .fieldOf("ingredient").forGetter((r) -> r.input),
-            Ingredient.CODEC.fieldOf("result").forGetter(r -> r.output.getIngredient()),
-            OutputIngredient.OutputStackInfo.CODEC.fieldOf("result").forGetter(r -> r.output.getOutputStackInfo()),
+            RecipeResult.CODEC.fieldOf("result").forGetter(r -> r.result),
             Codec.INT.optionalFieldOf("min_tier", -1).forGetter(r -> r.minTier),
             Codec.INT.optionalFieldOf("max_tier", -1).forGetter(r -> r.maxTier),
             Codec.INT.optionalFieldOf("crushing_time", DEFAULT_CRUSHING_TIME).forGetter(r -> r.crushingTime),
             Codec.BOOL.optionalFieldOf("ignore_crushing_multiplier", false).forGetter(r -> r.ignoreCrushingMultiplier)
-    ).apply(instance, (input, output, outputStackInfo, minTier, maxTier, crushingTime, ignoreCrushingMultiplier) -> {
-        return new CrushingRecipe(input, new OutputIngredient(output, outputStackInfo), minTier, maxTier, crushingTime, ignoreCrushingMultiplier);
-    }));
+    ).apply(instance, CrushingRecipe::new));
+
     public static Serializer SERIALIZER = new Serializer();
 
     protected final int crushingTime;
@@ -78,11 +72,11 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     protected final int maxTier;
     protected final boolean ignoreCrushingMultiplier;
 
-    protected OutputIngredient output;
+    protected RecipeResult result;
 
-    public CrushingRecipe(Ingredient input, OutputIngredient output, int minTier, int maxTier, int crushingTime, boolean ignoreCrushingMultiplier) {
+    public CrushingRecipe(Ingredient input, RecipeResult result, int minTier, int maxTier, int crushingTime, boolean ignoreCrushingMultiplier) {
         super(input, ItemStack.EMPTY); //hand over empty item stack, because we cannot resolve output.getStack() yet as tags are not resolved yet.
-        this.output = output;
+        this.result = result;
         this.crushingTime = crushingTime;
         this.minTier = minTier;
         this.maxTier = maxTier;
@@ -130,7 +124,7 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
 
     @Override
     public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
-        return this.output.getStack();
+        return this.result.getStack();
     }
 
     @Override

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "i": {
+      "tag": "c:ingots/iron"
+    },
+    "s": {
+      "tag": "c:rods/wooden"
+    }
+  },
+  "pattern": [
+    " is",
+    "is ",
+    "s  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "occultism:butcher_knife"
+  }
+}

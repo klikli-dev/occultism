@@ -43,6 +43,7 @@ import com.klikli_dev.occultism.registry.*;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.ParticleRegistry;
+import com.klikli_dev.theurgy.registry.TheurgyRegistries;
 import com.mojang.logging.LogUtils;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.api.distmarker.Dist;
@@ -102,12 +103,14 @@ public class Occultism {
         OccultismDataStorage.ATTACHMENT_TYPES.register(modEventBus);
         OccultismAdvancements.TRIGGER_TYPES.register(modEventBus);
         OccultismDataComponents.DATA_COMPONENTS.register(modEventBus);
+        OccultismRecipeResults.RECIPE_RESULT_TYPES.register(modEventBus);
 
         //now register the custom registries
         OccultismSpiritJobs.JOBS.register(modEventBus);
         OccultismRituals.RITUAL_FACTORIES.register(modEventBus);
 
         //register event buses
+        modEventBus.addListener(OccultismRegistries::onRegisterRegistries);
         modEventBus.addListener(OccultismCapabilities::onRegisterCapabilities);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::onEntityAttributeCreation);

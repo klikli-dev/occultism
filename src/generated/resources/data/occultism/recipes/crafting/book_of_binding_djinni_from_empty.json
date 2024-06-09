@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "b": {
+      "item": "occultism:book_of_binding_empty"
+    },
+    "g": {
+      "tag": "c:dyes/green"
+    }
+  },
+  "pattern": [
+    " g ",
+    "gbg",
+    " g "
+  ],
+  "result": {
+    "count": 1,
+    "id": "occultism:book_of_binding_djinni"
+  }
+}

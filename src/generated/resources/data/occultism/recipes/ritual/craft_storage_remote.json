@@ -1,0 +1,31 @@
+{
+  "type": "occultism:ritual",
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_djinni"
+  },
+  "duration": 120,
+  "ingredients": [
+    {
+      "item": "occultism:storage_remote_inert"
+    },
+    {
+      "tag": "c:ender_pearls"
+    },
+    {
+      "tag": "c:ender_pearls"
+    },
+    {
+      "tag": "c:gems/quartz"
+    }
+  ],
+  "pentacle_id": "occultism:craft_djinni",
+  "result": {
+    "count": 1,
+    "id": "occultism:storage_remote"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/craft_storage_remote"
+  },
+  "ritual_type": "occultism:craft"
+}

@@ -1,9 +1,0 @@
-{
-  "type": "occultism:spirit_fire",
-  "ingredient": {
-    "item": "occultism:demons_dream_essence"
-  },
-  "result": {
-    "id": "occultism:otherworld_essence"
-  }
-}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_otherworld_essence": {
+      "conditions": {
+        "items": [
+          {
+            "items": "occultism:otherworld_essence"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:ritual/resurrect_familiar"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_otherworld_essence"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:ritual/resurrect_familiar"
+    ]
+  }
+}

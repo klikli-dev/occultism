@@ -16,12 +16,11 @@
     }
   ],
   "type": "occultism:crushing",
-  "crushing_time": 200,
-  "ignore_crushing_multiplier": false,
   "ingredient": {
     "tag": "c:ores/certus_quartz"
   },
   "result": {
+    "type": "occultism:tag",
     "count": 4,
     "tag": "c:dusts/certus_quartz"
   }

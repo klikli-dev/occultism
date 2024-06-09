@@ -1,0 +1,11 @@
+{
+  "type": "occultism:crushing",
+  "ingredient": {
+    "tag": "c:obsidians"
+  },
+  "result": {
+    "type": "occultism:tag",
+    "count": 1,
+    "tag": "c:dusts/obsidian"
+  }
+}

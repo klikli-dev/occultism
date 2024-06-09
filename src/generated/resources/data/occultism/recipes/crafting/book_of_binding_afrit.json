@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "b": {
+      "item": "occultism:taboo_book"
+    },
+    "c": {
+      "item": "occultism:purified_ink"
+    },
+    "f": {
+      "item": "occultism:awakened_feather"
+    },
+    "p": {
+      "tag": "c:dyes/purple"
+    }
+  },
+  "pattern": [
+    "cpf",
+    "pbp",
+    " p "
+  ],
+  "result": {
+    "count": 1,
+    "id": "occultism:book_of_binding_afrit"
+  }
+}

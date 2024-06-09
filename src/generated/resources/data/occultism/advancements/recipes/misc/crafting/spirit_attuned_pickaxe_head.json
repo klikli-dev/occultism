@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_spirit_attuned_gem": {
+      "conditions": {
+        "items": [
+          {
+            "items": "occultism:spirit_attuned_gem"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crafting/spirit_attuned_pickaxe_head"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_spirit_attuned_gem"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crafting/spirit_attuned_pickaxe_head"
+    ]
+  }
+}

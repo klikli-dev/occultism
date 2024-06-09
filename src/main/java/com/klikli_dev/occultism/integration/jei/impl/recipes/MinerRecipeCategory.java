@@ -98,9 +98,9 @@ public class MinerRecipeCategory implements IRecipeCategory<RecipeHolder<MinerRe
         var recipes = level.getRecipeManager()
                 .getRecipesFor(OccultismRecipes.MINER_TYPE.get(),
                         new RecipeWrapper(simulatedHandler), level);
-        List<WeightedOutputIngredient> possibleResults = recipes.stream().map(RecipeHolder::value).map(MinerRecipe::getWeightedOutput).toList();
+        List<WeightedOutputIngredient> possibleResults = recipes.stream().map(RecipeHolder::value).map(MinerRecipe::getWeightedResult).toList();
 
-        float chance = (float) recipe.value().getWeightedOutput().getWeight().asInt()/100;
+        float chance = (float) recipe.value().getWeightedResult().getWeight().asInt()/100;
         this.chances.put(recipe.value(), chance);
 
         builder.addSlot(RecipeIngredientRole.INPUT, 56, 12)

@@ -34,7 +34,7 @@ public class MinerRecipeCategory implements EmiRecipe {
         var stack = EmiStack.of(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess()));
         if (recipe.value().getIngredients().get(0).getValues().length == 1) {
             if (recipe.value().getIngredients().get(0).getValues()[0] instanceof Ingredient.TagValue) {
-                double chance = (double) recipe.value().getWeightedOutput().getWeight().asInt() / totalWeights.get(((Ingredient.TagValue) recipe.value().getIngredients().get(0).getValues()[0]).tag());
+                double chance = (double) recipe.value().getWeightedResult().getWeight().asInt() / totalWeights.get(((Ingredient.TagValue) recipe.value().getIngredients().get(0).getValues()[0]).tag());
                 stack.setChance((float) chance);
             }
         }

@@ -1,0 +1,10 @@
+{
+  "type": "occultism:spirit_fire",
+  "ingredient": {
+    "tag": "c:gems/diamond"
+  },
+  "result": {
+    "count": 1,
+    "id": "occultism:spirit_attuned_gem"
+  }
+}

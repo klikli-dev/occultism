@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "x": {
+      "tag": "c:rods/wooden"
+    },
+    "y": {
+      "item": "occultism:spirit_attuned_gem"
+    }
+  },
+  "pattern": [
+    "xyx",
+    "x x",
+    " x "
+  ],
+  "result": {
+    "count": 1,
+    "id": "occultism:divination_rod"
+  }
+}

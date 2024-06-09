@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "g": {
+      "item": "occultism:spirit_attuned_gem"
+    }
+  },
+  "pattern": [
+    "ggg"
+  ],
+  "result": {
+    "count": 1,
+    "id": "occultism:spirit_attuned_pickaxe_head"
+  }
+}

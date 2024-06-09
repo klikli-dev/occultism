@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:spirit_fire/book_of_binding_empty"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_writable_book": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:writable_book"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_writable_book"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:spirit_fire/book_of_binding_empty"
+    ]
+  }
+}

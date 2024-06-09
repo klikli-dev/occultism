@@ -1,0 +1,41 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "occultism:miners/master"
+      }
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_stella_arcanum_ore": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:ores/stella_arcanum"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:miner/master/stella_arcanum"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_stella_arcanum_ore"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:miner/master/stella_arcanum"
+    ]
+  }
+}

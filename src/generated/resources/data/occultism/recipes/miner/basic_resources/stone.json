@@ -1,0 +1,14 @@
+{
+  "type": "occultism:miner",
+  "ingredient": {
+    "tag": "occultism:miners/basic_resources"
+  },
+  "result": {
+    "type": "occultism:weighted_item",
+    "stack": {
+      "count": 1,
+      "id": "minecraft:stone"
+    },
+    "weight": 10000
+  }
+}

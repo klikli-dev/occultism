@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "b": {
+      "item": "occultism:book_of_binding_empty"
+    },
+    "o": {
+      "tag": "c:dyes/orange"
+    },
+    "p": {
+      "tag": "c:dyes/purple"
+    }
+  },
+  "pattern": [
+    " o ",
+    "pbp",
+    " o "
+  ],
+  "result": {
+    "count": 1,
+    "id": "occultism:book_of_binding_marid"
+  }
+}

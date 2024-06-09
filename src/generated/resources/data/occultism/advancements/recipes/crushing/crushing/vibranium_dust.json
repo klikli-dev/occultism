@@ -1,0 +1,48 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/vibranium"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/vibranium"
+      }
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crushing/vibranium_dust"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_vibranium": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:ores/vibranium"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_vibranium"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crushing/vibranium_dust"
+    ]
+  }
+}

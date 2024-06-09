@@ -1,0 +1,48 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/tin"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/tin"
+      }
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crushing/tin_dust"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_tin": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:ores/tin"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_tin"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crushing/tin_dust"
+    ]
+  }
+}

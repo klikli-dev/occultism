@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_iesnium_block": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:storage_blocks/iesnium"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crafting/iesnium_ingot_from_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_iesnium_block"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crafting/iesnium_ingot_from_block"
+    ]
+  }
+}

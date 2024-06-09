@@ -23,8 +23,8 @@
 package com.klikli_dev.occultism.common.blockentity;
 
 import com.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
-import com.klikli_dev.occultism.common.misc.WeightedOutputIngredient;
 import com.klikli_dev.occultism.crafting.recipe.MinerRecipe;
+import com.klikli_dev.occultism.crafting.recipe.result.WeightedRecipeResult;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
@@ -54,7 +54,6 @@ import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implements MenuProvider {
@@ -87,7 +86,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     public int maxMiningTime = 0;
     public int rollsPerOperation = 0;
     protected Item currentInputType;
-    protected List<WeightedOutputIngredient> possibleResults;
+    protected List<WeightedRecipeResult> possibleResults;
 
     public DimensionalMineshaftBlockEntity(BlockPos worldPos, BlockState state) {
         super(OccultismBlockEntities.DIMENSIONAL_MINESHAFT.get(), worldPos, state);
@@ -210,7 +209,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             if (recipes == null || recipes.size() == 0) {
                 this.possibleResults = new ArrayList<>();
             } else {
-                this.possibleResults = recipes.stream().map(r -> r.value().getWeightedOutput()).collect(Collectors.toList());
+                this.possibleResults = recipes.stream().map(r -> r.value().getWeightedResult()).collect(Collectors.toList());
             }
         }
 
@@ -218,7 +217,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             return;
 
         for (int i = 0; i < this.rollsPerOperation; i++) {
-            Optional<WeightedOutputIngredient> result = WeightedRandom.getRandomItem(this.level.random, this.possibleResults);
+            var result = WeightedRandom.getRandomItem(this.level.random, this.possibleResults);
             //Important: copy the result, don't use it raw!
             result.ifPresent(r -> {
                 ItemHandlerHelper.insertItemStacked(this.outputHandler, r.getStack().copy(), false);

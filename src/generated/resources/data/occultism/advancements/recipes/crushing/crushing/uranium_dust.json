@@ -1,0 +1,48 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/uranium"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/uranium"
+      }
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crushing/uranium_dust"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_uranium": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:ores/uranium"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_uranium"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crushing/uranium_dust"
+    ]
+  }
+}

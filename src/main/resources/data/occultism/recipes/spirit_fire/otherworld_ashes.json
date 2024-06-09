@@ -1,9 +1,0 @@
-{
-  "type": "occultism:spirit_fire",
-  "ingredient": {
-    "item": "occultism:otherworld_log"
-  },
-  "result": {
-    "id": "occultism:otherworld_ashes"
-  }
-}

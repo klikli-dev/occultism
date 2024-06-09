@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "x": {
+      "item": "occultism:burnt_otherstone"
+    },
+    "y": {
+      "item": "occultism:otherworld_ashes"
+    }
+  },
+  "pattern": [
+    "xy",
+    "xy",
+    "xy"
+  ],
+  "result": {
+    "count": 1,
+    "id": "occultism:chalk_white_impure"
+  }
+}

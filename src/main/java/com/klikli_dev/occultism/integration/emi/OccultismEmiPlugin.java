@@ -16,7 +16,6 @@ import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiInitRegistry;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
-import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiStack;
@@ -74,7 +73,7 @@ public class OccultismEmiPlugin implements EmiPlugin {
                     var tag = ((Ingredient.TagValue) recipe.value().getIngredients().get(0).getValues()[0]).tag();
                     if(!MinerRecipeCategory.totalWeights.containsKey(tag))
                         MinerRecipeCategory.totalWeights.put(tag,0L);
-                    MinerRecipeCategory.totalWeights.put(tag,MinerRecipeCategory.totalWeights.get(tag)+recipe.value().getWeightedOutput().getWeight().asInt());
+                    MinerRecipeCategory.totalWeights.put(tag,MinerRecipeCategory.totalWeights.get(tag)+recipe.value().getWeightedResult().getWeight().asInt());
 
 
                 }
