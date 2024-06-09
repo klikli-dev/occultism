@@ -1298,6 +1298,20 @@ public class OccultismBookProvider extends BookProvider {
                         Note that any rituals that summon tamed animals or familiars will summon them untamed instead.
                           """.formatted(COLOR_PURPLE));
 
+        this.context().page("redstone");
+        var redstoneText = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang.add(this.context().pageTitle(), "Redstone");
+        this.lang.add(this.context().pageText(),
+                """
+                        Depending on the ritual state the golden bowl will emit a different redstone level:
+                        - **0** if no ritual is active
+                        - **1** if the ritual is active, but waiting for a sacrifice
+                        - **2** if the ritual is active, but waiting for an item to be used
+                        - **4** if the ritual is active and running
+                        """.formatted(COLOR_PURPLE));
+
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
@@ -1312,7 +1326,8 @@ public class OccultismBookProvider extends BookProvider {
                         ritualRecipe,
                         pentacleLinkHint,
                         startRitualText,
-                        automationText
+                        automationText,
+                        redstoneText
                 );
     }
 

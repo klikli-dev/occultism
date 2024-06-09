@@ -26,6 +26,7 @@ import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEnt
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -97,6 +98,16 @@ public class GoldenSacrificialBowlBlock extends Block implements EntityBlock {
     @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return SHAPE;
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public int getSignal(BlockState pBlockState, BlockGetter pBlockAccess, BlockPos pPos, Direction pSide) {
+        BlockEntity blockEntity = pBlockAccess.getBlockEntity(pPos);
+        if (blockEntity instanceof GoldenSacrificialBowlBlockEntity bowl) {
+            return bowl.getSignal(pBlockState, pBlockAccess, pPos, pSide);
+        }
+        return 0;
     }
 
     @Nullable
