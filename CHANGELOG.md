@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.6-1.131.1] - 2024-06-09
+### :sparkles: New Features
+- [`6ec5987`](https://github.com/klikli-dev/occultism/commit/6ec598775e3bddc97e431b79b0a1f520c559384c) - **translations**: New Crowdin updates *(PR [#1115](https://github.com/klikli-dev/occultism/pull/1115) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.6-1.131.0] - 2024-06-09
 ### :sparkles: New Features
 - [`c64ae04`](https://github.com/klikli-dev/occultism/commit/c64ae0429556685ebbf317586b2b13430acb3ca6) - add max tier to crushing recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1132,3 +1137,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.6-1.129.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.6-0.0.0...release/v1.20.6-1.129.0
 [release/v1.20.6-1.130.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.6-1.129.0...release/v1.20.6-1.130.0
 [release/v1.20.6-1.131.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.6-1.130.0...release/v1.20.6-1.131.0
+[release/v1.20.6-1.131.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.6-1.131.0...release/v1.20.6-1.131.1
