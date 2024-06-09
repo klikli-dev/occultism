@@ -7,6 +7,7 @@ import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -17,6 +18,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.conditions.ICondition;
+import net.neoforged.neoforge.common.conditions.ItemExistsCondition;
 import net.neoforged.neoforge.common.conditions.NotCondition;
 import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
 import org.jetbrains.annotations.Nullable;
@@ -34,12 +36,14 @@ public class MinerRecipeBuilder implements RecipeBuilder {
     private String group;
     private WeightedRecipeResult result;
     private boolean allowEmpty;
+    private boolean addResultItemExistsCondition;
 
     public MinerRecipeBuilder(Ingredient ingredient, WeightedRecipeResult result) {
         this.serializer = MinerRecipe.SERIALIZER;
         this.ingredient = ingredient;
         this.result = result;
         this.allowEmpty = false;
+        this.addResultItemExistsCondition = false;
     }
 
     public static MinerRecipeBuilder minerRecipe(Ingredient ingredient, ItemLike output, int weight) {
@@ -86,6 +90,11 @@ public class MinerRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
+    public MinerRecipeBuilder addResultItemExistsCondition() {
+        this.addResultItemExistsCondition = true;
+        return this;
+    }
+
     @Override
     public void save(RecipeOutput pRecipeOutput, ResourceLocation pId) {
         this.ensureValid(pId);
@@ -94,7 +103,7 @@ public class MinerRecipeBuilder implements RecipeBuilder {
                 .rewards(AdvancementRewards.Builder.recipe(pId))
                 .requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
-        ICondition[] conditions = this.getConditions(this.allowEmpty, this.ingredient, this.result);
+        ICondition[] conditions = this.getConditions(this.allowEmpty, this.addResultItemExistsCondition, this.ingredient, this.result);
 
         MinerRecipe recipe = new MinerRecipe(this.ingredient, this.result);
         pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.withPrefix("recipes/miner/")), conditions);
@@ -109,7 +118,7 @@ public class MinerRecipeBuilder implements RecipeBuilder {
         throw new IllegalStateException("Recipe must be saved with a unique ID");
     }
 
-    protected ICondition[] getConditions(boolean allowEmpty, Ingredient ingredient, RecipeResult result) {
+    protected ICondition[] getConditions(boolean allowEmpty, boolean addItemExistsCondition, Ingredient ingredient, RecipeResult result) {
         List<ICondition> conditions = new ArrayList<>();
         if (!allowEmpty) {
             ICondition notCondition = this.getNoTagCondition(ingredient);
@@ -119,12 +128,27 @@ public class MinerRecipeBuilder implements RecipeBuilder {
             if (notCondition != null)
                 conditions.add(notCondition);
         }
+        if(addItemExistsCondition) {
+            ICondition notCondition = getItemExistsCondition(result);
+            if(notCondition!=null)
+                conditions.add(notCondition);
+        }
         return conditions.toArray(new ICondition[0]);
     }
 
     protected ICondition getNoTagCondition(Ingredient ingredient) {
         if (ingredient.getValues().length == 1 && ingredient.getValues()[0] instanceof Ingredient.TagValue tagValue) {
             return new NotCondition(new TagEmptyCondition(tagValue.tag()));
+        }
+        return null;
+    }
+
+    protected ICondition getItemExistsCondition(RecipeResult ingredient) {
+        if(ingredient instanceof ItemRecipeResult itemResult) {
+            return new ItemExistsCondition(BuiltInRegistries.ITEM.getKey(itemResult.getStack().getItem()));
+        }
+        if(ingredient instanceof WeightedItemRecipeResult itemResult) {
+            return new ItemExistsCondition(BuiltInRegistries.ITEM.getKey(itemResult.getStack().getItem()));
         }
         return null;
     }

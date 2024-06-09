@@ -14,6 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -87,6 +88,8 @@ public abstract class MinerRecipes extends RecipeProvider {
         makeOreRecipe("topaz", 200, recipeOutput);
         makeOreRecipe("tungsten", 192, recipeOutput);
         makeOreRecipe("uranium", 140, recipeOutput);
+        makeOreRecipe("dimensional_shard", 127, recipeOutput);
+        makeOreRecipe("draconium", 142, recipeOutput);
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ORES, OccultismTags.makeItemTag(new ResourceLocation("c", "ores/" + "xpetrified_ore")), 200)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .save(recipeOutput, new ResourceLocation(Occultism.MODID, "miner/ores/" + "xpetrified_ore"));
@@ -97,6 +100,15 @@ public abstract class MinerRecipes extends RecipeProvider {
 
 
     }
+
+    //  Item-based recipes where the item is not available in our dev env are not great because they would need a separate handling
+    //  instead use a tag - we can pre-fill it with an optional content!
+//    public static void makeModOreItemRecipe(ResourceLocation item, int weight, RecipeOutput consumer) {
+//        MinerRecipeBuilder.minerRecipe(Ingredient.of(OccultismTags.Items.Miners.ORES), item, weight)
+//                .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
+//                .itemExists()
+//                .save(consumer, new ResourceLocation(Occultism.MODID, "miner/ores/" + item.getPath()));
+//    }
 
     public static void makeVanillaItemRecipe(Item type, int weight, RecipeOutput consumer) {
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ORES, type, weight)
