@@ -411,6 +411,9 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     }
 
     public boolean activate(Level level, BlockPos pos, Player player, InteractionHand hand, Direction face) {
+        if(hand == InteractionHand.OFF_HAND)
+            return false; //prevent offhand activation which can actually cause interruption due to the second firing of activate
+
         if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
             ItemStack activationItem = player.getItemInHand(hand);
             if (activationItem == ItemStack.EMPTY)
