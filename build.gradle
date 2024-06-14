@@ -152,10 +152,11 @@ dependencies {
     runtimeOnly "com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}"
 
     // emi
-    compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
-    if(System.getenv("EMI") == "true") {
-        runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
-    }
+//    compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
+//    if(System.getenv("EMI") == "true") {
+//        runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
+//    }
+
     //runtime only helper mods for dev env, placed in ./runtime-mods, example: Hwyla-forge-1.10.11-B78_1.16.2.jar
     //runtimeOnly "ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2"
 
