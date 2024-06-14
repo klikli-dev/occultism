@@ -38,7 +38,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class MessageOpenSatchel implements IMessage {
 
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "open_satchel");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "open_satchel");
     public static final Type<MessageOpenSatchel> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageOpenSatchel> STREAM_CODEC = CustomPacketPayload.codec(MessageOpenSatchel::encode, MessageOpenSatchel::new);
 

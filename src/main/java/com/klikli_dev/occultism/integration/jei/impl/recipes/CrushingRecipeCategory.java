@@ -53,7 +53,7 @@ public class CrushingRecipeCategory implements IRecipeCategory<RecipeHolder<Crus
         this.background = guiHelper.createBlankDrawable(168, 56); //64
         this.localizedName = Component.translatable(Occultism.MODID + ".jei.crushing");
         this.overlay = guiHelper.createDrawable(
-                new ResourceLocation(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
+                ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
     }
 
     protected void drawStringCentered(GuiGraphics guiGraphics, Font font, Component text, int x, int y) {

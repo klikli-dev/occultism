@@ -26,7 +26,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
     }
 
     private void addPerViamInvenireTags(HolderLookup.Provider provider) {
-        this.tag(OccultismTags.makeEntityTypeTag(new ResourceLocation("per_viam_invenire", "replace_vanilla_navigator")))
+        this.tag(OccultismTags.makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("per_viam_invenire", "replace_vanilla_navigator")))
                 .add(OccultismEntities.FOLIOT_TYPE.get())
                 .add(OccultismEntities.DJINNI_TYPE.get())
                 .add(OccultismEntities.AFRIT_TYPE.get())

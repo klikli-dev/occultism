@@ -49,7 +49,7 @@ public class OccultismSounds {
      * @return the sound event.
      */
     private static SoundEvent loadSoundEvent(String name) {
-        ResourceLocation location = new ResourceLocation(Occultism.MODID, name);
+        ResourceLocation location = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, name);
         return SoundEvent.createVariableRangeEvent(location);
     }
 }

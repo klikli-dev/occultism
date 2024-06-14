@@ -13,18 +13,18 @@ import net.minecraft.world.level.levelgen.placement.*;
 import java.util.List;
 
 public class PlacedFeatures {
-    public static final ResourceKey<PlacedFeature> ORE_SILVER = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(Occultism.MODID, "ore_silver"));
+    public static final ResourceKey<PlacedFeature> ORE_SILVER = ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ore_silver"));
 
 
-    public static final ResourceKey<PlacedFeature> ORE_SILVER_DEEPSLATE = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(Occultism.MODID, "ore_silver_deepslate"));
+    public static final ResourceKey<PlacedFeature> ORE_SILVER_DEEPSLATE = ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ore_silver_deepslate"));
 
-    public static final ResourceKey<PlacedFeature> ORE_IESNIUM = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(Occultism.MODID, "ore_iesnium"));
+    public static final ResourceKey<PlacedFeature> ORE_IESNIUM = ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ore_iesnium"));
 
-    public static final ResourceKey<PlacedFeature> TREE_OTHERWORLD = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(Occultism.MODID, "tree_otherworld"));
+    public static final ResourceKey<PlacedFeature> TREE_OTHERWORLD = ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "tree_otherworld"));
 
-    public static final ResourceKey<PlacedFeature> TREE_OTHERWORLD_NATURAL = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(Occultism.MODID, "tree_otherworld_natural"));
+    public static final ResourceKey<PlacedFeature> TREE_OTHERWORLD_NATURAL = ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "tree_otherworld_natural"));
 
-    public static final ResourceKey<PlacedFeature> GROVE_UNDERGROUND = ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(Occultism.MODID, "grove_underground"));
+    public static final ResourceKey<PlacedFeature> GROVE_UNDERGROUND = ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "grove_underground"));
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
         var configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);

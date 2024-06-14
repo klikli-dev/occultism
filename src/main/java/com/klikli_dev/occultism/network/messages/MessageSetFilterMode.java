@@ -35,7 +35,7 @@ import net.minecraft.world.entity.Entity;
 
 public class MessageSetFilterMode implements IMessage {
 
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "set_filter_mode");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "set_filter_mode");
     public static final Type<MessageSetFilterMode> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetFilterMode> STREAM_CODEC = CustomPacketPayload.codec(MessageSetFilterMode::encode, MessageSetFilterMode::new);
 

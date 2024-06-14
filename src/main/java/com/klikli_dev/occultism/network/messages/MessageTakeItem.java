@@ -44,7 +44,7 @@ import net.neoforged.neoforge.items.ItemHandlerHelper;
  */
 public class MessageTakeItem implements IMessage {
 
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "take_item");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "take_item");
     public static final Type<MessageTakeItem> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageTakeItem> STREAM_CODEC = CustomPacketPayload.codec(MessageTakeItem::encode, MessageTakeItem::new);
 

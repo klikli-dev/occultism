@@ -33,7 +33,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 
 public class MessageSetJumps implements IMessage {
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "set_jumps");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "set_jumps");
     public static final Type<MessageSetJumps> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetJumps> STREAM_CODEC = CustomPacketPayload.codec(MessageSetJumps::encode, MessageSetJumps::new);
     public int jumps;

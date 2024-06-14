@@ -36,7 +36,7 @@ import java.awt.*;
 
 public class MessageSelectBlock implements IMessage {
 
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "select_block");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "select_block");
     public static final Type<MessageSelectBlock> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSelectBlock> STREAM_CODEC = CustomPacketPayload.codec(MessageSelectBlock::encode, MessageSelectBlock::new);
 

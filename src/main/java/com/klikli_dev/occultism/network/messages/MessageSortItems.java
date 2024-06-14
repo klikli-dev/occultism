@@ -40,7 +40,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class MessageSortItems implements IMessage {
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "sort_items");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "sort_items");
     public static final Type<MessageSortItems> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSortItems> STREAM_CODEC = CustomPacketPayload.codec(MessageSortItems::encode, MessageSortItems::new);
     private BlockPos entityPosition;

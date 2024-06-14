@@ -49,7 +49,7 @@ import java.util.Map;
  */
 public class MessageSetRecipe implements IMessage {
 
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "set_recipe");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "set_recipe");
     public static final Type<MessageSetRecipe> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetRecipe> STREAM_CODEC = CustomPacketPayload.codec(MessageSetRecipe::encode, MessageSetRecipe::new);
     private CompoundTag nbt;

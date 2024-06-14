@@ -83,13 +83,13 @@ public class CrushingRecipeCategory implements EmiRecipe {
 
     private static final List<EmiIngredient> tiers = List.of(
             EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
-                    new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_marid_crusher"))))),
+                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_marid_crusher"))))),
             EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
-                    new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_afrit_crusher"))))),
+                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_afrit_crusher"))))),
             EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
-                    new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_djinni_crusher"))))),
+                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_djinni_crusher"))))),
             EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
-                    new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_foliot_crusher")))))
+                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_foliot_crusher")))))
     );
 
     @Override

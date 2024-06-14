@@ -47,7 +47,7 @@ import java.util.List;
 
 public class GuideBookItem extends ModonomiconItem {
 
-    public static final ResourceLocation DICTIONARY_OF_SPIRITS = new ResourceLocation(Occultism.MODID, "dictionary_of_spirits");
+    public static final ResourceLocation DICTIONARY_OF_SPIRITS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "dictionary_of_spirits");
 
     public GuideBookItem(Properties properties) {
         super(properties);

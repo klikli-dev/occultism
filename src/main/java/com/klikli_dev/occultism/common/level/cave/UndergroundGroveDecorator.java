@@ -37,7 +37,7 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 
 public class UndergroundGroveDecorator extends CaveDecorator {
 
-    public static final ResourceLocation OTHERWORLD_TREE_NATURAL = new ResourceLocation(Occultism.MODID, "otherworld_tree_natural");
+    public static final ResourceLocation OTHERWORLD_TREE_NATURAL = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "otherworld_tree_natural");
 
     public UndergroundGroveDecorator() {
         super(Blocks.GRASS_BLOCK.defaultBlockState(), null, OccultismBlocks.OTHERSTONE_NATURAL.get().defaultBlockState());

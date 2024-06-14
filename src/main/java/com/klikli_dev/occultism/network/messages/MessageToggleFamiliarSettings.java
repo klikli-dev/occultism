@@ -42,7 +42,7 @@ import java.util.Map.Entry;
 
 public class MessageToggleFamiliarSettings implements IMessage {
 
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "toggle_familiar_settings");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "toggle_familiar_settings");
     public static final Type<MessageToggleFamiliarSettings> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageToggleFamiliarSettings> STREAM_CODEC = CustomPacketPayload.codec(MessageToggleFamiliarSettings::encode, MessageToggleFamiliarSettings::new);
 

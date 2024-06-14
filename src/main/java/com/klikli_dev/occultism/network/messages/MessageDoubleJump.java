@@ -35,7 +35,7 @@ import net.minecraft.server.level.ServerPlayer;
 
 public class MessageDoubleJump implements IMessage {
 
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "double_jump");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "double_jump");
     public static final Type<MessageDoubleJump> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageDoubleJump> STREAM_CODEC = CustomPacketPayload.codec(MessageDoubleJump::encode, MessageDoubleJump::new);
 

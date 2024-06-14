@@ -2882,7 +2882,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addPentacle(String id, String name) {
-        this.add(Util.makeDescriptionId("multiblock", new ResourceLocation(Occultism.MODID, id)), name);
+        this.add(Util.makeDescriptionId("multiblock", ResourceLocation.fromNamespaceAndPath(Occultism.MODID, id)), name);
     }
 
     private void addRitualDummies() {

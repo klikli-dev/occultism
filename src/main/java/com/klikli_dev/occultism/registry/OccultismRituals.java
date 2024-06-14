@@ -34,7 +34,7 @@ import java.util.function.Supplier;
 
 public class OccultismRituals {
 
-    public static final ResourceKey<Registry<RitualFactory>> RITUAL_FACTORIES_KEY = ResourceKey.createRegistryKey(new ResourceLocation(Occultism.MODID, "ritual_factories"));
+    public static final ResourceKey<Registry<RitualFactory>> RITUAL_FACTORIES_KEY = ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_factories"));
 
     public static final DeferredRegister<RitualFactory> RITUAL_FACTORIES = DeferredRegister.create(RITUAL_FACTORIES_KEY, Occultism.MODID);
 

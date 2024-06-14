@@ -37,7 +37,7 @@ import net.minecraft.world.entity.player.Inventory;
 public class DimensionalMineshaftScreen extends AbstractContainerScreen<DimensionalMineshaftContainer> {
 
     public static final ResourceLocation TEXTURE =
-            new ResourceLocation(Occultism.MODID, "textures/gui/otherworld_miner.png");
+            ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/otherworld_miner.png");
 
     public DimensionalMineshaftBlockEntity otherworldMiner;
 

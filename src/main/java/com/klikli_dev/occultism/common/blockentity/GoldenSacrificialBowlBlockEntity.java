@@ -626,7 +626,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
         super.loadNetwork(compound, provider);
         if (compound.contains("currentRitual")) {
-            this.currentRitualRecipeId = new ResourceLocation(compound.getString("currentRitual"));
+            this.currentRitualRecipeId = ResourceLocation.parse(compound.getString("currentRitual"));
         }
 
         if (compound.contains("castingPlayerId")) {

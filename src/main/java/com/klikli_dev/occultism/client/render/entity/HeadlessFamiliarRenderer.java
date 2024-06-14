@@ -245,13 +245,13 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
             if (textures == null) {
                 ImmutableMap.Builder<EntityType<?>, ResourceLocation> builder = new ImmutableMap.Builder<>();
                 builder.put(EntityType.PLAYER, DefaultPlayerSkin.getDefaultTexture());
-                builder.put(EntityType.SKELETON, new ResourceLocation("textures/entity/skeleton/skeleton.png"));
-                builder.put(EntityType.WITHER_SKELETON, new ResourceLocation("textures/entity/skeleton/wither_skeleton.png"));
-                builder.put(EntityType.ZOMBIE, new ResourceLocation("textures/entity/zombie/zombie.png"));
-                builder.put(EntityType.CREEPER, new ResourceLocation("textures/entity/creeper/creeper.png"));
-                builder.put(EntityType.SPIDER, new ResourceLocation("textures/entity/spider/spider.png"));
+                builder.put(EntityType.SKELETON, ResourceLocation.parse("textures/entity/skeleton/skeleton.png"));
+                builder.put(EntityType.WITHER_SKELETON, ResourceLocation.parse("textures/entity/skeleton/wither_skeleton.png"));
+                builder.put(EntityType.ZOMBIE, ResourceLocation.parse("textures/entity/zombie/zombie.png"));
+                builder.put(EntityType.CREEPER, ResourceLocation.parse("textures/entity/creeper/creeper.png"));
+                builder.put(EntityType.SPIDER, ResourceLocation.parse("textures/entity/spider/spider.png"));
                 builder.put(OccultismEntities.CTHULHU_FAMILIAR.get(),
-                        new ResourceLocation(Occultism.MODID, "textures/entity/cthulhu_familiar.png"));
+                        ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/entity/cthulhu_familiar.png"));
                 textures = builder.build();
             }
             return textures.get(type);

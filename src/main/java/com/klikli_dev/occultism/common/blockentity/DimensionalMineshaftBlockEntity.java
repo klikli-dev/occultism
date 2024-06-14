@@ -58,7 +58,7 @@ import java.util.stream.Collectors;
 
 public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implements MenuProvider {
 
-    public static final ResourceLocation EVILCRAFT_UNUSING_ENCHANTEMENT = new ResourceLocation("evilcraft:unusing");
+    public static final ResourceLocation EVILCRAFT_UNUSING_ENCHANTEMENT = ResourceLocation.parse("evilcraft:unusing");
     public static final String MAX_MINING_TIME_TAG = "maxMiningTime";
     public static final int DEFAULT_MAX_MINING_TIME = 400;
     public static int DEFAULT_ROLLS_PER_OPERATION = 1;

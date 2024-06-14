@@ -48,81 +48,81 @@ public class OccultismEntities {
             Lazy.of(() -> EntityType.Builder.of(FoliotEntity::new, MobCategory.CREATURE)
                     .sized(0.6f, 1.2f)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "foliot").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "foliot").toString()));
     public static final Lazy<EntityType<DjinniEntity>> DJINNI_TYPE =
             Lazy.of(() -> EntityType.Builder.of(DjinniEntity::new, MobCategory.CREATURE)
                     .sized(0.6f, 1.2f)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "djinni").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "djinni").toString()));
     public static final Lazy<EntityType<AfritEntity>> AFRIT_TYPE =
             Lazy.of(() -> EntityType.Builder.of((EntityType<AfritEntity> t, Level l) -> new AfritEntity(t, l), MobCategory.CREATURE)
                     .fireImmune()
                     .sized(1.2f, 2.4f)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "afrit").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "afrit").toString()));
     public static final Lazy<EntityType<AfritWildEntity>> AFRIT_WILD_TYPE =
             Lazy.of(() -> EntityType.Builder.of((EntityType<AfritWildEntity> t, Level l) -> new AfritWildEntity(t, l), MobCategory.CREATURE)
                     .fireImmune()
                     .sized(1.2f, 2.4f)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "afrit_wild").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "afrit_wild").toString()));
     public static final Lazy<EntityType<MaridEntity>> MARID_TYPE =
             Lazy.of(() -> EntityType.Builder.of(MaridEntity::new, MobCategory.CREATURE)
                     .sized(1.2f, 2.4f)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "marid").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "marid").toString()));
 
     public static final Lazy<EntityType<PossessedEndermiteEntity>> POSSESSED_ENDERMITE_TYPE =
             Lazy.of(() -> EntityType.Builder.of(PossessedEndermiteEntity::new, MobCategory.MONSTER)
                     .sized(0.4F, 0.3F)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "possessed_endermite").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_endermite").toString()));
     public static final Lazy<EntityType<PossessedSkeletonEntity>> POSSESSED_SKELETON_TYPE =
             Lazy.of(() -> EntityType.Builder.of(PossessedSkeletonEntity::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "possessed_skeleton").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_skeleton").toString()));
     public static final Lazy<EntityType<PossessedEndermanEntity>> POSSESSED_ENDERMAN_TYPE =
             Lazy.of(() -> EntityType.Builder.of(PossessedEndermanEntity::new, MobCategory.MONSTER)
                     .sized(0.6F, 2.9F)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "possessed_enderman").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_enderman").toString()));
     public static final Lazy<EntityType<PossessedGhastEntity>> POSSESSED_GHAST_TYPE =
             Lazy.of(() -> EntityType.Builder.of(PossessedGhastEntity::new, MobCategory.MONSTER)
                     .fireImmune()
                     .sized(4.0F, 4.0F)
                     .clientTrackingRange(10)
-                    .build(new ResourceLocation(Occultism.MODID, "possessed_ghast").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_ghast").toString()));
     public static final Lazy<EntityType<PossessedPhantomEntity>> POSSESSED_PHANTOM_TYPE =
             Lazy.of(() -> EntityType.Builder.of(PossessedPhantomEntity::new, MobCategory.MONSTER)
                     .fireImmune()
                     .sized(0.9F, 0.5F)
                     .clientTrackingRange(16)
-                    .build(new ResourceLocation(Occultism.MODID, "possessed_phantom").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_phantom").toString()));
     public static final Lazy<EntityType<PossessedWeakShulkerEntity>> POSSESSED_WEAK_SHULKER_TYPE =
             Lazy.of(() -> EntityType.Builder.of(PossessedWeakShulkerEntity::new, MobCategory.MONSTER)
                     .fireImmune()
                     .sized(1F, 1F)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "possessed_weak_shulker").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_weak_shulker").toString()));
     public static final Lazy<EntityType<PossessedShulkerEntity>> POSSESSED_SHULKER_TYPE =
             Lazy.of(() -> EntityType.Builder.of(PossessedShulkerEntity::new, MobCategory.MONSTER)
                     .fireImmune()
                     .sized(1F, 1F)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "possessed_shulker").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_shulker").toString()));
     public static final Lazy<EntityType<PossessedElderGuardianEntity>> POSSESSED_ELDER_GUARDIAN_TYPE =
             Lazy.of(() -> EntityType.Builder.of(PossessedElderGuardianEntity::new, MobCategory.MONSTER)
                     .fireImmune()
                     .sized(2F, 2F)
                     .clientTrackingRange(24)
-                    .build(new ResourceLocation(Occultism.MODID, "possessed_elder_guardian").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_elder_guardian").toString()));
     public static final Lazy<EntityType<PossessedWardenEntity>> POSSESSED_WARDEN_TYPE =
             Lazy.of(() -> EntityType.Builder.of(PossessedWardenEntity::new, MobCategory.MONSTER)
                     .sized(1.8F, 5.8F)
                     .fireImmune()
                     .clientTrackingRange(48)
-                    .build(new ResourceLocation(Occultism.MODID,"possessed_warden").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_warden").toString()));
 
     public static final Lazy<EntityType<PossessedHoglinEntity>> POSSESSED_HOGLIN_TYPE =
             Lazy.of(() -> EntityType.Builder.of(PossessedHoglinEntity::new, MobCategory.MONSTER)
@@ -130,124 +130,124 @@ public class OccultismEntities {
 
                     .fireImmune()
                     .clientTrackingRange(24)
-                    .build(new ResourceLocation(Occultism.MODID, "possessed_hoglin").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_hoglin").toString()));
     public static final Lazy<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON_TYPE =
             Lazy.of(() -> EntityType.Builder.of(WildHuntSkeletonEntity::new, MobCategory.MONSTER)
                     .sized(0.6F, 2.9F)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "wild_hunt_skeleton").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_hunt_skeleton").toString()));
     public static final Lazy<EntityType<WildHuntWitherSkeletonEntity>> WILD_HUNT_WITHER_SKELETON_TYPE =
             Lazy.of(() -> EntityType.Builder.of(WildHuntWitherSkeletonEntity::new, MobCategory.MONSTER)
                     .sized(0.6F, 2.9F)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "wild_hunt_wither_skeleton").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_hunt_wither_skeleton").toString()));
     public static final Lazy<EntityType<OtherworldBirdEntity>> OTHERWORLD_BIRD_TYPE =
             Lazy.of(() -> EntityType.Builder.of(OtherworldBirdEntity::new, MobCategory.CREATURE)
                     .sized(0.5F, 0.9F)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "otherworld_bird").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "otherworld_bird").toString()));
     public static final Lazy<EntityType<GreedyFamiliarEntity>> GREEDY_FAMILIAR_TYPE =
             Lazy.of(() -> EntityType.Builder.of(GreedyFamiliarEntity::new, MobCategory.CREATURE)
                     .sized(0.5F, 0.9F)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "greedy_familiar").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "greedy_familiar").toString()));
     public static final Lazy<EntityType<BatFamiliarEntity>> BAT_FAMILIAR_TYPE =
             Lazy.of(() -> EntityType.Builder.of(BatFamiliarEntity::new, MobCategory.CREATURE)
                     .sized(0.5F, 0.9F)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "bat_familiar").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "bat_familiar").toString()));
     public static final Lazy<EntityType<DeerFamiliarEntity>> DEER_FAMILIAR_TYPE =
             Lazy.of(() -> EntityType.Builder.of(DeerFamiliarEntity::new, MobCategory.CREATURE)
                     .sized(0.6F, 1.0F)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "deer_familiar").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "deer_familiar").toString()));
 
     public static final Lazy<EntityType<CthulhuFamiliarEntity>> CTHULHU_FAMILIAR_TYPE =
             Lazy.of(() -> EntityType.Builder.of(CthulhuFamiliarEntity::new, MobCategory.CREATURE)
                     .sized(0.6F, 1.0F)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "cthulhu_familiar").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "cthulhu_familiar").toString()));
 
     public static final Lazy<EntityType<DevilFamiliarEntity>> DEVIL_FAMILIAR_TYPE =
             Lazy.of(() -> EntityType.Builder.of(DevilFamiliarEntity::new, MobCategory.CREATURE)
                     .sized(0.8F, 1.8F)
                     .fireImmune()
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "devil_familiar").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "devil_familiar").toString()));
     public static final Lazy<EntityType<DragonFamiliarEntity>> DRAGON_FAMILIAR_TYPE =
             Lazy.of(() -> EntityType.Builder.of(DragonFamiliarEntity::new, MobCategory.CREATURE)
                     .sized(1F, 0.8F)
                     .clientTrackingRange(8)
                     .fireImmune()
-                    .build(new ResourceLocation(Occultism.MODID, "dragon_familiar").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "dragon_familiar").toString()));
     public static final Lazy<EntityType<BlacksmithFamiliarEntity>> BLACKSMITH_FAMILIAR_TYPE =
             Lazy.of(() -> EntityType.Builder.of(BlacksmithFamiliarEntity::new, MobCategory.CREATURE)
                     .sized(0.65F, 1F)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "blacksmith_familiar").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "blacksmith_familiar").toString()));
     public static final Lazy<EntityType<GuardianFamiliarEntity>> GUARDIAN_FAMILIAR_TYPE =
             Lazy.of(() -> EntityType.Builder.of(GuardianFamiliarEntity::new, MobCategory.CREATURE)
                     .sized(0.8F, 1.5F)
                     .clientTrackingRange(8)
                     .fireImmune()
-                    .build(new ResourceLocation(Occultism.MODID, "guardian_familiar").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "guardian_familiar").toString()));
 
     public static final Lazy<EntityType<HeadlessFamiliarEntity>> HEADLESS_FAMILIAR_TYPE =
             Lazy.of(() -> EntityType.Builder.of(HeadlessFamiliarEntity::new, MobCategory.CREATURE)
                     .sized(0.7F, 1.1F)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "headless_familiar").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "headless_familiar").toString()));
 
     public static final Lazy<EntityType<ChimeraFamiliarEntity>> CHIMERA_FAMILIAR_TYPE =
             Lazy.of(() -> EntityType.Builder.of(ChimeraFamiliarEntity::new, MobCategory.CREATURE)
                     .sized(0.85F, 1.05F)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "chimera_familiar").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "chimera_familiar").toString()));
     public static final Lazy<EntityType<GoatFamiliarEntity>> GOAT_FAMILIAR_TYPE =
             Lazy.of(() -> EntityType.Builder.<GoatFamiliarEntity>of(GoatFamiliarEntity::new, MobCategory.CREATURE)
                     .sized(0.7F, 0.8F)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "goat_familiar").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "goat_familiar").toString()));
     public static final Lazy<EntityType<ShubNiggurathFamiliarEntity>> SHUB_NIGGURATH_FAMILIAR_TYPE =
             Lazy.of(() -> EntityType.Builder.<ShubNiggurathFamiliarEntity>of(ShubNiggurathFamiliarEntity::new, MobCategory.CREATURE)
                     .sized(0.7F, 0.8F)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "shub_niggurath_familiar").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "shub_niggurath_familiar").toString()));
     public static final Lazy<EntityType<BeholderFamiliarEntity>> BEHOLDER_FAMILIAR_TYPE =
             Lazy.of(() -> EntityType.Builder.of(BeholderFamiliarEntity::new, MobCategory.CREATURE)
                     .sized(1.6F, 1.5F)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "beholder_familiar").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "beholder_familiar").toString()));
 
     public static final Lazy<EntityType<FairyFamiliarEntity>> FAIRY_FAMILIAR_TYPE =
             Lazy.of(() -> EntityType.Builder.of(FairyFamiliarEntity::new, MobCategory.CREATURE)
                     .sized(0.6F, 1F)
                     .clientTrackingRange(8)
                     .fireImmune()
-                    .build(new ResourceLocation(Occultism.MODID, "fairy_familiar").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "fairy_familiar").toString()));
 
     public static final Lazy<EntityType<MummyFamiliarEntity>> MUMMY_FAMILIAR_TYPE =
             Lazy.of(() -> EntityType.Builder.of(MummyFamiliarEntity::new, MobCategory.CREATURE)
                     .sized(0.6F, 1.2F)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "mummy_familiar").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "mummy_familiar").toString()));
 
     public static final Lazy<EntityType<BeaverFamiliarEntity>> BEAVER_FAMILIAR_TYPE =
             Lazy.of(() -> EntityType.Builder.of(BeaverFamiliarEntity::new, MobCategory.CREATURE)
                     .sized(0.7F, 0.6F)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "beaver_familiar").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "beaver_familiar").toString()));
 
     public static final Lazy<EntityType<ThrownSwordEntity>> THROWN_SWORD_TYPE =
             Lazy.of(() -> EntityType.Builder.of(ThrownSwordEntity::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "thrown_sword").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "thrown_sword").toString()));
     public static final Lazy<EntityType<ShubNiggurathSpawnEntity>> SHUB_NIGGURATH_SPAWN_TYPE =
             Lazy.of(() -> EntityType.Builder.<ShubNiggurathSpawnEntity>of(ShubNiggurathSpawnEntity::new, MobCategory.CREATURE)
                     .sized(0.6F, 0.6F)
                     .clientTrackingRange(8)
-                    .build(new ResourceLocation(Occultism.MODID, "shub_niggurath_spawn").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "shub_niggurath_spawn").toString()));
 
     public static final Supplier<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
     public static final Supplier<EntityType<DjinniEntity>> DJINNI = ENTITIES.register("djinni", DJINNI_TYPE::get);

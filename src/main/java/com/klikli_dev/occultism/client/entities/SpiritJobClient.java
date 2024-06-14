@@ -20,7 +20,7 @@ public class SpiritJobClient {
     }
 
     public static SpiritJobClient create(String modelId) {
-        return create(new ResourceLocation(Occultism.MODID,modelId));
+        return create(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, modelId));
     }
 
     public static SpiritJobClient create() {

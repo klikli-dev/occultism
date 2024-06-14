@@ -39,7 +39,7 @@ import net.minecraft.world.level.Level;
 
 public class MessageOpenStorageRemote implements IMessage {
 
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "open_storage_remote");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "open_storage_remote");
     public static final Type<MessageOpenStorageRemote> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageOpenStorageRemote> STREAM_CODEC = CustomPacketPayload.codec(MessageOpenStorageRemote::encode, MessageOpenStorageRemote::new);
 

@@ -64,7 +64,7 @@ public class JeiPlugin implements IModPlugin {
 
     @Override
     public ResourceLocation getPluginUid() {
-        return new ResourceLocation(Occultism.MODID, "jei");
+        return ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "jei");
     }
 
     @Override
@@ -124,13 +124,13 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()),
                 JeiRecipeTypes.RITUAL);
 
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_marid_crusher"))),
+        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_marid_crusher"))),
                 JeiRecipeTypes.CRUSHING);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_afrit_crusher"))),
+        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_afrit_crusher"))),
                 JeiRecipeTypes.CRUSHING);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_djinni_crusher"))),
+        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_djinni_crusher"))),
                 JeiRecipeTypes.CRUSHING);
-        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_foliot_crusher"))),
+        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_foliot_crusher"))),
                 JeiRecipeTypes.CRUSHING);
     }
 

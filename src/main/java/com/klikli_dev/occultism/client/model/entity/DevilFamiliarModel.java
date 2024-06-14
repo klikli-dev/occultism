@@ -42,7 +42,7 @@ import software.bernie.geckolib.model.GeoModel;
 public class DevilFamiliarModel extends DefaultedGeoModel<DevilFamiliarEntity> {
 
     public DevilFamiliarModel() {
-        super(new ResourceLocation(Occultism.MODID, "familiar_devil"));
+        super(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "familiar_devil"));
     }
 
     @Override

@@ -77,7 +77,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     public static final int ORDER_AREA_OFFSET = 48;
     protected static final ResourceLocation BACKGROUND = new ResourceLocation(Occultism.MODID,
             "textures/gui/storage_controller_droparea.png");
-    protected static final ResourceLocation BUTTONS = new ResourceLocation(Occultism.MODID, "textures/gui/buttons.png");
+    protected static final ResourceLocation BUTTONS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/buttons.png");
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".storage_controller";
     public int lastStacksCount;
     public List<ItemStack> stacks;

@@ -34,10 +34,10 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
 
 
     private void addCuriosTags(HolderLookup.Provider provider) {
-        this.tag(OccultismTags.makeItemTag(new ResourceLocation(CuriosApi.MODID, "belt"))).add(OccultismItems.SATCHEL.get()).replace(false);
-        this.tag(OccultismTags.makeItemTag(new ResourceLocation(CuriosApi.MODID, "hands"))).add(OccultismItems.STORAGE_REMOTE.get()).replace(false);
-        this.tag(OccultismTags.makeItemTag(new ResourceLocation(CuriosApi.MODID, "head"))).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
-        this.tag(OccultismTags.makeItemTag(new ResourceLocation(CuriosApi.MODID, "ring"))).add(OccultismItems.FAMILIAR_RING.get()).replace(false);
+        this.tag(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath(CuriosApi.MODID, "belt"))).add(OccultismItems.SATCHEL.get()).replace(false);
+        this.tag(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath(CuriosApi.MODID, "hands"))).add(OccultismItems.STORAGE_REMOTE.get()).replace(false);
+        this.tag(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath(CuriosApi.MODID, "head"))).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
+        this.tag(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath(CuriosApi.MODID, "ring"))).add(OccultismItems.FAMILIAR_RING.get()).replace(false);
     }
 
     private void addOccultismTags(HolderLookup.Provider provider) {
@@ -58,7 +58,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 OccultismItems.MINER_DEBUG_UNSPECIALIZED.get(), OccultismItems.MINER_AFRIT_DEEPS.get(), OccultismItems.MINER_MARID_MASTER.get(), OccultismItems.MINER_DJINNI_ORES.get()).replace(false);
         this.copy(OccultismTags.Blocks.OTHERWORLD_SAPLINGS, OccultismTags.Items.OTHERWORLD_SAPLINGS);
         this.tag(OccultismTags.Items.TOOL_KNIVES).add(OccultismItems.BUTCHER_KNIFE.get()).replace(false);
-        this.tag(OccultismTags.Items.ELYTRA).add(Items.ELYTRA).addOptional(new ResourceLocation("mana-and-artifice", "spectral_elytra")).replace(false);
+        this.tag(OccultismTags.Items.ELYTRA).add(Items.ELYTRA).addOptional(ResourceLocation.fromNamespaceAndPath("mana-and-artifice", "spectral_elytra")).replace(false);
         this.tag(OccultismTags.Items.OTHERWORLD_GOGGLES).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
     }
 

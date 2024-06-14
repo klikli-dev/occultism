@@ -46,7 +46,7 @@ import net.neoforged.neoforge.items.wrapper.PlayerMainInvWrapper;
  */
 public class MessageSetRecipeByID implements IMessage {
 
-    public static final ResourceLocation ID = new ResourceLocation("occultism", "set_recipe_by_id");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath("occultism", "set_recipe_by_id");
     public static final Type<MessageSetRecipeByID> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetRecipeByID> STREAM_CODEC = CustomPacketPayload.codec(MessageSetRecipeByID::encode, MessageSetRecipeByID::new);
     private ResourceLocation id;

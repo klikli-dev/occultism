@@ -21,6 +21,6 @@ public class OccultismRegistries {
     }
 
     public static final class Keys {
-        public static final ResourceKey<Registry<RecipeResultType<?>>> RECIPE_RESULT_TYPES = ResourceKey.createRegistryKey(new ResourceLocation(Occultism.MODID, "recipe_result_type"));
+        public static final ResourceKey<Registry<RecipeResultType<?>>> RECIPE_RESULT_TYPES = ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "recipe_result_type"));
     }
 }

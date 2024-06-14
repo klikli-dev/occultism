@@ -49,7 +49,7 @@ import java.util.zip.Inflater;
  */
 public class MessageUpdateStacks implements IMessage {
 
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "update_stacks");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "update_stacks");
     public static final Type<MessageUpdateStacks> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageUpdateStacks> STREAM_CODEC = CustomPacketPayload.codec(MessageUpdateStacks::encode, MessageUpdateStacks::new);
 

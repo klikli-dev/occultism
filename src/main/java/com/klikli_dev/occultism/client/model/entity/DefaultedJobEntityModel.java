@@ -49,10 +49,10 @@ public abstract class DefaultedJobEntityModel<T extends SpiritEntity & GeoAnimat
         );
     }
     public ModelData buildModelData(ResourceLocation location, String separator) {
-        return this.buildModelData(new ResourceLocation(location.getNamespace(), entity_subpath + separator + location.getPath()));
+        return this.buildModelData(ResourceLocation.fromNamespaceAndPath(location.getNamespace(), entity_subpath + separator + location.getPath()));
     }
     public ModelData buildModelData(String job, String separator) {
-        return this.buildModelData(new ResourceLocation(Occultism.MODID, job),separator);
+        return this.buildModelData(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, job),separator);
     }
 
     public record ModelData(ResourceLocation model, ResourceLocation texture, ResourceLocation animation) {

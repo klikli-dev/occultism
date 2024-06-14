@@ -39,7 +39,7 @@ import net.neoforged.api.distmarker.OnlyIn;
  */
 public class MessageUpdateMouseHeldItem implements IMessage {
 
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "update_mouse_held_item");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "update_mouse_held_item");
     public static final Type<MessageUpdateMouseHeldItem> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageUpdateMouseHeldItem> STREAM_CODEC = CustomPacketPayload.codec(MessageUpdateMouseHeldItem::encode, MessageUpdateMouseHeldItem::new);
 
