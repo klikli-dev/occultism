@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.132.3] - 2024-06-16
+### :sparkles: New Features
+- [`7f2d617`](https://github.com/klikli-dev/occultism/commit/7f2d61747789f132786f3e26e7556551b7b46f70) - move remaining loot tables to datagen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`153bb7b`](https://github.com/klikli-dev/occultism/commit/153bb7b0491d58be77ed325b523bf1e262237d2b) - run datagen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.132.2] - 2024-06-16
 ### :wrench: Chores
 - [`1c7d2a6`](https://github.com/klikli-dev/occultism/commit/1c7d2a6b11880457692dc8ef25e696607142a314) - update github action *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1158,3 +1166,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.6-1.132.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.6-1.131.1...release/v1.20.6-1.132.0
 [release/v1.20.6-1.131.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.6-1.132.0...release/v1.20.6-1.131.2
 [release/v1.21-1.132.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.132.1...release/v1.21-1.132.2
+[release/v1.21-1.132.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.132.2...release/v1.21-1.132.3
