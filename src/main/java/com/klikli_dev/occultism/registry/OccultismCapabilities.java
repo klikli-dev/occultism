@@ -23,24 +23,23 @@
 package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
-import com.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
 import net.minecraft.core.Direction;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import top.theillusivec4.curios.api.CuriosCapability;
 
 public class OccultismCapabilities {
 
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
 
-        event.registerItem(
-                CuriosCapability.ITEM, // capability to register for
-                (itemStack, context) -> {
-                    return new FamiliarRingItem.Curio(itemStack);
-                },
-            // items to register for
-            OccultismItems.FAMILIAR_RING.get()
-        );
+        //TODO: Re-enable once curios is available again
+//        event.registerItem(
+//                CuriosCapability.ITEM, // capability to register for
+//                (itemStack, context) -> {
+//                    return new FamiliarRingItem.Curio(itemStack);
+//                },
+//            // items to register for
+//            OccultismItems.FAMILIAR_RING.get()
+//        );
 
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
