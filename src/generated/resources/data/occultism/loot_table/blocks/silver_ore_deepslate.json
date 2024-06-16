@@ -16,7 +16,7 @@
                     "predicates": {
                       "minecraft:enchantments": [
                         {
-                          "enchantment": "minecraft:silk_touch",
+                          "enchantments": "minecraft:silk_touch",
                           "levels": {
                             "min": 1
                           }
@@ -26,7 +26,7 @@
                   }
                 }
               ],
-              "name": "occultism:iesnium_ore"
+              "name": "occultism:silver_ore_deepslate"
             },
             {
               "type": "minecraft:item",
@@ -40,7 +40,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "occultism:raw_iesnium"
+              "name": "occultism:raw_silver"
             }
           ]
         }
@@ -48,5 +48,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "occultism:blocks/iesnium_ore"
+  "random_sequence": "occultism:blocks/silver_ore_deepslate"
 }

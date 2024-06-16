@@ -8,6 +8,8 @@
     "type": "modonomicon:entry_read",
     "entry_id": "occultism:getting_started/intro"
   },
+  "description": "",
+  "display_mode": "node",
   "entry_textures": "modonomicon:textures/gui/entry_textures.png",
   "icon": {
     "height": 16,

@@ -4,6 +4,8 @@
   "background_parallax_layers": [],
   "background_texture_zoom_multiplier": 1.0,
   "background_width": 512,
+  "description": "",
+  "display_mode": "node",
   "entry_textures": "modonomicon:textures/gui/entry_textures.png",
   "icon": {
     "item": "occultism:dictionary_of_spirits_icon"

@@ -11,8 +11,8 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
+                "max": 2.0,
+                "min": 0.0
               },
               "function": "minecraft:set_count"
             },
@@ -22,10 +22,11 @@
                 "max": 1.0,
                 "min": 0.0
               },
-              "function": "minecraft:looting_enchant"
+              "enchantment": "minecraft:looting",
+              "function": "minecraft:enchanted_count_increase"
             }
           ],
-          "name": "minecraft:ender_pearl"
+          "name": "minecraft:arrow"
         }
       ],
       "rolls": 1.0
@@ -40,17 +41,26 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": 0.1
+                "max": 2.0,
+                "min": 0.0
               },
               "function": "minecraft:set_count"
+            },
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 1.0,
+                "min": 0.0
+              },
+              "enchantment": "minecraft:looting",
+              "function": "minecraft:enchanted_count_increase"
             }
           ],
-          "name": "minecraft:eye_armor_trim_smithing_template"
+          "name": "minecraft:bone"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "occultism:entities/possessed_enderman"
+  "random_sequence": "occultism:entities/wild_hunt_skeleton"
 }
