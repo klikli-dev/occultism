@@ -84,7 +84,7 @@ public class BeholderFamiliarRenderer extends MobRenderer<BeholderFamiliarEntity
             BeholderFamiliarModel model = this.getParentModel();
             VertexConsumer ivertexbuilder = pBuffer.getBuffer(RenderType.entityCutout(SLEEP));
             model.renderToBuffer(pMatrixStack, ivertexbuilder, pPackedLight,
-                    LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0), 1, 1, 1, 1);
+                    LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0));
         }
     }
 }

@@ -77,7 +77,7 @@ public class ShubNiggurathSpawnRenderer extends MobRenderer<ShubNiggurathSpawnEn
                 this.blinkEyes(pLivingEntity);
 
                 this.model.renderToBuffer(pMatrixStack, ivertexbuilder, pPackedLight,
-                        LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0), 1, 1, 1, 1);
+                        LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0));
             }
         }
 

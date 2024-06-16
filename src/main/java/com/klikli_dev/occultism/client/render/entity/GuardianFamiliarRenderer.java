@@ -44,6 +44,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.joml.Quaternionf;
+import software.bernie.geckolib.util.Color;
 
 public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity, GuardianFamiliarModel> {
 
@@ -92,9 +93,11 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
                 this.model.setupAnim(pLivingEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
                 VertexConsumer ivertexbuilder = pBuffer.getBuffer(RenderType.entityTranslucent(OVERLAY));
                 this.model.renderToBuffer(ppMatrixStackStack, ivertexbuilder, pPackedLight,
-                        LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0.0F), pLivingEntity.getRed(),
+                        LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0.0F),
+                        Color.ofRGBA(
+                        pLivingEntity.getRed(),
                         pLivingEntity.getGreen(), pLivingEntity.getBlue(),
-                        (Mth.cos(pAgeInTicks / 20) + 1) * 0.3f + 0.4f);
+                        (Mth.cos(pAgeInTicks / 20) + 1) * 0.3f + 0.4f).getColor());
             }
         }
     }

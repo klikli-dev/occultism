@@ -91,7 +91,7 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
                     .getBuffer(RenderType.entityTranslucent(FamiliarUtil.isChristmas() ? CHRISTMAS : CHEST));
             GreedyFamiliarModel model = this.getParentModel();
             model.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn,
-                    LivingEntityRenderer.getOverlayCoords(entitylivingbaseIn, 0), 1, 1, 1, 1);
+                    LivingEntityRenderer.getOverlayCoords(entitylivingbaseIn, 0));
         }
     }
 

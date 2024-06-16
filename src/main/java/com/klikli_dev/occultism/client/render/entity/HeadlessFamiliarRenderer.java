@@ -228,7 +228,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
             model.pumpkin3.visible = !isChristmas;
             model.pumpkin4.visible = !isChristmas;
             model.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn,
-                    LivingEntityRenderer.getOverlayCoords(entitylivingbaseIn, 0), 1, 1, 1, 1);
+                    LivingEntityRenderer.getOverlayCoords(entitylivingbaseIn, 0));
         }
     }
 
@@ -301,7 +301,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
             if (texture != null) {
                 VertexConsumer builder = pBuffer.getBuffer(RenderType.entityCutoutNoCull(texture));
-                head.renderToBuffer(pMatrixStack, builder, pPackedLight, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+                head.renderToBuffer(pMatrixStack, builder, pPackedLight, OverlayTexture.NO_OVERLAY);
             }
 
             pMatrixStack.popPose();
@@ -318,7 +318,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
         }
 
         @Override
-        public void renderToBuffer(PoseStack pMatrixStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
+        public void renderToBuffer(PoseStack pMatrixStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
             this.model.trunk1.visible = false;
             this.model.trunk2.visible = false;
             this.model.trunk3.visible = false;

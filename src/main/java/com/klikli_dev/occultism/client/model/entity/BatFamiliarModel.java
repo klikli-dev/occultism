@@ -191,7 +191,7 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
                           float netHeadYaw, float headPitch) {
         this.showModels(pEntity);
 
-        float partialTicks = Minecraft.getInstance().getFrameTime();
+        float partialTicks = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
 
         this.body1.yRot = 0;
         this.body1.zRot = 0;

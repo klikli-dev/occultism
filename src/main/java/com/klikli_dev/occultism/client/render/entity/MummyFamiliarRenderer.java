@@ -49,6 +49,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
+import software.bernie.geckolib.util.Color;
 
 public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, MummyFamiliarModel> {
 
@@ -85,7 +86,7 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
             MummyFamiliarModel model = this.getParentModel();
             VertexConsumer ivertexbuilder = pBuffer.getBuffer(RenderType.entityCutout(EYES));
             model.renderToBuffer(pMatrixStack, ivertexbuilder, LightTexture.pack(light, light),
-                    LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0), 1, 1, 1, 1);
+                    LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0));
         }
 
     }
@@ -121,7 +122,8 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
             Vec3 capowPos = pLivingEntity.getCapowPosition(pPartialTicks);
             pMatrixStack.translate(capowPos.x, -0.4 + capowPos.y, capowPos.z);
             model.renderToBuffer(pMatrixStack, pBuffer.getBuffer(model.renderType(KAPOW_TEXTURE)), pPackedLight,
-                    OverlayTexture.NO_OVERLAY, 1, 1, 1, alpha);
+                    OverlayTexture.NO_OVERLAY,
+                    Color.ofRGBA(1, 1, 1, alpha).getColor());
 
             pMatrixStack.pushPose();
             pMatrixStack.scale(0.07f, 0.07f, 0.07f);
@@ -168,8 +170,8 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
         }
 
         @Override
-        public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
-            this.kapow.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pRed, pGreen, pBlue, pAlpha);
+        public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
+            this.kapow.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
         }
     }
 }

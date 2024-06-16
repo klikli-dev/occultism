@@ -80,7 +80,7 @@ public class DeerFamiliarRenderer extends MobRenderer<DeerFamiliarEntity, DeerFa
 
             DeerFamiliarModel model = this.getParentModel();
             VertexConsumer ivertexbuilder = pBuffer.getBuffer(RenderType.entityCutout(RED_NOSE));
-            model.renderToBuffer(pMatrixStack, ivertexbuilder, pPackedLight, LivingEntityRenderer.getOverlayCoords(deer, 0), 1, 1, 1, 1);
+            model.renderToBuffer(pMatrixStack, ivertexbuilder, pPackedLight, LivingEntityRenderer.getOverlayCoords(deer, 0));
         }
     }
 }
