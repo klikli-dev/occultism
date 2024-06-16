@@ -75,7 +75,7 @@ import java.util.stream.Collectors;
 public abstract class StorageControllerGuiBase<T extends StorageControllerContainerBase> extends AbstractContainerScreen<T> implements IStorageControllerGui, IStorageControllerGuiContainer, ContainerListener {
 
     public static final int ORDER_AREA_OFFSET = 48;
-    protected static final ResourceLocation BACKGROUND = new ResourceLocation(Occultism.MODID,
+    protected static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/gui/storage_controller_droparea.png");
     protected static final ResourceLocation BUTTONS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/buttons.png");
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".storage_controller";

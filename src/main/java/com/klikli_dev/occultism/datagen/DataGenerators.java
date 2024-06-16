@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.datagen;
 
+import com.klikli_dev.modonomicon.api.datagen.BookProvider;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.datagen.lang.ENUSProvider;
 import com.klikli_dev.occultism.datagen.loot.OccultismBlockLoot;
@@ -40,10 +41,8 @@ import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.data.AdvancementProvider;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
-import net.neoforged.neoforge.common.data.internal.NeoForgeLootTableProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.List;
@@ -80,7 +79,9 @@ public class DataGenerators {
         generator.addProvider(event.includeClient(), new OccultismLootModifiers(generator.getPackOutput(), event.getLookupProvider()));
 
         var enUSProvider = new ENUSProvider(generator.getPackOutput());
-        generator.addProvider(event.includeServer(), new OccultismBookProvider(generator.getPackOutput(), event.getLookupProvider(), Occultism.MODID, enUSProvider));
+        generator.addProvider(event.includeServer(), new BookProvider(generator.getPackOutput(), event.getLookupProvider(), Occultism.MODID, List.of(
+                new OccultismBookProvider(enUSProvider)
+        )));
 
         //Important: Lang provider (in this case enus) needs to be added after the book provider to process the texts added by the book provider
         generator.addProvider(event.includeClient(), enUSProvider);

@@ -46,7 +46,7 @@ import java.util.Optional;
 
 public class SpiritTransporterGui extends SpiritGui<SpiritTransporterContainer> {
 
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Occultism.MODID,
+    protected static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/gui/inventory_spirit_transporter_tagfilter.png");
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit.transporter";
     protected final List<Component> tooltip = new ArrayList<>();

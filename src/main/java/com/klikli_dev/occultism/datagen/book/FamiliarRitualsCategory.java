@@ -1,14 +1,14 @@
 package com.klikli_dev.occultism.datagen.book;
 
-import com.klikli_dev.modonomicon.api.datagen.BookProvider;
 import com.klikli_dev.modonomicon.api.datagen.CategoryEntryMap;
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
-import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryParentModel;
+import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookTrueConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookEntityPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.occultism.datagen.OccultismBookProvider;
 import com.klikli_dev.occultism.datagen.book.familiarrituals.DemonicPartnerEntry;
 import com.klikli_dev.occultism.datagen.book.familiarrituals.ResurrectionEntry;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
@@ -17,8 +17,8 @@ public class FamiliarRitualsCategory extends CategoryProvider {
 
     public static final String CATEGORY_ID = "familiar_rituals";
 
-    public FamiliarRitualsCategory(BookProvider parent) {
-        super(parent, CATEGORY_ID);
+    public FamiliarRitualsCategory(OccultismBookProvider parent) {
+        super(parent);
     }
 
     @Override
@@ -107,12 +107,18 @@ public class FamiliarRitualsCategory extends CategoryProvider {
     }
 
     @Override
-    protected BookCategoryModel generateCategory() {
-        this.add(this.context().categoryName(), "Familiar Rituals");
+    protected String categoryName() {
+        return "Familiar Rituals";
+    }
 
-        return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
-                .withIcon(this.modLoc("textures/gui/book/parrot.png"))
-                .withShowCategoryButton(true);
+    @Override
+    protected BookIconModel categoryIcon() {
+        return BookIconModel.create(this.modLoc("textures/gui/book/parrot.png"));
+    }
+
+    @Override
+    public String categoryId() {
+        return CATEGORY_ID;
     }
 
     private BookEntryModel makeFamiliarsRitualsOverviewEntry(CategoryEntryMap entryMap, char icon) {

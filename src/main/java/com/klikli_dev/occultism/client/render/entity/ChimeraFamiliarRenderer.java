@@ -34,7 +34,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class ChimeraFamiliarRenderer extends MobRenderer<ChimeraFamiliarEntity, ChimeraFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
+    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/chimera_familiar.png");
 
     public ChimeraFamiliarRenderer(EntityRendererProvider.Context context) {

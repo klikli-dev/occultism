@@ -41,7 +41,7 @@ import net.neoforged.neoforge.client.event.RenderLivingEvent;
 
 public class DragonFamiliarRenderer extends MobRenderer<DragonFamiliarEntity, DragonFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
+    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/dragon_familiar.png");
 
     public DragonFamiliarRenderer(EntityRendererProvider.Context context) {

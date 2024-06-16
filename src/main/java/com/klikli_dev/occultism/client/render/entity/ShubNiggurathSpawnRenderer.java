@@ -40,7 +40,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class ShubNiggurathSpawnRenderer extends MobRenderer<ShubNiggurathSpawnEntity, ShubNiggurathSpawnModel> {
 
-    private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
+    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/shub_niggurath_spawn.png");
 
     public ShubNiggurathSpawnRenderer(EntityRendererProvider.Context context) {
@@ -55,7 +55,7 @@ public class ShubNiggurathSpawnRenderer extends MobRenderer<ShubNiggurathSpawnEn
 
     private static class BlinkingEyesLayer extends RenderLayer<ShubNiggurathSpawnEntity, ShubNiggurathSpawnModel> {
 
-        private static final ResourceLocation BLINKING = new ResourceLocation(Occultism.MODID,
+        private static final ResourceLocation BLINKING = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/shub_niggurath_spawn_blinking.png");
 
         private final ShubNiggurathSpawnModel model;

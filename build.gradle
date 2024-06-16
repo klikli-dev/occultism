@@ -18,7 +18,9 @@ sourceSets {
     main {
         java {
             exclude '**/AlmostUnifiedIntegrationImpl.java'
+            exclude '**/emi/**/*.java'
             exclude '**/jei/impl/**/*.java'
+            exclude 'com/klikli_dev/occultism/common/item/tool/FamiliarRingItem.java'
         }
     }
 }
@@ -135,10 +137,10 @@ dependencies {
 //    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}"
 
     //geckolib
-//    implementation "software.bernie.geckolib:geckolib-neoforge-${geckolib_minecraft_version}:${geckolib_version}"
+    implementation "software.bernie.geckolib:geckolib-neoforge-${geckolib_minecraft_version}:${geckolib_version}"
 
     //smartbrainlib
-//    implementation "net.tslat.smartbrainlib:SmartBrainLib-neoforge-${smartbrainlib_minecraft_version}:${smartbrainlib_version}"
+    implementation "net.tslat.smartbrainlib:SmartBrainLib-neoforge-${smartbrainlib_minecraft_version}:${smartbrainlib_version}"
 
     //TODO: enable once available
     //almostunified
@@ -148,8 +150,8 @@ dependencies {
     implementation "com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}"
 
     //theurgy
-//    compileOnly "com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}"
-//    runtimeOnly "com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}"
+    compileOnly "com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}"
+    runtimeOnly "com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}"
 
     // emi
 //    compileOnly "dev.emi:emi-neoforge:${emi_version}:api"

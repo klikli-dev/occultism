@@ -39,7 +39,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class DeerFamiliarRenderer extends MobRenderer<DeerFamiliarEntity, DeerFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
+    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/deer_familiar.png");
 
     public DeerFamiliarRenderer(EntityRendererProvider.Context context) {
@@ -66,7 +66,7 @@ public class DeerFamiliarRenderer extends MobRenderer<DeerFamiliarEntity, DeerFa
 
     private static class RedNoseLayer extends RenderLayer<DeerFamiliarEntity, DeerFamiliarModel> {
 
-        private static final ResourceLocation RED_NOSE = new ResourceLocation(Occultism.MODID,
+        private static final ResourceLocation RED_NOSE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/deer_familiar_red_nose.png");
 
         public RedNoseLayer(RenderLayerParent<DeerFamiliarEntity, DeerFamiliarModel> parent) {

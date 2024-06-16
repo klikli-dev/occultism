@@ -28,11 +28,6 @@ import com.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.CuriosCapability;
-import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
-import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
-import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
 public class CuriosUtil {
     public static boolean hasGoggles(Player player) {
@@ -40,55 +35,58 @@ public class CuriosUtil {
         if (OtherworldGogglesItem.isGogglesItem(helmet))
             return true;
 
-        var curiosHandler = player.getCapability(CuriosCapability.INVENTORY);
-        if (curiosHandler == null)
-            return false;
-
-        var slotsHandler = curiosHandler.getCurios().values();
-        return slotsHandler.stream().map(ICurioStacksHandler::getStacks).anyMatch(
-                stackHandler -> {
-                    for (int i = 0; i < stackHandler.getSlots(); i++) {
-                        ItemStack stack = stackHandler.getStackInSlot(i);
-                        if (OtherworldGogglesItem.isGogglesItem(stack)) {
-                            return true;
-
-                        }
-                    }
-                    return false;
-                }
-        );
+        return false;
+        //TODO: Enable once curios is available again
+//        var curiosHandler = player.getCapability(CuriosCapability.INVENTORY);
+//        if (curiosHandler == null)
+//            return false;
+//
+//        var slotsHandler = curiosHandler.getCurios().values();
+//        return slotsHandler.stream().map(ICurioStacksHandler::getStacks).anyMatch(
+//                stackHandler -> {
+//                    for (int i = 0; i < stackHandler.getSlots(); i++) {
+//                        ItemStack stack = stackHandler.getStackInSlot(i);
+//                        if (OtherworldGogglesItem.isGogglesItem(stack)) {
+//                            return true;
+//
+//                        }
+//                    }
+//                    return false;
+//                }
+//        );
     }
 
     public static ItemStack getBackpack(Player player) {
-        var curiosHandler = player.getCapability(CuriosCapability.INVENTORY);
-        if (curiosHandler == null)
-            return ItemStack.EMPTY;
-
-       for (var curio : curiosHandler.getCurios().keySet()) {
-            var stack = getSatchelItemFromSlot(curiosHandler, curio);
-            if (!stack.isEmpty()) {
-                return stack;
-            }
-        }
         return ItemStack.EMPTY;
+//        var curiosHandler = player.getCapability(CuriosCapability.INVENTORY);
+//        if (curiosHandler == null)
+//            return ItemStack.EMPTY;
+//
+//       for (var curio : curiosHandler.getCurios().keySet()) {
+//            var stack = getSatchelItemFromSlot(curiosHandler, curio);
+//            if (!stack.isEmpty()) {
+//                return stack;
+//            }
+//        }
+//        return ItemStack.EMPTY;
     }
 
-    protected static ItemStack getSatchelItemFromSlot(ICuriosItemHandler curiosHandler, String identifier) {
-        ICurioStacksHandler slotHandler = curiosHandler.getStacksHandler(identifier).orElse(null);
-        if (slotHandler == null) {
-            return ItemStack.EMPTY;
-        }
-
-        IDynamicStackHandler stackHandler = slotHandler.getStacks();
-        for (int i = 0; i < stackHandler.getSlots(); i++) {
-            ItemStack stack = stackHandler.getStackInSlot(i);
-            if (stack.getItem() instanceof SatchelItem) {
-                return stack;
-            }
-        }
-
-        return ItemStack.EMPTY;
-    }
+//    protected static ItemStack getSatchelItemFromSlot(ICuriosItemHandler curiosHandler, String identifier) {
+//        ICurioStacksHandler slotHandler = curiosHandler.getStacksHandler(identifier).orElse(null);
+//        if (slotHandler == null) {
+//            return ItemStack.EMPTY;
+//        }
+//
+//        IDynamicStackHandler stackHandler = slotHandler.getStacks();
+//        for (int i = 0; i < stackHandler.getSlots(); i++) {
+//            ItemStack stack = stackHandler.getStackInSlot(i);
+//            if (stack.getItem() instanceof SatchelItem) {
+//                return stack;
+//            }
+//        }
+//
+//        return ItemStack.EMPTY;
+//    }
 
 
     public static SelectedCurio getStorageRemote(Player player) {
@@ -115,23 +113,23 @@ public class CuriosUtil {
     }
 
     public static ItemStack getStorageRemoteCurio(Player player) {
-
-        ICuriosItemHandler curiosHandler = player.getCapability(CuriosCapability.INVENTORY);
-        ItemStack hasStorageRemote = ItemStack.EMPTY;
-        for (ICurioStacksHandler curiosStackshandler : curiosHandler.getCurios().values()) {
-            IDynamicStackHandler stackHandler = curiosStackshandler.getStacks();
-            for (int i = 0; i < stackHandler.getSlots(); i++) {
-                ItemStack stack = stackHandler.getStackInSlot(i);
-                if (stack.getItem() instanceof StorageRemoteItem) {
-                    hasStorageRemote = stack;
-                    break;
-                }
-            }
-            if (!hasStorageRemote.isEmpty()) {
-                break;
-            }
-        }
-        return hasStorageRemote;
+        return ItemStack.EMPTY;
+//        ICuriosItemHandler curiosHandler = player.getCapability(CuriosCapability.INVENTORY);
+//        ItemStack hasStorageRemote = ItemStack.EMPTY;
+//        for (ICurioStacksHandler curiosStackshandler : curiosHandler.getCurios().values()) {
+//            IDynamicStackHandler stackHandler = curiosStackshandler.getStacks();
+//            for (int i = 0; i < stackHandler.getSlots(); i++) {
+//                ItemStack stack = stackHandler.getStackInSlot(i);
+//                if (stack.getItem() instanceof StorageRemoteItem) {
+//                    hasStorageRemote = stack;
+//                    break;
+//                }
+//            }
+//            if (!hasStorageRemote.isEmpty()) {
+//                break;
+//            }
+//        }
+//        return hasStorageRemote;
     }
 
     public static int getFirstBackpackSlot(Player player) {

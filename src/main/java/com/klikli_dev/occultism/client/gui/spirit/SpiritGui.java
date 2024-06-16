@@ -47,7 +47,7 @@ import org.apache.commons.lang3.text.WordUtils;
 
 public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScreen<T> {
 
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Occultism.MODID,
+    protected static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/gui/inventory_spirit.png");
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".spirit";
     protected SpiritEntity spirit;

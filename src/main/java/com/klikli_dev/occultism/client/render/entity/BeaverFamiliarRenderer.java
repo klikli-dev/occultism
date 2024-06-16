@@ -32,7 +32,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class BeaverFamiliarRenderer extends MobRenderer<BeaverFamiliarEntity, BeaverFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
+    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/beaver_familiar.png");
 
     public BeaverFamiliarRenderer(EntityRendererProvider.Context context) {

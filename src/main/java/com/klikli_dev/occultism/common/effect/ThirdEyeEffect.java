@@ -35,7 +35,7 @@ import java.util.function.Consumer;
 
 public class ThirdEyeEffect extends MobEffect {
 
-    public static final ResourceLocation ICON = new ResourceLocation(Occultism.MODID,
+    public static final ResourceLocation ICON = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/mob_effect/third_eye.png");
 
     public static final IClientMobEffectExtensions EFFECT_RENDERER = new IClientMobEffectExtensions() {

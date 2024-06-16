@@ -52,7 +52,7 @@ import org.joml.Quaternionf;
 
 public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, MummyFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
+    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/mummy_familiar.png");
 
     public MummyFamiliarRenderer(EntityRendererProvider.Context context) {
@@ -68,7 +68,7 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
 
     private static class EyesLayer extends RenderLayer<MummyFamiliarEntity, MummyFamiliarModel> {
 
-        private static final ResourceLocation EYES = new ResourceLocation(Occultism.MODID,
+        private static final ResourceLocation EYES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/mummy_familiar_eyes.png");
 
         public EyesLayer(RenderLayerParent<MummyFamiliarEntity, MummyFamiliarModel> parent) {
@@ -92,7 +92,7 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
 
     private static class KapowLayer extends RenderLayer<MummyFamiliarEntity, MummyFamiliarModel> {
 
-        private static final ResourceLocation KAPOW_TEXTURE = new ResourceLocation(Occultism.MODID,
+        private static final ResourceLocation KAPOW_TEXTURE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/kapow.png");
         private static final Component KAPOW_TEXT = Component.translatable(
                 "dialog.occultism.mummy.kapow");

@@ -47,7 +47,7 @@ import org.joml.Quaternionf;
 
 public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity, GuardianFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
+    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/guardian_familiar.png");
 
     public GuardianFamiliarRenderer(EntityRendererProvider.Context context) {
@@ -74,7 +74,7 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
     }
 
     private static class GuardianFamiliarOverlay extends RenderLayer<GuardianFamiliarEntity, GuardianFamiliarModel> {
-        private static final ResourceLocation OVERLAY = new ResourceLocation(Occultism.MODID,
+        private static final ResourceLocation OVERLAY = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/guardian_familiar_overlay.png");
 
         private final GuardianFamiliarModel model;
@@ -147,9 +147,9 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
     }
 
     private static class GuardianFamiliarTree extends RenderLayer<GuardianFamiliarEntity, GuardianFamiliarModel> {
-        private static final ResourceLocation TREE = new ResourceLocation(Occultism.MODID,
+        private static final ResourceLocation TREE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/guardian_familiar_tree.png");
-        private static final ResourceLocation CHRISTMAS = new ResourceLocation(Occultism.MODID,
+        private static final ResourceLocation CHRISTMAS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/guardian_familiar_christmas.png");
 
         public GuardianFamiliarTree(RenderLayerParent<GuardianFamiliarEntity, GuardianFamiliarModel> renderer) {

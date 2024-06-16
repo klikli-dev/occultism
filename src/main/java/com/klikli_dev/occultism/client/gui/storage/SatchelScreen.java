@@ -32,7 +32,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class SatchelScreen extends AbstractContainerScreen<SatchelContainer> {
-    protected static final ResourceLocation BACKGROUND = new ResourceLocation(Occultism.MODID,
+    protected static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/gui/inventory_satchel.png");
 
     public SatchelScreen(SatchelContainer screenContainer, Inventory inv,

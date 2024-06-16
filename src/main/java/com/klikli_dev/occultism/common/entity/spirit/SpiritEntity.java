@@ -499,18 +499,6 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     @Override
-    public boolean doHurtTarget(Entity entityIn) {
-        //copied from wolf
-        boolean flag = entityIn.hurt(this.damageSources().mobAttack(this),
-                (float) ((int) this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
-        if (flag) {
-            this.doEnchantDamageEffects(this, entityIn);
-        }
-
-        return flag;
-    }
-
-    @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         this.registerSkinDataParameter(builder);

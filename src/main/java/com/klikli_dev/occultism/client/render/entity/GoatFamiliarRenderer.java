@@ -39,7 +39,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class GoatFamiliarRenderer extends MobRenderer<GoatFamiliarEntity, GoatFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
+    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/goat_familiar.png");
 
     public GoatFamiliarRenderer(EntityRendererProvider.Context context) {

@@ -61,7 +61,7 @@ import java.util.Map;
 
 public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(Occultism.MODID,
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/headless_familiar.png");
 
     public HeadlessFamiliarRenderer(EntityRendererProvider.Context context) {
@@ -194,9 +194,9 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
     }
 
     private static class PumpkinLayer extends RenderLayer<HeadlessFamiliarEntity, HeadlessFamiliarModel> {
-        private static final ResourceLocation PUMPKIN = new ResourceLocation(Occultism.MODID,
+        private static final ResourceLocation PUMPKIN = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/headless_familiar_pumpkin.png");
-        private static final ResourceLocation CHRISTMAS = new ResourceLocation(Occultism.MODID,
+        private static final ResourceLocation CHRISTMAS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/headless_familiar_christmas.png");
 
         public PumpkinLayer(RenderLayerParent<HeadlessFamiliarEntity, HeadlessFamiliarModel> renderer) {

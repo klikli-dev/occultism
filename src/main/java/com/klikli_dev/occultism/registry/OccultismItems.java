@@ -192,6 +192,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> SATCHEL = ITEMS.register("satchel",
             () -> new SatchelItem(defaultProperties().stacksTo(1).rarity(Rarity.RARE).component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)));
 
+    //TODO: Re-enable familiar ring once we have curios
     public static final DeferredItem<Item> FAMILIAR_RING = ITEMS.register("familiar_ring",
             () -> new FamiliarRingItem(defaultProperties().stacksTo(1)));
 

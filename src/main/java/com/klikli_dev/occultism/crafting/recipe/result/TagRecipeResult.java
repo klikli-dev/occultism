@@ -5,7 +5,7 @@
 package com.klikli_dev.occultism.crafting.recipe.result;
 
 import com.klikli_dev.occultism.registry.OccultismRecipeResults;
-import com.klikli_dev.theurgy.util.TagUtil;
+import com.klikli_dev.occultism.util.TagUtil;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

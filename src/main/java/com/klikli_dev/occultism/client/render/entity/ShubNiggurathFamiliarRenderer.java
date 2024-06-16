@@ -35,7 +35,7 @@ import net.minecraft.resources.ResourceLocation;
 public class ShubNiggurathFamiliarRenderer
         extends MobRenderer<ShubNiggurathFamiliarEntity, ShubNiggurathFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
+    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/shub_niggurath_familiar.png");
 
     public ShubNiggurathFamiliarRenderer(EntityRendererProvider.Context context) {

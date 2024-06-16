@@ -30,6 +30,7 @@ import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -39,14 +40,12 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.JukeboxBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import java.util.List;
 
@@ -103,7 +102,7 @@ public class PlayerEventHandler {
     private static void dancingFamiliars(PlayerInteractEvent.RightClickBlock event) {
         BlockState state = event.getLevel().getBlockState(event.getPos());
         if (!state.hasProperty(JukeboxBlock.HAS_RECORD) || state.getValue(JukeboxBlock.HAS_RECORD)
-                || !(event.getItemStack().getItem() instanceof RecordItem))
+                || !(event.getItemStack().has(DataComponents.JUKEBOX_PLAYABLE)))
             return;
         if (event.getLevel()
                 .getEntitiesOfClass(Entity.class, new AABB(event.getPos()).inflate(3),

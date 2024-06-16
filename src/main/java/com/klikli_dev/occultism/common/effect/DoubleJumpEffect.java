@@ -38,7 +38,7 @@ import java.util.function.Consumer;
 
 public class DoubleJumpEffect extends MobEffect {
 
-    public static final ResourceLocation ICON = new ResourceLocation(Occultism.MODID,
+    public static final ResourceLocation ICON = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/mob_effect/double_jump.png");
 
     public static final IClientMobEffectExtensions EFFECT_RENDERER = new IClientMobEffectExtensions() {
