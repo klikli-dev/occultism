@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.132.0] - 2024-06-16
+### :sparkles: New Features
+- [`43712b1`](https://github.com/klikli-dev/occultism/commit/43712b1cedf5ff95915fa8aafb1ed4483204255f) - add books to chiseled bookshelf *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.131.2] - 2024-06-11
 ### :bug: Bug Fixes
 - [`0f6ef25`](https://github.com/klikli-dev/occultism/commit/0f6ef25d0959089869bf9473074ebb468d1a996e) - ritual interrupts right after stop *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1126,3 +1131,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.131.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.130.0...release/v1.20.1-1.131.0
 [release/v1.20.1-1.131.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.131.0...release/v1.20.1-1.131.1
 [release/v1.20.1-1.131.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.131.1...release/v1.20.1-1.131.2
+[release/v1.20.1-1.132.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.131.2...release/v1.20.1-1.132.0
