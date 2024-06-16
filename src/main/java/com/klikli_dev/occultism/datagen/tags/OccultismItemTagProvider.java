@@ -63,12 +63,27 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
     }
 
     private void addMinecraftTags(HolderLookup.Provider provider) {
-        this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(OccultismItems.INFUSED_PICKAXE.get(), OccultismItems.IESNIUM_PICKAXE.get()).replace(false);
-        this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
-        this.copy(BlockTags.LOGS, ItemTags.LOGS);
-        this.copy(BlockTags.PIGLIN_REPELLENTS, ItemTags.PIGLIN_REPELLENTS);
-        this.copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
-        this.tag(ItemTags.PICKAXES).add(OccultismItems.INFUSED_PICKAXE.get(), OccultismItems.IESNIUM_PICKAXE.get()).replace(false);
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.DICTIONARY_OF_SPIRITS.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_AFRIT.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_DJINNI.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_FOLIOT.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_MARID.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_EMPTY.get());
+
+        this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(OccultismItems.INFUSED_PICKAXE.get(),OccultismItems.IESNIUM_PICKAXE.get()).replace(false);
+        this.copy(BlockTags.LEAVES,ItemTags.LEAVES);
+        this.copy(BlockTags.LOGS,ItemTags.LOGS);
+        this.copy(BlockTags.PIGLIN_REPELLENTS,ItemTags.PIGLIN_REPELLENTS);
+        this.copy(BlockTags.SAPLINGS,ItemTags.SAPLINGS);
+        this.tag(ItemTags.PICKAXES).add(OccultismItems.INFUSED_PICKAXE.get(),OccultismItems.IESNIUM_PICKAXE.get()).replace(false);
         this.tag(ItemTags.SWORDS).add(OccultismItems.BUTCHER_KNIFE.get()).replace(false);
 
         this.tag(ItemTags.BOOKSHELF_BOOKS)
