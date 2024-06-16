@@ -18,6 +18,7 @@ import net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFu
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithEnchantedBonusCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -40,6 +41,10 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
 
     @Override
     public void generate() {
+        this.add(OccultismEntities.POSSESSED_SHULKER.get(), this.shulkerLootTable());
+        this.add(OccultismEntities.POSSESSED_WARDEN.get(), this.wardenLootTable());
+        this.add(OccultismEntities.POSSESSED_WEAK_SHULKER.get(), this.weakShulkerTable());
+        this.add(OccultismEntities.POSSESSED_GHAST_TYPE.get(), this.ghastLootTable());
         this.add(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE.get(), this.elderGuardianLootTable());
         this.add(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(),
                 LootTable.lootTable().withPool(
@@ -202,6 +207,117 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                         LootItem.lootTableItem(Items.HEART_OF_THE_SEA)
                                                 .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.registries, 0.4F, 0.1F))
                                 )
+                );
+    }
+
+    public LootTable.Builder ghastLootTable(){
+        return LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(
+                                        LootItem.lootTableItem(Items.GHAST_TEAR)
+                                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))
+                                                )
+                                )
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(
+                                        LootItem.lootTableItem(Items.GUNPOWDER)
+                                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))
+                                                )
+                                )
+                );
+
+    }
+
+    public LootTable.Builder hoglinLootTable(){
+        return LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(EmptyLootItem.emptyItem().setWeight(3))
+                                .add(LootItem.lootTableItem(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE).setWeight(2))
+                                .add(LootItem.lootTableItem(Items.SNOUT_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.NETHERITE_SCRAP).setWeight(3)
+                                )
+                );
+    }
+
+    public LootTable.Builder shulkerLootTable(){
+        return LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(
+                                        LootItem.lootTableItem(Items.SHULKER_SHELL)
+                                )
+                                .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.registries, 0.25F, 0.1F))
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(
+                                        LootItem.lootTableItem(Items.SHULKER_SHELL)
+                                )
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(
+                                        LootItem.lootTableItem(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE)
+                                )
+                                .when(LootItemRandomChanceCondition.randomChance(0.1F))
+                );
+    }
+
+    public LootTable.Builder wardenLootTable(){
+        return LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(
+                                        LootItem.lootTableItem(Items.ECHO_SHARD)
+                                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F))
+                                                )
+                                )
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(EmptyLootItem.emptyItem().setWeight(8))
+                                .add(LootItem.lootTableItem(Items.SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE))
+                                .add(LootItem.lootTableItem(Items.WARD_ARMOR_TRIM_SMITHING_TEMPLATE))
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(EmptyLootItem.emptyItem().setWeight(10))
+                                .add(LootItem.lootTableItem(Items.DISC_FRAGMENT_5).setWeight(9))
+                                .add(LootItem.lootTableItem(Items.MUSIC_DISC_OTHERSIDE))
+                );
+    }
+
+    public LootTable.Builder weakShulkerTable(){
+        return LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F)
+                                )
+                                .add(
+                                        LootItem.lootTableItem(Items.SHULKER_SHELL)
+                                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 1.0F))
+                                                )
+                                                .when(LootItemRandomChanceCondition.randomChance(0.1F))
+                                )
+                                .add(
+                                        LootItem.lootTableItem(Items.CHORUS_FRUIT)
+                                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))
+                                                )
+                                )
+                                .when(LootItemRandomChanceCondition.randomChance(0.1F))
                 );
     }
 }
