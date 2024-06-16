@@ -8,6 +8,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,7 +21,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
-        this.addForgeTags();
+        this.addCommonTags();
         this.addOccultismTags(pProvider);
         this.addPerViamInvenireTags(pProvider);
     }
@@ -95,7 +96,8 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
 
     }
 
-    private void addForgeTags() {
+    private void addCommonTags() {
+        this.tag(Tags.EntityTypes.CAPTURING_NOT_SUPPORTED).addTag(OccultismTags.Entities.SOUL_GEM_DENY_LIST);
         this.tag(OccultismTags.Entities.SNOW_GOLEM).add(EntityType.SNOW_GOLEM).replace(false);
         this.tag(OccultismTags.Entities.AXOLOTL).add(EntityType.AXOLOTL).replace(false);
         this.tag(OccultismTags.Entities.BATS).add(EntityType.BAT).replace(false);
