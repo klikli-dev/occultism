@@ -73,7 +73,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         if: ${{ steps.get_release_type.outputs.result != 'test' }}
         with:
-          branch: version/1.20.6
+          branch: version/1.21
           commit_message: 'docs: update CHANGELOG.md for ${{ github.ref_name }} [skip ci]'
           file_pattern: CHANGELOG.md
       - name: Upload to Mod Platforms
@@ -108,6 +108,7 @@ jobs:
           # curios(required)
             theurgy(optional)
             jei(optional)
+            emi(optional)
             almost-unified(optional)
             perviaminvenire(optional)
       # Publish at the end because it creates a non reobfed jarjar which otherwise would be distributed
