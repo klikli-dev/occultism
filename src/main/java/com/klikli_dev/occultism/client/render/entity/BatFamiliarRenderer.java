@@ -34,7 +34,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class BatFamiliarRenderer extends MobRenderer<BatFamiliarEntity, BatFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
+    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/bat_familiar.png");
 
     public BatFamiliarRenderer(EntityRendererProvider.Context context) {

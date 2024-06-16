@@ -173,19 +173,17 @@ public class BeholderFamiliarModel extends EntityModel<BeholderFamiliarEntity> {
         return LayerDefinition.create(mesh, 64, 64);
     }
 
-
     @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
-        this.head.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pRed, pGreen, pBlue, pAlpha);
+    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
+        this.head.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
     }
-
 
     @Override
     public void setupAnim(BeholderFamiliarEntity pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks,
                           float pNetHeadYaw, float pHeadPitch) {
         this.showModels(pEntity);
 
-        float partialTicks = Minecraft.getInstance().getFrameTime();
+        float partialTicks = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
 
         this.setRotateAngle(this.head, 0, 0, 0);
 

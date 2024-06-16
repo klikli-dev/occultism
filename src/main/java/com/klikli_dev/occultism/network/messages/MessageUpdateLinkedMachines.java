@@ -45,7 +45,7 @@ import java.util.Map;
  */
 public class MessageUpdateLinkedMachines implements IMessage {
 
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "update_linked_machines");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "update_linked_machines");
     public static final Type<MessageUpdateLinkedMachines> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageUpdateLinkedMachines> STREAM_CODEC = CustomPacketPayload.codec(MessageUpdateLinkedMachines::encode, MessageUpdateLinkedMachines::new);
 

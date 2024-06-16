@@ -68,7 +68,7 @@ public class SpiritFireRecipeCategory implements EmiRecipe {
         widgetHolder.addTexture(EmiTexture.EMPTY_ARROW,20+27,16);
 
         //widgetHolder.addTexture(new EmiTexture(OccultismEmiPlugin.EMI_WIDGETS,0,0,16,16), 26, 16);
-        //widgetHolder.addAnimatedTexture(new ResourceLocation(Occultism.MODID, "textures/block/spirit_fire_0.png"), 0, 0, 16, 16, 0, 0,20,false,true,true);
+        //widgetHolder.addAnimatedTexture(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/block/spirit_fire_0.png"), 0, 0, 16, 16, 0, 0,20,false,true,true);
         widgetHolder.addSlot(EmiIngredient.of(Ingredient.of(OccultismItems.SPIRIT_FIRE.get())), 24, 16);
         // Adds an input slot on the left
         widgetHolder.addSlot(input.get(0), 0, 0);

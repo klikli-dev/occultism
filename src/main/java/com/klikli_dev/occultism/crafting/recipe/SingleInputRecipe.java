@@ -24,29 +24,30 @@ package com.klikli_dev.occultism.crafting.recipe;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 
-public abstract class ItemStackFakeInventoryRecipe implements Recipe<ItemStackFakeInventory> {
+public abstract class SingleInputRecipe<T extends RecipeInput> implements Recipe<T> {
 
     protected final Ingredient input;
     protected final ItemStack output;
 
-    public ItemStackFakeInventoryRecipe(Ingredient input, ItemStack output) {
+    public SingleInputRecipe(Ingredient input, ItemStack output) {
         this.input = input;
         this.output = output;
     }
 
     @Override
-    public boolean matches(ItemStackFakeInventory inv, Level level) {
+    public boolean matches(T inv, Level level) {
         return this.input.test(inv.getItem(0));
     }
 
     @Override
-    public ItemStack assemble(ItemStackFakeInventory pCraftingContainer, HolderLookup.Provider pRegistries) {
+    public ItemStack assemble(T pCraftingContainer, HolderLookup.Provider pRegistries) {
         return this.getResultItem(pRegistries).copy();
     }
 

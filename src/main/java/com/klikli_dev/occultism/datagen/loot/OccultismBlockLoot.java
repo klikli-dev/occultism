@@ -11,10 +11,12 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -45,12 +47,12 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
     protected static final float[] DEFAULT_SAPLING_DROP_RATES = new float[]{0.05F, 0.0625F, 0.083333336F, 0.1F};
     protected static final float[] INCREASED_SAPLING_DROP_RATES = new float[]{0.1F, 0.2F, 0.3F, 0.4F};
 
-    public OccultismBlockLoot() {
-        super(Set.of(), FeatureFlags.REGISTRY.allFlags());
+    public OccultismBlockLoot(HolderLookup.Provider pRegistries) {
+        super(Set.of(), FeatureFlags.REGISTRY.allFlags(), pRegistries);
     }
 
     @Override
-    public void generate(HolderLookup.Provider pRegistries, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> pGenerator) {
+    public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> pGenerator) {
         this.generate();
         this.map.forEach(pGenerator::accept);
     }
@@ -147,6 +149,7 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
     protected LootTable.Builder createOtherworldLeavesDrops(Block leavesBlock, Block coveredSapling,
                                                             Block uncoveredSapling,
                                                             float... chances) {
+        HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
         LootItemCondition.Builder uncoveredCondition =
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(leavesBlock).setProperties(
                         StatePropertiesPredicate.Builder.properties()
@@ -158,12 +161,13 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
 
         return createSilkTouchOrShearsDispatchTable(leavesBlock,
                 this.applyExplosionCondition(leavesBlock, saplingLootItem)
-                        .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, chances)))
+                        .when(BonusLevelTableCondition.bonusLevelFlatChance(registrylookup.getOrThrow(Enchantments.FORTUNE), chances)))
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-                        .when(HAS_NO_SHEARS_OR_SILK_TOUCH)
+                        .when(
+                                this.doesNotHaveShearsOrSilkTouch())
                         .add(this.applyExplosionDecay(leavesBlock, LootItem.lootTableItem(Items.STICK)
                                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
-                                .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, 0.02F, 0.022222223F, 0.025F, 0.033333335F, 0.1F))));
+                                .when(BonusLevelTableCondition.bonusLevelFlatChance(registrylookup.getOrThrow(Enchantments.FORTUNE), 0.02F, 0.022222223F, 0.025F, 0.033333335F, 0.1F))));
     }
 
     public void registerDropNothingLootTable(Block block) {
@@ -201,5 +205,13 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
             builder.include(include);
         }
         return builder;
+    }
+
+    private LootItemCondition.Builder hasShearsOrSilkTouch() {
+        return HAS_SHEARS.or(this.hasSilkTouch());
+    }
+
+    private LootItemCondition.Builder doesNotHaveShearsOrSilkTouch() {
+        return this.hasShearsOrSilkTouch().invert();
     }
 }

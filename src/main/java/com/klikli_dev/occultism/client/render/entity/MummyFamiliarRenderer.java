@@ -49,10 +49,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
+import software.bernie.geckolib.util.Color;
 
 public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, MummyFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
+    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/mummy_familiar.png");
 
     public MummyFamiliarRenderer(EntityRendererProvider.Context context) {
@@ -68,7 +69,7 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
 
     private static class EyesLayer extends RenderLayer<MummyFamiliarEntity, MummyFamiliarModel> {
 
-        private static final ResourceLocation EYES = new ResourceLocation(Occultism.MODID,
+        private static final ResourceLocation EYES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/mummy_familiar_eyes.png");
 
         public EyesLayer(RenderLayerParent<MummyFamiliarEntity, MummyFamiliarModel> parent) {
@@ -85,14 +86,14 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
             MummyFamiliarModel model = this.getParentModel();
             VertexConsumer ivertexbuilder = pBuffer.getBuffer(RenderType.entityCutout(EYES));
             model.renderToBuffer(pMatrixStack, ivertexbuilder, LightTexture.pack(light, light),
-                    LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0), 1, 1, 1, 1);
+                    LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0));
         }
 
     }
 
     private static class KapowLayer extends RenderLayer<MummyFamiliarEntity, MummyFamiliarModel> {
 
-        private static final ResourceLocation KAPOW_TEXTURE = new ResourceLocation(Occultism.MODID,
+        private static final ResourceLocation KAPOW_TEXTURE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/kapow.png");
         private static final Component KAPOW_TEXT = Component.translatable(
                 "dialog.occultism.mummy.kapow");
@@ -121,7 +122,8 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
             Vec3 capowPos = pLivingEntity.getCapowPosition(pPartialTicks);
             pMatrixStack.translate(capowPos.x, -0.4 + capowPos.y, capowPos.z);
             model.renderToBuffer(pMatrixStack, pBuffer.getBuffer(model.renderType(KAPOW_TEXTURE)), pPackedLight,
-                    OverlayTexture.NO_OVERLAY, 1, 1, 1, alpha);
+                    OverlayTexture.NO_OVERLAY,
+                    Color.ofRGBA(1, 1, 1, alpha).getColor());
 
             pMatrixStack.pushPose();
             pMatrixStack.scale(0.07f, 0.07f, 0.07f);
@@ -168,8 +170,8 @@ public class MummyFamiliarRenderer extends MobRenderer<MummyFamiliarEntity, Mumm
         }
 
         @Override
-        public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
-            this.kapow.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pRed, pGreen, pBlue, pAlpha);
+        public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
+            this.kapow.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
         }
     }
 }

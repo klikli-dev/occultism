@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.crafting.recipe;
 
+import com.klikli_dev.occultism.crafting.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.occultism.crafting.recipe.result.WeightedRecipeResult;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.mojang.serialization.MapCodec;
@@ -31,14 +32,11 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
-public class MinerRecipe implements Recipe<RecipeWrapper> {
+public class MinerRecipe implements Recipe<ItemHandlerRecipeInput> {
 
     public static final MapCodec<MinerRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Ingredient.CODEC
@@ -73,7 +71,7 @@ public class MinerRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public boolean matches(RecipeWrapper inv, Level level) {
+    public boolean matches(ItemHandlerRecipeInput inv, Level level) {
         return this.input.test(inv.getItem(0));
     }
 
@@ -84,7 +82,7 @@ public class MinerRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public ItemStack assemble(RecipeWrapper pCraftingContainer, HolderLookup.Provider pRegistries) {
+    public ItemStack assemble(ItemHandlerRecipeInput pCraftingContainer, HolderLookup.Provider pRegistries) {
         return this.getResultItem(pRegistries).copy();
     }
 

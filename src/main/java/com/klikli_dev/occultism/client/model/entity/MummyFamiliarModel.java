@@ -128,8 +128,8 @@ public class MummyFamiliarModel extends EntityModel<MummyFamiliarEntity> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
-        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pRed, pGreen, pBlue, pAlpha);
+    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
+        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
     }
 
     @Override

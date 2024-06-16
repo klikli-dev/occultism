@@ -35,7 +35,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class OtherworldGogglesItem extends ArmorItem {
 
-    public static final ResourceLocation TEXTURE = new ResourceLocation(Occultism.MODID, "textures/item/armor/otherworld_goggles_model.png");
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/item/armor/otherworld_goggles_model.png");
 
     public OtherworldGogglesItem(Holder<ArmorMaterial> materialIn,
                                  ArmorItem.Type type,

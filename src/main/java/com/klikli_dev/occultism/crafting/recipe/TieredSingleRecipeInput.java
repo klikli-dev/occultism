@@ -23,18 +23,16 @@
 package com.klikli_dev.occultism.crafting.recipe;
 
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeInput;
 
-public class TieredItemStackFakeInventory extends ItemStackFakeInventory {
-
-    protected int tier;
-
-    public TieredItemStackFakeInventory(ItemStack input, int tier) {
-        super(input);
-        this.input = input;
-        this.tier = tier;
+public record TieredSingleRecipeInput(ItemStack item, int tier) implements RecipeInput {
+    @Override
+    public ItemStack getItem(int p_346128_) {
+        return this.item;
     }
 
-    public int getTier() {
-        return this.tier;
+    @Override
+    public int size() {
+        return 1;
     }
 }

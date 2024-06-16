@@ -33,7 +33,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class OccultismSpiritJobs {
 
-    public static final ResourceKey<Registry<SpiritJobFactory>> JOBS_KEY = ResourceKey.createRegistryKey(new ResourceLocation(Occultism.MODID, "spirit_job_factories"));
+    public static final ResourceKey<Registry<SpiritJobFactory>> JOBS_KEY = ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_job_factories"));
     public static DeferredRegister<SpiritJobFactory> JOBS = DeferredRegister.create(JOBS_KEY, Occultism.MODID);
 
     public static final Registry<SpiritJobFactory> REGISTRY = JOBS.makeRegistry((builder) -> {
@@ -51,14 +51,14 @@ public class OccultismSpiritJobs {
     //Trade jobs
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> TRADE_OTHERSTONE_T1 = JOBS.register("trade_otherstone_t1",
             () -> new SpiritJobFactory((entity) -> {
-                TraderJob job = new TraderJob(entity, new ResourceLocation(Occultism.MODID, "spirit_trade/stone_to_otherstone"));
+                TraderJob job = new TraderJob(entity, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/stone_to_otherstone"));
                 job.setTimeToConvert(15);
                 job.setMaxTradesPerRound(4);
                 return job;
             }, SpiritJobClient.create("sapling_trader")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> TRADE_OTHERWORLD_SAPLINGS_T2 = JOBS.register("trade_otherworld_saplings_t1",
             () -> new SpiritJobFactory((entity) -> {
-                TraderJob job = new TraderJob(entity, new ResourceLocation(Occultism.MODID, "spirit_trade/otherworld_sapling"));
+                TraderJob job = new TraderJob(entity, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/otherworld_sapling"));
                 job.setTimeToConvert(20);
                 job.setMaxTradesPerRound(1);
                 return job;

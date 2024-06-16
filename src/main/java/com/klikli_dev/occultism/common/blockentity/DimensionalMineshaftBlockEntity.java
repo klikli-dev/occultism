@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.blockentity;
 
 import com.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
 import com.klikli_dev.occultism.crafting.recipe.MinerRecipe;
+import com.klikli_dev.occultism.crafting.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.occultism.crafting.recipe.result.WeightedRecipeResult;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
@@ -32,18 +33,22 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.random.WeightedRandom;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.FakePlayerFactory;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
@@ -58,7 +63,7 @@ import java.util.stream.Collectors;
 
 public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implements MenuProvider {
 
-    public static final ResourceLocation EVILCRAFT_UNUSING_ENCHANTEMENT = new ResourceLocation("evilcraft:unusing");
+    public static final ResourceKey<Enchantment> EVILCRAFT_UNUSING_ENCHANTEMENT = ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.parse("evilcraft:unusing"));
     public static final String MAX_MINING_TIME_TAG = "maxMiningTime";
     public static final int DEFAULT_MAX_MINING_TIME = 400;
     public static int DEFAULT_ROLLS_PER_OPERATION = 1;
@@ -147,8 +152,8 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             //handle unusing enchantment from evilcraft, see https://github.com/klikli-dev/occultism/issues/909
             if (input.getMaxDamage() - input.getDamageValue() < 6 &&
                     input.isEnchanted() &&
-                    BuiltInRegistries.ENCHANTMENT.containsKey(EVILCRAFT_UNUSING_ENCHANTEMENT) &&
-                    input.getEnchantmentLevel(BuiltInRegistries.ENCHANTMENT.get(EVILCRAFT_UNUSING_ENCHANTEMENT)) > 0) {
+                    this.level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(EVILCRAFT_UNUSING_ENCHANTEMENT).isPresent() &&
+                    input.getEnchantmentLevel(this.level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(EVILCRAFT_UNUSING_ENCHANTEMENT).get()) > 0) {
                 this.miningTime = 0;
                 return;
             }
@@ -205,7 +210,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         if (this.possibleResults == null) {
             List<RecipeHolder<MinerRecipe>> recipes = this.level.getRecipeManager()
                     .getRecipesFor(OccultismRecipes.MINER_TYPE.get(),
-                            new RecipeWrapper(this.inputHandler), this.level);
+                            new ItemHandlerRecipeInput(this.inputHandler), this.level);
             if (recipes == null || recipes.size() == 0) {
                 this.possibleResults = new ArrayList<>();
             } else {
@@ -228,9 +233,6 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
         //damage and eventually consume item
         ItemStack input = this.inputHandler.getStackInSlot(0);
-        input.hurtAndBreak(1, this.level.random, null, () -> {
-            input.shrink(1);
-            input.setDamageValue(0);
-        });
+        input.hurtAndBreak(1, (ServerLevel) this.level, (LivingEntity) null, (item) -> {});
     }
 }

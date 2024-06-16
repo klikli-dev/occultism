@@ -32,6 +32,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.constant.DataTickets;
@@ -54,7 +55,7 @@ public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageContro
     }
 
     @Override
-    public void actuallyRender(PoseStack poseStack, StorageControllerBlockEntity animatable, BakedGeoModel model, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer bufferIn, boolean isReRender, float partialTicks, int packedLightIn, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void actuallyRender(PoseStack poseStack, StorageControllerBlockEntity animatable, BakedGeoModel model, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer bufferIn, boolean isReRender, float partialTicks, int packedLightIn, int packedOverlay, int colour) {
 
         poseStack.pushPose();
 
@@ -82,14 +83,14 @@ public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageContro
 //            poseStack.translate(0, 0.01f, 0);
 //            poseStack.translate(0.5, 0, 0.5);
 //           rotateBlock(getFacing(animatable), poseStack);
-            this.model.handleAnimations(animatable, instanceId, animationState);
+            this.model.handleAnimations(animatable, instanceId, animationState, partialTicks);
         }
 
         RenderSystem.setShaderTexture(0, this.getTextureLocation(animatable));
 
         for (GeoBone group : model.topLevelBones()) {
             this.renderRecursively(poseStack, animatable, group, renderType, bufferSource, bufferIn, isReRender, partialTicks, packedLightIn,
-                    packedOverlay, red, green, blue, alpha);
+                    packedOverlay, colour);
         }
 
         poseStack.popPose();

@@ -18,7 +18,9 @@ sourceSets {
     main {
         java {
             exclude '**/AlmostUnifiedIntegrationImpl.java'
+            exclude '**/emi/**/*.java'
             exclude '**/jei/impl/**/*.java'
+            exclude 'com/klikli_dev/occultism/common/item/tool/FamiliarRingItem.java'
         }
     }
 }
@@ -131,8 +133,8 @@ dependencies {
 //    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     //curios
-    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api"
-    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}"
+//    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api"
+//    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}"
 
     //geckolib
     implementation "software.bernie.geckolib:geckolib-neoforge-${geckolib_minecraft_version}:${geckolib_version}"
@@ -152,10 +154,11 @@ dependencies {
     runtimeOnly "com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}"
 
     // emi
-    compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
-    if(System.getenv("EMI") == "true") {
-        runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
-    }
+//    compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
+//    if(System.getenv("EMI") == "true") {
+//        runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
+//    }
+
     //runtime only helper mods for dev env, placed in ./runtime-mods, example: Hwyla-forge-1.10.11-B78_1.16.2.jar
     //runtimeOnly "ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2"
 

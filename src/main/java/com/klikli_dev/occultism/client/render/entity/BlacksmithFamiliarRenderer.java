@@ -41,7 +41,7 @@ import org.joml.Quaternionf;
 
 public class BlacksmithFamiliarRenderer extends MobRenderer<BlacksmithFamiliarEntity, BlacksmithFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
+    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/blacksmith_familiar.png");
 
     public BlacksmithFamiliarRenderer(EntityRendererProvider.Context context) {

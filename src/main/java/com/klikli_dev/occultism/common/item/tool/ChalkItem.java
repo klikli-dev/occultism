@@ -72,7 +72,7 @@ public class ChalkItem extends Item {
 
                 // do not consume durability if creative, or if same kind of chalk (= cycle through sings)
                 if (!player.isCreative() && !isSameChalkType)
-                    heldChalk.hurtAndBreak(1, player, LivingEntity.getEquipmentSlotForItem(heldChalk));
+                    heldChalk.hurtAndBreak(1, player, player.getEquipmentSlotForItem(heldChalk));
             }
         }
         return InteractionResult.SUCCESS;

@@ -44,7 +44,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
  */
 public class MessageRequestOrder implements IMessage {
 
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "request_order");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "request_order");
     public static final Type<MessageRequestOrder> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageRequestOrder> STREAM_CODEC = CustomPacketPayload.codec(MessageRequestOrder::encode, MessageRequestOrder::new);
     private GlobalBlockPos storageControllerPosition;

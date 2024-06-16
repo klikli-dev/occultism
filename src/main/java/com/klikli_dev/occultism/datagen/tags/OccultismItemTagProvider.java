@@ -14,7 +14,6 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
-import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -34,10 +33,11 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
 
 
     private void addCuriosTags(HolderLookup.Provider provider) {
-        this.tag(OccultismTags.makeItemTag(new ResourceLocation(CuriosApi.MODID, "belt"))).add(OccultismItems.SATCHEL.get()).replace(false);
-        this.tag(OccultismTags.makeItemTag(new ResourceLocation(CuriosApi.MODID, "hands"))).add(OccultismItems.STORAGE_REMOTE.get()).replace(false);
-        this.tag(OccultismTags.makeItemTag(new ResourceLocation(CuriosApi.MODID, "head"))).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
-        this.tag(OccultismTags.makeItemTag(new ResourceLocation(CuriosApi.MODID, "ring"))).add(OccultismItems.FAMILIAR_RING.get()).replace(false);
+        //TODO: enable if we have curios again
+//        this.tag(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath(CuriosApi.MODID, "belt"))).add(OccultismItems.SATCHEL.get()).replace(false);
+//        this.tag(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath(CuriosApi.MODID, "hands"))).add(OccultismItems.STORAGE_REMOTE.get()).replace(false);
+//        this.tag(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath(CuriosApi.MODID, "head"))).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
+//        this.tag(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath(CuriosApi.MODID, "ring"))).add(OccultismItems.FAMILIAR_RING.get()).replace(false);
     }
 
     private void addOccultismTags(HolderLookup.Provider provider) {
@@ -58,17 +58,32 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 OccultismItems.MINER_DEBUG_UNSPECIALIZED.get(), OccultismItems.MINER_AFRIT_DEEPS.get(), OccultismItems.MINER_MARID_MASTER.get(), OccultismItems.MINER_DJINNI_ORES.get()).replace(false);
         this.copy(OccultismTags.Blocks.OTHERWORLD_SAPLINGS, OccultismTags.Items.OTHERWORLD_SAPLINGS);
         this.tag(OccultismTags.Items.TOOL_KNIVES).add(OccultismItems.BUTCHER_KNIFE.get()).replace(false);
-        this.tag(OccultismTags.Items.ELYTRA).add(Items.ELYTRA).addOptional(new ResourceLocation("mana-and-artifice", "spectral_elytra")).replace(false);
+        this.tag(OccultismTags.Items.ELYTRA).add(Items.ELYTRA).addOptional(ResourceLocation.fromNamespaceAndPath("mana-and-artifice", "spectral_elytra")).replace(false);
         this.tag(OccultismTags.Items.OTHERWORLD_GOGGLES).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
     }
 
     private void addMinecraftTags(HolderLookup.Provider provider) {
-        this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(OccultismItems.INFUSED_PICKAXE.get(), OccultismItems.IESNIUM_PICKAXE.get()).replace(false);
-        this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
-        this.copy(BlockTags.LOGS, ItemTags.LOGS);
-        this.copy(BlockTags.PIGLIN_REPELLENTS, ItemTags.PIGLIN_REPELLENTS);
-        this.copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
-        this.tag(ItemTags.PICKAXES).add(OccultismItems.INFUSED_PICKAXE.get(), OccultismItems.IESNIUM_PICKAXE.get()).replace(false);
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.DICTIONARY_OF_SPIRITS.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_AFRIT.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_DJINNI.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_FOLIOT.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_MARID.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_EMPTY.get());
+
+        this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(OccultismItems.INFUSED_PICKAXE.get(),OccultismItems.IESNIUM_PICKAXE.get()).replace(false);
+        this.copy(BlockTags.LEAVES,ItemTags.LEAVES);
+        this.copy(BlockTags.LOGS,ItemTags.LOGS);
+        this.copy(BlockTags.PIGLIN_REPELLENTS,ItemTags.PIGLIN_REPELLENTS);
+        this.copy(BlockTags.SAPLINGS,ItemTags.SAPLINGS);
+        this.tag(ItemTags.PICKAXES).add(OccultismItems.INFUSED_PICKAXE.get(),OccultismItems.IESNIUM_PICKAXE.get()).replace(false);
         this.tag(ItemTags.SWORDS).add(OccultismItems.BUTCHER_KNIFE.get()).replace(false);
 
         this.tag(ItemTags.BOOKSHELF_BOOKS)

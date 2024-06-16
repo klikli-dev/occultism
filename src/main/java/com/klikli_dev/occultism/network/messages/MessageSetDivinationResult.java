@@ -38,7 +38,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class MessageSetDivinationResult implements IMessage {
 
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "set_divination_result");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "set_divination_result");
     public static final Type<MessageSetDivinationResult> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetDivinationResult> STREAM_CODEC = CustomPacketPayload.codec(MessageSetDivinationResult::encode, MessageSetDivinationResult::new);
     public BlockPos pos;

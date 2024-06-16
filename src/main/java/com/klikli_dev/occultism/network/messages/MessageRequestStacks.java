@@ -37,7 +37,7 @@ import net.minecraft.server.level.ServerPlayer;
 
 public class MessageRequestStacks implements IMessage {
 
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "request_stacks");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "request_stacks");
     public static final Type<MessageRequestStacks> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageRequestStacks> STREAM_CODEC = CustomPacketPayload.codec(MessageRequestStacks::encode, MessageRequestStacks::new);
 

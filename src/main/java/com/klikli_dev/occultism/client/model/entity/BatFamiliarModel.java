@@ -182,8 +182,8 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
-        this.body1.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pRed, pGreen, pBlue, pAlpha);
+    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
+        this.body1.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
     }
 
     @Override
@@ -191,7 +191,7 @@ public class BatFamiliarModel extends EntityModel<BatFamiliarEntity> {
                           float netHeadYaw, float headPitch) {
         this.showModels(pEntity);
 
-        float partialTicks = Minecraft.getInstance().getFrameTime();
+        float partialTicks = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
 
         this.body1.yRot = 0;
         this.body1.zRot = 0;

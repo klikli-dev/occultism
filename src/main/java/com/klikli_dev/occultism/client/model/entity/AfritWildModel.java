@@ -31,7 +31,7 @@ import software.bernie.geckolib.model.DefaultedGeoModel;
 public class AfritWildModel extends DefaultedGeoModel<AfritWildEntity> {
 
     public AfritWildModel() {
-        super(new ResourceLocation(Occultism.MODID, "afrit"));
+        super(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "afrit"));
     }
 
     @Override

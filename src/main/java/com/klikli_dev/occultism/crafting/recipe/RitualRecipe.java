@@ -45,16 +45,13 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
 import java.util.Optional;
 import java.util.function.Supplier;
 
-public class RitualRecipe implements Recipe<Container> {
+public class RitualRecipe implements Recipe<SingleRecipeInput> {
 
     public static final MapCodec<RitualRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     ResourceLocation.CODEC.fieldOf("pentacle_id").forGetter((r) -> r.pentacleId),
@@ -190,13 +187,13 @@ public class RitualRecipe implements Recipe<Container> {
     }
 
     @Override
-    public boolean matches(Container pInv, Level pLevel) {
+    public boolean matches(SingleRecipeInput pInv, Level pLevel) {
         return false;
     }
 
 
     @Override
-    public ItemStack assemble(Container pCraftingContainer, HolderLookup.Provider pRegistries) {
+    public ItemStack assemble(SingleRecipeInput pCraftingContainer, HolderLookup.Provider pRegistries) {
         //as we don't have an inventory this is ignored.
         return null;
     }

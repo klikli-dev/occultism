@@ -42,7 +42,7 @@ import software.bernie.geckolib.model.DefaultedGeoModel;
 public class MaridModel extends DefaultedJobEntityModel<MaridEntity> {
     public final static String ASSET_SUBPATH = "marid";
     public MaridModel() {
-        super(new ResourceLocation(Occultism.MODID, "marid"), true,ASSET_SUBPATH);
+        super(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "marid"), true,ASSET_SUBPATH);
     }
 }
 

@@ -41,7 +41,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 
 public class MessageSetWorkAreaSize implements IMessage {
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "set_work_area_size");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "set_work_area_size");
     public static final Type<MessageSetWorkAreaSize> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetWorkAreaSize> STREAM_CODEC = CustomPacketPayload.codec(MessageSetWorkAreaSize::encode, MessageSetWorkAreaSize::new);
     public int workAreaSize;

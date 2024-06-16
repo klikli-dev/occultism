@@ -75,7 +75,7 @@ public class ItemTagComparator implements IItemStackComparator {
     }
 
     public CompoundTag write(CompoundTag compound) {
-        this.tag = TagKey.create(Registries.ITEM, new ResourceLocation(compound.getString("tag")));
+        this.tag = TagKey.create(Registries.ITEM, ResourceLocation.parse(compound.getString("tag")));
         return compound;
     }
 }

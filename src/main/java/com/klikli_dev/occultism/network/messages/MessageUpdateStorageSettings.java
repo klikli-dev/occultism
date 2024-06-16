@@ -45,7 +45,7 @@ import net.minecraft.world.item.ItemStack;
  */
 public class MessageUpdateStorageSettings implements IMessage {
 
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "update_storage_settings");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "update_storage_settings");
     public static final Type<MessageUpdateStorageSettings> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageUpdateStorageSettings> STREAM_CODEC = CustomPacketPayload.codec(MessageUpdateStorageSettings::encode, MessageUpdateStorageSettings::new);
     private SortDirection sortDirection;

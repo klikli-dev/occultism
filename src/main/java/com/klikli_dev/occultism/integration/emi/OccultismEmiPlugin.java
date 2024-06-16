@@ -33,11 +33,11 @@ public class OccultismEmiPlugin implements EmiPlugin {
     public static final EmiStack SPIRIT_FIRE = EmiStack.of(OccultismItems.SPIRIT_FIRE.get());
     public static final EmiStack DIMENSIONAL_MINESHAFT = EmiStack.of(OccultismBlocks.DIMENSIONAL_MINESHAFT.get());
     public static final EmiStack GOLDEN_SACRIFICIAL_BOWL = EmiStack.of(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get());
-    public static final ResourceLocation EMI_WIDGETS = new ResourceLocation(Occultism.MODID, "textures/gui/emi/widgets.png");
-    public static final EmiRecipeCategory SPIRIT_FIRE_CATEGORY = new EmiRecipeCategory(new ResourceLocation(Occultism.MODID, "spirit_fire"),SPIRIT_FIRE, new EmiTexture(EMI_WIDGETS, 0, 0, 16, 16));
-    public static final EmiRecipeCategory CRUSHING_CATEGORY = new EmiRecipeCategory(new ResourceLocation(Occultism.MODID, "crushing"), new SpiritRenderable<FoliotEntity>(OccultismEntities.FOLIOT.get()), new EmiTexture(EMI_WIDGETS, 32, 0, 16, 16));
-    public static final EmiRecipeCategory MINER_CATEGORY = new EmiRecipeCategory(new ResourceLocation(Occultism.MODID, "miner"), DIMENSIONAL_MINESHAFT, new EmiTexture(EMI_WIDGETS, 48, 0, 16, 16));
-    public static final EmiRecipeCategory RITUAL_CATEGORY = new EmiRecipeCategory(new ResourceLocation(Occultism.MODID, "ritual"),GOLDEN_SACRIFICIAL_BOWL , new EmiTexture(EMI_WIDGETS, 64, 0, 16, 16));
+    public static final ResourceLocation EMI_WIDGETS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/emi/widgets.png");
+    public static final EmiRecipeCategory SPIRIT_FIRE_CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire"),SPIRIT_FIRE, new EmiTexture(EMI_WIDGETS, 0, 0, 16, 16));
+    public static final EmiRecipeCategory CRUSHING_CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing"), new SpiritRenderable<FoliotEntity>(OccultismEntities.FOLIOT.get()), new EmiTexture(EMI_WIDGETS, 32, 0, 16, 16));
+    public static final EmiRecipeCategory MINER_CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner"), DIMENSIONAL_MINESHAFT, new EmiTexture(EMI_WIDGETS, 48, 0, 16, 16));
+    public static final EmiRecipeCategory RITUAL_CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual"),GOLDEN_SACRIFICIAL_BOWL , new EmiTexture(EMI_WIDGETS, 64, 0, 16, 16));
 
     @Override
     public void initialize(EmiInitRegistry registry) {
@@ -49,10 +49,10 @@ public class OccultismEmiPlugin implements EmiPlugin {
         emiRegistry.addCategory(SPIRIT_FIRE_CATEGORY);
         emiRegistry.addWorkstation(SPIRIT_FIRE_CATEGORY, SPIRIT_FIRE);
         emiRegistry.addCategory(CRUSHING_CATEGORY);
-        emiRegistry.addWorkstation(CRUSHING_CATEGORY, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_foliot_crusher"))))));
-        emiRegistry.addWorkstation(CRUSHING_CATEGORY, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_djinni_crusher"))))));
-        emiRegistry.addWorkstation(CRUSHING_CATEGORY, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_afrit_crusher"))))));
-        emiRegistry.addWorkstation(CRUSHING_CATEGORY, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(new ResourceLocation(Occultism.MODID, "ritual_dummy/summon_marid_crusher"))))));
+        emiRegistry.addWorkstation(CRUSHING_CATEGORY, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_foliot_crusher"))))));
+        emiRegistry.addWorkstation(CRUSHING_CATEGORY, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_djinni_crusher"))))));
+        emiRegistry.addWorkstation(CRUSHING_CATEGORY, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_afrit_crusher"))))));
+        emiRegistry.addWorkstation(CRUSHING_CATEGORY, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_marid_crusher"))))));
 
         emiRegistry.addCategory(MINER_CATEGORY);
         emiRegistry.addWorkstation(MINER_CATEGORY, EmiStack.of(OccultismBlocks.DIMENSIONAL_MINESHAFT.get()));

@@ -34,7 +34,7 @@ import net.minecraft.server.level.ServerPlayer;
 
 public class MessageClearCraftingMatrix implements IMessage {
 
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "clear_crafting_matrix");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "clear_crafting_matrix");
     public static final Type<MessageClearCraftingMatrix> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageClearCraftingMatrix> STREAM_CODEC = CustomPacketPayload.codec(MessageClearCraftingMatrix::encode, MessageClearCraftingMatrix::new);
 

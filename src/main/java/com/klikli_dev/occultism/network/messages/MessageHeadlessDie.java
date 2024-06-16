@@ -35,7 +35,7 @@ import net.minecraft.world.entity.player.Player;
 
 public class MessageHeadlessDie implements IMessage {
 
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "headless_die");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "headless_die");
     public static final Type<MessageHeadlessDie> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageHeadlessDie> STREAM_CODEC = CustomPacketPayload.codec(MessageHeadlessDie::encode, MessageHeadlessDie::new);
     private int id;

@@ -201,15 +201,15 @@ public class ClientSetupEventHandler {
             //Register item model properties
 
             ItemProperties.register(OccultismItems.SOUL_GEM_ITEM.get(),
-                    new ResourceLocation(Occultism.MODID, "has_entity"), new SoulGemItemPropertyGetter());
+                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "has_entity"), new SoulGemItemPropertyGetter());
             ItemProperties.register(OccultismItems.DIVINATION_ROD.get(),
-                    new ResourceLocation(Occultism.MODID, "distance"), new DivinationRodItemPropertyGetter());
+                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "distance"), new DivinationRodItemPropertyGetter());
             ItemProperties.register(OccultismItems.OTHERWORLD_SAPLING_NATURAL.get(),
-                    new ResourceLocation(Occultism.MODID, "simulated"), new OtherworldBlockItemPropertyGetter());
+                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "simulated"), new OtherworldBlockItemPropertyGetter());
             ItemProperties.register(OccultismItems.STORAGE_REMOTE.get(),
-                    new ResourceLocation(Occultism.MODID, "linked"), new StorageRemoteItemPropertyGetter());
+                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "linked"), new StorageRemoteItemPropertyGetter());
             ItemProperties.register(OccultismItems.STABLE_WORMHOLE.get(),
-                    new ResourceLocation(Occultism.MODID, "linked"), new StableWormholeBlockItemPropertyGetter());
+                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "linked"), new StableWormholeBlockItemPropertyGetter());
 
             Occultism.LOGGER.debug("Registered Item Properties");
         });
@@ -217,7 +217,7 @@ public class ClientSetupEventHandler {
 
     @SubscribeEvent
     public static void onRegisterGuiOverlays(RegisterGuiLayersEvent event) {
-        event.registerAboveAll(new ResourceLocation(Occultism.MODID, "third_eye"), (guiGraphics, partialTick) -> {
+        event.registerAboveAll(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "third_eye"), (guiGraphics, partialTick) -> {
             if (Occultism.THIRD_EYE_EFFECT_RENDERER.gogglesActiveLastTick || Occultism.THIRD_EYE_EFFECT_RENDERER.thirdEyeActiveLastTick) {
 //                gui.setupOverlayRenderState(true, false);
                 //copied from 1.20.4 to:

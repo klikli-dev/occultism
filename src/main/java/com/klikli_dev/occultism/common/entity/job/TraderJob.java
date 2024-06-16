@@ -166,7 +166,7 @@ public class TraderJob extends SpiritJob {
         this.conversionTimer = compound.getInt("conversionTimer");
         this.maxTradesPerRound = compound.getInt("maxTradesPerRound");
         if (compound.contains("spiritTradeId")) {
-            this.setTradeRecipeId(new ResourceLocation(compound.getString("spiritTradeId")));
+            this.setTradeRecipeId(ResourceLocation.parse(compound.getString("spiritTradeId")));
         }
     }
 

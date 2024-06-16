@@ -46,7 +46,7 @@ import org.joml.Quaternionf;
 
 public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, GreedyFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
+    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/greedy_familiar.png");
 
     public GreedyFamiliarRenderer(EntityRendererProvider.Context context) {
@@ -71,9 +71,9 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
     }
 
     private static class GreedyFamiliarChest extends RenderLayer<GreedyFamiliarEntity, GreedyFamiliarModel> {
-        private static final ResourceLocation CHEST = new ResourceLocation(Occultism.MODID,
+        private static final ResourceLocation CHEST = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/greedy_familiar_chest.png");
-        private static final ResourceLocation CHRISTMAS = new ResourceLocation(Occultism.MODID,
+        private static final ResourceLocation CHRISTMAS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/greedy_familiar_christmas.png");
 
         public GreedyFamiliarChest(RenderLayerParent<GreedyFamiliarEntity, GreedyFamiliarModel> parent) {
@@ -91,7 +91,7 @@ public class GreedyFamiliarRenderer extends MobRenderer<GreedyFamiliarEntity, Gr
                     .getBuffer(RenderType.entityTranslucent(FamiliarUtil.isChristmas() ? CHRISTMAS : CHEST));
             GreedyFamiliarModel model = this.getParentModel();
             model.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn,
-                    LivingEntityRenderer.getOverlayCoords(entitylivingbaseIn, 0), 1, 1, 1, 1);
+                    LivingEntityRenderer.getOverlayCoords(entitylivingbaseIn, 0));
         }
     }
 

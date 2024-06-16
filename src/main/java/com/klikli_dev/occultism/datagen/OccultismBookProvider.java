@@ -4,6 +4,7 @@ import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookProvider;
 import com.klikli_dev.modonomicon.api.datagen.CategoryEntryMap;
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconLanguageProvider;
+import com.klikli_dev.modonomicon.api.datagen.SingleBookSubProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryParentModel;
@@ -13,6 +14,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.condition.BookEntryReadCondit
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookModLoadedConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookTrueConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.*;
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.datagen.book.FamiliarRitualsCategory;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
@@ -29,13 +31,13 @@ import net.minecraft.world.level.block.Blocks;
 
 import java.util.concurrent.CompletableFuture;
 
-public class OccultismBookProvider extends BookProvider {
+public class OccultismBookProvider extends SingleBookSubProvider {
 
     public static final String COLOR_PURPLE = "ad03fc";
     public static final String DEMONS_DREAM = "Demon's Dream";
 
-    public OccultismBookProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> registries, String modid, ModonomiconLanguageProvider lang) {
-        super("dictionary_of_spirits", packOutput, registries, modid, lang);
+    public OccultismBookProvider(ModonomiconLanguageProvider lang) {
+        super("dictionary_of_spirits", Occultism.MODID, lang);
     }
 
     @Override
@@ -44,25 +46,21 @@ public class OccultismBookProvider extends BookProvider {
     }
 
     @Override
-    protected BookModel generateBook() {
-        this.context().book("dictionary_of_spirits");
-        this.lang().add(this.context().bookName(), "Dictionary of Spirits");
-        this.lang().add(this.context().bookTooltip(), "An introduction to the spirit world.");
-
+    protected void generateCategories() {
         int sortNum = 1;
-        var gettingStartedCategory = this.makeGettingStartedCategory().withSortNumber(sortNum++);
-        var spiritsCategory = this.makeSpiritsSubcategory().withSortNumber(sortNum++);
+        var gettingStartedCategory = this.add(this.makeGettingStartedCategory().withSortNumber(sortNum++));
+        var spiritsCategory = this.add(this.makeSpiritsSubcategory().withSortNumber(sortNum++));
 
-        var storageCategory = this.makeStorageCategory().withSortNumber(sortNum++);
+        var storageCategory = this.add(this.makeStorageCategory().withSortNumber(sortNum++));
 
-        var ritualsCategory = this.makeRitualsCategory().withSortNumber(sortNum++);
+        var ritualsCategory = this.add(this.makeRitualsCategory().withSortNumber(sortNum++));
 
-        var summoningRitualsCategory = this.makeSummoningRitualsSubcategory().withSortNumber(sortNum++);
-        var possessionRitualsCategory = this.makePossessionRitualsSubcategory().withSortNumber(sortNum++);
-        var craftingRitualsCategory = this.makeCraftingRitualsSubcategory().withSortNumber(sortNum++);
-        var familiarRitualsCategory = new FamiliarRitualsCategory(this).generate().withSortNumber(sortNum++);
+        var summoningRitualsCategory = this.add(this.makeSummoningRitualsSubcategory().withSortNumber(sortNum++));
+        var possessionRitualsCategory = this.add(this.makePossessionRitualsSubcategory().withSortNumber(sortNum++));
+        var craftingRitualsCategory = this.add(this.makeCraftingRitualsSubcategory().withSortNumber(sortNum++));
+        var familiarRitualsCategory = this.add(new FamiliarRitualsCategory(this).generate().withSortNumber(sortNum++));
 
-        var pentaclesCategory = this.makePentaclesCategory().withSortNumber(sortNum++);
+        var pentaclesCategory = this.add(this.makePentaclesCategory().withSortNumber(sortNum++));
 
         var introReadCondition = BookEntryReadConditionModel.create()
                 .withEntry(this.modLoc("getting_started/intro"));
@@ -75,28 +73,26 @@ public class OccultismBookProvider extends BookProvider {
         craftingRitualsCategory.withCondition(introReadCondition);
         familiarRitualsCategory.withCondition(introReadCondition);
         pentaclesCategory.withCondition(introReadCondition);
+    }
 
-        //https://tinyurl.com/occultism-graph
+    @Override
+    protected String bookName() {
+        return "Dictionary of Spirits";
+    }
 
-        var demoBook = BookModel.create(this.modLoc("dictionary_of_spirits"), this.context().bookName())
+    @Override
+    protected String bookTooltip() {
+        return "An introduction to the spirit world.";
+    }
+
+    @Override
+    protected BookModel additionalSetup(BookModel book) {
+        return super.additionalSetup(book)
                 .withModel(this.modLoc("dictionary_of_spirits_icon"))
-                .withTooltip(this.context().bookTooltip())
-                .withCategories(
-                        gettingStartedCategory,
-                        spiritsCategory,
-                        pentaclesCategory,
-                        ritualsCategory,
-                        summoningRitualsCategory,
-                        possessionRitualsCategory,
-                        craftingRitualsCategory,
-                        familiarRitualsCategory,
-                        storageCategory
-                )
                 .withCraftingTexture(this.modLoc("textures/gui/book/crafting_textures.png"))
                 .withGenerateBookItem(false)
                 .withCustomBookItem(this.modLoc("dictionary_of_spirits"))
                 .withAutoAddReadConditions(true);
-        return demoBook;
     }
 
     //region Getting Started
@@ -1202,15 +1198,15 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel makeRitualEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("first_ritual");
-        this.lang.add(this.context().entryName(), "First Ritual");
-        this.lang.add(this.context().entryDescription(), "We're actually getting started now!");
+        this.lang().add(this.context().entryName(), "First Ritual");
+        this.lang().add(this.context().entryDescription(), "We're actually getting started now!");
 
         this.context().page("intro");
         var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageTitle(), "The Ritual (tm)");
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageTitle(), "The Ritual (tm)");
+        this.lang().add(this.context().pageText(),
                 """
                         These pages will walk the gentle reader through the process of the [first ritual](entry://summoning_rituals/summon_crusher_t1) step by step.
                         \\
@@ -1221,7 +1217,7 @@ public class OccultismBookProvider extends BookProvider {
         var multiblock = BookMultiblockPageModel.create()
                 .withMultiblockId(this.modLoc("summon_foliot"))
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageText(),
                 """
                         Only the color and location of the chalk marks is relevant, not the glyph/sign.
                           """.formatted(COLOR_PURPLE));
@@ -1230,8 +1226,8 @@ public class OccultismBookProvider extends BookProvider {
         var bowlText = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageTitle(), "Sacrificial Bowls");
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageTitle(), "Sacrificial Bowls");
+        this.lang().add(this.context().pageText(),
                 """
                         Next, place *at least* 4 [Sacrificial Bowls](item://occultism:sacrificial_bowl) close to the pentacle.
                         \\
@@ -1244,7 +1240,7 @@ public class OccultismBookProvider extends BookProvider {
                 .withImages(this.modLoc("textures/gui/book/bowl_placement.png"))
                 .withBorder(true)
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageText(),
                 """
                         Possible locations for the sacrificial bowls.
                           """.formatted(COLOR_PURPLE));
@@ -1253,8 +1249,8 @@ public class OccultismBookProvider extends BookProvider {
         var ritualText = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageTitle(), "Placing Ingredients");
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageTitle(), "Placing Ingredients");
+        this.lang().add(this.context().pageText(),
                 """
                         Now it is time to place the ingredients you see on the next page in the (regular, not golden) sacrificial bowls. The ingredients will be consumed from the bowls as the ritual progresses.
                           """.formatted(COLOR_PURPLE));
@@ -1268,8 +1264,8 @@ public class OccultismBookProvider extends BookProvider {
         var pentacleLinkHint = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageTitle(), "A Note about Ritual Recipes");
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageTitle(), "A Note about Ritual Recipes");
+        this.lang().add(this.context().pageText(),
                 """
                         Ritual recipe pages, such as the previous pageshow not only the ingredients, but also the pentacle that you need to draw with chalk in order to use the ritual.
                         \\
@@ -1281,8 +1277,8 @@ public class OccultismBookProvider extends BookProvider {
         var startRitualText = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageTitle(), "Let there be ... spirits!");
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageTitle(), "Let there be ... spirits!");
+        this.lang().add(this.context().pageText(),
                 """
                         Finally, [#](%1$s)right-click[#]() the [](item://occultism:golden_sacrificial_bowl) with the **bound** book of binding you created before and wait until the crusher spawns.
                         \\
@@ -1294,8 +1290,8 @@ public class OccultismBookProvider extends BookProvider {
         var automationText = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageTitle(), "Automatic Rituals");
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageTitle(), "Automatic Rituals");
+        this.lang().add(this.context().pageText(),
                 """
                         Instead of right-clicking the golden sacrificial bowl with the final ingredient, you can also use a Hopper or any type of pipe to insert the item into the bowl. The ritual will start automatically.\\
                         Note that any rituals that summon tamed animals or familiars will summon them untamed instead.
@@ -1305,8 +1301,8 @@ public class OccultismBookProvider extends BookProvider {
         var redstoneText = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageTitle(), "Redstone");
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageTitle(), "Redstone");
+        this.lang().add(this.context().pageText(),
                 """
                         Depending on the ritual state the golden bowl will emit a different redstone level:
                         - **0** if no ritual is active
@@ -3249,14 +3245,14 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel makeSummonCrusherT1Entry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summon_crusher_t1");
-        this.lang.add(this.context().entryName(), "Summon Foliot Crusher");
+        this.lang().add(this.context().entryName(), "Summon Foliot Crusher");
 
         this.context().page("about_crushers");
         var aboutCrushers = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageTitle(), "Crusher Spirits");
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageTitle(), "Crusher Spirits");
+        this.lang().add(this.context().pageText(),
                 """
                         Crusher spirits are summoned to crush ores into dusts, effectively multiplying the metal output. They will pick up appropriate ores and drop the resulting dusts into the world. A purple particle effect and a crushing sound indicate the crusher is at work.
                           """);
@@ -3265,8 +3261,8 @@ public class OccultismBookProvider extends BookProvider {
         var automation = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageTitle(), "Automation");
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageTitle(), "Automation");
+        this.lang().add(this.context().pageText(),
                 """
                         To ease automation, try summoning a [Transporter Spirit](entry://occultism:dictionary_of_spirits/summoning_rituals/summon_transport_items)
                         to place items from chests in the crusher's inventory, and a [Janitor Spirit](entry://occultism:dictionary_of_spirits/summoning_rituals/summon_cleaner) to collect the processed items.
@@ -3276,8 +3272,8 @@ public class OccultismBookProvider extends BookProvider {
         var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageTitle(), "Foliot Crusher");
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageTitle(), "Foliot Crusher");
+        this.lang().add(this.context().pageText(),
                 """
                         The foliot crusher is the most basic crusher spirit.
                         \\
@@ -3366,14 +3362,14 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel makeSummonLumberjackEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summon_lumberjack");
-        this.lang.add(this.context().entryName(), "Summon Foliot Lumberjack");
+        this.lang().add(this.context().entryName(), "Summon Foliot Lumberjack");
 
         this.context().page("intro");
         var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageTitle(), "Foliot Lumberjack");
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageTitle(), "Foliot Lumberjack");
+        this.lang().add(this.context().pageText(),
                 """
                         The lumberjack will harvest trees in it's working area. If a deposit location is set it will collect the dropped items into the specified chest, and re-plant saplings.
                           """);
@@ -3382,8 +3378,8 @@ public class OccultismBookProvider extends BookProvider {
         var prerequisites = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageTitle(), "Prerequisites");
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageTitle(), "Prerequisites");
+        this.lang().add(this.context().pageText(),
                 """
                         Summoning the lumberjack requires a [Stable Otherworld Sapling](item://occultism:otherworld_sapling). You can obtain it by summoning an [Otherworld Sapling Trader](entry://summoning_rituals/summon_otherworld_sapling_trader). 
                           """
@@ -3399,7 +3395,7 @@ public class OccultismBookProvider extends BookProvider {
         var bookOfCalling = BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/book_of_calling_foliot_lumberjack"))
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageText(),
                 """
                         If you lose the book of calling, you can craft a new one.
                         [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
@@ -3409,8 +3405,8 @@ public class OccultismBookProvider extends BookProvider {
         var usage = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageTitle(), "Usage");
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageTitle(), "Usage");
+        this.lang().add(this.context().pageText(),
                 """
                         Use the book of calling to set the work area and deposit location of the lumberjack.
                         \\
@@ -3422,8 +3418,8 @@ public class OccultismBookProvider extends BookProvider {
         var usage2 = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageTitle(), "Lazy Lumberjack?");
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageTitle(), "Lazy Lumberjack?");
+        this.lang().add(this.context().pageText(),
                 """
                         The spirit might pause for a few minutes after clearing his work area, even if trees have regrown since. This is a performance-saving measure and not a bug, he will continue on his own.
                         \\
@@ -3447,14 +3443,14 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel makeSummonTransportItemsEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summon_transport_items");
-        this.lang.add(this.context().entryName(), "Summon Foliot Transporter");
+        this.lang().add(this.context().entryName(), "Summon Foliot Transporter");
 
         this.context().page("intro");
         var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageTitle(), "Foliot Transporter");
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageTitle(), "Foliot Transporter");
+        this.lang().add(this.context().pageText(),
                 """
                         The transporter is useful in that you don't need a train of hoppers transporting stuff, and can use any inventory to take from and deposit.
                         \\
@@ -3465,7 +3461,7 @@ public class OccultismBookProvider extends BookProvider {
         this.context().page("intro2");
         var intro2 = BookTextPageModel.create()
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageText(),
                 """
                         You can also dictate which inventory it deposits to in the same way.
                         \\
@@ -3476,8 +3472,8 @@ public class OccultismBookProvider extends BookProvider {
         var spirit_inventories = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageTitle(), "Spirit Inventories");
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageTitle(), "Spirit Inventories");
+        this.lang().add(this.context().pageText(),
                 """
                         The Transporter can also interact with the inventories of other spirits. This is especially useful to automatically supply a [Crusher spirit](entry://summoning_rituals/summon_crusher_t1) with items to crush.
                            """);
@@ -3486,8 +3482,8 @@ public class OccultismBookProvider extends BookProvider {
         var itemFilters = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageTitle(), "Item Filters");
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageTitle(), "Item Filters");
+        this.lang().add(this.context().pageText(),
                 """
                         By default the Transporter is in "Whitelist" mode and will not move anything. Shift-click the transporter to open the config UI. You can then add items to the filter list to make it move only those items, or set it to "Blacklist" to move everything *except* the filtered items. You can also enter a tag in the text field below to filter by tag.
                            """);
@@ -3501,7 +3497,7 @@ public class OccultismBookProvider extends BookProvider {
         var bookOfCalling = BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/book_of_calling_foliot_transport_items"))
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageText(),
                 """
                         If you lose the book of calling, you can craft a new one.
                         [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
@@ -3522,14 +3518,14 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel makeSummonCleanerEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("summon_cleaner");
-        this.lang.add(this.context().entryName(), "Summon Foliot Janitor");
+        this.lang().add(this.context().entryName(), "Summon Foliot Janitor");
 
         this.context().page("intro");
         var intro = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageTitle(), "Foliot Janitor");
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageTitle(), "Foliot Janitor");
+        this.lang().add(this.context().pageText(),
                 """
                         The janitor will pick up dropped items and deposit them into a target inventory. You can configure an allow/block list to specify which items to pick up or ignore. **Warning**: By default it is set to "allow" mode, so it will only pick up items you specify in the allow list.
                         You can use tags to handle whole groups of items.
@@ -3538,7 +3534,7 @@ public class OccultismBookProvider extends BookProvider {
         this.context().page("intro2");
         var intro2 = BookTextPageModel.create()
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageText(),
                 """
                         To bind the janitor to an inventory simply sneak and interact with the janitor book of calling on that inventory. You can also interact with a block while holding the janitor book of calling to have it deposit items there. You can also have it wander around a select area by pulling up that interface. To configure an allow/block list sneak and interact with the janitor.
                           """);
@@ -3547,8 +3543,8 @@ public class OccultismBookProvider extends BookProvider {
         var tip = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageTitle(), "Pro tip");
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageTitle(), "Pro tip");
+        this.lang().add(this.context().pageText(),
                 """
                         The Janitor will pick up crushed items from a [Crusher spirit](entry://summoning_rituals/summon_crusher_t1) and deposit them into a chest.
                         \\
@@ -3565,7 +3561,7 @@ public class OccultismBookProvider extends BookProvider {
         var bookOfCalling = BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/book_of_calling_foliot_cleaner"))
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageText(),
                 """
                         If you lose the book of calling, you can craft a new one.
                         [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
@@ -3679,7 +3675,7 @@ public class OccultismBookProvider extends BookProvider {
         var trade = BookSpiritTradeRecipePageModel.create()
                 .withRecipeId1(this.modLoc("spirit_trade/otherworld_sapling"))
                 .withText(this.context().pageText());
-        this.lang().add(this.context.pageText(), """
+        this.lang().add(this.context().pageText(), """
                 To trade, drop an your offered item next to the trader, he will pick it up and drop the exchanged item.
                 """);
 
@@ -4591,14 +4587,14 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel makePossessGhastEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("possess_ghast");
-        this.lang.add(this.context().entryName(), "Possessed Ghast");
+        this.lang().add(this.context().entryName(), "Possessed Ghast");
 
         this.context().page("entity");
         var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:possessed_ghast")
                 .withScale(0.5f)
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageText(),
                 """
                         **Drops**: 1-3x [](item://minecraft:ghast_tear)
                                 """);
@@ -4611,7 +4607,7 @@ public class OccultismBookProvider extends BookProvider {
         this.context().page("description");
         var description = BookTextPageModel.create()
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageText(),
                 """
                         In this ritual a [#](%1$s)Ghast[#]() is spawned using the life energy of a [#](%1$s)Cow[#]() and immediately possessed by the summoned [#](%1$s)Djinni[#](). The [#](%1$s)Possessed Ghast[#]() will always drop at least one [](item://minecraft:ghast_tear) when killed.
                         """.formatted(COLOR_PURPLE));
@@ -4654,14 +4650,14 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel makePossessPhantomEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("possess_phantom");
-        this.lang.add(this.context().entryName(), "Possessed Phantom");
+        this.lang().add(this.context().entryName(), "Possessed Phantom");
 
         this.context().page("entity");
         var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:possessed_phantom")
                 .withScale(0.5f)
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageText(),
                 """
                         **Drops**: 1-4x [](item://minecraft:phantom_membrane)
                                 """);
@@ -4673,7 +4669,7 @@ public class OccultismBookProvider extends BookProvider {
         this.context().page("description");
         var description = BookTextPageModel.create()
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageText(),
                 """
                         In this ritual a [#](%1$s)Phantom[#]() is spawned using the life energy of a [#](%1$s)Flying Passive Mob[#]() and immediately possessed by the summoned [#](%1$s)Foliot[#](). The [#](%1$s)Possessed Phantom[#]() will always drop at least one [](item://minecraft:phantom_membrane) when killed. Using this ritual is easy to trap the phantom and you can has comfy sleep.
                         """.formatted(COLOR_PURPLE));
@@ -4690,14 +4686,14 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel makePossessWeakShulkerEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("possess_weak_shulker");
-        this.lang.add(this.context().entryName(), "Possessed Weak Shulker");
+        this.lang().add(this.context().entryName(), "Possessed Weak Shulker");
 
         this.context().page("entity");
         var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:possessed_weak_shulker")
                 .withScale(0.5f)
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageText(),
                 """
                         **Drops**: 1-3x [](item://minecraft:chorus_fruit);
                         and as 10% to drop a [](item://minecraft:shulker_shell);
@@ -4710,7 +4706,7 @@ public class OccultismBookProvider extends BookProvider {
         this.context().page("description");
         var description = BookTextPageModel.create()
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageText(),
                 """
                         In this ritual a [#](%1$s)Shulker[#]() is spawned using the life energy of a [#](%1$s)Cube Mob[#]() and immediately possessed by the summoned [#](%1$s)Djinni[#](). The [#](%1$s)Possessed Weak Shulker[#]() will always drop at least one [](item://minecraft:chorus_fruit) when killed and as a chance to drop [](item://minecraft:shulker_shell). You can use vanilla shulker multiplication to get normal shulkers with more chance to drop their shells.
                         """.formatted(COLOR_PURPLE));
@@ -4727,14 +4723,14 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel makePossessShulkerEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("possess_shulker");
-        this.lang.add(this.context().entryName(), "Possessed Shulker");
+        this.lang().add(this.context().entryName(), "Possessed Shulker");
 
         this.context().page("entity");
         var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:possessed_shulker")
                 .withScale(0.5f)
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageText(),
                 """
                         **Drops**: 1-2x [](item://minecraft:shulker_shell);
                                 """);
@@ -4746,7 +4742,7 @@ public class OccultismBookProvider extends BookProvider {
         this.context().page("description");
         var description = BookTextPageModel.create()
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageText(),
                 """
                         In this ritual a [#](%1$s)Shulker[#]() is spawned using the life energy of a [#](%1$s)Cube Mob[#]() and immediately possessed by the summoned [#](%1$s)Afrit[#](). The [#](%1$s)Possessed Shulker[#]() will always drop at least one [](item://minecraft:shulker_shell) when killed. You can use vanilla shulker multiplication to get normal shulkers but their have less chance to drop shells.
                         """.formatted(COLOR_PURPLE));
@@ -4763,14 +4759,14 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel makePossessElderGuardianEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("possess_elder_guardian");
-        this.lang.add(this.context().entryName(), "Possessed Elder Guardian");
+        this.lang().add(this.context().entryName(), "Possessed Elder Guardian");
 
         this.context().page("entity");
         var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:possessed_elder_guardian")
                 .withScale(0.5f)
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageText(),
                 """
                         **Drops**: 2-4x [](item://minecraft:nautilus_shell);
                         and as 40% to drop a [](item://minecraft:heart_of_the_sea);
@@ -4784,7 +4780,7 @@ public class OccultismBookProvider extends BookProvider {
         this.context().page("description");
         var description = BookTextPageModel.create()
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageText(),
                 """
                         In this ritual a [#](%1$s)Elder Guardian[#]() is spawned using the life energy of a [#](%1$s)Fish[#]() and immediately possessed by the summoned [#](%1$s)Afrit[#](). The [#](%1$s)Possessed Elder Guardian[#]() will always drop at least one [](item://minecraft:nautilus_shell), having a chance to drop [](item://minecraft:heart_of_the_sea) and a lot of things that normal Elder Guardian drops.
                         """.formatted(COLOR_PURPLE));
@@ -4801,14 +4797,14 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel makePossessWardenEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("possess_warden");
-        this.lang.add(this.context().entryName(), "Possessed Warden");
+        this.lang().add(this.context().entryName(), "Possessed Warden");
 
         this.context().page("entity");
         var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:possessed_warden")
                 .withScale(1f)
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageText(),
                 """
                         **Drops**: 1x [](item://minecraft:echo_shard)
                         and items related to ancient city;
@@ -4821,7 +4817,7 @@ public class OccultismBookProvider extends BookProvider {
         this.context().page("description");
         var description = BookTextPageModel.create()
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageText(),
                 """
                         In this ritual a [#](%1$s)Warden[#]() is spawned using the life energy of a [#](%1$s)Axolotl[#]() and immediately possessed by the summoned [#](%1$s)Djinni[#](). The [#](%1$s)Possessed Warden[#]() will always drop at least one [](item://minecraft:echo_shard) when killed and as a chance to drop [](item://minecraft:disc_fragment_5), [](item://minecraft:music_disc_otherside), [](item://minecraft:silence_armor_trim_smithing_template), [](item://minecraft:ward_armor_trim_smithing_template). If you try to escape, this possessed Warden will go to the floor like a normal warden.
                         """.formatted(COLOR_PURPLE));
@@ -4838,14 +4834,14 @@ public class OccultismBookProvider extends BookProvider {
 
     private BookEntryModel makePossessHoglinEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("possess_hoglin");
-        this.lang.add(this.context().entryName(), "Possessed Hoglin");
+        this.lang().add(this.context().entryName(), "Possessed Hoglin");
 
         this.context().page("entity");
         var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:possessed_hoglin")
                 .withScale(0.7f)
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageText(),
                 """
                           **Drops**: Can drop: [](item://minecraft:netherite_upgrade_smithing_template),
                           return back [](item://minecraft:netherite_scrap) or nothing;
@@ -4858,7 +4854,7 @@ public class OccultismBookProvider extends BookProvider {
         this.context().page("description");
         var description = BookTextPageModel.create()
                 .withText(this.context().pageText());
-        this.lang.add(this.context().pageText(),
+        this.lang().add(this.context().pageText(),
                 """
                         In this ritual a [#](%1$s)Hoglin[#]() is spawned using the life energy of a [#](%1$s)Pig[#]() and immediately possessed by the summoned [#](%1$s)Afrit[#](). The [#](%1$s)Possessed Hoglin[#]() can drop a [](item://minecraft:netherite_upgrade_smithing_template), [](item://minecraft:snout_armor_trim_smithing_template), return back [](item://minecraft:netherite_scrap) or nothing when killed. You need to kill this mob before the transformation to a Zoglin if you don't want to perform the ritual in the nether.
                         """.formatted(COLOR_PURPLE));
@@ -4903,21 +4899,21 @@ public class OccultismBookProvider extends BookProvider {
         craftStabilizerTier1.withParent(BookEntryParentModel.create(storageStabilizer.getId()));
         var craftStabilizerTier2 = this.makeCraftStabilizerTier2Entry(entryMap, '2');
         craftStabilizerTier2.withParent(BookEntryParentModel.create(
-                new ResourceLocation(
+                ResourceLocation.fromNamespaceAndPath(
                         craftStabilizerTier1.getId().getNamespace(),
                         "storage/" + craftStabilizerTier1.getId().getPath()
                 )
         ));
         var craftStabilizerTier3 = this.makeCraftStabilizerTier3Entry(entryMap, '3');
         craftStabilizerTier3.withParent(BookEntryParentModel.create(
-                new ResourceLocation(
+                ResourceLocation.fromNamespaceAndPath(
                         craftStabilizerTier2.getId().getNamespace(),
                         "storage/" + craftStabilizerTier2.getId().getPath()
                 )
         ));
         var craftStabilizerTier4 = this.makeCraftStabilizerTier4Entry(entryMap, '4');
         craftStabilizerTier4.withParent(BookEntryParentModel.create(
-                new ResourceLocation(
+                ResourceLocation.fromNamespaceAndPath(
                         craftStabilizerTier3.getId().getNamespace(),
                         "storage/" + craftStabilizerTier3.getId().getPath()
                 )
@@ -4927,7 +4923,7 @@ public class OccultismBookProvider extends BookProvider {
         craftStableWormhole.withParent(BookEntryParentModel.create(storageController.getId()));
         var craftStorageRemote = this.makeCraftStorageRemoteEntry(entryMap, 'r');
         craftStorageRemote.withParent(BookEntryParentModel.create(
-                new ResourceLocation(
+                ResourceLocation.fromNamespaceAndPath(
                         craftStableWormhole.getId().getNamespace(),
                         "storage/" + craftStableWormhole.getId().getPath()
                 )

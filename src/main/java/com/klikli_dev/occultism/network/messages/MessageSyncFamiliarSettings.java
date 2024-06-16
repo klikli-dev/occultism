@@ -36,7 +36,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 
 public class MessageSyncFamiliarSettings implements IMessage {
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "sync_familiar_settings");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "sync_familiar_settings");
     public static final Type<MessageSyncFamiliarSettings> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSyncFamiliarSettings> STREAM_CODEC = CustomPacketPayload.codec(MessageSyncFamiliarSettings::encode, MessageSyncFamiliarSettings::new);
 

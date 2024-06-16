@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.util;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 
@@ -33,9 +34,9 @@ import java.util.List;
 public class RecipeUtil {
 
     //region Static Methods
-    public static <C extends Container, T extends Recipe<C>> boolean isValidIngredient(RecipeManager recipeManager,
-                                                                                       RecipeType<T> recipeType,
-                                                                                       ItemStack stack) {
+    public static <C extends RecipeInput, T extends Recipe<C>> boolean isValidIngredient(RecipeManager recipeManager,
+                                                                                         RecipeType<T> recipeType,
+                                                                                         ItemStack stack) {
         if (stack.isEmpty())
             return false;
 

@@ -37,7 +37,7 @@ import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
 
 public class MessageFairySupport implements IMessage {
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "fairy_support");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "fairy_support");
     public static final Type<MessageFairySupport> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageFairySupport> STREAM_CODEC = CustomPacketPayload.codec(MessageFairySupport::encode, MessageFairySupport::new);
     private int fairyId;

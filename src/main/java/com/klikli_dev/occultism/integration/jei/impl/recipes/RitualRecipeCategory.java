@@ -76,7 +76,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
         this.goldenSacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
         this.sacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
         this.arrow = guiHelper.createDrawable(
-                new ResourceLocation(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
+                ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
     }
 
     protected int getStringCenteredMaxX(Font font, Component text, int x, int y) {

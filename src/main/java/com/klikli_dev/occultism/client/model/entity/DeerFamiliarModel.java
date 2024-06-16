@@ -151,10 +151,8 @@ public class DeerFamiliarModel extends EntityModel<DeerFamiliarEntity> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float red, float green, float blue, float alpha) {
-        ImmutableList.of(this.body).forEach((ModelPart) -> {
-            ModelPart.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, red, green, blue, alpha);
-        });
+    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
+        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
     }
 
     @Override

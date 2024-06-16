@@ -159,10 +159,9 @@ public class DivinationRodItem extends Item {
     }
 
     @Override
-    public int getUseDuration(ItemStack stack) {
+    public int getUseDuration(ItemStack pStack, LivingEntity p_344979_) {
         return ScanManager.SCAN_DURATION_TICKS;
     }
-
 
     @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity pLivingEntity, int pTimeCharged) {

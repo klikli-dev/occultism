@@ -97,7 +97,7 @@ public class DemonicPartner extends TamableAnimal {
         this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(3, new DemonicPartnerLieNextToPartnerGoal(this));
-        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0D, 10.0F, 5.0F, false));
+        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0D, 10.0F, 5.0F));
         this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 8.0F));
 
@@ -231,10 +231,7 @@ public class DemonicPartner extends TamableAnimal {
 
     @Override
     public boolean doHurtTarget(Entity pEntity) {
-        boolean flag = pEntity.hurt(this.damageSources().mobAttack(this), (float) ((int) this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
-        if (flag) {
-            this.doEnchantDamageEffects(this, pEntity);
-        }
+        boolean flag = super.doHurtTarget(pEntity);
 
         pEntity.setRemainingFireTicks(2 * 20);
 

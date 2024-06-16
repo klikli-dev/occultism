@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.common.item.tool;
 import com.klikli_dev.modonomicon.api.ModonomiconConstants;
 import com.klikli_dev.modonomicon.book.Book;
 import com.klikli_dev.modonomicon.client.gui.BookGuiManager;
+import com.klikli_dev.modonomicon.client.gui.book.BookAddress;
 import com.klikli_dev.modonomicon.data.BookDataManager;
 import com.klikli_dev.modonomicon.item.ModonomiconItem;
 import com.klikli_dev.modonomicon.registry.DataComponentRegistry;
@@ -47,7 +48,7 @@ import java.util.List;
 
 public class GuideBookItem extends ModonomiconItem {
 
-    public static final ResourceLocation DICTIONARY_OF_SPIRITS = new ResourceLocation(Occultism.MODID, "dictionary_of_spirits");
+    public static final ResourceLocation DICTIONARY_OF_SPIRITS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "dictionary_of_spirits");
 
     public GuideBookItem(Properties properties) {
         super(properties);
@@ -63,7 +64,7 @@ public class GuideBookItem extends ModonomiconItem {
 
         if (pLevel.isClientSide) {
             var book = BookDataManager.get().getBook(DICTIONARY_OF_SPIRITS);
-            BookGuiManager.get().openBook(book.getId());
+            BookGuiManager.get().openBook(BookAddress.defaultFor(book));
         }
 
         return InteractionResultHolder.sidedSuccess(itemInHand, pLevel.isClientSide);

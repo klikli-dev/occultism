@@ -7,7 +7,7 @@
 package com.klikli_dev.occultism.integration.modonomicon.pages;
 
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
-import com.klikli_dev.modonomicon.client.gui.book.BookContentScreen;
+import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
@@ -76,7 +76,7 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
             var pentacleName = I18n.get(Util.makeDescriptionId("multiblock", this.page.getRecipe1().value().getPentacleId()));
             var nameWidth = this.font.width(pentacleName);
 
-            int maxWidth = BookContentScreen.MAX_TITLE_WIDTH - RITUAL_DUMMY_OFFSET - 10; //account for the ritual dummy icon, 10 is a magic constant
+            int maxWidth = BookEntryScreen.MAX_TITLE_WIDTH - RITUAL_DUMMY_OFFSET - 10; //account for the ritual dummy icon, 10 is a magic constant
             var scale = Math.min(1.0f, (float) maxWidth / (float) nameWidth);
             if (scale < 1) {
                 nameWidth = (int) (nameWidth * scale);
@@ -105,7 +105,7 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
         if (!second) {
             //rituals only support one recipe
             if (!this.page.getTitle1().isEmpty()) {
-                this.renderTitle(guiGraphics, this.page.getTitle1(), false, BookContentScreen.PAGE_WIDTH / 2, 0);
+                this.renderTitle(guiGraphics, this.page.getTitle1(), false, BookEntryScreen.PAGE_WIDTH / 2, 0);
             }
         }
 
@@ -167,7 +167,7 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
             //if pentacleName is larger than allowed, scaled to fit
             int y = recipeY - 1;
             int x = recipeX;
-            int maxWidth = BookContentScreen.MAX_TITLE_WIDTH - RITUAL_DUMMY_OFFSET - 10; //account for the ritual dummy icon, 10 is a magic constant
+            int maxWidth = BookEntryScreen.MAX_TITLE_WIDTH - RITUAL_DUMMY_OFFSET - 10; //account for the ritual dummy icon, 10 is a magic constant
             var scale = Math.min(1.0f, (float) maxWidth / (float) this.font.width(pentacleName));
             if (scale < 1) {
                 guiGraphics.pose().translate(x - x * scale, y - y * scale, 0);
@@ -196,7 +196,7 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
 
             int y = recipeY + 120;
             int x = recipeX - 15;
-            int maxWidth = BookContentScreen.MAX_TITLE_WIDTH - RITUAL_DUMMY_OFFSET - 10; //account for the ritual output, 10 is our magic constant
+            int maxWidth = BookEntryScreen.MAX_TITLE_WIDTH - RITUAL_DUMMY_OFFSET - 10; //account for the ritual output, 10 is our magic constant
             var scale = Math.min(1.0f, (float) maxWidth / (float) this.font.width(text));
             if (scale < 1) {
                 guiGraphics.pose().translate(x - x * scale, y - y * scale, 0);
@@ -216,7 +216,7 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
 
             int y = recipeY + 130;
             int x = recipeX;
-            int maxWidth = BookContentScreen.MAX_TITLE_WIDTH - 15; //account for the ritual dummy icon, 10 is a magic constant
+            int maxWidth = BookEntryScreen.MAX_TITLE_WIDTH - 15; //account for the ritual dummy icon, 10 is a magic constant
             var scale = Math.min(1.0f, (float) maxWidth / (float) this.font.width(text));
             if (scale < 1) {
                 guiGraphics.pose().translate(x - x * scale, y - y * scale, 0);
@@ -236,7 +236,7 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
 
             int y = recipeY + 15;
             int x = recipeX - 15;
-            int maxWidth = BookContentScreen.MAX_TITLE_WIDTH;
+            int maxWidth = BookEntryScreen.MAX_TITLE_WIDTH;
             var scale = Math.min(1.0f, (float) maxWidth / (float) this.font.width(text));
             if (scale < 1) {
                 guiGraphics.pose().translate(x - x * scale, y - y * scale, 0);

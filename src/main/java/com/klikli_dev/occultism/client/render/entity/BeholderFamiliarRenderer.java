@@ -40,7 +40,7 @@ import net.minecraft.util.Mth;
 
 public class BeholderFamiliarRenderer extends MobRenderer<BeholderFamiliarEntity, BeholderFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
+    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/beholder_familiar.png");
 
     public BeholderFamiliarRenderer(EntityRendererProvider.Context context) {
@@ -69,7 +69,7 @@ public class BeholderFamiliarRenderer extends MobRenderer<BeholderFamiliarEntity
 
     private static class SleepLayer extends RenderLayer<BeholderFamiliarEntity, BeholderFamiliarModel> {
 
-        private static final ResourceLocation SLEEP = new ResourceLocation(Occultism.MODID,
+        private static final ResourceLocation SLEEP = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/beholder_familiar_sleep.png");
 
         public SleepLayer(RenderLayerParent<BeholderFamiliarEntity, BeholderFamiliarModel> parent) {
@@ -84,7 +84,7 @@ public class BeholderFamiliarRenderer extends MobRenderer<BeholderFamiliarEntity
             BeholderFamiliarModel model = this.getParentModel();
             VertexConsumer ivertexbuilder = pBuffer.getBuffer(RenderType.entityCutout(SLEEP));
             model.renderToBuffer(pMatrixStack, ivertexbuilder, pPackedLight,
-                    LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0), 1, 1, 1, 1);
+                    LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0));
         }
     }
 }

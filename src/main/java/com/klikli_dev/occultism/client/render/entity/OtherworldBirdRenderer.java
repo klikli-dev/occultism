@@ -32,7 +32,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.animal.Parrot;
 
 public class OtherworldBirdRenderer extends MobRenderer<Parrot, ParrotModel> {
-    public static final ResourceLocation TEXTURE = new ResourceLocation(Occultism.MODID, "textures/entity/otherworld_bird.png");
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/entity/otherworld_bird.png");
 
     public OtherworldBirdRenderer(EntityRendererProvider.Context context) {
         super(context, new ParrotModel(context.bakeLayer(ModelLayers.PARROT)), 0.3F);

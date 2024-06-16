@@ -36,10 +36,11 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib.util.Color;
 
 public class GoatFamiliarRenderer extends MobRenderer<GoatFamiliarEntity, GoatFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
+    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/goat_familiar.png");
 
     public GoatFamiliarRenderer(EntityRendererProvider.Context context) {
@@ -84,7 +85,8 @@ public class GoatFamiliarRenderer extends MobRenderer<GoatFamiliarEntity, GoatFa
                 VertexConsumer ivertexbuilder = pBuffer
                         .getBuffer(RenderType.entityTranslucent(this.getTextureLocation(pLivingEntity)));
                 this.model.renderToBuffer(pMatrixStack, ivertexbuilder, pPackedLight,
-                        LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0), 0, 0, 0, 0.5f);
+                        LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0),
+                        Color.ofRGBA(0, 0, 0, 0.5f).getColor());
             }
         }
 

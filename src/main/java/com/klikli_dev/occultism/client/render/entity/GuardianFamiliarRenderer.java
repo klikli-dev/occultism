@@ -44,10 +44,11 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.joml.Quaternionf;
+import software.bernie.geckolib.util.Color;
 
 public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity, GuardianFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
+    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/guardian_familiar.png");
 
     public GuardianFamiliarRenderer(EntityRendererProvider.Context context) {
@@ -74,7 +75,7 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
     }
 
     private static class GuardianFamiliarOverlay extends RenderLayer<GuardianFamiliarEntity, GuardianFamiliarModel> {
-        private static final ResourceLocation OVERLAY = new ResourceLocation(Occultism.MODID,
+        private static final ResourceLocation OVERLAY = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/guardian_familiar_overlay.png");
 
         private final GuardianFamiliarModel model;
@@ -92,9 +93,11 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
                 this.model.setupAnim(pLivingEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
                 VertexConsumer ivertexbuilder = pBuffer.getBuffer(RenderType.entityTranslucent(OVERLAY));
                 this.model.renderToBuffer(ppMatrixStackStack, ivertexbuilder, pPackedLight,
-                        LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0.0F), pLivingEntity.getRed(),
+                        LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0.0F),
+                        Color.ofRGBA(
+                        pLivingEntity.getRed(),
                         pLivingEntity.getGreen(), pLivingEntity.getBlue(),
-                        (Mth.cos(pAgeInTicks / 20) + 1) * 0.3f + 0.4f);
+                        (Mth.cos(pAgeInTicks / 20) + 1) * 0.3f + 0.4f).getColor());
             }
         }
     }
@@ -147,9 +150,9 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
     }
 
     private static class GuardianFamiliarTree extends RenderLayer<GuardianFamiliarEntity, GuardianFamiliarModel> {
-        private static final ResourceLocation TREE = new ResourceLocation(Occultism.MODID,
+        private static final ResourceLocation TREE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/guardian_familiar_tree.png");
-        private static final ResourceLocation CHRISTMAS = new ResourceLocation(Occultism.MODID,
+        private static final ResourceLocation CHRISTMAS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/guardian_familiar_christmas.png");
 
         public GuardianFamiliarTree(RenderLayerParent<GuardianFamiliarEntity, GuardianFamiliarModel> renderer) {
@@ -171,7 +174,7 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
             model.tree1.visible = isChristmas || hasTree;
             model.tree2.visible = isChristmas || hasTree;
             model.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn,
-                    LivingEntityRenderer.getOverlayCoords(entitylivingbaseIn, 0), 1, 1, 1, 1);
+                    LivingEntityRenderer.getOverlayCoords(entitylivingbaseIn, 0));
         }
     }
 

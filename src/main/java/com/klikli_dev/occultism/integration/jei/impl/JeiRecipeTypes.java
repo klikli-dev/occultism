@@ -43,7 +43,7 @@ public class JeiRecipeTypes {
             create(Occultism.MODID, "ritual", RitualRecipe.class);
 
     public static <R extends Recipe<?>> RecipeType<RecipeHolder<R>> create(String modid, String name, Class<? extends R> recipeClass) {
-        ResourceLocation uid = new ResourceLocation(modid, name);
+        ResourceLocation uid = ResourceLocation.fromNamespaceAndPath(modid, name);
         @SuppressWarnings({"unchecked", "RedundantCast"})
         Class<? extends RecipeHolder<R>> holderClass = (Class<? extends RecipeHolder<R>>) (Object) RecipeHolder.class;
         return new RecipeType<>(uid, holderClass);

@@ -30,16 +30,16 @@ import software.bernie.geckolib.model.GeoModel;
 public class DimensionalMatrixModel extends GeoModel<StorageControllerBlockEntity> {
     @Override
     public ResourceLocation getModelResource(StorageControllerBlockEntity object) {
-        return new ResourceLocation(Occultism.MODID, "geo/dimensional_matrix.geo.json");
+        return ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "geo/dimensional_matrix.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(StorageControllerBlockEntity object) {
-        return new ResourceLocation(Occultism.MODID, "textures/block/dimensional_matrix.png");
+        return ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/block/dimensional_matrix.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(StorageControllerBlockEntity animatable) {
-        return new ResourceLocation(Occultism.MODID, "animations/dimensional_matrix.animation.json");
+        return ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "animations/dimensional_matrix.animation.json");
     }
 }

@@ -131,16 +131,16 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float red, float green, float blue, float alpha) {
-        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, red, green, blue, alpha);
-        this.lantern4.proxyRender(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, red, green, blue, alpha);
+    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
+        this.head.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
+        this.lantern4.proxyRender(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
     }
 
 
     @Override
     public void setupAnim(CthulhuFamiliarEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
                           float netHeadYaw, float headPitch) {
-        float partialTicks = Minecraft.getInstance().getFrameTime();
+        float partialTicks = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
 
         entityIn.riderLimbSwing = limbSwing;
         entityIn.riderLimbSwingAmount = limbSwingAmount;

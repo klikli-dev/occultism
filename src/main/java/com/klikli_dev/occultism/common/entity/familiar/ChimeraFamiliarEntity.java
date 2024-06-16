@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.google.common.collect.ImmutableList;
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import net.minecraft.core.particles.ParticleTypes;
@@ -30,6 +31,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -54,12 +56,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.UUID;
 
 public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements ItemSteerable, PlayerRideableJumping {
 
@@ -67,8 +67,8 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     public static final byte LION_ATTACKER = 1;
     public static final byte GOAT_ATTACKER = 2;
     public static final byte SNAKE_ATTACKER = 3;
-    private static final UUID SPEED_BONUS = UUID.fromString("f1db15e0-174b-4534-96a3-d941cec44e55");
-    private static final UUID DAMAGE_BONUS = UUID.fromString("fdaa6165-abdf-4b85-aed6-199086f6a5ee");
+    private static final ResourceLocation DAMAGE_BONUS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "chimera_damage_bonus");
+    private static final ResourceLocation SPEED_BONUS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "chimera_speed_bonus");
     private static final byte RIDING_SIZE = 80;
     private static final double SHRINK_CHANCE = 0.005;
     private static final int ATTACK_TIME = 10;
@@ -264,9 +264,9 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
         this.getAttribute(Attributes.ATTACK_DAMAGE).removeModifier(DAMAGE_BONUS);
         this.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(SPEED_BONUS);
         this.getAttribute(Attributes.ATTACK_DAMAGE).addTransientModifier(
-                new AttributeModifier(DAMAGE_BONUS, "Chimera attack bonus", this.getAttackBonus(), Operation.ADD_VALUE));
+                new AttributeModifier(DAMAGE_BONUS, this.getAttackBonus(), Operation.ADD_VALUE));
         this.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(
-                new AttributeModifier(SPEED_BONUS, "Chimera speed bonus", this.getSpeedBonus(), Operation.ADD_VALUE));
+                new AttributeModifier(SPEED_BONUS, this.getSpeedBonus(), Operation.ADD_VALUE));
     }
 
     public float getNoseGoatRot(float partialTicks) {
@@ -362,8 +362,8 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
 
 
     protected void executeRidersJump(float pPlayerJumpPendingScale, Vec3 pTravelVector) {
-        double d0 = this.getCustomJump() * (double)pPlayerJumpPendingScale * (double)this.getBlockJumpFactor();
-        double d1 = d0 + (double)this.getJumpBoostPower();
+        double d0 = this.getCustomJump() * (double) pPlayerJumpPendingScale * (double) this.getBlockJumpFactor();
+        double d1 = d0 + (double) this.getJumpBoostPower();
         Vec3 vec3 = this.getDeltaMovement();
         this.setDeltaMovement(vec3.x, d1, vec3.z);
         this.setIsJumping(true);
@@ -372,7 +372,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
         if (pTravelVector.z > 0.0) {
             float f = Mth.sin(this.getYRot() * (float) (Math.PI / 180.0));
             float f1 = Mth.cos(this.getYRot() * (float) (Math.PI / 180.0));
-            this.setDeltaMovement(this.getDeltaMovement().add((double)(-0.4F * f * pPlayerJumpPendingScale), 0.0, (double)(0.4F * f1 * pPlayerJumpPendingScale)));
+            this.setDeltaMovement(this.getDeltaMovement().add(-0.4F * f * pPlayerJumpPendingScale, 0.0, 0.4F * f1 * pPlayerJumpPendingScale));
         }
     }
 
@@ -458,13 +458,13 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
         if (pJumpPower >= 90) {
             this.playerJumpPendingScale = 1.0F;
         } else {
-            this.playerJumpPendingScale = 0.6F + 0.4F * (float)pJumpPower / 90.0F;
+            this.playerJumpPendingScale = 0.6F + 0.4F * (float) pJumpPower / 90.0F;
         }
     }
 
     @Override
     public boolean canJump() {
-       return true;
+        return true;
     }
 
     @Override

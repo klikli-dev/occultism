@@ -39,7 +39,7 @@ public class FoliotModel extends DefaultedJobEntityModel<FoliotEntity> {
     public final static String ASSET_SUBPATH = "foliot";
 
     public FoliotModel() {
-        super(new ResourceLocation(Occultism.MODID, ASSET_SUBPATH), false,ASSET_SUBPATH);
+        super(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, ASSET_SUBPATH), false,ASSET_SUBPATH);
     }
 }
 

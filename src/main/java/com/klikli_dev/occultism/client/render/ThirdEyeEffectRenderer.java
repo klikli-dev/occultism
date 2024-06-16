@@ -47,9 +47,9 @@ import java.util.Set;
 public class ThirdEyeEffectRenderer {
 
     public static final int MAX_THIRD_EYE_DISTANCE = 10;
-    public static final ResourceLocation THIRD_EYE_SHADER = new ResourceLocation(Occultism.MODID,
+    public static final ResourceLocation THIRD_EYE_SHADER = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "shaders/post/third_eye.json");
-    public static final ResourceLocation THIRD_EYE_TEXTURE = new ResourceLocation(Occultism.MODID,
+    public static final ResourceLocation THIRD_EYE_TEXTURE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/overlay/third_eye.png");
     public boolean thirdEyeActiveLastTick = false;
     public boolean gogglesActiveLastTick = false;
@@ -82,16 +82,12 @@ public class ThirdEyeEffectRenderer {
         RenderSystem.disableDepthTest();
         RenderSystem.depthMask(false);
 
-        Tesselator tessellator = Tesselator.getInstance();
-        BufferBuilder buffer = tessellator.getBuilder();
-
-        buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        buffer.vertex(0.0D, window.getGuiScaledHeight(), -90.0D).uv(0.0f, 1.0f).endVertex();
-        buffer.vertex(window.getGuiScaledWidth(), window.getGuiScaledHeight(), -90.0D)
-                .uv(1.0f, 1.0f).endVertex();
-        buffer.vertex(window.getGuiScaledWidth(), 0.0D, -90.0D).uv(1.0f, 0.0f).endVertex();
-        buffer.vertex(0.0D, 0.0D, -90.0D).uv(0.0f, 0.0f).endVertex();
-        tessellator.end();
+        BufferBuilder buffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+        buffer.addVertex(0.0f, window.getGuiScaledHeight(), -90.0f).setUv(0.0f, 1.0f);
+        buffer.addVertex(window.getGuiScaledWidth(), window.getGuiScaledHeight(), -90.0f).setUv(1.0f, 1.0f);
+        buffer.addVertex(window.getGuiScaledWidth(), 0.0f, -90.0f).setUv(1.0f, 0.0f);
+        buffer.addVertex(0.0f, 0.0f, -90.0f).setUv(0.0f, 0.0f);
+        BufferUploader.drawWithShader(buffer.buildOrThrow());
 
         RenderSystem.depthMask(true);
         RenderSystem.enableDepthTest();

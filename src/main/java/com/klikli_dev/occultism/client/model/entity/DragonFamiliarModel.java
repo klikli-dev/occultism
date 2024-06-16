@@ -12,9 +12,11 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import org.joml.Vector3f;
+import software.bernie.geckolib.util.Color;
 
 import java.util.Collections;
 import java.util.stream.Stream;
@@ -164,15 +166,13 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         return LayerDefinition.create(mesh, 64, 32);
     }
 
-    @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float red, float green, float blue, float alpha) {
-        ImmutableList.of(this.body).forEach((modelRenderer) -> {
-            modelRenderer.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, red, green, blue, alpha);
-        });
-//        this.rightEye.proxyRender(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, red, green, blue, alpha);
-//        this.leftEye.proxyRender(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, red, green, blue, alpha);
-    }
 
+    @Override
+    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
+        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
+        //        this.rightEye.proxyRender(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
+//        this.leftEye.proxyRender(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
+    }
 
     @Override
     public void setupAnim(DragonFamiliarEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
@@ -307,12 +307,13 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
 
     public static class ColorModelPartProxy extends ModelPart {
 
-        float r, g, b, a;
+        Color color;
         ModelPart proxied;
 
         public ColorModelPartProxy(ModelPart modelPart) {
             super(Collections.emptyList(), Collections.emptyMap());
             this.proxied = modelPart;
+
         }
 
         public void setColor(float r, float g, float b) {
@@ -320,20 +321,17 @@ public class DragonFamiliarModel extends EntityModel<DragonFamiliarEntity> {
         }
 
         public void setColor(float r, float g, float b, float a) {
-            this.r = r;
-            this.g = g;
-            this.b = b;
-            this.a = a;
+            this.color =        Color.ofRGBA(r, g, b, a);
         }
 
         @Override
-        public void render(PoseStack poseStack, VertexConsumer pVertexConsumer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
+        public void render(PoseStack poseStack, VertexConsumer pVertexConsumer, int pPackedLight, int pPackedOverlay, int pColor) {
             //prevent actual render
-            this.proxied.render(poseStack, pVertexConsumer, pPackedLight, pPackedOverlay, this.r, this.g, this.b, this.a);
+            this.proxied.render(poseStack, pVertexConsumer, pPackedLight, pPackedOverlay, this.color.getColor());
         }
 
-        public void proxyRender(PoseStack poseStack, VertexConsumer pVertexConsumer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
-            this.proxied.render(poseStack, pVertexConsumer, pPackedLight, pPackedOverlay, this.r, this.g, this.b, this.a);
+        public void proxyRender(PoseStack poseStack, VertexConsumer pVertexConsumer, int pPackedLight, int pPackedOverlay, int pColor) {
+            this.proxied.render(poseStack, pVertexConsumer, pPackedLight, pPackedOverlay, this.color.getColor());
         }
 
         @Override

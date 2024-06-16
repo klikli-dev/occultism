@@ -35,7 +35,7 @@ import net.minecraft.world.entity.Entity;
 
 public class MessageSetTagFilterText implements IMessage {
 
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "set_tag_filter_text");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "set_tag_filter_text");
     public static final Type<MessageSetTagFilterText> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetTagFilterText> STREAM_CODEC = CustomPacketPayload.codec(MessageSetTagFilterText::encode, MessageSetTagFilterText::new);
 

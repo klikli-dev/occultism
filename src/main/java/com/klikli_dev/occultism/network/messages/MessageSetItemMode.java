@@ -35,7 +35,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 
 public class MessageSetItemMode implements IMessage {
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "set_item_mode");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "set_item_mode");
     public static final Type<MessageSetItemMode> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetItemMode> STREAM_CODEC = CustomPacketPayload.codec(MessageSetItemMode::encode, MessageSetItemMode::new);
 

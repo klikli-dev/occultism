@@ -37,7 +37,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
+public class CrushingRecipe extends SingleInputRecipe<TieredSingleRecipeInput> {
 
     public static final StreamCodec<RegistryFriendlyByteBuf, CrushingRecipe> STREAM_CODEC = StreamCodec.composite(
             Ingredient.CONTENTS_STREAM_CODEC,
@@ -105,21 +105,17 @@ public class CrushingRecipe extends ItemStackFakeInventoryRecipe {
     }
 
     @Override
-    public boolean matches(ItemStackFakeInventory inv, Level level) {
-        if (inv instanceof TieredItemStackFakeInventory tieredInv) {
-            boolean tierMatches = true;
-            //tiers can be -1 in which case they are ignored, only if >= 0 we check
-            if (this.minTier >= 0 && this.maxTier >= 0) {
-                tierMatches = tieredInv.getTier() >= this.minTier && tieredInv.getTier() <= this.maxTier;
-            } else if (this.minTier >= 0) {
-                tierMatches = tieredInv.getTier() >= this.minTier;
-            } else if (this.maxTier >= 0) {
-                tierMatches = tieredInv.getTier() <= this.maxTier;
-            }
-            return tierMatches && this.input.test(inv.getItem(0));
+    public boolean matches(TieredSingleRecipeInput inv, Level level) {
+        boolean tierMatches = true;
+        //tiers can be -1 in which case they are ignored, only if >= 0 we check
+        if (this.minTier >= 0 && this.maxTier >= 0) {
+            tierMatches = inv.tier() >= this.minTier && inv.tier() <= this.maxTier;
+        } else if (this.minTier >= 0) {
+            tierMatches = inv.tier() >= this.minTier;
+        } else if (this.maxTier >= 0) {
+            tierMatches = inv.tier() <= this.maxTier;
         }
-
-        return this.input.test(inv.getItem(0));
+        return tierMatches && this.input.test(inv.getItem(0));
     }
 
     @Override

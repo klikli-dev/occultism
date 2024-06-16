@@ -41,7 +41,7 @@ import org.joml.Quaternionf;
 
 public class CthulhuFamiliarRenderer extends MobRenderer<CthulhuFamiliarEntity, CthulhuFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
+    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/cthulhu_familiar.png");
 
     public CthulhuFamiliarRenderer(EntityRendererProvider.Context context) {

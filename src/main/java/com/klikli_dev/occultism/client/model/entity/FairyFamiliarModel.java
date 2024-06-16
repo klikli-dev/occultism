@@ -163,8 +163,8 @@ public class FairyFamiliarModel extends EntityModel<FairyFamiliarEntity> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
-        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pRed, pGreen, pBlue, pAlpha);
+    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
+        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
     }
 
     @Override
@@ -172,7 +172,7 @@ public class FairyFamiliarModel extends EntityModel<FairyFamiliarEntity> {
                           float netHeadYaw, float headPitch) {
         this.showModels(pEntity);
 
-        float partialTicks = Minecraft.getInstance().getFrameTime();
+        float partialTicks = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
 
         ModelPart mainArm = this.getMainArm(pEntity);
 

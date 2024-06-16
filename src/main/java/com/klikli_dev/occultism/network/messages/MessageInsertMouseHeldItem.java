@@ -41,7 +41,7 @@ import net.minecraft.world.item.ItemStack;
  */
 public class MessageInsertMouseHeldItem implements IMessage {
 
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "insert_mouse_held_item");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "insert_mouse_held_item");
     public static final Type<MessageInsertMouseHeldItem> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageInsertMouseHeldItem> STREAM_CODEC = CustomPacketPayload.codec(MessageInsertMouseHeldItem::encode, MessageInsertMouseHeldItem::new);
     private int mouseButton;

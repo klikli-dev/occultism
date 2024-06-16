@@ -43,7 +43,7 @@ import org.joml.Quaternionf;
 
 public class FairyFamiliarRenderer extends MobRenderer<FairyFamiliarEntity, FairyFamiliarModel> {
 
-    private static final ResourceLocation TEXTURES = new ResourceLocation(Occultism.MODID,
+    private static final ResourceLocation TEXTURES = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/fairy_familiar.png");
 
     public FairyFamiliarRenderer(EntityRendererProvider.Context context) {
@@ -81,7 +81,7 @@ public class FairyFamiliarRenderer extends MobRenderer<FairyFamiliarEntity, Fair
 
     private static class SleepLayer extends RenderLayer<FairyFamiliarEntity, FairyFamiliarModel> {
 
-        private static final ResourceLocation SLEEP = new ResourceLocation(Occultism.MODID,
+        private static final ResourceLocation SLEEP = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/fairy_familiar_sleep.png");
 
         public SleepLayer(RenderLayerParent<FairyFamiliarEntity, FairyFamiliarModel> parent) {
@@ -96,7 +96,7 @@ public class FairyFamiliarRenderer extends MobRenderer<FairyFamiliarEntity, Fair
             FairyFamiliarModel model = this.getParentModel();
             VertexConsumer ivertexbuilder = pBuffer.getBuffer(RenderType.entityCutout(SLEEP));
             model.renderToBuffer(pMatrixStack, ivertexbuilder, pPackedLight,
-                    LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0), 1, 1, 1, 1);
+                    LivingEntityRenderer.getOverlayCoords(pLivingEntity, 0));
         }
     }
 }

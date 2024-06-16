@@ -88,7 +88,7 @@ public class EntityUtil {
      * @return the entity type if successful or null otherwise.
      */
     public static EntityType<?> entityTypeFromNbt(CompoundTag nbtTagCompound) {
-        ResourceLocation typeId = new ResourceLocation(nbtTagCompound.getString("id"));
+        ResourceLocation typeId = ResourceLocation.parse(nbtTagCompound.getString("id"));
         return BuiltInRegistries.ENTITY_TYPE.get(typeId);
     }
     //endregion Static Methods

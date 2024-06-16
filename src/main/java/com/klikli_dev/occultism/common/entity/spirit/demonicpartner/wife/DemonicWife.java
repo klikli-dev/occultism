@@ -16,7 +16,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class DemonicWife extends DemonicPartner implements GeoEntity {
 
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "demonic_wife");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "demonic_wife");
     public static final Lazy<EntityType<DemonicWife>> ENTITY_TYPE =
             Lazy.of(() -> EntityType.Builder.of(DemonicWife::new, MobCategory.CREATURE)
                     .sized(0.6F, 2)

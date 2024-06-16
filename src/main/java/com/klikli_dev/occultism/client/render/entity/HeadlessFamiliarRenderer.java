@@ -61,7 +61,7 @@ import java.util.Map;
 
 public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity, HeadlessFamiliarModel> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(Occultism.MODID,
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/entity/headless_familiar.png");
 
     public HeadlessFamiliarRenderer(EntityRendererProvider.Context context) {
@@ -194,9 +194,9 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
     }
 
     private static class PumpkinLayer extends RenderLayer<HeadlessFamiliarEntity, HeadlessFamiliarModel> {
-        private static final ResourceLocation PUMPKIN = new ResourceLocation(Occultism.MODID,
+        private static final ResourceLocation PUMPKIN = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/headless_familiar_pumpkin.png");
-        private static final ResourceLocation CHRISTMAS = new ResourceLocation(Occultism.MODID,
+        private static final ResourceLocation CHRISTMAS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
                 "textures/entity/headless_familiar_christmas.png");
 
         public PumpkinLayer(RenderLayerParent<HeadlessFamiliarEntity, HeadlessFamiliarModel> renderer) {
@@ -228,7 +228,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
             model.pumpkin3.visible = !isChristmas;
             model.pumpkin4.visible = !isChristmas;
             model.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn,
-                    LivingEntityRenderer.getOverlayCoords(entitylivingbaseIn, 0), 1, 1, 1, 1);
+                    LivingEntityRenderer.getOverlayCoords(entitylivingbaseIn, 0));
         }
     }
 
@@ -245,13 +245,13 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
             if (textures == null) {
                 ImmutableMap.Builder<EntityType<?>, ResourceLocation> builder = new ImmutableMap.Builder<>();
                 builder.put(EntityType.PLAYER, DefaultPlayerSkin.getDefaultTexture());
-                builder.put(EntityType.SKELETON, new ResourceLocation("textures/entity/skeleton/skeleton.png"));
-                builder.put(EntityType.WITHER_SKELETON, new ResourceLocation("textures/entity/skeleton/wither_skeleton.png"));
-                builder.put(EntityType.ZOMBIE, new ResourceLocation("textures/entity/zombie/zombie.png"));
-                builder.put(EntityType.CREEPER, new ResourceLocation("textures/entity/creeper/creeper.png"));
-                builder.put(EntityType.SPIDER, new ResourceLocation("textures/entity/spider/spider.png"));
+                builder.put(EntityType.SKELETON, ResourceLocation.parse("textures/entity/skeleton/skeleton.png"));
+                builder.put(EntityType.WITHER_SKELETON, ResourceLocation.parse("textures/entity/skeleton/wither_skeleton.png"));
+                builder.put(EntityType.ZOMBIE, ResourceLocation.parse("textures/entity/zombie/zombie.png"));
+                builder.put(EntityType.CREEPER, ResourceLocation.parse("textures/entity/creeper/creeper.png"));
+                builder.put(EntityType.SPIDER, ResourceLocation.parse("textures/entity/spider/spider.png"));
                 builder.put(OccultismEntities.CTHULHU_FAMILIAR.get(),
-                        new ResourceLocation(Occultism.MODID, "textures/entity/cthulhu_familiar.png"));
+                        ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/entity/cthulhu_familiar.png"));
                 textures = builder.build();
             }
             return textures.get(type);
@@ -301,7 +301,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
 
             if (texture != null) {
                 VertexConsumer builder = pBuffer.getBuffer(RenderType.entityCutoutNoCull(texture));
-                head.renderToBuffer(pMatrixStack, builder, pPackedLight, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+                head.renderToBuffer(pMatrixStack, builder, pPackedLight, OverlayTexture.NO_OVERLAY);
             }
 
             pMatrixStack.popPose();
@@ -318,7 +318,7 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
         }
 
         @Override
-        public void renderToBuffer(PoseStack pMatrixStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
+        public void renderToBuffer(PoseStack pMatrixStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
             this.model.trunk1.visible = false;
             this.model.trunk2.visible = false;
             this.model.trunk3.visible = false;

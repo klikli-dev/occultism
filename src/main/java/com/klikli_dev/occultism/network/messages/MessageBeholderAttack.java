@@ -39,7 +39,7 @@ import java.util.List;
 
 public class MessageBeholderAttack implements IMessage {
 
-    public static final ResourceLocation ID = new ResourceLocation(Occultism.MODID, "beholder_attack");
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "beholder_attack");
     public static final Type<MessageBeholderAttack> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageBeholderAttack> STREAM_CODEC = CustomPacketPayload.codec(MessageBeholderAttack::encode, MessageBeholderAttack::new);
 
