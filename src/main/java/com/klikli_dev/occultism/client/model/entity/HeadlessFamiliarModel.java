@@ -253,9 +253,7 @@ public class HeadlessFamiliarModel extends EntityModel<HeadlessFamiliarEntity> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
-        ImmutableList.of(this.ratBody1).forEach((modelRenderer) -> {
-            modelRenderer.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pRed, pGreen, pBlue, pAlpha);
-        });
+    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
+        this.ratBody1.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
     }
 }

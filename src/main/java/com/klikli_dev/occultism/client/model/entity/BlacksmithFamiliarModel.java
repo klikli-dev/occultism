@@ -140,11 +140,10 @@ public class BlacksmithFamiliarModel extends EntityModel<BlacksmithFamiliarEntit
         return LayerDefinition.create(mesh, 64, 64);
     }
 
-
     @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
+    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
         ImmutableList.of(this.body, this.wagon).forEach((modelRenderer) -> {
-            modelRenderer.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pRed, pGreen, pBlue, pAlpha);
+            modelRenderer.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
         });
     }
 

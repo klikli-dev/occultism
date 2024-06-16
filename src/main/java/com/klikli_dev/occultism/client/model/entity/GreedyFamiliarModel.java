@@ -101,8 +101,8 @@ public class GreedyFamiliarModel extends EntityModel<GreedyFamiliarEntity> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float red, float green, float blue, float alpha) {
-        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, red, green, blue, alpha);
+    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
+        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
     }
 
     private float toRad(float deg) {

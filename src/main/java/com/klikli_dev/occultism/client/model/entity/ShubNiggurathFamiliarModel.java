@@ -219,14 +219,14 @@ public class ShubNiggurathFamiliarModel extends EntityModel<ShubNiggurathFamilia
     }
 
     @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
-        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pRed, pGreen, pBlue, pAlpha);
+    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
+        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
     }
 
     @Override
     public void setupAnim(ShubNiggurathFamiliarEntity pEntity, float limbSwing, float limbSwingAmount,
                           float pAgeInTicks, float netHeadYaw, float headPitch) {
-        float partialTicks = Minecraft.getInstance().getFrameTime();
+        float partialTicks = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
         this.showModels(pEntity);
         CthulhuFamiliarEntity friend = pEntity.getCthulhuFriend();
 
