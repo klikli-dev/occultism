@@ -22,8 +22,6 @@
 
 package com.klikli_dev.occultism.common.block;
 
-import com.klikli_dev.occultism.crafting.recipe.ItemStackFakeInventory;
-import com.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import com.klikli_dev.occultism.util.Math3DUtil;
@@ -37,6 +35,7 @@ import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -72,16 +71,15 @@ public class SpiritFireBlock extends BaseFireBlock {
     @Override
     public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
         if (pEntity instanceof ItemEntity item) {
-            ItemStackFakeInventory fakeInventory =
-                    new ItemStackFakeInventory(ItemStack.EMPTY);
-            fakeInventory.setItem(0, item.getItem());
+            var recipeInput =
+                    new SingleRecipeInput(item.getItem());
             var recipe =
-                    pLevel.getRecipeManager().getRecipeFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), fakeInventory, pLevel);
+                    pLevel.getRecipeManager().getRecipeFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), recipeInput, pLevel);
 
             if (recipe.isPresent()) {
                 item.remove(RemovalReason.DISCARDED);
 
-                ItemStack result = recipe.get().value().assemble(fakeInventory, pLevel.registryAccess());
+                ItemStack result = recipe.get().value().assemble(recipeInput, pLevel.registryAccess());
                 Vec3 center = Math3DUtil.center(pPos);
                 Containers.dropItemStack(pLevel, center.x, center.y + 0.5, center.z, result);
 

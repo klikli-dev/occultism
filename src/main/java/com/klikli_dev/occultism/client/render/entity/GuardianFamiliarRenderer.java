@@ -174,7 +174,7 @@ public class GuardianFamiliarRenderer extends MobRenderer<GuardianFamiliarEntity
             model.tree1.visible = isChristmas || hasTree;
             model.tree2.visible = isChristmas || hasTree;
             model.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn,
-                    LivingEntityRenderer.getOverlayCoords(entitylivingbaseIn, 0), 1, 1, 1, 1);
+                    LivingEntityRenderer.getOverlayCoords(entitylivingbaseIn, 0));
         }
     }
 

@@ -90,12 +90,12 @@ public class SpiritTradeRecipe extends ShapelessRecipe {
     }
 
     @Override
-    public boolean matches(@Nonnull CraftingContainer inventory, @Nonnull Level level) {
+    public boolean matches(@Nonnull CraftingInput inventory, @Nonnull Level level) {
         return false;
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer pCraftingContainer, HolderLookup.Provider pRegistries) {
+    public ItemStack assemble(CraftingInput pCraftingContainer, HolderLookup.Provider pRegistries) {
         //as we don't have an inventory this is ignored.
         return null;
     }

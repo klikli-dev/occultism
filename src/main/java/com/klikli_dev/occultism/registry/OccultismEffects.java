@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.common.effect.DoubleJumpEffect;
 import com.klikli_dev.occultism.common.effect.ThirdEyeEffect;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -49,7 +50,7 @@ public class OccultismEffects {
 
     public static final DeferredHolder<MobEffect, MobEffect> STEP_HEIGHT = EFFECTS.register("step_height", () ->
             new ModEffect(MobEffectCategory.BENEFICIAL, 3402751)
-                    .addAttributeModifier(Attributes.STEP_HEIGHT, "748e2cfd-8db4-4b55-ba07-014fdf0f74da", 2, AttributeModifier.Operation.ADD_VALUE));
+                    .addAttributeModifier(Attributes.STEP_HEIGHT, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "step_height"), 2, AttributeModifier.Operation.ADD_VALUE));
 
     public static class ModEffect extends MobEffect {
 

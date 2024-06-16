@@ -194,7 +194,8 @@ public class OccultismItems {
 
     //TODO: Re-enable familiar ring once we have curios
     public static final DeferredItem<Item> FAMILIAR_RING = ITEMS.register("familiar_ring",
-            () -> new FamiliarRingItem(defaultProperties().stacksTo(1)));
+//            () -> new FamiliarRingItem(defaultProperties().stacksTo(1)));
+            () -> new Item(defaultProperties().stacksTo(1)));
 
     public static final DeferredItem<Item> PURIFIED_INK = ITEMS.register("purified_ink",
             () -> new Item(defaultProperties()));
@@ -464,7 +465,7 @@ public class OccultismItems {
         //historically used to add to occultism tab
         return new Item.Properties();
     }
-    
+
     public static boolean shouldSkipCreativeModTab(Item item) {
         if (item == PENTACLE.get()
                 || item == DICTIONARY_OF_SPIRITS_ICON.get()
@@ -472,7 +473,9 @@ public class OccultismItems {
                 || item == ADVANCEMENT_ICON.get()
                 || item == JEI_DUMMY_NONE.get()
                 || item == JEI_DUMMY_REQUIRE_SACRIFICE.get()
-                || item == JEI_DUMMY_REQUIRE_ITEM_USE.get())
+                || item == JEI_DUMMY_REQUIRE_ITEM_USE.get()
+                || item == FAMILIAR_RING.get() //TODO: Re-enable familiar ring once we have curios
+        )
             return true;
 
         if (item instanceof BlockItem blockItem) {

@@ -23,11 +23,13 @@
 package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.google.common.collect.ImmutableList;
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
@@ -42,11 +44,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 
 import javax.annotation.Nullable;
-import java.util.UUID;
 
 public class DeerFamiliarEntity extends FamiliarEntity {
 
-    private static final UUID SPEED_UUID = UUID.fromString("5ebf190f-3c59-41e7-9085-d14b37dfc863");
+    private static final ResourceLocation SPEED_BONUS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "deer_speed_bonus");
 
     private static final byte START_EATING = 10;
 
@@ -99,11 +100,11 @@ public class DeerFamiliarEntity extends FamiliarEntity {
         if (!this.level().isClientSide) {
             Entity owner = this.getFamiliarOwner();
             if (owner != null && this.distanceToSqr(owner) > 50) {
-                if (this.getAttribute(Attributes.MOVEMENT_SPEED).getModifier(SPEED_UUID) == null)
+                if (this.getAttribute(Attributes.MOVEMENT_SPEED).getModifier(SPEED_BONUS) == null)
                     this.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(
-                            new AttributeModifier(SPEED_UUID, "deer_speedup", 0.15, AttributeModifier.Operation.ADD_VALUE));
-            } else if (this.getAttribute(Attributes.MOVEMENT_SPEED).getModifier(SPEED_UUID) != null) {
-                this.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(SPEED_UUID);
+                            new AttributeModifier(SPEED_BONUS, 0.15, AttributeModifier.Operation.ADD_VALUE));
+            } else if (this.getAttribute(Attributes.MOVEMENT_SPEED).getModifier(SPEED_BONUS) != null) {
+                this.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(SPEED_BONUS);
             }
         }
     }

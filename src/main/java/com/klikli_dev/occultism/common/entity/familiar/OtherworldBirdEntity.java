@@ -75,7 +75,7 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(2, this.sitGoal);
-        this.goalSelector.addGoal(2, new FollowOwnerGoal(this, 1.0D, 5.0F, 1.0F, true));
+        this.goalSelector.addGoal(2, new FollowOwnerGoal(this, 1.0D, 5.0F, 1.0F));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomFlyingGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new FollowMobGoal(this, 1.0D, 3.0F, 7.0F));
     }

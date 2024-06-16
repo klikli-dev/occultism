@@ -102,9 +102,10 @@ jobs:
             Find changes for all versions at https://github.com/klikli-dev/occultism/releases
           dependencies: |
             modonomicon(required)
-            curios(required)
             geckolib(required)
             smartbrainlib(required)
+          # TODO: Enable once curios is updated
+          # curios(required)
             theurgy(optional)
             jei(optional)
             almost-unified(optional)

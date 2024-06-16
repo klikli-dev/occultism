@@ -23,10 +23,12 @@
 package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.google.common.collect.ImmutableList;
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -52,7 +54,7 @@ import java.util.UUID;
 
 public class MummyFamiliarEntity extends FamiliarEntity {
 
-    private static final UUID DAMAGE_BONUS = UUID.fromString("6aa62086-7009-402b-9c13-c2de74bf077d");
+    private static final ResourceLocation DAMAGE_BONUS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "mummy_damage_bonus");
 
     private static final int MAX_FIGHT_TIMER = 5;
 
@@ -145,8 +147,9 @@ public class MummyFamiliarEntity extends FamiliarEntity {
     @Override
     public void blacksmithUpgrade() {
         super.blacksmithUpgrade();
-        AttributeModifier damage = new AttributeModifier(DAMAGE_BONUS, "Mummy attack bonus", 3, Operation.ADD_VALUE);
-        if (!this.getAttribute(Attributes.ATTACK_DAMAGE).hasModifier(damage))
+        AttributeModifier damage = new AttributeModifier(
+                DAMAGE_BONUS, 3, Operation.ADD_VALUE);
+        if (!this.getAttribute(Attributes.ATTACK_DAMAGE).hasModifier(DAMAGE_BONUS))
             this.getAttribute(Attributes.ATTACK_DAMAGE).addPermanentModifier(damage);
 
     }

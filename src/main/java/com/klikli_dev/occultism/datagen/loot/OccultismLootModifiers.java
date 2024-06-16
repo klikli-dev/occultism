@@ -34,7 +34,7 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
         return new AddItemModifier(
                 new LootItemCondition[]{
                         LootItemEntityPropertyCondition
-                                .hasProperties(LootContext.EntityTarget.KILLER,
+                                .hasProperties(LootContext.EntityTarget.ATTACKER,
                                         EntityPredicate.Builder.entity()
                                                 .equipment(this.mainHand(ItemPredicate.Builder.item().of(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "tools/knives")))))).build(),
                         LootItemEntityPropertyCondition
@@ -45,7 +45,7 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
     @Override
     protected void start() {
         this.add("datura_seed_from_grass", new AddItemModifier(new LootItemCondition[]{
-                new LootItemRandomChanceCondition(0.02f),
+                LootItemRandomChanceCondition.randomChance(0.02f).build(),
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.SHORT_GRASS).build(),
                 new InvertedLootItemCondition(
                         MatchTool.toolMatches(ItemPredicate.Builder.item().of(Tags.Items.TOOLS_SHEARS)).build()
@@ -53,7 +53,7 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
         }, OccultismItems.DATURA_SEEDS.get(), 1));
 
         this.add("datura_seed_from_tall_grass", new AddItemModifier(new LootItemCondition[]{
-                new LootItemRandomChanceCondition(0.02f),
+                LootItemRandomChanceCondition.randomChance(0.02f).build(),
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.TALL_GRASS).build(),
                 new InvertedLootItemCondition(
                         MatchTool.toolMatches(ItemPredicate.Builder.item().of(Tags.Items.TOOLS_SHEARS)).build()
