@@ -23,8 +23,8 @@
 package com.klikli_dev.occultism.integration.jei.impl.recipes;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.common.misc.WeightedOutputIngredient;
 import com.klikli_dev.occultism.crafting.recipe.MinerRecipe;
+import com.klikli_dev.occultism.crafting.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.occultism.integration.jei.impl.JeiRecipeTypes;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.util.GuiGraphicsExt;
@@ -97,8 +97,8 @@ public class MinerRecipeCategory implements IRecipeCategory<RecipeHolder<MinerRe
         simulatedHandler.setStackInSlot(0, recipe.value().getIngredients().get(0).getItems()[0]);
         var recipes = level.getRecipeManager()
                 .getRecipesFor(OccultismRecipes.MINER_TYPE.get(),
-                        new RecipeWrapper(simulatedHandler), level);
-        List<WeightedOutputIngredient> possibleResults = recipes.stream().map(RecipeHolder::value).map(MinerRecipe::getWeightedResult).toList();
+                        new ItemHandlerRecipeInput(simulatedHandler), level);
+        var possibleResults = recipes.stream().map(RecipeHolder::value).map(MinerRecipe::getWeightedResult).toList();
 
         float chance = (float) recipe.value().getWeightedResult().getWeight().asInt()/100;
         this.chances.put(recipe.value(), chance);

@@ -73,8 +73,8 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
         this.ritualCenterY = this.background.getHeight() / 2 - this.iconWidth / 2 + 20;
         this.localizedName = Component.translatable(Occultism.MODID + ".jei.ritual");
         this.pentacle = I18n.get(Occultism.MODID + ".jei.pentacle");
-        this.goldenSacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
-        this.sacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
+//        this.goldenSacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
+//        this.sacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
         this.arrow = guiHelper.createDrawable(
                 ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
     }

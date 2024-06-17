@@ -19,7 +19,7 @@ sourceSets {
         java {
             exclude '**/AlmostUnifiedIntegrationImpl.java'
             exclude '**/emi/**/*.java'
-            exclude '**/jei/impl/**/*.java'
+//            exclude '**/jei/impl/**/*.java'
             exclude 'com/klikli_dev/occultism/common/item/tool/FamiliarRingItem.java'
         }
     }
@@ -126,11 +126,10 @@ repositories {
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
 
-    //TODO: enable once available
     //Jei
-//    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
-//    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
-//    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     //curios
 //    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api"

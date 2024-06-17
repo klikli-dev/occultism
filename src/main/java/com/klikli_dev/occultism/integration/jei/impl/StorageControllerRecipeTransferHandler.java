@@ -34,6 +34,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
@@ -92,7 +93,7 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
                     //if stack is not empty, write to result
                     ItemStack itemStack = possibleItems.get(i);
                     if (!itemStack.isEmpty()) {
-                        invList.add(itemStack.saveOptional(new CompoundTag()));
+                        invList.add(itemStack.saveOptional(Minecraft.getInstance().level.registryAccess()));
                     }
                 }
                 nbt.put("s" + (slot.getSlotIndex()), invList);
