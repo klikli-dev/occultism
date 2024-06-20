@@ -115,6 +115,6 @@ public class MinerRecipeCategory implements IRecipeCategory<RecipeHolder<MinerRe
         RenderSystem.enableBlend();
         this.overlay.draw(guiGraphics, 76, 14); //(center=84) - (width/16=8) = 76
         this.drawStringCentered(guiGraphics, Minecraft.getInstance().font,
-                Component.translatable(Occultism.MODID + ".jei.miner.chance", this.chances.get(recipe)), 84, 0);
+                Component.translatable(Occultism.MODID + ".jei.miner.chance", this.chances.get(recipe.value())), 84, 0);
     }
 }
