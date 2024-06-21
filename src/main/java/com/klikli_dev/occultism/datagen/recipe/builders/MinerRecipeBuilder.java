@@ -30,7 +30,6 @@ import java.util.Map;
 
 public class MinerRecipeBuilder implements RecipeBuilder {
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
-    private final RecipeSerializer<MinerRecipe> serializer;
     private final Ingredient ingredient;
     @Nullable
     private String group;
@@ -39,7 +38,6 @@ public class MinerRecipeBuilder implements RecipeBuilder {
     private boolean addResultItemExistsCondition;
 
     public MinerRecipeBuilder(Ingredient ingredient, WeightedRecipeResult result) {
-        this.serializer = MinerRecipe.SERIALIZER;
         this.ingredient = ingredient;
         this.result = result;
         this.allowEmpty = false;
@@ -155,6 +153,9 @@ public class MinerRecipeBuilder implements RecipeBuilder {
 
     protected ICondition getNoTagCondition(RecipeResult result) {
         if (result instanceof TagRecipeResult tagResult) {
+            return new NotCondition(new TagEmptyCondition(tagResult.tag()));
+        }
+        if (result instanceof WeightedTagRecipeResult tagResult) {
             return new NotCondition(new TagEmptyCondition(tagResult.tag()));
         }
         return null;

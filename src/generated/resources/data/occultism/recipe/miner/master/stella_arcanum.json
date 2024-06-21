@@ -6,6 +6,13 @@
         "type": "neoforge:tag_empty",
         "tag": "occultism:miners/master"
       }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/stella_arcanum"
+      }
     }
   ],
   "type": "occultism:miner",

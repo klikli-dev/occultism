@@ -6,6 +6,13 @@
         "type": "neoforge:tag_empty",
         "tag": "occultism:miners/ores"
       }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/beryl"
+      }
     }
   ],
   "type": "occultism:miner",
