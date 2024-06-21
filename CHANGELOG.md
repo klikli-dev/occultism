@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.133.1] - 2024-06-21
+### :bug: Bug Fixes
+- [`6967b5b`](https://github.com/klikli-dev/occultism/commit/6967b5b9a433399df98ad9114bf325f79293e253) - miner recipe jei crash *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`f62fe8d`](https://github.com/klikli-dev/occultism/commit/f62fe8dba595cd0a77c52a9ba5b07dcd3a84fa89) - add missing result tag conditions to miner recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`125f0de`](https://github.com/klikli-dev/occultism/commit/125f0de654a2311019d6a13c918ce179e3f023df) - re-enable emi integration *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.133.0] - 2024-06-17
 ### :sparkles: New Features
 - [`e4d4fb1`](https://github.com/klikli-dev/occultism/commit/e4d4fb197b73944f4db1043e2cc5f99374243a01) - enable JEI integration *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1173,3 +1182,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.132.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.132.1...release/v1.21-1.132.2
 [release/v1.21-1.132.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.132.2...release/v1.21-1.132.3
 [release/v1.21-1.133.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.132.3...release/v1.21-1.133.0
+[release/v1.21-1.133.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.133.0...release/v1.21-1.133.1
