@@ -258,7 +258,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     public void setWorkAreaSize(WorkAreaSize workAreaSize) {
-        this.entityData.set(WORK_AREA_SIZE, workAreaSize.getValue());
+        this.entityData.set(WORK_AREA_SIZE, workAreaSize.ordinal()); //for the entity data set the
         BrainUtils.setMemory(this, OccultismMemoryTypes.WORK_AREA_SIZE.get(), this.getWorkAreaSize().getValue());
 
         this.getJob().ifPresent(SpiritJob::onChangeWorkArea);
@@ -508,7 +508,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
         builder.define(EXTRACT_POSITION, Optional.empty());
         builder.define(EXTRACT_FACING, Direction.DOWN);
         builder.define(WORK_AREA_POSITION, Optional.empty());
-        builder.define(WORK_AREA_SIZE, WorkAreaSize.SMALL.getValue());
+        builder.define(WORK_AREA_SIZE, WorkAreaSize.SMALL.ordinal());
         builder.define(SPIRIT_AGE, 0);
         builder.define(SPIRIT_MAX_AGE, DEFAULT_MAX_AGE);
         builder.define(JOB_ID, "");
@@ -527,7 +527,7 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
         //store work area position
         this.getWorkAreaPosition().ifPresent(pos -> compound.putLong("workAreaPosition", pos.asLong()));
-        compound.putInt("workAreaSize", this.getWorkAreaSize().getValue());
+        compound.putInt("workAreaSize", this.getWorkAreaSize().ordinal());
 
         //store deposit info
         this.getDepositPosition().ifPresent(pos -> compound.putLong("depositPosition", pos.asLong()));

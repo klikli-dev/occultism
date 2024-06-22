@@ -63,8 +63,12 @@ public enum WorkAreaSize implements StringRepresentable {
     }
 
     //region Static Methods
-    public static WorkAreaSize get(int value) {
-        return TYPES.get(value);
+    public static WorkAreaSize get(int ordinal) {
+        return values()[ordinal];
+    }
+
+    public static WorkAreaSize get(String serializedName) {
+        return TYPES.get(serializedName);
     }
 
     //region Getter / Setter

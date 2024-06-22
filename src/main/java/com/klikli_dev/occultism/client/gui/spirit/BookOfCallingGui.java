@@ -102,7 +102,7 @@ public class BookOfCallingGui extends Screen {
             this.addRenderableWidget(new ExtendedButton(guiLeft - buttonWidth / 2, guiTop + 85, buttonWidth, 20,
                     Component.translatable(this.workAreaSize.getDescriptionId()), (b) -> {
                 this.workAreaSize = this.workAreaSize.next();
-                Networking.sendToServer(new MessageSetWorkAreaSize(this.workAreaSize.getValue()));
+                Networking.sendToServer(new MessageSetWorkAreaSize(this.workAreaSize));
                 this.init();
             }));
 

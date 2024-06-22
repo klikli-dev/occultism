@@ -44,14 +44,14 @@ public class MessageSetWorkAreaSize implements IMessage {
     public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "set_work_area_size");
     public static final Type<MessageSetWorkAreaSize> TYPE = new Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetWorkAreaSize> STREAM_CODEC = CustomPacketPayload.codec(MessageSetWorkAreaSize::encode, MessageSetWorkAreaSize::new);
-    public int workAreaSize;
+    public byte workAreaSize;
 
     public MessageSetWorkAreaSize(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
-    public MessageSetWorkAreaSize(int workAreaSize) {
-        this.workAreaSize = workAreaSize;
+    public MessageSetWorkAreaSize(WorkAreaSize workAreaSize) {
+        this.workAreaSize = (byte) workAreaSize.ordinal();
     }
 
     @Override
@@ -77,12 +77,12 @@ public class MessageSetWorkAreaSize implements IMessage {
 
     @Override
     public void encode(RegistryFriendlyByteBuf buf) {
-        buf.writeInt(this.workAreaSize);
+        buf.writeByte(this.workAreaSize);
     }
 
     @Override
     public void decode(RegistryFriendlyByteBuf buf) {
-        this.workAreaSize = buf.readInt();
+        this.workAreaSize = buf.readByte();
     }
 
     @Override
