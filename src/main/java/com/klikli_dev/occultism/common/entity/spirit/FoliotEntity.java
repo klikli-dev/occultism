@@ -43,7 +43,7 @@ import java.util.Objects;
 
 public class FoliotEntity extends SpiritEntity implements GeoEntity {
 
-    private static final EntityDataAccessor<Integer> SIZE_STATE = SynchedEntityData.defineId(DjinniEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> SIZE_STATE = SynchedEntityData.defineId(FoliotEntity.class, EntityDataSerializers.INT);
     protected EntityDimensions lumberJackDimensions = EntityDimensions.scalable(0.8f, 0.8f);
     AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
