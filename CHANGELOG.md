@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.133.2] - 2024-06-22
+### :bug: Bug Fixes
+- [`2d77994`](https://github.com/klikli-dev/occultism/commit/2d77994e9c6c96d10252b4df0431ea3d48024fbe) - foliot synched data *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`fe632e1`](https://github.com/klikli-dev/occultism/commit/fe632e1e9b48433aaf7b14d26dc1ff135f3f207b) - work area size serialization/deserialization mismatch *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.133.1] - 2024-06-21
 ### :bug: Bug Fixes
 - [`6967b5b`](https://github.com/klikli-dev/occultism/commit/6967b5b9a433399df98ad9114bf325f79293e253) - miner recipe jei crash *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1183,3 +1189,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.132.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.132.2...release/v1.21-1.132.3
 [release/v1.21-1.133.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.132.3...release/v1.21-1.133.0
 [release/v1.21-1.133.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.133.0...release/v1.21-1.133.1
+[release/v1.21-1.133.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.133.1...release/v1.21-1.133.2
