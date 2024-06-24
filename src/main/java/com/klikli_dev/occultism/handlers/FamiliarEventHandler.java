@@ -42,10 +42,9 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
-import net.neoforged.neoforge.event.entity.living.LivingHurtEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.level.BlockGrowFeatureEvent;
@@ -86,7 +85,7 @@ public class FamiliarEventHandler {
 
 
     @SubscribeEvent
-    public static void dodge(LivingHurtEvent event) {
+    public static void dodge(LivingIncomingDamageEvent event) {
         LivingEntity entity = event.getEntity();
 
         if (!entity.hasEffect(OccultismEffects.MUMMY_DODGE))
@@ -150,8 +149,8 @@ public class FamiliarEventHandler {
     }
 
     @SubscribeEvent
-    public static void livingDamageEvent(LivingDamageEvent event) {
-        if (!(event.getSource().getEntity() instanceof Player player))
+    public static void livingDamageEvent(LivingIncomingDamageEvent event) {
+        if (!(event.getEntity() instanceof Player player))
             return;
 
         if (!FamiliarUtil.isFamiliarEnabled(player, OccultismEntities.HEADLESS_FAMILIAR.get()))

@@ -48,7 +48,7 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
                 LootItemRandomChanceCondition.randomChance(0.02f).build(),
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.SHORT_GRASS).build(),
                 new InvertedLootItemCondition(
-                        MatchTool.toolMatches(ItemPredicate.Builder.item().of(Tags.Items.TOOLS_SHEARS)).build()
+                        MatchTool.toolMatches(ItemPredicate.Builder.item().of(Tags.Items.TOOLS_SHEAR)).build()
                 )
         }, OccultismItems.DATURA_SEEDS.get(), 1));
 
@@ -56,7 +56,7 @@ public class OccultismLootModifiers extends GlobalLootModifierProvider {
                 LootItemRandomChanceCondition.randomChance(0.02f).build(),
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.TALL_GRASS).build(),
                 new InvertedLootItemCondition(
-                        MatchTool.toolMatches(ItemPredicate.Builder.item().of(Tags.Items.TOOLS_SHEARS)).build()
+                        MatchTool.toolMatches(ItemPredicate.Builder.item().of(Tags.Items.TOOLS_SHEAR)).build()
                 )
         }, OccultismItems.DATURA_SEEDS.get(), 1));
         this.add("tallow_from_cows", this.tallow("cows", 4));
