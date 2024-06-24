@@ -23,7 +23,10 @@
 package com.klikli_dev.occultism.common.entity.ai.target;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.items.IItemHandler;
 
 public class EntityMoveTarget implements IMoveTarget {
 
@@ -46,5 +49,10 @@ public class EntityMoveTarget implements IMoveTarget {
     @Override
     public boolean isChest() {
         return false;
+    }
+
+    @Override
+    public IItemHandler getItemHandler(Direction depositFacing) {
+        return this.target.getCapability(Capabilities.ItemHandler.ENTITY, null);
     }
 }
