@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.132.2] - 2024-06-24
+### :bug: Bug Fixes
+- [`0149638`](https://github.com/klikli-dev/occultism/commit/014963805d2dfdb3b9feb1e53843b448bd4f7c1a) - transporter cannot insert into entities *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.132.1] - 2024-06-16
 ### :bug: Bug Fixes
 - [`2b99111`](https://github.com/klikli-dev/occultism/commit/2b9911169a46db195464443ca8e87cca968ed23f) - guardian familiar resurrection *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1174,3 +1179,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.131.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.131.1...release/v1.20.4-1.131.2
 [release/v1.20.4-1.132.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.131.2...release/v1.20.4-1.132.0
 [release/v1.20.4-1.132.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.132.0...release/v1.20.4-1.132.1
+[release/v1.20.4-1.132.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.4-1.132.1...release/v1.20.4-1.132.2
