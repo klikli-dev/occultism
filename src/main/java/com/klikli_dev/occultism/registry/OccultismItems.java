@@ -496,6 +496,11 @@ public class OccultismItems {
                 || item == DIMENSIONAL_MATRIX.get()
                 || item == SATCHEL.get()
                 || item == FAMILIAR_RING.get()
-                || item == INFUSED_PICKAXE.get();
+                || item == INFUSED_PICKAXE.get()
+                || item == MINER_FOLIOT_UNSPECIALIZED.get()
+                || item == MINER_DJINNI_ORES.get()
+                || item == MINER_AFRIT_DEEPS.get()
+                || item == MINER_MARID_MASTER.get()
+                || item == MINER_DEBUG_UNSPECIALIZED.get();
     }
 }
