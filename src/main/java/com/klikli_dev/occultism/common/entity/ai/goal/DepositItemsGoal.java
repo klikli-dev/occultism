@@ -118,7 +118,7 @@ public class DepositItemsGoal extends PausableGoal {
                 //when close enough insert item
                 if (distance < accessDistance && this.canSeeTarget()) {
 
-                    var handler = this.entity.level().getCapability(Capabilities.ItemHandler.BLOCK, this.moveTarget.getBlockPos(), this.entity.getDepositFacing());
+                    var handler = this.moveTarget.getItemHandler(this.entity.getDepositFacing());
                     if (handler == null) { //worst case scenario if block entity or entity changes since last target reset.
                         this.resetTarget();
                         return;

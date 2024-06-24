@@ -23,6 +23,8 @@
 package com.klikli_dev.occultism.common.entity.ai.target;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.neoforged.neoforge.items.IItemHandler;
 
 public interface IMoveTarget  {
     BlockPos getBlockPos();
@@ -30,4 +32,6 @@ public interface IMoveTarget  {
     boolean isValid();
 
     boolean isChest();
+
+    IItemHandler getItemHandler(Direction depositFacing);
 }
