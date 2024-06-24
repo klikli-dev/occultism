@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.134.1] - 2024-06-24
+### :bug: Bug Fixes
+- [`50ab54f`](https://github.com/klikli-dev/occultism/commit/50ab54f9be774a511a58546d414d97482cfc47c8) - transporter cannot insert into entities *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`f20aceb`](https://github.com/klikli-dev/occultism/commit/f20aceba60002098f2ecc66fc5ae0df325d060f3) - fix additional items having changing spirit names *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`43d0cea`](https://github.com/klikli-dev/occultism/commit/43d0cea5b264594380a70d76c5bd5a314d38e9e8) - fix a jei startup error so we can proceed updating *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.134.0] - 2024-06-24
 ### :sparkles: New Features
 - [`c3bfaba`](https://github.com/klikli-dev/occultism/commit/c3bfaba3c82714a3b5ad14a6219e7d399f468143) - update to breaking neo changes for damage events *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1202,3 +1211,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.133.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.133.1...release/v1.21-1.133.2
 [release/v1.21-1.133.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.133.2...release/v1.21-1.133.3
 [release/v1.21-1.134.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.133.3...release/v1.21-1.134.0
+[release/v1.21-1.134.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.134.0...release/v1.21-1.134.1
