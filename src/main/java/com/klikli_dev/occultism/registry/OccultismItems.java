@@ -483,4 +483,19 @@ public class OccultismItems {
         }
         return false;
     }
+
+    public static boolean shouldPregenerateSpiritName(Item item) {
+        return item == BOOK_OF_BINDING_BOUND_FOLIOT.get()
+                || item == BOOK_OF_BINDING_BOUND_DJINNI.get()
+                || item == BOOK_OF_BINDING_BOUND_AFRIT.get()
+                || item == BOOK_OF_BINDING_BOUND_MARID.get()
+                || item == BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get()
+                || item == BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get()
+                || item == BOOK_OF_CALLING_FOLIOT_CLEANER.get()
+                || item == BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get()
+                || item == DIMENSIONAL_MATRIX.get()
+                || item == SATCHEL.get()
+                || item == FAMILIAR_RING.get()
+                || item == INFUSED_PICKAXE.get();
+    }
 }

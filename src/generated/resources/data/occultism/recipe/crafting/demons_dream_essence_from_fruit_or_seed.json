@@ -2,9 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "p": {
-      "tag": "c:crops/datura"
-    }
+    "p": [
+      {
+        "tag": "c:crops/datura"
+      },
+      {
+        "tag": "c:seeds/datura"
+      }
+    ]
   },
   "pattern": [
     "ppp",

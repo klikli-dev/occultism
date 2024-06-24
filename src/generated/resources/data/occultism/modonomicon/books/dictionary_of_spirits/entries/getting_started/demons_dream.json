@@ -65,7 +65,8 @@
         "occultism:textures/gui/book/datura_effect.png"
       ],
       "text": "",
-      "title": ""
+      "title": "",
+      "use_legacy_rendering": false
     },
     {
       "type": "modonomicon:text",
@@ -96,9 +97,8 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:crafting/demons_dream_essence_from_fruit",
-      "recipe_id_2": "occultism:crafting/demons_dream_essence_from_seeds",
-      "text": "",
+      "recipe_id_1": "occultism:crafting/demons_dream_essence_from_fruit_or_seed",
+      "text": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.recipe_essence.text",
       "title1": "",
       "title2": ""
     },

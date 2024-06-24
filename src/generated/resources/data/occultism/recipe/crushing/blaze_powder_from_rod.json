@@ -4,8 +4,8 @@
     "tag": "c:rods/blaze"
   },
   "result": {
-    "type": "occultism:tag",
-    "count": 1,
-    "tag": "c:dusts/blaze"
+    "type": "occultism:item",
+    "count": 4,
+    "id": "minecraft:blaze_powder"
   }
 }

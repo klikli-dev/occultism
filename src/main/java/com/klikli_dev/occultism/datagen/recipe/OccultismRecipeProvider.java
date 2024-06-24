@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 public class OccultismRecipeProvider extends RecipeProvider {
     public OccultismRecipeProvider(PackOutput p_248933_, CompletableFuture<HolderLookup.Provider> lookupProvider) {
@@ -285,10 +286,10 @@ public class OccultismRecipeProvider extends RecipeProvider {
         this.crushingGemRecipe("topaz", pRecipeOutput);
         this.crushingGemRecipe("arcane_crystal", pRecipeOutput);
 
-        CrushingRecipeBuilder.crushingRecipe(Tags.Items.RODS_BLAZE, OccultismTags.Items.BLAZE_DUST, 200)
+        CrushingRecipeBuilder.crushingRecipe(Tags.Items.RODS_BLAZE, Items.BLAZE_POWDER, 200)
                 .allowEmpty()
+                .setResultAmount(4)
                 .unlockedBy("has_blaze_rod", has(Tags.Items.RODS_BLAZE))
-
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/blaze_powder_from_rod"));
 
         CrushingRecipeBuilder.crushingRecipe(Tags.Items.OBSIDIANS, OccultismTags.Items.OBSIDIAN_DUST, 200)
@@ -551,16 +552,15 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern("ppp")
                 .pattern("ppp")
                 .pattern("ppp")
-                .define('p', OccultismTags.Items.DATURA_CROP)
+                .define('p',
+                        Ingredient.fromValues(Stream.of(
+                                        new Ingredient.TagValue(OccultismTags.Items.DATURA_CROP),
+                                        new Ingredient.TagValue(OccultismTags.Items.DATURA_SEEDS)
+                                )
+                        )
+                )
                 .unlockedBy("has_datura", has(OccultismTags.Items.DATURA_CROP))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/demons_dream_essence_from_fruit"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, OccultismItems.DEMONS_DREAM_ESSENCE.get())
-                .pattern("ppp")
-                .pattern("ppp")
-                .pattern("ppp")
-                .define('p', OccultismTags.Items.DATURA_SEEDS)
-                .unlockedBy("has_datura", has(OccultismTags.Items.DATURA_SEEDS))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/demons_dream_essence_from_seeds"));
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/demons_dream_essence_from_fruit_or_seed"));
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.DICTIONARY_OF_SPIRITS.get())
                 .requires(OccultismTags.Items.DATURA_SEEDS)
                 .requires(OccultismTags.Items.BOOKS)

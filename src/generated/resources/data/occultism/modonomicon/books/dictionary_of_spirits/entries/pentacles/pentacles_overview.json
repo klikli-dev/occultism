@@ -67,7 +67,8 @@
         "occultism:textures/gui/book/bowl_placement.png"
       ],
       "text": "",
-      "title": ""
+      "title": "",
+      "use_legacy_rendering": false
     },
     {
       "type": "modonomicon:text",

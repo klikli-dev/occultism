@@ -32,7 +32,8 @@
         "occultism:textures/gui/book/spiritfire_instructions.png"
       ],
       "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.spirit_fire_screenshot.text",
-      "title": ""
+      "title": "",
+      "use_legacy_rendering": false
     },
     {
       "type": "modonomicon:text",

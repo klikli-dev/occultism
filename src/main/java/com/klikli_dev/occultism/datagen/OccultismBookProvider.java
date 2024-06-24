@@ -1,7 +1,6 @@
 package com.klikli_dev.occultism.datagen;
 
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
-import com.klikli_dev.modonomicon.api.datagen.BookProvider;
 import com.klikli_dev.modonomicon.api.datagen.CategoryEntryMap;
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconLanguageProvider;
 import com.klikli_dev.modonomicon.api.datagen.SingleBookSubProvider;
@@ -22,14 +21,10 @@ import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritTradeRec
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
-
-import java.util.concurrent.CompletableFuture;
 
 public class OccultismBookProvider extends SingleBookSubProvider {
 
@@ -365,9 +360,14 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("recipe_essence");
         var recipeEssence = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/demons_dream_essence_from_fruit"))
-                .withRecipeId2(this.modLoc("crafting/demons_dream_essence_from_seeds"));
+                .withRecipeId1(this.modLoc("crafting/demons_dream_essence_from_fruit_or_seed"))
+                .withText(this.context().pageText());
         //no text
+        this.lang().add(this.context().pageText(),
+                """
+                        Fruit and seeds can be mixed freely to create the essence.
+                            """
+        );
 
         this.context().page("spotlight3");
         var spotlight3 = BookSpotlightPageModel.create()

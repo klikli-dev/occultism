@@ -53,7 +53,8 @@
         "occultism:textures/gui/book/bowl_placement.png"
       ],
       "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.bowl_placement.text",
-      "title": ""
+      "title": "",
+      "use_legacy_rendering": false
     },
     {
       "type": "modonomicon:text",

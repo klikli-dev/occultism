@@ -2,6 +2,7 @@
   "auto_add_read_conditions": true,
   "book_content_texture": "modonomicon:textures/gui/book_content.png",
   "book_overview_texture": "modonomicon:textures/gui/book_overview.png",
+  "book_text_offset_height": 0,
   "book_text_offset_width": 0,
   "book_text_offset_x": 0,
   "book_text_offset_y": 0,
@@ -51,7 +52,7 @@
   "search_button_x_offset": 0,
   "search_button_y_offset": 0,
   "single_page_texture": "modonomicon:textures/gui/single_page_entry.png",
-  "tooltip": "",
+  "tooltip": "book.occultism.dictionary_of_spirits.tooltip",
   "top_frame_overlay": {
     "frame_height": 7,
     "frame_width": 72,

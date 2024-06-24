@@ -75,6 +75,7 @@ public class OccultismTags {
         public static final TagKey<Item> IRON_DUST=makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/iron"));
         public static final TagKey<Item> IESNIUM_DUST=makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/iesnium"));
         public static final TagKey<Item> SILVER_DUST=makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/silver"));
+        public static final TagKey<Item> RAW_MATERIALS_SILVER =makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "raw_materials/silver"));
         public static final TagKey<Item> OBSIDIAN_DUST=makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/obsidian"));
         public static final TagKey<Item> BLAZE_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/blaze"));
 

@@ -55,6 +55,10 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
         this.maxTier = -1;
     }
 
+    public static CrushingRecipeBuilder crushingRecipe(TagKey<Item> ingredient, ItemLike result, int crushingTime) {
+        return crushingRecipe(Ingredient.of(ingredient), result, crushingTime);
+    }
+
     public static CrushingRecipeBuilder crushingRecipe(Ingredient ingredient, ItemLike result, int crushingTime) {
         return new CrushingRecipeBuilder(ingredient, RecipeResult.of(new ItemStack(result)), crushingTime);
     }

@@ -133,7 +133,8 @@
         "occultism:textures/gui/book/rod_near.png"
       ],
       "text": "book.occultism.dictionary_of_spirits.getting_started.divination_rod.divination_rod_screenshots.text",
-      "title": ""
+      "title": "",
+      "use_legacy_rendering": false
     },
     {
       "type": "modonomicon:text",
