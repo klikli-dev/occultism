@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.134.0] - 2024-06-24
+### :sparkles: New Features
+- [`c3bfaba`](https://github.com/klikli-dev/occultism/commit/c3bfaba3c82714a3b5ad14a6219e7d399f468143) - update to breaking neo changes for damage events *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.133.3] - 2024-06-24
 ### :bug: Bug Fixes
 - [`d867858`](https://github.com/klikli-dev/occultism/commit/d867858e5226865f519be1ba59c96b87cf73a294) - various fixes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1196,3 +1201,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.133.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.133.0...release/v1.21-1.133.1
 [release/v1.21-1.133.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.133.1...release/v1.21-1.133.2
 [release/v1.21-1.133.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.133.2...release/v1.21-1.133.3
+[release/v1.21-1.134.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.133.3...release/v1.21-1.134.0
