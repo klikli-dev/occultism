@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.134.2] - 2024-06-27
+### :bug: Bug Fixes
+- [`7fadfe3`](https://github.com/klikli-dev/occultism/commit/7fadfe36a4a94f02f9a01a9456201115abc332d9) - spawn egg usage in EMI ritual recipe category *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`6c64cf5`](https://github.com/klikli-dev/occultism/commit/6c64cf514715e212d65768b129968acd3e50285e) - update parchment *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.134.1] - 2024-06-24
 ### :bug: Bug Fixes
 - [`50ab54f`](https://github.com/klikli-dev/occultism/commit/50ab54f9be774a511a58546d414d97482cfc47c8) - transporter cannot insert into entities *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1212,3 +1220,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.133.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.133.2...release/v1.21-1.133.3
 [release/v1.21-1.134.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.133.3...release/v1.21-1.134.0
 [release/v1.21-1.134.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.134.0...release/v1.21-1.134.1
+[release/v1.21-1.134.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.134.1...release/v1.21-1.134.2
