@@ -24,7 +24,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        this.addForgeTags(provider);
+        this.addCommonTags(provider);
         this.addMinecraftTags(provider);
         this.addOccultismTags(provider);
         this.addCuriosTags(provider);
@@ -104,7 +104,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
 
     }
 
-    private void addForgeTags(HolderLookup.Provider provider) {
+    private void addCommonTags(HolderLookup.Provider provider) {
         // Ore Blocks
         this.copy(OccultismTags.Blocks.IESNIUM_ORE, OccultismTags.Items.IESNIUM_ORE);
         this.copy(OccultismTags.Blocks.SILVER_ORE, OccultismTags.Items.SILVER_ORE);
@@ -167,6 +167,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
     }
 
     private void addDusts(HolderLookup.Provider provider) {
+        this.tag(OccultismTags.Items.BLAZE_DUST).add(Items.BLAZE_POWDER).replace(false);
         this.tag(OccultismTags.Items.COPPER_DUST).add(OccultismItems.COPPER_DUST.get()).replace(false);
         this.tag(OccultismTags.Items.END_STONE_DUST).add(OccultismItems.CRUSHED_END_STONE.get()).replace(false);
         this.tag(OccultismTags.Items.GOLD_DUST).add(OccultismItems.GOLD_DUST.get()).replace(false);
