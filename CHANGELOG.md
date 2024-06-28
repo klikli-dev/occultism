@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.134.3] - 2024-06-28
+### :bug: Bug Fixes
+- [`fbe2b93`](https://github.com/klikli-dev/occultism/commit/fbe2b93780e7ca823e8163c097e23257b9807d85) - add blaze powder to blaze dusts tag *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.134.2] - 2024-06-27
 ### :bug: Bug Fixes
 - [`7fadfe3`](https://github.com/klikli-dev/occultism/commit/7fadfe36a4a94f02f9a01a9456201115abc332d9) - spawn egg usage in EMI ritual recipe category *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1221,3 +1226,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.134.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.133.3...release/v1.21-1.134.0
 [release/v1.21-1.134.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.134.0...release/v1.21-1.134.1
 [release/v1.21-1.134.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.134.1...release/v1.21-1.134.2
+[release/v1.21-1.134.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.134.2...release/v1.21-1.134.3
