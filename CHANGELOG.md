@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.134.4] - 2024-06-28
+### :bug: Bug Fixes
+- [`c4da293`](https://github.com/klikli-dev/occultism/commit/c4da293d9ba45d3ed63aa785b22fc04b192d9aa0) - invalid recipe reference in resurrection entry *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`d81e069`](https://github.com/klikli-dev/occultism/commit/d81e069538c062bc36541e710f9485c7b16d672c) - update modonomicon version *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.134.3] - 2024-06-28
 ### :bug: Bug Fixes
 - [`fbe2b93`](https://github.com/klikli-dev/occultism/commit/fbe2b93780e7ca823e8163c097e23257b9807d85) - add blaze powder to blaze dusts tag *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1227,3 +1235,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.134.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.134.0...release/v1.21-1.134.1
 [release/v1.21-1.134.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.134.1...release/v1.21-1.134.2
 [release/v1.21-1.134.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.134.2...release/v1.21-1.134.3
+[release/v1.21-1.134.4]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.134.3...release/v1.21-1.134.4
