@@ -38,8 +38,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:crafting/demons_dream_essence_from_fruit",
-      "recipe_id_2": "occultism:crafting/demons_dream_essence_from_seeds",
+      "recipe_id_1": "occultism:crafting/demons_dream_essence_from_fruit_or_seed",
       "text": "",
       "title1": "",
       "title2": ""

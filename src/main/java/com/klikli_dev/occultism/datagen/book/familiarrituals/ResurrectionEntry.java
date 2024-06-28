@@ -52,8 +52,13 @@ public class ResurrectionEntry extends EntryProvider {
         );
 
         this.page("recipe_essence", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/demons_dream_essence_from_fruit"))
-                .withRecipeId2(this.modLoc("crafting/demons_dream_essence_from_seeds")));
+                        .withRecipeId1(this.modLoc("crafting/demons_dream_essence_from_fruit_or_seed")));
+        this.lang().add(this.context().pageText(),
+                """
+                        Fruit and seeds can be mixed freely to create the essence.
+                        """
+        );
+
         //no text
 
         this.page("recipe_essence_pure", () -> BookSpiritFireRecipePageModel.create()

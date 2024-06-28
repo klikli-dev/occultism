@@ -362,7 +362,6 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         var recipeEssence = BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/demons_dream_essence_from_fruit_or_seed"))
                 .withText(this.context().pageText());
-        //no text
         this.lang().add(this.context().pageText(),
                 """
                         Fruit and seeds can be mixed freely to create the essence.

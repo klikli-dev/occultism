@@ -257,6 +257,7 @@
   "book.occultism.dictionary_of_spirits.familiar_rituals.resurrection.description.text": "The resurrection is a relatively simple process. The soul shard is strengthened with [](item://occultism:otherworld_essence) until it is strong enough to allow the familiar to return to the mortal realm and create a new body for itself.\n\\\n\\\nThe essence is obtained by growing (lots of) Demons Dream plants.\n",
   "book.occultism.dictionary_of_spirits.familiar_rituals.resurrection.description.title": "Resurrection",
   "book.occultism.dictionary_of_spirits.familiar_rituals.resurrection.name": "Resurrecting Familiars",
+  "book.occultism.dictionary_of_spirits.familiar_rituals.resurrection.recipe_essence.text": "Fruit and seeds can be mixed freely to create the essence.\n",
   "book.occultism.dictionary_of_spirits.familiar_rituals.resurrection.soul_shard.text": "If a familiar dies it does not merely return to the Otherworld. Due to the close connection to the summoner a splinter of the familiar's soul remains in the mortal realm.\n\\\n\\\nThis splinter - shard - can be used to re-summon the familiar more easily.\n",
   "book.occultism.dictionary_of_spirits.familiar_rituals.resurrection.soul_shard.title": "Soul Shards",
   "book.occultism.dictionary_of_spirits.familiar_rituals.return_to_rituals.name": "Return to Rituals Category",
