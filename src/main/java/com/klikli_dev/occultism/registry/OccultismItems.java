@@ -89,7 +89,7 @@ public class OccultismItems {
 
     //Components
     public static final DeferredItem<DimensionalMatrixItem> DIMENSIONAL_MATRIX = ITEMS.register("dimensional_matrix",
-            () -> new DimensionalMatrixItem(defaultProperties()));
+            () -> new DimensionalMatrixItem(defaultProperties().component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
     public static final DeferredItem<Item> SPIRIT_ATTUNED_GEM = ITEMS.register("spirit_attuned_gem",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> OTHERWORLD_ASHES = ITEMS.register("otherworld_ashes",
@@ -179,7 +179,9 @@ public class OccultismItems {
     public static final DeferredItem<Item> SPIRIT_ATTUNED_PICKAXE_HEAD = ITEMS.register("spirit_attuned_pickaxe_head",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<InfusedPickaxeItem> INFUSED_PICKAXE = ITEMS.register("infused_pickaxe",
-            () -> new InfusedPickaxeItem(Tiers.DIAMOND, defaultProperties().attributes(PickaxeItem.createAttributes(Tiers.DIAMOND, 1.0F, -2.8F))));
+            () -> new InfusedPickaxeItem(Tiers.DIAMOND, defaultProperties()
+                    .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
+                    .attributes(PickaxeItem.createAttributes(Tiers.DIAMOND, 1.0F, -2.8F))));
     public static final DeferredItem<OtherworldPickaxeItem> IESNIUM_PICKAXE = ITEMS.register("iesnium_pickaxe",
             () -> new OtherworldPickaxeItem(Tiers.DIAMOND, defaultProperties().attributes(PickaxeItem.createAttributes(Tiers.DIAMOND, 1.0F, -2.8F))));
 
@@ -190,12 +192,15 @@ public class OccultismItems {
             () -> new SoulShardItem(defaultProperties().stacksTo(1)));
 
     public static final DeferredItem<Item> SATCHEL = ITEMS.register("satchel",
-            () -> new SatchelItem(defaultProperties().stacksTo(1).rarity(Rarity.RARE).component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)));
+            () -> new SatchelItem(defaultProperties().stacksTo(1).rarity(Rarity.RARE)
+                    .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
+                    .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
+            ));
 
     //TODO: Re-enable familiar ring once we have curios
     public static final DeferredItem<Item> FAMILIAR_RING = ITEMS.register("familiar_ring",
 //            () -> new FamiliarRingItem(defaultProperties().stacksTo(1)));
-            () -> new Item(defaultProperties().stacksTo(1)));
+            () -> new Item(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
 
     public static final DeferredItem<Item> PURIFIED_INK = ITEMS.register("purified_ink",
             () -> new Item(defaultProperties()));
@@ -209,37 +214,37 @@ public class OccultismItems {
     public static final DeferredItem<BookOfBindingItem> BOOK_OF_BINDING_FOLIOT = ITEMS.register(
             "book_of_binding_foliot", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
     public static final DeferredItem<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_FOLIOT = ITEMS.register(
-            "book_of_binding_bound_foliot", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1)));
+            "book_of_binding_bound_foliot", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
     public static final DeferredItem<BookOfBindingItem> BOOK_OF_BINDING_DJINNI = ITEMS.register(
             "book_of_binding_djinni", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
     public static final DeferredItem<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_DJINNI = ITEMS.register(
-            "book_of_binding_bound_djinni", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1)));
+            "book_of_binding_bound_djinni", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
     public static final DeferredItem<BookOfBindingItem> BOOK_OF_BINDING_AFRIT = ITEMS.register(
             "book_of_binding_afrit", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
     public static final DeferredItem<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_AFRIT = ITEMS.register(
-            "book_of_binding_bound_afrit", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1)));
+            "book_of_binding_bound_afrit", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
     public static final DeferredItem<BookOfBindingItem> BOOK_OF_BINDING_MARID = ITEMS.register(
             "book_of_binding_marid", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
     public static final DeferredItem<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_MARID = ITEMS.register(
-            "book_of_binding_bound_marid", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1)));
+            "book_of_binding_bound_marid", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
     //Books of Calling
     //Foliot
     public static final DeferredItem<BookOfCallingLumberjackItem> BOOK_OF_CALLING_FOLIOT_LUMBERJACK =
             ITEMS.register("book_of_calling_foliot_lumberjack",
-                    () -> new BookOfCallingLumberjackItem(defaultProperties().stacksTo(1),
+                    () -> new BookOfCallingLumberjackItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)"),
                             TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
     public static final DeferredItem<BookOfCallingTransportItems> BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS =
             ITEMS.register("book_of_calling_foliot_transport_items",
-                    () -> new BookOfCallingTransportItems(defaultProperties().stacksTo(1),
+                    () -> new BookOfCallingTransportItems(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)"),
                             TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
     public static final DeferredItem<BookOfCallingCleanerItem> BOOK_OF_CALLING_FOLIOT_CLEANER =
             ITEMS.register("book_of_calling_foliot_cleaner",
-                    () -> new BookOfCallingCleanerItem(defaultProperties().stacksTo(1),
+                    () -> new BookOfCallingCleanerItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)"),
                             TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
     //Djinn
     public static final DeferredItem<BookOfCallingManageMachineItem> BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE =
             ITEMS.register("book_of_calling_djinni_manage_machine",
-                    () -> new BookOfCallingManageMachineItem(defaultProperties().stacksTo(1),
+                    () -> new BookOfCallingManageMachineItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)"),
                             TranslationKeys.BOOK_OF_CALLING_GENERIC + "_djinni"));
 
     //Armor
@@ -273,24 +278,31 @@ public class OccultismItems {
             () -> new Item(defaultProperties()));
     public static final DeferredItem<MinerSpiritItem> MINER_DEBUG_UNSPECIALIZED =
             ITEMS.register("miner_debug_unspecialized",
-                    () -> new MinerSpiritItem(defaultProperties().durability(10000), () -> 100, () -> 10, () -> 10000));
+                    () -> new MinerSpiritItem(defaultProperties()
+                            .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
+                            .durability(10000), () -> 100, () -> 10, () -> 10000));
     public static final DeferredItem<MinerSpiritItem> MINER_FOLIOT_UNSPECIALIZED = ITEMS.register("miner_foliot_unspecialized",
-            () -> new MinerSpiritItem(defaultProperties().durability(1000),
+            () -> new MinerSpiritItem(defaultProperties()
+                    .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
+                    .durability(1000),
                     Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.maxMiningTime,
                     Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.rollsPerOperation,
                     Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.durability));
     public static final DeferredItem<MinerSpiritItem> MINER_DJINNI_ORES = ITEMS.register("miner_djinni_ores",
-            () -> new MinerSpiritItem(defaultProperties().durability(400),
+            () -> new MinerSpiritItem(defaultProperties().durability(400)
+                    .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)"),
                     Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.maxMiningTime,
                     Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.rollsPerOperation,
                     Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.durability));
     public static final DeferredItem<MinerSpiritItem> MINER_AFRIT_DEEPS = ITEMS.register("miner_afrit_deeps",
-            () -> new MinerSpiritItem(defaultProperties().durability(800),
+            () -> new MinerSpiritItem(defaultProperties().durability(800)
+                    .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)"),
                     Occultism.SERVER_CONFIG.dimensionalMineshaft.minerAfritDeeps.maxMiningTime,
                     Occultism.SERVER_CONFIG.dimensionalMineshaft.minerAfritDeeps.rollsPerOperation,
                     Occultism.SERVER_CONFIG.dimensionalMineshaft.minerAfritDeeps.durability));
     public static final DeferredItem<MinerSpiritItem> MINER_MARID_MASTER = ITEMS.register("miner_marid_master",
-            () -> new MinerSpiritItem(defaultProperties().durability(1600),
+            () -> new MinerSpiritItem(defaultProperties().durability(1600)
+                    .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)"),
                     Occultism.SERVER_CONFIG.dimensionalMineshaft.minerMaridMaster.maxMiningTime,
                     Occultism.SERVER_CONFIG.dimensionalMineshaft.minerMaridMaster.rollsPerOperation,
                     Occultism.SERVER_CONFIG.dimensionalMineshaft.minerMaridMaster.durability));
