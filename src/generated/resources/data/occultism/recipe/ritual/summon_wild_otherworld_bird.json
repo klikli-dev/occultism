@@ -25,7 +25,7 @@
       "item": "minecraft:egg"
     }
   ],
-  "pentacle_id": "occultism:summon_afrit",
+  "pentacle_id": "occultism:possess_djinni",
   "result": {
     "components": {
       "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_wild_otherworld_bird\"}",

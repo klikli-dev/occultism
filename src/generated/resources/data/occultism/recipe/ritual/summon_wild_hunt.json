@@ -28,7 +28,7 @@
       "item": "minecraft:soul_sand"
     }
   ],
-  "pentacle_id": "occultism:summon_afrit",
+  "pentacle_id": "occultism:summon_wild_greater_spirit",
   "result": {
     "components": {
       "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_wild_hunt\"}",

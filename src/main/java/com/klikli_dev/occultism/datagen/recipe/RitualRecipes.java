@@ -35,6 +35,9 @@ public abstract class RitualRecipes extends RecipeProvider {
     private static final ResourceLocation RITUAL_RESURRECT_FAMILIAR = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "resurrect_familiar");
     private static final ResourceLocation PENTACLE_SUMMON_FOLIOT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_foliot");
     private static final ResourceLocation PENTACLE_SUMMON_AFRIT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_afrit");
+    private static final ResourceLocation PENTACLE_SUMMON_WILD_AFRIT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_wild_afrit");
+
+    private static final ResourceLocation PENTACLE_SUMMON_WILD_GREATER_SPIRIT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_wild_greater_spirit");
     // Ritual Types
     private static final ResourceLocation RITUAL_FAMILIAR = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "familiar");
     private static final ResourceLocation RITUAL_CRAFT_WITH_SPIRIT_NAME = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "craft_with_spirit_name");
@@ -381,7 +384,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_wild_afrit")),
                         60,
                         RITUAL_SUMMON,
-                        PENTACLE_SUMMON_AFRIT,
+                        PENTACLE_SUMMON_WILD_AFRIT,
                         Ingredient.of(Tags.Items.NETHERRACKS),
                         Ingredient.of(Tags.Items.GEMS_QUARTZ),
                         Ingredient.of(Items.FLINT_AND_STEEL),
@@ -397,7 +400,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_wild_hunt")),
                         30,
                         RITUAL_SUMMON,
-                        PENTACLE_SUMMON_AFRIT,
+                        PENTACLE_SUMMON_WILD_GREATER_SPIRIT,
                         Ingredient.of(Tags.Items.STORAGE_BLOCKS_COPPER),
                         Ingredient.of(OccultismTags.Items.STORAGE_BLOCK_SILVER),
                         Ingredient.of(Tags.Items.STORAGE_BLOCKS_GOLD),
@@ -415,7 +418,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_wild_otherworld_bird")),
                         30,
                         RITUAL_SUMMON,
-                        PENTACLE_SUMMON_AFRIT,
+                        PENTACLE_POSSESS_DJINNI,
                         Ingredient.of(Tags.Items.FEATHERS),
                         Ingredient.of(Tags.Items.FEATHERS),
                         Ingredient.of(Items.COBWEB),
