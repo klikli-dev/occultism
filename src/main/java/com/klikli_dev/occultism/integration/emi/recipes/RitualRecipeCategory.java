@@ -70,6 +70,7 @@ public class RitualRecipeCategory implements EmiRecipe {
                 }
             }
         }
+        outputs.add(EmiStack.of(recipe.getRitualDummy()));
         return outputs;
     }
 
