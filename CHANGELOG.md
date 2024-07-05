@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.134.6] - 2024-07-05
+### :bug: Bug Fixes
+- [`2a5f79a`](https://github.com/klikli-dev/occultism/commit/2a5f79a13fe37069993495eab4a6d12dd894b015) - demon names changing every tick in recipe views *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`ea987a4`](https://github.com/klikli-dev/occultism/commit/ea987a475d8763e074263cdd5a35afa74e148067) - update to latest emi *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.134.5] - 2024-07-05
 ### :bug: Bug Fixes
 - [`eea8490`](https://github.com/klikli-dev/occultism/commit/eea84903563ccedb376ad5f819b48d5e63d82be2) - wrong pentacles required for some rituals *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1243,3 +1251,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.134.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.134.2...release/v1.21-1.134.3
 [release/v1.21-1.134.4]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.134.3...release/v1.21-1.134.4
 [release/v1.21-1.134.5]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.134.4...release/v1.21-1.134.5
+[release/v1.21-1.134.6]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.134.5...release/v1.21-1.134.6
