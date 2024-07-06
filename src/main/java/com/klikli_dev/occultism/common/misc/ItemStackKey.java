@@ -18,54 +18,13 @@ public record ItemStackKey(ItemStack stack) {
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof ItemStackKey key && ItemStack.isSameItemSameComponents(this.stack, key.stack);
+        return obj instanceof ItemStackKey key &&
+                this.stack.isEmpty() == key.stack.isEmpty() &&
+                ItemStack.isSameItemSameComponents(this.stack, key.stack);
     }
 
     @Override
     public int hashCode() {
-        int result = this.stack.getItem().hashCode();
-
-        if (!this.stack.getComponents().isEmpty()) {
-            var compound = new CompoundTag();
-            for (var entry : this.stack.getComponents()) {
-                var tag = entry.encodeValue(NbtOps.INSTANCE).getOrThrow();
-                var key = BuiltInRegistries.DATA_COMPONENT_TYPE.getKey(entry.type());
-
-                compound.put(key.toString(), tag);
-            }
-
-            result = this.hashCode(compound, result);
-        }
-
-        return result;
-    }
-
-    private int hashCode(Tag tag, int result) {
-        if (tag instanceof CompoundTag) {
-            result = this.hashCode((CompoundTag) tag, result);
-        } else if (tag instanceof ListTag) {
-            result = this.hashCode((ListTag) tag, result);
-        } else {
-            result = 31 * result + tag.hashCode();
-        }
-
-        return result;
-    }
-
-    private int hashCode(CompoundTag tag, int result) {
-        for (String key : tag.getAllKeys()) {
-            result = 31 * result + key.hashCode();
-            result = this.hashCode(tag.get(key), result);
-        }
-
-        return result;
-    }
-
-    private int hashCode(ListTag tag, int result) {
-        for (Tag tagItem : tag) {
-            result = this.hashCode(tagItem, result);
-        }
-
-        return result;
+        return ItemStack.hashItemAndComponents(this.stack);
     }
 }
