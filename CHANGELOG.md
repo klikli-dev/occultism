@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.134.7] - 2024-07-06
+### :bug: Bug Fixes
+- [`3cdb612`](https://github.com/klikli-dev/occultism/commit/3cdb61247294c7b17bbe1ca9f9d9f179ccb3b3f5) - itemstack data component hashing *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`9690b6f`](https://github.com/klikli-dev/occultism/commit/9690b6f1296d151155826b9432d1af6a4d78bfbc) - render location of storage actuator matrix *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`35376ca`](https://github.com/klikli-dev/occultism/commit/35376cad97ff0da97a24ae0ea1b8bc64504d2c74) - shapless recipes with single input not consuming correctly *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.134.6] - 2024-07-05
 ### :bug: Bug Fixes
 - [`2a5f79a`](https://github.com/klikli-dev/occultism/commit/2a5f79a13fe37069993495eab4a6d12dd894b015) - demon names changing every tick in recipe views *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1252,3 +1259,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.134.4]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.134.3...release/v1.21-1.134.4
 [release/v1.21-1.134.5]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.134.4...release/v1.21-1.134.5
 [release/v1.21-1.134.6]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.134.5...release/v1.21-1.134.6
+[release/v1.21-1.134.7]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.134.6...release/v1.21-1.134.7
