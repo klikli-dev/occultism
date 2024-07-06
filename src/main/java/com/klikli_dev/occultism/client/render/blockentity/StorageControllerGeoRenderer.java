@@ -61,7 +61,7 @@ public class StorageControllerGeoRenderer extends GeoBlockRenderer<StorageContro
 
         //poseStack.translate(0, 0.01f, 0); //we don't need this
         //move above block
-        poseStack.translate(0.5, 1.25, 0.5);
+        poseStack.translate(0.0, 1.25, 0.0);
 
         //this.rotateBlock(this.getFacing(tile), poseStack); //our block does not use directions
 
