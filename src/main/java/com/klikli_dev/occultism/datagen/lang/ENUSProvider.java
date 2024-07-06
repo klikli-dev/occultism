@@ -360,6 +360,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         //"(.*?)": "(.*)",
         //this.add\("\1", "\2"\);
 
+        this.add(TranslationKeys.HUD_NO_PENTACLE_FOUND, "No valid pentacle found.");
+        this.add(TranslationKeys.HUD_PENTACLE_FOUND, "Current Pentacle: %s");
+
         this.add(TranslationKeys.MESSAGE_CONTAINER_ALREADY_OPEN, "This container is already opened by another player, wait until they close it.");
 
         //Jobs

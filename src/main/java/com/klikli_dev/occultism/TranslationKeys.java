@@ -32,4 +32,7 @@ public class TranslationKeys {
     public static final String JEI_CRUSHING_RECIPE_MAX_TIER = JEI + ".crushing.max_tier";
 
     public static final String MESSAGE_CONTAINER_ALREADY_OPEN = "messages." + Occultism.MODID + ".container_already_open";
+
+    public static final String HUD_NO_PENTACLE_FOUND = "hud." + Occultism.MODID + ".no_pentacle_found";
+    public static final String HUD_PENTACLE_FOUND = "hud." + Occultism.MODID + ".pentacle_found";
 }

@@ -31,6 +31,7 @@ import com.klikli_dev.occultism.client.itemproperties.*;
 import com.klikli_dev.occultism.client.keybindings.BackpackKeyConflictContext;
 import com.klikli_dev.occultism.client.keybindings.StorageRemoteKeyConflictContext;
 import com.klikli_dev.occultism.client.model.entity.*;
+import com.klikli_dev.occultism.client.render.GoldenSacrificialBowlHUD;
 import com.klikli_dev.occultism.client.render.blockentity.SacrificialBowlRenderer;
 import com.klikli_dev.occultism.client.render.blockentity.StorageControllerGeoRenderer;
 import com.klikli_dev.occultism.client.render.entity.*;
@@ -43,7 +44,6 @@ import com.klikli_dev.occultism.registry.*;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.*;
@@ -54,12 +54,11 @@ import net.minecraft.world.entity.EntityType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.*;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.HashMap;
@@ -184,7 +183,7 @@ public class ClientSetupEventHandler {
         Occultism.LOGGER.info("Client setup complete.");
     }
 
-    public static void onRegisterMenuScreens(RegisterMenuScreensEvent event){
+    public static void onRegisterMenuScreens(RegisterMenuScreensEvent event) {
         event.register(OccultismContainers.STORAGE_CONTROLLER.get(), StorageControllerGui::new);
         event.register(OccultismContainers.STABLE_WORMHOLE.get(), StableWormholeGui::new);
         event.register(OccultismContainers.STORAGE_REMOTE.get(), StorageRemoteGui::new);
@@ -229,5 +228,7 @@ public class ClientSetupEventHandler {
                 Occultism.THIRD_EYE_EFFECT_RENDERER.renderOverlay(guiGraphics.pose());
             }
         });
+
+        event.registerAbove(VanillaGuiLayers.HOTBAR, ResourceLocation.fromNamespaceAndPath("occultism", "golden_sacrificial_bow_hud"), GoldenSacrificialBowlHUD.get());
     }
 }
