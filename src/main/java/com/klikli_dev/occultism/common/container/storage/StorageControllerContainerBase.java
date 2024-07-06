@@ -50,8 +50,11 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.wrapper.PlayerMainInvWrapper;
+
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -298,58 +301,67 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
             //now we instead pre-merge the stack -> might prevent intervention by other mods.
             resultList.add(newResult);
 
+            var craftingInput = CraftingInput.of(this.matrix.getWidth(), this.matrix.getHeight(), this.matrix.getItems());
+            var positionedCraftingInput = CraftingInput.ofPositioned(this.matrix.getWidth(), this.matrix.getHeight(), this.matrix.getItems());
             //get remaining items in the crafting matrix
-            NonNullList<ItemStack> remainingCraftingItems = this.currentRecipe.value().getRemainingItems(CraftingInput.of(this.matrix.getWidth(), this.matrix.getHeight(), this.matrix.getItems()));
-            for (int i = 0; i < remainingCraftingItems.size(); ++i) {
+            NonNullList<ItemStack> remainingCraftingItems = this.currentRecipe.value().getRemainingItems(craftingInput);
 
-                ItemStack currentCraftingItem = remainingCraftingItems.get(i);
-                ItemStack stackInSlot = this.matrix.getItem(i);
+            var left = positionedCraftingInput.left();
+            var top = positionedCraftingInput.top();
 
-                //if we find an empty stack, shrink it to remove it.
-                if (currentCraftingItem.isEmpty()) {
-                    this.matrix.getItem(i).shrink(1);
-                    continue;
-                }
+            for (int k = 0; k < craftingInput.height(); k++) {
+                for (int l = 0; l < craftingInput.width(); l++) {
+                    int currentSlot = l + left + (k + top) * this.matrix.getWidth();
 
-                //handle container item refunding
-                if (!stackInSlot.getItem().getCraftingRemainingItem(stackInSlot).isEmpty()) {
-                    ItemStack container = stackInSlot.getItem().getCraftingRemainingItem(stackInSlot);
-                    if (!stackInSlot.isStackable()) {
-                        stackInSlot = container;
-                        this.matrix.setItem(i, stackInSlot);
-                    } else {
-                        //handle stackable container items
-                        stackInSlot.shrink(1);
-                        ItemHandlerHelper.giveItemToPlayer(player, container);
-                    }
-                } else if (!currentCraftingItem.isEmpty()) {
-                    //if the slot is empty now we just place the crafting item in it
-                    if (stackInSlot.isEmpty()) {
-                        this.matrix.setItem(i, currentCraftingItem);
-                    }
-                    //handle "normal items" ie non-damagable
-                    else if (!stackInSlot.isDamageableItem() && ItemStack.isSameItemSameComponents(stackInSlot, currentCraftingItem)) {
-                        //Used to call grow here, but that causes dupes of unbreakable items
-                        //removing it seems not to cause any harm?
-                        //  currentCraftingItem.grow(stackInSlot.getCount());
-                        this.matrix.setItem(i, currentCraftingItem);
-                    }
-                    //handle items that consume durability on craft
-                    else if (ItemStack.isSameItem(stackInSlot, currentCraftingItem)) {
-                        this.matrix.setItem(i, currentCraftingItem);
-                    } else {
-                        //last resort, try to place in player inventory or if that fails, drop.
-                        ItemHandlerHelper.giveItemToPlayer(player, newResult);
+                    ItemStack currentCraftingItem = remainingCraftingItems.get(l + k * craftingInput.width());
+                    ItemStack stackInSlot = this.matrix.getItem(currentSlot);
+
+
+                    //if we find an empty stack, shrink it to remove it.
+                    if (currentCraftingItem.isEmpty()) {
+                        this.matrix.getItem(currentSlot).shrink(1);
+                        continue;
                     }
 
-                } else if (!stackInSlot.isEmpty()) {
-                    //decrease the stack size in the matrix
-                    this.matrix.removeItem(i, 1);
-                    stackInSlot = this.matrix.getItem(i);
+                    //handle container item refunding
+                    if (!stackInSlot.getItem().getCraftingRemainingItem(stackInSlot).isEmpty()) {
+                        ItemStack container = stackInSlot.getItem().getCraftingRemainingItem(stackInSlot);
+                        if (!stackInSlot.isStackable()) {
+                            stackInSlot = container;
+                            this.matrix.setItem(currentSlot, stackInSlot);
+                        } else {
+                            //handle stackable container items
+                            stackInSlot.shrink(1);
+                            ItemHandlerHelper.giveItemToPlayer(player, container);
+                        }
+                    } else if (!currentCraftingItem.isEmpty()) {
+                        //if the slot is empty now we just place the crafting item in it
+                        if (stackInSlot.isEmpty()) {
+                            this.matrix.setItem(currentSlot, currentCraftingItem);
+                        }
+                        //handle "normal items" ie non-damagable
+                        else if (!stackInSlot.isDamageableItem() && ItemStack.isSameItemSameComponents(stackInSlot, currentCraftingItem)) {
+                            //Used to call grow here, but that causes dupes of unbreakable items
+                            //removing it seems not to cause any harm?
+                            //  currentCraftingItem.grow(stackInSlot.getCount());
+                            this.matrix.setItem(currentSlot, currentCraftingItem);
+                        }
+                        //handle items that consume durability on craft
+                        else if (ItemStack.isSameItem(stackInSlot, currentCraftingItem)) {
+                            this.matrix.setItem(currentSlot, currentCraftingItem);
+                        } else {
+                            //last resort, try to place in player inventory or if that fails, drop.
+                            ItemHandlerHelper.giveItemToPlayer(player, newResult);
+                        }
+
+                    } else if (!stackInSlot.isEmpty()) {
+                        //decrease the stack size in the matrix
+                        this.matrix.removeItem(currentSlot, 1);
+                        stackInSlot = this.matrix.getItem(currentSlot);
+                    }
                 }
             }
             //endregion onTake replacement for crafting
-
 
             crafted += resultStackSize;
             for (int i = 0; i < this.matrix.getContainerSize(); i++) {
