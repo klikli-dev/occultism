@@ -564,7 +564,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         if (compound.contains("linkedMachines")) {
             ListTag machinesNbt = compound.getList("linkedMachines", Tag.TAG_COMPOUND);
             for (int i = 0; i < machinesNbt.size(); i++) {
-                MachineReference reference = MachineReference.CODEC.parse(NbtOps.INSTANCE, machinesNbt.getCompound(i)).getOrThrow();
+                MachineReference reference = MachineReference.CODEC.parse(provider.createSerializationContext(NbtOps.INSTANCE), machinesNbt.getCompound(i)).getOrThrow();
                 this.linkedMachines.put(reference.insertGlobalPos, reference);
             }
         }

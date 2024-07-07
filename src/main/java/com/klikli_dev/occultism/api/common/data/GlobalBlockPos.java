@@ -77,8 +77,8 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
         return new GlobalBlockPos(blockEntity.getBlockPos(), blockEntity.getLevel());
     }
 
-    public static GlobalBlockPos from(CompoundTag tag){
-        return GlobalBlockPos.CODEC.decode(NbtOps.INSTANCE, tag).getOrThrow().getFirst();
+    public static GlobalBlockPos from(HolderLookup.Provider provider, CompoundTag tag){
+        return GlobalBlockPos.CODEC.decode(provider.createSerializationContext(NbtOps.INSTANCE), tag).getOrThrow().getFirst();
     }
 
     public static GlobalBlockPos from(RegistryFriendlyByteBuf buf){
@@ -131,12 +131,12 @@ public class GlobalBlockPos implements INBTSerializable<CompoundTag> {
 
     @Override
     public @UnknownNullability CompoundTag serializeNBT(HolderLookup.Provider provider) {
-        return (CompoundTag) GlobalBlockPos.CODEC.encodeStart(NbtOps.INSTANCE, this).getOrThrow();
+        return (CompoundTag) GlobalBlockPos.CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), this).getOrThrow();
     }
 
     @Override
     public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
-        GlobalBlockPos.CODEC.decode(NbtOps.INSTANCE, nbt).ifSuccess(p -> {
+        GlobalBlockPos.CODEC.decode(provider.createSerializationContext(NbtOps.INSTANCE), nbt).ifSuccess(p -> {
             this.pos = p.getFirst().getPos();
             this.dimensionKey = p.getFirst().getDimensionKey();
         });

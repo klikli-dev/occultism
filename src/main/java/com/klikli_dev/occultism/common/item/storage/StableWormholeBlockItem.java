@@ -96,7 +96,7 @@ public class StableWormholeBlockItem extends BlockItem {
         super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
 
         if (pStack.has(DataComponents.BLOCK_ENTITY_DATA) && pStack.get(DataComponents.BLOCK_ENTITY_DATA).contains("linkedStorageControllerPosition")) {
-            GlobalBlockPos globalPos = GlobalBlockPos.from(pStack.get(DataComponents.BLOCK_ENTITY_DATA).getUnsafe()
+            GlobalBlockPos globalPos = GlobalBlockPos.from(pContext.registries(), pStack.get(DataComponents.BLOCK_ENTITY_DATA).getUnsafe()
                     .getCompound("linkedStorageControllerPosition"));
             String formattedPosition =
                     ChatFormatting.GOLD.toString() + ChatFormatting.BOLD + globalPos.getPos().toString() +

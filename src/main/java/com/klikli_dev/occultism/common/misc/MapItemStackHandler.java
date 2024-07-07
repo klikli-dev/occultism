@@ -132,12 +132,12 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
 
     @Override
     public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-        return (CompoundTag) CODEC.encodeStart(NbtOps.INSTANCE, this).getOrThrow();
+        return (CompoundTag) CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), this).getOrThrow();
     }
 
     @Override
     public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
-        CODEC.parse(NbtOps.INSTANCE, nbt).resultOrPartial(e -> {
+        CODEC.parse(provider.createSerializationContext(NbtOps.INSTANCE), nbt).resultOrPartial(e -> {
             throw new RuntimeException("Failed to decode MapItemStackHandler: " + e);
         }).ifPresent(handler -> {
             this.keyToCountMap = handler.keyToCountMap;

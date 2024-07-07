@@ -146,7 +146,7 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
     @Override
     public void loadNetwork(CompoundTag compound, HolderLookup.Provider provider) {
         if (compound.contains("linkedStorageControllerPosition"))
-            this.linkedStorageControllerPosition = GlobalBlockPos.from(compound.getCompound("linkedStorageControllerPosition"));
+            this.linkedStorageControllerPosition = GlobalBlockPos.from(provider, compound.getCompound("linkedStorageControllerPosition"));
 
         this.setSortDirection(SortDirection.BY_ID.apply(compound.getInt("sortDirection")));
         this.setSortType(SortType.BY_ID.apply(compound.getInt("sortType")));

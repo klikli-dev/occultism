@@ -182,12 +182,12 @@ public class MachineReference implements INBTSerializable<CompoundTag> {
 
     @Override
     public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-        return (CompoundTag) CODEC.encodeStart(NbtOps.INSTANCE, this).getOrThrow();
+        return (CompoundTag) CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), this).getOrThrow();
     }
 
     @Override
     public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
-        var ref = CODEC.parse(NbtOps.INSTANCE, nbt).getOrThrow();
+        var ref = CODEC.parse(provider.createSerializationContext(NbtOps.INSTANCE), nbt).getOrThrow();
         this.extractGlobalPos = ref.extractGlobalPos;
         this.extractRegistryName = ref.extractRegistryName;
         this.extractChunkLoaded = ref.extractChunkLoaded;

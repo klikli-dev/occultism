@@ -97,7 +97,7 @@ public class GuideBookItem extends ModonomiconItem {
         } else {
             var compound = new CompoundTag();
             for (var entry : itemStack.getComponents()) {
-                var tag = entry.encodeValue(NbtOps.INSTANCE).getOrThrow();
+                var tag = entry.encodeValue(tooltipContext.registries().createSerializationContext(NbtOps.INSTANCE)).getOrThrow();
                 var key = BuiltInRegistries.DATA_COMPONENT_TYPE.getKey(entry.type());
 
                 compound.put(key.toString(), tag);
