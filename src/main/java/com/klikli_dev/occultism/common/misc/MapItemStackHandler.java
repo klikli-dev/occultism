@@ -207,7 +207,8 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
     @Override
     public @NotNull ItemStack getStackInSlot(int slot) {
         var key = this.keyToSlot.inverse().get(slot);
-        return key != null ? key.stack() : ItemStack.EMPTY;
+        var count = this.keyToCountMap.getOrDefault(key, 0);
+        return key != null ? key.stack().copyWithCount(count) : ItemStack.EMPTY;
     }
 
     @Override
