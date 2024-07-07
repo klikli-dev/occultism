@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.135.1] - 2024-07-07
+### :bug: Bug Fixes
+- [`e7a4e35`](https://github.com/klikli-dev/occultism/commit/e7a4e35affadc59100453af1ad2c18340221002c) - report correct count on getStackInSlot() *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`7cfca9a`](https://github.com/klikli-dev/occultism/commit/7cfca9abf6c66da3c706fa3ac552a65e93bcfe34) - nbt ops without registry access *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.135.0] - 2024-07-06
 ### :sparkles: New Features
 - [`91f42c6`](https://github.com/klikli-dev/occultism/commit/91f42c6ced9ddd11f58328bf3e24fb9108f121ba) - show current pentacle when looking at golden bowl *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1266,3 +1272,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.134.6]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.134.5...release/v1.21-1.134.6
 [release/v1.21-1.134.7]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.134.6...release/v1.21-1.134.7
 [release/v1.21-1.135.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.134.7...release/v1.21-1.135.0
+[release/v1.21-1.135.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.135.0...release/v1.21-1.135.1
