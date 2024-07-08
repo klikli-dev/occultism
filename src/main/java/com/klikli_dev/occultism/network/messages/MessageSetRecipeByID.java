@@ -38,7 +38,7 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
-import net.neoforged.neoforge.common.crafting.IShapedRecipe;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.neoforged.neoforge.items.wrapper.PlayerMainInvWrapper;
 
 /**
@@ -120,7 +120,7 @@ public class MessageSetRecipeByID implements IMessage {
         Preconditions.checkArgument(ingredients.size() <= 9);
 
 
-        if (recipe instanceof IShapedRecipe<?> shapedRecipe) {
+        if (recipe instanceof ShapedRecipe shapedRecipe) {
             int width = shapedRecipe.getWidth();
             int height = shapedRecipe.getHeight();
             Preconditions.checkArgument(width <= 3 && height <= 3);
