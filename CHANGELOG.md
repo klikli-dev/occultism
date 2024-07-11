@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.136.1] - 2024-07-11
+### :bug: Bug Fixes
+- [`3da1d70`](https://github.com/klikli-dev/occultism/commit/3da1d7013ba23a93ba6c2e78751719739d10249d) - seeds should not be edible *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.136.0] - 2024-07-08
 ### :sparkles: New Features
 - [`efaa29f`](https://github.com/klikli-dev/occultism/commit/efaa29f88cc656aa98daa598a3b776cf1a2beb42) - update past neo breaking changes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1282,3 +1287,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.135.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.134.7...release/v1.21-1.135.0
 [release/v1.21-1.135.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.135.0...release/v1.21-1.135.1
 [release/v1.21-1.136.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.135.1...release/v1.21-1.136.0
+[release/v1.21-1.136.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.136.0...release/v1.21-1.136.1
