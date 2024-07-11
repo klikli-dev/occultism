@@ -261,7 +261,7 @@ public class OccultismItems {
 
     //Crops
     public static final DeferredItem<Item> DATURA_SEEDS =
-            ITEMS.register("datura_seeds", () -> new ItemNameBlockItem(OccultismBlocks.DATURA.get(), defaultProperties().food(OccultismFoods.DATURA.get())));
+            ITEMS.register("datura_seeds", () -> new ItemNameBlockItem(OccultismBlocks.DATURA.get(), defaultProperties()));
 
     //Foods
     public static final DeferredItem<Item> DATURA = ITEMS.register("datura",
