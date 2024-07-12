@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.136.2] - 2024-07-12
+### :bug: Bug Fixes
+- [`720f599`](https://github.com/klikli-dev/occultism/commit/720f5999bb6e96e4e326b61d8d2fca97f83c5423) - neo capability returned instead of mod capability *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`0e164b1`](https://github.com/klikli-dev/occultism/commit/0e164b10c107909a68291629aa32be756a4b3a29) - increase mod version and neo version *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.136.1] - 2024-07-11
 ### :bug: Bug Fixes
 - [`3da1d70`](https://github.com/klikli-dev/occultism/commit/3da1d7013ba23a93ba6c2e78751719739d10249d) - seeds should not be edible *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1288,3 +1296,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.135.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.135.0...release/v1.21-1.135.1
 [release/v1.21-1.136.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.135.1...release/v1.21-1.136.0
 [release/v1.21-1.136.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.136.0...release/v1.21-1.136.1
+[release/v1.21-1.136.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.136.1...release/v1.21-1.136.2
