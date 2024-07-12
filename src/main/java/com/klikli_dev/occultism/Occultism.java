@@ -47,6 +47,7 @@ import com.klikli_dev.theurgy.registry.TheurgyRegistries;
 import com.mojang.logging.LogUtils;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModLoadingContext;
@@ -111,7 +112,7 @@ public class Occultism {
 
         //register event buses
         modEventBus.addListener(OccultismRegistries::onRegisterRegistries);
-        modEventBus.addListener(OccultismCapabilities::onRegisterCapabilities);
+        modEventBus.addListener(EventPriority.HIGHEST, OccultismCapabilities::onRegisterCapabilities);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::onEntityAttributeCreation);
         modEventBus.addListener(this::serverSetup);
