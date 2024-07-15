@@ -20,6 +20,6 @@ public class OccultismLootTableProvider extends LootTableProvider {
 
     @Override
     protected void validate(WritableRegistry<LootTable> writableregistry, ValidationContext validationcontext, ProblemReporter.Collector problemreporter$collector) {
-        //Just don't vallidate
+        //Just don't validate
     }
 }

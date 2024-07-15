@@ -43,6 +43,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
     public void generate() {
         this.add(OccultismEntities.POSSESSED_SHULKER.get(), this.shulkerLootTable());
         this.add(OccultismEntities.POSSESSED_WARDEN.get(), this.wardenLootTable());
+        this.add(OccultismEntities.POSSESSED_HOGLIN.get(), this.hoglinLootTable());
         this.add(OccultismEntities.POSSESSED_WEAK_SHULKER.get(), this.weakShulkerTable());
         this.add(OccultismEntities.POSSESSED_GHAST_TYPE.get(), this.ghastLootTable());
         this.add(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE.get(), this.elderGuardianLootTable());

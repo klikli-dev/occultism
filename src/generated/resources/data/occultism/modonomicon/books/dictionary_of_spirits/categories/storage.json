@@ -14,6 +14,8 @@
   "icon": {
     "item": "minecraft:chest"
   },
+  "max_scroll_x": 512,
+  "max_scroll_y": 512,
   "name": "book.occultism.dictionary_of_spirits.storage.name",
   "show_category_button": true,
   "sort_number": 3
