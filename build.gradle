@@ -125,8 +125,11 @@ repositories {
         }
     }
     maven {
-        name = "TerraformersMC"
+        name = "TerraformersMC (emi)"
         url = "https://maven.terraformersmc.com/"
+        content {
+            includeGroup "dev.emi"
+        }
     }
     flatDir {
         dirs 'lib'
