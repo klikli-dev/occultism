@@ -43,5 +43,5 @@
     "count": 1,
     "id": "occultism:ritual_dummy/familiar_parrot"
   },
-  "ritual_type": "occultism:familiar"
+  "ritual_type": "occultism:summon_with_chance_of_chicken_tamed"
 }

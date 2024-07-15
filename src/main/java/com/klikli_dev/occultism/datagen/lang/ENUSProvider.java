@@ -769,10 +769,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.summon_demonic_husband.finished", "Summoned successfully.");
         this.add("ritual.occultism.summon_demonic_husband.interrupted", "Summoning interrupted.");
 
-        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR_RITUAL, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR_RITUAL, "started", "Started resurrecting familiar.");
-        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR_RITUAL, "finished", "Successfully resurrected familiar.");
-        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR_RITUAL, "interrupted", "Resurrection interrupted.");
+        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "conditions", "Not all requirements for this ritual are met.");
+        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "started", "Started resurrecting familiar.");
+        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "finished", "Successfully resurrected familiar.");
+        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "interrupted", "Resurrection interrupted.");
     }
 
     public void addRitualMessage(DeferredHolder<RitualFactory, RitualFactory> ritual, String key, String message) {

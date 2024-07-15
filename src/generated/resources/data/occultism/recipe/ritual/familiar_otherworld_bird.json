@@ -40,5 +40,5 @@
     "count": 1,
     "id": "occultism:ritual_dummy/familiar_otherworld_bird"
   },
-  "ritual_type": "occultism:familiar"
+  "ritual_type": "occultism:summon_tamed"
 }

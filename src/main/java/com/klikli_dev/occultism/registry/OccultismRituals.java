@@ -30,8 +30,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.function.Supplier;
-
 public class OccultismRituals {
 
     public static final ResourceKey<Registry<RitualFactory>> RITUAL_FACTORIES_KEY = ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_factories"));
@@ -42,45 +40,45 @@ public class OccultismRituals {
     });
 
     //Summoning
-    public static final Supplier<RitualFactory> SUMMON_RITUAL =
+    public static final DeferredHolder<RitualFactory, RitualFactory> SUMMON =
             RITUAL_FACTORIES.register("summon",
                     () -> new RitualFactory((r) -> new SummonRitual(r, false)));
-    public static final Supplier<RitualFactory> SUMMON_TAMED_RITUAL =
+    public static final DeferredHolder<RitualFactory, RitualFactory> SUMMON_TAMED =
             RITUAL_FACTORIES.register("summon_tamed",
                     () -> new RitualFactory((r) -> new SummonRitual(r, true)));
-    public static final Supplier<RitualFactory> SUMMON_WITH_CHANCE_OF_CHICKEN_RITUAL =
+    public static final DeferredHolder<RitualFactory, RitualFactory> SUMMON_WITH_CHANCE_OF_CHICKEN=
             RITUAL_FACTORIES.register("summon_with_chance_of_chicken",
                     () -> new RitualFactory((r) -> new SummonWithChanceOfChickenRitual(r, false)));
-    public static final Supplier<RitualFactory> SUMMON_WITH_CHANCE_OF_CHICKEN_TAMED_RITUAL =
+    public static final DeferredHolder<RitualFactory, RitualFactory> SUMMON_WITH_CHANCE_OF_CHICKEN_TAMED =
             RITUAL_FACTORIES.register("summon_with_chance_of_chicken_tamed",
                     () -> new RitualFactory((r) -> new SummonWithChanceOfChickenRitual(r, false)));
-    public static final Supplier<RitualFactory> SUMMON_SPIRIT_WITH_JOB_RITUAL =
+    public static final DeferredHolder<RitualFactory, RitualFactory> SUMMON_SPIRIT_WITH_JOB =
             RITUAL_FACTORIES.register("summon_spirit_with_job",
                     () -> new RitualFactory(SummonSpiritWithJobRitual::new));
-    public static final Supplier<RitualFactory> SUMMON_WILD_HUNT =
+    public static final DeferredHolder<RitualFactory, RitualFactory> SUMMON_WILD_HUNT =
             RITUAL_FACTORIES.register("summon_wild_hunt",
                     () -> new RitualFactory(SummonWildHuntRitual::new));
-    public static final DeferredHolder<RitualFactory, RitualFactory> FAMILIAR_RITUAL =
+    public static final DeferredHolder<RitualFactory, RitualFactory> FAMILIAR =
             RITUAL_FACTORIES.register("familiar",
                     () -> new RitualFactory(FamiliarRitual::new));
 
-    public static final DeferredHolder<RitualFactory, RitualFactory> RESURRECT_FAMILIAR_RITUAL =
+    public static final DeferredHolder<RitualFactory, RitualFactory> RESURRECT_FAMILIAR =
             RITUAL_FACTORIES.register("resurrect_familiar",
                     () -> new RitualFactory(ResurrectFamiliarRitual::new));
 
     //Crafting
-    public static final Supplier<RitualFactory> CRAFT_RITUAL =
+    public static final DeferredHolder<RitualFactory, RitualFactory> CRAFT =
             RITUAL_FACTORIES.register("craft",
                     () -> new RitualFactory(CraftRitual::new));
-    public static final Supplier<RitualFactory> CRAFT_WITH_SPIRIT_NAME_RITUAL =
+    public static final DeferredHolder<RitualFactory, RitualFactory> CRAFT_WITH_SPIRIT_NAME =
             RITUAL_FACTORIES.register("craft_with_spirit_name",
                     () -> new RitualFactory(CraftWithSpiritNameRitual::new));
-    public static final Supplier<RitualFactory> CRAFT_MINER_SPIRIT_RITUAL =
+    public static final DeferredHolder<RitualFactory, RitualFactory> CRAFT_MINER_SPIRIT =
             RITUAL_FACTORIES.register("craft_miner_spirit",
                     () -> new RitualFactory(CraftMinerSpiritRitual::new));
 
     //Other
-    public static final Supplier<RitualFactory> COMMAND_RITUAL =
+    public static final DeferredHolder<RitualFactory, RitualFactory> COMMAND =
             RITUAL_FACTORIES.register("execute_command",
                     () -> new RitualFactory(CommandRitual::new));
 }

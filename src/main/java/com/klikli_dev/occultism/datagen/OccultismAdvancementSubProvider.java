@@ -103,7 +103,7 @@ public class OccultismAdvancementSubProvider implements AdvancementProvider.Adva
                         ResourceLocation.parse("textures/gui/advancements/backgrounds/stone.png"), AdvancementType.TASK, true,
                         true, false)
                 .addCriterion("summon_familiar",
-                        RitualTrigger.TriggerInstance.ritualFactory(OccultismRituals.FAMILIAR_RITUAL.getId()))
+                        RitualTrigger.TriggerInstance.ritualFactory(OccultismRituals.FAMILIAR.getId()))
                 .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "occultism/familiar/root")));
 
         //Familiar advancements

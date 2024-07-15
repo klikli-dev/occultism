@@ -2,10 +2,7 @@ package com.klikli_dev.occultism.datagen.recipe;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.datagen.recipe.builders.RitualRecipeBuilder;
-import com.klikli_dev.occultism.registry.OccultismBlocks;
-import com.klikli_dev.occultism.registry.OccultismEntities;
-import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.registry.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -31,6 +28,7 @@ public abstract class RitualRecipes extends RecipeProvider {
 
 
     private static final ResourceLocation RITUAL_SUMMON = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon");
+
     private static final ResourceLocation RITUAL_SUMMON_JOB = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_spirit_with_job");
     private static final ResourceLocation RITUAL_RESURRECT_FAMILIAR = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "resurrect_familiar");
     private static final ResourceLocation PENTACLE_SUMMON_FOLIOT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_foliot");
@@ -152,7 +150,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeLoreSpawnEgg(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND.get(), "item.occultism.ritual_dummy.summon_demonic_husband"),
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_demonic_husband")),
                         60,
-                        RITUAL_SUMMON,
+                        OccultismRituals.SUMMON.getId(),
                         PENTACLE_SUMMON_AFRIT,
                         Ingredient.of(Tags.Items.INGOTS_GOLD),
                         Ingredient.of(Tags.Items.GEMS_EMERALD),
@@ -911,7 +909,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_OTHERWORLD_BIRD.get(), "item.occultism.ritual_dummy.familiar_otherworld_bird"),
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/familiar_otherworld_bird")),
                         30,
-                        RITUAL_FAMILIAR,
+                        OccultismRituals.SUMMON_TAMED.getId(),
                         PENTACLE_POSSESS_DJINNI,
                         Ingredient.of(Tags.Items.FEATHERS),
                         Ingredient.of(Tags.Items.FEATHERS),
@@ -928,7 +926,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_PARROT_FAMILIAR.get(), "item.occultism.ritual_dummy.familiar_parrot"),
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/familiar_parrot")),
                         30,
-                        RITUAL_FAMILIAR,
+                        OccultismRituals.SUMMON_WITH_CHANCE_OF_CHICKEN_TAMED.getId(),
                         PENTACLE_POSSESS_FOLIOT,
                         Ingredient.of(Tags.Items.FEATHERS),
                         Ingredient.of(Tags.Items.DYES_GREEN),
