@@ -438,10 +438,10 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
         //check if mouse is over item area, then handle scrolling
         if (this.isPointInItemArea(pMouseX, pMouseY)) {
-            if (pScrollX > 0 && this.currentPage > 1) {
+            if (pScrollY > 0 && this.currentPage > 1) {
                 this.currentPage--;
             }
-            if (pScrollX < 0 && this.currentPage < this.totalPages) {
+            if (pScrollY < 0 && this.currentPage < this.totalPages) {
                 this.currentPage++;
             }
         }
