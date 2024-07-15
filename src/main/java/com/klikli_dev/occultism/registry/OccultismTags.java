@@ -111,6 +111,8 @@ public class OccultismTags {
         public static final TagKey<Item> OTHERWORLD_SAPLINGS = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "saplings/otherworld"));
 
         public static class Miners {
+            public static final TagKey<Item> MINERS = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miners"));
+
             public static final TagKey<Item> BASIC_RESOURCES = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miners/basic_resources"));
             public static final TagKey<Item> DEEPS = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miners/deeps"));
             public static final TagKey<Item> MASTER = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miners/master"));
