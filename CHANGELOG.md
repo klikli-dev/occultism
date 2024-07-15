@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.136.4] - 2024-07-15
+### :bug: Bug Fixes
+- [`f4a17bd`](https://github.com/klikli-dev/occultism/commit/f4a17bd7c8a21818f6399131d43e951c7d685436) - scrolling in storage actuator *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`9f95317`](https://github.com/klikli-dev/occultism/commit/9f95317a30faa99cba47f0d1051004a38a3cec41) - limit emi maven to emi deps *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.136.3] - 2024-07-15
 ### :bug: Bug Fixes
 - [`ee046a1`](https://github.com/klikli-dev/occultism/commit/ee046a1f4c9075c4746676aef903fecaa32df0ec) - add missing possessed hoglin loot *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1305,3 +1313,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.136.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.136.0...release/v1.21-1.136.1
 [release/v1.21-1.136.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.136.1...release/v1.21-1.136.2
 [release/v1.21-1.136.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.136.2...release/v1.21-1.136.3
+[release/v1.21-1.136.4]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.136.3...release/v1.21-1.136.4
