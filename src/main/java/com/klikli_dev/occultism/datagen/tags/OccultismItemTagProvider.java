@@ -1,6 +1,7 @@
 package com.klikli_dev.occultism.datagen.tags;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.HolderLookup;
@@ -86,6 +87,14 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_EMPTY.get());
 
         this.tag(ItemTags.DURABILITY_ENCHANTABLE).addTag(OccultismTags.Items.Miners.MINERS);
+
+        this.tag(ItemTags.LOGS_THAT_BURN)
+                .add(OccultismBlocks.OTHERWORLD_LOG.asItem())
+                .add(OccultismBlocks.OTHERWORLD_LOG_NATURAL.asItem());
+
+        this.tag(Tags.Items.STONES)
+                .add(OccultismBlocks.OTHERSTONE.asItem())
+                .add(OccultismBlocks.OTHERSTONE_NATURAL.asItem());
 
         this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(OccultismItems.INFUSED_PICKAXE.get(),OccultismItems.IESNIUM_PICKAXE.get()).replace(false);
         this.copy(BlockTags.LEAVES,ItemTags.LEAVES);
