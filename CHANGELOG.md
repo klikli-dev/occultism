@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.136.5] - 2024-07-19
+### :bug: Bug Fixes
+- [`18b19d3`](https://github.com/klikli-dev/occultism/commit/18b19d3cf149cc2489400c038052c400946f24ee) - sacrifice info for elder guardian *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`566b95c`](https://github.com/klikli-dev/occultism/commit/566b95c268da79b8847df30949522127e0c119c3) - possessed warden minimum loot *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`048a00f`](https://github.com/klikli-dev/occultism/commit/048a00f8a592406493c20bd9bed2780291bebe98) - add otherworld material to fitting vanilla tags *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`2dc807e`](https://github.com/klikli-dev/occultism/commit/2dc807e7871ddcdac80e24f9f95ead8123dcad79) - chimera size *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`824e490`](https://github.com/klikli-dev/occultism/commit/824e490e2a4d27cad1aa88539adc5e1c9e27d6f9) - make recipe dyes fit bound book icon color *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.136.4] - 2024-07-15
 ### :bug: Bug Fixes
 - [`f4a17bd`](https://github.com/klikli-dev/occultism/commit/f4a17bd7c8a21818f6399131d43e951c7d685436) - scrolling in storage actuator *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1314,3 +1325,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.136.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.136.1...release/v1.21-1.136.2
 [release/v1.21-1.136.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.136.2...release/v1.21-1.136.3
 [release/v1.21-1.136.4]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.136.3...release/v1.21-1.136.4
+[release/v1.21-1.136.5]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.136.4...release/v1.21-1.136.5
