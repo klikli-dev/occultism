@@ -466,7 +466,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Tags.Items.GEMS_EMERALD))
                 .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
                 .entityToSummon(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE.get())
-                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.elder_guardian")
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.fish")
                 .entityToSacrifice(OccultismTags.Entities.FISH)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_elder_guardian"));
 

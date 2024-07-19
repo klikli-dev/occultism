@@ -5,7 +5,7 @@
   },
   "duration": 90,
   "entity_to_sacrifice": {
-    "display_name": "ritual.occultism.sacrifice.elder_guardian",
+    "display_name": "ritual.occultism.sacrifice.fish",
     "tag": "c:fish"
   },
   "entity_to_summon": "occultism:possessed_elder_guardian",
