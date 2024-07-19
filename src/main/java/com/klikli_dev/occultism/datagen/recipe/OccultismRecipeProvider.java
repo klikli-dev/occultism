@@ -361,7 +361,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern("cpf")
                 .pattern("pbp")
                 .pattern(" p ")
-                .define('p', Tags.Items.DYES_PURPLE)
+                .define('p', Tags.Items.DYES_YELLOW)
                 .define('b', OccultismItems.TABOO_BOOK.get())
                 .define('c', OccultismItems.PURIFIED_INK.get())
                 .define('f', OccultismItems.AWAKENED_FEATHER.get())
@@ -371,7 +371,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern(" p ")
                 .pattern("pbp")
                 .pattern(" p ")
-                .define('p', Tags.Items.DYES_PURPLE)
+                .define('p', Tags.Items.DYES_YELLOW)
                 .define('b', OccultismItems.BOOK_OF_BINDING_EMPTY.get())
                 .unlockedBy("has_taboo_book", has(OccultismItems.BOOK_OF_BINDING_EMPTY.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/book_of_binding_afrit_from_empty"));
@@ -388,7 +388,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern(" g ")
                 .define('c', OccultismItems.PURIFIED_INK.get())
                 .define('b', OccultismItems.TABOO_BOOK.get())
-                .define('g', Tags.Items.DYES_GREEN)
+                .define('g', Tags.Items.DYES_PURPLE)
                 .define('f', OccultismItems.AWAKENED_FEATHER.get())
                 .unlockedBy("has_taboo_book", has(OccultismItems.TABOO_BOOK.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/book_of_binding_djinni"));
@@ -396,7 +396,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern(" g ")
                 .pattern("gbg")
                 .pattern(" g ")
-                .define('g', Tags.Items.DYES_GREEN)
+                .define('g', Tags.Items.DYES_PURPLE)
                 .define('b', OccultismItems.BOOK_OF_BINDING_EMPTY.get())
                 .unlockedBy("has_empty_binding", has(OccultismItems.BOOK_OF_BINDING_EMPTY.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/book_of_binding_djinni_from_empty"));
@@ -418,7 +418,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern(" w ")
                 .define('c', OccultismItems.PURIFIED_INK.get())
                 .define('b', OccultismItems.TABOO_BOOK.get())
-                .define('w', Tags.Items.DYES_WHITE)
+                .define('w', Tags.Items.DYES_BLUE)
                 .define('f', OccultismItems.AWAKENED_FEATHER.get())
                 .unlockedBy("has_taboo_book", has(OccultismItems.TABOO_BOOK.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/book_of_binding_foliot"));
@@ -426,7 +426,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern(" w ")
                 .pattern("wbw")
                 .pattern(" w ")
-                .define('w', Tags.Items.DYES_WHITE)
+                .define('w', Tags.Items.DYES_BLUE)
                 .define('b', OccultismItems.BOOK_OF_BINDING_EMPTY.get())
                 .unlockedBy("has_empty_binding", has(OccultismItems.BOOK_OF_BINDING_EMPTY.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/book_of_binding_foliot_from_empty"));
@@ -448,8 +448,8 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern(" o ")
                 .define('c', OccultismItems.PURIFIED_INK.get())
                 .define('b', OccultismItems.TABOO_BOOK.get())
-                .define('o', Tags.Items.DYES_ORANGE)
-                .define('p', Tags.Items.DYES_PURPLE)
+                .define('o', Tags.Items.DYES_GREEN)
+                .define('p', Tags.Items.DYES_GREEN)
                 .define('f', OccultismItems.AWAKENED_FEATHER.get())
                 .unlockedBy("has_taboo_book", has(OccultismItems.TABOO_BOOK.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/book_of_binding_marid"));
@@ -457,8 +457,8 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern(" o ")
                 .pattern("pbp")
                 .pattern(" o ")
-                .define('o', Tags.Items.DYES_ORANGE)
-                .define('p', Tags.Items.DYES_PURPLE)
+                .define('o', Tags.Items.DYES_GREEN)
+                .define('p', Tags.Items.DYES_GREEN)
                 .define('b', OccultismItems.BOOK_OF_BINDING_EMPTY.get())
                 .unlockedBy("has_empty_binding", has(OccultismItems.BOOK_OF_BINDING_EMPTY.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/book_of_binding_marid_from_empty"));
