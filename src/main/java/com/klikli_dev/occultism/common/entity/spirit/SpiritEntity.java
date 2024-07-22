@@ -441,6 +441,11 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
     }
 
     @Override
+    public boolean shouldTryTeleportToOwner() {
+        return false;
+    }
+
+    @Override
     public void aiStep() {
         if (!this.level().isClientSide) {
             if (!this.isInitialized) {
