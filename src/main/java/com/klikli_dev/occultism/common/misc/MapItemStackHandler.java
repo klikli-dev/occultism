@@ -8,6 +8,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.util.INBTSerializable;
@@ -17,8 +18,7 @@ import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable, IMapItemHandlerModifiable, INBTSerializable<CompoundTag> {
@@ -132,22 +132,84 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
 
     @Override
     public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-        return (CompoundTag) CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), this).getOrThrow();
+        //        return (CompoundTag) CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), this).getOrThrow();
+
+        CompoundTag nbt = new CompoundTag();
+        ListTag keyToCountList = new ListTag();
+        this.keyToCountMap.forEach((key, value) -> {
+            CompoundTag entryTag = new CompoundTag();
+            entryTag.put("itemStackkey", key.stack().save(provider, new CompoundTag()));
+            entryTag.putInt("int", value);
+            keyToCountList.add(entryTag);
+        });
+        nbt.put("keyToCountMap", keyToCountList);
+
+        ListTag keyToSlotList = new ListTag();
+        this.keyToSlot.forEach((key, slot) -> {
+            CompoundTag entryTag = new CompoundTag();
+            entryTag.put("itemStackkey", key.stack().save(provider, new CompoundTag()));
+            entryTag.putInt("int", slot);
+            keyToSlotList.add(entryTag);
+        });
+        nbt.put("keyToSlot", keyToSlotList);
+
+        nbt.putIntArray("emptySlots", new ArrayList<>(this.emptySlots));
+        nbt.putInt("nextSlot", this.nextSlotIndex);
+        nbt.putInt("maxSlots", this.maxItemTypes);
+        nbt.putLong("totalItemCount", this.totalItemCount);
+        nbt.putLong("maxTotalItemCount", this.maxTotalItemCount);
+
+        return nbt;
     }
 
     @Override
     public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
-        CODEC.parse(provider.createSerializationContext(NbtOps.INSTANCE), nbt).resultOrPartial(e -> {
-            throw new RuntimeException("Failed to decode MapItemStackHandler: " + e);
-        }).ifPresent(handler -> {
-            this.keyToCountMap = handler.keyToCountMap;
-            this.keyToSlot = handler.keyToSlot;
-            this.emptySlots = handler.emptySlots;
-            this.nextSlotIndex = handler.nextSlotIndex;
-            this.maxItemTypes = handler.maxItemTypes;
-            this.totalItemCount = handler.totalItemCount;
-            this.maxTotalItemCount = handler.maxTotalItemCount;
+        ListTag keyToCountList = nbt.getList("keyToCountMap", ListTag.TAG_COMPOUND);
+        this.keyToCountMap = new Object2IntOpenHashMap<>();
+        keyToCountList.forEach(tag -> {
+            CompoundTag entryTag = (CompoundTag) tag;
+            var stack = ItemStack.parseOptional(provider, entryTag.getCompound("itemStackkey"));
+            if(stack.isEmpty())
+                return;
+
+            ItemStackKey key = new ItemStackKey(stack);
+            int count = entryTag.getInt("int");
+            this.keyToCountMap.put(key, count);
         });
+
+        ListTag keyToSlotList = nbt.getList("keyToSlot", ListTag.TAG_COMPOUND);
+        this.keyToSlot = HashBiMap.create();
+        keyToSlotList.forEach(tag -> {
+            CompoundTag entryTag = (CompoundTag) tag;
+            var stack = ItemStack.parseOptional(provider, entryTag.getCompound("itemStackkey"));
+            if(stack.isEmpty())
+                return;
+
+            ItemStackKey key = new ItemStackKey(stack);
+            int slot = entryTag.getInt("int");
+            this.keyToSlot.put(key, slot);
+        });
+
+        this.emptySlots = Arrays.stream(nbt.getIntArray("emptySlots"))
+                .boxed()
+                .collect(Collectors.toCollection(Stack::new));
+
+        this.nextSlotIndex = nbt.getInt("nextSlot");
+        this.maxItemTypes = nbt.getInt("maxSlots");
+        this.totalItemCount = nbt.getLong("totalItemCount");
+        this.maxTotalItemCount = nbt.getLong("maxTotalItemCount");
+
+//        CODEC.parse(provider.createSerializationContext(NbtOps.INSTANCE), nbt).resultOrPartial(e -> {
+//              throw new RuntimeException("Failed to decode MapItemStackHandler: " + e);
+//        }).ifPresent(handler -> {
+//            this.keyToCountMap = handler.keyToCountMap;
+//            this.keyToSlot = handler.keyToSlot;
+//            this.emptySlots = handler.emptySlots;
+//            this.nextSlotIndex = handler.nextSlotIndex;
+//            this.maxItemTypes = handler.maxItemTypes;
+//            this.totalItemCount = handler.totalItemCount;
+//            this.maxTotalItemCount = handler.maxTotalItemCount;
+//        });
     }
 
     @Override
