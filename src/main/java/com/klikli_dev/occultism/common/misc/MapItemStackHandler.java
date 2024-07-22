@@ -9,7 +9,6 @@ import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.util.INBTSerializable;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -18,7 +17,10 @@ import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable, IMapItemHandlerModifiable, INBTSerializable<CompoundTag> {
@@ -109,6 +111,10 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
         return this.maxItemTypes;
     }
 
+    public boolean hasMaxItemTypes() {
+        return this.maxItemTypes != -1;
+    }
+
     public void maxItemTypes(int maxItemTypes) {
         this.maxItemTypes = maxItemTypes;
     }
@@ -169,7 +175,7 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
         keyToCountList.forEach(tag -> {
             CompoundTag entryTag = (CompoundTag) tag;
             var stack = ItemStack.parseOptional(provider, entryTag.getCompound("itemStackkey"));
-            if(stack.isEmpty())
+            if (stack.isEmpty())
                 return;
 
             ItemStackKey key = new ItemStackKey(stack);
@@ -182,7 +188,7 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
         keyToSlotList.forEach(tag -> {
             CompoundTag entryTag = (CompoundTag) tag;
             var stack = ItemStack.parseOptional(provider, entryTag.getCompound("itemStackkey"));
-            if(stack.isEmpty())
+            if (stack.isEmpty())
                 return;
 
             ItemStackKey key = new ItemStackKey(stack);
@@ -262,8 +268,11 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
 
     @Override
     public int getSlots() {
-        //report at least one empty slot to allow inserting items, otherwise some handler code might not work.
-        return this.nextSlotIndex + 1;
+        if (!this.hasMaxItemTypes())
+            //report at least one empty slot to allow inserting items, otherwise some handler code might not work.
+            return this.nextSlotIndex + 1;
+
+        return Math.min(this.maxItemTypes, this.nextSlotIndex + 1);
     }
 
     @Override
@@ -451,7 +460,7 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
     }
 
     protected boolean fitsInMaxSlots(int slot) {
-        return this.maxItemTypes != -1 && slot < this.maxItemTypes;
+        return this.hasMaxItemTypes() && slot < this.maxItemTypes;
     }
 
     protected void onContentsChanged(ItemStackKey key) {
