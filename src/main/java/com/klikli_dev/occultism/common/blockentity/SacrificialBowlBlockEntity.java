@@ -46,6 +46,7 @@ public class SacrificialBowlBlockEntity extends NetworkedBlockEntity {
             if (!SacrificialBowlBlockEntity.this.level.isClientSide) {
                 SacrificialBowlBlockEntity.this.lastChangeTime = SacrificialBowlBlockEntity.this.level
                         .getGameTime();
+                SacrificialBowlBlockEntity.this.setChanged();
                 SacrificialBowlBlockEntity.this.markNetworkDirty();
             }
         }
