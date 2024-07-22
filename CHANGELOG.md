@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.137.0] - 2024-07-22
+### :sparkles: New Features
+- [`2a0f908`](https://github.com/klikli-dev/occultism/commit/2a0f908b83b09aa46fca82db4c28a14f6b24271c) - add config GUI *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`d44d04d`](https://github.com/klikli-dev/occultism/commit/d44d04d6d2cafd6fe53ea33a885b56fe9bd6dc7d) - storage controller data loading if items are no longer present after mods removed *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`e94dd1d`](https://github.com/klikli-dev/occultism/commit/e94dd1df3d71a4ab50a43d7cf9b7b35a32837ca3) - worker spirits try to teleport to owner *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`d672c94`](https://github.com/klikli-dev/occultism/commit/d672c949e6a84050011fc2a1d6fc334421c44d8b) - demonic partners are summoned untamed *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`58e50ee`](https://github.com/klikli-dev/occultism/commit/58e50ee34808d6e12a2e2217a0dd7f66d6e2d583) - crash when capabilities try to insert into full storage controller *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`33a991a`](https://github.com/klikli-dev/occultism/commit/33a991ae3ec5170e9b0a69254650df811634c974) - ensure sacrificial bowl inventory changes are saved when chunk is saved *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.136.5] - 2024-07-19
 ### :bug: Bug Fixes
 - [`18b19d3`](https://github.com/klikli-dev/occultism/commit/18b19d3cf149cc2489400c038052c400946f24ee) - sacrifice info for elder guardian *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1326,3 +1338,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.136.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.136.2...release/v1.21-1.136.3
 [release/v1.21-1.136.4]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.136.3...release/v1.21-1.136.4
 [release/v1.21-1.136.5]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.136.4...release/v1.21-1.136.5
+[release/v1.21-1.137.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.136.5...release/v1.21-1.137.0
