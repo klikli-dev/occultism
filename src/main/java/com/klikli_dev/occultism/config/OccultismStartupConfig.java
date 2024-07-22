@@ -42,7 +42,7 @@ public class OccultismStartupConfig {
     }
 
     public static class RitualSettings {
-        public final ConfigValue<List<String>> possibleSpiritNames;
+        public final ConfigValue<List<? extends String>> possibleSpiritNames;
         public final DoubleValue usePossibleSpiritNamesChance;
 
 
@@ -52,7 +52,7 @@ public class OccultismStartupConfig {
             this.possibleSpiritNames =
                     builder.comment("By default spirit names are generated randomly. " +
                                     "This list can be used as an additional source of spirit names, or even a full replacement, depending on the configuration of \"usePossibleSpiritNamesChance\".")
-                            .define("possibleSpiritNames", new ArrayList<>());
+                            .defineList("possibleSpiritNames", new ArrayList<>(), () -> "A Name", (e) -> e instanceof String);
 
             this.usePossibleSpiritNamesChance =
                     builder.comment(

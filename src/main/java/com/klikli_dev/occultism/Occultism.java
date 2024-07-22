@@ -56,6 +56,8 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.client.gui.ConfigurationScreen;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import org.slf4j.Logger;
@@ -85,6 +87,7 @@ public class Occultism {
         modContainer.registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG.spec);
         modContainer.registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG.spec);
         modContainer.registerConfig(ModConfig.Type.STARTUP, STARTUP_CONFIG.spec);
+        modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
 
         OccultismEffects.EFFECTS.register(modEventBus);
         OccultismRecipes.RECIPE_TYPES.register(modEventBus);

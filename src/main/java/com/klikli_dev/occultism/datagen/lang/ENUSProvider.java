@@ -3138,6 +3138,76 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("emi.occultism.item_to_use", "Item to use: %s");
     }
 
+    private void addConfigurationTranslations() {
+
+        this.addConfig("visual", "Visual Settings");
+        this.addConfig("showItemTagsInTooltip", "Show Item Tags in Tooltips");
+        this.addConfig("disableDemonsDreamShaders", "Disable Demon's Dream Shaders");
+        this.addConfig("disableHolidayTheming", "Disable Otherworld Goggles Shaders");
+        this.addConfig("useAlternativeDivinationRodRenderer", "Use Alternative Divination Rod Renderer");
+        this.addConfig("whiteChalkGlyphColor", "White Chalk Glyph Color");
+        this.addConfig("goldenChalkGlyphColor", "Golden Chalk Glyph Color");
+        this.addConfig("purpleChalkGlyphColor", "Purple Chalk Glyph Color");
+        this.addConfig("redChalkGlyphColor", "Red Chalk Glyph Color");
+
+        this.addConfig("misc", "Misc Settings");
+        this.addConfig("syncJeiSearch", "Sync JEI Search");
+        this.addConfig("divinationRodHighlightAllResults", "Divination Rod Highlight All Results");
+        this.addConfig("divinationRodScanRange", "Divination Rod Scan Range");
+        this.addConfig("disableSpiritFireSuccessSound", "Disable Spirit Fire Success Sound");
+
+        this.addConfig("storage", "Storage Settings");
+        this.addConfig("stabilizerTier1AdditionalMaxItemTypes", "Stabilizer Tier 1 Additional Max Item Types");
+        this.addConfig("stabilizerTier1AdditionalMaxTotalItemCount", "Stabilizer Tier 1 Additional Max Total Item Count");
+        this.addConfig("stabilizerTier2AdditionalMaxItemTypes", "Stabilizer Tier 2 Additional Max Item Types");
+        this.addConfig("stabilizerTier2AdditionalMaxTotalItemCount", "Stabilizer Tier 2 Additional Max Total Item Count");
+        this.addConfig("stabilizerTier3AdditionalMaxItemTypes", "Stabilizer Tier 3 Additional Max Item Types");
+        this.addConfig("stabilizerTier3AdditionalMaxTotalItemCount", "Stabilizer Tier 3 Additional Max Total Item Count");
+        this.addConfig("stabilizerTier4AdditionalMaxItemTypes", "Stabilizer Tier 4 Additional Max Item Types");
+        this.addConfig("stabilizerTier4AdditionalMaxTotalItemCount", "Stabilizer Tier 4 Additional Max Total Item Count");
+        this.addConfig("controllerMaxItemTypes", "Controller Max Item Types");
+        this.addConfig("controllerMaxTotalItemCount", "Controller Max Total Item Count");
+        this.addConfig("unlinkWormholeOnBreak", "Unlink Wormhole on Break");
+
+        this.addConfig("spirit_job", "Spirit Job Settings");
+        this.addConfig("drikwingFamiliarSlowFallingSeconds", "Duration of slow falling effect given by Drikwing Familiar in seconds.");
+        this.addConfig("tier1CrusherTimeMultiplier", "Time multiplier for Tier 1 Crusher operations.");
+        this.addConfig("tier2CrusherTimeMultiplier", "Time multiplier for Tier 2 Crusher operations.");
+        this.addConfig("tier3CrusherTimeMultiplier", "Time multiplier for Tier 3 Crusher operations.");
+        this.addConfig("tier4CrusherTimeMultiplier", "Time multiplier for Tier 4 Crusher operations.");
+        this.addConfig("tier1CrusherOutputMultiplier", "Output multiplier for Tier 1 Crusher operations.");
+        this.addConfig("tier2CrusherOutputMultiplier", "Output multiplier for Tier 2 Crusher operations.");
+        this.addConfig("tier3CrusherOutputMultiplier", "Output multiplier for Tier 3 Crusher operations.");
+        this.addConfig("tier4CrusherOutputMultiplier", "Output multiplier for Tier 4 Crusher operations.");
+        this.addConfig("crusherResultPickupDelay", "Delay before items from crusher operations can be picked up.");
+        this.addConfig("blacksmithFamiliarRepairChance", "Chance for Blacksmith Familiar to repair an item each tick.");
+        this.addConfig("blacksmithFamiliarUpgradeCost", "Cost in experience levels for upgrading items with Blacksmith Familiar.");
+        this.addConfig("blacksmithFamiliarUpgradeCooldown", "Cooldown in ticks before Blacksmith Familiar can upgrade items again.");
+
+        this.addConfig("rituals", "Rituals Settings");
+        this.addConfig("enableClearWeatherRitual", "Enable the ritual to clear weather conditions.");
+        this.addConfig("enableRainWeatherRitual", "Enable the ritual to cause rain weather conditions.");
+        this.addConfig("enableThunderWeatherRitual", "Enable the ritual to cause thunderstorm weather conditions.");
+        this.addConfig("enableDayTimeRitual", "Enable the ritual to change the time to day.");
+        this.addConfig("enableNightTimeRitual", "Enable the ritual to change the time to night.");
+        this.addConfig("enableRemainingIngredientCountMatching", "Enable matching of remaining ingredients in ritual recipes.");
+        this.addConfig("ritualDurationMultiplier", "Multiplier to adjust the duration of all rituals.");
+        this.addConfig("possibleSpiritNames", "Possible Spirit Names");
+
+        this.addConfig("dimensional_mineshaft", "Dimensional Mineshaft Settings");
+        this.addConfig("miner_foliot_unspecialized", "Foliot Miner Unspectialized");
+        this.addConfig("miner_djinni_ores", "Djinni Ore Miner");
+        this.addConfig("miner_afrit_deeps", "Afrit Deep Ore Miner");
+        this.addConfig("miner_marid_master", "Marid Master Miner");
+
+        this.addConfig("maxMiningTime", "Max Mining Time");
+        this.addConfig("rollsPerOperation", "Rolls Per Operation");
+        this.addConfig("durability", "Durability");
+    }
+
+    private void addConfig(String key, String name){
+        this.add(Occultism.MODID + ".configuration." + key, name);
+    }
     @Override
     protected void addTranslations() {
         this.addAdvancements();
@@ -3158,6 +3228,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addPentacles();
         this.addModonomiconIntegration();
         this.addEmiTranslations();
+        this.addConfigurationTranslations();
         this.addTags();
     }
 }

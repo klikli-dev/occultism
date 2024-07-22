@@ -55,19 +55,19 @@ public class OccultismServerConfig {
     }
 
     public static class SpiritJobSettings {
-        public final ConfigValue<Double> tier1CrusherTimeMultiplier;
-        public final ConfigValue<Double> tier2CrusherTimeMultiplier;
-        public final ConfigValue<Double> tier3CrusherTimeMultiplier;
-        public final ConfigValue<Double> tier4CrusherTimeMultiplier;
-        public final ConfigValue<Double> tier1CrusherOutputMultiplier;
-        public final ConfigValue<Double> tier2CrusherOutputMultiplier;
-        public final ConfigValue<Double> tier3CrusherOutputMultiplier;
-        public final ConfigValue<Double> tier4CrusherOutputMultiplier;
+        public final DoubleValue tier1CrusherTimeMultiplier;
+        public final DoubleValue tier2CrusherTimeMultiplier;
+        public final DoubleValue tier3CrusherTimeMultiplier;
+        public final DoubleValue tier4CrusherTimeMultiplier;
+        public final DoubleValue tier1CrusherOutputMultiplier;
+        public final DoubleValue tier2CrusherOutputMultiplier;
+        public final DoubleValue tier3CrusherOutputMultiplier;
+        public final DoubleValue tier4CrusherOutputMultiplier;
         public final IntValue drikwingFamiliarSlowFallingSeconds;
         public final IntValue crusherResultPickupDelay;
         public final IntValue blacksmithFamiliarUpgradeCost;
         public final IntValue blacksmithFamiliarUpgradeCooldown;
-        public final ConfigValue<Double> blacksmithFamiliarRepairChance;
+        public final DoubleValue blacksmithFamiliarRepairChance;
 
         public SpiritJobSettings(ModConfigSpec.Builder builder) {
             builder.comment("Spirit Job Settings").push("spirit_job");
@@ -79,36 +79,36 @@ public class OccultismServerConfig {
             this.tier1CrusherTimeMultiplier =
                     builder.comment(
                                     "The multiplier to each crushing recipe's crushing_time for Tier 1 (Foliot) Crusher Spirits.")
-                            .define("tier1CrusherTimeMultiplier", 2.0);
+                            .defineInRange("tier1CrusherTimeMultiplier", 2.0, 0.0, Double.MAX_VALUE);
             this.tier2CrusherTimeMultiplier =
                     builder.comment(
                                     "The multiplier to each crushing recipe's crushing_time for Tier 2 (Djinni) Crusher Spirits.")
-                            .define("tier2CrusherTimeMultiplier", 1.0);
+                            .defineInRange("tier2CrusherTimeMultiplier", 1.0, 0.0, Double.MAX_VALUE);
             this.tier3CrusherTimeMultiplier =
                     builder.comment(
                                     "Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 3 (Afrit) Crusher Spirits.")
-                            .define("tier3CrusherTimeMultiplier", 0.5);
+                            .defineInRange("tier3CrusherTimeMultiplier", 0.5, 0.0, Double.MAX_VALUE);
             this.tier4CrusherTimeMultiplier =
                     builder.comment(
                                     "Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 4 (Marid) Crusher Spirits.")
-                            .define("tier4CrusherTimeMultiplier", 0.2);
+                            .defineInRange("tier4CrusherTimeMultiplier", 0.2, 0.0, Double.MAX_VALUE);
 
             this.tier1CrusherOutputMultiplier =
                     builder.comment(
                                     "The multiplier to each crushing recipe's output count for Tier 1 (Foliot) Crusher Spirits.")
-                            .define("tier1CrusherOutputMultiplier", 1.0);
+                            .defineInRange("tier1CrusherOutputMultiplier", 1.0, 0.0, Double.MAX_VALUE);
             this.tier2CrusherOutputMultiplier =
                     builder.comment(
                                     "The multiplier to each crushing recipe's output count for Tier 2 (Djinni) Crusher Spirits.")
-                            .define("tier2CrusherOutputMultiplier", 1.5);
+                            .defineInRange("tier2CrusherOutputMultiplier", 1.5, 0.0, Double.MAX_VALUE);
             this.tier3CrusherOutputMultiplier =
                     builder.comment(
                                     "The multiplier to each crushing recipe's output count for Tier 3 (Afrit) Crusher Spirits.")
-                            .define("tier3CrusherOutputMultiplier", 2.0);
+                            .defineInRange("tier3CrusherOutputMultiplier", 2.0, 0.0, Double.MAX_VALUE);
             this.tier4CrusherOutputMultiplier =
                     builder.comment(
                                     "The multiplier to each crushing recipe's output count for Tier 4 (Marid) Crusher Spirits.")
-                            .define("tier4CrusherOutputMultiplier", 3.0);
+                            .defineInRange("tier4CrusherOutputMultiplier", 3.0, 0.0, Double.MAX_VALUE);
 
             this.crusherResultPickupDelay =
                     builder.comment(
@@ -118,7 +118,7 @@ public class OccultismServerConfig {
             this.blacksmithFamiliarRepairChance =
                     builder.comment(
                                     "The chance for a blacksmith familiar to repair an item (by 2 durability) whenever stone is picked up. 1.0 = 100%, 0.0 = 0%.")
-                            .define("blacksmithFamiliarRepairChance", 0.05);
+                            .defineInRange("blacksmithFamiliarRepairChance", 0.05, 0.0, Double.MAX_VALUE);
             this.blacksmithFamiliarUpgradeCost =
                     builder.comment(
                                     "The amount of iron required for a blacksmith familiar to upgrade another familiar.")
