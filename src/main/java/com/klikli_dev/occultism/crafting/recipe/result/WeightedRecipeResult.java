@@ -14,6 +14,7 @@ import net.minecraft.util.random.Weight;
 import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A recipe result for recipes that need a random weight (eg miner recipes)
@@ -53,10 +54,13 @@ public abstract class WeightedRecipeResult extends RecipeResult implements Weigh
         return this.weight.asInt();
     }
 
-    public abstract RecipeResult copyWithWeight(int weight);
+    @Override
+    public abstract WeightedRecipeResult copyWithCount(int count);
+
+    public abstract WeightedRecipeResult copyWithWeight(int weight);
 
     @Override
-    public Weight getWeight() {
+    public @NotNull Weight getWeight() {
         return this.weight;
     }
 }
