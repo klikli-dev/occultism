@@ -198,7 +198,7 @@ public class DemonicPartner extends TamableAnimal {
 
             //sit/stand
             InteractionResult interactionresult = super.mobInteract(pPlayer, pHand);
-            if ((!interactionresult.consumesAction() || this.isBaby()) && this.isOwnedBy(pPlayer)) {
+            if ((!interactionresult.consumesAction() || this.isBaby()) && this.isOwnedBy(pPlayer) && itemstack.isEmpty()) {
                 this.setOrderedToSit(!this.isOrderedToSit());
                 this.jumping = false;
                 this.navigation.stop();
