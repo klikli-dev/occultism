@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.137.4] - 2024-07-23
+### :bug: Bug Fixes
+- [`46d718e`](https://github.com/klikli-dev/occultism/commit/46d718e19e1d018c1e5e5c1d785ea00be868b89f) - books of calling not dropping from ritual *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.137.3] - 2024-07-23
 ### :bug: Bug Fixes
 - [`f95811d`](https://github.com/klikli-dev/occultism/commit/f95811d4c282408267376544aadaeabd667394a7) - demonic partners cannot be healed with demon's dream *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1357,3 +1362,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.137.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.137.0...release/v1.21-1.137.1
 [release/v1.21-1.137.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.137.1...release/v1.21-1.137.2
 [release/v1.21-1.137.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.137.2...release/v1.21-1.137.3
+[release/v1.21-1.137.4]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.137.3...release/v1.21-1.137.4
