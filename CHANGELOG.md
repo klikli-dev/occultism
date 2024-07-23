@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.139.1] - 2024-07-23
+### :bug: Bug Fixes
+- [`45212a0`](https://github.com/klikli-dev/occultism/commit/45212a0416987c3baa768f3cfd570f8d2cab6d68) - weightedreciperesult polymorphism *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.139.0] - 2024-07-23
 ### :sparkles: New Features
 - [`033936c`](https://github.com/klikli-dev/occultism/commit/033936c55fff9fad96c4e309dc735c0240f252a3) - improve polymorphism on recipe results *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1375,3 +1380,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.137.4]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.137.3...release/v1.21-1.137.4
 [release/v1.21-1.138.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.137.4...release/v1.21-1.138.0
 [release/v1.21-1.139.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.138.0...release/v1.21-1.139.0
+[release/v1.21-1.139.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.139.0...release/v1.21-1.139.1
