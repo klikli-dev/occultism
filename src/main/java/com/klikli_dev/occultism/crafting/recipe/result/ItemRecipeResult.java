@@ -52,7 +52,7 @@ public class ItemRecipeResult extends RecipeResult {
     }
 
     @Override
-    public RecipeResult copyWithCount(int count) {
+    public ItemRecipeResult copyWithCount(int count) {
         return new ItemRecipeResult(this.stack.copyWithCount(count));
     }
 }

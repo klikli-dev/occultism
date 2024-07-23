@@ -111,7 +111,7 @@ public class TagRecipeResult extends RecipeResult {
     }
 
     @Override
-    public RecipeResult copyWithCount(int count) {
+    public TagRecipeResult copyWithCount(int count) {
         return new TagRecipeResult(this.tag, count, this.patch);
     }
 }

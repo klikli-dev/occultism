@@ -62,12 +62,12 @@ public class WeightedItemRecipeResult extends WeightedRecipeResult {
     }
 
     @Override
-    public RecipeResult copyWithCount(int count) {
+    public WeightedItemRecipeResult copyWithCount(int count) {
         return new WeightedItemRecipeResult(this.stack.copyWithCount(count), this.weight.asInt());
     }
 
     @Override
-    public RecipeResult copyWithWeight(int weight) {
+    public WeightedItemRecipeResult copyWithWeight(int weight) {
         return new WeightedItemRecipeResult(this.stack, weight);
     }
 }
