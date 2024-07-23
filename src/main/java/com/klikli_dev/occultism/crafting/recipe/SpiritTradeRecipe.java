@@ -22,61 +22,45 @@
 
 package com.klikli_dev.occultism.crafting.recipe;
 
+import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SpiritTradeRecipe extends ShapelessRecipe {
+public class SpiritTradeRecipe extends SingleInputRecipe<SingleRecipeInput> {
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, SpiritTradeRecipe> STREAM_CODEC = StreamCodec.of(
-            Serializer::toNetwork, Serializer::fromNetwork
-    );
-    private static final MapCodec<SpiritTradeRecipe> CODEC = RecordCodecBuilder.mapCodec(
-            p_340779_ -> p_340779_.group(
-                            Codec.STRING.optionalFieldOf("group", "").forGetter(p_301127_ -> p_301127_.getGroup()),
-                            CraftingBookCategory.CODEC.fieldOf("category").orElse(CraftingBookCategory.MISC).forGetter(p_301133_ -> p_301133_.category()),
-                            ItemStack.STRICT_CODEC.fieldOf("result").forGetter(p_301142_ -> p_301142_.getResultItem(RegistryAccess.EMPTY)),
-                            Ingredient.CODEC_NONEMPTY
-                                    .listOf()
-                                    .fieldOf("ingredients")
-                                    .flatXmap(
-                                            p_301021_ -> {
-                                                Ingredient[] aingredient = p_301021_.toArray(Ingredient[]::new); // Neo skip the empty check and immediately create the array.
-                                                if (aingredient.length == 0) {
-                                                    return DataResult.error(() -> "No ingredients for shapeless recipe");
-                                                } else {
-                                                    return aingredient.length > ShapedRecipePattern.getMaxHeight() * ShapedRecipePattern.getMaxWidth()
-                                                            ? DataResult.error(() -> "Too many ingredients for shapeless recipe. The maximum is: %s".formatted(ShapedRecipePattern.getMaxHeight() * ShapedRecipePattern.getMaxWidth()))
-                                                            : DataResult.success(NonNullList.of(Ingredient.EMPTY, aingredient));
-                                                }
-                                            },
-                                            DataResult::success
-                                    )
-                                    .forGetter(p_300975_ -> p_300975_.getIngredients())
-                    )
-                    .apply(p_340779_, (group, category, result, ingredients) -> new SpiritTradeRecipe(group, result, ingredients))
+    public static final MapCodec<SpiritTradeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            Ingredient.CODEC
+                    .fieldOf("ingredient").forGetter((r) -> r.input),
+            ItemStack.OPTIONAL_CODEC.fieldOf("result").forGetter(r -> r.output)
+    ).apply(instance, SpiritTradeRecipe::new));
+    public static final StreamCodec<RegistryFriendlyByteBuf, SpiritTradeRecipe> STREAM_CODEC = StreamCodec.composite(
+            Ingredient.CONTENTS_STREAM_CODEC,
+            (r) -> r.input,
+            ItemStack.OPTIONAL_STREAM_CODEC,
+            (r) -> r.output,
+            SpiritTradeRecipe::new
     );
     public static Serializer SERIALIZER = new Serializer();
 
-    public SpiritTradeRecipe(String group, ItemStack result, NonNullList<Ingredient> input) {
-        super(group, CraftingBookCategory.MISC, result, input);
+    public SpiritTradeRecipe(Ingredient input, ItemStack output) {
+        super(input, output);
     }
 
     @Override
@@ -85,24 +69,15 @@ public class SpiritTradeRecipe extends ShapelessRecipe {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
-        return SERIALIZER;
+    public boolean matches(SingleRecipeInput inv, @NotNull Level level) {
+        return this.input.test(inv.getItem(0));
     }
 
     @Override
-    public boolean matches(@Nonnull CraftingInput inventory, @Nonnull Level level) {
-        return false;
-    }
-
-    @Override
-    public ItemStack assemble(CraftingInput pCraftingContainer, HolderLookup.Provider pRegistries) {
-        //as we don't have an inventory this is ignored.
-        return null;
-    }
-
-    @Override
-    public RecipeType<?> getType() {
-        return OccultismRecipes.SPIRIT_TRADE_TYPE.get();
+    public @NotNull ItemStack assemble(SingleRecipeInput pCraftingContainer, HolderLookup.@NotNull Provider pRegistries) {
+        ItemStack result = this.getResultItem(pRegistries).copy();
+        result.setCount(pCraftingContainer.getItem(0).getCount());
+        return result;
     }
 
     /**
@@ -133,7 +108,7 @@ public class SpiritTradeRecipe extends ShapelessRecipe {
 
     public boolean isValid(List<ItemStack> input) {
         //deep copy, otherwise stack.shrink will eat original input.
-        List<ItemStack> cached = input.stream().map(ItemStack::copy).collect(Collectors.toList());
+        List<ItemStack> cached = input.stream().map(ItemStack::copy).toList();
         for (Ingredient ingredient : this.getIngredients()) {
             boolean matched = false;
             for (Iterator<ItemStack> it = cached.iterator(); it.hasNext(); ) {
@@ -151,40 +126,30 @@ public class SpiritTradeRecipe extends ShapelessRecipe {
         return true;
     }
 
+    @Override
+    public @NotNull RecipeSerializer<?> getSerializer() {
+        return SERIALIZER;
+    }
+
+    @Override
+    public @NotNull ItemStack getToastSymbol() {
+        return new ItemStack(OccultismItems.PENTACLE.get());
+    }
+
+    @Override
+    public @NotNull RecipeType<?> getType() {
+        return OccultismRecipes.SPIRIT_TRADE_TYPE.get();
+    }
+
     public static class Serializer implements RecipeSerializer<SpiritTradeRecipe> {
 
-        //Codec copied from ShaplessRecipe, because xmap throws errors
-
-        //Copied from Shapeless Recipe
-        private static SpiritTradeRecipe fromNetwork(RegistryFriendlyByteBuf p_319905_) {
-            String s = p_319905_.readUtf();
-            CraftingBookCategory craftingbookcategory = p_319905_.readEnum(CraftingBookCategory.class);
-            int i = p_319905_.readVarInt();
-            NonNullList<Ingredient> nonnulllist = NonNullList.withSize(i, Ingredient.EMPTY);
-            nonnulllist.replaceAll(p_319735_ -> Ingredient.CONTENTS_STREAM_CODEC.decode(p_319905_));
-            ItemStack itemstack = ItemStack.STREAM_CODEC.decode(p_319905_);
-            return new SpiritTradeRecipe(s, itemstack, nonnulllist);
-        }
-
-        private static void toNetwork(RegistryFriendlyByteBuf p_320371_, SpiritTradeRecipe p_320323_) {
-            p_320371_.writeUtf(p_320323_.getGroup());
-            p_320371_.writeEnum(p_320323_.category());
-            p_320371_.writeVarInt(p_320323_.getIngredients().size());
-
-            for (Ingredient ingredient : p_320323_.getIngredients()) {
-                Ingredient.CONTENTS_STREAM_CODEC.encode(p_320371_, ingredient);
-            }
-
-            ItemStack.STREAM_CODEC.encode(p_320371_, p_320323_.getResultItem(RegistryAccess.EMPTY));
-        }
-
         @Override
-        public MapCodec<SpiritTradeRecipe> codec() {
+        public @NotNull MapCodec<SpiritTradeRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public StreamCodec<RegistryFriendlyByteBuf, SpiritTradeRecipe> streamCodec() {
+        public @NotNull StreamCodec<RegistryFriendlyByteBuf, SpiritTradeRecipe> streamCodec() {
             return STREAM_CODEC;
         }
     }

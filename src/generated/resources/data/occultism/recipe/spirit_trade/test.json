@@ -1,11 +1,8 @@
 {
   "type": "occultism:spirit_trade",
-  "category": "misc",
-  "ingredients": [
-    {
-      "tag": "c:stones"
-    }
-  ],
+  "ingredient": {
+    "tag": "c:stones"
+  },
   "result": {
     "count": 4,
     "id": "occultism:otherstone"
