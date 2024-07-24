@@ -125,6 +125,7 @@ public class Occultism {
 
         if (FMLEnvironment.dist == Dist.CLIENT) {
             modEventBus.addListener(ClientSetupEventHandler::onRegisterMenuScreens);
+            modEventBus.addListener(ClientSetupEventHandler::onRegisterClientExtensions);
             ClientSetupEventHandler.registerConfigScreen(modContainer);
         }
 

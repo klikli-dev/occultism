@@ -37,6 +37,8 @@ import com.klikli_dev.occultism.client.render.blockentity.StorageControllerGeoRe
 import com.klikli_dev.occultism.client.render.entity.*;
 import com.klikli_dev.occultism.common.capability.FamiliarSettingsData;
 import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
+import com.klikli_dev.occultism.common.effect.DoubleJumpEffect;
+import com.klikli_dev.occultism.common.effect.ThirdEyeEffect;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.husband.DemonicHusbandRenderer;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife.DemonicWifeRenderer;
 import com.klikli_dev.occultism.integration.modonomicon.PageRenderers;
@@ -44,12 +46,16 @@ import com.klikli_dev.occultism.registry.*;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -57,11 +63,14 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.*;
+import net.neoforged.neoforge.client.extensions.common.IClientMobEffectExtensions;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.common.NeoForge;
+import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.HashMap;
@@ -80,7 +89,7 @@ public class ClientSetupEventHandler {
 
     public static Map<EntityType<?>, KeyMapping> keysFamiliars;
 
-    public static void registerConfigScreen(ModContainer modContainer){
+    public static void registerConfigScreen(ModContainer modContainer) {
         modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
     }
 
@@ -198,6 +207,31 @@ public class ClientSetupEventHandler {
         event.register(OccultismContainers.SPIRIT_TRANSPORTER.get(), SpiritTransporterGui::new);
         event.register(OccultismContainers.OTHERWORLD_MINER.get(), DimensionalMineshaftScreen::new);
         event.register(OccultismContainers.SATCHEL.get(), SatchelScreen::new);
+    }
+
+    public static void onRegisterClientExtensions(RegisterClientExtensionsEvent event) {
+        event.registerMobEffect(new IClientMobEffectExtensions() {
+            @Override
+            public boolean renderGuiIcon(@NotNull MobEffectInstance instance, @NotNull Gui gui, @NotNull GuiGraphics guiGraphics, int x, int y, float z, float alpha) {
+                guiGraphics.blit(ThirdEyeEffect.ICON, x + 3, y + 3, 18, 18, 0, 0, 255, 255, 256, 256);
+                return true;
+            }
+
+        }, OccultismEffects.THIRD_EYE.get());
+
+        event.registerMobEffect( new IClientMobEffectExtensions() {
+            @Override
+            public boolean renderInventoryIcon(@NotNull MobEffectInstance instance, @NotNull EffectRenderingInventoryScreen<?> screen, @NotNull GuiGraphics guiGraphics, int x, int y, int blitOffset) {
+                guiGraphics.blit(DoubleJumpEffect.ICON, x + 6, y + 7, 18, 18, 0, 0, 255, 255, 256, 256);
+                return false;
+            }
+
+            @Override
+            public boolean renderGuiIcon(@NotNull MobEffectInstance instance, @NotNull Gui gui, @NotNull GuiGraphics guiGraphics, int x, int y, float z, float alpha) {
+                guiGraphics.blit(DoubleJumpEffect.ICON, x + 3, y + 3, 18, 18, 0, 0, 255, 255, 256, 256);
+                return false;
+            }
+        }, OccultismEffects.DOUBLE_JUMP.get());
     }
 
     public static void registerItemModelProperties(FMLClientSetupEvent event) {

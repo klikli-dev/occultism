@@ -31,6 +31,8 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.neoforge.client.extensions.common.IClientMobEffectExtensions;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.function.Consumer;
 
 public class ThirdEyeEffect extends MobEffect {
@@ -38,38 +40,12 @@ public class ThirdEyeEffect extends MobEffect {
     public static final ResourceLocation ICON = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/mob_effect/third_eye.png");
 
-    public static final IClientMobEffectExtensions EFFECT_RENDERER = new IClientMobEffectExtensions() {
-
-        @Override
-        public boolean renderGuiIcon(MobEffectInstance instance, Gui gui, GuiGraphics guiGraphics, int x, int y, float z, float alpha) {
-            guiGraphics.blit(ICON, x + 3, y + 3, 18, 18, 0, 0, 255, 255, 256, 256);
-            return true;
-        }
-
-    };
-
     public ThirdEyeEffect() {
         super(MobEffectCategory.BENEFICIAL, 0xffff00);
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
-        return true;
-    }
-
-    @Override
     public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         return true;
-    }
-
-    @Override
-    public boolean isInstantenous() {
-        return false;
-    }
-
-
-    @Override
-    public void initializeClient(Consumer<IClientMobEffectExtensions> consumer) {
-        consumer.accept(EFFECT_RENDERER);
     }
 }

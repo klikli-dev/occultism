@@ -41,22 +41,6 @@ public class DoubleJumpEffect extends MobEffect {
     public static final ResourceLocation ICON = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
             "textures/mob_effect/double_jump.png");
 
-    public static final IClientMobEffectExtensions EFFECT_RENDERER = new IClientMobEffectExtensions() {
-
-        @Override
-        public boolean renderInventoryIcon(MobEffectInstance instance, EffectRenderingInventoryScreen<?> screen, GuiGraphics guiGraphics, int x, int y, int blitOffset) {
-            guiGraphics.blit(ICON, x + 6, y + 7, 18, 18, 0, 0, 255, 255, 256, 256);
-            return false;
-        }
-
-
-        @Override
-        public boolean renderGuiIcon(MobEffectInstance instance, Gui gui, GuiGraphics guiGraphics, int x, int y, float z, float alpha) {
-            guiGraphics.blit(ICON, x + 3, y + 3, 18, 18, 0, 0, 255, 255, 256, 256);
-            return false;
-        }
-    };
-
     public DoubleJumpEffect() {
         super(MobEffectCategory.BENEFICIAL, 0xffff00);
     }
@@ -77,23 +61,7 @@ public class DoubleJumpEffect extends MobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
-        return true;
-    }
-
-
-    @Override
     public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         return true;
-    }
-
-    @Override
-    public boolean isInstantenous() {
-        return false;
-    }
-
-    @Override
-    public void initializeClient(Consumer<IClientMobEffectExtensions> consumer) {
-        consumer.accept(EFFECT_RENDERER);
     }
 }
