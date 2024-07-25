@@ -357,7 +357,14 @@ public class OccultismItems {
 
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_HOGLIN = ITEMS.register("spawn_egg/possessed_hoglin",
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_HOGLIN_TYPE::get, 0x592a10, 0xf9f3a4, defaultProperties()));
-
+    public static final DeferredItem<Item> SPAWN_EGG_WILD_HORDE_HUSK = ITEMS.register("spawn_egg/wild_horde_husk",
+            () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HORDE_HUSK_TYPE::get, 0x5f584c, 0x92815e, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_WILD_HORDE_DROWNED = ITEMS.register("spawn_egg/wild_horde_drowned",
+            () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HORDE_DROWNED_TYPE::get, 0x7bcfb9, 0x577148, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_WILD_HORDE_CREEPER = ITEMS.register("spawn_egg/wild_horde_creeper",
+            () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HORDE_CREEPER_TYPE::get, 0x577148, 0x111111, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_WILD_HORDE_SILVERFISH = ITEMS.register("spawn_egg/wild_horde_silverfish",
+            () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HORDE_SILVERFISH_TYPE::get, 0x666666, 0x262626, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_OTHERWORLD_BIRD = ITEMS.register("spawn_egg/otherworld_bird",
             () -> new DeferredSpawnEggItem(OccultismEntities.OTHERWORLD_BIRD_TYPE::get, 0x221269, 0x6b56c4, defaultProperties()));
 

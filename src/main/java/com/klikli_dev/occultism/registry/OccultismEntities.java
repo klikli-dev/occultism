@@ -22,10 +22,10 @@
 
 package com.klikli_dev.occultism.registry;
 
-import com.klikli_dev.modonomicon.registry.RegistryObject;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.familiar.*;
 import com.klikli_dev.occultism.common.entity.possessed.*;
+import com.klikli_dev.occultism.common.entity.possessed.horde.*;
 import com.klikli_dev.occultism.common.entity.spirit.*;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.husband.DemonicHusband;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife.DemonicWife;
@@ -146,6 +146,26 @@ public class OccultismEntities {
                     .sized(0.5F, 0.9F)
                     .clientTrackingRange(8)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "otherworld_bird").toString()));
+    public static final Lazy<EntityType<WildHordeHuskEntity>> WILD_HORDE_HUSK_TYPE =
+            Lazy.of(() -> EntityType.Builder.of(WildHordeHuskEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 2.9F)
+                    .clientTrackingRange(8)
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_horde_husk").toString()));
+    public static final Lazy<EntityType<WildHordeDrownedEntity>> WILD_HORDE_DROWNED_TYPE =
+            Lazy.of(() -> EntityType.Builder.of(WildHordeDrownedEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 2.9F)
+                    .clientTrackingRange(8)
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_horde_drowned").toString()));
+    public static final Lazy<EntityType<WildHordeCreeperEntity>> WILD_HORDE_CREEPER_TYPE =
+            Lazy.of(() -> EntityType.Builder.of(WildHordeCreeperEntity::new, MobCategory.MONSTER)
+                    .sized(0.8F, 1.4F)
+                    .clientTrackingRange(8)
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_horde_creeper").toString()));
+    public static final Lazy<EntityType<WildHordeSilverfishEntity>> WILD_HORDE_SILVERFISH_TYPE =
+            Lazy.of(() -> EntityType.Builder.of(WildHordeSilverfishEntity::new, MobCategory.MONSTER)
+                    .sized(0.2F, 0.15F)
+                    .clientTrackingRange(16)
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_horde_silverfish").toString()));
     public static final Lazy<EntityType<GreedyFamiliarEntity>> GREEDY_FAMILIAR_TYPE =
             Lazy.of(() -> EntityType.Builder.of(GreedyFamiliarEntity::new, MobCategory.CREATURE)
                     .sized(0.5F, 0.9F)
@@ -272,13 +292,24 @@ public class OccultismEntities {
             ENTITIES.register("possessed_shulker", POSSESSED_SHULKER_TYPE::get);
     public static final Supplier<EntityType<PossessedElderGuardianEntity>> POSSESSED_ELDER_GUARDIAN =
             ENTITIES.register("possessed_elder_guardian", POSSESSED_ELDER_GUARDIAN_TYPE::get);
-    public static final Supplier<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON = ENTITIES.register("wild_hunt_skeleton", WILD_HUNT_SKELETON_TYPE::get);
-    public static final Supplier<EntityType<PossessedWardenEntity>> POSSESSED_WARDEN = ENTITIES.register("possessed_warden", POSSESSED_WARDEN_TYPE::get);
-    public static final Supplier<EntityType<PossessedHoglinEntity>> POSSESSED_HOGLIN = ENTITIES.register("possessed_hoglin", POSSESSED_HOGLIN_TYPE::get);
+    public static final Supplier<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON =
+            ENTITIES.register("wild_hunt_skeleton", WILD_HUNT_SKELETON_TYPE::get);
+    public static final Supplier<EntityType<PossessedWardenEntity>> POSSESSED_WARDEN =
+            ENTITIES.register("possessed_warden", POSSESSED_WARDEN_TYPE::get);
+    public static final Supplier<EntityType<PossessedHoglinEntity>> POSSESSED_HOGLIN =
+            ENTITIES.register("possessed_hoglin", POSSESSED_HOGLIN_TYPE::get);
     public static final Supplier<EntityType<WildHuntWitherSkeletonEntity>> WILD_HUNT_WITHER_SKELETON =
             ENTITIES.register("wild_hunt_wither_skeleton", WILD_HUNT_WITHER_SKELETON_TYPE::get);
     public static final Supplier<EntityType<OtherworldBirdEntity>> OTHERWORLD_BIRD =
             ENTITIES.register("otherworld_bird", OTHERWORLD_BIRD_TYPE::get);
+    public static final Supplier<EntityType<WildHordeHuskEntity>> WILD_HORDE_HUSK =
+            ENTITIES.register("wild_horde_husk", WILD_HORDE_HUSK_TYPE::get);
+    public static final Supplier<EntityType<WildHordeDrownedEntity>> WILD_HORDE_DROWNED =
+            ENTITIES.register("wild_horde_drowned", WILD_HORDE_DROWNED_TYPE::get);
+    public static final Supplier<EntityType<WildHordeCreeperEntity>> WILD_HORDE_CREEPER =
+            ENTITIES.register("wild_horde_creeper", WILD_HORDE_CREEPER_TYPE::get);
+    public static final Supplier<EntityType<WildHordeSilverfishEntity>> WILD_HORDE_SILVERFISH =
+            ENTITIES.register("wild_horde_silverfish", WILD_HORDE_SILVERFISH_TYPE::get);
     public static final Supplier<EntityType<GreedyFamiliarEntity>> GREEDY_FAMILIAR =
             ENTITIES.register("greedy_familiar", GREEDY_FAMILIAR_TYPE::get);
     public static final Supplier<EntityType<BatFamiliarEntity>> BAT_FAMILIAR =

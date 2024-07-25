@@ -47,6 +47,10 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
         this.add(OccultismEntities.POSSESSED_WEAK_SHULKER.get(), this.weakShulkerTable());
         this.add(OccultismEntities.POSSESSED_GHAST_TYPE.get(), this.ghastLootTable());
         this.add(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE.get(), this.elderGuardianLootTable());
+        this.add(OccultismEntities.WILD_HORDE_HUSK_TYPE.get(), this.huskLootTable());
+        this.add(OccultismEntities.WILD_HORDE_DROWNED_TYPE.get(), this.drownedLootTable());
+        this.add(OccultismEntities.WILD_HORDE_CREEPER_TYPE.get(), this.creeperLootTable());
+        this.add(OccultismEntities.WILD_HORDE_SILVERFISH_TYPE.get(), this.silverfishLootTable());
         this.add(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(),
                 LootTable.lootTable().withPool(
                         LootPool.lootPool().setRolls(ConstantValue.exactly(1))
@@ -320,6 +324,95 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                                 )
                                 )
                                 .when(LootItemRandomChanceCondition.randomChance(0.1F))
+                );
+    }
+    public LootTable.Builder huskLootTable(){
+        return LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(EmptyLootItem.emptyItem().setWeight(3))
+                                .add(LootItem.lootTableItem(Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(Items.ARCHER_POTTERY_SHERD).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.MINER_POTTERY_SHERD).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.PRIZE_POTTERY_SHERD).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.SKULL_POTTERY_SHERD).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.ARMS_UP_POTTERY_SHERD).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.BREWER_POTTERY_SHERD).setWeight(1))
+                );
+    }
+    public LootTable.Builder drownedLootTable(){
+        return LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(EmptyLootItem.emptyItem().setWeight(3))
+                                .add(LootItem.lootTableItem(Items.SNIFFER_EGG).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.TURTLE_EGG).setWeight(3))
+                                .add(LootItem.lootTableItem(Items.TRIDENT).setWeight(3))
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(Items.ANGLER_POTTERY_SHERD).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.SHELTER_POTTERY_SHERD).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.SNORT_POTTERY_SHERD).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.BLADE_POTTERY_SHERD).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.EXPLORER_POTTERY_SHERD).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.MOURNER_POTTERY_SHERD).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.PLENTY_POTTERY_SHERD).setWeight(1))
+                );
+    }
+    public LootTable.Builder creeperLootTable(){
+        return LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(UniformGenerator.between(1.0F, 3.0F))
+                                .add(LootItem.lootTableItem(Items.MUSIC_DISC_13).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.MUSIC_DISC_CAT).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.MUSIC_DISC_BLOCKS).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.MUSIC_DISC_CHIRP).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.MUSIC_DISC_FAR).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.MUSIC_DISC_MALL).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.MUSIC_DISC_MELLOHI).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.MUSIC_DISC_STAL).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.MUSIC_DISC_STRAD).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.MUSIC_DISC_WARD).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.MUSIC_DISC_11).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.MUSIC_DISC_WAIT).setWeight(1))
+                );
+    }
+    public LootTable.Builder silverfishLootTable(){
+        return LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(EmptyLootItem.emptyItem().setWeight(4))
+                                .add(LootItem.lootTableItem(Items.MUSIC_DISC_RELIC).setWeight(1))
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(EmptyLootItem.emptyItem().setWeight(4))
+                                .add(LootItem.lootTableItem(Items.HOST_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.RAISER_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.SHAPER_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.WAYFINDER_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(Items.BURN_POTTERY_SHERD).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.DANGER_POTTERY_SHERD).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.FRIEND_POTTERY_SHERD).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.HEART_POTTERY_SHERD).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.HEARTBREAK_POTTERY_SHERD).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.HOWL_POTTERY_SHERD).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.SHEAF_POTTERY_SHERD).setWeight(1))
                 );
     }
 }
