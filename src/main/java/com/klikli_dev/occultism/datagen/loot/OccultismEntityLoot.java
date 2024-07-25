@@ -239,11 +239,12 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                 .withPool(
                         LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1.0F))
-                                .add(EmptyLootItem.emptyItem().setWeight(3))
                                 .add(LootItem.lootTableItem(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE).setWeight(2))
                                 .add(LootItem.lootTableItem(Items.SNOUT_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
-                                .add(LootItem.lootTableItem(Items.NETHERITE_SCRAP).setWeight(3)
-                                )
+                                .add(LootItem.lootTableItem(Items.NETHERITE_SCRAP).setWeight(3))
+                                .add(LootItem.lootTableItem(Items.NETHER_BRICK).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.PIGLIN_BANNER_PATTERN).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.MUSIC_DISC_PIGSTEP).setWeight(1))
                 );
     }
 
