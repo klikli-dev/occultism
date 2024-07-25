@@ -41,10 +41,4 @@ public class PossessedHoglinEntity extends Hoglin {
                 .add(Attributes.ATTACK_DAMAGE, 12.0)
                 .add(Attributes.MAX_HEALTH, 66.0);
     }
-
-    @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
-    }
-
 }
