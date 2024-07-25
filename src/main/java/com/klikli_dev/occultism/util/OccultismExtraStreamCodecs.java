@@ -1,6 +1,6 @@
 package com.klikli_dev.occultism.util;
 
-import com.mojang.datafixers.util.Function14;
+import com.mojang.datafixers.util.Function15;
 import com.mojang.datafixers.util.Function7;
 import com.mojang.datafixers.util.Function9;
 import com.mojang.serialization.Codec;
@@ -21,7 +21,7 @@ public class OccultismExtraStreamCodecs {
         return ResourceLocation.STREAM_CODEC.map(p_203893_ -> TagKey.create(pRegistry, p_203893_), TagKey::location);
     }
 
-    public static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> StreamCodec<B, C> composite(
+    public static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> StreamCodec<B, C> composite(
             final StreamCodec<? super B, T1> pCodec1,
             final Function<C, T1> pGetter1,
             final StreamCodec<? super B, T2> pCodec2,
@@ -50,7 +50,9 @@ public class OccultismExtraStreamCodecs {
             final Function<C, T13> pGetter13,
             final StreamCodec<? super B, T14> pCodec14,
             final Function<C, T14> pGetter14,
-            final Function14<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, C> pFactory
+            final StreamCodec<? super B, T15> pCodec15,
+            final Function<C, T15> pGetter15,
+            final Function15<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, C> pFactory
     ) {
         return new StreamCodec<B, C>() {
             @Override
@@ -69,7 +71,8 @@ public class OccultismExtraStreamCodecs {
                 T12 t12 = pCodec12.decode(p_330310_);
                 T13 t13 = pCodec13.decode(p_330310_);
                 T14 t14 = pCodec14.decode(p_330310_);
-                return pFactory.apply(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14);
+                T15 t15 = pCodec15.decode(p_330310_);
+                return pFactory.apply(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15);
             }
 
             @Override
@@ -88,6 +91,7 @@ public class OccultismExtraStreamCodecs {
                 pCodec12.encode(p_332052_, pGetter12.apply(p_331912_));
                 pCodec13.encode(p_332052_, pGetter13.apply(p_331912_));
                 pCodec14.encode(p_332052_, pGetter14.apply(p_331912_));
+                pCodec15.encode(p_332052_, pGetter15.apply(p_331912_));
             }
         };
     }

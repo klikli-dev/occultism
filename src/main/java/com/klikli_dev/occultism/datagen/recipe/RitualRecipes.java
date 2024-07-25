@@ -28,7 +28,7 @@ public abstract class RitualRecipes extends RecipeProvider {
 
 
     private static final ResourceLocation RITUAL_SUMMON = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon");
-
+    private static final ResourceLocation RITUAL_SUMMON_WILD = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_wild");
     private static final ResourceLocation RITUAL_SUMMON_JOB = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_spirit_with_job");
     private static final ResourceLocation RITUAL_RESURRECT_FAMILIAR = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "resurrect_familiar");
     private static final ResourceLocation PENTACLE_SUMMON_FOLIOT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_foliot");
@@ -393,11 +393,11 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrifice(OccultismTags.Entities.COWS)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_wild_afrit"));
 
-        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.SKELETON_SKULL),
                         makeLoreSpawnEgg(Items.WITHER_SKELETON_SKULL, "item.occultism.ritual_dummy.summon_wild_hunt"),
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_wild_hunt")),
                         30,
-                        RITUAL_SUMMON,
+                        RITUAL_SUMMON_WILD,
                         PENTACLE_SUMMON_WILD_GREATER_SPIRIT,
                         Ingredient.of(Tags.Items.STORAGE_BLOCKS_COPPER),
                         Ingredient.of(OccultismTags.Items.STORAGE_BLOCK_SILVER),
