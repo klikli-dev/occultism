@@ -5080,14 +5080,14 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/horde_illager"));
+                .withRecipeId1(this.modLoc("ritual/summon_horde_illager"));
 
         this.context().page("description");
         var description = BookTextPageModel.create()
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        W.I.P. for more drops and chalange...
+                        For now is just a Evoker spawn to get totem of undying. [W.I.P.] more drops and challenge...
                         """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())

@@ -487,6 +487,7 @@ public class OccultismItems {
         ITEMS.register("ritual_dummy/possess_weak_breeze", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/possess_breeze", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/possess_strong_breeze", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/summon_horde_illager", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_wild_otherworld_bird", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_wild_parrot", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_allay", () -> new DummyTooltipItem(defaultProperties()));

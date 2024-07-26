@@ -82,7 +82,7 @@ public class PossessedBreezeEntity extends Breeze {
 
         for (int i = 0; i < 5; i++) {
             //WildSlimeEntity entity = OccultismEntities.WILD_SLIME.get().create(this.level());
-            //Wild Slime Attributes error, changed to vanilla slimes
+            //Wild Slime Attributes error, changed to vanilla slimes but now gets unintended slimeball
             Slime entity = EntityType.SLIME.create(this.level());
             EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
 

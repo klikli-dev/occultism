@@ -834,6 +834,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.possess_strong_breeze.started", "Started summoning possessed strong breeze.");
         this.add("ritual.occultism.possess_strong_breeze.finished", "Summoned possessed strong breeze successfully.");
         this.add("ritual.occultism.possess_strong_breeze.interrupted", "Summoning of possessed strong breeze interrupted.");
+        this.add("ritual.occultism.summon_horde_illager.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.summon_horde_illager.started", "Started summoning the small illager invasion.");
+        this.add("ritual.occultism.summon_horde_illager.finished", "Summoned the small illager invasion successfully.");
+        this.add("ritual.occultism.summon_horde_illager.interrupted", "Summoning of the small illager invasion interrupted.");
 
         this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "conditions", "Not all requirements for this ritual are met.");
         this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "started", "Started resurrecting familiar.");
@@ -1230,6 +1234,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         - [Trial Key](entry://possession_rituals/possess_weak_breeze)
                         - [Ominous Trial Key](entry://possession_rituals/possess_breeze)
                         - [Heavy Core](entry://possession_rituals/possess_strong_breeze)
+                        - [Totem of Undying](entry://possession_rituals/horde_illager)
                         """.formatted(COLOR_PURPLE));
 
         helper.entry("possess_foliot");
@@ -3142,6 +3147,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.possess_breeze.tooltip", "The possessed Breeze will drop a Ominous Trial Key and trial chamber related items.");
         this.add("item.occultism.ritual_dummy.possess_strong_breeze", "Ritual: Summon Possessed Strong Breeze");
         this.add("item.occultism.ritual_dummy.possess_strong_breeze.tooltip", "The possessed Strong Breeze will drop a Heavy Core and trial chamber related items.");
+        this.add("item.occultism.ritual_dummy.summon_horde_illager", "Ritual: Summon Evoker");
+        this.add("item.occultism.ritual_dummy.summon_horde_illager.tooltip", "For now, just summon one Evoker.");
 
         this.add(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Ritual: Summon Demonic Wife");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Summons a Demonic Wife to support you: She will fight for you, help with cooking, and extend potion durations.");

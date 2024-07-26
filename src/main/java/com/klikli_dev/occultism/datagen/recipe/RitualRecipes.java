@@ -554,6 +554,24 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrifice(OccultismTags.Entities.IRON_GOLEM)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_strong_breeze"));
 
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.GOLDEN_APPLE),
+                        makeLoreSpawnEgg(Items.TOTEM_OF_UNDYING, "item.occultism.ritual_dummy.summon_horde_illager"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_horde_illager")),
+                        30,
+                        RITUAL_SUMMON_WILD,
+                        PENTACLE_SUMMON_WILD_GREATER_SPIRIT,
+                        Ingredient.of(Items.OMINOUS_BOTTLE),
+                        Ingredient.of(Items.DARK_OAK_LOG),
+                        Ingredient.of(Items.DARK_OAK_LOG),
+                        Ingredient.of(Items.DARK_OAK_LOG),
+                        Ingredient.of(Items.END_CRYSTAL),
+                        Ingredient.of(Items.EMERALD_BLOCK))
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .entityToSummon(EntityType.EVOKER)
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.humans")
+                .entityToSacrifice(OccultismTags.Entities.HUMANS)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_horde_illager"));
+
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                         makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_OTHERWORLD_BIRD.get(), "item.occultism.ritual_dummy.summon_wild_otherworld_bird"),
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_wild_otherworld_bird")),
