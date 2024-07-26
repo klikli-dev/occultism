@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.139.2] - 2024-07-26
+### :bug: Bug Fixes
+- [`a6bca30`](https://github.com/klikli-dev/occultism/commit/a6bca30c474d1f1135c4e58c8da63a6ce6542874) - Spirit trade recipe crash *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`9259389`](https://github.com/klikli-dev/occultism/commit/9259389b11f20692974e5929189b2eb2068481fc) - update client extension init to no longer use deprecated methods *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.139.1] - 2024-07-23
 ### :bug: Bug Fixes
 - [`45212a0`](https://github.com/klikli-dev/occultism/commit/45212a0416987c3baa768f3cfd570f8d2cab6d68) - weightedreciperesult polymorphism *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1381,3 +1389,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.138.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.137.4...release/v1.21-1.138.0
 [release/v1.21-1.139.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.138.0...release/v1.21-1.139.0
 [release/v1.21-1.139.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.139.0...release/v1.21-1.139.1
+[release/v1.21-1.139.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.139.1...release/v1.21-1.139.2
