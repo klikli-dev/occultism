@@ -371,6 +371,8 @@ public class OccultismItems {
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_BREEZE_TYPE::get, 0x9279bf, 0x4d327f, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_STRONG_BREEZE = ITEMS.register("spawn_egg/possessed_strong_breeze",
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_STRONG_BREEZE_TYPE::get, 0x8269af, 0x3d226f, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_EVOKER = ITEMS.register("spawn_egg/possessed_evoker",
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_EVOKER_TYPE::get, 0x8e9494, 0xcbc786, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_OTHERWORLD_BIRD = ITEMS.register("spawn_egg/otherworld_bird",
             () -> new DeferredSpawnEggItem(OccultismEntities.OTHERWORLD_BIRD_TYPE::get, 0x221269, 0x6b56c4, defaultProperties()));
 

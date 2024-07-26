@@ -164,6 +164,7 @@ public class ClientSetupEventHandler {
         event.registerEntityRenderer(OccultismEntities.POSSESSED_WEAK_BREEZE.get(), BreezeRenderer::new);
         event.registerEntityRenderer(OccultismEntities.POSSESSED_BREEZE.get(), BreezeRenderer::new);
         event.registerEntityRenderer(OccultismEntities.POSSESSED_STRONG_BREEZE.get(), BreezeRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.POSSESSED_EVOKER.get(), EvokerRenderer::new);
 
         event.registerEntityRenderer(OccultismEntities.WILD_ZOMBIE.get(), ZombieRenderer::new);
         event.registerEntityRenderer(OccultismEntities.WILD_SKELETON.get(), SkeletonRenderer::new);

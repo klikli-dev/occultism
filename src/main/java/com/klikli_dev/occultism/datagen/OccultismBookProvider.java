@@ -5070,7 +5070,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("entity");
         var entity = BookEntityPageModel.create()
-                .withEntityId("minecraft:evoker")
+                .withEntityId("occultism:possessed_evoker")
                 .withScale(0.7f)
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
@@ -5087,7 +5087,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        For now is just a Evoker spawn to get totem of undying. [W.I.P.] more drops and challenge...
+                        Summon a possessed Evoker and his henchmen to get [](item://minecraft:totem_of_undying), [](item://minecraft:vex_armor_trim_smithing_template) and [](item://minecraft:sentry_armor_trim_smithing_template).
                         """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())

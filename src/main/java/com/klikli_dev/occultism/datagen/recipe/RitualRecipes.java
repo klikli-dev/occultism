@@ -567,7 +567,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.END_CRYSTAL),
                         Ingredient.of(Items.EMERALD_BLOCK))
                 .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
-                .entityToSummon(EntityType.EVOKER)
+                .entityToSummon(OccultismEntities.POSSESSED_EVOKER.get())
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.humans")
                 .entityToSacrifice(OccultismTags.Entities.HUMANS)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_horde_illager"));

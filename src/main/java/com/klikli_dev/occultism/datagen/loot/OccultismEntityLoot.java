@@ -54,6 +54,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
         this.add(OccultismEntities.POSSESSED_WEAK_BREEZE.get(), this.weakBreezeTable());
         this.add(OccultismEntities.POSSESSED_BREEZE.get(), this.breezeTable());
         this.add(OccultismEntities.POSSESSED_STRONG_BREEZE.get(), this.strongBreezeTable());
+        this.add(OccultismEntities.POSSESSED_EVOKER.get(), this.evokerTable());
         this.add(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(),
                 LootTable.lootTable().withPool(
                         LootPool.lootPool().setRolls(ConstantValue.exactly(1))
@@ -482,6 +483,27 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .add(LootItem.lootTableItem(Items.FLOW_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(3))
                                 .add(LootItem.lootTableItem(Items.FLOW_BANNER_PATTERN).setWeight(2))
                                 .add(LootItem.lootTableItem(Items.MUSIC_DISC_CREATOR).setWeight(1))
+                );
+    }
+    public LootTable.Builder evokerTable(){
+        return LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(Items.TOTEM_OF_UNDYING).setWeight(1))
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(EmptyLootItem.emptyItem().setWeight(2))
+                                .add(LootItem.lootTableItem(Items.VEX_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(Items.OMINOUS_BOTTLE).setWeight(1))
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.5F, 2.0F)))
                 );
     }
 }

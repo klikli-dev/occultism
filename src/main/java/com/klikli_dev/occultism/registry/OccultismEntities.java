@@ -228,6 +228,11 @@ public class OccultismEntities {
                     .sized(0.5F, 0.7F)
                     .clientTrackingRange(32)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_cave_spider").toString()));
+    public static final Lazy<EntityType<PossessedEvokerEntity>> POSSESSED_EVOKER_TYPE =
+            Lazy.of(() -> EntityType.Builder.of(PossessedEvokerEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(32)
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_evoker").toString()));
     public static final Lazy<EntityType<GreedyFamiliarEntity>> GREEDY_FAMILIAR_TYPE =
             Lazy.of(() -> EntityType.Builder.of(GreedyFamiliarEntity::new, MobCategory.CREATURE)
                     .sized(0.5F, 0.9F)
@@ -396,6 +401,8 @@ public class OccultismEntities {
             ENTITIES.register("wild_stray", WILD_STRAY_TYPE::get);
     public static final Supplier<EntityType<WildCaveSpiderEntity>> WILD_CAVE_SPIDER =
             ENTITIES.register("wild_cave_spider", WILD_CAVE_SPIDER_TYPE::get);
+    public static final Supplier<EntityType<PossessedEvokerEntity>> POSSESSED_EVOKER =
+            ENTITIES.register("possessed_evoker", POSSESSED_EVOKER_TYPE::get);
     public static final Supplier<EntityType<GreedyFamiliarEntity>> GREEDY_FAMILIAR =
             ENTITIES.register("greedy_familiar", GREEDY_FAMILIAR_TYPE::get);
     public static final Supplier<EntityType<BatFamiliarEntity>> BAT_FAMILIAR =

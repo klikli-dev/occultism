@@ -194,6 +194,7 @@ public class Occultism {
         event.put(OccultismEntities.POSSESSED_WEAK_BREEZE_TYPE.get(), PossessedWeakBreezeEntity.createAttributes().build());
         event.put(OccultismEntities.POSSESSED_BREEZE_TYPE.get(), PossessedBreezeEntity.createAttributes().build());
         event.put(OccultismEntities.POSSESSED_STRONG_BREEZE_TYPE.get(), PossessedStrongBreezeEntity.createAttributes().build());
+        event.put(OccultismEntities.POSSESSED_EVOKER_TYPE.get(), PossessedEvokerEntity.createAttributes().build());
         event.put(OccultismEntities.WILD_ZOMBIE_TYPE.get(), WildZombieEntity.createAttributes().build());
         event.put(OccultismEntities.WILD_SKELETON_TYPE.get(), WildSkeletonEntity.createAttributes().build());
         event.put(OccultismEntities.WILD_SILVERFISH.get(), WildSilverfishEntity.createAttributes().build());

@@ -16,7 +16,7 @@
         "type": "modonomicon:none"
       },
       "default_rotation": -45.0,
-      "entity_id": "minecraft:evoker",
+      "entity_id": "occultism:possessed_evoker",
       "name": "",
       "offset": 0.0,
       "rotate": true,
