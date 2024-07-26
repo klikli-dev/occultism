@@ -433,6 +433,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.sacrifice.cubemob", "Slime or Magma Cube");
         this.add("ritual.occultism.sacrifice.fish", "Any Fish");
         this.add("ritual.occultism.sacrifice.axolotls", "Axolotl");
+        this.add("ritual.occultism.sacrifice.camel", "Camel");
+        this.add("ritual.occultism.sacrifice.dolphin", "Dolphin");
 
         //Network Message
         this.add("network.messages.occultism.request_order.order_received", "Order received!");
@@ -776,6 +778,23 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.summon_demonic_husband.started", "Started summoning.");
         this.add("ritual.occultism.summon_demonic_husband.finished", "Summoned successfully.");
         this.add("ritual.occultism.summon_demonic_husband.interrupted", "Summoning interrupted.");
+
+        this.add("ritual.occultism.summon_wild_husk.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.summon_wild_husk.started", "Started summoning the wild horde husk.");
+        this.add("ritual.occultism.summon_wild_husk.finished", "Summoned the wild horde husk successfully.");
+        this.add("ritual.occultism.summon_wild_husk.interrupted", "Summoning of the wild horde husk interrupted.");
+        this.add("ritual.occultism.summon_wild_drowned.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.summon_wild_drowned.started", "Started summoning the wild horde drowned.");
+        this.add("ritual.occultism.summon_wild_drowned.finished", "Summoned the wild horde drowned successfully.");
+        this.add("ritual.occultism.summon_wild_drowned.interrupted", "Summoning of the wild horde drowned interrupted.");
+        this.add("ritual.occultism.summon_wild_creeper.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.summon_wild_creeper.started", "Started summoning the wild horde creeper.");
+        this.add("ritual.occultism.summon_wild_creeper.finished", "Summoned the wild horde creeper successfully.");
+        this.add("ritual.occultism.summon_wild_creeper.interrupted", "Summoning of the wild horde creeper interrupted.");
+        this.add("ritual.occultism.summon_wild_silverfish.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.summon_wild_silverfish.started", "Started summoning the wild horde silverfish.");
+        this.add("ritual.occultism.summon_wild_silverfish.finished", "Summoned the wild horde silverfish successfully.");
+        this.add("ritual.occultism.summon_wild_silverfish.interrupted", "Summoning of the wild horde silverfish interrupted.");
 
         this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "conditions", "Not all requirements for this ritual are met.");
         this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "started", "Started resurrecting familiar.");
@@ -3028,6 +3047,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.summon_wild_parrot", "Ritual: Summon Wild Parrot");
         this.add("item.occultism.ritual_dummy.summon_wild_parrot.tooltip", "Summons a Parrot that can be tamed by anyone, not just the summoner.");
 
+        this.add("item.occultism.ritual_dummy.summon_wild_husk", "Ritual: Summon The Wild Horde Husk");
+        this.add("item.occultism.ritual_dummy.summon_wild_husk.tooltip", "The Wild Horde Husk consists of a few Husks that drop items related to desert trails.");
+        this.add("item.occultism.ritual_dummy.summon_wild_drowned", "Ritual: Summon The Wild Horde Drowned");
+        this.add("item.occultism.ritual_dummy.summon_wild_drowned.tooltip", "The Wild Horde Drowned consists of a few Drowneds that drop items related to ocean trails.");
+        this.add("item.occultism.ritual_dummy.summon_wild_creeper", "Ritual: Summon The Wild Horde Creeper");
+        this.add("item.occultism.ritual_dummy.summon_wild_creeper.tooltip", "The Wild Horde Creeper consists of a few charged Creepers that drop many disks.");
+        this.add("item.occultism.ritual_dummy.summon_wild_silverfish", "Ritual: Summon The Wild Horde Silverfish");
+        this.add("item.occultism.ritual_dummy.summon_wild_silverfish.tooltip", "The Wild Horde Silverfish consists of a few Silverfishs that drop items related to ruins trails.");
 
         this.add(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Ritual: Summon Demonic Wife");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Summons a Demonic Wife to support you: She will fight for you, help with cooking, and extend potion durations.");

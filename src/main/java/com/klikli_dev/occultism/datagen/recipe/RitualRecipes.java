@@ -411,6 +411,91 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrifice(OccultismTags.Entities.HUMANS)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_wild_hunt"));
 
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.RAW_GOLD),
+                        makeLoreSpawnEgg(Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE, "item.occultism.ritual_dummy.summon_wild_husk"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_wild_husk")),
+                        30,
+                        RITUAL_SUMMON_WILD,
+                        PENTACLE_SUMMON_WILD_GREATER_SPIRIT,
+                        Ingredient.of(Items.SAND),
+                        Ingredient.of(Items.SANDSTONE),
+                        Ingredient.of(Items.CHISELED_SANDSTONE),
+                        Ingredient.of(Items.CUT_SANDSTONE),
+                        Ingredient.of(Items.SMOOTH_SANDSTONE),
+                        Ingredient.of(Items.DEAD_BUSH),
+                        Ingredient.of(Items.SAND),
+                        Ingredient.of(Items.SANDSTONE),
+                        Ingredient.of(Items.CHISELED_SANDSTONE),
+                        Ingredient.of(Items.CUT_SANDSTONE),
+                        Ingredient.of(Items.SMOOTH_SANDSTONE),
+                        Ingredient.of(Items.DEAD_BUSH))
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .entityToSummon(OccultismEntities.WILD_HORDE_HUSK.get())
+                .summonNumber(5)
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.camel")
+                .entityToSacrifice(OccultismTags.Entities.CAMEL)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_wild_husk"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.HEART_OF_THE_SEA),
+                        makeLoreSpawnEgg(Items.SNIFFER_EGG, "item.occultism.ritual_dummy.summon_wild_drowned"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_wild_drowned")),
+                        30,
+                        RITUAL_SUMMON_WILD,
+                        PENTACLE_SUMMON_WILD_GREATER_SPIRIT,
+                        Ingredient.of(Items.DEAD_BRAIN_CORAL),
+                        Ingredient.of(Items.DEAD_BUBBLE_CORAL),
+                        Ingredient.of(Items.DEAD_FIRE_CORAL),
+                        Ingredient.of(Items.DEAD_HORN_CORAL),
+                        Ingredient.of(Items.DEAD_TUBE_CORAL),
+                        Ingredient.of(Items.DRIED_KELP_BLOCK))
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .entityToSummon(OccultismEntities.WILD_HORDE_DROWNED.get())
+                .summonNumber(5)
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.dolphin")
+                .entityToSacrifice(OccultismTags.Entities.DOLPHIN)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_wild_drowned"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.TNT),
+                        makeLoreSpawnEgg(Items.MUSIC_DISC_CAT, "item.occultism.ritual_dummy.summon_wild_creeper"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_wild_creeper")),
+                        30,
+                        RITUAL_SUMMON_WILD,
+                        PENTACLE_SUMMON_WILD_GREATER_SPIRIT,
+                        Ingredient.of(Items.TNT),
+                        Ingredient.of(Items.OAK_LEAVES),
+                        Ingredient.of(Items.MOSS_BLOCK),
+                        Ingredient.of(Items.TNT),
+                        Ingredient.of(Items.BIRCH_LEAVES),
+                        Ingredient.of(Items.MOSS_BLOCK),
+                        Ingredient.of(Items.TNT),
+                        Ingredient.of(Items.SPRUCE_LEAVES),
+                        Ingredient.of(Items.MOSS_BLOCK),
+                        Ingredient.of(Items.TNT),
+                        Ingredient.of(Items.JUNGLE_LEAVES),
+                        Ingredient.of(Items.MOSS_BLOCK))
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .entityToSummon(OccultismEntities.WILD_HORDE_CREEPER.get())
+                .summonNumber(5)
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.pigs")
+                .entityToSacrifice(OccultismTags.Entities.PIGS)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_wild_creeper"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.BRUSH),
+                        makeLoreSpawnEgg(Items.MUSIC_DISC_RELIC, "item.occultism.ritual_dummy.summon_wild_silverfish"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_wild_silverfish")),
+                        30,
+                        RITUAL_SUMMON_WILD,
+                        PENTACLE_SUMMON_WILD_GREATER_SPIRIT,
+                        Ingredient.of(Items.SAND),
+                        Ingredient.of(Items.GRAVEL),
+                        Ingredient.of(Items.BRICKS),
+                        Ingredient.of(Items.MUD_BRICKS),
+                        Ingredient.of(Items.STONE_BRICKS),
+                        Ingredient.of(Items.WHITE_TERRACOTTA),
+                        Ingredient.of(Items.DIRT))
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .entityToSummon(OccultismEntities.WILD_HORDE_SILVERFISH.get())
+                .summonNumber(7)
+                .itemToUse(Ingredient.of(Items.EGG))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_wild_silverfish"));
+
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                         makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_OTHERWORLD_BIRD.get(), "item.occultism.ritual_dummy.summon_wild_otherworld_bird"),
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_wild_otherworld_bird")),

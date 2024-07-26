@@ -48,9 +48,15 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
     }
 
     private void addOccultismTags(HolderLookup.Provider pProvider) {
-        this.tag(OccultismTags.Entities.AFRIT_ALLIES).add(EntityType.BLAZE).replace(false);
-        this.tag(OccultismTags.Entities.CUBEMOB).add(EntityType.SLIME).add(EntityType.MAGMA_CUBE).replace(false);
-        this.tag(OccultismTags.Entities.FLYING_PASSIVE).add(EntityType.BAT)
+        this.tag(OccultismTags.Entities.AFRIT_ALLIES)
+                .add(EntityType.BLAZE)
+                .replace(false);
+        this.tag(OccultismTags.Entities.CUBEMOB)
+                .add(EntityType.SLIME)
+                .add(EntityType.MAGMA_CUBE)
+                .replace(false);
+        this.tag(OccultismTags.Entities.FLYING_PASSIVE)
+                .add(EntityType.BAT)
                 .add(EntityType.PARROT)
                 .add(EntityType.BEE)
                 .add(EntityType.ALLAY)
@@ -88,10 +94,18 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.DEMONIC_WIFE.get())
                 .add(OccultismEntities.DEMONIC_HUSBAND.get()).replace(false);
 
-        this.tag(OccultismTags.Entities.HUMANS).addTags(OccultismTags.Entities.VILLAGERS).add(EntityType.PLAYER).replace(false);
+        this.tag(OccultismTags.Entities.HUMANS)
+                .addTags(OccultismTags.Entities.VILLAGERS)
+                .add(EntityType.PLAYER)
+                .replace(false);
 
-        this.tag(OccultismTags.Entities.SOUL_GEM_DENY_LIST).add(EntityType.WITHER, EntityType.ENDER_DRAGON).replace(false);
-        this.tag(OccultismTags.Entities.WILD_HUNT).add(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get()).add(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get()).replace(false);
+        this.tag(OccultismTags.Entities.SOUL_GEM_DENY_LIST)
+                .add(EntityType.WITHER, EntityType.ENDER_DRAGON)
+                .replace(false);
+        this.tag(OccultismTags.Entities.WILD_HUNT)
+                .add(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get())
+                .add(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get())
+                .replace(false);
 
 
     }
@@ -118,5 +132,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
         this.tag(OccultismTags.Entities.SQUID).add(EntityType.SQUID).add(EntityType.GLOW_SQUID).replace(false);
         this.tag(OccultismTags.Entities.VILLAGERS).add(EntityType.VILLAGER).add(EntityType.WANDERING_TRADER).replace(false);
         this.tag(OccultismTags.Entities.ZOMBIES).add(EntityType.ZOMBIE).add(EntityType.ZOMBIE_VILLAGER).add(EntityType.HUSK).add(EntityType.DROWNED).replace(false);
+        this.tag(OccultismTags.Entities.CAMEL).add(EntityType.CAMEL).replace(false);
+        this.tag(OccultismTags.Entities.DOLPHIN).add(EntityType.DOLPHIN).replace(false);
     }
 }
