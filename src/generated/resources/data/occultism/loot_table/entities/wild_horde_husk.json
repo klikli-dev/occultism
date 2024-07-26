@@ -1,0 +1,50 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:empty",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:dune_armor_trim_smithing_template"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:archer_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:miner_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:prize_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:skull_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:arms_up_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:brewer_pottery_sherd"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "occultism:entities/wild_horde_husk"
+}

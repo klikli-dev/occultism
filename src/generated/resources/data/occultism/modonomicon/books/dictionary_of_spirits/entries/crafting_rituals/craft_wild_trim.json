@@ -1,27 +1,28 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "occultism:possession_rituals",
+  "category": "occultism:crafting_rituals",
   "condition": {
     "type": "modonomicon:true"
   },
   "description": "",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:afrit_essence"
+    "item": "minecraft:wild_armor_trim_smithing_template"
   },
-  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.afrit_essence.name",
+  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_wild_trim.name",
   "pages": [
     {
-      "type": "modonomicon:text",
+      "type": "modonomicon:spotlight",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.afrit_essence.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.afrit_essence.intro.title",
-      "use_markdown_in_title": false
+      "item": {
+        "item": "minecraft:wild_armor_trim_smithing_template"
+      },
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_wild_trim.spotlight.text",
+      "title": ""
     },
     {
       "type": "occultism:ritual_recipe",
@@ -29,7 +30,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/summon_wild_afrit",
+      "recipe_id_1": "occultism:ritual/craft_wild_trim",
       "text": "",
       "title1": "",
       "title2": ""
@@ -38,13 +39,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:possession_rituals/overview",
+      "entry": "occultism:crafting_rituals/overview",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": -1,
-  "x": -5,
-  "y": -4
+  "x": 1,
+  "y": -3
 }

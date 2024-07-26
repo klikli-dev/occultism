@@ -8,9 +8,9 @@
   "description": "",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:skeleton_skull"
+    "item": "minecraft:dune_armor_trim_smithing_template"
   },
-  "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_skeleton.name",
+  "name": "book.occultism.dictionary_of_spirits.possession_rituals.horde_husk.name",
   "pages": [
     {
       "type": "modonomicon:entity",
@@ -19,12 +19,12 @@
         "type": "modonomicon:none"
       },
       "default_rotation": -45.0,
-      "entity_id": "occultism:possessed_skeleton",
+      "entity_id": "occultism:wild_horde_husk",
       "name": "",
       "offset": 0.0,
       "rotate": true,
       "scale": 1.0,
-      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_skeleton.entity.text"
+      "text": "book.occultism.dictionary_of_spirits.possession_rituals.horde_husk.entity.text"
     },
     {
       "type": "occultism:ritual_recipe",
@@ -32,7 +32,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/possess_skeleton",
+      "recipe_id_1": "occultism:ritual/summon_wild_husk",
       "text": "",
       "title1": "",
       "title2": ""
@@ -44,7 +44,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_skeleton.description.text",
+      "text": "book.occultism.dictionary_of_spirits.possession_rituals.horde_husk.description.text",
       "title": "",
       "use_markdown_in_title": false
     }
@@ -60,5 +60,5 @@
   "show_when_any_parent_unlocked": false,
   "sort_number": -1,
   "x": -4,
-  "y": -3
+  "y": 1
 }

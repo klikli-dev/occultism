@@ -1,0 +1,69 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:trial_key"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:ominous_bottle"
+        }
+      ],
+      "functions": [
+        {
+          "add": false,
+          "count": {
+            "type": "minecraft:uniform",
+            "max": 2.0,
+            "min": 0.5
+          },
+          "function": "minecraft:set_count"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:empty",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:guster_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:scrape_pottery_sherd"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:empty",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:music_disc_creator_music_box"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "occultism:entities/possessed_weak_breeze"
+}

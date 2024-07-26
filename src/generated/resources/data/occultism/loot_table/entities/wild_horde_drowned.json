@@ -1,0 +1,64 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:empty",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:sniffer_egg"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:turtle_egg",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:trident",
+          "weight": 3
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:angler_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:shelter_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:snort_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:blade_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:explorer_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:mourner_pottery_sherd"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:plenty_pottery_sherd"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "occultism:entities/wild_horde_drowned"
+}
