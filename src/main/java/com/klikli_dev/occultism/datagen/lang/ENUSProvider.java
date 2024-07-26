@@ -367,6 +367,15 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.POSSESSED_WEAK_BREEZE, "Possessed Weak Breeze");
         this.addEntityType(OccultismEntities.POSSESSED_BREEZE, "Possessed Breeze");
         this.addEntityType(OccultismEntities.POSSESSED_STRONG_BREEZE, "Possessed Strong Breeze");
+        this.addEntityType(OccultismEntities.WILD_ZOMBIE, "Wild Zombie");
+        this.addEntityType(OccultismEntities.WILD_SKELETON, "Wild Skeleton");
+        this.addEntityType(OccultismEntities.WILD_SILVERFISH, "Wild Silverfish");
+        this.addEntityType(OccultismEntities.WILD_SPIDER, "Wild Spider");
+        this.addEntityType(OccultismEntities.WILD_BOGGED, "Wild Bogged");
+        this.addEntityType(OccultismEntities.WILD_SLIME, "Wild Slime");
+        this.addEntityType(OccultismEntities.WILD_HUSK, "Wild Husk");
+        this.addEntityType(OccultismEntities.WILD_STRAY, "Wild Stray");
+        this.addEntityType(OccultismEntities.WILD_CAVE_SPIDER, "Wild Cave Spider");
     }
 
     private void addMiscTranslations() {

@@ -183,6 +183,51 @@ public class OccultismEntities {
                     .sized(1.2F, 3.54F)
                     .clientTrackingRange(32)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_strong_breeze").toString()));
+    public static final Lazy<EntityType<WildZombieEntity>> WILD_ZOMBIE_TYPE =
+            Lazy.of(() -> EntityType.Builder.of(WildZombieEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(32)
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_zombie").toString()));
+    public static final Lazy<EntityType<WildSkeletonEntity>> WILD_SKELETON_TYPE =
+            Lazy.of(() -> EntityType.Builder.of(WildSkeletonEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F)
+                    .clientTrackingRange(32)
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_skeleton").toString()));
+    public static final Lazy<EntityType<WildSilverfishEntity>> WILD_SILVERFISH_TYPE =
+            Lazy.of(() -> EntityType.Builder.of(WildSilverfishEntity::new, MobCategory.MONSTER)
+                    .sized(0.4F, 0.3F)
+                    .clientTrackingRange(32)
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_silverfish").toString()));
+    public static final Lazy<EntityType<WildSpiderEntity>> WILD_SPIDER_TYPE =
+            Lazy.of(() -> EntityType.Builder.of(WildSpiderEntity::new, MobCategory.MONSTER)
+                    .sized(0.9F, 1.4F)
+                    .clientTrackingRange(32)
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_spider").toString()));
+    public static final Lazy<EntityType<WildBoggedEntity>> WILD_BOGGED_TYPE =
+            Lazy.of(() -> EntityType.Builder.of(WildBoggedEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F)
+                    .clientTrackingRange(32)
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_bogged").toString()));
+    public static final Lazy<EntityType<WildSlimeEntity>> WILD_SLIME_TYPE =
+            Lazy.of(() -> EntityType.Builder.of(WildSlimeEntity::new, MobCategory.MONSTER)
+                    .sized(1.0F, 1.0F)
+                    .clientTrackingRange(32)
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_slime").toString()));
+    public static final Lazy<EntityType<WildHuskEntity>> WILD_HUSK_TYPE =
+            Lazy.of(() -> EntityType.Builder.of(WildHuskEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(32)
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_husk").toString()));
+    public static final Lazy<EntityType<WildStrayEntity>> WILD_STRAY_TYPE =
+            Lazy.of(() -> EntityType.Builder.of(WildStrayEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F)
+                    .clientTrackingRange(32)
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_stray").toString()));
+    public static final Lazy<EntityType<WildCaveSpiderEntity>> WILD_CAVE_SPIDER_TYPE =
+            Lazy.of(() -> EntityType.Builder.of(WildCaveSpiderEntity::new, MobCategory.MONSTER)
+                    .sized(0.5F, 0.7F)
+                    .clientTrackingRange(32)
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_cave_spider").toString()));
     public static final Lazy<EntityType<GreedyFamiliarEntity>> GREEDY_FAMILIAR_TYPE =
             Lazy.of(() -> EntityType.Builder.of(GreedyFamiliarEntity::new, MobCategory.CREATURE)
                     .sized(0.5F, 0.9F)
@@ -333,6 +378,24 @@ public class OccultismEntities {
             ENTITIES.register("possessed_breeze", POSSESSED_BREEZE_TYPE::get);
     public static final Supplier<EntityType<PossessedStrongBreezeEntity>> POSSESSED_STRONG_BREEZE =
             ENTITIES.register("possessed_strong_breeze", POSSESSED_STRONG_BREEZE_TYPE::get);
+    public static final Supplier<EntityType<WildZombieEntity>> WILD_ZOMBIE =
+            ENTITIES.register("wild_zombie", WILD_ZOMBIE_TYPE::get);
+    public static final Supplier<EntityType<WildSkeletonEntity>> WILD_SKELETON =
+            ENTITIES.register("wild_skeleton", WILD_SKELETON_TYPE::get);
+    public static final Supplier<EntityType<WildSilverfishEntity>> WILD_SILVERFISH =
+            ENTITIES.register("wild_silverfish", WILD_SILVERFISH_TYPE::get);
+    public static final Supplier<EntityType<WildSpiderEntity>> WILD_SPIDER =
+            ENTITIES.register("wild_spider", WILD_SPIDER_TYPE::get);
+    public static final Supplier<EntityType<WildBoggedEntity>> WILD_BOGGED =
+            ENTITIES.register("wild_bogged", WILD_BOGGED_TYPE::get);
+    public static final Supplier<EntityType<WildSlimeEntity>> WILD_SLIME =
+            ENTITIES.register("wild_slime", WILD_SLIME_TYPE::get);
+    public static final Supplier<EntityType<WildHuskEntity>> WILD_HUSK =
+            ENTITIES.register("wild_husk", WILD_HUSK_TYPE::get);
+    public static final Supplier<EntityType<WildStrayEntity>> WILD_STRAY =
+            ENTITIES.register("wild_stray", WILD_STRAY_TYPE::get);
+    public static final Supplier<EntityType<WildCaveSpiderEntity>> WILD_CAVE_SPIDER =
+            ENTITIES.register("wild_cave_spider", WILD_CAVE_SPIDER_TYPE::get);
     public static final Supplier<EntityType<GreedyFamiliarEntity>> GREEDY_FAMILIAR =
             ENTITIES.register("greedy_familiar", GREEDY_FAMILIAR_TYPE::get);
     public static final Supplier<EntityType<BatFamiliarEntity>> BAT_FAMILIAR =
