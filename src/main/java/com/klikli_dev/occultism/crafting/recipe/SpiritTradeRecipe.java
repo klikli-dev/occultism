@@ -108,7 +108,9 @@ public class SpiritTradeRecipe extends SingleInputRecipe<SingleRecipeInput> {
 
     public boolean isValid(List<ItemStack> input) {
         //deep copy, otherwise stack.shrink will eat original input.
-        List<ItemStack> cached = input.stream().map(ItemStack::copy).toList();
+        //we use collect(collectors.toList), because toList() would return an unmodifiable list
+        //noinspection SimplifyStreamApiCallChains
+        List<ItemStack> cached = input.stream().map(ItemStack::copy).collect(Collectors.toList());
         for (Ingredient ingredient : this.getIngredients()) {
             boolean matched = false;
             for (Iterator<ItemStack> it = cached.iterator(); it.hasNext(); ) {
