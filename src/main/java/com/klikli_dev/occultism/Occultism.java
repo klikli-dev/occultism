@@ -29,10 +29,7 @@ import com.klikli_dev.occultism.client.render.ThirdEyeEffectRenderer;
 import com.klikli_dev.occultism.common.DebugHelper;
 import com.klikli_dev.occultism.common.entity.familiar.*;
 import com.klikli_dev.occultism.common.entity.possessed.*;
-import com.klikli_dev.occultism.common.entity.possessed.horde.WildHordeCreeperEntity;
-import com.klikli_dev.occultism.common.entity.possessed.horde.WildHordeDrownedEntity;
-import com.klikli_dev.occultism.common.entity.possessed.horde.WildHordeHuskEntity;
-import com.klikli_dev.occultism.common.entity.possessed.horde.WildHordeSilverfishEntity;
+import com.klikli_dev.occultism.common.entity.possessed.horde.*;
 import com.klikli_dev.occultism.common.entity.spirit.*;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.husband.DemonicHusband;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife.DemonicWife;
@@ -191,6 +188,9 @@ public class Occultism {
         event.put(OccultismEntities.WILD_HORDE_DROWNED_TYPE.get(), WildHordeDrownedEntity.createAttributes().build());
         event.put(OccultismEntities.WILD_HORDE_CREEPER_TYPE.get(), WildHordeCreeperEntity.createAttributes().build());
         event.put(OccultismEntities.WILD_HORDE_SILVERFISH_TYPE.get(), WildHordeSilverfishEntity.createAttributes().build());
+        event.put(OccultismEntities.POSSESSED_WEAK_BREEZE_TYPE.get(), PossessedWeakBreezeEntity.createAttributes().build());
+        event.put(OccultismEntities.POSSESSED_BREEZE_TYPE.get(), PossessedBreezeEntity.createAttributes().build());
+        event.put(OccultismEntities.POSSESSED_STRONG_BREEZE_TYPE.get(), PossessedStrongBreezeEntity.createAttributes().build());
 
         event.put(OccultismEntities.DEMONIC_WIFE.get(), DemonicWife.createAttributes().build());
         event.put(OccultismEntities.DEMONIC_HUSBAND.get(), DemonicHusband.createAttributes().build());

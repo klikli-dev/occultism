@@ -5080,7 +5080,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.context().page("entity");
         var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:possessed_weak_breeze")
-                .withScale(0.7f)
+                .withScale(0.5f)
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
@@ -5115,7 +5115,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.context().page("entity");
         var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:possessed_breeze")
-                .withScale(0.7f)
+                .withScale(1.0f)
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
@@ -5150,7 +5150,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.context().page("entity");
         var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:possessed_strong_breeze")
-                .withScale(0.7f)
+                .withScale(1.0f)
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """

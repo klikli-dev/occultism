@@ -268,6 +268,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_DROWNED, "Wild Horde Drowned Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_CREEPER, "Wild Horde Creeper Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_SILVERFISH, "Wild Horde Silverfish Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WEAK_BREEZE, "Possessed Weak Breeze Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_BREEZE, "Possessed Breeze Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_STRONG_BREEZE, "Possessed Strong Breeze Spawn Egg");
     }
 
     private void addBlocks() {
@@ -361,6 +364,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.WILD_HORDE_DROWNED, "Wild Horde Drowned");
         this.addEntityType(OccultismEntities.WILD_HORDE_CREEPER, "Wild Horde Creeper");
         this.addEntityType(OccultismEntities.WILD_HORDE_SILVERFISH, "Wild Horde Silverfish");
+        this.addEntityType(OccultismEntities.POSSESSED_WEAK_BREEZE, "Possessed Weak Breeze");
+        this.addEntityType(OccultismEntities.POSSESSED_BREEZE, "Possessed Breeze");
+        this.addEntityType(OccultismEntities.POSSESSED_STRONG_BREEZE, "Possessed Strong Breeze");
     }
 
     private void addMiscTranslations() {
@@ -428,6 +434,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.sacrifice.sheep", "Sheep");
         this.add("ritual.occultism.sacrifice.llamas", "Llama");
         this.add("ritual.occultism.sacrifice.snow_golem", "Snow Golem");
+        this.add("ritual.occultism.sacrifice.iron_golem", "Iron Golem");
         this.add("ritual.occultism.sacrifice.spiders", "Spider");
         this.add("ritual.occultism.sacrifice.flying_passive", "Allay, Bat, Bee or Parrot");
         this.add("ritual.occultism.sacrifice.cubemob", "Slime or Magma Cube");
@@ -677,9 +684,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.possess_phantom.finished", "Summoned possessed phantom successfully.");
         this.add("ritual.occultism.possess_phantom.interrupted", "Summoning of possessed phantom interrupted.");
         this.add("ritual.occultism.possess_weak_shulker.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_weak_shulker.started", "Started summoning possessed weak_shulker.");
-        this.add("ritual.occultism.possess_weak_shulker.finished", "Summoned possessed weak_shulker successfully.");
-        this.add("ritual.occultism.possess_weak_shulker.interrupted", "Summoning of possessed weak_shulker interrupted.");
+        this.add("ritual.occultism.possess_weak_shulker.started", "Started summoning possessed weak shulker.");
+        this.add("ritual.occultism.possess_weak_shulker.finished", "Summoned possessed weak shulker successfully.");
+        this.add("ritual.occultism.possess_weak_shulker.interrupted", "Summoning of possessed weak shulker interrupted.");
         this.add("ritual.occultism.possess_shulker.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.possess_shulker.started", "Started summoning possessed shulker.");
         this.add("ritual.occultism.possess_shulker.finished", "Summoned possessed shulker successfully.");
@@ -795,6 +802,18 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.summon_wild_silverfish.started", "Started summoning the wild horde silverfish.");
         this.add("ritual.occultism.summon_wild_silverfish.finished", "Summoned the wild horde silverfish successfully.");
         this.add("ritual.occultism.summon_wild_silverfish.interrupted", "Summoning of the wild horde silverfish interrupted.");
+        this.add("ritual.occultism.possess_weak_breeze.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_weak_breeze.started", "Started summoning possessed weak breeze.");
+        this.add("ritual.occultism.possess_weak_breeze.finished", "Summoned possessed weak breeze successfully.");
+        this.add("ritual.occultism.possess_weak_breeze.interrupted", "Summoning of possessed weak breeze interrupted.");
+        this.add("ritual.occultism.possess_breeze.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_breeze.started", "Started summoning possessed breeze.");
+        this.add("ritual.occultism.possess_breeze.finished", "Summoned possessed breeze successfully.");
+        this.add("ritual.occultism.possess_breeze.interrupted", "Summoning of possessed breeze interrupted.");
+        this.add("ritual.occultism.possess_strong_breeze.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_strong_breeze.started", "Started summoning possessed strong breeze.");
+        this.add("ritual.occultism.possess_strong_breeze.finished", "Summoned possessed strong breeze successfully.");
+        this.add("ritual.occultism.possess_strong_breeze.interrupted", "Summoning of possessed strong breeze interrupted.");
 
         this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "conditions", "Not all requirements for this ritual are met.");
         this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "started", "Started resurrecting familiar.");
@@ -1183,6 +1202,13 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         - [Wither Skeleton Skull](entry://summoning_rituals/wither_skull)
+                        - [Horde Husk](entry://possession_rituals/horde_husk)
+                        - [Horde Drowned](entry://possession_rituals/horde_drowned)
+                        - [Horde Creeper](entry://possession_rituals/horde_creeper)
+                        - [Horde Silverfish](entry://possession_rituals/horde_silverfish)
+                        - [Trial Key](entry://possession_rituals/possess_weak_breeze)
+                        - [Ominous Trial Key](entry://possession_rituals/possess_breeze)
+                        - [Heavy Core](entry://possession_rituals/possess_strong_breeze)
                         """.formatted(COLOR_PURPLE));
 
         helper.entry("possess_foliot");
@@ -3055,6 +3081,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.summon_wild_creeper.tooltip", "The Wild Horde Creeper consists of a few charged Creepers that drop many disks.");
         this.add("item.occultism.ritual_dummy.summon_wild_silverfish", "Ritual: Summon The Wild Horde Silverfish");
         this.add("item.occultism.ritual_dummy.summon_wild_silverfish.tooltip", "The Wild Horde Silverfish consists of a few Silverfishs that drop items related to ruins trails.");
+        this.add("item.occultism.ritual_dummy.possess_weak_breeze", "Ritual: Summon Possessed Weak Breeze");
+        this.add("item.occultism.ritual_dummy.possess_weak_breeze.tooltip", "The possessed Weak Breeze will drop a Trial Key and trial chamber related items.");
+        this.add("item.occultism.ritual_dummy.possess_breeze", "Ritual: Summon Possessed Breeze");
+        this.add("item.occultism.ritual_dummy.possess_breeze.tooltip", "The possessed Breeze will drop a Ominous Trial Key and trial chamber related items.");
+        this.add("item.occultism.ritual_dummy.possess_strong_breeze", "Ritual: Summon Possessed Strong Breeze");
+        this.add("item.occultism.ritual_dummy.possess_strong_breeze.tooltip", "The possessed Strong Breeze will drop a Heavy Core and trial chamber related items.");
 
         this.add(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Ritual: Summon Demonic Wife");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Summons a Demonic Wife to support you: She will fight for you, help with cooking, and extend potion durations.");

@@ -496,6 +496,65 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .itemToUse(Ingredient.of(Items.EGG))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_wild_silverfish"));
 
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.HONEYCOMB),
+                        makeLoreSpawnEgg(Items.TRIAL_KEY, "item.occultism.ritual_dummy.possess_weak_breeze"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/possess_weak_breeze")),
+                        30,
+                        RITUAL_SUMMON_WILD,
+                        PENTACLE_SUMMON_WILD_GREATER_SPIRIT,
+                        Ingredient.of(Items.OXIDIZED_COPPER),
+                        Ingredient.of(Items.WEATHERED_CHISELED_COPPER),
+                        Ingredient.of(Items.EXPOSED_COPPER_GRATE),
+                        Ingredient.of(Items.CUT_COPPER),
+                        Ingredient.of(Items.TUFF),
+                        Ingredient.of(Items.TUFF),
+                        Ingredient.of(Items.TUFF),
+                        Ingredient.of(Items.TUFF))
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .entityToSummon(OccultismEntities.POSSESSED_WEAK_BREEZE.get())
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.snow_golem")
+                .entityToSacrifice(OccultismTags.Entities.SNOW_GOLEM)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_weak_breeze"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.TRIAL_KEY),
+                        makeLoreSpawnEgg(Items.OMINOUS_TRIAL_KEY, "item.occultism.ritual_dummy.possess_breeze"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/possess_breeze")),
+                        30,
+                        RITUAL_SUMMON_WILD,
+                        PENTACLE_SUMMON_WILD_GREATER_SPIRIT,
+                        Ingredient.of(Items.LIGHTNING_ROD),
+                        Ingredient.of(Items.COPPER_DOOR),
+                        Ingredient.of(Items.COPPER_TRAPDOOR),
+                        Ingredient.of(Items.COPPER_BULB),
+                        Ingredient.of(Items.POLISHED_TUFF),
+                        Ingredient.of(Items.TUFF_BRICKS))
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .entityToSummon(OccultismEntities.POSSESSED_BREEZE.get())
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.wolfs")
+                .entityToSacrifice(OccultismTags.Entities.WOLFS)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_breeze"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.OMINOUS_TRIAL_KEY),
+                        makeLoreSpawnEgg(Items.HEAVY_CORE, "item.occultism.ritual_dummy.possess_strong_breeze"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/possess_strong_breeze")),
+                        30,
+                        RITUAL_SUMMON_WILD,
+                        PENTACLE_SUMMON_WILD_GREATER_SPIRIT,
+                        Ingredient.of(Items.CHISELED_TUFF),
+                        Ingredient.of(Items.CHISELED_TUFF),
+                        Ingredient.of(Items.CHISELED_TUFF),
+                        Ingredient.of(Items.CHISELED_TUFF),
+                        Ingredient.of(Items.CHISELED_TUFF_BRICKS),
+                        Ingredient.of(Items.CHISELED_TUFF_BRICKS),
+                        Ingredient.of(Items.CHISELED_TUFF_BRICKS),
+                        Ingredient.of(Items.CHISELED_TUFF_BRICKS),
+                        Ingredient.of(Items.BREEZE_ROD),
+                        Ingredient.of(Items.BREEZE_ROD),
+                        Ingredient.of(Items.OMINOUS_BOTTLE))
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .entityToSummon(OccultismEntities.POSSESSED_STRONG_BREEZE.get())
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.iron_golem")
+                .entityToSacrifice(OccultismTags.Entities.IRON_GOLEM)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_strong_breeze"));
+
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                         makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_OTHERWORLD_BIRD.get(), "item.occultism.ritual_dummy.summon_wild_otherworld_bird"),
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_wild_otherworld_bird")),

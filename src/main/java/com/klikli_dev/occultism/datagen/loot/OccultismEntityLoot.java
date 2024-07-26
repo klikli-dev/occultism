@@ -51,6 +51,9 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
         this.add(OccultismEntities.WILD_HORDE_DROWNED_TYPE.get(), this.drownedLootTable());
         this.add(OccultismEntities.WILD_HORDE_CREEPER_TYPE.get(), this.creeperLootTable());
         this.add(OccultismEntities.WILD_HORDE_SILVERFISH_TYPE.get(), this.silverfishLootTable());
+        this.add(OccultismEntities.POSSESSED_WEAK_BREEZE.get(), this.weakBreezeTable());
+        this.add(OccultismEntities.POSSESSED_BREEZE.get(), this.breezeTable());
+        this.add(OccultismEntities.POSSESSED_STRONG_BREEZE.get(), this.strongBreezeTable());
         this.add(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(),
                 LootTable.lootTable().withPool(
                         LootPool.lootPool().setRolls(ConstantValue.exactly(1))
@@ -413,6 +416,72 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .add(LootItem.lootTableItem(Items.HEARTBREAK_POTTERY_SHERD).setWeight(1))
                                 .add(LootItem.lootTableItem(Items.HOWL_POTTERY_SHERD).setWeight(1))
                                 .add(LootItem.lootTableItem(Items.SHEAF_POTTERY_SHERD).setWeight(1))
+                );
+    }
+    public LootTable.Builder weakBreezeTable(){
+        return LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(Items.TRIAL_KEY).setWeight(1))
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(Items.OMINOUS_BOTTLE).setWeight(1))
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.5F, 2.0F)))
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(EmptyLootItem.emptyItem().setWeight(2))
+                                .add(LootItem.lootTableItem(Items.GUSTER_POTTERY_SHERD).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.SCRAPE_POTTERY_SHERD).setWeight(1))
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(EmptyLootItem.emptyItem().setWeight(7))
+                                .add(LootItem.lootTableItem(Items.MUSIC_DISC_CREATOR_MUSIC_BOX).setWeight(1))
+                );
+    }
+    public LootTable.Builder breezeTable(){
+        return LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(Items.OMINOUS_TRIAL_KEY).setWeight(1))
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(Items.BREEZE_ROD).setWeight(1))
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(EmptyLootItem.emptyItem().setWeight(8))
+                                .add(LootItem.lootTableItem(Items.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(4))
+                                .add(LootItem.lootTableItem(Items.GUSTER_BANNER_PATTERN).setWeight(2))
+                                .add(LootItem.lootTableItem(Items.MUSIC_DISC_PRECIPICE).setWeight(1))
+                );
+    }
+    public LootTable.Builder strongBreezeTable(){
+        return LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(Items.HEAVY_CORE).setWeight(1))
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(EmptyLootItem.emptyItem().setWeight(5))
+                                .add(LootItem.lootTableItem(Items.FLOW_POTTERY_SHERD).setWeight(4))
+                                .add(LootItem.lootTableItem(Items.FLOW_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(3))
+                                .add(LootItem.lootTableItem(Items.FLOW_BANNER_PATTERN).setWeight(2))
+                                .add(LootItem.lootTableItem(Items.MUSIC_DISC_CREATOR).setWeight(1))
                 );
     }
 }

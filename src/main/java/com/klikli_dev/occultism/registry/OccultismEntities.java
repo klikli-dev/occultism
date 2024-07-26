@@ -166,6 +166,23 @@ public class OccultismEntities {
                     .sized(0.2F, 0.15F)
                     .clientTrackingRange(16)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_horde_silverfish").toString()));
+    public static final Lazy<EntityType<PossessedWeakBreezeEntity>> POSSESSED_WEAK_BREEZE_TYPE =
+            Lazy.of(() -> EntityType.Builder.of(PossessedWeakBreezeEntity::new, MobCategory.MONSTER)
+                    .sized(0.4F, 1.18F)
+                    .clientTrackingRange(32)
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_weak_breeze").toString()));
+    public static final Lazy<EntityType<PossessedBreezeEntity>> POSSESSED_BREEZE_TYPE =
+            Lazy.of(() -> EntityType.Builder.of(PossessedBreezeEntity::new, MobCategory.MONSTER)
+                    .fireImmune()
+                    .sized(0.9F, 2.65F)
+                    .clientTrackingRange(32)
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_breeze").toString()));
+    public static final Lazy<EntityType<PossessedStrongBreezeEntity>> POSSESSED_STRONG_BREEZE_TYPE =
+            Lazy.of(() -> EntityType.Builder.of(PossessedStrongBreezeEntity::new, MobCategory.MONSTER)
+                    .fireImmune()
+                    .sized(1.2F, 3.54F)
+                    .clientTrackingRange(32)
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_strong_breeze").toString()));
     public static final Lazy<EntityType<GreedyFamiliarEntity>> GREEDY_FAMILIAR_TYPE =
             Lazy.of(() -> EntityType.Builder.of(GreedyFamiliarEntity::new, MobCategory.CREATURE)
                     .sized(0.5F, 0.9F)
@@ -310,6 +327,12 @@ public class OccultismEntities {
             ENTITIES.register("wild_horde_creeper", WILD_HORDE_CREEPER_TYPE::get);
     public static final Supplier<EntityType<WildHordeSilverfishEntity>> WILD_HORDE_SILVERFISH =
             ENTITIES.register("wild_horde_silverfish", WILD_HORDE_SILVERFISH_TYPE::get);
+    public static final Supplier<EntityType<PossessedWeakBreezeEntity>> POSSESSED_WEAK_BREEZE =
+            ENTITIES.register("possessed_weak_breeze", POSSESSED_WEAK_BREEZE_TYPE::get);
+    public static final Supplier<EntityType<PossessedBreezeEntity>> POSSESSED_BREEZE =
+            ENTITIES.register("possessed_breeze", POSSESSED_BREEZE_TYPE::get);
+    public static final Supplier<EntityType<PossessedStrongBreezeEntity>> POSSESSED_STRONG_BREEZE =
+            ENTITIES.register("possessed_strong_breeze", POSSESSED_STRONG_BREEZE_TYPE::get);
     public static final Supplier<EntityType<GreedyFamiliarEntity>> GREEDY_FAMILIAR =
             ENTITIES.register("greedy_familiar", GREEDY_FAMILIAR_TYPE::get);
     public static final Supplier<EntityType<BatFamiliarEntity>> BAT_FAMILIAR =

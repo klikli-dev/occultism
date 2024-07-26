@@ -113,6 +113,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
     private void addCommonTags() {
         this.tag(Tags.EntityTypes.CAPTURING_NOT_SUPPORTED).addTag(OccultismTags.Entities.SOUL_GEM_DENY_LIST);
         this.tag(OccultismTags.Entities.SNOW_GOLEM).add(EntityType.SNOW_GOLEM).replace(false);
+        this.tag(OccultismTags.Entities.IRON_GOLEM).add(EntityType.IRON_GOLEM).replace(false);
         this.tag(OccultismTags.Entities.AXOLOTL).add(EntityType.AXOLOTL).replace(false);
         this.tag(OccultismTags.Entities.BATS).add(EntityType.BAT).replace(false);
         this.tag(OccultismTags.Entities.CHICKEN).add(EntityType.CHICKEN).replace(false);
@@ -134,5 +135,6 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
         this.tag(OccultismTags.Entities.ZOMBIES).add(EntityType.ZOMBIE).add(EntityType.ZOMBIE_VILLAGER).add(EntityType.HUSK).add(EntityType.DROWNED).replace(false);
         this.tag(OccultismTags.Entities.CAMEL).add(EntityType.CAMEL).replace(false);
         this.tag(OccultismTags.Entities.DOLPHIN).add(EntityType.DOLPHIN).replace(false);
+        this.tag(OccultismTags.Entities.WOLFS).add(EntityType.WOLF).replace(false);
     }
 }

@@ -365,6 +365,12 @@ public class OccultismItems {
             () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HORDE_CREEPER_TYPE::get, 0x577148, 0x111111, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_WILD_HORDE_SILVERFISH = ITEMS.register("spawn_egg/wild_horde_silverfish",
             () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HORDE_SILVERFISH_TYPE::get, 0x666666, 0x262626, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_WEAK_BREEZE = ITEMS.register("spawn_egg/possessed_weak_breeze",
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_WEAK_BREEZE_TYPE::get, 0xa289cf, 0x5d428f, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_BREEZE = ITEMS.register("spawn_egg/possessed_breeze",
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_BREEZE_TYPE::get, 0x9279bf, 0x4d327f, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_STRONG_BREEZE = ITEMS.register("spawn_egg/possessed_strong_breeze",
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_STRONG_BREEZE_TYPE::get, 0x8269af, 0x3d226f, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_OTHERWORLD_BIRD = ITEMS.register("spawn_egg/otherworld_bird",
             () -> new DeferredSpawnEggItem(OccultismEntities.OTHERWORLD_BIRD_TYPE::get, 0x221269, 0x6b56c4, defaultProperties()));
 
@@ -477,6 +483,9 @@ public class OccultismItems {
         ITEMS.register("ritual_dummy/summon_wild_drowned", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_wild_creeper", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_wild_silverfish", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/possess_weak_breeze", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/possess_breeze", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/possess_strong_breeze", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_wild_otherworld_bird", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_wild_parrot", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_foliot_crusher", () -> new DummyTooltipItem(defaultProperties()));
