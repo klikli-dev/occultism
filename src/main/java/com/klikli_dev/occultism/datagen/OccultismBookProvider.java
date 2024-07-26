@@ -3843,7 +3843,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 "___________________________",
                 "_______b_e_x_p_q___________",
                 "___________________________",
-                "_______d_h_c_______________",
+                "_______d_h_c__w____________",
                 "___________________________",
                 "___9_0_____________________",
                 "___________________________",
@@ -3905,6 +3905,9 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         var craftFamiliarRing = this.makeCraftFamiliarRingEntry(entryMap, 'c');
         craftFamiliarRing.withParent(BookEntryParentModel.create(craftSoulGem.getId()));
 
+        var craftWildTrim = this.makeCraftWildTrimEntry(entryMap, 'w');
+        craftWildTrim.withParent(BookEntryParentModel.create(overview.getId()));
+
         //add true condition to all entries to enable them by default
         overview.withCondition(BookTrueConditionModel.create());
         craftInfusedPickaxe.withCondition(BookTrueConditionModel.create());
@@ -3926,6 +3929,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         craftSatchel.withCondition(BookTrueConditionModel.create());
         craftSoulGem.withCondition(BookTrueConditionModel.create());
         craftFamiliarRing.withCondition(BookTrueConditionModel.create());
+        craftWildTrim.withCondition(BookTrueConditionModel.create());
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon(this.modLoc("textures/gui/book/infusion.png"))
@@ -3951,7 +3955,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         craftStabilizerTier4,
                         craftStableWormhole,
                         craftStorageControllerBase,
-                        craftStorageRemote
+                        craftStorageRemote,
+                        craftWildTrim
                 );
     }
 
@@ -4427,6 +4432,27 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         gogglesRecipe
                 );
     }
+    private BookEntryModel makeCraftWildTrimEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("craft_wild_trim");
+
+        this.context().page("spotlight");
+        var spotlight = BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE))
+                .withText(this.context().pageText());
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_wild_trim"));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        spotlight,
+                        ritual
+                );
+    }
+
     //endregion
 
     //region Possession Rituals

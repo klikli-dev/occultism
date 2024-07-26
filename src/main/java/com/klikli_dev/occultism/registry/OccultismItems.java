@@ -422,6 +422,7 @@ public class OccultismItems {
     //Ritual Dummy Items
     static {
         ITEMS.register("ritual_dummy/custom_ritual", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/craft_wild_trim", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/craft_dimensional_matrix", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/craft_dimensional_mineshaft", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/craft_infused_lenses", () -> new DummyTooltipItem(defaultProperties()));
@@ -488,6 +489,7 @@ public class OccultismItems {
         ITEMS.register("ritual_dummy/possess_strong_breeze", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_wild_otherworld_bird", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_wild_parrot", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/summon_allay", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_foliot_crusher", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_djinni_crusher", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_afrit_crusher", () -> new DummyTooltipItem(defaultProperties()));

@@ -153,6 +153,8 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> CAMEL = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "camel"));
         public static final TagKey<EntityType<?>> DOLPHIN = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "dolphin"));
         public static final TagKey<EntityType<?>> WOLFS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wolfs"));
+        public static final TagKey<EntityType<?>> OCELOT = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ocelot"));
+        public static final TagKey<EntityType<?>> VEX = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "vex"));
     }
 
 

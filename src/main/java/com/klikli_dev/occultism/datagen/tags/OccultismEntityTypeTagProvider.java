@@ -136,5 +136,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
         this.tag(OccultismTags.Entities.CAMEL).add(EntityType.CAMEL).replace(false);
         this.tag(OccultismTags.Entities.DOLPHIN).add(EntityType.DOLPHIN).replace(false);
         this.tag(OccultismTags.Entities.WOLFS).add(EntityType.WOLF).replace(false);
+        this.tag(OccultismTags.Entities.OCELOT).add(EntityType.OCELOT).replace(false);
+        this.tag(OccultismTags.Entities.VEX).add(EntityType.VEX).replace(false);
     }
 }
