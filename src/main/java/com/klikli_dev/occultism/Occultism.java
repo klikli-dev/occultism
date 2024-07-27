@@ -29,6 +29,7 @@ import com.klikli_dev.occultism.client.render.ThirdEyeEffectRenderer;
 import com.klikli_dev.occultism.common.DebugHelper;
 import com.klikli_dev.occultism.common.entity.familiar.*;
 import com.klikli_dev.occultism.common.entity.possessed.*;
+import com.klikli_dev.occultism.common.entity.possessed.horde.*;
 import com.klikli_dev.occultism.common.entity.spirit.*;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.husband.DemonicHusband;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.wife.DemonicWife;
@@ -45,6 +46,9 @@ import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.ParticleRegistry;
 import com.klikli_dev.theurgy.registry.TheurgyRegistries;
 import com.mojang.logging.LogUtils;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
@@ -182,6 +186,25 @@ public class Occultism {
         event.put(OccultismEntities.MUMMY_FAMILIAR_TYPE.get(), MummyFamiliarEntity.createAttributes().build());
         event.put(OccultismEntities.BEAVER_FAMILIAR_TYPE.get(), BeaverFamiliarEntity.createAttributes().build());
         event.put(OccultismEntities.SHUB_NIGGURATH_SPAWN_TYPE.get(), ShubNiggurathSpawnEntity.createAttributes().build());
+
+        event.put(OccultismEntities.WILD_HORDE_HUSK_TYPE.get(), WildHordeHuskEntity.createAttributes().build());
+        event.put(OccultismEntities.WILD_HORDE_DROWNED_TYPE.get(), WildHordeDrownedEntity.createAttributes().build());
+        event.put(OccultismEntities.WILD_HORDE_CREEPER_TYPE.get(), WildHordeCreeperEntity.createAttributes().build());
+        event.put(OccultismEntities.WILD_HORDE_SILVERFISH_TYPE.get(), WildHordeSilverfishEntity.createAttributes().build());
+        event.put(OccultismEntities.POSSESSED_WEAK_BREEZE_TYPE.get(), PossessedWeakBreezeEntity.createAttributes().build());
+        event.put(OccultismEntities.POSSESSED_BREEZE_TYPE.get(), PossessedBreezeEntity.createAttributes().build());
+        event.put(OccultismEntities.POSSESSED_STRONG_BREEZE_TYPE.get(), PossessedStrongBreezeEntity.createAttributes().build());
+        event.put(OccultismEntities.POSSESSED_EVOKER_TYPE.get(), PossessedEvokerEntity.createAttributes().build());
+        event.put(OccultismEntities.WILD_ZOMBIE_TYPE.get(), WildZombieEntity.createAttributes().build());
+        event.put(OccultismEntities.WILD_SKELETON_TYPE.get(), WildSkeletonEntity.createAttributes().build());
+        event.put(OccultismEntities.WILD_SILVERFISH.get(), WildSilverfishEntity.createAttributes().build());
+        event.put(OccultismEntities.WILD_SPIDER_TYPE.get(), WildSpiderEntity.createAttributes().build());
+        event.put(OccultismEntities.WILD_BOGGED_TYPE.get(), WildBoggedEntity.createAttributes().build());
+        //event.put(OccultismEntities.WILD_SLIME_TYPE.get(), WildSlimeEntity.createAttributes().build()); //Wild Slime Attributes error, changed to vanilla slimes
+        event.put(OccultismEntities.WILD_HUSK_TYPE.get(), WildHuskEntity.createAttributes().build());
+        event.put(OccultismEntities.WILD_STRAY_TYPE.get(), WildStrayEntity.createAttributes().build());
+        event.put(OccultismEntities.WILD_CAVE_SPIDER_TYPE.get(), WildCaveSpiderEntity.createAttributes().build());
+
 
         event.put(OccultismEntities.DEMONIC_WIFE.get(), DemonicWife.createAttributes().build());
         event.put(OccultismEntities.DEMONIC_HUSBAND.get(), DemonicHusband.createAttributes().build());

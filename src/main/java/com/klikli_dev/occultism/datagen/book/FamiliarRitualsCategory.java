@@ -28,7 +28,7 @@ public class FamiliarRitualsCategory extends CategoryProvider {
                 "___________________________",
                 "_____a_Q_S_U_W_Z___________",
                 "___________________________",
-                "___r_o_____________________",
+                "___r_o___________H_________",
                 "___________________________",
                 "_______I_K_M_O_Y___________",
                 "___________________________",
@@ -80,6 +80,8 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         familiarParrot.withParent(BookEntryParentModel.create(overview.getId()));
         var familiarShubNiggurath = this.add(this.makeFamiliarShubNiggurathEntry(this.entryMap, 'Y'));
         familiarShubNiggurath.withParent(BookEntryParentModel.create(overview.getId()));
+        var summonAllay = this.add(this.makeSummonAllayEntry(this.entryMap, 'H'));
+        summonAllay.withParent(BookEntryParentModel.create(overview.getId()));
 
         //add true condition to all entries to enable them by default
         overview.withCondition(BookTrueConditionModel.create());
@@ -100,6 +102,7 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         familiarOtherworldBird.withCondition(BookTrueConditionModel.create());
         familiarParrot.withCondition(BookTrueConditionModel.create());
         familiarShubNiggurath.withCondition(BookTrueConditionModel.create());
+        summonAllay.withCondition(BookTrueConditionModel.create());
 
         var demonicPartner = new DemonicPartnerEntry(this).generate('Z');
         demonicPartner.withParent(BookEntryParentModel.create(overview.getId()));
@@ -645,6 +648,32 @@ public class FamiliarRitualsCategory extends CategoryProvider {
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/familiar_shub_niggurath.png"))
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+
+    private BookEntryModel makeSummonAllayEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("summon_allay");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.create()
+                .withEntityId("minecraft:allay")
+                .withText(this.context().pageText());
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_allay"));
+
+        this.context().page("description");
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(this.modLoc("textures/gui/book/allay.png"))
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         entity,

@@ -55,9 +55,9 @@ public class OccultismRituals {
     public static final DeferredHolder<RitualFactory, RitualFactory> SUMMON_SPIRIT_WITH_JOB =
             RITUAL_FACTORIES.register("summon_spirit_with_job",
                     () -> new RitualFactory(SummonSpiritWithJobRitual::new));
-    public static final DeferredHolder<RitualFactory, RitualFactory> SUMMON_WILD_HUNT =
-            RITUAL_FACTORIES.register("summon_wild_hunt",
-                    () -> new RitualFactory(SummonWildHuntRitual::new));
+    public static final DeferredHolder<RitualFactory, RitualFactory> SUMMON_WILD =
+            RITUAL_FACTORIES.register("summon_wild",
+                    () -> new RitualFactory(SummonWildRitual::new));
     public static final DeferredHolder<RitualFactory, RitualFactory> FAMILIAR =
             RITUAL_FACTORIES.register("familiar",
                     () -> new RitualFactory(FamiliarRitual::new));

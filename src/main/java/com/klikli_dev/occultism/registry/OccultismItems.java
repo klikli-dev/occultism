@@ -357,7 +357,22 @@ public class OccultismItems {
 
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_HOGLIN = ITEMS.register("spawn_egg/possessed_hoglin",
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_HOGLIN_TYPE::get, 0x592a10, 0xf9f3a4, defaultProperties()));
-
+    public static final DeferredItem<Item> SPAWN_EGG_WILD_HORDE_HUSK = ITEMS.register("spawn_egg/wild_horde_husk",
+            () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HORDE_HUSK_TYPE::get, 0x5f584c, 0x92815e, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_WILD_HORDE_DROWNED = ITEMS.register("spawn_egg/wild_horde_drowned",
+            () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HORDE_DROWNED_TYPE::get, 0x7bcfb9, 0x577148, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_WILD_HORDE_CREEPER = ITEMS.register("spawn_egg/wild_horde_creeper",
+            () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HORDE_CREEPER_TYPE::get, 0x577148, 0x111111, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_WILD_HORDE_SILVERFISH = ITEMS.register("spawn_egg/wild_horde_silverfish",
+            () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HORDE_SILVERFISH_TYPE::get, 0x666666, 0x262626, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_WEAK_BREEZE = ITEMS.register("spawn_egg/possessed_weak_breeze",
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_WEAK_BREEZE_TYPE::get, 0xa289cf, 0x5d428f, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_BREEZE = ITEMS.register("spawn_egg/possessed_breeze",
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_BREEZE_TYPE::get, 0x9279bf, 0x4d327f, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_STRONG_BREEZE = ITEMS.register("spawn_egg/possessed_strong_breeze",
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_STRONG_BREEZE_TYPE::get, 0x8269af, 0x3d226f, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_EVOKER = ITEMS.register("spawn_egg/possessed_evoker",
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_EVOKER_TYPE::get, 0x8e9494, 0xcbc786, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_OTHERWORLD_BIRD = ITEMS.register("spawn_egg/otherworld_bird",
             () -> new DeferredSpawnEggItem(OccultismEntities.OTHERWORLD_BIRD_TYPE::get, 0x221269, 0x6b56c4, defaultProperties()));
 
@@ -409,6 +424,7 @@ public class OccultismItems {
     //Ritual Dummy Items
     static {
         ITEMS.register("ritual_dummy/custom_ritual", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/craft_wild_trim", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/craft_dimensional_matrix", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/craft_dimensional_mineshaft", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/craft_infused_lenses", () -> new DummyTooltipItem(defaultProperties()));
@@ -466,8 +482,17 @@ public class OccultismItems {
         ITEMS.register("ritual_dummy/summon_foliot_cleaner", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_wild_afrit", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_wild_hunt", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/summon_wild_husk", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/summon_wild_drowned", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/summon_wild_creeper", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/summon_wild_silverfish", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/possess_weak_breeze", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/possess_breeze", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/possess_strong_breeze", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/summon_horde_illager", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_wild_otherworld_bird", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_wild_parrot", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/summon_allay", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_foliot_crusher", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_djinni_crusher", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_afrit_crusher", () -> new DummyTooltipItem(defaultProperties()));

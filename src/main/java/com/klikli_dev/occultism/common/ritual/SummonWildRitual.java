@@ -40,9 +40,9 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.Nullable;
 
-public class SummonWildHuntRitual extends SummonRitual {
+public class SummonWildRitual extends SummonRitual {
 
-    public SummonWildHuntRitual(RitualRecipe recipe) {
+    public SummonWildRitual(RitualRecipe recipe) {
         super(recipe, false);
     }
 
@@ -67,7 +67,7 @@ public class SummonWildHuntRitual extends SummonRitual {
         EntityType<?> entityType = this.recipe.getEntityToSummon();
         if (entityType != null) {
 
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < this.recipe.getSummonNumber(); i++) {
                 Entity entity = this.createSummonedEntity(entityType, level, goldenBowlPosition, blockEntity, castingPlayer);
 
                 if (entity instanceof LivingEntity living) {

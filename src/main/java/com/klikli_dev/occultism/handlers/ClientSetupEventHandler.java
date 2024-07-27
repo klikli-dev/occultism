@@ -57,6 +57,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.monster.Drowned;
+import net.minecraft.world.entity.monster.Zombie;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -155,6 +157,24 @@ public class ClientSetupEventHandler {
         event.registerEntityRenderer(OccultismEntities.WILD_HUNT_WITHER_SKELETON.get(), WitherSkeletonRenderer::new);
         event.registerEntityRenderer(OccultismEntities.OTHERWORLD_BIRD.get(), OtherworldBirdRenderer::new);
 
+        event.registerEntityRenderer(OccultismEntities.WILD_HORDE_HUSK.get(), HuskRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.WILD_HORDE_DROWNED.get(), DrownedRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.WILD_HORDE_CREEPER.get(), CreeperRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.WILD_HORDE_SILVERFISH.get(), SilverfishRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.POSSESSED_WEAK_BREEZE.get(), BreezeRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.POSSESSED_BREEZE.get(), BreezeRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.POSSESSED_STRONG_BREEZE.get(), BreezeRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.POSSESSED_EVOKER.get(), EvokerRenderer::new);
+
+        event.registerEntityRenderer(OccultismEntities.WILD_ZOMBIE.get(), ZombieRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.WILD_SKELETON.get(), SkeletonRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.WILD_SILVERFISH.get(), SilverfishRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.WILD_SPIDER.get(), SpiderRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.WILD_BOGGED.get(), BoggedRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.WILD_SLIME.get(), SlimeRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.WILD_HUSK.get(), HuskRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.WILD_STRAY.get(), StrayRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.WILD_CAVE_SPIDER.get(), CaveSpiderRenderer::new);
 
         event.registerEntityRenderer(OccultismEntities.DEMONIC_WIFE.get(), DemonicWifeRenderer::new);
         event.registerEntityRenderer(OccultismEntities.DEMONIC_HUSBAND.get(), DemonicHusbandRenderer::new);

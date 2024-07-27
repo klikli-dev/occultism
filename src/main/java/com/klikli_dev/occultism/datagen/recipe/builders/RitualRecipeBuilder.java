@@ -49,6 +49,8 @@ public class RitualRecipeBuilder implements RecipeBuilder {
     @Nullable
     private Integer spiritMaxAge;
     @Nullable
+    private Integer summonNumber;
+    @Nullable
     private String entityToSacrificeDisplayName;
     @Nullable
     private String command;
@@ -113,6 +115,10 @@ public class RitualRecipeBuilder implements RecipeBuilder {
         this.spiritMaxAge=spiritMaxAge;
         return this;
     }
+    public RitualRecipeBuilder summonNumber(int summonNumber){
+        this.summonNumber=summonNumber;
+        return this;
+    }
 
     public RitualRecipeBuilder entityToSacrificeDisplayName(String entityToSacrificeDisplayName){
         this.entityToSacrificeDisplayName=entityToSacrificeDisplayName;
@@ -131,7 +137,7 @@ public class RitualRecipeBuilder implements RecipeBuilder {
                 .rewards(AdvancementRewards.Builder.recipe(pId))
                 .requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
-        RitualRecipe recipe = new RitualRecipe(this.pentacleId,this.ritualType,this.ritualDummy,this.output,entityToSummon,this.entityNbt,this.activationIngredient,this.ingredients,this.duration,this.spiritMaxAge==null?-1:this.spiritMaxAge,this.spiritJobType,this.entityToSacrifice==null?null:new RitualRecipe.EntityToSacrifice(this.entityToSacrifice,this.entityToSacrificeDisplayName),this.itemToUse,this.command);
+        RitualRecipe recipe = new RitualRecipe(this.pentacleId,this.ritualType,this.ritualDummy,this.output,entityToSummon,this.entityNbt,this.activationIngredient,this.ingredients,this.duration,this.spiritMaxAge==null?-1:this.spiritMaxAge,this.summonNumber==null?1:this.summonNumber,this.spiritJobType,this.entityToSacrifice==null?null:new RitualRecipe.EntityToSacrifice(this.entityToSacrifice,this.entityToSacrificeDisplayName),this.itemToUse,this.command);
         pRecipeOutput.accept(pId, recipe,advancement$builder.build(pId.withPrefix("recipes/ritual/")));
     }
 

@@ -1,7 +1,7 @@
 {
   "type": "occultism:ritual",
   "activation_item": {
-    "item": "occultism:book_of_binding_bound_afrit"
+    "item": "minecraft:skeleton_skull"
   },
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.humans",
@@ -43,5 +43,5 @@
     "count": 1,
     "id": "occultism:ritual_dummy/summon_wild_hunt"
   },
-  "ritual_type": "occultism:summon"
+  "ritual_type": "occultism:summon_wild"
 }

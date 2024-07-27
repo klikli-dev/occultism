@@ -264,6 +264,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_PARROT_FAMILIAR, "Parrot Familiar Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_DEMONIC_WIFE, "Demonic Wife Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_DEMONIC_HUSBAND, "Demonic Husband Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_HUSK, "Wild Horde Husk Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_DROWNED, "Wild Horde Drowned Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_CREEPER, "Wild Horde Creeper Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_SILVERFISH, "Wild Horde Silverfish Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WEAK_BREEZE, "Possessed Weak Breeze Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_BREEZE, "Possessed Breeze Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_STRONG_BREEZE, "Possessed Strong Breeze Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_EVOKER, "Possessed Evoker Spawn Egg");
     }
 
     private void addBlocks() {
@@ -353,6 +361,23 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.THROWN_SWORD, "Thrown Sword");
         this.addEntityType(OccultismEntities.DEMONIC_WIFE, "Demonic Wife");
         this.addEntityType(OccultismEntities.DEMONIC_HUSBAND, "Demonic Husband");
+        this.addEntityType(OccultismEntities.WILD_HORDE_HUSK, "Wild Horde Husk");
+        this.addEntityType(OccultismEntities.WILD_HORDE_DROWNED, "Wild Horde Drowned");
+        this.addEntityType(OccultismEntities.WILD_HORDE_CREEPER, "Wild Horde Creeper");
+        this.addEntityType(OccultismEntities.WILD_HORDE_SILVERFISH, "Wild Horde Silverfish");
+        this.addEntityType(OccultismEntities.POSSESSED_WEAK_BREEZE, "Possessed Weak Breeze");
+        this.addEntityType(OccultismEntities.POSSESSED_BREEZE, "Possessed Breeze");
+        this.addEntityType(OccultismEntities.POSSESSED_STRONG_BREEZE, "Possessed Strong Breeze");
+        this.addEntityType(OccultismEntities.WILD_ZOMBIE, "Wild Zombie");
+        this.addEntityType(OccultismEntities.WILD_SKELETON, "Wild Skeleton");
+        this.addEntityType(OccultismEntities.WILD_SILVERFISH, "Wild Silverfish");
+        this.addEntityType(OccultismEntities.WILD_SPIDER, "Wild Spider");
+        this.addEntityType(OccultismEntities.WILD_BOGGED, "Wild Bogged");
+        this.addEntityType(OccultismEntities.WILD_SLIME, "Wild Slime");
+        this.addEntityType(OccultismEntities.WILD_HUSK, "Wild Husk");
+        this.addEntityType(OccultismEntities.WILD_STRAY, "Wild Stray");
+        this.addEntityType(OccultismEntities.WILD_CAVE_SPIDER, "Wild Cave Spider");
+        this.addEntityType(OccultismEntities.POSSESSED_EVOKER, "Possessed Evoker");
     }
 
     private void addMiscTranslations() {
@@ -420,11 +445,17 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.sacrifice.sheep", "Sheep");
         this.add("ritual.occultism.sacrifice.llamas", "Llama");
         this.add("ritual.occultism.sacrifice.snow_golem", "Snow Golem");
+        this.add("ritual.occultism.sacrifice.iron_golem", "Iron Golem");
         this.add("ritual.occultism.sacrifice.spiders", "Spider");
         this.add("ritual.occultism.sacrifice.flying_passive", "Allay, Bat, Bee or Parrot");
         this.add("ritual.occultism.sacrifice.cubemob", "Slime or Magma Cube");
         this.add("ritual.occultism.sacrifice.fish", "Any Fish");
         this.add("ritual.occultism.sacrifice.axolotls", "Axolotl");
+        this.add("ritual.occultism.sacrifice.camel", "Camel");
+        this.add("ritual.occultism.sacrifice.dolphin", "Dolphin");
+        this.add("ritual.occultism.sacrifice.wolfs", "Wolf");
+        this.add("ritual.occultism.sacrifice.ocelot", "Ocelot");
+        this.add("ritual.occultism.sacrifice.vex", "Vex");
 
         //Network Message
         this.add("network.messages.occultism.request_order.order_received", "Order received!");
@@ -646,6 +677,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.craft_familiar_ring.started", "Started binding djinni into familiar ring.");
         this.add("ritual.occultism.craft_familiar_ring.finished", "Successfully bound djinni into familiar ring.");
         this.add("ritual.occultism.craft_familiar_ring.interrupted", "Binding of djinni interrupted.");
+        this.add("ritual.occultism.craft_wild_trim.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.craft_wild_trim.started", "Marid has started to forge the Wild Armor Trim Smithing Template.");
+        this.add("ritual.occultism.craft_wild_trim.finished", "Successfully forged the Wild Armor Trim Smithing Template.");
+        this.add("ritual.occultism.craft_wild_trim.interrupted", "Binding of djinni interrupted.");
         this.add("ritual.occultism.possess_endermite.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.possess_endermite.started", "Started summoning possessed endermite.");
         this.add("ritual.occultism.possess_endermite.finished", "Summoned possessed endermite successfully.");
@@ -667,9 +702,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.possess_phantom.finished", "Summoned possessed phantom successfully.");
         this.add("ritual.occultism.possess_phantom.interrupted", "Summoning of possessed phantom interrupted.");
         this.add("ritual.occultism.possess_weak_shulker.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_weak_shulker.started", "Started summoning possessed weak_shulker.");
-        this.add("ritual.occultism.possess_weak_shulker.finished", "Summoned possessed weak_shulker successfully.");
-        this.add("ritual.occultism.possess_weak_shulker.interrupted", "Summoning of possessed weak_shulker interrupted.");
+        this.add("ritual.occultism.possess_weak_shulker.started", "Started summoning possessed weak shulker.");
+        this.add("ritual.occultism.possess_weak_shulker.finished", "Summoned possessed weak shulker successfully.");
+        this.add("ritual.occultism.possess_weak_shulker.interrupted", "Summoning of possessed weak shulker interrupted.");
         this.add("ritual.occultism.possess_shulker.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.possess_shulker.started", "Started summoning possessed shulker.");
         this.add("ritual.occultism.possess_shulker.finished", "Summoned possessed shulker successfully.");
@@ -722,6 +757,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.familiar_parrot.started", "Started summoning parrot familiar.");
         this.add("ritual.occultism.familiar_parrot.finished", "Summoned parrot familiar successfully.");
         this.add("ritual.occultism.familiar_parrot.interrupted", "Summoning of parrot familiar interrupted.");
+        this.add("ritual.occultism.summon_allay.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.summon_allay.started", "Started purifying Vex to Allay.");
+        this.add("ritual.occultism.summon_allay.finished", "Purified Vex to Allay successfully.");
+        this.add("ritual.occultism.summon_allay.interrupted", "Purifying Vex to allay interrupted.");
         this.add("ritual.occultism.familiar_greedy.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.familiar_greedy.started", "Started summoning greedy familiar.");
         this.add("ritual.occultism.familiar_greedy.finished", "Summoned v familiar successfully.");
@@ -768,6 +807,39 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.summon_demonic_husband.started", "Started summoning.");
         this.add("ritual.occultism.summon_demonic_husband.finished", "Summoned successfully.");
         this.add("ritual.occultism.summon_demonic_husband.interrupted", "Summoning interrupted.");
+
+        this.add("ritual.occultism.summon_wild_husk.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.summon_wild_husk.started", "Started summoning the wild horde husk.");
+        this.add("ritual.occultism.summon_wild_husk.finished", "Summoned the wild horde husk successfully.");
+        this.add("ritual.occultism.summon_wild_husk.interrupted", "Summoning of the wild horde husk interrupted.");
+        this.add("ritual.occultism.summon_wild_drowned.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.summon_wild_drowned.started", "Started summoning the wild horde drowned.");
+        this.add("ritual.occultism.summon_wild_drowned.finished", "Summoned the wild horde drowned successfully.");
+        this.add("ritual.occultism.summon_wild_drowned.interrupted", "Summoning of the wild horde drowned interrupted.");
+        this.add("ritual.occultism.summon_wild_creeper.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.summon_wild_creeper.started", "Started summoning the wild horde creeper.");
+        this.add("ritual.occultism.summon_wild_creeper.finished", "Summoned the wild horde creeper successfully.");
+        this.add("ritual.occultism.summon_wild_creeper.interrupted", "Summoning of the wild horde creeper interrupted.");
+        this.add("ritual.occultism.summon_wild_silverfish.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.summon_wild_silverfish.started", "Started summoning the wild horde silverfish.");
+        this.add("ritual.occultism.summon_wild_silverfish.finished", "Summoned the wild horde silverfish successfully.");
+        this.add("ritual.occultism.summon_wild_silverfish.interrupted", "Summoning of the wild horde silverfish interrupted.");
+        this.add("ritual.occultism.possess_weak_breeze.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_weak_breeze.started", "Started summoning possessed weak breeze.");
+        this.add("ritual.occultism.possess_weak_breeze.finished", "Summoned possessed weak breeze successfully.");
+        this.add("ritual.occultism.possess_weak_breeze.interrupted", "Summoning of possessed weak breeze interrupted.");
+        this.add("ritual.occultism.possess_breeze.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_breeze.started", "Started summoning possessed breeze.");
+        this.add("ritual.occultism.possess_breeze.finished", "Summoned possessed breeze successfully.");
+        this.add("ritual.occultism.possess_breeze.interrupted", "Summoning of possessed breeze interrupted.");
+        this.add("ritual.occultism.possess_strong_breeze.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_strong_breeze.started", "Started summoning possessed strong breeze.");
+        this.add("ritual.occultism.possess_strong_breeze.finished", "Summoned possessed strong breeze successfully.");
+        this.add("ritual.occultism.possess_strong_breeze.interrupted", "Summoning of possessed strong breeze interrupted.");
+        this.add("ritual.occultism.summon_horde_illager.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.summon_horde_illager.started", "Started summoning the small illager invasion.");
+        this.add("ritual.occultism.summon_horde_illager.finished", "Summoned the small illager invasion successfully.");
+        this.add("ritual.occultism.summon_horde_illager.interrupted", "Summoning of the small illager invasion interrupted.");
 
         this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "conditions", "Not all requirements for this ritual are met.");
         this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "started", "Started resurrecting familiar.");
@@ -1038,6 +1110,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         - [Otherstone Trader](entry://summoning_rituals/summon_otherstone_trader)
                         - [Otherworld Sapling Trader](entry://summoning_rituals/summon_otherworld_sapling_trader)
                         - [Resurrect Familiar](entry://familiar_rituals/resurrection)
+                        - [Purify Vex to Allay](entry://familiar_rituals/summon_allay)
                         """);
 
 
@@ -1156,6 +1229,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         - [Wither Skeleton Skull](entry://summoning_rituals/wither_skull)
+                        - [Horde Husk](entry://possession_rituals/horde_husk)
+                        - [Horde Drowned](entry://possession_rituals/horde_drowned)
+                        - [Horde Creeper](entry://possession_rituals/horde_creeper)
+                        - [Horde Silverfish](entry://possession_rituals/horde_silverfish)
+                        - [Trial Key](entry://possession_rituals/possess_weak_breeze)
+                        - [Ominous Trial Key](entry://possession_rituals/possess_breeze)
+                        - [Heavy Core](entry://possession_rituals/possess_strong_breeze)
+                        - [Small Illager Invasion](entry://possession_rituals/horde_illager)
                         """.formatted(COLOR_PURPLE));
 
         helper.entry("possess_foliot");
@@ -1352,6 +1433,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                 """
                         - [Storage Stabilizer Tier 4](entry://crafting_rituals/craft_stabilizer_tier4)
                         - [Marid Master Miner](entry://crafting_rituals/craft_marid_miner)
+                        - [Wild Armor Trim Smithing Template](entry://crafting_rituals/craft_wild_trim)
                         """.formatted(COLOR_PURPLE));
     }
 
@@ -2114,6 +2196,16 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         helper.page("ritual");
         //no text
+        helper.entry("craft_wild_trim");
+        this.add(helper.entryName(), "Forge Wild Trim");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        Unlike other rituals, creating a [](item://minecraft:wild_armor_trim_smithing_template) is a service provided by a Marid that is not bound to the final object. You sacrifice the items and the Marid uses his power to forge that item for you.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
     }
 
     private void addFamiliarRitualsCategory(BookContextHelper helper) {
@@ -2569,6 +2661,25 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         **Upgrade Behaviour**\\
                         Cannot be upgraded by the blacksmith familiar.
                            """.formatted(COLOR_PURPLE));
+        //no text
+
+        helper.entry("summon_allay");
+        this.add(helper.entryName(), "Purify Vex to Allay");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: Allay
+                          """);
+
+        helper.page("ritual");
+
+        helper.page("description");
+        this.add(helper.pageTitle(), "Description");
+        this.add(helper.pageText(),
+                """
+                       Purify a Vex to an Allay on a resurrection process that reveals its true name.
+                         """.formatted(COLOR_PURPLE));
 
     }
 
@@ -2891,6 +3002,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     private void addRitualDummies() {
         this.add("item.occultism.ritual_dummy.custom_ritual", "Custom Ritual Dummy");
         this.add("item.occultism.ritual_dummy.custom_ritual.tooltip", "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
+        this.add("item.occultism.ritual_dummy.craft_wild_trim", "Ritual: Forge Wild Armor Trim Smithing Template");
+        this.add("item.occultism.ritual_dummy.craft_wild_trim.tooltip", "Marid will forge a Wild Armor Trim Smithing Template.");
         this.add("item.occultism.ritual_dummy.craft_dimensional_matrix", "Ritual: Craft Dimensional Matrix");
         this.add("item.occultism.ritual_dummy.craft_dimensional_matrix.tooltip", "The dimensional matrix is the entry point to a small dimension used for storing items.");
         this.add("item.occultism.ritual_dummy.craft_dimensional_mineshaft", "Ritual: Craft Dimensional Mineshaft");
@@ -3019,7 +3132,25 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.summon_wild_otherworld_bird.tooltip", "Summons a Drikwing Familiar that can be tamed by anyone, not just the summoner.");
         this.add("item.occultism.ritual_dummy.summon_wild_parrot", "Ritual: Summon Wild Parrot");
         this.add("item.occultism.ritual_dummy.summon_wild_parrot.tooltip", "Summons a Parrot that can be tamed by anyone, not just the summoner.");
+        this.add("item.occultism.ritual_dummy.summon_allay", "Ritual: Purify Vex to Allay");
+        this.add("item.occultism.ritual_dummy.summon_allay.tooltip", "Purify a Vex to a Allay on a resurrection process.");
 
+        this.add("item.occultism.ritual_dummy.summon_wild_husk", "Ritual: Summon The Wild Horde Husk");
+        this.add("item.occultism.ritual_dummy.summon_wild_husk.tooltip", "The Wild Horde Husk consists of a few Husks that drop items related to desert trails.");
+        this.add("item.occultism.ritual_dummy.summon_wild_drowned", "Ritual: Summon The Wild Horde Drowned");
+        this.add("item.occultism.ritual_dummy.summon_wild_drowned.tooltip", "The Wild Horde Drowned consists of a few Drowneds that drop items related to ocean trails.");
+        this.add("item.occultism.ritual_dummy.summon_wild_creeper", "Ritual: Summon The Wild Horde Creeper");
+        this.add("item.occultism.ritual_dummy.summon_wild_creeper.tooltip", "The Wild Horde Creeper consists of a few charged Creepers that drop many disks.");
+        this.add("item.occultism.ritual_dummy.summon_wild_silverfish", "Ritual: Summon The Wild Horde Silverfish");
+        this.add("item.occultism.ritual_dummy.summon_wild_silverfish.tooltip", "The Wild Horde Silverfish consists of a few Silverfishs that drop items related to ruins trails.");
+        this.add("item.occultism.ritual_dummy.possess_weak_breeze", "Ritual: Summon Possessed Weak Breeze");
+        this.add("item.occultism.ritual_dummy.possess_weak_breeze.tooltip", "The possessed Weak Breeze will drop a Trial Key and trial chamber related items.");
+        this.add("item.occultism.ritual_dummy.possess_breeze", "Ritual: Summon Possessed Breeze");
+        this.add("item.occultism.ritual_dummy.possess_breeze.tooltip", "The possessed Breeze will drop a Ominous Trial Key and trial chamber related items.");
+        this.add("item.occultism.ritual_dummy.possess_strong_breeze", "Ritual: Summon Possessed Strong Breeze");
+        this.add("item.occultism.ritual_dummy.possess_strong_breeze.tooltip", "The possessed Strong Breeze will drop a Heavy Core and trial chamber related items.");
+        this.add("item.occultism.ritual_dummy.summon_horde_illager", "Ritual: Summon Possessed Evoker");
+        this.add("item.occultism.ritual_dummy.summon_horde_illager.tooltip", "Summon a possessed Evoker and his henchmen.");
 
         this.add(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Ritual: Summon Demonic Wife");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Summons a Demonic Wife to support you: She will fight for you, help with cooking, and extend potion durations.");

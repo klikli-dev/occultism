@@ -3843,7 +3843,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 "___________________________",
                 "_______b_e_x_p_q___________",
                 "___________________________",
-                "_______d_h_c_______________",
+                "_______d_h_c__w____________",
                 "___________________________",
                 "___9_0_____________________",
                 "___________________________",
@@ -3905,6 +3905,9 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         var craftFamiliarRing = this.makeCraftFamiliarRingEntry(entryMap, 'c');
         craftFamiliarRing.withParent(BookEntryParentModel.create(craftSoulGem.getId()));
 
+        var craftWildTrim = this.makeCraftWildTrimEntry(entryMap, 'w');
+        craftWildTrim.withParent(BookEntryParentModel.create(overview.getId()));
+
         //add true condition to all entries to enable them by default
         overview.withCondition(BookTrueConditionModel.create());
         craftInfusedPickaxe.withCondition(BookTrueConditionModel.create());
@@ -3926,6 +3929,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         craftSatchel.withCondition(BookTrueConditionModel.create());
         craftSoulGem.withCondition(BookTrueConditionModel.create());
         craftFamiliarRing.withCondition(BookTrueConditionModel.create());
+        craftWildTrim.withCondition(BookTrueConditionModel.create());
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon(this.modLoc("textures/gui/book/infusion.png"))
@@ -3951,7 +3955,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         craftStabilizerTier4,
                         craftStableWormhole,
                         craftStorageControllerBase,
-                        craftStorageRemote
+                        craftStorageRemote,
+                        craftWildTrim
                 );
     }
 
@@ -4427,6 +4432,27 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         gogglesRecipe
                 );
     }
+    private BookEntryModel makeCraftWildTrimEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("craft_wild_trim");
+
+        this.context().page("spotlight");
+        var spotlight = BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE))
+                .withText(this.context().pageText());
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_wild_trim"));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        spotlight,
+                        ritual
+                );
+    }
+
     //endregion
 
     //region Possession Rituals
@@ -4435,15 +4461,17 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         var entryMap = ModonomiconAPI.get().getEntryMap();
         entryMap.setMap(
+                "_________H____F_J_K_N______",
+                "________A__________________",
+                "_______D_G___I_E_L_M_______",
                 "___________________________",
-                "___________________________",
-                "___________________________",
-                "_______D_E_A_I_L_M_________",
                 "___r_o_____________________",
-                "_______F_G_H_J_K_N_________",
                 "___________________________",
+                "_______V_W_Y____S__________",
                 "___________________________",
-                "___________________________"
+                "__________X_Z___T__________",
+                "___________________________",
+                "________________U__________"
         );
 
         var overview = this.makePossessionRitualsOverviewEntry(entryMap, 'o');
@@ -4471,10 +4499,26 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         possessWarden.withParent(BookEntryParentModel.create(overview.getId()));
         var possessHoglin = this.makePossessHoglinEntry(entryMap, 'N');
         possessHoglin.withParent(BookEntryParentModel.create(overview.getId()));
+        var hordeHusk = this.makeHordeHuskEntry(entryMap, 'W');
+        hordeHusk.withParent(BookEntryParentModel.create(overview.getId()));
+        var hordeDrowned = this.makeHordeDrownedEntry(entryMap, 'X');
+        hordeDrowned.withParent(BookEntryParentModel.create(overview.getId()));
+        var hordeCreeper = this.makeHordeCreeperEntry(entryMap, 'Y');
+        hordeCreeper.withParent(BookEntryParentModel.create(overview.getId()));
+        var hordeSilverfish = this.makeHordeSilverfishEntry(entryMap, 'Z');
+        hordeSilverfish.withParent(BookEntryParentModel.create(overview.getId()));
+        var hordeIllager = this.makeHordeIllagerEntry(entryMap, 'V');
+        hordeIllager.withParent(BookEntryParentModel.create(overview.getId()));
+        var possessWeakBreeze = this.makePossessWeakBreezeEntry(entryMap, 'S');
+        possessWeakBreeze.withParent(BookEntryParentModel.create(overview.getId()));
+        var possessBreeze = this.makePossessBreezeEntry(entryMap, 'T');
+        possessBreeze.withParent(BookEntryParentModel.create(possessWeakBreeze.getId()));
+        var possessStrongBreeze = this.makePossessStrongBreezeEntry(entryMap, 'U');
+        possessStrongBreeze.withParent(BookEntryParentModel.create(possessBreeze.getId()));
 
         this.context().category("summoning_rituals"); //re-use the entries from the summoning rituals category
         var possessWitherSkeleton = this.makeWitherSkullEntry(entryMap, 'H');
-        possessWitherSkeleton.withParent(BookEntryParentModel.create(overview.getId()));
+        possessWitherSkeleton.withParent(BookEntryParentModel.create(possessSkeleton.getId()));
         var afritEssence = this.makeAfritEssenceEntry(entryMap, 'A');
         afritEssence.withParent(BookEntryParentModel.create(overview.getId()));
         this.context().category("possession_rituals");
@@ -4493,6 +4537,10 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         possessHoglin.withCondition(BookTrueConditionModel.create());
         possessWitherSkeleton.withCondition(BookTrueConditionModel.create());
         afritEssence.withCondition(BookTrueConditionModel.create());
+        hordeHusk.withCondition(BookTrueConditionModel.create());
+        hordeDrowned.withCondition(BookTrueConditionModel.create());
+        hordeCreeper.withCondition(BookTrueConditionModel.create());
+        hordeSilverfish.withCondition(BookTrueConditionModel.create());
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon(this.modLoc("textures/gui/book/possession.png"))
@@ -4511,7 +4559,15 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         possessWarden,
                         possessHoglin,
                         possessWitherSkeleton,
-                        afritEssence
+                        afritEssence,
+                        hordeHusk,
+                        hordeDrowned,
+                        hordeCreeper,
+                        hordeSilverfish,
+                        hordeIllager,
+                        possessWeakBreeze,
+                        possessBreeze,
+                        possessStrongBreeze
                 );
     }
 
@@ -4843,7 +4899,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageText(),
                 """
                           **Drops**: Can drop: [](item://minecraft:netherite_upgrade_smithing_template),
-                          return back [](item://minecraft:netherite_scrap) or nothing;
+                          return back [](item://minecraft:netherite_scrap) or other things (See next page);
                         """);
 
         this.context().page("ritual");
@@ -4855,7 +4911,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        In this ritual a [#](%1$s)Hoglin[#]() is spawned using the life energy of a [#](%1$s)Pig[#]() and immediately possessed by the summoned [#](%1$s)Afrit[#](). The [#](%1$s)Possessed Hoglin[#]() can drop a [](item://minecraft:netherite_upgrade_smithing_template), [](item://minecraft:snout_armor_trim_smithing_template), return back [](item://minecraft:netherite_scrap) or nothing when killed. You need to kill this mob before the transformation to a Zoglin if you don't want to perform the ritual in the nether.
+                        In this ritual a [#](%1$s)Hoglin[#]() is spawned using the life energy of a [#](%1$s)Pig[#]() and immediately possessed by the summoned [#](%1$s)Afrit[#](). The [#](%1$s)Possessed Hoglin[#]() can drop a [](item://minecraft:netherite_upgrade_smithing_template), [](item://minecraft:snout_armor_trim_smithing_template), [](item://minecraft:music_disc_pigstep), [](item://minecraft:piglin_banner_pattern), [](item://minecraft:nether_brick) or return back [](item://minecraft:netherite_scrap). You need to kill this mob before the transformation to a Zoglin if you don't want to perform the ritual in the nether.
                         """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
@@ -4868,6 +4924,286 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 );
     }
 
+    private BookEntryModel makeHordeHuskEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("horde_husk");
+        this.lang().add(this.context().entryName(), "Wild Horde Husk");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.create()
+                .withEntityId("occultism:wild_horde_husk")
+                .withScale(1f)
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        **Drops**: Items related to desert trials (See next page);
+                                """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_wild_husk"));
+
+        this.context().page("description");
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        Husks summoned by this way can drop: [](item://minecraft:dune_armor_trim_smithing_template), [](item://minecraft:archer_pottery_sherd), [](item://minecraft:miner_pottery_sherd), [](item://minecraft:prize_pottery_sherd), [](item://minecraft:skull_pottery_sherd), [](item://minecraft:arms_up_pottery_sherd), [](item://minecraft:brewer_pottery_sherd).
+                        """.formatted(COLOR_PURPLE));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+    private BookEntryModel makeHordeDrownedEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("horde_drowned");
+        this.lang().add(this.context().entryName(), "Wild Horde Drowned");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.create()
+                .withEntityId("occultism:wild_horde_drowned")
+                .withScale(1f)
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        **Drops**: Items related to ocean trials (See next page);
+                                """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_wild_drowned"));
+
+        this.context().page("description");
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        Drowned summoned by this way can drop: [](item://minecraft:sniffer_egg), [](item://minecraft:turtle_egg), [](item://minecraft:trident), [](item://minecraft:angler_pottery_sherd), [](item://minecraft:shelter_pottery_sherd), [](item://minecraft:snort_pottery_sherd), [](item://minecraft:blade_pottery_sherd), [](item://minecraft:explorer_pottery_sherd), [](item://minecraft:mourner_pottery_sherd), [](item://minecraft:plenty_pottery_sherd).
+                        """.formatted(COLOR_PURPLE));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.SNIFFER_EGG)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+    private BookEntryModel makeHordeCreeperEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("horde_creeper");
+        this.lang().add(this.context().entryName(), "Wild Horde Creeper");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.create()
+                .withEntityId("occultism:wild_horde_creeper")
+                .withScale(0.8f)
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        **Drops**: Discs that the normal creeper drops when killed by Skeleton (See next page);
+                                """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_wild_creeper"));
+
+        this.context().page("description");
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        Creeper summoned in this ritual are CHARGED and will drop 1-3 of these discs: [](item://minecraft:music_disc_13), [](item://minecraft:music_disc_cat), [](item://minecraft:music_disc_blocks), [](item://minecraft:music_disc_chirp), [](item://minecraft:music_disc_far), [](item://minecraft:music_disc_mall), [](item://minecraft:music_disc_mellohi), [](item://minecraft:music_disc_stal), [](item://minecraft:music_disc_strad), [](item://minecraft:music_disc_ward), [](item://minecraft:music_disc_11), [](item://minecraft:music_disc_wait).
+                        """.formatted(COLOR_PURPLE));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.MUSIC_DISC_CAT)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+    private BookEntryModel makeHordeSilverfishEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("horde_silverfish");
+        this.lang().add(this.context().entryName(), "Wild Horde Silverfish");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.create()
+                .withEntityId("occultism:wild_horde_silverfish")
+                .withScale(1f)
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        **Drops**: Items related to ruins trials (See next page);
+                                """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_wild_silverfish"));
+
+        this.context().page("description");
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        Silverfish summoned by this way can drop: [](item://minecraft:music_disc_relic), [](item://minecraft:host_armor_trim_smithing_template), [](item://minecraft:raiser_armor_trim_smithing_template), [](item://minecraft:shaper_armor_trim_smithing_template), [](item://minecraft:wayfinder_armor_trim_smithing_template), [](item://minecraft:burn_pottery_sherd), [](item://minecraft:danger_pottery_sherd), [](item://minecraft:friend_pottery_sherd), [](item://minecraft:heart_pottery_sherd), [](item://minecraft:heartbreak_pottery_sherd), [](item://minecraft:howl_pottery_sherd), [](item://minecraft:sheaf_pottery_sherd).
+                        """.formatted(COLOR_PURPLE));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.MUSIC_DISC_RELIC)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+    private BookEntryModel makeHordeIllagerEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("horde_illager");
+        this.lang().add(this.context().entryName(), "Mini Illager Invasion");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.create()
+                .withEntityId("occultism:possessed_evoker")
+                .withScale(0.7f)
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                          **Drops**: [](item://minecraft:totem_of_undying)
+                        """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_horde_illager"));
+
+        this.context().page("description");
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        Summon a possessed Evoker and his henchmen to get [](item://minecraft:totem_of_undying), [](item://minecraft:vex_armor_trim_smithing_template) and [](item://minecraft:sentry_armor_trim_smithing_template).
+                        """.formatted(COLOR_PURPLE));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.TOTEM_OF_UNDYING)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+    private BookEntryModel makePossessWeakBreezeEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("possess_weak_breeze");
+        this.lang().add(this.context().entryName(), "The first key");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.create()
+                .withEntityId("occultism:possessed_weak_breeze")
+                .withScale(0.5f)
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                          **Drops**: 1x [](item://minecraft:trial_key) and can drop other things (See next page);
+                        """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_weak_breeze"));
+
+        this.context().page("description");
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        [](item://minecraft:breeze_rod) cannot be obtained from Possessed Weak Breeze rods due to their fragile nature, but this version of Breeze hides some treasures and has a chance to drop: [](item://minecraft:guster_pottery_sherd), [](item://minecraft:scrape_pottery_sherd), [](item://minecraft:music_disc_creator_music_box) and [](item://minecraft:ominous_bottle).
+                        """.formatted(COLOR_PURPLE));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.TRIAL_KEY)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+    private BookEntryModel makePossessBreezeEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("possess_breeze");
+        this.lang().add(this.context().entryName(), "In the chamber");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.create()
+                .withEntityId("occultism:possessed_breeze")
+                .withScale(1.0f)
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                          **Drops**: 1x [](item://minecraft:ominous_trial_key) and can drop other things (See next page);
+                        """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_breeze"));
+
+        this.context().page("description");
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        The Possessed Breeze has intrinsic Ominous Essence causing a drop of [](item://minecraft:ominous_trial_key). The [](item://minecraft:breeze_rod) form this enemy can survive after the battle and the extra loot is: [](item://minecraft:bolt_armor_trim_smithing_template), [](item://minecraft:guster_banner_pattern) and [](item://minecraft:music_disc_precipice).
+                        """.formatted(COLOR_PURPLE));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.OMINOUS_TRIAL_KEY)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+    private BookEntryModel makePossessStrongBreezeEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("possess_strong_breeze");
+        this.lang().add(this.context().entryName(), "Glorious Vault");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.create()
+                .withEntityId("occultism:possessed_strong_breeze")
+                .withScale(1.0f)
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                          **Drops**: 1x [](item://minecraft:heavy_core) and can drop other things (See next page);
+                        """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_strong_breeze"));
+
+        this.context().page("description");
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        The Possessed Strong Breeze is 'Flow-Forged', granting a powerful version of the regular Breeze. This is the final target to obtain a [](item://minecraft:heavy_core) and as a bonus, you can get: [](item://minecraft:flow_armor_trim_smithing_template), [](item://minecraft:flow_banner_pattern), [](item://minecraft:flow_pottery_sherd) and [](item://minecraft:music_disc_creator).
+                        """.formatted(COLOR_PURPLE));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.HEAVY_CORE)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
     //endregion
 
     private BookCategoryModel makeStorageCategory() {

@@ -64,12 +64,13 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
                     Ingredient.LIST_CODEC.fieldOf("ingredients").forGetter((r) -> r.ingredients),
                     Codec.INT.optionalFieldOf("duration", 30).forGetter((r) -> r.duration),
                     Codec.INT.optionalFieldOf("spirit_max_age", -1).forGetter((r) -> r.spiritMaxAge),
+                    Codec.INT.optionalFieldOf("summon_number", 1).forGetter((r) -> r.summonNumber),
                     ResourceLocation.CODEC.optionalFieldOf("spirit_job_type").forGetter(r -> Optional.ofNullable(r.spiritJobType)),
                     EntityToSacrifice.CODEC.optionalFieldOf("entity_to_sacrifice").forGetter(r -> Optional.ofNullable(r.entityToSacrifice)),
                     Ingredient.CODEC.optionalFieldOf("item_to_use").forGetter(r -> Optional.ofNullable(r.itemToUse)),
                     Codec.STRING.optionalFieldOf("command").forGetter(r -> Optional.ofNullable(r.command))
-            ).apply(instance, (pentacleId, ritualType, ritualDummy, result, entityToSummon, entityNbt, activationItem, ingredients, duration, spiritMaxAge, spiritJobType, entityToSacrifice, itemToUse, command) -> new RitualRecipe(pentacleId, ritualType, ritualDummy, result, entityToSummon.orElse(null), entityNbt.orElse(null), activationItem,
-                    NonNullList.copyOf(ingredients), duration, spiritMaxAge, spiritJobType.orElse(null), entityToSacrifice.orElse(null), itemToUse.orElse(Ingredient.EMPTY), command.orElse(null)))
+            ).apply(instance, (pentacleId, ritualType, ritualDummy, result, entityToSummon, entityNbt, activationItem, ingredients, duration, spiritMaxAge, summonNumber, spiritJobType, entityToSacrifice, itemToUse, command) -> new RitualRecipe(pentacleId, ritualType, ritualDummy, result, entityToSummon.orElse(null), entityNbt.orElse(null), activationItem,
+                    NonNullList.copyOf(ingredients), duration, spiritMaxAge, summonNumber, spiritJobType.orElse(null), entityToSacrifice.orElse(null), itemToUse.orElse(Ingredient.EMPTY), command.orElse(null)))
     );
 
     public static final StreamCodec<RegistryFriendlyByteBuf, RitualRecipe> STREAM_CODEC = OccultismExtraStreamCodecs.composite(
@@ -93,6 +94,8 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
             (r) -> r.duration,
             ByteBufCodecs.INT,
             (r) -> r.spiritMaxAge,
+            ByteBufCodecs.INT,
+            (r) -> r.summonNumber,
             ByteBufCodecs.optional(ResourceLocation.STREAM_CODEC),
             (r) -> Optional.ofNullable(r.spiritJobType),
             ByteBufCodecs.optional(EntityToSacrifice.STREAM_CODEC),
@@ -101,9 +104,9 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
             (r) -> Optional.ofNullable(r.itemToUse),
             ByteBufCodecs.optional(ByteBufCodecs.STRING_UTF8),
             (r) -> Optional.ofNullable(r.command),
-            (pentacleId, ritualType, ritualDummy, result, entityToSummon, entityNbt, activationItem, ingredients, duration, spiritMaxAge, spiritJobType, entityToSacrifice, itemToUse, command) ->
+            (pentacleId, ritualType, ritualDummy, result, entityToSummon, entityNbt, activationItem, ingredients, duration, spiritMaxAge, summonNumber, spiritJobType, entityToSacrifice, itemToUse, command) ->
                     new RitualRecipe(pentacleId, ritualType, ritualDummy, result, entityToSummon.orElse(null), entityNbt.orElse(null), activationItem,
-                            NonNullList.copyOf(ingredients), duration, spiritMaxAge, spiritJobType.orElse(null), entityToSacrifice.orElse(null), itemToUse.orElse(Ingredient.EMPTY), command.orElse(null))
+                            NonNullList.copyOf(ingredients), duration, spiritMaxAge, summonNumber, spiritJobType.orElse(null), entityToSacrifice.orElse(null), itemToUse.orElse(Ingredient.EMPTY), command.orElse(null))
     );
 
     public static Serializer SERIALIZER = new Serializer();
@@ -121,11 +124,12 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
     private final Ingredient itemToUse;
     private final int duration;
     private final int spiritMaxAge;
+    private final int summonNumber;
     private final float durationPerIngredient;
     private final String command;
 
     public RitualRecipe(ResourceLocation pentacleId, ResourceLocation ritualType, ItemStack ritualDummy,
-                        ItemStack result, EntityType<?> entityToSummon, CompoundTag entityNbt, Ingredient activationItem, NonNullList<Ingredient> ingredients, int duration, int spiritMaxAge, ResourceLocation spiritJobType, EntityToSacrifice entityToSacrifice, Ingredient itemToUse, String command) {
+                        ItemStack result, EntityType<?> entityToSummon, CompoundTag entityNbt, Ingredient activationItem, NonNullList<Ingredient> ingredients, int duration, int spiritMaxAge, int summonNumber, ResourceLocation spiritJobType, EntityToSacrifice entityToSacrifice, Ingredient itemToUse, String command) {
         this.result = result;
         this.ingredients = ingredients;
         this.entityToSummon = entityToSummon;
@@ -137,6 +141,7 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
         this.activationItem = activationItem;
         this.duration = duration;
         this.spiritMaxAge = spiritMaxAge;
+        this.summonNumber = summonNumber;
         this.spiritJobType = spiritJobType;
         this.durationPerIngredient = this.duration / (float) (this.getIngredients().size() + 1);
         this.entityToSacrifice = entityToSacrifice;
@@ -269,6 +274,10 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
 
     public int getSpiritMaxAge() {
         return this.spiritMaxAge;
+    }
+
+    public int getSummonNumber() {
+        return this.summonNumber;
     }
 
     public record EntityToSacrifice(TagKey<EntityType<?>> tag, String displayName) {
