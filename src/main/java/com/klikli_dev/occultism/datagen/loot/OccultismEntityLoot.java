@@ -305,20 +305,15 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
         return LootTable.lootTable()
                 .withPool(
                         LootPool.lootPool()
-                                .setRolls(ConstantValue.exactly(1.0F)
-                                )
-                                .add(
-                                        LootItem.lootTableItem(Items.SHULKER_SHELL)
-                                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 1.0F))
-                                                )
-                                                .when(LootItemRandomChanceCondition.randomChance(0.1F))
-                                )
-                                .add(
-                                        LootItem.lootTableItem(Items.CHORUS_FRUIT)
-                                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))
-                                                )
-                                )
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(Items.SHULKER_SHELL)
+                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 1.0F))))
                                 .when(LootItemRandomChanceCondition.randomChance(0.1F))
+                ) .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(Items.CHORUS_FRUIT)
+                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))
                 );
     }
 }
