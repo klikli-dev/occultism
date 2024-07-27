@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.140.0] - 2024-07-27
+### :sparkles: New Features
+- [`0b78449`](https://github.com/klikli-dev/occultism/commit/0b78449f4774a9dd8a7a34fa1a44a85d208a119f) - Trials & Possessions ([#1170](https://github.com/klikli-dev/occultism/pull/1170)) - thanks @Eqis-Edu *(commit by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+
+
 ## [release/v1.21-1.139.3] - 2024-07-27
 ### :bug: Bug Fixes
 - [`f8935af`](https://github.com/klikli-dev/occultism/commit/f8935af1bc265bbbe4522cb9f45df53fdecf46fe) - possessed weak shulker loot table *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1396,3 +1401,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.139.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.139.0...release/v1.21-1.139.1
 [release/v1.21-1.139.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.139.1...release/v1.21-1.139.2
 [release/v1.21-1.139.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.139.2...release/v1.21-1.139.3
+[release/v1.21-1.140.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.139.3...release/v1.21-1.140.0
