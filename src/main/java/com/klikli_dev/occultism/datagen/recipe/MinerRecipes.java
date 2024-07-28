@@ -93,6 +93,7 @@ public abstract class MinerRecipes extends RecipeProvider {
 
         //AoC ores also need corresponding tags generated!
         //TODO: Weights
+        //TODO: Test with AOA present, then remove dependency
         makeOreRecipe("bone_fragments", 0, recipeOutput);
         makeOreRecipe("baronyte", 0, recipeOutput);
         makeOreRecipe("blazium", 0, recipeOutput);
