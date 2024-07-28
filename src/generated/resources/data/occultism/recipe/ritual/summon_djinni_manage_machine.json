@@ -19,7 +19,7 @@
       "item": "minecraft:furnace"
     }
   ],
-  "pentacle_id": "occultism:summon_afrit",
+  "pentacle_id": "occultism:summon_djinni",
   "result": {
     "count": 1,
     "id": "occultism:book_of_calling_djinni_manage_machine"
