@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.141.0] - 2024-07-29
+### :sparkles: New Features
+- [`2132601`](https://github.com/klikli-dev/occultism/commit/2132601669f12995ad0490291fe9f129535cf49a) - add AoA Ores to Miner *(PR [#1175](https://github.com/klikli-dev/occultism/pull/1175) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *addresses issue [#1173](https://github.com/klikli-dev/occultism/issues/1173) opened by [@IllustrativeJackal](https://github.com/IllustrativeJackal)*
+
+### :bug: Bug Fixes
+- [`4397415`](https://github.com/klikli-dev/occultism/commit/43974153ff8a4201342b93738203973e69ce1bef) - summon djinni pentacle not used (uses afrit instead) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`5095969`](https://github.com/klikli-dev/occultism/commit/5095969e6575b566e690330f2f42ffab60452d84) - wild slime attribute error *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.140.0] - 2024-07-27
 ### :sparkles: New Features
 - [`0b78449`](https://github.com/klikli-dev/occultism/commit/0b78449f4774a9dd8a7a34fa1a44a85d208a119f) - Trials & Possessions ([#1170](https://github.com/klikli-dev/occultism/pull/1170)) - thanks @Eqis-Edu *(commit by [@Eqis-Edu](https://github.com/Eqis-Edu))*
@@ -1402,3 +1412,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.139.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.139.1...release/v1.21-1.139.2
 [release/v1.21-1.139.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.139.2...release/v1.21-1.139.3
 [release/v1.21-1.140.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.139.3...release/v1.21-1.140.0
+[release/v1.21-1.141.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.140.0...release/v1.21-1.141.0
