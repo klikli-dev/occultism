@@ -10,6 +10,8 @@ import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
@@ -29,9 +31,39 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.addMinecraftTags(provider);
         this.addOccultismTags(provider);
         this.addCuriosTags(provider);
+        this.addOptionalOreTagsForMinerCompat(provider);
 
     }
 
+    private void addOptionalOreTagsForMinerCompat(HolderLookup.Provider provider) {
+        this.tag(this.cTag("ores/bone_fragments")).addOptional(this.loc("aoa3:bone_fragments_ore"));
+        this.tag(this.cTag("ores/baronyte")).addOptional(this.loc("aoa3:baronyte_ore"));
+        this.tag(this.cTag("ores/blazium")).addOptional(this.loc("aoa3:blazium_ore"));
+        this.tag(this.cTag("ores/bloodstone")).addOptional(this.loc("aoa3:bloodstone_ore"));
+        this.tag(this.cTag("ores/blue_gemstone")).addOptional(this.loc("aoa3:blue_gemstone_ore"));
+        this.tag(this.cTag("ores/charged_runium")).addOptional(this.loc("aoa3:charged_runium_ore"));
+        this.tag(this.cTag("ores/crystallite")).addOptional(this.loc("aoa3:crystallite_ore"));
+        this.tag(this.cTag("ores/elecanium")).addOptional(this.loc("aoa3:elecanium_ore"));
+        this.tag(this.cTag("ores/emberstone")).addOptional(this.loc("aoa3:emberstone_ore"));
+        this.tag(this.cTag("ores/gemenyte")).addOptional(this.loc("aoa3:gemenyte_ore"));
+        this.tag(this.cTag("ores/ghastly")).addOptional(this.loc("aoa3:ghastly_ore"));
+        this.tag(this.cTag("ores/ghoulish")).addOptional(this.loc("aoa3:ghoulish_ore"));
+        this.tag(this.cTag("ores/green_gemstone")).addOptional(this.loc("aoa3:green_gemstone_ore"));
+        this.tag(this.cTag("ores/jade")).addOptional(this.loc("aoa3:jade_ore"));
+        this.tag(this.cTag("ores/jewelyte")).addOptional(this.loc("aoa3:jewelyte_ore"));
+        this.tag(this.cTag("ores/limonite")).addOptional(this.loc("aoa3:limonite_ore"));
+        this.tag(this.cTag("ores/lyon")).addOptional(this.loc("aoa3:lyon_ore"));
+        this.tag(this.cTag("ores/mystite")).addOptional(this.loc("aoa3:mystite_ore"));
+        this.tag(this.cTag("ores/ornamyte")).addOptional(this.loc("aoa3:ornamyte_ore"));
+        this.tag(this.cTag("ores/purple_gemstone")).addOptional(this.loc("aoa3:purple_gemstone_ore"));
+        this.tag(this.cTag("ores/red_gemstone")).addOptional(this.loc("aoa3:red_gemstone_ore"));
+        this.tag(this.cTag("ores/runium")).addOptional(this.loc("aoa3:runium_ore"));
+        this.tag(this.cTag("ores/shyregem")).addOptional(this.loc("aoa3:shyregem_ore"));
+        this.tag(this.cTag("ores/shyrestone")).addOptional(this.loc("aoa3:shyrestone_ore"));
+        this.tag(this.cTag("ores/varsium")).addOptional(this.loc("aoa3:varsium_ore"));
+        this.tag(this.cTag("ores/white_gemstone")).addOptional(this.loc("aoa3:white_gemstone_ore"));
+        this.tag(this.cTag("ores/yellow_gemstone")).addOptional(this.loc("aoa3:yellow_gemstone_ore"));
+    }
 
     private void addCuriosTags(HolderLookup.Provider provider) {
         //TODO: enable if we have curios again
@@ -96,12 +128,12 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .add(OccultismBlocks.OTHERSTONE.asItem())
                 .add(OccultismBlocks.OTHERSTONE_NATURAL.asItem());
 
-        this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(OccultismItems.INFUSED_PICKAXE.get(),OccultismItems.IESNIUM_PICKAXE.get()).replace(false);
-        this.copy(BlockTags.LEAVES,ItemTags.LEAVES);
-        this.copy(BlockTags.LOGS,ItemTags.LOGS);
-        this.copy(BlockTags.PIGLIN_REPELLENTS,ItemTags.PIGLIN_REPELLENTS);
-        this.copy(BlockTags.SAPLINGS,ItemTags.SAPLINGS);
-        this.tag(ItemTags.PICKAXES).add(OccultismItems.INFUSED_PICKAXE.get(),OccultismItems.IESNIUM_PICKAXE.get()).replace(false);
+        this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(OccultismItems.INFUSED_PICKAXE.get(), OccultismItems.IESNIUM_PICKAXE.get()).replace(false);
+        this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
+        this.copy(BlockTags.LOGS, ItemTags.LOGS);
+        this.copy(BlockTags.PIGLIN_REPELLENTS, ItemTags.PIGLIN_REPELLENTS);
+        this.copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
+        this.tag(ItemTags.PICKAXES).add(OccultismItems.INFUSED_PICKAXE.get(), OccultismItems.IESNIUM_PICKAXE.get()).replace(false);
         this.tag(ItemTags.SWORDS).add(OccultismItems.BUTCHER_KNIFE.get()).replace(false);
 
         this.tag(ItemTags.BOOKSHELF_BOOKS)
@@ -200,4 +232,17 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .add(OccultismItems.BURNT_OTHERSTONE.get(), OccultismItems.OTHERWORLD_ASHES.get()).replace(false);
 
     }
+
+    private TagKey<Item> cTag(String path) {
+        return ItemTags.create(this.cLoc(path));
+    }
+
+    private ResourceLocation cLoc(String path) {
+        return ResourceLocation.fromNamespaceAndPath("c", path);
+    }
+
+    private ResourceLocation loc(String namespaceAndPath) {
+        return ResourceLocation.tryParse(namespaceAndPath);
+    }
+
 }

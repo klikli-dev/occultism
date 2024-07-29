@@ -90,6 +90,36 @@ public abstract class MinerRecipes extends RecipeProvider {
         makeOreRecipe("uranium", 140, recipeOutput);
         makeOreRecipe("dimensional_shard", 127, recipeOutput);
         makeOreRecipe("draconium", 142, recipeOutput);
+
+        makeOreRecipe("bone_fragments", 302, recipeOutput);
+        makeOreRecipe("baronyte", 260, recipeOutput);
+        makeOreRecipe("blazium", 218, recipeOutput);
+        makeOreRecipe("bloodstone", 160, recipeOutput);
+        makeOreRecipe("blue_gemstone", 300, recipeOutput);
+        makeOreRecipe("charged_runium", 142, recipeOutput);
+        makeOreRecipe("crystallite", 500, recipeOutput);
+        makeOreRecipe("elecanium", 200, recipeOutput);
+        makeOreRecipe("emberstone", 302, recipeOutput);
+        makeOreRecipe("gemenyte", 400, recipeOutput);
+        makeOreRecipe("ghastly", 200, recipeOutput);
+        makeOreRecipe("ghoulish", 180, recipeOutput);
+        makeOreRecipe("green_gemstone", 300, recipeOutput);
+        makeOreRecipe("jade", 200, recipeOutput);
+        makeOreRecipe("jewelyte", 370, recipeOutput);
+        makeOreRecipe("limonite", 400, recipeOutput);
+        makeOreRecipe("lyon", 160, recipeOutput);
+        makeOreRecipe("mystite", 280, recipeOutput);
+        makeOreRecipe("ornamyte", 280, recipeOutput);
+        makeOreRecipe("purple_gemstone", 300, recipeOutput);
+        makeOreRecipe("red_gemstone", 300, recipeOutput);
+        makeOreRecipe("runium", 300, recipeOutput);
+        makeOreRecipe("shyregem", 302, recipeOutput);
+        makeOreRecipe("shyrestone", 302, recipeOutput);
+        makeOreRecipe("varsium", 200, recipeOutput);
+        makeOreRecipe("white_gemstone", 300, recipeOutput);
+        makeOreRecipe("yellow_gemstone", 300, recipeOutput);
+
+
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ORES, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/" + "xpetrified_ore")), 200)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/ores/" + "xpetrified_ore"));
