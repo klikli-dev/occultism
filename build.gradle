@@ -131,6 +131,13 @@ repositories {
             includeGroup "dev.emi"
         }
     }
+    maven {
+        // saps.dev Maven (KubeJS and Rhino)
+        url = "https://maven.saps.dev/releases"
+        content {
+            includeGroup "dev.latvian.mods"
+        }
+    }
     flatDir {
         dirs 'lib'
     }
@@ -170,6 +177,11 @@ dependencies {
     if(System.getenv("EMI") == "true") {
         runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
     }
+
+    implementation "dev.latvian.mods:kubejs-neoforge:2100.7.0-build.117"
+    implementation "com.klikli_dev:occultism_kubejs-${minecraft_version}-neoforge:1.0.4"
+    implementation "curse.maven:modern-industrialization-405388:5575137"
+    implementation "curse.maven:cloth-config-348521:5553805"
 
     //runtime only helper mods for dev env, placed in ./runtime-mods, example: Hwyla-forge-1.10.11-B78_1.16.2.jar
     //runtimeOnly "ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2"
