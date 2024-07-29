@@ -171,9 +171,6 @@ dependencies {
         runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
     }
 
-    //TODO: Remove after testing
-    implementation "curse.maven:advent-of-ascension-nevermine-311054:5563875"
-
     //runtime only helper mods for dev env, placed in ./runtime-mods, example: Hwyla-forge-1.10.11-B78_1.16.2.jar
     //runtimeOnly "ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2"
 

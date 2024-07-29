@@ -91,36 +91,33 @@ public abstract class MinerRecipes extends RecipeProvider {
         makeOreRecipe("dimensional_shard", 127, recipeOutput);
         makeOreRecipe("draconium", 142, recipeOutput);
 
-        //AoC ores also need corresponding tags generated!
-        //TODO: Weights
-        //TODO: Test with AOA present, then remove dependency
-        makeOreRecipe("bone_fragments", 0, recipeOutput);
-        makeOreRecipe("baronyte", 0, recipeOutput);
-        makeOreRecipe("blazium", 0, recipeOutput);
-        makeOreRecipe("bloodstone", 0, recipeOutput);
-        makeOreRecipe("blue_gemstone", 0, recipeOutput);
-        makeOreRecipe("charged_runium", 0, recipeOutput);
-        makeOreRecipe("crystallite", 0, recipeOutput);
-        makeOreRecipe("elecanium", 0, recipeOutput);
-        makeOreRecipe("emberstone", 0, recipeOutput);
-        makeOreRecipe("gemenyte", 0, recipeOutput);
-        makeOreRecipe("ghastly", 0, recipeOutput);
-        makeOreRecipe("ghoulish", 0, recipeOutput);
-        makeOreRecipe("green_gemstone", 0, recipeOutput);
-        makeOreRecipe("jade", 0, recipeOutput);
-        makeOreRecipe("jewelyte", 0, recipeOutput);
-        makeOreRecipe("limonite", 0, recipeOutput);
-        makeOreRecipe("lyon", 0, recipeOutput);
-        makeOreRecipe("mystite", 0, recipeOutput);
-        makeOreRecipe("ornamyte", 0, recipeOutput);
-        makeOreRecipe("purple_gemstone", 0, recipeOutput);
-        makeOreRecipe("red_gemstone", 0, recipeOutput);
-        makeOreRecipe("runium", 0, recipeOutput);
-        makeOreRecipe("shyregem", 0, recipeOutput);
-        makeOreRecipe("shyrestone", 0, recipeOutput);
-        makeOreRecipe("varsium", 0, recipeOutput);
-        makeOreRecipe("white_gemstone", 0, recipeOutput);
-        makeOreRecipe("yellow_gemstone", 0, recipeOutput);
+        makeOreRecipe("bone_fragments", 302, recipeOutput);
+        makeOreRecipe("baronyte", 260, recipeOutput);
+        makeOreRecipe("blazium", 218, recipeOutput);
+        makeOreRecipe("bloodstone", 160, recipeOutput);
+        makeOreRecipe("blue_gemstone", 300, recipeOutput);
+        makeOreRecipe("charged_runium", 142, recipeOutput);
+        makeOreRecipe("crystallite", 500, recipeOutput);
+        makeOreRecipe("elecanium", 200, recipeOutput);
+        makeOreRecipe("emberstone", 302, recipeOutput);
+        makeOreRecipe("gemenyte", 400, recipeOutput);
+        makeOreRecipe("ghastly", 200, recipeOutput);
+        makeOreRecipe("ghoulish", 180, recipeOutput);
+        makeOreRecipe("green_gemstone", 300, recipeOutput);
+        makeOreRecipe("jade", 200, recipeOutput);
+        makeOreRecipe("jewelyte", 370, recipeOutput);
+        makeOreRecipe("limonite", 400, recipeOutput);
+        makeOreRecipe("lyon", 160, recipeOutput);
+        makeOreRecipe("mystite", 280, recipeOutput);
+        makeOreRecipe("ornamyte", 280, recipeOutput);
+        makeOreRecipe("purple_gemstone", 300, recipeOutput);
+        makeOreRecipe("red_gemstone", 300, recipeOutput);
+        makeOreRecipe("runium", 300, recipeOutput);
+        makeOreRecipe("shyregem", 302, recipeOutput);
+        makeOreRecipe("shyrestone", 302, recipeOutput);
+        makeOreRecipe("varsium", 200, recipeOutput);
+        makeOreRecipe("white_gemstone", 300, recipeOutput);
+        makeOreRecipe("yellow_gemstone", 300, recipeOutput);
 
 
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ORES, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/" + "xpetrified_ore")), 200)

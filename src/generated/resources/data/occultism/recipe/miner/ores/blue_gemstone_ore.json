@@ -23,6 +23,6 @@
     "type": "occultism:weighted_tag",
     "count": 1,
     "tag": "c:ores/blue_gemstone",
-    "weight": 0
+    "weight": 300
   }
 }
