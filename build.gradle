@@ -178,7 +178,7 @@ dependencies {
         runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
     }
 
-    implementation "dev.latvian.mods:kubejs-neoforge:2100.7.0-build.117"
+    implementation "dev.latvian.mods:kubejs-neoforge:2100.7.0-build.118"
     implementation "com.klikli_dev:occultism_kubejs-${minecraft_version}-neoforge:1.0.4"
     implementation "curse.maven:modern-industrialization-405388:5575137"
     implementation "curse.maven:cloth-config-348521:5553805"
