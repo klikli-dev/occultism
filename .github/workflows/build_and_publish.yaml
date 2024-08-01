@@ -110,8 +110,8 @@ jobs:
             emi(optional)
             almost-unified(optional)
             perviaminvenire(optional)
-      # TODO: Enable once curios is updated
-      # curios(required)
+            curios-continuation(optional)
+            adorned(optional)
       # Publish at the end because it creates a non reobfed jarjar which otherwise would be distributed
       - name: Publish
         run: ./gradlew publish

@@ -183,7 +183,7 @@ public class FamiliarRingItem extends Item {
                 return false;
 
             //otherwise is added to world is serialized
-            familiar.getFamiliarEntity().onRemovedFromWorld();
+            familiar.getFamiliarEntity().onRemovedFromLevel();
             this.setFamiliar(familiar, level.registryAccess());
             this.getFamiliar(level).getFamiliarEntity().stopRiding();
             this.getFamiliar(level).getFamiliarEntity().ejectPassengers();
@@ -193,8 +193,12 @@ public class FamiliarRingItem extends Item {
 
         private boolean releaseFamiliar(Player player, Level level) {
             if (this.getFamiliar(level) != null
-                    && !this.getFamiliar(level).getFamiliarEntity().isAddedToWorld()) {
-                EntityType.loadEntityRecursive(this.getFamiliar(level).getFamiliarEntity().serializeNBT(level.registryAccess()), level, e -> {
+                    && !this.getFamiliar(level).getFamiliarEntity().isAddedToLevel()) {
+
+                var familiarTag = new CompoundTag();
+                this.getFamiliar(level).getFamiliarEntity().saveAsPassenger(familiarTag);
+
+                EntityType.loadEntityRecursive(familiarTag, level, e -> {
                     e.setPos(player.getX(), player.getY(), player.getZ());
                     //on release overwrite owner -> familiar rings can be used to trade familiars.
                     ((IFamiliar) e).setFamiliarOwner(player);
@@ -224,7 +228,7 @@ public class FamiliarRingItem extends Item {
             if (familiar != null) {
                 // after portal use the level is still the pre-teleport level, the familiar owner is not found on the next check
                 // hence, we update the level, if the familiar is in a ring
-                if (!familiar.getFamiliarEntity().isAddedToWorld())
+                if (!familiar.getFamiliarEntity().isAddedToLevel())
                     familiar.getFamiliarEntity().setLevel(level);
 
                 if (familiar.getFamiliarOwner() != slotContext.entity())
@@ -243,9 +247,11 @@ public class FamiliarRingItem extends Item {
         public CompoundTag serializeNBT(HolderLookup.Provider provider) {
             CompoundTag compound = new CompoundTag();
             compound.putBoolean("hasFamiliar", this.familiar != null || this.cachedNbt != null);
-            if (this.familiar != null)
-                compound.put("familiar", this.familiar.getFamiliarEntity().serializeNBT(provider));
-            else if (this.cachedNbt != null)
+            if (this.familiar != null) {
+                var familiarTag = new CompoundTag();
+                this.familiar.getFamiliarEntity().saveAsPassenger(familiarTag);
+                compound.put("familiar", familiarTag);
+            } else if (this.cachedNbt != null)
                 compound.put("familiar", this.cachedNbt);
 
             return compound;
@@ -264,7 +270,7 @@ public class FamiliarRingItem extends Item {
                 return this.familiar;
 
             var data = this.stack.get(OccultismDataComponents.FAMILIAR_DATA);
-            var tag = data == null ?  null : data.getUnsafe();
+            var tag = data == null ? null : data.getUnsafe();
             if (tag != null && (this.cachedNbt == null || !this.cachedNbt.equals(tag))) {
                 this.deserializeNBT(level.registryAccess(), tag);
             }
@@ -280,7 +286,13 @@ public class FamiliarRingItem extends Item {
         private void setFamiliar(IFamiliar familiar, HolderLookup.Provider provider) {
             this.familiar = familiar;
 
-            this.cachedNbt = this.familiar != null ? this.familiar.getFamiliarEntity().serializeNBT(provider) : null;
+            CompoundTag compound = new CompoundTag();
+            if (this.familiar != null) {
+                this.cachedNbt = this.familiar.getFamiliarEntity().saveAsPassenger(compound) ? compound : null;
+            } else {
+                this.cachedNbt = null;
+            }
+
             this.stack.set(OccultismDataComponents.FAMILIAR_DATA, CustomData.of(this.serializeNBT(provider)));
         }
 

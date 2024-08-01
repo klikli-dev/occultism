@@ -30,7 +30,7 @@ sourceSets {
             exclude '**/AlmostUnifiedIntegrationImpl.java'
 //            exclude '**/emi/**/*.java'
 //            exclude '**/jei/impl/**/*.java'
-            exclude 'com/klikli_dev/occultism/common/item/tool/FamiliarRingItem.java'
+//            exclude 'com/klikli_dev/occultism/common/item/tool/FamiliarRingItem.java'
         }
     }
 }
@@ -83,9 +83,16 @@ repositories {
             includeGroup "com.almostreliable.mods"
         }
     }
+//    maven { //used to be curios
+//        name = "Curios Maven"
+//        url = "https://maven.theillusivec4.top/"
+//        content {
+//            includeGroup "top.theillusivec4.curios"
+//        }
+//    }
     maven {
-        name = "Curios Maven"
-        url = "https://maven.theillusivec4.top/"
+        name = "OctoStudios (Curios Api Contiunation)"
+        url = uri("https://maven.octo-studios.com/releases")
         content {
             includeGroup "top.theillusivec4.curios"
         }
@@ -145,8 +152,8 @@ dependencies {
     runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     //curios
-//    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api"
-//    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}"
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api"
+    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}"
 
     //geckolib
     implementation "software.bernie.geckolib:geckolib-neoforge-${geckolib_minecraft_version}:${geckolib_version}"

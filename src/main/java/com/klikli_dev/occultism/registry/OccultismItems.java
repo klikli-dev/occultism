@@ -198,10 +198,8 @@ public class OccultismItems {
                     .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
             ));
 
-    //TODO: Re-enable familiar ring once we have curios
     public static final DeferredItem<Item> FAMILIAR_RING = ITEMS.register("familiar_ring",
-//            () -> new FamiliarRingItem(defaultProperties().stacksTo(1)));
-            () -> new Item(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
+            () -> new FamiliarRingItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
 
     public static final DeferredItem<Item> PURIFIED_INK = ITEMS.register("purified_ink",
             () -> new Item(defaultProperties()));
@@ -512,7 +510,7 @@ public class OccultismItems {
                 || item == JEI_DUMMY_NONE.get()
                 || item == JEI_DUMMY_REQUIRE_SACRIFICE.get()
                 || item == JEI_DUMMY_REQUIRE_ITEM_USE.get()
-                || item == FAMILIAR_RING.get() //TODO: Re-enable familiar ring once we have curios
+//                || item == FAMILIAR_RING.get()
         )
             return true;
 
