@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.142.1] - 2024-08-01
+### :bug: Bug Fixes
+- [`4a50a12`](https://github.com/klikli-dev/occultism/commit/4a50a12ed45aaf99601d91c2f13d6c417d85d5c8) - missing curios tags *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`2530e4a`](https://github.com/klikli-dev/occultism/commit/2530e4a7af60c40bb80bae67ebdbd7bdc8a486bd) - missing ores_in_ground subtags for items *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.142.0] - 2024-08-01
 ### :sparkles: New Features
 - [`45836e8`](https://github.com/klikli-dev/occultism/commit/45836e87b89a51a6f368ac584812005ac5cc7508) - re-enable curios integration *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1419,3 +1425,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.140.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.139.3...release/v1.21-1.140.0
 [release/v1.21-1.141.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.140.0...release/v1.21-1.141.0
 [release/v1.21-1.142.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.141.0...release/v1.21-1.142.0
+[release/v1.21-1.142.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.142.0...release/v1.21-1.142.1
