@@ -155,6 +155,8 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
     }
 
     private void addCommonTags(HolderLookup.Provider provider) {
+        this.copy(BlockTags.SLABS, ItemTags.SLABS);
+
         // Ore Blocks
         this.copy(OccultismTags.Blocks.IESNIUM_ORE, OccultismTags.Items.IESNIUM_ORE);
         this.copy(OccultismTags.Blocks.SILVER_ORE, OccultismTags.Items.SILVER_ORE);

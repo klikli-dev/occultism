@@ -50,6 +50,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.RAW_IESNIUM_BLOCK.get())
                 .add(OccultismBlocks.SPIRIT_LANTERN.get());
         this.tag(BlockTags.CAMPFIRES).add(OccultismBlocks.SPIRIT_CAMPFIRE.get()).replace(false);
+        this.tag(BlockTags.SLABS).add(OccultismBlocks.OTHERSTONE_SLAB.get()).replace(false);
         this.tag(BlockTags.CANDLES).addTags(OccultismTags.Blocks.OCCULTISM_CANDLES).replace(false);
         this.tag(BlockTags.CROPS).add(OccultismBlocks.DATURA.get()).replace(false);
         this.tag(BlockTags.LEAVES).add(OccultismBlocks.OTHERWORLD_LEAVES.get(), OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get()).replace(false);
