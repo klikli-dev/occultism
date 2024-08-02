@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.143.0] - 2024-08-02
+### :sparkles: New Features
+- [`b9227e6`](https://github.com/klikli-dev/occultism/commit/b9227e67044a9c2675bafe001bff871c92416e97) - add new AI goals for familiars to use *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`c3e654e`](https://github.com/klikli-dev/occultism/commit/c3e654eb6a819c05b1d982072f941be4dcd997ff) - add integration for EMI in storage actuator search *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`a0f1872`](https://github.com/klikli-dev/occultism/commit/a0f18726313a8c49b20a45ce2815a1a0e832e88f) - chimera attack behaviour *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.142.2] - 2024-08-01
 ### :bug: Bug Fixes
 - [`11e429d`](https://github.com/klikli-dev/occultism/commit/11e429d8541c9d3104c29303daba1af040a6d65c) - add missing slabs tag to otherstone slabs *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1432,3 +1441,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.142.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.141.0...release/v1.21-1.142.0
 [release/v1.21-1.142.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.142.0...release/v1.21-1.142.1
 [release/v1.21-1.142.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.142.1...release/v1.21-1.142.2
+[release/v1.21-1.143.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.142.2...release/v1.21-1.143.0
