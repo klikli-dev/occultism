@@ -46,7 +46,7 @@ public class ChimeraFamiliarRenderer extends MobRenderer<ChimeraFamiliarEntity, 
     public void render(ChimeraFamiliarEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
         pMatrixStack.pushPose();
         if (pEntity.isSitting())
-            pMatrixStack.translate(0, -0.23 * pEntity.getScale(), 0);
+            pMatrixStack.translate(0, -0.14 * pEntity.getScale(), 0);
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
         pMatrixStack.popPose();
     }
