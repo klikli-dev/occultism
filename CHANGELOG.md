@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.143.1] - 2024-08-02
+### :bug: Bug Fixes
+- [`fde0dfa`](https://github.com/klikli-dev/occultism/commit/fde0dfa0ea909d3e1b2ad80a75f808a036ac11be) - chimera sitting location *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`291e594`](https://github.com/klikli-dev/occultism/commit/291e594c11cfd604024a1522632beddc063d1900) - clean imports *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.143.0] - 2024-08-02
 ### :sparkles: New Features
 - [`b9227e6`](https://github.com/klikli-dev/occultism/commit/b9227e67044a9c2675bafe001bff871c92416e97) - add new AI goals for familiars to use *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1442,3 +1450,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.142.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.142.0...release/v1.21-1.142.1
 [release/v1.21-1.142.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.142.1...release/v1.21-1.142.2
 [release/v1.21-1.143.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.142.2...release/v1.21-1.143.0
+[release/v1.21-1.143.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.143.0...release/v1.21-1.143.1
