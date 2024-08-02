@@ -1,8 +1,7 @@
-package com.klikli_dev.occultism.integration.emi.recipes;
+package com.klikli_dev.occultism.integration.emi.impl.recipes;
 
-import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
-import com.klikli_dev.occultism.integration.emi.OccultismEmiPlugin;
+import com.klikli_dev.occultism.integration.emi.impl.OccultismEmiPlugin;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
@@ -12,7 +11,6 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;

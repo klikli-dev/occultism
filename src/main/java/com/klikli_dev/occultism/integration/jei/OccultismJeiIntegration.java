@@ -6,16 +6,17 @@
 
 package com.klikli_dev.occultism.integration.jei;
 
+import com.klikli_dev.occultism.integration.jei.impl.OccultismJeiIntegrationImpl;
+
 public interface OccultismJeiIntegration {
 
-    OccultismJeiIntegration instance = new OccultismJeiIntegrationDummy();
+    OccultismJeiIntegration instance = new OccultismJeiIntegrationImpl();
 
     static OccultismJeiIntegration get() {
         return instance;
     }
 
     boolean isLoaded();
-
 
     String getFilterText();
 

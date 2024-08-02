@@ -149,7 +149,7 @@ dependencies {
     //Jei
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
     compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
-    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+//    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     //curios
     compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api"
@@ -174,9 +174,7 @@ dependencies {
 
     // emi
     compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
-    if(System.getenv("EMI") == "true") {
-        runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
-    }
+    runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
 
     //runtime only helper mods for dev env, placed in ./runtime-mods, example: Hwyla-forge-1.10.11-B78_1.16.2.jar
     //runtimeOnly "ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2"

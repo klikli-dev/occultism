@@ -1,6 +1,5 @@
-package com.klikli_dev.occultism.integration.emi.render;
+package com.klikli_dev.occultism.integration.emi.impl.render;
 
-import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.Bounds;
 import dev.emi.emi.api.widget.Widget;

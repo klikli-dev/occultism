@@ -1,19 +1,15 @@
-package com.klikli_dev.occultism.integration.emi.recipes;
+package com.klikli_dev.occultism.integration.emi.impl.recipes;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import com.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
-import com.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
-import com.klikli_dev.occultism.integration.emi.OccultismEmiPlugin;
-import com.klikli_dev.occultism.integration.emi.render.SpiritRenderable;
-import com.klikli_dev.occultism.integration.emi.render.SpiritWidget;
+import com.klikli_dev.occultism.integration.emi.impl.OccultismEmiPlugin;
+import com.klikli_dev.occultism.integration.emi.impl.render.SpiritWidget;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
-import dev.emi.emi.api.widget.DrawableWidget;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -23,7 +19,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CrushingRecipeCategory implements EmiRecipe {

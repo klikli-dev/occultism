@@ -137,7 +137,6 @@ public class JeiPlugin implements IModPlugin {
     @Override
     public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
         JeiPlugin.runtime = jeiRuntime;
-        JeiSettings.setJeiLoaded(true);
     }
 
     public void registerIngredientInfo(IRecipeRegistration registration, ItemLike ingredient) {

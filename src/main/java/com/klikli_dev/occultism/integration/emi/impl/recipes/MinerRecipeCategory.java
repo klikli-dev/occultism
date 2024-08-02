@@ -1,7 +1,7 @@
-package com.klikli_dev.occultism.integration.emi.recipes;
+package com.klikli_dev.occultism.integration.emi.impl.recipes;
 
 import com.klikli_dev.occultism.crafting.recipe.MinerRecipe;
-import com.klikli_dev.occultism.integration.emi.OccultismEmiPlugin;
+import com.klikli_dev.occultism.integration.emi.impl.OccultismEmiPlugin;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;

@@ -26,16 +26,6 @@ import com.klikli_dev.occultism.Occultism;
 
 public class JeiSettings {
 
-    protected static boolean jeiLoaded = false;
-
-    public static boolean isJeiLoaded() {
-        return jeiLoaded;
-    }
-
-    public static void setJeiLoaded(boolean loaded) {
-        jeiLoaded = loaded;
-    }
-
     public static boolean isJeiSearchSynced() {
         return Occultism.CLIENT_CONFIG.misc.syncJeiSearch.get();
     }

@@ -1,4 +1,4 @@
-package com.klikli_dev.occultism.integration.emi;
+package com.klikli_dev.occultism.integration.emi.impl;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
@@ -6,11 +6,11 @@ import com.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.klikli_dev.occultism.crafting.recipe.MinerRecipe;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
-import com.klikli_dev.occultism.integration.emi.recipes.CrushingRecipeCategory;
-import com.klikli_dev.occultism.integration.emi.recipes.MinerRecipeCategory;
-import com.klikli_dev.occultism.integration.emi.recipes.RitualRecipeCategory;
-import com.klikli_dev.occultism.integration.emi.recipes.SpiritFireRecipeCategory;
-import com.klikli_dev.occultism.integration.emi.render.SpiritRenderable;
+import com.klikli_dev.occultism.integration.emi.impl.recipes.CrushingRecipeCategory;
+import com.klikli_dev.occultism.integration.emi.impl.recipes.MinerRecipeCategory;
+import com.klikli_dev.occultism.integration.emi.impl.recipes.RitualRecipeCategory;
+import com.klikli_dev.occultism.integration.emi.impl.recipes.SpiritFireRecipeCategory;
+import com.klikli_dev.occultism.integration.emi.impl.render.SpiritRenderable;
 import com.klikli_dev.occultism.registry.*;
 import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiInitRegistry;

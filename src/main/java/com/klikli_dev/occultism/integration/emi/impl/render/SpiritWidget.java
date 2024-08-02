@@ -1,11 +1,8 @@
-package com.klikli_dev.occultism.integration.emi.render;
+package com.klikli_dev.occultism.integration.emi.impl.render;
 
 import com.klikli_dev.occultism.client.gui.spirit.SpiritGui;
-import com.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.klikli_dev.occultism.registry.OccultismEntities;
 import dev.emi.emi.api.widget.Bounds;
-import dev.emi.emi.api.widget.DrawableWidget;
 import dev.emi.emi.api.widget.Widget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

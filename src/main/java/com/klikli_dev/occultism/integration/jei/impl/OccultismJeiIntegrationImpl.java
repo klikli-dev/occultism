@@ -8,10 +8,11 @@ import com.google.common.base.Strings;
 import com.klikli_dev.modonomicon.platform.Services;
 import com.klikli_dev.occultism.integration.jei.OccultismJeiIntegration;
 import mezz.jei.api.runtime.IJeiRuntime;
+import net.neoforged.fml.ModList;
 
 public class OccultismJeiIntegrationImpl implements OccultismJeiIntegration {
     public boolean isLoaded() {
-        return Services.PLATFORM.isModLoaded("jei");
+        return ModList.get().isLoaded("jei");
     }
 
     @Override
