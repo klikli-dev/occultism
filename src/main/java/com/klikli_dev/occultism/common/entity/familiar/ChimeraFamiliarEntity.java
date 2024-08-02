@@ -25,6 +25,8 @@ package com.klikli_dev.occultism.common.entity.familiar;
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.klikli_dev.occultism.common.entity.ai.goal.OwnerHurtByTargetGoal;
+import com.klikli_dev.occultism.common.entity.ai.goal.OwnerHurtTargetGoal;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -47,9 +49,10 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.FollowMobGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
@@ -104,11 +107,20 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new SitGoal(this));
-        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8));
+
+        this.goalSelector.addGoal(4, new ChimeraMeleeAttackGoal(this, 1.0f, true));
+
         this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1, 3, 1));
-        this.goalSelector.addGoal(6, new AttackGoal(this, 10));
+//        this.goalSelector.addGoal(6, new ChimeraRangedAttackGoal(this, 10)); //this one is buggy
+
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8));
+
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1));
-        this.goalSelector.addGoal(8, new FollowMobGoal(this, 1, 3, 7));
+//        this.goalSelector.addGoal(8, new FollowMobGoal(this, 1, 3, 7));
+
+        this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
+        this.targetSelector.addGoal(3, new HurtByTargetGoal(this).setAlertOthers());
     }
 
     @Override
@@ -149,10 +161,10 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 
-    @Override
-    public boolean isControlledByLocalInstance() {
-        return true;
-    }
+//    @Override
+//    public boolean isControlledByLocalInstance() {
+//        return true;
+//    }
 
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
@@ -483,6 +495,11 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     public void handleStopJump() {
     }
 
+    @Override
+    public boolean isWithinMeleeAttackRange(LivingEntity entity) {
+        return entity.distanceToSqr(this) < 9; //distance = 3 max
+    }
+
     private static class DummyBoostHelper extends ItemBasedSteering {
 
         public DummyBoostHelper() {
@@ -517,11 +534,11 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
 
     }
 
-    private static class AttackGoal extends DevilFamiliarEntity.AttackGoal {
+    private static class ChimeraRangedAttackGoal extends DevilFamiliarEntity.AttackGoal {
 
         ChimeraFamiliarEntity chimera;
 
-        public AttackGoal(ChimeraFamiliarEntity chimera, float range) {
+        public ChimeraRangedAttackGoal(ChimeraFamiliarEntity chimera, float range) {
             super(chimera, range);
             this.chimera = chimera;
         }
@@ -547,6 +564,49 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
                         e.addEffect(new MobEffectInstance(MobEffects.POISON, 20 * 10));
                         break;
                 }
+            }
+        }
+
+        private byte randomAttacker() {
+            byte[] attackers = this.chimera.possibleAttackers();
+            return attackers[this.chimera.getRandom().nextInt(attackers.length)];
+        }
+
+    }
+
+    private static class ChimeraMeleeAttackGoal extends MeleeAttackGoal {
+
+        ChimeraFamiliarEntity chimera;
+
+        public ChimeraMeleeAttackGoal(ChimeraFamiliarEntity chimera, double speedModifier, boolean followingTargetEvenIfNotSeen) {
+            super(chimera, speedModifier, followingTargetEvenIfNotSeen);
+            this.chimera = chimera;
+        }
+
+        @Override
+        protected void checkAndPerformAttack(LivingEntity target) {
+            if (!this.canPerformAttack(target))
+                return;
+
+            this.resetAttackCooldown();
+
+            byte attacker = this.randomAttacker();
+            this.chimera.setAttacker(attacker);
+
+            target.hurt(this.chimera.damageSources().playerAttack((Player) this.chimera.getFamiliarOwner()),
+                    (float) this.chimera.getAttributeValue(Attributes.ATTACK_DAMAGE));
+
+            switch (attacker) {
+                case LION_ATTACKER:
+                    target.setRemainingFireTicks(4 * 20);
+                    break;
+                case GOAT_ATTACKER:
+                    Vec3 direction = target.position().vectorTo(this.chimera.position());
+                    target.knockback(2, direction.x, direction.z);
+                    break;
+                case SNAKE_ATTACKER:
+                    target.addEffect(new MobEffectInstance(MobEffects.POISON, 20 * 10));
+                    break;
             }
         }
 
