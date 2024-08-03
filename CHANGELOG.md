@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.143.4] - 2024-08-03
+### :bug: Bug Fixes
+- [`20fe0f0`](https://github.com/klikli-dev/occultism/commit/20fe0f07da5040393b321d7a2fd7f318fc22a536) - headless familiar page specifies pumpkin instead of carved pumpkin *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`a9a0f4e`](https://github.com/klikli-dev/occultism/commit/a9a0f4eb72723cc3945e1e65bd75e14a79c86004) - remove datagen cache from release jar *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.143.3] - 2024-08-03
 ### :bug: Bug Fixes
 - [`e6530a5`](https://github.com/klikli-dev/occultism/commit/e6530a50966c2cc3501bef6ab5947c0ea53481c0) - possible workaround for shift-crafting not calling onCraftedBy *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1463,3 +1471,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.143.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.143.0...release/v1.21-1.143.1
 [release/v1.21-1.143.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.143.1...release/v1.21-1.143.2
 [release/v1.21-1.143.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.143.2...release/v1.21-1.143.3
+[release/v1.21-1.143.4]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.143.3...release/v1.21-1.143.4
