@@ -2564,7 +2564,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageTitle(), "Description");
         this.add(helper.pageText(),
                 """
-                        The headless ratman familiar steals heads of mobs near the ratman when they are killed. It then provides a damage buff against that type of mob to their master. If the ratman drops **below 50%% health** it dies, but can then be rebuilt by their master by giving them [](item://minecraft:wheat), [](item://minecraft:stick), [](item://minecraft:hay_block) and a [](item://minecraft:pumpkin).
+                        The headless ratman familiar steals heads of mobs near the ratman when they are killed. It then provides a damage buff against that type of mob to their master. If the ratman drops **below 50%% health** it dies, but can then be rebuilt by their master by giving them [](item://minecraft:wheat), [](item://minecraft:stick), [](item://minecraft:hay_block) and a [](item://minecraft:carved_pumpkin).
                            """.formatted(COLOR_PURPLE));
 
         helper.page("description2");
