@@ -30,6 +30,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.LogicalSide;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.fml.util.thread.EffectiveSide;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -50,8 +54,22 @@ public class BookOfBindingBoundItem extends Item {
     }
 
     @Override
+    public void verifyComponentsAfterLoad(ItemStack stack) {
+        if (EffectiveSide.get().isServer()) {
+            ItemNBTUtil.generateBoundSpiritNameIfNone(stack);
+        }
+        super.verifyComponentsAfterLoad(stack);
+    }
+
+    @Override
     public void onCraftedBy(ItemStack pStack, Level pLevel, Player pPlayer) {
-        ItemNBTUtil.generateBoundSpiritName(pStack);
+        ItemNBTUtil.generateBoundSpiritNameIfNone(pStack);
         super.onCraftedBy(pStack, pLevel, pPlayer);
+    }
+
+    @Override
+    public void onCraftedPostProcess(ItemStack stack, Level level) {
+        ItemNBTUtil.generateBoundSpiritNameIfNone(stack);
+        super.onCraftedPostProcess(stack, level);
     }
 }
