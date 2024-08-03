@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.143.2] - 2024-08-03
+### :bug: Bug Fixes
+- [`852ec7c`](https://github.com/klikli-dev/occultism/commit/852ec7cdf76d60dea518fd34b7469e4ef5191391) - Extraneous character in ring.json - thanks@STS15 *(commit by [@STS15](https://github.com/STS15))*
+
+
 ## [release/v1.21-1.143.1] - 2024-08-02
 ### :bug: Bug Fixes
 - [`fde0dfa`](https://github.com/klikli-dev/occultism/commit/fde0dfa0ea909d3e1b2ad80a75f808a036ac11be) - chimera sitting location *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1451,3 +1456,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.142.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.142.1...release/v1.21-1.142.2
 [release/v1.21-1.143.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.142.2...release/v1.21-1.143.0
 [release/v1.21-1.143.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.143.0...release/v1.21-1.143.1
+[release/v1.21-1.143.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.143.1...release/v1.21-1.143.2
