@@ -24,7 +24,8 @@ package com.klikli_dev.occultism.common.entity.ai.goal;
 
 import com.klikli_dev.occultism.common.entity.ai.BlockSorter;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-
+import com.klikli_dev.occultism.common.misc.ItemStackKey;
+import com.klikli_dev.occultism.common.misc.MapItemStackHandler;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;
@@ -32,13 +33,13 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
-import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.ItemStackHandler;
+
 import java.util.EnumSet;
 import java.util.Optional;
 
@@ -119,7 +120,7 @@ public class ExtractItemsGoal extends PausableGoal {
                 //when close enough extract item
                 if (distance < accessDistance && this.canSeeTarget()) {
 
-                    var blockEntityHandler = this.entity.level().getCapability(Capabilities.ItemHandler.BLOCK, blockEntity.getBlockPos(),blockEntity.getBlockState(), blockEntity, this.entity.getDepositFacing());
+                    var blockEntityHandler = this.entity.level().getCapability(Capabilities.ItemHandler.BLOCK, blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity, this.entity.getDepositFacing());
                     if (blockEntityHandler == null) { //worst case scenario if block entity or entity changes since last target reset.
                         this.resetTarget();
                         return;
@@ -128,17 +129,23 @@ public class ExtractItemsGoal extends PausableGoal {
                     IItemHandler entityHandler =
                             this.entity.getCapability(Capabilities.ItemHandler.ENTITY);
 
-                    int slot = StorageUtil.getFirstMatchingSlot(blockEntityHandler,
-                            this.entity.getFilterItems(), this.entity.getTagFilter(), this.entity.isFilterBlacklist());
-                    if (slot >= 0) {
-                        //simulate extraction
-                        ItemStack toExtract = blockEntityHandler.extractItem(slot, Integer.MAX_VALUE, true).copy();
-                        if (!toExtract.isEmpty()) {
-                            ItemStack remaining = ItemHandlerHelper.insertItem(entityHandler, toExtract, true);
-                            if (remaining.getCount() < toExtract.getCount()) {
-                                //if simulation went well, do for real
-                                ItemStack extracted = blockEntityHandler.extractItem(slot, toExtract.getCount() - remaining.getCount(), false);
-                                ItemHandlerHelper.insertItem(entityHandler, extracted, false);
+                    if (this.tryPerformStorageActuatorExtraction(blockEntityHandler, entityHandler,
+                            this.entity.getFilterItems(), this.entity.getTagFilter(), this.entity.isFilterBlacklist())) {
+                        //if the block entity is a storage actuator we use special optimized logic that can access the internal hashmap of item storage
+                    } else {
+                        //if not a storage actuator, just use item handler defaults
+                        int slot = StorageUtil.getFirstMatchingSlot(blockEntityHandler,
+                                this.entity.getFilterItems(), this.entity.getTagFilter(), this.entity.isFilterBlacklist());
+                        if (slot >= 0) {
+                            //simulate extraction
+                            ItemStack toExtract = blockEntityHandler.extractItem(slot, Integer.MAX_VALUE, true).copy();
+                            if (!toExtract.isEmpty()) {
+                                ItemStack remaining = ItemHandlerHelper.insertItem(entityHandler, toExtract, true);
+                                if (remaining.getCount() < toExtract.getCount()) {
+                                    //if simulation went well, do for real
+                                    ItemStack extracted = blockEntityHandler.extractItem(slot, toExtract.getCount() - remaining.getCount(), false);
+                                    ItemHandlerHelper.insertItem(entityHandler, extracted, false);
+                                }
                             }
                         }
                     }
@@ -152,6 +159,38 @@ public class ExtractItemsGoal extends PausableGoal {
                 this.resetTarget(); //if there is no block entity, recheck
             }
         }
+    }
+
+    public boolean tryPerformStorageActuatorExtraction(IItemHandler blockEntityHandler, IItemHandler entityHandler, ItemStackHandler itemFilter, String tagFilter, boolean isFilterBlacklist) {
+        if (!(blockEntityHandler instanceof MapItemStackHandler mapItemStackHandler))
+            return false;
+
+        if (isFilterBlacklist)
+            return false;
+
+
+        boolean filterEmpty = true;
+        for (int i = 0; i < itemFilter.getSlots(); i++) {
+            var filterItem = itemFilter.getStackInSlot(i);
+            if (filterItem.isEmpty()) {
+                continue;
+            }
+
+            filterEmpty = false;
+
+            var extractStack = mapItemStackHandler.extractItemIgnoreComponents(filterItem, Integer.MAX_VALUE, true);
+            if (!extractStack.isEmpty()) {
+                var inserted = ItemHandlerHelper.insertItemStacked(entityHandler, extractStack, true);
+
+                if (inserted.getCount() != extractStack.getCount()) {
+                    ItemStack remaining = ItemHandlerHelper.insertItemStacked(entityHandler, extractStack, false);
+                    mapItemStackHandler.extractItem(ItemStackKey.of(extractStack), extractStack.getCount() - remaining.getCount(), false);
+                    return true;
+                }
+            }
+        }
+
+        return filterEmpty;
     }
 
     public boolean canSeeTarget() {
