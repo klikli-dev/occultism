@@ -47,7 +47,7 @@ public interface IMapItemHandlerModifiable extends IItemHandlerModifiable {
      * @return ItemStack extracted from the slot, must be empty if nothing can be extracted.
      *         The returned ItemStack can be safely modified after, so item handlers should return a new or copied stack.
      **/
-    @NotNull ItemStack extractItem(ItemStackKey key, int amount, boolean simulate);
+    @NotNull ItemStack extractItem(@NotNull ItemStackKey key, int amount, boolean simulate);
 
     /**
      * Extracts an ItemStack that matches the given stack.
@@ -62,7 +62,7 @@ public interface IMapItemHandlerModifiable extends IItemHandlerModifiable {
      * @return ItemStack extracted from the slot, must be empty if nothing can be extracted.
      *         The returned ItemStack can be safely modified after, so item handlers should return a new or copied stack.
      **/
-    @NotNull ItemStack extractItem(ItemStack stack, int amount, boolean simulate);
+    @NotNull ItemStack extractItem(@NotNull ItemStack stack, int amount, boolean simulate);
 
     boolean isItemValid(int slot, @NotNull ItemStackKey key);
 }

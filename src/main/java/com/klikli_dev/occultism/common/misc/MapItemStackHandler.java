@@ -363,6 +363,10 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
         if (key == null)
             return ItemStack.EMPTY;
 
+        return this.extractItem(key, amount, simulate);
+    }
+
+    public @NotNull ItemStack extractItem(@NotNull ItemStackKey key, int amount, boolean simulate) {
         var existing = this.keyToCountMap.getInt(key);
 
         if (existing <= 0)
@@ -395,16 +399,7 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
         }
     }
 
-    public @NotNull ItemStack extractItem(ItemStackKey key, int amount, boolean simulate) {
-        var slot = this.keyToSlot.get(key);
-
-        if (slot == null)
-            return ItemStack.EMPTY;
-
-        return this.extractItem(slot, amount, simulate);
-    }
-
-    public @NotNull ItemStack extractItem(ItemStack stack, int amount, boolean simulate) {
+    public @NotNull ItemStack extractItem(@NotNull ItemStack stack, int amount, boolean simulate) {
         var key = ItemStackKey.of(stack);
         return this.extractItem(key, amount, simulate);
     }
