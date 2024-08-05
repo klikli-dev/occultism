@@ -3993,6 +3993,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 );
     }
 
+
     private BookEntryModel makeCraftDimensionalMatrixEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_dimensional_matrix");
 
@@ -4432,6 +4433,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         gogglesRecipe
                 );
     }
+
     private BookEntryModel makeCraftWildTrimEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("craft_wild_trim");
 
@@ -4959,6 +4961,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         description
                 );
     }
+
     private BookEntryModel makeHordeDrownedEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("horde_drowned");
         this.lang().add(this.context().entryName(), "Wild Horde Drowned");
@@ -4994,6 +4997,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         description
                 );
     }
+
     private BookEntryModel makeHordeCreeperEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("horde_creeper");
         this.lang().add(this.context().entryName(), "Wild Horde Creeper");
@@ -5029,6 +5033,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         description
                 );
     }
+
     private BookEntryModel makeHordeSilverfishEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("horde_silverfish");
         this.lang().add(this.context().entryName(), "Wild Horde Silverfish");
@@ -5064,6 +5069,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         description
                 );
     }
+
     private BookEntryModel makeHordeIllagerEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("horde_illager");
         this.lang().add(this.context().entryName(), "Mini Illager Invasion");
@@ -5099,6 +5105,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         description
                 );
     }
+
     private BookEntryModel makePossessWeakBreezeEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("possess_weak_breeze");
         this.lang().add(this.context().entryName(), "The first key");
@@ -5134,6 +5141,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         description
                 );
     }
+
     private BookEntryModel makePossessBreezeEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("possess_breeze");
         this.lang().add(this.context().entryName(), "In the chamber");
@@ -5169,6 +5177,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         description
                 );
     }
+
     private BookEntryModel makePossessStrongBreezeEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("possess_strong_breeze");
         this.lang().add(this.context().entryName(), "Glorious Vault");
@@ -5211,8 +5220,9 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         var entryMap = ModonomiconAPI.get().getEntryMap();
         entryMap.setMap(
+                "_______ṡ___________________",
                 "___________________________",
-                "_________w_r_______________",
+                "_______ș_w_r_______________",
                 "___________________________",
                 "_____0_c___s_1_2_3_4________",
                 "___________________________",
@@ -5225,6 +5235,14 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.context().category("storage");
         var storageController = this.makeStorageControllerEntry(entryMap, 'c');
         storageController.withParent(BookEntryParentModel.create(overview.getId()));
+
+        var storageSystemAutomation = this.makeStorageSystemAutomationEntry(entryMap, 'ș');
+        storageSystemAutomation.withParent(BookEntryParentModel.create(storageController.getId()));
+
+        var storageSystemAutomationTheurgy = this.makeStorageSystemAutomationTheurgyEntry(entryMap, 'ṡ');
+        storageSystemAutomationTheurgy.withParent(BookEntryParentModel.create(storageSystemAutomation.getId()));
+        storageSystemAutomationTheurgy.withCondition(BookModLoadedConditionModel.create().withModId("theurgy"));
+
 
         var storageStabilizer = this.makeStorageStabilizerEntry(entryMap, 's');
         storageStabilizer.withParent(BookEntryParentModel.create(storageController.getId()));
@@ -5275,6 +5293,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withEntries(
                         overview,
                         storageController,
+                        storageSystemAutomation,
+                        storageSystemAutomationTheurgy,
                         storageStabilizer,
                         craftStabilizerTier1,
                         craftStabilizerTier2,
@@ -5374,6 +5394,112 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         matrixRitual,
                         baseRitual,
                         recipe
+                );
+    }
+
+    private BookEntryModel makeStorageSystemAutomationEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("storage_system_automation");
+        this.lang().add(this.context().entryName(), "Storage Logistics");
+        this.lang().add(this.context().entryDescription(), "Inserting and extracting items from the Storage Actuator");
+
+        this.context().page("intro");
+        var intro = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+
+        this.lang().add(this.context().pageTitle(), "Storage Logistics");
+        this.lang().add(this.context().pageText(),
+                """
+                        The Storage Actuator behaves much like a big chest or shulker box. That means, hoppers and pipes can insert and extract items.
+                        """);
+
+        this.context().page("performance");
+        var performance = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+
+        this.lang().add(this.context().pageTitle(), "Performance");
+        this.lang().add(this.context().pageText(),
+                """
+                        Due to the potentially huge amount of items in the storage system, it is good to consider some performance aspects, otherwise your system might slow down your game or even a server you are playing on.
+                        """);
+
+        this.context().page("extraction");
+        var extraction = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+
+        this.lang().add(this.context().pageTitle(), "Extracting Items");
+        this.lang().add(this.context().pageText(),
+                """
+                        Extracting items can lead to performance issues, especially when pipes with Item Filters are used, because then the entire huge storage is searched for these items one by one.
+                        \\
+                        \\
+                        To *massively* improve performance, use Transporter Spirits to extract from the Storage Actuator or Stable Wormhole. Even if the Spirit deposits into a chest right next to the storage system, and a pipe extracts from that chest, the performance is **much** better than if a pipe extracts directly.
+                        """);
+
+        this.context().page("insertion");
+        var insertion = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+
+        this.lang().add(this.context().pageTitle(), "Inserting Items");
+        this.lang().add(this.context().pageText(),
+                """
+                        When inserting items, you do not need to do anything, the Storage Actuator will maximize performance automatically for you. It is safe to insert high amounts of items at high frequencies without negative impact on game performance.
+                        """);
+
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.HOPPER)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        intro,
+                        performance,
+                        extraction,
+                        insertion
+                );
+    }
+
+    private BookEntryModel makeStorageSystemAutomationTheurgyEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("storage_system_automation_theurgy");
+        this.lang().add(this.context().entryName(), "Theurgy Storage Integration");
+        this.lang().add(this.context().entryDescription(), "Inserting and extracting items from the Storage Actuator using Theurgy Logistics");
+
+        this.context().page("intro");
+        var intro = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+
+        this.lang().add(this.context().pageTitle(), "Theurgy Storage Integration");
+        this.lang().add(this.context().pageText(),
+                """
+                        Much like transporter Spirits, Theurgy Mercurial Logistics systems are optimized to work with the Storage Actuator and Stable Wormholes.
+                        """);
+
+        this.context().page("extraction");
+        var extraction = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+
+        this.lang().add(this.context().pageTitle(), "Extracting Items");
+        this.lang().add(this.context().pageText(),
+                """
+                        Once again, item extraction is the critical issue for performance.
+                        \\
+                        \\
+                        To make use of the performance optimization, use a [](item://theurgy:logistics_item_extractor) and apply a [](item://theurgy:list_filter) to extract the desired items.
+                        \\
+                        \\
+                        The Theurgy Guidebook "The Hermetica" has a chapter on Theurgy mercurial logistics and how to use them to insert and extract items.
+                        """);
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(ItemRegistry.LIST_FILTER.get())
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        intro,
+                        extraction
                 );
     }
 

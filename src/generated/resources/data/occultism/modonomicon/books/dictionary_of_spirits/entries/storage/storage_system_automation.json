@@ -1,0 +1,69 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:storage",
+  "description": "",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "minecraft:hopper"
+  },
+  "name": "book.occultism.dictionary_of_spirits.storage.storage_system_automation.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.storage.storage_system_automation.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.storage.storage_system_automation.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.storage.storage_system_automation.performance.text",
+      "title": "book.occultism.dictionary_of_spirits.storage.storage_system_automation.performance.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.storage.storage_system_automation.extraction.text",
+      "title": "book.occultism.dictionary_of_spirits.storage.storage_system_automation.extraction.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.storage.storage_system_automation.insertion.text",
+      "title": "book.occultism.dictionary_of_spirits.storage.storage_system_automation.insertion.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:storage/storage_controller",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": -1,
+  "x": -6,
+  "y": -2
+}
