@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.144.0] - 2024-08-05
+### :sparkles: New Features
+- [`4e02c8f`](https://github.com/klikli-dev/occultism/commit/4e02c8fb79d8bc703c717239ba8de3dae3dfe799) - improve performance of specific item extraction from storage actuator *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`8297ded`](https://github.com/klikli-dev/occultism/commit/8297ded59bd4d5d2c1e866ea222d66804d22b1b8) - add support for extracting items without respecting components *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`2f0d284`](https://github.com/klikli-dev/occultism/commit/2f0d284d1bc2b717e8e39506e933a4da225cf8bc) - optimize transporter spirit extraction from storage *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`9b8ad05`](https://github.com/klikli-dev/occultism/commit/9b8ad059db008639b990e04107b4976830087462) - explain storage logistics optimizations in dictionary of spirits *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.143.4] - 2024-08-03
 ### :bug: Bug Fixes
 - [`20fe0f0`](https://github.com/klikli-dev/occultism/commit/20fe0f07da5040393b321d7a2fd7f318fc22a536) - headless familiar page specifies pumpkin instead of carved pumpkin *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1472,3 +1480,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.143.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.143.1...release/v1.21-1.143.2
 [release/v1.21-1.143.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.143.2...release/v1.21-1.143.3
 [release/v1.21-1.143.4]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.143.3...release/v1.21-1.143.4
+[release/v1.21-1.144.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.143.4...release/v1.21-1.144.0
