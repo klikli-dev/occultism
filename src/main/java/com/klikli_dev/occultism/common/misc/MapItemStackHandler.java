@@ -2,6 +2,8 @@ package com.klikli_dev.occultism.common.misc;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -9,6 +11,7 @@ import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.util.INBTSerializable;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -55,6 +58,13 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
      * The source of truth for contents of this handler.
      */
     protected Object2IntOpenHashMap<ItemStackKey> keyToCountMap;
+
+    /**
+     * A multimap that caches all ItemStackKeys (which include components) that exist for a given item.
+     * This cache filled only lazily, and not safed. If there is a component-less extract request, all contents are searched and matches cached.
+     * Then, future insertions also fill that cache, expecting additional extracts.
+     */
+    protected Multimap<Item, ItemStackKey> itemToVariantsCache = HashMultimap.create();
     /**
      * Slot view for backwards compat with slot based item handlers.
      */
@@ -137,7 +147,7 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
     }
 
     @Override
-    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+    public CompoundTag serializeNBT(HolderLookup.@NotNull Provider provider) {
         //        return (CompoundTag) CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), this).getOrThrow();
 
         CompoundTag nbt = new CompoundTag();
@@ -169,7 +179,7 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
     }
 
     @Override
-    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
+    public void deserializeNBT(HolderLookup.@NotNull Provider provider, CompoundTag nbt) {
         ListTag keyToCountList = nbt.getList("keyToCountMap", ListTag.TAG_COMPOUND);
         this.keyToCountMap = new Object2IntOpenHashMap<>();
         keyToCountList.forEach(tag -> {
@@ -341,10 +351,10 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
             if (existing <= 0) {
                 this.keyToCountMap.put(key, reachedLimit ? limit : stack.getCount());
                 this.addToSlots(key);
-
             } else {
                 this.keyToCountMap.put(key, existing + (reachedLimit ? limit : stack.getCount()));
             }
+
             this.totalItemCount += reachedLimit ? limit : stack.getCount();
             this.onContentsChanged(key);
         }
@@ -404,6 +414,32 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
         return this.extractItem(key, amount, simulate);
     }
 
+    public @NotNull ItemStack extractItemIgnoreComponents(@NotNull ItemStack stack, int amount, boolean simulate) {
+        Item item = stack.getItem();
+
+        //If someone demands an item without components, we can assume they will do so again
+        //so it pays off to build a cache, if we don't have one yet.
+        if (!this.itemToVariantsCache.containsKey(item)) {
+            this.buildItemToVariantsCacheFor(item);
+        }
+
+        var variants = this.itemToVariantsCache.get(item);
+
+        for (var key : variants) {
+            var extracted = this.extractItem(key, amount, true);
+            if (!extracted.isEmpty()) {
+                return this.extractItem(key, amount, simulate);
+            }
+        }
+
+        return ItemStack.EMPTY;
+    }
+
+    protected void buildItemToVariantsCacheFor(Item item) {
+        this.keyToCountMap.keySet().stream().filter(key -> key.stack().getItem() == item).forEach(key -> this.itemToVariantsCache.put(item, key));
+    }
+
+
     @Override
     public int getSlotLimit(int slot) {
         return Integer.MAX_VALUE;
@@ -430,6 +466,11 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
         } else {
             this.keyToSlot.put(key, this.nextSlotIndex++);
         }
+
+        //if we already have a (lazy) cache for the item this key belongs to, add our key
+        if (this.itemToVariantsCache.containsKey(key.stack().getItem())) {
+            this.itemToVariantsCache.put(key.stack().getItem(), key);
+        }
     }
 
     /**
@@ -443,6 +484,9 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
             this.emptySlots.push(index);
             //Note: We intentionally do not modify nextSlot here to avoid shrinking the handler.
         }
+
+        //If we removed a key entirely, we also have to remove it from our lazy cache.
+        this.itemToVariantsCache.remove(key.stack().getItem(), key);
     }
 
     protected int getStackLimit(@NotNull ItemStack stack) {

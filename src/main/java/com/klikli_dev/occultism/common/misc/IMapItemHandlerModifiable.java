@@ -1,5 +1,6 @@
 package com.klikli_dev.occultism.common.misc;
 
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
@@ -32,7 +33,8 @@ public interface IMapItemHandlerModifiable extends IItemHandlerModifiable {
      * May be the same as the input ItemStack if unchanged, otherwise a new ItemStack.
      * The returned ItemStack can be safely modified after.
      **/
-    @NotNull ItemStack insertItem(@NotNull ItemStack stack, boolean simulate);
+    @NotNull
+    ItemStack insertItem(@NotNull ItemStack stack, boolean simulate);
 
     /**
      * Extracts an ItemStack that matches the given key.
@@ -41,16 +43,33 @@ public interface IMapItemHandlerModifiable extends IItemHandlerModifiable {
      * otherwise its stack size must be less than or equal to {@code amount} and {@link ItemStack#getMaxStackSize()}.
      * </p>
      *
-     * @param key     The ItemStackKey to find and extract.
+     * @param key      The ItemStackKey to find and extract.
      * @param amount   Amount to extract (may be greater than the current stack's max limit)
      * @param simulate If true, the extraction is only simulated
      * @return ItemStack extracted from the slot, must be empty if nothing can be extracted.
-     *         The returned ItemStack can be safely modified after, so item handlers should return a new or copied stack.
+     * The returned ItemStack can be safely modified after, so item handlers should return a new or copied stack.
      **/
-    @NotNull ItemStack extractItem(@NotNull ItemStackKey key, int amount, boolean simulate);
+    @NotNull
+    ItemStack extractItem(@NotNull ItemStackKey key, int amount, boolean simulate);
 
     /**
      * Extracts an ItemStack that matches the given stack.
+     * <p>
+     * The returned value must be empty if nothing is extracted,
+     * otherwise its stack size must be less than or equal to {@code amount} and {@link ItemStack#getMaxStackSize()}.
+     * </p>
+     *
+     * @param stack    The ItemStack to find and extract.
+     * @param amount   Amount to extract (may be greater than the current stack's max limit)
+     * @param simulate If true, the extraction is only simulated
+     * @return ItemStack extracted from the slot, must be empty if nothing can be extracted.
+     * The returned ItemStack can be safely modified after, so item handlers should return a new or copied stack.
+     **/
+    @NotNull
+    ItemStack extractItem(@NotNull ItemStack stack, int amount, boolean simulate);
+
+    /**
+     * Extracts an ItemStack of the given Stacks Item type, ignoring components.
      * <p>
      * The returned value must be empty if nothing is extracted,
      * otherwise its stack size must be less than or equal to {@code amount} and {@link ItemStack#getMaxStackSize()}.
@@ -60,9 +79,10 @@ public interface IMapItemHandlerModifiable extends IItemHandlerModifiable {
      * @param amount   Amount to extract (may be greater than the current stack's max limit)
      * @param simulate If true, the extraction is only simulated
      * @return ItemStack extracted from the slot, must be empty if nothing can be extracted.
-     *         The returned ItemStack can be safely modified after, so item handlers should return a new or copied stack.
+     * The returned ItemStack can be safely modified after, so item handlers should return a new or copied stack.
      **/
-    @NotNull ItemStack extractItem(@NotNull ItemStack stack, int amount, boolean simulate);
+    @NotNull
+    ItemStack extractItemIgnoreComponents(@NotNull ItemStack stack, int amount, boolean simulate);
 
     boolean isItemValid(int slot, @NotNull ItemStackKey key);
 }
