@@ -76,7 +76,7 @@ public class SpiritFireBlock extends BaseFireBlock {
             var recipe =
                     pLevel.getRecipeManager().getRecipeFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get(), recipeInput, pLevel);
 
-            if (recipe.isPresent()) {
+            if (recipe.isPresent() && !item.isRemoved()) {
                 item.remove(RemovalReason.DISCARDED);
 
                 ItemStack result = recipe.get().value().assemble(recipeInput, pLevel.registryAccess());
