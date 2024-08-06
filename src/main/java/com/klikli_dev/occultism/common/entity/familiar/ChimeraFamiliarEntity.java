@@ -56,6 +56,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -492,36 +493,40 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
         }
 
         @Override
-        protected void checkAndPerformAttack(LivingEntity target) {
-            if (!this.canPerformAttack(target))
-                return;
+        protected void checkAndPerformAttack(@NotNull LivingEntity pEnemy, double pDistToEnemySqr) {
+            double d0 = this.getAttackReachSqr(pEnemy);
+            if (pDistToEnemySqr <= d0 && this.isTimeToAttack()) {
+                this.resetAttackCooldown();
 
-            this.resetAttackCooldown();
+                byte attacker = this.randomAttacker();
+                this.chimera.setAttacker(attacker);
 
-            byte attacker = this.randomAttacker();
-            this.chimera.setAttacker(attacker);
+                pEnemy.hurt(this.chimera.damageSources().playerAttack((Player) this.chimera.getFamiliarOwner()),
+                        (float) this.chimera.getAttributeValue(Attributes.ATTACK_DAMAGE));
 
-            target.hurt(this.chimera.damageSources().playerAttack((Player) this.chimera.getFamiliarOwner()),
-                    (float) this.chimera.getAttributeValue(Attributes.ATTACK_DAMAGE));
-
-            switch (attacker) {
-                case LION_ATTACKER:
-                    target.setRemainingFireTicks(4 * 20);
-                    break;
-                case GOAT_ATTACKER:
-                    Vec3 direction = target.position().vectorTo(this.chimera.position());
-                    target.knockback(2, direction.x, direction.z);
-                    break;
-                case SNAKE_ATTACKER:
-                    target.addEffect(new MobEffectInstance(MobEffects.POISON, 20 * 10));
-                    break;
+                switch (attacker) {
+                    case LION_ATTACKER:
+                        pEnemy.setRemainingFireTicks(4 * 20);
+                        break;
+                    case GOAT_ATTACKER:
+                        Vec3 direction = pEnemy.position().vectorTo(this.chimera.position());
+                        pEnemy.knockback(2, direction.x, direction.z);
+                        break;
+                    case SNAKE_ATTACKER:
+                        pEnemy.addEffect(new MobEffectInstance(MobEffects.POISON, 20 * 10));
+                        break;
+                }
             }
+        }
+
+        @Override
+        protected double getAttackReachSqr(@NotNull LivingEntity pAttackTarget) {
+            return 9;
         }
 
         private byte randomAttacker() {
             byte[] attackers = this.chimera.possibleAttackers();
             return attackers[this.chimera.getRandom().nextInt(attackers.length)];
         }
-
     }
 }
