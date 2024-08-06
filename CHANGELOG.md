@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.133.0] - 2024-08-06
+### :sparkles: New Features
+- [`44b8ad8`](https://github.com/klikli-dev/occultism/commit/44b8ad8cb23a43cf7da1b23968d3d72d75d684af) - add new AI goals for familiars to use *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`a2a2024`](https://github.com/klikli-dev/occultism/commit/a2a2024895c7735c7c79f3840e50d0f9b1740980) - chimera attack behaviour *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`58cc2ff`](https://github.com/klikli-dev/occultism/commit/58cc2ff441bf715dcb790d788888a0e2b8efc035) - json error in russian translation *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`2549ee1`](https://github.com/klikli-dev/occultism/commit/2549ee1ed3103709107b77546d543161a0521e75) - adjust chimera melee attacks from 1.21 to 1.20.1 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.132.3] - 2024-08-04
 ### :sparkles: New Features
 - [`4cb0332`](https://github.com/klikli-dev/occultism/commit/4cb0332721e7385836bd2105dffc46296c16ed39) - update russian translation *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1150,3 +1162,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.132.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.132.0...release/v1.20.1-1.132.1
 [release/v1.20.1-1.132.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.132.1...release/v1.20.1-1.132.2
 [release/v1.20.1-1.132.3]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.132.2...release/v1.20.1-1.132.3
+[release/v1.20.1-1.133.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.132.3...release/v1.20.1-1.133.0
