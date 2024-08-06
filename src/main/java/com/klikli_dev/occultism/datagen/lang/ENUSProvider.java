@@ -753,6 +753,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.summon_wild_parrot.started", "Started summoning wild parrot.");
         this.add("ritual.occultism.summon_wild_parrot.finished", "Summoned wild parrot successfully.");
         this.add("ritual.occultism.summon_wild_parrot.interrupted", "Summoning of wild parrot interrupted.");
+
+        this.add("ritual.occultism.summon_random_animal.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.summon_random_animal.started", "Started summoning a random animal.");
+        this.add("ritual.occultism.summon_random_animal.finished", "Summoned successfully.");
+        this.add("ritual.occultism.summon_random_animal.interrupted", "Summoning of random animal interrupted.");
+
         this.add("ritual.occultism.familiar_parrot.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.familiar_parrot.started", "Started summoning parrot familiar.");
         this.add("ritual.occultism.familiar_parrot.finished", "Summoned parrot familiar successfully.");
@@ -3159,8 +3165,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND.get(), "Summons a Demonic Husband to support you: He will fight for you, help with cooking, and extend potion durations.");
 
 
-        this.add(OccultismItems.RITUAL_RESURRECT_FAMILIAR.get(), "Ritual: Resurrect Familiar");
-        this.addTooltip(OccultismItems.RITUAL_RESURRECT_FAMILIAR.get(), "Resurrects a Familiar from a Soul Shard.");
+        this.add(OccultismItems.RITUAL_DUMMY_RESURRECT_FAMILIAR.get(), "Ritual: Resurrect Familiar");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_RESURRECT_FAMILIAR.get(), "Resurrects a Familiar from a Soul Shard.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_RANDOM_ANIMAL.get(), "Ritual: Summon Random Animal");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_RANDOM_ANIMAL.get(), "Summons a random passive animal.");
     }
 
     public void addTooltip(ItemLike key, String value) {

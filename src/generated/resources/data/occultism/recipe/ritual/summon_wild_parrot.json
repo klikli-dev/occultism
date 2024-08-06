@@ -23,9 +23,6 @@
     },
     {
       "tag": "c:dyes/blue"
-    },
-    {
-      "item": "minecraft:egg"
     }
   ],
   "pentacle_id": "occultism:summon_foliot",

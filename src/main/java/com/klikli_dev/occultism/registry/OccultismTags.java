@@ -54,7 +54,6 @@ public class OccultismTags {
         public static final TagKey<Block> STORAGE_STABILIZER = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "storage_stabilizer"));
     }
 
-
     public static class Items {
 
         public static final TagKey<Item> DEMONIC_PARTNER_FOOD = makeItemTag(ResourceLocation.fromNamespaceAndPath("occultism", "demonic_partner_food"));
@@ -155,6 +154,8 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> WOLFS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wolfs"));
         public static final TagKey<EntityType<?>> OCELOT = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ocelot"));
         public static final TagKey<EntityType<?>> VEX = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "vex"));
+
+        public static final TagKey<EntityType<?>> RANDOM_ANIMALS_TO_SUMMON_LIST = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "random_animals_to_summon_list"));
     }
 
 

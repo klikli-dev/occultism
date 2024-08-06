@@ -3103,9 +3103,9 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 "______________________",
                 "_________1_e_i_a_m___",
                 "______________________",
-                "_________2_f_j________",
+                "_________2_f___I______",
                 "______________________",
-                "_________3_g__________",
+                "_________3_g_j________",
                 "______________________",
                 "_________4____________"
         );
@@ -3146,6 +3146,9 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         var summonWildOtherworldBird = this.makeSummonWildOtherworldBirdEntry(entryMap, 'j');
         summonWildOtherworldBird.withParent(BookEntryParentModel.create(summonWildParrot.getId()));
 
+        var summonRandomAnimal = this.makeSummonRandomAnimalEntry(entryMap, 'I');
+        summonRandomAnimal.withParent(BookEntryParentModel.create(summonWildParrot.getId()).withLineReversed(true));
+
         var weatherMagic = this.makeWeatherMagicEntry(entryMap, 'k');
         weatherMagic.withParent(BookEntryParentModel.create(overview.getId()));
         var timeMagic = this.makeTimeMagicEntry(entryMap, 'l');
@@ -3171,6 +3174,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         summonOtherworldSaplingTrader.withCondition(BookTrueConditionModel.create());
         summonOtherstoneTrader.withCondition(BookTrueConditionModel.create());
         summonWildParrot.withCondition(BookTrueConditionModel.create());
+        summonRandomAnimal.withCondition(BookTrueConditionModel.create());
         summonWildOtherworldBird.withCondition(BookTrueConditionModel.create());
         weatherMagic.withCondition(BookTrueConditionModel.create());
         timeMagic.withCondition(BookTrueConditionModel.create());
@@ -3197,6 +3201,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         summonOtherworldSaplingTrader,
                         summonWildOtherworldBird,
                         summonWildParrot,
+                        summonRandomAnimal,
                         timeMagic,
                         weatherMagic,
                         witherSkull,
@@ -3721,6 +3726,50 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         ritual,
                         description,
                         description2
+                );
+    }
+
+    private BookEntryModel makeSummonRandomAnimalEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("summon_random_animal");
+        this.add(this.context().entryName(), "Summon Random Animal");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.create()
+                .withEntityId("minecraft:cow")
+                .withEntityName(this.context().pageTitle())
+                .withText(this.context().pageText());
+
+        this.add(this.context().pageTitle(), "Summon Random Animal");
+        this.add(this.context().pageText(),
+                """
+                    **Provides**: A random animal
+                    """
+        );
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_random_animal"));
+        //no text
+
+        this.context().page("description");
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
+        this.add(this.context().pageText(),
+                """
+                        In this ritual a [#](%1$s)Foliot[#]() is summoned **as an untamed spirit** to take the shape of a random animal.
+                        \\
+                        \\
+                        The animal can be interacted with as it's natural counterpart, including taming, breeding and loot.
+                        """.formatted(COLOR_PURPLE));
+
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.COW_SPAWN_EGG)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
                 );
     }
 

@@ -108,6 +108,34 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .replace(false);
 
 
+        this.tag(OccultismTags.Entities.RANDOM_ANIMALS_TO_SUMMON_LIST)
+                .add(EntityType.ARMADILLO)
+                .add(EntityType.AXOLOTL)
+                .add(EntityType.BAT)
+                .add(EntityType.BEE)
+                .add(EntityType.CAMEL)
+                .add(EntityType.CAT)
+                .add(EntityType.CHICKEN)
+                .add(EntityType.COW)
+                .add(EntityType.DONKEY)
+                .add(EntityType.FOX)
+                .add(EntityType.FROG)
+                .add(EntityType.HORSE)
+                .add(EntityType.IRON_GOLEM)
+                .add(EntityType.LLAMA)
+                .add(EntityType.MOOSHROOM)
+                .add(EntityType.MULE)
+                .add(EntityType.OCELOT)
+                .add(EntityType.PANDA)
+                .add(EntityType.PARROT)
+                .add(EntityType.PIG)
+                .add(EntityType.POLAR_BEAR)
+                .add(EntityType.RABBIT)
+                .add(EntityType.SHEEP)
+                .add(EntityType.SNOW_GOLEM)
+                .add(EntityType.TURTLE)
+                .add(EntityType.VILLAGER)
+                .add(EntityType.WOLF);
     }
 
     private void addCommonTags() {

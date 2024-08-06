@@ -131,7 +131,7 @@ public class SummonRitual extends Ritual {
         ((ServerLevel) level).sendParticles(ParticleTypes.LARGE_SMOKE, goldenBowlPosition.getX() + 0.5,
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
-        EntityType<?> entityType = this.recipe.getEntityToSummon();
+        EntityType<?> entityType = this.getEntityToSummon(level);
         if (entityType != null) {
             Entity entity = this.createSummonedEntity(entityType, level, goldenBowlPosition, blockEntity, castingPlayer);
             if (entity instanceof LivingEntity living) {
@@ -150,6 +150,10 @@ public class SummonRitual extends Ritual {
                     this.finishBookOfCallingSetup(result, (SpiritEntity) living, castingPlayer);
             }
         }
+    }
+
+    protected EntityType<?> getEntityToSummon(Level level){
+        return this.recipe.getEntityToSummon();
     }
 
     public Entity createSummonedEntity(EntityType<?> entityType, Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,

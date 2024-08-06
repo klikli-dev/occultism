@@ -600,13 +600,30 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Tags.Items.DYES_GREEN),
                         Ingredient.of(Tags.Items.DYES_YELLOW),
                         Ingredient.of(Tags.Items.DYES_RED),
-                        Ingredient.of(Tags.Items.DYES_BLUE),
-                        Ingredient.of(Items.EGG))
+                        Ingredient.of(Tags.Items.DYES_BLUE))
                 .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
                 .entityToSummon(EntityType.PARROT)
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.chicken")
                 .entityToSacrifice(OccultismTags.Entities.CHICKEN)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_wild_parrot"));
+
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
+                        makeLoreSpawnEgg(Items.SHEEP_SPAWN_EGG, "item.occultism.ritual_dummy.summon_random_animal"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_random_animal")),
+                        30,
+                        OccultismRituals.SUMMON_RANDOM_ANIMAL.getId(),
+                        PENTACLE_SUMMON_FOLIOT,
+                        Ingredient.of(Tags.Items.CROPS),
+                        Ingredient.of(Tags.Items.CROPS),
+                        Ingredient.of(Tags.Items.CROPS),
+                        Ingredient.of(Tags.Items.CROPS),
+                        Ingredient.of(Tags.Items.CROPS),
+                        Ingredient.of(Tags.Items.CROPS),
+                        Ingredient.of(Tags.Items.CROPS),
+                        Ingredient.of(Tags.Items.CROPS),
+                        Ingredient.of(Items.EGG))
+                .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_random_animal"));
 
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.SUGAR),
                         makeLoreSpawnEgg(Items.ALLAY_SPAWN_EGG, "item.occultism.ritual_dummy.summon_allay"),
