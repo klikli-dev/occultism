@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.144.1] - 2024-08-06
+### :bug: Bug Fixes
+- [`981943b`](https://github.com/klikli-dev/occultism/commit/981943b39a16b3054903e2f0986b0263bc8e1a48) - spirit fire output is doubled if two fires are adjacent *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`3dce9fe`](https://github.com/klikli-dev/occultism/commit/3dce9fee37ae32a9f1611d6c8aba900a279d8573) - increase version *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.144.0] - 2024-08-05
 ### :sparkles: New Features
 - [`4e02c8f`](https://github.com/klikli-dev/occultism/commit/4e02c8fb79d8bc703c717239ba8de3dae3dfe799) - improve performance of specific item extraction from storage actuator *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1481,3 +1489,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.143.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.143.2...release/v1.21-1.143.3
 [release/v1.21-1.143.4]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.143.3...release/v1.21-1.143.4
 [release/v1.21-1.144.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.143.4...release/v1.21-1.144.0
+[release/v1.21-1.144.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.144.0...release/v1.21-1.144.1
