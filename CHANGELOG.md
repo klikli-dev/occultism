@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.145.1] - 2024-08-07
+### :bug: Bug Fixes
+- [`6b2187f`](https://github.com/klikli-dev/occultism/commit/6b2187fb6626eb0aa7e501f1db8449a01dec876d) - crash when ritual is interrupted by removing ingredients *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.145.0] - 2024-08-06
 ### :sparkles: New Features
 - [`27eec3a`](https://github.com/klikli-dev/occultism/commit/27eec3a41e35b4cb93d03d22305a8a17b423f1c8) - added ritual to summon random animal *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1496,3 +1501,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.144.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.143.4...release/v1.21-1.144.0
 [release/v1.21-1.144.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.144.0...release/v1.21-1.144.1
 [release/v1.21-1.145.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.144.1...release/v1.21-1.145.0
+[release/v1.21-1.145.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.145.0...release/v1.21-1.145.1
