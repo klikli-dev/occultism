@@ -65,7 +65,8 @@ public class RitualTrigger extends SimpleCriterionTrigger<RitualTrigger.TriggerI
         }
 
         public boolean matches(ServerPlayer player, Ritual ritual) {
-            if (this.ritualId.isPresent() && !this.ritualId.get().equals(ritual.getRecipeHolder(player).id()))
+            var holder = ritual.getRecipeHolder(player.level());
+            if (this.ritualId.isPresent() && holder != null && !this.ritualId.get().equals(holder.id()))
                 return false;
             else return this.ritualFactoryId.isEmpty() || this.ritualFactoryId.get().equals(ritual.getFactoryID());
         }

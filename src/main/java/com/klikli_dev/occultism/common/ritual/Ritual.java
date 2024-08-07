@@ -125,9 +125,10 @@ public abstract class Ritual {
         return this.recipe;
     }
 
-    public RecipeHolder<RitualRecipe> getRecipeHolder(ServerPlayer player) {
+    public RecipeHolder<RitualRecipe> getRecipeHolder(Level level) {
         if (this.recipeHolderSupplier == null) {
-            this.recipeHolderSupplier = Suppliers.memoize(() -> player.getServer().getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get()).stream().filter(
+            this.recipeHolderSupplier =
+                    Suppliers.memoize(() -> level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get()).stream().filter(
                     r -> r.value() == this.getRecipe()
             ).findFirst().orElse(null));
         }
@@ -135,7 +136,10 @@ public abstract class Ritual {
     }
 
     public String getRitualID(ServerPlayer player) {
-        ResourceLocation recipeId = this.getRecipeHolder(player).id();
+        var holder = this.getRecipeHolder(player.level());
+        if(holder == null)
+            return "unknown";
+        ResourceLocation recipeId = holder.id();
         String path = recipeId.getPath();
         if (path.contains("/"))
             path = path.substring(path.indexOf("/") + 1);
