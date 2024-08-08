@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.146.1] - 2024-08-08
+### :bug: Bug Fixes
+- [`94b6356`](https://github.com/klikli-dev/occultism/commit/94b635627d9247d5b29e3089196c18d2f605e1e8) - correctly use capturing not supported tag *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.146.0] - 2024-08-08
 ### :sparkles: New Features
 - [`f0b397e`](https://github.com/klikli-dev/occultism/commit/f0b397e7fddd1be1d80c454859104b6761fedf87) - allow any summon ritual to specify a tag to randomly summon from *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1508,3 +1513,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.145.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.144.1...release/v1.21-1.145.0
 [release/v1.21-1.145.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.145.0...release/v1.21-1.145.1
 [release/v1.21-1.146.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.145.1...release/v1.21-1.146.0
+[release/v1.21-1.146.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.146.0...release/v1.21-1.146.1
