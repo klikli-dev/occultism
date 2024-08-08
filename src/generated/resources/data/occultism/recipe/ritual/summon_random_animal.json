@@ -3,6 +3,7 @@
   "activation_item": {
     "item": "occultism:book_of_binding_bound_foliot"
   },
+  "entity_tag_to_summon": "occultism:random_animals_to_summon_list",
   "ingredients": [
     {
       "tag": "c:crops"
@@ -47,5 +48,5 @@
     "count": 1,
     "id": "occultism:ritual_dummy/summon_random_animal"
   },
-  "ritual_type": "occultism:summon_random_animal"
+  "ritual_type": "occultism:summon"
 }

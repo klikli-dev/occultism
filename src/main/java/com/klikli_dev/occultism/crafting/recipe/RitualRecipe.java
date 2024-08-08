@@ -42,11 +42,12 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.Container;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -59,6 +60,7 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
                     ItemStack.STRICT_CODEC.fieldOf("ritual_dummy").forGetter((r) -> r.ritualDummy),
                     ItemStack.OPTIONAL_CODEC.fieldOf("result").forGetter((r) -> r.result),
                     BuiltInRegistries.ENTITY_TYPE.byNameCodec().optionalFieldOf("entity_to_summon").forGetter(r -> Optional.ofNullable(r.entityToSummon)),
+                    TagKey.codec(Registries.ENTITY_TYPE).optionalFieldOf("entity_tag_to_summon").forGetter(r -> Optional.ofNullable(r.entityTagToSummon)),
                     CompoundTag.CODEC.optionalFieldOf("entity_nbt").forGetter(r -> Optional.ofNullable(r.entityNbt)),
                     Ingredient.CODEC.fieldOf("activation_item").forGetter((r) -> r.activationItem),
                     Ingredient.LIST_CODEC.fieldOf("ingredients").forGetter((r) -> r.ingredients),
@@ -69,7 +71,7 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
                     EntityToSacrifice.CODEC.optionalFieldOf("entity_to_sacrifice").forGetter(r -> Optional.ofNullable(r.entityToSacrifice)),
                     Ingredient.CODEC.optionalFieldOf("item_to_use").forGetter(r -> Optional.ofNullable(r.itemToUse)),
                     Codec.STRING.optionalFieldOf("command").forGetter(r -> Optional.ofNullable(r.command))
-            ).apply(instance, (pentacleId, ritualType, ritualDummy, result, entityToSummon, entityNbt, activationItem, ingredients, duration, spiritMaxAge, summonNumber, spiritJobType, entityToSacrifice, itemToUse, command) -> new RitualRecipe(pentacleId, ritualType, ritualDummy, result, entityToSummon.orElse(null), entityNbt.orElse(null), activationItem,
+            ).apply(instance, (pentacleId, ritualType, ritualDummy, result, entityToSummon, entityTagToSummon, entityNbt, activationItem, ingredients, duration, spiritMaxAge, summonNumber, spiritJobType, entityToSacrifice, itemToUse, command) -> new RitualRecipe(pentacleId, ritualType, ritualDummy, result, entityToSummon.orElse(null), entityTagToSummon.orElse(null), entityNbt.orElse(null), activationItem,
                     NonNullList.copyOf(ingredients), duration, spiritMaxAge, summonNumber, spiritJobType.orElse(null), entityToSacrifice.orElse(null), itemToUse.orElse(Ingredient.EMPTY), command.orElse(null)))
     );
 
@@ -84,6 +86,8 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
             (r) -> r.result,
             ByteBufCodecs.optional(ByteBufCodecs.registry(Registries.ENTITY_TYPE)),
             (r) -> Optional.ofNullable(r.entityToSummon),
+            ByteBufCodecs.optional(OccultismExtraStreamCodecs.tagKey(Registries.ENTITY_TYPE)),
+            (r) -> Optional.ofNullable(r.entityTagToSummon),
             ByteBufCodecs.optional(ByteBufCodecs.COMPOUND_TAG),
             (r) -> Optional.ofNullable(r.entityNbt),
             Ingredient.CONTENTS_STREAM_CODEC,
@@ -104,8 +108,8 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
             (r) -> Optional.ofNullable(r.itemToUse),
             ByteBufCodecs.optional(ByteBufCodecs.STRING_UTF8),
             (r) -> Optional.ofNullable(r.command),
-            (pentacleId, ritualType, ritualDummy, result, entityToSummon, entityNbt, activationItem, ingredients, duration, spiritMaxAge, summonNumber, spiritJobType, entityToSacrifice, itemToUse, command) ->
-                    new RitualRecipe(pentacleId, ritualType, ritualDummy, result, entityToSummon.orElse(null), entityNbt.orElse(null), activationItem,
+            (pentacleId, ritualType, ritualDummy, result, entityToSummon, entityTagToSummon, entityNbt, activationItem, ingredients, duration, spiritMaxAge, summonNumber, spiritJobType, entityToSacrifice, itemToUse, command) ->
+                    new RitualRecipe(pentacleId, ritualType, ritualDummy, result, entityToSummon.orElse(null), entityTagToSummon.orElse(null), entityNbt.orElse(null), activationItem,
                             NonNullList.copyOf(ingredients), duration, spiritMaxAge, summonNumber, spiritJobType.orElse(null), entityToSacrifice.orElse(null), itemToUse.orElse(Ingredient.EMPTY), command.orElse(null))
     );
 
@@ -114,25 +118,34 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
     final NonNullList<Ingredient> ingredients;
     private final ResourceLocation pentacleId;
     private final ResourceLocation ritualType;
+    @Nullable
     private final ResourceLocation spiritJobType;
     private final Supplier<Ritual> ritual;
     private final ItemStack ritualDummy;
     private final Ingredient activationItem;
+    @Nullable
     private final EntityToSacrifice entityToSacrifice;
+    @Nullable
     private final EntityType<?> entityToSummon;
+    @Nullable
+    private final TagKey<EntityType<?>> entityTagToSummon;
+    @Nullable
     private final CompoundTag entityNbt;
+    @Nullable
     private final Ingredient itemToUse;
     private final int duration;
     private final int spiritMaxAge;
     private final int summonNumber;
     private final float durationPerIngredient;
+    @Nullable
     private final String command;
 
     public RitualRecipe(ResourceLocation pentacleId, ResourceLocation ritualType, ItemStack ritualDummy,
-                        ItemStack result, EntityType<?> entityToSummon, CompoundTag entityNbt, Ingredient activationItem, NonNullList<Ingredient> ingredients, int duration, int spiritMaxAge, int summonNumber, ResourceLocation spiritJobType, EntityToSacrifice entityToSacrifice, Ingredient itemToUse, String command) {
+                        ItemStack result, @Nullable EntityType<?> entityToSummon, @Nullable TagKey<EntityType<?>> entityTagToSummon, @Nullable CompoundTag entityNbt, Ingredient activationItem, NonNullList<Ingredient> ingredients, int duration, int spiritMaxAge, int summonNumber, @Nullable ResourceLocation spiritJobType, @Nullable EntityToSacrifice entityToSacrifice, @Nullable Ingredient itemToUse, @Nullable String command) {
         this.result = result;
         this.ingredients = ingredients;
         this.entityToSummon = entityToSummon;
+        this.entityTagToSummon = entityTagToSummon;
         this.entityNbt = entityNbt;
         this.pentacleId = pentacleId;
         this.ritualType = ritualType;
@@ -154,11 +167,11 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
         return true;
     }
 
-    public String getCommand() {
+    public @Nullable String getCommand() {
         return this.command;
     }
 
-    public CompoundTag getEntityNbt() {
+    public @Nullable CompoundTag getEntityNbt() {
         return this.entityNbt;
     }
 
@@ -187,20 +200,20 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<?> getSerializer() {
         return SERIALIZER;
     }
 
     @Override
-    public boolean matches(SingleRecipeInput pInv, Level pLevel) {
+    public boolean matches(@NotNull SingleRecipeInput pInv, @NotNull Level pLevel) {
         return false;
     }
 
 
     @Override
-    public ItemStack assemble(SingleRecipeInput pCraftingContainer, HolderLookup.Provider pRegistries) {
+    public @NotNull ItemStack assemble(@NotNull SingleRecipeInput pCraftingContainer, HolderLookup.@NotNull Provider pRegistries) {
         //as we don't have an inventory this is ignored.
-        return null;
+        return ItemStack.EMPTY;
     }
 
 
@@ -210,12 +223,12 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
+    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
         return this.result;
     }
 
     @Override
-    public NonNullList<Ingredient> getIngredients() {
+    public @NotNull NonNullList<Ingredient> getIngredients() {
         return this.ingredients;
     }
 
@@ -232,7 +245,7 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public @NotNull RecipeType<?> getType() {
         return OccultismRecipes.RITUAL_TYPE.get();
     }
 
@@ -244,7 +257,7 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
         return this.entityToSacrifice != null;
     }
 
-    public Ingredient getItemToUse() {
+    public @Nullable Ingredient getItemToUse() {
         return this.itemToUse;
     }
 
@@ -252,8 +265,12 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
         return this.itemToUse != Ingredient.EMPTY;
     }
 
-    public EntityType<?> getEntityToSummon() {
+    public @Nullable EntityType<?> getEntityToSummon() {
         return this.entityToSummon;
+    }
+
+    public @Nullable TagKey<EntityType<?>> getEntityTagToSummon() {
+        return this.entityTagToSummon;
     }
 
     public ResourceLocation getRitualType() {
@@ -268,7 +285,7 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
         return this.entityToSacrifice != null ? this.entityToSacrifice.displayName() : "";
     }
 
-    public ResourceLocation getSpiritJobType() {
+    public @Nullable ResourceLocation getSpiritJobType() {
         return this.spiritJobType;
     }
 
@@ -298,12 +315,12 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
     public static class Serializer implements RecipeSerializer<RitualRecipe> {
 
         @Override
-        public MapCodec<RitualRecipe> codec() {
+        public @NotNull MapCodec<RitualRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public StreamCodec<RegistryFriendlyByteBuf, RitualRecipe> streamCodec() {
+        public @NotNull StreamCodec<RegistryFriendlyByteBuf, RitualRecipe> streamCodec() {
             return STREAM_CODEC;
         }
     }

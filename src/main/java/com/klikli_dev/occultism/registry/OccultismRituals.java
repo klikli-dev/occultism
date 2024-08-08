@@ -58,9 +58,6 @@ public class OccultismRituals {
     public static final DeferredHolder<RitualFactory, RitualFactory> SUMMON_WILD =
             RITUAL_FACTORIES.register("summon_wild",
                     () -> new RitualFactory(SummonWildRitual::new));
-    public static final DeferredHolder<RitualFactory, RitualFactory> SUMMON_RANDOM_ANIMAL =
-            RITUAL_FACTORIES.register("summon_random_animal",
-                    () -> new RitualFactory(SummonRandomAnimalRitual::new));
     public static final DeferredHolder<RitualFactory, RitualFactory> FAMILIAR =
             RITUAL_FACTORIES.register("familiar",
                     () -> new RitualFactory(FamiliarRitual::new));

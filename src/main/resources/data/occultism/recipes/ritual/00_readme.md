@@ -17,6 +17,7 @@ and thus shelved until further notice.
       file.
 - `item_to_use`: If set, an item from the tag needs to be used (right click) for the ritual to commence.
 - `entity_to_summon`: the entity type of the entity to summon.
+- `entity_tag_to_summon`: the tag that determines the entity to summon, instead of specifying the entity type directly. A random entity will be chosen from the tag.
 - `entity_nbt`: An NBT Tag that will be merged into the entity's nbt. E.g. could be used to set `RabbitType` for rabbits, or `ForgeData` for arbitrary nbt. Uses the NBT formats also used in vanilla shapeless recipe's output: either a json object representing the tag, or a string containing the tag in NBT format.
 - `duration`: The duration of the ritual in seconds.
 - `spirit_max_age`: The max age of the spirit in seconds.

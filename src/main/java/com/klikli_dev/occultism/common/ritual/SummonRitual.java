@@ -26,11 +26,13 @@ import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEnt
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -44,6 +46,8 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.stream.StreamSupport;
 
 public class SummonRitual extends Ritual {
 
@@ -153,6 +157,15 @@ public class SummonRitual extends Ritual {
     }
 
     protected EntityType<?> getEntityToSummon(Level level){
+        if(this.recipe.getEntityTagToSummon() != null){
+            var options = StreamSupport.stream(BuiltInRegistries.ENTITY_TYPE.getTagOrEmpty(this.recipe.getEntityTagToSummon()).spliterator(), false).toList();
+
+            if (!options.isEmpty()) {
+                int index = level.random.nextInt(options.size());
+                return options.get(index).value();
+            }
+        }
+
         return this.recipe.getEntityToSummon();
     }
 
