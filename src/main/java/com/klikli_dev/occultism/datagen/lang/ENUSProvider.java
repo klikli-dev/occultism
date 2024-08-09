@@ -2293,7 +2293,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         \\
                         \\
                         **Upgrade Behaviour**\\
-                        Cannot be upgraded by the blacksmith familiar.
+                        Gives free snacks when right-clicked with an empty hand.
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_beholder");
@@ -3189,6 +3189,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     private void addDialogs() {
         this.add("dialog.occultism.dragon.pet", "purrr");
         this.add("dialog.occultism.mummy.kapow", "KAPOW!");
+        this.add("dialog.occultism.beaver.snack_on_cooldown", "Hey now, don't be greedy!");
     }
 
     private void addModonomiconIntegration() {
