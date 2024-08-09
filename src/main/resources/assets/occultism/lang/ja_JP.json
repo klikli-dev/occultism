@@ -791,6 +791,7 @@
   "debug.occultism.debug_wand.printed_glyphs": "印刷されたグリフ",
   "debug.occultism.debug_wand.spirit_selected": "id %s の選択された精神",
   "debug.occultism.debug_wand.spirit_tamed": "ID %sのテイム済みスピリット",
+  "dialog.occultism.beaver.no_upgrade": "A Blacksmith Familiar needs to upgrade the Beaver before he dispenses snacks!",
   "dialog.occultism.beaver.snack_on_cooldown": "Hey now, don't be greedy!",
   "dialog.occultism.dragon.pet": "purrr",
   "dialog.occultism.mummy.kapow": "KAPOW!",
