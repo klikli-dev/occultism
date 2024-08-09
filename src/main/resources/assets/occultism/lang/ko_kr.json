@@ -791,6 +791,7 @@
   "debug.occultism.debug_wand.printed_glyphs": "인쇄된 상형 문자",
   "debug.occultism.debug_wand.spirit_selected": "%s ID로 선택된 정신입니다.",
   "debug.occultism.debug_wand.spirit_tamed": "%s ID로 길들여진 정신입니다.",
+  "dialog.occultism.beaver.no_upgrade": "A Blacksmith Familiar needs to upgrade the Beaver before he dispenses snacks!",
   "dialog.occultism.beaver.snack_on_cooldown": "Hey now, don't be greedy!",
   "dialog.occultism.dragon.pet": "purrr",
   "dialog.occultism.mummy.kapow": "KAPOW!",
