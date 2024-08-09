@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.134.1] - 2024-08-09
+### :bug: Bug Fixes
+- [`78d5781`](https://github.com/klikli-dev/occultism/commit/78d57818808b4164dd5d119fc2ba7ee20af5d887) - add hint if beaver is not upgraded *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.133.1] - 2024-08-06
 ### :bug: Bug Fixes
 - [`3b879e4`](https://github.com/klikli-dev/occultism/commit/3b879e430b415f7ed952614b2b36ae286d7d7465) - spirit fire output is doubled if two fires are adjacent *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1169,3 +1174,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.132.3]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.132.2...release/v1.20.1-1.132.3
 [release/v1.20.1-1.133.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.132.3...release/v1.20.1-1.133.0
 [release/v1.20.1-1.133.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.133.0...release/v1.20.1-1.133.1
+[release/v1.20.1-1.134.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.134.0...release/v1.20.1-1.134.1
