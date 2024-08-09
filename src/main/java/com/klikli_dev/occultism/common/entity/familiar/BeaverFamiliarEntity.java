@@ -26,10 +26,14 @@ import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEffects;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -40,10 +44,12 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -53,8 +59,10 @@ import java.util.Set;
 
 public class BeaverFamiliarEntity extends FamiliarEntity {
 
+    protected static final int SNACK_INTERVAL = 20;
     private final WaterBoundPathNavigation waterNavigator;
     private final GroundPathNavigation groundNavigator;
+    protected long lastSnackTime;
     private BlockPos treeTarget;
 
     public BeaverFamiliarEntity(EntityType<? extends BeaverFamiliarEntity> type, Level level) {
@@ -114,6 +122,26 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
         return true;
     }
 
+    @Override
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        ItemStack itemstack = pPlayer.getItemInHand(pHand);
+        if (this.getOwner() == pPlayer) {
+
+            if (!pPlayer.isShiftKeyDown() && itemstack.isEmpty()) {
+                if(this.level().getGameTime() > this.lastSnackTime + SNACK_INTERVAL){
+                    this.lastSnackTime = this.level().getGameTime();
+                    ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(OccultismItems.BEAVER_NUGGET.get()));
+                } else {
+                    pPlayer.displayClientMessage(Component.translatable("dialog.occultism.beaver.snack_on_cooldown"), true);
+                }
+                //even if we don't give a snack we return success, otherwise we make the familiar change sitting position
+                return InteractionResult.sidedSuccess(this.level().isClientSide);
+            }
+
+        }
+        return super.mobInteract(pPlayer, pHand);
+    }
+
     public boolean hasWhiskers() {
         return this.hasVariant(0);
     }
@@ -145,6 +173,11 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
 
     public void setTreeTarget(BlockPos pos) {
         this.treeTarget = pos;
+    }
+
+    @Override
+    public boolean canBlacksmithUpgrade() {
+        return true;
     }
 
     private static class ChopTreeGoal extends Goal {

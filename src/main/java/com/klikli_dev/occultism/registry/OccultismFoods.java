@@ -52,4 +52,7 @@ public class OccultismFoods {
                     .effect(() -> new MobEffectInstance(OccultismEffects.THIRD_EYE.get(), 60 * 20, 1), 1.0f)
                     .effect(() -> new MobEffectInstance(MobEffects.LUCK,  5* 60 * 20, 1), 1.0f)
                     .build());
+
+    public static final NonNullLazy<FoodProperties> BEAVER_NUGGET = NonNullLazy.of(
+            () ->  new FoodProperties.Builder().nutrition(8).saturationMod(0.8F).build());
 }

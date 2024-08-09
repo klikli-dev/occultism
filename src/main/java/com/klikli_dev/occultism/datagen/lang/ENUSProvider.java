@@ -189,6 +189,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addAutoTooltip(OccultismItems.DEMONS_DREAM_ESSENCE.get(), "Consumption allows to see beyond the veil ... and a whole lot of other effects.");
         this.addItem(OccultismItems.OTHERWORLD_ESSENCE, "Otherworld Essence");
         this.addAutoTooltip(OccultismItems.OTHERWORLD_ESSENCE.get(), "Purified Demon's Dream Essence, no longer provides any of the negative effects.");
+        this.addItem(OccultismItems.BEAVER_NUGGET, "Beaver Nugget");
         this.addItem(OccultismItems.SPIRIT_ATTUNED_GEM, "Spirit Attuned Gem");
         this.add("item.occultism.otherworld_sapling", "Otherworld Sapling");
         this.add("item.occultism.otherworld_sapling_natural", "Unstable Otherworld Sapling");
@@ -2187,7 +2188,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         \\
                         \\
                         **Upgrade Behaviour**\\
-                        Cannot be upgraded by the blacksmith familiar.
+                        Gives free snacks when right-clicked with an empty hand.
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_beholder");
@@ -3044,6 +3045,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     private void addDialogs() {
         this.add("dialog.occultism.dragon.pet", "purrr");
         this.add("dialog.occultism.mummy.kapow", "KAPOW!");
+        this.add("dialog.occultism.beaver.snack_on_cooldown", "Hey now, don't be greedy!");
     }
 
     private void addModonomiconIntegration() {
