@@ -791,6 +791,7 @@
   "debug.occultism.debug_wand.printed_glyphs": "Glifos escritos",
   "debug.occultism.debug_wand.spirit_selected": "Selecionado espírito com id %s",
   "debug.occultism.debug_wand.spirit_tamed": "Domado espírito com id %s",
+  "dialog.occultism.beaver.no_upgrade": "A Blacksmith Familiar needs to upgrade the Beaver before he dispenses snacks!",
   "dialog.occultism.beaver.snack_on_cooldown": "Hey now, don't be greedy!",
   "dialog.occultism.dragon.pet": "ron-ron",
   "dialog.occultism.mummy.kapow": "KAPOW!",
