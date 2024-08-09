@@ -96,7 +96,7 @@ jobs:
           loaders: |
             neoforge
           game-versions: |
-            ${{ steps.get_mc_version.outputs.result }
+            ${{ steps.get_mc_version.outputs.result }}
             1.21.1
           changelog: |-
             ${{ steps.changelog.outputs.changes }}
