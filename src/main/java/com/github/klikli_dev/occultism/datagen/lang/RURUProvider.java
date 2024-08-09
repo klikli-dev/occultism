@@ -133,145 +133,146 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addItems() {
-        //Notepad++ magic:
+        //Магия Notepad++:
         //"item\.occultism\.(.*)": "(.*)"
         //this.addItem\(OccultismItems.\U\1\E, "\2"\);
 
         this.lang("ru_ru").add("itemGroup.occultism", "Occultism");
 
-        this.addItem(OccultismItems.PENTACLE, "Pentacle");
-        this.addItem(OccultismItems.DEBUG_WAND, "Debug Wand");
-        this.addItem(OccultismItems.DEBUG_FOLIOT_LUMBERJACK, "Summon Debug Foliot Lumberjack");
-        this.addItem(OccultismItems.DEBUG_FOLIOT_TRANSPORT_ITEMS, "Summon Debug Foliot Transporter");
-        this.addItem(OccultismItems.DEBUG_FOLIOT_CLEANER, "Summon Debug Foliot Janitor");
-        this.addItem(OccultismItems.DEBUG_FOLIOT_TRADER_ITEM, "Summon Debug Foliot Trader");
-        this.addItem(OccultismItems.DEBUG_DJINNI_MANAGE_MACHINE, "Summon Debug Djinni Manage Machine");
-        this.addItem(OccultismItems.DEBUG_DJINNI_TEST, "Summon Debug Djinni Test");
+        this.addItem(OccultismItems.PENTACLE, "Пентакля");
+        this.addItem(OccultismItems.DEBUG_WAND, "Жезл отладки");
+        this.addItem(OccultismItems.DEBUG_FOLIOT_LUMBERJACK, "Призыв отладочного Дровосека-Фолиота");
+        this.addItem(OccultismItems.DEBUG_FOLIOT_TRANSPORT_ITEMS, "Призыв отладочного Транспортировщика-Фолиота");
+        this.addItem(OccultismItems.DEBUG_FOLIOT_CLEANER, "Призыв отладочного Дворника-Фолиота");
+        this.addItem(OccultismItems.DEBUG_FOLIOT_TRADER_ITEM, "Призыв отладочного Фолиота-Торговца");
+        this.addItem(OccultismItems.DEBUG_DJINNI_MANAGE_MACHINE, "Призыв отладочного Станочника-Джинни");
+        this.addItem(OccultismItems.DEBUG_DJINNI_TEST, "Призыв отладочного тестового Джинни");
 
-        this.addItem(OccultismItems.CHALK_GOLD, "Golden Chalk");
-        this.addItem(OccultismItems.CHALK_PURPLE, "Purple Chalk");
-        this.addItem(OccultismItems.CHALK_RED, "Red Chalk");
-        this.addItem(OccultismItems.CHALK_WHITE, "White Chalk");
-        this.addItem(OccultismItems.CHALK_GOLD_IMPURE, "Impure Golden Chalk");
-        this.addItem(OccultismItems.CHALK_PURPLE_IMPURE, "Impure Purple Chalk");
-        this.addItem(OccultismItems.CHALK_RED_IMPURE, "Impure Red Chalk");
-        this.addItem(OccultismItems.CHALK_WHITE_IMPURE, "Impure White Chalk");
-        this.addItem(OccultismItems.BRUSH, "Chalk Brush");
-        this.addItem(OccultismItems.AFRIT_ESSENCE, "Afrit Essence");
-        this.addItem(OccultismItems.PURIFIED_INK, "Purified Ink");
-        this.addItem(OccultismItems.AWAKENED_FEATHER, "Awakened Feather");
-        this.addItem(OccultismItems.TABOO_BOOK, "Taboo Book");
-        this.addItem(OccultismItems.BOOK_OF_BINDING_EMPTY, "Book of Binding: Empty");
-        this.addItem(OccultismItems.BOOK_OF_BINDING_FOLIOT, "Book of Binding: Foliot");
-        this.addItem(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT, "Book of Binding: Foliot (Bound)");
-        this.addItem(OccultismItems.BOOK_OF_BINDING_DJINNI, "Book of Binding: Djinni");
-        this.addItem(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI, "Book of Binding: Djinni (Bound)");
-        this.addItem(OccultismItems.BOOK_OF_BINDING_AFRIT, "Book of Binding: Afrit");
-        this.addItem(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT, "Book of Binding: Afrit (Bound)");
-        this.addItem(OccultismItems.BOOK_OF_BINDING_MARID, "Book of Binding: Marid");
-        this.addItem(OccultismItems.BOOK_OF_BINDING_BOUND_MARID, "Book of Binding: Marid (Bound)");
-        this.addItem(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK, "Book of Calling: Foliot Lumberjack");
-        this.addItem(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS, "Book of Calling: Foliot Transporter");
-        this.addItem(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER, "Book of Calling: Foliot Janitor");
-        this.addItem(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE, "Book of Calling: Djinni Machine Operator");
-        this.addItem(OccultismItems.STORAGE_REMOTE, "Storage Accessor");
-        this.addItem(OccultismItems.STORAGE_REMOTE_INERT, "Inert Storage Accessor");
-        this.addItem(OccultismItems.DIMENSIONAL_MATRIX, "Dimensional Crystal Matrix");
-        this.addItem(OccultismItems.DIVINATION_ROD, "Divination Rod");
-        this.addItem(OccultismItems.DATURA_SEEDS, "Demon's Dream Seeds");
-        this.addAutoTooltip(OccultismItems.DATURA_SEEDS.get(), "Plant to grow Demon's Dream Fruit.\nConsumption may allow to see beyond the veil ... it may also cause general un-wellness.");
-        this.addItem(OccultismItems.DATURA, "Demon's Dream Fruit");
-        this.addAutoTooltip(OccultismItems.DATURA.get(), "Consumption may allow to see beyond the veil ... it may also cause general un-wellness.");
-        this.addItem(OccultismItems.DEMONS_DREAM_ESSENCE, "Demon's Dream Essence");
-        this.addAutoTooltip(OccultismItems.DEMONS_DREAM_ESSENCE.get(), "Consumption allows to see beyond the veil ... and a whole lot of other effects.");
-        this.addItem(OccultismItems.OTHERWORLD_ESSENCE, "Otherworld Essence");
-        this.addAutoTooltip(OccultismItems.OTHERWORLD_ESSENCE.get(), "Purified Demon's Dream Essence, no longer provides any of the negative effects.");
-        this.addItem(OccultismItems.SPIRIT_ATTUNED_GEM, "Spirit Attuned Gem");
-        this.lang("ru_ru").add("item.occultism.otherworld_sapling", "Otherworld Sapling");
-        this.lang("ru_ru").add("item.occultism.otherworld_sapling_natural", "Unstable Otherworld Sapling");
-        this.addItem(OccultismItems.OTHERWORLD_ASHES, "Otherworld Ashes");
-        this.addItem(OccultismItems.BURNT_OTHERSTONE, "Burnt Otherstone");
-        this.addItem(OccultismItems.BUTCHER_KNIFE, "Butcher Knife");
-        this.addItem(OccultismItems.TALLOW, "Tallow");
-        this.addItem(OccultismItems.OTHERSTONE_FRAME, "Otherstone Frame");
-        this.addItem(OccultismItems.OTHERSTONE_TABLET, "Otherstone Tablet");
-        this.addItem(OccultismItems.WORMHOLE_FRAME, "Wormhole Frame");
-        this.addItem(OccultismItems.IRON_DUST, "Iron Dust");
-        this.addItem(OccultismItems.OBSIDIAN_DUST, "Obsidian Dust");
-        this.addItem(OccultismItems.CRUSHED_END_STONE, "Crushed End Stone");
-        this.addItem(OccultismItems.GOLD_DUST, "Gold Dust");
-        this.addItem(OccultismItems.COPPER_DUST, "Copper Dust");
-        this.addItem(OccultismItems.SILVER_DUST, "Silver Dust");
-        this.addItem(OccultismItems.IESNIUM_DUST, "Iesnium Dust");
-        this.addItem(OccultismItems.RAW_SILVER, "Raw Silver");
-        this.addItem(OccultismItems.RAW_IESNIUM, "Raw Iesnium");
-        this.addItem(OccultismItems.SILVER_INGOT, "Silver Ingot");
-        this.addItem(OccultismItems.IESNIUM_INGOT, "Iesnium Ingot");
-        this.addItem(OccultismItems.SILVER_NUGGET, "Silver Nugget");
-        this.addItem(OccultismItems.IESNIUM_NUGGET, "Iesnium Nugget");
-        this.addItem(OccultismItems.LENSES, "Glass Lenses");
-        this.addItem(OccultismItems.INFUSED_LENSES, "Infused Lenses");
-        this.addItem(OccultismItems.LENS_FRAME, "Lens Frame");
-        this.addItem(OccultismItems.OTHERWORLD_GOGGLES, "Otherworld Goggles");
-        this.addItem(OccultismItems.INFUSED_PICKAXE, "Infused Pickaxe");
-        this.addItem(OccultismItems.SPIRIT_ATTUNED_PICKAXE_HEAD, "Spirit Attuned Pickaxe Head");
-        this.addItem(OccultismItems.IESNIUM_PICKAXE, "Iesnium Pickaxe");
-        this.addItem(OccultismItems.MAGIC_LAMP_EMPTY, "Empty Magic Lamp");
-        this.addItem(OccultismItems.MINER_FOLIOT_UNSPECIALIZED, "Miner Foliot");
-        this.addItem(OccultismItems.MINER_DJINNI_ORES, "Ore Miner Djinni");
-        this.addItem(OccultismItems.MINER_DEBUG_UNSPECIALIZED, "Debug Miner");
-        this.addItem(OccultismItems.MINER_AFRIT_DEEPS, "Deep Ore Miner Afrit");
-        this.addItem(OccultismItems.MINER_MARID_MASTER, "Master Miner Marid");
-        this.addItem(OccultismItems.SOUL_GEM_ITEM, "Soul Gem");
-        this.lang("ru_ru").add(OccultismItems.SOUL_GEM_ITEM.get().getDescriptionId() + "_empty", "Empty Soul Gem");
-        this.addItem(OccultismItems.SOUL_SHARD_ITEM, "Soul Shard");
-        this.addItem(OccultismItems.SATCHEL, "Surprisingly Substantial Satchel");
-        this.addItem(OccultismItems.FAMILIAR_RING, "Familiar Ring");
-        this.addItem(OccultismItems.SPAWN_EGG_FOLIOT, "Foliot Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_DJINNI, "Djinni Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_AFRIT, "Afrit Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_AFRIT_WILD, "Unbound Afrit Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_MARID, "Marid Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ENDERMITE, "Possessed Endermite Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_SKELETON, "Possessed Skeleton Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ENDERMAN, "Possessed Enderman Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_GHAST, "Possessed Ghast Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_PHANTOM, "Possessed Phantom Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WEAK_SHULKER, "Possessed Weak Shulker Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_SHULKER, "Possessed Shulker Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ELDER_GUARDIAN, "Possessed Elder Guardian Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WARDEN, "Possessed Warden Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_HOGLIN, "Possessed Hoglin Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_WILD_HUNT_SKELETON, "Wild Hunt Skeleton Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_WILD_HUNT_WITHER_SKELETON, "Wild Hunt Wither Skeleton Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_OTHERWORLD_BIRD, "Drikwing Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_GREEDY_FAMILIAR, "Greedy Familiar Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_BAT_FAMILIAR, "Bat Familiar Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_DEER_FAMILIAR, "Deer Familiar Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_CTHULHU_FAMILIAR, "Cthulhu Familiar Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_DEVIL_FAMILIAR, "Devil Familiar Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_DRAGON_FAMILIAR, "Dragon Familiar Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_BLACKSMITH_FAMILIAR, "Blacksmith Familiar Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_GUARDIAN_FAMILIAR, "Guardian Familiar Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_HEADLESS_FAMILIAR, "Headless Ratman Familiar Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_CHIMERA_FAMILIAR, "Chimera Familiar Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_GOAT_FAMILIAR, "Goat Familiar Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_SHUB_NIGGURATH_FAMILIAR, "Shub Niggurath Familiar Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_BEHOLDER_FAMILIAR, "Beholder Familiar Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_FAIRY_FAMILIAR, "Fairy Familiar Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_MUMMY_FAMILIAR, "Mummy Familiar Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_BEAVER_FAMILIAR, "Beaver Familiar Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_PARROT_FAMILIAR, "Parrot Familiar Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_DEMONIC_WIFE, "Demonic Wife Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_DEMONIC_HUSBAND, "Demonic Husband Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_HUSK, "Wild Horde Husk Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_DROWNED, "Wild Horde Drowned Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_CREEPER, "Wild Horde Creeper Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_SILVERFISH, "Wild Horde Silverfish Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WEAK_BREEZE, "Possessed Weak Breeze Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_BREEZE, "Possessed Breeze Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_STRONG_BREEZE, "Possessed Strong Breeze Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_EVOKER, "Possessed Evoker Spawn Egg");
+        this.addItem(OccultismItems.CHALK_GOLD, "Золотой мел");
+        this.addItem(OccultismItems.CHALK_PURPLE, "Пурпурный мел");
+        this.addItem(OccultismItems.CHALK_RED, "Красный мел");
+        this.addItem(OccultismItems.CHALK_WHITE, "Мел");
+        this.addItem(OccultismItems.CHALK_GOLD_IMPURE, "Осквернённый золотой мел");
+        this.addItem(OccultismItems.CHALK_PURPLE_IMPURE, "Осквернённый пурпурный мел");
+        this.addItem(OccultismItems.CHALK_RED_IMPURE, "Осквернённый красный мел");
+        this.addItem(OccultismItems.CHALK_WHITE_IMPURE, "Осквернённый мел");
+        this.addItem(OccultismItems.BRUSH, "Щётка для мела");
+        this.addItem(OccultismItems.AFRIT_ESSENCE, "Эссенция Африта");
+        this.addItem(OccultismItems.PURIFIED_INK, "Очищенные чернила");
+        this.addItem(OccultismItems.AWAKENED_FEATHER, "Пробуждённое перо");
+        this.addItem(OccultismItems.TABOO_BOOK, "Книга табу");
+        this.addItem(OccultismItems.BOOK_OF_BINDING_EMPTY, "Пустая книга привязки");
+        this.addItem(OccultismItems.BOOK_OF_BINDING_FOLIOT, "Книга привязки: Фолиот");
+        this.addItem(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT, "Книга привязки: Фолиот (Связанная)");
+        this.addItem(OccultismItems.BOOK_OF_BINDING_DJINNI, "Книга привязки: Джинни");
+        this.addItem(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI, "Книга привязки: Джинни (Связанная)");
+        this.addItem(OccultismItems.BOOK_OF_BINDING_AFRIT, "Книга привязки: Африт");
+        this.addItem(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT, "Книга привязки: Африт (Связанная)");
+        this.addItem(OccultismItems.BOOK_OF_BINDING_MARID, "Книга привязки: Марид");
+        this.addItem(OccultismItems.BOOK_OF_BINDING_BOUND_MARID, "Книга привязки: Марид (Связанная)");
+        this.addItem(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK, "Книга призыва: Дровосек-Фолиот");
+        this.addItem(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS, "Книга призыва: Транспортировщик-Фолиот");
+        this.addItem(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER, "Книга призыва: Дворник-Фолиот");
+        this.addItem(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE, "Книга призыва: Станочник-Джинни");
+        this.addItem(OccultismItems.STORAGE_REMOTE, "Средство доступа хранилища");
+        this.addItem(OccultismItems.STORAGE_REMOTE_INERT, "Инертное средство доступа хранилища");
+        this.addItem(OccultismItems.DIMENSIONAL_MATRIX, "Кристалл пространственной матрицы");
+        this.addItem(OccultismItems.DIVINATION_ROD, "Жезл прорицания");
+        this.addItem(OccultismItems.DATURA_SEEDS, "Семена «Блаженство демона");
+        this.addAutoTooltip(OccultismItems.DATURA_SEEDS.get(), "Посадите, чтобы вырастить Плод «Блаженство демона».\nУпотребление может позволить видеть за гробовой чертой... Возможно, вызовет плохое самочувствие.");
+        this.addItem(OccultismItems.DATURA, "Плод «Блаженство демона»");
+        this.addAutoTooltip(OccultismItems.DATURA.get(), "Употребление может позволить видеть за гробовой чертой... Возможно, вызовет плохое самочувствие.");
+        this.addItem(OccultismItems.DEMONS_DREAM_ESSENCE, "Эссенция «Блаженство демона»");
+        this.addAutoTooltip(OccultismItems.DEMONS_DREAM_ESSENCE.get(), "Употребление позволяет видеть за гробовой чертой ... И полный набор других эффектов.");
+        this.addItem(OccultismItems.OTHERWORLD_ESSENCE, "Потусторонняя эссенция");
+        this.addAutoTooltip(OccultismItems.OTHERWORLD_ESSENCE.get(), "Очищенная эссенция «Блаженство демона». Больше не оказывает пагубных эффектов.");
+		this.addItem(OccultismItems.BEAVER_NUGGET, "Мех бобра");
+        this.addItem(OccultismItems.SPIRIT_ATTUNED_GEM, "Самоцвет, настроенный на духа");
+        this.lang("ru_ru").add("item.occultism.otherworld_sapling", "Потусторонний саженец");
+        this.lang("ru_ru").add("item.occultism.otherworld_sapling_natural", "Нестабильный потусторонний саженец");
+        this.addItem(OccultismItems.OTHERWORLD_ASHES, "Потусторонняя зола");
+        this.addItem(OccultismItems.BURNT_OTHERSTONE, "Гарь из Потустороннего камня");
+        this.addItem(OccultismItems.BUTCHER_KNIFE, "Нож мясника");
+        this.addItem(OccultismItems.TALLOW, "Жир");
+        this.addItem(OccultismItems.OTHERSTONE_FRAME, "Рама из Потустороннего камня");
+        this.addItem(OccultismItems.OTHERSTONE_TABLET, "Дощечка из Потустороннего камня");
+        this.addItem(OccultismItems.WORMHOLE_FRAME, "Рама червоточины");
+        this.addItem(OccultismItems.IRON_DUST, "Железная пыль");
+        this.addItem(OccultismItems.OBSIDIAN_DUST, "Обсидиановая пыль");
+        this.addItem(OccultismItems.CRUSHED_END_STONE, "Измельчённый эндерняк");
+        this.addItem(OccultismItems.GOLD_DUST, "Золотая пыль");
+        this.addItem(OccultismItems.COPPER_DUST, "Медная пыль");
+        this.addItem(OccultismItems.SILVER_DUST, "Серебряная пыль");
+        this.addItem(OccultismItems.IESNIUM_DUST, "Пыль айзния");
+        this.addItem(OccultismItems.RAW_SILVER, "Рудное серебро");
+        this.addItem(OccultismItems.RAW_IESNIUM, "Рудный айзний");
+        this.addItem(OccultismItems.SILVER_INGOT, "Серебряный слиток");
+        this.addItem(OccultismItems.IESNIUM_INGOT, "Слиток айзния");
+        this.addItem(OccultismItems.SILVER_NUGGET, "Кусочек серебра");
+        this.addItem(OccultismItems.IESNIUM_NUGGET, "Кусочек айзния");
+        this.addItem(OccultismItems.LENSES, "Стеклянные линзы");
+        this.addItem(OccultismItems.INFUSED_LENSES, "Наполненные линзы");
+        this.addItem(OccultismItems.LENS_FRAME, "Оправа для очков");
+        this.addItem(OccultismItems.OTHERWORLD_GOGGLES, "Потусторонние очки");
+        this.addItem(OccultismItems.INFUSED_PICKAXE, "Наполненная кирка");
+        this.addItem(OccultismItems.SPIRIT_ATTUNED_PICKAXE_HEAD, "Головка кирки из самоцвета, настроенного на духа");
+        this.addItem(OccultismItems.IESNIUM_PICKAXE, "Кирка из айзния");
+        this.addItem(OccultismItems.MAGIC_LAMP_EMPTY, "Пустая магическая лампа");
+        this.addItem(OccultismItems.MINER_FOLIOT_UNSPECIALIZED, "Горняк-Фолиот");
+        this.addItem(OccultismItems.MINER_DJINNI_ORES, "Рудный Горняк-Джинни");
+        this.addItem(OccultismItems.MINER_DEBUG_UNSPECIALIZED, "Отладочный горняк");
+        this.addItem(OccultismItems.MINER_AFRIT_DEEPS, "Горняк-Африт для глубинносланцевой руды");
+        this.addItem(OccultismItems.MINER_MARID_MASTER, "Мастер Горняк-Марид");
+        this.addItem(OccultismItems.SOUL_GEM_ITEM, "Самоцвет душ");
+        this.lang("ru_ru").add(OccultismItems.SOUL_GEM_ITEM.get().getDescriptionId() + "_empty", "Пустой самоцвет душ");
+        this.addItem(OccultismItems.SOUL_SHARD_ITEM, "Осколок душ");
+        this.addItem(OccultismItems.SATCHEL, "Изумительно большая сумка");
+        this.addItem(OccultismItems.FAMILIAR_RING, "Кольцо для фамильяра");
+        this.addItem(OccultismItems.SPAWN_EGG_FOLIOT, "Яйцо призыва Фолиота");
+        this.addItem(OccultismItems.SPAWN_EGG_DJINNI, "Яйцо призыва Джинни");
+        this.addItem(OccultismItems.SPAWN_EGG_AFRIT, "Яйцо призыва Африта");
+        this.addItem(OccultismItems.SPAWN_EGG_AFRIT_WILD, "Яйцо призыва несвязанного Африта");
+        this.addItem(OccultismItems.SPAWN_EGG_MARID, "Яйцо призыва Марида");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ENDERMITE, "Яйцо призыва одержимого эндермита");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_SKELETON, "Яйцо призыва одержимого скелета");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ENDERMAN, "Яйцо призыва одержимого эндермена");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_GHAST, "Яйцо призыва одержимого гаста");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_PHANTOM, "Яйцо призыва одержимого фантома");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WEAK_SHULKER, "Яйцо призыва одержимого слабого шалкера");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_SHULKER, "Яйцо призыва одержимого шалкера");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ELDER_GUARDIAN, "Яйцо призыва одержимого древнего стража");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WARDEN, "Яйцо призыва одержимого хранителя");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_HOGLIN, "Яйцо призыва одержимого хоглина");
+        this.addItem(OccultismItems.SPAWN_EGG_WILD_HUNT_SKELETON, "Яйцо призыва скелета Дикой Охоты");
+        this.addItem(OccultismItems.SPAWN_EGG_WILD_HUNT_WITHER_SKELETON, "Яйцо призыва визер скелета Дикой Охоты");
+        this.addItem(OccultismItems.SPAWN_EGG_OTHERWORLD_BIRD, "Яйцо призыва Дрикрыла");
+        this.addItem(OccultismItems.SPAWN_EGG_GREEDY_FAMILIAR, "Яйцо ризыва алчного фамильяра");
+        this.addItem(OccultismItems.SPAWN_EGG_BAT_FAMILIAR, "Яйцо призыва Летучей мыши-фамильяра");
+        this.addItem(OccultismItems.SPAWN_EGG_DEER_FAMILIAR, "Яйцо призыва Оленя-фамильяра");
+        this.addItem(OccultismItems.SPAWN_EGG_CTHULHU_FAMILIAR, "Яйцо призыва Ктулху-фамильяра");
+        this.addItem(OccultismItems.SPAWN_EGG_DEVIL_FAMILIAR, "Яйцо призыва Дьявола-фамильяра");
+        this.addItem(OccultismItems.SPAWN_EGG_DRAGON_FAMILIAR, "Яйцо призыва Дракона-фамильяра");
+        this.addItem(OccultismItems.SPAWN_EGG_BLACKSMITH_FAMILIAR, "Яйцо призыва Кузнеца-фамильяра");
+        this.addItem(OccultismItems.SPAWN_EGG_GUARDIAN_FAMILIAR, "Яйцо призыва Стража-фамильяра");
+        this.addItem(OccultismItems.SPAWN_EGG_HEADLESS_FAMILIAR, "Яйцо призыва Безголового человека-крысы-фамильяра");
+        this.addItem(OccultismItems.SPAWN_EGG_CHIMERA_FAMILIAR, "Яйцо призыва Химеры-фамильяра");
+        this.addItem(OccultismItems.SPAWN_EGG_GOAT_FAMILIAR, "Яйцо призыва Козы-фамильяра");
+        this.addItem(OccultismItems.SPAWN_EGG_SHUB_NIGGURATH_FAMILIAR, "Яйцо призыва Шуб-Ниггурата-фамильяра");
+        this.addItem(OccultismItems.SPAWN_EGG_BEHOLDER_FAMILIAR, "Яйцо призыва Созерцателя--фамильяра");
+        this.addItem(OccultismItems.SPAWN_EGG_FAIRY_FAMILIAR, "Яйцо призыва Фем-фамильяра");
+        this.addItem(OccultismItems.SPAWN_EGG_MUMMY_FAMILIAR, "Яйцо призыва Мумии-фамильяра");
+        this.addItem(OccultismItems.SPAWN_EGG_BEAVER_FAMILIAR, "Яйцо призыва Бобра-фамильяра");
+        this.addItem(OccultismItems.SPAWN_EGG_PARROT_FAMILIAR, "Яйцо призыва Попугая-фамильяра");
+        this.addItem(OccultismItems.SPAWN_EGG_DEMONIC_WIFE, "Яйцо призыва Демонической жены");
+        this.addItem(OccultismItems.SPAWN_EGG_DEMONIC_HUSBAND, "Яйцо призыва Демонического мужа");
+        this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_HUSK, "Яйцо призыва орды диких кадавров");
+        this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_DROWNED, "Яйцо призыва орды диких утопленников");
+        this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_CREEPER, "Яйцо призыва орды диких криперов");
+        this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_SILVERFISH, "Яйцо призыва орды диких чешуйниц");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WEAK_BREEZE, "Яйцо призыва одержимого слабого вихря");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_BREEZE, "Яйцо призыва одержимого вихря");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_STRONG_BREEZE, "Яйцо призыва одержимого сильного вихря");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_EVOKER, "Яйцо призыва одержимого заклинателя");
     }
 
     private void addBlocks() {
@@ -1431,7 +1432,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add(helper.pageText(),
                 """
                         - [Storage Stabilizer Tier 4](entry://crafting_rituals/craft_stabilizer_tier4)
-                        - [Marid Master Miner](entry://crafting_rituals/craft_marid_miner)
+                        - [Мастер Горняк-Марид](entry://crafting_rituals/craft_marid_miner)
                         - [Wild Armor Trim Smithing Template](entry://crafting_rituals/craft_wild_trim)
                         """.formatted(COLOR_PURPLE));
     }
@@ -2280,7 +2281,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                         \\
                         \\
                         **Upgrade Behaviour**\\
-                        Cannot be upgraded by the blacksmith familiar.
+                        При нажатии по нему пустой рукой даёт бесплатные лакомства.
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_beholder");
@@ -2293,10 +2294,10 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                                """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //без текста
 
         helper.page("description");
-        this.lang("ru_ru").add(helper.pageTitle(), "Description");
+        this.lang("ru_ru").add(helper.pageTitle(), "Описание");
         this.lang("ru_ru").add(helper.pageText(),
                 """
                         The Beholder familiar highlights nearby entities with a glow effect, and shoots laser rays at enemies. It **eats** (poor) **Shub Niggurath babies** to gain temporary damage and speed.
@@ -2904,12 +2905,12 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addJeiTranslations() {
-        this.lang("ru_ru").add("occultism.jei.spirit_fire", "Spiritfire");
-        this.lang("ru_ru").add("occultism.jei.crushing", "Crusher Spirit");
-        this.lang("ru_ru").add("occultism.jei.miner", "Dimensional Mineshaft");
-        this.lang("ru_ru").add("occultism.jei.miner.chance", "Weight: %d");
-        this.lang("ru_ru").add("occultism.jei.ritual", "Occult Ritual");
-        this.lang("ru_ru").add("occultism.jei.pentacle", "Pentacle");
+        this.lang("ru_ru").add("occultism.jei.spirit_fire", "Духовный огонь");
+        this.lang("ru_ru").add("occultism.jei.crushing", "Дух-Дробильщик");
+        this.lang("ru_ru").add("occultism.jei.miner", "Пространственная шахта");
+        this.lang("ru_ru").add("occultism.jei.miner.chance", "Коэффициент: %d");
+        this.lang("ru_ru").add("occultism.jei.ritual", "Оккультный ритуал");
+        this.lang("ru_ru").add("occultism.jei.pentacle", "Пентакля");
 
         this.lang("ru_ru").add(TranslationKeys.JEI_CRUSHING_RECIPE_MIN_TIER, "Min Crusher Tier: %d");
         this.lang("ru_ru").add(TranslationKeys.JEI_CRUSHING_RECIPE_MAX_TIER, "Max Crusher Tier: %d");
@@ -2995,7 +2996,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addPentacle(String id, String name) {
-        this.lang("ru_ru").add(Util.makeDescriptionId("multiblock", ResourceLocation.fromNamespaceAndPath(Occultism.MODID, id)), name);
+        this.add(Util.makeDescriptionId("multiblock", ResourceLocation.fromNamespaceAndPath(Occultism.MODID, id)), name);
     }
 
     private void addRitualDummies() {
@@ -3018,8 +3019,8 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_miner_foliot_unspecialized.tooltip", "Summon Foliot Miner into a magic lamp.");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_miner_afrit_deeps", "Ritual: Summon Afrit Deep Ore Miner");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_miner_afrit_deeps.tooltip", "Summon Afrit Deep Ore Miner into a magic lamp.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_miner_marid_master", "Ritual: Summon Marid Master Miner");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_miner_marid_master.tooltip", "Summon Marid Master Miner into a magic lamp.");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_miner_marid_master", "Ritual: Summon Мастер Горняк-Марид");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_miner_marid_master.tooltip", "Summon Мастер Горняк-Марид into a magic lamp.");
 
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_satchel", "Ritual: Craft Surprisingly Substantial Satchel");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_satchel.tooltip", "This satchels allows to store more items than it's size would indicate, making it a practical traveller's companion.");
@@ -3154,101 +3155,103 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Ritual: Summon Demonic Wife");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Summons a Demonic Wife to support you: She will fight for you, help with cooking, and extend potion durations.");
 
-        this.lang("ru_ru").add(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND.get(), "Ritual: Summon Demonic Husband");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND.get(), "Summons a Demonic Husband to support you: He will fight for you, help with cooking, and extend potion durations.");
+        this.lang("ru_ru").add(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND.get(), "Ритуал: Призыв демонического мужа");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND.get(), "Призывает демонического мужа для поддержки: он будет Вас защищать, помогать с готовкой, и увеличит продолжительность зелья.");
 
 
-        this.lang("ru_ru").add(OccultismItems.RITUAL_RESURRECT_FAMILIAR.get(), "Ritual: Resurrect Familiar");
-        this.addTooltip(OccultismItems.RITUAL_RESURRECT_FAMILIAR.get(), "Resurrects a Familiar from a Soul Shard.");
+        this.lang("ru_ru").add(OccultismItems.RITUAL_RESURRECT_FAMILIAR.get(), "Ритуал: Воскресение фамильяра");
+        this.addTooltip(OccultismItems.RITUAL_RESURRECT_FAMILIAR.get(), "Воскрешает фамильяра из Осколка души.");
     }
 
     public void addTooltip(ItemLike key, String value) {
-        this.lang("ru_ru").add(key.asItem().getDescriptionId() + ".tooltip", value);
+        this.add(key.asItem().getDescriptionId() + ".tooltip", value);
     }
 
     public void addAutoTooltip(ItemLike key, String value) {
-        this.lang("ru_ru").add(key.asItem().getDescriptionId() + ".auto_tooltip", value);
+        this.add(key.asItem().getDescriptionId() + ".auto_tooltip", value);
     }
 
     private void addDialogs() {
-        this.lang("ru_ru").add("dialog.occultism.dragon.pet", "purrr");
-        this.lang("ru_ru").add("dialog.occultism.mummy.kapow", "KAPOW!");
+        this.lang("ru_ru").add("dialog.occultism.dragon.pet", "Мурчанье");
+        this.lang("ru_ru").add("dialog.occultism.mummy.kapow", "БУМ!");
+        this.lang("ru_ru").add("dialog.occultism.beaver.snack_on_cooldown", "Эй, не жадничай!");
+        this.lang("ru_ru").add("dialog.occultism.beaver.no_upgrade", "Кузнецу-фамильяру нужно улучшить Созерцателя, прежде чем он будет разбрасываться лакомствами!");
     }
 
     private void addModonomiconIntegration() {
-        this.lang("ru_ru").add(I18n.RITUAL_RECIPE_ITEM_USE, "Item to use:");
-        this.lang("ru_ru").add(I18n.RITUAL_RECIPE_SUMMON, "Summon: %s");
-        this.lang("ru_ru").add(I18n.RITUAL_RECIPE_JOB, "Job: %s");
-        this.lang("ru_ru").add(I18n.RITUAL_RECIPE_SACRIFICE, "Sacrifice: %s");
-        this.lang("ru_ru").add(I18n.RITUAL_RECIPE_GO_TO_PENTACLE, "Open Pentacle Page: %s");
+        this.lang("ru_ru").add(I18n.RITUAL_RECIPE_ITEM_USE, "Использование предмета:");
+        this.lang("ru_ru").add(I18n.RITUAL_RECIPE_SUMMON, "Призыв: %s");
+        this.lang("ru_ru").add(I18n.RITUAL_RECIPE_JOB, "Занятие: %s");
+        this.lang("ru_ru").add(I18n.RITUAL_RECIPE_SACRIFICE, "Жертвоприношение: %s");
+        this.lang("ru_ru").add(I18n.RITUAL_RECIPE_GO_TO_PENTACLE, "Открыть страницу пентакля: %s");
     }
 
     private void advancementTitle(String name, String s) {
-        this.lang("ru_ru").add(((TranslatableContents) OccultismAdvancementSubProvider.title(name).getContents()).getKey(), s);
+        this.add(((TranslatableContents) OccultismAdvancementSubProvider.title(name).getContents()).getKey(), s);
     }
 
     private void advancementDescr(String name, String s) {
-        this.lang("ru_ru").add(((TranslatableContents) OccultismAdvancementSubProvider.descr(name).getContents()).getKey(), s);
+        this.add(((TranslatableContents) OccultismAdvancementSubProvider.descr(name).getContents()).getKey(), s);
     }
 
     private void addTags() {
-        // Block tags
-        this.addBlockTag(OccultismTags.Blocks.OTHERWORLD_SAPLINGS,"Otherworld Saplings");
-        this.addBlockTag(OccultismTags.Blocks.CANDLES,"Candles");
-        this.addBlockTag(OccultismTags.Blocks.CAVE_WALL_BLOCKS,"Cave Wall Blocks");
-        this.addBlockTag(OccultismTags.Blocks.NETHERRACK,"Netherrack");
-        this.addBlockTag(OccultismTags.Blocks.STORAGE_STABILIZER,"Storage Stabilizer Blocks");
-        this.addBlockTag(OccultismTags.Blocks.TREE_SOIL,"Tree Soil Blocks");
-        this.addBlockTag(OccultismTags.Blocks.WORLDGEN_BLACKLIST,"Worldgen Blacklisted Blocks");
-        this.addBlockTag(OccultismTags.Blocks.IESNIUM_ORE,"Iesnium Ore");
-        this.addBlockTag(OccultismTags.Blocks.SILVER_ORE,"Silver Ore");
-        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_IESNIUM,"Iesnium Storage Blocks");
-        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_SILVER,"Silver Storage Blocks");
-        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_RAW_IESNIUM,"Raw Iesnium Storage Blocks");
-        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_RAW_SILVER,"Raw Silver Storage Blocks");
+        // Теги блока
+        this.addBlockTag(OccultismTags.Blocks.OTHERWORLD_SAPLINGS,"Потусторонние саженцы");
+        this.addBlockTag(OccultismTags.Blocks.CANDLES,"Свечи");
+        this.addBlockTag(OccultismTags.Blocks.CAVE_WALL_BLOCKS,"Пещерная ограда");
+        this.addBlockTag(OccultismTags.Blocks.NETHERRACK,"Незерак");
+        this.addBlockTag(OccultismTags.Blocks.STORAGE_STABILIZER,"Стабилизатор хранилища");
+        this.addBlockTag(OccultismTags.Blocks.TREE_SOIL,"Почва для дерева");
+        this.addBlockTag(OccultismTags.Blocks.WORLDGEN_BLACKLIST,"Блоки генерации мира в чёрном списке");
+        this.addBlockTag(OccultismTags.Blocks.IESNIUM_ORE,"Руда айзния");
+        this.addBlockTag(OccultismTags.Blocks.SILVER_ORE,"Серебряная руда");
+        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_IESNIUM,"Хранилище блоков айзния");
+        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_SILVER,"Хранилище серебряный блоков");
+        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_RAW_IESNIUM,"Хранилище рудных блоков айзния");
+        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_RAW_SILVER,"Хранилище рудных блоков серебра");
 
 
-        // Item tags
-        this.addItemTag(OccultismTags.Items.OTHERWORLD_SAPLINGS,"Otherworld Saplings");
-        this.addItemTag(OccultismTags.Items.BOOK_OF_CALLING_DJINNI,"Book of Calling Djinni");
-        this.addItemTag(OccultismTags.Items.BOOK_OF_CALLING_FOLIOT,"Book of Calling Foliot");
-        this.addItemTag(OccultismTags.Items.Miners.BASIC_RESOURCES,"Basic Resource Miners");
-        this.addItemTag(OccultismTags.Items.Miners.DEEPS,"Deepslate Miners");
-        this.addItemTag(OccultismTags.Items.Miners.MASTER,"Rare Resource Miners");
-        this.addItemTag(OccultismTags.Items.Miners.ORES,"General Miners");
-        this.addItemTag(OccultismTags.Items.TOOL_KNIVES,"Knives");
-        this.addItemTag(OccultismTags.Items.ELYTRA,"Elytras");
-        this.addItemTag(OccultismTags.Items.OTHERWORLD_GOGGLES,"Otherworld Goggles");
-        this.addItemTag(OccultismTags.Items.DATURA_SEEDS,"Demon's Dream Seeds");
-        this.addItemTag(OccultismTags.Items.DATURA_CROP,"Demon's Dream");
-        this.addItemTag(OccultismTags.Items.COPPER_DUST,"Copper Dust");
-        this.addItemTag(OccultismTags.Items.GOLD_DUST,"Gold Dust");
-        this.addItemTag(OccultismTags.Items.IESNIUM_DUST,"Iesnium Dust");
-        this.addItemTag(OccultismTags.Items.IRON_DUST,"Iron Dust");
-        this.addItemTag(OccultismTags.Items.SILVER_DUST,"Silver Dust");
-        this.addItemTag(OccultismTags.Items.END_STONE_DUST,"Crushed End Stone");
-        this.addItemTag(OccultismTags.Items.OBSIDIAN_DUST,"Crushed Obsidian");
-        this.addItemTag(OccultismTags.Items.IESNIUM_INGOT,"Iesnium Ingot");
-        this.addItemTag(OccultismTags.Items.SILVER_INGOT,"Silver Ingot");
-        this.addItemTag(OccultismTags.Items.IESNIUM_NUGGET,"Iesnium Nugget");
-        this.addItemTag(OccultismTags.Items.SILVER_NUGGET,"Silver Nugget");
-        this.addItemTag(OccultismTags.Items.IESNIUM_ORE,"Iesnium Ore");
-        this.addItemTag(OccultismTags.Items.SILVER_ORE,"Silver Ore");
-        this.addItemTag(OccultismTags.Items.RAW_IESNIUM,"Raw Iesnium");
-        this.addItemTag(OccultismTags.Items.RAW_SILVER,"Raw Silver");
-        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_IESNIUM,"Iesnium Storage Blocks");
-        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_SILVER,"Silver Storage Blocks");
-        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM,"Raw Iesnium Storage Blocks");
-        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER,"Raw Silver Storage Blocks");
-        this.addItemTag(OccultismTags.Items.TALLOW,"Tallow");
-        this.addItemTag(OccultismTags.Items.METAL_AXES,"Metal Axes");
-        this.addItemTag(OccultismTags.Items.MAGMA,"Magma");
-        this.addItemTag(OccultismTags.Items.BOOKS,"Books");
-        this.addItemTag(OccultismTags.Items.FRUITS,"Fruits");
+        // Теги предмета
+        this.addItemTag(OccultismTags.Items.OTHERWORLD_SAPLINGS,"Потусторонние саженцы");
+        this.addItemTag(OccultismTags.Items.BOOK_OF_CALLING_DJINNI,"Книга призыва Джинни");
+        this.addItemTag(OccultismTags.Items.BOOK_OF_CALLING_FOLIOT,"Книга призыва Фолиота");
+        this.addItemTag(OccultismTags.Items.Miners.BASIC_RESOURCES,"Горняки базовых ресурсов");
+        this.addItemTag(OccultismTags.Items.Miners.DEEPS,"Горняки глубинносланца");
+        this.addItemTag(OccultismTags.Items.Miners.MASTER,"Горняки редких ресурсов");
+        this.addItemTag(OccultismTags.Items.Miners.ORES,"Основные горняки");
+        this.addItemTag(OccultismTags.Items.TOOL_KNIVES,"Ножи");
+        this.addItemTag(OccultismTags.Items.ELYTRA,"Элитры");
+        this.addItemTag(OccultismTags.Items.OTHERWORLD_GOGGLES,"Потусторонние очки");
+        this.addItemTag(OccultismTags.Items.DATURA_SEEDS,"Семена «Блаженство демона»");
+        this.addItemTag(OccultismTags.Items.DATURA_CROP,"Блаженство демона");
+        this.addItemTag(OccultismTags.Items.COPPER_DUST,"Медная пыль");
+        this.addItemTag(OccultismTags.Items.GOLD_DUST,"Золотая пыль");
+        this.addItemTag(OccultismTags.Items.IESNIUM_DUST,"Пыль айзния");
+        this.addItemTag(OccultismTags.Items.IRON_DUST,"Железная пыль");
+        this.addItemTag(OccultismTags.Items.SILVER_DUST,"Серебряная пыль");
+        this.addItemTag(OccultismTags.Items.END_STONE_DUST,"Измельчённый эндерняк");
+        this.addItemTag(OccultismTags.Items.OBSIDIAN_DUST,"Измельчённый обсидиан");
+        this.addItemTag(OccultismTags.Items.IESNIUM_INGOT,"Слиток айзния");
+        this.addItemTag(OccultismTags.Items.SILVER_INGOT,"Серебряный слиток");
+        this.addItemTag(OccultismTags.Items.IESNIUM_NUGGET,"Кусочек айзния");
+        this.addItemTag(OccultismTags.Items.SILVER_NUGGET,"Кусочек серебра");
+        this.addItemTag(OccultismTags.Items.IESNIUM_ORE,"Руда айзния");
+        this.addItemTag(OccultismTags.Items.SILVER_ORE,"Серебряная руда");
+        this.addItemTag(OccultismTags.Items.RAW_IESNIUM,"Рудный айзний");
+        this.addItemTag(OccultismTags.Items.RAW_SILVER,"Рудное серебро");
+        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_IESNIUM,"Хранилище блоков айзния");
+        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_SILVER,"Хранилище серебряный блоков");
+        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM,"Хранилище рудных блоков айзния");
+        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER,"Хранилище рудных блоков серебра");
+        this.addItemTag(OccultismTags.Items.TALLOW,"Жир");
+        this.addItemTag(OccultismTags.Items.METAL_AXES,"Металлические топоры");
+        this.addItemTag(OccultismTags.Items.MAGMA,"Магма");
+        this.addItemTag(OccultismTags.Items.BOOKS,"Книги");
+        this.addItemTag(OccultismTags.Items.FRUITS,"Фрукты");
     }
 
     private void addItemTag(ResourceLocation resourceLocation, String string) {
-        this.lang("ru_ru").add("tag.item."+resourceLocation.getNamespace()+"."+resourceLocation.getPath().replace("/","."), string);
+        this.add("tag.item."+resourceLocation.getNamespace()+"."+resourceLocation.getPath().replace("/","."), string);
     }
     private void addBlockTag(TagKey<Block> block, String string) {
         this.addBlockTag(block.location(),string);
@@ -3257,82 +3260,82 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(item.location(),string);
     }
     private void addBlockTag(ResourceLocation resourceLocation, String string) {
-        this.lang("ru_ru").add("tag.block."+resourceLocation.getNamespace()+"."+resourceLocation.getPath().replace("/","."), string);
+        this.add("tag.block."+resourceLocation.getNamespace()+"."+resourceLocation.getPath().replace("/","."), string);
     }
 
     private void addEmiTranslations() {
-        this.lang("ru_ru").add("emi.category.occultism.spirit_fire","Spirit Fire");
-        this.lang("ru_ru").add("emi.category.occultism.crushing","Crushing");
-        this.lang("ru_ru").add("emi.category.occultism.miner","Dimensional Mineshaft");
-        this.lang("ru_ru").add("emi.category.occultism.ritual","Rituals");
-        this.lang("ru_ru").add("emi.occultism.item_to_use", "Item to use: %s");
+        this.lang("ru_ru").add("emi.category.occultism.spirit_fire","Духовный огонь");
+        this.lang("ru_ru").add("emi.category.occultism.crushing","Дробление");
+        this.lang("ru_ru").add("emi.category.occultism.miner","Пространственная шахта");
+        this.lang("ru_ru").add("emi.category.occultism.ritual","Ритуалы");
+        this.lang("ru_ru").add("emi.occultism.item_to_use", "Использование предмета: %s");
     }
 
     private void addConfigurationTranslations() {
 
-        this.addConfig("visual", "Visual Settings");
-        this.addConfig("showItemTagsInTooltip", "Show Item Tags in Tooltips");
-        this.addConfig("disableDemonsDreamShaders", "Disable Demon's Dream Shaders");
-        this.addConfig("disableHolidayTheming", "Disable Otherworld Goggles Shaders");
-        this.addConfig("useAlternativeDivinationRodRenderer", "Use Alternative Divination Rod Renderer");
-        this.addConfig("whiteChalkGlyphColor", "White Chalk Glyph Color");
-        this.addConfig("goldenChalkGlyphColor", "Golden Chalk Glyph Color");
-        this.addConfig("purpleChalkGlyphColor", "Purple Chalk Glyph Color");
-        this.addConfig("redChalkGlyphColor", "Red Chalk Glyph Color");
+        this.addConfig("visual", "Визуальные настройки");
+        this.addConfig("showItemTagsInTooltip", "Показывать теги предмета в подсказках");
+        this.addConfig("disableDemonsDreamShaders", "Отключить шейдеры Блаженство демона");
+        this.addConfig("disableHolidayTheming", "Отключить шейдеры Потусторонних очков");
+        this.addConfig("useAlternativeDivinationRodRenderer", "Использовать альтернативный отрисовщик Стержня прорицания");
+        this.addConfig("whiteChalkGlyphColor", "Цвет глифового мела");
+        this.addConfig("goldenChalkGlyphColor", "Цвет золотого глифового мела");
+        this.addConfig("purpleChalkGlyphColor", "Цвет пурпурного глифового мела");
+        this.addConfig("redChalkGlyphColor", "Цвет красного глифового мела");
 
-        this.addConfig("misc", "Misc Settings");
-        this.addConfig("syncJeiSearch", "Sync JEI Search");
-        this.addConfig("divinationRodHighlightAllResults", "Divination Rod Highlight All Results");
-        this.addConfig("divinationRodScanRange", "Divination Rod Scan Range");
-        this.addConfig("disableSpiritFireSuccessSound", "Disable Spirit Fire Success Sound");
+        this.addConfig("misc", "Прочие настройки");
+        this.addConfig("syncJeiSearch", "Синхронизировать поиск с JEI");
+        this.addConfig("divinationRodHighlightAllResults", "Подсвечивать все результаты Стержня прорицания");
+        this.addConfig("divinationRodScanRange", "Радиус сканирования Жезла прорицания");
+        this.addConfig("disableSpiritFireSuccessSound", "Отключить звук успешности Духовного огня");
 
-        this.addConfig("storage", "Storage Settings");
-        this.addConfig("stabilizerTier1AdditionalMaxItemTypes", "Stabilizer Tier 1 Additional Max Item Types");
-        this.addConfig("stabilizerTier1AdditionalMaxTotalItemCount", "Stabilizer Tier 1 Additional Max Total Item Count");
-        this.addConfig("stabilizerTier2AdditionalMaxItemTypes", "Stabilizer Tier 2 Additional Max Item Types");
-        this.addConfig("stabilizerTier2AdditionalMaxTotalItemCount", "Stabilizer Tier 2 Additional Max Total Item Count");
-        this.addConfig("stabilizerTier3AdditionalMaxItemTypes", "Stabilizer Tier 3 Additional Max Item Types");
-        this.addConfig("stabilizerTier3AdditionalMaxTotalItemCount", "Stabilizer Tier 3 Additional Max Total Item Count");
-        this.addConfig("stabilizerTier4AdditionalMaxItemTypes", "Stabilizer Tier 4 Additional Max Item Types");
-        this.addConfig("stabilizerTier4AdditionalMaxTotalItemCount", "Stabilizer Tier 4 Additional Max Total Item Count");
-        this.addConfig("controllerMaxItemTypes", "Controller Max Item Types");
-        this.addConfig("controllerMaxTotalItemCount", "Controller Max Total Item Count");
-        this.addConfig("unlinkWormholeOnBreak", "Unlink Wormhole on Break");
+        this.addConfig("storage", "Настройки хранилища");
+        this.addConfig("stabilizerTier1AdditionalMaxItemTypes", "Максимум дополнительных типов предметов в стабилизаторе 1-го уровня");
+        this.addConfig("stabilizerTier1AdditionalMaxTotalItemCount", "Максимум дополнительного общего количества предметов стабилизатора 1-го уровня");
+        this.addConfig("stabilizerTier2AdditionalMaxItemTypes", "Максимум дополнительных типов предметов в стабилизаторе 2-го уровня");
+        this.addConfig("stabilizerTier2AdditionalMaxTotalItemCount", "Максимум дополнительного общего количества предметов стабилизатора 2-го уровня");
+        this.addConfig("stabilizerTier3AdditionalMaxItemTypes", "Максимум дополнительных типов предметов в стабилизаторе 3-го уровня");
+        this.addConfig("stabilizerTier3AdditionalMaxTotalItemCount", "Максимум дополнительного общего количества предметов стабилизатора 3-го уровня");
+        this.addConfig("stabilizerTier4AdditionalMaxItemTypes", "Максимум дополнительных типов предметов в стабилизаторе 4-го уровня");
+        this.addConfig("stabilizerTier4AdditionalMaxTotalItemCount", "Максимум дополнительного общего количества предметов стабилизатора 4-го уровня");
+        this.addConfig("controllerMaxItemTypes", "Максимум типов предметов в контроллере");
+        this.addConfig("controllerMaxTotalItemCount", "Максимальное общее количество предмета в контроллера");
+        this.addConfig("unlinkWormholeOnBreak", "Отвязывать Червоточину при разрушении");
 
-        this.addConfig("spirit_job", "Spirit Job Settings");
-        this.addConfig("drikwingFamiliarSlowFallingSeconds", "Duration of slow falling effect given by Drikwing Familiar in seconds.");
-        this.addConfig("tier1CrusherTimeMultiplier", "Time multiplier for Tier 1 Crusher operations.");
-        this.addConfig("tier2CrusherTimeMultiplier", "Time multiplier for Tier 2 Crusher operations.");
-        this.addConfig("tier3CrusherTimeMultiplier", "Time multiplier for Tier 3 Crusher operations.");
-        this.addConfig("tier4CrusherTimeMultiplier", "Time multiplier for Tier 4 Crusher operations.");
-        this.addConfig("tier1CrusherOutputMultiplier", "Output multiplier for Tier 1 Crusher operations.");
-        this.addConfig("tier2CrusherOutputMultiplier", "Output multiplier for Tier 2 Crusher operations.");
-        this.addConfig("tier3CrusherOutputMultiplier", "Output multiplier for Tier 3 Crusher operations.");
-        this.addConfig("tier4CrusherOutputMultiplier", "Output multiplier for Tier 4 Crusher operations.");
-        this.addConfig("crusherResultPickupDelay", "Delay before items from crusher operations can be picked up.");
-        this.addConfig("blacksmithFamiliarRepairChance", "Chance for Blacksmith Familiar to repair an item each tick.");
-        this.addConfig("blacksmithFamiliarUpgradeCost", "Cost in experience levels for upgrading items with Blacksmith Familiar.");
-        this.addConfig("blacksmithFamiliarUpgradeCooldown", "Cooldown in ticks before Blacksmith Familiar can upgrade items again.");
+        this.addConfig("spirit_job", "Настройки занятия духа");
+        this.addConfig("drikwingFamiliarSlowFallingSeconds", "Продолжительность эффекта плавного падения в сек., полученное благодаря Дрикрылу-фамильяру.");
+        this.addConfig("tier1CrusherTimeMultiplier", "Коэффициент времени для дробильщика 1-го уровня..");
+        this.addConfig("tier2CrusherTimeMultiplier", "Коэффициент времени для дробильщика 2-го уровня..");
+        this.addConfig("tier3CrusherTimeMultiplier", "Коэффициент времени для дробильщика 3-го уровня..");
+        this.addConfig("tier4CrusherTimeMultiplier", "Коэффициент времени для дробильщика 4-го уровня..");
+        this.addConfig("tier1CrusherOutputMultiplier", "Коэффициент продукции для дробильщика 1-го уровня..");
+        this.addConfig("tier2CrusherOutputMultiplier", "Коэффициент продукции для дробильщика 2-го уровня..");
+        this.addConfig("tier3CrusherOutputMultiplier", "Коэффициент продукции для дробильщика 3-го уровня..");
+        this.addConfig("tier4CrusherOutputMultiplier", "Коэффициент продукции для дробильщика 4-го уровня..");
+        this.addConfig("crusherResultPickupDelay", "Задержка, прежде чем предметы из дробильщика могут быть подобраны.");
+        this.addConfig("blacksmithFamiliarRepairChance", "Вероятность, что Кузнец-фамильяр будет чинить предмет каждый такт.");
+        this.addConfig("blacksmithFamiliarUpgradeCost", "Стоимость обновления предметов в уровнях опыта при помощи Кузнеца-фамильяра.");
+        this.addConfig("blacksmithFamiliarUpgradeCooldown", "Перезарядка/в тактах, прежде чем Кузнец-фамильяр сможет снова обновить предметы.");
 
-        this.addConfig("rituals", "Rituals Settings");
-        this.addConfig("enableClearWeatherRitual", "Enable the ritual to clear weather conditions.");
-        this.addConfig("enableRainWeatherRitual", "Enable the ritual to cause rain weather conditions.");
-        this.addConfig("enableThunderWeatherRitual", "Enable the ritual to cause thunderstorm weather conditions.");
-        this.addConfig("enableDayTimeRitual", "Enable the ritual to change the time to day.");
-        this.addConfig("enableNightTimeRitual", "Enable the ritual to change the time to night.");
-        this.addConfig("enableRemainingIngredientCountMatching", "Enable matching of remaining ingredients in ritual recipes.");
-        this.addConfig("ritualDurationMultiplier", "Multiplier to adjust the duration of all rituals.");
-        this.addConfig("possibleSpiritNames", "Possible Spirit Names");
+        this.addConfig("rituals", "Настройки ритуалов");
+        this.addConfig("enableClearWeatherRitual", "Включить требования для ритуала ясной погоды.");
+        this.addConfig("enableRainWeatherRitual", "Включить требования ритуалу для вызова дождливой погоды.");
+        this.addConfig("enableThunderWeatherRitual", "Включить требования ритуала для вызова грозы.");
+        this.addConfig("enableDayTimeRitual", "Позволить ритуалу изменять время на день.");
+        this.addConfig("enableNightTimeRitual", "Позволить ритуалу изменять время в ночь.");
+        this.addConfig("enableRemainingIngredientCountMatching", "Включить соответствия оставшихся ингредиентов в рецептах ритуала.");
+        this.addConfig("ritualDurationMultiplier", "Регулировка коэффициента продолжительности всех ритуалов.");
+        this.addConfig("possibleSpiritNames", "Возможные имена духов");
 
-        this.addConfig("dimensional_mineshaft", "Dimensional Mineshaft Settings");
-        this.addConfig("miner_foliot_unspecialized", "Foliot Miner Unspectialized");
-        this.addConfig("miner_djinni_ores", "Djinni Ore Miner");
-        this.addConfig("miner_afrit_deeps", "Afrit Deep Ore Miner");
-        this.addConfig("miner_marid_master", "Marid Master Miner");
+        this.addConfig("dimensional_mineshaft", "Настройки пространственной шахты");
+        this.addConfig("miner_foliot_unspecialized", "Неспециализированный Горняк-Фолиот");
+        this.addConfig("miner_djinni_ores", "Рудный Горняк-Джинни");
+        this.addConfig("miner_afrit_deeps", "Горняк-Африт для глубинносланцевой руды");
+        this.addConfig("miner_marid_master", "Мастер Горняк-Марид");
 
-        this.addConfig("maxMiningTime", "Max Mining Time");
+        this.addConfig("maxMiningTime", "Максимальное время добычи");
         this.addConfig("rollsPerOperation", "Rolls Per Operation");
-        this.addConfig("durability", "Durability");
+        this.addConfig("durability", "Прочность");
     }
 
     private void addConfig(String key, String name){
