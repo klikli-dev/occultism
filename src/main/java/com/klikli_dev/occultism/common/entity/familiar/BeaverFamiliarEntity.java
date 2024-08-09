@@ -128,7 +128,9 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
         if (this.getOwner() == pPlayer) {
 
             if (!pPlayer.isShiftKeyDown() && itemstack.isEmpty()) {
-                if(this.level().getGameTime() > this.lastSnackTime + SNACK_INTERVAL){
+                if (!this.hasBlacksmithUpgrade()) {
+                    pPlayer.displayClientMessage(Component.translatable("dialog.occultism.beaver.no_upgrade"), true);
+                } else if (this.level().getGameTime() > this.lastSnackTime + SNACK_INTERVAL) {
                     this.lastSnackTime = this.level().getGameTime();
                     ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(OccultismItems.BEAVER_NUGGET.get()));
                 } else {

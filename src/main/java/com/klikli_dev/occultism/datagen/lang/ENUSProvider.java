@@ -3046,6 +3046,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("dialog.occultism.dragon.pet", "purrr");
         this.add("dialog.occultism.mummy.kapow", "KAPOW!");
         this.add("dialog.occultism.beaver.snack_on_cooldown", "Hey now, don't be greedy!");
+        this.add("dialog.occultism.beaver.no_upgrade", "A Blacksmith Familiar needs to upgrade the Beaver before he dispenses snacks!");
     }
 
     private void addModonomiconIntegration() {
