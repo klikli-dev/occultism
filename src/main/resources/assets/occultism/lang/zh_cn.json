@@ -791,6 +791,7 @@
   "debug.occultism.debug_wand.printed_glyphs": "已印出符文",
   "debug.occultism.debug_wand.spirit_selected": "已选中魔灵%s",
   "debug.occultism.debug_wand.spirit_tamed": "已驯服魔灵%s",
+  "dialog.occultism.beaver.no_upgrade": "A Blacksmith Familiar needs to upgrade the Beaver before he dispenses snacks!",
   "dialog.occultism.beaver.snack_on_cooldown": "Hey now, don't be greedy!",
   "dialog.occultism.dragon.pet": "呜呜",
   "dialog.occultism.mummy.kapow": "咔嗙！",
