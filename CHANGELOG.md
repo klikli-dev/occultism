@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.147.0] - 2024-08-09
+### :sparkles: New Features
+- [`9dd51a8`](https://github.com/klikli-dev/occultism/commit/9dd51a84bc92b9689f0f7e3bee4530bb79b48456) - add blacksmith upgrade to beaver familiar *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`45b37cf`](https://github.com/klikli-dev/occultism/commit/45b37cfdbe345a97b5df5c23a981e9be6b9ea3eb) - publish workflow *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`feaa585`](https://github.com/klikli-dev/occultism/commit/feaa585cec658adbf84b07ea6d48a891f4a50b67) - add missing translations *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`dc60150`](https://github.com/klikli-dev/occultism/commit/dc601508e83314221547a22613b63cb7d1b3d12f) - add 1.21.1 compat to published files *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.146.1] - 2024-08-08
 ### :bug: Bug Fixes
 - [`94b6356`](https://github.com/klikli-dev/occultism/commit/94b635627d9247d5b29e3089196c18d2f605e1e8) - correctly use capturing not supported tag *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1514,3 +1526,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.145.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.145.0...release/v1.21-1.145.1
 [release/v1.21-1.146.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.145.1...release/v1.21-1.146.0
 [release/v1.21-1.146.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.146.0...release/v1.21-1.146.1
+[release/v1.21-1.147.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.146.1...release/v1.21-1.147.0
