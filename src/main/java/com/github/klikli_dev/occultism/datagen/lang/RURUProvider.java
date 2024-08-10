@@ -69,9 +69,9 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add("item.occultism.book_of_calling" + ".message_set_base", "База для %s установлена на %s");
         this.lang("ru_ru").add("item.occultism.book_of_calling" + ".message_set_storage_controller", "%s будет принимать рабочие задания из %s");
         this.lang("ru_ru").add("item.occultism.book_of_calling" + ".message_set_work_area_size", "%s будет отслеживать рабочее место %s");
-        this.lang("ru_ru").add("item.occultism.book_of_calling" + ".message_set_managed_machine", "Настройки для машины %s обновлены.");
+        this.lang("ru_ru").add("item.occultism.book_of_calling" + ".message_set_managed_machine", "Настройки для устройства %s обновлены.");
         this.lang("ru_ru").add("item.occultism.book_of_calling" + ".message_set_managed_machine_extract_location", "%s будет извлекать из %s со стороны: %s");
-        this.lang("ru_ru").add("item.occultism.book_of_calling" + ".message_no_managed_machine", "Установите управляемую машину, прежде чем установить местоположение для извлечения %s");
+        this.lang("ru_ru").add("item.occultism.book_of_calling" + ".message_no_managed_machine", "Установите управляемое устройство, прежде чем установить местоположение для извлечения %s");
 
         this.lang("ru_ru").add(OccultismItems.STABLE_WORMHOLE.get().getDescriptionId() + ".message.set_storage_controller", "Стабильная червоточина связана с Актуаторам хранилища.");
         this.lang("ru_ru").add(OccultismItems.STORAGE_REMOTE.get().getDescriptionId() + ".message.not_loaded", "Чанк для актуатора хранилища не загружен!");
@@ -157,7 +157,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.CHALK_RED_IMPURE, "Осквернённый красный мел");
         this.addItem(OccultismItems.CHALK_WHITE_IMPURE, "Осквернённый мел");
         this.addItem(OccultismItems.BRUSH, "Щётка для мела");
-        this.addItem(OccultismItems.AFRIT_ESSENCE, "Эссенция Африта");
+        this.addItem(OccultismItems.AFRIT_ESSENCE, "Сущность Африта");
         this.addItem(OccultismItems.PURIFIED_INK, "Очищенные чернила");
         this.addItem(OccultismItems.AWAKENED_FEATHER, "Пробуждённое перо");
         this.addItem(OccultismItems.TABOO_BOOK, "Книга табу");
@@ -279,106 +279,106 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         //"block\.occultism\.(.*?)": "(.*)",
         //this.addBlock\(OccultismItems.\U\1\E, "\2"\);
 
-        this.addBlock(OccultismBlocks.OTHERSTONE, "Otherstone");
-        this.addBlock(OccultismBlocks.OTHERSTONE_SLAB, "Otherstone Slab");
-        this.addBlock(OccultismBlocks.OTHERSTONE_PEDESTAL, "Otherstone Pedestal");
-        this.addBlock(OccultismBlocks.SACRIFICIAL_BOWL, "Sacrificial Bowl");
-        this.addBlock(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL, "Golden Sacrificial Bowl");
-        this.addBlock(OccultismBlocks.CHALK_GLYPH_WHITE, "White Chalk Glyph");
-        this.addBlock(OccultismBlocks.CHALK_GLYPH_GOLD, "Gold Chalk Glyph");
-        this.addBlock(OccultismBlocks.CHALK_GLYPH_PURPLE, "Purple Chalk Glyph");
-        this.addBlock(OccultismBlocks.CHALK_GLYPH_RED, "Red Chalk Glyph");
-        this.addBlock(OccultismBlocks.STORAGE_CONTROLLER, "Dimensional Storage Actuator");
-        this.addBlock(OccultismBlocks.STORAGE_CONTROLLER_BASE, "Storage Actuator Base");
-        this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER1, "Tier 1 Dimensional Storage Stabilizer");
-        this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER2, "Tier 2 Dimensional Storage Stabilizer");
-        this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER3, "Tier 3 Dimensional Storage Stabilizer");
-        this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER4, "Tier 4 Dimensional Storage Stabilizer");
-        this.addBlock(OccultismBlocks.STABLE_WORMHOLE, "Stable Wormhole");
-        this.addBlock(OccultismBlocks.DATURA, "Demon's Dream");
+        this.addBlock(OccultismBlocks.OTHERSTONE, "Потусторонний камень");
+        this.addBlock(OccultismBlocks.OTHERSTONE_SLAB, "Потусторонняя плита");
+        this.addBlock(OccultismBlocks.OTHERSTONE_PEDESTAL, "Потусторонний пьедестал");
+        this.addBlock(OccultismBlocks.SACRIFICIAL_BOWL, "Миска для жертвоприношений");
+        this.addBlock(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL, "Золотая миска для жертвоприношений");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_WHITE, "Меловой глиф");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_GOLD, "Золотой меловой глиф");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_PURPLE, "Пурпурный меловой глиф");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_RED, "Красный меловой глиф");
+        this.addBlock(OccultismBlocks.STORAGE_CONTROLLER, "Актуатор пространственного хранилища");
+        this.addBlock(OccultismBlocks.STORAGE_CONTROLLER_BASE, "Основа актуатора хранилища");
+        this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER1, "Стабилизатор пространственного хранилища 1-го уровня");
+        this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER2, "Стабилизатор пространственного хранилища 2-го уровня");
+        this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER3, "Стабилизатор пространственного хранилища 3-го уровня");
+        this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER4, "Стабилизатор пространственного хранилища 4-го уровня");
+        this.addBlock(OccultismBlocks.STABLE_WORMHOLE, "Стабильная червоточина");
+        this.addBlock(OccultismBlocks.DATURA, "Блаженство демона");
 
-        this.lang("ru_ru").add("block.occultism.otherworld_log", "Otherworld Wood");
-        this.lang("ru_ru").add("block.occultism.otherworld_sapling", "Otherworld Sapling");
-        this.lang("ru_ru").add("block.occultism.otherworld_leaves", "Otherworld Leaves");
+        this.lang("ru_ru").add("block.occultism.otherworld_log", "Потусторонняя древесина");
+        this.lang("ru_ru").add("block.occultism.otherworld_sapling", "Потусторонний саженец");
+        this.lang("ru_ru").add("block.occultism.otherworld_leaves", "Потусторонняя листья");
 
-        this.addBlock(OccultismBlocks.SPIRIT_FIRE, "Spiritfire");
-        this.addBlock(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL, "Spirit Attuned Crystal");
-        this.addBlock(OccultismBlocks.CANDLE_WHITE, "White Candle");
-        this.addBlock(OccultismBlocks.SILVER_ORE, "Silver Ore");
-        this.addBlock(OccultismBlocks.SILVER_ORE_DEEPSLATE, "Deepslate Silver Ore");
-        this.addBlock(OccultismBlocks.IESNIUM_ORE, "Iesnium Ore");
-        this.addBlock(OccultismBlocks.SILVER_BLOCK, "Block of Silver");
-        this.addBlock(OccultismBlocks.IESNIUM_BLOCK, "Block of Iesnium");
-        this.addBlock(OccultismBlocks.RAW_SILVER_BLOCK, "Block of Raw Silver");
-        this.addBlock(OccultismBlocks.RAW_IESNIUM_BLOCK, "Block of Raw Iesnium");
-        this.addBlock(OccultismBlocks.DIMENSIONAL_MINESHAFT, "Dimensional Mineshaft");
-        this.addBlock(OccultismBlocks.SKELETON_SKULL_DUMMY, "Skeleton Skull");
-        this.addBlock(OccultismBlocks.WITHER_SKELETON_SKULL_DUMMY, "Wither Skeleton Skull");
-        this.addBlock(OccultismBlocks.LIGHTED_AIR, "Lighted Air");
-        this.addBlock(OccultismBlocks.SPIRIT_LANTERN, "Spirit Lantern");
-        this.addBlock(OccultismBlocks.SPIRIT_CAMPFIRE, "Spirit Campfire");
-        this.addBlock(OccultismBlocks.SPIRIT_TORCH, "Spirit Torch"); //spirit wall torch automatically uses the same translation
+        this.addBlock(OccultismBlocks.SPIRIT_FIRE, "Духовный огонь");
+        this.addBlock(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL, "Кристалл, настроенный на духа");
+        this.addBlock(OccultismBlocks.CANDLE_WHITE, "Свеча");
+        this.addBlock(OccultismBlocks.SILVER_ORE, "Серебряная руда");
+        this.addBlock(OccultismBlocks.SILVER_ORE_DEEPSLATE, "Серебреносная глубиносланцевая руда");
+        this.addBlock(OccultismBlocks.IESNIUM_ORE, "Руда айзния");
+        this.addBlock(OccultismBlocks.SILVER_BLOCK, "Серебряный блок");
+        this.addBlock(OccultismBlocks.IESNIUM_BLOCK, "Блок айзния");
+        this.addBlock(OccultismBlocks.RAW_SILVER_BLOCK, "Блок рудного серебра");
+        this.addBlock(OccultismBlocks.RAW_IESNIUM_BLOCK, "Блок рудного айзния");
+        this.addBlock(OccultismBlocks.DIMENSIONAL_MINESHAFT, "Пространственная шахта");
+        this.addBlock(OccultismBlocks.SKELETON_SKULL_DUMMY, "Череп скелета");
+        this.addBlock(OccultismBlocks.WITHER_SKELETON_SKULL_DUMMY, "Череп визер-скелета");
+        this.addBlock(OccultismBlocks.LIGHTED_AIR, "Подсвеченный воздух");
+        this.addBlock(OccultismBlocks.SPIRIT_LANTERN, "Духовный фонарь");
+        this.addBlock(OccultismBlocks.SPIRIT_CAMPFIRE, "Духовный костёр");
+        this.addBlock(OccultismBlocks.SPIRIT_TORCH, "Духовный факел"); //Настенный духовный факел автоматически использует аналогичный перевод.
     }
 
     private void addEntities() {
         //"entity\.occultism\.(.*?)": "(.*)",
         //this.addEntityType\(OccultismEntities.\U\1\E, "\2"\);
 
-        this.addEntityType(OccultismEntities.FOLIOT, "Foliot");
-        this.addEntityType(OccultismEntities.DJINNI, "Djinni");
-        this.addEntityType(OccultismEntities.AFRIT, "Afrit");
-        this.addEntityType(OccultismEntities.AFRIT_WILD, "Unbound Afrit");
-        this.addEntityType(OccultismEntities.MARID, "Marid");
-        this.addEntityType(OccultismEntities.POSSESSED_ENDERMITE, "Possessed Endermite");
-        this.addEntityType(OccultismEntities.POSSESSED_SKELETON, "Possessed Skeleton");
-        this.addEntityType(OccultismEntities.POSSESSED_ENDERMAN, "Possessed Enderman");
-        this.addEntityType(OccultismEntities.POSSESSED_GHAST, "Possessed Ghast");
-        this.addEntityType(OccultismEntities.POSSESSED_PHANTOM, "Possessed Phantom");
-        this.addEntityType(OccultismEntities.POSSESSED_WEAK_SHULKER, "Possessed Weak Shulker");
-        this.addEntityType(OccultismEntities.POSSESSED_SHULKER, "Possessed Shulker");
-        this.addEntityType(OccultismEntities.POSSESSED_ELDER_GUARDIAN, "Possessed Elder Guardian");
-        this.addEntityType(OccultismEntities.POSSESSED_WARDEN, "Possessed Warden");
-        this.addEntityType(OccultismEntities.POSSESSED_HOGLIN, "Possessed Hoglin");
-        this.addEntityType(OccultismEntities.WILD_HUNT_SKELETON, "Wild Hunt Skeleton");
-        this.addEntityType(OccultismEntities.WILD_HUNT_WITHER_SKELETON, "Wild Hunt Wither Skeleton");
-        this.addEntityType(OccultismEntities.OTHERWORLD_BIRD, "Drikwing");
-        this.addEntityType(OccultismEntities.GREEDY_FAMILIAR, "Greedy Familiar");
-        this.addEntityType(OccultismEntities.BAT_FAMILIAR, "Bat Familiar");
-        this.addEntityType(OccultismEntities.DEER_FAMILIAR, "Deer Familiar");
-        this.addEntityType(OccultismEntities.CTHULHU_FAMILIAR, "Cthulhu Familiar");
-        this.addEntityType(OccultismEntities.DEVIL_FAMILIAR, "Devil Familiar");
-        this.addEntityType(OccultismEntities.DRAGON_FAMILIAR, "Dragon Familiar");
-        this.addEntityType(OccultismEntities.BLACKSMITH_FAMILIAR, "Blacksmith Familiar");
-        this.addEntityType(OccultismEntities.GUARDIAN_FAMILIAR, "Guardian Familiar");
-        this.addEntityType(OccultismEntities.HEADLESS_FAMILIAR, "Headless Familiar");
-        this.addEntityType(OccultismEntities.CHIMERA_FAMILIAR, "Chimera Familiar");
-        this.addEntityType(OccultismEntities.GOAT_FAMILIAR, "Goat Familiar");
-        this.addEntityType(OccultismEntities.SHUB_NIGGURATH_FAMILIAR, "Shub Niggurath Familiar");
-        this.addEntityType(OccultismEntities.BEHOLDER_FAMILIAR, "Beholder Familiar");
-        this.addEntityType(OccultismEntities.FAIRY_FAMILIAR, "Fairy Familiar");
-        this.addEntityType(OccultismEntities.MUMMY_FAMILIAR, "Mummy Familiar");
-        this.addEntityType(OccultismEntities.BEAVER_FAMILIAR, "Beaver Familiar");
-        this.addEntityType(OccultismEntities.SHUB_NIGGURATH_SPAWN, "Shub Niggurath Spawn");
-        this.addEntityType(OccultismEntities.THROWN_SWORD, "Thrown Sword");
-        this.addEntityType(OccultismEntities.DEMONIC_WIFE, "Demonic Wife");
-        this.addEntityType(OccultismEntities.DEMONIC_HUSBAND, "Demonic Husband");
-        this.addEntityType(OccultismEntities.WILD_HORDE_HUSK, "Wild Horde Husk");
-        this.addEntityType(OccultismEntities.WILD_HORDE_DROWNED, "Wild Horde Drowned");
-        this.addEntityType(OccultismEntities.WILD_HORDE_CREEPER, "Wild Horde Creeper");
-        this.addEntityType(OccultismEntities.WILD_HORDE_SILVERFISH, "Wild Horde Silverfish");
-        this.addEntityType(OccultismEntities.POSSESSED_WEAK_BREEZE, "Possessed Weak Breeze");
-        this.addEntityType(OccultismEntities.POSSESSED_BREEZE, "Possessed Breeze");
-        this.addEntityType(OccultismEntities.POSSESSED_STRONG_BREEZE, "Possessed Strong Breeze");
-        this.addEntityType(OccultismEntities.WILD_ZOMBIE, "Wild Zombie");
-        this.addEntityType(OccultismEntities.WILD_SKELETON, "Wild Skeleton");
-        this.addEntityType(OccultismEntities.WILD_SILVERFISH, "Wild Silverfish");
-        this.addEntityType(OccultismEntities.WILD_SPIDER, "Wild Spider");
-        this.addEntityType(OccultismEntities.WILD_BOGGED, "Wild Bogged");
-        this.addEntityType(OccultismEntities.WILD_SLIME, "Wild Slime");
-        this.addEntityType(OccultismEntities.WILD_HUSK, "Wild Husk");
-        this.addEntityType(OccultismEntities.WILD_STRAY, "Wild Stray");
-        this.addEntityType(OccultismEntities.WILD_CAVE_SPIDER, "Wild Cave Spider");
-        this.addEntityType(OccultismEntities.POSSESSED_EVOKER, "Possessed Evoker");
+        this.addEntityType(OccultismEntities.FOLIOT, "Фолиот");
+        this.addEntityType(OccultismEntities.DJINNI, "Джинни");
+        this.addEntityType(OccultismEntities.AFRIT, "Африт");
+        this.addEntityType(OccultismEntities.AFRIT_WILD, "Несвязанный Африт");
+        this.addEntityType(OccultismEntities.MARID, "Марид");
+        this.addEntityType(OccultismEntities.POSSESSED_ENDERMITE, "Одержимый эндермит");
+        this.addEntityType(OccultismEntities.POSSESSED_SKELETON, "Одержимый скелет");
+        this.addEntityType(OccultismEntities.POSSESSED_ENDERMAN, "Одержимый эндермен");
+        this.addEntityType(OccultismEntities.POSSESSED_GHAST, "Одержимый гаст");
+        this.addEntityType(OccultismEntities.POSSESSED_PHANTOM, "Одержимый фантом");
+        this.addEntityType(OccultismEntities.POSSESSED_WEAK_SHULKER, "Одержимый слабый шалкер");
+        this.addEntityType(OccultismEntities.POSSESSED_SHULKER, "Одержимый шалкер");
+        this.addEntityType(OccultismEntities.POSSESSED_ELDER_GUARDIAN, "Одержимый древний страж");
+        this.addEntityType(OccultismEntities.POSSESSED_WARDEN, "Одержимый хранитель");
+        this.addEntityType(OccultismEntities.POSSESSED_HOGLIN, "Одержимый хоглин");
+        this.addEntityType(OccultismEntities.WILD_HUNT_SKELETON, "Скелет Дикой Охоты");
+        this.addEntityType(OccultismEntities.WILD_HUNT_WITHER_SKELETON, "Визер-скелет Дикой Охоты");
+        this.addEntityType(OccultismEntities.OTHERWORLD_BIRD, "Дрикрыл");
+        this.addEntityType(OccultismEntities.GREEDY_FAMILIAR, "Алчный фамильяр");
+        this.addEntityType(OccultismEntities.BAT_FAMILIAR, "Летучая мышь-фамильяр");
+        this.addEntityType(OccultismEntities.DEER_FAMILIAR, "Олень-фамильяр");
+        this.addEntityType(OccultismEntities.CTHULHU_FAMILIAR, "Ктулху-фамильяр");
+        this.addEntityType(OccultismEntities.DEVIL_FAMILIAR, "Дьявол-фамильяр");
+        this.addEntityType(OccultismEntities.DRAGON_FAMILIAR, "Дракон-фамильяр");
+        this.addEntityType(OccultismEntities.BLACKSMITH_FAMILIAR, "Кузнец-фамильяр");
+        this.addEntityType(OccultismEntities.GUARDIAN_FAMILIAR, "Страж-фамильяр");
+        this.addEntityType(OccultismEntities.HEADLESS_FAMILIAR, "Безголовый-фамильяр");
+        this.addEntityType(OccultismEntities.CHIMERA_FAMILIAR, "Химера-фамильяр");
+        this.addEntityType(OccultismEntities.GOAT_FAMILIAR, "Козёл-фамильяр");
+        this.addEntityType(OccultismEntities.SHUB_NIGGURATH_FAMILIAR, "Шуб-Ниггурат-фамильяр");
+        this.addEntityType(OccultismEntities.BEHOLDER_FAMILIAR, "Созерцатель-фамильяр");
+        this.addEntityType(OccultismEntities.FAIRY_FAMILIAR, "Фея-фамильяр");
+        this.addEntityType(OccultismEntities.MUMMY_FAMILIAR, "Мумия-фамильяр");
+        this.addEntityType(OccultismEntities.BEAVER_FAMILIAR, "Бобёр-фамильяр");
+        this.addEntityType(OccultismEntities.SHUB_NIGGURATH_SPAWN, "Потомок Шуб-Ниггурата");
+        this.addEntityType(OccultismEntities.THROWN_SWORD, "Брошенный меч");
+        this.addEntityType(OccultismEntities.DEMONIC_WIFE, "Демоническая жена");
+        this.addEntityType(OccultismEntities.DEMONIC_HUSBAND, "Демонический муж");
+        this.addEntityType(OccultismEntities.WILD_HORDE_HUSK, "Орда диких Husk");
+        this.addEntityType(OccultismEntities.WILD_HORDE_DROWNED, "Орда диких утопленников");
+        this.addEntityType(OccultismEntities.WILD_HORDE_CREEPER, "Орда диких криперов");
+        this.addEntityType(OccultismEntities.WILD_HORDE_SILVERFISH, "Орда диких чешуйниц");
+        this.addEntityType(OccultismEntities.POSSESSED_WEAK_BREEZE, "Одержимый слабого вихря");
+        this.addEntityType(OccultismEntities.POSSESSED_BREEZE, "Одержимый вихря");
+        this.addEntityType(OccultismEntities.POSSESSED_STRONG_BREEZE, "Одержимый сильного вихря");
+        this.addEntityType(OccultismEntities.WILD_ZOMBIE, "Дикий зомби");
+        this.addEntityType(OccultismEntities.WILD_SKELETON, "Дикий скелет");
+        this.addEntityType(OccultismEntities.WILD_SILVERFISH, "Дикий чешуйница");
+        this.addEntityType(OccultismEntities.WILD_SPIDER, "Дикий паук");
+        this.addEntityType(OccultismEntities.WILD_BOGGED, "Дикий болотник");
+        this.addEntityType(OccultismEntities.WILD_SLIME, "Дикий слизень");
+        this.addEntityType(OccultismEntities.WILD_HUSK, "Дикий кадавр");
+        this.addEntityType(OccultismEntities.WILD_STRAY, "Дикий зимогор");
+        this.addEntityType(OccultismEntities.WILD_CAVE_SPIDER, "Дикий мещерный паук");
+        this.addEntityType(OccultismEntities.POSSESSED_EVOKER, "Одержимый заклинатель");
     }
 
     private void addMiscTranslations() {
@@ -386,10 +386,10 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         //"(.*?)": "(.*)",
         //this.lang("ru_ru").add\("\1", "\2"\);
 
-        this.lang("ru_ru").add(TranslationKeys.HUD_NO_PENTACLE_FOUND, "No valid pentacle found.");
-        this.lang("ru_ru").add(TranslationKeys.HUD_PENTACLE_FOUND, "Current Pentacle: %s");
+        this.lang("ru_ru").add(TranslationKeys.HUD_NO_PENTACLE_FOUND, "Не найдено допустимой пентакли.");
+        this.lang("ru_ru").add(TranslationKeys.HUD_PENTACLE_FOUND, "Текущий пентакль: %s");
 
-        this.lang("ru_ru").add(TranslationKeys.MESSAGE_CONTAINER_ALREADY_OPEN, "This container is already opened by another player, wait until they close it.");
+        this.lang("ru_ru").add(TranslationKeys.MESSAGE_CONTAINER_ALREADY_OPEN, "Этот контейнер уже открыт другим игроком, ждите пока он его не закроет.");
 
         //Занятия
         this.lang("ru_ru").add("job.occultism.lumberjack", "Дровосек");
@@ -679,8 +679,8 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add("ritual.occultism.craft_familiar_ring.finished", "Successfully bound djinni into familiar ring.");
         this.lang("ru_ru").add("ritual.occultism.craft_familiar_ring.interrupted", "Binding of djinni interrupted.");
         this.lang("ru_ru").add("ritual.occultism.craft_wild_trim.conditions", "Не все требования удовлетворены для этого ритуала.");
-        this.lang("ru_ru").add("ritual.occultism.craft_wild_trim.started", "Marid has started to forge the Wild Armor Trim Smithing Template.");
-        this.lang("ru_ru").add("ritual.occultism.craft_wild_trim.finished", "Successfully forged the Wild Armor Trim Smithing Template.");
+        this.lang("ru_ru").add("ritual.occultism.craft_wild_trim.started", "Marid has started to forge the Дикий Armor Trim Smithing Template.");
+        this.lang("ru_ru").add("ritual.occultism.craft_wild_trim.finished", "Successfully forged the Дикий Armor Trim Smithing Template.");
         this.lang("ru_ru").add("ritual.occultism.craft_wild_trim.interrupted", "Binding of djinni interrupted.");
         this.lang("ru_ru").add("ritual.occultism.possess_endermite.conditions", "Не все требования удовлетворены для этого ритуала.");
         this.lang("ru_ru").add("ritual.occultism.possess_endermite.started", "Начался призыв possessed endermite.");
@@ -805,8 +805,8 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add("ritual.occultism.summon_demonic_wife.interrupted", "Summoning interrupted.");
         this.lang("ru_ru").add("ritual.occultism.summon_demonic_husband.conditions", "Не все требования удовлетворены для этого ритуала.");
         this.lang("ru_ru").add("ritual.occultism.summon_demonic_husband.started", "Начался призыв.");
-        this.lang("ru_ru").add("ritual.occultism.summon_demonic_husband.finished", "Summoned successfully.");
-        this.lang("ru_ru").add("ritual.occultism.summon_demonic_husband.interrupted", "Summoning interrupted.");
+        this.lang("ru_ru").add("ritual.occultism.summon_demonic_husband.finished", "Успешно призван.");
+        this.lang("ru_ru").add("ritual.occultism.summon_demonic_husband.interrupted", "Призыв прерван.");
 
         this.lang("ru_ru").add("ritual.occultism.summon_wild_husk.conditions", "Не все требования удовлетворены для этого ритуала.");
         this.lang("ru_ru").add("ritual.occultism.summon_wild_husk.started", "Начался призыв the wild horde husk.");
@@ -848,7 +848,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
     }
 
     public void addRitualMessage(DeferredHolder<RitualFactory, RitualFactory> ritual, String key, String message) {
-        this.lang("ru_ru").add("ritual.%s.%s".formatted(ritual.getId().getNamespace(), ritual.getId().getPath()) + "." + key, message);
+        this.add("ritual.%s.%s".formatted(ritual.getId().getNamespace(), ritual.getId().getPath()) + "." + key, message);
     }
 
     private void addBook() {
@@ -883,473 +883,473 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         helper.page("intro2");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        They act both as a device to call on the entity, an amplifier for the summoner's commanding power
-                        and as a protecting circle preventing attacks from within against the summoner.
+                        Они оба действуют как устройство призыва существа, усилителя повелительной силы призывателя,
+                        так и защитного круга, предотвращающего внутренние атаки против призывателя.
                         """.formatted(COLOR_PURPLE));
 
         helper.page("intro3");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Each pentacle consists of a central golden sacrificial bowl, surrounding runes of various colors and occult paraphernalia that improve the intended effect in various ways.
+                        В состав каждого пентакля входит золотая миска для жертвоприношений по центру, окружающие руны различных цветов и оккультные принадлежности, что улучшают желаемый результат различными способами.
                         """.formatted(COLOR_PURPLE));
 
 
         helper.page("intro4");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        The combination of chosen runes and supporting items as well as their exact spatial positioning determines the use and effectiveness of the pentacle.
+                        Сочетание выбранных рун и второстепенных предметов, в том числе их точное пространственное расположение, определяет использование и эффективность пентакля.
                         \\
                         \\
-                        Ingredients are placed in [#](%1$s)Sacrifical Bowls[#]() near the pentacle.
+                        Ингредиенты размещаются в [#](%1$s)Миски для жертвоприношений[#]() рядом с пентаклем.
                          """.formatted(COLOR_PURPLE));
 
-        //exact copy found in first ritual entry
+        //точная копия расположена в первой записи ритуала
         helper.page("bowl_placement");
-        //no text
+        //текст отсутствует
 
-        //exact copy found in first ritual entry
+        //точная копия расположена в первой записи ритуала
         helper.page("bowl_text");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        [Sacrificial Bowls](item://occultism:sacrificial_bowl) must be placed **anywhere** within 8 blocks horizontally of the central [](item://occultism:golden_sacrificial_bowl). The exact location does not matter.
+                        [Миски для жертвоприношений](item://occultism:sacrificial_bowl) должны быть размещёны **где угодно** в пределах 8 блоков от центральной [](item://occultism:golden_sacrificial_bowl). Точное расположение не имеет значения.
                         \\
                         \\
-                        Now it is time to place the ingredients you see on the next page in the (regular, not golden) sacrificial bowls.
+                        Теперь уже пора расположить видимые Вами ингредиенты на следующей странице в (обычные, не золотые) Миски для жертвоприношений.
                           """);
 
         helper.page("summoning_pentacles");
-        this.lang("ru_ru").add(helper.pageTitle(), "Summoning Pentacles");
+        this.lang("ru_ru").add(helper.pageTitle(), "Пентакли для призыва");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        The purpose of this type of pentacle is to summon spirits in their chosen form into the world. Spirits summoned thus suffer from strong essence decay, and only very powerful spirits can remain for extended periods of time.
+                        Цель такого типа пентакля состоит в том, чтобы призвать духов в мир в свою выбранную форму. По этой причине, призванные духи страдают от сильного распада эссенции, и лишь очень могущественные духи могут продержаться в выбранной форме в течение длительного периода времени.
                         """);
 
         helper.page("infusion_pentacles");
-        this.lang("ru_ru").add(helper.pageTitle(), "Infusion Pentacles");
+        this.lang("ru_ru").add(helper.pageTitle(), "Пентакли наполнения");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Infusion pentacles allow the binding of spirits into objects. While the spirits suffer from essence decay in some cases, this can often be averted with the right pentacle setup, and by embedding crystals and precious metals into the object to support the spirit.
+                        Пентакли наполнения позволяют связывать духов с объектами. Хотя духи страдают от распада эссенции в определённых случаях, как правило, это может быть предотвращено правильной конфигурацией Пентакля и внедрением кристаллов, а также драгоценных металлов в объект для сдерживания духа.
                         """);
 
         helper.page("possession_pentacles");
-        this.lang("ru_ru").add(helper.pageTitle(), "Possession Pentacles");
+        this.lang("ru_ru").add(helper.pageTitle(), "Пентакли для завладения");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        These pentacles force spirits to possess a living being, which, depending on the ritual context, gives the summoner control over various aspects of that being, ranging from it's strength to it what it drops when killed, and in some cases even allows total control.
+                        Эти пентакли принуждают духов овладеть живым существом, которые в зависимости от связи ритуала, дают призывателю контроль над различными чертами этого существа, начиная от его силы и заканчивая тем, что с него выпадает при убийстве, а в некоторых случаях даже допускают полный контроль.
                         """);
 
         helper.entry("paraphernalia");
-        this.lang("ru_ru").add(helper.entryName(), "Occult Paraphernalia");
+        this.lang("ru_ru").add(helper.entryName(), "Оккультные принадлежности");
 
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Occult Paraphernalia");
+        this.lang("ru_ru").add(helper.pageTitle(), "Оккультные принадлежности");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        In addition to runes various occult paraphernalia are used to improve the intended effect of the pentacle.
+                        Не говоря о рунах, различные оккультные принадлежности используются для улучшения желаемого результата.
                         """);
 
         helper.page("candle");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Candles increase the stability of the pentacle, thus allowing a slowed essence decay of the summoned spirit, leading to a longer lifetime of the spirit, or possessed object or being.
+                        Свечи увеличивают стабильность пентакля, таким образом, позволяя замедлить распад эссенции призванного духа, что влечёт за собой более длительное время жизни духа, либо овладевшего объектом, либо существом.
                         """);
 
         helper.page("crystal");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Crystals increase the binding power of the pentacle, allowing a permanent binding of the spirit into an item or living being.
+                        Кристаллы увеличивают связывающую силу пентакля, что позволяет постоянно связывать духа с объектом или живым существом.
                         """);
 
         helper.page("gem_recipe");
-        //no text
+        //текст отсутствует
 
         helper.page("crystal_recipe");
-        //no text
+        //текст отсутствует
 
         helper.page("skeleton_skull");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Skulls increase the calling power of the pentacle, allowing to summon more dangerous spirits.
+                        Черепа увеличивают призывную мощность пентакля, что позволяет призывать опаснейших духов.
                         """);
 
         helper.entry("chalk_uses");
-        this.lang("ru_ru").add(helper.entryName(), "Chalk Types");
+        this.lang("ru_ru").add(helper.entryName(), "Виды мела");
 
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Chalk Types");
+        this.lang("ru_ru").add(helper.pageTitle(), "Виды мела");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Chalk is used to draw pentacle runes and define the pentacle shape. Different types of chalk are used for different purposes, as outlined on the next pages.
+                        Мел используется для черчения рун и определения формы пентакля. Для различных целей используются разные виды мелков, как уже указано на следующих страницах.
                         \\
                         \\
-                        The different runes are purely decorative.
+                        Разные руны сугубо декоративны.
                         """);
 
         helper.page("intro2");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        **Repeatedly** use chalk on a block to switch to a different rune.
+                        **Периодически** используйте мел по блоку, чтобы переключаться между разными рунами.
                         \\
                         \\
-                        Using a [](item://occultism:brush) is the easiest way to **remove** chalk runes that have been incorrectly placed.
+                        Применение [](item://occultism:brush) — простейший способ **удалить** неправильно размещённые меловые руны.
                         """);
 
         helper.page("white_chalk");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        White chalk is the most basic type of ritual chalk and is found in most pentacles. It has no special power beyond defining the shape of the pentacle.
+                        Мел — самый базовый вид ритуального мела и встречается в большинстве пентаклей. У него отсутствуют особые силы, кроме определения формы пентакля.
                            """);
 
 
         helper.page("white_chalk_uses");
-        this.lang("ru_ru").add(helper.pageTitle(), "White Chalk Uses");
+        this.lang("ru_ru").add(helper.pageTitle(), "Использование мела");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        - [Aviar's Circle](entry://occultism:dictionary_of_spirits/pentacles/summon_foliot)
-                        - [Eziveus' Spectral Compulsion](entry://occultism:dictionary_of_spirits/pentacles/craft_foliot)
-                        - [Hedyrin's Lure](entry://occultism:dictionary_of_spirits/pentacles/possess_foliot)
-                        - [Ophyx' Calling](entry://occultism:dictionary_of_spirits/pentacles/summon_djinni)
-                        - [Strigeor's Higher Binding](entry://occultism:dictionary_of_spirits/pentacles/craft_djinni)
-                        - [Ihagan's Enthrallment](entry://occultism:dictionary_of_spirits/pentacles/possess_djinni)
-                        - [Abras' Conjure](entry://occultism:dictionary_of_spirits/pentacles/summon_afrit)
-                        - [Sevira's Permanent Confinement](entry://occultism:dictionary_of_spirits/pentacles/craft_afrit)
-                        - [Abras' Open Conjure](entry://occultism:dictionary_of_spirits/pentacles/summon_wild_afrit)
+                        - [Круг Авиара](entry://occultism:dictionary_of_spirits/pentacles/summon_foliot)
+                        - [Спектральное вынуждение Изива](entry://occultism:dictionary_of_spirits/pentacles/craft_foliot)
+                        - [Приманка Гидирина](entry://occultism:dictionary_of_spirits/pentacles/possess_foliot)
+                        - [Зов Офикса](entry://occultism:dictionary_of_spirits/pentacles/summon_djinni)
+                        - [Связывание высшего Стригора](entry://occultism:dictionary_of_spirits/pentacles/craft_djinni)
+                        - [Порабощение Айгана](entry://occultism:dictionary_of_spirits/pentacles/possess_djinni)
+                        - [Вызов Абраса](entry://occultism:dictionary_of_spirits/pentacles/summon_afrit)
+                        - [Призыв свободного Абраса](entry://occultism:dictionary_of_spirits/pentacles/craft_afrit)
+                        - [Призыв свободного Абраса](entry://occultism:dictionary_of_spirits/pentacles/summon_wild_afrit)
                          """);
 
         helper.page("white_chalk_uses2");
-        this.lang("ru_ru").add(helper.pageTitle(), "White Chalk Uses");
+        this.lang("ru_ru").add(helper.pageTitle(), "Использование мела");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        - [Uphyxes Inverted Tower](entry://occultism:dictionary_of_spirits/pentacles/craft_marid)
-                        - [Osorin' Unbound Calling](entry://occultism:dictionary_of_spirits/pentacles/summon_wild_greater_spirit)
+                        - [Перевёрнутая башня Юфиксеса](entry://occultism:dictionary_of_spirits/pentacles/craft_marid)
+                        - [Призыв несвязанного Осорина](entry://occultism:dictionary_of_spirits/pentacles/summon_wild_greater_spirit)
                          """);
 
         helper.page("golden_chalk");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Golden chalk is used for binding runes, which allow to infuse a spirit into an item, or make it possess a living being.
+                        Золотой мел используется для связывания рун, позволяющий заключить душу в предмет или заставить его овладеть живым существом.
                                """);
 
 
         helper.page("golden_chalk_uses");
-        this.lang("ru_ru").add(helper.pageTitle(), "Golden Chalk Uses");
+        this.lang("ru_ru").add(helper.pageTitle(), "Использование золотого мела");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        - [Eziveus' Spectral Compulsion](entry://occultism:dictionary_of_spirits/pentacles/craft_foliot)
-                        - [Hedyrin's Lure](entry://occultism:dictionary_of_spirits/pentacles/possess_foliot)
-                        - [Strigeor's Higher Binding](entry://occultism:dictionary_of_spirits/pentacles/craft_djinni)
-                        - [Ihagan's Enthrallment](entry://occultism:dictionary_of_spirits/pentacles/possess_djinni)
-                        - [Sevira's Permanent Confinement](entry://occultism:dictionary_of_spirits/pentacles/craft_afrit)
-                        - [Uphyxes Inverted Tower](entry://occultism:dictionary_of_spirits/pentacles/craft_marid)
+                        - [Спектральное вынуждение Изива](entry://occultism:dictionary_of_spirits/pentacles/craft_foliot)
+                        - [Приманка Гидирина](entry://occultism:dictionary_of_spirits/pentacles/possess_foliot)
+                        - [Связывание высшего Стригора](entry://occultism:dictionary_of_spirits/pentacles/craft_djinni)
+                        - [Порабощение Айгана](entry://occultism:dictionary_of_spirits/pentacles/possess_djinni)
+                        - [Вечное заточение Севиры](entry://occultism:dictionary_of_spirits/pentacles/craft_afrit)
+                        - [Перевёрнутая башня Юфиксеса](entry://occultism:dictionary_of_spirits/pentacles/craft_marid)
                            """);
 
         helper.page("purple_chalk");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Purple chalk is generally used to call on higher beings such as [#](%1$s)Djinn[#]() or [#](%1$s)Afrit[#](), but also slows essence decay of summoned spirits.
+                        Пурпурный мел, как правило, используется для призыва высших существ, таких как [#](%1$s)Джинни[#]() или [#](%1$s)Африты[#](), в том числе и для замедления распада эссенции призванных духов.
                                """.formatted(COLOR_PURPLE));
 
         helper.page("purple_chalk_uses");
-        this.lang("ru_ru").add(helper.pageTitle(), "Purple Chalk Uses");
+        this.lang("ru_ru").add(helper.pageTitle(), "Использование пурпурного мела");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        - [Ophyx' Calling](entry://occultism:dictionary_of_spirits/pentacles/summon_djinni)
-                        - [Strigeor's Higher Binding](entry://occultism:dictionary_of_spirits/pentacles/craft_djinni)
-                        - [Ihagan's Enthrallment](entry://occultism:dictionary_of_spirits/pentacles/possess_djinni)
-                        - [Abras' Conjure](entry://occultism:dictionary_of_spirits/pentacles/summon_afrit)
-                        - [Sevira's Permanent Confinement](entry://occultism:dictionary_of_spirits/pentacles/craft_afrit)
-                        - [Abras' Open Conjure](entry://occultism:dictionary_of_spirits/pentacles/summon_wild_afrit)
-                        - [Osorin' Unbound Calling](entry://occultism:dictionary_of_spirits/pentacles/summon_wild_greater_spirit)
+                        - [Зов Офикса](entry://occultism:dictionary_of_spirits/pentacles/summon_djinni)
+                        - [Связывание высшего Стригора](entry://occultism:dictionary_of_spirits/pentacles/craft_djinni)
+                        - [Порабощение Айгана](entry://occultism:dictionary_of_spirits/pentacles/possess_djinni)
+                        - [Вызов Абраса](entry://occultism:dictionary_of_spirits/pentacles/summon_afrit)
+                        - [Вечное заточение Севиры](entry://occultism:dictionary_of_spirits/pentacles/craft_afrit)
+                        - [Призыв свободного Абраса](entry://occultism:dictionary_of_spirits/pentacles/summon_wild_afrit)
+                        - [Призыв несвязанного Осорина](entry://occultism:dictionary_of_spirits/pentacles/summon_wild_greater_spirit)
                            """);
 
         helper.page("red_chalk");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Red chalk is used to call on the most powerful and dangerous beings, such as [#](%1$s)Marid[#]().
+                        Красный мел используется для призыва самых могущественных и опаснейших существ, таких как [#](%1$s)Марид[#]().
                         \\
                         \\
-                        [Afrit Essence](entry://occultism:dictionary_of_spirits/summoning_rituals/afrit_essence) is required to craft red chalk.
+                        [Сущность Африта](entry://occultism:dictionary_of_spirits/summoning_rituals/afrit_essence) требуется для создания красного мела.
                                 """.formatted(COLOR_PURPLE));
 
         helper.page("red_chalk_uses");
-        this.lang("ru_ru").add(helper.pageTitle(), "Red Chalk Uses");
+        this.lang("ru_ru").add(helper.pageTitle(), "Использование красного мела");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        - [Abras' Conjure](entry://occultism:dictionary_of_spirits/pentacles/summon_afrit)
-                        - [Uphyxes Inverted Tower](entry://occultism:dictionary_of_spirits/pentacles/craft_marid)
+                        - [Вызов Абраса](entry://occultism:dictionary_of_spirits/pentacles/summon_afrit)
+                        - [Перевёрнутая башня Юфиксеса](entry://occultism:dictionary_of_spirits/pentacles/craft_marid)
                            """);
 
 
         helper.entry("summon_foliot");
-        this.lang("ru_ru").add(helper.entryName(), "Aviar's Circle");
+        this.lang("ru_ru").add(helper.entryName(), "Круг Авиара");
 
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Aviar's Circle");
+        this.lang("ru_ru").add(helper.pageTitle(), "Круг Авиара");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        **Purpose:** Summon a [#](%1$s)Foliot[#]()
+                        **Цель:** Призыв [#](%1$s)Фолиота[#]()
                         \\
                         \\
-                        Considered by most to be the simplest pentacle, [#](%1$s)Aviar's Circle[#]() is easy to set up, but provides only a minimum of binding power and protection for the summoner.
+                        По общепринятому мнению, [#](%1$s)Круг Авиара[#]() — самый простейший, удобоустанавливаемый пентакль, но предоставляет всего лишь минимальную силу связывания и защиту призывателя.
                         \\
                         \\
-                        Only the weakest [#](%1$s)Foliot[#]() can be summoned in rituals using this pentacle.
+                        При помощи этого пентакля в ритуалах можно призывать только слабейшего [#](%1$s)Фолиота[#]().
                         """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
-        //no text
+        //текст отсутствует
 
         helper.page("uses");
-        this.lang("ru_ru").add(helper.pageTitle(), "Uses");
+        this.lang("ru_ru").add(helper.pageTitle(), "Использование");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        - [Foliot Crusher](entry://summoning_rituals/summon_crusher_t1)
-                        - [Foliot Lumberjack](entry://summoning_rituals/summon_lumberjack)
-                        - [Foliot Transporter](entry://summoning_rituals/summon_transport_items)
-                        - [Foliot Janitor](entry://summoning_rituals/summon_cleaner)
-                        - [Otherstone Trader](entry://summoning_rituals/summon_otherstone_trader)
-                        - [Otherworld Sapling Trader](entry://summoning_rituals/summon_otherworld_sapling_trader)
-                        - [Resurrect Familiar](entry://familiar_rituals/resurrection)
-                        - [Purify Vex to Allay](entry://familiar_rituals/summon_allay)
+                        - [Дробильщик-Фолиот](entry://summoning_rituals/summon_crusher_t1)
+                        - [Дровосек-Фолиот](entry://summoning_rituals/summon_lumberjack)
+                        - [Транспортировщик-Фолиот](entry://summoning_rituals/summon_transport_items)
+                        - [Дворник-Фолиот](entry://summoning_rituals/summon_cleaner)
+                        - [Торговец потусторонним камнем](entry://summoning_rituals/summon_otherstone_trader)
+                        - [Торговец потусторонними саженцами](entry://summoning_rituals/summon_otherworld_sapling_trader)
+                        - [Воскресение фамильяра](entry://familiar_rituals/resurrection)
+                        - [Очищение Вредины до Тихони](entry://familiar_rituals/summon_allay)
                         """);
 
 
         helper.entry("summon_djinni");
-        this.lang("ru_ru").add(helper.entryName(), "Ophyx' Calling");
+        this.lang("ru_ru").add(helper.entryName(), "Зов Офикса");
 
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Ophyx' Calling");
-        //Add link rituals/possession/possess_skeleton instead of [Obtain here]
+        this.lang("ru_ru").add(helper.pageTitle(), "Зов Офикса");
+        //Добавьте rituals/possession/possess_skeleton вместо [Приобретаются здесь]
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        **Purpose:** Summon a [#](%1$s)Djinni[#]()
+                        **Цель:** Призыв [#](%1$s)Джинни[#]()
                         \\
                         \\
-                        Developed by [#](%1$s)Ophyx[#]() during the Third Era, the [#](%1$s)Calling[#]() is the go-to pentacle for [#](%1$s)Djinni[#]() summonings ever since. Skeleton skulls ([Obtain here](entry://possession_rituals/possess_skeleton)) and [#](%1$s)Purple Chalk[#]() provide the calling power required to force Djinni into appearance and candles stabilize the ritual.
+                        Разработанный [#](%1$s)Офиксом[#]() во время Третьей Эры. С тех пор [#](%1$s)Призыв[#]() является высококлассным пентаклем для призыва [#](%1$s)Джинни[#](). Черепа скелета ([Приобретаются здесь](entry://possession_rituals/possess_skeleton)), а [#](%1$s)Пурпурный мел[#]() обеспечивает необходимую силу, чтобы силой заставить Джинни появится в обличье; а свечи стабилизируют ритуал.
                          """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
-        //no text
+        //текст отсутствует
 
         helper.page("uses");
-        this.lang("ru_ru").add(helper.pageTitle(), "Uses");
+        this.lang("ru_ru").add(helper.pageTitle(), "Использование");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        - [Djinni Machine Operator](entry://summoning_rituals/summon_manage_machine)
-                        - [Djinni Crusher](entry://summoning_rituals/summon_crusher_t2)
-                        - [Clear Weather](entry://summoning_rituals/weather_magic@clear)
-                        - [Time Magic](entry://summoning_rituals/time_magic)
+                        - [Станочник-Джинни](entry://summoning_rituals/summon_manage_machine)
+                        - [Дробильщик-Джинни](entry://summoning_rituals/summon_crusher_t2)
+                        - [Ясная погода](entry://summoning_rituals/weather_magic@clear)
+                        - [Магия времени](entry://summoning_rituals/time_magic)
                         """.formatted(COLOR_PURPLE));
 
         helper.entry("summon_afrit");
-        this.lang("ru_ru").add(helper.entryName(), "Abras' Conjure");
+        this.lang("ru_ru").add(helper.entryName(), "Вызов Абраса");
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Abras' Conjure");
+        this.lang("ru_ru").add(helper.pageTitle(), "Вызов Абраса");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        **Purpose:** Summon an [#](%1$s)Afrit[#]()
+                        **Цель:** Призыв [#](%1$s)Африта[#]()
                         \\
                         \\
-                        **Abras' Conjure** is one of the few pentacles capable of (mostly) safely summoning an [#](%1$s)Afrit[#](). While the requirement of a wither skeleton skull makes it comparatively expensive, the additional calling potential is required to reach these high-power spirits.
+                        **Вызов Абраса** — один из нескольких пентаклей, способных (наиболее) безопасно призывать [#](%1$s)Африта[#](). Хотя требование черепа Визер-скелета делает его относительно дорогостоящим, а чтобы достичь потенциально могущественных духов, потребуется выполнить дополнительный призыв.
                          """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
-        //no text
+        //текст отсутствует
 
         helper.page("uses");
-        this.lang("ru_ru").add(helper.pageTitle(), "Uses");
+        this.lang("ru_ru").add(helper.pageTitle(), "Использование");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        - [Thunderstorm](entry://summoning_rituals/weather_magic@thunder)
-                        - [Rainy Weather](entry://summoning_rituals/weather_magic@rain)
-                        - [Afrit Crusher](entry://summoning_rituals/summon_crusher_t3)
+                        - [Гроза](entry://summoning_rituals/weather_magic@thunder)
+                        - [Дождливая погода](entry://summoning_rituals/weather_magic@rain)
+                        - [Дробильщик-Африт](entry://summoning_rituals/summon_crusher_t3)
                         """.formatted(COLOR_PURPLE));
 
         helper.entry("summon_marid");
-        this.lang("ru_ru").add(helper.entryName(), "Fatma's Incentivized Attraction");
+        this.lang("ru_ru").add(helper.entryName(), "Поощряемое привлечение Фатмы");
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Fatma's Incentivized Attraction");
+        this.lang("ru_ru").add(helper.pageTitle(), "Поощряемое привлечение Фатмы");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        **Purpose:** Summon a [#](%1$s)Marid[#]()
+                        **Цель:** Призыв [#](%1$s)Марида[#]()
                         \\
                         \\
-                        **Fatma's Incentivized Attraction** is a powerful pentacle, allowing to summon [#](%1$s)Marid[#]() and bind them to the summoner's will.
+                        **Поощряемое привлечение Фатмы** — мощный пентакль, позволяющий призывать [#](%1$s)Марида[#]() и связывать его волей призывателя.
                          """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
-        //no text
+        //текст отсутствует
 
         helper.page("uses");
-        this.lang("ru_ru").add(helper.pageTitle(), "Uses");
+        this.lang("ru_ru").add(helper.pageTitle(), "Использование");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        - [Marid Crusher](entry://summoning_rituals/summon_crusher_t4)
+                        - [Дробильщик-Марид](entry://summoning_rituals/summon_crusher_t4)
                         """.formatted(COLOR_PURPLE));
 
         helper.entry("summon_wild_afrit");
-        this.lang("ru_ru").add(helper.entryName(), "Abras' Open Conjure");
+        this.lang("ru_ru").add(helper.entryName(), "Призыв свободного Абраса");
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Abras' Open Conjure");
+        this.lang("ru_ru").add(helper.pageTitle(), "Призыв свободного Абраса");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        **Purpose:** Summon an unbound [#](%1$s)Afrit[#]()
+                        **Цель:** Призыв несвязанного [#](%1$s)Африта[#]()
                         \\
                         \\
-                        **Abras' Open Conjure** is a simplified version of [#](%1$s)Abras' Conjure[#](), allowing to summon [#](%1$s)Afrit[#]() without red chalk. Due to the much reduced power of the pentacle, it cannot be used to control [#](%1$s)Afrit[#](), and it thus can only be used to fight and kill [#](%1$s)Afrit[#]().
+                        **Призыв свободного Абраса** — упрощённая версия [#](%1$s)Вызова Абраса[#](), позволяющая призывать [#](%1$s)Африта[#]() без красного мела. Из-за очень низкой силы пентакля, его нельзя использовать с целью контроля над [#](%1$s)Афритом[#](), , а значит, его можно использовать только для сражения и убийства [#](%1$s)Африта[#]().
                          """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
-        //no text
+        //текст отсутствует
 
         helper.page("uses");
-        this.lang("ru_ru").add(helper.pageTitle(), "Uses");
+        this.lang("ru_ru").add(helper.pageTitle(), "Использование");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        - [Afrit Essence](entry://summoning_rituals/afrit_essence)
+                        - [Сущность Африта](entry://summoning_rituals/afrit_essence)
                         """.formatted(COLOR_PURPLE));
 
         helper.entry("summon_wild_greater_spirit");
-        this.lang("ru_ru").add(helper.entryName(), "Osorin's Unbound Calling");
+        this.lang("ru_ru").add(helper.entryName(), "Призыв несвязанного Осорина");
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Osorin's Unbound Calling");
+        this.lang("ru_ru").add(helper.pageTitle(), "Призыв несвязанного Осорина");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        **Purpose:** Summon an unbound [#](%1$s)Greater Spirit[#]()
+                        **Цель:** Призыв несвязанного [#](%1$s)Могущественного духа[#]()
                         \\
                         \\
-                        **Osorin's Unbound Calling** is based on [#](%1$s)Abras' Open Conjure[#](), but features none of the stabilizing paraphernalia. The pentacle offers no protection whatsoever to the summoner, but acts as an irresistible call to [#](%1$s)Greater Spirits[#]().
+                        **Призыв несвязанного Осорина** основан на [#](%1$s)Призыве свободного Абраса[#](), но совсем не использует стабилизирующие принадлежности. Пентакль совершенно не обеспечивает защиту призывателя, но действует в качестве призыва неодолимых [#](%1$s)Могущественных духов[#]().
                         """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
-        //no text
+        //текст отсутствует
 
         helper.page("uses");
-        this.lang("ru_ru").add(helper.pageTitle(), "Uses");
+        this.lang("ru_ru").add(helper.pageTitle(), "Использование");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        - [Wither Skeleton Skull](entry://summoning_rituals/wither_skull)
-                        - [Horde Husk](entry://possession_rituals/horde_husk)
-                        - [Horde Drowned](entry://possession_rituals/horde_drowned)
-                        - [Horde Creeper](entry://possession_rituals/horde_creeper)
-                        - [Horde Silverfish](entry://possession_rituals/horde_silverfish)
-                        - [Trial Key](entry://possession_rituals/possess_weak_breeze)
-                        - [Ominous Trial Key](entry://possession_rituals/possess_breeze)
-                        - [Heavy Core](entry://possession_rituals/possess_strong_breeze)
-                        - [Small Illager Invasion](entry://possession_rituals/horde_illager)
+                        - [Череп визер-скелета](entry://summoning_rituals/wither_skull)
+                        - [Орда кадавров](entry://possession_rituals/horde_husk)
+                        - [Орда утопленников](entry://possession_rituals/horde_drowned)
+                        - [Орда криперов](entry://possession_rituals/horde_creeper)
+                        - [Орда чешуйниц](entry://possession_rituals/horde_silverfish)
+                        - [Ключ испытаний](entry://possession_rituals/possess_weak_breeze)
+                        - [Зловещий ключ испытаний](entry://possession_rituals/possess_breeze)
+                        - [Навершие булавы](entry://possession_rituals/possess_strong_breeze)
+                        - [Небольшое нашествие обитателей](entry://possession_rituals/horde_illager)
                         """.formatted(COLOR_PURPLE));
 
         helper.entry("possess_foliot");
-        this.lang("ru_ru").add(helper.entryName(), "Hedyrin's Lure");
+        this.lang("ru_ru").add(helper.entryName(), "Приманка Гидирина");
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Hedyrin's Lure");
+        this.lang("ru_ru").add(helper.pageTitle(), "Приманка Гидирина");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        **Purpose:** Foliot Possession
+                        **Цель:** Завладение Фолиота.
                         \\
                         \\
-                        **Hedyrin's Lure** attracts [#](%1$s)Foliot[#]() and forces them to possess a nearby creature. This pentacle does not lead to permanent imprisonment, the spirit and possessed creature will perish within a short period of time.
+                        **Приманка Гидирина** заманивает [#](%1$s)Фолиота[#]() и принуждает его завладеть близлежащим существом. Пентакль не приводит к постоянному заключению. Дух и одержимое существо вскоре погибнут.
                          """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
-        //no text
+        //текст отсутствует
 
         helper.page("uses");
-        this.lang("ru_ru").add(helper.pageTitle(), "Uses");
+        this.lang("ru_ru").add(helper.pageTitle(), "Использование");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        - [Possessed Endermite](entry://possession_rituals/possess_endermite)
-                        - [Possessed Skeleton](entry://possession_rituals/possess_skeleton)
-                        - [Possessed Phantom](entry://possession_rituals/possess_phantom)
-                        - [Parrot Familiar](entry://familiar_rituals/familiar_parrot)
-                        - [Greedy Familiar](entry://familiar_rituals/familiar_greedy)
-                        - [Deer Familiar](entry://familiar_rituals/familiar_deer)
-                        - [Blacksmith Familiar](entry://familiar_rituals/familiar_blacksmith)
-                        - [Beaver Familiar](entry://familiar_rituals/familiar_beaver)
+                        - [Одержимый эндермит](entry://possession_rituals/possess_endermite)
+                        - [Одержимый скелет](entry://possession_rituals/possess_skeleton)
+                        - [Одержимый фантом](entry://possession_rituals/possess_phantom)
+                        - [Попугай-фамильяр](entry://familiar_rituals/familiar_parrot)
+                        - [Алчный фамильяр](entry://familiar_rituals/familiar_greedy)
+                        - [Олень-фамильяр](entry://familiar_rituals/familiar_deer)
+                        - [Кузнец-фамильяр](entry://familiar_rituals/familiar_blacksmith)
+                        - [Бобёр-фамильяр](entry://familiar_rituals/familiar_beaver)
                         """.formatted(COLOR_PURPLE));
 
         helper.entry("possess_djinni");
-        this.lang("ru_ru").add(helper.entryName(), "Ihagan's Enthrallment");
+        this.lang("ru_ru").add(helper.entryName(), "Порабощение Айгана");
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Ihagan's Enthrallment");
+        this.lang("ru_ru").add(helper.pageTitle(), "Порабощение Айгана");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        **Purpose:** Djinni Possession
+                        **Цель:** Завладение Джинни
                         \\
                         \\
-                        **Ihagan's Enthrallment** forces [#](%1$s)Djinn[#]() to possess a nearby creature. This pentacle does not lead to permanent imprisonment, the spirit and possessed creature will perish within a short period of time.
+                        **Порабощение Айгана** принуждает [#](%1$s)Джинни[#]() овладеть близлежащим существом. Пентакль не приводит к постоянному заключению. Дух и одержимое существо вскоре погибнут.
                          """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
-        //no text
+        //текст отсутствует
 
         helper.page("uses");
-        this.lang("ru_ru").add(helper.pageTitle(), "Uses");
+        this.lang("ru_ru").add(helper.pageTitle(), "Использование");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        - [Possessed Enderman](entry://possession_rituals/possess_enderman)
-                        - [Possessed Ghast](entry://possession_rituals/possess_ghast)
-                        - [Possessed Weak Shulker](entry://possession_rituals/possess_weak_shulker)
-                        - [Possessed Warden](entry://possession_rituals/possess_warden)
-                        - [Drikwing Familiar](entry://familiar_rituals/familiar_otherworld_bird)
-                        - [Bat Familiar](entry://familiar_rituals/familiar_bat)
-                        - [Cthulhu Familiar](entry://familiar_rituals/familiar_cthulhu)
-                        - [Devil Familiar](entry://familiar_rituals/familiar_devil)
-                        - [Dragon Familiar](entry://familiar_rituals/familiar_dragon)
-                        - [Headless Ratman Familiar](entry://familiar_rituals/familiar_headless)
-                        - [Chimera Familiar](entry://familiar_rituals/familiar_chimera)
+                        - [Одержимый эндермен](entry://possession_rituals/possess_enderman)
+                        - [Одержимый гаст](entry://possession_rituals/possess_ghast)
+                        - [Одержимый слабый шалкер](entry://possession_rituals/possess_weak_shulker)
+                        - [Одержимый хранитель](entry://possession_rituals/possess_warden)
+                        - [Дрикрыл-фамильяр](entry://familiar_rituals/familiar_otherworld_bird)
+                        - [Летучая мышь-фамильяр](entry://familiar_rituals/familiar_bat)
+                        - [Ктулху-фамильяр](entry://familiar_rituals/familiar_cthulhu)
+                        - [Дьявол-фамильяр](entry://familiar_rituals/familiar_devil)
+                        - [Дракон-фамильяр](entry://familiar_rituals/familiar_dragon)
+                        - [Безголовый человек-крыса-фамильяр](entry://familiar_rituals/familiar_headless)
+                        - [Химера-фамильяр](entry://familiar_rituals/familiar_chimera)
                         """.formatted(COLOR_PURPLE));
 
         helper.page("uses2");
-        this.lang("ru_ru").add(helper.pageTitle(), "Uses");
+        this.lang("ru_ru").add(helper.pageTitle(), "Использование");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        - [Beholder Familiar](entry://familiar_rituals/familiar_beholder)                        
-                        - [Fairy Familiar](entry://familiar_rituals/familiar_fairy)
+                        - [Созерцатель-фамильяр](entry://familiar_rituals/familiar_beholder)                        
+                        - [Фея-фамильяр](entry://familiar_rituals/familiar_fairy)
                         """.formatted(COLOR_PURPLE));
 
         helper.entry("possess_afrit");
-        this.lang("ru_ru").add(helper.entryName(), "Abras' Commanding Conjure");
+        this.lang("ru_ru").add(helper.entryName(), "Заклятие повиновения Абраса");
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Abras' Commanding Conjure");
+        this.lang("ru_ru").add(helper.pageTitle(), "Заклятие повиновения Абраса");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        **Purpose:** Afrit Possession
+                        **Цель:** Завладение Африта
                         \\
                         \\
-                        **Abras' Commanding Conjure** is a modified version of [#](%1$s)Abras' Conjure[#]() that allows possessing entities, and thus summoning familiars.
+                        **Заклятие повиновения Абраса** — модифицированная версия [#](%1$s)Вызова Абраса[#](), позволяющая завладеть существами и благодаря этому призвать фамильяров.
                          """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
-        //no text
+        //текст отсутствует
 
         helper.page("uses");
-        this.lang("ru_ru").add(helper.pageTitle(), "Uses");
+        this.lang("ru_ru").add(helper.pageTitle(), "Использование");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        - [Guardian Familiar](entry://familiar_rituals/familiar_guardian)
-                        - [Possessed Shulker](entry://possession_rituals/possess_shulker)
-                        - [Possessed Elder Guardian](entry://possession_rituals/possess_elder_guardian)
-                        - [Possessed Hoglin](entry://possession_rituals/possess_hoglin)
+                        - [Страж-фамильяр](entry://familiar_rituals/familiar_guardian)
+                        - [Одержимый шалкер](entry://possession_rituals/possess_shulker)
+                        - [Одержимый древний страж](entry://possession_rituals/possess_elder_guardian)
+                        - [Одержимый хоглин](entry://possession_rituals/possess_hoglin)
                         """.formatted(COLOR_PURPLE));
 
         helper.entry("craft_foliot");
-        this.lang("ru_ru").add(helper.entryName(), "Eziveus' Spectral Compulsion");
+        this.lang("ru_ru").add(helper.entryName(), "Спектральное вынуждение Изива");
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Eziveus' Spectral Compulsion");
+        this.lang("ru_ru").add(helper.pageTitle(), "Спектральное вынуждение Изива");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        **Purpose:** Bind Foliot
+                        **Цель:** Связывание Фолиота
                         \\
                         \\
-                        As a simple binding pentacle, **Eziveus' Spectral Compulsion** is a common starting point for object infusion with lower spirits. The enchantment is made permanent by stabilizing candles and spirit attuned crystals.
+                        **Спектральное вынуждение Изива** — простое начало наполнения объектов низшими духами в качестве простого пентакля связывания. При помощи свечей-стабилизаторов и кристаллов, настроенных на духа, чары становятся постоянными.
                          """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
-        //no text
+        //текст отсутствует
 
         helper.page("uses");
-        this.lang("ru_ru").add(helper.pageTitle(), "Uses");
+        this.lang("ru_ru").add(helper.pageTitle(), "Использование");
         this.lang("ru_ru").add(helper.pageText(),
                 """
                         - [Infused Lenses](entry://crafting_rituals/craft_otherworld_goggles)
@@ -1361,219 +1361,219 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                         """.formatted(COLOR_PURPLE));
 
         helper.entry("craft_djinni");
-        this.lang("ru_ru").add(helper.entryName(), "Strigeor's Higher Binding");
+        this.lang("ru_ru").add(helper.entryName(), "Связывание высшего Стригора");
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Strigeor's Higher Binding");
+        this.lang("ru_ru").add(helper.pageTitle(), "Связывание высшего Стригора");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        **Purpose:** Bind Djinni
+                        **Цель:** Связывание Джинни
                         \\
                         \\
-                        **Strigeor's Higher Binding** is a pentacle for binding [#](%1$s)Djinn[#]() into objects, should not be attempted by the novice summoner. Supported by spirit attuned crystals and stabilized by candles it is highly suitable for permanent infusions of objects with spirits.
+                        **Связывание высшего Стригора** — пентакль связывания [#](%1$s)Джинни[#]() с объектами и не должен выполняться неопытными призывателями. Пентакль поддерживается кристаллами, настроенными на духа и свечами-стабилизаторами, что отлично подходят для постоянного наполнения объектов духами.
                          """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
-        //no text
+        //текст отсутствует
 
         helper.page("uses");
-        this.lang("ru_ru").add(helper.pageTitle(), "Uses");
+        this.lang("ru_ru").add(helper.pageTitle(), "Использование");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        - [Infused Pickaxe](entry://crafting_rituals/craft_infused_pickaxe)
-                        - [Soul Gem](entry://crafting_rituals/craft_soul_gem)
-                        - [Familiar Ring](entry://crafting_rituals/craft_familiar_ring)
-                        - [Dimensional Matrix](entry://crafting_rituals/craft_dimensional_matrix)
-                        - [Storage Accessor](entry://crafting_rituals/craft_storage_remote)
-                        - [Storage Stabilizer Tier 2](entry://crafting_rituals/craft_stabilizer_tier2)
-                        - [Dimensional Mineshaft](entry://crafting_rituals/craft_dimensional_mineshaft)
-                        - [Djinni Ore Miner](entry://crafting_rituals/craft_djinni_miner)
+                        - [Наполненная кирка](entry://crafting_rituals/craft_infused_pickaxe)
+                        - [Самоцвет душ](entry://crafting_rituals/craft_soul_gem)
+                        - [Кольцо для фамильяра](entry://crafting_rituals/craft_familiar_ring)
+                        - [Пространственная матрица](entry://crafting_rituals/craft_dimensional_matrix)
+                        - [Средство доступа хранилища](entry://crafting_rituals/craft_storage_remote)
+                        - [Стабилизатор хранилища 2-го уровня](entry://crafting_rituals/craft_stabilizer_tier2)
+                        - [Пространственная шахта](entry://crafting_rituals/craft_dimensional_mineshaft)
+                        - [Рудный Горняк-Джинни](entry://crafting_rituals/craft_djinni_miner)
                         """.formatted(COLOR_PURPLE));
 
         helper.entry("craft_afrit");
-        this.lang("ru_ru").add(helper.entryName(), "Sevira's Permanent Confinement");
+        this.lang("ru_ru").add(helper.entryName(), "Вечное заточение Севиры");
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Sevira's Permanent Confinement");
+        this.lang("ru_ru").add(helper.pageTitle(), "Вечное заточение Севиры");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        **Purpose:** Bind Afrit
+                        **Цель:** Связывание Африта
                         \\
                         \\
-                        First discovered by Grandmistress Sevira of Emberwoods, **Sevira's Permanent Confinement** is used for binding [#](%1$s)Afrit[#]() into objects. Due to the power of the spirits involved, this should be performed only by advanced summoners.
+                        Первоначально открыт главной мастерицей из Тлеющих лесов Севирой. **Вечное заточение Севиры** используется для связывания [#](%1$s)Африта[#]() с объектами. Из-за силы вовлечённых духов, такой способ должен выполняться только опытными призывателями.
                          """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
-        //no text
+        //текст отсутствует
 
         helper.page("uses");
-        this.lang("ru_ru").add(helper.pageTitle(), "Uses");
+        this.lang("ru_ru").add(helper.pageTitle(), "Использование");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        - [Storage Stabilizer Tier 3](entry://crafting_rituals/craft_stabilizer_tier3)
-                        - [Afrit Deep Ore Miner](entry://crafting_rituals/craft_afrit_miner)
+                        - [Стабилизатор хранилища 3-го уровня](entry://crafting_rituals/craft_stabilizer_tier3)
+                        - [Горняк-Африт для глубинносланцевой руды](entry://crafting_rituals/craft_afrit_miner)
                         """.formatted(COLOR_PURPLE));
 
         helper.entry("craft_marid");
-        this.lang("ru_ru").add(helper.entryName(), "Uphyxes Inverted Tower");
+        this.lang("ru_ru").add(helper.entryName(), "Перевёрнутая башня Юфиксеса");
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Uphyxes Inverted Tower");
+        this.lang("ru_ru").add(helper.pageTitle(), "Перевёрнутая башня Юфиксеса");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        **Purpose:** Bind Marid
+                        **Цель:** Связывание Марида
                         \\
                         \\
-                        **Uphyxes Inverted Tower** is one of the few pentacles capable of binding [#](%1$s)Marid[#]() into objects. Any rituals involving [#](%1$s)Marid[#]() should be performed only by the most experienced summoners.
+                        **Перевёрнутая башня Юфиксеса** — один из нескольких пентаклей, способных связать [#](%1$s)Марида[#]() с объектами. Любые ритуалы при участии [#](%1$s)Марида[#]() должны выполняться только самыми опытными призывателями.
                          """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
-        //no text
+        //текст отсутствует
 
         helper.page("uses");
-        this.lang("ru_ru").add(helper.pageTitle(), "Uses");
+        this.lang("ru_ru").add(helper.pageTitle(), "Использование");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        - [Storage Stabilizer Tier 4](entry://crafting_rituals/craft_stabilizer_tier4)
+                        - [Стабилизатор хранилища 4-го уровня](entry://crafting_rituals/craft_stabilizer_tier4)
                         - [Мастер Горняк-Марид](entry://crafting_rituals/craft_marid_miner)
-                        - [Wild Armor Trim Smithing Template](entry://crafting_rituals/craft_wild_trim)
+                        - [Кузнечный шаблон](entry://crafting_rituals/craft_wild_trim)
                         """.formatted(COLOR_PURPLE));
     }
 
     private void addRitualsCategory(BookContextHelper helper) {
         helper.category("rituals");
-        this.lang("ru_ru").add(helper.categoryName(), "Rituals");
+        this.lang("ru_ru").add(helper.categoryName(), "Ритуалы");
 
         helper.entry("overview");
-        this.lang("ru_ru").add(helper.entryName(), "Rituals");
+        this.lang("ru_ru").add(helper.entryName(), "Ритуалы");
 
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Rituals");
+        this.lang("ru_ru").add(helper.pageTitle(), "Ритуалы");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Rituals allow to summon spirits into our plane of existence, or bind them into objects or living beings. Every ritual consists of a [#](%1$s)Pentacle[#](), [#](%1$s)Ritual Ingredients[#]() provided via sacrificial bowls, a [#](%1$s)Starting Item[#]() and optionally the [#](%1$s)Sacrifice[#]() of living beings. A purple particle effect will show that the ritual is successful and in progress.
+                        Ритуалы позволяют призывать духов в нашу плоскость существования, либо связывать их с предметами или живыми существами. В состав каждого ритуала входит: [#](%1$s)Пентакль[#](), [#](%1$s)Ритуальные ингредиенты[#](), предоставленные через Миски для жертвоприношений, [#](%1$s)запускающий предмет[#](), а в ряде случаев — [#](%1$s)Жертвование[#]() живыми существами. Пурпурные частицы отобразят, что ритуал удался и выполняется.
                         """.formatted(COLOR_PURPLE));
 
         helper.page("steps");
-        this.lang("ru_ru").add(helper.pageTitle(), "Performing a Ritual");
+        this.lang("ru_ru").add(helper.pageTitle(), "Выполнение ритуала");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Rituals always follow the same steps:
-                        - Draw the pentacle.
-                        - Place a golden bowl.
-                        - Place sacrificial bowls.
-                        - Put ingredients in bowls.
-                        - [#](%1$s)Right-click[#]()the golden bowl with the activation item.
-                        - *Optional: Perform a sacrifice close to the center of the pentacle.*
+                        Ритуалы всегда выполняются по неизменным этапам:
+                        - Начертить пентакль.
+                        - Поставить золотую миску.
+                        - Поставить миски для жертвоприношений.
+                        - Положить ингредиенты в миски.
+                        - [#](%1$s)ПКМ[#]() по золотой миске при помощи активационного предмета.
+                        - *При желании: выполнить жертвоприношение около центрального пентакля.*
                         """.formatted(COLOR_PURPLE));
 
         helper.page("additional_requirements");
-        this.lang("ru_ru").add(helper.pageTitle(), "Additional Requirements");
+        this.lang("ru_ru").add(helper.pageTitle(), "Дополнительные требования");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        If a ritual shows grey particles above the golden sacrificial bowl, then additional requirements as described in the ritual's page need to be fulfilled. Once all requirements are fulfilled, the ritual will show purple particles and start to consume the items in the sacrificial bowls.
+                        Если ритуал показывает серые частицы над золотой миской для жертвоприношения, тогда нужно осуществить дополнительные требования, которые описаны на странице ритуала. После осуществления всех требований, ритуал покажет пурпурные частицы и начнёт тратить предметы в мисках для жертвоприношений.
                         """);
 
         helper.entry("item_use");
-        this.lang("ru_ru").add(helper.entryName(), "Item Use");
+        this.lang("ru_ru").add(helper.entryName(), "Использование предмета");
 
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Item Use");
+        this.lang("ru_ru").add(helper.pageTitle(), "Использование предмета");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Some rituals require the use of certain items to be performed. Use the item described on the ritual's page within **16 blocks** of the [](item://occultism:golden_sacrificial_bowl) to proceed with the ritual.
+                        Для выполнения некоторых ритуалов требуется использовать определённые предметы. Чтобы приступить к выполнению ритуала, нужно использовать предмет (описанный на странице ритуала), в пределах 16 блоков от  [](item://occultism:golden_sacrificial_bowl).
                         \\
                         \\
-                        **Important:** Before using the item, start the ritual. Grey particles indicate that the ritual is ready for the item use.
+                        **Важная информация**: Перед тем как использовать предмет, начните ритуал. Серые частицы означают, что ритуал готов использовать предмет.
                         """);
 
         helper.entry("sacrifice");
-        this.lang("ru_ru").add(helper.entryName(), "Sacrifices");
+        this.lang("ru_ru").add(helper.entryName(), "Жертвоприношения");
 
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Sacrifices");
+        this.lang("ru_ru").add(helper.pageTitle(), "Жертвоприношения");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Some rituals require the sacrifice of a living being to provide the necessary energy to summon the spirit. Sacrifices are described on the ritual's page under the "Sacrifice" subheading. To perform a sacrifice, kill an animal within 8 blocks of the golden sacrificial bowl. Only kills by players count as sacrifice!
+                        Некоторые ритуалы требуют жертвоприношения живым существом, чтобы обеспечить необходимой энергией для призыва духа. Жертвоприношения описаны на странице ритуала в подразделе \"Жертвоприношение\". Для выполнения жертвоприношения, убейте животное в пределах 8 блоков от золотой Миски для жертвоприношений. Только убийства игроком считаются жертвоприношением!
                          """);
 
         helper.entry("summoning_rituals");
-        this.lang("ru_ru").add(helper.entryName(), "Summoning Rituals");
+        this.lang("ru_ru").add(helper.entryName(), "Ритуалы призыва");
 
         helper.entry("possession_rituals");
-        this.lang("ru_ru").add(helper.entryName(), "Possession Rituals");
+        this.lang("ru_ru").add(helper.entryName(), "Ритуалы завладения");
 
         helper.entry("crafting_rituals");
-        this.lang("ru_ru").add(helper.entryName(), "Binding Rituals");
+        this.lang("ru_ru").add(helper.entryName(), "Ритуалы связывания");
 
         helper.entry("familiar_rituals");
-        this.lang("ru_ru").add(helper.entryName(), "Familiar Rituals");
+        this.lang("ru_ru").add(helper.entryName(), "Ритуалы для фамильяров");
     }
 
     private void addSummoningRitualsCategory(BookContextHelper helper) {
         helper.category("summoning_rituals");
-        this.lang("ru_ru").add(helper.categoryName(), "Summoning Rituals");
+        this.lang("ru_ru").add(helper.categoryName(), "Ритуалы призыва");
 
         helper.entry("overview");
-        this.lang("ru_ru").add(helper.entryName(), "Summoning Rituals");
+        this.lang("ru_ru").add(helper.entryName(), "Ритуалы призыва");
 
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Summoning Rituals");
+        this.lang("ru_ru").add(helper.pageTitle(), "Ритуалы призыва");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Summon rituals force spirits to enter this world in their chosen shape, leading to little restrictions on their power, but expose them to essence decay. Summoned spirits range from trade spirits that trade and convert items, to slave-like helpers for manual labour.
+                        Ритуалы призыва заставляют духов войти в этот мир в своей выбранной форме, что влечёт за собой небольшие ограничения на их силе; но подвергает их распаду эссенции. Призванные духи классифицируются, начиная с Духов-Торговцев, что торгуют и преобразуют предметы, заканчивая рабами-помощниками для физического труда.
                          """);
 
         helper.entry("return_to_rituals");
-        this.lang("ru_ru").add(helper.entryName(), "Return to Rituals Category");
+        this.lang("ru_ru").add(helper.entryName(), "Вернуться в категорию Ритуалы");
 
         helper.entry("summon_crusher_t1");
-        //Moved to OccultismBookProvider#makeSummonCrusherT1Entry
+        //Перемещён в OccultismBookProvider#makeSummonCrusherT1Entry
 
         helper.entry("summon_crusher_t2");
-        this.lang("ru_ru").add(helper.entryName(), "Summon Djinni Crusher");
+        this.lang("ru_ru").add(helper.entryName(), "Призыв Дробильщика-Джинни");
 
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Djinni Crusher");
+        this.lang("ru_ru").add(helper.pageTitle(), "Дробильщик-Джинни");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        The djinni crusher is resistant essence decay and faster and more efficient than the foliot crusher.
+                        Дробильщик-Джинни устойчив к распаду эссенции и быстрее, а также эффективнее Дробильщика-Фолиота.
                         \\
                         \\
-                        It will crush **one** ore into **three** corresponding dusts.
+                        Он дробит **1-у** руду в **3-и** соответствующие пыли.
                          """);
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.entry("summon_crusher_t3");
-        this.lang("ru_ru").add(helper.entryName(), "Summon Afrit Crusher");
+        this.lang("ru_ru").add(helper.entryName(), "Призыв Дробильщика-Африта");
 
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Afrit Crusher");
+        this.lang("ru_ru").add(helper.pageTitle(), "Дробильщик-Африт");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        The afrit crusher is resistant to essence decay and faster and more efficient than the djinni crusher.
+                        Дробильщик-Африт устойчив к распаду эссенции и быстрее, а также эффективнее Дробильщика-Джинни.
                         \\
                         \\
-                        It will crush **one** ore into **four** corresponding dusts.
+                        Он дробит **1-у** руду в **4-е** соответствующие пыли.
                           """);
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.entry("summon_crusher_t4");
-        this.lang("ru_ru").add(helper.entryName(), "Summon Marid Crusher");
+        this.lang("ru_ru").add(helper.entryName(), "Призыв Дробильщика-Марида");
 
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Marid Crusher");
+        this.lang("ru_ru").add(helper.pageTitle(), "Дробильщик-Марид");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        The marid crusher is resistant to essence decay and faster and more efficient than the afrit crusher.
+                        Дробильщик-Марид устойчив к распаду эссенции и быстрее, а также эффективнее Дробильщика-Африта.
                         \\
                         \\
-                        It will crush **one** ore into **six** corresponding dusts.
+                        Он дробит **1-у** руду в **6** соответствующие пыли.
                           """);
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
 
         helper.entry("summon_lumberjack");
@@ -1587,104 +1587,104 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         //Moved to OccultismBookProvider#makeSummonCleanerEntry
 
         helper.entry("summon_manage_machine");
-        this.lang("ru_ru").add(helper.entryName(), "Summon Djinni Machine Operator");
+        this.lang("ru_ru").add(helper.entryName(), "Призыв Станочника-Джинни");
 
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Djinni Machine Operator");
+        this.lang("ru_ru").add(helper.pageTitle(), "Станочник-Джинни");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        The machine operator transfers items specified in the dimensional storage actuator GUI, to it's managed machine, and returns crafting results to the storage system. It can also be used to automatically empty a chest into the storage actuator.
+                        Станочник перемещает предметы в свою управляющее устройство, что указаны в интерфейсе Актуатора пространственного хранилища, и возвращает результаты создания в систему хранения. Кроме того, он может использоваться для автоматического опустошения сундука в Актуатор хранилища.
                         \\
-                        Basically, on-demand crafting!
+                        По сути, это создание по заказу!
                           """);
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("tutorial");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        To use the machine operator use the book of calling to link a Storage Actuator, the machine and optionally a separate extract location (the face you click on will be extracted from!). For the machine you can additionally set a custom name and the insert/extract facings.
+                        Чтобы использовать станочника, используйте Книгу призыва, чтобы связать Актуатор хранилища, устройство и, если захотите, разделите местоположение для извлечения (лицевая сторона, на которую Вы нажмёте, будет извлекаться!). Для устройства Вы можете дополнительно установить пользовательское название и лицевые стороны для вставки/извлечения.
                           """);
 
         helper.page("tutorial2");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Please note that setting a new machine (or configuring it with the book of calling) will reset the extraction settings.
+                        Обратите внимание, что установка нового устройства (либо её настройка Книгой призыва) будут сброшены настройки извлечения.
                         \\
                         \\
-                        For an easy start, make sure to view the short [Tutorial Video](https://gyazo.com/237227ba3775e143463b31bdb1b06f50)!
+                        Для лёгкого начала убедитесь, что просмотрели короткую [Видеоинструкцию](https://gyazo.com/237227ba3775e143463b31bdb1b06f50)!
                           """);
 
         helper.page("book_of_calling");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        If you lose the book of calling, you can craft a new one.
-                        [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
+                        Вдруг потеряете книгу призыва, сможете создать новую.
+                        Нажмите [#](%1$s)Shift + ПКМ[#]() по духу при помощи созданной книги, чтобы её определить.
                         """.formatted(COLOR_PURPLE));
 
         helper.entry("trade_spirits");
-        this.lang("ru_ru").add(helper.entryName(), "Trade Spirits");
+        this.lang("ru_ru").add(helper.entryName(), "Духи-торговцы");
 
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Trade Spirits");
+        this.lang("ru_ru").add(helper.pageTitle(), "Духи-торговцы");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Trade spirits pick up appropriate items and throw trade results on the ground. The spirit is only actively exchanging items if purple particles spawn around it.
+                        Духи-торговцы подбирают необходимые предметы и кидают результаты обмена на землю. Дух активно меняет предметы только в случае, если вокруг него появляются пурпурные частицы.
                         \\
                         \\
-                        **If you do not see any particles**, ensure that you gave the proper item and amount.
+                        **Если Вы не видите частиц**, убедитесь, что дали должный предмет и количество.
                            """);
 
         helper.page("intro2");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Most trade spirits experience extreme essence decay and will return to [#](%1$s)The Other Place[#]() quickly.
+                        Большинство духов-торговцев испытывают чрезмерный распад эссенции и немедленно уходят в [#](%1$s)Мир духов[#]().
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("summon_otherworld_sapling_trader");
-        this.lang("ru_ru").add(helper.entryName(), "Summon Otherworld Sapling Trader");
+        this.lang("ru_ru").add(helper.entryName(), "Призыв торговца потусторонними саженцами");
 
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Otherworld Sapling Trader");
+        this.lang("ru_ru").add(helper.pageTitle(), "Торговец потусторонними саженцами");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Otherworld Trees grown from natural Otherworld Saplings can only be harvested when under the effect of [#](%1$s)Third Eye[#](). To make life easier, the Otherworld Sapling Trader will exchange such natural saplings for a stable variant that can be harvested by anyone, and will drop the same stable saplings when harvested.
+                        Потусторонние деревья, выращенные из естественных Потусторонних саженцев, могут быть собраны во время действия [#](%1$s)Третьего глаза[#](). Для облегчения жизни, Торговец потусторонними саженцами будет обменивать столь естественные саженцы на стабильную разновидность, которая может быть собрана кем-угодно, а при сборе сбрасывать такие же стабильные саженцы.
                            """.formatted(COLOR_PURPLE));
 
         helper.page("trade");
-        //no text
+        //текст отсутствует
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.entry("summon_otherstone_trader");
-        this.lang("ru_ru").add(helper.entryName(), "Summon Otherstone Trader");
+        this.lang("ru_ru").add(helper.entryName(), "Призыв торговца потусторонним камнем");
 
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Otherstone Trader");
+        this.lang("ru_ru").add(helper.pageTitle(), "Торговец потусторонним камнем");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        The Otherstone Trader spirit allows to get more [](item://occultism:otherstone) than using [](item://occultism:spirit_fire). Thus it is especially efficient if you want to use Otherstone as a building material.
+                        Торговцы потусторонним камнем позволяют получить больше [](item://occultism:otherstone) вместо того, чтобы использовать [](item://occultism:spirit_fire). В первую очередь это выгодно, если хотите использовать Потусторонний камень в качестве строительного материала.
                            """);
 
         helper.page("trade");
-        //no text
+        //текст отсутствует
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.entry("summon_wild_parrot");
-        this.lang("ru_ru").add(helper.entryName(), "Summon Wild Parrot");
+        this.lang("ru_ru").add(helper.entryName(), "Призыв дикого попугая");
 
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        **Provides**: A tameable Parrot
+                        **Предоставляет**: приручаемого попугая
                           """);
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("description");
         this.lang("ru_ru").add(helper.pageText(),
@@ -1702,7 +1702,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("summon_wild_otherworld_bird");
-        this.lang("ru_ru").add(helper.entryName(), "Summon Wild Drikwing");
+        this.lang("ru_ru").add(helper.entryName(), "Summon Дикий Drikwing");
 
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
@@ -1711,12 +1711,12 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                           """);
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("description");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        See [Drikwing Familiar](entry://familiar_rituals/familiar_otherworld_bird) for more information.
+                        See [Drikwing -фамильяр](entry://familiar_rituals/familiar_otherworld_bird) for more information.
                           """);
 
         helper.entry("weather_magic");
@@ -1733,13 +1733,13 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                            """);
 
         helper.page("ritual_clear");
-        //no text
+        //текст отсутствует
 
         helper.page("ritual_rain");
-        //no text
+        //текст отсутствует
 
         helper.page("ritual_thunder");
-        //no text
+        //текст отсутствует
 
         helper.entry("time_magic");
         this.lang("ru_ru").add(helper.entryName(), "Time Magic");
@@ -1755,10 +1755,10 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                            """);
 
         helper.page("ritual_day");
-        //no text
+        //текст отсутствует
 
         helper.page("ritual_night");
-        //no text
+        //текст отсутствует
 
         helper.entry("wither_skull");
         this.lang("ru_ru").add(helper.entryName(), "Wither Skeleton Skull");
@@ -1767,11 +1767,11 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add(helper.pageTitle(), "Wither Skeleton Skull");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Besides venturing into nether dungeons, there is one more way to get these skulls. The legendary [#](%1$s)Wild Hunt[#]() consists of [#](%1$s)Greater Spirits[#]() taking the form of wither skeletons. While summoning the Wild Hunt is incredibly dangerous, it is the fastest way to get wither skeleton skulls.
+                        Besides venturing into nether dungeons, there is one more way to get these skulls. The legendary [#](%1$s)Дикий Hunt[#]() consists of [#](%1$s)Greater Spirits[#]() taking the form of wither skeletons. While summoning the Дикий Hunt is incredibly dangerous, it is the fastest way to get wither skeleton skulls.
                            """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.entry("afrit_essence");
         this.lang("ru_ru").add(helper.entryName(), "Afrit Essence");
@@ -1784,7 +1784,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                            """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
     }
 
     private void addPossessionRitualsCategory(BookContextHelper helper) {
@@ -1808,7 +1808,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                            """);
 
         helper.entry("possess_enderman");
-        this.lang("ru_ru").add(helper.entryName(), "Possessed Enderman");
+        this.lang("ru_ru").add(helper.entryName(), "Одержимый Enderman");
 
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
@@ -1817,16 +1817,16 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                                 """);
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("description");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        In this ritual an [#](%1$s)Enderman[#]() is spawned using the life energy of a [#](%1$s)Pig[#]() and immediately possessed by the summoned [#](%1$s)Djinni[#](). The [#](%1$s)Possessed Enderman[#]() will always drop at least one [](item://minecraft:ender_pearl) when killed.
+                        In this ritual an [#](%1$s)Enderman[#]() is spawned using the life energy of a [#](%1$s)Pig[#]() and immediately possessed by the summoned [#](%1$s)Djinni[#](). The [#](%1$s)Одержимый Enderman[#]() will always drop at least one [](item://minecraft:ender_pearl) when killed.
                                 """.formatted(COLOR_PURPLE));
 
         helper.entry("possess_endermite");
-        this.lang("ru_ru").add(helper.entryName(), "Possessed Endermite");
+        this.lang("ru_ru").add(helper.entryName(), "Одержимый Endermite");
 
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
@@ -1835,19 +1835,19 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                                 """);
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("description");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        In this ritual an [#](%1$s)Endermite[#]() is tricked into spawning. The stone and dirt represent the surroundings, then an egg is thrown to simulate the use of an ender pearl. When the mite spawns, the summoned [#](%1$s)Foliot[#]() immediately possesses it, visits [#](%1$s)The End[#](), and returns. The [#](%1$s)Possessed Endermite[#]() will always drop at least one [](item://minecraft:end_stone) when killed.
+                        In this ritual an [#](%1$s)Endermite[#]() is tricked into spawning. The stone and dirt represent the surroundings, then an egg is thrown to simulate the use of an ender pearl. When the mite spawns, the summoned [#](%1$s)Foliot[#]() immediately possesses it, visits [#](%1$s)The End[#](), and returns. The [#](%1$s)Одержимый Endermite[#]() will always drop at least one [](item://minecraft:end_stone) when killed.
                                 """.formatted(COLOR_PURPLE));
 
         helper.entry("possess_ghast");
         //moved to OccultismBookProvider#makePossessGhastEntry
 
         helper.entry("possess_skeleton");
-        this.lang("ru_ru").add(helper.entryName(), "Possessed Skeleton");
+        this.lang("ru_ru").add(helper.entryName(), "Одержимый Skeleton");
 
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
@@ -1856,12 +1856,12 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                                 """);
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("description");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        In this ritual an [#](%1$s)Skeleton[#]() is spawned using the life energy of a [#](%1$s)Chicken[#]() and possessed by a [#](%1$s)Foliot[#](). The [#](%1$s)Possessed Skeleton[#]() will be immune to daylight and always drop at least one [](item://minecraft:skeleton_skull) when killed.
+                        In this ritual an [#](%1$s)Skeleton[#]() is spawned using the life energy of a [#](%1$s)Chicken[#]() and possessed by a [#](%1$s)Foliot[#](). The [#](%1$s)Одержимый Skeleton[#]() will be immune to daylight and always drop at least one [](item://minecraft:skeleton_skull) when killed.
                                 """.formatted(COLOR_PURPLE));
     }
 
@@ -1901,7 +1901,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                            """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.entry("craft_dimensional_mineshaft");
         this.lang("ru_ru").add(helper.entryName(), "Dimensional Mineshaft");
@@ -1913,7 +1913,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                            """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("description");
         this.lang("ru_ru").add(helper.pageTitle(), "Operation");
@@ -1933,7 +1933,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                            """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.entry("craft_otherworld_goggles");
         this.lang("ru_ru").add(helper.entryName(), "Craft Otherworld Goggles");
@@ -1967,13 +1967,13 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                         """.formatted(COLOR_PURPLE));
 
         helper.page("lenses_recipe");
-        //no text
+        //текст отсутствует
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("goggles_recipe");
-        //no text
+        //текст отсутствует
 
         helper.entry("craft_storage_controller_base");
         this.lang("ru_ru").add(helper.entryName(), "Storage Actuator Base");
@@ -1985,7 +1985,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.entry("craft_stabilizer_tier1");
         this.lang("ru_ru").add(helper.entryName(), "Storage Stabilizer Tier 1");
@@ -2000,7 +2000,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.entry("craft_stabilizer_tier2");
         this.lang("ru_ru").add(helper.entryName(), "Storage Stabilizer Tier 2");
@@ -2015,7 +2015,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.entry("craft_stabilizer_tier3");
         this.lang("ru_ru").add(helper.entryName(), "Storage Stabilizer Tier 3");
@@ -2030,7 +2030,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.entry("craft_stabilizer_tier4");
         this.lang("ru_ru").add(helper.entryName(), "Storage Stabilizer Tier 4");
@@ -2045,7 +2045,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.entry("craft_stable_wormhole");
         this.lang("ru_ru").add(helper.entryName(), "Stable Wormhole");
@@ -2060,7 +2060,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                          """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.entry("craft_storage_remote");
         this.lang("ru_ru").add(helper.entryName(), "Remote Storage Accessor");
@@ -2072,7 +2072,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.entry("craft_foliot_miner");
         this.lang("ru_ru").add(helper.entryName(), "Foliot Miner");
@@ -2092,7 +2092,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                         """.formatted(COLOR_PURPLE));
 
         helper.page("magic_lamp_recipe");
-        //no text
+        //текст отсутствует
 
         helper.page("spotlight");
         this.lang("ru_ru").add(helper.pageText(),
@@ -2101,7 +2101,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.entry("craft_djinni_miner");
         this.lang("ru_ru").add(helper.entryName(), "Djinni Miner");
@@ -2113,7 +2113,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.entry("craft_afrit_miner");
         this.lang("ru_ru").add(helper.entryName(), "Afrit Miner");
@@ -2125,7 +2125,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.entry("craft_marid_miner");
         this.lang("ru_ru").add(helper.entryName(), "Marid Miner");
@@ -2137,7 +2137,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.entry("craft_satchel");
         this.lang("ru_ru").add(helper.entryName(), "Surprisingly Substantial Satchel");
@@ -2149,7 +2149,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.entry("craft_soul_gem");
         this.lang("ru_ru").add(helper.entryName(), "Soul Gem");
@@ -2173,15 +2173,15 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
 
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.entry("craft_familiar_ring");
-        this.lang("ru_ru").add(helper.entryName(), "Familiar Ring");
+        this.lang("ru_ru").add(helper.entryName(), "-фамильяр Ring");
 
         helper.page("spotlight");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Familiar Rings consist of a [](item://occultism:soul_gem), that contains a [#](%1$s)Djinni[#](), mounted on a ring. The [#](%1$s)Djinni[#]() in the ring allows the familiar captured in the soul gem to apply effects to the wearer."
+                        -фамильяр Rings consist of a [](item://occultism:soul_gem), that contains a [#](%1$s)Djinni[#](), mounted on a ring. The [#](%1$s)Djinni[#]() in the ring allows the familiar captured in the soul gem to apply effects to the wearer."
                         """.formatted(COLOR_PURPLE));
 
         helper.page("usage");
@@ -2195,9 +2195,9 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
         helper.entry("craft_wild_trim");
-        this.lang("ru_ru").add(helper.entryName(), "Forge Wild Trim");
+        this.lang("ru_ru").add(helper.entryName(), "Forge Дикий Trim");
 
         helper.page("spotlight");
         this.lang("ru_ru").add(helper.pageText(),
@@ -2215,34 +2215,34 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add(helper.entryName(), "Return to Rituals Category");
 
         helper.entry("overview");
-        this.lang("ru_ru").add(helper.entryName(), "Familiar Rituals");
+        this.lang("ru_ru").add(helper.entryName(), "-фамильяр Rituals");
 
         helper.page("intro");
-        this.lang("ru_ru").add(helper.pageTitle(), "Familiar Rituals");
+        this.lang("ru_ru").add(helper.pageTitle(), "-фамильяр Rituals");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Familiar rituals summon spirits to aid the summoner directly. The spirits usually inhabit an animal's body, allowing them to resist essence decay. Familiars provide buffs, but may also actively protect the summoner.
+                        -фамильяр rituals summon spirits to aid the summoner directly. The spirits usually inhabit an animal's body, allowing them to resist essence decay. Familiars provide buffs, but may also actively protect the summoner.
                                 """.formatted(COLOR_PURPLE));
 
         helper.page("ring");
         this.lang("ru_ru").add(helper.pageTitle(), "Equipping Familiars");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Enterprising summoners have found a way to bind familiars into jewelry that passively applies their buff, the [Familiar Ring](entry://crafting_rituals/craft_familiar_ring).
+                        Enterprising summoners have found a way to bind familiars into jewelry that passively applies their buff, the [-фамильяр Ring](entry://crafting_rituals/craft_familiar_ring).
                                 """.formatted(COLOR_PURPLE));
 
         helper.page("trading");
         this.lang("ru_ru").add(helper.pageTitle(), "Equipping Familiars");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        "Familiars can be easily traded when in a [Familiar Ring](entry://crafting_rituals/craft_familiar_ring).
+                        "Familiars can be easily traded when in a [-фамильяр Ring](entry://crafting_rituals/craft_familiar_ring).
                         \\
                         \\
                         When released, the spirit will recognize the person releasing them as their new master.
                                  """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_bat");
-        this.lang("ru_ru").add(helper.entryName(), "Bat Familiar");
+        this.lang("ru_ru").add(helper.entryName(), "Bat -фамильяр");
 
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
@@ -2251,7 +2251,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                                """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("description");
         this.lang("ru_ru").add(helper.pageTitle(), "Description");
@@ -2262,7 +2262,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_beaver");
-        this.lang("ru_ru").add(helper.entryName(), "Beaver Familiar");
+        this.lang("ru_ru").add(helper.entryName(), "Beaver -фамильяр");
 
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
@@ -2271,7 +2271,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                                """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("description");
         this.lang("ru_ru").add(helper.pageTitle(), "Description");
@@ -2285,7 +2285,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_beholder");
-        this.lang("ru_ru").add(helper.entryName(), "Beholder Familiar");
+        this.lang("ru_ru").add(helper.entryName(), "Beholder -фамильяр");
 
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
@@ -2294,7 +2294,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                                """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //без текста
+        //текст отсутствует
 
         helper.page("description");
         this.lang("ru_ru").add(helper.pageTitle(), "Описание");
@@ -2308,7 +2308,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_blacksmith");
-        this.lang("ru_ru").add(helper.entryName(), "Blacksmith Familiar");
+        this.lang("ru_ru").add(helper.entryName(), "Blacksmith -фамильяр");
 
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
@@ -2317,7 +2317,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                                """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("description");
         this.lang("ru_ru").add(helper.pageTitle(), "Description");
@@ -2341,7 +2341,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_chimera");
-        this.lang("ru_ru").add(helper.entryName(), "Chimera Familiar");
+        this.lang("ru_ru").add(helper.entryName(), "Chimera -фамильяр");
 
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
@@ -2350,7 +2350,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                                """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("description");
         this.lang("ru_ru").add(helper.pageTitle(), "Description");
@@ -2370,7 +2370,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_cthulhu");
-        this.lang("ru_ru").add(helper.entryName(), "Cthulhu Familiar");
+        this.lang("ru_ru").add(helper.entryName(), "Cthulhu -фамильяр");
 
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
@@ -2379,7 +2379,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                                """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("description");
         this.lang("ru_ru").add(helper.pageTitle(), "Description");
@@ -2390,7 +2390,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_shub_niggurath");
-        this.lang("ru_ru").add(helper.entryName(), "Shub Niggurath Familiar");
+        this.lang("ru_ru").add(helper.entryName(), "Shub Niggurath -фамильяр");
 
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
@@ -2402,7 +2402,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add(helper.pageTitle(), "Ritual");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        The [#](%1$s)Shub Niggurath[#]() is not summoned directly. First, summon a [Chimera Familiar](entry://familiar_rituals/familiar_chimera) and feed it a [](item://minecraft:golden_apple) to detach the [#](%1$s)Goat[#](). Bring the goat to a [#](%1$s)Forest Biome[#](). Then click the goat with [any Black Dye](item://minecraft:black_dye), [](item://minecraft:flint) and [](item://minecraft:ender_eye) to summon the [#](%1$s)Shub Niggurath[#]().
+                        The [#](%1$s)Shub Niggurath[#]() is not summoned directly. First, summon a [Chimera -фамильяр](entry://familiar_rituals/familiar_chimera) and feed it a [](item://minecraft:golden_apple) to detach the [#](%1$s)Goat[#](). Bring the goat to a [#](%1$s)Forest Biome[#](). Then click the goat with [any Black Dye](item://minecraft:black_dye), [](item://minecraft:flint) and [](item://minecraft:ender_eye) to summon the [#](%1$s)Shub Niggurath[#]().
                            """.formatted(COLOR_PURPLE));
 
         helper.page("description");
@@ -2414,7 +2414,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_deer");
-        this.lang("ru_ru").add(helper.entryName(), "Deer Familiar");
+        this.lang("ru_ru").add(helper.entryName(), "Deer -фамильяр");
 
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
@@ -2423,7 +2423,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                                    """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("description");
         this.lang("ru_ru").add(helper.pageTitle(), "Description");
@@ -2434,7 +2434,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_devil");
-        this.lang("ru_ru").add(helper.entryName(), "Devil Familiar");
+        this.lang("ru_ru").add(helper.entryName(), "Devil -фамильяр");
 
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
@@ -2443,7 +2443,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                                    """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("description");
         this.lang("ru_ru").add(helper.pageTitle(), "Description");
@@ -2454,7 +2454,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_dragon");
-        this.lang("ru_ru").add(helper.entryName(), "Dragon Familiar");
+        this.lang("ru_ru").add(helper.entryName(), "Dragon -фамильяр");
 
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
@@ -2463,7 +2463,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                                    """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("description");
         this.lang("ru_ru").add(helper.pageTitle(), "Description");
@@ -2478,16 +2478,16 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
 
 
         helper.entry("familiar_fairy");
-        this.lang("ru_ru").add(helper.entryName(), "Fairy Familiar");
+        this.lang("ru_ru").add(helper.entryName(), "Fairy -фамильяр");
 
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        **Provides**: [#](%1$s)Assists Familiars[#](), [#](%1$s)Prevents Familiar Deaths[#](), [#](%1$s)Drains Enemy Life Force[#]()
+                        **Provides**: [#](%1$s)Assists Familiars[#](), [#](%1$s)Prevents -фамильяр Deaths[#](), [#](%1$s)Drains Enemy Life Force[#]()
                                    """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("description");
         this.lang("ru_ru").add(helper.pageTitle(), "Description");
@@ -2501,7 +2501,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_greedy");
-        this.lang("ru_ru").add(helper.entryName(), "Greedy Familiar");
+        this.lang("ru_ru").add(helper.entryName(), "Greedy -фамильяр");
 
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
@@ -2509,7 +2509,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                         **Provides**: [#](%1$s)Picks up Items[#](), [#](%1$s)Increased Pick-up Range[#]()
                                    """.formatted(COLOR_PURPLE));
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("description");
         this.lang("ru_ru").add(helper.pageTitle(), "Description");
@@ -2523,7 +2523,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_guardian");
-        this.lang("ru_ru").add(helper.entryName(), "Guardian Familiar");
+        this.lang("ru_ru").add(helper.entryName(), "Guardian -фамильяр");
 
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
@@ -2532,7 +2532,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                                    """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("description");
         this.lang("ru_ru").add(helper.pageTitle(), "Description");
@@ -2549,7 +2549,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_headless");
-        this.lang("ru_ru").add(helper.entryName(), "Headless Ratman Familiar");
+        this.lang("ru_ru").add(helper.entryName(), "Headless Ratman -фамильяр");
 
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
@@ -2558,7 +2558,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                                    """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("description");
         this.lang("ru_ru").add(helper.pageTitle(), "Description");
@@ -2576,7 +2576,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
 
 
         helper.entry("familiar_mummy");
-        this.lang("ru_ru").add(helper.entryName(), "Mummy Familiar");
+        this.lang("ru_ru").add(helper.entryName(), "Mummy -фамильяр");
 
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
@@ -2585,7 +2585,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                                    """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("description");
         this.lang("ru_ru").add(helper.pageTitle(), "Description");
@@ -2599,7 +2599,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                             """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_otherworld_bird");
-        this.lang("ru_ru").add(helper.entryName(), "Drikwing Familiar");
+        this.lang("ru_ru").add(helper.entryName(), "Drikwing -фамильяр");
 
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
@@ -2608,7 +2608,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                                    """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("description");
         this.lang("ru_ru").add(helper.pageTitle(), "Description");
@@ -2624,14 +2624,14 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         helper.page("description2");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        To obtain the parrot or parrot familiar for the sacrifice, consider summoning them using either the [Wild Parrot Ritual](entry://summoning_rituals/summon_wild_parrot) or [Parrot Familiar Ritual](entry://familiar_rituals/familiar_parrot)
+                        To obtain the parrot or parrot familiar for the sacrifice, consider summoning them using either the [Дикий Parrot Ritual](entry://summoning_rituals/summon_wild_parrot) or [Parrot -фамильяр Ritual](entry://familiar_rituals/familiar_parrot)
                         \\
                         \\
                         **Hint:** If you use mods that protect pets from death, use the wild parrot ritual!
                             """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_parrot");
-        this.lang("ru_ru").add(helper.entryName(), "Parrot Familiar");
+        this.lang("ru_ru").add(helper.entryName(), "Parrot -фамильяр");
 
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
@@ -2640,7 +2640,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                                    """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
-        //no text
+        //текст отсутствует
 
 
         //
@@ -2661,7 +2661,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                         **Upgrade Behaviour**\\
                         Cannot be upgraded by the blacksmith familiar.
                            """.formatted(COLOR_PURPLE));
-        //no text
+        //текст отсутствует
 
         helper.entry("summon_allay");
         this.lang("ru_ru").add(helper.entryName(), "Purify Vex to Allay");
@@ -2718,14 +2718,14 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                         """.formatted(COLOR_PURPLE));
 
         helper.page("usage");
-        this.lang("ru_ru").add(helper.pageTitle(), "Usage");
+        this.lang("ru_ru").add(helper.pageTitle(), "Использование");
         this.lang("ru_ru").add(helper.pageText(),
                 """
                         After crafting the [](item://occultism:storage_controller) (see following pages), place it in the world and [#](%1$s)right-click[#]() it with an empty hand. This will open the GUI of the storage controller, from there on it will work much like a very big shulker box.
                         """.formatted(COLOR_PURPLE));
 
         helper.page("safety");
-        this.lang("ru_ru").add(helper.pageTitle(), "Safety first!");
+        this.lang("ru_ru").add(helper.pageTitle(), "Безопасность прежде всего!");
         this.lang("ru_ru").add(helper.pageText(),
                 """
                         Breaking the storage controller will store all contained items in the dropped item, you will not lose anything.
@@ -2767,10 +2767,10 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
 
 
         helper.page("matrix_ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("base_ritual");
-        //no text
+        //текст отсутствует
 
         helper.page("recipe");
         this.lang("ru_ru").add(helper.pageText(),
@@ -2778,7 +2778,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                         This is the actual block that works as a storage, make sure to craft it!
                         Placing just the [](item://occultism:storage_controller_base) from the previous step won't work.
                         """.formatted(COLOR_PURPLE));
-        //no text
+        //текст отсутствует
 
 
         helper.entry("storage_stabilizer");
@@ -2854,7 +2854,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.advancementTitle("familiar.blacksmith_upgrade", "Fully Equipped!");
         this.advancementDescr("familiar.blacksmith_upgrade", "Let your blacksmith familiar upgrade one of your other familiars");
         this.advancementTitle("familiar.guardian_ultimate_sacrifice", "The Ultimate Sacrifice");
-        this.advancementDescr("familiar.guardian_ultimate_sacrifice", "Let your Guardian Familiar die to save yourself");
+        this.advancementDescr("familiar.guardian_ultimate_sacrifice", "Let your Guardian -фамильяр die to save yourself");
         this.advancementTitle("familiar.headless_cthulhu_head", "The Horror!");
         this.advancementDescr("familiar.headless_cthulhu_head", "Kill Cthulhu near your Headless Ratman familiar");
         this.advancementTitle("familiar.headless_rebuilt", "We can rebuild him");
@@ -2924,8 +2924,8 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add("jei.occultism.ingredient.spirit_fire.description", "Throw \u00a76Demon's Dream  Fruit\u00a7r to the ground and light it on fire. See \u00a76Dictionary of Spirits\u00a7r for more information.");
         this.lang("ru_ru").add("jei.occultism.ingredient.datura.description", "Can be used to heal all spirits and familiars summoned by Occultism Rituals. Simply right-click the entity to heal it by one heart");
 
-        this.lang("ru_ru").add("jei.occultism.ingredient.spawn_egg.familiar_goat.description", "The Goat Familiar can be obtained by feeding a Golden Apple to a Chimera Familiar. See \u00a76Dictionary\u00a7r \u00a76of\u00a7r \u00a76Spirits\u00a7r for more information.");
-        this.lang("ru_ru").add("jei.occultism.ingredient.spawn_egg.familiar_shub_niggurath.description", "The Shub Niggurath Familiar can be obtained by bringing a Goat Familiar to a Forest Biome and clicking the Goat first with any Black Dye, then Flint and then an Eye of Ender. See \u00a76Dictionary\u00a7r \u00a76of\u00a7r \u00a76Spirits\u00a7r for more information.");
+        this.lang("ru_ru").add("jei.occultism.ingredient.spawn_egg.familiar_goat.description", "The Goat -фамильяр can be obtained by feeding a Golden Apple to a Chimera -фамильяр. See \u00a76Dictionary\u00a7r \u00a76of\u00a7r \u00a76Spirits\u00a7r for more information.");
+        this.lang("ru_ru").add("jei.occultism.ingredient.spawn_egg.familiar_shub_niggurath.description", "The Shub Niggurath -фамильяр can be obtained by bringing a Goat -фамильяр to a Forest Biome and clicking the Goat first with any Black Dye, then Flint and then an Eye of Ender. See \u00a76Dictionary\u00a7r \u00a76of\u00a7r \u00a76Spirits\u00a7r for more information.");
 
         this.lang("ru_ru").add("jei.occultism.sacrifice", "Sacrifice: %s");
         this.lang("ru_ru").add("jei.occultism.summon", "Summon: %s");
@@ -2980,19 +2980,19 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
 
     private void addPentacles() {
         this.addPentacle("otherworld_bird", "Otherworld Bird");
-        this.addPentacle("craft_afrit", "Sevira's Permanent Confinement");
-        this.addPentacle("craft_djinni", "Strigeor's Higher Binding");
-        this.addPentacle("craft_foliot", "Eziveus' Spectral Compulsion");
-        this.addPentacle("craft_marid", "Uphyxes Inverted Tower");
-        this.addPentacle("possess_afrit", "Abras' Commanding Conjure");
-        this.addPentacle("possess_djinni", "Ihagan's Enthrallment");
-        this.addPentacle("possess_foliot", "Hedyrin's Lure");
-        this.addPentacle("summon_afrit", "Abras' Conjure");
-        this.addPentacle("summon_djinni", "Ophyx' Calling");
-        this.addPentacle("summon_foliot", "Aviar's Circle");
-        this.addPentacle("summon_wild_afrit", "Abras' Open Conjure");
-        this.addPentacle("summon_marid", "Fatma's Incentivized Attraction");
-        this.addPentacle("summon_wild_greater_spirit", "Osorin's Unbound Calling");
+        this.addPentacle("craft_afrit", "Вечное заточение Севиры");
+        this.addPentacle("craft_djinni", "Связывание высшего Стригора");
+        this.addPentacle("craft_foliot", "Спектральное вынуждение Изива");
+        this.addPentacle("craft_marid", "Перевёрнутая башня Юфиксеса");
+        this.addPentacle("possess_afrit", "Заклятие повиновения Абраса");
+        this.addPentacle("possess_djinni", "Порабощение Айгана");
+        this.addPentacle("possess_foliot", "Приманка Гидирина");
+        this.addPentacle("summon_afrit", "Вызов Абраса");
+        this.addPentacle("summon_djinni", "Зов Офикса");
+        this.addPentacle("summon_foliot", "Круг Авиара");
+        this.addPentacle("summon_wild_afrit", "Призыв свободного Абраса");
+        this.addPentacle("summon_marid", "Поощряемое привлечение Фатмы");
+        this.addPentacle("summon_wild_greater_spirit", "Призыв несвязанного Осорина");
     }
 
     private void addPentacle(String id, String name) {
@@ -3002,8 +3002,8 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
     private void addRitualDummies() {
         this.lang("ru_ru").add("item.occultism.ritual_dummy.custom_ritual", "Custom Ritual Dummy");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.custom_ritual.tooltip", "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_wild_trim", "Ritual: Forge Wild Armor Trim Smithing Template");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_wild_trim.tooltip", "Marid will forge a Wild Armor Trim Smithing Template.");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_wild_trim", "Ritual: Forge Дикий Armor Trim Smithing Template");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_wild_trim.tooltip", "Marid will forge a Дикий Armor Trim Smithing Template.");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_dimensional_matrix", "Ritual: Craft Dimensional Matrix");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_dimensional_matrix.tooltip", "The dimensional matrix is the entry point to a small dimension used for storing items.");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_dimensional_mineshaft", "Ritual: Craft Dimensional Mineshaft");
@@ -3026,7 +3026,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_satchel.tooltip", "This satchels allows to store more items than it's size would indicate, making it a practical traveller's companion.");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_soul_gem", "Ritual: Craft Soul Gem");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_soul_gem.tooltip", "The soul gem allows the temporary storage of living beings. ");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_familiar_ring", "Ritual: Craft Familiar Ring");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_familiar_ring", "Ritual: Craft -фамильяр Ring");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_familiar_ring.tooltip", "The familiar ring allows to store familiars. The ring will apply the familiar effect to the wearer.");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_stabilizer_tier1", "Ritual: Craft Storage Stabilizer Tier 1");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_stabilizer_tier1.tooltip", "The storage stabilizer allows to store more items in the dimensional storage accessor.");
@@ -3042,57 +3042,57 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_storage_controller_base.tooltip", "The storage actuator base imprisons a Foliot responsible for interacting with items in a dimensional storage matrix.");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_storage_remote", "Ritual: Craft Storage Accessor");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_storage_remote.tooltip", "The Storage Accessor can be linked to a Storage Actuator to remotely access items.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_otherworld_bird", "Ritual: Summon Drikwing Familiar");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_otherworld_bird", "Ritual: Summon Drikwing -фамильяр");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_otherworld_bird.tooltip", "Drikwings will provide their owner with limited flight abilities when nearby.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_parrot", "Ritual: Summon Parrot Familiar");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_parrot", "Ritual: Summon Parrot -фамильяр");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_parrot.tooltip", "Parrot familiars behave exactly like tamed parrots.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_greedy", "Ritual: Summon Greedy Familiar");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_greedy", "Ritual: Summon Greedy -фамильяр");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_greedy.tooltip", "Greedy familiars pick up items for their master. When stored in a familiar ring, they increase the pickup range (like an item magnet).");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_bat", "Ritual: Summon Bat Familiar");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_bat", "Ritual: Summon Bat -фамильяр");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_bat.tooltip", "Bat familiars provide night vision to their master.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_deer", "Ritual: Summon Deer Familiar");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_deer", "Ritual: Summon Deer -фамильяр");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_deer.tooltip", "Deer familiars provide jump boost to their master.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_cthulhu", "Ritual: Summon Cthulhu Familiar");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_cthulhu", "Ritual: Summon Cthulhu -фамильяр");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_cthulhu.tooltip", "The cthulhu familiars provide water breathing to their master.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_devil", "Ritual: Summon Devil Familiar");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_devil", "Ritual: Summon Devil -фамильяр");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_devil.tooltip", "The devil familiars provide fire resistance to their master.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_dragon", "Ritual: Summon Dragon Familiar");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_dragon", "Ritual: Summon Dragon -фамильяр");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_dragon.tooltip", "The dragon familiars provide increased experience gain to their master.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_blacksmith", "Ritual: Summon Blacksmith Familiar");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_blacksmith", "Ritual: Summon Blacksmith -фамильяр");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_blacksmith.tooltip", "The blacksmith familiars take stone their master mines and uses it to repair equipment.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_guardian", "Ritual: Summon Guardian Familiar");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_guardian", "Ritual: Summon Guardian -фамильяр");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_guardian.tooltip", "The guardian familiars prevent their master's violent demise.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_headless", "Ritual: Summon Headless Ratman Familiar");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_headless", "Ritual: Summon Headless Ratman -фамильяр");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_headless.tooltip", "The headless ratman familiars increase their master's attack damage against enemies of the kind it stole the head from.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_chimera", "Ritual: Summon Chimera Familiar");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_chimera", "Ritual: Summon Chimera -фамильяр");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_chimera.tooltip", "The chimera familiars can be fed to grow in size and gain attack speed and damage. Once big enough, playeres can ride them.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_beholder", "Ritual: Summon Beholder Familiar");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_beholder", "Ritual: Summon Beholder -фамильяр");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_beholder.tooltip", "The beholder familiars highlight nearby entities with a glow effect and shoot laser rays at enemies.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_fairy", "Ritual: Summon Fairy Familiar");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_fairy", "Ritual: Summon Fairy -фамильяр");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_fairy.tooltip", "The fairy familiar keeps other familiars from dying, drains enemies of their life force and heals its master and their familiars.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_mummy", "Ritual: Summon Mummy Familiar");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_mummy", "Ritual: Summon Mummy -фамильяр");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_mummy.tooltip", "The Mummy familiar is a martial arts expert and fights to protect their master.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_beaver", "Ritual: Summon Beaver Familiar");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_beaver", "Ritual: Summon Beaver -фамильяр");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.familiar_beaver.tooltip", "The Beaver familiar provides increased woodcutting speed to their masters and harvests nearby trees when they grow from a sapling.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_enderman", "Ritual: Summon Possessed Enderman");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_enderman", "Ritual: Summon Одержимый Enderman");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_enderman.tooltip", "The possessed Enderman will always drop at least one ender pearl when killed.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_endermite", "Ritual: Summon Possessed Endermite");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_endermite", "Ritual: Summon Одержимый Endermite");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_endermite.tooltip", "The possessed Endermite drops End Stone.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_skeleton", "Ritual: Summon Possessed Skeleton");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_skeleton", "Ritual: Summon Одержимый Skeleton");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_skeleton.tooltip", " The possessed Skeleton is immune to daylight and always drop at least one Skeleton Skull when killed.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_ghast", "Ritual: Summon Possessed Ghast");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_ghast", "Ritual: Summon Одержимый Ghast");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_ghast.tooltip", "The possessed Ghast will always drop at least one ghast tear when killed.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_phantom", "Ritual: Summon Possessed Phantom");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_phantom", "Ritual: Summon Одержимый Phantom");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_phantom.tooltip", "The possessed Phantom will always drop at least one phantom membrane when killed and is easy to trap.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_weak_shulker", "Ritual: Summon Possessed Weak Shulker");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_weak_shulker", "Ritual: Summon Одержимый Weak Shulker");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_weak_shulker.tooltip", "The possessed Weak Shulker will drop at least one chorus fruit when killed and can drop shulker shell.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_shulker", "Ritual: Summon Possessed Shulker");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_shulker", "Ritual: Summon Одержимый Shulker");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_shulker.tooltip", "The possessed Shulker will always drop at least one shulker shell when killed.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_elder_guardian", "Ritual: Summon Possessed Elder Guardian");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_elder_guardian", "Ritual: Summon Одержимый Elder Guardian");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_elder_guardian.tooltip", "The possessed elder guardian will drop at least one nautilus shell when killed, also can drop heart of the sea and the commom drops.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_warden", "Ritual: Summon Possessed Warden");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_warden", "Ritual: Summon Одержимый Warden");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_warden.tooltip", "The possessed Warden will always drop a echo shard and can drop anothers ancient stuff (smithing templates and discs) when killed.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_hoglin", "Ritual: Summon Possessed Hoglin");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_hoglin", "Ritual: Summon Одержимый Hoglin");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_hoglin.tooltip", "The possessed Hoglin has a chance to drop smithing template of netherite upgrade when killed.");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_afrit_rain_weather", "Ritual: Rainy Weather");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_afrit_rain_weather.tooltip", "Summons an bound Afrit that creates rain.");
@@ -3126,30 +3126,30 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_foliot_cleaner.tooltip", "The janitor will pick up dropped items and deposit them into a target inventory.");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_afrit", "Ritual: Summon Unbound Afrit");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_afrit.tooltip", "Summons an unbound Afrit that can be killed to obtain Afrit Essence");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_hunt", "Ritual: Summon The Wild Hunt");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_hunt.tooltip", "The Wild Hunt consists of Wither Skeletons that as a big chance to drop Wither Skeleton Skulls, and their minions.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_otherworld_bird", "Ritual: Summon Wild Drikwing");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_otherworld_bird.tooltip", "Summons a Drikwing Familiar that can be tamed by anyone, not just the summoner.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_parrot", "Ritual: Summon Wild Parrot");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_hunt", "Ritual: Summon The Дикий Hunt");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_hunt.tooltip", "The Дикий Hunt consists of Wither Skeletons that as a big chance to drop Wither Skeleton Skulls, and their minions.");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_otherworld_bird", "Ritual: Summon Дикий Drikwing");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_otherworld_bird.tooltip", "Summons a Drikwing -фамильяр that can be tamed by anyone, not just the summoner.");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_parrot", "Ritual: Summon Дикий Parrot");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_parrot.tooltip", "Summons a Parrot that can be tamed by anyone, not just the summoner.");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_allay", "Ritual: Purify Vex to Allay");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_allay.tooltip", "Purify a Vex to a Allay on a resurrection process.");
 
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_husk", "Ritual: Summon The Wild Horde Husk");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_husk.tooltip", "The Wild Horde Husk consists of a few Husks that drop items related to desert trails.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_drowned", "Ritual: Summon The Wild Horde Drowned");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_drowned.tooltip", "The Wild Horde Drowned consists of a few Drowneds that drop items related to ocean trails.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_creeper", "Ritual: Summon The Wild Horde Creeper");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_creeper.tooltip", "The Wild Horde Creeper consists of a few charged Creepers that drop many disks.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_silverfish", "Ritual: Summon The Wild Horde Silverfish");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_silverfish.tooltip", "The Wild Horde Silverfish consists of a few Silverfishs that drop items related to ruins trails.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_weak_breeze", "Ritual: Summon Possessed Weak Breeze");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_husk", "Ritual: Summon The Дикий Horde Husk");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_husk.tooltip", "The Дикий Horde Husk consists of a few Husks that drop items related to desert trails.");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_drowned", "Ritual: Summon The Дикий Horde Drowned");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_drowned.tooltip", "The Дикий Horde Drowned consists of a few Drowneds that drop items related to ocean trails.");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_creeper", "Ritual: Summon The Дикий Horde Creeper");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_creeper.tooltip", "The Дикий Horde Creeper consists of a few charged Creepers that drop many disks.");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_silverfish", "Ritual: Summon The Дикий Horde Silverfish");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_wild_silverfish.tooltip", "The Дикий Horde Silverfish consists of a few Silverfishs that drop items related to ruins trails.");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_weak_breeze", "Ritual: Summon Одержимый Weak Breeze");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_weak_breeze.tooltip", "The possessed Weak Breeze will drop a Trial Key and trial chamber related items.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_breeze", "Ritual: Summon Possessed Breeze");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_breeze", "Ritual: Summon Одержимый Breeze");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_breeze.tooltip", "The possessed Breeze will drop a Ominous Trial Key and trial chamber related items.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_strong_breeze", "Ritual: Summon Possessed Strong Breeze");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_strong_breeze", "Ritual: Summon Одержимый Strong Breeze");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.possess_strong_breeze.tooltip", "The possessed Strong Breeze will drop a Heavy Core and trial chamber related items.");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_horde_illager", "Ritual: Summon Possessed Evoker");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_horde_illager", "Ritual: Summon Одержимый Evoker");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.summon_horde_illager.tooltip", "Summon a possessed Evoker and his henchmen.");
 
         this.lang("ru_ru").add(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Ritual: Summon Demonic Wife");
@@ -3174,7 +3174,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
     private void addDialogs() {
         this.lang("ru_ru").add("dialog.occultism.dragon.pet", "Мурчанье");
         this.lang("ru_ru").add("dialog.occultism.mummy.kapow", "БУМ!");
-        this.lang("ru_ru").add("dialog.occultism.beaver.snack_on_cooldown", "Эй, не жадничай!");
+        this.lang("ru_ru").add("dialog.occultism.beaver.snack_on_cooldown", "Эй, не будь алчным!");
         this.lang("ru_ru").add("dialog.occultism.beaver.no_upgrade", "Кузнецу-фамильяру нужно улучшить Созерцателя, прежде чем он будет разбрасываться лакомствами!");
     }
 
