@@ -26,6 +26,11 @@ public abstract class MinerRecipes extends RecipeProvider {
     }
 
     public static void ores(RecipeOutput recipeOutput) {
+        makeOreRecipe("uraninite_poor", 750, recipeOutput);
+        makeOreRecipe("uraninite_regular", 500, recipeOutput);
+        makeOreRecipe("uraninite_dense", 200, recipeOutput);
+        makeOreRecipe("sal_ammoniac", 750, recipeOutput);
+        makeOreRecipe("dark", 200, recipeOutput);
         makeOreRecipe("agate", 200, recipeOutput);
         makeOreRecipe("aluminum", 422, recipeOutput);
         makeOreRecipe("amber", 184, recipeOutput);
@@ -88,6 +93,7 @@ public abstract class MinerRecipes extends RecipeProvider {
         makeOreRecipe("topaz", 200, recipeOutput);
         makeOreRecipe("tungsten", 192, recipeOutput);
         makeOreRecipe("uranium", 140, recipeOutput);
+        makeOreRecipe("uraninite", 140, recipeOutput);
         makeOreRecipe("dimensional_shard", 127, recipeOutput);
         makeOreRecipe("draconium", 142, recipeOutput);
 

@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "evilcraft:dark_ores",
+      "required": false
+    },
+    {
+      "id": "#evilcraft:ores/dark_gem",
+      "required": false
+    }
+  ]
+}

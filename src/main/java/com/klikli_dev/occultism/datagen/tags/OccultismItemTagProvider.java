@@ -64,6 +64,12 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(this.cTag("ores/varsium")).addOptional(this.loc("aoa3:varsium_ore"));
         this.tag(this.cTag("ores/white_gemstone")).addOptional(this.loc("aoa3:white_gemstone_ore"));
         this.tag(this.cTag("ores/yellow_gemstone")).addOptional(this.loc("aoa3:yellow_gemstone_ore"));
+        this.tag(this.cTag("ores/dark_gem"))
+                .addOptional(this.loc("evilcraft:dark_ores"))
+                .addOptionalTag(this.loc("evilcraft:ores/dark_gem")); //does not exist as of 1.21, but if they unify the pattern it will
+
+        this.tag(this.cTag("dusts/dark_gem"))
+                .addOptional(this.loc("evilcraft:dark_gem_crushed"));
     }
 
     private void addCuriosTags(HolderLookup.Provider provider) {

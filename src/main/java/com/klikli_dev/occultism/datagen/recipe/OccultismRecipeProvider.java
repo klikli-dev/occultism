@@ -267,6 +267,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
         this.crushingMetalRecipe("quicksilver", pRecipeOutput);
         this.crushingMetalRecipe("iron", pRecipeOutput);
 
+        this.crushingGemRecipe("dark_gem", pRecipeOutput);
         this.crushingGemRecipe("diamond", pRecipeOutput);
         this.crushingGemRecipe("emerald", pRecipeOutput);
         this.crushingGemRecipe("lapis", pRecipeOutput);
