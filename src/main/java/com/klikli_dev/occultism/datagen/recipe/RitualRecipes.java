@@ -1199,7 +1199,7 @@ public abstract class RitualRecipes extends RecipeProvider {
 
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                         new ItemStack(OccultismItems.INFUSED_PICKAXE.get()),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/craft_dimensional_matrix")),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/craft_infused_pickaxe")),
                         60,
                         RITUAL_CRAFT_WITH_SPIRIT_NAME,
                         PENTACLE_CRAFT_DJINNI,
