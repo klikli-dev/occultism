@@ -1009,7 +1009,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                         - [Спектральное вынуждение Изива](entry://occultism:dictionary_of_spirits/pentacles/craft_foliot)
                         - [Приманка Гидирина](entry://occultism:dictionary_of_spirits/pentacles/possess_foliot)
                         - [Зов Офикса](entry://occultism:dictionary_of_spirits/pentacles/summon_djinni)
-                        - [Заточение высшего Стригора](entry://occultism:dictionary_of_spirits/pentacles/craft_djinni)
+                        - [Связывание высшего Стригора](entry://occultism:dictionary_of_spirits/pentacles/craft_djinni)
                         - [Порабощение Айгана](entry://occultism:dictionary_of_spirits/pentacles/possess_djinni)
                         - [Вызов Абраса](entry://occultism:dictionary_of_spirits/pentacles/summon_afrit)
                         - [Вызов свободного Абраса](entry://occultism:dictionary_of_spirits/pentacles/craft_afrit)
@@ -1037,7 +1037,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                 """
                         - [Спектральное вынуждение Изива](entry://occultism:dictionary_of_spirits/pentacles/craft_foliot)
                         - [Приманка Гидирина](entry://occultism:dictionary_of_spirits/pentacles/possess_foliot)
-                        - [Заточение высшего Стригора](entry://occultism:dictionary_of_spirits/pentacles/craft_djinni)
+                        - [Связывание высшего Стригора](entry://occultism:dictionary_of_spirits/pentacles/craft_djinni)
                         - [Порабощение Айгана](entry://occultism:dictionary_of_spirits/pentacles/possess_djinni)
                         - [Вечное заточение Севиры](entry://occultism:dictionary_of_spirits/pentacles/craft_afrit)
                         - [Перевёрнутая башня Юфиксеса](entry://occultism:dictionary_of_spirits/pentacles/craft_marid)
@@ -1054,7 +1054,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add(helper.pageText(),
                 """
                         - [Зов Офикса](entry://occultism:dictionary_of_spirits/pentacles/summon_djinni)
-                        - [Заточение высшего Стригора](entry://occultism:dictionary_of_spirits/pentacles/craft_djinni)
+                        - [Связывание высшего Стригора](entry://occultism:dictionary_of_spirits/pentacles/craft_djinni)
                         - [Порабощение Айгана](entry://occultism:dictionary_of_spirits/pentacles/possess_djinni)
                         - [Вызов Абраса](entry://occultism:dictionary_of_spirits/pentacles/summon_afrit)
                         - [Вечное заточение Севиры](entry://occultism:dictionary_of_spirits/pentacles/craft_afrit)
@@ -1366,10 +1366,10 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add(helper.pageTitle(), "Связывание высшего Стригора");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        **Цель:** Заточение Джинна
+                        **Цель:** Связывание Джинна
                         \\
                         \\
-                        **Заточение высшего Стригора** — пентакль связывания [#](%1$s)Джинна[#]() в объекты. Не должен выполняться неопытными вызывателями. Пентакль поддерживается кристаллами, настроенными на духа и свечами-стабилизаторами, что отлично подходят для постоянного наполнения объектов духами.
+                        **Связывание высшего Стригора** — пентакль связывания [#](%1$s)Джинна[#]() в объекты. Не должен выполняться неопытными вызывателями. Пентакль поддерживается кристаллами, настроенными на духа и свечами-стабилизаторами, что отлично подходят для постоянного наполнения объектов духами.
                          """.formatted(COLOR_PURPLE));
 
         helper.page("multiblock");
