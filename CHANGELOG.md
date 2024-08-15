@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.148.1] - 2024-08-15
+### :bug: Bug Fixes
+- [`b25f43d`](https://github.com/klikli-dev/occultism/commit/b25f43d2ce514b9e80a58f25c6f6c6101781e2a6) - Fix an incorrect dummy item *(commit by [@blockgoblin31](https://github.com/blockgoblin31))*
+
+### :wrench: Chores
+- [`20c1a26`](https://github.com/klikli-dev/occultism/commit/20c1a26d424bf304f5ab4e9314447b22dd245dd8) - update neogradle and neo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`abf76b6`](https://github.com/klikli-dev/occultism/commit/abf76b6cfa8d6f5b4de58054cb258bbf66076a89) - run datagen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.148.0] - 2024-08-11
 ### :sparkles: New Features
 - [`cf295b5`](https://github.com/klikli-dev/occultism/commit/cf295b5335887addcb10208ef379cb1e789cee3e) - add additional mod ore compat *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1539,3 +1548,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.147.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.146.1...release/v1.21-1.147.0
 [release/v1.21-1.147.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.147.0...release/v1.21-1.147.1
 [release/v1.21-1.148.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.147.1...release/v1.21-1.148.0
+[release/v1.21-1.148.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.148.0...release/v1.21-1.148.1
