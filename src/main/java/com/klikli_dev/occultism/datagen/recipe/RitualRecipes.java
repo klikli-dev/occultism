@@ -35,6 +35,7 @@ public abstract class RitualRecipes extends RecipeProvider {
     private static final ResourceLocation PENTACLE_SUMMON_DJINNI = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_djinni");
     private static final ResourceLocation PENTACLE_SUMMON_AFRIT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_afrit");
     private static final ResourceLocation PENTACLE_SUMMON_WILD_AFRIT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_wild_afrit");
+    private static final ResourceLocation PENTACLE_SUMMON_MARID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_marid");
 
     private static final ResourceLocation PENTACLE_SUMMON_WILD_GREATER_SPIRIT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_wild_greater_spirit");
     // Ritual Types
