@@ -366,7 +366,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_marid_crusher")),
                         150,
                         RITUAL_SUMMON_JOB,
-                        PENTACLE_SUMMON_AFRIT,
+                        PENTACLE_SUMMON_MARID,
                         Ingredient.of(Tags.Items.STORAGE_BLOCKS_DIAMOND),
                         Ingredient.of(Items.GHAST_TEAR),
                         Ingredient.of(OccultismTags.Items.STORAGE_BLOCK_IESNIUM),
