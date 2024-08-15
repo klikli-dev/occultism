@@ -1567,7 +1567,7 @@
 "ritual.occultism.craft_storage_remote.conditions": "Не все требования удовлетворены для этого ритуала.",
 "ritual.occultism.craft_storage_remote.finished": "Успешно заточил Джинна в удалённое хранилище.",
 "ritual.occultism.craft_storage_remote.interrupted": "Заточение Джинна прервано.",
-"ritual.occultism.craft_storage_remote.started": "Началось заточение Джинна в удалённое хранилище."
+"ritual.occultism.craft_storage_remote.started": "Началось заточение Джинна в удалённое хранилище.",
 "ritual.occultism.craft_wild_trim.conditions": "Не все требования удовлетворены для этого ритуала.",
 "ritual.occultism.craft_wild_trim.finished": "Успешно выковал Кузнечный шаблон.",
 "ritual.occultism.craft_wild_trim.interrupted": "Заточение Джинна прервано.",
