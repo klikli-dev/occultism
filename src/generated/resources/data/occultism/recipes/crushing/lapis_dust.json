@@ -5,14 +5,14 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:ores/lapis"
+        "tag": "forge:dusts/lapis"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/lapis"
+        "tag": "forge:ores/lapis"
       }
     }
   ],
@@ -22,7 +22,7 @@
     "tag": "forge:ores/lapis"
   },
   "result": {
-    "count": 2,
+    "count": 4,
     "tag": "forge:dusts/lapis"
   }
 }

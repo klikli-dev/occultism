@@ -29,5 +29,6 @@
     [
       "familiar_parrot"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

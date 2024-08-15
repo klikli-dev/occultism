@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_charged_certus_quartz_gem": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:gems/charged_certus_quartz"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crushing/charged_certus_quartz_dust_from_gem"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_charged_certus_quartz_gem",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crushing/charged_certus_quartz_dust_from_gem"
+    ]
+  },
+  "sends_telemetry_event": true
+}

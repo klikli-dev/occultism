@@ -178,7 +178,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ## Third Party Assets
 All resources not explicitly listed below are available under the terms of the license of this project, see [LICENSE](./LICENSE).
 
-Large parts of the textures have been created by [ridanisaurus](https://www.curseforge.com/members/ridanisaurus/followers).
+- Large parts of the textures have been created by [ridanisaurus](https://www.curseforge.com/members/ridanisaurus/followers).
+- Most familiar models (and their textures and animations) have been created by Vemerion.
+- Some of the spirit and familiar models (and their textures and animations) have been created by feellian.
+
 
 ### Images
 - Various icons from https://shikashiassets.itch.io/shikashis-fantasy-icons-pack (CC BY 3.0)

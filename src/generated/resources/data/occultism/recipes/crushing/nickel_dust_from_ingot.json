@@ -5,14 +5,14 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:ingots/nickel"
+        "tag": "forge:dusts/nickel"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/nickel"
+        "tag": "forge:ingots/nickel"
       }
     }
   ],

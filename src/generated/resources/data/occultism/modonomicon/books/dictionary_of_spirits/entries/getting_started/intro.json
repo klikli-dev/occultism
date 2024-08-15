@@ -4,12 +4,17 @@
   "category": "occultism:getting_started",
   "description": "book.occultism.dictionary_of_spirits.getting_started.intro.description",
   "hide_while_locked": false,
-  "icon": "occultism:dictionary_of_spirits_icon",
+  "icon": {
+    "item": "occultism:dictionary_of_spirits_icon"
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.intro.name",
   "pages": [
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.intro.intro.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.intro.intro.title",
@@ -18,12 +23,16 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.intro.help.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.intro.help.title",
       "use_markdown_in_title": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -11,
   "y": -2
 }

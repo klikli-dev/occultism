@@ -8,7 +8,11 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:textures/gui/book/possession.png",
+  "icon": {
+    "height": 16,
+    "texture": "occultism:textures/gui/book/possession.png",
+    "width": 16
+  },
   "name": "book.occultism.dictionary_of_spirits.rituals.possession_rituals.name",
   "parents": [
     {
@@ -18,6 +22,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": 5,
   "y": -2
 }

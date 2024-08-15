@@ -29,5 +29,6 @@
     [
       "craft_storage_controller_base"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

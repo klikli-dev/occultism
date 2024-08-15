@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "b": {
+      "item": "occultism:book_of_binding_empty"
+    },
+    "p": {
+      "tag": "forge:dyes/purple"
+    }
+  },
+  "pattern": [
+    " p ",
+    "pbp",
+    " p "
+  ],
+  "result": {
+    "item": "occultism:book_of_binding_afrit"
+  },
+  "show_notification": true
+}

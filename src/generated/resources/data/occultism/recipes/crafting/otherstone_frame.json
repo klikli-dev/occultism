@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "o": {
+      "item": "occultism:otherstone"
+    }
+  },
+  "pattern": [
+    "ooo",
+    "o o",
+    "ooo"
+  ],
+  "result": {
+    "item": "occultism:otherstone_frame"
+  },
+  "show_notification": true
+}

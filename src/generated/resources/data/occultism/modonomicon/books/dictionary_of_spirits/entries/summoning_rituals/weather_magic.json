@@ -7,12 +7,17 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "minecraft:wheat",
+  "icon": {
+    "item": "minecraft:wheat"
+  },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.weather_magic.name",
   "pages": [
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.weather_magic.intro.text",
       "title": "book.occultism.dictionary_of_spirits.summoning_rituals.weather_magic.intro.title",
@@ -21,6 +26,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "clear",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/summon_djinni_clear_weather",
       "text": "",
       "title1": "",
@@ -29,6 +37,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "rain",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/summon_afrit_rain_weather",
       "text": "",
       "title1": "",
@@ -37,6 +48,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "thunder",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/summon_afrit_thunder_weather",
       "text": "",
       "title1": "",
@@ -51,6 +65,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": 4,
   "y": -4
 }

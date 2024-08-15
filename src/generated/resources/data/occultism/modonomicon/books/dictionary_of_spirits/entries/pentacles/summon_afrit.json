@@ -7,12 +7,17 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:pentacle",
+  "icon": {
+    "item": "occultism:pentacle"
+  },
   "name": "book.occultism.dictionary_of_spirits.pentacles.summon_afrit.name",
   "pages": [
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.summon_afrit.intro.text",
       "title": "book.occultism.dictionary_of_spirits.pentacles.summon_afrit.intro.title",
@@ -21,6 +26,9 @@
     {
       "type": "modonomicon:multiblock",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "multiblock_id": "occultism:summon_afrit",
       "multiblock_name": "",
       "show_visualize_button": true,
@@ -29,6 +37,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.summon_afrit.uses.text",
       "title": "book.occultism.dictionary_of_spirits.pentacles.summon_afrit.uses.title",
@@ -43,6 +54,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": 0,
   "y": -2
 }

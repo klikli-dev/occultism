@@ -4,12 +4,17 @@
   "category": "occultism:getting_started",
   "description": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.description",
   "hide_while_locked": false,
-  "icon": "occultism:spirit_fire",
+  "icon": {
+    "item": "occultism:spirit_fire"
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:spirit_fire"
       },
@@ -20,6 +25,9 @@
       "type": "modonomicon:image",
       "anchor": "",
       "border": true,
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "images": [
         "occultism:textures/gui/book/spiritfire_instructions.png"
       ],
@@ -29,6 +37,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.main_uses.text",
       "title": "",
@@ -37,6 +48,9 @@
     {
       "type": "occultism:spirit_fire_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:spirit_fire/otherstone",
       "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.otherstone_recipe.text",
       "title1": "",
@@ -45,6 +59,9 @@
     {
       "type": "occultism:spirit_fire_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:spirit_fire/otherworld_sapling_natural",
       "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.otherworld_sapling_natural_recipe.text",
       "title1": "",
@@ -53,16 +70,22 @@
     {
       "type": "occultism:spirit_fire_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:spirit_fire/otherworld_ashes",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.otherworld_ashes_recipe.text",
+      "text": "",
       "title1": "",
       "title2": ""
     },
     {
       "type": "occultism:spirit_fire_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:spirit_fire/spirit_attuned_gem",
-      "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.gem_recipe.text",
+      "text": "",
       "title1": "",
       "title2": ""
     }
@@ -75,6 +98,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -7,
   "y": 0
 }

@@ -28,5 +28,6 @@
     [
       "deer_poop"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

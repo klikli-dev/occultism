@@ -7,12 +7,17 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "minecraft:end_stone",
+  "icon": {
+    "item": "minecraft:end_stone"
+  },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_endermite.name",
   "pages": [
     {
       "type": "modonomicon:entity",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "default_rotation": -45.0,
       "entity_id": "occultism:possessed_endermite",
       "name": "",
@@ -24,6 +29,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/possess_endermite",
       "text": "",
       "title1": "",
@@ -32,6 +40,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_endermite.description.text",
       "title": "",
@@ -46,6 +57,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -6,
   "y": -1
 }

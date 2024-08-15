@@ -29,5 +29,6 @@
     [
       "summon_foliot_sapling_trader"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

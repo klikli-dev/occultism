@@ -5,14 +5,14 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:ores/copper"
+        "tag": "forge:dusts/copper"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/copper"
+        "tag": "forge:ores/copper"
       }
     }
   ],

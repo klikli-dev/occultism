@@ -29,5 +29,6 @@
     [
       "craft_storage_remote"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

@@ -29,5 +29,6 @@
     [
       "familiar_beholder"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

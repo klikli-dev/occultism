@@ -4,16 +4,45 @@
   "category": "occultism:getting_started",
   "description": "book.occultism.dictionary_of_spirits.getting_started.healing_spirits.description",
   "hide_while_locked": false,
-  "icon": "minecraft:splash_potion",
+  "icon": {
+    "item": "minecraft:splash_potion"
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.healing_spirits.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:datura"
       },
       "text": "book.occultism.dictionary_of_spirits.getting_started.healing_spirits.spotlight.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "occultism:demons_dream_essence"
+      },
+      "text": "book.occultism.dictionary_of_spirits.getting_started.healing_spirits.spotlight2.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "occultism:otherworld_essence"
+      },
+      "text": "book.occultism.dictionary_of_spirits.getting_started.healing_spirits.spotlight3.text",
       "title": ""
     }
   ],
@@ -25,6 +54,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -9,
   "y": 2
 }

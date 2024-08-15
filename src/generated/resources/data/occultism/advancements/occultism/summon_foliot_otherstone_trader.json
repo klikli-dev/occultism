@@ -29,5 +29,6 @@
     [
       "summon_foliot_otherstone_trader"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

@@ -2,10 +2,15 @@
   "background": "modonomicon:textures/gui/dark_slate_seamless.png",
   "background_height": 512,
   "background_parallax_layers": [],
+  "background_texture_zoom_multiplier": 1.0,
   "background_width": 512,
   "entry_textures": "modonomicon:textures/gui/entry_textures.png",
-  "icon": "occultism:textures/gui/book/parrot.png",
+  "icon": {
+    "height": 16,
+    "texture": "occultism:textures/gui/book/parrot.png",
+    "width": 16
+  },
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.name",
-  "show_category_button": false,
+  "show_category_button": true,
   "sort_number": 8
 }

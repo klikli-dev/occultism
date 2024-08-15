@@ -21,6 +21,7 @@
   "creative_tab": "modonomicon:modonomicon",
   "custom_book_item": "occultism:dictionary_of_spirits",
   "default_title_color": 0,
+  "font": "modonomicon:default",
   "frame_texture": "modonomicon:textures/gui/book_frame.png",
   "generate_book_item": false,
   "left_frame_overlay": {

@@ -8,7 +8,9 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:dictionary_of_spirits_icon",
+  "icon": {
+    "item": "occultism:dictionary_of_spirits_icon"
+  },
   "name": "book.occultism.dictionary_of_spirits.spirits.return_to_getting_started.name",
   "parents": [
     {
@@ -18,6 +20,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -10,
   "y": -1
 }

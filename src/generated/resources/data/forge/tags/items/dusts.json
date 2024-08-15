@@ -1,0 +1,14 @@
+{
+  "values": [
+    "#forge:dusts/copper",
+    "#forge:dusts/end_stone",
+    "#forge:dusts/gold",
+    "#forge:dusts/iron",
+    "#forge:dusts/iesnium",
+    "#forge:dusts/silver",
+    "#forge:dusts/obsidian",
+    "#forge:dusts/blaze",
+    "occultism:burnt_otherstone",
+    "occultism:otherworld_ashes"
+  ]
+}

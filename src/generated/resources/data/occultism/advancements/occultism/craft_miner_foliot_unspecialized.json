@@ -29,5 +29,6 @@
     [
       "craft_miner_foliot_unspecialized"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

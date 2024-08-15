@@ -5,14 +5,14 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:raw_materials/steel"
+        "tag": "forge:dusts/steel"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/steel"
+        "tag": "forge:raw_materials/steel"
       }
     }
   ],

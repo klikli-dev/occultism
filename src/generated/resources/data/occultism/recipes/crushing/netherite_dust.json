@@ -5,14 +5,14 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:ores/netherite"
+        "tag": "forge:dusts/netherite"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/netherite"
+        "tag": "forge:ores/netherite"
       }
     }
   ],

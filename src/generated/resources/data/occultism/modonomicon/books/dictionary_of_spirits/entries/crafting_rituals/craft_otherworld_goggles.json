@@ -7,12 +7,17 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:otherworld_goggles",
+  "icon": {
+    "item": "occultism:otherworld_goggles"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_otherworld_goggles.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:otherworld_goggles"
       },
@@ -22,6 +27,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_otherworld_goggles.goggles_more.text",
       "title": "",
@@ -30,6 +38,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:lenses"
       },
@@ -39,6 +50,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_otherworld_goggles.lenses_more.text",
       "title": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_otherworld_goggles.lenses_more.title",
@@ -47,6 +61,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:crafting/lenses",
       "text": "",
       "title1": "",
@@ -55,6 +72,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/craft_infused_lenses",
       "text": "",
       "title1": "",
@@ -63,6 +83,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:crafting/goggles",
       "text": "",
       "title1": "",
@@ -77,6 +100,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -6,
   "y": 1
 }

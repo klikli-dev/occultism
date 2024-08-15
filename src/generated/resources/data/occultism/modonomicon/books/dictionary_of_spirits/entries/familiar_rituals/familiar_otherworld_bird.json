@@ -7,12 +7,19 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:textures/gui/book/otherworld_bird.png",
+  "icon": {
+    "height": 16,
+    "texture": "occultism:textures/gui/book/otherworld_bird.png",
+    "width": 16
+  },
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_otherworld_bird.name",
   "pages": [
     {
       "type": "modonomicon:entity",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "default_rotation": -45.0,
       "entity_id": "occultism:otherworld_bird",
       "name": "",
@@ -24,6 +31,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/familiar_otherworld_bird",
       "text": "",
       "title1": "",
@@ -32,6 +42,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_otherworld_bird.description.text",
       "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_otherworld_bird.description.title",
@@ -40,6 +53,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_otherworld_bird.description2.text",
       "title": "",
@@ -54,6 +70,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": 0,
   "y": -2
 }

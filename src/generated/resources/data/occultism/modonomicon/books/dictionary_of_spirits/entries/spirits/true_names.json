@@ -4,12 +4,17 @@
   "category": "occultism:spirits",
   "description": "book.occultism.dictionary_of_spirits.spirits.true_names.description",
   "hide_while_locked": false,
-  "icon": "minecraft:writable_book",
+  "icon": {
+    "item": "minecraft:writable_book"
+  },
   "name": "book.occultism.dictionary_of_spirits.spirits.true_names.name",
   "pages": [
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.spirits.true_names.intro.text",
       "title": "book.occultism.dictionary_of_spirits.spirits.true_names.intro.title",
@@ -18,6 +23,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.spirits.true_names.finding_names.text",
       "title": "book.occultism.dictionary_of_spirits.spirits.true_names.finding_names.title",
@@ -26,6 +34,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.spirits.true_names.using_names.text",
       "title": "book.occultism.dictionary_of_spirits.spirits.true_names.using_names.title",
@@ -40,6 +51,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -6,
   "y": -1
 }

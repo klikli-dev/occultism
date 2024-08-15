@@ -28,5 +28,6 @@
     [
       "fairy_save"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

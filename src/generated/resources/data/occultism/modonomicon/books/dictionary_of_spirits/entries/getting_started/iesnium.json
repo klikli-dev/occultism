@@ -4,12 +4,17 @@
   "category": "occultism:getting_started",
   "description": "book.occultism.dictionary_of_spirits.getting_started.iesnium.description",
   "hide_while_locked": false,
-  "icon": "occultism:iesnium_ore",
+  "icon": {
+    "item": "occultism:iesnium_ore"
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.iesnium.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:iesnium_ore"
       },
@@ -19,6 +24,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.where.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.iesnium.where.title",
@@ -27,6 +35,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.how.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.iesnium.how.title",
@@ -35,6 +46,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.processing.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.iesnium.processing.title",
@@ -43,6 +57,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.uses.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.iesnium.uses.title",
@@ -57,6 +74,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": 9,
   "y": -2
 }

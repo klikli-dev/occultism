@@ -7,12 +7,17 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:storage_remote",
+  "icon": {
+    "item": "occultism:storage_remote"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_storage_remote.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:storage_remote"
       },
@@ -22,6 +27,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/craft_storage_remote",
       "text": "",
       "title1": "",
@@ -36,6 +44,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": 2,
   "y": 3
 }

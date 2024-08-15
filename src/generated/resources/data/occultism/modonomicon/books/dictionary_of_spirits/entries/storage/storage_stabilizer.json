@@ -4,12 +4,17 @@
   "category": "occultism:storage",
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:storage_controller",
+  "icon": {
+    "item": "occultism:storage_controller"
+  },
   "name": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:storage_stabilizer_tier1"
       },
@@ -19,6 +24,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.upgrade.text",
       "title": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.upgrade.title",
@@ -27,6 +35,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.build_instructions.text",
       "title": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.build_instructions.title",
@@ -35,6 +46,9 @@
     {
       "type": "modonomicon:multiblock",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "multiblock_id": "occultism:storage_stabilizer_demo",
       "multiblock_name": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.demo.title",
       "show_visualize_button": true,
@@ -49,6 +63,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -2,
   "y": 0
 }

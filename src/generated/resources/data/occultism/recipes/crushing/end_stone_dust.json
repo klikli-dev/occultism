@@ -1,0 +1,12 @@
+{
+  "type": "occultism:crushing",
+  "crushing_time": 200,
+  "ignore_crushing_multiplier": false,
+  "ingredient": {
+    "tag": "forge:end_stones"
+  },
+  "result": {
+    "count": 1,
+    "tag": "forge:dusts/end_stone"
+  }
+}

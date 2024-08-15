@@ -7,18 +7,26 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:textures/gui/book/summoning.png",
+  "icon": {
+    "height": 16,
+    "texture": "occultism:textures/gui/book/summoning.png",
+    "width": 16
+  },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.overview.name",
   "pages": [
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.overview.intro.text",
       "title": "book.occultism.dictionary_of_spirits.summoning_rituals.overview.intro.title",
       "use_markdown_in_title": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -6,
   "y": -2
 }

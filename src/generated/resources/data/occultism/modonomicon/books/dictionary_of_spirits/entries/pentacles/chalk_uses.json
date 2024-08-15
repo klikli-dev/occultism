@@ -7,12 +7,17 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:chalk_purple",
+  "icon": {
+    "item": "occultism:chalk_purple"
+  },
   "name": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.name",
   "pages": [
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.intro.text",
       "title": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.intro.title",
@@ -21,6 +26,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.intro2.text",
       "title": "",
@@ -29,6 +37,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:chalk_white"
       },
@@ -38,6 +49,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.white_chalk_uses.text",
       "title": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.white_chalk_uses.title",
@@ -46,6 +60,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.white_chalk_uses2.text",
       "title": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.white_chalk_uses2.title",
@@ -54,6 +71,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:chalk_gold"
       },
@@ -63,6 +83,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.golden_chalk_uses.text",
       "title": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.golden_chalk_uses.title",
@@ -71,6 +94,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:chalk_purple"
       },
@@ -80,6 +106,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.purple_chalk_uses.text",
       "title": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.purple_chalk_uses.title",
@@ -88,6 +117,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:chalk_red"
       },
@@ -97,6 +129,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.red_chalk_uses.text",
       "title": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.red_chalk_uses.title",
@@ -111,6 +146,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -8,
   "y": 2
 }

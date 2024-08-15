@@ -7,12 +7,19 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:textures/gui/book/parrot.png",
+  "icon": {
+    "height": 16,
+    "texture": "occultism:textures/gui/book/parrot.png",
+    "width": 16
+  },
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.overview.name",
   "pages": [
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.familiar_rituals.overview.intro.text",
       "title": "book.occultism.dictionary_of_spirits.familiar_rituals.overview.intro.title",
@@ -21,6 +28,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.familiar_rituals.overview.ring.text",
       "title": "book.occultism.dictionary_of_spirits.familiar_rituals.overview.ring.title",
@@ -29,12 +39,16 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.familiar_rituals.overview.trading.text",
       "title": "book.occultism.dictionary_of_spirits.familiar_rituals.overview.trading.title",
       "use_markdown_in_title": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -8,
   "y": 0
 }

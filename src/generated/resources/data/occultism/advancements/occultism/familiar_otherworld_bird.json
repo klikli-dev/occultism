@@ -29,5 +29,6 @@
     [
       "familiar_otherworld_bird"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

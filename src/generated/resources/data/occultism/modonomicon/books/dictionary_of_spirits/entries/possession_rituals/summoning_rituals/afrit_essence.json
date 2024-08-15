@@ -7,12 +7,17 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:afrit_essence",
+  "icon": {
+    "item": "occultism:afrit_essence"
+  },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.afrit_essence.name",
   "pages": [
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.afrit_essence.intro.text",
       "title": "book.occultism.dictionary_of_spirits.summoning_rituals.afrit_essence.intro.title",
@@ -21,6 +26,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/summon_wild_afrit",
       "text": "",
       "title1": "",
@@ -35,6 +43,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -2,
   "y": -1
 }

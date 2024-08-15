@@ -1,20 +1,21 @@
 plugins {
     id 'idea'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '5.+'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 
-if (System.getenv('VERSION') != null) {
-    version = System.getenv('VERSION')
-} else {
-    version = "${mc_version}-${mod_version}"
+if (System.getenv('MOD_VERSION') != null) {
+    mod_version = System.getenv('MOD_VERSION')
+}
+version = mod_version
+
+base {
+    archivesName = mod_id + "-" + minecraft_version
 }
 
-group = "com.github.klikli_dev"
-archivesBaseName = "occultism"
-
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.withSourcesJar()
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
@@ -44,7 +45,7 @@ minecraft {
             jvmArgs '-XX:+AllowEnhancedClassRedefinition', '-XX:+IgnoreUnrecognizedVMOptions'
 
             mods {
-                occultism {
+                "${mod_id}" {
                     source sourceSets.main
                 }
             }
@@ -53,7 +54,7 @@ minecraft {
         clientalt {
             parent runs.client
             //somehow doesnt replace the name but adds a new one, so we manually need remove
-            args '--username', 'Dev####' //#s get replaced with random numbers when starting
+            args '--username', 'Occultism2' //#s get replaced with random numbers when starting
         }
 
         server {
@@ -73,7 +74,7 @@ minecraft {
             jvmArgs '-XX:+AllowEnhancedClassRedefinition', '-XX:+IgnoreUnrecognizedVMOptions'
 
             mods {
-                occultism {
+                "${mod_id}" {
                     source sourceSets.main
                 }
             }
@@ -95,7 +96,7 @@ minecraft {
             args '--mod', 'occultism', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                occultism {
+                "${mod_id}" {
                     source sourceSets.main
                 }
             }
@@ -108,8 +109,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven {
-        name = "KliKli Dev Repsy Maven"
-        url = "https://repo.repsy.io/mvn/klikli-dev/mods"
+        url "https://dl.cloudsmith.io/public/klikli-dev/mods/maven/"
         content {
             includeGroup "com.klikli_dev"
         }
@@ -156,6 +156,10 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    maven {
+        name = "TerraformersMC"
+        url = "https://maven.terraformersmc.com/"
+    }
     flatDir {
         dirs 'lib'
     }
@@ -168,36 +172,41 @@ dependencies {
     minecraft "net.minecraftforge:forge:${forge_version}"
 
     //Jei
-    compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-common-api:${jei_version}")
-    compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-forge-api:${jei_version}")
-    runtimeOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-forge:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
     //curios
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_mc_version}-${curios_version}:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_mc_version}-${curios_version}")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}")
 
     //geckolib
-    implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${geckolib_mc_version}:${geckolib_version}")
+    implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${geckolib_minecraft_version}:${geckolib_version}")
 
     //smartbrainlib
-    implementation fg.deobf("net.tslat.smartbrainlib:SmartBrainLib-forge-${smartbrainlib_mc_version}:${smartbrainlib_version}")
+    implementation fg.deobf("net.tslat.smartbrainlib:SmartBrainLib-forge-${smartbrainlib_minecraft_version}:${smartbrainlib_version}")
 
     //almostunified
-    compileOnly fg.deobf("com.almostreliable.mods:almostunified-forge:${almostunified_version}")
-    runtimeOnly fg.deobf("com.almostreliable.mods:almostunified-forge:${almostunified_version}")
+    implementation fg.deobf("com.almostreliable.mods:almostunified-forge:${minecraft_version}-${almost_unified_version}")
 
     //modonomicon
-    implementation fg.deobf("com.klikli_dev:modonomicon:${modonomicon_mc_version}-${modonomicon_version}") //we build against full jar because we NEED IT ALL
+    implementation fg.deobf("com.klikli_dev:modonomicon-${minecraft_version}-forge:${modonomicon_version}")
 
     //theurgy
-    compileOnly fg.deobf("com.klikli_dev:theurgy:${theurgy_mc_version}-${theurgy_version}")
-    runtimeOnly fg.deobf("com.klikli_dev:theurgy:${theurgy_mc_version}-${theurgy_version}")
+    compileOnly fg.deobf("com.klikli_dev:theurgy-${minecraft_version}:${theurgy_version}"){transitive=false}
+    runtimeOnly fg.deobf("com.klikli_dev:theurgy-${minecraft_version}:${theurgy_version}"){transitive=false}
+
+    // emi
+    compileOnly fg.deobf("dev.emi:emi-forge:${emi_version}:api")
+    if(System.getenv("EMI") == "true") {
+        runtimeOnly fg.deobf("dev.emi:emi-forge:${emi_version}")
+    }
 
     //runtime only helper mods for dev env, placed in ./runtime-mods, example: Hwyla-forge-1.10.11-B78_1.16.2.jar
     //runtimeOnly fg.deobf("ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2")
 
     //alltheores - for recipe testing
-    //enable once available for 1.19.3
+    //enable once available for 1.20
     //runtimeOnly fg.deobf("curse.maven:alltheores-405593:xyz") //
 
     //Ma for crafting issue testing
@@ -206,40 +215,68 @@ dependencies {
 
     //PerViamInvenire - for AI integration testing
     //runtimeOnly fg.deobf("curse.maven:perviaminvenire-449945:xyz") //
-    //enable once available for 1.19.3
+    //enable once available for 1.20
     //runtimeOnly fg.deobf("com.ldtteam:per_viam_invenire:1.19.3-XYZ-RELEASE:universal")
+}
+
+processResources {
+    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+        expand project.properties
+    }
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
 jar {
     manifest {
         attributes([
-            "Specification-Title": "occultism",
-            "Specification-Vendor": "Kli Kli",
-            "Specification-Version": "1", // We are version 1 of ourselves
-            "Implementation-Title": project.name,
-            "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"Kli Kli",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                "Specification-Title"     : mod_id,
+                "Specification-Vendor"    : mod_authors,
+                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : mod_version,
+                "Implementation-Vendor"   : mod_authors,
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
 }
 
-// Example configuration to allow publishing using the maven-publish task
-// This is the preferred method to reobfuscate your jar file
-jar.finalizedBy('reobfJar') 
-// However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
-//publish.dependsOn('reobfJar')
+jar.finalizedBy('reobfJar')
 
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifact jar
+            artifactId base.archivesName.get()
+
+            from components.java
+
+            pom {
+                name = mod_name
+                description = 'A magic mod inspired by the world of Jonathan Stroud\'s Bartimaeus. With the help of occult rituals players can summon entities from the "Other Side" to perform magic.'
+                url = 'https://github.com/klikli-dev/occultism'
+                licenses {
+                    license {
+                        name = 'MIT AND CC-BY-4.0'
+                        url = 'https://github.com/klikli-dev/occultism#licensing'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:ssh:git@github.com:klikli-dev/occultism.git'
+                    url = 'https://github.com/klikli-dev/occultism'
+                }
+            }
         }
     }
     repositories {
         maven {
-            url "file:///${project.projectDir}/mcmodsrepo"
+            name = "cloudsmith"
+            url = "https://maven.cloudsmith.io/klikli-dev/mods/"
+            def releasesRepoUrl = "https://maven.cloudsmith.io/klikli-dev/mods/"
+            def snapshotsRepoUrl = "https://maven.cloudsmith.io/klikli-dev/mods/"
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            credentials {
+                username = System.getenv('MAVEN_USER')
+                password = System.getenv('MAVEN_PASS')
+            }
         }
     }
 }
@@ -251,9 +288,6 @@ afterEvaluate {
     }
 }
 
-compileJava.options.encoding = 'UTF-8'
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
-
-processResources.setDuplicatesStrategy(DuplicatesStrategy.WARN)

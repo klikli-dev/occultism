@@ -16,5 +16,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "occultism:blocks/wither_skeleton_skull_dummy"
 }

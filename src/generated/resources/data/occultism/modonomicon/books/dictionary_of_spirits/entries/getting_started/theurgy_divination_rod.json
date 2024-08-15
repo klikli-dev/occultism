@@ -17,12 +17,17 @@
   },
   "description": "book.occultism.dictionary_of_spirits.getting_started.theurgy_divination_rod.description",
   "hide_while_locked": true,
-  "icon": "theurgy:divination_rod_t1",
+  "icon": {
+    "item": "theurgy:divination_rod_t1"
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.theurgy_divination_rod.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "theurgy:divination_rod_t1"
       },
@@ -32,6 +37,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "theurgy:crafting/shaped/divination_rod_t1",
       "text": "",
       "title1": "",
@@ -40,6 +48,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.theurgy_divination_rod.more_info.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.theurgy_divination_rod.more_info.title",
@@ -48,6 +59,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "theurgy:crafting/shapeless/the_hermetica",
       "text": "",
       "title1": "",
@@ -62,6 +76,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -7,
   "y": -4
 }

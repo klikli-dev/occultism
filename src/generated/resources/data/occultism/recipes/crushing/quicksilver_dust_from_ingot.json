@@ -5,14 +5,14 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:ingots/quicksilver"
+        "tag": "forge:dusts/quicksilver"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/quicksilver"
+        "tag": "forge:ingots/quicksilver"
       }
     }
   ],

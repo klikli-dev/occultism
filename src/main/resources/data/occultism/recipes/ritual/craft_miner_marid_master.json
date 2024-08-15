@@ -7,11 +7,11 @@
   "pentacle_id": "occultism:craft_marid",
   "duration": 120,
   "ritual_dummy": {
-    "item": "occultism:ritual_dummy/custom_ritual"
+    "item": "occultism:ritual_dummy/craft_miner_marid_master"
   },
   "ingredients": [
     {
-      "item": "occultism:magic_lamp_empty"
+      "item": "occultism:miner_afrit_deeps"
     },
     {
       "item": "occultism:iesnium_pickaxe"

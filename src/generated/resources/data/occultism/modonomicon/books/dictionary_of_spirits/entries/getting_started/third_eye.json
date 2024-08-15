@@ -4,12 +4,19 @@
   "category": "occultism:getting_started",
   "description": "book.occultism.dictionary_of_spirits.getting_started.third_eye.description",
   "hide_while_locked": false,
-  "icon": "occultism:textures/mob_effect/third_eye.png",
+  "icon": {
+    "height": 16,
+    "texture": "occultism:textures/mob_effect/third_eye.png",
+    "width": 16
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.third_eye.name",
   "pages": [
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.third_eye.about.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.third_eye.about.title",
@@ -18,6 +25,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.third_eye.how_to_obtain.text",
       "title": "",
@@ -26,6 +36,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:otherworld_goggles"
       },
@@ -41,6 +54,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -11,
   "y": 2
 }

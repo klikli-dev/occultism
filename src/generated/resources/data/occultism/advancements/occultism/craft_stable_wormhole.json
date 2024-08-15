@@ -29,5 +29,6 @@
     [
       "craft_stable_wormhole"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

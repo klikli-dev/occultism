@@ -29,5 +29,6 @@
     [
       "summon_djinni_crusher"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

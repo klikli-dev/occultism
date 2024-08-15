@@ -5,14 +5,14 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:ores/uranium"
+        "tag": "forge:dusts/uranium"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/uranium"
+        "tag": "forge:ores/uranium"
       }
     }
   ],

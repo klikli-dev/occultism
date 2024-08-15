@@ -29,5 +29,6 @@
     [
       "craft_stabilizer_tier1"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

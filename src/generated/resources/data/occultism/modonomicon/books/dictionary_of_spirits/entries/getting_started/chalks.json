@@ -4,12 +4,17 @@
   "category": "occultism:getting_started",
   "description": "book.occultism.dictionary_of_spirits.getting_started.chalks.description",
   "hide_while_locked": false,
-  "icon": "occultism:chalk_gold",
+  "icon": {
+    "item": "occultism:chalk_gold"
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.chalks.name",
   "pages": [
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.chalks.intro.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.chalks.intro.title",
@@ -18,6 +23,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:crafting/chalk_gold_impure",
       "text": "",
       "title1": "",
@@ -26,6 +34,9 @@
     {
       "type": "occultism:spirit_fire_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:spirit_fire/chalk_gold",
       "text": "",
       "title1": "",
@@ -34,6 +45,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:crafting/chalk_purple_impure",
       "text": "book.occultism.dictionary_of_spirits.getting_started.chalks.impure_purple_chalk_recipe.text",
       "title1": "",
@@ -42,6 +56,9 @@
     {
       "type": "occultism:spirit_fire_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:spirit_fire/chalk_purple",
       "text": "",
       "title1": "",
@@ -50,6 +67,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:crafting/chalk_red_impure",
       "text": "",
       "title1": "",
@@ -58,6 +78,9 @@
     {
       "type": "occultism:spirit_fire_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:spirit_fire/chalk_red",
       "text": "",
       "title1": "",
@@ -66,6 +89,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:afrit_essence"
       },
@@ -81,6 +107,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": 5,
   "y": 0
 }

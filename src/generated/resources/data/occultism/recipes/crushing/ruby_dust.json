@@ -5,14 +5,14 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:ores/ruby"
+        "tag": "forge:dusts/ruby"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/ruby"
+        "tag": "forge:ores/ruby"
       }
     }
   ],
@@ -22,7 +22,7 @@
     "tag": "forge:ores/ruby"
   },
   "result": {
-    "count": 2,
+    "count": 4,
     "tag": "forge:dusts/ruby"
   }
 }

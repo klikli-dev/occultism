@@ -5,14 +5,14 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:ingots/invar"
+        "tag": "forge:dusts/invar"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/invar"
+        "tag": "forge:ingots/invar"
       }
     }
   ],

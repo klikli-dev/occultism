@@ -5,14 +5,14 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:ores/apatite"
+        "tag": "forge:dusts/apatite"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/apatite"
+        "tag": "forge:ores/apatite"
       }
     }
   ],
@@ -22,7 +22,7 @@
     "tag": "forge:ores/apatite"
   },
   "result": {
-    "count": 2,
+    "count": 4,
     "tag": "forge:dusts/apatite"
   }
 }

@@ -36,5 +36,6 @@
     [
       "dragon_fetch"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

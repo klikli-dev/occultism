@@ -4,12 +4,17 @@
   "category": "occultism:getting_started",
   "description": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.description",
   "hide_while_locked": false,
-  "icon": "occultism:datura",
+  "icon": {
+    "item": "occultism:datura"
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.name",
   "pages": [
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.intro.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.intro.title",
@@ -18,6 +23,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.intro2.text",
       "title": "",
@@ -26,6 +34,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:datura"
       },
@@ -35,6 +46,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.harvest_effect.text",
       "title": "",
@@ -44,6 +58,9 @@
       "type": "modonomicon:image",
       "anchor": "",
       "border": true,
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "images": [
         "occultism:textures/gui/book/datura_effect.png"
       ],
@@ -53,10 +70,60 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.note_on_spirit_fire.text",
       "title": "",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "occultism:demons_dream_essence"
+      },
+      "text": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.spotlight2.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:crafting/demons_dream_essence_from_fruit",
+      "recipe_id_2": "occultism:crafting/demons_dream_essence_from_seeds",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "occultism:demons_dream_essence"
+      },
+      "text": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.spotlight3.text",
+      "title": ""
+    },
+    {
+      "type": "occultism:spirit_fire_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:spirit_fire/otherworld_essence",
+      "text": "",
+      "title1": "",
+      "title2": ""
     }
   ],
   "parents": [
@@ -67,6 +134,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -11,
   "y": 0
 }

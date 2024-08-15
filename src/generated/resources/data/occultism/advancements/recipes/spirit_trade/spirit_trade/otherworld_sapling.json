@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_otherworld_sapling_natural": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "occultism:otherworld_sapling_natural"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:spirit_trade/otherworld_sapling"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_otherworld_sapling_natural",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:spirit_trade/otherworld_sapling"
+    ]
+  },
+  "sends_telemetry_event": true
+}

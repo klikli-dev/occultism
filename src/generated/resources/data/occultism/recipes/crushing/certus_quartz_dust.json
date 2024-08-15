@@ -5,14 +5,14 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:ores/certus_quartz"
+        "tag": "forge:dusts/certus_quartz"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/certus_quartz"
+        "tag": "forge:ores/certus_quartz"
       }
     }
   ],
@@ -22,7 +22,7 @@
     "tag": "forge:ores/certus_quartz"
   },
   "result": {
-    "count": 2,
+    "count": 4,
     "tag": "forge:dusts/certus_quartz"
   }
 }

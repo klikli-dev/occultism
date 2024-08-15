@@ -7,12 +7,17 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:otherworld_sapling",
+  "icon": {
+    "item": "occultism:otherworld_sapling"
+  },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherworld_sapling_trader.name",
   "pages": [
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherworld_sapling_trader.intro.text",
       "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherworld_sapling_trader.intro.title",
@@ -21,14 +26,20 @@
     {
       "type": "occultism:spirit_trade_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:spirit_trade/otherworld_sapling",
-      "text": "",
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_otherworld_sapling_trader.trade.text",
       "title1": "",
       "title2": ""
     },
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/summon_foliot_sapling_trader",
       "text": "",
       "title1": "",
@@ -43,6 +54,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": 0,
   "y": 2
 }

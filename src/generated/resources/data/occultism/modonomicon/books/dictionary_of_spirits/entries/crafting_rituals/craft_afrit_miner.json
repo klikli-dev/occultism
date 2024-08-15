@@ -7,12 +7,17 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:miner_afrit_deeps",
+  "icon": {
+    "item": "occultism:miner_afrit_deeps"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_afrit_miner.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:miner_afrit_deeps"
       },
@@ -22,6 +27,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/craft_miner_afrit_deeps",
       "text": "",
       "title1": "",
@@ -36,6 +44,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": 0,
   "y": -5
 }

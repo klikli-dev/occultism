@@ -1,0 +1,12 @@
+{
+  "type": "occultism:crushing",
+  "crushing_time": 200,
+  "ignore_crushing_multiplier": false,
+  "ingredient": {
+    "tag": "forge:rods/blaze"
+  },
+  "result": {
+    "count": 1,
+    "tag": "forge:dusts/blaze"
+  }
+}

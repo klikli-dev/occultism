@@ -4,12 +4,19 @@
   "category": "occultism:spirits",
   "description": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.description",
   "hide_while_locked": false,
-  "icon": "occultism:textures/gui/book/unbound_spirits.png",
+  "icon": {
+    "height": 16,
+    "texture": "occultism:textures/gui/book/unbound_spirits.png",
+    "width": 16
+  },
   "name": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.name",
   "pages": [
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.intro.text",
       "title": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.intro.title",
@@ -18,6 +25,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.unbound.text",
       "title": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.unbound.title",
@@ -26,6 +36,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.unbound2.text",
       "title": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.unbound2.title",
@@ -34,6 +47,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.essence.text",
       "title": "book.occultism.dictionary_of_spirits.spirits.unbound_spirits.essence.title",
@@ -48,6 +64,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -4,
   "y": -1
 }

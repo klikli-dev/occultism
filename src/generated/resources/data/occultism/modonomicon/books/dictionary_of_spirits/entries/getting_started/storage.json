@@ -5,7 +5,9 @@
   "category_to_open": "occultism:storage",
   "description": "book.occultism.dictionary_of_spirits.getting_started.storage.description",
   "hide_while_locked": false,
-  "icon": "occultism:storage_controller",
+  "icon": {
+    "item": "occultism:storage_controller"
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.storage.name",
   "parents": [
     {
@@ -15,6 +17,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": 7,
   "y": 0
 }

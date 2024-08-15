@@ -29,5 +29,6 @@
     [
       "possess_endermite"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

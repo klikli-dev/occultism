@@ -7,12 +7,17 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "minecraft:ender_pearl",
+  "icon": {
+    "item": "minecraft:ender_pearl"
+  },
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_enderman.name",
   "pages": [
     {
       "type": "modonomicon:entity",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "default_rotation": -45.0,
       "entity_id": "occultism:possessed_enderman",
       "name": "",
@@ -24,6 +29,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/possess_enderman",
       "text": "",
       "title1": "",
@@ -32,6 +40,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_enderman.description.text",
       "title": "",
@@ -46,6 +57,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -4,
   "y": -1
 }

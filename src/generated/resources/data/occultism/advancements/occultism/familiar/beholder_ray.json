@@ -28,5 +28,6 @@
     [
       "beholder_ray"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

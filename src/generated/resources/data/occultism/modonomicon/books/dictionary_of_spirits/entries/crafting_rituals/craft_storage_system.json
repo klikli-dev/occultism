@@ -7,12 +7,17 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "minecraft:chest",
+  "icon": {
+    "item": "minecraft:chest"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_storage_system.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:storage_controller"
       },
@@ -28,6 +33,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -4,
   "y": 1
 }

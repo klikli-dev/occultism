@@ -1,0 +1,48 @@
+{
+  "type": "occultism:ritual",
+  "ritual_type": "occultism:summon_tamed",
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_djinni"
+  },
+  "pentacle_id": "occultism:summon_djinni",
+  "duration": 60,
+  "entity_to_sacrifice": {
+    "tag": "forge:chicken",
+    "display_name": "ritual.occultism.sacrifice.chicken"
+  },
+  "entity_to_summon": "occultism:demonic_wife",
+  "ritual_dummy": {
+    "item": "occultism:ritual_dummy/summon_demonic_wife"
+  },
+  "ingredients": [
+    {
+      "tag": "forge:ingots/gold"
+    },
+    {
+      "tag": "forge:gems/diamond"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "item": "minecraft:porkchop"
+    },
+    {
+      "tag": "minecraft:swords"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    }
+  ],
+  "result": {
+    "item": "occultism:spawn_egg/demonic_wife",
+    "nbt": {
+      "display": {
+        "Lore": [
+          "[{\"translate\":\"item.occultism.ritual_dummy.summon_demonic_wife.tooltip\"}]"
+        ],
+        "Name": "[{\"translate\":\"item.occultism.summon_demonic_wife.demonic_wife\"}]"
+      }
+    }
+  }
+}

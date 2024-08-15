@@ -7,12 +7,17 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "occultism:dimensional_mineshaft",
+  "icon": {
+    "item": "occultism:dimensional_mineshaft"
+  },
   "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_mineshaft.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "occultism:dimensional_mineshaft"
       },
@@ -22,6 +27,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/craft_dimensional_mineshaft",
       "text": "",
       "title1": "",
@@ -30,6 +38,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_mineshaft.description.text",
       "title": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_mineshaft.description.title",
@@ -44,6 +55,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -6,
   "y": -5
 }

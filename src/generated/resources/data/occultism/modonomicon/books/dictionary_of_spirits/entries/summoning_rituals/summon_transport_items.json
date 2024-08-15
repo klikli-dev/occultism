@@ -7,12 +7,17 @@
   },
   "description": "",
   "hide_while_locked": false,
-  "icon": "minecraft:minecart",
+  "icon": {
+    "item": "minecraft:minecart"
+  },
   "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.name",
   "pages": [
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.intro.text",
       "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.intro.title",
@@ -21,6 +26,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.intro2.text",
       "title": "",
@@ -29,6 +37,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.spirit_inventories.text",
       "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.spirit_inventories.title",
@@ -37,6 +48,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.item_filters.text",
       "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.item_filters.title",
@@ -45,6 +59,9 @@
     {
       "type": "occultism:ritual_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:ritual/summon_foliot_transport_items",
       "text": "",
       "title1": "",
@@ -53,6 +70,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "occultism:crafting/book_of_calling_foliot_transport_items",
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.book_of_calling.text",
       "title1": "",
@@ -67,6 +87,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": 0,
   "y": -4
 }

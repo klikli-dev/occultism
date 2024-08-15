@@ -5,14 +5,14 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:ores/amber"
+        "tag": "forge:dusts/amber"
       }
     },
     {
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:dusts/amber"
+        "tag": "forge:ores/amber"
       }
     }
   ],
@@ -22,7 +22,7 @@
     "tag": "forge:ores/amber"
   },
   "result": {
-    "count": 2,
+    "count": 4,
     "tag": "forge:dusts/amber"
   }
 }

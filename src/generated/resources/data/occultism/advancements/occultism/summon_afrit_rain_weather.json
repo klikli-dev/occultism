@@ -29,5 +29,6 @@
     [
       "summon_afrit_rain_weather"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

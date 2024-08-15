@@ -29,5 +29,6 @@
     [
       "possess_ghast"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

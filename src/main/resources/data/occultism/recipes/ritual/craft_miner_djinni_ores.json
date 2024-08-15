@@ -11,7 +11,7 @@
   },
   "ingredients": [
     {
-      "item": "occultism:magic_lamp_empty"
+      "item": "occultism:miner_foliot_unspecialized"
     },
     {
       "item": "occultism:iesnium_pickaxe"
@@ -20,7 +20,7 @@
       "tag": "forge:raw_materials/gold"
     },
     {
-      "tag": "forge:storage_blocks/iesnium"
+      "tag": "forge:storage_blocks/lapis"
     },
     {
       "item": "occultism:spirit_attuned_crystal"

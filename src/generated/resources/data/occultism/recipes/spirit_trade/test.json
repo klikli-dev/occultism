@@ -1,0 +1,12 @@
+{
+  "type": "occultism:spirit_trade",
+  "ingredients": [
+    {
+      "tag": "forge:stone"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "occultism:otherstone"
+  }
+}

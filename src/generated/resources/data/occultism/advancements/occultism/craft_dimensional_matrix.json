@@ -29,5 +29,6 @@
     [
       "craft_dimensional_matrix"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

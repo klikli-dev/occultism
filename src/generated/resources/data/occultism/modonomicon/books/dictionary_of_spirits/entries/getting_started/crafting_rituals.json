@@ -4,12 +4,19 @@
   "category": "occultism:getting_started",
   "description": "book.occultism.dictionary_of_spirits.getting_started.crafting_rituals.description",
   "hide_while_locked": false,
-  "icon": "occultism:textures/gui/book/infusion.png",
+  "icon": {
+    "height": 16,
+    "texture": "occultism:textures/gui/book/infusion.png",
+    "width": 16
+  },
   "name": "book.occultism.dictionary_of_spirits.getting_started.crafting_rituals.name",
   "pages": [
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.crafting_rituals.intro.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.crafting_rituals.intro.title",
@@ -18,6 +25,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.crafting_rituals.more.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.crafting_rituals.more.title",
@@ -32,6 +42,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": 15,
   "y": 4
 }

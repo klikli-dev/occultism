@@ -29,5 +29,6 @@
     [
       "familiar_fairy"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }
