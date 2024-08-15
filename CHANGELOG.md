@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.148.2] - 2024-08-15
+### :bug: Bug Fixes
+- [`f33da3c`](https://github.com/klikli-dev/occultism/commit/f33da3c98f569d24ed820e854998827c94c9773f) - marid crusher ritual in afrit pentacle [#1189](https://github.com/klikli-dev/occultism/pull/1189) *(PR [#1190](https://github.com/klikli-dev/occultism/pull/1190) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+
+### :wrench: Chores
+- [`8db58a4`](https://github.com/klikli-dev/occultism/commit/8db58a45fc36df8447ef1c27e0472f1d1de3f8e1) - run datagen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.148.1] - 2024-08-15
 ### :bug: Bug Fixes
 - [`b25f43d`](https://github.com/klikli-dev/occultism/commit/b25f43d2ce514b9e80a58f25c6f6c6101781e2a6) - Fix an incorrect dummy item *(commit by [@blockgoblin31](https://github.com/blockgoblin31))*
@@ -1549,3 +1557,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.147.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.147.0...release/v1.21-1.147.1
 [release/v1.21-1.148.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.147.1...release/v1.21-1.148.0
 [release/v1.21-1.148.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.148.0...release/v1.21-1.148.1
+[release/v1.21-1.148.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.148.1...release/v1.21-1.148.2
