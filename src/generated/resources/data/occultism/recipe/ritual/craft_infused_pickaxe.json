@@ -28,7 +28,7 @@
   },
   "ritual_dummy": {
     "count": 1,
-    "id": "occultism:ritual_dummy/craft_dimensional_matrix"
+    "id": "occultism:ritual_dummy/craft_infused_pickaxe"
   },
   "ritual_type": "occultism:craft_with_spirit_name"
 }
