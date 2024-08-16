@@ -33,6 +33,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -52,6 +53,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
 import java.util.Optional;
@@ -240,6 +242,11 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         compound.putBoolean("isSitting", this.isSitting());
         compound.putBoolean("hasBlacksmithUpgrade", this.hasBlacksmithUpgrade());
         compound.putByte("variants", this.entityData.get(VARIANTS));
+    }
+
+    @Override
+    public boolean isInvulnerableTo(@NotNull DamageSource source) {
+        return super.isInvulnerableTo(source) || source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.FLY_INTO_WALL);
     }
 
     public boolean isSitting() {
