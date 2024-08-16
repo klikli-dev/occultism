@@ -100,6 +100,7 @@ public class OccultismTags {
         public static final TagKey<Item> TALLOW = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "tallow"));
         public static final TagKey<Item> BOOK_OF_CALLING_FOLIOT = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "books/book_of_calling_foliot"));
         public static final TagKey<Item> BOOK_OF_CALLING_DJINNI = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "books/book_of_calling_djinni"));
+        public static final TagKey<Item> BOOKS_OF_BINDING = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "books/books_of_binding"));
 
 
         public static final TagKey<Item> MAGMA = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "magma"));

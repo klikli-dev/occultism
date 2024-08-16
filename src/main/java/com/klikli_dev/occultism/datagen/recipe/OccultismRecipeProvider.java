@@ -1,6 +1,7 @@
 package com.klikli_dev.occultism.datagen.recipe;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.crafting.recipe.BoundBookOfBindingRecipe;
 import com.klikli_dev.occultism.datagen.recipe.builders.CrushingRecipeBuilder;
 import com.klikli_dev.occultism.datagen.recipe.builders.MinerRecipeBuilder;
 import com.klikli_dev.occultism.datagen.recipe.builders.SpiritFireRecipeBuilder;
@@ -15,6 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.ArmorDyeRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
@@ -349,6 +351,9 @@ public class OccultismRecipeProvider extends RecipeProvider {
     }
 
     private void craftingRecipes(RecipeOutput pRecipeOutput) {
+        SpecialRecipeBuilder.special(BoundBookOfBindingRecipe::new).save(pRecipeOutput,
+                ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/bound_book_of_binding"));
+
         metalRecipes(pRecipeOutput);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.BOOK_OF_BINDING_EMPTY.get())
                 .requires(OccultismItems.AWAKENED_FEATHER.get())
@@ -376,11 +381,11 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .define('b', OccultismItems.BOOK_OF_BINDING_EMPTY.get())
                 .unlockedBy("has_taboo_book", has(OccultismItems.BOOK_OF_BINDING_EMPTY.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/book_of_binding_afrit_from_empty"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get())
-                .requires(OccultismItems.BOOK_OF_BINDING_AFRIT.get())
-                .requires(OccultismItems.DICTIONARY_OF_SPIRITS.get())
-                .unlockedBy("has_book_of_binding_afrit", has(OccultismItems.BOOK_OF_BINDING_AFRIT.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/book_of_binding_bound_afrit"));
+//        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get())
+//                .requires(OccultismItems.BOOK_OF_BINDING_AFRIT.get())
+//                .requires(OccultismItems.DICTIONARY_OF_SPIRITS.get())
+//                .unlockedBy("has_book_of_binding_afrit", has(OccultismItems.BOOK_OF_BINDING_AFRIT.get()))
+//                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/book_of_binding_bound_afrit"));
 
         // Djinni
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, OccultismItems.BOOK_OF_BINDING_DJINNI.get())
@@ -402,11 +407,11 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_empty_binding", has(OccultismItems.BOOK_OF_BINDING_EMPTY.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/book_of_binding_djinni_from_empty"));
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get())
-                .requires(OccultismItems.BOOK_OF_BINDING_DJINNI.get())
-                .requires(OccultismItems.DICTIONARY_OF_SPIRITS.get())
-                .unlockedBy("has_book_of_binding_djinni", has(OccultismItems.BOOK_OF_BINDING_DJINNI.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/book_of_binding_bound_djinni"));
+//        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get())
+//                .requires(OccultismItems.BOOK_OF_BINDING_DJINNI.get())
+//                .requires(OccultismItems.DICTIONARY_OF_SPIRITS.get())
+//                .unlockedBy("has_book_of_binding_djinni", has(OccultismItems.BOOK_OF_BINDING_DJINNI.get()))
+//                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/book_of_binding_bound_djinni"));
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get())
                 .requires(OccultismTags.Items.BOOK_OF_CALLING_DJINNI)
                 .unlockedBy("has_book_of_calling_djinni", has(OccultismTags.Items.BOOK_OF_CALLING_DJINNI))
@@ -432,11 +437,11 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_empty_binding", has(OccultismItems.BOOK_OF_BINDING_EMPTY.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/book_of_binding_foliot_from_empty"));
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get())
-                .requires(OccultismItems.BOOK_OF_BINDING_FOLIOT.get())
-                .requires(OccultismItems.DICTIONARY_OF_SPIRITS.get())
-                .unlockedBy("has_book_of_binding_foliot", has(OccultismItems.BOOK_OF_BINDING_FOLIOT.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/book_of_binding_bound_foliot"));
+//        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get())
+//                .requires(OccultismItems.BOOK_OF_BINDING_FOLIOT.get())
+//                .requires(OccultismItems.DICTIONARY_OF_SPIRITS.get())
+//                .unlockedBy("has_book_of_binding_foliot", has(OccultismItems.BOOK_OF_BINDING_FOLIOT.get()))
+//                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/book_of_binding_bound_foliot"));
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get())
                 .requires(OccultismTags.Items.BOOK_OF_CALLING_FOLIOT)
                 .unlockedBy("has_book_of_calling_foliot", has(OccultismTags.Items.BOOK_OF_CALLING_FOLIOT))
@@ -464,11 +469,11 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_empty_binding", has(OccultismItems.BOOK_OF_BINDING_EMPTY.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/book_of_binding_marid_from_empty"));
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get())
-                .requires(OccultismItems.BOOK_OF_BINDING_MARID.get())
-                .requires(OccultismItems.DICTIONARY_OF_SPIRITS.get())
-                .unlockedBy("has_book_of_binding_marid", has(OccultismItems.BOOK_OF_BINDING_MARID.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/book_of_binding_bound_marid"));
+//        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get())
+//                .requires(OccultismItems.BOOK_OF_BINDING_MARID.get())
+//                .requires(OccultismItems.DICTIONARY_OF_SPIRITS.get())
+//                .unlockedBy("has_book_of_binding_marid", has(OccultismItems.BOOK_OF_BINDING_MARID.get()))
+//                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/book_of_binding_bound_marid"));
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get())
                 .requires(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get())

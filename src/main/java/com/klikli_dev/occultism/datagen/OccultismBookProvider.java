@@ -105,7 +105,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 "__________________________________",
                 "______e_h_____ạ_______m___________",
                 "__________________________________",
-                "________________C___p_S___w_x_y_z_"
+                "______________Á_C___p_S___w_x_y_z_"
         );
         //B=brush, N=Next Steps, P=iesnium pick
         //i=intro, r=divinationRod, ç = chalk, b=bowls, g=goggles,  I=infused pick O= tier 2 otherworld materials
@@ -158,6 +158,9 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         var booksOfBinding = this.makeBooksOfBindingEntry(entryMap, 'ạ');
         booksOfBinding.withParent(BookEntryParentModel.create(candleEntry.getId()));
+
+        var booksOfBindingAutomation = this.makeBooksOfBindingAutomationEntry(entryMap, 'Á');
+        booksOfBindingAutomation.withParent(BookEntryParentModel.create(booksOfBinding.getId()));
 
         var booksOfCalling = this.makeBooksOfCallingEntry(entryMap, 'C');
         booksOfCalling.withParent(BookEntryParentModel.create(booksOfBinding.getId()));
@@ -226,6 +229,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         ritualPrepChalkEntry,
                         ritualPrepBowlEntry,
                         booksOfBinding,
+                        booksOfBindingAutomation,
                         ritualEntry,
                         brushEntry,
                         moreRitualsEntry,
@@ -1113,6 +1117,49 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         bookOfBindingMaridRecipe,
                         alternativeBooks,
                         bookOfBindingEmptyRecipe
+                );
+    }
+
+    private BookEntryModel makeBooksOfBindingAutomationEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("books_of_binding_automation");
+        this.lang().add(this.context().entryName(), "Books of Binding in Automation");
+        this.lang().add(this.context().entryDescription(), "Tips for using books of binding in Crafting Automation such as AE2 or RS");
+
+        this.context().page("intro");
+        var intro = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "The Problem");
+        this.lang().add(this.context().pageText(),
+                """
+                        Bound Books of Binding are generated with a random spirit name. This tricks many automated crafting processes into no longer recognizing the item as the requested crafting result, because it does not expect NBT/Data Components on the item.
+                        \\
+                        \\
+                        This leads to stuck crafting processes.
+                        """
+        );
+
+        this.context().page("solution");
+        var solution = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "The Solution");
+        this.lang().add(this.context().pageText(),
+                """
+                        1. Put a dictionary of spirits into an anvil and give it a name. This will be the name of all spirits summoned in the future.
+                        2. Use this dictionary to configure crafting patterns (if your automation mod requires it).
+                        2. Use this dictionary to craft the Bound Books of Binding in the automation system. As usual, the dictionary will not be used up.
+                        3. All crafted books will now have the same name and will be recognized by your automation system.
+                        """
+        );
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withDescription(this.context().entryDescription())
+                .withIcon(Items.CRAFTER)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        intro,
+                        solution
                 );
     }
 

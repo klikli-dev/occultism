@@ -1,0 +1,47 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "occultism:getting_started",
+  "description": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "minecraft:crafter"
+  },
+  "name": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.solution.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.solution.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "occultism:getting_started/books_of_binding",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": -1,
+  "x": -3,
+  "y": 4
+}
