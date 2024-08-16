@@ -1148,8 +1148,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 """
                         1. Put a dictionary of spirits into an anvil and give it a name. This will be the name of all spirits summoned in the future.
                         2. Use this dictionary to configure crafting patterns (if your automation mod requires it).
-                        2. Use this dictionary to craft the Bound Books of Binding in the automation system. As usual, the dictionary will not be used up.
-                        3. All crafted books will now have the same name and will be recognized by your automation system.
+                        3. Use this dictionary to craft the Bound Books of Binding in the automation system. As usual, the dictionary will not be used up.
+                        4. All crafted books will now have the same name and will be recognized by your automation system.
                         """
         );
 
