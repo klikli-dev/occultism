@@ -5,6 +5,7 @@ import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -64,7 +65,14 @@ public class DemonicPartner extends TamableAnimal {
 
         var health = this.getHealth();
         this.setHealth(this.getMaxHealth()); //simulate a healthy familiar to avoid death on respawn
-        shard.set(DataComponents.ENTITY_DATA, CustomData.of(this.serializeNBT(this.registryAccess())));
+
+        var entityData = new CompoundTag();
+                var id = this.getEncodeId();
+        if(id != null)
+        entityData.putString("id", id);
+        entityData = this.saveWithoutId(entityData);
+
+        shard.set(DataComponents.ENTITY_DATA, CustomData.of(entityData));
         this.setHealth(health);
 
         if(owner instanceof Player player){

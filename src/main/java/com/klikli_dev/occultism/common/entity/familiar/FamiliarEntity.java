@@ -95,7 +95,15 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
         var health = this.getHealth();
         this.setHealth(this.getMaxHealth()); //simulate a healthy familiar to avoid death on respawn
-        shard.set(DataComponents.ENTITY_DATA, CustomData.of(this.serializeNBT(this.level().registryAccess())));
+
+        var entityData = new CompoundTag();
+        var id = this.getEncodeId();
+        if(id != null)
+            entityData.putString("id", id);
+        entityData = this.saveWithoutId(entityData);
+
+        shard.set(DataComponents.ENTITY_DATA, CustomData.of(entityData));
+
         this.setHealth(health);
 
         if (owner instanceof Player player) {

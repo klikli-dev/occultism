@@ -246,7 +246,13 @@ public class GuardianFamiliarEntity extends ColoredFamiliarEntity {
         var lives = this.getLives();
         this.setLives((byte) (this.getRandom().nextInt(5) + 1)); //randomize lives for next respawn
 
-        shard.set(DataComponents.ENTITY_DATA, CustomData.of(this.serializeNBT(this.level().registryAccess())));
+        var entityData = new CompoundTag();
+        var id = this.getEncodeId();
+        if(id != null)
+            entityData.putString("id", id);
+        entityData = this.saveWithoutId(entityData);
+
+        shard.set(DataComponents.ENTITY_DATA, CustomData.of(entityData));
 
         this.setHealth(health);
         this.setLives(lives);
