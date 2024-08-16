@@ -169,8 +169,8 @@ dependencies {
     implementation "com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}"
 
     //theurgy
-    compileOnly "com.klikli_dev:theurgy-${minecraft_version_major}-neoforge:${theurgy_version}"
-    runtimeOnly "com.klikli_dev:theurgy-${minecraft_version_major}-neoforge:${theurgy_version}"
+    compileOnly "com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}"
+    runtimeOnly "com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}"
 
     // emi
     compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
