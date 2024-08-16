@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.151.0] - 2024-08-16
+### :sparkles: New Features
+- [`d446005`](https://github.com/klikli-dev/occultism/commit/d446005444b9a99e2abd300f5a8cf4c7fb50b3a0) - add automation-friendly bound book of binding crafting *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.150.0] - 2024-08-16
 ### :sparkles: New Features
 - [`16ae752`](https://github.com/klikli-dev/occultism/commit/16ae752e297f6da955ad1852d189f48ef53dd506) - update to 1.21.1 while keeping backwards compat *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1573,3 +1578,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.148.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.148.1...release/v1.21-1.148.2
 [release/v1.21-1.149.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21-1.148.2...release/v1.21-1.149.0
 [release/v1.21.1-1.150.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-0.0.0...release/v1.21.1-1.150.0
+[release/v1.21.1-1.151.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.150.0...release/v1.21.1-1.151.0
