@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.151.3] - 2024-08-17
+### :bug: Bug Fixes
+- [`0bd9f66`](https://github.com/klikli-dev/occultism/commit/0bd9f66f23833c2a30cafb1c0a20d1ec0b7d1b52) - revert jei deprecation updates *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.151.2] - 2024-08-17
 ### :bug: Bug Fixes
 - [`b0405d3`](https://github.com/klikli-dev/occultism/commit/b0405d3c04e222e99583e17914af07a5bf2c6e75) - new bound book of binding recipes do not show up in recipe viewers *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1595,3 +1600,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.151.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.150.0...release/v1.21.1-1.151.0
 [release/v1.21.1-1.151.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.151.0...release/v1.21.1-1.151.1
 [release/v1.21.1-1.151.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.151.1...release/v1.21.1-1.151.2
+[release/v1.21.1-1.151.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.151.2...release/v1.21.1-1.151.3
