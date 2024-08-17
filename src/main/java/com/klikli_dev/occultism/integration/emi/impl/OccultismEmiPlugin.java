@@ -6,6 +6,7 @@ import com.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.klikli_dev.occultism.crafting.recipe.MinerRecipe;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
+import com.klikli_dev.occultism.integration.BoundBookRecipeMaker;
 import com.klikli_dev.occultism.integration.emi.impl.recipes.CrushingRecipeCategory;
 import com.klikli_dev.occultism.integration.emi.impl.recipes.MinerRecipeCategory;
 import com.klikli_dev.occultism.integration.emi.impl.recipes.RitualRecipeCategory;
@@ -16,12 +17,16 @@ import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiInitRegistry;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
+import dev.emi.emi.api.recipe.EmiCraftingRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
+import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -84,6 +89,11 @@ public class OccultismEmiPlugin implements EmiPlugin {
         }
         for(RecipeHolder<RitualRecipe> recipe:manager.getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get())){
             emiRegistry.addRecipe(new RitualRecipeCategory(recipe));
+        }
+
+        for(RecipeHolder<CraftingRecipe> recipe: BoundBookRecipeMaker.createRecipes()){
+            var ingredients = recipe.value().getIngredients().stream().map(EmiIngredient::of).toList();
+            emiRegistry.addRecipe(new EmiCraftingRecipe(ingredients, EmiStack.of(recipe.value().getResultItem(RegistryAccess.EMPTY)), recipe.id(), true));
         }
     }
 }

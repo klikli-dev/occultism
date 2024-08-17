@@ -8,6 +8,7 @@ public class OccultismModonomiconConstants {
         public static final ResourceLocation SPIRIT_FIRE_RECIPE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire_recipe");
         public static final ResourceLocation SPIRIT_TRADE_RECIPE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_trade_recipe");
         public static final ResourceLocation RITUAL_RECIPE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_recipe");
+        public static final ResourceLocation BOOK_BINDING_RECIPE = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "book_binding_recipe");
     }
 
     public static class I18n {

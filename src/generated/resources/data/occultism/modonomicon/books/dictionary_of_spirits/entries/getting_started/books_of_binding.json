@@ -76,15 +76,19 @@
       "title2": ""
     },
     {
-      "type": "modonomicon:crafting_recipe",
+      "type": "occultism:book_binding_recipe",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:crafting/book_of_binding_bound_foliot",
+      "recipe_id_1": "occultism:crafting/bound_book_of_binding",
       "text": "book.occultism.dictionary_of_spirits.getting_started.books_of_binding.book_of_binding_bound_foliot_recipe.text",
       "title1": "",
-      "title2": ""
+      "title2": "",
+      "unbound_book": {
+        "count": 1,
+        "id": "occultism:book_of_binding_foliot"
+      }
     },
     {
       "type": "modonomicon:crafting_recipe",
@@ -93,10 +97,24 @@
         "type": "modonomicon:none"
       },
       "recipe_id_1": "occultism:crafting/book_of_binding_djinni",
-      "recipe_id_2": "occultism:crafting/book_of_binding_bound_djinni",
       "text": "",
       "title1": "",
       "title2": ""
+    },
+    {
+      "type": "occultism:book_binding_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:crafting/bound_book_of_binding",
+      "text": "",
+      "title1": "",
+      "title2": "",
+      "unbound_book": {
+        "count": 1,
+        "id": "occultism:book_of_binding_djinni"
+      }
     },
     {
       "type": "modonomicon:crafting_recipe",
@@ -105,10 +123,24 @@
         "type": "modonomicon:none"
       },
       "recipe_id_1": "occultism:crafting/book_of_binding_afrit",
-      "recipe_id_2": "occultism:crafting/book_of_binding_bound_afrit",
       "text": "",
       "title1": "",
       "title2": ""
+    },
+    {
+      "type": "occultism:book_binding_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:crafting/bound_book_of_binding",
+      "text": "",
+      "title1": "",
+      "title2": "",
+      "unbound_book": {
+        "count": 1,
+        "id": "occultism:book_of_binding_afrit"
+      }
     },
     {
       "type": "modonomicon:crafting_recipe",
@@ -117,10 +149,24 @@
         "type": "modonomicon:none"
       },
       "recipe_id_1": "occultism:crafting/book_of_binding_marid",
-      "recipe_id_2": "occultism:crafting/book_of_binding_bound_marid",
       "text": "",
       "title1": "",
       "title2": ""
+    },
+    {
+      "type": "occultism:book_binding_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:crafting/bound_book_of_binding",
+      "text": "",
+      "title1": "",
+      "title2": "",
+      "unbound_book": {
+        "count": 1,
+        "id": "occultism:book_of_binding_marid"
+      }
     },
     {
       "type": "occultism:spirit_fire_recipe",

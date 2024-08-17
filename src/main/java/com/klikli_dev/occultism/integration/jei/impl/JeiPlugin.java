@@ -26,11 +26,8 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
-import com.klikli_dev.occultism.integration.jei.JeiSettings;
-import com.klikli_dev.occultism.integration.jei.impl.recipes.CrushingRecipeCategory;
-import com.klikli_dev.occultism.integration.jei.impl.recipes.MinerRecipeCategory;
-import com.klikli_dev.occultism.integration.jei.impl.recipes.RitualRecipeCategory;
-import com.klikli_dev.occultism.integration.jei.impl.recipes.SpiritFireRecipeCategory;
+import com.klikli_dev.occultism.integration.BoundBookRecipeMaker;
+import com.klikli_dev.occultism.integration.jei.impl.recipes.*;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
@@ -79,6 +76,8 @@ public class JeiPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         ClientLevel level = Minecraft.getInstance().level;
         RecipeManager recipeManager = level.getRecipeManager();
+
+        registration.addRecipes(RecipeTypes.CRAFTING, BoundBookRecipeMaker.createRecipes());
 
         var spiritFireRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get());
         registration.addRecipes(JeiRecipeTypes.SPIRIT_FIRE, spiritFireRecipes);

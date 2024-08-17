@@ -15,9 +15,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.condition.BookTrueConditionMo
 import com.klikli_dev.modonomicon.api.datagen.book.page.*;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.datagen.book.FamiliarRitualsCategory;
-import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
-import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
-import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritTradeRecipePageModel;
+import com.klikli_dev.occultism.integration.modonomicon.pages.*;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
@@ -1060,8 +1058,9 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                            """.formatted(COLOR_PURPLE));
 
         this.context().page("book_of_binding_bound_foliot_recipe");
-        var bookOfBindingBoundFoliotRecipe = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/book_of_binding_bound_foliot"))
+        var bookOfBindingBoundFoliotRecipe = BookBindingCraftingRecipePageModel.create()
+                .withRecipeId1()
+                .withUnboundBook(OccultismItems.BOOK_OF_BINDING_FOLIOT.toStack())
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
@@ -1070,20 +1069,34 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("book_of_binding_djinni_recipe");
         var bookOfBindingDjinniRecipe = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/book_of_binding_djinni"))
-                .withRecipeId2(this.modLoc("crafting/book_of_binding_bound_djinni"));
+                .withRecipeId1(this.modLoc("crafting/book_of_binding_djinni"));
+
+        this.context().page("book_of_binding_bound_djinni_recipe");
+        var bookOfBoundBindingDjinniRecipe = BookBindingCraftingRecipePageModel.create()
+                .withRecipeId1()
+                .withUnboundBook(OccultismItems.BOOK_OF_BINDING_DJINNI.toStack());
         //no text
 
         this.context().page("book_of_binding_afrit_recipe");
         var bookOfBindingAfritRecipe = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/book_of_binding_afrit"))
-                .withRecipeId2(this.modLoc("crafting/book_of_binding_bound_afrit"));
+                .withRecipeId1(this.modLoc("crafting/book_of_binding_afrit"));
+        //no text
+
+        this.context().page("book_of_binding_bound_afrit_recipe");
+        var bookOfBoundBindingAfritRecipe = BookBindingCraftingRecipePageModel.create()
+                .withRecipeId1()
+                .withUnboundBook(OccultismItems.BOOK_OF_BINDING_AFRIT.toStack());
         //no text
 
         this.context().page("book_of_binding_marid_recipe");
         var bookOfBindingMaridRecipe = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/book_of_binding_marid"))
-                .withRecipeId2(this.modLoc("crafting/book_of_binding_bound_marid"));
+                .withRecipeId1(this.modLoc("crafting/book_of_binding_marid"));
+        //no text
+
+        this.context().page("book_of_binding_bound_marid_recipe");
+        var bookOfBoundBindingMaridRecipe = BookBindingCraftingRecipePageModel.create()
+                .withRecipeId1()
+                .withUnboundBook(OccultismItems.BOOK_OF_BINDING_MARID.toStack());
         //no text
 
         this.context().page("book_of_binding_empty");
@@ -1113,8 +1126,11 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         bookOfBindingFoliotRecipe,
                         bookOfBindingBoundFoliotRecipe,
                         bookOfBindingDjinniRecipe,
+                        bookOfBoundBindingDjinniRecipe,
                         bookOfBindingAfritRecipe,
+                        bookOfBoundBindingAfritRecipe,
                         bookOfBindingMaridRecipe,
+                        bookOfBoundBindingMaridRecipe,
                         alternativeBooks,
                         bookOfBindingEmptyRecipe
                 );
