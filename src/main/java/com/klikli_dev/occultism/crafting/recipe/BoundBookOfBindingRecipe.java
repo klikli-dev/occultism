@@ -79,7 +79,7 @@ public class BoundBookOfBindingRecipe extends CustomRecipe {
             }
         }
 
-        var boundBook = this.getBoundBookFromBook(bookOfBinding);
+        var boundBook = getBoundBookFromBook(bookOfBinding);
         if (boundBook.isEmpty())
             return ItemStack.EMPTY;
 
@@ -93,7 +93,7 @@ public class BoundBookOfBindingRecipe extends CustomRecipe {
         return boundBook;
     }
 
-    public ItemStack getBoundBookFromBook(ItemStack book) {
+    public static ItemStack getBoundBookFromBook(ItemStack book) {
         if (book.is(OccultismItems.BOOK_OF_BINDING_FOLIOT.get()))
             return new ItemStack(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get());
 

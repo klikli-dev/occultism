@@ -232,7 +232,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
 
 
     private void craftingRecipes(Consumer<FinishedRecipe> consumer) {
-        SpecialRecipeBuilder.special(BoundBookOfBindingRecipe.SERIALIZER).save(consumer,Occultism.MODID + "crafting/bound_book_of_binding");
+        SpecialRecipeBuilder.special(BoundBookOfBindingRecipe.SERIALIZER).save(consumer,Occultism.MODID + ":crafting/bound_book_of_binding");
 
         metalRecipes(consumer);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.BOOK_OF_BINDING_EMPTY.get())
