@@ -147,34 +147,34 @@ dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
 
     //Jei
-    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
-    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
-//    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version_major}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version_major}-neoforge-api:${jei_version}"
+//    runtimeOnly "mezz.jei:jei-${minecraft_version_major}-neoforge:${jei_version}"
 
     //curios
-    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version_major}:api"
-    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version_major}"
+    compileOnly ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version_major}:api") {transitive=false}
+    runtimeOnly ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version_major}") {transitive=false}
 
     //geckolib
-    implementation "software.bernie.geckolib:geckolib-neoforge-${minecraft_version_major}:${geckolib_version}"
+    implementation ("software.bernie.geckolib:geckolib-neoforge-${minecraft_version_major}:${geckolib_version}") {transitive=false}
 
     //smartbrainlib
-    implementation "net.tslat.smartbrainlib:SmartBrainLib-neoforge-${minecraft_version_major}:${smartbrainlib_version}"
+    implementation ("net.tslat.smartbrainlib:SmartBrainLib-neoforge-${minecraft_version_major}:${smartbrainlib_version}") {transitive=false}
 
     //TODO: enable once available
     //almostunified
 //    implementation "com.almostreliable.mods:almostunified-forge:${minecraft_version}-${almost_unified_version}"
 
     //modonomicon
-    implementation "com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}"
+    implementation ("com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}") {transitive=false}
 
     //theurgy
     compileOnly ("com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}") {transitive=false}
     runtimeOnly ("com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}") {transitive=false}
 
     // emi
-    compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
-    runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
+    compileOnly ("dev.emi:emi-neoforge:${emi_version}:api") {transitive=false}
+    runtimeOnly ("dev.emi:emi-neoforge:${emi_version}") {transitive=false}
 
     //runtime only helper mods for dev env, placed in ./runtime-mods, example: Hwyla-forge-1.10.11-B78_1.16.2.jar
     //runtimeOnly "ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2"
