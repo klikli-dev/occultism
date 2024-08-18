@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.152.0] - 2024-08-18
+### :sparkles: New Features
+- [`98e2ec5`](https://github.com/klikli-dev/occultism/commit/98e2ec59bc9b62b728dd60bf6ac47a3f5a52f211) - add transfer handler for storage actuator for EMI *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`80fe2a6`](https://github.com/klikli-dev/occultism/commit/80fe2a6f60e1ed4de487e6b4bfcac9d35508e8d8) - used item types % display never goes down if items are removed *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`61144dc`](https://github.com/klikli-dev/occultism/commit/61144dcb2366bd25b208780c73d11c462bbee424) - increase mod version *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`4c03a6c`](https://github.com/klikli-dev/occultism/commit/4c03a6c6df1ce5bc70cbb85eac4b93d9caa48ae1) - update to newer neogradle, fixes parchment *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.151.3] - 2024-08-17
 ### :bug: Bug Fixes
 - [`0bd9f66`](https://github.com/klikli-dev/occultism/commit/0bd9f66f23833c2a30cafb1c0a20d1ec0b7d1b52) - revert jei deprecation updates *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1601,3 +1613,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.151.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.151.0...release/v1.21.1-1.151.1
 [release/v1.21.1-1.151.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.151.1...release/v1.21.1-1.151.2
 [release/v1.21.1-1.151.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.151.2...release/v1.21.1-1.151.3
+[release/v1.21.1-1.152.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.151.3...release/v1.21.1-1.152.0
