@@ -81,7 +81,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
     protected static final ResourceLocation BUTTONS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/buttons.png");
     protected static final String TRANSLATION_KEY_BASE = "gui." + Occultism.MODID + ".storage_controller";
     public int lastStacksCount;
-    public List<ItemStack> stacks;
+    public ClientStorageCache clientStorageCache;
     public List<MachineReference> linkedMachines;
     public IStorageControllerContainer storageControllerContainer;
     public StorageControllerGuiMode guiMode = StorageControllerGuiMode.INVENTORY;
@@ -132,7 +132,9 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         this.currentPage = 1;
         this.totalPages = 1;
 
-        this.stacks = new ArrayList<>();
+        this.clientStorageCache = new ClientStorageCache();
+        this.storageControllerContainer.setClientStorageCache(this.clientStorageCache);
+
         this.linkedMachines = new ArrayList<>();
 
         this.lastClick = System.currentTimeMillis();
@@ -208,8 +210,13 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
     @Override
     public void setStacks(List<ItemStack> stacks) {
-        this.stacks = stacks;
+        this.clientStorageCache.update(stacks);
         this.resetDisplayCaches();
+    }
+
+    @Override
+    public ClientStorageCache getClientStorageCache() {
+        return this.clientStorageCache;
     }
 
     @Override
@@ -515,7 +522,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         });
         this.addRenderableWidget(this.sortDirectionButton);
 
-        if (OccultismEmiIntegration.get().isLoaded() || OccultismJeiIntegration.get().isLoaded()){
+        if (OccultismEmiIntegration.get().isLoaded() || OccultismJeiIntegration.get().isLoaded()) {
             int jeiSyncOffset = 140 + (JeiSettings.isJeiSearchSynced() ? 0 : 1) * 28;
             this.jeiSyncButton = new SizedImageButton(
                     this.leftPos + clearTextButtonLeft + controlButtonSize + 3 + controlButtonSize + 3 + controlButtonSize +
@@ -582,8 +589,8 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
         var changedStacksToDisplay = this.lastCachedStacksToDisplayCount != stacksToDisplay.size();
         this.lastCachedStacksToDisplayCount = stacksToDisplay.size();
 
-        var changedStacks = this.lastStacksCount != this.stacks.size();
-        this.lastStacksCount = this.stacks.size();
+        var changedStacks = this.lastStacksCount != this.getClientStorageCache().stacks().size();
+        this.lastStacksCount = this.getClientStorageCache().stacks().size();
 
         if (changedPage || changedStacksToDisplay || changedStacks) {
             this.sortItemStacks(stacksToDisplay);
@@ -790,7 +797,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
                 return this.cachedStacksToDisplay;
 
             List<ItemStack> stacksToDisplay = new ArrayList<>();
-            for (ItemStack stack : this.stacks) {
+            for (ItemStack stack : this.getClientStorageCache().stacks()) {
                 if (this.itemMatchesSearch(stack))
                     stacksToDisplay.add(stack);
             }
@@ -800,7 +807,7 @@ public abstract class StorageControllerGuiBase<T extends StorageControllerContai
 
             return stacksToDisplay;
         }
-        return new ArrayList<>(this.stacks);
+        return new ArrayList<>(this.getClientStorageCache().stacks());
     }
 
     protected List<MachineReference> applySearchToMachines() {

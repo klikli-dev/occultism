@@ -2947,6 +2947,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("jei.occultism.error.missing_id", "Cannot identify recipe.");
         this.add("jei.occultism.error.invalid_type", "Invalid recipe type.");
         this.add("jei.occultism.error.recipe_too_large", "Recipe larger than 3x3.");
+        this.add("jei.occultism.error.recipe_items_missing", "Missing items will be skipped.");
+        this.add("jei.occultism.error.recipe_no_items", "No compatible items fround for recipe.");
+        this.add("jei.occultism.error.recipe_move_items", "Move items");
         this.add("jei.occultism.error.pentacle_not_loaded", "The pentacle could not be loaded.");
         this.add("item.occultism.jei_dummy.require_sacrifice", "Requires Sacrifice!");
         this.add("item.occultism.jei_dummy.require_sacrifice.tooltip", "This ritual requires a sacrifice to start. Please refer to the Dictionary of Spirits for detailed instructions.");

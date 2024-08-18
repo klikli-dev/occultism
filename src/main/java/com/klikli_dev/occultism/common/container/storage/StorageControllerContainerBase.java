@@ -26,11 +26,13 @@ import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
+import com.klikli_dev.occultism.client.gui.storage.ClientStorageCache;
 import com.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
 import com.klikli_dev.occultism.common.misc.ItemStackComparator;
 import com.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.klikli_dev.occultism.common.misc.StorageControllerSlot;
 import com.klikli_dev.occultism.network.Networking;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -43,18 +45,13 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingInput;
-import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.wrapper.PlayerMainInvWrapper;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -70,6 +67,7 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
     protected StorageControllerCraftingInventory matrix;
     protected SimpleContainer orderInventory;
     protected RecipeHolder<CraftingRecipe> currentRecipe;
+    protected ClientStorageCache clientStorageCache;
     /**
      * used to lock recipe while crafting
      */
@@ -95,6 +93,16 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
 
     public static void reserve(Player player, BlockPos pos) {
         openContainers.put(pos, player.getUUID());
+    }
+
+    @Override
+    public ClientStorageCache getClientStorageCache() {
+        return this.clientStorageCache;
+    }
+
+    @Override
+    public void setClientStorageCache(ClientStorageCache cache) {
+        this.clientStorageCache = cache;
     }
 
     @Override
@@ -397,6 +405,127 @@ public abstract class StorageControllerContainerBase extends AbstractContainerMe
         this.slotsChanged(this.matrix);
         Networking.sendTo((ServerPlayer) player, this.getStorageController().getMessageUpdateStacks());
 
+    }
+
+
+    public boolean hasIngredient(Ingredient ingredient, Object2IntOpenHashMap<Object> reservedAmounts) {
+        //First check the crafting grid if it has the required items
+        for (int i = 1; i < 10; i++) {
+            var slot = this.getSlot(i);
+            var stackInSlot = slot.getItem();
+            if (!stackInSlot.isEmpty() && ingredient.test(stackInSlot)) {
+                var reservedAmount = reservedAmounts.getOrDefault(slot, 0);
+                if (stackInSlot.getCount() > reservedAmount) {
+                    reservedAmounts.merge(slot, 1, Integer::sum);
+                    return true;
+                }
+            }
+        }
+
+        //then check the storage system local cache
+        var clientCache = this.getClientStorageCache();
+        if (clientCache == null) {
+            return false;
+        }
+
+        for (var stack : clientCache.getByIngredient(ingredient)) {
+            var reservedAmount = reservedAmounts.getOrDefault(stack, 0);
+            if (stack.getCount() - reservedAmount >= 1) {
+                reservedAmounts.merge(stack, 1, Integer::sum);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Determines which slots of the given slot-to-item map cannot be filled with items based on the contents of this
+     * terminal or player inventory.
+     *
+     * @return The keys of the given slot-map for which no stored ingredients could be found, separated in craftable and
+     * missing items.
+     */
+    public MissingIngredientSlots findMissingIngredients(Map<Integer, Ingredient> ingredients) {
+
+        // Try to figure out if any slots have missing ingredients
+        // Find every "slot" (in JEI parlance) that has no equivalent item in the item repo or player inventory
+        Set<Integer> missingSlots = new HashSet<>(); // missing but not craftable
+        Set<Integer> craftableSlots = new HashSet<>(); // missing but craftable
+
+        // We need to track how many of a given item stack we've already used for other slots in the recipe.
+        // Otherwise recipes that need 4x<item> will not correctly show missing items if at least 1 of <item> is in
+        // the grid.
+        var reservedGridAmounts = new Object2IntOpenHashMap<>();
+        var playerItems = this.playerInventory.items;
+        var reservedPlayerItems = new int[playerItems.size()];
+
+        for (var entry : ingredients.entrySet()) {
+            var ingredient = entry.getValue();
+
+            boolean found = false;
+            // Player inventory is cheaper to check
+            for (int i = 0; i < playerItems.size(); i++) {
+                // Do not consider locked slots
+                //TODO: check if we need to check for locked slot ( = the storage remote slot) here.
+//                if (isPlayerInventorySlotLocked(i)) {
+//                    continue;
+//                }
+
+                var stack = playerItems.get(i);
+                if (stack.getCount() - reservedPlayerItems[i] > 0 && ingredient.test(stack)) {
+                    reservedPlayerItems[i]++;
+                    found = true;
+                    break;
+                }
+            }
+
+            // Then check the terminal screen's repository of network items
+            if (!found) {
+                // We use AE stacks to get an easily comparable item type key that ignores stack size
+                if (this.hasIngredient(ingredient, reservedGridAmounts)) {
+                    reservedGridAmounts.merge(ingredient, 1, Integer::sum);
+                    found = true;
+                }
+            }
+
+            // Check the terminal once again, but this time for craftable items
+            //Note: AE2 uses this to check for auto-craftable items, we don't do that
+            // if ever implemented then the transfer handler also needs createCraftingTooltip updated to match https://github.com/AppliedEnergistics/Applied-Energistics-2/blob/main/src/main/java/appeng/integration/modules/itemlists/TransferHelper.java
+//            if (!found) {
+//                for (var stack : ingredient.getItems()) {
+//                    if (isCraftable(stack)) {
+//                        craftableSlots.add(entry.getKey());
+//                        found = true;
+//                        break;
+//                    }
+//                }
+//            }
+
+            if (!found) {
+                missingSlots.add(entry.getKey());
+            }
+        }
+
+        return new MissingIngredientSlots(missingSlots, craftableSlots);
+    }
+
+    public record MissingIngredientSlots(Set<Integer> missingSlots, Set<Integer> craftableSlots) {
+        public int totalSize() {
+            return this.missingSlots.size() + this.craftableSlots.size();
+        }
+
+        public boolean anyMissingOrCraftable() {
+            return this.anyMissing() || this.anyCraftable();
+        }
+
+        public boolean anyMissing() {
+            return !this.missingSlots.isEmpty();
+        }
+
+        public boolean anyCraftable() {
+            return !this.craftableSlots.isEmpty();
+        }
     }
 
 }

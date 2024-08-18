@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.api.common.container;
 
 import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.api.common.data.GlobalBlockPos;
+import com.klikli_dev.occultism.client.gui.storage.ClientStorageCache;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.inventory.CraftingContainer;
 
@@ -57,4 +58,7 @@ public interface IStorageControllerContainer {
      */
     void updateOrderSlot(boolean force);
 
+    void setClientStorageCache(ClientStorageCache cache);
+
+    ClientStorageCache getClientStorageCache();
 }

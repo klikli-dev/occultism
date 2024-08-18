@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.api.client.gui;
 
 import com.klikli_dev.occultism.api.common.data.MachineReference;
+import com.klikli_dev.occultism.client.gui.storage.ClientStorageCache;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
@@ -30,6 +31,8 @@ import java.util.List;
 public interface IStorageControllerGui {
     //region Getter / Setter
     void setStacks(List<ItemStack> stacks);
+
+    ClientStorageCache getClientStorageCache();
 
     void setUsedStorageSize(int usedItemTypes, long usedTotalItemCount);
 

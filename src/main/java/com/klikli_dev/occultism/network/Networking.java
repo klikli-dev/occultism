@@ -49,6 +49,7 @@ public class Networking {
         registrar.playToServer(MessageSetItemMode.TYPE, MessageSetItemMode.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageSetManagedMachine.TYPE, MessageSetManagedMachine.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageSetRecipe.TYPE, MessageSetRecipe.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToServer(MessageSetRecipeByTemplate.TYPE, MessageSetRecipeByTemplate.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageSetRecipeByID.TYPE, MessageSetRecipeByID.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageSetTagFilterText.TYPE, MessageSetTagFilterText.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageSetWorkAreaSize.TYPE, MessageSetWorkAreaSize.STREAM_CODEC, MessageHandler::handle);
