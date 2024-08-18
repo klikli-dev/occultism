@@ -280,7 +280,13 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
         }
 
         //serialize entity
-        ItemNBTUtil.setSpiritEntityData(stack, targetSpirit.serializeNBT(player.registryAccess()));
+        var entityData = new CompoundTag();
+        var id = targetSpirit.getEncodeId();
+        if(id != null)
+            entityData.putString("id", id);
+        entityData = targetSpirit.saveWithoutId(entityData);
+
+        ItemNBTUtil.setSpiritEntityData(stack, entityData);
         ItemNBTUtil.setSpiritEntityUUID(stack, targetSpirit.getUUID());
         ItemNBTUtil.setBoundSpiritName(stack, targetSpirit.getName().getString());
         //show player swing anim

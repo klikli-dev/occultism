@@ -143,8 +143,15 @@ public class SoulGemItem extends Item {
             return InteractionResult.FAIL;
         }
 
+        var entityData = new CompoundTag();
+        var id = target.getEncodeId();
+        if(id != null)
+            entityData.putString("id", id);
+        entityData = target.saveWithoutId(entityData);
+
+
         //serialize entity
-        stack.set(DataComponents.ENTITY_DATA, CustomData.of(target.serializeNBT(player.level().registryAccess())));
+        stack.set(DataComponents.ENTITY_DATA, CustomData.of(entityData));
         //show player swing anim
         player.swing(hand);
         player.setItemInHand(hand, stack); //need to write the item back to hand, otherwise we only modify a copy
