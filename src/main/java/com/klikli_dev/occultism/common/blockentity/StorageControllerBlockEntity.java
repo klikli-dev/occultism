@@ -298,7 +298,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
             result.add(entry.getKey().stack().copyWithCount(entry.getIntValue()));
         }
 
-        this.usedItemTypes = this.itemStackHandler.getSlots();
+        this.usedItemTypes = this.itemStackHandler.keyToCountMap().size();
         this.usedTotalItemCount = this.itemStackHandler.totalItemCount();
         return result;
     }
