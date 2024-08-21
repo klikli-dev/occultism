@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.153.0] - 2024-08-21
+### :sparkles: New Features
+- [`09e9713`](https://github.com/klikli-dev/occultism/commit/09e9713db7549818c39fb47e69a153f706f0491b) - support ingredient notation in item recipe results *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`5900e7b`](https://github.com/klikli-dev/occultism/commit/5900e7bfa315925cec068469653e42f86132a564) - remove deprecated calls to serializeNBT *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`ab178e5`](https://github.com/klikli-dev/occultism/commit/ab178e5a413e8488e8f5cc0a988eaa852fb12c80) - enable theurgy runtime dep for book datagen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.152.0] - 2024-08-18
 ### :sparkles: New Features
 - [`98e2ec5`](https://github.com/klikli-dev/occultism/commit/98e2ec59bc9b62b728dd60bf6ac47a3f5a52f211) - add transfer handler for storage actuator for EMI *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1614,3 +1623,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.151.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.151.1...release/v1.21.1-1.151.2
 [release/v1.21.1-1.151.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.151.2...release/v1.21.1-1.151.3
 [release/v1.21.1-1.152.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.151.3...release/v1.21.1-1.152.0
+[release/v1.21.1-1.153.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.152.0...release/v1.21.1-1.153.0
