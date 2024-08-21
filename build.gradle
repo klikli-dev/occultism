@@ -191,9 +191,19 @@ dependencies {
 }
 
 processResources {
-    filesMatching(['META-INF/neoforge.mods.toml', 'pack.mcmeta']) {
-        expand project.properties
+    def props = new HashMap<>(project.properties)
+    def keys = new ArrayList<String>(props.keySet()) //to avoid concurrent modification exception
+
+    for (String key : keys) {
+        if (!(props.get(key) instanceof String) && !(props.get(key) instanceof Integer)) {
+            props.remove(key)
+        }
     }
+
+    filesMatching(['META-INF/neoforge.mods.toml', 'pack.mcmeta']) {
+        expand props
+    }
+    getInputs().properties(props)
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
