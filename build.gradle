@@ -69,6 +69,7 @@ runs {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    mavenLocal()
     maven {
         url "https://dl.cloudsmith.io/public/klikli-dev/mods/maven/"
         content {
