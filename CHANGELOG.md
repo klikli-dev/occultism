@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.153.1] - 2024-08-22
+### :bug: Bug Fixes
+- [`bf51900`](https://github.com/klikli-dev/occultism/commit/bf51900d5f03c8f2566ac369c28e4479a04e8929) - pickaxe durabilities *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`c403bf5`](https://github.com/klikli-dev/occultism/commit/c403bf53aecccc6be752d3538eb6ff62b1a3450b) - add maven local repo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`86adf51`](https://github.com/klikli-dev/occultism/commit/86adf517c548db5d8fb37edf6bb500e1c1330617) - ensure mod_version in resource files is not cached *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.153.0] - 2024-08-21
 ### :sparkles: New Features
 - [`09e9713`](https://github.com/klikli-dev/occultism/commit/09e9713db7549818c39fb47e69a153f706f0491b) - support ingredient notation in item recipe results *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1624,3 +1633,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.151.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.151.2...release/v1.21.1-1.151.3
 [release/v1.21.1-1.152.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.151.3...release/v1.21.1-1.152.0
 [release/v1.21.1-1.153.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.152.0...release/v1.21.1-1.153.0
+[release/v1.21.1-1.153.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.153.0...release/v1.21.1-1.153.1
