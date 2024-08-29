@@ -14,14 +14,13 @@ import com.klikli_dev.modonomicon.api.datagen.book.condition.BookModLoadedCondit
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookTrueConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.*;
 import com.klikli_dev.occultism.datagen.book.FamiliarRitualsCategory;
-import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
-import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
-import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritTradeRecipePageModel;
+import com.klikli_dev.occultism.integration.modonomicon.pages.*;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
@@ -106,7 +105,7 @@ public class OccultismBookProvider extends BookProvider {
                 "__________________________________",
                 "______e_h_____ạ_______m___________",
                 "__________________________________",
-                "________________C___p_S___w_x_y_z_"
+                "______________Á_C___p_S___w_x_y_z_"
         );
         //B=brush, N=Next Steps, P=iesnium pick
         //i=intro, r=divinationRod, ç = chalk, b=bowls, g=goggles,  I=infused pick O= tier 2 otherworld materials
@@ -159,6 +158,9 @@ public class OccultismBookProvider extends BookProvider {
 
         var booksOfBinding = this.makeBooksOfBindingEntry(entryMap, 'ạ');
         booksOfBinding.withParent(BookEntryParentModel.create(candleEntry.getId()));
+
+        var booksOfBindingAutomation = this.makeBooksOfBindingAutomationEntry(entryMap, 'Á');
+        booksOfBindingAutomation.withParent(BookEntryParentModel.create(booksOfBinding.getId()));
 
         var booksOfCalling = this.makeBooksOfCallingEntry(entryMap, 'C');
         booksOfCalling.withParent(BookEntryParentModel.create(booksOfBinding.getId()));
@@ -227,6 +229,7 @@ public class OccultismBookProvider extends BookProvider {
                         ritualPrepChalkEntry,
                         ritualPrepBowlEntry,
                         booksOfBinding,
+                        booksOfBindingAutomation,
                         ritualEntry,
                         brushEntry,
                         moreRitualsEntry,
@@ -1119,10 +1122,10 @@ public class OccultismBookProvider extends BookProvider {
                            """.formatted(COLOR_PURPLE));
 
         this.context().page("book_of_binding_bound_foliot_recipe");
-        var bookOfBindingBoundFoliotRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/book_of_binding_bound_foliot"))
-                .withText(this.context().pageText())
-                .build();
+        var bookOfBindingBoundFoliotRecipe = BookBindingCraftingRecipePageModel.builder()
+                .withRecipeId1()
+                .withUnboundBook(new ItemStack(OccultismItems.BOOK_OF_BINDING_FOLIOT.get()))
+                .withText(this.context().pageText()).build();
         this.lang().add(this.context().pageText(),
                 """
                         Add the name of the spirit to summon to your book of binding by crafting it with the Dictionary of Spirits. The Dictionary will not be used up.
@@ -1130,23 +1133,34 @@ public class OccultismBookProvider extends BookProvider {
 
         this.context().page("book_of_binding_djinni_recipe");
         var bookOfBindingDjinniRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/book_of_binding_djinni"))
-                .withRecipeId2(this.modLoc("crafting/book_of_binding_bound_djinni"))
-                .build();
+                .withRecipeId1(this.modLoc("crafting/book_of_binding_djinni")).build();
+
+        this.context().page("book_of_binding_bound_djinni_recipe");
+        var bookOfBoundBindingDjinniRecipe = BookBindingCraftingRecipePageModel.builder()
+                .withRecipeId1()
+                .withUnboundBook(new ItemStack(OccultismItems.BOOK_OF_BINDING_DJINNI.get())).build();
         //no text
 
         this.context().page("book_of_binding_afrit_recipe");
         var bookOfBindingAfritRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/book_of_binding_afrit"))
-                .withRecipeId2(this.modLoc("crafting/book_of_binding_bound_afrit"))
-                .build();
+                .withRecipeId1(this.modLoc("crafting/book_of_binding_afrit")).build();
+        //no text
+
+        this.context().page("book_of_binding_bound_afrit_recipe");
+        var bookOfBoundBindingAfritRecipe = BookBindingCraftingRecipePageModel.builder()
+                .withRecipeId1()
+                .withUnboundBook(new ItemStack(OccultismItems.BOOK_OF_BINDING_AFRIT.get())).build();
         //no text
 
         this.context().page("book_of_binding_marid_recipe");
         var bookOfBindingMaridRecipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(this.modLoc("crafting/book_of_binding_marid"))
-                .withRecipeId2(this.modLoc("crafting/book_of_binding_bound_marid"))
-                .build();
+                .withRecipeId1(this.modLoc("crafting/book_of_binding_marid")).build();
+        //no text
+
+        this.context().page("book_of_binding_bound_marid_recipe");
+        var bookOfBoundBindingMaridRecipe = BookBindingCraftingRecipePageModel.builder()
+                .withRecipeId1()
+                .withUnboundBook(new ItemStack(OccultismItems.BOOK_OF_BINDING_MARID.get())).build();
         //no text
 
         this.context().page("book_of_binding_empty");
@@ -1178,10 +1192,67 @@ public class OccultismBookProvider extends BookProvider {
                         bookOfBindingFoliotRecipe,
                         bookOfBindingBoundFoliotRecipe,
                         bookOfBindingDjinniRecipe,
+                        bookOfBoundBindingDjinniRecipe,
                         bookOfBindingAfritRecipe,
+                        bookOfBoundBindingAfritRecipe,
                         bookOfBindingMaridRecipe,
+                        bookOfBoundBindingMaridRecipe,
                         alternativeBooks,
                         bookOfBindingEmptyRecipe
+                );
+    }
+
+    private BookEntryModel makeBooksOfBindingAutomationEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("books_of_binding_automation");
+        this.lang().add(this.context().entryName(), "Books of Binding in Automation");
+        this.lang().add(this.context().entryDescription(), "Tips for using books of binding in Crafting Automation such as AE2 or RS");
+
+        this.context().page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "The Problem");
+        this.lang().add(this.context().pageText(),
+                """
+                        Bound Books of Binding are generated with a random spirit name. This tricks many automated crafting processes into no longer recognizing the item as the requested crafting result, because it does not expect NBT/Data Components on the item.
+                        \\
+                        \\
+                        This leads to stuck crafting processes.
+                        """
+        );
+
+        this.context().page("solution");
+        var solution = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "The Solution");
+        this.lang().add(this.context().pageText(),
+                """
+                        1. Put a dictionary of spirits into an anvil and give it a name. This will be the name of all spirits summoned in the future.
+                        2. Use this dictionary to configure crafting patterns (if your automation mod requires it).
+                        """
+        );
+
+        this.context().page("solution2");
+        var solution2 = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "The Solution");
+        this.lang().add(this.context().pageText(),
+                """
+                        3. Use this dictionary to craft the Bound Books of Binding in the automation system. As usual, the dictionary will not be used up.
+                        4. All crafted books will now have the same name and will be recognized by your automation system.
+                        """
+        );
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withDescription(this.context().entryDescription())
+                .withIcon(Items.CRAFTING_TABLE)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        intro.build(),
+                        solution.build(),
+                        solution2.build()
                 );
     }
 

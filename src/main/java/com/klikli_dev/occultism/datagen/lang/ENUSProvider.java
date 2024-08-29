@@ -3086,6 +3086,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.OTHERWORLD_SAPLINGS,"Otherworld Saplings");
         this.addItemTag(OccultismTags.Items.BOOK_OF_CALLING_DJINNI,"Book of Calling Djinni");
         this.addItemTag(OccultismTags.Items.BOOK_OF_CALLING_FOLIOT,"Book of Calling Foliot");
+        this.addItemTag(OccultismTags.Items.BOOKS_OF_BINDING,"Books of Binding");
         this.addItemTag(OccultismTags.Items.Miners.BASIC_RESOURCES,"Basic Resource Miners");
         this.addItemTag(OccultismTags.Items.Miners.DEEPS,"Deepslate Miners");
         this.addItemTag(OccultismTags.Items.Miners.MASTER,"Rare Resource Miners");

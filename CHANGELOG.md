@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.136.1] - 2024-08-17
+### :bug: Bug Fixes
+- [`5e6e726`](https://github.com/klikli-dev/occultism/commit/5e6e726ed45579792c2497e7f34daff28fad8c87) - new bound book of binding recipes do not show up in recipe viewers *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.20.1-1.136.0] - 2024-08-16
+### :sparkles: New Features
+- [`a346ea3`](https://github.com/klikli-dev/occultism/commit/a346ea3513ca39b6f693507f918654891acf1114) - add automation-friendly bound book of binding crafting *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.20.1-1.135.0] - 2024-08-16
+### :sparkles: New Features
+- [`c169ad2`](https://github.com/klikli-dev/occultism/commit/c169ad206c19febded777c525c2512cd624047bc) - make spirits and familiars invulnerable to suffocating in walls *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`f1c1a19`](https://github.com/klikli-dev/occultism/commit/f1c1a1931d1a211286d66d5779d5ddb15385b276) - cherry picked commit c169ad206c19febded777c525c2512cd624047bc *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`e8b308b`](https://github.com/klikli-dev/occultism/commit/e8b308b0a00c01843ebac1faa8cd806968654804) - remove unused lang provider *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.134.1] - 2024-08-09
 ### :bug: Bug Fixes
 - [`78d5781`](https://github.com/klikli-dev/occultism/commit/78d57818808b4164dd5d119fc2ba7ee20af5d887) - add hint if beaver is not upgraded *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1175,3 +1196,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.133.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.132.3...release/v1.20.1-1.133.0
 [release/v1.20.1-1.133.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.133.0...release/v1.20.1-1.133.1
 [release/v1.20.1-1.134.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.134.0...release/v1.20.1-1.134.1
+[release/v1.20.1-1.135.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.134.2...release/v1.20.1-1.135.0
+[release/v1.20.1-1.136.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.135.0...release/v1.20.1-1.136.0
+[release/v1.20.1-1.136.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.136.0...release/v1.20.1-1.136.1

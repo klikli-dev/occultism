@@ -49,6 +49,13 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get()).replace(false);
         this.tag(OccultismTags.Items.BOOK_OF_CALLING_DJINNI)
                 .add(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get()).replace(false);
+
+        this.tag(OccultismTags.Items.BOOKS_OF_BINDING)
+                .add(OccultismItems.BOOK_OF_BINDING_FOLIOT.get())
+                .add(OccultismItems.BOOK_OF_BINDING_DJINNI.get())
+                .add(OccultismItems.BOOK_OF_BINDING_AFRIT.get())
+                .add(OccultismItems.BOOK_OF_BINDING_MARID.get());
+
         this.tag(OccultismTags.Items.Miners.BASIC_RESOURCES).add(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get(),
                 OccultismItems.MINER_DEBUG_UNSPECIALIZED.get()).replace(false);
         this.tag(OccultismTags.Items.Miners.DEEPS).add(OccultismItems.MINER_AFRIT_DEEPS.get(), OccultismItems.MINER_MARID_MASTER.get()).replace(false);
