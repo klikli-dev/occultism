@@ -4,6 +4,7 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import com.klikli_dev.occultism.Occultism;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -153,19 +154,28 @@ public class MapItemStackHandler implements IItemHandler, IItemHandlerModifiable
         CompoundTag nbt = new CompoundTag();
         ListTag keyToCountList = new ListTag();
         this.keyToCountMap.forEach((key, value) -> {
-            CompoundTag entryTag = new CompoundTag();
-            entryTag.put("itemStackkey", key.stack().save(provider, new CompoundTag()));
-            entryTag.putInt("int", value);
-            keyToCountList.add(entryTag);
+            try{
+                CompoundTag entryTag = new CompoundTag();
+                entryTag.put("itemStackkey", key.stack().save(provider, new CompoundTag()));
+                entryTag.putInt("int", value);
+                keyToCountList.add(entryTag);
+            } catch(Exception e){
+                Occultism.LOGGER.error("Failed to serialize ItemStackKey: " + key);
+            }
+
         });
         nbt.put("keyToCountMap", keyToCountList);
 
         ListTag keyToSlotList = new ListTag();
         this.keyToSlot.forEach((key, slot) -> {
-            CompoundTag entryTag = new CompoundTag();
-            entryTag.put("itemStackkey", key.stack().save(provider, new CompoundTag()));
-            entryTag.putInt("int", slot);
-            keyToSlotList.add(entryTag);
+            try{
+                CompoundTag entryTag = new CompoundTag();
+                entryTag.put("itemStackkey", key.stack().save(provider, new CompoundTag()));
+                entryTag.putInt("int", slot);
+                keyToSlotList.add(entryTag);
+            } catch(Exception e){
+                Occultism.LOGGER.error("Failed to serialize ItemStackKey: " + key);
+            }
         });
         nbt.put("keyToSlot", keyToSlotList);
 
