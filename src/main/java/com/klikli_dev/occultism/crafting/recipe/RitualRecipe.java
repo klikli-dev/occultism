@@ -262,7 +262,7 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
     }
 
     public boolean requiresItemUse() {
-        return this.itemToUse != Ingredient.EMPTY;
+        return this.itemToUse != null && !this.itemToUse.isEmpty();
     }
 
     public @Nullable EntityType<?> getEntityToSummon() {
