@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.153.3] - 2024-08-29
+### :bug: Bug Fixes
+- [`cf2553e`](https://github.com/klikli-dev/occultism/commit/cf2553e991ab547d9fd363ba23e6aeca5eb4cb65) - storage controller does not save any items, if serializing one item errors out *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`64c27a0`](https://github.com/klikli-dev/occultism/commit/64c27a047fa9a20baeddbcc655fe99c7e43b0312) - stable wormhole causes serialization errors *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.153.2] - 2024-08-29
 ### :wrench: Chores
 - [`e69d568`](https://github.com/klikli-dev/occultism/commit/e69d568e4b4eac36b9fc153dfc9e444845afaba4) - singularize occultism knife tag *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1640,3 +1646,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.153.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.152.0...release/v1.21.1-1.153.0
 [release/v1.21.1-1.153.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.153.0...release/v1.21.1-1.153.1
 [release/v1.21.1-1.153.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.153.1...release/v1.21.1-1.153.2
+[release/v1.21.1-1.153.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.153.2...release/v1.21.1-1.153.3
