@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.153.2] - 2024-08-29
+### :wrench: Chores
+- [`e69d568`](https://github.com/klikli-dev/occultism/commit/e69d568e4b4eac36b9fc153dfc9e444845afaba4) - singularize occultism knife tag *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.153.1] - 2024-08-22
 ### :bug: Bug Fixes
 - [`bf51900`](https://github.com/klikli-dev/occultism/commit/bf51900d5f03c8f2566ac369c28e4479a04e8929) - pickaxe durabilities *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1634,3 +1639,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.152.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.151.3...release/v1.21.1-1.152.0
 [release/v1.21.1-1.153.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.152.0...release/v1.21.1-1.153.0
 [release/v1.21.1-1.153.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.153.0...release/v1.21.1-1.153.1
+[release/v1.21.1-1.153.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.153.1...release/v1.21.1-1.153.2
