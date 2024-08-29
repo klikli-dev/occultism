@@ -110,7 +110,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .addTag(OccultismTags.Items.Miners.ORES).replace(false);
 
         this.copy(OccultismTags.Blocks.OTHERWORLD_SAPLINGS, OccultismTags.Items.OTHERWORLD_SAPLINGS);
-        this.tag(OccultismTags.Items.TOOL_KNIVES).add(OccultismItems.BUTCHER_KNIFE.get()).replace(false);
+        this.tag(OccultismTags.Items.TOOLS_KNIFE).add(OccultismItems.BUTCHER_KNIFE.get()).replace(false);
         this.tag(OccultismTags.Items.ELYTRA).add(Items.ELYTRA).addOptional(ResourceLocation.fromNamespaceAndPath("mana-and-artifice", "spectral_elytra")).replace(false);
         this.tag(OccultismTags.Items.OTHERWORLD_GOGGLES).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
     }
@@ -147,7 +147,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.copy(BlockTags.PIGLIN_REPELLENTS, ItemTags.PIGLIN_REPELLENTS);
         this.copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
         this.tag(ItemTags.PICKAXES).add(OccultismItems.INFUSED_PICKAXE.get(), OccultismItems.IESNIUM_PICKAXE.get()).replace(false);
-        this.tag(ItemTags.SWORDS).add(OccultismItems.BUTCHER_KNIFE.get()).replace(false);
+        this.tag(this.cTag("tools/knife")).add(OccultismItems.BUTCHER_KNIFE.get()).replace(false);
 
         this.tag(ItemTags.BOOKSHELF_BOOKS)
                 .replace(false)
