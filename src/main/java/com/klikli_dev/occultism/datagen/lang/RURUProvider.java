@@ -28,7 +28,7 @@ import com.klikli_dev.modonomicon.api.datagen.BookContextHelper;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.common.ritual.RitualFactory;
-import com.klikli_dev.occultism.datagen.OccultismAdvancementSubProvider;
+import com.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
 import com.klikli_dev.occultism.registry.*;
 import net.minecraft.ChatFormatting;
@@ -40,7 +40,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import net.minecraftforge.registries.RegistryObject;
 
 public class RURUProvider extends AbstractModonomiconLanguageProvider {
 
@@ -50,6 +50,10 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
 
     public RURUProvider(PackOutput gen) {
         super(gen, Occultism.MODID, "ru_ru");
+    }
+
+    public AbstractModonomiconLanguageProvider lang(String lang) {
+        return this;
     }
 
     public void addItemMessages() {
@@ -186,7 +190,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.addAutoTooltip(OccultismItems.DEMONS_DREAM_ESSENCE.get(), "Употребление позволяет видеть за гробовой чертой ... И полный набор других эффектов.");
         this.addItem(OccultismItems.OTHERWORLD_ESSENCE, "Потусторонняя эссенция");
         this.addAutoTooltip(OccultismItems.OTHERWORLD_ESSENCE.get(), "Очищенная эссенция «Блаженство демона». Больше не оказывает пагубных эффектов.");
-		this.addItem(OccultismItems.BEAVER_NUGGET, "Мех бобра");
+        this.addItem(OccultismItems.BEAVER_NUGGET, "Мех бобра");
         this.addItem(OccultismItems.SPIRIT_ATTUNED_GEM, "Самоцвет, настроенный на духа");
         this.lang("ru_ru").add("item.occultism.otherworld_sapling", "Потусторонний саженец");
         this.lang("ru_ru").add("item.occultism.otherworld_sapling_natural", "Нестабильный потусторонний саженец");
@@ -265,14 +269,6 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_PARROT_FAMILIAR, "Яйцо призыва Попугая-фамильяра");
         this.addItem(OccultismItems.SPAWN_EGG_DEMONIC_WIFE, "Яйцо призыва Демонической жены");
         this.addItem(OccultismItems.SPAWN_EGG_DEMONIC_HUSBAND, "Яйцо призыва Демонического мужа");
-        this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_HUSK, "Яйцо призыва орды диких кадавров");
-        this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_DROWNED, "Яйцо призыва орды диких утопленников");
-        this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_CREEPER, "Яйцо призыва орды диких криперов");
-        this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_SILVERFISH, "Яйцо призыва орды диких чешуйниц");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WEAK_BREEZE, "Яйцо призыва одержимого слабого вихря");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_BREEZE, "Яйцо призыва одержимого вихря");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_STRONG_BREEZE, "Яйцо призыва одержимого сильного вихря");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_EVOKER, "Яйцо призыва одержимого заклинателя");
     }
 
     private void addBlocks() {
@@ -362,32 +358,12 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.THROWN_SWORD, "Брошенный меч");
         this.addEntityType(OccultismEntities.DEMONIC_WIFE, "Демоническая жена");
         this.addEntityType(OccultismEntities.DEMONIC_HUSBAND, "Демонический муж");
-        this.addEntityType(OccultismEntities.WILD_HORDE_HUSK, "Орда диких Husk");
-        this.addEntityType(OccultismEntities.WILD_HORDE_DROWNED, "Орда диких утопленников");
-        this.addEntityType(OccultismEntities.WILD_HORDE_CREEPER, "Орда диких криперов");
-        this.addEntityType(OccultismEntities.WILD_HORDE_SILVERFISH, "Орда диких чешуйниц");
-        this.addEntityType(OccultismEntities.POSSESSED_WEAK_BREEZE, "Одержимый слабого вихря");
-        this.addEntityType(OccultismEntities.POSSESSED_BREEZE, "Одержимый вихря");
-        this.addEntityType(OccultismEntities.POSSESSED_STRONG_BREEZE, "Одержимый сильного вихря");
-        this.addEntityType(OccultismEntities.WILD_ZOMBIE, "Дикий зомби");
-        this.addEntityType(OccultismEntities.WILD_SKELETON, "Дикий скелет");
-        this.addEntityType(OccultismEntities.WILD_SILVERFISH, "Дикий чешуйница");
-        this.addEntityType(OccultismEntities.WILD_SPIDER, "Дикий паук");
-        this.addEntityType(OccultismEntities.WILD_BOGGED, "Дикий болотник");
-        this.addEntityType(OccultismEntities.WILD_SLIME, "Дикий слизень");
-        this.addEntityType(OccultismEntities.WILD_HUSK, "Дикий кадавр");
-        this.addEntityType(OccultismEntities.WILD_STRAY, "Дикий зимогор");
-        this.addEntityType(OccultismEntities.WILD_CAVE_SPIDER, "Дикий мещерный паук");
-        this.addEntityType(OccultismEntities.POSSESSED_EVOKER, "Одержимый заклинатель");
     }
 
     private void addMiscTranslations() {
 
         //"(.*?)": "(.*)",
         //this.lang("ru_ru").add\("\1", "\2"\);
-
-        this.lang("ru_ru").add(TranslationKeys.HUD_NO_PENTACLE_FOUND, "Не найдено допустимой пентакли.");
-        this.lang("ru_ru").add(TranslationKeys.HUD_PENTACLE_FOUND, "Текущий пентакль: %s");
 
         this.lang("ru_ru").add(TranslationKeys.MESSAGE_CONTAINER_ALREADY_OPEN, "Этот контейнер уже открыт другим игроком, ждите пока он его не закроет.");
 
@@ -615,7 +591,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add("ritual.occultism.craft_storage_controller_base.interrupted", "Заточение Фолиота прервано.");
         this.lang("ru_ru").add("ritual.occultism.craft_stabilizer_tier1.conditions", "Не все требования удовлетворены для этого ритуала.");
         this.lang("ru_ru").add("ritual.occultism.craft_stabilizer_tier1.started", "Началось заточение Фолиота в стабилизатор хранилища.");
-        this.lang("ru_ru").add("ritual.occultism.craft_stabilizer_tier1.finished", "Успешно заточил Фолиота в стабилизатор хранилища.);
+        this.lang("ru_ru").add("ritual.occultism.craft_stabilizer_tier1.finished", "Успешно заточил Фолиота в стабилизатор хранилища.");
         this.lang("ru_ru").add("ritual.occultism.craft_stabilizer_tier1.interrupted", "Заточение Фолиота прервано.");
         this.lang("ru_ru").add("ritual.occultism.craft_stabilizer_tier2.conditions", "Не все требования удовлетворены для этого ритуала.");
         this.lang("ru_ru").add("ritual.occultism.craft_stabilizer_tier2.started", "Началось заточение Джинна в стабилизатор хранилища.");
@@ -841,13 +817,13 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add("ritual.occultism.summon_horde_illager.finished", "Небольшое нашествие обитателей успешно вызвано.");
         this.lang("ru_ru").add("ritual.occultism.summon_horde_illager.interrupted", "Вызов небольшого нашествия обитателей прервано.");
 
-        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "conditions", "Не все требования удовлетворены для этого ритуала.");
-        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "started", "Началось воскресение фамильяра.");
-        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "finished", "Фамильяр успешно воскрешён.");
-        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "interrupted", "Воскресение прервано.");
+        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR_RITUAL, "conditions", "Не все требования удовлетворены для этого ритуала.");
+        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR_RITUAL, "started", "Началось воскресение фамильяра.");
+        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR_RITUAL, "finished", "Фамильяр успешно воскрешён.");
+        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR_RITUAL, "interrupted", "Воскресение прервано.");
     }
 
-    public void addRitualMessage(DeferredHolder<RitualFactory, RitualFactory> ritual, String key, String message) {
+    public void addRitualMessage(RegistryObject<RitualFactory> ritual, String key, String message) {
         this.add("ritual.%s.%s".formatted(ritual.getId().getNamespace(), ritual.getId().getPath()) + "." + key, message);
     }
 
@@ -1491,7 +1467,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add(helper.pageTitle(), "Жертвоприношения");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Некоторые ритуалы требуют жертвоприношения живым существом, чтобы обеспечить необходимой энергией для вызова духа. Жертвоприношения описаны на странице ритуала в подразделе \"Жертвоприношение\". Для выполнения жертвоприношения, убейте животное в пределах 8 блоков от золотой Миски для жертвоприношений. Только убийства игроком считаются жертвоприношением!
+                        Некоторые ритуалы требуют жертвоприношения живым существом, чтобы обеспечить необходимой энергией для вызова духа. Жертвоприношения описаны на странице ритуала в подразделе "Жертвоприношение". Для выполнения жертвоприношения, убейте животное в пределах 8 блоков от золотой Миски для жертвоприношений. Только убийства игроком считаются жертвоприношением!
                          """);
 
         helper.entry("summoning_rituals");
@@ -2660,8 +2636,8 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                         **Обновление поведения**:\\
                         не может быть улучшены Кузнецом-фамильяром.
                            """.formatted(COLOR_PURPLE));
-        
-		//текст отсутствует
+
+        //текст отсутствует
         helper.entry("summon_allay");
         this.lang("ru_ru").add(helper.entryName(), "Очищение Вредины до Тихони");
 
@@ -2677,8 +2653,8 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add(helper.pageTitle(), "Описание");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                       Очистка Вредины до Тихони в ходе процесса воскресения, что раскрывает её истинное имя.
-                         """.formatted(COLOR_PURPLE));
+                        Очистка Вредины до Тихони в ходе процесса воскресения, что раскрывает её истинное имя.
+                          """.formatted(COLOR_PURPLE));
 
     }
 
@@ -2746,14 +2722,14 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add(helper.pageTitle(), "Уникальные предметы");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Предметы с уникальными свойствами (\"NBT-данные\"), напр.: повреждённое или зачарованное снаряжение, займёт 1 тип предмета за каждое различие. Напр.: 2 деревянных меча с 2-мя разным повреждениями занимают 2 типа предмета. 2 деревянных меча с одинаковым уроном (или без), занимают 1 тип предмета.
+                        Предметы с уникальными свойствами ("NBT-данные"), напр.: повреждённое или зачарованное снаряжение, займёт 1 тип предмета за каждое различие. Напр.: 2 деревянных меча с 2-мя разным повреждениями занимают 2 типа предмета. 2 деревянных меча с одинаковым уроном (или без), занимают 1 тип предмета.
                         """.formatted(COLOR_PURPLE));
 
         helper.page("config");
         this.lang("ru_ru").add(helper.pageTitle(), "Конфигурируемость");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Количество типа предмета и размер хранилища можно настроить в файле конфигурации \"[#](%1$s)occultism-server.toml[#]()\" в папке сохранения мира.
+                        Количество типа предмета и размер хранилища можно настроить в файле конфигурации "[#](%1$s)occultism-server.toml[#]()" в папке сохранения мира.
                         """.formatted(COLOR_PURPLE));
 
         helper.page("mods");
@@ -2995,7 +2971,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addPentacle(String id, String name) {
-        this.add(Util.makeDescriptionId("multiblock", ResourceLocation.fromNamespaceAndPath(Occultism.MODID, id)), name);
+        this.add(Util.makeDescriptionId("multiblock", new ResourceLocation(Occultism.MODID, id)), name);
     }
 
     private void addRitualDummies() {
@@ -3186,87 +3162,90 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void advancementTitle(String name, String s) {
-        this.add(((TranslatableContents) OccultismAdvancementSubProvider.title(name).getContents()).getKey(), s);
+        this.add(((TranslatableContents) OccultismAdvancementProvider.title(name).getContents()).getKey(), s);
     }
 
     private void advancementDescr(String name, String s) {
-        this.add(((TranslatableContents) OccultismAdvancementSubProvider.descr(name).getContents()).getKey(), s);
+        this.add(((TranslatableContents) OccultismAdvancementProvider.descr(name).getContents()).getKey(), s);
     }
 
     private void addTags() {
         // Теги блока
-        this.addBlockTag(OccultismTags.Blocks.OTHERWORLD_SAPLINGS,"Потусторонние саженцы");
-        this.addBlockTag(OccultismTags.Blocks.CANDLES,"Свечи");
-        this.addBlockTag(OccultismTags.Blocks.CAVE_WALL_BLOCKS,"Пещерная ограда");
-        this.addBlockTag(OccultismTags.Blocks.NETHERRACK,"Незерак");
-        this.addBlockTag(OccultismTags.Blocks.STORAGE_STABILIZER,"Стабилизатор хранилища");
-        this.addBlockTag(OccultismTags.Blocks.TREE_SOIL,"Почва для дерева");
-        this.addBlockTag(OccultismTags.Blocks.WORLDGEN_BLACKLIST,"Блоки генерации в чёрном списке");
-        this.addBlockTag(OccultismTags.Blocks.IESNIUM_ORE,"Руда айзния");
-        this.addBlockTag(OccultismTags.Blocks.SILVER_ORE,"Серебряная руда");
-        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_IESNIUM,"Хранилище блоков айзния");
-        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_SILVER,"Хранилище серебряный блоков");
-        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_RAW_IESNIUM,"Хранилище рудных блоков айзния");
-        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_RAW_SILVER,"Хранилище рудных блоков серебра");
+        this.addBlockTag(OccultismTags.Blocks.OTHERWORLD_SAPLINGS, "Потусторонние саженцы");
+        this.addBlockTag(OccultismTags.Blocks.CANDLES, "Свечи");
+        this.addBlockTag(OccultismTags.Blocks.CAVE_WALL_BLOCKS, "Пещерная ограда");
+        this.addBlockTag(OccultismTags.Blocks.NETHERRACK, "Незерак");
+        this.addBlockTag(OccultismTags.Blocks.STORAGE_STABILIZER, "Стабилизатор хранилища");
+        this.addBlockTag(OccultismTags.Blocks.TREE_SOIL, "Почва для дерева");
+        this.addBlockTag(OccultismTags.Blocks.WORLDGEN_BLACKLIST, "Блоки генерации в чёрном списке");
+        this.addBlockTag(OccultismTags.Blocks.IESNIUM_ORE, "Руда айзния");
+        this.addBlockTag(OccultismTags.Blocks.SILVER_ORE, "Серебряная руда");
+        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_IESNIUM, "Хранилище блоков айзния");
+        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_SILVER, "Хранилище серебряный блоков");
+        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_RAW_IESNIUM, "Хранилище рудных блоков айзния");
+        this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_RAW_SILVER, "Хранилище рудных блоков серебра");
 
 
         // Теги предмета
-        this.addItemTag(OccultismTags.Items.OTHERWORLD_SAPLINGS,"Потусторонние саженцы");
-        this.addItemTag(OccultismTags.Items.BOOK_OF_CALLING_DJINNI,"Книга вызова Джинна");
-        this.addItemTag(OccultismTags.Items.BOOK_OF_CALLING_FOLIOT,"Книга вызова Фолиота");
-        this.addItemTag(OccultismTags.Items.Miners.BASIC_RESOURCES,"Горняки базовых ресурсов");
-        this.addItemTag(OccultismTags.Items.Miners.DEEPS,"Горняки глубинносланца");
-        this.addItemTag(OccultismTags.Items.Miners.MASTER,"Горняки редких ресурсов");
-        this.addItemTag(OccultismTags.Items.Miners.ORES,"Основные горняки");
-        this.addItemTag(OccultismTags.Items.TOOL_KNIVES,"Ножи");
-        this.addItemTag(OccultismTags.Items.ELYTRA,"Элитры");
-        this.addItemTag(OccultismTags.Items.OTHERWORLD_GOGGLES,"Потусторонние очки");
-        this.addItemTag(OccultismTags.Items.DATURA_SEEDS,"Семена «Блаженство демона»");
-        this.addItemTag(OccultismTags.Items.DATURA_CROP,"Блаженство демона");
-        this.addItemTag(OccultismTags.Items.COPPER_DUST,"Медная пыль");
-        this.addItemTag(OccultismTags.Items.GOLD_DUST,"Золотая пыль");
-        this.addItemTag(OccultismTags.Items.IESNIUM_DUST,"Пыль айзния");
-        this.addItemTag(OccultismTags.Items.IRON_DUST,"Железная пыль");
-        this.addItemTag(OccultismTags.Items.SILVER_DUST,"Серебряная пыль");
-        this.addItemTag(OccultismTags.Items.END_STONE_DUST,"Измельчённый эндерняк");
-        this.addItemTag(OccultismTags.Items.OBSIDIAN_DUST,"Измельчённый обсидиан");
-        this.addItemTag(OccultismTags.Items.IESNIUM_INGOT,"Слиток айзния");
-        this.addItemTag(OccultismTags.Items.SILVER_INGOT,"Серебряный слиток");
-        this.addItemTag(OccultismTags.Items.IESNIUM_NUGGET,"Кусочек айзния");
-        this.addItemTag(OccultismTags.Items.SILVER_NUGGET,"Кусочек серебра");
-        this.addItemTag(OccultismTags.Items.IESNIUM_ORE,"Руда айзния");
-        this.addItemTag(OccultismTags.Items.SILVER_ORE,"Серебряная руда");
-        this.addItemTag(OccultismTags.Items.RAW_IESNIUM,"Рудный айзний");
-        this.addItemTag(OccultismTags.Items.RAW_SILVER,"Рудное серебро");
-        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_IESNIUM,"Хранилище блоков айзния");
-        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_SILVER,"Хранилище серебряный блоков");
-        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM,"Хранилище рудных блоков айзния");
-        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER,"Хранилище рудных блоков серебра");
-        this.addItemTag(OccultismTags.Items.TALLOW,"Жир");
-        this.addItemTag(OccultismTags.Items.METAL_AXES,"Металлические топоры");
-        this.addItemTag(OccultismTags.Items.MAGMA,"Магма");
-        this.addItemTag(OccultismTags.Items.BOOKS,"Книги");
-        this.addItemTag(OccultismTags.Items.FRUITS,"Фрукты");
+        this.addItemTag(OccultismTags.Items.OTHERWORLD_SAPLINGS, "Потусторонние саженцы");
+        this.addItemTag(OccultismTags.Items.BOOK_OF_CALLING_DJINNI, "Книга вызова Джинна");
+        this.addItemTag(OccultismTags.Items.BOOK_OF_CALLING_FOLIOT, "Книга вызова Фолиота");
+        this.addItemTag(OccultismTags.Items.Miners.BASIC_RESOURCES, "Горняки базовых ресурсов");
+        this.addItemTag(OccultismTags.Items.Miners.DEEPS, "Горняки глубинносланца");
+        this.addItemTag(OccultismTags.Items.Miners.MASTER, "Горняки редких ресурсов");
+        this.addItemTag(OccultismTags.Items.Miners.ORES, "Основные горняки");
+        this.addItemTag(OccultismTags.Items.TOOL_KNIVES, "Ножи");
+        this.addItemTag(OccultismTags.Items.ELYTRA, "Элитры");
+        this.addItemTag(OccultismTags.Items.OTHERWORLD_GOGGLES, "Потусторонние очки");
+        this.addItemTag(OccultismTags.Items.DATURA_SEEDS, "Семена «Блаженство демона»");
+        this.addItemTag(OccultismTags.Items.DATURA_CROP, "Блаженство демона");
+        this.addItemTag(OccultismTags.Items.COPPER_DUST, "Медная пыль");
+        this.addItemTag(OccultismTags.Items.GOLD_DUST, "Золотая пыль");
+        this.addItemTag(OccultismTags.Items.IESNIUM_DUST, "Пыль айзния");
+        this.addItemTag(OccultismTags.Items.IRON_DUST, "Железная пыль");
+        this.addItemTag(OccultismTags.Items.SILVER_DUST, "Серебряная пыль");
+        this.addItemTag(OccultismTags.Items.END_STONE_DUST, "Измельчённый эндерняк");
+        this.addItemTag(OccultismTags.Items.OBSIDIAN_DUST, "Измельчённый обсидиан");
+        this.addItemTag(OccultismTags.Items.IESNIUM_INGOT, "Слиток айзния");
+        this.addItemTag(OccultismTags.Items.SILVER_INGOT, "Серебряный слиток");
+        this.addItemTag(OccultismTags.Items.IESNIUM_NUGGET, "Кусочек айзния");
+        this.addItemTag(OccultismTags.Items.SILVER_NUGGET, "Кусочек серебра");
+        this.addItemTag(OccultismTags.Items.IESNIUM_ORE, "Руда айзния");
+        this.addItemTag(OccultismTags.Items.SILVER_ORE, "Серебряная руда");
+        this.addItemTag(OccultismTags.Items.RAW_IESNIUM, "Рудный айзний");
+        this.addItemTag(OccultismTags.Items.RAW_SILVER, "Рудное серебро");
+        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_IESNIUM, "Хранилище блоков айзния");
+        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_SILVER, "Хранилище серебряный блоков");
+        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM, "Хранилище рудных блоков айзния");
+        this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER, "Хранилище рудных блоков серебра");
+        this.addItemTag(OccultismTags.Items.TALLOW, "Жир");
+        this.addItemTag(OccultismTags.Items.METAL_AXES, "Металлические топоры");
+        this.addItemTag(OccultismTags.Items.MAGMA, "Магма");
+        this.addItemTag(OccultismTags.Items.BOOKS, "Книги");
+        this.addItemTag(OccultismTags.Items.FRUITS, "Фрукты");
     }
 
     private void addItemTag(ResourceLocation resourceLocation, String string) {
-        this.add("tag.item."+resourceLocation.getNamespace()+"."+resourceLocation.getPath().replace("/","."), string);
+        this.add("tag.item." + resourceLocation.getNamespace() + "." + resourceLocation.getPath().replace("/", "."), string);
     }
+
     private void addBlockTag(TagKey<Block> block, String string) {
-        this.addBlockTag(block.location(),string);
+        this.addBlockTag(block.location(), string);
     }
+
     private void addItemTag(TagKey<Item> item, String string) {
-        this.addItemTag(item.location(),string);
+        this.addItemTag(item.location(), string);
     }
+
     private void addBlockTag(ResourceLocation resourceLocation, String string) {
-        this.add("tag.block."+resourceLocation.getNamespace()+"."+resourceLocation.getPath().replace("/","."), string);
+        this.add("tag.block." + resourceLocation.getNamespace() + "." + resourceLocation.getPath().replace("/", "."), string);
     }
 
     private void addEmiTranslations() {
-        this.lang("ru_ru").add("emi.category.occultism.spirit_fire","Духовный огонь");
-        this.lang("ru_ru").add("emi.category.occultism.crushing","Дробление");
-        this.lang("ru_ru").add("emi.category.occultism.miner","Пространственная шахта");
-        this.lang("ru_ru").add("emi.category.occultism.ritual","Ритуалы");
+        this.lang("ru_ru").add("emi.category.occultism.spirit_fire", "Духовный огонь");
+        this.lang("ru_ru").add("emi.category.occultism.crushing", "Дробление");
+        this.lang("ru_ru").add("emi.category.occultism.miner", "Пространственная шахта");
+        this.lang("ru_ru").add("emi.category.occultism.ritual", "Ритуалы");
         this.lang("ru_ru").add("emi.occultism.item_to_use", "Использование предмета: %s");
     }
 
@@ -3337,9 +3316,10 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("durability", "Прочность");
     }
 
-    private void addConfig(String key, String name){
+    private void addConfig(String key, String name) {
         this.lang("ru_ru").add(Occultism.MODID + ".configuration." + key, name);
     }
+
     @Override
     protected void addTranslations() {
         this.addAdvancements();
