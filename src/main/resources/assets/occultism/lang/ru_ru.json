@@ -1,6 +1,6 @@
 {
 "_comment": "Updated by Heimdallr-1",
-"_comment": "Update date 08-14-2024",
+"_comment": "Update date 08-29-2024",
 "_comment": "Не изменяйте перевод!",
 
 "advancements.occultism.familiar.bat.description": "Заманите летучую мышь близко к Вашей Летучей мыши-фамильяру.",
@@ -1892,5 +1892,5 @@
 "tag.item.occultism.miners.ores": "Основные горняки",
 "tag.item.occultism.otherworld_goggles": "Потусторонние очки",
 "tag.item.occultism.saplings.otherworld": "Потусторонний саженец",
-"tag.item.occultism.tools.knives": "Ножи"
+"tag.item.occultism.tools.knife": "Ножи"
 }
