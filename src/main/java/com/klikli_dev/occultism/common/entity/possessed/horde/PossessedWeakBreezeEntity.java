@@ -24,9 +24,13 @@ package com.klikli_dev.occultism.common.entity.possessed.horde;
 
 import com.klikli_dev.occultism.common.entity.spirit.WildHuntSkeletonEntity;
 import com.klikli_dev.occultism.registry.OccultismEntities;
+import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -91,6 +95,21 @@ public class PossessedWeakBreezeEntity extends Breeze {
         }
 
         return super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn);
+    }
+
+    @Override
+    public boolean isInvulnerableTo(DamageSource source) {
+        TagKey<EntityType<?>> wildTrialTag = OccultismTags.Entities.WILD_TRIAL;
+
+        Entity trueSource = source.getEntity();
+        if (trueSource != null && trueSource.getType().is(wildTrialTag))
+            return true;
+
+        Entity immediateSource = source.getDirectEntity();
+        if (immediateSource != null && immediateSource.getType().is(wildTrialTag))
+            return true;
+
+        return super.isInvulnerableTo(source);
     }
 
     @Override

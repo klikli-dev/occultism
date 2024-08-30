@@ -22,32 +22,55 @@
 
 package com.klikli_dev.occultism.common.entity.possessed.horde;
 
-import net.minecraft.world.entity.EntityType;
+import com.klikli_dev.occultism.registry.OccultismTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.level.Level;
 
 public class WildSlimeEntity extends Slime {
 
-    public WildSlimeEntity(EntityType<? extends Slime> type,
-                           Level worldIn) {
-        super(type, worldIn);
+    public WildSlimeEntity(EntityType<? extends WildSlimeEntity> type, Level world) {
+        super(type, world);
     }
 
-    //region Static Methods
+    @Override
+    public void setSize(int size, boolean resetHealth) {
+        super.setSize(size, resetHealth);
+        this.xpReward = size - 1;
+    }
 
-    //Wild Slime Attributes error, changed to vanilla slimes
     public static AttributeSupplier.Builder createAttributes() {
-        return Slime.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 45.0)
-                .add(Attributes.ARMOR,10)
-                .add(Attributes.KNOCKBACK_RESISTANCE,0.5);
+        return Monster.createMonsterAttributes()
+                .add(Attributes.MAX_HEALTH);
+    }
+
+    @Override
+    public boolean isInvulnerableTo(DamageSource source) {
+        TagKey<EntityType<?>> wildTrialTag = OccultismTags.Entities.WILD_TRIAL;
+
+        Entity trueSource = source.getEntity();
+        if (trueSource != null && trueSource.getType().is(wildTrialTag))
+            return true;
+
+        Entity immediateSource = source.getDirectEntity();
+        if (immediateSource != null && immediateSource.getType().is(wildTrialTag))
+            return true;
+
+        return super.isInvulnerableTo(source);
+    }
+
+    @Override
+    protected float getSoundVolume() {
+        return 0.1F * this.getSize();
     }
 
     @Override
     protected boolean shouldDespawnInPeaceful() {
         return false;
     }
-    //endregion Static Methods
 }

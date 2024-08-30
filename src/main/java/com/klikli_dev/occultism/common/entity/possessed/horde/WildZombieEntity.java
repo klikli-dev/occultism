@@ -22,6 +22,10 @@
 
 package com.klikli_dev.occultism.common.entity.possessed.horde;
 
+import com.klikli_dev.occultism.registry.OccultismTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -41,6 +45,21 @@ public class WildZombieEntity extends Zombie {
                 .add(Attributes.MAX_HEALTH, 30.0)
                 .add(Attributes.ARMOR,5)
                 .add(Attributes.KNOCKBACK_RESISTANCE,0.25);
+    }
+
+    @Override
+    public boolean isInvulnerableTo(DamageSource source) {
+        TagKey<EntityType<?>> wildTrialTag = OccultismTags.Entities.WILD_TRIAL;
+
+        Entity trueSource = source.getEntity();
+        if (trueSource != null && trueSource.getType().is(wildTrialTag))
+            return true;
+
+        Entity immediateSource = source.getDirectEntity();
+        if (immediateSource != null && immediateSource.getType().is(wildTrialTag))
+            return true;
+
+        return super.isInvulnerableTo(source);
     }
 
     @Override

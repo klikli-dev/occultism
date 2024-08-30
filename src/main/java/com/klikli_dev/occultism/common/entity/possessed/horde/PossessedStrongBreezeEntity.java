@@ -23,9 +23,13 @@
 package com.klikli_dev.occultism.common.entity.possessed.horde;
 
 import com.klikli_dev.occultism.registry.OccultismEntities;
+import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -55,7 +59,7 @@ public class PossessedStrongBreezeEntity extends Breeze {
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason,
                                         @Nullable SpawnGroupData spawnDataIn) {
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 7; i++) {
             WildHuskEntity entity = OccultismEntities.WILD_HUSK.get().create(this.level());
             EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
 
@@ -68,7 +72,7 @@ public class PossessedStrongBreezeEntity extends Breeze {
         }
 
         for (int i = 0; i < 7; i++) {
-            WildStrayEntity entity = OccultismEntities.WILD_STRAY.get().create(this.level());
+            WildBoggedEntity entity = OccultismEntities.WILD_BOGGED.get().create(this.level());
             EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
 
             double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
@@ -80,7 +84,7 @@ public class PossessedStrongBreezeEntity extends Breeze {
         }
 
         for (int i = 0; i < 7; i++) {
-            WildCaveSpiderEntity entity = OccultismEntities.WILD_CAVE_SPIDER.get().create(this.level());
+            WildSlimeEntity entity = OccultismEntities.WILD_SLIME.get().create(this.level());
             EventHooks.finalizeMobSpawn(entity, level, difficultyIn, reason, spawnDataIn);
 
             double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
@@ -88,10 +92,26 @@ public class PossessedStrongBreezeEntity extends Breeze {
             entity.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
                     level.getRandom().nextInt(360), 0);
             entity.setCustomName(Component.literal(TextUtil.generateName()));
+            entity.setSize(8,true); //Haha bigger slimes
             level.addFreshEntity(entity);
         }
 
         return super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn);
+    }
+
+    @Override
+    public boolean isInvulnerableTo(DamageSource source) {
+        TagKey<EntityType<?>> wildTrialTag = OccultismTags.Entities.WILD_TRIAL;
+
+        Entity trueSource = source.getEntity();
+        if (trueSource != null && trueSource.getType().is(wildTrialTag))
+            return true;
+
+        Entity immediateSource = source.getDirectEntity();
+        if (immediateSource != null && immediateSource.getType().is(wildTrialTag))
+            return true;
+
+        return super.isInvulnerableTo(source);
     }
 
     @Override
