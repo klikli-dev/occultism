@@ -200,7 +200,7 @@ public class Occultism {
         event.put(OccultismEntities.WILD_SILVERFISH.get(), WildSilverfishEntity.createAttributes().build());
         event.put(OccultismEntities.WILD_SPIDER_TYPE.get(), WildSpiderEntity.createAttributes().build());
         event.put(OccultismEntities.WILD_BOGGED_TYPE.get(), WildBoggedEntity.createAttributes().build());
-        event.put(OccultismEntities.WILD_SLIME_TYPE.get(), WildSlimeEntity.createAttributes().build()); //Wild Slime Attributes error, changed to vanilla slimes
+        event.put(OccultismEntities.WILD_SLIME_TYPE.get(), WildSlimeEntity.createAttributes().build());
         event.put(OccultismEntities.WILD_HUSK_TYPE.get(), WildHuskEntity.createAttributes().build());
         event.put(OccultismEntities.WILD_STRAY_TYPE.get(), WildStrayEntity.createAttributes().build());
         event.put(OccultismEntities.WILD_CAVE_SPIDER_TYPE.get(), WildCaveSpiderEntity.createAttributes().build());
