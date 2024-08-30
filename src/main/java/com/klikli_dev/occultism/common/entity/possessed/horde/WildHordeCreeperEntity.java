@@ -22,6 +22,8 @@
 
 package com.klikli_dev.occultism.common.entity.possessed.horde;
 
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -41,6 +43,12 @@ public class WildHordeCreeperEntity extends Creeper {
                 .add(Attributes.ARMOR, 20.0)
                 .add(Attributes.MAX_HEALTH, 5.0)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0);
+    }
+
+    public boolean isInvulnerableTo(DamageSource source) {
+        if (source.is(DamageTypeTags.IS_EXPLOSION))
+            return true;
+        return super.isInvulnerableTo(source);
     }
 
     @Override
