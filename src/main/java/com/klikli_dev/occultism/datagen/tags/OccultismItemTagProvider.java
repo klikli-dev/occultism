@@ -109,7 +109,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .addTag(OccultismTags.Items.Miners.MASTER)
                 .addTag(OccultismTags.Items.Miners.ORES).replace(false);
 
-        this.tag(OccultismTags.Items.TOOL_CHALKS)
+        this.tag(OccultismTags.Items.TOOLS_CHALKS)
                 .add(OccultismItems.CHALK_GOLD.get())
                 .add(OccultismItems.CHALK_WHITE.get())
                 .add(OccultismItems.CHALK_RED.get())
@@ -139,7 +139,10 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_EMPTY.get());
 
         this.tag(ItemTags.DURABILITY_ENCHANTABLE).addTag(OccultismTags.Items.Miners.MINERS);
-        this.tag(ItemTags.DURABILITY_ENCHANTABLE).addTag(OccultismTags.Items.TOOL_CHALKS);
+        this.tag(ItemTags.DURABILITY_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_CHALKS);
+        this.tag(ItemTags.DURABILITY_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_KNIFE);
+        this.tag(ItemTags.SHARP_WEAPON_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_KNIFE);
+        this.tag(ItemTags.SWORD_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_KNIFE);
 
         this.tag(ItemTags.LOGS_THAT_BURN)
                 .add(OccultismBlocks.OTHERWORLD_LOG.asItem())
