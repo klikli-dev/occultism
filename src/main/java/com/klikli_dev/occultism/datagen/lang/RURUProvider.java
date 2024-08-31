@@ -1595,7 +1595,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         helper.page("book_of_calling");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Вдруг потеряете Книгу вызова, сможете создать новую.
+                        Вдруг Вы потеряете Книгу вызова, то сможете создать новую.
                         Нажмите [#](%1$s)Shift + ПКМ[#]() по духу при помощи созданной книги, чтобы её определить.
                         """.formatted(COLOR_PURPLE));
 
@@ -2975,7 +2975,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addRitualDummies() {
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.custom_ritual", "Польз. макет ритуала");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.custom_ritual", "Выборочный макет ритуала");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.custom_ritual.tooltip", "Используется для сборок в качестве запасного варианта для пользовательских ритуалов, у которых нет своего предмета для ритуала.");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_wild_trim", "Ритуал: Кузнечный шаблон");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_wild_trim.tooltip", "Марид скуёт Кузнечный шаблон.");
@@ -3282,16 +3282,16 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
 
         this.addConfig("spirit_job", "Настройки занятия духа");
         this.addConfig("drikwingFamiliarSlowFallingSeconds", "Продолжительность эффекта плавного падения в сек., полученное благодаря Дрикрылу-фамильяру.");
-        this.addConfig("tier1CrusherTimeMultiplier", "Коэффициент времени для дробильщика 1-го уровня..");
-        this.addConfig("tier2CrusherTimeMultiplier", "Коэффициент времени для дробильщика 2-го уровня..");
-        this.addConfig("tier3CrusherTimeMultiplier", "Коэффициент времени для дробильщика 3-го уровня..");
-        this.addConfig("tier4CrusherTimeMultiplier", "Коэффициент времени для дробильщика 4-го уровня..");
-        this.addConfig("tier1CrusherOutputMultiplier", "Коэффициент продукции для дробильщика 1-го уровня..");
-        this.addConfig("tier2CrusherOutputMultiplier", "Коэффициент продукции для дробильщика 2-го уровня..");
-        this.addConfig("tier3CrusherOutputMultiplier", "Коэффициент продукции для дробильщика 3-го уровня..");
-        this.addConfig("tier4CrusherOutputMultiplier", "Коэффициент продукции для дробильщика 4-го уровня..");
+        this.addConfig("tier1CrusherTimeMultiplier", "Временной коэффициент дробильщика 1-го уровня..");
+        this.addConfig("tier2CrusherTimeMultiplier", "Временной коэффициент дробильщика 2-го уровня..");
+        this.addConfig("tier3CrusherTimeMultiplier", "Временной коэффициент дробильщика 3-го уровня..");
+        this.addConfig("tier4CrusherTimeMultiplier", "Временной коэффициент дробильщика 4-го уровня..");
+        this.addConfig("tier1CrusherOutputMultiplier", "Коэффициент продукции дробильщика 1-го уровня..");
+        this.addConfig("tier2CrusherOutputMultiplier", "Коэффициент продукции дробильщика 2-го уровня..");
+        this.addConfig("tier3CrusherOutputMultiplier", "Коэффициент продукции дробильщика 3-го уровня..");
+        this.addConfig("tier4CrusherOutputMultiplier", "Коэффициент продукции дробильщика 4-го уровня..");
         this.addConfig("crusherResultPickupDelay", "Задержка, прежде чем предметы из дробильщика могут быть подобраны.");
-        this.addConfig("blacksmithFamiliarRepairChance", "Вероятность, что Кузнец-фамильяр будет чинить предмет каждый такт.");
+        this.addConfig("blacksmithFamiliarRepairChance", "Шанс, что Кузнец-фамильяр каждый такт будет чинить предмет.");
         this.addConfig("blacksmithFamiliarUpgradeCost", "Стоимость обновления предметов в уровнях опыта при помощи Кузнеца-фамильяра.");
         this.addConfig("blacksmithFamiliarUpgradeCooldown", "Перезарядка/в тактах, прежде чем Кузнец-фамильяр сможет снова обновить предметы.");
 
