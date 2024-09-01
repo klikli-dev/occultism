@@ -28,7 +28,7 @@ import com.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
@@ -70,6 +70,14 @@ public class StandardBlockStateProvider extends BlockStateProvider {
                 this.models().getExistingFile(this.modLoc("block/storage_stabilizer_tier3")));
         this.directionalBlock(OccultismBlocks.STORAGE_STABILIZER_TIER4.get(),
                 this.models().getExistingFile(this.modLoc("block/storage_stabilizer_tier4")));
+
+        stairsBlock(((StairBlock) OccultismBlocks.OTHERPLANKS_STAIRS.get()), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
+        fenceBlock(((FenceBlock) OccultismBlocks.OTHERPLANKS_FENCE.get()), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
+        fenceGateBlock(((FenceGateBlock) OccultismBlocks.OTHERPLANKS_FENCE_GATE.get()), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
+        doorBlockWithRenderType(((DoorBlock) OccultismBlocks.OTHERPLANKS_DOOR.get()), modLoc("block/otherplanks_door_bottom"), modLoc("block/otherplanks_door_top"), "cutout");
+        trapdoorBlockWithRenderType(((TrapDoorBlock) OccultismBlocks.OTHERPLANKS_TRAPDOOR.get()), modLoc("block/otherplanks_trapdoor"), true, "cutout");
+        pressurePlateBlock(((PressurePlateBlock) OccultismBlocks.OTHERPLANKS_PRESSURE_PLATE.get()), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
+        buttonBlock(((ButtonBlock) OccultismBlocks.OTHERPLANKS_BUTTON.get()), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
     }
 
     protected void generateStableWormholeState(Block block) {

@@ -146,7 +146,20 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
 
         this.tag(ItemTags.LOGS_THAT_BURN)
                 .add(OccultismBlocks.OTHERWORLD_LOG.asItem())
-                .add(OccultismBlocks.OTHERWORLD_LOG_NATURAL.asItem());
+                .add(OccultismBlocks.OTHERWORLD_LOG_NATURAL.asItem())
+                .add(OccultismBlocks.OTHERWORLD_WOOD.asItem())
+                .add(OccultismBlocks.STRIPPED_OTHERWORLD_LOG.asItem())
+                .add(OccultismBlocks.STRIPPED_OTHERWORLD_WOOD.asItem());
+
+        this.tag(ItemTags.PLANKS).add(OccultismBlocks.OTHERPLANKS.asItem());
+        this.tag(ItemTags.WOODEN_STAIRS).add(OccultismBlocks.OTHERPLANKS_STAIRS.asItem());
+        this.tag(ItemTags.WOODEN_SLABS).add(OccultismBlocks.OTHERPLANKS_SLAB.asItem());
+        this.tag(ItemTags.WOODEN_FENCES).add(OccultismBlocks.OTHERPLANKS_FENCE.asItem()).replace(false);
+        this.tag(ItemTags.FENCE_GATES).add(OccultismBlocks.OTHERPLANKS_FENCE_GATE.asItem()).replace(false);
+        this.tag(ItemTags.WOODEN_DOORS).add(OccultismBlocks.OTHERPLANKS_DOOR.asItem()).replace(false);
+        this.tag(ItemTags.WOODEN_TRAPDOORS).add(OccultismBlocks.OTHERPLANKS_TRAPDOOR.asItem()).replace(false);
+        this.tag(ItemTags.WOODEN_PRESSURE_PLATES).add(OccultismBlocks.OTHERPLANKS_PRESSURE_PLATE.asItem()).replace(false);
+        this.tag(ItemTags.WOODEN_BUTTONS).add(OccultismBlocks.OTHERPLANKS_BUTTON.asItem()).replace(false);
 
         this.tag(Tags.Items.STONES)
                 .add(OccultismBlocks.OTHERSTONE.asItem())
@@ -244,6 +257,9 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
 
         // Tallow
         this.tag(OccultismTags.Items.TALLOW).add(OccultismItems.TALLOW.get()).replace(false);
+
+        // Wood
+        this.copy(OccultismTags.Blocks.OTHERWORLD_LOGS, OccultismTags.Items.OTHERWORLD_LOGS);
     }
 
     private void addDusts(HolderLookup.Provider provider) {

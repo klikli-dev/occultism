@@ -117,6 +117,9 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
                 OccultismDataComponents.CRAFTING_MATRIX.get(),
                 OccultismDataComponents.ORDER_STACK.get()
         );
+
+        this.add(OccultismBlocks.OTHERPLANKS_SLAB.get(), block -> createSlabItemTable(OccultismBlocks.OTHERPLANKS_SLAB.get()));
+        this.add(OccultismBlocks.OTHERPLANKS_DOOR.get(), block -> createDoorTable(OccultismBlocks.OTHERPLANKS_DOOR.get()));
     }
 
     protected void registerOtherworldBlockTable(Block block) {

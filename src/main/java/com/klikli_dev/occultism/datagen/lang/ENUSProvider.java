@@ -297,9 +297,21 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.STABLE_WORMHOLE, "Stable Wormhole");
         this.addBlock(OccultismBlocks.DATURA, "Demon's Dream");
 
-        this.add("block.occultism.otherworld_log", "Otherworld Wood");
         this.add("block.occultism.otherworld_sapling", "Otherworld Sapling");
         this.add("block.occultism.otherworld_leaves", "Otherworld Leaves");
+        this.add("block.occultism.otherworld_log", "Otherworld Log");
+        this.add("block.occultism.otherworld_wood", "Otherworld Wood");
+        this.add("block.occultism.stripped_otherworld_log", "Stripped Otherworld Log");
+        this.add("block.occultism.stripped_otherworld_wood", "Stripped Otherworld Wood");
+        this.add("block.occultism.otherplanks", "Otherplanks");
+        this.add("block.occultism.otherplanks_stairs", "Otherplanks Stairs");
+        this.add("block.occultism.otherplanks_slab", "Otherplanks Slab");
+        this.add("block.occultism.otherplanks_fence", "Otherplanks Fence");
+        this.add("block.occultism.otherplanks_fence_gate", "Otherplanks Fence Gate");
+        this.add("block.occultism.otherplanks_door", "Otherplanks Door");
+        this.add("block.occultism.otherplanks_trapdoor", "Otherplanks Trapdoor");
+        this.add("block.occultism.otherplanks_pressure_plate", "Otherplanks Pressure Plate");
+        this.add("block.occultism.otherplanks_button", "Otherplanks Button");
 
         this.addBlock(OccultismBlocks.SPIRIT_FIRE, "Spiritfire");
         this.addBlock(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL, "Spirit Attuned Crystal");

@@ -32,23 +32,31 @@ import com.klikli_dev.occultism.common.block.storage.StorageControllerBlock;
 import com.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
 import com.klikli_dev.occultism.common.entity.familiar.CthulhuFamiliarEntity;
 import com.klikli_dev.occultism.common.entity.familiar.FamiliarEntity;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec2;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -115,13 +123,13 @@ public class OccultismBlocks {
             register("otherstone_natural", () -> new OtherstoneNaturalBlock(
                             Block.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(1.5f, 30)),
                     true, LootTableType.OTHERWORLD_BLOCK);
-    public static final DeferredBlock<Block> OTHERWORLD_LOG =
-            register("otherworld_log", () -> new RotatedPillarBlock(Block.Properties.of()
-                    .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE)
-                    .strength(2.0F).sound(SoundType.WOOD).strength(2.0f)));
-    public static final DeferredBlock<Block> OTHERWORLD_LOG_NATURAL =
-            register("otherworld_log_natural", () -> new OtherworldLogNaturalBlock(Block.Properties.of()
-                    .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE).strength(2.0f)), true, LootTableType.OTHERWORLD_BLOCK);
+    //Wood
+    public static final DeferredBlock<OtherworldSaplingBlock> OTHERWORLD_SAPLING =
+            register("otherworld_sapling", () -> new OtherworldSaplingBlock(
+                    Block.Properties.of()
+                            .mapColor(MapColor.PLANT)
+                            .sound(SoundType.GRASS)
+                            .strength(0.0f).randomTicks().noCollission()));
     public static final DeferredBlock<LeavesBlock> OTHERWORLD_LEAVES =
             register("otherworld_leaves", () -> new LeavesBlock(
                     Block.Properties.of()
@@ -133,18 +141,52 @@ public class OccultismBlocks {
                     Block.Properties.of()
                             .mapColor(MapColor.PLANT).sound(SoundType.GRASS)
                             .strength(0.2f).randomTicks().noOcclusion()), true, LootTableType.CUSTOM);
-    public static final DeferredBlock<OtherworldSaplingBlock> OTHERWORLD_SAPLING =
-            register("otherworld_sapling", () -> new OtherworldSaplingBlock(
-                    Block.Properties.of()
-                            .mapColor(MapColor.PLANT)
-                            .sound(SoundType.GRASS)
-                            .strength(0.0f).randomTicks().noCollission()));
+    public static final DeferredBlock<Block> OTHERWORLD_LOG_NATURAL =
+            register("otherworld_log_natural", () -> new OtherworldLogNaturalBlock(Block.Properties.of()
+                    .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE).strength(2.0f)), true, LootTableType.OTHERWORLD_BLOCK);
+    public static final DeferredBlock<Block> OTHERWORLD_LOG =
+            register("otherworld_log", () -> new RotatedPillarBlock(Block.Properties.of()
+                    .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE)
+                    .strength(2.0F).sound(SoundType.WOOD).strength(2.0f)));
     public static final DeferredBlock<OtherworldSaplingNaturalBlock> OTHERWORLD_SAPLING_NATURAL =
             register("otherworld_sapling_natural", () -> new OtherworldSaplingNaturalBlock(
                     Block.Properties.of()
                             .mapColor(MapColor.PLANT)
                             .sound(SoundType.GRASS)
                             .strength(0.0f).randomTicks().noCollission()), false, LootTableType.OTHERWORLD_BLOCK);
+    public static final DeferredBlock<Block> OTHERWORLD_WOOD =
+            register("otherworld_wood", () -> new RotatedPillarBlock(Block.Properties.of()
+                    .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE)
+                    .strength(2.0F).sound(SoundType.WOOD).strength(2.0f)));
+    public static final DeferredBlock<Block> STRIPPED_OTHERWORLD_LOG =
+            register("stripped_otherworld_log", () -> new RotatedPillarBlock(Block.Properties.of()
+                    .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE)
+                    .strength(2.0F).sound(SoundType.WOOD).strength(2.0f)));
+    public static final DeferredBlock<Block> STRIPPED_OTHERWORLD_WOOD =
+            register("stripped_otherworld_wood", () -> new RotatedPillarBlock(Block.Properties.of()
+                    .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE)
+                    .strength(2.0F).sound(SoundType.WOOD).strength(2.0f)));
+    public static final DeferredBlock<Block> OTHERPLANKS =
+            register("otherplanks", () -> new Block(Block.Properties.of()
+                    .mapColor(MapColor.WOOD).strength(2.0F).sound(SoundType.WOOD).strength(2.0f)));
+    public static final DeferredBlock<StairBlock> OTHERPLANKS_STAIRS = register("otherplanks_stairs",
+            () -> new StairBlock(OTHERPLANKS.get().defaultBlockState(), Block.Properties.ofFullCopy(OTHERPLANKS.get())));
+    public static final DeferredBlock<SlabBlock> OTHERPLANKS_SLAB = register("otherplanks_slab",
+            () -> new SlabBlock(Block.Properties.ofFullCopy(OTHERPLANKS.get())), true, LootTableType.CUSTOM);
+    public static final DeferredBlock<FenceBlock> OTHERPLANKS_FENCE = register("otherplanks_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE)));
+    public static final DeferredBlock<FenceGateBlock> OTHERPLANKS_FENCE_GATE = register("otherplanks_fence_gate",
+            () -> new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.ofFullCopy(OccultismBlocks.OTHERPLANKS.get())));
+    public static final DeferredBlock<DoorBlock> OTHERPLANKS_DOOR = register("otherplanks_door",
+            () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(OccultismBlocks.OTHERPLANKS.get())), true, LootTableType.CUSTOM);
+    public static final DeferredBlock<TrapDoorBlock> OTHERPLANKS_TRAPDOOR = register("otherplanks_trapdoor",
+            () -> new TrapDoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(OccultismBlocks.OTHERPLANKS.get())));
+    public static final DeferredBlock<PressurePlateBlock> OTHERPLANKS_PRESSURE_PLATE = register("otherplanks_pressure_plate",
+            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE)));
+    public static final DeferredBlock<ButtonBlock> OTHERPLANKS_BUTTON = register("otherplanks_button",
+            () -> new ButtonBlock(BlockSetType.OAK, 30, BlockBehaviour.Properties.of().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY)));
+
+    //Ores
     public static final DeferredBlock<Block> SILVER_ORE = register("silver_ore", () -> new Block(Block.Properties.ofLegacyCopy(Blocks.IRON_ORE)), true, LootTableType.CUSTOM);
     public static final DeferredBlock<Block> SILVER_ORE_DEEPSLATE = register("silver_ore_deepslate", () -> new Block(Block.Properties.ofLegacyCopy(Blocks.IRON_ORE)), true, LootTableType.CUSTOM);
     public static final DeferredBlock<Block> IESNIUM_ORE = register("iesnium_ore", () -> new Block(Block.Properties.ofLegacyCopy(Blocks.IRON_ORE)), true, LootTableType.CUSTOM);
