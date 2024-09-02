@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "occultism:chalk_white_impure"
+    },
+    {
+      "tag": "c:dusts/iron"
+    },
+    {
+      "tag": "c:gunpowders"
+    },
+    {
+      "item": "minecraft:clay_ball"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "occultism:chalk_gray_impure"
+  }
+}

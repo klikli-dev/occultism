@@ -3,6 +3,18 @@
     "occultism:chalk_gold",
     "occultism:chalk_white",
     "occultism:chalk_red",
-    "occultism:chalk_purple"
+    "occultism:chalk_purple",
+    "occultism:chalk_light_gray",
+    "occultism:chalk_gray",
+    "occultism:chalk_black",
+    "occultism:chalk_brown",
+    "occultism:chalk_orange",
+    "occultism:chalk_lime",
+    "occultism:chalk_green",
+    "occultism:chalk_cyan",
+    "occultism:chalk_light_blue",
+    "occultism:chalk_blue",
+    "occultism:chalk_magenta",
+    "occultism:chalk_pink"
   ]
 }

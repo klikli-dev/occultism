@@ -1,0 +1,10 @@
+{
+  "type": "occultism:spirit_fire",
+  "ingredient": {
+    "item": "occultism:chalk_light_gray_impure"
+  },
+  "result": {
+    "count": 1,
+    "id": "occultism:chalk_light_gray"
+  }
+}

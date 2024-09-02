@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_chalk_white_impure": {
+    "has_chalk_pink_impure": {
       "conditions": {
         "items": [
           {
-            "items": "occultism:chalk_white_impure"
+            "items": "occultism:chalk_pink_impure"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:spirit_fire/chalk_white"
+        "recipe": "occultism:spirit_fire/chalk_pink"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_chalk_white_impure"
+      "has_chalk_pink_impure"
     ]
   ],
   "rewards": {
     "recipes": [
-      "occultism:spirit_fire/chalk_white"
+      "occultism:spirit_fire/chalk_pink"
     ]
   }
 }
