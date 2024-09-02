@@ -1,5 +1,8 @@
 {
   "values": [
-    "occultism:otherstone_slab"
+    "occultism:otherstone_slab",
+    "occultism:othercobblestone_slab",
+    "occultism:polished_otherstone_slab",
+    "occultism:otherstone_bricks_slab"
   ]
 }

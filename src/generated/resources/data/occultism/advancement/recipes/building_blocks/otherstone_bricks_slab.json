@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_otherstone_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "occultism:otherstone_bricks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:otherstone_bricks_slab"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_otherstone_bricks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:otherstone_bricks_slab"
+    ]
+  }
+}

@@ -1,7 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
-  "group": "OTHERPLANKS",
   "key": {
     "#": {
       "item": "occultism:otherplanks"
