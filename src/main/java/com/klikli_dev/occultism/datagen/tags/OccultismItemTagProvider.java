@@ -120,6 +120,8 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(OccultismTags.Items.TOOLS_KNIFE).add(OccultismItems.BUTCHER_KNIFE.get()).replace(false);
         this.tag(OccultismTags.Items.ELYTRA).add(Items.ELYTRA).addOptional(ResourceLocation.fromNamespaceAndPath("mana-and-artifice", "spectral_elytra")).replace(false);
         this.tag(OccultismTags.Items.OTHERWORLD_GOGGLES).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
+        this.tag(OccultismTags.Items.OTHERSTONE).add(OccultismBlocks.OTHERSTONE.asItem());
+        this.tag(OccultismTags.Items.OTHERCOBBLESTONE).add(OccultismBlocks.OTHERCOBBLESTONE.asItem());
     }
 
     private void addMinecraftTags(HolderLookup.Provider provider) {
@@ -164,6 +166,17 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(Tags.Items.STONES)
                 .add(OccultismBlocks.OTHERSTONE.asItem())
                 .add(OccultismBlocks.OTHERSTONE_NATURAL.asItem());
+        this.tag(ItemTags.STAIRS)
+                .add(OccultismBlocks.OTHERSTONE_STAIRS.asItem())
+                .add(OccultismBlocks.OTHERCOBBLESTONE_STAIRS.asItem())
+                .add(OccultismBlocks.POLISHED_OTHERSTONE_STAIRS.asItem())
+                .add(OccultismBlocks.OTHERSTONE_BRICKS_STAIRS.asItem());
+        this.tag(ItemTags.WALLS)
+                .add(OccultismBlocks.OTHERSTONE_WALL.asItem())
+                .add(OccultismBlocks.OTHERCOBBLESTONE_WALL.asItem())
+                .add(OccultismBlocks.POLISHED_OTHERSTONE_WALL.asItem())
+                .add(OccultismBlocks.OTHERSTONE_BRICKS_WALL.asItem());
+        this.tag(ItemTags.STONE_BUTTONS).add(OccultismBlocks.OTHERSTONE_BUTTON.asItem());
 
         this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(OccultismItems.INFUSED_PICKAXE.get(), OccultismItems.IESNIUM_PICKAXE.get()).replace(false);
         this.copy(BlockTags.LEAVES, ItemTags.LEAVES);

@@ -123,6 +123,8 @@ public class OccultismTags {
 
         public static final TagKey<Item> TOOLS_CHALKS = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "tools/chalks"));
         public static final TagKey<Item> OTHERWORLD_LOGS = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "otherworld_logs"));
+        public static final TagKey<Item> OTHERSTONE = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "otherstone"));
+        public static final TagKey<Item> OTHERCOBBLESTONE = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "othercobblestone"));
     }
 
     public static class Entities {

@@ -35,7 +35,9 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(OccultismBlocks.OTHERSTONE.get())
                 .add(OccultismBlocks.OTHERSTONE_NATURAL.get())
+                .add(OccultismBlocks.OTHERSTONE_STAIRS.get())
                 .add(OccultismBlocks.OTHERSTONE_SLAB.get())
+                .add(OccultismBlocks.OTHERSTONE_PRESSURE_PLATE.get())
                 .add(OccultismBlocks.OTHERSTONE_PEDESTAL.get())
                 .add(OccultismBlocks.STORAGE_CONTROLLER_BASE.get())
                 .add(OccultismBlocks.SACRIFICIAL_BOWL.get())
@@ -55,9 +57,36 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.RAW_SILVER_BLOCK.get())
                 .add(OccultismBlocks.IESNIUM_BLOCK.get())
                 .add(OccultismBlocks.RAW_IESNIUM_BLOCK.get())
-                .add(OccultismBlocks.SPIRIT_LANTERN.get());
+                .add(OccultismBlocks.SPIRIT_LANTERN.get())
+                .add(OccultismBlocks.OTHERCOBBLESTONE.get())
+                .add(OccultismBlocks.OTHERCOBBLESTONE_STAIRS.get())
+                .add(OccultismBlocks.OTHERCOBBLESTONE_SLAB.get())
+                .add(OccultismBlocks.POLISHED_OTHERSTONE.get())
+                .add(OccultismBlocks.POLISHED_OTHERSTONE_STAIRS.get())
+                .add(OccultismBlocks.POLISHED_OTHERSTONE_SLAB.get())
+                .add(OccultismBlocks.OTHERSTONE_BRICKS.get())
+                .add(OccultismBlocks.OTHERSTONE_BRICKS_STAIRS.get())
+                .add(OccultismBlocks.OTHERSTONE_BRICKS_SLAB.get())
+                .add(OccultismBlocks.CHISELED_OTHERSTONE_BRICKS.get())
+                .add(OccultismBlocks.CRACKED_OTHERSTONE_BRICKS.get());
         this.tag(BlockTags.CAMPFIRES).add(OccultismBlocks.SPIRIT_CAMPFIRE.get()).replace(false);
-        this.tag(BlockTags.SLABS).add(OccultismBlocks.OTHERSTONE_SLAB.get(), OccultismBlocks.OTHERPLANKS_SLAB.get()).replace(false);
+        this.tag(BlockTags.STAIRS)
+                .add(OccultismBlocks.OTHERSTONE_STAIRS.get())
+                .add(OccultismBlocks.OTHERCOBBLESTONE_STAIRS.get())
+                .add(OccultismBlocks.POLISHED_OTHERSTONE_STAIRS.get())
+                .add(OccultismBlocks.OTHERSTONE_BRICKS_STAIRS.get()).replace(false);
+        this.tag(BlockTags.SLABS)
+                .add(OccultismBlocks.OTHERSTONE_SLAB.get())
+                .add(OccultismBlocks.OTHERCOBBLESTONE_SLAB.get())
+                .add(OccultismBlocks.POLISHED_OTHERSTONE_SLAB.get())
+                .add(OccultismBlocks.OTHERSTONE_BRICKS_SLAB.get()).replace(false);
+        this.tag(BlockTags.WALLS)
+                .add(OccultismBlocks.OTHERSTONE_WALL.get())
+                .add(OccultismBlocks.OTHERCOBBLESTONE_WALL.get())
+                .add(OccultismBlocks.POLISHED_OTHERSTONE_WALL.get())
+                .add(OccultismBlocks.OTHERSTONE_BRICKS_WALL.get()).replace(false);
+        this.tag(BlockTags.STONE_PRESSURE_PLATES).add(OccultismBlocks.OTHERSTONE_PRESSURE_PLATE.get()).replace(false);
+        this.tag(BlockTags.STONE_BUTTONS).add(OccultismBlocks.OTHERSTONE_BUTTON.get()).replace(false);
         this.tag(BlockTags.CANDLES).addTags(OccultismTags.Blocks.OCCULTISM_CANDLES).replace(false);
         this.tag(BlockTags.CROPS).add(OccultismBlocks.DATURA.get()).replace(false);
         this.tag(BlockTags.LEAVES).add(OccultismBlocks.OTHERWORLD_LEAVES.get(), OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get()).replace(false);

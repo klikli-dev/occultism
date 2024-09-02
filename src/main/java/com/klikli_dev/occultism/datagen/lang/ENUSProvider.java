@@ -280,7 +280,25 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         //this.addBlock\(OccultismItems.\U\1\E, "\2"\);
 
         this.addBlock(OccultismBlocks.OTHERSTONE, "Otherstone");
+        this.addBlock(OccultismBlocks.OTHERSTONE_STAIRS, "Otherstone Stairs");
         this.addBlock(OccultismBlocks.OTHERSTONE_SLAB, "Otherstone Slab");
+        this.addBlock(OccultismBlocks.OTHERSTONE_PRESSURE_PLATE, "Otherstone Pressure Plate");
+        this.addBlock(OccultismBlocks.OTHERSTONE_BUTTON, "Otherstone Button");
+        this.addBlock(OccultismBlocks.OTHERSTONE_WALL, "Otherstone Wall");
+        this.addBlock(OccultismBlocks.OTHERCOBBLESTONE, "Othercobblestone");
+        this.addBlock(OccultismBlocks.OTHERCOBBLESTONE_STAIRS, "Othercobblestone Stairs");
+        this.addBlock(OccultismBlocks.OTHERCOBBLESTONE_SLAB, "Othercobblestone Slab");
+        this.addBlock(OccultismBlocks.OTHERCOBBLESTONE_WALL, "Othercobblestone Wall");
+        this.addBlock(OccultismBlocks.POLISHED_OTHERSTONE, "Polished Otherstone");
+        this.addBlock(OccultismBlocks.POLISHED_OTHERSTONE_STAIRS, "Polished Otherstone Stairs");
+        this.addBlock(OccultismBlocks.POLISHED_OTHERSTONE_SLAB, "Polished Otherstone Slab");
+        this.addBlock(OccultismBlocks.POLISHED_OTHERSTONE_WALL, "Polished Otherstone Wall");
+        this.addBlock(OccultismBlocks.OTHERSTONE_BRICKS, "Otherstone Bricks");
+        this.addBlock(OccultismBlocks.OTHERSTONE_BRICKS_STAIRS, "Otherstone Bricks Stairs");
+        this.addBlock(OccultismBlocks.OTHERSTONE_BRICKS_SLAB, "Otherstone Bricks Slab");
+        this.addBlock(OccultismBlocks.OTHERSTONE_BRICKS_WALL, "Otherstone Bricks Wall");
+        this.addBlock(OccultismBlocks.CHISELED_OTHERSTONE_BRICKS, "Chiseled Otherstone Bricks");
+        this.addBlock(OccultismBlocks.CRACKED_OTHERSTONE_BRICKS, "Cracked Otherstone Bricks");
         this.addBlock(OccultismBlocks.OTHERSTONE_PEDESTAL, "Otherstone Pedestal");
         this.addBlock(OccultismBlocks.SACRIFICIAL_BOWL, "Sacrificial Bowl");
         this.addBlock(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL, "Golden Sacrificial Bowl");

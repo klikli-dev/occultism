@@ -78,6 +78,24 @@ public class StandardBlockStateProvider extends BlockStateProvider {
         trapdoorBlockWithRenderType(((TrapDoorBlock) OccultismBlocks.OTHERPLANKS_TRAPDOOR.get()), modLoc("block/otherplanks_trapdoor"), true, "cutout");
         pressurePlateBlock(((PressurePlateBlock) OccultismBlocks.OTHERPLANKS_PRESSURE_PLATE.get()), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
         buttonBlock(((ButtonBlock) OccultismBlocks.OTHERPLANKS_BUTTON.get()), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
+
+        stairsBlock(((StairBlock) OccultismBlocks.OTHERSTONE_STAIRS.get()), blockTexture(OccultismBlocks.OTHERSTONE.get()));
+        wallBlock(((WallBlock) OccultismBlocks.OTHERSTONE_WALL.get()), blockTexture(OccultismBlocks.OTHERSTONE.get()));
+        pressurePlateBlock(((PressurePlateBlock) OccultismBlocks.OTHERSTONE_PRESSURE_PLATE.get()), blockTexture(OccultismBlocks.OTHERSTONE.get()));
+        buttonBlock(((ButtonBlock) OccultismBlocks.OTHERSTONE_BUTTON.get()), blockTexture(OccultismBlocks.OTHERSTONE.get()));
+
+        stairsBlock(((StairBlock) OccultismBlocks.OTHERCOBBLESTONE_STAIRS.get()), blockTexture(OccultismBlocks.OTHERCOBBLESTONE.get()));
+        slabBlock(((SlabBlock) OccultismBlocks.OTHERCOBBLESTONE_SLAB.get()), blockTexture(OccultismBlocks.OTHERCOBBLESTONE.get()), blockTexture(OccultismBlocks.OTHERCOBBLESTONE.get()));
+        wallBlock(((WallBlock) OccultismBlocks.OTHERCOBBLESTONE_WALL.get()), blockTexture(OccultismBlocks.OTHERCOBBLESTONE.get()));
+
+        stairsBlock(((StairBlock) OccultismBlocks.POLISHED_OTHERSTONE_STAIRS.get()), blockTexture(OccultismBlocks.POLISHED_OTHERSTONE.get()));
+        slabBlock(((SlabBlock) OccultismBlocks.POLISHED_OTHERSTONE_SLAB.get()), blockTexture(OccultismBlocks.POLISHED_OTHERSTONE.get()), blockTexture(OccultismBlocks.POLISHED_OTHERSTONE.get()));
+        wallBlock(((WallBlock) OccultismBlocks.POLISHED_OTHERSTONE_WALL.get()), blockTexture(OccultismBlocks.POLISHED_OTHERSTONE.get()));
+
+        stairsBlock(((StairBlock) OccultismBlocks.OTHERSTONE_BRICKS_STAIRS.get()), blockTexture(OccultismBlocks.OTHERSTONE_BRICKS.get()));
+        slabBlock(((SlabBlock) OccultismBlocks.OTHERSTONE_BRICKS_SLAB.get()), blockTexture(OccultismBlocks.OTHERSTONE_BRICKS.get()), blockTexture(OccultismBlocks.OTHERSTONE_BRICKS.get()));
+        wallBlock(((WallBlock) OccultismBlocks.OTHERSTONE_BRICKS_WALL.get()), blockTexture(OccultismBlocks.OTHERSTONE_BRICKS.get()));
+
     }
 
     protected void generateStableWormholeState(Block block) {
