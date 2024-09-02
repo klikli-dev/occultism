@@ -1071,7 +1071,7 @@
   "item.occultism.ritual_dummy.familiar_blacksmith": "Ритуал: Вызов кузнеца-фамильяра",
   "item.occultism.ritual_dummy.familiar_blacksmith.tooltip": "Кузнец-фамильяр берёт камень, добытый хозяином и использует его для починки снаряжения.",
   "item.occultism.ritual_dummy.familiar_chimera": "Ритуал: Вызов химеры-фамильяра",
-  "item.occultism.ritual_dummy.familiar_chimera.tooltip": "Химеру-фамильяра можно кормить до полного роста для получения скорости атаки и урона. Как только она вырастит, игроки смогут её оседлать.",
+  "item.occultism.ritual_dummy.familiar_chimera.tooltip": "The chimera familiars can be fed to grow in size and gain attack speed and damage. Once big enough, players can ride them.",
   "item.occultism.ritual_dummy.familiar_cthulhu": "Ритуал: Вызов ктулху-фамильяра",
   "item.occultism.ritual_dummy.familiar_cthulhu.tooltip": "Ктулху-фамильяр наделяет своего хозяина водным дыханием.",
   "item.occultism.ritual_dummy.familiar_deer": "Ритуал: Вызов оленя-фамильяра",
