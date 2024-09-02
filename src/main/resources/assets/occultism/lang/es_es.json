@@ -1071,7 +1071,7 @@
   "item.occultism.ritual_dummy.familiar_blacksmith": "Ritual: Invocar Familiar Herrero",
   "item.occultism.ritual_dummy.familiar_blacksmith.tooltip": "Los familiares herreros recogen piedra de sus minas y las usan para reparar equipamiento.",
   "item.occultism.ritual_dummy.familiar_chimera": "Ritual: Invocar Familiar Quimera",
-  "item.occultism.ritual_dummy.familiar_chimera.tooltip": "Los familiares quimera pueden ser alimentados para crecer en tamaño y ganar velocidad de ataque y daño. Cuando son suficientemente grandes, pueden ser montados.",
+  "item.occultism.ritual_dummy.familiar_chimera.tooltip": "The chimera familiars can be fed to grow in size and gain attack speed and damage. Once big enough, players can ride them.",
   "item.occultism.ritual_dummy.familiar_cthulhu": "Ritual: Invocar Familiar Cthulhu",
   "item.occultism.ritual_dummy.familiar_cthulhu.tooltip": "Los familiares cthulhu otorgan respiración acuática a su amo.",
   "item.occultism.ritual_dummy.familiar_deer": "Ritual: Invocar Familiar Ciervo",
