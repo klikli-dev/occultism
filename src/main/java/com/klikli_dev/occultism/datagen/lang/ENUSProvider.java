@@ -148,14 +148,38 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.DEBUG_DJINNI_MANAGE_MACHINE, "Summon Debug Djinni Manage Machine");
         this.addItem(OccultismItems.DEBUG_DJINNI_TEST, "Summon Debug Djinni Test");
 
-        this.addItem(OccultismItems.CHALK_GOLD, "Golden Chalk");
+        this.addItem(OccultismItems.CHALK_GOLD, "Yellow Chalk");
         this.addItem(OccultismItems.CHALK_PURPLE, "Purple Chalk");
         this.addItem(OccultismItems.CHALK_RED, "Red Chalk");
         this.addItem(OccultismItems.CHALK_WHITE, "White Chalk");
-        this.addItem(OccultismItems.CHALK_GOLD_IMPURE, "Impure Golden Chalk");
+        this.addItem(OccultismItems.CHALK_LIGHT_GRAY, "Light Gray Chalk");
+        this.addItem(OccultismItems.CHALK_GRAY, "Gray Chalk");
+        this.addItem(OccultismItems.CHALK_BLACK, "Black Chalk");
+        this.addItem(OccultismItems.CHALK_BROWN, "Brown Chalk");
+        this.addItem(OccultismItems.CHALK_ORANGE, "Orange Chalk");
+        this.addItem(OccultismItems.CHALK_LIME, "Lime Chalk");
+        this.addItem(OccultismItems.CHALK_GREEN, "Green Chalk");
+        this.addItem(OccultismItems.CHALK_CYAN, "Cyan Chalk");
+        this.addItem(OccultismItems.CHALK_LIGHT_BLUE, "Light Blue Chalk");
+        this.addItem(OccultismItems.CHALK_BLUE, "Blue Chalk");
+        this.addItem(OccultismItems.CHALK_MAGENTA, "Magenta Chalk");
+        this.addItem(OccultismItems.CHALK_PINK, "Pink Chalk");
+        this.addItem(OccultismItems.CHALK_GOLD_IMPURE, "Impure Yellow Chalk");
         this.addItem(OccultismItems.CHALK_PURPLE_IMPURE, "Impure Purple Chalk");
         this.addItem(OccultismItems.CHALK_RED_IMPURE, "Impure Red Chalk");
         this.addItem(OccultismItems.CHALK_WHITE_IMPURE, "Impure White Chalk");
+        this.addItem(OccultismItems.CHALK_LIGHT_GRAY_IMPURE, "Impure Light Gray Chalk");
+        this.addItem(OccultismItems.CHALK_GRAY_IMPURE, "Impure Gray Chalk");
+        this.addItem(OccultismItems.CHALK_BLACK_IMPURE, "Impure Black Chalk");
+        this.addItem(OccultismItems.CHALK_BROWN_IMPURE, "Impure Brown Chalk");
+        this.addItem(OccultismItems.CHALK_ORANGE_IMPURE, "Impure Orange Chalk");
+        this.addItem(OccultismItems.CHALK_LIME_IMPURE, "Impure Lime Chalk");
+        this.addItem(OccultismItems.CHALK_GREEN_IMPURE, "Impure Green Chalk");
+        this.addItem(OccultismItems.CHALK_CYAN_IMPURE, "Impure Cyan Chalk");
+        this.addItem(OccultismItems.CHALK_LIGHT_BLUE_IMPURE, "Impure Light Blue Chalk");
+        this.addItem(OccultismItems.CHALK_BLUE_IMPURE, "Impure Blue Chalk");
+        this.addItem(OccultismItems.CHALK_MAGENTA_IMPURE, "Impure Magenta Chalk");
+        this.addItem(OccultismItems.CHALK_PINK_IMPURE, "Impure Pink Chalk");
         this.addItem(OccultismItems.BRUSH, "Chalk Brush");
         this.addItem(OccultismItems.AFRIT_ESSENCE, "Afrit Essence");
         this.addItem(OccultismItems.PURIFIED_INK, "Purified Ink");
@@ -303,9 +327,21 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.SACRIFICIAL_BOWL, "Sacrificial Bowl");
         this.addBlock(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL, "Golden Sacrificial Bowl");
         this.addBlock(OccultismBlocks.CHALK_GLYPH_WHITE, "White Chalk Glyph");
-        this.addBlock(OccultismBlocks.CHALK_GLYPH_GOLD, "Gold Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_GOLD, "Yellow Chalk Glyph");
         this.addBlock(OccultismBlocks.CHALK_GLYPH_PURPLE, "Purple Chalk Glyph");
         this.addBlock(OccultismBlocks.CHALK_GLYPH_RED, "Red Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY, "Light Gray Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_GRAY, "Gray Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_BLACK, "Black Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_BROWN, "Brown Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_ORANGE, "Orange Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_LIME, "Lime Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_GREEN, "Green Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_CYAN, "Cyan Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_LIGHT_BLUE, "Light Blue Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_BLUE, "Blue Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_MAGENTA, "Magenta Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_PINK, "Pink Chalk Glyph");
         this.addBlock(OccultismBlocks.STORAGE_CONTROLLER, "Dimensional Storage Actuator");
         this.addBlock(OccultismBlocks.STORAGE_CONTROLLER_BASE, "Storage Actuator Base");
         this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER1, "Tier 1 Dimensional Storage Stabilizer");
@@ -1070,12 +1106,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("golden_chalk");
         this.add(helper.pageText(),
                 """
-                        Golden chalk is used for binding runes, which allow to infuse a spirit into an item, or make it possess a living being.
+                        Yellow chalk is used for binding runes, which allow to infuse a spirit into an item, or make it possess a living being.
                                """);
 
 
         helper.page("golden_chalk_uses");
-        this.add(helper.pageTitle(), "Golden Chalk Uses");
+        this.add(helper.pageTitle(), "Yellow Chalk Uses");
         this.add(helper.pageText(),
                 """
                         - [Eziveus' Spectral Compulsion](entry://occultism:dictionary_of_spirits/pentacles/craft_foliot)
@@ -3329,9 +3365,21 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("disableHolidayTheming", "Disable Otherworld Goggles Shaders");
         this.addConfig("useAlternativeDivinationRodRenderer", "Use Alternative Divination Rod Renderer");
         this.addConfig("whiteChalkGlyphColor", "White Chalk Glyph Color");
-        this.addConfig("goldenChalkGlyphColor", "Golden Chalk Glyph Color");
+        this.addConfig("goldenChalkGlyphColor", "Yellow Chalk Glyph Color");
         this.addConfig("purpleChalkGlyphColor", "Purple Chalk Glyph Color");
         this.addConfig("redChalkGlyphColor", "Red Chalk Glyph Color");
+        this.addConfig("=lightGrayChalkGlyphColor", "= Light Gray Chalk Glyph Color");
+        this.addConfig("=grayChalkGlyphColor", "= Gray Chalk Glyph Color");
+        this.addConfig("=blackChalkGlyphColor", "= Black Chalk Glyph Color");
+        this.addConfig("=brownChalkGlyphColor", "= Brown Chalk Glyph Color");
+        this.addConfig("=orangeChalkGlyphColor", "= Orange Chalk Glyph Color");
+        this.addConfig("=limeChalkGlyphColor", "= Lime Chalk Glyph Color");
+        this.addConfig("=greenChalkGlyphColor", "= Green Chalk Glyph Color");
+        this.addConfig("=cyanChalkGlyphColor", "= Cyan Chalk Glyph Color");
+        this.addConfig("=lightBlueChalkGlyphColor", "= Light Blue Chalk Glyph Color");
+        this.addConfig("=blueChalkGlyphColor", "= Blue Chalk Glyph Color");
+        this.addConfig("=magentaChalkGlyphColor", "= Magenta Chalk Glyph Color");
+        this.addConfig("=pinkChalkGlyphColor", "= PinkChalk Glyph Color");
 
         this.addConfig("misc", "Misc Settings");
         this.addConfig("syncJeiSearch", "Sync JEI Search");

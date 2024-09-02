@@ -110,6 +110,42 @@ public class OccultismBlocks {
     public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_RED = register("chalk_glyph_red",
             () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.redChalkGlyphColor, () -> OccultismItems.CHALK_RED.get()), false,
             LootTableType.EMPTY);
+    public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_LIGHT_GRAY = register("chalk_glyph_light_gray",
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.lightGrayChalkGlyphColor, () -> OccultismItems.CHALK_LIGHT_GRAY.get()),
+            false, LootTableType.EMPTY);
+    public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_GRAY = register("chalk_glyph_gray",
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.grayChalkGlyphColor, () -> OccultismItems.CHALK_GRAY.get()),
+            false, LootTableType.EMPTY);
+    public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_BLACK = register("chalk_glyph_black",
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.blackChalkGlyphColor, () -> OccultismItems.CHALK_BLACK.get()),
+            false, LootTableType.EMPTY);
+    public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_BROWN = register("chalk_glyph_brown",
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.brownChalkGlyphColor, () -> OccultismItems.CHALK_BROWN.get()),
+            false, LootTableType.EMPTY);
+    public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_ORANGE = register("chalk_glyph_orange",
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.orangeChalkGlyphColor, () -> OccultismItems.CHALK_ORANGE.get()),
+            false, LootTableType.EMPTY);
+    public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_LIME = register("chalk_glyph_lime",
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.limeChalkGlyphColor, () -> OccultismItems.CHALK_LIME.get()),
+            false, LootTableType.EMPTY);
+    public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_GREEN = register("chalk_glyph_green",
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.greenChalkGlyphColor, () -> OccultismItems.CHALK_GREEN.get()),
+            false, LootTableType.EMPTY);
+    public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_CYAN = register("chalk_glyph_cyan",
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.cyanChalkGlyphColor, () -> OccultismItems.CHALK_CYAN.get()),
+            false, LootTableType.EMPTY);
+    public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_LIGHT_BLUE = register("chalk_glyph_light_blue",
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.lightBlueChalkGlyphColor, () -> OccultismItems.CHALK_LIGHT_BLUE.get()),
+            false, LootTableType.EMPTY);
+    public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_BLUE = register("chalk_glyph_blue",
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.blueChalkGlyphColor, () -> OccultismItems.CHALK_BLUE.get()),
+            false, LootTableType.EMPTY);
+    public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_MAGENTA = register("chalk_glyph_magenta",
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.magentaChalkGlyphColor, () -> OccultismItems.CHALK_MAGENTA.get()),
+            false, LootTableType.EMPTY);
+    public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_PINK = register("chalk_glyph_pink",
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.pinkChalkGlyphColor, () -> OccultismItems.CHALK_PINK.get()),
+            false, LootTableType.EMPTY);
 
     //Resources
     public static final DeferredBlock<Block> OTHERSTONE = register("otherstone", () -> new Block(
