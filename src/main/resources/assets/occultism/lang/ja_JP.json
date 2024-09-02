@@ -1071,7 +1071,7 @@
   "item.occultism.ritual_dummy.familiar_blacksmith": "儀式：鍛冶屋の鍛冶屋",
   "item.occultism.ritual_dummy.familiar_blacksmith.tooltip": "鍛冶屋は石を彼らの主鉱山に取り、装備を修理するためにそれを使用します。",
   "item.occultism.ritual_dummy.familiar_chimera": "儀式：キメラを召喚する",
-  "item.occultism.ritual_dummy.familiar_chimera.tooltip": "キメラの使い魔を餌食にすると、攻撃速度とダメージを増加させることができます。十分に大きくなると、プレイヤーは騎乗できます。",
+  "item.occultism.ritual_dummy.familiar_chimera.tooltip": "The chimera familiars can be fed to grow in size and gain attack speed and damage. Once big enough, players can ride them.",
   "item.occultism.ritual_dummy.familiar_cthulhu": "儀式：召喚<unk>",
   "item.occultism.ritual_dummy.familiar_cthulhu.tooltip": "ctulhuの使い慣れた人は、彼らのマスターに水の呼吸を提供します。",
   "item.occultism.ritual_dummy.familiar_deer": "儀式：鹿を召喚する",
