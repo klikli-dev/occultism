@@ -1071,7 +1071,7 @@
   "item.occultism.ritual_dummy.familiar_blacksmith": "仪式：召唤铁匠使魔",
   "item.occultism.ritual_dummy.familiar_blacksmith.tooltip": "铁匠使魔拿走其主人挖下的石头，并将其用于修复装备。",
   "item.occultism.ritual_dummy.familiar_chimera": "仪式：召唤奇美拉使魔",
-  "item.occultism.ritual_dummy.familiar_chimera.tooltip": "给奇美拉喂食可以增加其大小、攻速和伤害。当奇美拉变得足够大，玩家就能骑乘它们。",
+  "item.occultism.ritual_dummy.familiar_chimera.tooltip": "The chimera familiars can be fed to grow in size and gain attack speed and damage. Once big enough, players can ride them.",
   "item.occultism.ritual_dummy.familiar_cthulhu": "仪式：召唤克苏鲁使魔",
   "item.occultism.ritual_dummy.familiar_cthulhu.tooltip": "克苏鲁使魔能为其主人提供水下呼吸状态。",
   "item.occultism.ritual_dummy.familiar_deer": "仪式：召唤小鹿使魔",
