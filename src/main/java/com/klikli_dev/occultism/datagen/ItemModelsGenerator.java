@@ -47,14 +47,11 @@ public class ItemModelsGenerator extends ItemModelProvider {
             var key = BuiltInRegistries.ITEM.getKey(item);
             if (key.getPath().startsWith("ritual_dummy/")) {
                 this.registerRitualDummy("item/" + key.getPath());
-            }
-        });
-        BuiltInRegistries.ITEM.forEach(item -> {
-            var key = BuiltInRegistries.ITEM.getKey(item);
-            if (key.getPath().startsWith("spawn_egg/")) {
+            } else if (key.getPath().startsWith("spawn_egg/")) {
                 this.registerSpawnEgg("item/" + key.getPath());
             }
         });
+
         this.registerAdvancementItem();
 
         this.registerItemGenerated(this.name(OccultismItems.SOUL_SHARD_ITEM.get()));
