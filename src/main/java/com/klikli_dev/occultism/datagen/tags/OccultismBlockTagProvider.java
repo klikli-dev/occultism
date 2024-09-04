@@ -25,6 +25,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
     public void addMinecraftTags(HolderLookup.Provider provider) {
         this.tag(BlockTags.MINEABLE_WITH_AXE)
                 .add(OccultismBlocks.OTHERWORLD_LOG_NATURAL.get())
+                .add(OccultismBlocks.STRIPPED_OTHERWORLD_LOG_NATURAL.get())
                 .add(OccultismBlocks.OTHERWORLD_LOG.get())
                 .add(OccultismBlocks.OTHERWORLD_WOOD.get())
                 .add(OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get())
@@ -128,6 +129,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
         this.tag(OccultismTags.Blocks.OTHERWORLD_LOGS)
                 .add(OccultismBlocks.OTHERWORLD_LOG.get())
                 .add(OccultismBlocks.OTHERWORLD_LOG_NATURAL.get())
+                .add(OccultismBlocks.STRIPPED_OTHERWORLD_LOG_NATURAL.get())
                 .add(OccultismBlocks.OTHERWORLD_WOOD.get())
                 .add(OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get())
                 .add(OccultismBlocks.STRIPPED_OTHERWORLD_WOOD.get());

@@ -208,6 +208,12 @@ public class OccultismBlocks {
                             .mapColor(MapColor.PLANT)
                             .sound(SoundType.GRASS)
                             .strength(0.0f).randomTicks().noCollission()));
+    public static final DeferredBlock<OtherworldSaplingNaturalBlock> OTHERWORLD_SAPLING_NATURAL =
+            register("otherworld_sapling_natural", () -> new OtherworldSaplingNaturalBlock(
+                    Block.Properties.of()
+                            .mapColor(MapColor.PLANT)
+                            .sound(SoundType.GRASS)
+                            .strength(0.0f).randomTicks().noCollission()), false, LootTableType.OTHERWORLD_BLOCK);
     public static final DeferredBlock<LeavesBlock> OTHERWORLD_LEAVES =
             register("otherworld_leaves", () -> new LeavesBlock(
                     Block.Properties.of()
@@ -222,16 +228,13 @@ public class OccultismBlocks {
     public static final DeferredBlock<Block> OTHERWORLD_LOG_NATURAL =
             register("otherworld_log_natural", () -> new OtherworldLogNaturalBlock(Block.Properties.of()
                     .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE).strength(2.0f)), true, LootTableType.OTHERWORLD_BLOCK);
+    public static final DeferredBlock<Block> STRIPPED_OTHERWORLD_LOG_NATURAL =
+            register("stripped_otherworld_log_natural", () -> new OtherworldStrippedLogNaturalBlock(Block.Properties.of()
+                    .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE).strength(2.0f)), true, LootTableType.OTHERWORLD_BLOCK);
     public static final DeferredBlock<Block> OTHERWORLD_LOG =
             register("otherworld_log", () -> new RotatedPillarBlock(Block.Properties.of()
                     .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE)
                     .strength(2.0F).sound(SoundType.WOOD).strength(2.0f)));
-    public static final DeferredBlock<OtherworldSaplingNaturalBlock> OTHERWORLD_SAPLING_NATURAL =
-            register("otherworld_sapling_natural", () -> new OtherworldSaplingNaturalBlock(
-                    Block.Properties.of()
-                            .mapColor(MapColor.PLANT)
-                            .sound(SoundType.GRASS)
-                            .strength(0.0f).randomTicks().noCollission()), false, LootTableType.OTHERWORLD_BLOCK);
     public static final DeferredBlock<Block> OTHERWORLD_WOOD =
             register("otherworld_wood", () -> new RotatedPillarBlock(Block.Properties.of()
                     .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE)

@@ -161,6 +161,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(ItemTags.LOGS_THAT_BURN)
                 .add(OccultismBlocks.OTHERWORLD_LOG.asItem())
                 .add(OccultismBlocks.OTHERWORLD_LOG_NATURAL.asItem())
+                .add(OccultismBlocks.STRIPPED_OTHERWORLD_LOG_NATURAL.asItem())
                 .add(OccultismBlocks.OTHERWORLD_WOOD.asItem())
                 .add(OccultismBlocks.STRIPPED_OTHERWORLD_LOG.asItem())
                 .add(OccultismBlocks.STRIPPED_OTHERWORLD_WOOD.asItem());
