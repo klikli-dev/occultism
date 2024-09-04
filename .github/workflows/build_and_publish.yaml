@@ -97,7 +97,6 @@ jobs:
             neoforge
           game-versions: |
             ${{ steps.get_mc_version.outputs.result }}
-            1.21
           changelog: |-
             ${{ steps.changelog.outputs.changes }}
             
