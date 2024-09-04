@@ -28,7 +28,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -43,9 +42,9 @@ import net.neoforged.neoforge.common.ItemAbility;
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
-public class OtherworldLogNaturalBlock extends RotatedPillarBlock implements IOtherworldBlock {
+public class OtherworldStrippableBlock extends RotatedPillarBlock implements IOtherworldBlock {
     Supplier<Block> strippedState;
-    public OtherworldLogNaturalBlock(Properties properties, Supplier<Block> stateSupplier) {
+    public OtherworldStrippableBlock(Properties properties, Supplier<Block> stateSupplier) {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(UNCOVERED, false));
         this.strippedState = stateSupplier;

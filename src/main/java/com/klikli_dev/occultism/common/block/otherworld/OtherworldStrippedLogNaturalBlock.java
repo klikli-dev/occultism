@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -35,8 +36,11 @@ import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.neoforged.neoforge.common.ItemAbilities;
+import net.neoforged.neoforge.common.ItemAbility;
 
 import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 public class OtherworldStrippedLogNaturalBlock extends RotatedPillarBlock implements IOtherworldBlock {
 
@@ -47,12 +51,12 @@ public class OtherworldStrippedLogNaturalBlock extends RotatedPillarBlock implem
 
     @Override
     public Block getUncoveredBlock() {
-        return OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get();
+        return OccultismBlocks.OTHERWORLD_LOG.get();
     }
 
     @Override
     public Block getCoveredBlock() {
-        return Blocks.STRIPPED_OAK_LOG;
+        return Blocks.OAK_LOG;
     }
 
     @Override
@@ -70,7 +74,7 @@ public class OtherworldStrippedLogNaturalBlock extends RotatedPillarBlock implem
 
     @Override
     public String getDescriptionId() {
-        return "block.minecraft.stripped_oak_log";
+        return "block.minecraft.oak_log";
     }
 
     @Override
@@ -84,5 +88,6 @@ public class OtherworldStrippedLogNaturalBlock extends RotatedPillarBlock implem
         builder.add(UNCOVERED);
         super.createBlockStateDefinition(builder);
     }
+
 
 }

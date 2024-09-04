@@ -32,6 +32,7 @@ import com.klikli_dev.occultism.common.block.storage.StorageControllerBlock;
 import com.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
 import com.klikli_dev.occultism.common.entity.familiar.CthulhuFamiliarEntity;
 import com.klikli_dev.occultism.common.entity.familiar.FamiliarEntity;
+import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.model.ModelBakery;
@@ -227,18 +228,18 @@ public class OccultismBlocks {
                             .strength(0.2f).randomTicks().noOcclusion()), true, LootTableType.CUSTOM);
     public static final DeferredBlock<Block> OTHERWORLD_LOG_NATURAL =
             register("otherworld_log_natural", () -> new OtherworldLogNaturalBlock(Block.Properties.of()
-                    .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE).strength(2.0f)), true, LootTableType.OTHERWORLD_BLOCK);
+                    .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE).strength(2.0f), () -> OccultismBlocks.STRIPPED_OTHERWORLD_LOG_NATURAL.get()), true, LootTableType.OTHERWORLD_BLOCK);
     public static final DeferredBlock<Block> STRIPPED_OTHERWORLD_LOG_NATURAL =
             register("stripped_otherworld_log_natural", () -> new OtherworldStrippedLogNaturalBlock(Block.Properties.of()
                     .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE).strength(2.0f)), true, LootTableType.OTHERWORLD_BLOCK);
     public static final DeferredBlock<Block> OTHERWORLD_LOG =
-            register("otherworld_log", () -> new RotatedPillarBlock(Block.Properties.of()
+            register("otherworld_log", () -> new OtherworldStrippableBlock(Block.Properties.of()
                     .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE)
-                    .strength(2.0F).sound(SoundType.WOOD).strength(2.0f)));
+                    .strength(2.0F).sound(SoundType.WOOD).strength(2.0f), () -> OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get()));
     public static final DeferredBlock<Block> OTHERWORLD_WOOD =
-            register("otherworld_wood", () -> new RotatedPillarBlock(Block.Properties.of()
+            register("otherworld_wood", () -> new OtherworldStrippableBlock(Block.Properties.of()
                     .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE)
-                    .strength(2.0F).sound(SoundType.WOOD).strength(2.0f)));
+                    .strength(2.0F).sound(SoundType.WOOD).strength(2.0f), () -> OccultismBlocks.STRIPPED_OTHERWORLD_WOOD.get()));
     public static final DeferredBlock<Block> STRIPPED_OTHERWORLD_LOG =
             register("stripped_otherworld_log", () -> new RotatedPillarBlock(Block.Properties.of()
                     .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE)
