@@ -51,12 +51,12 @@ public class OtherworldStrippedLogNaturalBlock extends RotatedPillarBlock implem
 
     @Override
     public Block getUncoveredBlock() {
-        return OccultismBlocks.OTHERWORLD_LOG.get();
+        return OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get();
     }
 
     @Override
     public Block getCoveredBlock() {
-        return Blocks.OAK_LOG;
+        return Blocks.STRIPPED_OAK_LOG;
     }
 
     @Override
@@ -74,7 +74,7 @@ public class OtherworldStrippedLogNaturalBlock extends RotatedPillarBlock implem
 
     @Override
     public String getDescriptionId() {
-        return "block.minecraft.oak_log";
+        return "block.minecraft.stripped_oak_log";
     }
 
     @Override
