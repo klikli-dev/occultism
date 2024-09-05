@@ -182,52 +182,52 @@ public class OccultismItems {
             () -> new StorageRemoteItem(defaultProperties().stacksTo(1)));
 
     public static final DeferredItem<Item> CHALK_WHITE = ITEMS.register("chalk_white",
-            () -> new ChalkItem(defaultProperties().setNoRepair().durability(128),
+            () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_WHITE.get()));
     public static final DeferredItem<Item> CHALK_GOLD = ITEMS.register("chalk_gold",
-            () -> new ChalkItem(defaultProperties().setNoRepair().durability(128),
+            () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_GOLD.get()));
     public static final DeferredItem<Item> CHALK_PURPLE = ITEMS.register("chalk_purple",
-            () -> new ChalkItem(defaultProperties().setNoRepair().durability(128),
+            () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_PURPLE.get()));
     public static final DeferredItem<Item> CHALK_RED = ITEMS.register("chalk_red",
-            () -> new ChalkItem(defaultProperties().setNoRepair().durability(128),
+            () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_RED.get()));
     public static final DeferredItem<Item> CHALK_LIGHT_GRAY = ITEMS.register("chalk_light_gray",
-            () -> new ChalkItem(defaultProperties().setNoRepair().durability(128),
+            () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY.get()));
     public static final DeferredItem<Item> CHALK_GRAY = ITEMS.register("chalk_gray",
-            () -> new ChalkItem(defaultProperties().setNoRepair().durability(128),
+            () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_GRAY.get()));
     public static final DeferredItem<Item> CHALK_BLACK = ITEMS.register("chalk_black",
-            () -> new ChalkItem(defaultProperties().setNoRepair().durability(128),
+            () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_BLACK.get()));
     public static final DeferredItem<Item> CHALK_BROWN = ITEMS.register("chalk_brown",
-            () -> new ChalkItem(defaultProperties().setNoRepair().durability(128),
+            () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_BROWN.get()));
     public static final DeferredItem<Item> CHALK_ORANGE = ITEMS.register("chalk_orange",
-            () -> new ChalkItem(defaultProperties().setNoRepair().durability(128),
+            () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_ORANGE.get()));
     public static final DeferredItem<Item> CHALK_LIME = ITEMS.register("chalk_lime",
-            () -> new ChalkItem(defaultProperties().setNoRepair().durability(128),
+            () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_LIME.get()));
     public static final DeferredItem<Item> CHALK_GREEN = ITEMS.register("chalk_green",
-            () -> new ChalkItem(defaultProperties().setNoRepair().durability(128),
+            () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_GREEN.get()));
     public static final DeferredItem<Item> CHALK_CYAN = ITEMS.register("chalk_cyan",
-            () -> new ChalkItem(defaultProperties().setNoRepair().durability(128),
+            () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_CYAN.get()));
     public static final DeferredItem<Item> CHALK_LIGHT_BLUE = ITEMS.register("chalk_light_blue",
-            () -> new ChalkItem(defaultProperties().setNoRepair().durability(128),
+            () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_LIGHT_BLUE.get()));
     public static final DeferredItem<Item> CHALK_BLUE = ITEMS.register("chalk_blue",
-            () -> new ChalkItem(defaultProperties().setNoRepair().durability(128),
+            () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_BLUE.get()));
     public static final DeferredItem<Item> CHALK_MAGENTA = ITEMS.register("chalk_magenta",
-            () -> new ChalkItem(defaultProperties().setNoRepair().durability(128),
+            () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_MAGENTA.get()));
     public static final DeferredItem<Item> CHALK_PINK = ITEMS.register("chalk_pink",
-            () -> new ChalkItem(defaultProperties().setNoRepair().durability(128),
+            () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_PINK.get()));
 
     public static final DeferredItem<DivinationRodItem> DIVINATION_ROD = ITEMS.register("divination_rod",
