@@ -652,8 +652,9 @@ public class OccultismRecipeProvider extends RecipeProvider {
         // Chalks
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.CHALK_GOLD_IMPURE.get())
                 .requires(OccultismItems.CHALK_WHITE_IMPURE.get())
-                .requires(OccultismTags.Items.GOLD_DUST)
                 .requires(Tags.Items.DUSTS_GLOWSTONE)
+                .requires(OccultismTags.Items.GOLD_DUST)
+                .requires(OccultismTags.Items.GOLD_DUST)
                 .unlockedBy("has_chalk_white", has(OccultismItems.CHALK_WHITE_IMPURE.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/chalk_gold_impure"));
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.CHALK_PURPLE_IMPURE.get())
@@ -667,6 +668,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .requires(OccultismItems.CHALK_WHITE_IMPURE.get())
                 .requires(OccultismItems.AFRIT_ESSENCE.get())
                 .requires(Items.BLAZE_POWDER)
+                .requires(Tags.Items.DUSTS_REDSTONE)
                 .unlockedBy("has_chalk_white", has(OccultismItems.CHALK_WHITE_IMPURE.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/chalk_red_impure"));
 
