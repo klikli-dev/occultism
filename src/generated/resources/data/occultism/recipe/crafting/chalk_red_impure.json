@@ -10,6 +10,9 @@
     },
     {
       "item": "minecraft:blaze_powder"
+    },
+    {
+      "tag": "c:dusts/redstone"
     }
   ],
   "result": {
