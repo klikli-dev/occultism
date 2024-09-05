@@ -117,21 +117,37 @@ public class LargeCandleBlock extends AbstractCandleBlock implements SimpleWater
     protected ItemInteractionResult useItemOn(
             ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult
     ) {
-        if (player.getAbilities().mayBuild && state.getValue(LIT)) {
-            if (stack.isEmpty()){
+        if (player.getAbilities().mayBuild) {
+            if (stack.isEmpty() && state.getValue(LIT)){
                 extinguish(player, state, level, pos);
                 return ItemInteractionResult.sidedSuccess(level.isClientSide);
             } else if (stack.getItem() == Items.TORCH.asItem()) {
-                level.setBlock(pos, state.setValue(CANDLES, 1), 11);
+                if (canBeLit(state)){
+                    level.setBlock(pos, state.setValue(LIT, true).setValue(CANDLES,1), 1);
+                } else {
+                    level.setBlock(pos, state.setValue(CANDLES, 1), 11);
+                }
                 return ItemInteractionResult.sidedSuccess(level.isClientSide);
             } else if (stack.getItem() == Items.SOUL_TORCH.asItem()) {
-                level.setBlock(pos, state.setValue(CANDLES, 2), 11);
+                if (canBeLit(state)){
+                    level.setBlock(pos, state.setValue(LIT, true).setValue(CANDLES, 2), 1);
+                } else {
+                    level.setBlock(pos, state.setValue(CANDLES, 2), 11);
+                }
                 return ItemInteractionResult.sidedSuccess(level.isClientSide);
             } else if (stack.getItem() == Items.REDSTONE_TORCH.asItem()) {
-                level.setBlock(pos, state.setValue(CANDLES, 3), 11);
+                if (canBeLit(state)){
+                    level.setBlock(pos, state.setValue(LIT, true).setValue(CANDLES, 3), 1);
+                } else {
+                    level.setBlock(pos, state.setValue(CANDLES, 3), 11);
+                }
                 return ItemInteractionResult.sidedSuccess(level.isClientSide);
             } else if (stack.getItem() == OccultismItems.SPIRIT_TORCH.asItem()) {
-                level.setBlock(pos, state.setValue(CANDLES, 4), 11);
+                if (canBeLit(state)){
+                    level.setBlock(pos, state.setValue(LIT, true).setValue(CANDLES, 4), 1);
+                } else {
+                    level.setBlock(pos, state.setValue(CANDLES, 4), 11);
+                }
                 return ItemInteractionResult.sidedSuccess(level.isClientSide);
             } else {
                 return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
@@ -190,12 +206,6 @@ public class LargeCandleBlock extends AbstractCandleBlock implements SimpleWater
         } else {
             return false;
         }
-    }
-
-    public static boolean canLight(BlockState state) {
-        return state.is(BlockTags.CANDLES, p_152810_ -> p_152810_.hasProperty(LIT) && p_152810_.hasProperty(WATERLOGGED))
-                && !state.getValue(LIT)
-                && !state.getValue(WATERLOGGED);
     }
 
     @Override
