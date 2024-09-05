@@ -16,7 +16,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.ArmorDyeRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
@@ -1005,19 +1004,30 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks"));
 
         stairBuilder(OccultismBlocks.OTHERPLANKS_STAIRS.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem())).save(pRecipeOutput);
+                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem())).save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID,"crafting/otherplans_stairs"));
         slab(pRecipeOutput, RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.OTHERPLANKS_SLAB.get(), OccultismBlocks.OTHERPLANKS.asItem());
         pressurePlate(pRecipeOutput, OccultismBlocks.OTHERPLANKS_PRESSURE_PLATE.get(), OccultismBlocks.OTHERPLANKS.asItem());
         buttonBuilder(OccultismBlocks.OTHERPLANKS_BUTTON.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem())).save(pRecipeOutput);
+                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem())).save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID,"crafting/otherplans_button"));
         fenceBuilder(OccultismBlocks.OTHERPLANKS_FENCE.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem())).save(pRecipeOutput);
+                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem())).save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID,"crafting/otherplans_fence"));
         fenceGateBuilder(OccultismBlocks.OTHERPLANKS_FENCE_GATE.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem())).save(pRecipeOutput);
+                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem())).save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID,"crafting/otherplans_fence_gate"));
         doorBuilder(OccultismBlocks.OTHERPLANKS_DOOR.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem())).save(pRecipeOutput);
+                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem())).save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID,"crafting/otherplans_door"));
         trapdoorBuilder(OccultismBlocks.OTHERPLANKS_TRAPDOOR.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem())).save(pRecipeOutput);
+                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem())).save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID,"crafting/otherplans_trapdoor"));
+        signBuilder(OccultismItems.OTHERPLANKS_SIGN, Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
+                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem())).save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID,"crafting/otherplans_sign"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, OccultismItems.OTHERPLANKS_HANGING_SIGN, 6)
+                .group("hanging_sign")
+                .define('#', OccultismBlocks.STRIPPED_OTHERWORLD_LOG.asItem())
+                .define('X', Items.CHAIN)
+                .pattern("X X")
+                .pattern("###")
+                .pattern("###")
+                .unlockedBy("has_stripped_otherworld_log", has(OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_hanging_sign"));
     }
 
     private void smeltingRecipes(RecipeOutput pRecipeOutput) {

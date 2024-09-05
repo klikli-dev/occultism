@@ -382,6 +382,10 @@ public class OccultismItems {
     public static final DeferredItem<Item> SPIRIT_TORCH = ITEMS.register("spirit_torch",
             () -> new StandingAndWallBlockItem(OccultismBlocks.SPIRIT_TORCH.get(), OccultismBlocks.SPIRIT_WALL_TORCH.get(),
                     defaultProperties(), Direction.DOWN));
+    public static final DeferredItem<Item> OTHERPLANKS_SIGN = ITEMS.register("otherplanks_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), OccultismBlocks.OTHERPLANKS_SIGN.get(), OccultismBlocks.OTHERPLANKS_WALL_SIGN.get()));
+    public static final DeferredItem<Item> OTHERPLANKS_HANGING_SIGN = ITEMS.register("otherplanks_hanging_sign",
+            () -> new HangingSignItem(OccultismBlocks.OTHERPLANKS_HANGING_SIGN.get(), OccultismBlocks.OTHERPLANKS_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
 
     public static final DeferredItem<Item> SPAWN_EGG_FOLIOT = ITEMS.register("spawn_egg/foliot",
             () -> new DeferredSpawnEggItem(OccultismEntities.FOLIOT_TYPE::get, 0xaa728d, 0x37222c, defaultProperties()));

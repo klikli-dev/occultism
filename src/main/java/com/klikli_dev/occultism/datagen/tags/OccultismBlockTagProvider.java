@@ -102,6 +102,10 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
         this.tag(BlockTags.WOODEN_TRAPDOORS).add(OccultismBlocks.OTHERPLANKS_TRAPDOOR.get()).replace(false);
         this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(OccultismBlocks.OTHERPLANKS_PRESSURE_PLATE.get()).replace(false);
         this.tag(BlockTags.WOODEN_BUTTONS).add(OccultismBlocks.OTHERPLANKS_BUTTON.get()).replace(false);
+        this.tag(BlockTags.SIGNS).add(OccultismBlocks.OTHERPLANKS_SIGN.get()).replace(false);
+        this.tag(BlockTags.WALL_SIGNS).add(OccultismBlocks.OTHERPLANKS_WALL_SIGN.get()).replace(false);
+        this.tag(BlockTags.CEILING_HANGING_SIGNS).add(OccultismBlocks.OTHERPLANKS_HANGING_SIGN.get()).replace(false);
+        this.tag(BlockTags.WALL_HANGING_SIGNS).add(OccultismBlocks.OTHERPLANKS_WALL_HANGING_SIGN.get()).replace(false);
         this.tag(BlockTags.PIGLIN_REPELLENTS).add(OccultismBlocks.SPIRIT_CAMPFIRE.get()).replace(false);
         this.tag(BlockTags.SAPLINGS).addTags(OccultismTags.Blocks.OTHERWORLD_SAPLINGS).replace(false);
     }

@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_otherplanks": {
+    "has_stripped_otherworld_log": {
       "conditions": {
         "items": [
           {
-            "items": "occultism:otherplanks"
+            "items": "occultism:stripped_otherworld_log"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:otherplanks_fence_gate"
+        "recipe": "occultism:crafting/otherplanks_hanging_sign"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_otherplanks"
+      "has_stripped_otherworld_log"
     ]
   ],
   "rewards": {
     "recipes": [
-      "occultism:otherplanks_fence_gate"
+      "occultism:crafting/otherplanks_hanging_sign"
     ]
   }
 }

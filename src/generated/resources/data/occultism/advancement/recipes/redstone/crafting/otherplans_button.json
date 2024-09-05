@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:otherplanks_fence"
+        "recipe": "occultism:crafting/otherplans_button"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "occultism:otherplanks_fence"
+      "occultism:crafting/otherplans_button"
     ]
   }
 }

@@ -38,6 +38,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 
 /**
  * Based on https://github.com/McJty/YouTubeModding14
+ * and https://github.com/Tutorials-By-Kaupenjoe
  */
 public class StandardBlockStateProvider extends BlockStateProvider {
 

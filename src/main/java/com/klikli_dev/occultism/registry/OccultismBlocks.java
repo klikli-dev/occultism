@@ -26,12 +26,14 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.block.LargeCandleBlock;
 import com.klikli_dev.occultism.common.block.*;
 import com.klikli_dev.occultism.common.block.crops.ReplantableCropsBlock;
+import com.klikli_dev.occultism.common.block.custom.*;
 import com.klikli_dev.occultism.common.block.otherworld.*;
 import com.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.klikli_dev.occultism.common.block.storage.StorageControllerBlock;
 import com.klikli_dev.occultism.common.block.storage.StorageStabilizerBlock;
 import com.klikli_dev.occultism.common.entity.familiar.CthulhuFamiliarEntity;
 import com.klikli_dev.occultism.common.entity.familiar.FamiliarEntity;
+import com.klikli_dev.occultism.util.OtherWoodType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -260,6 +262,16 @@ public class OccultismBlocks {
             () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE)));
     public static final DeferredBlock<ButtonBlock> OTHERPLANKS_BUTTON = register("otherplanks_button",
             () -> new ButtonBlock(BlockSetType.OAK, 30, BlockBehaviour.Properties.of().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY)));
+
+    public static final DeferredBlock<Block> OTHERPLANKS_SIGN = register("otherplanks_sign",
+            () -> new OtherStandingSignBlock(OtherWoodType.OTHERPLANKS, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)),false, LootTableType.CUSTOM);
+    public static final DeferredBlock<Block> OTHERPLANKS_WALL_SIGN = register("otherplanks_wall_sign",
+            () -> new OtherWallSignBlock(OtherWoodType.OTHERPLANKS, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)),false, LootTableType.CUSTOM);
+
+    public static final DeferredBlock<OtherHangingSignBlock> OTHERPLANKS_HANGING_SIGN = register("otherplanks_hanging_sign",
+            () -> new OtherHangingSignBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN), OtherWoodType.OTHERPLANKS),false, LootTableType.CUSTOM);
+    public static final DeferredBlock<OtherWallHangingSignBlock> OTHERPLANKS_WALL_HANGING_SIGN = register("otherplanks_wall_hanging_sign",
+            () -> new OtherWallHangingSignBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN), OtherWoodType.OTHERPLANKS),false, LootTableType.CUSTOM);
 
     //Ores
     public static final DeferredBlock<Block> SILVER_ORE = register("silver_ore", () -> new Block(Block.Properties.ofLegacyCopy(Blocks.IRON_ORE)), true, LootTableType.CUSTOM);

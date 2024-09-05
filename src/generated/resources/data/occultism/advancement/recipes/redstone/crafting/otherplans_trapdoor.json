@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:otherplanks_trapdoor"
+        "recipe": "occultism:crafting/otherplans_trapdoor"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "occultism:otherplanks_trapdoor"
+      "occultism:crafting/otherplans_trapdoor"
     ]
   }
 }
