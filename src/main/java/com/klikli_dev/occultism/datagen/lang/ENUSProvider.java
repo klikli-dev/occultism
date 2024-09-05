@@ -369,7 +369,23 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         this.addBlock(OccultismBlocks.SPIRIT_FIRE, "Spiritfire");
         this.addBlock(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL, "Spirit Attuned Crystal");
-        this.addBlock(OccultismBlocks.CANDLE_WHITE, "White Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE, "Large Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_WHITE, "Large White Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_LIGHT_GRAY, "Large Light Gray Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_GRAY, "Large Gray Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_BLACK, "Large Black Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_BROWN, "Large Brown Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_RED, "Large Red Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_ORANGE, "Large Orange Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_YELLOW, "Large Yellow Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_LIME, "Large Lime Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_GREEN, "Large Green Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_CYAN, "Large Cyan Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_BLUE, "Large Blue Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_LIGHT_BLUE, "Large Light Blue Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_PINK, "Large Pink Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_MAGENTA, "Large Magenta Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_PURPLE, "Large Purple Candle");
         this.addBlock(OccultismBlocks.SILVER_ORE, "Silver Ore");
         this.addBlock(OccultismBlocks.SILVER_ORE_DEEPSLATE, "Deepslate Silver Ore");
         this.addBlock(OccultismBlocks.IESNIUM_ORE, "Iesnium Ore");

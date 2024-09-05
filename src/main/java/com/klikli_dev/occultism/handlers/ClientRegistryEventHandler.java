@@ -40,6 +40,7 @@ public class ClientRegistryEventHandler {
         event.registerSpriteSet(OccultismParticles.RITUAL_WAITING.get(), RitualWaitingParticle.Factory::new);
         event.registerSpriteSet(OccultismParticles.SNOWFLAKE.get(), SnowflakeParticle.Factory::new);
         event.registerSpriteSet(OccultismParticles.SPIRIT_FIRE_FLAME.get(), FlameParticle.Provider::new);
+        event.registerSpriteSet(OccultismParticles.RED_FIRE_FLAME.get(), FlameParticle.Provider::new);
         Occultism.LOGGER.info("Registered Particle Factories");
     }
 }

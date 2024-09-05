@@ -5,7 +5,7 @@
   "description": "book.occultism.dictionary_of_spirits.getting_started.candle.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:candle_white"
+    "item": "occultism:large_candle"
   },
   "name": "book.occultism.dictionary_of_spirits.getting_started.candle.name",
   "pages": [
@@ -16,7 +16,7 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "item": "occultism:candle_white"
+        "item": "occultism:large_candle"
       },
       "text": "book.occultism.dictionary_of_spirits.getting_started.candle.intro.text",
       "title": ""
@@ -50,7 +50,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:crafting/candle",
+      "recipe_id_1": "occultism:crafting/large_candle",
       "text": "",
       "title1": "",
       "title2": ""

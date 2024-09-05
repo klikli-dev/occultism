@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_tallow": {
+    "has_large_candle": {
       "conditions": {
         "items": [
           {
-            "items": "#c:tallow"
+            "items": "occultism:large_candle"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/candle"
+        "recipe": "occultism:crafting/large_candle_purple"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_tallow"
+      "has_large_candle"
     ]
   ],
   "rewards": {
     "recipes": [
-      "occultism:crafting/candle"
+      "occultism:crafting/large_candle_purple"
     ]
   }
 }

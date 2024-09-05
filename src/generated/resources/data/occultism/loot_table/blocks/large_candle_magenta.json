@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "occultism:candle_white"
+          "name": "occultism:large_candle_magenta"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "occultism:blocks/candle_white"
+  "random_sequence": "occultism:blocks/large_candle_magenta"
 }

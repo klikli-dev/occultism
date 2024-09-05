@@ -832,7 +832,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("intro");
         var intro = BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismBlocks.CANDLE_WHITE.get()))
+                .withItem(Ingredient.of(OccultismBlocks.LARGE_CANDLE.get()))
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
@@ -860,12 +860,12 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("candle_recipe");
         var candleRecipe = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/candle"));
+                .withRecipeId1(this.modLoc("crafting/large_candle"));
         //no text
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
-                .withIcon(OccultismBlocks.CANDLE_WHITE.get())
+                .withIcon(OccultismBlocks.LARGE_CANDLE.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,
@@ -2526,7 +2526,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.context().page("candle");
         var candle = BookSpotlightPageModel.create()
                 .withText(this.context().pageText())
-                .withItem(Ingredient.of(OccultismBlocks.CANDLE_WHITE.get()));
+                .withItem(Ingredient.of(OccultismBlocks.LARGE_CANDLE.get()));
 
         this.context().page("crystal");
         var crystal = BookSpotlightPageModel.create()

@@ -116,7 +116,25 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
     private void addOccultismTags(HolderLookup.Provider provider) {
         this.tag(OccultismTags.Blocks.OTHERWORLD_SAPLINGS)
                 .add(OccultismBlocks.OTHERWORLD_SAPLING.get(), OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get()).replace(false);
-        this.tag(OccultismTags.Blocks.OCCULTISM_CANDLES).add(OccultismBlocks.CANDLE_WHITE.get()).replace(false);
+        this.tag(OccultismTags.Blocks.OCCULTISM_CANDLES).add(
+                OccultismBlocks.LARGE_CANDLE.get(),
+                OccultismBlocks.LARGE_CANDLE_WHITE.get(),
+                OccultismBlocks.LARGE_CANDLE_LIGHT_GRAY.get(),
+                OccultismBlocks.LARGE_CANDLE_GRAY.get(),
+                OccultismBlocks.LARGE_CANDLE_BLACK.get(),
+                OccultismBlocks.LARGE_CANDLE_BROWN.get(),
+                OccultismBlocks.LARGE_CANDLE_RED.get(),
+                OccultismBlocks.LARGE_CANDLE_ORANGE.get(),
+                OccultismBlocks.LARGE_CANDLE_YELLOW.get(),
+                OccultismBlocks.LARGE_CANDLE_LIME.get(),
+                OccultismBlocks.LARGE_CANDLE_GREEN.get(),
+                OccultismBlocks.LARGE_CANDLE_CYAN.get(),
+                OccultismBlocks.LARGE_CANDLE_BLUE.get(),
+                OccultismBlocks.LARGE_CANDLE_LIGHT_BLUE.get(),
+                OccultismBlocks.LARGE_CANDLE_PINK.get(),
+                OccultismBlocks.LARGE_CANDLE_MAGENTA.get(),
+                OccultismBlocks.LARGE_CANDLE_PURPLE.get()
+        ).replace(false);
         this.tag(OccultismTags.Blocks.CAVE_WALL_BLOCKS).add(Blocks.STONE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE).replace(false);
         this.tag(OccultismTags.Blocks.NETHERRACK).add(Blocks.NETHERRACK).replace(false);
         this.tag(OccultismTags.Blocks.STORAGE_STABILIZER)

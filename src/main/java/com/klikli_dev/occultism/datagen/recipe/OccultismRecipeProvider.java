@@ -561,13 +561,93 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .define('s', Tags.Items.RODS_WOODEN)
                 .unlockedBy("has_iron_ingot", has(Tags.Items.INGOTS_IRON))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/butcher_knife"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, OccultismBlocks.CANDLE_WHITE.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, OccultismBlocks.LARGE_CANDLE.get())
                 .pattern("s")
                 .pattern("t")
                 .define('s', Tags.Items.STRINGS)
                 .define('t', OccultismTags.Items.TALLOW)
                 .unlockedBy("has_tallow", has(OccultismTags.Items.TALLOW))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/candle"));
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/large_candle"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, OccultismBlocks.LARGE_CANDLE_WHITE.get())
+                .requires(OccultismBlocks.LARGE_CANDLE.get())
+                .requires(Tags.Items.DYES_WHITE)
+                .unlockedBy("has_large_candle", has(OccultismBlocks.LARGE_CANDLE.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/large_candle_white"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, OccultismBlocks.LARGE_CANDLE_LIGHT_GRAY.get())
+                .requires(OccultismBlocks.LARGE_CANDLE.get())
+                .requires(Tags.Items.DYES_LIGHT_GRAY)
+                .unlockedBy("has_large_candle", has(OccultismBlocks.LARGE_CANDLE.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/large_candle_light_gray"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, OccultismBlocks.LARGE_CANDLE_GRAY.get())
+                .requires(OccultismBlocks.LARGE_CANDLE.get())
+                .requires(Tags.Items.DYES_GRAY)
+                .unlockedBy("has_large_candle", has(OccultismBlocks.LARGE_CANDLE.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/large_candle_gray"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, OccultismBlocks.LARGE_CANDLE_BLACK.get())
+                .requires(OccultismBlocks.LARGE_CANDLE.get())
+                .requires(Tags.Items.DYES_BLACK)
+                .unlockedBy("has_large_candle", has(OccultismBlocks.LARGE_CANDLE.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/large_candle_black"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, OccultismBlocks.LARGE_CANDLE_BROWN.get())
+                .requires(OccultismBlocks.LARGE_CANDLE.get())
+                .requires(Tags.Items.DYES_BROWN)
+                .unlockedBy("has_large_candle", has(OccultismBlocks.LARGE_CANDLE.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/large_candle_brown"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, OccultismBlocks.LARGE_CANDLE_RED.get())
+                .requires(OccultismBlocks.LARGE_CANDLE.get())
+                .requires(Tags.Items.DYES_RED)
+                .unlockedBy("has_large_candle", has(OccultismBlocks.LARGE_CANDLE.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/large_candle_red"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, OccultismBlocks.LARGE_CANDLE_ORANGE.get())
+                .requires(OccultismBlocks.LARGE_CANDLE.get())
+                .requires(Tags.Items.DYES_ORANGE)
+                .unlockedBy("has_large_candle", has(OccultismBlocks.LARGE_CANDLE.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/large_candle_orange"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, OccultismBlocks.LARGE_CANDLE_YELLOW.get())
+                .requires(OccultismBlocks.LARGE_CANDLE.get())
+                .requires(Tags.Items.DYES_YELLOW)
+                .unlockedBy("has_large_candle", has(OccultismBlocks.LARGE_CANDLE.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/large_candle_yellow"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, OccultismBlocks.LARGE_CANDLE_LIME.get())
+                .requires(OccultismBlocks.LARGE_CANDLE.get())
+                .requires(Tags.Items.DYES_LIME)
+                .unlockedBy("has_large_candle", has(OccultismBlocks.LARGE_CANDLE.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/large_candle_lime"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, OccultismBlocks.LARGE_CANDLE_GREEN.get())
+                .requires(OccultismBlocks.LARGE_CANDLE.get())
+                .requires(Tags.Items.DYES_GREEN)
+                .unlockedBy("has_large_candle", has(OccultismBlocks.LARGE_CANDLE.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/large_candle_green"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, OccultismBlocks.LARGE_CANDLE_CYAN.get())
+                .requires(OccultismBlocks.LARGE_CANDLE.get())
+                .requires(Tags.Items.DYES_CYAN)
+                .unlockedBy("has_large_candle", has(OccultismBlocks.LARGE_CANDLE.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/large_candle_cyan"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, OccultismBlocks.LARGE_CANDLE_BLUE.get())
+                .requires(OccultismBlocks.LARGE_CANDLE.get())
+                .requires(Tags.Items.DYES_BLUE)
+                .unlockedBy("has_large_candle", has(OccultismBlocks.LARGE_CANDLE.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/large_candle_blue"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, OccultismBlocks.LARGE_CANDLE_LIGHT_BLUE.get())
+                .requires(OccultismBlocks.LARGE_CANDLE.get())
+                .requires(Tags.Items.DYES_LIGHT_BLUE)
+                .unlockedBy("has_large_candle", has(OccultismBlocks.LARGE_CANDLE.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/large_candle_light_blue"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, OccultismBlocks.LARGE_CANDLE_PINK.get())
+                .requires(OccultismBlocks.LARGE_CANDLE.get())
+                .requires(Tags.Items.DYES_PINK)
+                .unlockedBy("has_large_candle", has(OccultismBlocks.LARGE_CANDLE.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/large_candle_pink"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, OccultismBlocks.LARGE_CANDLE_MAGENTA.get())
+                .requires(OccultismBlocks.LARGE_CANDLE.get())
+                .requires(Tags.Items.DYES_MAGENTA)
+                .unlockedBy("has_large_candle", has(OccultismBlocks.LARGE_CANDLE.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/large_candle_magenta"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, OccultismBlocks.LARGE_CANDLE_PURPLE.get())
+                .requires(OccultismBlocks.LARGE_CANDLE.get())
+                .requires(Tags.Items.DYES_PURPLE)
+                .unlockedBy("has_large_candle", has(OccultismBlocks.LARGE_CANDLE.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/large_candle_purple"));
 
         // Chalks
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.CHALK_GOLD_IMPURE.get())
