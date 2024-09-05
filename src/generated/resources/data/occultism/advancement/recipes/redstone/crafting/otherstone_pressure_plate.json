@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:otherstone_wall"
+        "recipe": "occultism:crafting/otherstone_pressure_plate"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "occultism:otherstone_wall"
+      "occultism:crafting/otherstone_pressure_plate"
     ]
   }
 }

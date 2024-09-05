@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
+  "category": "redstone",
   "key": {
-    "#": {
+    "o": {
       "item": "occultism:otherstone"
     }
   },
   "pattern": [
-    "###"
+    "oo"
   ],
   "result": {
-    "count": 6,
-    "id": "occultism:otherstone_slab"
+    "count": 1,
+    "id": "occultism:otherstone_pressure_plate"
   }
 }

@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "occultism:polished_otherstone"
+            "items": "occultism:otherstone"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:polished_otherstone_stairs"
+        "recipe": "occultism:crafting/polished_otherstone_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "occultism:polished_otherstone_stairs"
+      "occultism:crafting/polished_otherstone_slab"
     ]
   }
 }

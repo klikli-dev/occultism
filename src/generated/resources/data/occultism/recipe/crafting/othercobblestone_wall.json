@@ -2,16 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": {
+    "o": {
       "item": "occultism:othercobblestone"
     }
   },
   "pattern": [
-    "###",
-    "###"
+    "ooo",
+    "ooo"
   ],
   "result": {
-    "count": 6,
+    "count": 1,
     "id": "occultism:othercobblestone_wall"
   }
 }

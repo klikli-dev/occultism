@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_othercobblestone": {
+    "has_otherstone_bricks": {
       "conditions": {
         "items": [
           {
-            "items": "occultism:othercobblestone"
+            "items": "occultism:otherstone_bricks"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:othercobblestone_slab"
+        "recipe": "occultism:crafting/otherstone_bricks_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_othercobblestone"
+      "has_otherstone_bricks"
     ]
   ],
   "rewards": {
     "recipes": [
-      "occultism:othercobblestone_slab"
+      "occultism:crafting/otherstone_bricks_slab"
     ]
   }
 }

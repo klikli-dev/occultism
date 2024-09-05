@@ -2,12 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "#": {
+    "o": {
       "item": "occultism:otherplanks"
     }
   },
   "pattern": [
-    "##"
+    "oo"
   ],
   "result": {
     "count": 1,

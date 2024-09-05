@@ -2,15 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": {
+    "o": {
       "item": "occultism:otherplanks"
     }
   },
   "pattern": [
-    "###"
+    "ooo"
   ],
   "result": {
-    "count": 6,
+    "count": 1,
     "id": "occultism:otherplanks_slab"
   }
 }
