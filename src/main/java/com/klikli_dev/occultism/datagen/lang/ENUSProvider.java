@@ -148,14 +148,38 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.DEBUG_DJINNI_MANAGE_MACHINE, "Summon Debug Djinni Manage Machine");
         this.addItem(OccultismItems.DEBUG_DJINNI_TEST, "Summon Debug Djinni Test");
 
-        this.addItem(OccultismItems.CHALK_GOLD, "Golden Chalk");
+        this.addItem(OccultismItems.CHALK_GOLD, "Yellow Chalk");
         this.addItem(OccultismItems.CHALK_PURPLE, "Purple Chalk");
         this.addItem(OccultismItems.CHALK_RED, "Red Chalk");
         this.addItem(OccultismItems.CHALK_WHITE, "White Chalk");
-        this.addItem(OccultismItems.CHALK_GOLD_IMPURE, "Impure Golden Chalk");
+        this.addItem(OccultismItems.CHALK_LIGHT_GRAY, "Light Gray Chalk");
+        this.addItem(OccultismItems.CHALK_GRAY, "Gray Chalk");
+        this.addItem(OccultismItems.CHALK_BLACK, "Black Chalk");
+        this.addItem(OccultismItems.CHALK_BROWN, "Brown Chalk");
+        this.addItem(OccultismItems.CHALK_ORANGE, "Orange Chalk");
+        this.addItem(OccultismItems.CHALK_LIME, "Lime Chalk");
+        this.addItem(OccultismItems.CHALK_GREEN, "Green Chalk");
+        this.addItem(OccultismItems.CHALK_CYAN, "Cyan Chalk");
+        this.addItem(OccultismItems.CHALK_LIGHT_BLUE, "Light Blue Chalk");
+        this.addItem(OccultismItems.CHALK_BLUE, "Blue Chalk");
+        this.addItem(OccultismItems.CHALK_MAGENTA, "Magenta Chalk");
+        this.addItem(OccultismItems.CHALK_PINK, "Pink Chalk");
+        this.addItem(OccultismItems.CHALK_GOLD_IMPURE, "Impure Yellow Chalk");
         this.addItem(OccultismItems.CHALK_PURPLE_IMPURE, "Impure Purple Chalk");
         this.addItem(OccultismItems.CHALK_RED_IMPURE, "Impure Red Chalk");
         this.addItem(OccultismItems.CHALK_WHITE_IMPURE, "Impure White Chalk");
+        this.addItem(OccultismItems.CHALK_LIGHT_GRAY_IMPURE, "Impure Light Gray Chalk");
+        this.addItem(OccultismItems.CHALK_GRAY_IMPURE, "Impure Gray Chalk");
+        this.addItem(OccultismItems.CHALK_BLACK_IMPURE, "Impure Black Chalk");
+        this.addItem(OccultismItems.CHALK_BROWN_IMPURE, "Impure Brown Chalk");
+        this.addItem(OccultismItems.CHALK_ORANGE_IMPURE, "Impure Orange Chalk");
+        this.addItem(OccultismItems.CHALK_LIME_IMPURE, "Impure Lime Chalk");
+        this.addItem(OccultismItems.CHALK_GREEN_IMPURE, "Impure Green Chalk");
+        this.addItem(OccultismItems.CHALK_CYAN_IMPURE, "Impure Cyan Chalk");
+        this.addItem(OccultismItems.CHALK_LIGHT_BLUE_IMPURE, "Impure Light Blue Chalk");
+        this.addItem(OccultismItems.CHALK_BLUE_IMPURE, "Impure Blue Chalk");
+        this.addItem(OccultismItems.CHALK_MAGENTA_IMPURE, "Impure Magenta Chalk");
+        this.addItem(OccultismItems.CHALK_PINK_IMPURE, "Impure Pink Chalk");
         this.addItem(OccultismItems.BRUSH, "Chalk Brush");
         this.addItem(OccultismItems.AFRIT_ESSENCE, "Afrit Essence");
         this.addItem(OccultismItems.PURIFIED_INK, "Purified Ink");
@@ -280,14 +304,44 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         //this.addBlock\(OccultismItems.\U\1\E, "\2"\);
 
         this.addBlock(OccultismBlocks.OTHERSTONE, "Otherstone");
+        this.addBlock(OccultismBlocks.OTHERSTONE_STAIRS, "Otherstone Stairs");
         this.addBlock(OccultismBlocks.OTHERSTONE_SLAB, "Otherstone Slab");
+        this.addBlock(OccultismBlocks.OTHERSTONE_PRESSURE_PLATE, "Otherstone Pressure Plate");
+        this.addBlock(OccultismBlocks.OTHERSTONE_BUTTON, "Otherstone Button");
+        this.addBlock(OccultismBlocks.OTHERSTONE_WALL, "Otherstone Wall");
+        this.addBlock(OccultismBlocks.OTHERCOBBLESTONE, "Othercobblestone");
+        this.addBlock(OccultismBlocks.OTHERCOBBLESTONE_STAIRS, "Othercobblestone Stairs");
+        this.addBlock(OccultismBlocks.OTHERCOBBLESTONE_SLAB, "Othercobblestone Slab");
+        this.addBlock(OccultismBlocks.OTHERCOBBLESTONE_WALL, "Othercobblestone Wall");
+        this.addBlock(OccultismBlocks.POLISHED_OTHERSTONE, "Polished Otherstone");
+        this.addBlock(OccultismBlocks.POLISHED_OTHERSTONE_STAIRS, "Polished Otherstone Stairs");
+        this.addBlock(OccultismBlocks.POLISHED_OTHERSTONE_SLAB, "Polished Otherstone Slab");
+        this.addBlock(OccultismBlocks.POLISHED_OTHERSTONE_WALL, "Polished Otherstone Wall");
+        this.addBlock(OccultismBlocks.OTHERSTONE_BRICKS, "Otherstone Bricks");
+        this.addBlock(OccultismBlocks.OTHERSTONE_BRICKS_STAIRS, "Otherstone Bricks Stairs");
+        this.addBlock(OccultismBlocks.OTHERSTONE_BRICKS_SLAB, "Otherstone Bricks Slab");
+        this.addBlock(OccultismBlocks.OTHERSTONE_BRICKS_WALL, "Otherstone Bricks Wall");
+        this.addBlock(OccultismBlocks.CHISELED_OTHERSTONE_BRICKS, "Chiseled Otherstone Bricks");
+        this.addBlock(OccultismBlocks.CRACKED_OTHERSTONE_BRICKS, "Cracked Otherstone Bricks");
         this.addBlock(OccultismBlocks.OTHERSTONE_PEDESTAL, "Otherstone Pedestal");
         this.addBlock(OccultismBlocks.SACRIFICIAL_BOWL, "Sacrificial Bowl");
         this.addBlock(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL, "Golden Sacrificial Bowl");
         this.addBlock(OccultismBlocks.CHALK_GLYPH_WHITE, "White Chalk Glyph");
-        this.addBlock(OccultismBlocks.CHALK_GLYPH_GOLD, "Gold Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_GOLD, "Yellow Chalk Glyph");
         this.addBlock(OccultismBlocks.CHALK_GLYPH_PURPLE, "Purple Chalk Glyph");
         this.addBlock(OccultismBlocks.CHALK_GLYPH_RED, "Red Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY, "Light Gray Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_GRAY, "Gray Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_BLACK, "Black Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_BROWN, "Brown Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_ORANGE, "Orange Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_LIME, "Lime Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_GREEN, "Green Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_CYAN, "Cyan Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_LIGHT_BLUE, "Light Blue Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_BLUE, "Blue Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_MAGENTA, "Magenta Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_PINK, "Pink Chalk Glyph");
         this.addBlock(OccultismBlocks.STORAGE_CONTROLLER, "Dimensional Storage Actuator");
         this.addBlock(OccultismBlocks.STORAGE_CONTROLLER_BASE, "Storage Actuator Base");
         this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER1, "Tier 1 Dimensional Storage Stabilizer");
@@ -297,13 +351,43 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.STABLE_WORMHOLE, "Stable Wormhole");
         this.addBlock(OccultismBlocks.DATURA, "Demon's Dream");
 
-        this.add("block.occultism.otherworld_log", "Otherworld Wood");
         this.add("block.occultism.otherworld_sapling", "Otherworld Sapling");
         this.add("block.occultism.otherworld_leaves", "Otherworld Leaves");
+        this.add("block.occultism.otherworld_log", "Otherworld Log");
+        this.add("block.occultism.otherworld_wood", "Otherworld Wood");
+        this.add("block.occultism.stripped_otherworld_log", "Stripped Otherworld Log");
+        this.add("block.occultism.stripped_otherworld_wood", "Stripped Otherworld Wood");
+        this.add("block.occultism.otherplanks", "Otherplanks");
+        this.add("block.occultism.otherplanks_stairs", "Otherplanks Stairs");
+        this.add("block.occultism.otherplanks_slab", "Otherplanks Slab");
+        this.add("block.occultism.otherplanks_fence", "Otherplanks Fence");
+        this.add("block.occultism.otherplanks_fence_gate", "Otherplanks Fence Gate");
+        this.add("block.occultism.otherplanks_door", "Otherplanks Door");
+        this.add("block.occultism.otherplanks_trapdoor", "Otherplanks Trapdoor");
+        this.add("block.occultism.otherplanks_pressure_plate", "Otherplanks Pressure Plate");
+        this.add("block.occultism.otherplanks_button", "Otherplanks Button");
+        this.add("block.occultism.otherplanks_sign", "Otherplanks Sign");
+        this.add("block.occultism.otherplanks_hanging_sign", "Otherplanks Hanging Sign");
 
         this.addBlock(OccultismBlocks.SPIRIT_FIRE, "Spiritfire");
         this.addBlock(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL, "Spirit Attuned Crystal");
-        this.addBlock(OccultismBlocks.CANDLE_WHITE, "White Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE, "Large Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_WHITE, "Large White Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_LIGHT_GRAY, "Large Light Gray Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_GRAY, "Large Gray Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_BLACK, "Large Black Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_BROWN, "Large Brown Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_RED, "Large Red Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_ORANGE, "Large Orange Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_YELLOW, "Large Yellow Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_LIME, "Large Lime Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_GREEN, "Large Green Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_CYAN, "Large Cyan Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_BLUE, "Large Blue Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_LIGHT_BLUE, "Large Light Blue Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_PINK, "Large Pink Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_MAGENTA, "Large Magenta Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_PURPLE, "Large Purple Candle");
         this.addBlock(OccultismBlocks.SILVER_ORE, "Silver Ore");
         this.addBlock(OccultismBlocks.SILVER_ORE_DEEPSLATE, "Deepslate Silver Ore");
         this.addBlock(OccultismBlocks.IESNIUM_ORE, "Iesnium Ore");
@@ -1040,12 +1124,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("golden_chalk");
         this.add(helper.pageText(),
                 """
-                        Golden chalk is used for binding runes, which allow to infuse a spirit into an item, or make it possess a living being.
+                        Yellow chalk is used for binding runes, which allow to infuse a spirit into an item, or make it possess a living being.
                                """);
 
 
         helper.page("golden_chalk_uses");
-        this.add(helper.pageTitle(), "Golden Chalk Uses");
+        this.add(helper.pageTitle(), "Yellow Chalk Uses");
         this.add(helper.pageText(),
                 """
                         - [Eziveus' Spectral Compulsion](entry://occultism:dictionary_of_spirits/pentacles/craft_foliot)
@@ -3107,7 +3191,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.possess_elder_guardian", "Ritual: Summon Possessed Elder Guardian");
         this.add("item.occultism.ritual_dummy.possess_elder_guardian.tooltip", "The possessed elder guardian will drop at least one nautilus shell when killed, also can drop heart of the sea and the commom drops.");
         this.add("item.occultism.ritual_dummy.possess_warden", "Ritual: Summon Possessed Warden");
-        this.add("item.occultism.ritual_dummy.possess_warden.tooltip", "The possessed Warden will always drop a echo shard and can drop anothers ancient stuff (smithing templates and discs) when killed.");
+        this.add("item.occultism.ritual_dummy.possess_warden.tooltip", "The possessed Warden will always drop at least six echo shard and can drop anothers ancient stuff (smithing templates and discs) when killed.");
         this.add("item.occultism.ritual_dummy.possess_hoglin", "Ritual: Summon Possessed Hoglin");
         this.add("item.occultism.ritual_dummy.possess_hoglin.tooltip", "The possessed Hoglin has a chance to drop smithing template of netherite upgrade when killed.");
         this.add("item.occultism.ritual_dummy.summon_afrit_rain_weather", "Ritual: Rainy Weather");
@@ -3299,9 +3383,21 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("disableHolidayTheming", "Disable Otherworld Goggles Shaders");
         this.addConfig("useAlternativeDivinationRodRenderer", "Use Alternative Divination Rod Renderer");
         this.addConfig("whiteChalkGlyphColor", "White Chalk Glyph Color");
-        this.addConfig("goldenChalkGlyphColor", "Golden Chalk Glyph Color");
+        this.addConfig("goldenChalkGlyphColor", "Yellow Chalk Glyph Color");
         this.addConfig("purpleChalkGlyphColor", "Purple Chalk Glyph Color");
         this.addConfig("redChalkGlyphColor", "Red Chalk Glyph Color");
+        this.addConfig("=lightGrayChalkGlyphColor", "= Light Gray Chalk Glyph Color");
+        this.addConfig("=grayChalkGlyphColor", "= Gray Chalk Glyph Color");
+        this.addConfig("=blackChalkGlyphColor", "= Black Chalk Glyph Color");
+        this.addConfig("=brownChalkGlyphColor", "= Brown Chalk Glyph Color");
+        this.addConfig("=orangeChalkGlyphColor", "= Orange Chalk Glyph Color");
+        this.addConfig("=limeChalkGlyphColor", "= Lime Chalk Glyph Color");
+        this.addConfig("=greenChalkGlyphColor", "= Green Chalk Glyph Color");
+        this.addConfig("=cyanChalkGlyphColor", "= Cyan Chalk Glyph Color");
+        this.addConfig("=lightBlueChalkGlyphColor", "= Light Blue Chalk Glyph Color");
+        this.addConfig("=blueChalkGlyphColor", "= Blue Chalk Glyph Color");
+        this.addConfig("=magentaChalkGlyphColor", "= Magenta Chalk Glyph Color");
+        this.addConfig("=pinkChalkGlyphColor", "= PinkChalk Glyph Color");
 
         this.addConfig("misc", "Misc Settings");
         this.addConfig("syncJeiSearch", "Sync JEI Search");

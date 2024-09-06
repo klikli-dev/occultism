@@ -832,12 +832,12 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("intro");
         var intro = BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismBlocks.CANDLE_WHITE.get()))
+                .withItem(Ingredient.of(OccultismBlocks.LARGE_CANDLE.get()))
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
                         Candles provide stability to rituals and are an important part of almost all pentacles.
-                        **Candles also act like bookshelves for enchantment purposes.**
+                        **Large Candles also act like bookshelves for enchantment purposes.**
                         \\
                         \\
                         Candles from Minecraft and other Mods may be used in place of Occultism candles.
@@ -849,7 +849,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        Key ingredient for candles. Kill large animals like pigs, cows or sheep with a [](item://occultism:butcher_knife)
+                        Key ingredient for large candles. Kill large animals like pigs, cows or sheep with a [](item://occultism:butcher_knife)
                         to harvest [](item://occultism:tallow).
                             """);
 
@@ -860,18 +860,42 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("candle_recipe");
         var candleRecipe = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/candle"));
+                .withRecipeId1(this.modLoc("crafting/large_candle"));
         //no text
+
+        this.context().page("color_candle");
+        var colorCandle = BookTextPageModel.create()
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        You can use a dye and the [](item://occultism:large_candle) to mix then in shapeless craft process to get a colored large candle.
+                        \\
+                        Available in all the 16 minecraft dyes.
+                        """);
+
+        this.context().page("lit_candle");
+        var litCandle = BookTextPageModel.create()
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        Just like the candles from Minecraft, [](item://occultism:large_candle) and colored versions can be lit, turning in a great light source. 
+                        \\
+                        In addiction, you can use a [](item://minecraft:torch), [](item://minecraft:soul_torch), [](item://minecraft:redstone_torch) or [](item://occultism:spirit_torch) to change the type of fire.
+                        \\
+                        Also can be waterlogged.
+                        """);
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
-                .withIcon(OccultismBlocks.CANDLE_WHITE.get())
+                .withIcon(OccultismBlocks.LARGE_CANDLE.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,
                         tallow,
                         cleaverRecipe,
-                        candleRecipe
+                        candleRecipe,
+                        colorCandle,
+                        litCandle
                 );
     }
 
@@ -1532,6 +1556,67 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         To obtain the essence of an [#](%1$s)Afrit[#]() for [](item://occultism:chalk_red) you need to [summon and kill an Unbound Afrit](entry://summoning_rituals/afrit_essence).
                         """.formatted(COLOR_PURPLE));
 
+        this.context().page("decoColors");
+        var decoColors = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "Decorative Chalks");
+        this.lang().add(this.context().pageText(),
+                """
+                        Other colored chalks (for now) only have decorative purposes, you can check the recipes in next pages. All needs to be purified in spirit fire.
+                        """);
+
+        this.context().page("impure_light_gray_chalk_recipe");
+        var impureLightGrayChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_light_gray_impure"));
+        //no text
+
+        this.context().page("impure_gray_chalk_recipe");
+        var impureGrayChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_gray_impure"));
+        //no text
+
+        this.context().page("impure_Black_chalk_recipe");
+        var impureBlackChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_black_impure"));
+        //no text
+
+        this.context().page("impure_brown_chalk_recipe");
+        var impureBrownChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_brown_impure"));
+        //no text
+        this.context().page("impure_orange_chalk_recipe");
+        var impureOrangeChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_orange_impure"));
+        //no text
+        this.context().page("impure_lime_chalk_recipe");
+        var impureLimeChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_lime_impure"));
+        //no text
+        this.context().page("impure_green_chalk_recipe");
+        var impureGreenChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_green_impure"));
+        //no text
+        this.context().page("impure_cyan_chalk_recipe");
+        var impureCyanChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_cyan_impure"));
+        //no text
+        this.context().page("impure_blue_chalk_recipe");
+        var impureBlueChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_blue_impure"));
+        //no text
+        this.context().page("impure_light_blue_chalk_recipe");
+        var impureLightBlueChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_light_blue_impure"));
+        //no text
+        this.context().page("impure_pink_chalk_recipe");
+        var impurePinkChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_pink_impure"));
+        //no text
+        this.context().page("impure_magenta_chalk_recipe");
+        var impureMagentaChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_magenta_impure"));
+        //no text
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismItems.CHALK_GOLD.get())
@@ -1544,7 +1629,20 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         purpleChalkRecipe,
                         impureRedChalkRecipe,
                         redChalkRecipe,
-                        afritEssenceSpotlight
+                        afritEssenceSpotlight,
+                        decoColors,
+                        impureLightGrayChalkRecipe,
+                        impureGrayChalkRecipe,
+                        impureBlackChalkRecipe,
+                        impureBrownChalkRecipe,
+                        impureOrangeChalkRecipe,
+                        impureLimeChalkRecipe,
+                        impureGreenChalkRecipe,
+                        impureCyanChalkRecipe,
+                        impureBlueChalkRecipe,
+                        impureLightBlueChalkRecipe,
+                        impurePinkChalkRecipe,
+                        impureMagentaChalkRecipe
                 );
     }
 
@@ -2526,7 +2624,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.context().page("candle");
         var candle = BookSpotlightPageModel.create()
                 .withText(this.context().pageText())
-                .withItem(Ingredient.of(OccultismBlocks.CANDLE_WHITE.get()));
+                .withItem(Ingredient.of(OccultismBlocks.LARGE_CANDLE.get()));
 
         this.context().page("crystal");
         var crystal = BookSpotlightPageModel.create()
@@ -4866,7 +4964,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        **Drops**: 1-3x [](item://minecraft:chorus_fruit);
+                        **Drops**: 1-3x [](item://minecraft:chorus_fruit)
                         and as 10% to drop a [](item://minecraft:shulker_shell);
                                 """);
 
@@ -4939,8 +5037,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        **Drops**: 2-4x [](item://minecraft:nautilus_shell);
-                        and as 40% to drop a [](item://minecraft:heart_of_the_sea);
+                        **Drops**: 2-4x [](item://minecraft:nautilus_shell)
+                        and as 40% to drop a [](item://minecraft:heart_of_the_sea)
                         Also commom Elder Guardian loot;
                                 """);
 
@@ -4977,7 +5075,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        **Drops**: 1x [](item://minecraft:echo_shard)
+                        **Drops**: 6-9x [](item://minecraft:echo_shard)
                         and items related to ancient city;
                                 """);
 
@@ -4990,7 +5088,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        In this ritual a [#](%1$s)Warden[#]() is spawned using the life energy of a [#](%1$s)Axolotl[#]() and immediately possessed by the summoned [#](%1$s)Djinni[#](). The [#](%1$s)Possessed Warden[#]() will always drop at least one [](item://minecraft:echo_shard) when killed and as a chance to drop [](item://minecraft:disc_fragment_5), [](item://minecraft:music_disc_otherside), [](item://minecraft:silence_armor_trim_smithing_template), [](item://minecraft:ward_armor_trim_smithing_template). If you try to escape, this possessed Warden will go to the floor like a normal warden.
+                        In this ritual a [#](%1$s)Warden[#]() is spawned using the life energy of a [#](%1$s)Axolotl[#]() and immediately possessed by the summoned [#](%1$s)Djinni[#](). The [#](%1$s)Possessed Warden[#]() will always drop at least six [](item://minecraft:echo_shard) when killed and as a chance to drop [](item://minecraft:disc_fragment_5), [](item://minecraft:music_disc_otherside), [](item://minecraft:silence_armor_trim_smithing_template), [](item://minecraft:ward_armor_trim_smithing_template). If you try to escape, this possessed Warden will go to the floor like a normal warden.
                         """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())

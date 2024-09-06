@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "o": {
+      "item": "occultism:otherworld_log"
+    }
+  },
+  "pattern": [
+    "oo",
+    "oo"
+  ],
+  "result": {
+    "count": 3,
+    "id": "occultism:otherworld_wood"
+  }
+}

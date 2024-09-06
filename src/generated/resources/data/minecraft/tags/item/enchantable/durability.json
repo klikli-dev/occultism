@@ -1,5 +1,7 @@
 {
   "values": [
-    "#occultism:miners"
+    "#occultism:miners",
+    "#occultism:tools/chalks",
+    "#occultism:tools/knife"
   ]
 }

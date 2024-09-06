@@ -117,6 +117,17 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
                 OccultismDataComponents.CRAFTING_MATRIX.get(),
                 OccultismDataComponents.ORDER_STACK.get()
         );
+
+        this.add(OccultismBlocks.OTHERSTONE_SLAB.get(), block -> createSlabItemTable(OccultismBlocks.OTHERSTONE_SLAB.get()));
+        this.add(OccultismBlocks.OTHERCOBBLESTONE_SLAB.get(), block -> createSlabItemTable(OccultismBlocks.OTHERCOBBLESTONE_SLAB.get()));
+        this.add(OccultismBlocks.POLISHED_OTHERSTONE_SLAB.get(), block -> createSlabItemTable(OccultismBlocks.POLISHED_OTHERSTONE_SLAB.get()));
+        this.add(OccultismBlocks.OTHERSTONE_BRICKS_SLAB.get(), block -> createSlabItemTable(OccultismBlocks.OTHERSTONE_BRICKS_SLAB.get()));
+        this.add(OccultismBlocks.OTHERPLANKS_SLAB.get(), block -> createSlabItemTable(OccultismBlocks.OTHERPLANKS_SLAB.get()));
+        this.add(OccultismBlocks.OTHERPLANKS_DOOR.get(), block -> createDoorTable(OccultismBlocks.OTHERPLANKS_DOOR.get()));
+        this.add(OccultismBlocks.OTHERPLANKS_SIGN.get(), item -> createSingleItemTable(OccultismItems.OTHERPLANKS_SIGN));
+        this.add(OccultismBlocks.OTHERPLANKS_WALL_SIGN.get(), item -> createSingleItemTable(OccultismItems.OTHERPLANKS_SIGN));
+        this.add(OccultismBlocks.OTHERPLANKS_HANGING_SIGN.get(), item -> createSingleItemTable(OccultismItems.OTHERPLANKS_HANGING_SIGN));
+        this.add(OccultismBlocks.OTHERPLANKS_WALL_HANGING_SIGN.get(), item -> createSingleItemTable(OccultismItems.OTHERPLANKS_HANGING_SIGN));
     }
 
     protected void registerOtherworldBlockTable(Block block) {

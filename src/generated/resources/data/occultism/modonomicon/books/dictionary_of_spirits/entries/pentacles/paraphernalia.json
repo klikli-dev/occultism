@@ -30,7 +30,7 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "item": "occultism:candle_white"
+        "item": "occultism:large_candle"
       },
       "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.candle.text",
       "title": ""

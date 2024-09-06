@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "cookingtime": 200,
+  "experience": 0.5,
+  "ingredient": {
+    "item": "occultism:othercobblestone"
+  },
+  "result": {
+    "count": 1,
+    "id": "occultism:polished_otherstone"
+  }
+}

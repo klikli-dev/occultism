@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_otherplanks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "occultism:otherplanks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crafting/otherplans_door"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_otherplanks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crafting/otherplans_door"
+    ]
+  }
+}

@@ -44,7 +44,8 @@
       "state": {
         "Name": "occultism:otherworld_log",
         "Properties": {
-          "axis": "y"
+          "axis": "y",
+          "uncovered": "false"
         }
       }
     }

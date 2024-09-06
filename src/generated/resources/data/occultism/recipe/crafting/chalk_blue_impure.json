@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "occultism:chalk_white_impure"
+    },
+    {
+      "item": "minecraft:heart_of_the_sea"
+    },
+    {
+      "tag": "c:gems/lapis"
+    },
+    {
+      "item": "minecraft:tube_coral"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "occultism:chalk_blue_impure"
+  }
+}
