@@ -837,7 +837,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageText(),
                 """
                         Candles provide stability to rituals and are an important part of almost all pentacles.
-                        **Candles also act like bookshelves for enchantment purposes.**
+                        **Large Candles also act like bookshelves for enchantment purposes.**
                         \\
                         \\
                         Candles from Minecraft and other Mods may be used in place of Occultism candles.
@@ -849,7 +849,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        Key ingredient for candles. Kill large animals like pigs, cows or sheep with a [](item://occultism:butcher_knife)
+                        Key ingredient for large candles. Kill large animals like pigs, cows or sheep with a [](item://occultism:butcher_knife)
                         to harvest [](item://occultism:tallow).
                             """);
 
@@ -863,6 +863,28 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withRecipeId1(this.modLoc("crafting/large_candle"));
         //no text
 
+        this.context().page("color_candle");
+        var colorCandle = BookTextPageModel.create()
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        You can use a dye and the [](item://occultism:large_candle) to mix then in shapeless craft process to get a colored large candle.
+                        \\
+                        Available in all the 16 minecraft dyes.
+                        """);
+
+        this.context().page("lit_candle");
+        var litCandle = BookTextPageModel.create()
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        Just like the candles from Minecraft, [](item://occultism:large_candle) and colored versions can be lit, turning in a great light source. 
+                        \\
+                        In addiction, you can use a [](item://minecraft:torch), [](item://minecraft:soul_torch), [](item://minecraft:redstone_torch) or [](item://occultism:spirit_torch) to change the type of fire.
+                        \\
+                        Also can be waterlogged.
+                        """);
+
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismBlocks.LARGE_CANDLE.get())
@@ -871,7 +893,9 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         intro,
                         tallow,
                         cleaverRecipe,
-                        candleRecipe
+                        candleRecipe,
+                        colorCandle,
+                        litCandle
                 );
     }
 
@@ -4866,7 +4890,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        **Drops**: 1-3x [](item://minecraft:chorus_fruit);
+                        **Drops**: 1-3x [](item://minecraft:chorus_fruit)
                         and as 10% to drop a [](item://minecraft:shulker_shell);
                                 """);
 
@@ -4939,8 +4963,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        **Drops**: 2-4x [](item://minecraft:nautilus_shell);
-                        and as 40% to drop a [](item://minecraft:heart_of_the_sea);
+                        **Drops**: 2-4x [](item://minecraft:nautilus_shell)
+                        and as 40% to drop a [](item://minecraft:heart_of_the_sea)
                         Also commom Elder Guardian loot;
                                 """);
 
