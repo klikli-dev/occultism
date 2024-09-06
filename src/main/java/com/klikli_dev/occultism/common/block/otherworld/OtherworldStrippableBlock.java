@@ -42,52 +42,12 @@ import net.neoforged.neoforge.common.ItemAbility;
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
-public class OtherworldStrippableBlock extends RotatedPillarBlock implements IOtherworldBlock {
+public class OtherworldStrippableBlock extends RotatedPillarBlock {
     Supplier<Block> strippedState;
     public OtherworldStrippableBlock(Properties properties, Supplier<Block> stateSupplier) {
         super(properties);
-        this.registerDefaultState(this.defaultBlockState().setValue(UNCOVERED, false));
+        this.registerDefaultState(this.defaultBlockState());
         this.strippedState = stateSupplier;
-    }
-
-    @Override
-    public Block getUncoveredBlock() {
-        return OccultismBlocks.OTHERWORLD_LOG.get();
-    }
-
-    @Override
-    public Block getCoveredBlock() {
-        return Blocks.OAK_LOG;
-    }
-
-    @Override
-    public OtherworldBlockTier getTier() {
-        return OtherworldBlockTier.ONE;
-    }
-
-
-    @Override
-    public void playerDestroy(Level worldIn, Player player, BlockPos pos, BlockState state,
-                              @Nullable BlockEntity te, ItemStack stack) {
-        super.playerDestroy(worldIn, player, pos, IOtherworldBlock.super.getHarvestState(player, state, stack), te,
-                stack);
-    }
-
-    @Override
-    public String getDescriptionId() {
-        return "block.minecraft.oak_log";
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
-    public ItemStack getCloneItemStack(LevelReader worldIn, BlockPos pos, BlockState state) {
-        return IOtherworldBlock.super.getItem(worldIn, pos, state);
-    }
-
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(UNCOVERED);
-        super.createBlockStateDefinition(builder);
     }
 
     @Override
