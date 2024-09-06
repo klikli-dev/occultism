@@ -1556,6 +1556,67 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         To obtain the essence of an [#](%1$s)Afrit[#]() for [](item://occultism:chalk_red) you need to [summon and kill an Unbound Afrit](entry://summoning_rituals/afrit_essence).
                         """.formatted(COLOR_PURPLE));
 
+        this.context().page("decoColors");
+        var decoColors = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "Decorative Chalks");
+        this.lang().add(this.context().pageText(),
+                """
+                        Other colored chalks (for now) only have decorative purposes, you can check the recipes in next pages. All needs to be purified in spirit fire.
+                        """);
+
+        this.context().page("impure_light_gray_chalk_recipe");
+        var impureLightGrayChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_light_gray_impure"));
+        //no text
+
+        this.context().page("impure_gray_chalk_recipe");
+        var impureGrayChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_gray_impure"));
+        //no text
+
+        this.context().page("impure_Black_chalk_recipe");
+        var impureBlackChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_black_impure"));
+        //no text
+
+        this.context().page("impure_brown_chalk_recipe");
+        var impureBrownChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_brown_impure"));
+        //no text
+        this.context().page("impure_orange_chalk_recipe");
+        var impureOrangeChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_orange_impure"));
+        //no text
+        this.context().page("impure_lime_chalk_recipe");
+        var impureLimeChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_lime_impure"));
+        //no text
+        this.context().page("impure_green_chalk_recipe");
+        var impureGreenChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_green_impure"));
+        //no text
+        this.context().page("impure_cyan_chalk_recipe");
+        var impureCyanChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_cyan_impure"));
+        //no text
+        this.context().page("impure_blue_chalk_recipe");
+        var impureBlueChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_blue_impure"));
+        //no text
+        this.context().page("impure_light_blue_chalk_recipe");
+        var impureLightBlueChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_light_blue_impure"));
+        //no text
+        this.context().page("impure_pink_chalk_recipe");
+        var impurePinkChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_pink_impure"));
+        //no text
+        this.context().page("impure_magenta_chalk_recipe");
+        var impureMagentaChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_magenta_impure"));
+        //no text
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismItems.CHALK_GOLD.get())
@@ -1568,7 +1629,20 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         purpleChalkRecipe,
                         impureRedChalkRecipe,
                         redChalkRecipe,
-                        afritEssenceSpotlight
+                        afritEssenceSpotlight,
+                        decoColors,
+                        impureLightGrayChalkRecipe,
+                        impureGrayChalkRecipe,
+                        impureBlackChalkRecipe,
+                        impureBrownChalkRecipe,
+                        impureOrangeChalkRecipe,
+                        impureLimeChalkRecipe,
+                        impureGreenChalkRecipe,
+                        impureCyanChalkRecipe,
+                        impureBlueChalkRecipe,
+                        impureLightBlueChalkRecipe,
+                        impurePinkChalkRecipe,
+                        impureMagentaChalkRecipe
                 );
     }
 

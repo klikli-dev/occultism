@@ -366,6 +366,8 @@
   "book.occultism.dictionary_of_spirits.getting_started.candle.name": "Candles",
   "book.occultism.dictionary_of_spirits.getting_started.candle.tallow.text": "Key ingredient for large candles. Kill large animals like pigs, cows or sheep with a [](item://occultism:butcher_knife)\nto harvest [](item://occultism:tallow).\n",
   "book.occultism.dictionary_of_spirits.getting_started.chalks.afrit_essence.text": "To obtain the essence of an [#](ad03fc)Afrit[#]() for [](item://occultism:chalk_red) you need to [summon and kill an Unbound Afrit](entry://summoning_rituals/afrit_essence).\n",
+  "book.occultism.dictionary_of_spirits.getting_started.chalks.decoColors.text": "Other colored chalks (for now) only have decorative purposes, you can check the recipes in next pages. All needs to be purified in spirit fire.\n",
+  "book.occultism.dictionary_of_spirits.getting_started.chalks.decoColors.title": "Decorative Chalks",
   "book.occultism.dictionary_of_spirits.getting_started.chalks.description": "Better chalks for better rituals!",
   "book.occultism.dictionary_of_spirits.getting_started.chalks.impure_purple_chalk_recipe.text": "You do not need to visit the [#](ad03fc)The End[#]() to obtain Endstone. You can summon a [Possessed Endermite](entry://possession_rituals/possess_endermite) which has a high chance to drop it.\n",
   "book.occultism.dictionary_of_spirits.getting_started.chalks.intro.text": "For more advanced rituals the basic [White Chalk](entry://occultism:dictionary_of_spirits/getting_started/ritual_prep_chalk) is not sufficient. Instead chalks made from more arcane materials are required.\n",
