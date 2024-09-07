@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.155.1] - 2024-09-07
+### :bug: Bug Fixes
+- [`22193ca`](https://github.com/klikli-dev/occultism/commit/22193ca2ac38793887f86af1afd5bedec9be7041) - Stonecutter recipe and fix otherworld log name ([#1204](https://github.com/klikli-dev/occultism/pull/1204)) - thanks @Eqis-Edu *(commit by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+
+### :wrench: Chores
+- [`872a4c2`](https://github.com/klikli-dev/occultism/commit/872a4c2b9550d7f38f99ba9142c8ac0ded89dd87) - run datagen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.155.0] - 2024-09-06
 ### :sparkles: New Features
 - [`fed9138`](https://github.com/klikli-dev/occultism/commit/fed91382792c40d61370e279da865c139112044e) - Deco Update ([#1201](https://github.com/klikli-dev/occultism/pull/1201)) - Thanks @Eqis-Edu *(commit by [@Eqis-Edu](https://github.com/Eqis-Edu))*
@@ -1680,3 +1688,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.154.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.153.6...release/v1.21.1-1.154.0
 [release/v1.21.1-1.154.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.154.0...release/v1.21.1-1.154.1
 [release/v1.21.1-1.155.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.154.1...release/v1.21.1-1.155.0
+[release/v1.21.1-1.155.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.155.0...release/v1.21.1-1.155.1
