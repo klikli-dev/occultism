@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.155.0] - 2024-09-06
+### :sparkles: New Features
+- [`fed9138`](https://github.com/klikli-dev/occultism/commit/fed91382792c40d61370e279da865c139112044e) - Deco Update ([#1201](https://github.com/klikli-dev/occultism/pull/1201)) - Thanks @Eqis-Edu *(commit by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+
+
 ## [release/v1.21.1-1.154.1] - 2024-09-02
 ### :bug: Bug Fixes
 - [`fae2f64`](https://github.com/klikli-dev/occultism/commit/fae2f647ea9dc34efb2d5e5c7aabadea6eb7c557) - typo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1674,3 +1679,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.153.5]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.153.4...release/v1.21.1-1.153.5
 [release/v1.21.1-1.154.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.153.6...release/v1.21.1-1.154.0
 [release/v1.21.1-1.154.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.154.0...release/v1.21.1-1.154.1
+[release/v1.21.1-1.155.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.154.1...release/v1.21.1-1.155.0
