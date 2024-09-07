@@ -17,9 +17,11 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
@@ -150,7 +152,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
         this.spiritFireRecipes(pRecipeOutput);
         this.spiritTradeRecipes(pRecipeOutput);
         this.ritualRecipes(pRecipeOutput);
-
+        this.stonecutterRecipes(pRecipeOutput);
     }
 
     private void ritualRecipes(RecipeOutput recipeOutput) {
@@ -1113,5 +1115,45 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_otherstone_bricks", has(OccultismBlocks.OTHERSTONE_BRICKS.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "smelting/cracked_otherstone_bricks"));
 
+    }
+
+    private void stonecutterRecipes(RecipeOutput pRecipeOutput) {
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_SLAB, OccultismBlocks.OTHERSTONE,2);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_STAIRS, OccultismBlocks.OTHERSTONE);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_WALL, OccultismBlocks.OTHERSTONE);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_BRICKS, OccultismBlocks.OTHERSTONE);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_BRICKS_SLAB, OccultismBlocks.OTHERSTONE,2,true);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_BRICKS_STAIRS, OccultismBlocks.OTHERSTONE,true);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_BRICKS_WALL, OccultismBlocks.OTHERSTONE,true);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERCOBBLESTONE_SLAB, OccultismBlocks.OTHERCOBBLESTONE,2);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERCOBBLESTONE_STAIRS, OccultismBlocks.OTHERCOBBLESTONE);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERCOBBLESTONE_WALL, OccultismBlocks.OTHERCOBBLESTONE);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.POLISHED_OTHERSTONE_SLAB, OccultismBlocks.POLISHED_OTHERSTONE,2);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.POLISHED_OTHERSTONE_STAIRS, OccultismBlocks.POLISHED_OTHERSTONE);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.POLISHED_OTHERSTONE_WALL, OccultismBlocks.POLISHED_OTHERSTONE);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_BRICKS_SLAB, OccultismBlocks.OTHERSTONE_BRICKS, 2);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_BRICKS_STAIRS, OccultismBlocks.OTHERSTONE_BRICKS);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_BRICKS_WALL, OccultismBlocks.OTHERSTONE_BRICKS);
+    }
+
+    protected static void otherStonecutter(RecipeOutput recipeOutput, ItemLike result, ItemLike material, int resultCount, boolean source){
+        if (source) {
+            SingleItemRecipeBuilder.stonecutting(Ingredient.of(material), RecipeCategory.BUILDING_BLOCKS, result, resultCount)
+                    .unlockedBy(getHasName(material), has(material))
+                    .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "stonecutting/" + getItemName(result) + "_from_" + getItemName(material)));
+        } else {
+            SingleItemRecipeBuilder.stonecutting(Ingredient.of(material), RecipeCategory.BUILDING_BLOCKS, result, resultCount)
+                    .unlockedBy(getHasName(material), has(material))
+                    .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "stonecutting/" + getItemName(result)));
+        }
+    }
+    protected static void otherStonecutter(RecipeOutput recipeOutput, ItemLike result, ItemLike material, int resultCount){
+        otherStonecutter(recipeOutput, result, material,resultCount,false);
+    }
+    protected static void otherStonecutter(RecipeOutput recipeOutput, ItemLike result, ItemLike material) {
+        otherStonecutter(recipeOutput, result, material,1);
+    }
+    protected static void otherStonecutter(RecipeOutput recipeOutput, ItemLike result, ItemLike material, boolean source){
+        otherStonecutter(recipeOutput, result, material,1,source);
     }
 }

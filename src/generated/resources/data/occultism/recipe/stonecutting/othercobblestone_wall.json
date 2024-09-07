@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "occultism:othercobblestone"
+  },
+  "result": {
+    "count": 1,
+    "id": "occultism:othercobblestone_wall"
+  }
+}
