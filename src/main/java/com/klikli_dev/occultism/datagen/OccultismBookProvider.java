@@ -86,7 +86,9 @@ public class OccultismBookProvider extends BookProvider {
                 .withCraftingTexture(this.modLoc("textures/gui/book/crafting_textures.png"))
                 .withGenerateBookItem(false)
                 .withCustomBookItem(this.modLoc("dictionary_of_spirits"))
-                .withAutoAddReadConditions(true);
+                .withAutoAddReadConditions(true)
+                .withAllowOpenBooksWithInvalidLinks(true)
+                ;
         return demoBook;
     }
 
