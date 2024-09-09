@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.138.0] - 2024-09-09
+### :sparkles: New Features
+- [`dc4a0de`](https://github.com/klikli-dev/occultism/commit/dc4a0de1c7c7f2eeb69b5e7a0b10ec20cd2dfb1a) - allow broken links in dictionary of spirits (makes translations more flexible) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.137.1] - 2024-09-02
 ### :bug: Bug Fixes
 - [`a8214ad`](https://github.com/klikli-dev/occultism/commit/a8214ad17049b991c5a5976da0a106ae74a500f8) - typo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1223,3 +1228,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.136.3]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.136.2...release/v1.20.1-1.136.3
 [release/v1.20.1-1.137.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.136.3...release/v1.20.1-1.137.0
 [release/v1.20.1-1.137.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.137.0...release/v1.20.1-1.137.1
+[release/v1.20.1-1.138.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.137.1...release/v1.20.1-1.138.0
