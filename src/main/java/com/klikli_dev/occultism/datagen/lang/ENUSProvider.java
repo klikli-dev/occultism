@@ -3386,18 +3386,18 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("goldenChalkGlyphColor", "Yellow Chalk Glyph Color");
         this.addConfig("purpleChalkGlyphColor", "Purple Chalk Glyph Color");
         this.addConfig("redChalkGlyphColor", "Red Chalk Glyph Color");
-        this.addConfig("=lightGrayChalkGlyphColor", "= Light Gray Chalk Glyph Color");
-        this.addConfig("=grayChalkGlyphColor", "= Gray Chalk Glyph Color");
-        this.addConfig("=blackChalkGlyphColor", "= Black Chalk Glyph Color");
-        this.addConfig("=brownChalkGlyphColor", "= Brown Chalk Glyph Color");
-        this.addConfig("=orangeChalkGlyphColor", "= Orange Chalk Glyph Color");
-        this.addConfig("=limeChalkGlyphColor", "= Lime Chalk Glyph Color");
-        this.addConfig("=greenChalkGlyphColor", "= Green Chalk Glyph Color");
-        this.addConfig("=cyanChalkGlyphColor", "= Cyan Chalk Glyph Color");
-        this.addConfig("=lightBlueChalkGlyphColor", "= Light Blue Chalk Glyph Color");
-        this.addConfig("=blueChalkGlyphColor", "= Blue Chalk Glyph Color");
-        this.addConfig("=magentaChalkGlyphColor", "= Magenta Chalk Glyph Color");
-        this.addConfig("=pinkChalkGlyphColor", "= PinkChalk Glyph Color");
+        this.addConfig("lightGrayChalkGlyphColor", "Light Gray Chalk Glyph Color");
+        this.addConfig("grayChalkGlyphColor", "Gray Chalk Glyph Color");
+        this.addConfig("blackChalkGlyphColor", "Black Chalk Glyph Color");
+        this.addConfig("brownChalkGlyphColor", "Brown Chalk Glyph Color");
+        this.addConfig("orangeChalkGlyphColor", "Orange Chalk Glyph Color");
+        this.addConfig("limeChalkGlyphColor", "Lime Chalk Glyph Color");
+        this.addConfig("greenChalkGlyphColor", "Green Chalk Glyph Color");
+        this.addConfig("cyanChalkGlyphColor", "Cyan Chalk Glyph Color");
+        this.addConfig("lightBlueChalkGlyphColor", "Light Blue Chalk Glyph Color");
+        this.addConfig("blueChalkGlyphColor", "Blue Chalk Glyph Color");
+        this.addConfig("magentaChalkGlyphColor", "Magenta Chalk Glyph Color");
+        this.addConfig("pinkChalkGlyphColor", "PinkChalk Glyph Color");
 
         this.addConfig("misc", "Misc Settings");
         this.addConfig("syncJeiSearch", "Sync JEI Search");
@@ -3452,6 +3452,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("maxMiningTime", "Max Mining Time");
         this.addConfig("rollsPerOperation", "Rolls Per Operation");
         this.addConfig("durability", "Durability");
+
+        this.addConfig("items", "Items");
+        this.addConfig("anyOreDivinationRod", "Divination c:ores");
     }
 
     private void addConfig(String key, String name){
