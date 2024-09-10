@@ -50,13 +50,16 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.Tags;
 
+import java.lang.reflect.Array;
 import java.util.List;
 
 public class DivinationRodItem extends Item {
 
     public static final float NOT_FOUND = 7.0f;
     public static final float SEARCHING = 8.0f;
+    public static Object[] blocktags = null;
 
     public DivinationRodItem(Properties properties) {
         super(properties);
@@ -237,6 +240,15 @@ public class DivinationRodItem extends Item {
         if (state.getBlock() == Blocks.NETHERRACK || state.getBlock() == OccultismBlocks.IESNIUM_ORE_NATURAL.get()
                 || state.getBlock() == OccultismBlocks.IESNIUM_ORE.get()) {
             return OccultismBlocks.IESNIUM_ORE_NATURAL.get();
+        }
+        //check server config to link to any block that have c:ores
+        if (Occultism.SERVER_CONFIG.itemSettings.anyOreDivinationRod.getAsBoolean()) {
+            blocktags = state.getTags().toArray();
+            for (Object tag : blocktags) {
+                if (tag.equals(Tags.Blocks.ORES)) {
+                    return state.getBlock();
+                }
+            }
         }
         //In creative allow to find the clicked block
         return isCreative ? state.getBlock() : null;
