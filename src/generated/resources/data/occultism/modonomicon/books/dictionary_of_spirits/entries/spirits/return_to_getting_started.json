@@ -1,7 +1,7 @@
 {
   "background_u_index": 1,
   "background_v_index": 2,
-  "category": "occultism:spirits",
+  "category": "spirits",
   "category_to_open": "occultism:getting_started",
   "condition": {
     "type": "modonomicon:true"
@@ -15,7 +15,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:spirits/overview",
+      "entry": "spirits/overview",
       "line_enabled": true,
       "line_reversed": false
     }

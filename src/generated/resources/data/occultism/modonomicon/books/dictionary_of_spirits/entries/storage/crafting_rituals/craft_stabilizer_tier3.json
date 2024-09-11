@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "occultism:storage",
+  "category": "storage",
   "description": "",
   "hide_while_locked": false,
   "icon": {
@@ -36,7 +36,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:storage/crafting_rituals/craft_stabilizer_tier2",
+      "entry": "storage/crafting_rituals/craft_stabilizer_tier2",
       "line_enabled": true,
       "line_reversed": false
     }

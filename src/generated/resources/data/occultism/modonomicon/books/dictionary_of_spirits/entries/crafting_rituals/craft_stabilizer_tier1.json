@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "occultism:crafting_rituals",
+  "category": "crafting_rituals",
   "condition": {
     "type": "modonomicon:true"
   },
@@ -39,7 +39,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:crafting_rituals/craft_storage_controller_base",
+      "entry": "crafting_rituals/craft_storage_controller_base",
       "line_enabled": true,
       "line_reversed": false
     }

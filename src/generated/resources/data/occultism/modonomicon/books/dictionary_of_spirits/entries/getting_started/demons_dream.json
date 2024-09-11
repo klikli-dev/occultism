@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "occultism:getting_started",
+  "category": "getting_started",
   "description": "book.occultism.dictionary_of_spirits.getting_started.demons_dream.description",
   "hide_while_locked": false,
   "icon": {
@@ -129,7 +129,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:getting_started/intro",
+      "entry": "getting_started/intro",
       "line_enabled": true,
       "line_reversed": false
     }

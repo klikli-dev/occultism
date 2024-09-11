@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "occultism:spirits",
+  "category": "spirits",
   "description": "book.occultism.dictionary_of_spirits.spirits.true_names.description",
   "hide_while_locked": false,
   "icon": {
@@ -46,7 +46,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:spirits/overview",
+      "entry": "spirits/overview",
       "line_enabled": true,
       "line_reversed": false
     }

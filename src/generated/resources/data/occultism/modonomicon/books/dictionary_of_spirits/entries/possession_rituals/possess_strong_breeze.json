@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "occultism:possession_rituals",
+  "category": "possession_rituals",
   "description": "",
   "hide_while_locked": false,
   "icon": {
@@ -49,7 +49,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:possession_rituals/possess_breeze",
+      "entry": "possession_rituals/possess_breeze",
       "line_enabled": true,
       "line_reversed": false
     }

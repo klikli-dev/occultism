@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "occultism:summoning_rituals",
+  "category": "summoning_rituals",
   "condition": {
     "type": "modonomicon:true"
   },
@@ -38,7 +38,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:summoning_rituals/summon_crusher_t2",
+      "entry": "summoning_rituals/summon_crusher_t2",
       "line_enabled": true,
       "line_reversed": false
     }

@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "occultism:pentacles",
+  "category": "pentacles",
   "condition": {
     "type": "modonomicon:true"
   },
@@ -29,7 +29,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "multiblock_id": "occultism:summon_djinni",
+      "multiblock_id": "summon_djinni",
       "multiblock_name": "",
       "show_visualize_button": true,
       "text": ""
@@ -49,7 +49,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:pentacles/summon_foliot",
+      "entry": "pentacles/summon_foliot",
       "line_enabled": true,
       "line_reversed": false
     }
