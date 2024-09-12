@@ -7,7 +7,7 @@
       "predicate": {
         "equipment": {
           "mainhand": {
-            "items": "#occultism:tools/knives"
+            "items": "#occultism:tools/knife"
           }
         }
       }
