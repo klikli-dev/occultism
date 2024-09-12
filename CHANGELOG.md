@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.157.1] - 2024-09-12
+### :bug: Bug Fixes
+- [`986741c`](https://github.com/klikli-dev/occultism/commit/986741c37c185f9f7f060cc14f079522fcd18a2c) - tallow not dropping *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.157.0] - 2024-09-11
 ### :sparkles: New Features
 - [`ff9d595`](https://github.com/klikli-dev/occultism/commit/ff9d595c69069b4a51ced6e21b6a3e1b55916889) - update to latest modonomicon *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1701,3 +1706,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.155.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.155.0...release/v1.21.1-1.155.1
 [release/v1.21.1-1.156.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.155.1...release/v1.21.1-1.156.0
 [release/v1.21.1-1.157.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.156.0...release/v1.21.1-1.157.0
+[release/v1.21.1-1.157.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.157.0...release/v1.21.1-1.157.1
