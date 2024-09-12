@@ -2,7 +2,7 @@
   "background_u_index": 1,
   "background_v_index": 2,
   "category": "crafting_rituals",
-  "category_to_open": "occultism:rituals",
+  "category_to_open": "rituals",
   "condition": {
     "type": "modonomicon:true"
   },

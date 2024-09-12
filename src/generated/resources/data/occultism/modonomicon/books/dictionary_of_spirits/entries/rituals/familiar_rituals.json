@@ -2,7 +2,7 @@
   "background_u_index": 1,
   "background_v_index": 1,
   "category": "rituals",
-  "category_to_open": "occultism:familiar_rituals",
+  "category_to_open": "familiar_rituals",
   "condition": {
     "type": "modonomicon:true"
   },

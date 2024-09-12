@@ -148,6 +148,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.DEBUG_DJINNI_MANAGE_MACHINE, "Summon Debug Djinni Manage Machine");
         this.addItem(OccultismItems.DEBUG_DJINNI_TEST, "Summon Debug Djinni Test");
 
+        this.addItem(OccultismItems.AUTO_CHALK, "Auto Chalk");
+
         this.addItem(OccultismItems.CHALK_GOLD, "Yellow Chalk");
         this.addItem(OccultismItems.CHALK_PURPLE, "Purple Chalk");
         this.addItem(OccultismItems.CHALK_RED, "Red Chalk");

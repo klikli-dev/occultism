@@ -55,6 +55,11 @@ public class ChalkItem extends Item {
         Player player = context.getPlayer();
         boolean isReplacing = level.getBlockState(pos).canBeReplaced(new BlockPlaceContext(context));
 
+        if(level.isClientSide){
+            //TODO: Test sending a packet here and check if it arrives consistently before server side check
+            //      also test with server + client!
+        }
+
         if (!level.isClientSide) {
             //only place if player clicked at a top face
             //only if the block can be placed or is replacing an existing block

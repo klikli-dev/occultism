@@ -57,6 +57,8 @@ public class Networking {
         registrar.playToServer(MessageTakeItem.TYPE, MessageTakeItem.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageToggleFamiliarSettings.TYPE, MessageToggleFamiliarSettings.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageUpdateStorageSettings.TYPE, MessageUpdateStorageSettings.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToServer(MessageSendPreviewedChalk.TYPE, MessageSendPreviewedChalk.STREAM_CODEC, MessageHandler::handle);
+
         //to client
         registrar.playToClient(MessageBeholderAttack.TYPE, MessageBeholderAttack.STREAM_CODEC, MessageHandler::handle);
         registrar.playToClient(MessageFairySupport.TYPE, MessageFairySupport.STREAM_CODEC, MessageHandler::handle);

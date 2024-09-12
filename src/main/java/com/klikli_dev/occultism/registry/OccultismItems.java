@@ -181,6 +181,9 @@ public class OccultismItems {
     public static final DeferredItem<StorageRemoteItem> STORAGE_REMOTE = ITEMS.register("storage_remote",
             () -> new StorageRemoteItem(defaultProperties().stacksTo(1)));
 
+
+    public static final DeferredItem<AutoChalkItem> AUTO_CHALK = ITEMS.register("auto_chalk",
+            () -> new AutoChalkItem(defaultProperties()));
     public static final DeferredItem<Item> CHALK_WHITE = ITEMS.register("chalk_white",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_WHITE.get()));
