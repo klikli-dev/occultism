@@ -1,6 +1,7 @@
 package com.klikli_dev.occultism.common.item.tool.ritual_satchel;
 
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
+import com.klikli_dev.modonomicon.api.multiblock.Multiblock;
 import com.klikli_dev.modonomicon.api.multiblock.StateMatcher;
 import com.klikli_dev.modonomicon.multiblock.matcher.AnyMatcher;
 import com.klikli_dev.modonomicon.multiblock.matcher.DisplayOnlyMatcher;
@@ -8,6 +9,7 @@ import com.klikli_dev.modonomicon.multiblock.matcher.Matchers;
 import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.common.container.satchel.RitualSatchelContainer;
 import com.klikli_dev.occultism.common.container.satchel.SatchelInventory;
+import com.klikli_dev.occultism.common.item.tool.ChalkItem;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSendPreviewedPentacle;
 import com.mojang.datafixers.util.Function4;
@@ -15,6 +17,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMaps;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -22,11 +25,16 @@ import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemContainerContents;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.items.ComponentItemHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -60,6 +68,50 @@ public abstract class RitualSatchelItem extends Item {
 
     public Container getInventory(ServerPlayer player, ItemStack stack) {
         return new SatchelInventory(stack, RitualSatchelContainer.SATCHEL_SIZE);
+    }
+
+    protected boolean tryPlaceBlockForMatcher(UseOnContext context, Multiblock.SimulateResult targetMatcher){
+        if(targetMatcher.getStateMatcher().getType().equals(AnyMatcher.TYPE) || targetMatcher.getStateMatcher().getType().equals(DisplayOnlyMatcher.TYPE))
+            return false;
+
+        var statePredicate = targetMatcher.getStateMatcher().getStatePredicate();
+
+        var inventory = new ComponentItemHandler(
+                context.getItemInHand(),
+                DataComponents.CONTAINER,
+                context.getItemInHand().getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY).getSlots()
+        );
+
+        if(!context.getLevel().getBlockState(context.getClickedPos().above()).isAir())
+            return false;
+
+        for (int i = 0; i < inventory.getSlots(); i++) {
+            var stack = inventory.getStackInSlot(i);
+
+            BlockState blockStateToPlace = null;
+            if (stack.getItem() instanceof BlockItem blockItem) {
+                var block = blockItem.getBlock();
+                var blockPlaceContext = blockItem.updatePlacementContext(new BlockPlaceContext(context));
+                if (blockPlaceContext == null)
+                    continue;
+
+                blockStateToPlace = block.getStateForPlacement(blockPlaceContext);
+            } else if (stack.getItem() instanceof ChalkItem chalkItem) {
+                var chalkBlock = chalkItem.getGlyphBlock().get();
+                blockStateToPlace = chalkBlock.getStateForPlacement(new BlockPlaceContext(context));
+            }
+
+            if (blockStateToPlace == null)
+                continue;
+
+            if (statePredicate.test(context.getLevel(), targetMatcher.getWorldPosition(), blockStateToPlace)) {
+                //simulate item use
+                stack.useOn(new UseOnContext(context.getLevel(), context.getPlayer(), context.getHand(), stack, context.getHitResult()));
+                inventory.setStackInSlot(i, stack); //to force an update of the container if the item was used up or stack size reduced.
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
