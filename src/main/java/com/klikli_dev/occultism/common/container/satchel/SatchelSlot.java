@@ -20,7 +20,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.occultism.common.container.storage;
+package com.klikli_dev.occultism.common.container.satchel;
 
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.world.Container;

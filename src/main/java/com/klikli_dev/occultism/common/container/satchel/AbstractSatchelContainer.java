@@ -20,43 +20,42 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.occultism.common.container.storage;
+package com.klikli_dev.occultism.common.container.satchel;
 
-import com.klikli_dev.occultism.registry.OccultismContainers;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.CuriosUtil;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-public class SatchelContainer extends AbstractContainerMenu {
+import javax.annotation.Nullable;
 
-    public static final int SATCHEL_SIZE = 13 * 9;
+public abstract class AbstractSatchelContainer extends AbstractContainerMenu {
+
     protected Container satchelInventory;
     protected Inventory playerInventory;
     protected int selectedSlot;
+    protected ItemStack satchelStack;
 
-    public SatchelContainer(int id, Inventory playerInventory, Container satchelInventory, int selectedSlot) {
-        super(OccultismContainers.SATCHEL.get(), id);
+    public AbstractSatchelContainer(@Nullable MenuType<?> menuType, int id, Inventory playerInventory, Container satchelInventory, int selectedSlot) {
+        super(menuType, id);
         this.satchelInventory = satchelInventory;
         this.playerInventory = playerInventory;
         this.selectedSlot = selectedSlot;
 
+        if (this.selectedSlot == -1) {
+            this.satchelStack = CuriosUtil.getBackpack(playerInventory.player);
+        }
+
+        this.satchelStack = playerInventory.player.getInventory().getItem(this.selectedSlot);
+
         this.setupSatchelSlots();
         this.setupPlayerInventorySlots();
         this.setupPlayerHotbar();
-    }
-
-    //region Static Methods
-    public static SatchelContainer createClientContainer(int id, Inventory playerInventory, FriendlyByteBuf buffer) {
-        final int satchelSize = buffer.readVarInt();
-        final int selectedSlot = buffer.readVarInt();
-        return new SatchelContainer(id, playerInventory, new SimpleContainer(satchelSize), selectedSlot);
     }
 
     @Override
@@ -106,13 +105,12 @@ public class SatchelContainer extends AbstractContainerMenu {
     @Override
     public boolean stillValid(Player player) {
         if (this.selectedSlot == -1) {
-            return CuriosUtil.getBackpack(player).getItem() == OccultismItems.SATCHEL.get();
+            return CuriosUtil.getBackpack(player).getItem() == this.satchelStack.getItem();
         }
         if (this.selectedSlot < 0 || this.selectedSlot >= player.getInventory().getContainerSize())
             return false;
-        return player.getInventory().getItem(this.selectedSlot).getItem() == OccultismItems.SATCHEL.get();
+        return player.getInventory().getItem(this.selectedSlot).getItem() == this.satchelStack.getItem();
     }
-    //endregion Static Methods
 
     protected void setupPlayerInventorySlots() {
         int playerInventoryTop = 174;
@@ -133,18 +131,6 @@ public class SatchelContainer extends AbstractContainerMenu {
         }
     }
 
-    protected void setupSatchelSlots() {
-        //8x 8y for satchel
-        int height = 9;
-        int width = 13;
-        int x = 8;
-        int y = 8;
-
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                this.addSlot(new SatchelSlot(this.satchelInventory, j + i * width, x + j * 18, y + i * 18));
-            }
-        }
-    }
+    protected abstract void setupSatchelSlots();
 
 }

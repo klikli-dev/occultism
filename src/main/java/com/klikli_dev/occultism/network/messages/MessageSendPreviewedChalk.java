@@ -38,7 +38,7 @@ public class MessageSendPreviewedChalk implements IMessage {
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
-        OccultismItems.AUTO_CHALK.get().setTargetChalk(player.getUUID(), this.glyphBlock, this.target, player.level().getGameTime());
+        OccultismItems.RITUAL_SATCHEL_T1.get().setTargetChalk(player.getUUID(), this.glyphBlock, this.target, player.level().getGameTime());
     }
 
     @Override

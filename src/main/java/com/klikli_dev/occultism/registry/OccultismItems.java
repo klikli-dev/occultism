@@ -182,10 +182,20 @@ public class OccultismItems {
             () -> new StorageRemoteItem(defaultProperties().stacksTo(1)));
 
 
-    public static final DeferredItem<AutoChalkItem> AUTO_CHALK = ITEMS.register("auto_chalk",
-            () -> new AutoChalkItem(defaultProperties()));
-    public static final DeferredItem<FullPentacleAutoChalkItem> FULL_PENTACLE_AUTO_CHALK = ITEMS.register("full_pentacle_auto_chalk",
-            () -> new FullPentacleAutoChalkItem(defaultProperties()));
+    public static final DeferredItem<SingleBlockRitualSatchelItem> RITUAL_SATCHEL_T1 = ITEMS.register("ritual_satchel_t1",
+            () -> new SingleBlockRitualSatchelItem(defaultProperties()
+                    .stacksTo(1).rarity(Rarity.RARE)
+                    .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
+                    .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
+            ));
+
+    public static final DeferredItem<MultiBlockRitualSatchelItem> RITUAL_SATCHEL_T2 = ITEMS.register("ritual_satchel_t2",
+            () -> new MultiBlockRitualSatchelItem(defaultProperties()
+                    .stacksTo(1).rarity(Rarity.RARE)
+                    .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
+                    .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
+            ));
+
     public static final DeferredItem<Item> CHALK_WHITE = ITEMS.register("chalk_white",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_WHITE.get()));
@@ -605,6 +615,8 @@ public class OccultismItems {
                 || item == BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get()
                 || item == DIMENSIONAL_MATRIX.get()
                 || item == SATCHEL.get()
+                || item == RITUAL_SATCHEL_T1.get()
+                || item == RITUAL_SATCHEL_T2.get()
                 || item == FAMILIAR_RING.get()
                 || item == INFUSED_PICKAXE.get()
                 || item == MINER_FOLIOT_UNSPECIALIZED.get()

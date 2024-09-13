@@ -2,8 +2,10 @@ package com.klikli_dev.occultism.common.item.tool;
 
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.occultism.common.block.ChalkGlyphBlock;
+import com.klikli_dev.occultism.common.container.satchel.*;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSendPreviewedPentacle;
+import com.klikli_dev.occultism.registry.OccultismContainers;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMaps;
@@ -12,10 +14,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -25,10 +29,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.Map;
 import java.util.UUID;
 
-public class FullPentacleAutoChalkItem extends Item {
+/**
+ * Places a all blocks of a multiblock ritual with just one click.
+ */
+public class MultiBlockRitualSatchelItem extends Item {
     private final Map<UUID, PentacleData> targetPentacles = Object2ObjectMaps.synchronize(new Object2ObjectArrayMap<>());
 
-    public FullPentacleAutoChalkItem(Properties properties) {
+    public MultiBlockRitualSatchelItem(Properties properties) {
         super(properties);
     }
 
@@ -41,12 +48,67 @@ public class FullPentacleAutoChalkItem extends Item {
     }
 
     @Override
+    public boolean isFoil(ItemStack stack) {
+        return true;
+    }
+
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        if(hand != InteractionHand.MAIN_HAND)
+            return new InteractionResultHolder<>(InteractionResult.PASS, player.getItemInHand(hand));
+
+        if(!player.isShiftKeyDown())
+            return new InteractionResultHolder<>(InteractionResult.PASS, player.getItemInHand(hand));
+
+        final ItemStack stack = player.getItemInHand(hand);
+
+        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+            //here we use main hand item as selected slot
+            int selectedSlot = player.getInventory().selected;
+
+            serverPlayer.openMenu(
+                    new SimpleMenuProvider((id, playerInventory, unused) -> {
+                        return new RitualSatchelT2Container(id, playerInventory,
+                                this.getInventory((ServerPlayer) player, stack), selectedSlot);
+                    }, stack.getDisplayName()), buffer -> {
+                        buffer.writeVarInt(selectedSlot);
+                    });
+        }
+
+        return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
+    }
+
+    @Override
     public InteractionResult useOn(UseOnContext context) {
+        if(context.getHand() != InteractionHand.MAIN_HAND)
+            return InteractionResult.PASS;
+
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
         BlockState state = level.getBlockState(pos);
         Player player = context.getPlayer();
         boolean isReplacing = level.getBlockState(pos).canBeReplaced(new BlockPlaceContext(context));
+
+        if(level.isClientSide() && player.isShiftKeyDown()){
+            //will open satchel serverside
+            return InteractionResult.SUCCESS;
+        }
+
+        if(!level.isClientSide() && player.isShiftKeyDown() && player instanceof ServerPlayer serverPlayer){
+            //here we use main hand item as selected slot
+            int selectedSlot = player.getInventory().selected;
+
+            serverPlayer.openMenu(
+                    new SimpleMenuProvider((id, playerInventory, unused) -> {
+                        return new RitualSatchelT2Container(id, playerInventory,
+                                this.getInventory((ServerPlayer) player, context.getItemInHand()), selectedSlot);
+                    }, context.getItemInHand().getDisplayName()), buffer -> {
+                        buffer.writeVarInt(selectedSlot);
+                    });
+
+            return InteractionResult.SUCCESS;
+        }
 
         //TODO: handle existing chalk symbol -> should be treated like a valid preview block
         //      will also have to verify the correct chalk is available!
@@ -123,6 +185,10 @@ public class FullPentacleAutoChalkItem extends Item {
 
         }
         return InteractionResult.SUCCESS;
+    }
+
+    public Container getInventory(ServerPlayer player, ItemStack stack) {
+        return new SatchelInventory(stack, RitualSatchelContainer.SATCHEL_SIZE);
     }
 
     public record PentacleData(ResourceLocation multiblock, BlockPos anchor, Rotation facing, BlockPos target,

@@ -2,8 +2,13 @@ package com.klikli_dev.occultism.common.item.tool;
 
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.occultism.common.block.ChalkGlyphBlock;
+import com.klikli_dev.occultism.common.container.satchel.RitualSatchelContainer;
+import com.klikli_dev.occultism.common.container.satchel.RitualSatchelT1Container;
+import com.klikli_dev.occultism.common.container.satchel.AbstractSatchelContainer;
+import com.klikli_dev.occultism.common.container.satchel.SatchelInventory;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSendPreviewedChalk;
+import com.klikli_dev.occultism.registry.OccultismContainers;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMaps;
@@ -12,8 +17,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -26,10 +32,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.Map;
 import java.util.UUID;
 
-public class AutoChalkItem extends Item {
+/**
+ * Places a single block of a ritual multiblock.
+ */
+public class SingleBlockRitualSatchelItem extends Item {
+
+
     private final Map<UUID, ChalkData> targetChalks = Object2ObjectMaps.synchronize(new Object2ObjectArrayMap<>());
 
-    public AutoChalkItem(Properties properties) {
+    public SingleBlockRitualSatchelItem(Properties properties) {
         super(properties);
     }
 
@@ -42,12 +53,66 @@ public class AutoChalkItem extends Item {
     }
 
     @Override
+    public boolean isFoil(ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        if(hand != InteractionHand.MAIN_HAND)
+            return new InteractionResultHolder<>(InteractionResult.PASS, player.getItemInHand(hand));
+
+        if(!player.isShiftKeyDown())
+            return new InteractionResultHolder<>(InteractionResult.PASS, player.getItemInHand(hand));
+
+        final ItemStack stack = player.getItemInHand(hand);
+
+        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+            //here we use main hand item as selected slot
+            int selectedSlot = player.getInventory().selected;
+
+            serverPlayer.openMenu(
+                    new SimpleMenuProvider((id, playerInventory, unused) -> {
+                        return new RitualSatchelT1Container(id, playerInventory,
+                                this.getInventory((ServerPlayer) player, stack), selectedSlot);
+                    }, stack.getDisplayName()), buffer -> {
+                        buffer.writeVarInt(selectedSlot);
+                    });
+        }
+
+        return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
+    }
+
+    @Override
     public InteractionResult useOn(UseOnContext context) {
+        if(context.getHand() != InteractionHand.MAIN_HAND)
+            return InteractionResult.PASS;
+
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
         BlockState state = level.getBlockState(pos);
         Player player = context.getPlayer();
         boolean isReplacing = level.getBlockState(pos).canBeReplaced(new BlockPlaceContext(context));
+
+        if(level.isClientSide() && player.isShiftKeyDown()){
+            //will open satchel serverside
+            return InteractionResult.SUCCESS;
+        }
+
+        if(!level.isClientSide() && player.isShiftKeyDown() && player instanceof ServerPlayer serverPlayer){
+            //here we use main hand item as selected slot
+            int selectedSlot = player.getInventory().selected;
+
+            serverPlayer.openMenu(
+                    new SimpleMenuProvider((id, playerInventory, unused) -> {
+                        return new RitualSatchelT1Container(id, playerInventory,
+                                this.getInventory((ServerPlayer) player, context.getItemInHand()), selectedSlot);
+                    }, context.getItemInHand().getDisplayName()), buffer -> {
+                        buffer.writeVarInt(selectedSlot);
+                    });
+
+            return InteractionResult.SUCCESS;
+        }
 
         //TODO: handle existing chalk symbol -> should be treated like a valid preview block
         //      will also have to verify the correct chalk is available!
@@ -108,6 +173,10 @@ public class AutoChalkItem extends Item {
             }
         }
         return InteractionResult.SUCCESS;
+    }
+
+    public Container getInventory(ServerPlayer player, ItemStack stack) {
+        return new SatchelInventory(stack, RitualSatchelContainer.SATCHEL_SIZE);
     }
 
     public record ChalkData(Holder<Block> block, BlockPos target, long timeWhenAdded) {

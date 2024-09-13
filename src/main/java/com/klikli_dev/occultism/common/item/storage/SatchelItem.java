@@ -22,11 +22,12 @@
 
 package com.klikli_dev.occultism.common.item.storage;
 
-import com.klikli_dev.occultism.common.container.storage.SatchelContainer;
-import com.klikli_dev.occultism.common.container.storage.SatchelInventory;
+import com.klikli_dev.occultism.common.container.satchel.AbstractSatchelContainer;
+import com.klikli_dev.occultism.common.container.satchel.SatchelInventory;
+import com.klikli_dev.occultism.common.container.satchel.StorageSatchelContainer;
+import com.klikli_dev.occultism.registry.OccultismContainers;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.*;
@@ -35,12 +36,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 
 public class SatchelItem extends Item {
 
-    public static final int SATCHEL_SIZE = 13 * 9;
 
     public SatchelItem(Properties properties) {
         super(properties);
@@ -56,10 +56,9 @@ public class SatchelItem extends Item {
 
             serverPlayer.openMenu(
                     new SimpleMenuProvider((id, playerInventory, unused) -> {
-                        return new SatchelContainer(id, playerInventory,
+                        return new StorageSatchelContainer(id, playerInventory,
                                 this.getInventory((ServerPlayer) player, stack), selectedSlot);
                     }, stack.getDisplayName()), buffer -> {
-                        buffer.writeVarInt(SATCHEL_SIZE);
                         buffer.writeVarInt(selectedSlot);
                     });
         }
@@ -77,7 +76,7 @@ public class SatchelItem extends Item {
 
 
     public Container getInventory(ServerPlayer player, ItemStack stack) {
-        return new SatchelInventory(stack, SATCHEL_SIZE);
+        return new SatchelInventory(stack, StorageSatchelContainer.SATCHEL_SIZE);
     }
 
 }

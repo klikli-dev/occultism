@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "occultism:item/full_pentacle_auto_chalk"
+    "layer0": "occultism:item/ritual_satchel_t2"
   }
 }

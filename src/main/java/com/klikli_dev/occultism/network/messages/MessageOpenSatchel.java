@@ -23,9 +23,11 @@
 package com.klikli_dev.occultism.network.messages;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.common.container.storage.SatchelContainer;
+import com.klikli_dev.occultism.common.container.satchel.AbstractSatchelContainer;
+import com.klikli_dev.occultism.common.container.satchel.StorageSatchelContainer;
 import com.klikli_dev.occultism.common.item.storage.SatchelItem;
 import com.klikli_dev.occultism.network.IMessage;
+import com.klikli_dev.occultism.registry.OccultismContainers;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -68,7 +70,7 @@ public class MessageOpenSatchel implements IMessage {
             int finalSelectedSlot = selectedSlot;
             player.openMenu(
                     new SimpleMenuProvider((id, playerInventory, unused) -> {
-                        return new SatchelContainer(id, playerInventory,
+                        return new StorageSatchelContainer(id, playerInventory,
                                 ((SatchelItem) finalBackpackStack.getItem()).getInventory(player, finalBackpackStack),
                                 finalSelectedSlot);
                     }, backpackStack.getDisplayName()), buffer -> {

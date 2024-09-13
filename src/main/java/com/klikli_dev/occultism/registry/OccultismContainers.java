@@ -27,9 +27,12 @@ import com.klikli_dev.occultism.common.blockentity.DimensionalMineshaftBlockEnti
 import com.klikli_dev.occultism.common.blockentity.StableWormholeBlockEntity;
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
 import com.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
+import com.klikli_dev.occultism.common.container.satchel.RitualSatchelT1Container;
+import com.klikli_dev.occultism.common.container.satchel.RitualSatchelT2Container;
+import com.klikli_dev.occultism.common.container.satchel.StorageSatchelContainer;
 import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
-import com.klikli_dev.occultism.common.container.storage.SatchelContainer;
+import com.klikli_dev.occultism.common.container.satchel.AbstractSatchelContainer;
 import com.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
@@ -88,7 +91,12 @@ public class OccultismContainers {
                                     (DimensionalMineshaftBlockEntity) inv.player.level().getBlockEntity(
                                             data.readBlockPos()))));
 
-    public static final Supplier<MenuType<SatchelContainer>> SATCHEL =
-            CONTAINERS.register("satchel", () -> IMenuTypeExtension.create(SatchelContainer::createClientContainer));
+    public static final Supplier<MenuType<AbstractSatchelContainer>> SATCHEL =
+            CONTAINERS.register("satchel", () -> IMenuTypeExtension.create(StorageSatchelContainer::createClientContainer));
 
+    public static final Supplier<MenuType<RitualSatchelT1Container>> RITUAL_SATCHEL_T1 =
+            CONTAINERS.register("ritual_satchel_t1", () -> IMenuTypeExtension.create(RitualSatchelT1Container::createClientContainer));
+
+    public static final Supplier<MenuType<RitualSatchelT2Container>> RITUAL_SATCHEL_T2 =
+            CONTAINERS.register("ritual_satchel_t2", () -> IMenuTypeExtension.create(RitualSatchelT2Container::createClientContainer));
 }

@@ -24,6 +24,8 @@ package com.klikli_dev.occultism.handlers;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.gui.DimensionalMineshaftScreen;
+import com.klikli_dev.occultism.client.gui.satchel.RitualSatchelScreen;
+import com.klikli_dev.occultism.client.gui.satchel.SatchelScreen;
 import com.klikli_dev.occultism.client.gui.spirit.SpiritGui;
 import com.klikli_dev.occultism.client.gui.spirit.SpiritTransporterGui;
 import com.klikli_dev.occultism.client.gui.storage.*;
@@ -229,6 +231,8 @@ public class ClientSetupEventHandler {
         event.register(OccultismContainers.SPIRIT_TRANSPORTER.get(), SpiritTransporterGui::new);
         event.register(OccultismContainers.OTHERWORLD_MINER.get(), DimensionalMineshaftScreen::new);
         event.register(OccultismContainers.SATCHEL.get(), SatchelScreen::new);
+        event.register(OccultismContainers.RITUAL_SATCHEL_T1.get(), RitualSatchelScreen::new);
+        event.register(OccultismContainers.RITUAL_SATCHEL_T2.get(), RitualSatchelScreen::new);
     }
 
     public static void onRegisterClientExtensions(RegisterClientExtensionsEvent event) {
