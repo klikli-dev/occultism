@@ -1143,6 +1143,7 @@
   "item.occultism.familiar_ring.tooltip": "Occupied by the familiar %s\n%s",
   "item.occultism.familiar_ring.tooltip.empty": "Does not contain any familiar.",
   "item.occultism.familiar_ring.tooltip.familiar_type": "[Type: %s]",
+  "item.occultism.full_pentacle_auto_chalk": "Full Pentacle Auto Chalk",
   "item.occultism.gold_dust": "Gold Dust",
   "item.occultism.iesnium_dust": "Iesnium Dust",
   "item.occultism.iesnium_ingot": "Iesnium Ingot",
