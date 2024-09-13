@@ -47,6 +47,10 @@ public class ChalkItem extends Item {
         this.glyphBlock = glyphBlock;
     }
 
+    public Supplier<ChalkGlyphBlock> getGlyphBlock() {
+        return this.glyphBlock;
+    }
+
     @Override
     public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();

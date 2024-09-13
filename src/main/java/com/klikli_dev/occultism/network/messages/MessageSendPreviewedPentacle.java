@@ -45,6 +45,7 @@ public class MessageSendPreviewedPentacle implements IMessage {
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
+        OccultismItems.RITUAL_SATCHEL_T1.get().setTargetPentacle(player.getUUID(), this.multiblock, this.anchor, this.facing, this.target, player.level().getGameTime());
         OccultismItems.RITUAL_SATCHEL_T2.get().setTargetPentacle(player.getUUID(), this.multiblock, this.anchor, this.facing, this.target, player.level().getGameTime());
     }
 

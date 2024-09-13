@@ -166,6 +166,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                    """
         );
 
+        this.add(TranslationKeys.RITUAL_SATCHEL_NO_PREVIEW_IN_WORLD, "To use a ritual satchel, you need to preview a pentacle using the Dictionary of Spirits, and fix it to the location where you want to set up your ritual with a right-click.");
+        this.add(TranslationKeys.RITUAL_SATCHEL_NO_PREVIEW_BLOCK_TARGETED, "You need to aim the ritual satchel at a preview block.");
+        this.add(TranslationKeys.RITUAL_SATCHEL_NO_VALID_ITEM_IN_SATCHEL, "There is no valid item in the satchel for this previewed block.");
+
         this.addItem(OccultismItems.CHALK_GOLD, "Yellow Chalk");
         this.addItem(OccultismItems.CHALK_PURPLE, "Purple Chalk");
         this.addItem(OccultismItems.CHALK_RED, "Red Chalk");
