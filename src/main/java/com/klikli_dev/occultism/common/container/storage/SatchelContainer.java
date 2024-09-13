@@ -54,8 +54,9 @@ public class SatchelContainer extends AbstractContainerMenu {
 
     //region Static Methods
     public static SatchelContainer createClientContainer(int id, Inventory playerInventory, FriendlyByteBuf buffer) {
+        final int satchelSize = buffer.readVarInt();
         final int selectedSlot = buffer.readVarInt();
-        return new SatchelContainer(id, playerInventory, new SimpleContainer(SATCHEL_SIZE), selectedSlot);
+        return new SatchelContainer(id, playerInventory, new SimpleContainer(satchelSize), selectedSlot);
     }
 
     @Override

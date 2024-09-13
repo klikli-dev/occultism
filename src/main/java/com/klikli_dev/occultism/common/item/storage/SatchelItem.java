@@ -40,6 +40,8 @@ import java.util.List;
 
 public class SatchelItem extends Item {
 
+    public static final int SATCHEL_SIZE = 13 * 9;
+
     public SatchelItem(Properties properties) {
         super(properties);
     }
@@ -57,6 +59,7 @@ public class SatchelItem extends Item {
                         return new SatchelContainer(id, playerInventory,
                                 this.getInventory((ServerPlayer) player, stack), selectedSlot);
                     }, stack.getDisplayName()), buffer -> {
+                        buffer.writeVarInt(SATCHEL_SIZE);
                         buffer.writeVarInt(selectedSlot);
                     });
         }
@@ -74,7 +77,7 @@ public class SatchelItem extends Item {
 
 
     public Container getInventory(ServerPlayer player, ItemStack stack) {
-        return new SatchelInventory(stack, SatchelContainer.SATCHEL_SIZE);
+        return new SatchelInventory(stack, SATCHEL_SIZE);
     }
 
 }
