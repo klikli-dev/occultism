@@ -10,6 +10,8 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageMo
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.occultism.datagen.OccultismBookProvider;
+import com.klikli_dev.occultism.datagen.book.bindingrituals.ApprenticeRitualSatchelEntry;
+import com.klikli_dev.occultism.datagen.book.bindingrituals.ArtisanalRitualSatchelEntry;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
@@ -33,7 +35,7 @@ public class BindingRitualsCategory extends CategoryProvider {
                 "___________________________",
                 "___9_0_____________________",
                 "___________________________",
-                "_______f_z_a__g____________",
+                "_______f_z_a__g_ĝ_ğ________",
                 "___________________________",
                 "___________n_m_o___________",
                 "___________________________",
@@ -87,6 +89,12 @@ public class BindingRitualsCategory extends CategoryProvider {
 
         var craftSatchel = this.add(this.makeCraftSatchelEntry(this.entryMap, 'g'));
         craftSatchel.withParent(BookEntryParentModel.create(overview.getId()));
+
+        var apprenticeRitualSatchel = this.add(new ApprenticeRitualSatchelEntry(this).generate('ĝ'));
+        apprenticeRitualSatchel.withParent(craftSatchel);
+
+        var artisanalRitualSatchel = this.add(new ArtisanalRitualSatchelEntry(this).generate('ğ'));
+        artisanalRitualSatchel.withParent(apprenticeRitualSatchel);
 
         var craftSoulGem = this.add(this.makeCraftSoulGemEntry(this.entryMap, 'h'));
         craftSoulGem.withParent(BookEntryParentModel.create(overview.getId()));
