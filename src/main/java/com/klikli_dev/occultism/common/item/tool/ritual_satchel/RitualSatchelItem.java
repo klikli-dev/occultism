@@ -140,9 +140,6 @@ public abstract class RitualSatchelItem extends Item {
             return InteractionResult.PASS;
         }
 
-        //TODO: filter to occultism (ritual-used) pentacles? otherwise it attempts to build any modonomicon multiblock.
-        //      should probably be on server, although abuse potential is low -> building other multiblocks is only a problem because they might be broken due to invalid state handling.
-
         Networking.sendToServer(new MessageSendPreviewedPentacle(
                 preview.multiblock().getId(),
                 preview.anchor(),
