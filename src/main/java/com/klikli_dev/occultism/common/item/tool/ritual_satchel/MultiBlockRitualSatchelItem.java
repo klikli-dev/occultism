@@ -9,6 +9,7 @@ import com.klikli_dev.occultism.common.container.satchel.RitualSatchelContainer;
 import com.klikli_dev.occultism.common.container.satchel.RitualSatchelT2Container;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
+import com.klikli_dev.occultism.registry.OccultismTags;
 import com.mojang.datafixers.util.Function4;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
@@ -89,11 +90,12 @@ public class MultiBlockRitualSatchelItem extends RitualSatchelItem {
 
                 //if we got here it means the block at the location of the matcher is a valid block for the pentacle.
                 //however that may also be an "any" or "air" matcher.
-
                 var blockState = context.getLevel().getBlockState(targetMatcher.getWorldPosition());
-                //TODO: collect only blocks in the pentacle materials tag
 
                 if(blockState.isAir())
+                    continue;
+
+                if(!blockState.is(OccultismTags.Blocks.PENTACLE_MATERIALS))
                     continue;
 
                 var blockEntity = context.getLevel().getBlockEntity(targetMatcher.getWorldPosition());

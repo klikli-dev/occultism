@@ -45,7 +45,7 @@ public abstract class RitualSatchelContainer extends AbstractSatchelContainer {
 
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                this.addSlot(new SatchelSlot(this.satchelInventory, j + i * width, x + j * 18, y + i * 18));
+                this.addSlot(new RitualSatchelSlot(this.satchelInventory, j + i * width, x + j * 18, y + i * 18));
             }
         }
     }
