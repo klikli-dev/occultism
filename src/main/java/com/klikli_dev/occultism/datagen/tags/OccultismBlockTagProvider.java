@@ -118,6 +118,14 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
     }
 
     private void addOccultismTags(HolderLookup.Provider provider) {
+        this.tag(OccultismTags.Blocks.PENTACLE_MATERIALS)
+                .addTag(Tags.Blocks.SKULLS)
+                .add(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get())
+                .add(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get())
+                .addOptionalTag(OccultismTags.Blocks.OCCULTISM_CANDLES)
+                .addOptionalTag(OccultismTags.Blocks.CHALK_GLYPHS)
+                .replace(false);
+
         this.tag(OccultismTags.Blocks.OTHERWORLD_SAPLINGS)
                 .add(OccultismBlocks.OTHERWORLD_SAPLING.get(), OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get()).replace(false);
         this.tag(OccultismTags.Blocks.OCCULTISM_CANDLES).add(
@@ -139,6 +147,25 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 OccultismBlocks.LARGE_CANDLE_MAGENTA.get(),
                 OccultismBlocks.LARGE_CANDLE_PURPLE.get()
         ).replace(false);
+
+        this.tag(OccultismTags.Blocks.CHALK_GLYPHS)
+                .add(OccultismBlocks.CHALK_GLYPH_WHITE.get())
+                .add(OccultismBlocks.CHALK_GLYPH_GOLD.get())
+                .add(OccultismBlocks.CHALK_GLYPH_PURPLE.get())
+                .add(OccultismBlocks.CHALK_GLYPH_RED.get())
+                .add(OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY.get())
+                .add(OccultismBlocks.CHALK_GLYPH_GRAY.get())
+                .add(OccultismBlocks.CHALK_GLYPH_BLACK.get())
+                .add(OccultismBlocks.CHALK_GLYPH_BROWN.get())
+                .add(OccultismBlocks.CHALK_GLYPH_ORANGE.get())
+                .add(OccultismBlocks.CHALK_GLYPH_LIME.get())
+                .add(OccultismBlocks.CHALK_GLYPH_GREEN.get())
+                .add(OccultismBlocks.CHALK_GLYPH_CYAN.get())
+                .add(OccultismBlocks.CHALK_GLYPH_LIGHT_BLUE.get())
+                .add(OccultismBlocks.CHALK_GLYPH_BLUE.get())
+                .add(OccultismBlocks.CHALK_GLYPH_MAGENTA.get())
+                .add(OccultismBlocks.CHALK_GLYPH_PINK.get()).replace(false);
+
         this.tag(OccultismTags.Blocks.CAVE_WALL_BLOCKS).add(Blocks.STONE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE).replace(false);
         this.tag(OccultismTags.Blocks.NETHERRACK).add(Blocks.NETHERRACK).replace(false);
         this.tag(OccultismTags.Blocks.STORAGE_STABILIZER)

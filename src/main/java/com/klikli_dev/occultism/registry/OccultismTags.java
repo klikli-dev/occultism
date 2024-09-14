@@ -34,6 +34,8 @@ import net.minecraft.world.level.block.Block;
 public class OccultismTags {
     public static class Blocks {
 
+        public static final TagKey<Block> PENTACLE_MATERIALS = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "pentacle_materials"));
+
         // Block Tags
         public static final TagKey<Block> TREE_SOIL = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "tree_soil"));
         public static final TagKey<Block> CAVE_WALL_BLOCKS = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "cave_wall_blocks"));
@@ -41,6 +43,7 @@ public class OccultismTags {
 
         public static final TagKey<Block> NETHERRACK = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "netherrack"));
         public static final TagKey<Block> CANDLES = makeBlockTag(ResourceLocation.fromNamespaceAndPath("minecraft", "candles"));
+        public static final TagKey<Block> CHALK_GLYPHS = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "chalk_glyphs"));
         public static final TagKey<Block> IESNIUM_ORE = makeBlockTag(ResourceLocation.fromNamespaceAndPath("c", "ores/iesnium"));
         public static final TagKey<Block> SILVER_ORE = makeBlockTag(ResourceLocation.fromNamespaceAndPath("c", "ores/silver"));
         // Storage Bock Tags
@@ -56,6 +59,9 @@ public class OccultismTags {
     }
 
     public static class Items {
+
+        public static final TagKey<Item> PENTACLE_MATERIALS = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "pentacle_materials"));
+        public static final TagKey<Item> SKULLS = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "skulls"));
 
         public static final TagKey<Item> DEMONIC_PARTNER_FOOD = makeItemTag(ResourceLocation.fromNamespaceAndPath("occultism", "demonic_partner_food"));
 
@@ -121,7 +127,7 @@ public class OccultismTags {
             public static final TagKey<Item> ORES = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miners/ores"));
         }
 
-        public static final TagKey<Item> TOOLS_CHALKS = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "tools/chalks"));
+        public static final TagKey<Item> TOOLS_CHALK = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "tools/chalk"));
         public static final TagKey<Item> OTHERWORLD_LOGS = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "otherworld_logs"));
         public static final TagKey<Item> OTHERSTONE = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "otherstone"));
         public static final TagKey<Item> OTHERCOBBLESTONE = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "othercobblestone"));
