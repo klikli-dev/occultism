@@ -1986,7 +1986,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
     private void addCraftingRitualsCategory(BookContextHelper helper) {
         helper.category("crafting_rituals");
-        this.add(helper.categoryName(), "Binding Rituals");
+//        this.add(helper.categoryName(), "Binding Rituals"); //done via the category provider for the rituals category
 
         helper.entry("return_to_rituals");
         this.add(helper.entryName(), "Return to Rituals Category");
