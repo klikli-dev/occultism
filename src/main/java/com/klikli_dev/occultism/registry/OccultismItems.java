@@ -365,27 +365,27 @@ public class OccultismItems {
             () -> new MinerSpiritItem(defaultProperties()
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
                     .durability(1000),
-                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.maxMiningTime,
-                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.rollsPerOperation,
-                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.durability));
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.maxMiningTime,
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.rollsPerOperation,
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerFoliotUnspecialized.durability));
     public static final DeferredItem<MinerSpiritItem> MINER_DJINNI_ORES = ITEMS.register("miner_djinni_ores",
             () -> new MinerSpiritItem(defaultProperties().durability(400)
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
-                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.maxMiningTime,
-                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.rollsPerOperation,
-                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerDjinniOres.durability));
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerDjinniOres.maxMiningTime,
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerDjinniOres.rollsPerOperation,
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerDjinniOres.durability));
     public static final DeferredItem<MinerSpiritItem> MINER_AFRIT_DEEPS = ITEMS.register("miner_afrit_deeps",
             () -> new MinerSpiritItem(defaultProperties().durability(800)
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
-                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerAfritDeeps.maxMiningTime,
-                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerAfritDeeps.rollsPerOperation,
-                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerAfritDeeps.durability));
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAfritDeeps.maxMiningTime,
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAfritDeeps.rollsPerOperation,
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAfritDeeps.durability));
     public static final DeferredItem<MinerSpiritItem> MINER_MARID_MASTER = ITEMS.register("miner_marid_master",
             () -> new MinerSpiritItem(defaultProperties().durability(1600)
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
-                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerMaridMaster.maxMiningTime,
-                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerMaridMaster.rollsPerOperation,
-                    Occultism.SERVER_CONFIG.dimensionalMineshaft.minerMaridMaster.durability));
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerMaridMaster.maxMiningTime,
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerMaridMaster.rollsPerOperation,
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerMaridMaster.durability));
 
     //JEI Dummy Items
     public static final DeferredItem<DummyTooltipItem> JEI_DUMMY_NONE = ITEMS.register(
