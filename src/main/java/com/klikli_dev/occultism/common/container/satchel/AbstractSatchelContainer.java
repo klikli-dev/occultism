@@ -51,7 +51,7 @@ public abstract class AbstractSatchelContainer extends AbstractContainerMenu {
             this.satchelStack = CuriosUtil.getBackpack(playerInventory.player);
         }
 
-        this.satchelStack = playerInventory.player.getInventory().getItem(this.selectedSlot);
+        this.satchelStack = playerInventory.player.getInventory().getItem(this.selectedSlot).copy();
 
         this.setupSatchelSlots();
         this.setupPlayerInventorySlots();
