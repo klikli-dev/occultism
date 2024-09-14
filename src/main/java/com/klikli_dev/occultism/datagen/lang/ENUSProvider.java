@@ -148,10 +148,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.DEBUG_DJINNI_MANAGE_MACHINE, "Summon Debug Djinni Manage Machine");
         this.addItem(OccultismItems.DEBUG_DJINNI_TEST, "Summon Debug Djinni Test");
 
-        this.addItem(OccultismItems.RITUAL_SATCHEL_T1, "Basic Ritual Satchel");
+        this.addItem(OccultismItems.RITUAL_SATCHEL_T1, "Apprentice Ritual Satchel");
         this.addAutoTooltip(OccultismItems.RITUAL_SATCHEL_T1.get(),
                 """
-                   A ritual satchel that can place ritual circles block by block.
+                   A basic ritual satchel that can place ritual circles block by block.
                    Right-Click a preview block to place it out of the satchel.
                    Shift-Right-Click to open the satchel and add ritual ingredients.
                    """
@@ -159,7 +159,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.RITUAL_SATCHEL_T2, "Artisanal Ritual Satchel");
         this.addAutoTooltip(OccultismItems.RITUAL_SATCHEL_T2.get(),
                 """
-                   A ritual satchel that can place an entire ritual circle at once.
+                   An improved ritual satchel that can place an entire ritual circle at once.
                    Right-Click any preview block to place all preview blocks out of the satchel.
                    Shift-Right-Click to open the satchel and add ritual ingredients.
                    Right-Click a Golden Bowl to remove the ritual circle and collect the ingredients.

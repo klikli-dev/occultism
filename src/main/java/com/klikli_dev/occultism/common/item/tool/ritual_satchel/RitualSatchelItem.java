@@ -79,7 +79,7 @@ public abstract class RitualSatchelItem extends Item {
         var inventory = new ComponentItemHandler(
                 context.getItemInHand(),
                 DataComponents.CONTAINER,
-                context.getItemInHand().getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY).getSlots()
+                RitualSatchelContainer.SATCHEL_SIZE
         );
 
         if(!context.getLevel().getBlockState(context.getClickedPos().above()).isAir())

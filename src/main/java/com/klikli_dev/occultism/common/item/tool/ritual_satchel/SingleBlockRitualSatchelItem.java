@@ -1,25 +1,16 @@
 package com.klikli_dev.occultism.common.item.tool.ritual_satchel;
 
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
-import com.klikli_dev.modonomicon.api.multiblock.Multiblock;
-import com.klikli_dev.modonomicon.api.multiblock.StateMatcher;
 import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.common.container.satchel.RitualSatchelT1Container;
-import com.klikli_dev.occultism.common.item.tool.ChalkItem;
 import com.mojang.datafixers.util.Function4;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.component.ItemContainerContents;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.ComponentItemHandler;
 
 /**
  * Places a single block of a ritual multiblock.
