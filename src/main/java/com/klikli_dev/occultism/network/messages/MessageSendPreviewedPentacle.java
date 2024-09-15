@@ -1,8 +1,8 @@
 package com.klikli_dev.occultism.network.messages;
 
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.theurgy.Theurgy;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class MessageSendPreviewedPentacle implements IMessage {
 
-    public static final Type<MessageSendPreviewedPentacle> TYPE = new Type<>(Theurgy.loc("send_previewed_pentacle"));
+    public static final Type<MessageSendPreviewedPentacle> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "send_previewed_pentacle"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSendPreviewedPentacle> STREAM_CODEC =
             StreamCodec.composite(
