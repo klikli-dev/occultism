@@ -10,8 +10,8 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageMo
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.occultism.datagen.OccultismBookProvider;
-import com.klikli_dev.occultism.datagen.book.bindingrituals.ApprenticeRitualSatchelEntry;
-import com.klikli_dev.occultism.datagen.book.bindingrituals.ArtisanalRitualSatchelEntry;
+import com.klikli_dev.occultism.datagen.book.binding_rituals.ApprenticeRitualSatchelEntry;
+import com.klikli_dev.occultism.datagen.book.binding_rituals.ArtisanalRitualSatchelEntry;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
