@@ -3,6 +3,8 @@ package com.klikli_dev.occultism.common.item.tool.ritual_satchel;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.common.container.satchel.RitualSatchelT1Container;
+import com.klikli_dev.occultism.util.ItemNBTUtil;
+import com.klikli_dev.occultism.util.TextUtil;
 import com.mojang.datafixers.util.Function4;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -10,7 +12,11 @@ import net.minecraft.world.Container;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
+
+import java.util.List;
 
 /**
  * Places a single block of a ritual multiblock.
@@ -26,6 +32,7 @@ public class SingleBlockRitualSatchelItem extends RitualSatchelItem {
         return RitualSatchelT1Container::new;
     }
 
+    @Override
     protected InteractionResult useOnServerSide(UseOnContext context) {
         var targetPentacle = this.targetPentacles().get(context.getPlayer().getUUID());
         if (targetPentacle == null || targetPentacle.timeWhenAdded() < context.getLevel().getGameTime() - 5) {
@@ -54,5 +61,13 @@ public class SingleBlockRitualSatchelItem extends RitualSatchelItem {
         context.getPlayer().displayClientMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_NO_VALID_ITEM_IN_SATCHEL).withStyle(ChatFormatting.YELLOW), true);
 
         return InteractionResult.FAIL;
+    }
+
+    @Override
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
+        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+
+        pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip",
+                TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack))));
     }
 }
