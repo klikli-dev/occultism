@@ -6,6 +6,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.mojang.datafixers.util.Pair;
@@ -49,7 +50,10 @@ public class ArtisanalRitualSatchelEntry extends EntryProvider {
                 this.itemLink(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL)
         );
 
-        //TODO: Crafting ritual
+        this.page("crafting", () -> BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_ritual_satchel_t2"))
+        );
+        //no text
 
         this.page("usage_drawing", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
