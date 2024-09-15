@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.159.0] - 2024-09-15
+### :sparkles: New Features
+- [`2f5be97`](https://github.com/klikli-dev/occultism/commit/2f5be9734d9ada20ec9dc7942ccc6fd56ccbc12b) - Ritual Satchels - speed up drawing pentacles! *(PR [#1209](https://github.com/klikli-dev/occultism/pull/1209) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *addresses issue [#1208](https://github.com/klikli-dev/occultism/issues/1208) opened by [@klikli-dev](https://github.com/klikli-dev)*
+
+
 ## [release/v1.21.1-1.158.0] - 2024-09-14
 ### :sparkles: New Features
 - [`dcecfb1`](https://github.com/klikli-dev/occultism/commit/dcecfb1baaaad15369d00808e14369e23de47536) - move dimensional miner config to startup config *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1713,3 +1719,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.157.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.156.0...release/v1.21.1-1.157.0
 [release/v1.21.1-1.157.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.157.0...release/v1.21.1-1.157.1
 [release/v1.21.1-1.158.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.157.1...release/v1.21.1-1.158.0
+[release/v1.21.1-1.159.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.158.0...release/v1.21.1-1.159.0
