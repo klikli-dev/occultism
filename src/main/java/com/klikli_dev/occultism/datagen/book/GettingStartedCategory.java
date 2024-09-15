@@ -10,6 +10,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.condition.BookAndConditionMod
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookEntryReadConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookModLoadedConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.*;
+import com.klikli_dev.occultism.datagen.book.getting_started.RitualSatchelsEntry;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookBindingCraftingRecipePageModel;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
@@ -116,6 +117,9 @@ public class GettingStartedCategory extends CategoryProvider {
 
         var advancedChalksEntry = this.add(this.makeChalksEntry(this.entryMap, 'a'));
         advancedChalksEntry.withParent(BookEntryParentModel.create(ritualEntry.getId()));
+
+        var ritualSatchelsEntry = this.add(new RitualSatchelsEntry(this).generate('ĝ'));
+        ritualSatchelsEntry.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()));
 
         var moreRitualsEntry = this.add(this.makeMoreRitualsEntry(this.entryMap, 'm'));
         moreRitualsEntry.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()));
