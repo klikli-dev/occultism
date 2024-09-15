@@ -2,7 +2,7 @@
   "background_u_index": 1,
   "background_v_index": 1,
   "category": "rituals",
-  "category_to_open": "occultism:possession_rituals",
+  "category_to_open": "possession_rituals",
   "condition": {
     "type": "modonomicon:true"
   },

@@ -18,6 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ItemLore;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 
@@ -62,6 +63,10 @@ public abstract class RitualRecipes extends RecipeProvider {
         output.set(DataComponents.LORE, new ItemLore(List.of(Component.translatable(key + ".tooltip"))));
         output.set(DataComponents.ITEM_NAME, Component.translatable(key));
         return output;
+    }
+
+    private static ItemStack makeRitualDummy(ItemLike item) {
+        return new ItemStack(item);
     }
 
     private static ItemStack makeRitualDummy(ResourceLocation location) {
@@ -1228,6 +1233,40 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(OccultismTags.Items.SILVER_INGOT))
                 .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_satchel"));
+
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                        new ItemStack(OccultismItems.RITUAL_SATCHEL_T1.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1.get()),
+                        240,
+                        RITUAL_CRAFT_WITH_SPIRIT_NAME,
+                        PENTACLE_CRAFT_DJINNI,
+                        Ingredient.of(Items.HOPPER),
+                        Ingredient.of(Items.DISPENSER),
+                        Ingredient.of(ItemTags.WOOL),
+                        Ingredient.of(ItemTags.WOOL),
+                        Ingredient.of(Tags.Items.LEATHERS),
+                        Ingredient.of(Tags.Items.LEATHERS),
+                        Ingredient.of(Tags.Items.STRINGS),
+                        Ingredient.of(OccultismTags.Items.SILVER_INGOT))
+                .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_ritual_satchel_t1"));
+
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
+                        new ItemStack(OccultismItems.RITUAL_SATCHEL_T2.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2.get()),
+                        240,
+                        RITUAL_CRAFT_WITH_SPIRIT_NAME,
+                        PENTACLE_CRAFT_DJINNI,
+                        Ingredient.of(OccultismItems.RITUAL_SATCHEL_T1.get()),
+                        Ingredient.of(OccultismItems.AFRIT_ESSENCE.get()),
+                        Ingredient.of(Tags.Items.ENDER_PEARLS),
+                        Ingredient.of(Tags.Items.ENDER_PEARLS),
+                        Ingredient.of(Tags.Items.ENDER_PEARLS),
+                        Ingredient.of(Tags.Items.ENDER_PEARLS)
+                )
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_ritual_satchel_t2"));
+
 
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                         new ItemStack(OccultismItems.SOUL_GEM_ITEM.get()),

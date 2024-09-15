@@ -1,6 +1,6 @@
 package com.klikli_dev.occultism.client.keybindings;
 
-import com.klikli_dev.occultism.client.gui.storage.SatchelScreen;
+import com.klikli_dev.occultism.client.gui.satchel.SatchelScreen;
 import net.minecraft.client.Minecraft;
 import net.neoforged.neoforge.client.settings.IKeyConflictContext;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;

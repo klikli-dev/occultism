@@ -20,22 +20,27 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.occultism.common.container.storage;
+package com.klikli_dev.occultism.common.container.satchel;
 
 import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-public class SatchelSlot extends Slot {
-    public SatchelSlot(Container inventoryIn, int index, int xPosition, int yPosition) {
+public class RitualSatchelSlot extends Slot {
+    public RitualSatchelSlot(Container inventoryIn, int index, int xPosition, int yPosition) {
         super(inventoryIn, index, xPosition, yPosition);
     }
 
     @Override
     public boolean mayPlace(ItemStack stack) {
-        if (stack.getItem() == OccultismItems.SATCHEL.get())
+        if(stack.is(OccultismItems.RITUAL_SATCHEL_T1) || stack.is(OccultismItems.RITUAL_SATCHEL_T2))
+            return false; //technically not necessary because they are not in pentacle materials, but just to make sure no datapack messes it up by accident.
+
+        if(!stack.is(OccultismTags.Items.PENTACLE_MATERIALS))
             return false;
+
         return super.mayPlace(stack);
     }
 }

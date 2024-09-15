@@ -32,6 +32,8 @@ import com.klikli_dev.occultism.common.item.spirit.*;
 import com.klikli_dev.occultism.common.item.storage.*;
 import com.klikli_dev.occultism.common.item.tool.BrushItem;
 import com.klikli_dev.occultism.common.item.tool.*;
+import com.klikli_dev.occultism.common.item.tool.ritual_satchel.MultiBlockRitualSatchelItem;
+import com.klikli_dev.occultism.common.item.tool.ritual_satchel.SingleBlockRitualSatchelItem;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -180,6 +182,21 @@ public class OccultismItems {
 
     public static final DeferredItem<StorageRemoteItem> STORAGE_REMOTE = ITEMS.register("storage_remote",
             () -> new StorageRemoteItem(defaultProperties().stacksTo(1)));
+
+
+    public static final DeferredItem<SingleBlockRitualSatchelItem> RITUAL_SATCHEL_T1 = ITEMS.register("ritual_satchel_t1",
+            () -> new SingleBlockRitualSatchelItem(defaultProperties()
+                    .stacksTo(1).rarity(Rarity.RARE)
+                    .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
+                    .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
+            ));
+
+    public static final DeferredItem<MultiBlockRitualSatchelItem> RITUAL_SATCHEL_T2 = ITEMS.register("ritual_satchel_t2",
+            () -> new MultiBlockRitualSatchelItem(defaultProperties()
+                    .stacksTo(1).rarity(Rarity.RARE)
+                    .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
+                    .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
+            ));
 
     public static final DeferredItem<Item> CHALK_WHITE = ITEMS.register("chalk_white",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
@@ -487,6 +504,8 @@ public class OccultismItems {
 
     public static final DeferredItem<Item> RITUAL_DUMMY_RESURRECT_FAMILIAR = ITEMS.register("ritual_dummy/resurrect_familiar", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_RANDOM_ANIMAL = ITEMS.register("ritual_dummy/summon_random_animal", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1 = ITEMS.register("ritual_dummy/craft_ritual_satchel_t1", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2 = ITEMS.register("ritual_dummy/craft_ritual_satchel_t2", () -> new DummyTooltipItem(defaultProperties()));
 
     //Ritual Dummy Items
     static {
@@ -600,6 +619,8 @@ public class OccultismItems {
                 || item == BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get()
                 || item == DIMENSIONAL_MATRIX.get()
                 || item == SATCHEL.get()
+                || item == RITUAL_SATCHEL_T1.get()
+                || item == RITUAL_SATCHEL_T2.get()
                 || item == FAMILIAR_RING.get()
                 || item == INFUSED_PICKAXE.get()
                 || item == MINER_FOLIOT_UNSPECIALIZED.get()

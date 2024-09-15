@@ -9,8 +9,8 @@ import com.klikli_dev.modonomicon.api.datagen.book.condition.BookTrueConditionMo
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookEntityPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.occultism.datagen.OccultismBookProvider;
-import com.klikli_dev.occultism.datagen.book.familiarrituals.DemonicPartnerEntry;
-import com.klikli_dev.occultism.datagen.book.familiarrituals.ResurrectionEntry;
+import com.klikli_dev.occultism.datagen.book.familiar_rituals.DemonicPartnerEntry;
+import com.klikli_dev.occultism.datagen.book.familiar_rituals.ResurrectionEntry;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 
 public class FamiliarRitualsCategory extends CategoryProvider {

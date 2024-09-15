@@ -35,4 +35,8 @@ public class TranslationKeys {
 
     public static final String HUD_NO_PENTACLE_FOUND = "hud." + Occultism.MODID + ".no_pentacle_found";
     public static final String HUD_PENTACLE_FOUND = "hud." + Occultism.MODID + ".pentacle_found";
+
+    public static final String RITUAL_SATCHEL_NO_PREVIEW_IN_WORLD = ITEM + ".ritual_satchel.no_preview_in_world";
+    public static final String RITUAL_SATCHEL_NO_PREVIEW_BLOCK_TARGETED = ITEM + ".ritual_satchel.no_preview_block_targeted";
+    public static final String RITUAL_SATCHEL_NO_VALID_ITEM_IN_SATCHEL = ITEM + ".ritual_satchel.no_valid_item_in_satchel";
 }

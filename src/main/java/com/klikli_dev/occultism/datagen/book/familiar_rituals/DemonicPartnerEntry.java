@@ -1,4 +1,4 @@
-package com.klikli_dev.occultism.datagen.book.familiarrituals;
+package com.klikli_dev.occultism.datagen.book.familiar_rituals;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;

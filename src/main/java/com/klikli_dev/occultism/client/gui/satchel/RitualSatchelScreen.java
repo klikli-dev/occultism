@@ -20,10 +20,10 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.occultism.client.gui.storage;
+package com.klikli_dev.occultism.client.gui.satchel;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.common.container.storage.SatchelContainer;
+import com.klikli_dev.occultism.common.container.satchel.AbstractSatchelContainer;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -31,16 +31,16 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-public class SatchelScreen extends AbstractContainerScreen<SatchelContainer> {
+public class RitualSatchelScreen extends AbstractContainerScreen<AbstractSatchelContainer> {
     protected static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
-            "textures/gui/inventory_satchel.png");
+            "textures/gui/inventory_ritual_satchel.png");
 
-    public SatchelScreen(SatchelContainer screenContainer, Inventory inv,
-                         Component titleIn) {
+    public RitualSatchelScreen(AbstractSatchelContainer screenContainer, Inventory inv,
+                               Component titleIn) {
         super(screenContainer, inv, titleIn);
 
-        this.imageWidth = 247;
-        this.imageHeight = 256;
+        this.imageWidth = 176;
+        this.imageHeight = 166;
     }
 
     @Override
