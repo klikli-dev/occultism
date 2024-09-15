@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.159.1] - 2024-09-15
+### :bug: Bug Fixes
+- [`421ddbb`](https://github.com/klikli-dev/occultism/commit/421ddbb70a11ae614899496aea92a9baea7f1961) - remove accidental reference to theurgy's resource location factory *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.159.0] - 2024-09-15
 ### :sparkles: New Features
 - [`2f5be97`](https://github.com/klikli-dev/occultism/commit/2f5be9734d9ada20ec9dc7942ccc6fd56ccbc12b) - Ritual Satchels - speed up drawing pentacles! *(PR [#1209](https://github.com/klikli-dev/occultism/pull/1209) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1720,3 +1725,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.157.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.157.0...release/v1.21.1-1.157.1
 [release/v1.21.1-1.158.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.157.1...release/v1.21.1-1.158.0
 [release/v1.21.1-1.159.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.158.0...release/v1.21.1-1.159.0
+[release/v1.21.1-1.159.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.159.0...release/v1.21.1-1.159.1
