@@ -114,6 +114,8 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
     );
 
     public static Serializer SERIALIZER = new Serializer();
+
+
     final ItemStack result;
     final NonNullList<Ingredient> ingredients;
     private final ResourceLocation pentacleId;
