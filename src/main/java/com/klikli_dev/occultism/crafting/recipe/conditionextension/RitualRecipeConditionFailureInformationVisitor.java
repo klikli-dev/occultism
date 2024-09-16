@@ -7,7 +7,7 @@ import com.klikli_dev.occultism.crafting.recipe.conditionextension.condition.IsI
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.wrapper.*;
 import net.minecraft.network.chat.MutableComponent;
 
-public class RitualRecipeConditionVisitor implements ConditionVisitor{
+public class RitualRecipeConditionFailureInformationVisitor implements ConditionVisitor{
     @Override
     public MutableComponent visit(AndConditionWrapper condition, OccultismConditionContext context) {
         return null;

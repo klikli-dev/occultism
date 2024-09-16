@@ -5,6 +5,9 @@ import net.neoforged.neoforge.common.conditions.*;
 
 public class ConditionWrapperFactory {
     public static ConditionWrapper<?> wrap(ICondition condition) {
+        if (condition instanceof ConditionWrapper<?> conditionWrapper)
+            return conditionWrapper; //for our own conditions that implement ConditionWrapper themselves
+
         if (condition instanceof AndCondition andCondition) {
             return new AndConditionWrapper(andCondition);
         }
