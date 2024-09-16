@@ -1,10 +1,10 @@
-package com.klikli_dev.occultism.crafting.recipe.condition.wrapper;
+package com.klikli_dev.occultism.crafting.recipe.conditionextension.wrapper;
 
-import com.klikli_dev.occultism.crafting.recipe.condition.ConditionVisitor;
-import com.klikli_dev.occultism.crafting.recipe.condition.ConditionWrapper;
+import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionVisitor;
+import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionWrapper;
+import com.klikli_dev.occultism.crafting.recipe.conditionextension.OccultismConditionContext;
 import net.minecraft.network.chat.MutableComponent;
 import net.neoforged.neoforge.common.conditions.FalseCondition;
-import net.neoforged.neoforge.common.conditions.ICondition;
 
 public class FalseConditionWrapper implements ConditionWrapper<FalseCondition> {
     private final FalseCondition condition;
@@ -14,7 +14,7 @@ public class FalseConditionWrapper implements ConditionWrapper<FalseCondition> {
     }
 
     @Override
-    public MutableComponent accept(ConditionVisitor visitor, ICondition.IContext context) {
+    public MutableComponent accept(ConditionVisitor visitor, OccultismConditionContext context) {
         return visitor.visit(this, context);
     }
 

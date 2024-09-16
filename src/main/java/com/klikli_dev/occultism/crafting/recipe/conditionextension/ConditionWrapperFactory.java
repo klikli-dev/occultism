@@ -1,6 +1,6 @@
-package com.klikli_dev.occultism.crafting.recipe.condition;
+package com.klikli_dev.occultism.crafting.recipe.conditionextension;
 
-import com.klikli_dev.occultism.crafting.recipe.condition.wrapper.*;
+import com.klikli_dev.occultism.crafting.recipe.conditionextension.wrapper.*;
 import net.neoforged.neoforge.common.conditions.*;
 
 public class ConditionWrapperFactory {
