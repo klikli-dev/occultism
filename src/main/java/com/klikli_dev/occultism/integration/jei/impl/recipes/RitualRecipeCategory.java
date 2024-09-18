@@ -25,6 +25,9 @@ package com.klikli_dev.occultism.integration.jei.impl.recipes;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
+import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionWrapperFactory;
+import com.klikli_dev.occultism.crafting.recipe.conditionextension.OccultismConditionContext;
+import com.klikli_dev.occultism.crafting.recipe.conditionextension.RitualRecipeConditionDescriptionVisitor;
 import com.klikli_dev.occultism.integration.jei.impl.JeiRecipeTypes;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
@@ -42,6 +45,7 @@ import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTextTooltip;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
@@ -58,6 +62,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
 
     private final IDrawable background;
     private final IDrawable arrow;
+    private final IDrawable checklist;
     private final Component localizedName;
     private final String pentacle;
     private final ItemStack goldenSacrificialBowl = new ItemStack(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get());
@@ -77,6 +82,9 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
 //        this.sacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
         this.arrow = guiHelper.createDrawable(
                 ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
+
+        this.checklist = guiHelper.drawableBuilder(
+                ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/checklist.png"), 0, 0, 64, 64).setTextureSize(64, 64).build();
     }
 
     protected int getStringCenteredMaxX(Font font, Component text, int x, int y) {
@@ -273,6 +281,16 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
                     Component.translatable("jei.occultism.job",
                             Component.translatable("job." + recipe.value().getSpiritJobType().toString().replace(":", "."))),
                     infoTextX, infotextY);
+        }
+
+        if (recipe.value().getCondition() != null) {
+            var visitor = new RitualRecipeConditionDescriptionVisitor();
+            var condition = ConditionWrapperFactory.wrap(recipe.value().getCondition());
+            if(condition!=null) {
+                this.drawStringCentered(guiGraphics, Minecraft.getInstance().font,
+                        condition.accept(visitor, OccultismConditionContext.EMPTY),
+                        infoTextX, infotextY);
+            }
         }
     }
 }
