@@ -62,6 +62,7 @@ public class OccultismTags {
 
         public static final TagKey<Item> PENTACLE_MATERIALS = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "pentacle_materials"));
         public static final TagKey<Item> SKULLS = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "skulls"));
+        public static final TagKey<Item> OCCULTISM_CANDLES = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "candles"));
 
         public static final TagKey<Item> DEMONIC_PARTNER_FOOD = makeItemTag(ResourceLocation.fromNamespaceAndPath("occultism", "demonic_partner_food"));
 

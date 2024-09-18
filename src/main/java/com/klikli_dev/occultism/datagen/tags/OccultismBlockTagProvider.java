@@ -122,7 +122,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .addTag(Tags.Blocks.SKULLS)
                 .add(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get())
                 .add(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get())
-                .addOptionalTag(OccultismTags.Blocks.OCCULTISM_CANDLES)
+                .addTag(BlockTags.CANDLES)
                 .addOptionalTag(OccultismTags.Blocks.CHALK_GLYPHS)
                 .replace(false);
 
