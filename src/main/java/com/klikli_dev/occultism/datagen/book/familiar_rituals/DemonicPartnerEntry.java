@@ -32,7 +32,7 @@ public class DemonicPartnerEntry extends EntryProvider {
                 Magicians practicing the occult are a diverse crowd, coming from all creeds and all corners of the world. However one thing unites them all - they are as lonely as any human without a partner.
                 \\
                 \\
-                Of course being a magician, there is a way to solve this problem once and for all.
+                Of course being a magician, the dating pool is larger than for most people, meeting all kinds of otherworldly beings, besides humans.
                 """);
 
         this.page("description2", () -> BookTextPageModel.create()
@@ -41,8 +41,8 @@ public class DemonicPartnerEntry extends EntryProvider {
         );
         this.pageTitle("Demonic Partner");
         this.pageText("""
-                As beings of immense powers Demons can have it all ... except love.\\
-                No demon will freely admit this, but at times they are impressed by the power and strength that some mortal occultists acquire. And in such cases, the impossible can happen - the demon can fall in love with a mortal.
+                As beings of immense powers Demons can have it all ... even love.\\
+                In rare cases a Demon is so impressed by a mortal that they stay in touch. And in even rarer cases, take them on a date. And in such cases, the most unlikely thing can happen - love between a Spirit and a mortal.
                 """);
 
         this.page("description3", () -> BookTextPageModel.create()
@@ -51,7 +51,8 @@ public class DemonicPartnerEntry extends EntryProvider {
         );
         this.pageTitle("Demonic Partner");
         this.pageText("""
-                Demons, of course, deal in contracts, and what better contract than a marriage contract?
+                Demons, of course, like to deal in contracts, and what better contract than a marriage contract?\\
+                Beware however, Spirits are all about commitment, so this is a permanent bond.
                 """);
 
         this.page("about", () -> BookTextPageModel.create()
@@ -60,7 +61,7 @@ public class DemonicPartnerEntry extends EntryProvider {
         );
         this.pageTitle("Demonic Partner");
         this.pageText("""
-                The Demonic Partner - a Husband or Wife - can fight for you and help with household chores.
+                The Demonic Partner - a Husband or Wife - can fight for you and split your household chores.
                 \\
                 \\
                 Right-Click with any cookable food and they will use their magic to cook it.
@@ -84,26 +85,26 @@ public class DemonicPartnerEntry extends EntryProvider {
                 this.itemLink(OccultismItems.SOUL_GEM_ITEM.get())
         );
 
-        this.page("wife", () -> BookEntityPageModel.create()
-                .withEntityId("occultism:demonic_wife")
-                .withEntityName(this.context().pageTitle())
-        );
-        this.pageTitle("Demonic Wife");
-
-
-        this.page("ritual1", () -> BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/summon_demonic_wife"))
-        );
-
         this.page("husband", () -> BookEntityPageModel.create()
                 .withEntityId("occultism:demonic_husband")
                 .withEntityName(this.context().pageTitle())
         );
         this.pageTitle("Demonic Husband");
 
-        this.page("ritual2", () -> BookRitualRecipePageModel.create()
+        this.page("ritual1", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/summon_demonic_husband"))
         );
+
+        this.page("wife", () -> BookEntityPageModel.create()
+                .withEntityId("occultism:demonic_wife")
+                .withEntityName(this.context().pageTitle())
+        );
+        this.pageTitle("Demonic Wife");
+
+        this.page("ritual2", () -> BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_demonic_wife"))
+        );
+
     }
 
     @Override
