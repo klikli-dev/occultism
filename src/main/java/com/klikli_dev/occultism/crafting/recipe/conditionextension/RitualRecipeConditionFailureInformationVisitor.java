@@ -10,7 +10,7 @@ import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
-public class RitualRecipeConditionFailureInformationVisitor implements ConditionVisitor{
+public class RitualRecipeConditionFailureInformationVisitor implements ConditionVisitor {
     @Override
     public MutableComponent visit(AndConditionWrapper condition, OccultismConditionContext context) {
         return null;

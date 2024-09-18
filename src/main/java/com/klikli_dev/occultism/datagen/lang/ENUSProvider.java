@@ -40,6 +40,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 public class ENUSProvider extends AbstractModonomiconLanguageProvider {
@@ -586,6 +587,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("occultism.subtitle.crunching", "Crunching");
         this.add("occultism.subtitle.poof", "Poof!");
 
+        //Dimension types
+
+        this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.OVERWORLD.location()), "Overworld");
+        this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.NETHER.location()), "Nether");
+        this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.END.location()), "The End");
     }
 
     private void addGuiTranslations() {
@@ -3418,7 +3424,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addConditionMessages(){
-        this.add(TranslationKeys.Condition.Ritual.IS_IN_DIMENSION_TYPE_NOT_FULFILLED, "The ritual needs to be performed in a Dimension of the Type %s, but was performed in %s.");
+        this.add(TranslationKeys.Condition.Ritual.IS_IN_DIMENSION_TYPE_NOT_FULFILLED, "Perform the ritual in a %s dimension! It was performed in %s.");
     }
 
     private void addConfigurationTranslations() {

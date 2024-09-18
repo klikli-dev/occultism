@@ -148,6 +148,10 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
         return true;
     }
 
+    public @Nullable ICondition getCondition() {
+        return this.ritualStartSettings.condition();
+    }
+
     public @Nullable String getCommand() {
         return this.command;
     }
