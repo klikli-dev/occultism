@@ -1,47 +1,10 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "occultism:book_of_binding_bound_afrit"
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:possessed_elder_guardian",
+    "spirit_max_age": -1,
+    "summon_number": 1
   },
-  "duration": 90,
-  "entity_to_sacrifice": {
-    "display_name": "ritual.occultism.sacrifice.fish",
-    "tag": "c:fish"
-  },
-  "entity_to_summon": "occultism:possessed_elder_guardian",
-  "ingredients": [
-    {
-      "item": "minecraft:oxidized_copper"
-    },
-    {
-      "item": "minecraft:prismarine"
-    },
-    {
-      "item": "minecraft:prismarine_bricks"
-    },
-    {
-      "item": "minecraft:dark_prismarine"
-    },
-    {
-      "item": "minecraft:wet_sponge"
-    },
-    {
-      "item": "minecraft:sea_lantern"
-    },
-    {
-      "item": "minecraft:water_bucket"
-    },
-    {
-      "item": "minecraft:water_bucket"
-    },
-    {
-      "item": "minecraft:water_bucket"
-    },
-    {
-      "tag": "c:gems/emerald"
-    }
-  ],
-  "pentacle_id": "occultism:possess_afrit",
   "result": {
     "components": {
       "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_elder_guardian\"}",
@@ -55,6 +18,52 @@
   "ritual_dummy": {
     "count": 1,
     "id": "occultism:ritual_dummy/possess_elder_guardian"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_afrit"
+    },
+    "duration": 90,
+    "duration_per_ingredient": 8.181818,
+    "ingredients": [
+      {
+        "item": "minecraft:oxidized_copper"
+      },
+      {
+        "item": "minecraft:prismarine"
+      },
+      {
+        "item": "minecraft:prismarine_bricks"
+      },
+      {
+        "item": "minecraft:dark_prismarine"
+      },
+      {
+        "item": "minecraft:wet_sponge"
+      },
+      {
+        "item": "minecraft:sea_lantern"
+      },
+      {
+        "item": "minecraft:water_bucket"
+      },
+      {
+        "item": "minecraft:water_bucket"
+      },
+      {
+        "item": "minecraft:water_bucket"
+      },
+      {
+        "tag": "c:gems/emerald"
+      }
+    ],
+    "pentacle_id": "occultism:possess_afrit"
+  },
+  "ritual_start_settings": {
+    "entity_to_sacrifice": {
+      "display_name": "ritual.occultism.sacrifice.fish",
+      "tag": "c:fish"
+    }
   },
   "ritual_type": "occultism:summon"
 }

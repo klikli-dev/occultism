@@ -1,24 +1,11 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "occultism:book_of_binding_bound_foliot"
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:foliot",
+    "spirit_job_type": "occultism:trade_otherworld_saplings_t1",
+    "spirit_max_age": 3600,
+    "summon_number": 1
   },
-  "entity_to_summon": "occultism:foliot",
-  "ingredients": [
-    {
-      "item": "minecraft:oak_sapling"
-    },
-    {
-      "item": "minecraft:birch_sapling"
-    },
-    {
-      "item": "minecraft:spruce_sapling"
-    },
-    {
-      "item": "minecraft:jungle_sapling"
-    }
-  ],
-  "pentacle_id": "occultism:summon_foliot",
   "result": {
     "count": 1,
     "id": "occultism:jei_dummy/none"
@@ -27,7 +14,28 @@
     "count": 1,
     "id": "occultism:ritual_dummy/summon_foliot_sapling_trader"
   },
-  "ritual_type": "occultism:summon_spirit_with_job",
-  "spirit_job_type": "occultism:trade_otherworld_saplings_t1",
-  "spirit_max_age": 3600
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_foliot"
+    },
+    "duration": 30,
+    "duration_per_ingredient": 6.0,
+    "ingredients": [
+      {
+        "item": "minecraft:oak_sapling"
+      },
+      {
+        "item": "minecraft:birch_sapling"
+      },
+      {
+        "item": "minecraft:spruce_sapling"
+      },
+      {
+        "item": "minecraft:jungle_sapling"
+      }
+    ],
+    "pentacle_id": "occultism:summon_foliot"
+  },
+  "ritual_start_settings": {},
+  "ritual_type": "occultism:summon_spirit_with_job"
 }

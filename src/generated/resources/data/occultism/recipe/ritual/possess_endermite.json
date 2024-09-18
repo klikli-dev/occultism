@@ -1,27 +1,10 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "occultism:book_of_binding_bound_foliot"
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:possessed_endermite",
+    "spirit_max_age": -1,
+    "summon_number": 1
   },
-  "entity_to_summon": "occultism:possessed_endermite",
-  "ingredients": [
-    {
-      "tag": "minecraft:dirt"
-    },
-    {
-      "tag": "c:stones"
-    },
-    {
-      "tag": "minecraft:dirt"
-    },
-    {
-      "tag": "c:stones"
-    }
-  ],
-  "item_to_use": {
-    "item": "minecraft:egg"
-  },
-  "pentacle_id": "occultism:possess_foliot",
   "result": {
     "components": {
       "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_endermite\"}",
@@ -35,6 +18,33 @@
   "ritual_dummy": {
     "count": 1,
     "id": "occultism:ritual_dummy/possess_endermite"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_foliot"
+    },
+    "duration": 30,
+    "duration_per_ingredient": 6.0,
+    "ingredients": [
+      {
+        "tag": "minecraft:dirt"
+      },
+      {
+        "tag": "c:stones"
+      },
+      {
+        "tag": "minecraft:dirt"
+      },
+      {
+        "tag": "c:stones"
+      }
+    ],
+    "pentacle_id": "occultism:possess_foliot"
+  },
+  "ritual_start_settings": {
+    "item_to_use": {
+      "item": "minecraft:egg"
+    }
   },
   "ritual_type": "occultism:summon"
 }

@@ -1,24 +1,9 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "occultism:book_of_binding_bound_foliot"
+  "entity_to_summon_settings": {
+    "spirit_max_age": -1,
+    "summon_number": 1
   },
-  "duration": 120,
-  "ingredients": [
-    {
-      "item": "occultism:wormhole_frame"
-    },
-    {
-      "tag": "c:ender_pearls"
-    },
-    {
-      "tag": "c:gems/quartz"
-    },
-    {
-      "tag": "c:gems/quartz"
-    }
-  ],
-  "pentacle_id": "occultism:craft_foliot",
   "result": {
     "count": 1,
     "id": "occultism:stable_wormhole"
@@ -27,5 +12,28 @@
     "count": 1,
     "id": "occultism:ritual_dummy/craft_stable_wormhole"
   },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_foliot"
+    },
+    "duration": 120,
+    "duration_per_ingredient": 24.0,
+    "ingredients": [
+      {
+        "item": "occultism:wormhole_frame"
+      },
+      {
+        "tag": "c:ender_pearls"
+      },
+      {
+        "tag": "c:gems/quartz"
+      },
+      {
+        "tag": "c:gems/quartz"
+      }
+    ],
+    "pentacle_id": "occultism:craft_foliot"
+  },
+  "ritual_start_settings": {},
   "ritual_type": "occultism:craft"
 }

@@ -1,28 +1,10 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "occultism:book_of_binding_bound_foliot"
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:possessed_skeleton",
+    "spirit_max_age": -1,
+    "summon_number": 1
   },
-  "entity_to_sacrifice": {
-    "display_name": "ritual.occultism.sacrifice.chicken",
-    "tag": "c:chicken"
-  },
-  "entity_to_summon": "occultism:possessed_skeleton",
-  "ingredients": [
-    {
-      "tag": "c:bones"
-    },
-    {
-      "tag": "c:bones"
-    },
-    {
-      "tag": "c:bones"
-    },
-    {
-      "tag": "c:bones"
-    }
-  ],
-  "pentacle_id": "occultism:possess_foliot",
   "result": {
     "components": {
       "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_skeleton\"}",
@@ -36,6 +18,34 @@
   "ritual_dummy": {
     "count": 1,
     "id": "occultism:ritual_dummy/possess_skeleton"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_foliot"
+    },
+    "duration": 30,
+    "duration_per_ingredient": 6.0,
+    "ingredients": [
+      {
+        "tag": "c:bones"
+      },
+      {
+        "tag": "c:bones"
+      },
+      {
+        "tag": "c:bones"
+      },
+      {
+        "tag": "c:bones"
+      }
+    ],
+    "pentacle_id": "occultism:possess_foliot"
+  },
+  "ritual_start_settings": {
+    "entity_to_sacrifice": {
+      "display_name": "ritual.occultism.sacrifice.chicken",
+      "tag": "c:chicken"
+    }
   },
   "ritual_type": "occultism:summon"
 }

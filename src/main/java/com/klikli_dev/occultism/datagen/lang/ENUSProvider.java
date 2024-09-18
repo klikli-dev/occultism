@@ -3347,7 +3347,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.Miners.DEEPS, "Deepslate Miners");
         this.addItemTag(OccultismTags.Items.Miners.MASTER, "Rare Resource Miners");
         this.addItemTag(OccultismTags.Items.Miners.ORES, "General Miners");
-        this.addItemTag(OccultismTags.Items.TOOLS_KNIFE, "Knives");
         this.addItemTag(OccultismTags.Items.ELYTRA, "Elytras");
         this.addItemTag(OccultismTags.Items.OTHERWORLD_GOGGLES, "Otherworld Goggles");
         this.addItemTag(OccultismTags.Items.DATURA_SEEDS, "Demon's Dream Seeds");
