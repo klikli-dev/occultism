@@ -22,10 +22,14 @@ public class RitualRecipeConditionContext implements OccultismConditionContext {
     protected ConditionContext neoConditionContext;
     protected GoldenSacrificialBowlBlockEntity bowl;
 
-    public RitualRecipeConditionContext(GoldenSacrificialBowlBlockEntity bowl) {
+    protected RitualRecipeConditionContext(GoldenSacrificialBowlBlockEntity bowl) {
         this.neoConditionContext = new ConditionContext(new TagManager(Objects.requireNonNull(bowl.getLevel()).registryAccess()));
         this.bowl = bowl;
 
+    }
+
+    public static RitualRecipeConditionContext of(GoldenSacrificialBowlBlockEntity bowl) {
+        return new RitualRecipeConditionContext(bowl);
     }
 
     @Override

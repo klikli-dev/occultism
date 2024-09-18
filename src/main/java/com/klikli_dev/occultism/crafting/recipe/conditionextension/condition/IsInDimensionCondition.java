@@ -20,7 +20,7 @@ public class IsInDimensionCondition implements ICondition, ConditionWrapper<IsIn
                     )
                     .apply(builder, IsInDimensionCondition::new));
 
-    public ResourceKey<Level> dimension;
+    private final ResourceKey<Level> dimension;
 
     public IsInDimensionCondition(ResourceKey<Level> dimension) {
         this.dimension = dimension;

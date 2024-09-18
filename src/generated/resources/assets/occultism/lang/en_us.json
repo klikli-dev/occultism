@@ -927,6 +927,7 @@
   "book.occultism.dictionary_of_spirits.summoning_rituals.wither_skull.intro.title": "Wither Skeleton Skull",
   "book.occultism.dictionary_of_spirits.summoning_rituals.wither_skull.name": "Wither Skeleton Skull",
   "book.occultism.dictionary_of_spirits.tooltip": "An introduction to the spirit world.",
+  "condition.occultism.ritual.is_in_dimension_type.not_fulfilled": "The ritual needs to be performed in a Dimension of the Type %s, but was performed in %s.",
   "debug.occultism.debug_wand.deposit_selected": "Set deposit block %s, facing %s",
   "debug.occultism.debug_wand.glyphs_not_verified": "Glyphs not verified",
   "debug.occultism.debug_wand.glyphs_verified": "Glyphs verified",

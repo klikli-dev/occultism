@@ -20,7 +20,7 @@ public class IsInBiomeWithTagCondition implements ICondition, ConditionWrapper<I
                     )
                     .apply(builder, IsInBiomeWithTagCondition::new));
 
-    public TagKey<Biome> tag;
+    private final TagKey<Biome> tag;
 
     public IsInBiomeWithTagCondition(TagKey<Biome> tag) {
         this.tag = tag;

@@ -5,6 +5,7 @@ import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionWrap
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.OccultismConditionContext;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.neoforged.neoforge.common.conditions.ICondition;
@@ -12,13 +13,13 @@ import org.jetbrains.annotations.NotNull;
 
 public class IsInDimensionTypeCondition implements ICondition, ConditionWrapper<IsInDimensionTypeCondition> {
     public static MapCodec<IsInDimensionTypeCondition> CODEC = RecordCodecBuilder.mapCodec(builder -> builder.group(
-                    DimensionType.DIRECT_CODEC.fieldOf("dimension_type").forGetter(IsInDimensionTypeCondition::dimensionType)
+                    DimensionType.CODEC.fieldOf("dimension_type").forGetter(IsInDimensionTypeCondition::dimensionType)
             )
             .apply(builder, IsInDimensionTypeCondition::new));
 
-    public DimensionType dimensionType;
+    private final Holder<DimensionType> dimensionType;
 
-    public IsInDimensionTypeCondition(DimensionType dimensionType) {
+    public IsInDimensionTypeCondition(Holder<DimensionType> dimensionType) {
         this.dimensionType = dimensionType;
     }
 
@@ -32,7 +33,7 @@ public class IsInDimensionTypeCondition implements ICondition, ConditionWrapper<
         return CODEC;
     }
 
-    public DimensionType dimensionType() {
+    public Holder<DimensionType> dimensionType() {
         return this.dimensionType;
     }
 

@@ -19,7 +19,7 @@ public class IsInBiomeCondition implements ICondition, ConditionWrapper<IsInBiom
                     )
                     .apply(builder, IsInBiomeCondition::new));
 
-    public Holder<Biome> biome;
+    private final Holder<Biome> biome;
 
     public IsInBiomeCondition(Holder<Biome> biome) {
         this.biome = biome;

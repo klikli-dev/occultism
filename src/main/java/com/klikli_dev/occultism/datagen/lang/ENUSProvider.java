@@ -3402,6 +3402,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("emi.occultism.item_to_use", "Item to use: %s");
     }
 
+    private void addConditionMessages(){
+        this.add(TranslationKeys.Condition.Ritual.IS_IN_DIMENSION_TYPE_NOT_FULFILLED, "The ritual needs to be performed in a Dimension of the Type %s, but was performed in %s.");
+    }
+
     private void addConfigurationTranslations() {
 
         this.addConfig("visual", "Visual Settings");
@@ -3510,5 +3514,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEmiTranslations();
         this.addConfigurationTranslations();
         this.addTags();
+        this.addConditionMessages();
     }
 }

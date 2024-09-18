@@ -39,4 +39,13 @@ public class TranslationKeys {
     public static final String RITUAL_SATCHEL_NO_PREVIEW_IN_WORLD = ITEM + ".ritual_satchel.no_preview_in_world";
     public static final String RITUAL_SATCHEL_NO_PREVIEW_BLOCK_TARGETED = ITEM + ".ritual_satchel.no_preview_block_targeted";
     public static final String RITUAL_SATCHEL_NO_VALID_ITEM_IN_SATCHEL = ITEM + ".ritual_satchel.no_valid_item_in_satchel";
+
+    public static class Condition {
+        protected static final String PREFIX = "condition." + Occultism.MODID + ".";
+
+        public static class Ritual {
+            protected static final String PREFIX = Condition.PREFIX + "ritual.";
+            public static final String IS_IN_DIMENSION_TYPE_NOT_FULFILLED = PREFIX + "is_in_dimension_type.not_fulfilled";
+        }
+    }
 }
