@@ -3376,6 +3376,22 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.MAGMA, "Magma");
         this.addItemTag(OccultismTags.Items.BOOKS, "Books");
         this.addItemTag(OccultismTags.Items.FRUITS, "Fruits");
+
+        this.addItemTag(OccultismTags.Items.BLAZE_DUST, "Blaze Dust");
+        this.addItemTag(OccultismTags.Items.MANUALS, "Manuals");
+        this.addItemTag(OccultismTags.Items.TOOLS_KNIFE, "Knives");
+        this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "belt"), "Belts");
+        this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "hands"), "Hands");
+        this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "heads"), "Heads");
+        this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "ring"), "Ring");
+        this.addItemTag(OccultismTags.Items.OCCULTISM_CANDLES, "Candles");
+        this.addItemTag(OccultismTags.Items.DEMONIC_PARTNER_FOOD, "Demonic Partner Food");
+        this.addItemTag(OccultismTags.Items.Miners.MINERS, "Miners");
+        this.addItemTag(OccultismTags.Items.OTHERCOBBLESTONE, "Other Cobblestone");
+        this.addItemTag(OccultismTags.Items.OTHERSTONE, "Otherstone");
+        this.addItemTag(OccultismTags.Items.OTHERWORLD_LOGS, "Otherworld Logs");
+        this.addItemTag(OccultismTags.Items.PENTACLE_MATERIALS, "Pentacle Materials");
+        this.addItemTag(OccultismTags.Items.TOOLS_CHALK, "Chalks");
     }
 
     private void addItemTag(ResourceLocation resourceLocation, String string) {
