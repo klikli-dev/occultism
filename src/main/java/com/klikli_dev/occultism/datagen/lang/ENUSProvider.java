@@ -3425,6 +3425,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
     private void addConditionMessages(){
         this.add(TranslationKeys.Condition.Ritual.IS_IN_DIMENSION_TYPE_NOT_FULFILLED, "Perform the ritual in a %s dimension! It was performed in %s.");
+        this.add(TranslationKeys.Condition.Ritual.IS_IN_DIMENSION_TYPE_DESCRIPTION, "Needs to be performed in a %s dimension.");
     }
 
     private void addConfigurationTranslations() {

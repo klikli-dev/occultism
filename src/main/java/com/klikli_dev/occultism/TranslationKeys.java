@@ -45,6 +45,7 @@ public class TranslationKeys {
 
         public static class Ritual {
             protected static final String PREFIX = Condition.PREFIX + "ritual.";
+            public static final String IS_IN_DIMENSION_TYPE_DESCRIPTION = PREFIX + "is_in_dimension_type.description";
             public static final String IS_IN_DIMENSION_TYPE_NOT_FULFILLED = PREFIX + "is_in_dimension_type.not_fulfilled";
         }
     }

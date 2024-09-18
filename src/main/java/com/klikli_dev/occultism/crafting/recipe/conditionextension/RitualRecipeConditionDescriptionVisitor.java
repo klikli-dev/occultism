@@ -1,10 +1,13 @@
 package com.klikli_dev.occultism.crafting.recipe.conditionextension;
 
+import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.condition.IsInBiomeCondition;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.condition.IsInBiomeWithTagCondition;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.condition.IsInDimensionCondition;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.condition.IsInDimensionTypeCondition;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.wrapper.*;
+import net.minecraft.Util;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
 public class RitualRecipeConditionDescriptionVisitor implements ConditionVisitor{
@@ -65,6 +68,9 @@ public class RitualRecipeConditionDescriptionVisitor implements ConditionVisitor
 
     @Override
     public MutableComponent visit(IsInDimensionTypeCondition condition, OccultismConditionContext context) {
-        return null;
+        return Component.translatable(
+                TranslationKeys.Condition.Ritual.IS_IN_DIMENSION_TYPE_DESCRIPTION,
+                Component.translatable(Util.makeDescriptionId("dimension_type", condition.dimensionType().unwrapKey().orElseThrow().location()))
+        );
     }
 }
