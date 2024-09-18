@@ -48,6 +48,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.conditions.ICondition;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -334,8 +335,10 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
                 (r) -> Optional.ofNullable(r.entityToSacrifice),
                 ByteBufCodecs.optional(Ingredient.CONTENTS_STREAM_CODEC),
                 (r) -> Optional.ofNullable(r.itemToUse),
-                (entityToSacrifice, itemToUse) -> new RitualStartSettings(entityToSacrifice.orElse(null), itemToUse.orElse(null), null)
-                //Note: Conditions are not synced to client
+                //we need conditions on the client for the description visitor, and stream codecs are finnicky with it, so we use an nbt based one.
+                ByteBufCodecs.optional(ByteBufCodecs.fromCodecWithRegistries(ICondition.CODEC)),
+                (r) -> Optional.ofNullable(r.condition),
+                (entityToSacrifice, itemToUse, condition) -> new RitualStartSettings(entityToSacrifice.orElse(null), itemToUse.orElse(null), condition.orElse(null))
         );
 
         public String getEntityToSacrificeDisplayName() {
