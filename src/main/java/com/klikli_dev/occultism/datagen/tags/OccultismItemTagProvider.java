@@ -80,6 +80,9 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
     }
 
     private void addOccultismTags(HolderLookup.Provider provider) {
+        this.copy(OccultismTags.Blocks.OCCULTISM_CANDLES, OccultismTags.Items.OCCULTISM_CANDLES);
+        this.copy(BlockTags.CANDLES, ItemTags.CANDLES);
+
         this.tag(OccultismTags.Items.SKULLS)
                 .add(Items.SKELETON_SKULL)
                 .add(Items.WITHER_SKELETON_SKULL)
