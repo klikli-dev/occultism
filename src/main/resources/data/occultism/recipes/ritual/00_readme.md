@@ -21,6 +21,7 @@ and thus shelved until further notice.
 - `entity_nbt`: An NBT Tag that will be merged into the entity's nbt. E.g. could be used to set `RabbitType` for rabbits, or `ForgeData` for arbitrary nbt. Uses the NBT formats also used in vanilla shapeless recipe's output: either a json object representing the tag, or a string containing the tag in NBT format.
 - `duration`: The duration of the ritual in seconds.
 - `spirit_max_age`: The max age of the spirit in seconds.
+- `condition`: allows to use Neoforge conditions, plus the additional conditions provided by occultism: "occultism:is_in_biome", "occultism:is_in_biome_with_tag", "occultism:is_in_dimension", "occultism:is_in_dimension_type". Conditions are evaluated at the start of the ritual.
 - ...
 
 ## Sample Recipe
