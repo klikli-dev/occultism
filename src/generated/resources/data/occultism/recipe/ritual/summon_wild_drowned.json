@@ -10,19 +10,19 @@
   "entity_to_summon": "occultism:wild_horde_drowned",
   "ingredients": [
     {
-      "item": "minecraft:dead_brain_coral"
+      "item": "minecraft:dead_brain_coral_block"
     },
     {
-      "item": "minecraft:dead_bubble_coral"
+      "item": "minecraft:dead_bubble_coral_block"
     },
     {
-      "item": "minecraft:dead_fire_coral"
+      "item": "minecraft:dead_fire_coral_block"
     },
     {
-      "item": "minecraft:dead_horn_coral"
+      "item": "minecraft:dead_horn_coral_block"
     },
     {
-      "item": "minecraft:dead_tube_coral"
+      "item": "minecraft:dead_tube_coral_block"
     },
     {
       "item": "minecraft:dried_kelp_block"

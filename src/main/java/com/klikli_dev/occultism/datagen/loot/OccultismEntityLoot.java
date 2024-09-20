@@ -349,8 +349,8 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                 .withPool(
                         LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1.0F))
-                                .add(EmptyLootItem.emptyItem().setWeight(3))
-                                .add(LootItem.lootTableItem(Items.SNIFFER_EGG).setWeight(1))
+                                .add(EmptyLootItem.emptyItem().setWeight(2))
+                                .add(LootItem.lootTableItem(Items.SNIFFER_EGG).setWeight(2))
                                 .add(LootItem.lootTableItem(Items.TURTLE_EGG).setWeight(3))
                                 .add(LootItem.lootTableItem(Items.TRIDENT).setWeight(3))
                 )

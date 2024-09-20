@@ -447,11 +447,11 @@ public abstract class RitualRecipes extends RecipeProvider {
                         30,
                         RITUAL_SUMMON_WILD,
                         PENTACLE_SUMMON_WILD_GREATER_SPIRIT,
-                        Ingredient.of(Items.DEAD_BRAIN_CORAL),
-                        Ingredient.of(Items.DEAD_BUBBLE_CORAL),
-                        Ingredient.of(Items.DEAD_FIRE_CORAL),
-                        Ingredient.of(Items.DEAD_HORN_CORAL),
-                        Ingredient.of(Items.DEAD_TUBE_CORAL),
+                        Ingredient.of(Items.DEAD_BRAIN_CORAL_BLOCK),
+                        Ingredient.of(Items.DEAD_BUBBLE_CORAL_BLOCK),
+                        Ingredient.of(Items.DEAD_FIRE_CORAL_BLOCK),
+                        Ingredient.of(Items.DEAD_HORN_CORAL_BLOCK),
+                        Ingredient.of(Items.DEAD_TUBE_CORAL_BLOCK),
                         Ingredient.of(Items.DRIED_KELP_BLOCK))
                 .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
                 .entityToSummon(OccultismEntities.WILD_HORDE_DROWNED.get())
