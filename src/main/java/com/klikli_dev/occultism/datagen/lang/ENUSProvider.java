@@ -3148,6 +3148,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         this.add("item.occultism.ritual_dummy.craft_satchel", "Ritual: Craft Surprisingly Substantial Satchel");
         this.add("item.occultism.ritual_dummy.craft_satchel.tooltip", "This satchels allows to store more items than it's size would indicate, making it a practical traveller's companion.");
+        this.add("item.occultism.ritual_dummy.craft_ritual_satchel_t1", "Ritual: Craft Apprentice Ritual Satchel");
+        this.add("item.occultism.ritual_dummy.craft_ritual_satchel_t1.tooltip", "This satchel allows you to store pentacles items and automatically select the right ones to put in the preview.");
+        this.add("item.occultism.ritual_dummy.craft_ritual_satchel_t2", "Ritual: Craft Artisanal Ritual Satchel");
+        this.add("item.occultism.ritual_dummy.craft_ritual_satchel_t2.tooltip", "This satchel allows you to store pentacles items and automatically fully construct clicking in the preview.");
         this.add("item.occultism.ritual_dummy.craft_soul_gem", "Ritual: Craft Soul Gem");
         this.add("item.occultism.ritual_dummy.craft_soul_gem.tooltip", "The soul gem allows the temporary storage of living beings. ");
         this.add("item.occultism.ritual_dummy.craft_familiar_ring", "Ritual: Craft Familiar Ring");
