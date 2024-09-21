@@ -10,9 +10,6 @@
   "entity_to_summon": "occultism:possessed_evoker",
   "ingredients": [
     {
-      "item": "minecraft:ominous_bottle"
-    },
-    {
       "item": "minecraft:dark_oak_log"
     },
     {
@@ -22,10 +19,13 @@
       "item": "minecraft:dark_oak_log"
     },
     {
-      "item": "minecraft:end_crystal"
+      "tag": "c:dusts/emerald"
     },
     {
-      "item": "minecraft:emerald_block"
+      "tag": "c:dusts/emerald"
+    },
+    {
+      "tag": "c:dusts/emerald"
     }
   ],
   "pentacle_id": "occultism:contact_wild_spirit",

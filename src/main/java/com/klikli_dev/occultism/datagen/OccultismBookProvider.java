@@ -2659,7 +2659,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/summon_horde_illager"));
+                .withRecipeId1(this.modLoc("ritual/wild_horde_illager"));
 
         this.context().page("description");
         var description = BookTextPageModel.create()
@@ -2695,7 +2695,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/possess_weak_breeze"));
+                .withRecipeId1(this.modLoc("ritual/wild_weak_breeze"));
 
         this.context().page("description");
         var description = BookTextPageModel.create()
@@ -2731,7 +2731,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/possess_breeze"));
+                .withRecipeId1(this.modLoc("ritual/wild_breeze"));
 
         this.context().page("description");
         var description = BookTextPageModel.create()
@@ -2767,7 +2767,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/possess_strong_breeze"));
+                .withRecipeId1(this.modLoc("ritual/wild_strong_breeze"));
 
         this.context().page("description");
         var description = BookTextPageModel.create()

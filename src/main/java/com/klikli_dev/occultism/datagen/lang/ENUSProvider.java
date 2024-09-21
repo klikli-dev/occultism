@@ -3439,6 +3439,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.OTHERWORLD_LOGS,"Otherworld Logs");
         this.addItemTag(OccultismTags.Items.PENTACLE_MATERIALS,"Pentacle Materials");
         this.addItemTag(OccultismTags.Items.TOOLS_CHALK,"Chalks");
+        this.addItemTag(OccultismTags.Items.Miners.MINERS,"Dimensional Miners");
     }
 
     private void addItemTag(ResourceLocation resourceLocation, String string) {

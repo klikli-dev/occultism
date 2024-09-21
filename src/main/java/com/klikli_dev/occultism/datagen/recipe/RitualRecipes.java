@@ -567,12 +567,12 @@ public abstract class RitualRecipes extends RecipeProvider {
                         30,
                         RITUAL_SUMMON_WILD,
                         PENTACLE_CONTACT_WILD_SPIRIT,
-                        Ingredient.of(Items.OMINOUS_BOTTLE),
                         Ingredient.of(Items.DARK_OAK_LOG),
                         Ingredient.of(Items.DARK_OAK_LOG),
                         Ingredient.of(Items.DARK_OAK_LOG),
-                        Ingredient.of(Items.END_CRYSTAL),
-                        Ingredient.of(Items.EMERALD_BLOCK))
+                        Ingredient.of(OccultismTags.Items.EMERALD_DUST),
+                        Ingredient.of(OccultismTags.Items.EMERALD_DUST),
+                        Ingredient.of(OccultismTags.Items.EMERALD_DUST))
                 .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
                 .entityToSummon(OccultismEntities.POSSESSED_EVOKER.get())
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.humans")
@@ -781,7 +781,7 @@ public abstract class RitualRecipes extends RecipeProvider {
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                         makeLoreSpawnEgg(Items.SKELETON_SKULL, "item.occultism.ritual_dummy.possess_skeleton"),
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/possess_skeleton")),
-                        30,
+                        15,
                         RITUAL_SUMMON,
                         PENTACLE_POSSESS_FOLIOT,
                         Ingredient.of(Tags.Items.BONES),
