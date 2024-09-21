@@ -6,13 +6,13 @@
       "item": "occultism:chalk_white_impure"
     },
     {
-      "item": "minecraft:netherite_ingot"
+      "tag": "c:dusts/witherite"
     },
     {
-      "item": "minecraft:wither_rose"
+      "tag": "c:dusts/witherite"
     },
     {
-      "item": "minecraft:blackstone"
+      "tag": "c:dusts/witherite"
     }
   ],
   "result": {

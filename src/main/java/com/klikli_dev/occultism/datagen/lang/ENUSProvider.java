@@ -988,6 +988,27 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.summon_horde_illager.finished", "Summoned the small illager invasion successfully.");
         this.add("ritual.occultism.summon_horde_illager.interrupted", "Summoning of the small illager invasion interrupted.");
 
+        this.add("ritual.occultism.craft_nature_paste.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.craft_nature_paste.started", "Started infusing Nature Paste.");
+        this.add("ritual.occultism.craft_nature_paste.finished", "Successfully infused Nature Paste.");
+        this.add("ritual.occultism.craft_nature_paste.interrupted", "Craft of Nature Paste interrupted.");
+        this.add("ritual.occultism.craft_gray_paste.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.craft_gray_paste.started", "Started infusing Gray Paste.");
+        this.add("ritual.occultism.craft_gray_paste.finished", "Successfully infused Gray Paste.");
+        this.add("ritual.occultism.craft_gray_paste.interrupted", "Craft of Gray Paste interrupted.");
+        this.add("ritual.occultism.craft_research_fragment_dust.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.craft_research_fragment_dust.started", "Started infusing Research Fragment Dust.");
+        this.add("ritual.occultism.craft_research_fragment_dust.finished", "Successfully infused Research Fragment Dust.");
+        this.add("ritual.occultism.craft_research_fragment_dust.interrupted", "Craft of Research Fragment Dust interrupted.");
+        this.add("ritual.occultism.craft_witherite_dust.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.craft_witherite_dust.started", "Started infusing Witherite.");
+        this.add("ritual.occultism.craft_witherite_dust.finished", "Successfully infused Witherite.");
+        this.add("ritual.occultism.craft_witherite_dust.interrupted", "Craft of Witherite interrupted.");
+        this.add("ritual.occultism.craft_dragonyst_dust.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.craft_dragonyst_dust.started", "Started infusing Dragonyst Dust.");
+        this.add("ritual.occultism.craft_dragonyst_dust.finished", "Successfully infused Dragonyst Dust.");
+        this.add("ritual.occultism.craft_dragonyst_dust.interrupted", "Craft of Dragonyst Dust interrupted.");
+
         this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "conditions", "Not all requirements for this ritual are met.");
         this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "started", "Started resurrecting familiar.");
         this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "finished", "Successfully resurrected familiar.");
@@ -3311,6 +3332,17 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.wild_strong_breeze.tooltip", "The possessed Strong Breeze will drop a Heavy Core and trial chamber related items.");
         this.add("item.occultism.ritual_dummy.wild_horde_illager", "Ritual: Summon Possessed Evoker");
         this.add("item.occultism.ritual_dummy.wild_horde_illager.tooltip", "Summon a possessed Evoker and his henchmen.");
+
+        this.add("item.occultism.ritual_dummy.craft_nature_paste", "Ritual: Craft Nature Paste");
+        this.add("item.occultism.ritual_dummy.craft_nature_paste.tooltip", "A foliot will craft the nature paste mixing ingredients.");
+        this.add("item.occultism.ritual_dummy.craft_gray_paste", "Ritual: Craft Gray Paste");
+        this.add("item.occultism.ritual_dummy.craft_gray_paste.tooltip", "A djinni will craft the gray paste mixing ingredients.");
+        this.add("item.occultism.ritual_dummy.craft_research_fragment_dust", "Ritual: Craft Research Fragment Dust");
+        this.add("item.occultism.ritual_dummy.craft_research_fragment_dust.tooltip", "A foliot will infuse experience in the emerald dust.");
+        this.add("item.occultism.ritual_dummy.craft_witherite_dust", "Ritual: Craft Witherite Dust");
+        this.add("item.occultism.ritual_dummy.craft_witherite_dust.tooltip", "A afrit will infuse wither essence in the netherite dust.");
+        this.add("item.occultism.ritual_dummy.craft_dragonyst_dust", "Ritual: Craft Dragonyst Dust");
+        this.add("item.occultism.ritual_dummy.craft_dragonyst_dust.tooltip", "A marid will infuse ender dragon essence in the amethyst dust.");
 
         this.add(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Ritual: Summon Demonic Wife");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Summons a Demonic Wife to support you: She will fight for you, help with cooking, and extend potion durations.");

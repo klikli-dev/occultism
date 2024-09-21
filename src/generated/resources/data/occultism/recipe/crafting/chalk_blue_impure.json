@@ -6,13 +6,13 @@
       "item": "occultism:chalk_white_impure"
     },
     {
-      "item": "minecraft:heart_of_the_sea"
+      "item": "occultism:broken_sea_heart"
     },
     {
-      "tag": "c:gems/lapis"
+      "tag": "c:dusts/lapis"
     },
     {
-      "item": "minecraft:tube_coral"
+      "tag": "c:dusts/lapis"
     }
   ],
   "result": {

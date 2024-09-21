@@ -1,0 +1,13 @@
+{
+  "type": "occultism:crushing",
+  "ignore_crushing_multiplier": true,
+  "ingredient": {
+    "item": "minecraft:heart_of_the_sea"
+  },
+  "min_tier": 3,
+  "result": {
+    "type": "occultism:item",
+    "count": 1,
+    "id": "occultism:broken_sea_heart"
+  }
+}

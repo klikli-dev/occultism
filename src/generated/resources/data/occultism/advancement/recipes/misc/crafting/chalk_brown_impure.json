@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_chalk_white": {
+    "has_chalk_white_impure": {
       "conditions": {
         "items": [
           {
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_chalk_white"
+      "has_chalk_white_impure"
     ]
   ],
   "rewards": {

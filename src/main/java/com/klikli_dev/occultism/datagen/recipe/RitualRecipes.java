@@ -1398,6 +1398,73 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrifice(OccultismTags.Entities.OCELOT)
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.ocelot")
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_wild_trim"));
+
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
+                        new ItemStack(OccultismItems.RESEARCH_FRAGMENT_DUST.get()),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/craft_research_fragment_dust")),
+                        60,
+                        RITUAL_CRAFT,
+                        PENTACLE_CRAFT_FOLIOT,
+                        Ingredient.of(OccultismTags.Items.EMERALD_DUST),
+                        Ingredient.of(Items.EXPERIENCE_BOTTLE),
+                        Ingredient.of(Items.EXPERIENCE_BOTTLE))
+                .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_research_fragment_dust"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
+                        new ItemStack(OccultismItems.NATURE_PASTE.get()),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/craft_nature_paste")),
+                        30,
+                        RITUAL_CRAFT,
+                        PENTACLE_CRAFT_FOLIOT,
+                        Ingredient.of(ItemTags.LEAVES),
+                        Ingredient.of(ItemTags.SAPLINGS),
+                        Ingredient.of(Tags.Items.SEEDS))
+                .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_nature_paste"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                        new ItemStack(OccultismItems.GRAY_PASTE.get()),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/craft_gray_paste")),
+                        90,
+                        RITUAL_CRAFT,
+                        PENTACLE_CRAFT_DJINNI,
+                        Ingredient.of(Tags.Items.GUNPOWDERS),
+                        Ingredient.of(Items.CLAY_BALL),
+                        Ingredient.of(Items.WIND_CHARGE))
+                .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_gray_paste"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
+                        new ItemStack(OccultismItems.WITHERITE_DUST.get(), 3),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/craft_witherite_dust")),
+                        150,
+                        RITUAL_CRAFT,
+                        PENTACLE_CRAFT_AFRIT,
+                        Ingredient.of(OccultismTags.Items.NETHERITE_DUST),
+                        Ingredient.of(OccultismTags.Items.BLACKSTONE_DUST),
+                        Ingredient.of(OccultismTags.Items.BLACKSTONE_DUST),
+                        Ingredient.of(Items.WITHER_ROSE),
+                        Ingredient.of(Items.WITHER_ROSE),
+                        Ingredient.of(Items.WITHER_ROSE))
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_witherite_dust"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()),
+                        new ItemStack(OccultismItems.DRAGONYST_DUST.get()),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/craft_dragonyst_dust")),
+                        300,
+                        RITUAL_CRAFT,
+                        PENTACLE_CRAFT_MARID,
+                        Ingredient.of(OccultismTags.Items.AMETHYST_DUST),
+                        Ingredient.of(OccultismTags.Items.AMETHYST_DUST),
+                        Ingredient.of(OccultismTags.Items.END_STONE_DUST),
+                        Ingredient.of(Items.END_CRYSTAL),
+                        Ingredient.of(Items.END_CRYSTAL),
+                        Ingredient.of(Items.END_CRYSTAL),
+                        Ingredient.of(Items.END_CRYSTAL),
+                        Ingredient.of(Items.DRAGON_BREATH),
+                        Ingredient.of(Items.DRAGON_BREATH),
+                        Ingredient.of(Items.DRAGON_BREATH))
+                .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_dragonyst_dust"));
+
     }
 
     private static void minerRecipes(RecipeOutput recipeOutput) {
