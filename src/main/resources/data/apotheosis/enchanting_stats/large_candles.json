@@ -1,10 +1,10 @@
 {
-  "block": "occultism:candle_white",
+  "tag": "occultism:candles",
   "stats": {
     "maxEterna": 0,
     "eterna": 0,
     "quanta": 0,
-    "arcana": 3,
+    "arcana": 4,
     "rectification": 0,
     "clues": 0
   }
