@@ -145,8 +145,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.PENTACLE_INVOKE, "Pentacle Invoke");
         this.addItem(OccultismItems.PENTACLE_CRAFT, "Pentacle Craft");
         this.addItem(OccultismItems.PENTACLE_MISC, "Pentacle Misc");
-        this.addItem(OccultismItems.REPAIR_OUTPUT, "Repair Output");
-        this.addItem(OccultismItems.RESURRECT_OUTPUT, "Resurrect Output");
+        this.addItem(OccultismItems.REPAIR_ICON, "Repair Icon");
+        this.addItem(OccultismItems.RESURRECT_ICON, "Resurrect Icon");
         this.addItem(OccultismItems.DEBUG_WAND, "Debug Wand");
         this.addItem(OccultismItems.DEBUG_FOLIOT_LUMBERJACK, "Summon Debug Foliot Lumberjack");
         this.addItem(OccultismItems.DEBUG_FOLIOT_TRANSPORT_ITEMS, "Summon Debug Foliot Transporter");
@@ -177,7 +177,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(TranslationKeys.RITUAL_SATCHEL_NO_PREVIEW_BLOCK_TARGETED, "You need to aim the ritual satchel at a preview block.");
         this.add(TranslationKeys.RITUAL_SATCHEL_NO_VALID_ITEM_IN_SATCHEL, "There is no valid item in the satchel for this previewed block.");
 
-        this.addItem(OccultismItems.CHALK_GOLD, "Yellow Chalk");
+        this.addItem(OccultismItems.CHALK_YELLOW, "Yellow Chalk");
         this.addItem(OccultismItems.CHALK_PURPLE, "Purple Chalk");
         this.addItem(OccultismItems.CHALK_RED, "Red Chalk");
         this.addItem(OccultismItems.CHALK_WHITE, "White Chalk");
@@ -193,7 +193,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.CHALK_BLUE, "Blue Chalk");
         this.addItem(OccultismItems.CHALK_MAGENTA, "Magenta Chalk");
         this.addItem(OccultismItems.CHALK_PINK, "Pink Chalk");
-        this.addItem(OccultismItems.CHALK_GOLD_IMPURE, "Impure Yellow Chalk");
+        this.addItem(OccultismItems.CHALK_YELLOW_IMPURE, "Impure Yellow Chalk");
         this.addItem(OccultismItems.CHALK_PURPLE_IMPURE, "Impure Purple Chalk");
         this.addItem(OccultismItems.CHALK_RED_IMPURE, "Impure Red Chalk");
         this.addItem(OccultismItems.CHALK_WHITE_IMPURE, "Impure White Chalk");
@@ -356,7 +356,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.SACRIFICIAL_BOWL, "Sacrificial Bowl");
         this.addBlock(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL, "Golden Sacrificial Bowl");
         this.addBlock(OccultismBlocks.CHALK_GLYPH_WHITE, "White Chalk Glyph");
-        this.addBlock(OccultismBlocks.CHALK_GLYPH_GOLD, "Yellow Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_YELLOW, "Yellow Chalk Glyph");
         this.addBlock(OccultismBlocks.CHALK_GLYPH_PURPLE, "Purple Chalk Glyph");
         this.addBlock(OccultismBlocks.CHALK_GLYPH_RED, "Red Chalk Glyph");
         this.addBlock(OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY, "Light Gray Chalk Glyph");
@@ -1150,14 +1150,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         - [Osorin' Unbound Calling](entry://occultism:dictionary_of_spirits/pentacles/contact_wild_spirit)
                          """);
 
-        helper.page("golden_chalk");
+        helper.page("yellow_chalk");
         this.add(helper.pageText(),
                 """
                         Yellow chalk is used for binding runes, which allow to infuse a spirit into an item, or make it possess a living being.
                                """);
 
 
-        helper.page("golden_chalk_uses");
+        helper.page("yellow_chalk_uses");
         this.add(helper.pageTitle(), "Yellow Chalk Uses");
         this.add(helper.pageText(),
                 """
@@ -3425,7 +3425,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("disableHolidayTheming", "Disable Otherworld Goggles Shaders");
         this.addConfig("useAlternativeDivinationRodRenderer", "Use Alternative Divination Rod Renderer");
         this.addConfig("whiteChalkGlyphColor", "White Chalk Glyph Color");
-        this.addConfig("goldenChalkGlyphColor", "Yellow Chalk Glyph Color");
+        this.addConfig("yellowChalkGlyphColor", "Yellow Chalk Glyph Color");
         this.addConfig("purpleChalkGlyphColor", "Purple Chalk Glyph Color");
         this.addConfig("redChalkGlyphColor", "Red Chalk Glyph Color");
         this.addConfig("lightGrayChalkGlyphColor", "Light Gray Chalk Glyph Color");

@@ -1549,7 +1549,7 @@ public class GettingStartedCategory extends CategoryProvider {
         //no text
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
-                .withIcon(OccultismItems.CHALK_GOLD.get())
+                .withIcon(OccultismItems.CHALK_YELLOW.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,

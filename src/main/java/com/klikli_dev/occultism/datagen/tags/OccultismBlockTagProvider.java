@@ -150,7 +150,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
 
         this.tag(OccultismTags.Blocks.CHALK_GLYPHS)
                 .add(OccultismBlocks.CHALK_GLYPH_WHITE.get())
-                .add(OccultismBlocks.CHALK_GLYPH_GOLD.get())
+                .add(OccultismBlocks.CHALK_GLYPH_YELLOW.get())
                 .add(OccultismBlocks.CHALK_GLYPH_PURPLE.get())
                 .add(OccultismBlocks.CHALK_GLYPH_RED.get())
                 .add(OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY.get())

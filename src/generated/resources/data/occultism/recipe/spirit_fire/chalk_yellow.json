@@ -1,10 +1,10 @@
 {
   "type": "occultism:spirit_fire",
   "ingredient": {
-    "item": "occultism:chalk_gold_impure"
+    "item": "occultism:chalk_yellow_impure"
   },
   "result": {
     "count": 1,
-    "id": "occultism:chalk_gold"
+    "id": "occultism:chalk_yellow"
   }
 }

@@ -75,9 +75,9 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "item": "occultism:chalk_gold"
+        "item": "occultism:chalk_yellow"
       },
-      "text": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.golden_chalk.text",
+      "text": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.yellow_chalk.text",
       "title": ""
     },
     {
@@ -87,8 +87,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.golden_chalk_uses.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.golden_chalk_uses.title",
+      "text": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.yellow_chalk_uses.text",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.yellow_chalk_uses.title",
       "use_markdown_in_title": false
     },
     {

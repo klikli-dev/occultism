@@ -124,7 +124,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .addTag(OccultismTags.Items.Miners.ORES).replace(false);
 
         this.tag(OccultismTags.Items.TOOLS_CHALK)
-                .add(OccultismItems.CHALK_GOLD.get())
+                .add(OccultismItems.CHALK_YELLOW.get())
                 .add(OccultismItems.CHALK_WHITE.get())
                 .add(OccultismItems.CHALK_RED.get())
                 .add(OccultismItems.CHALK_PURPLE.get())

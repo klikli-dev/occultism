@@ -86,7 +86,7 @@ public abstract class RitualRecipes extends RecipeProvider {
         familiarRituals(recipeOutput);
         possessRituals(recipeOutput);
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.SOUL_SHARD_ITEM.get()),
-                        makeLoreSpawnEgg(OccultismItems.RESURRECT_OUTPUT.get(), "item.occultism.ritual_dummy.resurrect_familiar"),
+                        makeLoreSpawnEgg(OccultismItems.RESURRECT_ICON.get(), "item.occultism.ritual_dummy.resurrect_familiar"),
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/resurrect_familiar")),
                         15,
                         RITUAL_RESURRECT_FAMILIAR,

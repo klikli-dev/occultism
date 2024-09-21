@@ -676,12 +676,12 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
 
-        this.context().page("golden_chalk");
+        this.context().page("yellow_chalk");
         var goldChalk = BookSpotlightPageModel.create()
                 .withText(this.context().pageText())
-                .withItem(Ingredient.of(OccultismItems.CHALK_GOLD.get()));
+                .withItem(Ingredient.of(OccultismItems.CHALK_YELLOW.get()));
 
-        this.context().page("golden_chalk_uses");
+        this.context().page("yellow_chalk_uses");
         var goldChalkUses = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "occultism:item/resurrect_output"
+    "layer0": "occultism:item/chalk_yellow"
   }
 }

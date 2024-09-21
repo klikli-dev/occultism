@@ -48,179 +48,54 @@ public class OccultismItems {
 
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Occultism.MODID);
 
-    //Debug and placeholder items
-    public static final DeferredItem<Item> DICTIONARY_OF_SPIRITS_ICON =
-            ITEMS.register("dictionary_of_spirits_icon", () -> new Item(new Item.Properties()));
-
+    //Dictionary
     public static final DeferredItem<GuideBookItem> DICTIONARY_OF_SPIRITS = ITEMS.register("dictionary_of_spirits",
             () -> new GuideBookItem(defaultProperties().stacksTo(1)));
 
-    public static final DeferredItem<Item> PENTACLE_SUMMON = ITEMS.register("pentacle_summon",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> PENTACLE_INVOKE = ITEMS.register("pentacle_invoke",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> PENTACLE_CRAFT = ITEMS.register("pentacle_craft",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> PENTACLE_MISC =
-            ITEMS.register("pentacle_misc", () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> DEBUG_WAND = ITEMS.register("debug_wand",
-            () -> new DebugWandItem(defaultProperties().stacksTo(1)));
-    public static final DeferredItem<Item> DEBUG_FOLIOT_LUMBERJACK = ITEMS.register("debug_foliot_lumberjack",
-            () -> new SummonFoliotLumberjackItem(defaultProperties().stacksTo(1)));
-    public static final DeferredItem<Item> DEBUG_FOLIOT_TRANSPORT_ITEMS =
-            ITEMS.register("debug_foliot_transport_items",
-                    () -> new SummonFoliotTransportItemsItem(defaultProperties().stacksTo(1)));
-    public static final DeferredItem<Item> DEBUG_FOLIOT_CLEANER =
-            ITEMS.register("debug_foliot_cleaner",
-                    () -> new SummonFoliotCleanerItem(defaultProperties().stacksTo(1)));
-    public static final DeferredItem<Item> DEBUG_FOLIOT_TRADER_ITEM = ITEMS.register("debug_foliot_trader",
-            () -> new SummonFoliotTraderItem(defaultProperties().stacksTo(1)));
-    public static final DeferredItem<Item> DEBUG_DJINNI_MANAGE_MACHINE = ITEMS.register("debug_djinni_manage_machine",
-            () -> new SummonDjinniManageMachineItem(defaultProperties().stacksTo(1)));
-    public static final DeferredItem<Item> DEBUG_DJINNI_TEST = ITEMS.register("debug_djinni_test",
-            () -> new SummonDjinniTest(defaultProperties().stacksTo(1)));
-
-    public static final DeferredItem<BlockItem> SPIRIT_FIRE =
-            ITEMS.register("spirit_fire", () -> new BlockItem(OccultismBlocks.SPIRIT_FIRE.get(), defaultProperties()));
-
-    public static final DeferredItem<Item> ADVANCEMENT_ICON =
-            ITEMS.register("advancement_icon", () -> new Item(new Item.Properties()));
-
-    public static final DeferredItem<Item> REPAIR_OUTPUT =
-            ITEMS.register("repair_output", () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> RESURRECT_OUTPUT =
-            ITEMS.register("resurrect_output", () -> new Item(defaultProperties()));
-
-    //Resources
-    public static final DeferredItem<OtherworldBlockItem> OTHERWORLD_SAPLING_NATURAL =
-            ITEMS.register("otherworld_sapling_natural",
-                    () -> new OtherworldBlockItem(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(),
-                            defaultProperties()));
-    public static final DeferredItem<Item> TALLOW = ITEMS.register("tallow",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> AFRIT_ESSENCE = ITEMS.register("afrit_essence",
-            () -> new Item(defaultProperties()));
-
-    //Components
-    public static final DeferredItem<DimensionalMatrixItem> DIMENSIONAL_MATRIX = ITEMS.register("dimensional_matrix",
-            () -> new DimensionalMatrixItem(defaultProperties().component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
-    public static final DeferredItem<Item> SPIRIT_ATTUNED_GEM = ITEMS.register("spirit_attuned_gem",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> OTHERWORLD_ASHES = ITEMS.register("otherworld_ashes",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> BURNT_OTHERSTONE = ITEMS.register("burnt_otherstone",
-            () -> new Item(defaultProperties()));
-
-    public static final DeferredItem<Item> OTHERSTONE_FRAME = ITEMS.register("otherstone_frame",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> WORMHOLE_FRAME = ITEMS.register("wormhole_frame",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> OTHERSTONE_TABLET = ITEMS.register("otherstone_tablet",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> STORAGE_REMOTE_INERT = ITEMS.register("storage_remote_inert",
-            () -> new Item(defaultProperties()));
-
-    public static final DeferredItem<Item> CHALK_WHITE_IMPURE = ITEMS.register("chalk_white_impure",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> CHALK_RED_IMPURE = ITEMS.register("chalk_red_impure",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> CHALK_GOLD_IMPURE = ITEMS.register("chalk_gold_impure",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> CHALK_PURPLE_IMPURE = ITEMS.register("chalk_purple_impure",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> CHALK_LIGHT_GRAY_IMPURE = ITEMS.register("chalk_light_gray_impure",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> CHALK_GRAY_IMPURE = ITEMS.register("chalk_gray_impure",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> CHALK_BLACK_IMPURE = ITEMS.register("chalk_black_impure",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> CHALK_BROWN_IMPURE = ITEMS.register("chalk_brown_impure",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> CHALK_ORANGE_IMPURE = ITEMS.register("chalk_orange_impure",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> CHALK_LIME_IMPURE = ITEMS.register("chalk_lime_impure",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> CHALK_GREEN_IMPURE = ITEMS.register("chalk_green_impure",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> CHALK_CYAN_IMPURE = ITEMS.register("chalk_cyan_impure",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> CHALK_LIGHT_BLUE_IMPURE = ITEMS.register("chalk_light_blue_impure",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> CHALK_BLUE_IMPURE = ITEMS.register("chalk_blue_impure",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> CHALK_MAGENTA_IMPURE = ITEMS.register("chalk_magenta_impure",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> CHALK_PINK_IMPURE = ITEMS.register("chalk_pink_impure",
-            () -> new Item(defaultProperties()));
-
-    public static final DeferredItem<Item> RAW_SILVER = ITEMS.register("raw_silver",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> RAW_IESNIUM = ITEMS.register("raw_iesnium",
-            () -> new Item(defaultProperties()));
-
-    public static final DeferredItem<Item> SILVER_INGOT = ITEMS.register("silver_ingot",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> IESNIUM_INGOT = ITEMS.register("iesnium_ingot",
-            () -> new Item(defaultProperties()));
-
-    public static final DeferredItem<Item> SILVER_NUGGET = ITEMS.register("silver_nugget",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> IESNIUM_NUGGET = ITEMS.register("iesnium_nugget",
-            () -> new Item(defaultProperties()));
-
-    public static final DeferredItem<Item> OBSIDIAN_DUST = ITEMS.register("obsidian_dust",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> IRON_DUST = ITEMS.register("iron_dust",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> GOLD_DUST = ITEMS.register("gold_dust",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> COPPER_DUST = ITEMS.register("copper_dust",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> SILVER_DUST = ITEMS.register("silver_dust",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> IESNIUM_DUST = ITEMS.register("iesnium_dust",
-            () -> new Item(defaultProperties()));
-
-    public static final DeferredItem<Item> CRUSHED_END_STONE = ITEMS.register("crushed_end_stone",
-            () -> new Item(defaultProperties()));
-
-    public static final DeferredItem<Item> LENSES = ITEMS.register("lenses",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> INFUSED_LENSES = ITEMS.register("infused_lenses",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> LENS_FRAME = ITEMS.register("lens_frame",
-            () -> new Item(defaultProperties()));
-
-    public static final DeferredItem<StorageRemoteItem> STORAGE_REMOTE = ITEMS.register("storage_remote",
-            () -> new StorageRemoteItem(defaultProperties().stacksTo(1)));
-
-
+    //Tools and equipable
+    public static final DeferredItem<DivinationRodItem> DIVINATION_ROD = ITEMS.register("divination_rod",
+            () -> new DivinationRodItem(defaultProperties().stacksTo(1)));
+    public static final DeferredItem<SwordItem> BUTCHER_KNIFE = ITEMS.register("butcher_knife",
+            () -> new SwordItem(Tiers.IRON, defaultProperties().attributes(SwordItem.createAttributes(Tiers.IRON, 3, -2.4F))));
+    public static final DeferredItem<InfusedPickaxeItem> INFUSED_PICKAXE = ITEMS.register("infused_pickaxe",
+            () -> new InfusedPickaxeItem(OccultismTiers.SPIRIT_ATTUNED, defaultProperties()
+                    .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
+                    .attributes(PickaxeItem.createAttributes(Tiers.DIAMOND, 1.0F, -2.8F))));
+    public static final DeferredItem<OtherworldPickaxeItem> IESNIUM_PICKAXE = ITEMS.register("iesnium_pickaxe",
+            () -> new OtherworldPickaxeItem(OccultismTiers.IESNIUM, defaultProperties().attributes(PickaxeItem.createAttributes(Tiers.DIAMOND, 1.0F, -2.8F))));
+    public static final DeferredItem<OtherworldGogglesItem> OTHERWORLD_GOGGLES = ITEMS.register("otherworld_goggles",
+            () -> new OtherworldGogglesItem(ArmorMaterials.IRON,
+                    ArmorItem.Type.HELMET, defaultProperties().stacksTo(1)));
+    public static final DeferredItem<Item> SATCHEL = ITEMS.register("satchel",
+            () -> new SatchelItem(defaultProperties().stacksTo(1).rarity(Rarity.RARE)
+                    .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
+                    .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
+            ));
     public static final DeferredItem<SingleBlockRitualSatchelItem> RITUAL_SATCHEL_T1 = ITEMS.register("ritual_satchel_t1",
             () -> new SingleBlockRitualSatchelItem(defaultProperties()
                     .stacksTo(1).rarity(Rarity.RARE)
                     .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
                     .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
             ));
-
     public static final DeferredItem<MultiBlockRitualSatchelItem> RITUAL_SATCHEL_T2 = ITEMS.register("ritual_satchel_t2",
             () -> new MultiBlockRitualSatchelItem(defaultProperties()
                     .stacksTo(1).rarity(Rarity.RARE)
                     .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
                     .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
             ));
+    public static final DeferredItem<StorageRemoteItem> STORAGE_REMOTE = ITEMS.register("storage_remote",
+            () -> new StorageRemoteItem(defaultProperties().stacksTo(1)));
+    public static final DeferredItem<SoulGemItem> SOUL_GEM_ITEM = ITEMS.register("soul_gem",
+            () -> new SoulGemItem(defaultProperties().stacksTo(1)));
+    public static final DeferredItem<Item> FAMILIAR_RING = ITEMS.register("familiar_ring",
+            () -> new FamiliarRingItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
 
+    //Brush. Chalks and Impure Chalks
+    public static final DeferredItem<BrushItem> BRUSH = ITEMS.register("brush",
+            () -> new BrushItem(defaultProperties().stacksTo(1)));
     public static final DeferredItem<Item> CHALK_WHITE = ITEMS.register("chalk_white",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_WHITE.get()));
-    public static final DeferredItem<Item> CHALK_GOLD = ITEMS.register("chalk_gold",
-            () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
-                    () -> OccultismBlocks.CHALK_GLYPH_GOLD.get()));
-    public static final DeferredItem<Item> CHALK_PURPLE = ITEMS.register("chalk_purple",
-            () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
-                    () -> OccultismBlocks.CHALK_GLYPH_PURPLE.get()));
-    public static final DeferredItem<Item> CHALK_RED = ITEMS.register("chalk_red",
-            () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
-                    () -> OccultismBlocks.CHALK_GLYPH_RED.get()));
     public static final DeferredItem<Item> CHALK_LIGHT_GRAY = ITEMS.register("chalk_light_gray",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY.get()));
@@ -233,9 +108,15 @@ public class OccultismItems {
     public static final DeferredItem<Item> CHALK_BROWN = ITEMS.register("chalk_brown",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_BROWN.get()));
+    public static final DeferredItem<Item> CHALK_RED = ITEMS.register("chalk_red",
+            () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
+                    () -> OccultismBlocks.CHALK_GLYPH_RED.get()));
     public static final DeferredItem<Item> CHALK_ORANGE = ITEMS.register("chalk_orange",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_ORANGE.get()));
+    public static final DeferredItem<Item> CHALK_YELLOW = ITEMS.register("chalk_yellow",
+            () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
+                    () -> OccultismBlocks.CHALK_GLYPH_YELLOW.get()));
     public static final DeferredItem<Item> CHALK_LIME = ITEMS.register("chalk_lime",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_LIME.get()));
@@ -251,49 +132,46 @@ public class OccultismItems {
     public static final DeferredItem<Item> CHALK_BLUE = ITEMS.register("chalk_blue",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_BLUE.get()));
+    public static final DeferredItem<Item> CHALK_PURPLE = ITEMS.register("chalk_purple",
+            () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
+                    () -> OccultismBlocks.CHALK_GLYPH_PURPLE.get()));
     public static final DeferredItem<Item> CHALK_MAGENTA = ITEMS.register("chalk_magenta",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_MAGENTA.get()));
     public static final DeferredItem<Item> CHALK_PINK = ITEMS.register("chalk_pink",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     () -> OccultismBlocks.CHALK_GLYPH_PINK.get()));
-
-    public static final DeferredItem<DivinationRodItem> DIVINATION_ROD = ITEMS.register("divination_rod",
-            () -> new DivinationRodItem(defaultProperties().stacksTo(1)));
-    public static final DeferredItem<BrushItem> BRUSH = ITEMS.register("brush",
-            () -> new BrushItem(defaultProperties().stacksTo(1)));
-    public static final DeferredItem<SwordItem> BUTCHER_KNIFE = ITEMS.register("butcher_knife",
-            () -> new SwordItem(Tiers.IRON, defaultProperties().attributes(SwordItem.createAttributes(Tiers.IRON, 3, -2.4F))));
-
-    public static final DeferredItem<Item> SPIRIT_ATTUNED_PICKAXE_HEAD = ITEMS.register("spirit_attuned_pickaxe_head",
+    public static final DeferredItem<Item> CHALK_WHITE_IMPURE = ITEMS.register("chalk_white_impure",
             () -> new Item(defaultProperties()));
-    public static final DeferredItem<InfusedPickaxeItem> INFUSED_PICKAXE = ITEMS.register("infused_pickaxe",
-            () -> new InfusedPickaxeItem(OccultismTiers.SPIRIT_ATTUNED, defaultProperties()
-                    .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
-                    .attributes(PickaxeItem.createAttributes(Tiers.DIAMOND, 1.0F, -2.8F))));
-    public static final DeferredItem<OtherworldPickaxeItem> IESNIUM_PICKAXE = ITEMS.register("iesnium_pickaxe",
-            () -> new OtherworldPickaxeItem(OccultismTiers.IESNIUM, defaultProperties().attributes(PickaxeItem.createAttributes(Tiers.DIAMOND, 1.0F, -2.8F))));
-
-    public static final DeferredItem<SoulGemItem> SOUL_GEM_ITEM = ITEMS.register("soul_gem",
-            () -> new SoulGemItem(defaultProperties().stacksTo(1)));
-
-    public static final DeferredItem<SoulShardItem> SOUL_SHARD_ITEM = ITEMS.register("soul_shard",
-            () -> new SoulShardItem(defaultProperties().stacksTo(1)));
-
-    public static final DeferredItem<Item> SATCHEL = ITEMS.register("satchel",
-            () -> new SatchelItem(defaultProperties().stacksTo(1).rarity(Rarity.RARE)
-                    .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
-                    .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
-            ));
-
-    public static final DeferredItem<Item> FAMILIAR_RING = ITEMS.register("familiar_ring",
-            () -> new FamiliarRingItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
-
-    public static final DeferredItem<Item> PURIFIED_INK = ITEMS.register("purified_ink",
+    public static final DeferredItem<Item> CHALK_LIGHT_GRAY_IMPURE = ITEMS.register("chalk_light_gray_impure",
             () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> AWAKENED_FEATHER = ITEMS.register("awakened_feather",
+    public static final DeferredItem<Item> CHALK_GRAY_IMPURE = ITEMS.register("chalk_gray_impure",
             () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> TABOO_BOOK = ITEMS.register("taboo_book",
+    public static final DeferredItem<Item> CHALK_BLACK_IMPURE = ITEMS.register("chalk_black_impure",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> CHALK_BROWN_IMPURE = ITEMS.register("chalk_brown_impure",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> CHALK_RED_IMPURE = ITEMS.register("chalk_red_impure",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> CHALK_ORANGE_IMPURE = ITEMS.register("chalk_orange_impure",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> CHALK_YELLOW_IMPURE = ITEMS.register("chalk_yellow_impure",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> CHALK_LIME_IMPURE = ITEMS.register("chalk_lime_impure",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> CHALK_GREEN_IMPURE = ITEMS.register("chalk_green_impure",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> CHALK_CYAN_IMPURE = ITEMS.register("chalk_cyan_impure",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> CHALK_LIGHT_BLUE_IMPURE = ITEMS.register("chalk_light_blue_impure",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> CHALK_BLUE_IMPURE = ITEMS.register("chalk_blue_impure",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> CHALK_PURPLE_IMPURE = ITEMS.register("chalk_purple_impure",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> CHALK_MAGENTA_IMPURE = ITEMS.register("chalk_magenta_impure",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> CHALK_PINK_IMPURE = ITEMS.register("chalk_pink_impure",
             () -> new Item(defaultProperties()));
 
     //Books of Binding
@@ -335,43 +213,10 @@ public class OccultismItems {
                     () -> new BookOfCallingManageMachineItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
                             TranslationKeys.BOOK_OF_CALLING_GENERIC + "_djinni"));
 
-    //Armor
-    public static final DeferredItem<OtherworldGogglesItem> OTHERWORLD_GOGGLES = ITEMS.register("otherworld_goggles",
-            () -> new OtherworldGogglesItem(ArmorMaterials.IRON,
-                    ArmorItem.Type.HELMET, defaultProperties().stacksTo(1)));
-
-    //Machines
-    public static final DeferredItem<StableWormholeBlockItem> STABLE_WORMHOLE = ITEMS.register("stable_wormhole",
-            () -> new StableWormholeBlockItem(OccultismBlocks.STABLE_WORMHOLE.get(), defaultProperties()));
-    public static final DeferredItem<StorageControllerBlockItem> STORAGE_CONTROLLER = ITEMS.register("storage_controller",
-            () -> new StorageControllerBlockItem(OccultismBlocks.STORAGE_CONTROLLER.get(), defaultProperties()));
-
-
-    //Crops
-    public static final DeferredItem<Item> DATURA_SEEDS =
-            ITEMS.register("datura_seeds", () -> new ItemNameBlockItem(OccultismBlocks.DATURA.get(), defaultProperties()));
-
-    //Foods
-    public static final DeferredItem<Item> DATURA = ITEMS.register("datura",
-            () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.DATURA.get())));
-
-    public static final DeferredItem<Item> DEMONS_DREAM_ESSENCE = ITEMS.register("demons_dream_essence",
-            () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.DEMONS_DREAM_ESSENCE.get())));
-
-    public static final DeferredItem<Item> OTHERWORLD_ESSENCE = ITEMS.register("otherworld_essence",
-            () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.OTHERWORLD_ESSENCE.get())));
-
-    public static final DeferredItem<Item> BEAVER_NUGGET = ITEMS.register("beaver_nugget",
-            () -> new Item(defaultProperties().food(OccultismFoods.BEAVER_NUGGET.get())));
-
     //Miner Spirits
     public static final DeferredItem<Item> MAGIC_LAMP_EMPTY = ITEMS.register("magic_lamp_empty",
             () -> new Item(defaultProperties()));
-    public static final DeferredItem<MinerSpiritItem> MINER_DEBUG_UNSPECIALIZED =
-            ITEMS.register("miner_debug_unspecialized",
-                    () -> new MinerSpiritItem(defaultProperties()
-                            .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
-                            .durability(10000), () -> 100, () -> 10, () -> 10000));
+
     public static final DeferredItem<MinerSpiritItem> MINER_FOLIOT_UNSPECIALIZED = ITEMS.register("miner_foliot_unspecialized",
             () -> new MinerSpiritItem(defaultProperties()
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
@@ -398,13 +243,102 @@ public class OccultismItems {
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerMaridMaster.rollsPerOperation,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerMaridMaster.durability));
 
-    //JEI Dummy Items
-    public static final DeferredItem<DummyTooltipItem> JEI_DUMMY_NONE = ITEMS.register(
-            "jei_dummy/none", () -> new DummyTooltipItem(new Item.Properties()));
-    public static final DeferredItem<DummyTooltipItem> JEI_DUMMY_REQUIRE_SACRIFICE = ITEMS.register(
-            "jei_dummy/require_sacrifice", () -> new DummyTooltipItem(new Item.Properties()));
-    public static final DeferredItem<DummyTooltipItem> JEI_DUMMY_REQUIRE_ITEM_USE = ITEMS.register(
-            "jei_dummy/require_item_use", () -> new DummyTooltipItem(new Item.Properties()));
+    //Crops and food
+    public static final DeferredItem<Item> DATURA_SEEDS =
+            ITEMS.register("datura_seeds", () -> new ItemNameBlockItem(OccultismBlocks.DATURA.get(), defaultProperties()));
+    public static final DeferredItem<Item> DATURA = ITEMS.register("datura",
+            () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.DATURA.get())));
+    public static final DeferredItem<Item> DEMONS_DREAM_ESSENCE = ITEMS.register("demons_dream_essence",
+            () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.DEMONS_DREAM_ESSENCE.get())));
+
+    public static final DeferredItem<Item> OTHERWORLD_ESSENCE = ITEMS.register("otherworld_essence",
+            () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.OTHERWORLD_ESSENCE.get())));
+    public static final DeferredItem<Item> BEAVER_NUGGET = ITEMS.register("beaver_nugget",
+            () -> new Item(defaultProperties().food(OccultismFoods.BEAVER_NUGGET.get())));
+
+    //Resources and materials
+    public static final DeferredItem<Item> TALLOW = ITEMS.register("tallow",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> AFRIT_ESSENCE = ITEMS.register("afrit_essence",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> SPIRIT_ATTUNED_GEM = ITEMS.register("spirit_attuned_gem",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> RAW_SILVER = ITEMS.register("raw_silver",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> RAW_IESNIUM = ITEMS.register("raw_iesnium",
+            () -> new Item(defaultProperties()));
+
+    public static final DeferredItem<Item> SILVER_INGOT = ITEMS.register("silver_ingot",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> IESNIUM_INGOT = ITEMS.register("iesnium_ingot",
+            () -> new Item(defaultProperties()));
+
+    public static final DeferredItem<Item> SILVER_NUGGET = ITEMS.register("silver_nugget",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> IESNIUM_NUGGET = ITEMS.register("iesnium_nugget",
+            () -> new Item(defaultProperties()));
+    //Dusts
+    public static final DeferredItem<Item> SILVER_DUST = ITEMS.register("silver_dust",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> IESNIUM_DUST = ITEMS.register("iesnium_dust",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> COPPER_DUST = ITEMS.register("copper_dust",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> IRON_DUST = ITEMS.register("iron_dust",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> GOLD_DUST = ITEMS.register("gold_dust",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> OBSIDIAN_DUST = ITEMS.register("obsidian_dust",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> CRUSHED_END_STONE = ITEMS.register("crushed_end_stone",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> BURNT_OTHERSTONE = ITEMS.register("burnt_otherstone",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> OTHERWORLD_ASHES = ITEMS.register("otherworld_ashes",
+            () -> new Item(defaultProperties()));
+
+    //Components
+    public static final DeferredItem<Item> PURIFIED_INK = ITEMS.register("purified_ink",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> AWAKENED_FEATHER = ITEMS.register("awakened_feather",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> TABOO_BOOK = ITEMS.register("taboo_book",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> SPIRIT_ATTUNED_PICKAXE_HEAD = ITEMS.register("spirit_attuned_pickaxe_head",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> LENSES = ITEMS.register("lenses",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> INFUSED_LENSES = ITEMS.register("infused_lenses",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> LENS_FRAME = ITEMS.register("lens_frame",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> OTHERSTONE_FRAME = ITEMS.register("otherstone_frame",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> WORMHOLE_FRAME = ITEMS.register("wormhole_frame",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> OTHERSTONE_TABLET = ITEMS.register("otherstone_tablet",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> STORAGE_REMOTE_INERT = ITEMS.register("storage_remote_inert",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<DimensionalMatrixItem> DIMENSIONAL_MATRIX = ITEMS.register("dimensional_matrix",
+            () -> new DimensionalMatrixItem(defaultProperties().component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
+
+    //Others
+    public static final DeferredItem<SoulShardItem> SOUL_SHARD_ITEM = ITEMS.register("soul_shard",
+            () -> new SoulShardItem(defaultProperties().stacksTo(1)));
+
+    //Machines
+    public static final DeferredItem<BlockItem> SPIRIT_FIRE =
+            ITEMS.register("spirit_fire", () -> new BlockItem(OccultismBlocks.SPIRIT_FIRE.get(), defaultProperties()));
+    public static final DeferredItem<StableWormholeBlockItem> STABLE_WORMHOLE = ITEMS.register("stable_wormhole",
+            () -> new StableWormholeBlockItem(OccultismBlocks.STABLE_WORMHOLE.get(), defaultProperties()));
+    public static final DeferredItem<StorageControllerBlockItem> STORAGE_CONTROLLER = ITEMS.register("storage_controller",
+            () -> new StorageControllerBlockItem(OccultismBlocks.STORAGE_CONTROLLER.get(), defaultProperties()));
+    //Maybe can move to OccultismBlocks
+    public static final DeferredItem<OtherworldBlockItem> OTHERWORLD_SAPLING_NATURAL =
+            ITEMS.register("otherworld_sapling_natural",
+                    () -> new OtherworldBlockItem(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(),
+                            defaultProperties()));
 
     //Deco Block Items
     public static final DeferredItem<Item> SPIRIT_TORCH = ITEMS.register("spirit_torch",
@@ -415,6 +349,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> OTHERPLANKS_HANGING_SIGN = ITEMS.register("otherplanks_hanging_sign",
             () -> new HangingSignItem(OccultismBlocks.OTHERPLANKS_HANGING_SIGN.get(), OccultismBlocks.OTHERPLANKS_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
 
+    //Spawn Eggs
     public static final DeferredItem<Item> SPAWN_EGG_FOLIOT = ITEMS.register("spawn_egg/foliot",
             () -> new DeferredSpawnEggItem(OccultismEntities.FOLIOT_TYPE::get, 0x8d5454, 0x1f1f1f, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_DJINNI = ITEMS.register("spawn_egg/djinni",
@@ -425,7 +360,6 @@ public class OccultismItems {
             () -> new DeferredSpawnEggItem(OccultismEntities.AFRIT_WILD_TYPE::get, 0x4d140a, 0x744500, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_MARID = ITEMS.register("spawn_egg/marid",
             () -> new DeferredSpawnEggItem(OccultismEntities.MARID_TYPE::get, 0x396265, 0x57c786, defaultProperties()));
-
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_ENDERMITE = ITEMS.register("spawn_egg/possessed_endermite",
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_ENDERMITE_TYPE::get, 0x161616, 0x6E6E6E, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_SKELETON = ITEMS.register("spawn_egg/possessed_skeleton",
@@ -448,7 +382,6 @@ public class OccultismItems {
             () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE::get, 1315860, 4672845, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_WARDEN = ITEMS.register("spawn_egg/possessed_warden",
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_WARDEN_TYPE::get, 0x0f4649, 0x39d6e0, defaultProperties()));
-
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_HOGLIN = ITEMS.register("spawn_egg/possessed_hoglin",
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_HOGLIN_TYPE::get, 0x592a10, 0xf9f3a4, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_WILD_HORDE_HUSK = ITEMS.register("spawn_egg/wild_horde_husk",
@@ -469,12 +402,10 @@ public class OccultismItems {
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_EVOKER_TYPE::get, 0x8e9494, 0xcbc786, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_OTHERWORLD_BIRD = ITEMS.register("spawn_egg/otherworld_bird",
             () -> new DeferredSpawnEggItem(OccultismEntities.OTHERWORLD_BIRD_TYPE::get, 0x221269, 0x6b56c4, defaultProperties()));
-
     public static final DeferredItem<Item> SPAWN_EGG_GREEDY_FAMILIAR = ITEMS.register("spawn_egg/familiar_greedy",
             () -> new DeferredSpawnEggItem(OccultismEntities.GREEDY_FAMILIAR_TYPE::get, 0x54990f, 0x725025, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_BAT_FAMILIAR = ITEMS.register("spawn_egg/familiar_bat",
             () -> new DeferredSpawnEggItem(OccultismEntities.BAT_FAMILIAR_TYPE::get, 0x434343, 0xda95de, defaultProperties()));
-
     public static final DeferredItem<Item> SPAWN_EGG_DEER_FAMILIAR = ITEMS.register("spawn_egg/familiar_deer",
             () -> new DeferredSpawnEggItem(OccultismEntities.DEER_FAMILIAR_TYPE::get, 0xc9833e, 0xfffdf2, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_CTHULHU_FAMILIAR = ITEMS.register("spawn_egg/familiar_cthulhu",
@@ -505,7 +436,6 @@ public class OccultismItems {
             () -> new DeferredSpawnEggItem(OccultismEntities.BEAVER_FAMILIAR_TYPE::get, 0x824a2b, 0xdd9973, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_PARROT_FAMILIAR = ITEMS.register("spawn_egg/familiar_parrot",
             () -> new DeferredSpawnEggItem(() -> EntityType.PARROT, 894731, 16711680, defaultProperties()));
-
     public static final DeferredItem<Item> SPAWN_EGG_DEMONIC_WIFE = ITEMS.register("spawn_egg/demonic_wife", () -> new DeferredSpawnEggItem(OccultismEntities.DEMONIC_WIFE::get, 0xf2f0d7, 0xa01d1d, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_DEMONIC_HUSBAND = ITEMS.register("spawn_egg/demonic_husband", () -> new DeferredSpawnEggItem(OccultismEntities.DEMONIC_HUSBAND::get, 0xf2f0d7, 0xa01d1d, defaultProperties()));
 
@@ -614,13 +544,61 @@ public class OccultismItems {
         ITEMS.register("ritual_dummy/wild_strong_breeze", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/wild_horde_illager", () -> new DummyTooltipItem(defaultProperties()));
 
-
         // CUSTOM
         ITEMS.register("ritual_dummy/custom_ritual_summon", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/custom_ritual_invoke", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/custom_ritual_craft", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/custom_ritual_misc", () -> new DummyTooltipItem(defaultProperties()));
     }
+
+    //Debug
+    public static final DeferredItem<Item> DEBUG_WAND = ITEMS.register("debug_wand",
+            () -> new DebugWandItem(defaultProperties().stacksTo(1)));
+    public static final DeferredItem<Item> DEBUG_FOLIOT_LUMBERJACK = ITEMS.register("debug_foliot_lumberjack",
+            () -> new SummonFoliotLumberjackItem(defaultProperties().stacksTo(1)));
+    public static final DeferredItem<Item> DEBUG_FOLIOT_TRANSPORT_ITEMS =
+            ITEMS.register("debug_foliot_transport_items",
+                    () -> new SummonFoliotTransportItemsItem(defaultProperties().stacksTo(1)));
+    public static final DeferredItem<Item> DEBUG_FOLIOT_CLEANER =
+            ITEMS.register("debug_foliot_cleaner",
+                    () -> new SummonFoliotCleanerItem(defaultProperties().stacksTo(1)));
+    public static final DeferredItem<Item> DEBUG_FOLIOT_TRADER_ITEM = ITEMS.register("debug_foliot_trader",
+            () -> new SummonFoliotTraderItem(defaultProperties().stacksTo(1)));
+    public static final DeferredItem<Item> DEBUG_DJINNI_MANAGE_MACHINE = ITEMS.register("debug_djinni_manage_machine",
+            () -> new SummonDjinniManageMachineItem(defaultProperties().stacksTo(1)));
+    public static final DeferredItem<Item> DEBUG_DJINNI_TEST = ITEMS.register("debug_djinni_test",
+            () -> new SummonDjinniTest(defaultProperties().stacksTo(1)));
+    public static final DeferredItem<MinerSpiritItem> MINER_DEBUG_UNSPECIALIZED =
+            ITEMS.register("miner_debug_unspecialized",
+                    () -> new MinerSpiritItem(defaultProperties()
+                            .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
+                            .durability(10000), () -> 100, () -> 10, () -> 10000));
+
+    //Placeholders
+    public static final DeferredItem<Item> DICTIONARY_OF_SPIRITS_ICON =
+            ITEMS.register("dictionary_of_spirits_icon", () -> new Item(new Item.Properties()));
+
+    public static final DeferredItem<Item> PENTACLE_SUMMON = ITEMS.register("pentacle_summon",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> PENTACLE_INVOKE = ITEMS.register("pentacle_invoke",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> PENTACLE_CRAFT = ITEMS.register("pentacle_craft",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> PENTACLE_MISC =
+            ITEMS.register("pentacle_misc", () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> ADVANCEMENT_ICON =
+            ITEMS.register("advancement_icon", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> REPAIR_ICON =
+            ITEMS.register("repair_icon", () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> RESURRECT_ICON =
+            ITEMS.register("resurrect_icon", () -> new Item(defaultProperties()));
+    //JEI Dummy Items
+    public static final DeferredItem<DummyTooltipItem> JEI_DUMMY_NONE = ITEMS.register(
+            "jei_dummy/none", () -> new DummyTooltipItem(new Item.Properties()));
+    public static final DeferredItem<DummyTooltipItem> JEI_DUMMY_REQUIRE_SACRIFICE = ITEMS.register(
+            "jei_dummy/require_sacrifice", () -> new DummyTooltipItem(new Item.Properties()));
+    public static final DeferredItem<DummyTooltipItem> JEI_DUMMY_REQUIRE_ITEM_USE = ITEMS.register(
+            "jei_dummy/require_item_use", () -> new DummyTooltipItem(new Item.Properties()));
 
     public static Item.Properties defaultProperties() {
         //historically used to add to occultism tab
@@ -633,14 +611,12 @@ public class OccultismItems {
                 || item == PENTACLE_CRAFT.get()
                 || item == PENTACLE_MISC.get()
                 || item == DICTIONARY_OF_SPIRITS_ICON.get()
-                || item == DICTIONARY_OF_SPIRITS.get()
                 || item == ADVANCEMENT_ICON.get()
                 || item == JEI_DUMMY_NONE.get()
                 || item == JEI_DUMMY_REQUIRE_SACRIFICE.get()
                 || item == JEI_DUMMY_REQUIRE_ITEM_USE.get()
-                || item == REPAIR_OUTPUT.get()
-                || item == RESURRECT_OUTPUT.get()
-//                || item == FAMILIAR_RING.get()
+                || item == REPAIR_ICON.get()
+                || item == RESURRECT_ICON.get()
         )
             return true;
 
@@ -648,6 +624,12 @@ public class OccultismItems {
             return blockItem.getBlock() == OccultismBlocks.LIGHTED_AIR.get();
         }
         return false;
+    }
+
+    public static boolean laterCreativeModTab(Item item) {
+        return item.toString().contains("ritual_dummy")
+                || item.toString().contains("debug")
+                || item.toString().contains("spawn_egg");
     }
 
     public static boolean shouldPregenerateSpiritName(Item item) {

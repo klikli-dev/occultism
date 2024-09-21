@@ -5,7 +5,7 @@
   "description": "book.occultism.dictionary_of_spirits.getting_started.chalks.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:chalk_gold"
+    "item": "occultism:chalk_yellow"
   },
   "name": "book.occultism.dictionary_of_spirits.getting_started.chalks.name",
   "pages": [

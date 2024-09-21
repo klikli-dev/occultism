@@ -113,8 +113,8 @@ public class ItemModelsGenerator extends ItemModelProvider {
 
     private void registerItemCommon() {
         String[] items = {
-                this.name(OccultismItems.REPAIR_OUTPUT.get()),
-                this.name(OccultismItems.RESURRECT_OUTPUT.get()),
+                this.name(OccultismItems.REPAIR_ICON.get()),
+                this.name(OccultismItems.RESURRECT_ICON.get()),
                 this.name(OccultismItems.AFRIT_ESSENCE.get()),
                 this.name(OccultismItems.AWAKENED_FEATHER.get()),
                 this.name(OccultismItems.BEAVER_NUGGET.get()),
@@ -137,8 +137,8 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismItems.CHALK_BROWN_IMPURE.get()),
                 this.name(OccultismItems.CHALK_CYAN.get()),
                 this.name(OccultismItems.CHALK_CYAN_IMPURE.get()),
-                this.name(OccultismItems.CHALK_GOLD.get()),
-                this.name(OccultismItems.CHALK_GOLD_IMPURE.get()),
+                this.name(OccultismItems.CHALK_YELLOW.get()),
+                this.name(OccultismItems.CHALK_YELLOW_IMPURE.get()),
                 this.name(OccultismItems.CHALK_GRAY.get()),
                 this.name(OccultismItems.CHALK_GRAY_IMPURE.get()),
                 this.name(OccultismItems.CHALK_GREEN.get()),

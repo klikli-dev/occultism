@@ -97,8 +97,8 @@ public class OccultismBlocks {
     public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_WHITE = register("chalk_glyph_white",
             () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.whiteChalkGlyphColor, () -> OccultismItems.CHALK_WHITE.get()),
             false, LootTableType.EMPTY);
-    public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_GOLD = register("chalk_glyph_gold",
-            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.goldenChalkGlyphColor, () -> OccultismItems.CHALK_GOLD.get()), false,
+    public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_YELLOW = register("chalk_glyph_yellow",
+            () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.yellowChalkGlyphColor, () -> OccultismItems.CHALK_YELLOW.get()), false,
             LootTableType.EMPTY);
     public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_PURPLE = register("chalk_glyph_purple",
             () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.purpleChalkGlyphColor, () -> OccultismItems.CHALK_PURPLE.get()),
@@ -334,25 +334,25 @@ public class OccultismBlocks {
             () -> new LargeCandleBlock(Block.Properties.of()
                     .mapColor(MapColor.COLOR_CYAN).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
                     .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
-    public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_BLUE = register("large_candle_blue",
-            () -> new LargeCandleBlock(Block.Properties.of()
-                    .mapColor(MapColor.COLOR_BLUE).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
-                    .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
     public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_LIGHT_BLUE = register("large_candle_light_blue",
             () -> new LargeCandleBlock(Block.Properties.of()
                     .mapColor(MapColor.COLOR_LIGHT_BLUE).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
                     .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
-    public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_PINK = register("large_candle_pink",
+    public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_BLUE = register("large_candle_blue",
             () -> new LargeCandleBlock(Block.Properties.of()
-                    .mapColor(MapColor.COLOR_PINK).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
+                    .mapColor(MapColor.COLOR_BLUE).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
+                    .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
+    public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_PURPLE = register("large_candle_purple",
+            () -> new LargeCandleBlock(Block.Properties.of()
+                    .mapColor(MapColor.COLOR_PURPLE).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
                     .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
     public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_MAGENTA = register("large_candle_magenta",
             () -> new LargeCandleBlock(Block.Properties.of()
                     .mapColor(MapColor.COLOR_MAGENTA).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
                     .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
-    public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_PURPLE = register("large_candle_purple",
+    public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE_PINK = register("large_candle_pink",
             () -> new LargeCandleBlock(Block.Properties.of()
-                    .mapColor(MapColor.COLOR_PURPLE).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
+                    .mapColor(MapColor.COLOR_PINK).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
                     .lightLevel(LargeCandleBlock.LIGHT_EMISSION)));
 
     public static final DeferredBlock<SpiritAttunedCrystalBlock> SPIRIT_ATTUNED_CRYSTAL =

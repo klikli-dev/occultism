@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/chalk_gold_impure"
+        "recipe": "occultism:crafting/chalk_yellow_impure"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "occultism:crafting/chalk_gold_impure"
+      "occultism:crafting/chalk_yellow_impure"
     ]
   }
 }
