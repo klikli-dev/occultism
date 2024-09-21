@@ -315,12 +315,46 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(OccultismTags.Items.IESNIUM_DUST).add(OccultismItems.IESNIUM_DUST.get()).replace(false);
         this.tag(OccultismTags.Items.SILVER_DUST).add(OccultismItems.SILVER_DUST.get()).replace(false);
         this.tag(OccultismTags.Items.OBSIDIAN_DUST).add(OccultismItems.OBSIDIAN_DUST.get()).replace(false);
-        this.tag(Tags.Items.DUSTS)
-                .addTags(OccultismTags.Items.COPPER_DUST, OccultismTags.Items.END_STONE_DUST,
-                        OccultismTags.Items.GOLD_DUST, OccultismTags.Items.IRON_DUST, OccultismTags.Items.IESNIUM_DUST,
-                        OccultismTags.Items.SILVER_DUST, OccultismTags.Items.OBSIDIAN_DUST)
-                .add(OccultismItems.BURNT_OTHERSTONE.get(), OccultismItems.OTHERWORLD_ASHES.get()).replace(false);
-
+        this.tag(OccultismTags.Items.AMETHYST_DUST).add(OccultismItems.AMETHYST_DUST.get()).replace(false);
+        this.tag(OccultismTags.Items.BLACKSTONE_DUST).add(OccultismItems.CRUSHED_BLACKSTONE.get()).replace(false);
+        this.tag(OccultismTags.Items.BLUE_ICE_DUST).add(OccultismItems.CRUSHED_BLUE_ICE.get()).replace(false);
+        this.tag(OccultismTags.Items.CALCITE_DUST).add(OccultismItems.CRUSHED_CALCITE.get()).replace(false);
+        this.tag(OccultismTags.Items.ICE_DUST).add(OccultismItems.CRUSHED_ICE.get()).replace(false);
+        this.tag(OccultismTags.Items.PACKED_ICE_DUST).add(OccultismItems.CRUSHED_PACKED_ICE.get()).replace(false);
+        this.tag(OccultismTags.Items.DRAGONYST_DUST).add(OccultismItems.DRAGONYST_DUST.get()).replace(false);
+        this.tag(OccultismTags.Items.ECHO_DUST).add(OccultismItems.ECHO_DUST.get()).replace(false);
+        this.tag(OccultismTags.Items.EMERALD_DUST).add(OccultismItems.EMERALD_DUST.get()).replace(false);
+        this.tag(OccultismTags.Items.LAPIS_DUST).add(OccultismItems.LAPIS_DUST.get()).replace(false);
+        this.tag(OccultismTags.Items.NETHERITE_DUST).add(OccultismItems.NETHERITE_DUST.get()).replace(false);
+        this.tag(OccultismTags.Items.NETHERITE_SCRAP_DUST).add(OccultismItems.NETHERITE_SCRAP_DUST.get()).replace(false);
+        this.tag(OccultismTags.Items.RESEARCH_DUST).add(OccultismItems.RESEARCH_FRAGMENT_DUST.get()).replace(false);
+        this.tag(OccultismTags.Items.WITHERITE_DUST).add(OccultismItems.WITHERITE_DUST.get()).replace(false);
+        this.tag(OccultismTags.Items.OTHERSTONE_DUST).add(OccultismItems.BURNT_OTHERSTONE.get()).replace(false);
+        this.tag(OccultismTags.Items.OTHERWORLD_WOOD_DUST).add(OccultismItems.OTHERWORLD_ASHES.get()).replace(false);
+        this.tag(Tags.Items.DUSTS).addTags(
+                        OccultismTags.Items.COPPER_DUST,
+                        OccultismTags.Items.END_STONE_DUST,
+                        OccultismTags.Items.GOLD_DUST,
+                        OccultismTags.Items.IRON_DUST,
+                        OccultismTags.Items.IESNIUM_DUST,
+                        OccultismTags.Items.SILVER_DUST,
+                        OccultismTags.Items.OBSIDIAN_DUST,
+                        OccultismTags.Items.AMETHYST_DUST,
+                        OccultismTags.Items.BLACKSTONE_DUST,
+                        OccultismTags.Items.BLUE_ICE_DUST,
+                        OccultismTags.Items.CALCITE_DUST,
+                        OccultismTags.Items.ICE_DUST,
+                        OccultismTags.Items.PACKED_ICE_DUST,
+                        OccultismTags.Items.DRAGONYST_DUST,
+                        OccultismTags.Items.ECHO_DUST,
+                        OccultismTags.Items.EMERALD_DUST,
+                        OccultismTags.Items.LAPIS_DUST,
+                        OccultismTags.Items.NETHERITE_DUST,
+                        OccultismTags.Items.NETHERITE_SCRAP_DUST,
+                        OccultismTags.Items.RESEARCH_DUST,
+                        OccultismTags.Items.WITHERITE_DUST,
+                        OccultismTags.Items.OTHERSTONE_DUST,
+                        OccultismTags.Items.OTHERWORLD_WOOD_DUST);
     }
 
     private TagKey<Item> cTag(String path) {

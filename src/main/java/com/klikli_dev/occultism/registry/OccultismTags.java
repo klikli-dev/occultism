@@ -87,6 +87,23 @@ public class OccultismTags {
         public static final TagKey<Item> OBSIDIAN_DUST=makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/obsidian"));
         public static final TagKey<Item> BLAZE_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/blaze"));
 
+        public static final TagKey<Item> AMETHYST_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/amethyst"));
+        public static final TagKey<Item> BLACKSTONE_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/blackstone"));
+        public static final TagKey<Item> BLUE_ICE_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/blue_ice"));
+        public static final TagKey<Item> CALCITE_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/calcite"));
+        public static final TagKey<Item> ICE_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/ice"));
+        public static final TagKey<Item> PACKED_ICE_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/packed_ice"));
+        public static final TagKey<Item> DRAGONYST_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/dragonyst"));
+        public static final TagKey<Item> ECHO_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/echo"));
+        public static final TagKey<Item> EMERALD_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/emerald"));
+        public static final TagKey<Item> LAPIS_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/lapis"));
+        public static final TagKey<Item> NETHERITE_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/netherite"));
+        public static final TagKey<Item> NETHERITE_SCRAP_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/netherite_scrap"));
+        public static final TagKey<Item> RESEARCH_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/research"));
+        public static final TagKey<Item> WITHERITE_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/witherite"));
+        public static final TagKey<Item> OTHERSTONE_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/otherstone"));
+        public static final TagKey<Item> OTHERWORLD_WOOD_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/otherworld_wood"));
+
         public static final TagKey<Item> DATURA_CROP = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "crops/datura"));
 
         // Ingots

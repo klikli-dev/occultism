@@ -55,4 +55,8 @@ public class OccultismFoods {
 
     public static final Lazy<FoodProperties> BEAVER_NUGGET = Lazy.of(
             () ->  new FoodProperties.Builder().nutrition(8).saturationModifier(0.8F).build());
+    public static final Lazy<FoodProperties> CURSED_HONEY = Lazy.of(
+            () ->  new FoodProperties.Builder().nutrition(2).saturationModifier(1F).build());
+    public static final Lazy<FoodProperties> DEMONIC_MEAT = Lazy.of(
+            () ->  new FoodProperties.Builder().nutrition(11).saturationModifier(0.1F).build());
 }

@@ -255,11 +255,17 @@ public class OccultismItems {
             () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.OTHERWORLD_ESSENCE.get())));
     public static final DeferredItem<Item> BEAVER_NUGGET = ITEMS.register("beaver_nugget",
             () -> new Item(defaultProperties().food(OccultismFoods.BEAVER_NUGGET.get())));
+    public static final DeferredItem<Item> CURSED_HONEY = ITEMS.register("cursed_honey",
+            () -> new Item(defaultProperties().food(OccultismFoods.CURSED_HONEY.get())));
+    public static final DeferredItem<Item> DEMONIC_MEAT = ITEMS.register("demonic_meat",
+            () -> new Item(defaultProperties().food(OccultismFoods.DEMONIC_MEAT.get())));
 
     //Resources and materials
     public static final DeferredItem<Item> TALLOW = ITEMS.register("tallow",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> AFRIT_ESSENCE = ITEMS.register("afrit_essence",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> CRUELTY_ESSENCE = ITEMS.register("cruelty_essence",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> SPIRIT_ATTUNED_GEM = ITEMS.register("spirit_attuned_gem",
             () -> new Item(defaultProperties()));
@@ -288,13 +294,47 @@ public class OccultismItems {
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> GOLD_DUST = ITEMS.register("gold_dust",
             () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> NETHERITE_SCRAP_DUST = ITEMS.register("netherite_scrap_dust",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> NETHERITE_DUST = ITEMS.register("netherite_dust",
+            () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> OBSIDIAN_DUST = ITEMS.register("obsidian_dust",
             () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> LAPIS_DUST = ITEMS.register("lapis_dust",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> AMETHYST_DUST = ITEMS.register("amethyst_dust",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> EMERALD_DUST = ITEMS.register("emerald_dust",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> ECHO_DUST = ITEMS.register("echo_dust",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> RESEARCH_FRAGMENT_DUST = ITEMS.register("research_fragment_dust",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> WITHERITE_DUST = ITEMS.register("witherite_dust",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> DRAGONYST_DUST = ITEMS.register("dragonyst_dust",
+            () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> CRUSHED_END_STONE = ITEMS.register("crushed_end_stone",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> CRUSHED_CALCITE = ITEMS.register("crushed_calcite",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> CRUSHED_BLACKSTONE = ITEMS.register("crushed_blackstone",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> CRUSHED_ICE = ITEMS.register("crushed_ice",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> CRUSHED_PACKED_ICE = ITEMS.register("crushed_packed_ice",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> CRUSHED_BLUE_ICE = ITEMS.register("crushed_blue_ice",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> BURNT_OTHERSTONE = ITEMS.register("burnt_otherstone",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> OTHERWORLD_ASHES = ITEMS.register("otherworld_ashes",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> BROKEN_SEA_HEART = ITEMS.register("broken_sea_heart",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> GRAY_PASTE = ITEMS.register("gray_paste",
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> NATURE_PASTE = ITEMS.register("nature_paste",
             () -> new Item(defaultProperties()));
 
     //Components

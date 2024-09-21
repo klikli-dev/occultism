@@ -762,8 +762,8 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern("xy")
                 .pattern("xy")
                 .pattern("xy")
-                .define('x', OccultismItems.BURNT_OTHERSTONE.get())
-                .define('y', OccultismItems.OTHERWORLD_ASHES.get())
+                .define('x', OccultismTags.Items.OTHERSTONE_DUST)
+                .define('y', OccultismTags.Items.OTHERWORLD_WOOD_DUST)
                 .unlockedBy("has_ashes", has(OccultismItems.OTHERWORLD_ASHES.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/chalk_white_impure"));
 

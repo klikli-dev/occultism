@@ -326,6 +326,27 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_WILD_BREEZE, "Wild Breeze Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_STRONG_BREEZE, "Wild Strong Breeze Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_EVOKER, "Wild Evoker Spawn Egg");
+        //Pentacle Rework Update
+        this.addItem(OccultismItems.AMETHYST_DUST,"Amethyst Dust");
+        this.addItem(OccultismItems.BROKEN_SEA_HEART,"Broken Sea Heart");
+        this.addItem(OccultismItems.CRUELTY_ESSENCE,"Cruelty Essence");
+        this.addItem(OccultismItems.CRUSHED_BLACKSTONE,"Crushed Blackstone");
+        this.addItem(OccultismItems.CRUSHED_BLUE_ICE,"Crushed Blue Ice");
+        this.addItem(OccultismItems.CRUSHED_CALCITE,"Crushed Calcite");
+        this.addItem(OccultismItems.CRUSHED_ICE,"Crushed Ice");
+        this.addItem(OccultismItems.CRUSHED_PACKED_ICE,"Crushed Packed Ice");
+        this.addItem(OccultismItems.CURSED_HONEY,"Cursed Honey");
+        this.addItem(OccultismItems.DEMONIC_MEAT,"Demonic Meat");
+        this.addItem(OccultismItems.DRAGONYST_DUST,"Dragonyst Dust");
+        this.addItem(OccultismItems.ECHO_DUST,"Echo Dust");
+        this.addItem(OccultismItems.EMERALD_DUST,"Emerald Dust");
+        this.addItem(OccultismItems.GRAY_PASTE,"Gray Paste");
+        this.addItem(OccultismItems.LAPIS_DUST,"Lapis Dust");
+        this.addItem(OccultismItems.NATURE_PASTE,"Nature Paste");
+        this.addItem(OccultismItems.NETHERITE_DUST,"Netherite Dust");
+        this.addItem(OccultismItems.NETHERITE_SCRAP_DUST,"Netherite Scrap Dust");
+        this.addItem(OccultismItems.RESEARCH_FRAGMENT_DUST,"Research Fragment Dust");
+        this.addItem(OccultismItems.WITHERITE_DUST,"Witherite Dust");
     }
 
     private void addBlocks() {
@@ -3393,6 +3414,31 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.MAGMA, "Magma");
         this.addItemTag(OccultismTags.Items.BOOKS, "Books");
         this.addItemTag(OccultismTags.Items.FRUITS, "Fruits");
+        this.addItemTag(OccultismTags.Items.AMETHYST_DUST,"Amethyst Dust");
+        this.addItemTag(OccultismTags.Items.BLACKSTONE_DUST,"Blackstone Dust");
+        this.addItemTag(OccultismTags.Items.BLUE_ICE_DUST,"Blue Ice Dust");
+        this.addItemTag(OccultismTags.Items.CALCITE_DUST,"Calcite Dust");
+        this.addItemTag(OccultismTags.Items.ICE_DUST,"Ice Dust");
+        this.addItemTag(OccultismTags.Items.PACKED_ICE_DUST,"Packed Ice Dust");
+        this.addItemTag(OccultismTags.Items.DRAGONYST_DUST,"Dragonyst Dust");
+        this.addItemTag(OccultismTags.Items.ECHO_DUST,"Echo Dust");
+        this.addItemTag(OccultismTags.Items.EMERALD_DUST,"Emerald Dust");
+        this.addItemTag(OccultismTags.Items.LAPIS_DUST,"Lapis Dust");
+        this.addItemTag(OccultismTags.Items.NETHERITE_DUST,"Netherite Dust");
+        this.addItemTag(OccultismTags.Items.NETHERITE_SCRAP_DUST,"Netherite Scrap Dust");
+        this.addItemTag(OccultismTags.Items.RESEARCH_DUST,"Research Dust");
+        this.addItemTag(OccultismTags.Items.WITHERITE_DUST,"Witherite Dust");
+        this.addItemTag(OccultismTags.Items.OTHERSTONE_DUST,"Otherstone Dust");
+        this.addItemTag(OccultismTags.Items.OTHERWORLD_WOOD_DUST,"Otherworld Wood Dust");
+        this.addItemTag(OccultismTags.Items.BLAZE_DUST,"Blaze Dust");
+        this.addItemTag(OccultismTags.Items.MANUALS,"Manuals");
+        this.addItemTag(OccultismTags.Items.OCCULTISM_CANDLES,"Occultism Candles");
+        this.addItemTag(OccultismTags.Items.DEMONIC_PARTNER_FOOD,"Demonic Partner Food");
+        this.addItemTag(OccultismTags.Items.OTHERCOBBLESTONE,"Othercobblestone");
+        this.addItemTag(OccultismTags.Items.OTHERSTONE,"Otherstone");
+        this.addItemTag(OccultismTags.Items.OTHERWORLD_LOGS,"Otherworld Logs");
+        this.addItemTag(OccultismTags.Items.PENTACLE_MATERIALS,"Pentacle Materials");
+        this.addItemTag(OccultismTags.Items.TOOLS_CHALK,"Chalks");
     }
 
     private void addItemTag(ResourceLocation resourceLocation, String string) {
