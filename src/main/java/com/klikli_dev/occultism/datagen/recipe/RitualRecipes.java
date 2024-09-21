@@ -86,7 +86,7 @@ public abstract class RitualRecipes extends RecipeProvider {
         familiarRituals(recipeOutput);
         possessRituals(recipeOutput);
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.SOUL_SHARD_ITEM.get()),
-                        makeJeiNoneDummy(),
+                        makeLoreSpawnEgg(OccultismItems.RESURRECT_OUTPUT.get(), "item.occultism.ritual_dummy.resurrect_familiar"),
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/resurrect_familiar")),
                         15,
                         RITUAL_RESURRECT_FAMILIAR,
@@ -580,8 +580,8 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_horde_illager"));
 
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
-                        makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_OTHERWORLD_BIRD.get(), "item.occultism.ritual_dummy.summon_unbound_otherworld_bird"),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_unbound_otherworld_bird")),
+                        makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_OTHERWORLD_BIRD.get(), "item.occultism.ritual_dummy.invoke_unbound_otherworld_bird"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/invoke_unbound_otherworld_bird")),
                         30,
                         RITUAL_SUMMON,
                         PENTACLE_POSSESS_DJINNI,
@@ -594,14 +594,14 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSummon(OccultismEntities.OTHERWORLD_BIRD.get())
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.parrots")
                 .entityToSacrifice(OccultismTags.Entities.PARROTS)
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_unbound_otherworld_bird"));
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/invoke_unbound_otherworld_bird"));
 
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
-                        makeLoreSpawnEgg(Items.PARROT_SPAWN_EGG, "item.occultism.ritual_dummy.summon_unbound_parrot"),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_unbound_parrot")),
+                        makeLoreSpawnEgg(Items.PARROT_SPAWN_EGG, "item.occultism.ritual_dummy.invoke_unbound_parrot"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/invoke_unbound_parrot")),
                         30,
                         RITUAL_SUMMON,
-                        PENTACLE_SUMMON_FOLIOT,
+                        PENTACLE_POSSESS_FOLIOT,
                         Ingredient.of(Tags.Items.FEATHERS),
                         Ingredient.of(Tags.Items.DYES_GREEN),
                         Ingredient.of(Tags.Items.DYES_YELLOW),
@@ -611,13 +611,13 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSummon(EntityType.PARROT)
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.chicken")
                 .entityToSacrifice(OccultismTags.Entities.CHICKEN)
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_unbound_parrot"));
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/invoke_unbound_parrot"));
 
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                         makeLoreSpawnEgg(Items.SHEEP_SPAWN_EGG, "item.occultism.ritual_dummy.summon_random_animal"),
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_random_animal")),
                         30,
-                        OccultismRituals.SUMMON.getId(),
+                        RITUAL_SUMMON,
                         PENTACLE_SUMMON_FOLIOT,
                         Ingredient.of(Tags.Items.CROPS),
                         Ingredient.of(Tags.Items.CROPS),

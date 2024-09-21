@@ -80,8 +80,8 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         familiarParrot.withParent(BookEntryParentModel.create(overview.getId()));
         var familiarShubNiggurath = this.add(this.makeFamiliarShubNiggurathEntry(this.entryMap, 'Y'));
         familiarShubNiggurath.withParent(BookEntryParentModel.create(overview.getId()));
-        var summonAllay = this.add(this.makeSummonAllayEntry(this.entryMap, 'H'));
-        summonAllay.withParent(BookEntryParentModel.create(overview.getId()));
+        var resurrectAllay = this.add(this.makeResurrectAllayEntry(this.entryMap, 'H'));
+        resurrectAllay.withParent(BookEntryParentModel.create(overview.getId()));
 
         //add true condition to all entries to enable them by default
         overview.withCondition(BookTrueConditionModel.create());
@@ -102,7 +102,7 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         familiarOtherworldBird.withCondition(BookTrueConditionModel.create());
         familiarParrot.withCondition(BookTrueConditionModel.create());
         familiarShubNiggurath.withCondition(BookTrueConditionModel.create());
-        summonAllay.withCondition(BookTrueConditionModel.create());
+        resurrectAllay.withCondition(BookTrueConditionModel.create());
 
         var demonicPartner = new DemonicPartnerEntry(this).generate('Z');
         demonicPartner.withParent(BookEntryParentModel.create(overview.getId()));
@@ -656,8 +656,8 @@ public class FamiliarRitualsCategory extends CategoryProvider {
                 );
     }
 
-    private BookEntryModel makeSummonAllayEntry(CategoryEntryMap entryMap, char icon) {
-        this.context().entry("summon_allay");
+    private BookEntryModel makeResurrectAllayEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("resurrect_allay");
 
         this.context().page("entity");
         var entity = BookEntityPageModel.create()
@@ -666,7 +666,7 @@ public class FamiliarRitualsCategory extends CategoryProvider {
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/summon_allay"));
+                .withRecipeId1(this.modLoc("ritual/resurrect_allay"));
 
         this.context().page("description");
         var description = BookTextPageModel.create()

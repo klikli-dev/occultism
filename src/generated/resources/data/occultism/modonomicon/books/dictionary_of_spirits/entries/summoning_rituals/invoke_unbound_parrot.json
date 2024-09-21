@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "familiar_rituals",
+  "category": "summoning_rituals",
   "condition": {
     "type": "modonomicon:true"
   },
@@ -9,10 +9,10 @@
   "hide_while_locked": false,
   "icon": {
     "height": 16,
-    "texture": "occultism:textures/gui/book/allay.png",
+    "texture": "occultism:textures/gui/book/parrot.png",
     "width": 16
   },
-  "name": "book.occultism.dictionary_of_spirits.familiar_rituals.summon_allay.name",
+  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.invoke_unbound_parrot.name",
   "pages": [
     {
       "type": "modonomicon:entity",
@@ -21,12 +21,12 @@
         "type": "modonomicon:none"
       },
       "default_rotation": -45.0,
-      "entity_id": "minecraft:allay",
+      "entity_id": "minecraft:parrot",
       "name": "",
       "offset": 0.0,
       "rotate": true,
       "scale": 1.0,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.summon_allay.entity.text"
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.invoke_unbound_parrot.entity.text"
     },
     {
       "type": "occultism:ritual_recipe",
@@ -34,7 +34,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/summon_allay",
+      "recipe_id_1": "occultism:ritual/invoke_unbound_parrot",
       "text": "",
       "title1": "",
       "title2": ""
@@ -46,7 +46,18 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.summon_allay.description.text",
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.invoke_unbound_parrot.description.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.invoke_unbound_parrot.description2.text",
       "title": "",
       "use_markdown_in_title": false
     }
@@ -54,13 +65,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "familiar_rituals/overview",
+      "entry": "summoning_rituals/overview",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 20,
-  "x": 4,
+  "sort_number": -1,
+  "x": 2,
   "y": 0
 }

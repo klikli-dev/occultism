@@ -56,13 +56,13 @@ public class OccultismItems {
             () -> new GuideBookItem(defaultProperties().stacksTo(1)));
 
     public static final DeferredItem<Item> PENTACLE_SUMMON = ITEMS.register("pentacle_summon",
-            () -> new Item(new Item.Properties()));
+            () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> PENTACLE_INVOKE = ITEMS.register("pentacle_invoke",
-            () -> new Item(new Item.Properties()));
+            () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> PENTACLE_CRAFT = ITEMS.register("pentacle_craft",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> PENTACLE_MISC = ITEMS.register("pentacle_misc",
-            () -> new Item(new Item.Properties()));
+            () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> PENTACLE_MISC =
+            ITEMS.register("pentacle_misc", () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> DEBUG_WAND = ITEMS.register("debug_wand",
             () -> new DebugWandItem(defaultProperties().stacksTo(1)));
     public static final DeferredItem<Item> DEBUG_FOLIOT_LUMBERJACK = ITEMS.register("debug_foliot_lumberjack",
@@ -85,6 +85,11 @@ public class OccultismItems {
 
     public static final DeferredItem<Item> ADVANCEMENT_ICON =
             ITEMS.register("advancement_icon", () -> new Item(new Item.Properties()));
+
+    public static final DeferredItem<Item> REPAIR_OUTPUT =
+            ITEMS.register("repair_output", () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> RESURRECT_OUTPUT =
+            ITEMS.register("resurrect_output", () -> new Item(defaultProperties()));
 
     //Resources
     public static final DeferredItem<OtherworldBlockItem> OTHERWORLD_SAPLING_NATURAL =
@@ -538,10 +543,6 @@ public class OccultismItems {
         //Marid
         ITEMS.register("ritual_dummy/summon_marid_crusher", () -> new DummyTooltipItem(defaultProperties()));
 
-        // Move this to invoke type, needs a bit of attencion
-        ITEMS.register("ritual_dummy/summon_unbound_parrot", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_unbound_otherworld_bird", () -> new DummyTooltipItem(defaultProperties()));
-
         //INVOKE
         //Familiar
         ITEMS.register("ritual_dummy/familiar_beaver", () -> new DummyTooltipItem(defaultProperties()));
@@ -549,6 +550,7 @@ public class OccultismItems {
         ITEMS.register("ritual_dummy/familiar_deer", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/familiar_greedy", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/familiar_parrot", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/invoke_unbound_parrot", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/familiar_bat", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/familiar_beholder", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/familiar_chimera", () -> new DummyTooltipItem(defaultProperties()));
@@ -559,6 +561,7 @@ public class OccultismItems {
         ITEMS.register("ritual_dummy/familiar_headless", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/familiar_mummy", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/familiar_otherworld_bird", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/invoke_unbound_otherworld_bird", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/familiar_guardian", () -> new DummyTooltipItem(defaultProperties()));
 
         //Possessed
@@ -635,6 +638,8 @@ public class OccultismItems {
                 || item == JEI_DUMMY_NONE.get()
                 || item == JEI_DUMMY_REQUIRE_SACRIFICE.get()
                 || item == JEI_DUMMY_REQUIRE_ITEM_USE.get()
+                || item == REPAIR_OUTPUT.get()
+                || item == RESURRECT_OUTPUT.get()
 //                || item == FAMILIAR_RING.get()
         )
             return true;

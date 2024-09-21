@@ -1288,13 +1288,13 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         var summonOtherstoneTrader = this.makeSummonOtherstoneTraderEntry(entryMap, 'g');
         summonOtherstoneTrader.withParent(BookEntryParentModel.create(summonOtherworldSaplingTrader.getId()));
 
-        var summonUnboundParrot = this.makeSummonUnboundParrotEntry(entryMap, 'i');
-        summonUnboundParrot.withParent(BookEntryParentModel.create(overview.getId()));
-        var summonUnboundOtherworldBird = this.makeSummonUnboundOtherworldBirdEntry(entryMap, 'j');
-        summonUnboundOtherworldBird.withParent(BookEntryParentModel.create(summonUnboundParrot.getId()));
+        var invokeUnboundParrot = this.makeInvokeUnboundParrotEntry(entryMap, 'i');
+        invokeUnboundParrot.withParent(BookEntryParentModel.create(overview.getId()));
+        var invokeUnboundOtherworldBird = this.makeInvokeUnboundOtherworldBirdEntry(entryMap, 'j');
+        invokeUnboundOtherworldBird.withParent(BookEntryParentModel.create(invokeUnboundParrot.getId()));
 
         var summonRandomAnimal = this.makeSummonRandomAnimalEntry(entryMap, 'I');
-        summonRandomAnimal.withParent(BookEntryParentModel.create(summonUnboundParrot.getId()).withLineReversed(true));
+        summonRandomAnimal.withParent(BookEntryParentModel.create(invokeUnboundParrot.getId()).withLineReversed(true));
 
         var weatherMagic = this.makeWeatherMagicEntry(entryMap, 'k');
         weatherMagic.withParent(BookEntryParentModel.create(overview.getId()));
@@ -1320,9 +1320,9 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         tradeSpirits.withCondition(BookTrueConditionModel.create());
         summonOtherworldSaplingTrader.withCondition(BookTrueConditionModel.create());
         summonOtherstoneTrader.withCondition(BookTrueConditionModel.create());
-        summonUnboundParrot.withCondition(BookTrueConditionModel.create());
+        invokeUnboundParrot.withCondition(BookTrueConditionModel.create());
         summonRandomAnimal.withCondition(BookTrueConditionModel.create());
-        summonUnboundOtherworldBird.withCondition(BookTrueConditionModel.create());
+        invokeUnboundOtherworldBird.withCondition(BookTrueConditionModel.create());
         weatherMagic.withCondition(BookTrueConditionModel.create());
         timeMagic.withCondition(BookTrueConditionModel.create());
         afritEssence.withCondition(BookTrueConditionModel.create());
@@ -1346,8 +1346,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         tradeSpirits,
                         summonOtherstoneTrader,
                         summonOtherworldSaplingTrader,
-                        summonUnboundOtherworldBird,
-                        summonUnboundParrot,
+                        invokeUnboundOtherworldBird,
+                        invokeUnboundParrot,
                         summonRandomAnimal,
                         timeMagic,
                         weatherMagic,
@@ -1844,8 +1844,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 );
     }
 
-    private BookEntryModel makeSummonUnboundParrotEntry(CategoryEntryMap entryMap, char icon) {
-        this.context().entry("summon_unbound_parrot");
+    private BookEntryModel makeInvokeUnboundParrotEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("invoke_unbound_parrot");
 
         this.context().page("entity");
         var entity = BookEntityPageModel.create()
@@ -1854,7 +1854,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/summon_unbound_parrot"));
+                .withRecipeId1(this.modLoc("ritual/invoke_unbound_parrot"));
 
         this.context().page("description");
         var description = BookTextPageModel.create()
@@ -1920,8 +1920,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 );
     }
 
-    private BookEntryModel makeSummonUnboundOtherworldBirdEntry(CategoryEntryMap entryMap, char icon) {
-        this.context().entry("summon_unbound_otherworld_bird");
+    private BookEntryModel makeInvokeUnboundOtherworldBirdEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("invoke_unbound_otherworld_bird");
 
         this.context().page("entity");
         var entity = BookEntityPageModel.create()
@@ -1930,7 +1930,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/summon_unbound_otherworld_bird"));
+                .withRecipeId1(this.modLoc("ritual/invoke_unbound_otherworld_bird"));
 
         this.context().page("description");
         var description = BookTextPageModel.create()

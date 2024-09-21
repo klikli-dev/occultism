@@ -145,6 +145,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.PENTACLE_INVOKE, "Pentacle Invoke");
         this.addItem(OccultismItems.PENTACLE_CRAFT, "Pentacle Craft");
         this.addItem(OccultismItems.PENTACLE_MISC, "Pentacle Misc");
+        this.addItem(OccultismItems.REPAIR_OUTPUT, "Repair Output");
+        this.addItem(OccultismItems.RESURRECT_OUTPUT, "Resurrect Output");
         this.addItem(OccultismItems.DEBUG_WAND, "Debug Wand");
         this.addItem(OccultismItems.DEBUG_FOLIOT_LUMBERJACK, "Summon Debug Foliot Lumberjack");
         this.addItem(OccultismItems.DEBUG_FOLIOT_TRANSPORT_ITEMS, "Summon Debug Foliot Transporter");
@@ -863,14 +865,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.familiar_guardian.started", "Started summoning guardian familiar.");
         this.add("ritual.occultism.familiar_guardian.finished", "Summoned guardian familiar successfully.");
         this.add("ritual.occultism.familiar_guardian.interrupted", "Summoning of guardian familiar interrupted.");
-        this.add("ritual.occultism.summon_unbound_otherworld_bird.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_unbound_otherworld_bird.started", "Started summoning unbound drikwing.");
-        this.add("ritual.occultism.summon_unbound_otherworld_bird.finished", "Summoned unbound drikwing successfully.");
-        this.add("ritual.occultism.summon_unbound_otherworld_bird.interrupted", "Summoning of unbound drikwing interrupted.");
-        this.add("ritual.occultism.summon_unbound_parrot.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_unbound_parrot.started", "Started summoning unbound parrot.");
-        this.add("ritual.occultism.summon_unbound_parrot.finished", "Summoned unbound parrot successfully.");
-        this.add("ritual.occultism.summon_unbound_parrot.interrupted", "Summoning of unbound parrot interrupted.");
+        this.add("ritual.occultism.invoke_unbound_otherworld_bird.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.invoke_unbound_otherworld_bird.started", "Started summoning unbound drikwing.");
+        this.add("ritual.occultism.invoke_unbound_otherworld_bird.finished", "Summoned unbound drikwing successfully.");
+        this.add("ritual.occultism.invoke_unbound_otherworld_bird.interrupted", "Summoning of unbound drikwing interrupted.");
+        this.add("ritual.occultism.invoke_unbound_parrot.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.invoke_unbound_parrot.started", "Started summoning unbound parrot.");
+        this.add("ritual.occultism.invoke_unbound_parrot.finished", "Summoned unbound parrot successfully.");
+        this.add("ritual.occultism.invoke_unbound_parrot.interrupted", "Summoning of unbound parrot interrupted.");
 
         this.add("ritual.occultism.summon_random_animal.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.summon_random_animal.started", "Started summoning a random animal.");
@@ -881,10 +883,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.familiar_parrot.started", "Started summoning parrot familiar.");
         this.add("ritual.occultism.familiar_parrot.finished", "Summoned parrot familiar successfully.");
         this.add("ritual.occultism.familiar_parrot.interrupted", "Summoning of parrot familiar interrupted.");
-        this.add("ritual.occultism.summon_allay.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_allay.started", "Started purifying Vex to Allay.");
-        this.add("ritual.occultism.summon_allay.finished", "Purified Vex to Allay successfully.");
-        this.add("ritual.occultism.summon_allay.interrupted", "Purifying Vex to allay interrupted.");
+        this.add("ritual.occultism.resurrect_allay.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.resurrect_allay.started", "Started purifying Vex to Allay.");
+        this.add("ritual.occultism.resurrect_allay.finished", "Purified Vex to Allay successfully.");
+        this.add("ritual.occultism.resurrect_allay.interrupted", "Purifying Vex to allay interrupted.");
         this.add("ritual.occultism.familiar_greedy.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.familiar_greedy.started", "Started summoning greedy familiar.");
         this.add("ritual.occultism.familiar_greedy.finished", "Summoned v familiar successfully.");
@@ -1234,7 +1236,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         - [Otherstone Trader](entry://summoning_rituals/summon_otherstone_trader)
                         - [Otherworld Sapling Trader](entry://summoning_rituals/summon_otherworld_sapling_trader)
                         - [Resurrect Familiar](entry://familiar_rituals/resurrection)
-                        - [Purify Vex to Allay](entry://familiar_rituals/summon_allay)
+                        - [Purify Vex to Allay](entry://familiar_rituals/resurrect_allay)
                         """);
 
 
@@ -1798,8 +1800,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("ritual");
         //no text
 
-        helper.entry("summon_unbound_parrot");
-        this.add(helper.entryName(), "Summon Unbound Parrot");
+        helper.entry("invoke_unbound_parrot");
+        this.add(helper.entryName(), "Invoke Unbound Parrot");
 
         helper.page("entity");
         this.add(helper.pageText(),
@@ -1825,8 +1827,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         *This means, if a [#](%1$s)Chicken[#]() is spawned, that's not a bug, just bad luck!*
                            """.formatted(COLOR_PURPLE));
 
-        helper.entry("summon_unbound_otherworld_bird");
-        this.add(helper.entryName(), "Summon Unbound Drikwing");
+        helper.entry("invoke_unbound_otherworld_bird");
+        this.add(helper.entryName(), "Invoke Unbound Drikwing");
 
         helper.page("entity");
         this.add(helper.pageText(),
@@ -2748,7 +2750,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("description2");
         this.add(helper.pageText(),
                 """
-                        To obtain the parrot or parrot familiar for the sacrifice, consider summoning them using either the [Wild Parrot Ritual](entry://summoning_rituals/summon_unbound_parrot) or [Parrot Familiar Ritual](entry://familiar_rituals/familiar_parrot)
+                        To obtain the parrot or parrot familiar for the sacrifice, consider summoning them using either the [Wild Parrot Ritual](entry://summoning_rituals/invoke_unbound_parrot) or [Parrot Familiar Ritual](entry://familiar_rituals/familiar_parrot)
                         \\
                         \\
                         **Hint:** If you use mods that protect pets from death, use the wild parrot ritual!
@@ -2787,7 +2789,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                            """.formatted(COLOR_PURPLE));
         //no text
 
-        helper.entry("summon_allay");
+        helper.entry("resurrect_allay");
         this.add(helper.entryName(), "Purify Vex to Allay");
 
         helper.page("entity");
@@ -3265,10 +3267,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.summon_unbound_afrit.tooltip", "Summons an unbound Afrit that can be killed to obtain Afrit Essence");
         this.add("item.occultism.ritual_dummy.wild_hunt", "Ritual: Summon The Wild Hunt");
         this.add("item.occultism.ritual_dummy.wild_hunt.tooltip", "The Wild Hunt consists of Wither Skeletons that as a big chance to drop Wither Skeleton Skulls, and their minions.");
-        this.add("item.occultism.ritual_dummy.summon_unbound_otherworld_bird", "Ritual: Summon Unbound Drikwing");
-        this.add("item.occultism.ritual_dummy.summon_unbound_otherworld_bird.tooltip", "Summons a Drikwing Familiar that can be tamed by anyone, not just the summoner.");
-        this.add("item.occultism.ritual_dummy.summon_unbound_parrot", "Ritual: Summon Unbound Parrot");
-        this.add("item.occultism.ritual_dummy.summon_unbound_parrot.tooltip", "Summons a Parrot that can be tamed by anyone, not just the summoner.");
+        this.add("item.occultism.ritual_dummy.invoke_unbound_otherworld_bird", "Ritual: Invoke Unbound Drikwing");
+        this.add("item.occultism.ritual_dummy.invoke_unbound_otherworld_bird.tooltip", "Invoke a Drikwing Familiar that can be tamed by anyone, not just the summoner.");
+        this.add("item.occultism.ritual_dummy.invoke_unbound_parrot", "Ritual: Invoke Unbound Parrot");
+        this.add("item.occultism.ritual_dummy.invoke_unbound_parrot.tooltip", "Invoke a Parrot that can be tamed by anyone, not just the summoner.");
         this.add("item.occultism.ritual_dummy.resurrect_allay", "Ritual: Purify Vex to Allay");
         this.add("item.occultism.ritual_dummy.resurrect_allay.tooltip", "Purify a Vex to a Allay on a resurrection process.");
 

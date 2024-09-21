@@ -62,6 +62,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
         this.registerItemGenerated(this.name(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get()),"book_of_calling_cleaner");
         this.registerItemGenerated(this.name(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get()),"book_of_calling_lumberjack");
         this.registerItemGenerated(this.name(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get()),"book_of_calling_transport_items");
+
         this.registerItemGenerated(this.name(OccultismItems.PENTACLE_SUMMON.get()),"ritual_dummy_summon");
         this.registerItemGenerated(this.name(OccultismItems.PENTACLE_INVOKE.get()),"ritual_dummy_invoke");
         this.registerItemGenerated(this.name(OccultismItems.PENTACLE_CRAFT.get()),"ritual_dummy_craft");
@@ -112,6 +113,8 @@ public class ItemModelsGenerator extends ItemModelProvider {
 
     private void registerItemCommon() {
         String[] items = {
+                this.name(OccultismItems.REPAIR_OUTPUT.get()),
+                this.name(OccultismItems.RESURRECT_OUTPUT.get()),
                 this.name(OccultismItems.AFRIT_ESSENCE.get()),
                 this.name(OccultismItems.AWAKENED_FEATHER.get()),
                 this.name(OccultismItems.BEAVER_NUGGET.get()),

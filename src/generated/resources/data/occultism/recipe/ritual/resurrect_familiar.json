@@ -20,8 +20,14 @@
   ],
   "pentacle_id": "occultism:summon_foliot",
   "result": {
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.resurrect_familiar\"}",
+      "minecraft:lore": [
+        "{\"translate\":\"item.occultism.ritual_dummy.resurrect_familiar.tooltip\"}"
+      ]
+    },
     "count": 1,
-    "id": "occultism:jei_dummy/none"
+    "id": "occultism:resurrect_output"
   },
   "ritual_dummy": {
     "count": 1,

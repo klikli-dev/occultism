@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "summoning_rituals",
+  "category": "familiar_rituals",
   "condition": {
     "type": "modonomicon:true"
   },
@@ -9,10 +9,10 @@
   "hide_while_locked": false,
   "icon": {
     "height": 16,
-    "texture": "occultism:textures/gui/book/otherworld_bird.png",
+    "texture": "occultism:textures/gui/book/allay.png",
     "width": 16
   },
-  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_unbound_otherworld_bird.name",
+  "name": "book.occultism.dictionary_of_spirits.familiar_rituals.resurrect_allay.name",
   "pages": [
     {
       "type": "modonomicon:entity",
@@ -21,12 +21,12 @@
         "type": "modonomicon:none"
       },
       "default_rotation": -45.0,
-      "entity_id": "occultism:otherworld_bird",
+      "entity_id": "minecraft:allay",
       "name": "",
       "offset": 0.0,
       "rotate": true,
       "scale": 1.0,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_unbound_otherworld_bird.entity.text"
+      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.resurrect_allay.entity.text"
     },
     {
       "type": "occultism:ritual_recipe",
@@ -34,7 +34,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/summon_unbound_otherworld_bird",
+      "recipe_id_1": "occultism:ritual/resurrect_allay",
       "text": "",
       "title1": "",
       "title2": ""
@@ -46,7 +46,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_unbound_otherworld_bird.description.text",
+      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.resurrect_allay.description.text",
       "title": "",
       "use_markdown_in_title": false
     }
@@ -54,13 +54,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "summoning_rituals/summon_unbound_parrot",
+      "entry": "familiar_rituals/overview",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
-  "x": 2,
-  "y": 4
+  "sort_number": 20,
+  "x": 4,
+  "y": 0
 }
