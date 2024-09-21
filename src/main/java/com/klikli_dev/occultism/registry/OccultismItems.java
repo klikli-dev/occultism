@@ -55,7 +55,13 @@ public class OccultismItems {
     public static final DeferredItem<GuideBookItem> DICTIONARY_OF_SPIRITS = ITEMS.register("dictionary_of_spirits",
             () -> new GuideBookItem(defaultProperties().stacksTo(1)));
 
-    public static final DeferredItem<Item> PENTACLE = ITEMS.register("pentacle",
+    public static final DeferredItem<Item> PENTACLE_SUMMON = ITEMS.register("pentacle_summon",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> PENTACLE_INVOKE = ITEMS.register("pentacle_invoke",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> PENTACLE_CRAFT = ITEMS.register("pentacle_craft",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> PENTACLE_MISC = ITEMS.register("pentacle_misc",
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> DEBUG_WAND = ITEMS.register("debug_wand",
             () -> new DebugWandItem(defaultProperties().stacksTo(1)));
@@ -410,7 +416,7 @@ public class OccultismItems {
             () -> new DeferredSpawnEggItem(OccultismEntities.DJINNI_TYPE::get, 0x073f7c, 0xc9d631, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_AFRIT = ITEMS.register("spawn_egg/afrit",
             () -> new DeferredSpawnEggItem(OccultismEntities.AFRIT_TYPE::get, 0x5d241a, 0x946510, defaultProperties()));
-    public static final DeferredItem<Item> SPAWN_EGG_AFRIT_WILD = ITEMS.register("spawn_egg/afrit_wild",
+    public static final DeferredItem<Item> SPAWN_EGG_AFRIT_UNBOUND = ITEMS.register("spawn_egg/afrit_unbound",
             () -> new DeferredSpawnEggItem(OccultismEntities.AFRIT_WILD_TYPE::get, 0x4d140a, 0x744500, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_MARID = ITEMS.register("spawn_egg/marid",
             () -> new DeferredSpawnEggItem(OccultismEntities.MARID_TYPE::get, 0x396265, 0x57c786, defaultProperties()));
@@ -448,13 +454,13 @@ public class OccultismItems {
             () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HORDE_CREEPER_TYPE::get, 0x577148, 0x111111, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_WILD_HORDE_SILVERFISH = ITEMS.register("spawn_egg/wild_horde_silverfish",
             () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HORDE_SILVERFISH_TYPE::get, 0x666666, 0x262626, defaultProperties()));
-    public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_WEAK_BREEZE = ITEMS.register("spawn_egg/possessed_weak_breeze",
+    public static final DeferredItem<Item> SPAWN_EGG_WILD_WEAK_BREEZE = ITEMS.register("spawn_egg/wild_weak_breeze",
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_WEAK_BREEZE_TYPE::get, 0xa289cf, 0x5d428f, defaultProperties()));
-    public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_BREEZE = ITEMS.register("spawn_egg/possessed_breeze",
+    public static final DeferredItem<Item> SPAWN_EGG_WILD_BREEZE = ITEMS.register("spawn_egg/wild_breeze",
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_BREEZE_TYPE::get, 0x9279bf, 0x4d327f, defaultProperties()));
-    public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_STRONG_BREEZE = ITEMS.register("spawn_egg/possessed_strong_breeze",
+    public static final DeferredItem<Item> SPAWN_EGG_WILD_STRONG_BREEZE = ITEMS.register("spawn_egg/wild_strong_breeze",
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_STRONG_BREEZE_TYPE::get, 0x8269af, 0x3d226f, defaultProperties()));
-    public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_EVOKER = ITEMS.register("spawn_egg/possessed_evoker",
+    public static final DeferredItem<Item> SPAWN_EGG_WILD_EVOKER = ITEMS.register("spawn_egg/wild_evoker",
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_EVOKER_TYPE::get, 0x8e9494, 0xcbc786, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_OTHERWORLD_BIRD = ITEMS.register("spawn_egg/otherworld_bird",
             () -> new DeferredSpawnEggItem(OccultismEntities.OTHERWORLD_BIRD_TYPE::get, 0x221269, 0x6b56c4, defaultProperties()));
@@ -498,19 +504,76 @@ public class OccultismItems {
     public static final DeferredItem<Item> SPAWN_EGG_DEMONIC_WIFE = ITEMS.register("spawn_egg/demonic_wife", () -> new DeferredSpawnEggItem(OccultismEntities.DEMONIC_WIFE::get, 0xf2f0d7, 0xa01d1d, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_DEMONIC_HUSBAND = ITEMS.register("spawn_egg/demonic_husband", () -> new DeferredSpawnEggItem(OccultismEntities.DEMONIC_HUSBAND::get, 0xf2f0d7, 0xa01d1d, defaultProperties()));
 
+    // TO DO: make all public static final
+    //Ritual Dummy Items
+    static {
+        // SUMMON
+        // Foliot
+        ITEMS.register("ritual_dummy/summon_foliot_crusher", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/summon_foliot_lumberjack", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/summon_foliot_otherstone_trader", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/summon_foliot_sapling_trader", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/summon_foliot_transport_items", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/summon_foliot_cleaner", () -> new DummyTooltipItem(defaultProperties()));
+    }
 
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_RANDOM_ANIMAL = ITEMS.register("ritual_dummy/summon_random_animal", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DEMONIC_WIFE = ITEMS.register("ritual_dummy/summon_demonic_wife", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND = ITEMS.register("ritual_dummy/summon_demonic_husband", () -> new DummyTooltipItem(defaultProperties()));
 
-    public static final DeferredItem<Item> RITUAL_DUMMY_RESURRECT_FAMILIAR = ITEMS.register("ritual_dummy/resurrect_familiar", () -> new DummyTooltipItem(defaultProperties()));
-    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_RANDOM_ANIMAL = ITEMS.register("ritual_dummy/summon_random_animal", () -> new DummyTooltipItem(defaultProperties()));
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1 = ITEMS.register("ritual_dummy/craft_ritual_satchel_t1", () -> new DummyTooltipItem(defaultProperties()));
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2 = ITEMS.register("ritual_dummy/craft_ritual_satchel_t2", () -> new DummyTooltipItem(defaultProperties()));
-
-    //Ritual Dummy Items
     static {
-        ITEMS.register("ritual_dummy/custom_ritual", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/craft_wild_trim", () -> new DummyTooltipItem(defaultProperties()));
+        //Djinni
+        ITEMS.register("ritual_dummy/summon_djinni_crusher", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/summon_djinni_clear_weather", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/summon_djinni_day_time", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/summon_djinni_manage_machine", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/summon_djinni_night_time", () -> new DummyTooltipItem(defaultProperties()));
+
+        //Afrit
+        ITEMS.register("ritual_dummy/summon_unbound_afrit", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/summon_afrit_crusher", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/summon_afrit_rain_weather", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/summon_afrit_thunder_weather", () -> new DummyTooltipItem(defaultProperties()));
+
+        //Marid
+        ITEMS.register("ritual_dummy/summon_marid_crusher", () -> new DummyTooltipItem(defaultProperties()));
+
+        // Move this to invoke type, needs a bit of attencion
+        ITEMS.register("ritual_dummy/summon_unbound_parrot", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/summon_unbound_otherworld_bird", () -> new DummyTooltipItem(defaultProperties()));
+
+        //INVOKE
+        //Familiar
+        ITEMS.register("ritual_dummy/familiar_beaver", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/familiar_blacksmith", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/familiar_deer", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/familiar_greedy", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/familiar_parrot", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/familiar_bat", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/familiar_beholder", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/familiar_chimera", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/familiar_cthulhu", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/familiar_devil", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/familiar_dragon", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/familiar_fairy", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/familiar_headless", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/familiar_mummy", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/familiar_otherworld_bird", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/familiar_guardian", () -> new DummyTooltipItem(defaultProperties()));
+
+        //Possessed
+        ITEMS.register("ritual_dummy/possess_endermite", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/possess_skeleton", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/possess_phantom", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/possess_enderman", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/possess_ghast", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/possess_warden", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/possess_weak_shulker", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/possess_elder_guardian", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/possess_hoglin", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/possess_shulker", () -> new DummyTooltipItem(defaultProperties()));
+
+        // CRAFT
         ITEMS.register("ritual_dummy/craft_dimensional_matrix", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/craft_dimensional_mineshaft", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/craft_infused_lenses", () -> new DummyTooltipItem(defaultProperties()));
@@ -529,60 +592,31 @@ public class OccultismItems {
         ITEMS.register("ritual_dummy/craft_stable_wormhole", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/craft_storage_controller_base", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/craft_storage_remote", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_otherworld_bird", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_parrot", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_greedy", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_bat", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_deer", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_cthulhu", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_devil", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_dragon", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_blacksmith", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_guardian", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_headless", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_chimera", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_beholder", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_fairy", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_mummy", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_beaver", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_enderman", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_endermite", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_skeleton", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_ghast", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_phantom", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_weak_shulker", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_shulker", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_elder_guardian", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_warden", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_hoglin", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_afrit_rain_weather", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_afrit_thunder_weather", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_djinni_clear_weather", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_djinni_day_time", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_djinni_manage_machine", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_djinni_night_time", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_foliot_lumberjack", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_foliot_otherstone_trader", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_foliot_sapling_trader", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_foliot_transport_items", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_foliot_cleaner", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_wild_afrit", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_wild_hunt", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_wild_husk", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_wild_drowned", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_wild_creeper", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_wild_silverfish", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_weak_breeze", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_breeze", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_strong_breeze", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_horde_illager", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_wild_otherworld_bird", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_wild_parrot", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_allay", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_foliot_crusher", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_djinni_crusher", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_afrit_crusher", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/summon_marid_crusher", () -> new DummyTooltipItem(defaultProperties()));
+    }
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1 = ITEMS.register("ritual_dummy/craft_ritual_satchel_t1", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2 = ITEMS.register("ritual_dummy/craft_ritual_satchel_t2", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_RESURRECT_FAMILIAR = ITEMS.register("ritual_dummy/resurrect_familiar", () -> new DummyTooltipItem(defaultProperties()));
+
+    static {
+        //CONTACT and others
+        ITEMS.register("ritual_dummy/resurrect_allay", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/craft_wild_trim", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/wild_hunt", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/wild_husk", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/wild_drowned", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/wild_creeper", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/wild_silverfish", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/wild_weak_breeze", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/wild_breeze", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/wild_strong_breeze", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/wild_horde_illager", () -> new DummyTooltipItem(defaultProperties()));
+
+
+        // CUSTOM
+        ITEMS.register("ritual_dummy/custom_ritual_summon", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/custom_ritual_invoke", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/custom_ritual_craft", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/custom_ritual_misc", () -> new DummyTooltipItem(defaultProperties()));
     }
 
     public static Item.Properties defaultProperties() {
@@ -591,7 +625,10 @@ public class OccultismItems {
     }
 
     public static boolean shouldSkipCreativeModTab(Item item) {
-        if (item == PENTACLE.get()
+        if (item == PENTACLE_SUMMON.get()
+                || item == PENTACLE_INVOKE.get()
+                || item == PENTACLE_CRAFT.get()
+                || item == PENTACLE_MISC.get()
                 || item == DICTIONARY_OF_SPIRITS_ICON.get()
                 || item == DICTIONARY_OF_SPIRITS.get()
                 || item == ADVANCEMENT_ICON.get()

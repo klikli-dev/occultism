@@ -219,7 +219,7 @@ public class PentacleProvider implements DataProvider {
                         "   WCW   ",
                         "         "),
                 new MappingBuilder().bowl().whiteChalk().candle().ground().build());
-        this.addPentacle("summon_wild_afrit",
+        this.addPentacle("summon_unbound_afrit",
                 this.createPattern(
                         "           ",
                         "    PPP    ",
@@ -233,7 +233,7 @@ public class PentacleProvider implements DataProvider {
                         "    PPP    ",
                         "           "),
                 new MappingBuilder().bowl().whiteChalk().purpleChalk().candle().skeleton().wither().ground().build());
-        this.addPentacle("summon_wild_greater_spirit",
+        this.addPentacle("contact_wild_spirit",
                 this.createPattern(
                         "           ",
                         "    PPP    ",

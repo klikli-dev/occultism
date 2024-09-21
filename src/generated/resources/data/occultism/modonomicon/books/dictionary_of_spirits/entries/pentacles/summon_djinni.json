@@ -8,7 +8,7 @@
   "description": "",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:pentacle"
+    "item": "occultism:pentacle_summon"
   },
   "name": "book.occultism.dictionary_of_spirits.pentacles.summon_djinni.name",
   "pages": [

@@ -17,7 +17,7 @@ public class OccultismCreativeModeTabs {
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.occultism"))
                     .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
-                    .icon(() -> OccultismItems.PENTACLE.get().getDefaultInstance())
+                    .icon(() -> OccultismItems.PENTACLE_SUMMON.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
                         OccultismItems.ITEMS.getEntries().forEach(i -> {
 

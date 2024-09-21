@@ -62,7 +62,10 @@ public class ItemModelsGenerator extends ItemModelProvider {
         this.registerItemGenerated(this.name(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get()),"book_of_calling_cleaner");
         this.registerItemGenerated(this.name(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get()),"book_of_calling_lumberjack");
         this.registerItemGenerated(this.name(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get()),"book_of_calling_transport_items");
-        this.registerItemGenerated(this.name(OccultismItems.PENTACLE.get()),"ritual_dummy");
+        this.registerItemGenerated(this.name(OccultismItems.PENTACLE_SUMMON.get()),"ritual_dummy_summon");
+        this.registerItemGenerated(this.name(OccultismItems.PENTACLE_INVOKE.get()),"ritual_dummy_invoke");
+        this.registerItemGenerated(this.name(OccultismItems.PENTACLE_CRAFT.get()),"ritual_dummy_craft");
+        this.registerItemGenerated(this.name(OccultismItems.PENTACLE_MISC.get()),"ritual_dummy_misc");
 
     }
 
@@ -77,7 +80,15 @@ public class ItemModelsGenerator extends ItemModelProvider {
     }
 
     private void registerRitualDummy(String name) {
-        this.getBuilder(name).parent(new ModelFile.UncheckedModelFile("occultism:item/ritual_dummy"));
+        if (name.contains("misc") || name.contains("contact") || name.contains("wild") || name.contains("resurrect")) {
+            this.getBuilder(name).parent(new ModelFile.UncheckedModelFile("occultism:item/pentacle_misc"));
+        } else if (name.contains("craft")) {
+            this.getBuilder(name).parent(new ModelFile.UncheckedModelFile("occultism:item/pentacle_craft"));
+        } else if (name.contains("invoke") || name.contains("possess") || name.contains("familiar")) {
+            this.getBuilder(name).parent(new ModelFile.UncheckedModelFile("occultism:item/pentacle_invoke"));
+        } else if (name.contains("summon")) {
+            this.getBuilder(name).parent(new ModelFile.UncheckedModelFile("occultism:item/pentacle_summon"));
+        }
     }
 
     private void registerSpawnEgg(String name) {

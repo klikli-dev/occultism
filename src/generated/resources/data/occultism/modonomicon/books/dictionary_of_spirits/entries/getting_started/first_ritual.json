@@ -5,7 +5,7 @@
   "description": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:pentacle"
+    "item": "occultism:pentacle_summon"
   },
   "name": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.name",
   "pages": [

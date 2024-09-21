@@ -32,7 +32,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/summon_wild_silverfish",
+      "recipe_id_1": "occultism:ritual/wild_silverfish",
       "text": "",
       "title1": "",
       "title2": ""

@@ -8,7 +8,7 @@
   "description": "",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:pentacle"
+    "item": "occultism:pentacle_summon"
   },
   "name": "book.occultism.dictionary_of_spirits.pentacles.summon_afrit.name",
   "pages": [
@@ -49,7 +49,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "pentacles/summon_wild_afrit",
+      "entry": "pentacles/summon_unbound_afrit",
       "line_enabled": true,
       "line_reversed": false
     }

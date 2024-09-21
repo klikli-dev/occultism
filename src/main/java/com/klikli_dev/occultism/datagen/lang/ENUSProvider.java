@@ -141,7 +141,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         this.add("itemGroup.occultism", "Occultism");
 
-        this.addItem(OccultismItems.PENTACLE, "Pentacle");
+        this.addItem(OccultismItems.PENTACLE_SUMMON, "Pentacle Summon");
+        this.addItem(OccultismItems.PENTACLE_INVOKE, "Pentacle Invoke");
+        this.addItem(OccultismItems.PENTACLE_CRAFT, "Pentacle Craft");
+        this.addItem(OccultismItems.PENTACLE_MISC, "Pentacle Misc");
         this.addItem(OccultismItems.DEBUG_WAND, "Debug Wand");
         this.addItem(OccultismItems.DEBUG_FOLIOT_LUMBERJACK, "Summon Debug Foliot Lumberjack");
         this.addItem(OccultismItems.DEBUG_FOLIOT_TRANSPORT_ITEMS, "Summon Debug Foliot Transporter");
@@ -279,7 +282,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_FOLIOT, "Foliot Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_DJINNI, "Djinni Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_AFRIT, "Afrit Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_AFRIT_WILD, "Unbound Afrit Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_AFRIT_UNBOUND, "Unbound Afrit Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_MARID, "Marid Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ENDERMITE, "Possessed Endermite Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_SKELETON, "Possessed Skeleton Spawn Egg");
@@ -317,10 +320,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_DROWNED, "Wild Horde Drowned Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_CREEPER, "Wild Horde Creeper Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_SILVERFISH, "Wild Horde Silverfish Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WEAK_BREEZE, "Possessed Weak Breeze Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_BREEZE, "Possessed Breeze Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_STRONG_BREEZE, "Possessed Strong Breeze Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_EVOKER, "Possessed Evoker Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_WILD_WEAK_BREEZE, "Wild Weak Breeze Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_WILD_BREEZE, "Wild Breeze Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_WILD_STRONG_BREEZE, "Wild Strong Breeze Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_WILD_EVOKER, "Wild Evoker Spawn Egg");
     }
 
     private void addBlocks() {
@@ -474,9 +477,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.WILD_HORDE_DROWNED, "Wild Horde Drowned");
         this.addEntityType(OccultismEntities.WILD_HORDE_CREEPER, "Wild Horde Creeper");
         this.addEntityType(OccultismEntities.WILD_HORDE_SILVERFISH, "Wild Horde Silverfish");
-        this.addEntityType(OccultismEntities.POSSESSED_WEAK_BREEZE, "Possessed Weak Breeze");
-        this.addEntityType(OccultismEntities.POSSESSED_BREEZE, "Possessed Breeze");
-        this.addEntityType(OccultismEntities.POSSESSED_STRONG_BREEZE, "Possessed Strong Breeze");
+        this.addEntityType(OccultismEntities.POSSESSED_WEAK_BREEZE, "Wild Weak Breeze");
+        this.addEntityType(OccultismEntities.POSSESSED_BREEZE, "Wild Breeze");
+        this.addEntityType(OccultismEntities.POSSESSED_STRONG_BREEZE, "Wild Strong Breeze");
         this.addEntityType(OccultismEntities.WILD_ZOMBIE, "Wild Zombie");
         this.addEntityType(OccultismEntities.WILD_SKELETON, "Wild Skeleton");
         this.addEntityType(OccultismEntities.WILD_SILVERFISH, "Wild Silverfish");
@@ -486,7 +489,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.WILD_HUSK, "Wild Husk");
         this.addEntityType(OccultismEntities.WILD_STRAY, "Wild Stray");
         this.addEntityType(OccultismEntities.WILD_CAVE_SPIDER, "Wild Cave Spider");
-        this.addEntityType(OccultismEntities.POSSESSED_EVOKER, "Possessed Evoker");
+        this.addEntityType(OccultismEntities.POSSESSED_EVOKER, "Wild Evoker");
     }
 
     private void addMiscTranslations() {
@@ -707,14 +710,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.summon_afrit_thunder_weather.started", "Started summoning afrit for a thunderstorm.");
         this.add("ritual.occultism.summon_afrit_thunder_weather.finished", "Summoned afrit successfully.");
         this.add("ritual.occultism.summon_afrit_thunder_weather.interrupted", "Summoning of afrit interrupted.");
-        this.add("ritual.occultism.summon_wild_afrit.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_wild_afrit.started", "Started summoning unbound afrit.");
-        this.add("ritual.occultism.summon_wild_afrit.finished", "Summoned unbound afrit successfully.");
-        this.add("ritual.occultism.summon_wild_afrit.interrupted", "Summoning of unbound afrit interrupted.");
-        this.add("ritual.occultism.summon_wild_hunt.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_wild_hunt.started", "Started summoning the wild hunt.");
-        this.add("ritual.occultism.summon_wild_hunt.finished", "Summoned the wild hunt successfully.");
-        this.add("ritual.occultism.summon_wild_hunt.interrupted", "Summoning of the wild hunt interrupted.");
+        this.add("ritual.occultism.summon_unbound_afrit.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.summon_unbound_afrit.started", "Started summoning unbound afrit.");
+        this.add("ritual.occultism.summon_unbound_afrit.finished", "Summoned unbound afrit successfully.");
+        this.add("ritual.occultism.summon_unbound_afrit.interrupted", "Summoning of unbound afrit interrupted.");
+        this.add("ritual.occultism.wild_hunt.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.wild_hunt.started", "Started summoning the wild hunt.");
+        this.add("ritual.occultism.wild_hunt.finished", "Summoned the wild hunt successfully.");
+        this.add("ritual.occultism.wild_hunt.interrupted", "Summoning of the wild hunt interrupted.");
         this.add("ritual.occultism.craft_dimensional_matrix.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.craft_dimensional_matrix.started", "Started binding djinni into dimensional matrix.");
         this.add("ritual.occultism.craft_dimensional_matrix.finished", "Successfully bound djinni into dimensional matrix.");
@@ -860,14 +863,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.familiar_guardian.started", "Started summoning guardian familiar.");
         this.add("ritual.occultism.familiar_guardian.finished", "Summoned guardian familiar successfully.");
         this.add("ritual.occultism.familiar_guardian.interrupted", "Summoning of guardian familiar interrupted.");
-        this.add("ritual.occultism.summon_wild_otherworld_bird.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_wild_otherworld_bird.started", "Started summoning wild drikwing.");
-        this.add("ritual.occultism.summon_wild_otherworld_bird.finished", "Summoned wild drikwing successfully.");
-        this.add("ritual.occultism.summon_wild_otherworld_bird.interrupted", "Summoning of wild drikwing interrupted.");
-        this.add("ritual.occultism.summon_wild_parrot.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_wild_parrot.started", "Started summoning wild parrot.");
-        this.add("ritual.occultism.summon_wild_parrot.finished", "Summoned wild parrot successfully.");
-        this.add("ritual.occultism.summon_wild_parrot.interrupted", "Summoning of wild parrot interrupted.");
+        this.add("ritual.occultism.summon_unbound_otherworld_bird.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.summon_unbound_otherworld_bird.started", "Started summoning unbound drikwing.");
+        this.add("ritual.occultism.summon_unbound_otherworld_bird.finished", "Summoned unbound drikwing successfully.");
+        this.add("ritual.occultism.summon_unbound_otherworld_bird.interrupted", "Summoning of unbound drikwing interrupted.");
+        this.add("ritual.occultism.summon_unbound_parrot.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.summon_unbound_parrot.started", "Started summoning unbound parrot.");
+        this.add("ritual.occultism.summon_unbound_parrot.finished", "Summoned unbound parrot successfully.");
+        this.add("ritual.occultism.summon_unbound_parrot.interrupted", "Summoning of unbound parrot interrupted.");
 
         this.add("ritual.occultism.summon_random_animal.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.summon_random_animal.started", "Started summoning a random animal.");
@@ -929,34 +932,34 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.summon_demonic_husband.finished", "Summoned successfully.");
         this.add("ritual.occultism.summon_demonic_husband.interrupted", "Summoning interrupted.");
 
-        this.add("ritual.occultism.summon_wild_husk.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_wild_husk.started", "Started summoning the wild horde husk.");
-        this.add("ritual.occultism.summon_wild_husk.finished", "Summoned the wild horde husk successfully.");
-        this.add("ritual.occultism.summon_wild_husk.interrupted", "Summoning of the wild horde husk interrupted.");
-        this.add("ritual.occultism.summon_wild_drowned.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_wild_drowned.started", "Started summoning the wild horde drowned.");
-        this.add("ritual.occultism.summon_wild_drowned.finished", "Summoned the wild horde drowned successfully.");
-        this.add("ritual.occultism.summon_wild_drowned.interrupted", "Summoning of the wild horde drowned interrupted.");
-        this.add("ritual.occultism.summon_wild_creeper.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_wild_creeper.started", "Started summoning the wild horde creeper.");
-        this.add("ritual.occultism.summon_wild_creeper.finished", "Summoned the wild horde creeper successfully.");
-        this.add("ritual.occultism.summon_wild_creeper.interrupted", "Summoning of the wild horde creeper interrupted.");
-        this.add("ritual.occultism.summon_wild_silverfish.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_wild_silverfish.started", "Started summoning the wild horde silverfish.");
-        this.add("ritual.occultism.summon_wild_silverfish.finished", "Summoned the wild horde silverfish successfully.");
-        this.add("ritual.occultism.summon_wild_silverfish.interrupted", "Summoning of the wild horde silverfish interrupted.");
-        this.add("ritual.occultism.possess_weak_breeze.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_weak_breeze.started", "Started summoning possessed weak breeze.");
-        this.add("ritual.occultism.possess_weak_breeze.finished", "Summoned possessed weak breeze successfully.");
-        this.add("ritual.occultism.possess_weak_breeze.interrupted", "Summoning of possessed weak breeze interrupted.");
-        this.add("ritual.occultism.possess_breeze.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_breeze.started", "Started summoning possessed breeze.");
-        this.add("ritual.occultism.possess_breeze.finished", "Summoned possessed breeze successfully.");
-        this.add("ritual.occultism.possess_breeze.interrupted", "Summoning of possessed breeze interrupted.");
-        this.add("ritual.occultism.possess_strong_breeze.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_strong_breeze.started", "Started summoning possessed strong breeze.");
-        this.add("ritual.occultism.possess_strong_breeze.finished", "Summoned possessed strong breeze successfully.");
-        this.add("ritual.occultism.possess_strong_breeze.interrupted", "Summoning of possessed strong breeze interrupted.");
+        this.add("ritual.occultism.wild_husk.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.wild_husk.started", "Started summoning the wild horde husk.");
+        this.add("ritual.occultism.wild_husk.finished", "Summoned the wild horde husk successfully.");
+        this.add("ritual.occultism.wild_husk.interrupted", "Summoning of the wild horde husk interrupted.");
+        this.add("ritual.occultism.wild_drowned.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.wild_drowned.started", "Started summoning the wild horde drowned.");
+        this.add("ritual.occultism.wild_drowned.finished", "Summoned the wild horde drowned successfully.");
+        this.add("ritual.occultism.wild_drowned.interrupted", "Summoning of the wild horde drowned interrupted.");
+        this.add("ritual.occultism.wild_creeper.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.wild_creeper.started", "Started summoning the wild horde creeper.");
+        this.add("ritual.occultism.wild_creeper.finished", "Summoned the wild horde creeper successfully.");
+        this.add("ritual.occultism.wild_creeper.interrupted", "Summoning of the wild horde creeper interrupted.");
+        this.add("ritual.occultism.wild_silverfish.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.wild_silverfish.started", "Started summoning the wild horde silverfish.");
+        this.add("ritual.occultism.wild_silverfish.finished", "Summoned the wild horde silverfish successfully.");
+        this.add("ritual.occultism.wild_silverfish.interrupted", "Summoning of the wild horde silverfish interrupted.");
+        this.add("ritual.occultism.wild_weak_breeze.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.wild_weak_breeze.started", "Started summoning wild weak breeze.");
+        this.add("ritual.occultism.wild_weak_breeze.finished", "Summoned wild weak breeze successfully.");
+        this.add("ritual.occultism.wild_weak_breeze.interrupted", "Summoning of wild weak breeze interrupted.");
+        this.add("ritual.occultism.wild_breeze.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.wild_breeze.started", "Started summoning wild breeze.");
+        this.add("ritual.occultism.wild_breeze.finished", "Summoned wild breeze successfully.");
+        this.add("ritual.occultism.wild_breeze.interrupted", "Summoning of wild breeze interrupted.");
+        this.add("ritual.occultism.wild_strong_breeze.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.wild_strong_breeze.started", "Started summoning wild strong breeze.");
+        this.add("ritual.occultism.wild_strong_breeze.finished", "Summoned wild strong breeze successfully.");
+        this.add("ritual.occultism.wild_strong_breeze.interrupted", "Summoning of wild strong breeze interrupted.");
         this.add("ritual.occultism.summon_horde_illager.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.summon_horde_illager.started", "Started summoning the small illager invasion.");
         this.add("ritual.occultism.summon_horde_illager.finished", "Summoned the small illager invasion successfully.");
@@ -1134,7 +1137,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         - [Ihagan's Enthrallment](entry://occultism:dictionary_of_spirits/pentacles/possess_djinni)
                         - [Abras' Conjure](entry://occultism:dictionary_of_spirits/pentacles/summon_afrit)
                         - [Sevira's Permanent Confinement](entry://occultism:dictionary_of_spirits/pentacles/craft_afrit)
-                        - [Abras' Open Conjure](entry://occultism:dictionary_of_spirits/pentacles/summon_wild_afrit)
+                        - [Abras' Open Conjure](entry://occultism:dictionary_of_spirits/pentacles/summon_unbound_afrit)
                          """);
 
         helper.page("white_chalk_uses2");
@@ -1142,7 +1145,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         - [Uphyxes Inverted Tower](entry://occultism:dictionary_of_spirits/pentacles/craft_marid)
-                        - [Osorin' Unbound Calling](entry://occultism:dictionary_of_spirits/pentacles/summon_wild_greater_spirit)
+                        - [Osorin' Unbound Calling](entry://occultism:dictionary_of_spirits/pentacles/contact_wild_spirit)
                          """);
 
         helper.page("golden_chalk");
@@ -1179,8 +1182,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         - [Ihagan's Enthrallment](entry://occultism:dictionary_of_spirits/pentacles/possess_djinni)
                         - [Abras' Conjure](entry://occultism:dictionary_of_spirits/pentacles/summon_afrit)
                         - [Sevira's Permanent Confinement](entry://occultism:dictionary_of_spirits/pentacles/craft_afrit)
-                        - [Abras' Open Conjure](entry://occultism:dictionary_of_spirits/pentacles/summon_wild_afrit)
-                        - [Osorin' Unbound Calling](entry://occultism:dictionary_of_spirits/pentacles/summon_wild_greater_spirit)
+                        - [Abras' Open Conjure](entry://occultism:dictionary_of_spirits/pentacles/summon_unbound_afrit)
+                        - [Osorin' Unbound Calling](entry://occultism:dictionary_of_spirits/pentacles/contact_wild_spirit)
                            """);
 
         helper.page("red_chalk");
@@ -1308,7 +1311,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         - [Marid Crusher](entry://summoning_rituals/summon_crusher_t4)
                         """.formatted(COLOR_PURPLE));
 
-        helper.entry("summon_wild_afrit");
+        helper.entry("summon_unbound_afrit");
         this.add(helper.entryName(), "Abras' Open Conjure");
         helper.page("intro");
         this.add(helper.pageTitle(), "Abras' Open Conjure");
@@ -1330,7 +1333,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         - [Afrit Essence](entry://summoning_rituals/afrit_essence)
                         """.formatted(COLOR_PURPLE));
 
-        helper.entry("summon_wild_greater_spirit");
+        helper.entry("contact_wild_spirit");
         this.add(helper.entryName(), "Osorin's Unbound Calling");
         helper.page("intro");
         this.add(helper.pageTitle(), "Osorin's Unbound Calling");
@@ -1795,8 +1798,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("ritual");
         //no text
 
-        helper.entry("summon_wild_parrot");
-        this.add(helper.entryName(), "Summon Wild Parrot");
+        helper.entry("summon_unbound_parrot");
+        this.add(helper.entryName(), "Summon Unbound Parrot");
 
         helper.page("entity");
         this.add(helper.pageText(),
@@ -1822,8 +1825,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         *This means, if a [#](%1$s)Chicken[#]() is spawned, that's not a bug, just bad luck!*
                            """.formatted(COLOR_PURPLE));
 
-        helper.entry("summon_wild_otherworld_bird");
-        this.add(helper.entryName(), "Summon Wild Drikwing");
+        helper.entry("summon_unbound_otherworld_bird");
+        this.add(helper.entryName(), "Summon Unbound Drikwing");
 
         helper.page("entity");
         this.add(helper.pageText(),
@@ -2745,7 +2748,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("description2");
         this.add(helper.pageText(),
                 """
-                        To obtain the parrot or parrot familiar for the sacrifice, consider summoning them using either the [Wild Parrot Ritual](entry://summoning_rituals/summon_wild_parrot) or [Parrot Familiar Ritual](entry://familiar_rituals/familiar_parrot)
+                        To obtain the parrot or parrot familiar for the sacrifice, consider summoning them using either the [Wild Parrot Ritual](entry://summoning_rituals/summon_unbound_parrot) or [Parrot Familiar Ritual](entry://familiar_rituals/familiar_parrot)
                         \\
                         \\
                         **Hint:** If you use mods that protect pets from death, use the wild parrot ritual!
@@ -3114,9 +3117,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addPentacle("summon_afrit", "Abras' Conjure");
         this.addPentacle("summon_djinni", "Ophyx' Calling");
         this.addPentacle("summon_foliot", "Aviar's Circle");
-        this.addPentacle("summon_wild_afrit", "Abras' Open Conjure");
+        this.addPentacle("summon_unbound_afrit", "Abras' Open Conjure");
         this.addPentacle("summon_marid", "Fatma's Incentivized Attraction");
-        this.addPentacle("summon_wild_greater_spirit", "Osorin's Unbound Calling");
+        this.addPentacle("contact_wild_spirit", "Osorin's Unbound Calling");
     }
 
     private void addPentacle(String id, String name) {
@@ -3124,8 +3127,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addRitualDummies() {
-        this.add("item.occultism.ritual_dummy.custom_ritual", "Custom Ritual Dummy");
-        this.add("item.occultism.ritual_dummy.custom_ritual.tooltip", "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
+        this.add("item.occultism.ritual_dummy.custom_ritual_summon", "Custom Ritual Dummy");
+        this.add("item.occultism.ritual_dummy.custom_ritual_summon.tooltip", "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
+        this.add("item.occultism.ritual_dummy.custom_ritual_invoke", "Custom Ritual Dummy");
+        this.add("item.occultism.ritual_dummy.custom_ritual_invoke.tooltip", "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
+        this.add("item.occultism.ritual_dummy.custom_ritual_craft", "Custom Ritual Dummy");
+        this.add("item.occultism.ritual_dummy.custom_ritual_craft.tooltip", "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
+        this.add("item.occultism.ritual_dummy.custom_ritual_misc", "Custom Ritual Dummy");
+        this.add("item.occultism.ritual_dummy.custom_ritual_misc.tooltip", "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
         this.add("item.occultism.ritual_dummy.craft_wild_trim", "Ritual: Forge Wild Armor Trim Smithing Template");
         this.add("item.occultism.ritual_dummy.craft_wild_trim.tooltip", "Marid will forge a Wild Armor Trim Smithing Template.");
         this.add("item.occultism.ritual_dummy.craft_dimensional_matrix", "Ritual: Craft Dimensional Matrix");
@@ -3252,33 +3261,33 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.summon_foliot_transport_items.tooltip", "The transporter will move all items it can access from one inventory to another, including machines.");
         this.add("item.occultism.ritual_dummy.summon_foliot_cleaner", "Ritual: Summon Foliot Janitor");
         this.add("item.occultism.ritual_dummy.summon_foliot_cleaner.tooltip", "The janitor will pick up dropped items and deposit them into a target inventory.");
-        this.add("item.occultism.ritual_dummy.summon_wild_afrit", "Ritual: Summon Unbound Afrit");
-        this.add("item.occultism.ritual_dummy.summon_wild_afrit.tooltip", "Summons an unbound Afrit that can be killed to obtain Afrit Essence");
-        this.add("item.occultism.ritual_dummy.summon_wild_hunt", "Ritual: Summon The Wild Hunt");
-        this.add("item.occultism.ritual_dummy.summon_wild_hunt.tooltip", "The Wild Hunt consists of Wither Skeletons that as a big chance to drop Wither Skeleton Skulls, and their minions.");
-        this.add("item.occultism.ritual_dummy.summon_wild_otherworld_bird", "Ritual: Summon Wild Drikwing");
-        this.add("item.occultism.ritual_dummy.summon_wild_otherworld_bird.tooltip", "Summons a Drikwing Familiar that can be tamed by anyone, not just the summoner.");
-        this.add("item.occultism.ritual_dummy.summon_wild_parrot", "Ritual: Summon Wild Parrot");
-        this.add("item.occultism.ritual_dummy.summon_wild_parrot.tooltip", "Summons a Parrot that can be tamed by anyone, not just the summoner.");
-        this.add("item.occultism.ritual_dummy.summon_allay", "Ritual: Purify Vex to Allay");
-        this.add("item.occultism.ritual_dummy.summon_allay.tooltip", "Purify a Vex to a Allay on a resurrection process.");
+        this.add("item.occultism.ritual_dummy.summon_unbound_afrit", "Ritual: Summon Unbound Afrit");
+        this.add("item.occultism.ritual_dummy.summon_unbound_afrit.tooltip", "Summons an unbound Afrit that can be killed to obtain Afrit Essence");
+        this.add("item.occultism.ritual_dummy.wild_hunt", "Ritual: Summon The Wild Hunt");
+        this.add("item.occultism.ritual_dummy.wild_hunt.tooltip", "The Wild Hunt consists of Wither Skeletons that as a big chance to drop Wither Skeleton Skulls, and their minions.");
+        this.add("item.occultism.ritual_dummy.summon_unbound_otherworld_bird", "Ritual: Summon Unbound Drikwing");
+        this.add("item.occultism.ritual_dummy.summon_unbound_otherworld_bird.tooltip", "Summons a Drikwing Familiar that can be tamed by anyone, not just the summoner.");
+        this.add("item.occultism.ritual_dummy.summon_unbound_parrot", "Ritual: Summon Unbound Parrot");
+        this.add("item.occultism.ritual_dummy.summon_unbound_parrot.tooltip", "Summons a Parrot that can be tamed by anyone, not just the summoner.");
+        this.add("item.occultism.ritual_dummy.resurrect_allay", "Ritual: Purify Vex to Allay");
+        this.add("item.occultism.ritual_dummy.resurrect_allay.tooltip", "Purify a Vex to a Allay on a resurrection process.");
 
-        this.add("item.occultism.ritual_dummy.summon_wild_husk", "Ritual: Summon The Wild Horde Husk");
-        this.add("item.occultism.ritual_dummy.summon_wild_husk.tooltip", "The Wild Horde Husk consists of a few Husks that drop items related to desert trails.");
-        this.add("item.occultism.ritual_dummy.summon_wild_drowned", "Ritual: Summon The Wild Horde Drowned");
-        this.add("item.occultism.ritual_dummy.summon_wild_drowned.tooltip", "The Wild Horde Drowned consists of a few Drowneds that drop items related to ocean trails.");
-        this.add("item.occultism.ritual_dummy.summon_wild_creeper", "Ritual: Summon The Wild Horde Creeper");
-        this.add("item.occultism.ritual_dummy.summon_wild_creeper.tooltip", "The Wild Horde Creeper consists of a few charged Creepers that drop many disks.");
-        this.add("item.occultism.ritual_dummy.summon_wild_silverfish", "Ritual: Summon The Wild Horde Silverfish");
-        this.add("item.occultism.ritual_dummy.summon_wild_silverfish.tooltip", "The Wild Horde Silverfish consists of a few Silverfishs that drop items related to ruins trails.");
-        this.add("item.occultism.ritual_dummy.possess_weak_breeze", "Ritual: Summon Possessed Weak Breeze");
-        this.add("item.occultism.ritual_dummy.possess_weak_breeze.tooltip", "The possessed Weak Breeze will drop a Trial Key and trial chamber related items.");
-        this.add("item.occultism.ritual_dummy.possess_breeze", "Ritual: Summon Possessed Breeze");
-        this.add("item.occultism.ritual_dummy.possess_breeze.tooltip", "The possessed Breeze will drop a Ominous Trial Key and trial chamber related items.");
-        this.add("item.occultism.ritual_dummy.possess_strong_breeze", "Ritual: Summon Possessed Strong Breeze");
-        this.add("item.occultism.ritual_dummy.possess_strong_breeze.tooltip", "The possessed Strong Breeze will drop a Heavy Core and trial chamber related items.");
-        this.add("item.occultism.ritual_dummy.summon_horde_illager", "Ritual: Summon Possessed Evoker");
-        this.add("item.occultism.ritual_dummy.summon_horde_illager.tooltip", "Summon a possessed Evoker and his henchmen.");
+        this.add("item.occultism.ritual_dummy.wild_husk", "Ritual: Summon The Wild Horde Husk");
+        this.add("item.occultism.ritual_dummy.wild_husk.tooltip", "The Wild Horde Husk consists of a few Husks that drop items related to desert trails.");
+        this.add("item.occultism.ritual_dummy.wild_drowned", "Ritual: Summon The Wild Horde Drowned");
+        this.add("item.occultism.ritual_dummy.wild_drowned.tooltip", "The Wild Horde Drowned consists of a few Drowneds that drop items related to ocean trails.");
+        this.add("item.occultism.ritual_dummy.wild_creeper", "Ritual: Summon The Wild Horde Creeper");
+        this.add("item.occultism.ritual_dummy.wild_creeper.tooltip", "The Wild Horde Creeper consists of a few charged Creepers that drop many disks.");
+        this.add("item.occultism.ritual_dummy.wild_silverfish", "Ritual: Summon The Wild Horde Silverfish");
+        this.add("item.occultism.ritual_dummy.wild_silverfish.tooltip", "The Wild Horde Silverfish consists of a few Silverfishs that drop items related to ruins trails.");
+        this.add("item.occultism.ritual_dummy.wild_weak_breeze", "Ritual: Summon Possessed Weak Breeze");
+        this.add("item.occultism.ritual_dummy.wild_weak_breeze.tooltip", "The possessed Weak Breeze will drop a Trial Key and trial chamber related items.");
+        this.add("item.occultism.ritual_dummy.wild_breeze", "Ritual: Summon Possessed Breeze");
+        this.add("item.occultism.ritual_dummy.wild_breeze.tooltip", "The possessed Breeze will drop a Ominous Trial Key and trial chamber related items.");
+        this.add("item.occultism.ritual_dummy.wild_strong_breeze", "Ritual: Summon Possessed Strong Breeze");
+        this.add("item.occultism.ritual_dummy.wild_strong_breeze.tooltip", "The possessed Strong Breeze will drop a Heavy Core and trial chamber related items.");
+        this.add("item.occultism.ritual_dummy.wild_horde_illager", "Ritual: Summon Possessed Evoker");
+        this.add("item.occultism.ritual_dummy.wild_horde_illager.tooltip", "Summon a possessed Evoker and his henchmen.");
 
         this.add(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Ritual: Summon Demonic Wife");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Summons a Demonic Wife to support you: She will fight for you, help with cooking, and extend potion durations.");

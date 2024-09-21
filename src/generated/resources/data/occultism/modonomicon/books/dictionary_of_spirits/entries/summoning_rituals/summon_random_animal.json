@@ -52,7 +52,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "summoning_rituals/summon_wild_parrot",
+      "entry": "summoning_rituals/summon_unbound_parrot",
       "line_enabled": true,
       "line_reversed": true
     }

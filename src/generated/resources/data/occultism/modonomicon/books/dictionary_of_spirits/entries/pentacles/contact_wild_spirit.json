@@ -1,0 +1,61 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "pentacles",
+  "condition": {
+    "type": "modonomicon:true"
+  },
+  "description": "",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "occultism:pentacle_summon"
+  },
+  "name": "book.occultism.dictionary_of_spirits.pentacles.contact_wild_spirit.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.contact_wild_spirit.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.contact_wild_spirit.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "multiblock_id": "contact_wild_spirit",
+      "multiblock_name": "",
+      "show_visualize_button": true,
+      "text": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.contact_wild_spirit.uses.text",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.contact_wild_spirit.uses.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "pentacles/summon_marid",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": -1,
+  "x": 4,
+  "y": -2
+}

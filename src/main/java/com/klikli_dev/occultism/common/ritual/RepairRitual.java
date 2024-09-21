@@ -24,15 +24,11 @@ package com.klikli_dev.occultism.common.ritual;
 
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
-import com.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.Unbreakable;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 

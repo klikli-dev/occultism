@@ -456,7 +456,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         var entryMap = ModonomiconAPI.get().getEntryMap();
         entryMap.setMap(
                 "____________________",
-                "__p_a_b_c_d_e_f_____", //paraphernalia, summon foliot, summon djinni, summon wild afrit, summon afrit, summon marid, summon wild greater spirit
+                "__p_a_b_c_d_e_f_____", //paraphernalia, summon foliot, summon djinni, summon unbound afrit, summon afrit, summon marid, summon wild greater spirit
                 "____________________",
                 "__o___g_h_i_________", //overview, possess foliot, possess djinni, possess afrit
                 "____________________",
@@ -474,14 +474,14 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         summonFoliot.withParent(BookEntryParentModel.create(overview.getId()));
         var summonDjinni = this.makeSummonDjinniEntry(entryMap, 'b');
         summonDjinni.withParent(BookEntryParentModel.create(summonFoliot.getId()));
-        var summonWildAfrit = this.makeSummonWildAfritEntry(entryMap, 'c');
-        summonWildAfrit.withParent(BookEntryParentModel.create(summonDjinni.getId()));
+        var summonUnboundAfrit = this.makeSummonUnboundAfritEntry(entryMap, 'c');
+        summonUnboundAfrit.withParent(BookEntryParentModel.create(summonDjinni.getId()));
         var summonAfrit = this.makeSummonAfritEntry(entryMap, 'd');
-        summonAfrit.withParent(BookEntryParentModel.create(summonWildAfrit.getId()));
+        summonAfrit.withParent(BookEntryParentModel.create(summonUnboundAfrit.getId()));
         var summonMarid = this.makeSummonMaridEntry(entryMap, 'e');
         summonMarid.withParent(BookEntryParentModel.create(summonAfrit.getId()));
-        var summonWildGreaterSpirit = this.makeSummonWildGreaterSpiritEntry(entryMap, 'f');
-        summonWildGreaterSpirit.withParent(BookEntryParentModel.create(summonMarid.getId()));
+        var contactWildSpirit = this.makeContactWildSpiritEntry(entryMap, 'f');
+        contactWildSpirit.withParent(BookEntryParentModel.create(summonMarid.getId()));
 
         var possessFoliot = this.makePossessFoliotEntry(entryMap, 'g');
         possessFoliot.withParent(BookEntryParentModel.create(overview.getId()));
@@ -505,10 +505,10 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         chalkUses.withCondition(BookTrueConditionModel.create());
         summonFoliot.withCondition(BookTrueConditionModel.create());
         summonDjinni.withCondition(BookTrueConditionModel.create());
-        summonWildAfrit.withCondition(BookTrueConditionModel.create());
+        summonUnboundAfrit.withCondition(BookTrueConditionModel.create());
         summonAfrit.withCondition(BookTrueConditionModel.create());
         summonMarid.withCondition(BookTrueConditionModel.create());
-        summonWildGreaterSpirit.withCondition(BookTrueConditionModel.create());
+        contactWildSpirit.withCondition(BookTrueConditionModel.create());
         possessFoliot.withCondition(BookTrueConditionModel.create());
         possessDjinni.withCondition(BookTrueConditionModel.create());
         possessAfrit.withCondition(BookTrueConditionModel.create());
@@ -518,7 +518,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         craftMarid.withCondition(BookTrueConditionModel.create());
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
-                .withIcon(OccultismItems.PENTACLE.get())
+                .withIcon(OccultismItems.PENTACLE_SUMMON.get())
                 .withEntries(
                         overview,
                         paraphernalia,
@@ -526,10 +526,10 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
                         summonFoliot,
                         summonDjinni,
-                        summonWildAfrit,
+                        summonUnboundAfrit,
                         summonAfrit,
                         summonMarid,
-                        summonWildGreaterSpirit,
+                        contactWildSpirit,
 
                         possessFoliot,
                         possessDjinni,
@@ -742,7 +742,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(OccultismItems.PENTACLE.get())
+                .withIcon(OccultismItems.PENTACLE_SUMMON.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,
@@ -769,7 +769,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(OccultismItems.PENTACLE.get())
+                .withIcon(OccultismItems.PENTACLE_INVOKE.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,
@@ -796,7 +796,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(OccultismItems.PENTACLE.get())
+                .withIcon(OccultismItems.PENTACLE_CRAFT.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,
@@ -823,7 +823,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(OccultismItems.PENTACLE.get())
+                .withIcon(OccultismItems.PENTACLE_SUMMON.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,
@@ -855,7 +855,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(OccultismItems.PENTACLE.get())
+                .withIcon(OccultismItems.PENTACLE_INVOKE.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,
@@ -883,7 +883,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(OccultismItems.PENTACLE.get())
+                .withIcon(OccultismItems.PENTACLE_CRAFT.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,
@@ -910,7 +910,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(OccultismItems.PENTACLE.get())
+                .withIcon(OccultismItems.PENTACLE_SUMMON.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,
@@ -919,8 +919,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 );
     }
 
-    private BookEntryModel makeSummonWildAfritEntry(CategoryEntryMap entryMap, char icon) {
-        this.context().entry("summon_wild_afrit");
+    private BookEntryModel makeSummonUnboundAfritEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("summon_unbound_afrit");
 
         this.context().page("intro");
         var intro = BookTextPageModel.create()
@@ -929,7 +929,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("multiblock");
         var multiblock = BookMultiblockPageModel.create()
-                .withMultiblockId(this.modLoc("summon_wild_afrit"));
+                .withMultiblockId(this.modLoc("summon_unbound_afrit"));
 
         this.context().page("uses");
         var uses = BookTextPageModel.create()
@@ -937,7 +937,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(OccultismItems.PENTACLE.get())
+                .withIcon(OccultismItems.PENTACLE_SUMMON.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,
@@ -964,7 +964,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(OccultismItems.PENTACLE.get())
+                .withIcon(OccultismItems.PENTACLE_INVOKE.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,
@@ -991,7 +991,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(OccultismItems.PENTACLE.get())
+                .withIcon(OccultismItems.PENTACLE_CRAFT.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,
@@ -1018,7 +1018,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(OccultismItems.PENTACLE.get())
+                .withIcon(OccultismItems.PENTACLE_SUMMON.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,
@@ -1045,7 +1045,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(OccultismItems.PENTACLE.get())
+                .withIcon(OccultismItems.PENTACLE_CRAFT.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,
@@ -1054,8 +1054,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 );
     }
 
-    private BookEntryModel makeSummonWildGreaterSpiritEntry(CategoryEntryMap entryMap, char icon) {
-        this.context().entry("summon_wild_greater_spirit");
+    private BookEntryModel makeContactWildSpiritEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("contact_wild_spirit");
 
         this.context().page("intro");
         var intro = BookTextPageModel.create()
@@ -1064,7 +1064,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("multiblock");
         var multiblock = BookMultiblockPageModel.create()
-                .withMultiblockId(this.modLoc("summon_wild_greater_spirit"));
+                .withMultiblockId(this.modLoc("contact_wild_spirit"));
 
         this.context().page("uses");
         var uses = BookTextPageModel.create()
@@ -1072,7 +1072,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(OccultismItems.PENTACLE.get())
+                .withIcon(OccultismItems.PENTACLE_SUMMON.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,
@@ -1288,13 +1288,13 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         var summonOtherstoneTrader = this.makeSummonOtherstoneTraderEntry(entryMap, 'g');
         summonOtherstoneTrader.withParent(BookEntryParentModel.create(summonOtherworldSaplingTrader.getId()));
 
-        var summonWildParrot = this.makeSummonWildParrotEntry(entryMap, 'i');
-        summonWildParrot.withParent(BookEntryParentModel.create(overview.getId()));
-        var summonWildOtherworldBird = this.makeSummonWildOtherworldBirdEntry(entryMap, 'j');
-        summonWildOtherworldBird.withParent(BookEntryParentModel.create(summonWildParrot.getId()));
+        var summonUnboundParrot = this.makeSummonUnboundParrotEntry(entryMap, 'i');
+        summonUnboundParrot.withParent(BookEntryParentModel.create(overview.getId()));
+        var summonUnboundOtherworldBird = this.makeSummonUnboundOtherworldBirdEntry(entryMap, 'j');
+        summonUnboundOtherworldBird.withParent(BookEntryParentModel.create(summonUnboundParrot.getId()));
 
         var summonRandomAnimal = this.makeSummonRandomAnimalEntry(entryMap, 'I');
-        summonRandomAnimal.withParent(BookEntryParentModel.create(summonWildParrot.getId()).withLineReversed(true));
+        summonRandomAnimal.withParent(BookEntryParentModel.create(summonUnboundParrot.getId()).withLineReversed(true));
 
         var weatherMagic = this.makeWeatherMagicEntry(entryMap, 'k');
         weatherMagic.withParent(BookEntryParentModel.create(overview.getId()));
@@ -1320,9 +1320,9 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         tradeSpirits.withCondition(BookTrueConditionModel.create());
         summonOtherworldSaplingTrader.withCondition(BookTrueConditionModel.create());
         summonOtherstoneTrader.withCondition(BookTrueConditionModel.create());
-        summonWildParrot.withCondition(BookTrueConditionModel.create());
+        summonUnboundParrot.withCondition(BookTrueConditionModel.create());
         summonRandomAnimal.withCondition(BookTrueConditionModel.create());
-        summonWildOtherworldBird.withCondition(BookTrueConditionModel.create());
+        summonUnboundOtherworldBird.withCondition(BookTrueConditionModel.create());
         weatherMagic.withCondition(BookTrueConditionModel.create());
         timeMagic.withCondition(BookTrueConditionModel.create());
         afritEssence.withCondition(BookTrueConditionModel.create());
@@ -1346,8 +1346,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         tradeSpirits,
                         summonOtherstoneTrader,
                         summonOtherworldSaplingTrader,
-                        summonWildOtherworldBird,
-                        summonWildParrot,
+                        summonUnboundOtherworldBird,
+                        summonUnboundParrot,
                         summonRandomAnimal,
                         timeMagic,
                         weatherMagic,
@@ -1383,7 +1383,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/summon_wild_afrit"));
+                .withRecipeId1(this.modLoc("ritual/summon_unbound_afrit"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.AFRIT_ESSENCE.get())
@@ -1844,8 +1844,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 );
     }
 
-    private BookEntryModel makeSummonWildParrotEntry(CategoryEntryMap entryMap, char icon) {
-        this.context().entry("summon_wild_parrot");
+    private BookEntryModel makeSummonUnboundParrotEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("summon_unbound_parrot");
 
         this.context().page("entity");
         var entity = BookEntityPageModel.create()
@@ -1854,7 +1854,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/summon_wild_parrot"));
+                .withRecipeId1(this.modLoc("ritual/summon_unbound_parrot"));
 
         this.context().page("description");
         var description = BookTextPageModel.create()
@@ -1920,8 +1920,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 );
     }
 
-    private BookEntryModel makeSummonWildOtherworldBirdEntry(CategoryEntryMap entryMap, char icon) {
-        this.context().entry("summon_wild_otherworld_bird");
+    private BookEntryModel makeSummonUnboundOtherworldBirdEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("summon_unbound_otherworld_bird");
 
         this.context().page("entity");
         var entity = BookEntityPageModel.create()
@@ -1930,7 +1930,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/summon_wild_otherworld_bird"));
+                .withRecipeId1(this.modLoc("ritual/summon_unbound_otherworld_bird"));
 
         this.context().page("description");
         var description = BookTextPageModel.create()
@@ -2018,7 +2018,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/summon_wild_hunt"));
+                .withRecipeId1(this.modLoc("ritual/wild_hunt"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(Items.WITHER_SKELETON_SKULL)
@@ -2515,7 +2515,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/summon_wild_husk"));
+                .withRecipeId1(this.modLoc("ritual/wild_husk"));
 
         this.context().page("description");
         var description = BookTextPageModel.create()
@@ -2551,7 +2551,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/summon_wild_drowned"));
+                .withRecipeId1(this.modLoc("ritual/wild_drowned"));
 
         this.context().page("description");
         var description = BookTextPageModel.create()
@@ -2587,7 +2587,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/summon_wild_creeper"));
+                .withRecipeId1(this.modLoc("ritual/wild_creeper"));
 
         this.context().page("description");
         var description = BookTextPageModel.create()
@@ -2623,7 +2623,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/summon_wild_silverfish"));
+                .withRecipeId1(this.modLoc("ritual/wild_silverfish"));
 
         this.context().page("description");
         var description = BookTextPageModel.create()

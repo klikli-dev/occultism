@@ -32,7 +32,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/summon_wild_drowned",
+      "recipe_id_1": "occultism:ritual/wild_drowned",
       "text": "",
       "title1": "",
       "title2": ""
