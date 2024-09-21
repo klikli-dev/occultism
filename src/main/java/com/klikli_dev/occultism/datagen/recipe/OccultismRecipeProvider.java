@@ -152,6 +152,11 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .blasting(Ingredient.of(OccultismTags.Items.RAW_SILVER), RecipeCategory.MISC, OccultismItems.SILVER_INGOT.get(), 0.7f, 100)
                 .unlockedBy("has_raw_silver", has(OccultismTags.Items.RAW_SILVER))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "blasting/silver_ingot_from_raw"));
+        SimpleCookingRecipeBuilder
+                .blasting(Ingredient.of(OccultismTags.Items.NETHERITE_DUST), RecipeCategory.MISC, Items.NETHERITE_INGOT, 0.7f, 100)
+                .unlockedBy("has_netherite_dust", has(OccultismTags.Items.NETHERITE_DUST))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "blasting/netherite_ingot_from_dust"));
+
     }
 
     @Override
@@ -1178,6 +1183,10 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .smelting(Ingredient.of(OccultismBlocks.OTHERSTONE_BRICKS.asItem()), RecipeCategory.MISC, OccultismBlocks.CRACKED_OTHERSTONE_BRICKS.asItem(), 0.3f, 200)
                 .unlockedBy("has_otherstone_bricks", has(OccultismBlocks.OTHERSTONE_BRICKS.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "smelting/cracked_otherstone_bricks"));
+        SimpleCookingRecipeBuilder
+                .smelting(Ingredient.of(OccultismTags.Items.NETHERITE_DUST), RecipeCategory.MISC, Items.NETHERITE_INGOT, 0.7f, 200)
+                .unlockedBy("has_netherite_dust", has(OccultismTags.Items.NETHERITE_DUST))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "smelting/netherite_ingot_from_dust"));
 
     }
 
