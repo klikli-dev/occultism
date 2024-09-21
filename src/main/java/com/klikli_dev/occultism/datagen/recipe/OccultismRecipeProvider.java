@@ -160,8 +160,8 @@ public class OccultismRecipeProvider extends RecipeProvider {
     }
 
     private void spiritTradeRecipes(RecipeOutput pRecipeOutput) {
-        SpiritTradeRecipeBuilder.spiritTradeRecipe(Ingredient.of(OccultismItems.OTHERWORLD_SAPLING_NATURAL.get()), new ItemStack(OccultismBlocks.OTHERWORLD_SAPLING.get()))
-                .unlockedBy("has_otherworld_sapling_natural", has(OccultismItems.OTHERWORLD_SAPLING_NATURAL.get()))
+        SpiritTradeRecipeBuilder.spiritTradeRecipe(Ingredient.of(OccultismTags.Items.OTHERWORLD_SAPLINGS_NATURAL), new ItemStack(OccultismBlocks.OTHERWORLD_SAPLING))
+                .unlockedBy("has_otherworld_sapling_natural", has(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/otherworld_sapling"));
         SpiritTradeRecipeBuilder.spiritTradeRecipe(Ingredient.of(Tags.Items.STONES), new ItemStack(OccultismBlocks.OTHERSTONE.get(), 2))
                 .unlockedBy("has_stone", has(Tags.Items.STONES))
@@ -238,7 +238,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
         SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismItems.DEMONS_DREAM_ESSENCE.get()), new ItemStack(OccultismItems.OTHERWORLD_ESSENCE.get()))
                 .unlockedBy("has_demons_dream_essence", has(OccultismItems.DEMONS_DREAM_ESSENCE.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/otherworld_essence"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(Items.OAK_SAPLING), new ItemStack(OccultismItems.OTHERWORLD_SAPLING_NATURAL.get()))
+        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(Items.OAK_SAPLING), new ItemStack(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL))
                 .unlockedBy("has_oak_sapling", has(Items.OAK_SAPLING))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/otherworld_sapling_natural"));
         SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(Items.BLACK_DYE), new ItemStack(OccultismItems.PURIFIED_INK.get()))

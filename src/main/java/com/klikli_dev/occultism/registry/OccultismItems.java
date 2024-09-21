@@ -334,11 +334,6 @@ public class OccultismItems {
             () -> new StableWormholeBlockItem(OccultismBlocks.STABLE_WORMHOLE.get(), defaultProperties()));
     public static final DeferredItem<StorageControllerBlockItem> STORAGE_CONTROLLER = ITEMS.register("storage_controller",
             () -> new StorageControllerBlockItem(OccultismBlocks.STORAGE_CONTROLLER.get(), defaultProperties()));
-    //Maybe can move to OccultismBlocks
-    public static final DeferredItem<OtherworldBlockItem> OTHERWORLD_SAPLING_NATURAL =
-            ITEMS.register("otherworld_sapling_natural",
-                    () -> new OtherworldBlockItem(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get(),
-                            defaultProperties()));
 
     //Deco Block Items
     public static final DeferredItem<Item> SPIRIT_TORCH = ITEMS.register("spirit_torch",

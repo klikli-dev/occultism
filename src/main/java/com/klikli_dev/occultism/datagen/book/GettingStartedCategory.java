@@ -1443,14 +1443,14 @@ public class GettingStartedCategory extends CategoryProvider {
                         For more advanced rituals the basic [White Chalk](entry://occultism:dictionary_of_spirits/getting_started/ritual_prep_chalk) is not sufficient. Instead chalks made from more arcane materials are required.
                         """);
 
-        this.context().page("impure_gold_chalk_recipe");
-        var impureGoldChalkRecipe = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/chalk_gold_impure"));
+        this.context().page("impure_yellow_chalk_recipe");
+        var impureYellowChalkRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/chalk_yellow_impure"));
         //no text
 
-        this.context().page("gold_chalk_recipe");
-        var goldChalkRecipe = BookSpiritFireRecipePageModel.create()
-                .withRecipeId1(this.modLoc("spirit_fire/chalk_gold"));
+        this.context().page("yellow_chalk_recipe");
+        var yellowChalkRecipe = BookSpiritFireRecipePageModel.create()
+                .withRecipeId1(this.modLoc("spirit_fire/chalk_yellow"));
         //no text
 
         this.context().page("impure_purple_chalk_recipe");
@@ -1553,8 +1553,8 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,
-                        impureGoldChalkRecipe,
-                        goldChalkRecipe,
+                        impureYellowChalkRecipe,
+                        yellowChalkRecipe,
                         impurePurpleChalkRecipe,
                         purpleChalkRecipe,
                         impureRedChalkRecipe,

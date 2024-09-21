@@ -2005,6 +2005,7 @@
   "tag.block.occultism.cave_wall_blocks": "Cave Wall Blocks",
   "tag.block.occultism.netherrack": "Netherrack",
   "tag.block.occultism.saplings.otherworld": "Otherworld Saplings",
+  "tag.block.occultism.saplings.otherworld_natural": "Otherworld Saplings_NATURAL",
   "tag.block.occultism.storage_stabilizer": "Storage Stabilizer Blocks",
   "tag.block.occultism.tree_soil": "Tree Soil Blocks",
   "tag.block.occultism.worldgen_blacklist": "Worldgen Blacklisted Blocks",
@@ -2044,5 +2045,6 @@
   "tag.item.occultism.miners.ores": "General Miners",
   "tag.item.occultism.otherworld_goggles": "Otherworld Goggles",
   "tag.item.occultism.saplings.otherworld": "Otherworld Saplings",
+  "tag.item.occultism.saplings.otherworld_natural": "Otherworld Saplings Natural",
   "tag.item.occultism.tools.knife": "Knives"
 }

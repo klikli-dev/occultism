@@ -26,7 +26,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:crafting/chalk_gold_impure",
+      "recipe_id_1": "occultism:crafting/chalk_yellow_impure",
       "text": "",
       "title1": "",
       "title2": ""
@@ -37,7 +37,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:spirit_fire/chalk_gold",
+      "recipe_id_1": "occultism:spirit_fire/chalk_yellow",
       "text": "",
       "title1": "",
       "title2": ""

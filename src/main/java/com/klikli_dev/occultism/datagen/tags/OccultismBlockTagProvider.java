@@ -108,6 +108,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
         this.tag(BlockTags.WALL_HANGING_SIGNS).add(OccultismBlocks.OTHERPLANKS_WALL_HANGING_SIGN.get()).replace(false);
         this.tag(BlockTags.PIGLIN_REPELLENTS).add(OccultismBlocks.SPIRIT_CAMPFIRE.get()).replace(false);
         this.tag(BlockTags.SAPLINGS).addTags(OccultismTags.Blocks.OTHERWORLD_SAPLINGS).replace(false);
+        this.tag(BlockTags.SAPLINGS).addTags(OccultismTags.Blocks.OTHERWORLD_SAPLINGS_NATURAL).replace(false);
     }
 
     @Override
@@ -128,6 +129,8 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
 
         this.tag(OccultismTags.Blocks.OTHERWORLD_SAPLINGS)
                 .add(OccultismBlocks.OTHERWORLD_SAPLING.get(), OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get()).replace(false);
+        this.tag(OccultismTags.Blocks.OTHERWORLD_SAPLINGS_NATURAL)
+                .add(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get()).replace(false);
         this.tag(OccultismTags.Blocks.OCCULTISM_CANDLES).add(
                 OccultismBlocks.LARGE_CANDLE.get(),
                 OccultismBlocks.LARGE_CANDLE_WHITE.get(),

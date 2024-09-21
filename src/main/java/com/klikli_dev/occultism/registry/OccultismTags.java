@@ -53,6 +53,7 @@ public class OccultismTags {
         public static final TagKey<Block> STORAGE_BLOCKS_RAW_SILVER = makeBlockTag(ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/raw_silver"));
 
         public static final TagKey<Block> OTHERWORLD_SAPLINGS = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "saplings/otherworld"));
+        public static final TagKey<Block> OTHERWORLD_SAPLINGS_NATURAL = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "saplings/otherworld_natural"));
         public static final TagKey<Block> OCCULTISM_CANDLES = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "candles"));
         public static final TagKey<Block> STORAGE_STABILIZER = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "storage_stabilizer"));
         public static final TagKey<Block> OTHERWORLD_LOGS = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "otherworld_logs"));
@@ -118,6 +119,7 @@ public class OccultismTags {
 
         public static final TagKey<Item> METAL_AXES = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "tools/metal/axes"));
         public static final TagKey<Item> OTHERWORLD_SAPLINGS = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "saplings/otherworld"));
+        public static final TagKey<Item> OTHERWORLD_SAPLINGS_NATURAL = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "saplings/otherworld_natural"));
 
         public static class Miners {
             public static final TagKey<Item> MINERS = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miners"));

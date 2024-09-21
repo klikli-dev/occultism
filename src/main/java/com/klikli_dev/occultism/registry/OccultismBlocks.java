@@ -209,7 +209,7 @@ public class OccultismBlocks {
                     Block.Properties.of()
                             .mapColor(MapColor.PLANT)
                             .sound(SoundType.GRASS)
-                            .strength(0.0f).randomTicks().noCollission()), false, LootTableType.OTHERWORLD_BLOCK);
+                            .strength(0.0f).randomTicks().noCollission()), true, LootTableType.OTHERWORLD_BLOCK);
     public static final DeferredBlock<LeavesBlock> OTHERWORLD_LEAVES =
             register("otherworld_leaves", () -> new LeavesBlock(
                     Block.Properties.of()

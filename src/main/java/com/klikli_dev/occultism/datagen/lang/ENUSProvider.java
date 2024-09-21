@@ -3339,6 +3339,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     private void addTags() {
         // Block tags
         this.addBlockTag(OccultismTags.Blocks.OTHERWORLD_SAPLINGS, "Otherworld Saplings");
+        this.addBlockTag(OccultismTags.Blocks.OTHERWORLD_SAPLINGS_NATURAL, "Otherworld Saplings_NATURAL");
         this.addBlockTag(OccultismTags.Blocks.CANDLES, "Candles");
         this.addBlockTag(OccultismTags.Blocks.CAVE_WALL_BLOCKS, "Cave Wall Blocks");
         this.addBlockTag(OccultismTags.Blocks.NETHERRACK, "Netherrack");
@@ -3355,6 +3356,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         // Item tags
         this.addItemTag(OccultismTags.Items.OTHERWORLD_SAPLINGS, "Otherworld Saplings");
+        this.addItemTag(OccultismTags.Items.OTHERWORLD_SAPLINGS_NATURAL, "Otherworld Saplings Natural");
         this.addItemTag(OccultismTags.Items.BOOK_OF_CALLING_DJINNI, "Book of Calling Djinni");
         this.addItemTag(OccultismTags.Items.BOOK_OF_CALLING_FOLIOT, "Book of Calling Foliot");
         this.addItemTag(OccultismTags.Items.BOOKS_OF_BINDING, "Books of Binding");
