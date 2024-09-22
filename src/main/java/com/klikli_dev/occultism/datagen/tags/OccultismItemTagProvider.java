@@ -152,6 +152,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.copy(OccultismTags.Blocks.OTHERWORLD_SAPLINGS, OccultismTags.Items.OTHERWORLD_SAPLINGS);
         this.copy(OccultismTags.Blocks.OTHERWORLD_SAPLINGS_NATURAL, OccultismTags.Items.OTHERWORLD_SAPLINGS_NATURAL);
         this.tag(OccultismTags.Items.TOOLS_KNIFE).add(OccultismItems.BUTCHER_KNIFE.get()).replace(false);
+        this.tag(Tags.Items.TOOLS).addOptionalTag(OccultismTags.Items.TOOLS_KNIFE).replace(false); //Don't place chalks
         this.tag(OccultismTags.Items.ELYTRA).add(Items.ELYTRA).addOptional(ResourceLocation.fromNamespaceAndPath("mana-and-artifice", "spectral_elytra")).replace(false);
         this.tag(OccultismTags.Items.OTHERWORLD_GOGGLES).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
         this.tag(OccultismTags.Items.OTHERSTONE).add(OccultismBlocks.OTHERSTONE.asItem());

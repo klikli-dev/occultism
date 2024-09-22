@@ -761,7 +761,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("multiblock");
         var multiblock = BookMultiblockPageModel.create()
-                .withMultiblockId(this.modLoc("possess_foliot"));
+                .withMultiblockId(this.modLoc("invoke_foliot"));
 
         this.context().page("uses");
         var uses = BookTextPageModel.create()
@@ -842,7 +842,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("multiblock");
         var multiblock = BookMultiblockPageModel.create()
-                .withMultiblockId(this.modLoc("possess_djinni"));
+                .withMultiblockId(this.modLoc("invoke_djinni"));
 
         this.context().page("uses");
         var uses = BookTextPageModel.create()
@@ -956,7 +956,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         this.context().page("multiblock");
         var multiblock = BookMultiblockPageModel.create()
-                .withMultiblockId(this.modLoc("possess_afrit"));
+                .withMultiblockId(this.modLoc("invoke_afrit"));
 
         this.context().page("uses");
         var uses = BookTextPageModel.create()

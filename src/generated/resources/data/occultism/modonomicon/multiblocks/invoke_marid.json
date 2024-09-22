@@ -52,30 +52,34 @@
     "W": {
       "type": "modonomicon:tag",
       "tag": "#occultism:foundation_glyphs_any"
+    },
+    "Y": {
+      "type": "modonomicon:block",
+      "block": "occultism:chalk_glyph_yellow"
     }
   },
   "pattern": [
     [
       "_____________________",
-      "_______UUUUUUU_______",
-      "_____UU__U3U__UU_____",
-      "____U___OOOOO___U____",
-      "___U4_OOR_2_ROO_4U___",
-      "__U__OR_LLLLL_RO__U__",
-      "__U_OR3L_L1L_L3RO_U__",
-      "_U__O_L2_WWW_2L_O__U_",
-      "_U_ORL__W_K_W__LRO_U_",
-      "_UUO_LLW_1K1_WLL_OUU_",
-      "_U3O2L1WKK0KKW1L2O3U_",
-      "_UUO_LLW_1K1_WLL_OUU_",
-      "_U_ORL__W_K_W__LRO_U_",
-      "_U__O_L2_WWW_2L_O__U_",
-      "__U_OR3L_L1L_L3RO_U__",
-      "__U__OR_LLLLL_RO__U__",
-      "___U4_OOR_2_ROO_4U___",
-      "____U___OOOOO___U____",
-      "_____UU__U3U__UU_____",
-      "_______UUUUUUU_______",
+      "__________U__________",
+      "_________Y4Y_________",
+      "________U_Y_U________",
+      "_______Y_Y3Y_Y_______",
+      "______U_R_L_R_U______",
+      "_____U3O_L2L_O3U_____",
+      "____Y_O2Y_W_Y2O_Y____",
+      "___U_R_Y1K1K1Y_R_U___",
+      "__Y_Y_L_K_Y_K_L_Y_Y__",
+      "_U4Y3L2W1Y0Y1W2L3Y4U_",
+      "__Y_Y_L_K_Y_K_L_Y_Y__",
+      "___U_R_Y1K1K1Y_R_U___",
+      "____Y_O2Y_W_Y2O_Y____",
+      "_____U3O_L2L_O3U_____",
+      "______U_R_L_R_U______",
+      "_______Y_Y3Y_Y_______",
+      "________U_Y_U________",
+      "_________Y4Y_________",
+      "__________U__________",
       "_____________________"
     ],
     [

@@ -47,7 +47,7 @@
       "item": "minecraft:sculk"
     }
   ],
-  "pentacle_id": "occultism:possess_djinni",
+  "pentacle_id": "occultism:invoke_djinni",
   "result": {
     "components": {
       "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_warden\"}",

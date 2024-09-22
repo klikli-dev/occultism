@@ -29,7 +29,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "multiblock_id": "possess_foliot",
+      "multiblock_id": "invoke_foliot",
       "multiblock_name": "",
       "show_visualize_button": true,
       "text": ""

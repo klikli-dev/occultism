@@ -25,7 +25,7 @@
       "tag": "c:dyes/blue"
     }
   ],
-  "pentacle_id": "occultism:possess_foliot",
+  "pentacle_id": "occultism:invoke_foliot",
   "result": {
     "components": {
       "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.invoke_unbound_parrot\"}",

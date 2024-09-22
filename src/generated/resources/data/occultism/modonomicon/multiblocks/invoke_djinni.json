@@ -33,25 +33,25 @@
       "type": "modonomicon:tag",
       "tag": "#occultism:foundation_glyphs_any"
     },
-    "X": {
+    "Y": {
       "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_purple"
+      "block": "occultism:chalk_glyph_yellow"
     }
   },
   "pattern": [
     [
       "_____________",
-      "__XLXLXLXLX__",
-      "_XL_2___2_LX_",
-      "_L__WXXXW__L_",
-      "_X2WS1_1SW2X_",
-      "_L_X1S_S1X_L_",
-      "_X_X__0__X_X_",
-      "_L_X1S_S1X_L_",
-      "_X2WS1_1SW2X_",
-      "_L__WXXXW__L_",
-      "_XL_2___2_LX_",
-      "__XLXLXLXLX__",
+      "______L______",
+      "_____L2L_____",
+      "____Y_W_Y____",
+      "___Y1S1S1Y___",
+      "__L_S_Y_S_L__",
+      "_L2W1Y0Y1W2L_",
+      "__L_S_Y_S_L__",
+      "___Y1S1S1Y___",
+      "____Y_W_Y____",
+      "_____L2L_____",
+      "______L______",
       "_____________"
     ],
     [

@@ -29,7 +29,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "multiblock_id": "possess_afrit",
+      "multiblock_id": "invoke_afrit",
       "multiblock_name": "",
       "show_visualize_button": true,
       "text": ""

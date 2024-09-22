@@ -43,6 +43,9 @@ public class OccultismTags {
 
         public static final TagKey<Block> NETHERRACK = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "netherrack"));
         public static final TagKey<Block> CANDLES = makeBlockTag(ResourceLocation.fromNamespaceAndPath("minecraft", "candles"));
+        public static final TagKey<Block> FOUNDATION_GLYPHS_ANY = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "foundation_glyphs_any"));
+        public static final TagKey<Block> FOUNDATION_GLYPHS_NO_WHITE = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "foundation_glyphs_no_white"));
+        public static final TagKey<Block> FOUNDATION_GLYPHS_DARK = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "foundation_glyphs_dark"));
         public static final TagKey<Block> CHALK_GLYPHS = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "chalk_glyphs"));
         public static final TagKey<Block> IESNIUM_ORE = makeBlockTag(ResourceLocation.fromNamespaceAndPath("c", "ores/iesnium"));
         public static final TagKey<Block> SILVER_ORE = makeBlockTag(ResourceLocation.fromNamespaceAndPath("c", "ores/silver"));

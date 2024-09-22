@@ -169,6 +169,19 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.CHALK_GLYPH_MAGENTA.get())
                 .add(OccultismBlocks.CHALK_GLYPH_PINK.get()).replace(false);
 
+        this.tag(OccultismTags.Blocks.FOUNDATION_GLYPHS_ANY)
+                .add(OccultismBlocks.CHALK_GLYPH_WHITE.get())
+                .add(OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY.get())
+                .add(OccultismBlocks.CHALK_GLYPH_GRAY.get())
+                .add(OccultismBlocks.CHALK_GLYPH_BLACK.get()).replace(false);
+        this.tag(OccultismTags.Blocks.FOUNDATION_GLYPHS_NO_WHITE)
+                .add(OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY.get())
+                .add(OccultismBlocks.CHALK_GLYPH_GRAY.get())
+                .add(OccultismBlocks.CHALK_GLYPH_BLACK.get()).replace(false);
+        this.tag(OccultismTags.Blocks.FOUNDATION_GLYPHS_DARK)
+                .add(OccultismBlocks.CHALK_GLYPH_GRAY.get())
+                .add(OccultismBlocks.CHALK_GLYPH_BLACK.get()).replace(false);
+
         this.tag(OccultismTags.Blocks.CAVE_WALL_BLOCKS).add(Blocks.STONE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE).replace(false);
         this.tag(OccultismTags.Blocks.NETHERRACK).add(Blocks.NETHERRACK).replace(false);
         this.tag(OccultismTags.Blocks.STORAGE_STABILIZER)

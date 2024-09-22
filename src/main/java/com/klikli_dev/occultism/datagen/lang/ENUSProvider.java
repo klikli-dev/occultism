@@ -3167,9 +3167,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addPentacle("craft_djinni", "Strigeor's Higher Binding");
         this.addPentacle("craft_foliot", "Eziveus' Spectral Compulsion");
         this.addPentacle("craft_marid", "Uphyxes Inverted Tower");
-        this.addPentacle("possess_afrit", "Abras' Commanding Conjure");
-        this.addPentacle("possess_djinni", "Ihagan's Enthrallment");
-        this.addPentacle("possess_foliot", "Hedyrin's Lure");
+        this.addPentacle("invoke_afrit", "Abras' Commanding Conjure");
+        this.addPentacle("invoke_djinni", "Ihagan's Enthrallment");
+        this.addPentacle("invoke_foliot", "Hedyrin's Lure");
         this.addPentacle("summon_afrit", "Abras' Conjure");
         this.addPentacle("summon_djinni", "Ophyx' Calling");
         this.addPentacle("summon_foliot", "Aviar's Circle");

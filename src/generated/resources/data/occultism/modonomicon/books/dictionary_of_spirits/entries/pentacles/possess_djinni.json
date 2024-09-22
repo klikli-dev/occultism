@@ -29,7 +29,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "multiblock_id": "possess_djinni",
+      "multiblock_id": "invoke_djinni",
       "multiblock_name": "",
       "show_visualize_button": true,
       "text": ""
