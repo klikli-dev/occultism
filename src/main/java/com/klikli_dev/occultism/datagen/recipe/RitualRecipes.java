@@ -1233,7 +1233,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2.get()),
                         240,
                         RITUAL_CRAFT_WITH_SPIRIT_NAME,
-                        PENTACLE_CRAFT_DJINNI,
+                        PENTACLE_CRAFT_AFRIT,
                         Ingredient.of(OccultismItems.RITUAL_SATCHEL_T1.get()),
                         Ingredient.of(OccultismItems.AFRIT_ESSENCE.get()),
                         Ingredient.of(Tags.Items.ENDER_PEARLS),
