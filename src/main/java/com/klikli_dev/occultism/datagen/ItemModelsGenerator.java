@@ -83,7 +83,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
     private void registerRitualDummy(String name) {
         if (name.contains("misc") || name.contains("contact") || name.contains("wild") || name.contains("resurrect")) {
             this.getBuilder(name).parent(new ModelFile.UncheckedModelFile("occultism:item/pentacle_misc"));
-        } else if (name.contains("craft")) {
+        } else if (name.contains("craft") || name.contains("repair")) {
             this.getBuilder(name).parent(new ModelFile.UncheckedModelFile("occultism:item/pentacle_craft"));
         } else if (name.contains("invoke") || name.contains("possess") || name.contains("familiar")) {
             this.getBuilder(name).parent(new ModelFile.UncheckedModelFile("occultism:item/pentacle_invoke"));

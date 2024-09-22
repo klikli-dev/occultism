@@ -565,6 +565,10 @@ public class OccultismItems {
         ITEMS.register("ritual_dummy/craft_research_fragment_dust", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/craft_witherite_dust", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/craft_dragonyst_dust", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/repair_chalks", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/repair_tools", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/repair_armors", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/repair_miners", () -> new DummyTooltipItem(defaultProperties()));
     }
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1 = ITEMS.register("ritual_dummy/craft_ritual_satchel_t1", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2 = ITEMS.register("ritual_dummy/craft_ritual_satchel_t2", () -> new DummyTooltipItem(defaultProperties()));

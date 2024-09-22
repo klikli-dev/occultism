@@ -88,6 +88,13 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .add(Items.WITHER_SKELETON_SKULL)
                 .replace(false);
 
+        this.tag(OccultismTags.Items.SCUTESHELL)
+                .add(Items.ARMADILLO_SCUTE)
+                .add(Items.TURTLE_SCUTE)
+                .add(Items.SHULKER_SHELL)
+                .add(Items.NAUTILUS_SHELL)
+                .replace(false);
+
         this.copy(OccultismTags.Blocks.PENTACLE_MATERIALS, OccultismTags.Items.PENTACLE_MATERIALS);
         this.tag(OccultismTags.Items.PENTACLE_MATERIALS)
                 .addOptionalTag(OccultismTags.Items.TOOLS_CHALK)

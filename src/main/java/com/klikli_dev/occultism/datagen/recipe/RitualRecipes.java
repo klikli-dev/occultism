@@ -44,6 +44,7 @@ public abstract class RitualRecipes extends RecipeProvider {
     private static final ResourceLocation RITUAL_CRAFT_WITH_SPIRIT_NAME = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "craft_with_spirit_name");
     private static final ResourceLocation RITUAL_CRAFT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "craft");
     private static final ResourceLocation RITUAL_CRAFT_MINER_SPIRIT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "craft_miner_spirit");
+    private static final ResourceLocation RITUAL_REPAIR = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "repair");
     // Pentacle IDs
     private static final ResourceLocation PENTACLE_POSSESS_DJINNI = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possess_djinni");
     private static final ResourceLocation PENTACLE_POSSESS_FOLIOT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possess_foliot");
@@ -85,19 +86,9 @@ public abstract class RitualRecipes extends RecipeProvider {
         craftingRituals(recipeOutput);
         familiarRituals(recipeOutput);
         possessRituals(recipeOutput);
-        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.SOUL_SHARD_ITEM.get()),
-                        makeLoreSpawnEgg(OccultismItems.RESURRECT_ICON.get(), "item.occultism.ritual_dummy.resurrect_familiar"),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/resurrect_familiar")),
-                        15,
-                        RITUAL_RESURRECT_FAMILIAR,
-                        PENTACLE_SUMMON_FOLIOT,
-                        Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE.get()),
-                        Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE.get()),
-                        Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE.get()),
-                        Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE.get()))
-                .unlockedBy("has_otherworld_essence", has(OccultismItems.OTHERWORLD_ESSENCE.get()))
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/resurrect_familiar"));
         summonRituals(recipeOutput);
+        resurrectRituals(recipeOutput);
+        repairRituals(recipeOutput);
     }
 
     private static void summonRituals(RecipeOutput recipeOutput) {
@@ -631,22 +622,6 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityTagToSummon(OccultismTags.Entities.RANDOM_ANIMALS_TO_SUMMON_LIST)
                 .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_random_animal"));
-
-        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.SUGAR),
-                        makeLoreSpawnEgg(Items.ALLAY_SPAWN_EGG, "item.occultism.ritual_dummy.resurrect_allay"),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/resurrect_allay")),
-                        30,
-                        RITUAL_SUMMON,
-                        PENTACLE_SUMMON_FOLIOT,
-                        Ingredient.of(Tags.Items.DUSTS_REDSTONE),
-                        Ingredient.of(Tags.Items.DUSTS_GLOWSTONE),
-                        Ingredient.of(OccultismTags.Items.SILVER_DUST),
-                        Ingredient.of(OccultismTags.Items.GOLD_DUST))
-                .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
-                .entityToSummon(EntityType.ALLAY)
-                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.vex")
-                .entityToSacrifice(OccultismTags.Entities.VEX)
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/resurrect_allay"));
     }
 
     private static void possessRituals(RecipeOutput recipeOutput) {
@@ -1526,5 +1501,81 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.NETHER_STAR))
                 .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_miner_marid_master"));
+    }
+    private static void resurrectRituals(RecipeOutput recipeOutput) {
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.SOUL_SHARD_ITEM.get()),
+                        makeLoreSpawnEgg(OccultismItems.RESURRECT_ICON.get(), "item.occultism.ritual_dummy.resurrect_familiar"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/resurrect_familiar")),
+                        15,
+                        RITUAL_RESURRECT_FAMILIAR,
+                        PENTACLE_SUMMON_FOLIOT,
+                        Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE.get()),
+                        Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE.get()),
+                        Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE.get()),
+                        Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE.get()))
+                .unlockedBy("has_otherworld_essence", has(OccultismItems.OTHERWORLD_ESSENCE.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/resurrect_familiar"));
+
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.SUGAR),
+                        makeLoreSpawnEgg(Items.ALLAY_SPAWN_EGG, "item.occultism.ritual_dummy.resurrect_allay"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/resurrect_allay")),
+                        30,
+                        RITUAL_SUMMON,
+                        PENTACLE_SUMMON_FOLIOT,
+                        Ingredient.of(Tags.Items.DUSTS_REDSTONE),
+                        Ingredient.of(Tags.Items.DUSTS_GLOWSTONE),
+                        Ingredient.of(OccultismTags.Items.SILVER_DUST),
+                        Ingredient.of(OccultismTags.Items.GOLD_DUST))
+                .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
+                .entityToSummon(EntityType.ALLAY)
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.vex")
+                .entityToSacrifice(OccultismTags.Entities.VEX)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/resurrect_allay"));
+    }
+    private static void repairRituals(RecipeOutput recipeOutput) {
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismTags.Items.TOOLS_CHALK),
+                    makeLoreSpawnEgg(OccultismItems.REPAIR_ICON.get(), "item.occultism.ritual_dummy.repair_chalks"),
+                    makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID,"ritual_dummy/repair_chalks")),
+                    5,
+                    RITUAL_REPAIR,
+                    PENTACLE_CRAFT_DJINNI,
+                    Ingredient.of(OccultismTags.Items.COPPER_DUST),
+                    Ingredient.of(OccultismTags.Items.OTHERWORLD_WOOD_DUST),
+                    Ingredient.of(OccultismTags.Items.OTHERSTONE_DUST))
+                .unlockedBy("has_white_chalk", has(OccultismItems.CHALK_WHITE))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID,"ritual/repair_chalks"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Tags.Items.TOOLS),
+                        makeLoreSpawnEgg(OccultismItems.REPAIR_ICON.get(), "item.occultism.ritual_dummy.repair_tools"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID,"ritual_dummy/repair_tools")),
+                        60,
+                        RITUAL_REPAIR,
+                        PENTACLE_CRAFT_AFRIT,
+                        Ingredient.of(OccultismTags.Items.IESNIUM_INGOT),
+                        Ingredient.of(OccultismTags.Items.IESNIUM_INGOT),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM))
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID,"ritual/repair_tools"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Tags.Items.ARMORS),
+                        makeLoreSpawnEgg(OccultismItems.REPAIR_ICON.get(), "item.occultism.ritual_dummy.repair_armors"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID,"ritual_dummy/repair_armors")),
+                        60,
+                        RITUAL_REPAIR,
+                        PENTACLE_CRAFT_AFRIT,
+                        Ingredient.of(OccultismTags.Items.IESNIUM_INGOT),
+                        Ingredient.of(OccultismTags.Items.IESNIUM_INGOT),
+                        Ingredient.of(OccultismTags.Items.SCUTESHELL),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM))
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID,"ritual/repair_armors"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismTags.Items.Miners.MINERS),
+                        makeLoreSpawnEgg(OccultismItems.REPAIR_ICON.get(), "item.occultism.ritual_dummy.repair_miners"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID,"ritual_dummy/repair_miners")),
+                        90,
+                        RITUAL_REPAIR,
+                        PENTACLE_CRAFT_AFRIT,
+                        Ingredient.of(OccultismTags.Items.STORAGE_BLOCK_IESNIUM),
+                        Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL))
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID,"ritual/repair_miners"));
     }
 }

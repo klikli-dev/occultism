@@ -1004,10 +1004,22 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.craft_witherite_dust.started", "Started infusing Witherite.");
         this.add("ritual.occultism.craft_witherite_dust.finished", "Successfully infused Witherite.");
         this.add("ritual.occultism.craft_witherite_dust.interrupted", "Craft of Witherite interrupted.");
-        this.add("ritual.occultism.craft_dragonyst_dust.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_dragonyst_dust.started", "Started infusing Dragonyst Dust.");
-        this.add("ritual.occultism.craft_dragonyst_dust.finished", "Successfully infused Dragonyst Dust.");
-        this.add("ritual.occultism.craft_dragonyst_dust.interrupted", "Craft of Dragonyst Dust interrupted.");
+        this.add("ritual.occultism.repair_chalks.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.repair_chalks.started", "Started repairing chalk.");
+        this.add("ritual.occultism.repair_chalks.finished", "Successfully repaired chalk.");
+        this.add("ritual.occultism.repair_chalks.interrupted", "Chalk repair interrupted.");
+        this.add("ritual.occultism.repair_tools.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.repair_tools.started", "Started repairing tool.");
+        this.add("ritual.occultism.repair_tools.finished", "Successfully repaired tool.");
+        this.add("ritual.occultism.repair_tools.interrupted", "Tool repair interrupted.");
+        this.add("ritual.occultism.repair_armors.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.repair_armors.started", "Started repairing armor.");
+        this.add("ritual.occultism.repair_armors.finished", "Successfully repaired armor.");
+        this.add("ritual.occultism.repair_armors.interrupted", "Armor repair interrupted.");
+        this.add("ritual.occultism.repair_miners.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.repair_miners.started", "Started repairing miner.");
+        this.add("ritual.occultism.repair_miners.finished", "Successfully repaired miner.");
+        this.add("ritual.occultism.repair_miners.interrupted", "Miner repair interrupted.");
 
         this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "conditions", "Not all requirements for this ritual are met.");
         this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "started", "Started resurrecting familiar.");
@@ -3344,6 +3356,16 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.craft_dragonyst_dust", "Ritual: Craft Dragonyst Dust");
         this.add("item.occultism.ritual_dummy.craft_dragonyst_dust.tooltip", "A marid will infuse ender dragon essence in the amethyst dust.");
 
+
+        this.add("item.occultism.ritual_dummy.repair_chalks", "Ritual: Repair Chalk");
+        this.add("item.occultism.ritual_dummy.repair_chalks.tooltip", "A djinni will repair your chalk.");
+        this.add("item.occultism.ritual_dummy.repair_tools", "Ritual: Repair Tool");
+        this.add("item.occultism.ritual_dummy.repair_tools.tooltip", "A afrit will repair your tool.");
+        this.add("item.occultism.ritual_dummy.repair_armors", "Ritual: Repair Armor");
+        this.add("item.occultism.ritual_dummy.repair_armors.tooltip", "A afrit will repair your armor.");
+        this.add("item.occultism.ritual_dummy.repair_miners", "Ritual: Repair Miner");
+        this.add("item.occultism.ritual_dummy.repair_miners.tooltip", "A afrit will extend your miner contract.");
+
         this.add(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Ritual: Summon Demonic Wife");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Summons a Demonic Wife to support you: She will fight for you, help with cooking, and extend potion durations.");
 
@@ -3472,6 +3494,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.PENTACLE_MATERIALS,"Pentacle Materials");
         this.addItemTag(OccultismTags.Items.TOOLS_CHALK,"Chalks");
         this.addItemTag(OccultismTags.Items.Miners.MINERS,"Dimensional Miners");
+        this.addItemTag(OccultismTags.Items.SCUTESHELL,"Scute or Shell");
     }
 
     private void addItemTag(ResourceLocation resourceLocation, String string) {
