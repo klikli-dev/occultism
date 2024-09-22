@@ -231,8 +231,13 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             // but the miner block entity simply discards the results
         }
 
-        //damage and eventually consume item
+        //damage the item and move to output before breaking
         ItemStack input = this.inputHandler.getStackInSlot(0);
         input.hurtAndBreak(1, (ServerLevel) this.level, (LivingEntity) null, (item) -> {});
+        if (input.getMaxDamage()-1 == input.getDamageValue()){
+            var minerCopy = input.copy();
+            input.hurtAndBreak(100, (ServerLevel) this.level, (LivingEntity) null, (item) -> {});
+            ItemHandlerHelper.insertItemStacked(this.outputHandler, minerCopy,false);
+        }
     }
 }
