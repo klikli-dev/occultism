@@ -155,8 +155,8 @@ public class PentacleProvider implements DataProvider {
                         "_______UUUUUUU_______",
                         "_____________________"),
                 new MappingBuilder().bowl().whiteChalk().blackChalk().limeChalk().orangeChalk().redChalk().blueChalk().candle().skeleton().crystal().wither().ground().build());
-        //Invoke
-        this.addPentacle("invoke_foliot",
+        //Possess
+        this.addPentacle("possess_foliot",
                 this.createPattern(
                         "_________",
                         "____W____",
@@ -168,7 +168,7 @@ public class PentacleProvider implements DataProvider {
                         "____W____",
                         "_________"),
                 new MappingBuilder().bowl().whiteChalk().yellowChalk().candle().ground().build());
-        this.addPentacle("invoke_djinni",
+        this.addPentacle("possess_djinni",
                 this.createPattern(
                         "_____________",
                         "______L______",
@@ -184,7 +184,7 @@ public class PentacleProvider implements DataProvider {
                         "______L______",
                         "_____________"),
                 new MappingBuilder().bowl().whiteChalk().lightGrayChalk().yellowChalk().limeChalk().candle().skeleton().ground().build());
-        this.addPentacle("invoke_unbound_afrit",
+        this.addPentacle("possess_unbound_afrit",
                 this.createPattern(
                         "_________________",
                         "________Y________",
@@ -204,7 +204,7 @@ public class PentacleProvider implements DataProvider {
                         "________Y________",
                         "_________________"),
                 new MappingBuilder().bowl().whiteChalk().grayChalk().yellowChalk().limeChalk().orangeChalk().candle().skeleton().crystal().ground().build());
-        this.addPentacle("invoke_afrit",
+        this.addPentacle("possess_afrit",
                 this.createPattern(
                         "_________________",
                         "________Y________",
@@ -224,7 +224,7 @@ public class PentacleProvider implements DataProvider {
                         "________Y________",
                         "_________________"),
                 new MappingBuilder().bowl().whiteChalk().grayChalk().yellowChalk().limeChalk().orangeChalk().redChalk().candle().skeleton().crystal().ground().build());
-        this.addPentacle("invoke_marid",
+        this.addPentacle("possess_marid",
                 this.createPattern(
                         "_____________________",
                         "__________U__________",

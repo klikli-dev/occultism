@@ -29,7 +29,7 @@
       "item": "minecraft:golden_apple"
     }
   ],
-  "pentacle_id": "occultism:invoke_afrit",
+  "pentacle_id": "occultism:possess_afrit",
   "result": {
     "components": {
       "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.familiar_guardian\"}",

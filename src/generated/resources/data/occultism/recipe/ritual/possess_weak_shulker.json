@@ -23,7 +23,7 @@
       "item": "minecraft:magenta_concrete"
     }
   ],
-  "pentacle_id": "occultism:invoke_djinni",
+  "pentacle_id": "occultism:possess_djinni",
   "result": {
     "components": {
       "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_weak_shulker\"}",

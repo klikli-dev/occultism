@@ -142,7 +142,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("itemGroup.occultism", "Occultism");
 
         this.addItem(OccultismItems.PENTACLE_SUMMON, "Pentacle Summon");
-        this.addItem(OccultismItems.PENTACLE_INVOKE, "Pentacle Invoke");
+        this.addItem(OccultismItems.PENTACLE_POSSESS, "Pentacle Possess");
         this.addItem(OccultismItems.PENTACLE_CRAFT, "Pentacle Craft");
         this.addItem(OccultismItems.PENTACLE_MISC, "Pentacle Misc");
         this.addItem(OccultismItems.REPAIR_ICON, "Repair Icon");
@@ -886,14 +886,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.familiar_guardian.started", "Started summoning guardian familiar.");
         this.add("ritual.occultism.familiar_guardian.finished", "Summoned guardian familiar successfully.");
         this.add("ritual.occultism.familiar_guardian.interrupted", "Summoning of guardian familiar interrupted.");
-        this.add("ritual.occultism.invoke_unbound_otherworld_bird.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.invoke_unbound_otherworld_bird.started", "Started summoning unbound drikwing.");
-        this.add("ritual.occultism.invoke_unbound_otherworld_bird.finished", "Summoned unbound drikwing successfully.");
-        this.add("ritual.occultism.invoke_unbound_otherworld_bird.interrupted", "Summoning of unbound drikwing interrupted.");
-        this.add("ritual.occultism.invoke_unbound_parrot.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.invoke_unbound_parrot.started", "Started summoning unbound parrot.");
-        this.add("ritual.occultism.invoke_unbound_parrot.finished", "Summoned unbound parrot successfully.");
-        this.add("ritual.occultism.invoke_unbound_parrot.interrupted", "Summoning of unbound parrot interrupted.");
+        this.add("ritual.occultism.possess_unbound_otherworld_bird.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_unbound_otherworld_bird.started", "Started summoning unbound drikwing.");
+        this.add("ritual.occultism.possess_unbound_otherworld_bird.finished", "Summoned unbound drikwing successfully.");
+        this.add("ritual.occultism.possess_unbound_otherworld_bird.interrupted", "Summoning of unbound drikwing interrupted.");
+        this.add("ritual.occultism.possess_unbound_parrot.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_unbound_parrot.started", "Started summoning unbound parrot.");
+        this.add("ritual.occultism.possess_unbound_parrot.finished", "Summoned unbound parrot successfully.");
+        this.add("ritual.occultism.possess_unbound_parrot.interrupted", "Summoning of unbound parrot interrupted.");
 
         this.add("ritual.occultism.summon_random_animal.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.summon_random_animal.started", "Started summoning a random animal.");
@@ -1854,8 +1854,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("ritual");
         //no text
 
-        helper.entry("invoke_unbound_parrot");
-        this.add(helper.entryName(), "Invoke Unbound Parrot");
+        helper.entry("possess_unbound_parrot");
+        this.add(helper.entryName(), "possess Unbound Parrot");
 
         helper.page("entity");
         this.add(helper.pageText(),
@@ -1881,8 +1881,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         *This means, if a [#](%1$s)Chicken[#]() is spawned, that's not a bug, just bad luck!*
                            """.formatted(COLOR_PURPLE));
 
-        helper.entry("invoke_unbound_otherworld_bird");
-        this.add(helper.entryName(), "Invoke Unbound Drikwing");
+        helper.entry("possess_unbound_otherworld_bird");
+        this.add(helper.entryName(), "possess Unbound Drikwing");
 
         helper.page("entity");
         this.add(helper.pageText(),
@@ -2804,7 +2804,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("description2");
         this.add(helper.pageText(),
                 """
-                        To obtain the parrot or parrot familiar for the sacrifice, consider summoning them using either the [Wild Parrot Ritual](entry://summoning_rituals/invoke_unbound_parrot) or [Parrot Familiar Ritual](entry://familiar_rituals/familiar_parrot)
+                        To obtain the parrot or parrot familiar for the sacrifice, consider summoning them using either the [Wild Parrot Ritual](entry://summoning_rituals/possess_unbound_parrot) or [Parrot Familiar Ritual](entry://familiar_rituals/familiar_parrot)
                         \\
                         \\
                         **Hint:** If you use mods that protect pets from death, use the wild parrot ritual!
@@ -3163,19 +3163,23 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
     private void addPentacles() {
         this.addPentacle("otherworld_bird", "Otherworld Bird");
-        this.addPentacle("craft_afrit", "Sevira's Permanent Confinement");
-        this.addPentacle("craft_djinni", "Strigeor's Higher Binding");
-        this.addPentacle("craft_foliot", "Eziveus' Spectral Compulsion");
-        this.addPentacle("craft_marid", "Uphyxes Inverted Tower");
-        this.addPentacle("invoke_afrit", "Abras' Commanding Conjure");
-        this.addPentacle("invoke_djinni", "Ihagan's Enthrallment");
-        this.addPentacle("invoke_foliot", "Hedyrin's Lure");
-        this.addPentacle("summon_afrit", "Abras' Conjure");
-        this.addPentacle("summon_djinni", "Ophyx' Calling");
         this.addPentacle("summon_foliot", "Aviar's Circle");
+        this.addPentacle("summon_djinni", "Ophyx' Calling");
         this.addPentacle("summon_unbound_afrit", "Abras' Open Conjure");
+        this.addPentacle("summon_afrit", "Abras' Conjure");
         this.addPentacle("summon_marid", "Fatma's Incentivized Attraction");
-        this.addPentacle("contact_wild_spirit", "Osorin's Unbound Calling");
+        this.addPentacle("possess_foliot", "Hedyrin's Lure");
+        this.addPentacle("possess_djinni", "Ihagan's Enthrallment");
+        this.addPentacle("possess_unbound_afrit", "Abras' Open Commanding Conjure");
+        this.addPentacle("possess_afrit", "Abras' Commanding Conjure");
+        this.addPentacle("possess_marid", "Xeovrenth Adjure");
+        this.addPentacle("craft_foliot", "Eziveus' Spectral Compulsion");
+        this.addPentacle("craft_djinni", "Strigeor's Higher Binding");
+        this.addPentacle("craft_afrit", "Sevira's Permanent Confinement");
+        this.addPentacle("craft_marid", "Uphyxes Inverted Tower");
+        this.addPentacle("resurrect_spirit", "Susje's Simple Circle");
+        this.addPentacle("contact_wild_spirit", "Osorin's Wild Calling");
+        this.addPentacle("contact_eldritch_spirit", "Ronaza's Contact");
     }
 
     private void addPentacle(String id, String name) {
@@ -3185,8 +3189,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     private void addRitualDummies() {
         this.add("item.occultism.ritual_dummy.custom_ritual_summon", "Custom Ritual Dummy");
         this.add("item.occultism.ritual_dummy.custom_ritual_summon.tooltip", "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
-        this.add("item.occultism.ritual_dummy.custom_ritual_invoke", "Custom Ritual Dummy");
-        this.add("item.occultism.ritual_dummy.custom_ritual_invoke.tooltip", "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
+        this.add("item.occultism.ritual_dummy.custom_ritual_possess", "Custom Ritual Dummy");
+        this.add("item.occultism.ritual_dummy.custom_ritual_possess.tooltip", "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
         this.add("item.occultism.ritual_dummy.custom_ritual_craft", "Custom Ritual Dummy");
         this.add("item.occultism.ritual_dummy.custom_ritual_craft.tooltip", "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
         this.add("item.occultism.ritual_dummy.custom_ritual_misc", "Custom Ritual Dummy");
@@ -3321,10 +3325,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.summon_unbound_afrit.tooltip", "Summons an unbound Afrit that can be killed to obtain Afrit Essence");
         this.add("item.occultism.ritual_dummy.wild_hunt", "Ritual: Summon The Wild Hunt");
         this.add("item.occultism.ritual_dummy.wild_hunt.tooltip", "The Wild Hunt consists of Wither Skeletons that as a big chance to drop Wither Skeleton Skulls, and their minions.");
-        this.add("item.occultism.ritual_dummy.invoke_unbound_otherworld_bird", "Ritual: Invoke Unbound Drikwing");
-        this.add("item.occultism.ritual_dummy.invoke_unbound_otherworld_bird.tooltip", "Invoke a Drikwing Familiar that can be tamed by anyone, not just the summoner.");
-        this.add("item.occultism.ritual_dummy.invoke_unbound_parrot", "Ritual: Invoke Unbound Parrot");
-        this.add("item.occultism.ritual_dummy.invoke_unbound_parrot.tooltip", "Invoke a Parrot that can be tamed by anyone, not just the summoner.");
+        this.add("item.occultism.ritual_dummy.possess_unbound_otherworld_bird", "Ritual: Possess Unbound Drikwing");
+        this.add("item.occultism.ritual_dummy.possess_unbound_otherworld_bird.tooltip", "Possess a Drikwing Familiar that can be tamed by anyone, not just the summoner.");
+        this.add("item.occultism.ritual_dummy.possess_unbound_parrot", "Ritual: Possess Unbound Parrot");
+        this.add("item.occultism.ritual_dummy.possess_unbound_parrot.tooltip", "Possess a Parrot that can be tamed by anyone, not just the summoner.");
         this.add("item.occultism.ritual_dummy.resurrect_allay", "Ritual: Purify Vex to Allay");
         this.add("item.occultism.ritual_dummy.resurrect_allay.tooltip", "Purify a Vex to a Allay on a resurrection process.");
 

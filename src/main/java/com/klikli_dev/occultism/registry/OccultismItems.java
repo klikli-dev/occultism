@@ -508,14 +508,14 @@ public class OccultismItems {
         //Marid
         ITEMS.register("ritual_dummy/summon_marid_crusher", () -> new DummyTooltipItem(defaultProperties()));
 
-        //INVOKE
+        //POSSESS
         //Familiar
         ITEMS.register("ritual_dummy/familiar_beaver", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/familiar_blacksmith", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/familiar_deer", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/familiar_greedy", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/familiar_parrot", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/invoke_unbound_parrot", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/possess_unbound_parrot", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/familiar_bat", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/familiar_beholder", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/familiar_chimera", () -> new DummyTooltipItem(defaultProperties()));
@@ -526,7 +526,7 @@ public class OccultismItems {
         ITEMS.register("ritual_dummy/familiar_headless", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/familiar_mummy", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/familiar_otherworld_bird", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/invoke_unbound_otherworld_bird", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/possess_unbound_otherworld_bird", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/familiar_guardian", () -> new DummyTooltipItem(defaultProperties()));
 
         //Possessed
@@ -590,7 +590,7 @@ public class OccultismItems {
 
         // CUSTOM
         ITEMS.register("ritual_dummy/custom_ritual_summon", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/custom_ritual_invoke", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/custom_ritual_possess", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/custom_ritual_craft", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/custom_ritual_misc", () -> new DummyTooltipItem(defaultProperties()));
     }
@@ -624,7 +624,7 @@ public class OccultismItems {
 
     public static final DeferredItem<Item> PENTACLE_SUMMON = ITEMS.register("pentacle_summon",
             () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> PENTACLE_INVOKE = ITEMS.register("pentacle_invoke",
+    public static final DeferredItem<Item> PENTACLE_POSSESS = ITEMS.register("pentacle_possess",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> PENTACLE_CRAFT = ITEMS.register("pentacle_craft",
             () -> new Item(defaultProperties()));
@@ -651,7 +651,7 @@ public class OccultismItems {
 
     public static boolean shouldSkipCreativeModTab(Item item) {
         if (item == PENTACLE_SUMMON.get()
-                || item == PENTACLE_INVOKE.get()
+                || item == PENTACLE_POSSESS.get()
                 || item == PENTACLE_CRAFT.get()
                 || item == PENTACLE_MISC.get()
                 || item == DICTIONARY_OF_SPIRITS_ICON.get()

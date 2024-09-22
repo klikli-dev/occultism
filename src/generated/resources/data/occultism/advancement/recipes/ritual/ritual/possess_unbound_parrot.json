@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/invoke_unbound_parrot"
+        "recipe": "occultism:ritual/possess_unbound_parrot"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "occultism:ritual/invoke_unbound_parrot"
+      "occultism:ritual/possess_unbound_parrot"
     ]
   }
 }

@@ -8,7 +8,7 @@
   "description": "",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:pentacle_invoke"
+    "item": "occultism:pentacle_possess"
   },
   "name": "book.occultism.dictionary_of_spirits.pentacles.possess_djinni.name",
   "pages": [
@@ -29,7 +29,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "multiblock_id": "invoke_djinni",
+      "multiblock_id": "possess_djinni",
       "multiblock_name": "",
       "show_visualize_button": true,
       "text": ""

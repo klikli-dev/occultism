@@ -21,7 +21,7 @@
   "item_to_use": {
     "item": "minecraft:egg"
   },
-  "pentacle_id": "occultism:invoke_foliot",
+  "pentacle_id": "occultism:possess_foliot",
   "result": {
     "components": {
       "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_endermite\"}",

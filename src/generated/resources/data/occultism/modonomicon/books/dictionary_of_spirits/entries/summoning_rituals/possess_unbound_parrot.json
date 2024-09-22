@@ -12,7 +12,7 @@
     "texture": "occultism:textures/gui/book/parrot.png",
     "width": 16
   },
-  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.invoke_unbound_parrot.name",
+  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.possess_unbound_parrot.name",
   "pages": [
     {
       "type": "modonomicon:entity",
@@ -26,7 +26,7 @@
       "offset": 0.0,
       "rotate": true,
       "scale": 1.0,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.invoke_unbound_parrot.entity.text"
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.possess_unbound_parrot.entity.text"
     },
     {
       "type": "occultism:ritual_recipe",
@@ -34,7 +34,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/invoke_unbound_parrot",
+      "recipe_id_1": "occultism:ritual/possess_unbound_parrot",
       "text": "",
       "title1": "",
       "title2": ""
@@ -46,7 +46,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.invoke_unbound_parrot.description.text",
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.possess_unbound_parrot.description.text",
       "title": "",
       "use_markdown_in_title": false
     },
@@ -57,7 +57,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.invoke_unbound_parrot.description2.text",
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.possess_unbound_parrot.description2.text",
       "title": "",
       "use_markdown_in_title": false
     }

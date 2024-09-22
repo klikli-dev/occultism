@@ -27,32 +27,34 @@ import java.util.concurrent.CompletableFuture;
 
 public abstract class RitualRecipes extends RecipeProvider {
 
-
+    // Ritual Types
     private static final ResourceLocation RITUAL_SUMMON = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon");
     private static final ResourceLocation RITUAL_SUMMON_WILD = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_wild");
     private static final ResourceLocation RITUAL_SUMMON_JOB = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_spirit_with_job");
     private static final ResourceLocation RITUAL_RESURRECT_FAMILIAR = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "resurrect_familiar");
-    private static final ResourceLocation PENTACLE_SUMMON_FOLIOT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_foliot");
-    private static final ResourceLocation PENTACLE_SUMMON_DJINNI = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_djinni");
-    private static final ResourceLocation PENTACLE_SUMMON_AFRIT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_afrit");
-    private static final ResourceLocation PENTACLE_SUMMON_UNBOUND_AFRIT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_unbound_afrit");
-    private static final ResourceLocation PENTACLE_SUMMON_MARID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_marid");
-
-    private static final ResourceLocation PENTACLE_CONTACT_WILD_SPIRIT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "contact_wild_spirit");
-    // Ritual Types
     private static final ResourceLocation RITUAL_FAMILIAR = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "familiar");
     private static final ResourceLocation RITUAL_CRAFT_WITH_SPIRIT_NAME = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "craft_with_spirit_name");
     private static final ResourceLocation RITUAL_CRAFT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "craft");
     private static final ResourceLocation RITUAL_CRAFT_MINER_SPIRIT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "craft_miner_spirit");
     private static final ResourceLocation RITUAL_REPAIR = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "repair");
     // Pentacle IDs
-    private static final ResourceLocation PENTACLE_INVOKE_DJINNI = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "invoke_djinni");
-    private static final ResourceLocation PENTACLE_INVOKE_FOLIOT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "invoke_foliot");
-    private static final ResourceLocation PENTACLE_INVOKE_AFRIT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "invoke_afrit");
-    private static final ResourceLocation PENTACLE_CRAFT_DJINNI = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "craft_djinni");
+    private static final ResourceLocation PENTACLE_SUMMON_FOLIOT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_foliot");
+    private static final ResourceLocation PENTACLE_SUMMON_DJINNI = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_djinni");
+    private static final ResourceLocation PENTACLE_SUMMON_UNBOUND_AFRIT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_unbound_afrit");
+    private static final ResourceLocation PENTACLE_SUMMON_AFRIT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_afrit");
+    private static final ResourceLocation PENTACLE_SUMMON_MARID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_marid");
+    private static final ResourceLocation PENTACLE_POSSESS_FOLIOT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possess_foliot");
+    private static final ResourceLocation PENTACLE_POSSESS_DJINNI = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possess_djinni");
+    private static final ResourceLocation PENTACLE_POSSESS_UNBOUND_AFRIT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possess_unbound_afrit");
+    private static final ResourceLocation PENTACLE_POSSESS_AFRIT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possess_afrit");
+    private static final ResourceLocation PENTACLE_POSSESS_MARID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possess_marid");
     private static final ResourceLocation PENTACLE_CRAFT_FOLIOT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "craft_foliot");
+    private static final ResourceLocation PENTACLE_CRAFT_DJINNI = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "craft_djinni");
     private static final ResourceLocation PENTACLE_CRAFT_AFRIT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "craft_afrit");
     private static final ResourceLocation PENTACLE_CRAFT_MARID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "craft_marid");
+    private static final ResourceLocation PENTACLE_RESURRECT_SPIRIT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "resurrect_spirit");
+    private static final ResourceLocation PENTACLE_CONTACT_WILD_SPIRIT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "contact_wild_spirit");
+    private static final ResourceLocation PENTACLE_CONTACT_ELDRITCH_SPIRIT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "contact_eldritch_spirit");
 
 
     public RitualRecipes(PackOutput p_248933_, CompletableFuture<HolderLookup.Provider> lookupProvider) {
@@ -571,11 +573,11 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_horde_illager"));
 
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
-                        makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_OTHERWORLD_BIRD.get(), "item.occultism.ritual_dummy.invoke_unbound_otherworld_bird"),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/invoke_unbound_otherworld_bird")),
+                        makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_OTHERWORLD_BIRD.get(), "item.occultism.ritual_dummy.possess_unbound_otherworld_bird"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/possess_unbound_otherworld_bird")),
                         30,
                         RITUAL_SUMMON,
-                        PENTACLE_INVOKE_DJINNI,
+                        PENTACLE_POSSESS_DJINNI,
                         Ingredient.of(Tags.Items.FEATHERS),
                         Ingredient.of(Tags.Items.FEATHERS),
                         Ingredient.of(Items.COBWEB),
@@ -585,14 +587,14 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSummon(OccultismEntities.OTHERWORLD_BIRD.get())
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.parrots")
                 .entityToSacrifice(OccultismTags.Entities.PARROTS)
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/invoke_unbound_otherworld_bird"));
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_unbound_otherworld_bird"));
 
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
-                        makeLoreSpawnEgg(Items.PARROT_SPAWN_EGG, "item.occultism.ritual_dummy.invoke_unbound_parrot"),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/invoke_unbound_parrot")),
+                        makeLoreSpawnEgg(Items.PARROT_SPAWN_EGG, "item.occultism.ritual_dummy.possess_unbound_parrot"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/possess_unbound_parrot")),
                         30,
                         RITUAL_SUMMON,
-                        PENTACLE_INVOKE_FOLIOT,
+                        PENTACLE_POSSESS_FOLIOT,
                         Ingredient.of(Tags.Items.FEATHERS),
                         Ingredient.of(Tags.Items.DYES_GREEN),
                         Ingredient.of(Tags.Items.DYES_YELLOW),
@@ -602,7 +604,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSummon(EntityType.PARROT)
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.chicken")
                 .entityToSacrifice(OccultismTags.Entities.CHICKEN)
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/invoke_unbound_parrot"));
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_unbound_parrot"));
 
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                         makeLoreSpawnEgg(Items.SHEEP_SPAWN_EGG, "item.occultism.ritual_dummy.summon_random_animal"),
@@ -630,7 +632,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/possess_elder_guardian")),
                         90,
                         RITUAL_SUMMON,
-                        PENTACLE_INVOKE_AFRIT,
+                        PENTACLE_POSSESS_AFRIT,
                         Ingredient.of(Items.OXIDIZED_COPPER),
                         Ingredient.of(Items.PRISMARINE),
                         Ingredient.of(Items.PRISMARINE_BRICKS),
@@ -652,7 +654,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/possess_enderman")),
                         60,
                         RITUAL_SUMMON,
-                        PENTACLE_INVOKE_DJINNI,
+                        PENTACLE_POSSESS_DJINNI,
                         Ingredient.of(Tags.Items.BONES),
                         Ingredient.of(Tags.Items.STRINGS),
                         Ingredient.of(Tags.Items.END_STONES),
@@ -668,7 +670,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/possess_endermite")),
                         30,
                         RITUAL_SUMMON,
-                        PENTACLE_INVOKE_FOLIOT,
+                        PENTACLE_POSSESS_FOLIOT,
                         Ingredient.of(ItemTags.DIRT),
                         Ingredient.of(Tags.Items.STONES),
                         Ingredient.of(ItemTags.DIRT),
@@ -683,7 +685,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/possess_ghast")),
                         60,
                         RITUAL_SUMMON,
-                        PENTACLE_INVOKE_DJINNI,
+                        PENTACLE_POSSESS_DJINNI,
                         Ingredient.of(Tags.Items.NETHERRACKS),
                         Ingredient.of(Tags.Items.NETHERRACKS),
                         Ingredient.of(Tags.Items.NETHERRACKS),
@@ -705,7 +707,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/possess_hoglin")),
                         60,
                         RITUAL_SUMMON,
-                        PENTACLE_INVOKE_AFRIT,
+                        PENTACLE_POSSESS_AFRIT,
                         Ingredient.of(Items.NETHERITE_SCRAP),
                         Ingredient.of(Tags.Items.LEATHERS),
                         Ingredient.of(Tags.Items.NETHERRACKS),
@@ -725,7 +727,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/possess_phantom")),
                         30,
                         RITUAL_SUMMON,
-                        PENTACLE_INVOKE_FOLIOT,
+                        PENTACLE_POSSESS_FOLIOT,
                         Ingredient.of(Tags.Items.LEATHERS),
                         Ingredient.of(Tags.Items.FEATHERS),
                         Ingredient.of(Tags.Items.LEATHERS),
@@ -741,7 +743,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/possess_shulker")),
                         60,
                         RITUAL_SUMMON,
-                        PENTACLE_INVOKE_AFRIT,
+                        PENTACLE_POSSESS_AFRIT,
                         Ingredient.of(Items.DRAGON_BREATH),
                         Ingredient.of(Tags.Items.OBSIDIANS),
                         Ingredient.of(Tags.Items.END_STONES),
@@ -758,7 +760,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/possess_skeleton")),
                         15,
                         RITUAL_SUMMON,
-                        PENTACLE_INVOKE_FOLIOT,
+                        PENTACLE_POSSESS_FOLIOT,
                         Ingredient.of(Tags.Items.BONES),
                         Ingredient.of(Tags.Items.BONES),
                         Ingredient.of(Tags.Items.BONES),
@@ -774,7 +776,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/possess_warden")),
                         60,
                         RITUAL_SUMMON,
-                        PENTACLE_INVOKE_DJINNI,
+                        PENTACLE_POSSESS_DJINNI,
                         Ingredient.of(Items.SCULK_SHRIEKER),
                         Ingredient.of(Items.SCULK_SENSOR),
                         Ingredient.of(Items.SCULK),
@@ -798,7 +800,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/possess_weak_shulker")),
                         60,
                         RITUAL_SUMMON,
-                        PENTACLE_INVOKE_DJINNI,
+                        PENTACLE_POSSESS_DJINNI,
                         Ingredient.of(Tags.Items.ENDER_PEARLS),
                         Ingredient.of(Items.PURPLE_CONCRETE),
                         Ingredient.of(Tags.Items.END_STONES),
@@ -820,7 +822,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/familiar_bat")),
                         60,
                         RITUAL_FAMILIAR,
-                        PENTACLE_INVOKE_DJINNI,
+                        PENTACLE_POSSESS_DJINNI,
                         Ingredient.of(Items.GOLDEN_CARROT),
                         Ingredient.of(Items.SPIDER_EYE),
                         Ingredient.of(Tags.Items.DUSTS_GLOWSTONE),
@@ -838,7 +840,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/familiar_beaver")),
                         30,
                         RITUAL_FAMILIAR,
-                        PENTACLE_INVOKE_FOLIOT,
+                        PENTACLE_POSSESS_FOLIOT,
                         Ingredient.of(ItemTags.LOGS),
                         Ingredient.of(ItemTags.LOGS),
                         Ingredient.of(ItemTags.LOGS),
@@ -853,7 +855,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/familiar_beholder")),
                         30,
                         RITUAL_FAMILIAR,
-                        PENTACLE_INVOKE_DJINNI,
+                        PENTACLE_POSSESS_DJINNI,
                         Ingredient.of(Items.SPIDER_EYE),
                         Ingredient.of(Items.SPIDER_EYE),
                         Ingredient.of(Items.SPIDER_EYE),
@@ -874,7 +876,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/familiar_blacksmith")),
                         30,
                         RITUAL_FAMILIAR,
-                        PENTACLE_INVOKE_FOLIOT,
+                        PENTACLE_POSSESS_FOLIOT,
                         Ingredient.of(Items.IRON_SHOVEL),
                         Ingredient.of(Items.IRON_PICKAXE),
                         Ingredient.of(Items.IRON_AXE),
@@ -894,7 +896,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/familiar_cthulhu")),
                         60,
                         RITUAL_FAMILIAR,
-                        PENTACLE_INVOKE_DJINNI,
+                        PENTACLE_POSSESS_DJINNI,
                         Ingredient.of(ItemTags.FISHES),
                         Ingredient.of(ItemTags.FISHES),
                         Ingredient.of(ItemTags.FISHES),
@@ -916,7 +918,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/familiar_chimera")),
                         60,
                         RITUAL_FAMILIAR,
-                        PENTACLE_INVOKE_DJINNI,
+                        PENTACLE_POSSESS_DJINNI,
                         Ingredient.of(Tags.Items.LEATHERS),
                         Ingredient.of(Tags.Items.STRINGS),
                         Ingredient.of(Tags.Items.FEATHERS),
@@ -938,7 +940,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/familiar_deer")),
                         15,
                         RITUAL_FAMILIAR,
-                        PENTACLE_INVOKE_FOLIOT,
+                        PENTACLE_POSSESS_FOLIOT,
                         Ingredient.of(Tags.Items.RODS_WOODEN),
                         Ingredient.of(Tags.Items.RODS_WOODEN),
                         Ingredient.of(Tags.Items.RODS_WOODEN),
@@ -956,7 +958,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/familiar_devil")),
                         60,
                         RITUAL_FAMILIAR,
-                        PENTACLE_INVOKE_DJINNI,
+                        PENTACLE_POSSESS_DJINNI,
                         Ingredient.of(Items.LAVA_BUCKET),
                         Ingredient.of(Items.LAVA_BUCKET),
                         Ingredient.of(Items.LAVA_BUCKET),
@@ -977,7 +979,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/familiar_dragon")),
                         60,
                         RITUAL_FAMILIAR,
-                        PENTACLE_INVOKE_DJINNI,
+                        PENTACLE_POSSESS_DJINNI,
                         Ingredient.of(Items.LAVA_BUCKET),
                         Ingredient.of(Items.FLINT_AND_STEEL),
                         Ingredient.of(Tags.Items.STORAGE_BLOCKS_COAL),
@@ -997,7 +999,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/familiar_fairy")),
                         30,
                         RITUAL_FAMILIAR,
-                        PENTACLE_INVOKE_DJINNI,
+                        PENTACLE_POSSESS_DJINNI,
                         Ingredient.of(Items.GOLDEN_APPLE),
                         Ingredient.of(Items.GOLDEN_APPLE),
                         Ingredient.of(Items.GHAST_TEAR),
@@ -1016,7 +1018,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/familiar_greedy")),
                         30,
                         RITUAL_FAMILIAR,
-                        PENTACLE_INVOKE_FOLIOT,
+                        PENTACLE_POSSESS_FOLIOT,
                         Ingredient.of(Tags.Items.CHESTS),
                         Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON),
                         Ingredient.of(Items.DISPENSER),
@@ -1031,7 +1033,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/familiar_guardian")),
                         60,
                         RITUAL_FAMILIAR,
-                        PENTACLE_INVOKE_AFRIT,
+                        PENTACLE_POSSESS_AFRIT,
                         Ingredient.of(Tags.Items.GEMS_DIAMOND),
                         Ingredient.of(Tags.Items.GEMS_DIAMOND),
                         Ingredient.of(Tags.Items.GEMS_DIAMOND),
@@ -1049,7 +1051,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/familiar_headless")),
                         60,
                         RITUAL_FAMILIAR,
-                        PENTACLE_INVOKE_DJINNI,
+                        PENTACLE_POSSESS_DJINNI,
                         Ingredient.of(Tags.Items.CROPS_WHEAT),
                         Ingredient.of(Tags.Items.CROPS_WHEAT),
                         Ingredient.of(Blocks.HAY_BLOCK),
@@ -1067,7 +1069,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/familiar_mummy")),
                         30,
                         RITUAL_FAMILIAR,
-                        PENTACLE_INVOKE_DJINNI,
+                        PENTACLE_POSSESS_DJINNI,
                         Ingredient.of(Tags.Items.SLIME_BALLS),
                         Ingredient.of(Tags.Items.SLIME_BALLS),
                         Ingredient.of(Items.PAPER),
@@ -1087,7 +1089,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/familiar_otherworld_bird")),
                         30,
                         OccultismRituals.SUMMON_TAMED.getId(),
-                        PENTACLE_INVOKE_DJINNI,
+                        PENTACLE_POSSESS_DJINNI,
                         Ingredient.of(Tags.Items.FEATHERS),
                         Ingredient.of(Tags.Items.FEATHERS),
                         Ingredient.of(Blocks.COBWEB),
@@ -1104,7 +1106,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/familiar_parrot")),
                         30,
                         OccultismRituals.SUMMON_WITH_CHANCE_OF_CHICKEN_TAMED.getId(),
-                        PENTACLE_INVOKE_FOLIOT,
+                        PENTACLE_POSSESS_FOLIOT,
                         Ingredient.of(Tags.Items.FEATHERS),
                         Ingredient.of(Tags.Items.DYES_GREEN),
                         Ingredient.of(Tags.Items.DYES_YELLOW),
@@ -1356,7 +1358,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/craft_wild_trim")),
                         240,
                         RITUAL_CRAFT,
-                        PENTACLE_CRAFT_MARID,
+                        PENTACLE_CONTACT_WILD_SPIRIT,
                         Ingredient.of(Items.MOSSY_COBBLESTONE),
                         Ingredient.of(Items.JUNGLE_SAPLING),
                         Ingredient.of(Items.BAMBOO),
@@ -1508,7 +1510,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/resurrect_familiar")),
                         15,
                         RITUAL_RESURRECT_FAMILIAR,
-                        PENTACLE_SUMMON_FOLIOT,
+                        PENTACLE_RESURRECT_SPIRIT,
                         Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE.get()),
                         Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE.get()),
                         Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE.get()),
@@ -1521,7 +1523,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/resurrect_allay")),
                         30,
                         RITUAL_SUMMON,
-                        PENTACLE_SUMMON_FOLIOT,
+                        PENTACLE_RESURRECT_SPIRIT,
                         Ingredient.of(Tags.Items.DUSTS_REDSTONE),
                         Ingredient.of(Tags.Items.DUSTS_GLOWSTONE),
                         Ingredient.of(OccultismTags.Items.SILVER_DUST),

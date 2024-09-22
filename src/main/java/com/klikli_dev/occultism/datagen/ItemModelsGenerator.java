@@ -64,7 +64,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
         this.registerItemGenerated(this.name(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get()),"book_of_calling_transport_items");
 
         this.registerItemGenerated(this.name(OccultismItems.PENTACLE_SUMMON.get()),"ritual_dummy_summon");
-        this.registerItemGenerated(this.name(OccultismItems.PENTACLE_INVOKE.get()),"ritual_dummy_invoke");
+        this.registerItemGenerated(this.name(OccultismItems.PENTACLE_POSSESS.get()),"ritual_dummy_possess");
         this.registerItemGenerated(this.name(OccultismItems.PENTACLE_CRAFT.get()),"ritual_dummy_craft");
         this.registerItemGenerated(this.name(OccultismItems.PENTACLE_MISC.get()),"ritual_dummy_misc");
 
@@ -86,7 +86,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
         } else if (name.contains("craft") || name.contains("repair")) {
             this.getBuilder(name).parent(new ModelFile.UncheckedModelFile("occultism:item/pentacle_craft"));
         } else if (name.contains("invoke") || name.contains("possess") || name.contains("familiar")) {
-            this.getBuilder(name).parent(new ModelFile.UncheckedModelFile("occultism:item/pentacle_invoke"));
+            this.getBuilder(name).parent(new ModelFile.UncheckedModelFile("occultism:item/pentacle_possess"));
         } else if (name.contains("summon")) {
             this.getBuilder(name).parent(new ModelFile.UncheckedModelFile("occultism:item/pentacle_summon"));
         }
