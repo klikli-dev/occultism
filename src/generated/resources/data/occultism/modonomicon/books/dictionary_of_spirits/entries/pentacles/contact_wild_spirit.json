@@ -3,12 +3,26 @@
   "background_v_index": 0,
   "category": "pentacles",
   "condition": {
-    "type": "modonomicon:true"
+    "type": "modonomicon:and",
+    "children": [
+      {
+        "type": "modonomicon:entry_read",
+        "entry_id": "pentacles/pink_chalk"
+      },
+      {
+        "type": "modonomicon:entry_read",
+        "entry_id": "pentacles/green_chalk"
+      },
+      {
+        "type": "modonomicon:entry_read",
+        "entry_id": "pentacles/light_blue_chalk"
+      }
+    ]
   },
-  "description": "",
+  "description": "book.occultism.dictionary_of_spirits.pentacles.contact_wild_spirit.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:pentacle_summon"
+    "item": "occultism:pentacle_misc"
   },
   "name": "book.occultism.dictionary_of_spirits.pentacles.contact_wild_spirit.name",
   "pages": [
@@ -49,13 +63,25 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "pentacles/summon_marid",
+      "entry": "pentacles/pink_chalk",
+      "line_enabled": true,
+      "line_reversed": true
+    },
+    {
+      "draw_arrow": true,
+      "entry": "pentacles/green_chalk",
+      "line_enabled": true,
+      "line_reversed": true
+    },
+    {
+      "draw_arrow": true,
+      "entry": "pentacles/light_blue_chalk",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
-  "x": 4,
-  "y": -2
+  "sort_number": 23,
+  "x": 2,
+  "y": 6
 }

@@ -578,14 +578,14 @@ public class PentacleProvider implements DataProvider {
         }
 
         private MappingBuilder eldritch(){
-            return this.block('e', Blocks.LODESTONE)
-                    .block('f',Blocks.END_ROD)
-                    .block('g',Blocks.AMETHYST_CLUSTER)
+            return this.block('e', () -> Blocks.LODESTONE)
+                    .block('f', () -> Blocks.END_ROD)
+                    .block('g', () ->Blocks.AMETHYST_CLUSTER)
                     .tag('h', Tags.Blocks.GLASS_PANES)
-                    .block('i',Blocks.BEACON)
-                    .block('j',Blocks.LIGHTNING_ROD)
-                    .block('k',Blocks.ENCHANTING_TABLE)
-                    .block('l',Blocks.IRON_BARS);
+                    .block('i', () -> Blocks.BEACON)
+                    .block('j', () -> Blocks.LIGHTNING_ROD)
+                    .block('k', () -> Blocks.ENCHANTING_TABLE)
+                    .block('l', () -> Blocks.IRON_BARS);
         }
 
         private MappingBuilder ground() {

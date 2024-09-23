@@ -3,9 +3,19 @@
   "background_v_index": 0,
   "category": "pentacles",
   "condition": {
-    "type": "modonomicon:true"
+    "type": "modonomicon:and",
+    "children": [
+      {
+        "type": "modonomicon:entry_read",
+        "entry_id": "pentacles/orange_chalk"
+      },
+      {
+        "type": "modonomicon:entry_read",
+        "entry_id": "pentacles/gray_chalk"
+      }
+    ]
   },
-  "description": "",
+  "description": "book.occultism.dictionary_of_spirits.pentacles.summon_unbound_afrit.description",
   "hide_while_locked": false,
   "icon": {
     "item": "occultism:pentacle_summon"
@@ -55,7 +65,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
-  "x": -2,
-  "y": -2
+  "sort_number": 19,
+  "x": 2,
+  "y": -4
 }

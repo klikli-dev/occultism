@@ -3,9 +3,10 @@
   "background_v_index": 0,
   "category": "pentacles",
   "condition": {
-    "type": "modonomicon:true"
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/red_chalk"
   },
-  "description": "",
+  "description": "book.occultism.dictionary_of_spirits.pentacles.possess_afrit.description",
   "hide_while_locked": false,
   "icon": {
     "item": "occultism:pentacle_possess"
@@ -49,13 +50,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "pentacles/possess_djinni",
+      "entry": "pentacles/possess_unbound_afrit",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
-  "x": 0,
-  "y": 0
+  "sort_number": 26,
+  "x": 5,
+  "y": -2
 }

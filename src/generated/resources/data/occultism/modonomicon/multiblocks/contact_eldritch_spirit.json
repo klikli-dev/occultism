@@ -27,15 +27,15 @@
     },
     "e": {
       "type": "modonomicon:block",
-      "block": "Block{minecraft:lodestone}"
+      "block": "minecraft:lodestone"
     },
     "f": {
       "type": "modonomicon:block",
-      "block": "Block{minecraft:end_rod}"
+      "block": "minecraft:end_rod"
     },
     "g": {
       "type": "modonomicon:block",
-      "block": "Block{minecraft:amethyst_cluster}"
+      "block": "minecraft:amethyst_cluster"
     },
     "h": {
       "type": "modonomicon:tag",
@@ -43,19 +43,19 @@
     },
     "i": {
       "type": "modonomicon:block",
-      "block": "Block{minecraft:beacon}"
+      "block": "minecraft:beacon"
     },
     "j": {
       "type": "modonomicon:block",
-      "block": "Block{minecraft:lightning_rod}"
+      "block": "minecraft:lightning_rod"
     },
     "k": {
       "type": "modonomicon:block",
-      "block": "Block{minecraft:enchanting_table}"
+      "block": "minecraft:enchanting_table"
     },
     "l": {
       "type": "modonomicon:block",
-      "block": "Block{minecraft:iron_bars}"
+      "block": "minecraft:iron_bars"
     }
   },
   "pattern": [
