@@ -915,7 +915,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern("sis")
                 .pattern(" ss")
                 .define('s', OccultismTags.Items.SILVER_INGOT)
-                .define('i', OccultismTags.Items.IESNIUM_INGOT)
+                .define('i', OccultismTags.Items.RAW_IESNIUM)
                 .unlockedBy("has_silver_ingot", has(OccultismTags.Items.SILVER_INGOT))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/magic_lamp_empty"));
 
