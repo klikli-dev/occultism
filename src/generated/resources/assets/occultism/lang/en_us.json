@@ -1732,6 +1732,7 @@
   "occultism.configuration.limeChalkGlyphColor": "Lime Chalk Glyph Color",
   "occultism.configuration.magentaChalkGlyphColor": "Magenta Chalk Glyph Color",
   "occultism.configuration.maxMiningTime": "Max Mining Time",
+  "occultism.configuration.minerOutputBeforeBreak": "Save miners before breaking",
   "occultism.configuration.miner_afrit_deeps": "Afrit Deep Ore Miner",
   "occultism.configuration.miner_djinni_ores": "Djinni Ore Miner",
   "occultism.configuration.miner_foliot_unspecialized": "Foliot Miner Unspectialized",

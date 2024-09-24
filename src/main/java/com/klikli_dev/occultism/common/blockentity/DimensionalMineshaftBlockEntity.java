@@ -22,7 +22,9 @@
 
 package com.klikli_dev.occultism.common.blockentity;
 
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
+import com.klikli_dev.occultism.config.OccultismServerConfig;
 import com.klikli_dev.occultism.crafting.recipe.MinerRecipe;
 import com.klikli_dev.occultism.crafting.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.occultism.crafting.recipe.result.WeightedRecipeResult;
@@ -234,7 +236,7 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         //damage the item and move to output before breaking
         ItemStack input = this.inputHandler.getStackInSlot(0);
         input.hurtAndBreak(1, (ServerLevel) this.level, (LivingEntity) null, (item) -> {});
-        if (input.getMaxDamage()-1 == input.getDamageValue()){
+        if (Occultism.SERVER_CONFIG.itemSettings.minerOutputBeforeBreak.getAsBoolean() && input.getMaxDamage()-1 == input.getDamageValue()){
             var minerCopy = input.copy();
             input.hurtAndBreak(100, (ServerLevel) this.level, (LivingEntity) null, (item) -> {});
             ItemHandlerHelper.insertItemStacked(this.outputHandler, minerCopy,false);
