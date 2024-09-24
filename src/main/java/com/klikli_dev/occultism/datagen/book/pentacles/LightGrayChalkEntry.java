@@ -24,21 +24,24 @@ public class LightGrayChalkEntry extends EntryProvider {
     @Override
     protected void generatePages() {
 
-        this.page("spotlight", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismItems.CHALK_LIGHT_GRAY.get()))
-                .withText(this.context().pageText()));
-        this.pageText("""
-                        Light Gray Chalk Text
-                        """
-        );
-
         this.page("lore", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
         this.pageTitle("Most Common Foundation");
         this.pageText("""
-                        Lore Text
+                        The light gray chalk uses mineral compounds to enhance the foundation of a pentagram.
+                         The foundation is an important property, often considered the stabilization of the "core."
+                        """
+        );
+
+        this.page("spotlight", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismItems.CHALK_LIGHT_GRAY.get()))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        Due to its relatively low cost and inherent magical properties, it is the most common
+                         foundation option among practitioners of occultism, capable of replacing white chalk
+                         in almost all pentagrams.
                         """
         );
 

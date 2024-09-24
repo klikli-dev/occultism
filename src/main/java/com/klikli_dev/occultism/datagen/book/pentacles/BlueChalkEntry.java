@@ -24,21 +24,24 @@ public class BlueChalkEntry extends EntryProvider {
     @Override
     protected void generatePages() {
 
-        this.page("spotlight", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismItems.CHALK_BLUE.get()))
-                .withText(this.context().pageText()));
-        this.pageText("""
-                        Blue Chalk Text
-                        """
-        );
-
         this.page("lore", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
         this.pageTitle("Marid Lure");
         this.pageText("""
-                        Lore Text
+                        Just as the red chalk is made from the essence of Afrit, the blue chalk is made
+                         from the essence of Marid, allowing for control over these powerful spirits.
+                        """
+        );
+
+        this.page("spotlight", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismItems.CHALK_BLUE.get()))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        The purpose of the blue chalk is to overcome the willpower of a Marid; its sometimes
+                         excessive use serves as a guarantee that any Marid will be controlled.
+                         Should the control fail, it would generate extreme fury in the invoked Marid.
                         """
         );
 

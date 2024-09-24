@@ -24,21 +24,23 @@ public class GrayChalkEntry extends EntryProvider {
     @Override
     protected void generatePages() {
 
-        this.page("spotlight", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismItems.CHALK_GRAY.get()))
-                .withText(this.context().pageText()));
-        this.pageText("""
-                        Gray Chalk Text
-                        """
-        );
-
         this.page("lore", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
         this.pageTitle("Getting Power");
         this.pageText("""
-                        Lore Text
+                        The gray chalk is made with one of the magical pastes, making it an intermediate-level
+                         foundation chalk. Its magical properties can react in curious ways with the world around it.
+                        """
+        );
+
+        this.page("spotlight", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismItems.CHALK_GRAY.get()))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        As an enhanced foundation chalk, it further strengthens the core of the pentagram and
+                         (almost always) can replace white glyphs or light gray glyphs.
                         """
         );
 

@@ -24,21 +24,21 @@ public class GreenChalkEntry extends EntryProvider {
     @Override
     protected void generatePages() {
 
-        this.page("spotlight", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismItems.CHALK_GREEN.get()))
-                .withText(this.context().pageText()));
-        this.pageText("""
-                        Green Chalk Text
-                        """
-        );
-
         this.page("lore", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
         this.pageTitle("Wildness");
         this.pageText("""
-                        Lore Text
+                        The green chalk uses herbal concentrate to bring the energies of flora into the pentagrams.
+                        """
+        );
+
+        this.page("spotlight", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismItems.CHALK_GREEN.get()))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        This connection with nature makes the green chalk ideal for attracting wild spirits.
                         """
         );
 

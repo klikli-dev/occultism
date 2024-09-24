@@ -33,19 +33,19 @@ public class PentaclesCategory extends CategoryProvider {
     @Override
     public String[] generateEntryMap() {
         return new String[]{
-                "_______W__S__G_____K__",
-                "______________________",
-                "____t__a__b__c__d__e__",
-                "_r____________________",
-                "____Y__f__g__h__i__j__",
-                "_s____________________",
-                "____X__l__m_____n__o__",
-                "______________________",
-                "__________L__O__R__U__",
-                "______________________",
-                "____________EAP___MBC_",
-                "______________________",
-                "_______k_____p_____q__"
+                "_______W__S__G_____K_____",
+                "_________________________",
+                "____t__a__b__c__d__u__e__",
+                "_r_______________________",
+                "____Y__f__g__h__i_____j__",
+                "_s_______________________",
+                "____X__l__m_____n_____o__",
+                "_________________________",
+                "__________L__O__R_____U__",
+                "_________________________",
+                "____________EAP______MBC_",
+                "_________________________",
+                "_______k_____p________q__"
         };
     }
 
@@ -170,10 +170,6 @@ public class PentaclesCategory extends CategoryProvider {
         summonAfrit.withParent(BookEntryParentModel.create(summonUnboundAfrit.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(redChalkEntry.getId()));
 
-        var blueChalkEntry = this.add(new BlueChalkEntry(this).generate('U'));
-        blueChalkEntry.withParent(BookEntryParentModel.create(redChalkEntry.getId()))
-                .withCondition(BookEntryReadConditionModel.create().withEntry(summonAfrit.getId()));
-
         var possessAfrit = this.add(new PossessAfritEntry(this).generate('i'));
         possessAfrit.withParent(BookEntryParentModel.create(possessUnboundAfrit.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(redChalkEntry.getId()));
@@ -187,11 +183,18 @@ public class PentaclesCategory extends CategoryProvider {
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftAfrit.getId()));
 
         //Tier Marid
+
+        var summonUnboundMarid = this.add(new SummonUnboundMaridEntry(this).generate('u'));
+        summonUnboundMarid.withParent(BookEntryParentModel.create(summonAfrit.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(blackChalkEntry.getId()));
+
+        var blueChalkEntry = this.add(new BlueChalkEntry(this).generate('U'));
+        blueChalkEntry.withParent(BookEntryParentModel.create(redChalkEntry.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonUnboundMarid.getId()));
+
         var summonMarid = this.add(new SummonMaridEntry(this).generate('e'));
-        summonMarid.withParent(BookEntryParentModel.create(summonAfrit.getId()))
-                .withCondition(BookAndConditionModel.create().withChildren(
-                        BookEntryReadConditionModel.create().withEntry(blueChalkEntry.getId()),
-                        BookEntryReadConditionModel.create().withEntry(blackChalkEntry.getId())));
+        summonMarid.withParent(BookEntryParentModel.create(summonUnboundMarid.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(blueChalkEntry.getId()));
 
         var cyanChalkEntry = this.add(new CyanChalkEntry(this).generate('C'));
         cyanChalkEntry.withParent(BookEntryParentModel.create(summonMarid.getId()).withLineEnabled(false));

@@ -24,21 +24,23 @@ public class MagentaChalkEntry extends EntryProvider {
     @Override
     protected void generatePages() {
 
-        this.page("spotlight", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismItems.CHALK_MAGENTA.get()))
-                .withText(this.context().pageText()));
-        this.pageText("""
-                        Magenta Chalk Text
-                        """
-        );
-
         this.page("lore", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
         this.pageTitle("Ender Energy");
         this.pageText("""
-                        Lore Text
+                        All the power of a dragon in a single chalk: this is the marvel of the purple chalk.
+                         The relationship between spirits and dragons is unclear, but there may definitely be connections.
+                        """
+        );
+
+        this.page("spotlight", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismItems.CHALK_MAGENTA.get()))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        Ah, the energy of the end. But what end? Does an end truly exist?
+                         What concludes at the end? Will the end ever come to an end?
                         """
         );
 

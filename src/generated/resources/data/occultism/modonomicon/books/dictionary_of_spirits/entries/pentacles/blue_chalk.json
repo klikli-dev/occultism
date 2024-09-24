@@ -4,7 +4,7 @@
   "category": "pentacles",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/summon_afrit"
+    "entry_id": "pentacles/summon_unbound_marid"
   },
   "description": "book.occultism.dictionary_of_spirits.pentacles.blue_chalk.description",
   "hide_while_locked": false,
@@ -13,6 +13,17 @@
   },
   "name": "book.occultism.dictionary_of_spirits.pentacles.blue_chalk.name",
   "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.blue_chalk.lore.text",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.blue_chalk.lore.title",
+      "use_markdown_in_title": false
+    },
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
@@ -24,17 +35,6 @@
       },
       "text": "book.occultism.dictionary_of_spirits.pentacles.blue_chalk.spotlight.text",
       "title": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.blue_chalk.lore.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.blue_chalk.lore.title",
-      "use_markdown_in_title": false
     },
     {
       "type": "modonomicon:crafting_recipe",
@@ -68,7 +68,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 25,
-  "x": 8,
+  "sort_number": 29,
+  "x": 10,
   "y": 2
 }

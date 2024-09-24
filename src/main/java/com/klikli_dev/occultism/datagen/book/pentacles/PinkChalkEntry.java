@@ -24,21 +24,24 @@ public class PinkChalkEntry extends EntryProvider {
     @Override
     protected void generatePages() {
 
-        this.page("spotlight", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismItems.CHALK_PINK.get()))
-                .withText(this.context().pageText()));
-        this.pageText("""
-                        Pink Chalk Text
-                        """
-        );
-
         this.page("lore", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
         this.pageTitle("It's Alive");
         this.pageText("""
-                        Lore Text
+                        Made from the flesh of a pig possessed by an Afrit, this chalk possesses
+                         both animalistic properties and part of an Afrit's power.
+                        """
+        );
+
+        this.page("spotlight", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismItems.CHALK_PINK.get()))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        Some occultists have reported that the demonic flesh keeps the chalk alive,
+                         resulting in strange movements. However, this has never been officially
+                         documented or proven, remaining merely rumors that may or may not be true.
                         """
         );
 

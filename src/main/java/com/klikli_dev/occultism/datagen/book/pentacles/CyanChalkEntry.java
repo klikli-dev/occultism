@@ -24,21 +24,24 @@ public class CyanChalkEntry extends EntryProvider {
     @Override
     protected void generatePages() {
 
-        this.page("spotlight", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismItems.CHALK_CYAN.get()))
-                .withText(this.context().pageText()));
-        this.pageText("""
-                        Cyan Chalk Text
-                        """
-        );
-
         this.page("lore", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
         this.pageTitle("In the Past");
         this.pageText("""
-                        Lore Text
+                        Almost lost to time, the cyan chalk brings ancient knowledge, often even forbidden.
+                         But who cares? After all, knowledge is knowledge, and the more, the better, right?
+                        """
+        );
+
+        this.page("spotlight", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismItems.CHALK_CYAN.get()))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        Despite the complexity of its manufacture, this chalk is dated as one of the oldest,
+                         perhaps even the oldest chalk ever recorded. And even after all this time,
+                         its uses are little known, but you can see just how stable it is.
                         """
         );
 

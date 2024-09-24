@@ -24,13 +24,6 @@ public class LimeChalkEntry extends EntryProvider {
     @Override
     protected void generatePages() {
 
-        this.page("spotlight", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismItems.CHALK_LIME.get()))
-                .withText(this.context().pageText()));
-        this.pageText("""
-                        Lime Chalk Text
-                        """
-        );
 
         this.page("lore", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -38,7 +31,17 @@ public class LimeChalkEntry extends EntryProvider {
         );
         this.pageTitle("Getting Experience");
         this.pageText("""
-                        Lore Text
+                        The lime chalk attracts spirits beyond Folio.
+                         Anyone wishing to elevate the level of their rituals will need this chalk.
+                        """
+        );
+
+        this.page("spotlight", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismItems.CHALK_LIME.get()))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        Made with valuable gems infused with experiences, lime glyphs become especially
+                         interesting to demonstrate that yours skills have surpassed the basic level.
                         """
         );
 

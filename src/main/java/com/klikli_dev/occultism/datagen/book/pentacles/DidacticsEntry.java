@@ -25,7 +25,22 @@ public class DidacticsEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("About");
         this.pageText("""
-                        Explanations.
+                        This category is a roadmap that guides you step by step, follow the unlocked entries.\\
+                        \\
+                       **Tip:** By default, to set up all pentacles, you need four 19x19 areas.
+                        """
+        );
+
+        this.page("table", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Types and Tier");
+        this.pageText("""
+                        This category is organized as a table.\\
+                         Each line refers to a type of ritual.\\
+                         And each column represents a tier.\\
+                         By following the line you can just upgrade the pentagram you drew before,
+                         working like the previous and the new one.
                         """
         );
 
@@ -33,12 +48,12 @@ public class DidacticsEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Didactics";
+        return "Reading this category";
     }
 
     @Override
     protected String entryDescription() {
-        return "Didactics";
+        return "Basic learning";
     }
 
     @Override

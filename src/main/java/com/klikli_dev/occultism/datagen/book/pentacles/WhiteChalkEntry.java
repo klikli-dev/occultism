@@ -24,21 +24,24 @@ public class WhiteChalkEntry extends EntryProvider {
     @Override
     protected void generatePages() {
 
-        this.page("spotlight", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismItems.CHALK_WHITE.get()))
-                .withText(this.context().pageText()));
-        this.pageText("""
-                        White Chalk Text
-                        """
-        );
-
         this.page("lore", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
         this.pageTitle("First Foundation");
         this.pageText("""
-                        Lore Text
+                        This is the first chalk in the journey of any occultist. Due to its simplicity, it serves as a
+                         weak foundation. Pentagrams drawn only with this chalk attract only the weakest spirits, 
+                         known as Folit.
+                        """
+        );
+
+        this.page("spotlight", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismItems.CHALK_WHITE.get()))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        In almost any pentagram where you see a white glyph, it can be replaced with another
+                         "colorless" chalk (light gray, gray, or black).
                         """
         );
 

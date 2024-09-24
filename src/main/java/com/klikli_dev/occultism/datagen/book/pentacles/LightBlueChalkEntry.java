@@ -25,21 +25,22 @@ public class LightBlueChalkEntry extends EntryProvider {
     @Override
     protected void generatePages() {
 
-        this.page("spotlight", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismItems.CHALK_LIGHT_BLUE.get()))
-                .withText(this.context().pageText()));
-        this.pageText("""
-                        Light Blue Chalk Text
-                        """
-        );
-
         this.page("lore", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
         this.pageTitle("Never Melt");
         this.pageText("""
-                        Lore Text
+                        The light blue chalk is made with such icy materials that its glyphs
+                         are inert and impart a natural stability to the pentagram.
+                        """
+        );
+
+        this.page("spotlight", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismItems.CHALK_LIGHT_BLUE.get()))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        Although it is basically made of ice, the magic present prevents it from melting.
                         """
         );
 

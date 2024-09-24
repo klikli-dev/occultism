@@ -24,21 +24,23 @@ public class BlackChalkEntry extends EntryProvider {
     @Override
     protected void generatePages() {
 
-        this.page("spotlight", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismItems.CHALK_BLACK.get()))
-                .withText(this.context().pageText()));
-        this.pageText("""
-                        Black Chalk Text
-                        """
-        );
-
         this.page("lore", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
         this.pageTitle("Powerful");
         this.pageText("""
-                        Lore Text
+                        The black chalk has a composition as rigid as it is supernatural. Mixing the essence of
+                         Wither with netherite turns this chalk into an extremely valuable tool.
+                        """
+        );
+
+        this.page("spotlight", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismItems.CHALK_BLACK.get()))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        Perfect for the foundation of any pentagram, the power of the black chalk is sufficient
+                         to replace any other "colorless" chalk.
                         """
         );
 

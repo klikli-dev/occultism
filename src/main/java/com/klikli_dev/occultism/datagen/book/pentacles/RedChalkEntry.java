@@ -24,21 +24,24 @@ public class RedChalkEntry extends EntryProvider {
     @Override
     protected void generatePages() {
 
-        this.page("spotlight", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismItems.CHALK_RED.get()))
-                .withText(this.context().pageText()));
-        this.pageText("""
-                        Red Chalk Text
-                        """
-        );
-
         this.page("lore", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
         this.pageTitle("Under Control");
         this.pageText("""
-                        Lore Text
+                        The red chalk is made from the very essence of Afrit, making its glyphs directly
+                         connected to these spirits. Additionally, it elevates the pentagrams
+                          capacity to the most demonic levels.
+                        """
+        );
+
+        this.page("spotlight", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismItems.CHALK_RED.get()))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        These properties allow for an incredible achievement that has been sought
+                         for ages before being attained: the summoning of an Afrit bound to the occultist.
                         """
         );
 

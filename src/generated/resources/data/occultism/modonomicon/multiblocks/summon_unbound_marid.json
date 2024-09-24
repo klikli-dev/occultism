@@ -25,9 +25,13 @@
       "type": "modonomicon:block",
       "block": "occultism:spirit_attuned_crystal"
     },
-    "G": {
-      "type": "modonomicon:tag",
-      "tag": "#occultism:foundation_glyphs_dark"
+    "4": {
+      "type": "modonomicon:block",
+      "block": "minecraft:wither_skeleton_skull"
+    },
+    "K": {
+      "type": "modonomicon:block",
+      "block": "occultism:chalk_glyph_black"
     },
     "L": {
       "type": "modonomicon:block",
@@ -37,6 +41,10 @@
       "type": "modonomicon:block",
       "block": "occultism:chalk_glyph_orange"
     },
+    "R": {
+      "type": "modonomicon:block",
+      "block": "occultism:chalk_glyph_red"
+    },
     "W": {
       "type": "modonomicon:tag",
       "tag": "#occultism:foundation_glyphs_any"
@@ -44,23 +52,23 @@
   },
   "pattern": [
     [
-      "_________________",
+      "________3________",
       "______OOOOO______",
-      "____OO__2__OO____",
-      "___O__LLLLL__O___",
-      "__O__L_L1L_L__O__",
+      "____OOR_2_ROO____",
+      "___OR_LLLLL_RO___",
+      "__OR3L_L1L_L3RO__",
       "__O_L2_WWW_2L_O__",
-      "_O_L__W_G_W__L_O_",
-      "_O_LLW_1G1_WLL_O_",
-      "_O2L1WGG0GGW1L2O_",
-      "_O_LLW_1G1_WLL_O_",
-      "_O_L__W_G_W__L_O_",
+      "_ORL__W_K_W__LRO_",
+      "_O_LLW_1K1_WLL_O_",
+      "3O2L1WKK0KKW1L2O3",
+      "_O_LLW_1K1_WLL_O_",
+      "_ORL__W_K_W__LRO_",
       "__O_L2_WWW_2L_O__",
-      "__O__L_L1L_L__O__",
-      "___O__LLLLL__O___",
-      "____OO__2__OO____",
+      "__OR3L_L1L_L3RO__",
+      "___OR_LLLLL_RO___",
+      "____OOR_2_ROO____",
       "______OOOOO______",
-      "_________________"
+      "________3________"
     ],
     [
       "*+*+*+*+*+*+*+*+*",

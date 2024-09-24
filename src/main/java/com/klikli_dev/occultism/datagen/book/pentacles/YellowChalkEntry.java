@@ -24,21 +24,24 @@ public class YellowChalkEntry extends EntryProvider {
     @Override
     protected void generatePages() {
 
-        this.page("spotlight", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismItems.CHALK_YELLOW.get()))
-                .withText(this.context().pageText()));
-        this.pageText("""
-                        Yellow Chalk Text
-                        """
-        );
-
         this.page("lore", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
         this.pageTitle("Possessing");
         this.pageText("""
-                        Lore Text
+                        The yellow chalk, also known as golden chalk, brings a sparkle to the eyes of those who
+                         engage in possessions, serving as the main glyph in this type of ritual.
+                        """
+        );
+
+        this.page("spotlight", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismItems.CHALK_YELLOW.get()))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        Possessions are a variation of summoning, caused by a transformation in geometry and
+                         the addition of yellow glyphs, allowing spirits to manifest in bodies (material prisons)
+                          different from their usual ones.
                         """
         );
 

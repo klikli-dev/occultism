@@ -19,6 +19,17 @@
       "text": "book.occultism.dictionary_of_spirits.pentacles.didactics.intro.text",
       "title": "book.occultism.dictionary_of_spirits.pentacles.didactics.intro.title",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.didactics.table.text",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.didactics.table.title",
+      "use_markdown_in_title": false
     }
   ],
   "parents": [
@@ -31,6 +42,6 @@
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": 2,
-  "x": -7,
+  "x": -8,
   "y": -4
 }

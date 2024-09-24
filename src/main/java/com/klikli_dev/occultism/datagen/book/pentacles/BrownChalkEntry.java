@@ -24,21 +24,23 @@ public class BrownChalkEntry extends EntryProvider {
     @Override
     protected void generatePages() {
 
-        this.page("spotlight", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismItems.CHALK_BROWN.get()))
-                .withText(this.context().pageText()));
-        this.pageText("""
-                        Brown Chalk Text
-                        """
-        );
-
         this.page("lore", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
         this.pageTitle("Very Evil");
         this.pageText("""
-                        Lore Text
+                        The brown chalk is made with the essence of cruelty, and obtaining it certainly lives up
+                         to its name. Do the ends justify the means? Does morality truly exist? What is your morality?
+                        """
+        );
+
+        this.page("spotlight", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismItems.CHALK_BROWN.get()))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        This chalk is known to be part of an "Alignment Test." Anyone who possesses it is
+                         automatically classified as "Evil." What kind of spirits will these glyphs attract?
                         """
         );
 

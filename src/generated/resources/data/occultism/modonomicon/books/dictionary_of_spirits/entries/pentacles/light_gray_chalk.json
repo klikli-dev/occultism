@@ -14,6 +14,17 @@
   "name": "book.occultism.dictionary_of_spirits.pentacles.light_gray_chalk.name",
   "pages": [
     {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.light_gray_chalk.lore.text",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.light_gray_chalk.lore.title",
+      "use_markdown_in_title": false
+    },
+    {
       "type": "modonomicon:spotlight",
       "anchor": "",
       "condition": {
@@ -24,17 +35,6 @@
       },
       "text": "book.occultism.dictionary_of_spirits.pentacles.light_gray_chalk.spotlight.text",
       "title": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.pentacles.light_gray_chalk.lore.text",
-      "title": "book.occultism.dictionary_of_spirits.pentacles.light_gray_chalk.lore.title",
-      "use_markdown_in_title": false
     },
     {
       "type": "modonomicon:crafting_recipe",
@@ -69,6 +69,6 @@
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": 5,
-  "x": -1,
+  "x": -2,
   "y": -6
 }

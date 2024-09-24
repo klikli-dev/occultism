@@ -24,13 +24,6 @@ public class OrangeChalkEntry extends EntryProvider {
     @Override
     protected void generatePages() {
 
-        this.page("spotlight", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismItems.CHALK_ORANGE.get()))
-                .withText(this.context().pageText()));
-        this.pageText("""
-                        Orange Chalk Text
-                        """
-        );
 
         this.page("lore", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -38,7 +31,18 @@ public class OrangeChalkEntry extends EntryProvider {
         );
         this.pageTitle("Afrit Attractive");
         this.pageText("""
-                        Lore Text
+                        The orange chalk is a perfect bait for spirits of the Afrit class, who,
+                         although impressed by the lime chalk, can resist its call.
+                        """
+        );
+
+        this.page("spotlight", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismItems.CHALK_ORANGE.get()))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        Being a sweet and slightly warm chalk, it does not guarantee control over the invoked Afrit.
+                         Commanding an Afrit requires power directly related to its class of spirits and
+                         extreme stability in the pentagram.
                         """
         );
 

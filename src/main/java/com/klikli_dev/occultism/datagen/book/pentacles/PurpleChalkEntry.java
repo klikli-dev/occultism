@@ -24,13 +24,6 @@ public class PurpleChalkEntry extends EntryProvider {
     @Override
     protected void generatePages() {
 
-        this.page("spotlight", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismItems.CHALK_PURPLE.get()))
-                .withText(this.context().pageText()));
-        this.pageText("""
-                        Purple Chalk Text
-                        """
-        );
 
         this.page("lore", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -38,7 +31,17 @@ public class PurpleChalkEntry extends EntryProvider {
         );
         this.pageTitle("Infusing");
         this.pageText("""
-                        Lore Text
+                        The purple chalk is extremely important for those wishing to perform infusions,
+                         serving as the main glyph in this type of ritual.
+                        """
+        );
+
+        this.page("spotlight", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismItems.CHALK_PURPLE.get()))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        Infusions are an extremely different type of ritual, as while summoning and possession
+                         bring living creatures into the world, infusion creates objects bound to spirits.
                         """
         );
 
