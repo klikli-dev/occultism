@@ -6,7 +6,7 @@
   "hide_while_locked": false,
   "icon": {
     "height": 16,
-    "texture": "occultism:textures/gui/book/parrot.png",
+    "texture": "occultism:textures/gui/book/familiar.png",
     "width": 16
   },
   "name": "book.occultism.dictionary_of_spirits.getting_started.familiar_rituals.name",

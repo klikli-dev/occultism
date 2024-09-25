@@ -1957,7 +1957,7 @@ public class GettingStartedCategory extends CategoryProvider {
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
-                .withIcon(this.modLoc("textures/gui/book/parrot.png"))
+                .withIcon(this.modLoc("textures/gui/book/familiar.png"))
                 .withLocation(entryMap.get(icon))
                 .withEntryBackground(1, 1) //silver background and wavey entry shape
                 .withPages(

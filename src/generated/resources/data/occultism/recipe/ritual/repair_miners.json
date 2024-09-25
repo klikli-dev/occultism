@@ -3,13 +3,16 @@
   "activation_item": {
     "tag": "occultism:miners"
   },
-  "duration": 90,
+  "duration": 60,
   "ingredients": [
     {
       "tag": "c:storage_blocks/iesnium"
     },
     {
       "item": "occultism:spirit_attuned_crystal"
+    },
+    {
+      "item": "occultism:otherworld_essence"
     }
   ],
   "pentacle_id": "occultism:craft_afrit",

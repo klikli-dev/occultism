@@ -116,7 +116,7 @@ public class FamiliarRitualsCategory extends CategoryProvider {
 
     @Override
     protected BookIconModel categoryIcon() {
-        return BookIconModel.create(this.modLoc("textures/gui/book/parrot.png"));
+        return BookIconModel.create(this.modLoc("textures/gui/book/familiar.png"));
     }
 
     @Override
@@ -143,7 +143,7 @@ public class FamiliarRitualsCategory extends CategoryProvider {
                 .withText(this.context().pageText());
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(this.modLoc("textures/gui/book/parrot.png"))
+                .withIcon(this.modLoc("textures/gui/book/familiar.png"))
                 .withLocation(entryMap.get(icon))
                 .withEntryBackground(0, 1)
                 .withPages(

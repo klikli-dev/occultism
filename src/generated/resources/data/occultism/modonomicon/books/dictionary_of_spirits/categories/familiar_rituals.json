@@ -6,19 +6,19 @@
   "background_width": 512,
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "getting_started/intro"
+    "entry_id": "pentacles/possess_foliot"
   },
   "description": "",
   "display_mode": "node",
   "entry_textures": "modonomicon:textures/gui/entry_textures.png",
   "icon": {
     "height": 16,
-    "texture": "occultism:textures/gui/book/parrot.png",
+    "texture": "occultism:textures/gui/book/familiar.png",
     "width": 16
   },
   "max_scroll_x": 512,
   "max_scroll_y": 512,
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.name",
   "show_category_button": true,
-  "sort_number": 8
+  "sort_number": 7
 }

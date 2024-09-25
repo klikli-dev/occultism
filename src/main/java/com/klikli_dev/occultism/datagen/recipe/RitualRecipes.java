@@ -1579,11 +1579,12 @@ public abstract class RitualRecipes extends RecipeProvider {
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismTags.Items.Miners.MINERS),
                         makeLoreSpawnEgg(OccultismItems.REPAIR_ICON.get(), "item.occultism.ritual_dummy.repair_miners"),
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID,"ritual_dummy/repair_miners")),
-                        90,
+                        60,
                         RITUAL_REPAIR,
                         PENTACLE_CRAFT_AFRIT,
                         Ingredient.of(OccultismTags.Items.STORAGE_BLOCK_IESNIUM),
-                        Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL))
+                        Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL),
+                        Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE))
                 .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID,"ritual/repair_miners"));
     }

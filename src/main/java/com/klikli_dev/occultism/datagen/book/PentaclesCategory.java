@@ -1,16 +1,15 @@
 package com.klikli_dev.occultism.datagen.book;
 
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryParentModel;
+import com.klikli_dev.modonomicon.api.datagen.book.condition.BookAdvancementConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookAndConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookEntryReadConditionModel;
-import com.klikli_dev.modonomicon.api.datagen.book.condition.BookModLoadedConditionModel;
-import com.klikli_dev.modonomicon.book.conditions.BookAdvancementCondition;
-import com.klikli_dev.modonomicon.book.conditions.BookTrueCondition;
 import com.klikli_dev.occultism.datagen.OccultismBookProvider;
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.occultism.datagen.book.pentacles.*;
 import com.klikli_dev.occultism.registry.OccultismItems;
+import net.neoforged.neoforge.common.conditions.TrueCondition;
 
 public class PentaclesCategory extends CategoryProvider {
     public static final String CATEGORY_ID = "pentacles";
@@ -23,7 +22,7 @@ public class PentaclesCategory extends CategoryProvider {
     }
     @Override
     protected BookIconModel categoryIcon() {
-        return BookIconModel.create(OccultismItems.PENTACLE_SUMMON);
+        return BookIconModel.create(this.modLoc("textures/gui/book/pentacle.png"));
     }
     @Override
     public String categoryId() {

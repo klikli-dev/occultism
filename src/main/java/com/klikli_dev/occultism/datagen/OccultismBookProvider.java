@@ -46,28 +46,28 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         int sortNum = 1;
         var gettingStartedCategory = this.add(new GettingStartedCategory(this).generate().withSortNumber(sortNum++));
         var spiritsCategory = this.add(this.makeSpiritsSubcategory().withSortNumber(sortNum++));
-
-        var storageCategory = this.add(this.makeStorageCategory().withSortNumber(sortNum++));
-
         var ritualsCategory = this.add(this.makeRitualsCategory().withSortNumber(sortNum++));
-
-        var summoningRitualsCategory = this.add(this.makeSummoningRitualsSubcategory().withSortNumber(sortNum++));
-        var possessionRitualsCategory = this.add(this.makePossessionRitualsSubcategory().withSortNumber(sortNum++));
-        var craftingRitualsCategory = this.add(new BindingRitualsCategory(this).generate().withSortNumber(sortNum++));
-        var familiarRitualsCategory = this.add(new FamiliarRitualsCategory(this).generate().withSortNumber(sortNum++));
 
         var pentaclesCategory = this.add(new PentaclesCategory(this).generate().withSortNumber(sortNum++));
 
+        var summoningRitualsCategory = this.add(this.makeSummoningRitualsSubcategory().withSortNumber(sortNum++));
+        summoningRitualsCategory.withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/summon_foliot")));
+        var possessionRitualsCategory = this.add(this.makePossessionRitualsSubcategory().withSortNumber(sortNum++));
+        possessionRitualsCategory.withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/possess_foliot")));
+        var familiarRitualsCategory = this.add(new FamiliarRitualsCategory(this).generate().withSortNumber(sortNum++));
+        familiarRitualsCategory.withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/possess_foliot")));
+        var craftingRitualsCategory = this.add(new BindingRitualsCategory(this).generate().withSortNumber(sortNum++));
+        craftingRitualsCategory.withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/craft_foliot")));
+
+        var storageCategory = this.add(this.makeStorageCategory().withSortNumber(sortNum++));
+        storageCategory.withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/craft_foliot")));;
+
         var introReadCondition = BookEntryReadConditionModel.create()
                 .withEntry(this.modLoc("getting_started/intro"));
-
         spiritsCategory.withCondition(introReadCondition);
-        storageCategory.withCondition(introReadCondition);
         ritualsCategory.withCondition(introReadCondition);
-        summoningRitualsCategory.withCondition(introReadCondition);
-        possessionRitualsCategory.withCondition(introReadCondition);
-        craftingRitualsCategory.withCondition(introReadCondition);
-        familiarRitualsCategory.withCondition(introReadCondition);
+
+
         pentaclesCategory.withCondition(introReadCondition);
     }
 
@@ -595,7 +595,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.context().entry("familiar_rituals");
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(this.modLoc("textures/gui/book/parrot.png"))
+                .withIcon(this.modLoc("textures/gui/book/familiar.png"))
                 .withCategoryToOpen(this.modLoc("familiar_rituals"))
                 .withEntryBackground(1, 1) //silver background and wavey entry shape
                 .withLocation(entryMap.get(icon));

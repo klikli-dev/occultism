@@ -12,11 +12,13 @@
   "display_mode": "node",
   "entry_textures": "modonomicon:textures/gui/entry_textures.png",
   "icon": {
-    "item": "occultism:pentacle_summon"
+    "height": 16,
+    "texture": "occultism:textures/gui/book/pentacle.png",
+    "width": 16
   },
   "max_scroll_x": 512,
   "max_scroll_y": 512,
   "name": "book.occultism.dictionary_of_spirits.pentacles.name",
   "show_category_button": true,
-  "sort_number": 9
+  "sort_number": 4
 }
