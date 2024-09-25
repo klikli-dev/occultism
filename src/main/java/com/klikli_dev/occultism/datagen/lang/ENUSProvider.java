@@ -328,7 +328,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_WILD_EVOKER, "Wild Evoker Spawn Egg");
         //Pentacle Rework Update
         this.addItem(OccultismItems.AMETHYST_DUST,"Amethyst Dust");
-        this.addItem(OccultismItems.BROKEN_SEA_HEART,"Broken Sea Heart");
         this.addItem(OccultismItems.CRUELTY_ESSENCE,"Cruelty Essence");
         this.addItem(OccultismItems.CRUSHED_BLACKSTONE,"Crushed Blackstone");
         this.addItem(OccultismItems.CRUSHED_BLUE_ICE,"Crushed Blue Ice");
@@ -342,6 +341,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.EMERALD_DUST,"Emerald Dust");
         this.addItem(OccultismItems.GRAY_PASTE,"Gray Paste");
         this.addItem(OccultismItems.LAPIS_DUST,"Lapis Dust");
+        this.addItem(OccultismItems.MARID_ESSENCE,"Marid Essence");
         this.addItem(OccultismItems.NATURE_PASTE,"Nature Paste");
         this.addItem(OccultismItems.NETHERITE_DUST,"Netherite Dust");
         this.addItem(OccultismItems.NETHERITE_SCRAP_DUST,"Netherite Scrap Dust");
@@ -2593,6 +2593,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addPentacle("summon_djinni", "Ophyx' Calling");
         this.addPentacle("summon_unbound_afrit", "Abras' Open Conjure");
         this.addPentacle("summon_afrit", "Abras' Conjure");
+        this.addPentacle("summon_unbound_marid", "Abras' Fortified Conjure");
         this.addPentacle("summon_marid", "Fatma's Incentivized Attraction");
         this.addPentacle("possess_foliot", "Hedyrin's Lure");
         this.addPentacle("possess_djinni", "Ihagan's Enthrallment");

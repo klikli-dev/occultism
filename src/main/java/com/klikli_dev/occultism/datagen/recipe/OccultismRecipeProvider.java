@@ -405,13 +405,6 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .setIgnoreCrushingMultiplier(true)
                 .setMinTier(2)
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/blue_ice_dust"));
-        CrushingRecipeBuilder.crushingRecipe(Items.HEART_OF_THE_SEA, OccultismItems.BROKEN_SEA_HEART, 200)
-                .allowEmpty()
-                .unlockedBy("has_heart_of_the_sea", has(Items.HEART_OF_THE_SEA))
-                .setResultAmount(1)
-                .setIgnoreCrushingMultiplier(true)
-                .setMinTier(3)
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/broken_heart"));
         CrushingRecipeBuilder.crushingRecipe(Items.ECHO_SHARD, OccultismTags.Items.ECHO_DUST, 200)
                 .allowEmpty()
                 .unlockedBy("has_echo_shard", has(Items.ECHO_SHARD))
@@ -752,8 +745,6 @@ public class OccultismRecipeProvider extends RecipeProvider {
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.CHALK_GRAY_IMPURE.get())
                 .requires(OccultismItems.CHALK_WHITE_IMPURE.get())
                 .requires(OccultismItems.GRAY_PASTE)
-                .requires(OccultismItems.GRAY_PASTE)
-                .requires(OccultismItems.GRAY_PASTE)
                 .unlockedBy("has_chalk_white_impure", has(OccultismItems.CHALK_WHITE_IMPURE.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/chalk_gray_impure"));
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.CHALK_BLACK_IMPURE.get())
@@ -787,8 +778,6 @@ public class OccultismRecipeProvider extends RecipeProvider {
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.CHALK_GREEN_IMPURE.get())
                 .requires(OccultismItems.CHALK_WHITE_IMPURE.get())
                 .requires(OccultismItems.NATURE_PASTE)
-                .requires(OccultismItems.NATURE_PASTE)
-                .requires(OccultismItems.NATURE_PASTE)
                 .unlockedBy("has_chalk_white_impure", has(OccultismItems.CHALK_WHITE_IMPURE.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/chalk_green_impure"));
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.CHALK_CYAN_IMPURE.get())
@@ -807,7 +796,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/chalk_light_blue_impure"));
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.CHALK_BLUE_IMPURE.get())
                 .requires(OccultismItems.CHALK_WHITE_IMPURE.get())
-                .requires(OccultismItems.BROKEN_SEA_HEART)
+                .requires(OccultismItems.MARID_ESSENCE)
                 .requires(OccultismTags.Items.LAPIS_DUST)
                 .requires(OccultismTags.Items.LAPIS_DUST)
                 .unlockedBy("has_chalk_white_impure", has(OccultismItems.CHALK_WHITE_IMPURE.get()))

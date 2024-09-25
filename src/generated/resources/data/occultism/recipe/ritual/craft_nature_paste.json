@@ -12,6 +12,24 @@
     },
     {
       "tag": "c:seeds"
+    },
+    {
+      "tag": "minecraft:leaves"
+    },
+    {
+      "tag": "minecraft:saplings"
+    },
+    {
+      "tag": "c:seeds"
+    },
+    {
+      "tag": "minecraft:leaves"
+    },
+    {
+      "tag": "minecraft:saplings"
+    },
+    {
+      "tag": "c:seeds"
     }
   ],
   "pentacle_id": "occultism:craft_foliot",

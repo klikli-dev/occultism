@@ -42,6 +42,7 @@ public abstract class RitualRecipes extends RecipeProvider {
     private static final ResourceLocation PENTACLE_SUMMON_DJINNI = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_djinni");
     private static final ResourceLocation PENTACLE_SUMMON_UNBOUND_AFRIT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_unbound_afrit");
     private static final ResourceLocation PENTACLE_SUMMON_AFRIT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_afrit");
+    private static final ResourceLocation PENTACLE_SUMMON_UNBOUND_MARID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_unbound_marid");
     private static final ResourceLocation PENTACLE_SUMMON_MARID = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_marid");
     private static final ResourceLocation PENTACLE_POSSESS_FOLIOT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possess_foliot");
     private static final ResourceLocation PENTACLE_POSSESS_DJINNI = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possess_djinni");
@@ -1393,6 +1394,12 @@ public abstract class RitualRecipes extends RecipeProvider {
                         30,
                         RITUAL_CRAFT,
                         PENTACLE_CRAFT_FOLIOT,
+                        Ingredient.of(ItemTags.LEAVES),
+                        Ingredient.of(ItemTags.SAPLINGS),
+                        Ingredient.of(Tags.Items.SEEDS),
+                        Ingredient.of(ItemTags.LEAVES),
+                        Ingredient.of(ItemTags.SAPLINGS),
+                        Ingredient.of(Tags.Items.SEEDS),
                         Ingredient.of(ItemTags.LEAVES),
                         Ingredient.of(ItemTags.SAPLINGS),
                         Ingredient.of(Tags.Items.SEEDS))

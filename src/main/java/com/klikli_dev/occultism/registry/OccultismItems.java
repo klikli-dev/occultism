@@ -265,6 +265,8 @@ public class OccultismItems {
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> AFRIT_ESSENCE = ITEMS.register("afrit_essence",
             () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> MARID_ESSENCE = ITEMS.register("marid_essence",
+            () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> CRUELTY_ESSENCE = ITEMS.register("cruelty_essence",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> SPIRIT_ATTUNED_GEM = ITEMS.register("spirit_attuned_gem",
@@ -329,8 +331,6 @@ public class OccultismItems {
     public static final DeferredItem<Item> BURNT_OTHERSTONE = ITEMS.register("burnt_otherstone",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> OTHERWORLD_ASHES = ITEMS.register("otherworld_ashes",
-            () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> BROKEN_SEA_HEART = ITEMS.register("broken_sea_heart",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> GRAY_PASTE = ITEMS.register("gray_paste",
             () -> new Item(defaultProperties()));

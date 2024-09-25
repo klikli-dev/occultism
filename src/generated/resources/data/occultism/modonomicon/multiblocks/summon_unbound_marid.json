@@ -25,10 +25,6 @@
       "type": "modonomicon:block",
       "block": "occultism:spirit_attuned_crystal"
     },
-    "4": {
-      "type": "modonomicon:block",
-      "block": "minecraft:wither_skeleton_skull"
-    },
     "K": {
       "type": "modonomicon:block",
       "block": "occultism:chalk_glyph_black"
