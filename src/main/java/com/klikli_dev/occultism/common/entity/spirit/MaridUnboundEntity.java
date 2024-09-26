@@ -22,8 +22,13 @@
 
 package com.klikli_dev.occultism.common.entity.spirit;
 
+import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -124,5 +129,17 @@ public class MaridUnboundEntity extends Monster implements GeoEntity {
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.animatableInstanceCache;
+    }
+
+    @Override
+    public boolean isInvulnerableTo(DamageSource source) {
+        if (source.is(DamageTypeTags.IS_FIRE)
+                || source.is(DamageTypeTags.IS_DROWNING)
+                || source.is(DamageTypeTags.IS_FREEZING)
+                || source.is(DamageTypeTags.IS_EXPLOSION)
+                || source.is(DamageTypeTags.WITCH_RESISTANT_TO))
+            return true;
+
+        return super.isInvulnerableTo(source);
     }
 }
