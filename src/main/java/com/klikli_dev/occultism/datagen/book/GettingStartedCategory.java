@@ -6,6 +6,7 @@ import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryParentModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
+import com.klikli_dev.modonomicon.api.datagen.book.condition.BookAdvancementConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookAndConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookEntryReadConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookModLoadedConditionModel;
@@ -155,16 +156,20 @@ public class GettingStartedCategory extends CategoryProvider {
         storageEntry.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()));
 
         var possessionRitualsEntry = this.add(this.makePossessionRitualsEntry(this.entryMap, 'w'));
-        possessionRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()));
+        possessionRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()))
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/yellow"));
 
         var familiarRitualsEntry = this.add(this.makeFamiliarRitualsEntry(this.entryMap, 'x'));
-        familiarRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()));
+        familiarRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()))
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/yellow"));
 
         var summoningRitualsEntry = this.add(this.makeSummoningRitualsEntry(this.entryMap, 'y'));
-        summoningRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()));
+        summoningRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()))
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/white"));
 
         var craftingRitualsEntry = this.add(this.makeCraftingRitualsEntry(this.entryMap, 'z'));
-        craftingRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()));
+        craftingRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()))
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/purple"));
     }
 
     @Override
