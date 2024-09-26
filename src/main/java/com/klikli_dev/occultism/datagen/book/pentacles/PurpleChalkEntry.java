@@ -10,6 +10,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class PurpleChalkEntry extends EntryProvider {
@@ -47,7 +48,12 @@ public class PurpleChalkEntry extends EntryProvider {
 
         this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/chalk_purple_impure"))
-        );
+                .withText(this.context.pageText()));
+        this.pageText("""
+                You do not need to visit the {0} to obtain Endstone. You can summon a
+                 [Possessed Endermite](entry://possession_rituals/possess_endermite) which has a high chance to drop it.
+                """,
+        this.color("The End", ChatFormatting.LIGHT_PURPLE));
 
         this.page("recipe", () -> BookSpiritFireRecipePageModel.create()
                 .withRecipeId1(this.modLoc("spirit_fire/chalk_purple"))

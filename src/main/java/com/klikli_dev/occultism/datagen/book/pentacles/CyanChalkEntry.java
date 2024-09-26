@@ -10,6 +10,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class CyanChalkEntry extends EntryProvider {
@@ -47,7 +48,11 @@ public class CyanChalkEntry extends EntryProvider {
 
         this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/chalk_cyan_impure"))
-        );
+                .withText(this.context().pageText()));
+        this.pageText("""
+                Pulverize the {0} keeping their properties is a job that only the best crusher can do.
+                """,
+                this.color("Echo Shard", ChatFormatting.LIGHT_PURPLE));
 
         this.page("recipe", () -> BookSpiritFireRecipePageModel.create()
                 .withRecipeId1(this.modLoc("spirit_fire/chalk_cyan"))

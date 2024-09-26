@@ -43,7 +43,7 @@
         "type": "modonomicon:none"
       },
       "recipe_id_1": "occultism:crafting/chalk_light_blue_impure",
-      "text": "",
+      "text": "book.occultism.dictionary_of_spirits.pentacles.light_blue_chalk.recipe_impure.text",
       "title1": "",
       "title2": ""
     },

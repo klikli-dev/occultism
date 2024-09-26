@@ -10,6 +10,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class RedChalkEntry extends EntryProvider {
@@ -43,6 +44,16 @@ public class RedChalkEntry extends EntryProvider {
                         These properties allow for an incredible achievement that has been sought
                          for ages before being attained: the summoning of an Afrit bound to the occultist.
                         """
+        );
+
+        this.page("essence", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismItems.AFRIT_ESSENCE.get()))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        To obtain the essence of an {0} for [](item://occultism:chalk_red) you need to
+                         [summon and kill an Unbound Afrit](entry://summoning_rituals/afrit_essence).
+                        """,
+                this.color("Afrit", ChatFormatting.DARK_PURPLE)
         );
 
         this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()

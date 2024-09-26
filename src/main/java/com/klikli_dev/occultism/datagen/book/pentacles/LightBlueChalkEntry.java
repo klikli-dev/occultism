@@ -46,7 +46,10 @@ public class LightBlueChalkEntry extends EntryProvider {
 
         this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/chalk_light_blue_impure"))
-        );
+                .withText(this.context().pageText()));
+        this.pageText("""
+                Crushing ice without melting it is a job a Foliot can't do, so you need a better crusher.
+                """);
 
         this.page("recipe", () -> BookSpiritFireRecipePageModel.create()
                 .withRecipeId1(this.modLoc("spirit_fire/chalk_light_blue"))

@@ -39,7 +39,7 @@
         "type": "modonomicon:none"
       },
       "recipe_id_1": "occultism:crafting/chalk_cyan_impure",
-      "text": "",
+      "text": "book.occultism.dictionary_of_spirits.pentacles.cyan_chalk.recipe_impure.text",
       "title1": "",
       "title2": ""
     },

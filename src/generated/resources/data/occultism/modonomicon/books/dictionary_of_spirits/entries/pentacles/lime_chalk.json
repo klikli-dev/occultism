@@ -37,6 +37,17 @@
       "title": ""
     },
     {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/craft_research_fragment_dust",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
       "condition": {

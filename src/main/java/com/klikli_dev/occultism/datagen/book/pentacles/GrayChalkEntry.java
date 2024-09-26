@@ -7,6 +7,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.mojang.datafixers.util.Pair;
@@ -42,6 +43,10 @@ public class GrayChalkEntry extends EntryProvider {
                         As an enhanced foundation chalk, it further strengthens the core of the pentagram and
                          (almost always) can replace white glyphs or light gray glyphs.
                         """
+        );
+
+        this.page("ritual", () -> BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_gray_paste"))
         );
 
         this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()
