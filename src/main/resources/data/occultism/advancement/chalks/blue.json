@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "id": "occultism:chalk_blue"
+    },
+    "title": {"translate":"Blue Chalk"},
+    "description": {"color":"green","translate":"Fourth Tier"},
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "parent": "occultism:chalks/black",
+  "criteria": {
+    "chalk_white": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "occultism:chalk_blue"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

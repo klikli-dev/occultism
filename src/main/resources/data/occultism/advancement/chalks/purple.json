@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "id": "occultism:chalk_purple"
+    },
+    "title": {"translate":"Purple Chalk"},
+    "description": {"color":"green","translate":"Infusion"},
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "parent": "occultism:chalks/yellow",
+  "criteria": {
+    "chalk_white": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "occultism:chalk_purple"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "id": "occultism:chalk_pink"
+    },
+    "title": {"translate":"Pink Chalk"},
+    "description": {"color":"green","translate":"Wild Power"},
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "parent": "occultism:chalks/orange",
+  "criteria": {
+    "chalk_white": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "occultism:chalk_pink"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

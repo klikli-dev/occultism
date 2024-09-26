@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "id": "occultism:chalk_light_gray"
+    },
+    "title": {"translate":"Light Gray Chalk"},
+    "description": {"color":"green","translate":"Second Foundation"},
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "parent": "occultism:chalks/white",
+  "criteria": {
+    "chalk_white": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "occultism:chalk_light_gray"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

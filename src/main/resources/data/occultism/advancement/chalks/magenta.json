@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "id": "occultism:chalk_magenta"
+    },
+    "title": {"translate":"Magenta Chalk"},
+    "description": {"color":"green","translate":"Dragon Power"},
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "parent": "occultism:chalks/blue",
+  "criteria": {
+    "chalk_white": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "occultism:chalk_magenta"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

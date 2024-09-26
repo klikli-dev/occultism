@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "id": "occultism:chalk_white"
+    },
+    "title": {"translate": "White Chalk"},
+    "description": {"color":"green","translate":"First Foundation"},
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "parent": "occultism:chalks/root",
+  "criteria": {
+    "chalk_white": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "occultism:chalk_white"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

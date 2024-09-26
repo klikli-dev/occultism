@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "id": "occultism:chalk_black"
+    },
+    "title": {"translate": "Black Chalk"},
+    "description": {"color":"green","translate":"Fourth Foundation"},
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "parent": "occultism:chalks/red",
+  "criteria": {
+    "chalk_white": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "occultism:chalk_black"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

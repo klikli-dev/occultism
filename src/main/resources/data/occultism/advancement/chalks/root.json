@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "id": "occultism:brush"
+    },
+    "title": {"translate":"Occultism: Chalks"},
+    "description": {"color":"#CCCCCC","translate":"Just follow the lines"},
+    "background": "occultism:textures/block/otherstone.png",
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "chalk_impure": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "occultism:chalk_white_impure"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
