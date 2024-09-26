@@ -133,24 +133,24 @@ public class PentacleProvider implements DataProvider {
                 new MappingBuilder().bowl().whiteChalk().grayChalk().limeChalk().orangeChalk().redChalk().candle().skeleton().crystal().ground().build());
         this.addPentacle("summon_unbound_marid",
                 this.createPattern(
-                        "________3________",
+                        "_________________",
                         "______OOOOO______",
-                        "____OOR_2_ROO____",
+                        "__4_OOR_2_ROO_4__",
                         "___OR_LLLLL_RO___",
                         "__OR3L_L1L_L3RO__",
                         "__O_L2_WWW_2L_O__",
                         "_ORL__W_K_W__LRO_",
                         "_O_LLW_1K1_WLL_O_",
-                        "3O2L1WKK0KKW1L2O3",
+                        "_O2L1WKK0KKW1L2O_",
                         "_O_LLW_1K1_WLL_O_",
                         "_ORL__W_K_W__LRO_",
                         "__O_L2_WWW_2L_O__",
                         "__OR3L_L1L_L3RO__",
                         "___OR_LLLLL_RO___",
-                        "____OOR_2_ROO____",
+                        "__4_OOR_2_ROO_4__",
                         "______OOOOO______",
-                        "________3________"),
-                new MappingBuilder().bowl().whiteChalk().blackChalk().limeChalk().orangeChalk().redChalk().candle().skeleton().crystal().ground().build());
+                        "_________________"),
+                new MappingBuilder().bowl().whiteChalk().blackChalk().limeChalk().orangeChalk().redChalk().candle().skeleton().crystal().wither().ground().build());
         this.addPentacle("summon_marid",
                 this.createPattern(
                         "_____________________",

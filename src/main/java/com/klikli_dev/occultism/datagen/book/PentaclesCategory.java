@@ -66,7 +66,7 @@ public class PentaclesCategory extends CategoryProvider {
 
         var summonFoliot = this.add(new SummonFoliotEntry(this).generate('a'));
         summonFoliot.withParent(BookEntryParentModel.create(didacticsEntry.getId()))
-                .withCondition(BookEntryReadConditionModel.create().withEntry(whiteChalkEntry.getId()));
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/white"));
 
         var lightGrayChalkEntry = this.add(new LightGrayChalkEntry(this).generate('S'));
         lightGrayChalkEntry.withParent(BookEntryParentModel.create(whiteChalkEntry.getId()))
@@ -80,14 +80,16 @@ public class PentaclesCategory extends CategoryProvider {
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliot.getId()));
 
         var possessFoliot = this.add(new PossessFoliotEntry(this).generate('f'));
-        possessFoliot.withParent(BookEntryParentModel.create(yellowChalkEntry.getId()));
+        possessFoliot.withParent(BookEntryParentModel.create(yellowChalkEntry.getId()))
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/yellow"));
 
         var purpleChalkEntry = this.add(new PurpleChalkEntry(this).generate('X'));
         purpleChalkEntry.withParent(BookEntryParentModel.create(yellowChalkEntry.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliot.getId()));
 
         var craftFoliot = this.add(new CraftFoliotEntry(this).generate('l'));
-        craftFoliot.withParent(BookEntryParentModel.create(purpleChalkEntry.getId()));
+        craftFoliot.withParent(BookEntryParentModel.create(purpleChalkEntry.getId()))
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/purple"));
 
         var limeChalkEntry = this.add(new LimeChalkEntry(this).generate('L'));
         limeChalkEntry.withParent(BookEntryParentModel.create(purpleChalkEntry.getId()).withLineReversed(true))
@@ -105,8 +107,8 @@ public class PentaclesCategory extends CategoryProvider {
         var summonDjinni = this.add(new SummonDjinniEntry(this).generate('b'));
         summonDjinni.withParent(BookEntryParentModel.create(summonFoliot.getId()))
                 .withCondition(BookAndConditionModel.create().withChildren(
-                        BookEntryReadConditionModel.create().withEntry(limeChalkEntry.getId()),
-                        BookEntryReadConditionModel.create().withEntry(lightGrayChalkEntry.getId())));
+                        BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/light_gray"),
+                        BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/lime")));
 
         var lightBlueChalkEntry = this.add(new LightBlueChalkEntry(this).generate('A'));
         lightBlueChalkEntry.withParent(BookEntryParentModel.create(summonDjinni.getId()).withLineEnabled(false))
@@ -115,8 +117,8 @@ public class PentaclesCategory extends CategoryProvider {
         var possessDjinni = this.add(new PossessDjinniEntry(this).generate('g'));
         possessDjinni.withParent(BookEntryParentModel.create(possessFoliot.getId()))
                 .withCondition(BookAndConditionModel.create().withChildren(
-                        BookEntryReadConditionModel.create().withEntry(limeChalkEntry.getId()),
-                        BookEntryReadConditionModel.create().withEntry(lightGrayChalkEntry.getId())));
+                        BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/light_gray"),
+                        BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/lime")));
 
         var orangeChalkEntry = this.add(new OrangeChalkEntry(this).generate('O'));
         orangeChalkEntry.withParent(BookEntryParentModel.create(limeChalkEntry.getId()))
@@ -125,8 +127,8 @@ public class PentaclesCategory extends CategoryProvider {
         var craftDjinni = this.add(new CraftDjinniEntry(this).generate('m'));
         craftDjinni.withParent(BookEntryParentModel.create(craftFoliot.getId()))
                 .withCondition(BookAndConditionModel.create().withChildren(
-                        BookEntryReadConditionModel.create().withEntry(limeChalkEntry.getId()),
-                        BookEntryReadConditionModel.create().withEntry(lightGrayChalkEntry.getId())));
+                        BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/light_gray"),
+                        BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/lime")));
 
         var grayChalkEntry = this.add(new GrayChalkEntry(this).generate('G'));
         grayChalkEntry.withParent(BookEntryParentModel.create(lightGrayChalkEntry.getId()))
@@ -136,8 +138,8 @@ public class PentaclesCategory extends CategoryProvider {
         var summonUnboundAfrit = this.add(new SummonUnboundAfritEntry(this).generate('c'));
         summonUnboundAfrit.withParent(BookEntryParentModel.create(summonDjinni.getId()))
                 .withCondition(BookAndConditionModel.create().withChildren(
-                        BookEntryReadConditionModel.create().withEntry(orangeChalkEntry.getId()),
-                        BookEntryReadConditionModel.create().withEntry(grayChalkEntry.getId())));
+                        BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/gray"),
+                        BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/orange")));
 
         var redChalkEntry = this.add(new RedChalkEntry(this).generate('R'));
         redChalkEntry.withParent(BookEntryParentModel.create(orangeChalkEntry.getId()))
@@ -146,8 +148,8 @@ public class PentaclesCategory extends CategoryProvider {
         var possessUnboundAfrit = this.add(new PossessUnboundAfritEntry(this).generate('h'));
         possessUnboundAfrit.withParent(BookEntryParentModel.create(possessDjinni.getId()))
                 .withCondition(BookAndConditionModel.create().withChildren(
-                        BookEntryReadConditionModel.create().withEntry(orangeChalkEntry.getId()),
-                        BookEntryReadConditionModel.create().withEntry(grayChalkEntry.getId())));
+                        BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/gray"),
+                        BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/orange")));
 
         var pinkChalkEntry = this.add(new PinkChalkEntry(this).generate('P'));
         pinkChalkEntry.withParent(BookEntryParentModel.create(possessUnboundAfrit.getId()).withLineEnabled(false));
@@ -159,33 +161,31 @@ public class PentaclesCategory extends CategoryProvider {
                         BookEntryParentModel.create(greenChalkEntry.getId()).withLineReversed(true),
                         BookEntryParentModel.create(lightBlueChalkEntry.getId()))
                 .withCondition(BookAndConditionModel.create().withChildren(
-                        BookEntryReadConditionModel.create().withEntry(pinkChalkEntry.getId()),
-                        BookEntryReadConditionModel.create().withEntry(greenChalkEntry.getId()),
-                        BookEntryReadConditionModel.create().withEntry(lightBlueChalkEntry.getId())
-                ));
+                        BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/pink"),
+                        BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/green"),
+                        BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/light_blue")));
 
         //Tier Afrit
         var summonAfrit = this.add(new SummonAfritEntry(this).generate('d'));
         summonAfrit.withParent(BookEntryParentModel.create(summonUnboundAfrit.getId()))
-                .withCondition(BookEntryReadConditionModel.create().withEntry(redChalkEntry.getId()));
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/red"));
 
         var possessAfrit = this.add(new PossessAfritEntry(this).generate('i'));
         possessAfrit.withParent(BookEntryParentModel.create(possessUnboundAfrit.getId()))
-                .withCondition(BookEntryReadConditionModel.create().withEntry(redChalkEntry.getId()));
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/red"));
 
         var craftAfrit = this.add(new CraftAfritEntry(this).generate('n'));
         craftAfrit.withParent(BookEntryParentModel.create(craftDjinni.getId()))
-                .withCondition(BookEntryReadConditionModel.create().withEntry(redChalkEntry.getId()));
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/red"));
 
         var blackChalkEntry = this.add(new BlackChalkEntry(this).generate('K'));
         blackChalkEntry.withParent(BookEntryParentModel.create(grayChalkEntry.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftAfrit.getId()));
 
         //Tier Marid
-
         var summonUnboundMarid = this.add(new SummonUnboundMaridEntry(this).generate('u'));
         summonUnboundMarid.withParent(BookEntryParentModel.create(summonAfrit.getId()))
-                .withCondition(BookEntryReadConditionModel.create().withEntry(blackChalkEntry.getId()));
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/black"));
 
         var blueChalkEntry = this.add(new BlueChalkEntry(this).generate('U'));
         blueChalkEntry.withParent(BookEntryParentModel.create(redChalkEntry.getId()))
@@ -193,25 +193,21 @@ public class PentaclesCategory extends CategoryProvider {
 
         var summonMarid = this.add(new SummonMaridEntry(this).generate('e'));
         summonMarid.withParent(BookEntryParentModel.create(summonUnboundMarid.getId()))
-                .withCondition(BookEntryReadConditionModel.create().withEntry(blueChalkEntry.getId()));
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/blue"));
 
         var cyanChalkEntry = this.add(new CyanChalkEntry(this).generate('C'));
         cyanChalkEntry.withParent(BookEntryParentModel.create(summonMarid.getId()).withLineEnabled(false));
 
         var possessMarid = this.add(new PossessMaridEntry(this).generate('j'));
         possessMarid.withParent(BookEntryParentModel.create(possessAfrit.getId()))
-                .withCondition(BookAndConditionModel.create().withChildren(
-                        BookEntryReadConditionModel.create().withEntry(blueChalkEntry.getId()),
-                        BookEntryReadConditionModel.create().withEntry(blackChalkEntry.getId())));
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/blue"));
 
         var brownChalkEntry = this.add(new BrownChalkEntry(this).generate('B'));
         brownChalkEntry.withParent(BookEntryParentModel.create(possessMarid.getId()).withLineEnabled(false));
 
         var craftMarid = this.add(new CraftMaridEntry(this).generate('o'));
         craftMarid.withParent(BookEntryParentModel.create(craftAfrit.getId()))
-                .withCondition(BookAndConditionModel.create().withChildren(
-                        BookEntryReadConditionModel.create().withEntry(blueChalkEntry.getId()),
-                        BookEntryReadConditionModel.create().withEntry(blackChalkEntry.getId())));
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/blue"));
 
         var magentaChalkEntry = this.add(new MagentaChalkEntry(this).generate('M'));
         magentaChalkEntry.withParent(BookEntryParentModel.create(craftMarid.getId()).withLineEnabled(false));
@@ -223,9 +219,9 @@ public class PentaclesCategory extends CategoryProvider {
                         BookEntryParentModel.create(brownChalkEntry.getId()),
                         BookEntryParentModel.create(cyanChalkEntry.getId()).withLineReversed(true))
                 .withCondition(BookAndConditionModel.create().withChildren(
-                        BookEntryReadConditionModel.create().withEntry(magentaChalkEntry.getId()),
-                        BookEntryReadConditionModel.create().withEntry(brownChalkEntry.getId()),
-                        BookEntryReadConditionModel.create().withEntry(cyanChalkEntry.getId())))
+                        BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/magenta"),
+                        BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/brown"),
+                        BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/cyan")))
                 .hideWhileLocked(true);
     }
 }

@@ -3,17 +3,8 @@
   "background_v_index": 0,
   "category": "pentacles",
   "condition": {
-    "type": "modonomicon:and",
-    "children": [
-      {
-        "type": "modonomicon:entry_read",
-        "entry_id": "pentacles/blue_chalk"
-      },
-      {
-        "type": "modonomicon:entry_read",
-        "entry_id": "pentacles/black_chalk"
-      }
-    ]
+    "type": "modonomicon:advancement",
+    "advancement_id": "occultism:chalks/blue"
   },
   "description": "book.occultism.dictionary_of_spirits.pentacles.craft_marid.description",
   "hide_while_locked": false,

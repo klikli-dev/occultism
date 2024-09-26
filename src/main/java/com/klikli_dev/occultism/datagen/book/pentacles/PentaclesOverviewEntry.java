@@ -88,7 +88,7 @@ public class PentaclesOverviewEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get());
+        return BookIconModel.create(this.modLoc("textures/gui/book/pentacle.png"));
     }
 
     @Override
