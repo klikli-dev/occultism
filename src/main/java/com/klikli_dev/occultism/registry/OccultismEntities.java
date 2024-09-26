@@ -72,6 +72,12 @@ public class OccultismEntities {
                     .clientTrackingRange(8)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "marid").toString()));
 
+    public static final Lazy<EntityType<MaridUnboundEntity>> MARID_UNBOUND_TYPE =
+            Lazy.of(() -> EntityType.Builder.of((EntityType<MaridUnboundEntity> t, Level l) -> new MaridUnboundEntity(t, l), MobCategory.CREATURE)
+                    .sized(1.2f, 2.4f)
+                    .clientTrackingRange(16)
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "marid_unbound").toString()));
+
     public static final Lazy<EntityType<PossessedEndermiteEntity>> POSSESSED_ENDERMITE_TYPE =
             Lazy.of(() -> EntityType.Builder.of(PossessedEndermiteEntity::new, MobCategory.MONSTER)
                     .sized(0.4F, 0.3F)
@@ -341,6 +347,7 @@ public class OccultismEntities {
     public static final Supplier<EntityType<AfritEntity>> AFRIT = ENTITIES.register("afrit", AFRIT_TYPE::get);
     public static final Supplier<EntityType<AfritWildEntity>> AFRIT_WILD = ENTITIES.register("afrit_wild", AFRIT_WILD_TYPE::get);
     public static final Supplier<EntityType<MaridEntity>> MARID = ENTITIES.register("marid", MARID_TYPE::get);
+    public static final Supplier<EntityType<MaridUnboundEntity>> MARID_UNBOUND = ENTITIES.register("marid_unbound", MARID_UNBOUND_TYPE::get);
 
 
     public static final Supplier<EntityType<PossessedEndermiteEntity>> POSSESSED_ENDERMITE =

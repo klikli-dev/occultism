@@ -20,7 +20,7 @@
       "item": "minecraft:flint_and_steel"
     },
     {
-      "item": "minecraft:gunpowder"
+      "tag": "c:gunpowders"
     }
   ],
   "pentacle_id": "occultism:summon_unbound_afrit",

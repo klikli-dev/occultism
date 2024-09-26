@@ -31,8 +31,8 @@ public class SummonUnboundMaridEntry extends EntryProvider {
                 **Purpose:** Summon an {0}\\
                 \\
                 **Abras Fortified Conjure** is a improved version of {1}, allowing to summon {2},
-                 however without any control of the occultist. {3} summoned by this wat is neutral
-                 and will only attack you if you initiate combat.
+                 however without any control of the occultist. {3} summoned by this will become
+                 aggressive due to the instability of the ritual
                 """,
                 this.color("Unbound Marid", ChatFormatting.DARK_PURPLE),
                 this.color("Abras Conjure", ChatFormatting.LIGHT_PURPLE),

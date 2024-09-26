@@ -67,6 +67,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.AFRIT_TYPE.get())
                 .add(OccultismEntities.AFRIT_WILD_TYPE.get())
                 .add(OccultismEntities.MARID_TYPE.get())
+                .add(OccultismEntities.MARID_UNBOUND_TYPE.get())
                 .add(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get())
                 .add(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get())
                 .add(OccultismEntities.POSSESSED_GHAST_TYPE.get())

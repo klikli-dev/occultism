@@ -108,6 +108,14 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.7f, 1.0F)))
                                         .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))));
 
+        //Essence drop from unbound marid
+        this.add(OccultismEntities.MARID_UNBOUND_TYPE.get(),
+                LootTable.lootTable().withPool(
+                        LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(OccultismItems.MARID_ESSENCE.get())
+                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.9f, 1.0F)))
+                                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))));
+
         //increased wither skull drop from wild hunt
         this.add(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get(), LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))

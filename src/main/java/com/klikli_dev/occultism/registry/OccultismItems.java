@@ -395,6 +395,8 @@ public class OccultismItems {
             () -> new DeferredSpawnEggItem(OccultismEntities.AFRIT_WILD_TYPE::get, 0x4d140a, 0x744500, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_MARID = ITEMS.register("spawn_egg/marid",
             () -> new DeferredSpawnEggItem(OccultismEntities.MARID_TYPE::get, 0x396265, 0x57c786, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_MARID_UNBOUND = ITEMS.register("spawn_egg/marid_unbound",
+            () -> new DeferredSpawnEggItem(OccultismEntities.MARID_UNBOUND_TYPE::get, 0x394245, 0x57a766, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_ENDERMITE = ITEMS.register("spawn_egg/possessed_endermite",
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_ENDERMITE_TYPE::get, 0x161616, 0x6E6E6E, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_SKELETON = ITEMS.register("spawn_egg/possessed_skeleton",
@@ -506,6 +508,7 @@ public class OccultismItems {
         ITEMS.register("ritual_dummy/summon_afrit_thunder_weather", () -> new DummyTooltipItem(defaultProperties()));
 
         //Marid
+        ITEMS.register("ritual_dummy/summon_unbound_marid", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/summon_marid_crusher", () -> new DummyTooltipItem(defaultProperties()));
 
         //POSSESS

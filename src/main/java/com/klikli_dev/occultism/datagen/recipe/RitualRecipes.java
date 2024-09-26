@@ -386,12 +386,27 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Tags.Items.NETHERRACKS),
                         Ingredient.of(Tags.Items.GEMS_QUARTZ),
                         Ingredient.of(Items.FLINT_AND_STEEL),
-                        Ingredient.of(Items.GUNPOWDER))
+                        Ingredient.of(Tags.Items.GUNPOWDERS))
                 .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
                 .entityToSummon(OccultismEntities.AFRIT_WILD.get())
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.cows")
                 .entityToSacrifice(OccultismTags.Entities.COWS)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_unbound_afrit"));
+
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()),
+                        makeLoreSpawnEgg(OccultismItems.MARID_ESSENCE.get(), "item.occultism.ritual_dummy.summon_unbound_marid"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_unbound_marid")),
+                        90,
+                        RITUAL_SUMMON,
+                        PENTACLE_SUMMON_UNBOUND_MARID,
+                        Ingredient.of(Items.CONDUIT),
+                        Ingredient.of(Tags.Items.GEMS_PRISMARINE),
+                        Ingredient.of(Items.PRISMARINE_SHARD),
+                        Ingredient.of(Items.GHAST_TEAR))
+                .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
+                .entityToSummon(OccultismEntities.MARID_UNBOUND.get())
+                .itemToUse(Ingredient.of(Items.TRIDENT))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_unbound_marid"));
 
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.SKELETON_SKULL),
                         makeLoreSpawnEgg(Items.WITHER_SKELETON_SKULL, "item.occultism.ritual_dummy.wild_hunt"),
@@ -638,7 +653,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.PRISMARINE),
                         Ingredient.of(Items.PRISMARINE_BRICKS),
                         Ingredient.of(Items.DARK_PRISMARINE),
-                        Ingredient.of(Items.WET_SPONGE),
+                        Ingredient.of(Items.YELLOW_WOOL),
                         Ingredient.of(Items.SEA_LANTERN),
                         Ingredient.of(Items.WATER_BUCKET),
                         Ingredient.of(Items.WATER_BUCKET),

@@ -286,6 +286,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_AFRIT, "Afrit Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_AFRIT_UNBOUND, "Unbound Afrit Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_MARID, "Marid Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_MARID_UNBOUND, "Unbound Marid Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ENDERMITE, "Possessed Endermite Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_SKELETON, "Possessed Skeleton Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ENDERMAN, "Possessed Enderman Spawn Egg");
@@ -463,6 +464,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.AFRIT, "Afrit");
         this.addEntityType(OccultismEntities.AFRIT_WILD, "Unbound Afrit");
         this.addEntityType(OccultismEntities.MARID, "Marid");
+        this.addEntityType(OccultismEntities.MARID_UNBOUND, "Unbound Marid");
         this.addEntityType(OccultismEntities.POSSESSED_ENDERMITE, "Possessed Endermite");
         this.addEntityType(OccultismEntities.POSSESSED_SKELETON, "Possessed Skeleton");
         this.addEntityType(OccultismEntities.POSSESSED_ENDERMAN, "Possessed Enderman");
@@ -737,6 +739,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.summon_unbound_afrit.started", "Started summoning unbound afrit.");
         this.add("ritual.occultism.summon_unbound_afrit.finished", "Summoned unbound afrit successfully.");
         this.add("ritual.occultism.summon_unbound_afrit.interrupted", "Summoning of unbound afrit interrupted.");
+        this.add("ritual.occultism.summon_unbound_marid.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.summon_unbound_marid.started", "Started summoning unbound marid.");
+        this.add("ritual.occultism.summon_unbound_marid.finished", "Summoned unbound marid successfully.");
+        this.add("ritual.occultism.summon_unbound_marid.interrupted", "Summoning of unbound marid interrupted.");
         this.add("ritual.occultism.wild_hunt.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.wild_hunt.started", "Started summoning the wild hunt.");
         this.add("ritual.occultism.wild_hunt.finished", "Summoned the wild hunt successfully.");
@@ -2750,6 +2756,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.summon_foliot_cleaner.tooltip", "The janitor will pick up dropped items and deposit them into a target inventory.");
         this.add("item.occultism.ritual_dummy.summon_unbound_afrit", "Ritual: Summon Unbound Afrit");
         this.add("item.occultism.ritual_dummy.summon_unbound_afrit.tooltip", "Summons an unbound Afrit that can be killed to obtain Afrit Essence");
+        this.add("item.occultism.ritual_dummy.summon_unbound_marid", "Ritual: Summon Unbound Marid");
+        this.add("item.occultism.ritual_dummy.summon_unbound_marid.tooltip", "Summons an unbound Marid that can be killed to obtain Marid Essence");
         this.add("item.occultism.ritual_dummy.wild_hunt", "Ritual: Summon The Wild Hunt");
         this.add("item.occultism.ritual_dummy.wild_hunt.tooltip", "The Wild Hunt consists of Wither Skeletons that as a big chance to drop Wither Skeleton Skulls, and their minions.");
         this.add("item.occultism.ritual_dummy.possess_unbound_otherworld_bird", "Ritual: Possess Unbound Drikwing");

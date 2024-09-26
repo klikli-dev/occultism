@@ -127,6 +127,7 @@ public class ClientSetupEventHandler {
         event.registerEntityRenderer(OccultismEntities.AFRIT.get(), AfritRenderer::new);
         event.registerEntityRenderer(OccultismEntities.AFRIT_WILD.get(), AfritWildRenderer::new);
         event.registerEntityRenderer(OccultismEntities.MARID.get(), MaridRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.MARID_UNBOUND.get(), MaridUnboundRenderer::new);
         event.registerEntityRenderer(OccultismEntities.GREEDY_FAMILIAR.get(), GreedyFamiliarRenderer::new);
         event.registerEntityRenderer(OccultismEntities.BAT_FAMILIAR.get(), BatFamiliarRenderer::new);
         event.registerEntityRenderer(OccultismEntities.DEER_FAMILIAR.get(), DeerFamiliarRenderer::new);
