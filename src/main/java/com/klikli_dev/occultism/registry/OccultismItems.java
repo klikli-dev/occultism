@@ -27,7 +27,6 @@ import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.common.item.DummyTooltipItem;
 import com.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.klikli_dev.occultism.common.item.debug.*;
-import com.klikli_dev.occultism.common.item.otherworld.OtherworldBlockItem;
 import com.klikli_dev.occultism.common.item.spirit.*;
 import com.klikli_dev.occultism.common.item.storage.*;
 import com.klikli_dev.occultism.common.item.tool.BrushItem;
@@ -95,52 +94,52 @@ public class OccultismItems {
             () -> new BrushItem(defaultProperties().stacksTo(1)));
     public static final DeferredItem<Item> CHALK_WHITE = ITEMS.register("chalk_white",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
-                    () -> OccultismBlocks.CHALK_GLYPH_WHITE.get()));
+                    OccultismBlocks.CHALK_GLYPH_WHITE));
     public static final DeferredItem<Item> CHALK_LIGHT_GRAY = ITEMS.register("chalk_light_gray",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
-                    () -> OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY.get()));
+                    OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY));
     public static final DeferredItem<Item> CHALK_GRAY = ITEMS.register("chalk_gray",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
-                    () -> OccultismBlocks.CHALK_GLYPH_GRAY.get()));
+                    OccultismBlocks.CHALK_GLYPH_GRAY));
     public static final DeferredItem<Item> CHALK_BLACK = ITEMS.register("chalk_black",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
-                    () -> OccultismBlocks.CHALK_GLYPH_BLACK.get()));
+                    OccultismBlocks.CHALK_GLYPH_BLACK));
     public static final DeferredItem<Item> CHALK_BROWN = ITEMS.register("chalk_brown",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
-                    () -> OccultismBlocks.CHALK_GLYPH_BROWN.get()));
+                    OccultismBlocks.CHALK_GLYPH_BROWN));
     public static final DeferredItem<Item> CHALK_RED = ITEMS.register("chalk_red",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
-                    () -> OccultismBlocks.CHALK_GLYPH_RED.get()));
+                    OccultismBlocks.CHALK_GLYPH_RED));
     public static final DeferredItem<Item> CHALK_ORANGE = ITEMS.register("chalk_orange",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
-                    () -> OccultismBlocks.CHALK_GLYPH_ORANGE.get()));
+                    OccultismBlocks.CHALK_GLYPH_ORANGE));
     public static final DeferredItem<Item> CHALK_YELLOW = ITEMS.register("chalk_yellow",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
-                    () -> OccultismBlocks.CHALK_GLYPH_YELLOW.get()));
+                    OccultismBlocks.CHALK_GLYPH_YELLOW));
     public static final DeferredItem<Item> CHALK_LIME = ITEMS.register("chalk_lime",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
-                    () -> OccultismBlocks.CHALK_GLYPH_LIME.get()));
+                    OccultismBlocks.CHALK_GLYPH_LIME));
     public static final DeferredItem<Item> CHALK_GREEN = ITEMS.register("chalk_green",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
-                    () -> OccultismBlocks.CHALK_GLYPH_GREEN.get()));
+                    OccultismBlocks.CHALK_GLYPH_GREEN));
     public static final DeferredItem<Item> CHALK_CYAN = ITEMS.register("chalk_cyan",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
-                    () -> OccultismBlocks.CHALK_GLYPH_CYAN.get()));
+                    OccultismBlocks.CHALK_GLYPH_CYAN));
     public static final DeferredItem<Item> CHALK_LIGHT_BLUE = ITEMS.register("chalk_light_blue",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
-                    () -> OccultismBlocks.CHALK_GLYPH_LIGHT_BLUE.get()));
+                    OccultismBlocks.CHALK_GLYPH_LIGHT_BLUE));
     public static final DeferredItem<Item> CHALK_BLUE = ITEMS.register("chalk_blue",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
-                    () -> OccultismBlocks.CHALK_GLYPH_BLUE.get()));
+                    OccultismBlocks.CHALK_GLYPH_BLUE));
     public static final DeferredItem<Item> CHALK_PURPLE = ITEMS.register("chalk_purple",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
-                    () -> OccultismBlocks.CHALK_GLYPH_PURPLE.get()));
+                    OccultismBlocks.CHALK_GLYPH_PURPLE));
     public static final DeferredItem<Item> CHALK_MAGENTA = ITEMS.register("chalk_magenta",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
-                    () -> OccultismBlocks.CHALK_GLYPH_MAGENTA.get()));
+                    OccultismBlocks.CHALK_GLYPH_MAGENTA));
     public static final DeferredItem<Item> CHALK_PINK = ITEMS.register("chalk_pink",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
-                    () -> OccultismBlocks.CHALK_GLYPH_PINK.get()));
+                    OccultismBlocks.CHALK_GLYPH_PINK));
     public static final DeferredItem<Item> CHALK_WHITE_IMPURE = ITEMS.register("chalk_white_impure",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> CHALK_LIGHT_GRAY_IMPURE = ITEMS.register("chalk_light_gray_impure",
@@ -386,95 +385,97 @@ public class OccultismItems {
 
     //Spawn Eggs
     public static final DeferredItem<Item> SPAWN_EGG_FOLIOT = ITEMS.register("spawn_egg/foliot",
-            () -> new DeferredSpawnEggItem(OccultismEntities.FOLIOT_TYPE::get, 0x8d5454, 0x1f1f1f, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.FOLIOT_TYPE, 0x8d5454, 0x1f1f1f, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_DJINNI = ITEMS.register("spawn_egg/djinni",
-            () -> new DeferredSpawnEggItem(OccultismEntities.DJINNI_TYPE::get, 0x073f7c, 0xc9d631, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.DJINNI_TYPE, 0x073f7c, 0xc9d631, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_AFRIT = ITEMS.register("spawn_egg/afrit",
-            () -> new DeferredSpawnEggItem(OccultismEntities.AFRIT_TYPE::get, 0x5d241a, 0x946510, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.AFRIT_TYPE, 0x5d241a, 0x946510, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_AFRIT_UNBOUND = ITEMS.register("spawn_egg/afrit_unbound",
-            () -> new DeferredSpawnEggItem(OccultismEntities.AFRIT_WILD_TYPE::get, 0x4d140a, 0x744500, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.AFRIT_WILD_TYPE, 0x4d140a, 0x744500, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_MARID = ITEMS.register("spawn_egg/marid",
-            () -> new DeferredSpawnEggItem(OccultismEntities.MARID_TYPE::get, 0x396265, 0x57c786, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.MARID_TYPE, 0x396265, 0x57c786, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_MARID_UNBOUND = ITEMS.register("spawn_egg/marid_unbound",
-            () -> new DeferredSpawnEggItem(OccultismEntities.MARID_UNBOUND_TYPE::get, 0x394245, 0x57a766, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.MARID_UNBOUND_TYPE, 0x394245, 0x57a766, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_ENDERMITE = ITEMS.register("spawn_egg/possessed_endermite",
-            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_ENDERMITE_TYPE::get, 0x161616, 0x6E6E6E, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_ENDERMITE_TYPE, 0x161616, 0x6E6E6E, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_SKELETON = ITEMS.register("spawn_egg/possessed_skeleton",
-            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_SKELETON_TYPE::get, 0xC1C1C1, 0x494949, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_SKELETON_TYPE, 0xC1C1C1, 0x494949, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_ENDERMAN = ITEMS.register("spawn_egg/possessed_enderman",
-            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_ENDERMAN_TYPE::get, 0x161616, 0x0, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_ENDERMAN_TYPE, 0x161616, 0x0, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_GHAST = ITEMS.register("spawn_egg/possessed_ghast",
-            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_GHAST_TYPE::get, 0xe2e2e2, 0xC1C1C1, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_GHAST_TYPE, 0xe2e2e2, 0xC1C1C1, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_PHANTOM = ITEMS.register("spawn_egg/possessed_phantom",
-            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_PHANTOM_TYPE::get, 0x3f4c81, 0x6ccc00, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_PHANTOM_TYPE, 0x3f4c81, 0x6ccc00, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_WEAK_SHULKER = ITEMS.register("spawn_egg/possessed_weak_shulker",
-            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_WEAK_SHULKER_TYPE::get, 0x8c628c, 0x342638, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_WEAK_SHULKER_TYPE, 0x8c628c, 0x342638, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_SHULKER = ITEMS.register("spawn_egg/possessed_shulker",
-            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_SHULKER_TYPE::get, 0x8c628c, 0x342638, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_SHULKER_TYPE, 0x8c628c, 0x342638, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_ELDER_GUARDIAN = ITEMS.register("spawn_egg/possessed_elder_guardian",
-            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE::get, 0xb5b3a3, 0x4b4d60, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE, 0xb5b3a3, 0x4b4d60, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_WILD_HUNT_SKELETON = ITEMS.register("spawn_egg/wild_hunt_skeleton",
-            () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HUNT_SKELETON_TYPE::get, 12698049, 4802889, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HUNT_SKELETON_TYPE, 12698049, 4802889, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_WILD_HUNT_WITHER_SKELETON = ITEMS.register("spawn_egg/wild_hunt_wither_skeleton",
-            () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE::get, 1315860, 4672845, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE, 1315860, 4672845, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_WARDEN = ITEMS.register("spawn_egg/possessed_warden",
-            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_WARDEN_TYPE::get, 0x0f4649, 0x39d6e0, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_WARDEN_TYPE, 0x0f4649, 0x39d6e0, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_HOGLIN = ITEMS.register("spawn_egg/possessed_hoglin",
-            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_HOGLIN_TYPE::get, 0x592a10, 0xf9f3a4, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_HOGLIN_TYPE, 0x592a10, 0xf9f3a4, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_WILD_HORDE_HUSK = ITEMS.register("spawn_egg/wild_horde_husk",
-            () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HORDE_HUSK_TYPE::get, 0x5f584c, 0x92815e, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HORDE_HUSK_TYPE, 0x5f584c, 0x92815e, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_WILD_HORDE_DROWNED = ITEMS.register("spawn_egg/wild_horde_drowned",
-            () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HORDE_DROWNED_TYPE::get, 0x7bcfb9, 0x577148, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HORDE_DROWNED_TYPE, 0x7bcfb9, 0x577148, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_WILD_HORDE_CREEPER = ITEMS.register("spawn_egg/wild_horde_creeper",
-            () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HORDE_CREEPER_TYPE::get, 0x577148, 0x111111, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HORDE_CREEPER_TYPE, 0x577148, 0x111111, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_WILD_HORDE_SILVERFISH = ITEMS.register("spawn_egg/wild_horde_silverfish",
-            () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HORDE_SILVERFISH_TYPE::get, 0x666666, 0x262626, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HORDE_SILVERFISH_TYPE, 0x666666, 0x262626, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_WILD_WEAK_BREEZE = ITEMS.register("spawn_egg/wild_weak_breeze",
-            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_WEAK_BREEZE_TYPE::get, 0xa289cf, 0x5d428f, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_WEAK_BREEZE_TYPE, 0xa289cf, 0x5d428f, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_WILD_BREEZE = ITEMS.register("spawn_egg/wild_breeze",
-            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_BREEZE_TYPE::get, 0x9279bf, 0x4d327f, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_BREEZE_TYPE, 0x9279bf, 0x4d327f, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_WILD_STRONG_BREEZE = ITEMS.register("spawn_egg/wild_strong_breeze",
-            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_STRONG_BREEZE_TYPE::get, 0x8269af, 0x3d226f, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_STRONG_BREEZE_TYPE, 0x8269af, 0x3d226f, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_WILD_EVOKER = ITEMS.register("spawn_egg/wild_evoker",
-            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_EVOKER_TYPE::get, 0x8e9494, 0xcbc786, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_EVOKER_TYPE, 0x8e9494, 0xcbc786, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_OTHERWORLD_BIRD = ITEMS.register("spawn_egg/otherworld_bird",
-            () -> new DeferredSpawnEggItem(OccultismEntities.OTHERWORLD_BIRD_TYPE::get, 0x221269, 0x6b56c4, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.OTHERWORLD_BIRD_TYPE, 0x221269, 0x6b56c4, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_GREEDY_FAMILIAR = ITEMS.register("spawn_egg/familiar_greedy",
-            () -> new DeferredSpawnEggItem(OccultismEntities.GREEDY_FAMILIAR_TYPE::get, 0x54990f, 0x725025, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.GREEDY_FAMILIAR_TYPE, 0x54990f, 0x725025, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_BAT_FAMILIAR = ITEMS.register("spawn_egg/familiar_bat",
-            () -> new DeferredSpawnEggItem(OccultismEntities.BAT_FAMILIAR_TYPE::get, 0x434343, 0xda95de, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.BAT_FAMILIAR_TYPE, 0x434343, 0xda95de, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_DEER_FAMILIAR = ITEMS.register("spawn_egg/familiar_deer",
-            () -> new DeferredSpawnEggItem(OccultismEntities.DEER_FAMILIAR_TYPE::get, 0xc9833e, 0xfffdf2, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.DEER_FAMILIAR_TYPE, 0xc9833e, 0xfffdf2, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_CTHULHU_FAMILIAR = ITEMS.register("spawn_egg/familiar_cthulhu",
-            () -> new DeferredSpawnEggItem(OccultismEntities.CTHULHU_FAMILIAR_TYPE::get, 0x00cdc2, 0x4ae7c0, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.CTHULHU_FAMILIAR_TYPE, 0x00cdc2, 0x4ae7c0, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_DEVIL_FAMILIAR = ITEMS.register("spawn_egg/familiar_devil",
-            () -> new DeferredSpawnEggItem(OccultismEntities.DEVIL_FAMILIAR_TYPE::get, 0xf2f0d7, 0xa01d1d, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.DEVIL_FAMILIAR_TYPE, 0xf2f0d7, 0xa01d1d, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_DRAGON_FAMILIAR = ITEMS.register("spawn_egg/familiar_dragon",
-            () -> new DeferredSpawnEggItem(OccultismEntities.DRAGON_FAMILIAR_TYPE::get, 0x18780f, 0x76c47b, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.DRAGON_FAMILIAR_TYPE, 0x18780f, 0x76c47b, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_BLACKSMITH_FAMILIAR = ITEMS.register("spawn_egg/familiar_blacksmith",
-            () -> new DeferredSpawnEggItem(OccultismEntities.BLACKSMITH_FAMILIAR_TYPE::get, 0x06bc64, 0x2b2b2b, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.BLACKSMITH_FAMILIAR_TYPE, 0x06bc64, 0x2b2b2b, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_GUARDIAN_FAMILIAR = ITEMS.register("spawn_egg/familiar_guardian",
-            () -> new DeferredSpawnEggItem(OccultismEntities.GUARDIAN_FAMILIAR_TYPE::get, 0x787878, 0x515151, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.GUARDIAN_FAMILIAR_TYPE, 0x787878, 0x515151, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_HEADLESS_FAMILIAR = ITEMS.register("spawn_egg/familiar_headless",
-            () -> new DeferredSpawnEggItem(OccultismEntities.HEADLESS_FAMILIAR_TYPE::get, 0x0c0606, 0xde7900, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.HEADLESS_FAMILIAR_TYPE, 0x0c0606, 0xde7900, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_CHIMERA_FAMILIAR = ITEMS.register("spawn_egg/familiar_chimera",
-            () -> new DeferredSpawnEggItem(OccultismEntities.CHIMERA_FAMILIAR_TYPE::get, 0xcf8441, 0x3e7922, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.CHIMERA_FAMILIAR_TYPE, 0xcf8441, 0x3e7922, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_GOAT_FAMILIAR = ITEMS.register("spawn_egg/familiar_goat",
-            () -> new DeferredSpawnEggItem(OccultismEntities.GOAT_FAMILIAR_TYPE::get, 0xe2e2e2, 0x0f0f0e, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.GOAT_FAMILIAR_TYPE, 0xe2e2e2, 0x0f0f0e, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_SHUB_NIGGURATH_FAMILIAR = ITEMS.register("spawn_egg/familiar_shub_niggurath",
-            () -> new DeferredSpawnEggItem(OccultismEntities.SHUB_NIGGURATH_FAMILIAR_TYPE::get, 0x362836, 0x594a3a, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.SHUB_NIGGURATH_FAMILIAR_TYPE, 0x362836, 0x594a3a, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_BEHOLDER_FAMILIAR = ITEMS.register("spawn_egg/familiar_beholder",
-            () -> new DeferredSpawnEggItem(OccultismEntities.BEHOLDER_FAMILIAR_TYPE::get, 0x340a09, 0xfffbff, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.BEHOLDER_FAMILIAR_TYPE, 0x340a09, 0xfffbff, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_FAIRY_FAMILIAR = ITEMS.register("spawn_egg/familiar_fairy",
-            () -> new DeferredSpawnEggItem(OccultismEntities.FAIRY_FAMILIAR_TYPE::get, 0xbd674c, 0xcca896, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.FAIRY_FAMILIAR_TYPE, 0xbd674c, 0xcca896, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_MUMMY_FAMILIAR = ITEMS.register("spawn_egg/familiar_mummy",
-            () -> new DeferredSpawnEggItem(OccultismEntities.MUMMY_FAMILIAR_TYPE::get, 0xcbb76a, 0xe0d4a3, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.MUMMY_FAMILIAR_TYPE, 0xcbb76a, 0xe0d4a3, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_BEAVER_FAMILIAR = ITEMS.register("spawn_egg/familiar_beaver",
-            () -> new DeferredSpawnEggItem(OccultismEntities.BEAVER_FAMILIAR_TYPE::get, 0x824a2b, 0xdd9973, defaultProperties()));
+            () -> new DeferredSpawnEggItem(OccultismEntities.BEAVER_FAMILIAR_TYPE, 0x824a2b, 0xdd9973, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_PARROT_FAMILIAR = ITEMS.register("spawn_egg/familiar_parrot",
             () -> new DeferredSpawnEggItem(() -> EntityType.PARROT, 894731, 16711680, defaultProperties()));
-    public static final DeferredItem<Item> SPAWN_EGG_DEMONIC_WIFE = ITEMS.register("spawn_egg/demonic_wife", () -> new DeferredSpawnEggItem(OccultismEntities.DEMONIC_WIFE::get, 0xf2f0d7, 0xa01d1d, defaultProperties()));
-    public static final DeferredItem<Item> SPAWN_EGG_DEMONIC_HUSBAND = ITEMS.register("spawn_egg/demonic_husband", () -> new DeferredSpawnEggItem(OccultismEntities.DEMONIC_HUSBAND::get, 0xf2f0d7, 0xa01d1d, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_DEMONIC_WIFE = ITEMS.register("spawn_egg/demonic_wife",
+            () -> new DeferredSpawnEggItem(OccultismEntities.DEMONIC_WIFE, 0xf2f0d7, 0xa01d1d, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_DEMONIC_HUSBAND = ITEMS.register("spawn_egg/demonic_husband",
+            () -> new DeferredSpawnEggItem(OccultismEntities.DEMONIC_HUSBAND, 0xf2f0d7, 0xa01d1d, defaultProperties()));
 
     // TO DO: make all public static final
     //Ritual Dummy Items
