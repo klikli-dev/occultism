@@ -28,7 +28,7 @@ import com.klikli_dev.modonomicon.api.datagen.BookContextHelper;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.common.ritual.RitualFactory;
-import com.klikli_dev.occultism.datagen.OccultismAdvancementProvider;
+import com.klikli_dev.occultism.datagen.OccultismAdvancementSubProvider;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
 import com.klikli_dev.occultism.registry.*;
 import net.minecraft.ChatFormatting;
@@ -40,7 +40,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredItem;
 
 public class RURUProvider extends AbstractModonomiconLanguageProvider {
 
@@ -171,6 +172,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
                         Нажмите ПКМ по Золотой миске — убрать ритуальный круг и собрать ингредиенты.
                         """
         );
+
         this.add(TranslationKeys.RITUAL_SATCHEL_NO_PREVIEW_IN_WORLD, "Вам нужно предварительно просмотреть пентакль при помощи Справочника душ.");
         this.add(TranslationKeys.RITUAL_SATCHEL_NO_PREVIEW_BLOCK_TARGETED, "Вы должны нацелиться ритуальной наплечной сумкой на предварительно просмотренном блоке.");
         this.add(TranslationKeys.RITUAL_SATCHEL_NO_VALID_ITEM_IN_SATCHEL, "В наплечной сумке нет допустимого предмета для этого предварительно просмотренного блока.");
@@ -229,7 +231,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.STORAGE_REMOTE_INERT, "Инертное средство доступа хранилища");
         this.addItem(OccultismItems.DIMENSIONAL_MATRIX, "Кристалл пространственной матрицы");
         this.addItem(OccultismItems.DIVINATION_ROD, "Жезл прорицания");
-        this.addItem(OccultismItems.DATURA_SEEDS, "Семена «Блаженство демона");
+        this.addItem(OccultismItems.DATURA_SEEDS, "Семена «Блаженство демона»");
         this.addAutoTooltip(OccultismItems.DATURA_SEEDS.get(), "Посадите, чтобы вырастить Плод «Блаженство демона».\nУпотребление может позволить видеть за гробовой чертой... Возможно, вызовет плохое самочувствие.");
         this.addItem(OccultismItems.DATURA, "Плод «Блаженство демона»");
         this.addAutoTooltip(OccultismItems.DATURA.get(), "Употребление может позволить видеть за гробовой чертой... Возможно, вызовет плохое самочувствие.");
@@ -309,13 +311,21 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_CHIMERA_FAMILIAR, "Яйцо призыва Химеры-фамильяра");
         this.addItem(OccultismItems.SPAWN_EGG_GOAT_FAMILIAR, "Яйцо призыва Козы-фамильяра");
         this.addItem(OccultismItems.SPAWN_EGG_SHUB_NIGGURATH_FAMILIAR, "Яйцо призыва Шуб-Ниггурата-фамильяра");
-        this.addItem(OccultismItems.SPAWN_EGG_BEHOLDER_FAMILIAR, "Яйцо призыва Созерцателя--фамильяра");
+        this.addItem(OccultismItems.SPAWN_EGG_BEHOLDER_FAMILIAR, "Яйцо призыва Созерцателя-фамильяра");
         this.addItem(OccultismItems.SPAWN_EGG_FAIRY_FAMILIAR, "Яйцо призыва Фем-фамильяра");
         this.addItem(OccultismItems.SPAWN_EGG_MUMMY_FAMILIAR, "Яйцо призыва Мумии-фамильяра");
         this.addItem(OccultismItems.SPAWN_EGG_BEAVER_FAMILIAR, "Яйцо призыва Бобра-фамильяра");
         this.addItem(OccultismItems.SPAWN_EGG_PARROT_FAMILIAR, "Яйцо призыва Попугая-фамильяра");
         this.addItem(OccultismItems.SPAWN_EGG_DEMONIC_WIFE, "Яйцо призыва Демонической жены");
         this.addItem(OccultismItems.SPAWN_EGG_DEMONIC_HUSBAND, "Яйцо призыва Демонического мужа");
+		this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_HUSK, "Яйцо призыва Орды диких кадавров");
+        this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_DROWNED, "Яйцо призыва Орды диких утопленников");
+        this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_CREEPER, "Яйцо призыва Орды диких криперов");
+        this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_SILVERFISH, "Яйцо призыва Орды диких чешуйниц");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WEAK_BREEZE, "Яйцо призыва Одержимого слабого вихря");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_BREEZE, "Яйцо призыва Одержимого вихря");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_STRONG_BREEZE, "Яйцо призыва Одержимого сильного вихря");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_EVOKER, "Яйцо призыва Одержимого заклинателя");
     }
 
     private void addBlocks() {
@@ -391,7 +401,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.SPIRIT_FIRE, "Духовный огонь");
         this.addBlock(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL, "Кристалл, настроенный на духа");
 		this.addBlock(OccultismBlocks.LARGE_CANDLE, "Большая свеча");
-        this.addBlock(OccultismBlocks.LARGE_CANDLE_WHITE, "Large White Candle");
+        this.addBlock(OccultismBlocks.LARGE_CANDLE_WHITE, "Большая белая свеча");
         this.addBlock(OccultismBlocks.LARGE_CANDLE_LIGHT_GRAY, "Большая светло-серая свеча");
         this.addBlock(OccultismBlocks.LARGE_CANDLE_GRAY, "Большая серая свеча");
         this.addBlock(OccultismBlocks.LARGE_CANDLE_BLACK, "Большая чёрная свеча");
@@ -465,12 +475,32 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.THROWN_SWORD, "Брошенный меч");
         this.addEntityType(OccultismEntities.DEMONIC_WIFE, "Демоническая жена");
         this.addEntityType(OccultismEntities.DEMONIC_HUSBAND, "Демонический муж");
+        this.addEntityType(OccultismEntities.WILD_HORDE_HUSK, "Орда диких кадавров");
+        this.addEntityType(OccultismEntities.WILD_HORDE_DROWNED, "Орда диких утопленников");
+        this.addEntityType(OccultismEntities.WILD_HORDE_CREEPER, "Орда диких криперов");
+        this.addEntityType(OccultismEntities.WILD_HORDE_SILVERFISH, "Орда диких чешуйниц");
+        this.addEntityType(OccultismEntities.POSSESSED_WEAK_BREEZE, "Одержимый слабый вихрь");
+        this.addEntityType(OccultismEntities.POSSESSED_BREEZE, "Одержимый вихрь");
+        this.addEntityType(OccultismEntities.POSSESSED_STRONG_BREEZE, "Одержимый сильный вихрь");
+        this.addEntityType(OccultismEntities.WILD_ZOMBIE, "Дикий зомби");
+        this.addEntityType(OccultismEntities.WILD_SKELETON, "Дикий скелет");
+        this.addEntityType(OccultismEntities.WILD_SILVERFISH, "Дикая чешуйница");
+        this.addEntityType(OccultismEntities.WILD_SPIDER, "Дикий паук");
+        this.addEntityType(OccultismEntities.WILD_BOGGED, "Дикий болотник");
+        this.addEntityType(OccultismEntities.WILD_SLIME, "Дикий слизень");
+        this.addEntityType(OccultismEntities.WILD_HUSK, "Дикий кадавр");
+        this.addEntityType(OccultismEntities.WILD_STRAY, "Дикий зимогор");
+        this.addEntityType(OccultismEntities.WILD_CAVE_SPIDER, "Дикий пещерный паук");
+        this.addEntityType(OccultismEntities.POSSESSED_EVOKER, "Одержимый заклинатель");
     }
 
     private void addMiscTranslations() {
 
         //"(.*?)": "(.*)",
         //this.lang("ru_ru").add\("\1", "\2"\);
+
+        this.lang("ru_ru").add(TranslationKeys.HUD_NO_PENTACLE_FOUND, "Допустимый пентакль не найден.");
+        this.lang("ru_ru").add(TranslationKeys.HUD_PENTACLE_FOUND, "Текущий пентакль: %s");
 
         this.lang("ru_ru").add(TranslationKeys.MESSAGE_CONTAINER_ALREADY_OPEN, "Этот контейнер уже открыт другим игроком, ждите пока он его не закроет.");
 
@@ -555,11 +585,12 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
 
         //Звуки
         this.lang("ru_ru").add("occultism.subtitle.chalk", "Мел");
-        this.lang("ru_ru").add("occultism.subtitle.brush", "Щётка для мела");
+        this.lang("ru_ru").add("occultism.subtitle.brush", "Щётка");
         this.lang("ru_ru").add("occultism.subtitle.start_ritual", "Начать ритуал");
         this.lang("ru_ru").add("occultism.subtitle.tuning_fork", "Звук камертона");
         this.lang("ru_ru").add("occultism.subtitle.crunching", "Размельчение");
         this.lang("ru_ru").add("occultism.subtitle.poof", "Вжух!");
+
     }
 
     private void addGuiTranslations() {
@@ -567,7 +598,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add("gui.occultism.book_of_calling.work_area", "Рабочее место");
         this.lang("ru_ru").add("gui.occultism.book_of_calling.manage_machine.insert", "Сторона вклада");
         this.lang("ru_ru").add("gui.occultism.book_of_calling.manage_machine.extract", "Сторона извлечения");
-        this.lang("ru_ru").add("gui.occultism.book_of_calling.manage_machine.custom_name", "Польз. название");
+        this.lang("ru_ru").add("gui.occultism.book_of_calling.manage_machine.custom_name", "Своё название");
 
         // Spirit GUI
         this.lang("ru_ru").add("gui.occultism.spirit.age", "Распад сущности: %d%%");
@@ -577,7 +608,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add("gui.occultism.spirit.transporter.filter_mode", "Режим фильтра");
         this.lang("ru_ru").add("gui.occultism.spirit.transporter.filter_mode.blacklist", "Чёрный список");
         this.lang("ru_ru").add("gui.occultism.spirit.transporter.filter_mode.whitelist", "Белый список");
-        this.lang("ru_ru").add("gui.occultism.spirit.transporter.tag_filter", "Введите теги для фильтрации по разделённым символам \";\".\nНапр.: \"forge:ores;*брёвна*\".\nИспользуйте \"*\" для соответствия любого символа, напр.: \"*руда*\" для соответствия тегов руд из любого мода. Для фильтрации предметов, префикс с идентификатором предмета \"item:\", напр.: \"item:minecraft:chest\".");
+        this.lang("ru_ru").add("gui.occultism.spirit.transporter.tag_filter": "Введите теги для фильтрации по символам разделения \";\".\nНапр.: \"forge:ores;*брёвна*\".\nИспользуйте \"*\" для соответствия любого символа, напр.: \"*руда*\" для соответствия тегов руд из любого мода. Для фильтрации предметов, префикс с идентификатором предмета \"item:\", напр.: \"item:minecraft:chest\".");
 
         // Storage Controller GUI
         this.lang("ru_ru").add("gui.occultism.storage_controller.space_info_label", "%d/%d");
@@ -600,6 +631,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add("gui.occultism.storage_controller.search.machines.tooltip_sort_type_amount", "Сортировать по расстоянию.");
         this.lang("ru_ru").add("gui.occultism.storage_controller.search.machines.tooltip_sort_type_name", "Сортировать по названии устройства.");
         this.lang("ru_ru").add("gui.occultism.storage_controller.search.machines.tooltip_sort_type_mod", "Сортировать по названию мода.");
+
     }
 
     private void addRitualMessages() {
@@ -611,11 +643,15 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add("ritual.occultism.does_not_exist", "\u00a7lНеизвестный ритуал\u00a7r. Убедитесь, что пентакли и ингредиенты расположены правильно. Если Вы до сих пор не достигли желаемого результата, присоединяйтесь к нашему Discord-серверу —> https://invite.gg/klikli");
         this.lang("ru_ru").add("ritual.occultism.book_not_bound", "\u00a7lКнига вызова (несвязанная)\u00a7r. Перед началом ритуала Вы должны создать эту книгу, используя «Справочник душ», чтобы связать её с духом.");
 
-        this.lang("ru_ru").add("ritual.occultism.debug.conditions", "Не все требования удовлетворены для этого ритуала.");
-        this.lang("ru_ru").add("ritual.occultism.debug.started", "Ритуал запущен.");
-        this.lang("ru_ru").add("ritual.occultism.debug.finished", "Ритуал полностью завершился.");
-        this.lang("ru_ru").add("ritual.occultism.debug.interrupted", "Ритуал прерван.");
+        this.lang("ru_ru").add("ritual.occultism.unknown.conditions", "Не все требования удовлетворены для этого ритуала.");
+        this.lang("ru_ru").add("ritual.occultism.unknown.started", "Ритуал запущен.");
+        this.lang("ru_ru").add("ritual.occultism.unknown.finished", "Ритуал полностью завершился.");
+        this.lang("ru_ru").add("ritual.occultism.unknown.interrupted", "Ритуал прерван.");
 
+        this.add("ritual.occultism.debug.conditions", "Не все требования удовлетворены для этого ритуала.");
+        this.add("ritual.occultism.debug.started", "Ритуал запущен.");
+        this.add("ritual.occultism.debug.finished", "Ритуал полностью завершился.");
+        this.add("ritual.occultism.debug.interrupted", "Ритуал прерван.");
         this.lang("ru_ru").add("ritual.occultism.summon_foliot_lumberjack.conditions", "Не все требования удовлетворены для этого ритуала.");
         this.lang("ru_ru").add("ritual.occultism.summon_foliot_lumberjack.started", "Начался вызов Дровосека-фолиота.");
         this.lang("ru_ru").add("ritual.occultism.summon_foliot_lumberjack.finished", "Дровосек-Фолиот успешно вызван.");
@@ -837,6 +873,12 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add("ritual.occultism.summon_wild_parrot.started", "Начался вызов дикого попугая.");
         this.lang("ru_ru").add("ritual.occultism.summon_wild_parrot.finished", "Дикий попугай успешно вызван.");
         this.lang("ru_ru").add("ritual.occultism.summon_wild_parrot.interrupted", "Вызов дикого попугая прерван.");
+
+        this.add("ritual.occultism.summon_random_animal.conditions", "Не все требования удовлетворены для этого ритуала.");
+        this.add("ritual.occultism.summon_random_animal.started", "Начался вызов случайного животного.");
+        this.add("ritual.occultism.summon_random_animal.finished", "Успешно вызван.");
+        this.add("ritual.occultism.summon_random_animal.interrupted", "Вызов случайного животного прерван.");
+
         this.lang("ru_ru").add("ritual.occultism.familiar_parrot.conditions", "Не все требования удовлетворены для этого ритуала.");
         this.lang("ru_ru").add("ritual.occultism.familiar_parrot.started", "Начался вызов попугая-фамильяра.");
         this.lang("ru_ru").add("ritual.occultism.familiar_parrot.finished", "Попугай-фамильяр успешно вызван.");
@@ -882,6 +924,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add("ritual.occultism.familiar_beaver.finished", "Бобёр-фамильяр успешно вызван.");
         this.lang("ru_ru").add("ritual.occultism.familiar_beaver.interrupted", "Вызов бобра-фамильяра прерван.");
 
+
         this.lang("ru_ru").add("ritual.occultism.summon_demonic_wife.conditions", "Не все требования удовлетворены для этого ритуала.");
         this.lang("ru_ru").add("ritual.occultism.summon_demonic_wife.started", "Начался вызов.");
         this.lang("ru_ru").add("ritual.occultism.summon_demonic_wife.finished", "Успешно вызван.");
@@ -924,14 +967,31 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add("ritual.occultism.summon_horde_illager.finished", "Небольшое нашествие обитателей успешно вызвано.");
         this.lang("ru_ru").add("ritual.occultism.summon_horde_illager.interrupted", "Вызов небольшого нашествия обитателей прервано.");
 
-        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR_RITUAL, "conditions", "Не все требования удовлетворены для этого ритуала.");
-        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR_RITUAL, "started", "Началось воскресение фамильяра.");
-        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR_RITUAL, "finished", "Фамильяр успешно воскрешён.");
-        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR_RITUAL, "interrupted", "Воскресение прервано.");
+        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "conditions", "Не все требования удовлетворены для этого ритуала.");
+        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "started", "Началось воскресение фамильяра.");
+        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "finished", "Фамильяр успешно воскрешён.");
+        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "interrupted", "Воскресение прервано.");
+		
+        //item.occultism.ritual_dummy.summon_horde_illager
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1, "conditions", "Не все требования удовлетворены для этого ритуала.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1, "started", "Началось заточение Джинна в наплечную сумку.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1, "finished", "Успешно заточил Джинна в наплечную сумку.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1, "interrupted", "Заточение Джинна прервано.");
+
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "conditions", "Не все требования удовлетворены для этого ритуала.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "started", "Началось заточение Африта в наплечную сумку..");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "finished", "Успешно заточил Африта в наплечную сумку..");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "interrupted", "Заточение Африта прервано.");
     }
 
-    public void addRitualMessage(RegistryObject<RitualFactory> ritual, String key, String message) {
+    public void addRitualMessage(DeferredHolder<RitualFactory, RitualFactory> ritual, String key, String message) {
         this.add("ritual.%s.%s".formatted(ritual.getId().getNamespace(), ritual.getId().getPath()) + "." + key, message);
+    }
+
+
+    public void addRitualMessage(DeferredItem<Item> ritualDummy, String key, String message) {
+        var ritualName = ritualDummy.getId().getPath().replace("ritual_dummy/", "");
+        this.add("ritual.%s.%s".formatted(ritualDummy.getId().getNamespace(), ritualName) + "." + key, message);
     }
 
     private void addBook() {
@@ -1110,7 +1170,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         helper.page("golden_chalk");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        Жёлтый мел используется для связывания рун, позволяющий заключить душу в предмет или заставить его овладеть живым существом.
+                        Жёлтый мел используется для связывания рун, который позволяет заключить душу в предмет или заставить его овладеть живым существом.
                                """);
 
 
@@ -3243,6 +3303,13 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
 
         this.lang("ru_ru").add(OccultismItems.RITUAL_RESURRECT_FAMILIAR.get(), "Ритуал: Воскресение фамильяра");
         this.addTooltip(OccultismItems.RITUAL_RESURRECT_FAMILIAR.get(), "Воскрешает фамильяра из Осколка души.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_RANDOM_ANIMAL.get(), "Ритуал: Вызов случайного животного");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_RANDOM_ANIMAL.get(), "Вызывает случайного пассивного животного.");
+        this.add(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1.get(), "Ритуал: Создание ритуальной наплечной сумки подмастерья");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1.get(), "Связывает Джинна в сумку для пошаговой постройки пентаклей в пользу вызывателя.");
+        this.add(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2.get(), "Ритуал: Создание ритуальной наплечной сумки ручной работы");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2.get(), "Связывает Африта в сумку для одновременной постройки пентаклей в пользу вызывателя.");
     }
 
     public void addTooltip(ItemLike key, String value) {
