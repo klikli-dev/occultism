@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.159.6] - 2024-09-27
+### :bug: Bug Fixes
+- [`0a43cbf`](https://github.com/klikli-dev/occultism/commit/0a43cbff75cac37cf18cd396f2a399ed7411c6a5) - add missing ritual text *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.159.5] - 2024-09-18
 ### :wrench: Chores
 - [`70f6789`](https://github.com/klikli-dev/occultism/commit/70f6789888ef0b81ff18713731c46a4926b90381) - adjust demonic partner book text *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1738,3 +1743,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.159.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.159.0...release/v1.21.1-1.159.1
 [release/v1.21.1-1.159.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.159.2...release/v1.21.1-1.159.3
 [release/v1.21.1-1.159.5]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.159.3...release/v1.21.1-1.159.5
+[release/v1.21.1-1.159.6]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.159.5...release/v1.21.1-1.159.6
