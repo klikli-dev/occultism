@@ -4,6 +4,43 @@
     "spirit_max_age": -1,
     "summon_number": 1
   },
+  "duration": 240,
+  "ingredients": [
+    {
+      "item": "minecraft:hopper"
+    },
+    {
+      "item": "minecraft:dispenser"
+    },
+    {
+      "tag": "minecraft:wool"
+    },
+    {
+      "tag": "c:leathers"
+    },
+    {
+      "tag": "c:strings"
+    },
+    {
+      "tag": "c:ingots/silver"
+    },
+    {
+      "item": "occultism:afrit_essence"
+    },
+    {
+      "tag": "c:ender_pearls"
+    },
+    {
+      "tag": "c:ender_pearls"
+    },
+    {
+      "tag": "c:ender_pearls"
+    },
+    {
+      "tag": "c:ender_pearls"
+    }
+  ],
+  "pentacle_id": "occultism:craft_djinni",
   "result": {
     "count": 1,
     "id": "occultism:ritual_satchel_t2"
