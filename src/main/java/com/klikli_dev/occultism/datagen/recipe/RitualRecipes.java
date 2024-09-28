@@ -304,13 +304,13 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Tags.Items.RAW_MATERIALS_COPPER),
                         Ingredient.of(OccultismTags.Items.RAW_MATERIALS_SILVER))
                 .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
-                .condition(
-                        new OrCondition(
-                                List.of(
-                                        new IsInDimensionTypeCondition(registries.lookupOrThrow(Registries.DIMENSION_TYPE).getOrThrow(BuiltinDimensionTypes.NETHER)),
-                                        new IsInBiomeWithTagCondition(BiomeTags.HAS_NETHER_FORTRESS)
-                                )
-                        ))
+//                .condition(
+//                        new OrCondition(
+//                                List.of(
+//                                        new IsInDimensionTypeCondition(registries.lookupOrThrow(Registries.DIMENSION_TYPE).getOrThrow(BuiltinDimensionTypes.NETHER)),
+//                                        new IsInBiomeWithTagCondition(BiomeTags.HAS_NETHER_FORTRESS)
+//                                )
+//                        ))
                 .spiritMaxAge(-1)
                 .spiritJobType(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crush_tier1"))
                 .entityToSummon(OccultismEntities.FOLIOT.get())

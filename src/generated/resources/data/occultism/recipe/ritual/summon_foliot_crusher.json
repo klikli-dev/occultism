@@ -33,20 +33,6 @@
     ],
     "pentacle_id": "occultism:summon_foliot"
   },
-  "ritual_start_settings": {
-    "condition": {
-      "type": "neoforge:or",
-      "values": [
-        {
-          "type": "occultism:is_in_dimension_type",
-          "dimension_type": "minecraft:the_nether"
-        },
-        {
-          "type": "occultism:is_in_biome_with_tag",
-          "tag": "minecraft:has_structure/nether_fortress"
-        }
-      ]
-    }
-  },
+  "ritual_start_settings": {},
   "ritual_type": "occultism:summon_spirit_with_job"
 }
