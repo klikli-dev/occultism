@@ -1401,9 +1401,9 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         var entryMap = ModonomiconAPI.get().getEntryMap();
         entryMap.setMap(
-                "________I_A_E_J_P_N_C______", //The Places follow the tier progression
+                "________I_A_B_J_P_N_C______", //The Places follow the tier progression
                 "___________________________",
-                "_______D_G_B_F_M_L_K_______", //B Possess Bee
+                "_______D_G_E_F_M_L_K_______",
                 "___________________________",
                 "___r_o_____________________",
                 "___________________________",
@@ -1463,6 +1463,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         mercyGoat.withParent(BookEntryParentModel.create(overview.getId()));
         var possessZombiePiglin = this.makePossessZombiePiglinEntry(entryMap, 'P');
         possessZombiePiglin.withParent(BookEntryParentModel.create(overview.getId()));
+        var possessBee = this.makePossessBeeEntry(entryMap, 'B');
+        possessBee.withParent(BookEntryParentModel.create(overview.getId()));
         this.context().category("possession_rituals");
 
         //add true condition to all entries to enable them by default
@@ -1485,6 +1487,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         hordeSilverfish.withCondition(BookTrueConditionModel.create());
         mercyGoat.withCondition(BookTrueConditionModel.create());
         possessZombiePiglin.withCondition(BookTrueConditionModel.create());
+        possessBee.withCondition(BookTrueConditionModel.create());
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon(this.modLoc("textures/gui/book/possession.png"))
@@ -1513,7 +1516,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         possessBreeze,
                         possessStrongBreeze,
                         mercyGoat,
-                        possessZombiePiglin
+                        possessZombiePiglin,
+                        possessBee
                 );
     }
 
@@ -1995,6 +1999,46 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.DEMONIC_MEAT)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+
+    private BookEntryModel makePossessBeeEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("possess_bee");
+        this.lang().add(this.context().entryName(), "Possessed Bee");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.create()
+                .withEntityId("occultism:possessed_bee")
+                .withScale(1.0f)
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                          **Drops**: [](item://occultism:cursed_honey);
+                        """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_bee"));
+
+        this.context().page("description");
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        In this ritual an [#](%1$s)djinni[#]() will possess an [#](%1$s)Bee[#](), Be careful,
+                         a bee invoked by this way does not lose its stinger, always poison the target,
+                         attacks faster and can summon other bees when it takes damage.
+                         This is the only known method to obtain [](item://occultism:cursed_honey), eating will grants
+                         a short regeneration buff.
+                        """.formatted(COLOR_PURPLE));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(OccultismItems.CURSED_HONEY)
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         entity,

@@ -854,10 +854,26 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.PORKCHOP),
                         Ingredient.of(Items.QUARTZ))
                 .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
-                .entityToSummon(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN.get())
+                .entityToSummon(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get())
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.pigs")
                 .entityToSacrifice(OccultismTags.Entities.PIGS)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_zombie_piglin"));
+
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                        makeLoreSpawnEgg(OccultismItems.CURSED_HONEY.get(), "item.occultism.ritual_dummy.possess_bee"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/possess_bee")),
+                        60,
+                        RITUAL_SUMMON,
+                        PENTACLE_POSSESS_DJINNI,
+                        Ingredient.of(Items.HONEYCOMB),
+                        Ingredient.of(Items.HONEY_BLOCK),
+                        Ingredient.of(Items.HONEY_BOTTLE),
+                        Ingredient.of(Items.HONEYCOMB_BLOCK))
+                .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .entityToSummon(OccultismEntities.POSSESSED_BEE_TYPE.get())
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.bats")
+                .entityToSacrifice(OccultismTags.Entities.BATS)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_bee"));
 
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()),
                         makeLoreSpawnEgg(OccultismItems.CRUELTY_ESSENCE.get(), "item.occultism.ritual_dummy.possess_goat"),

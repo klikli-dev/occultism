@@ -300,6 +300,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_HOGLIN, "Possessed Hoglin Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WITCH, "Possessed Witch Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ZOMBIE_PIGLIN, "Possessed Zombified Piglin Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_BEE, "Possessed Bee Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_GOAT_OF_MERCY, "Goat of Mercy Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HUNT_SKELETON, "Wild Hunt Skeleton Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HUNT_WITHER_SKELETON, "Wild Hunt Wither Skeleton Spawn Egg");
@@ -481,6 +482,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.POSSESSED_HOGLIN, "Possessed Hoglin");
         this.addEntityType(OccultismEntities.POSSESSED_WITCH, "Possessed Witch");
         this.addEntityType(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN, "Possessed Zombified Piglin");
+        this.addEntityType(OccultismEntities.POSSESSED_BEE, "Possessed Bee");
         this.addEntityType(OccultismEntities.GOAT_OF_MERCY, "Goat of Mercy");
         this.addEntityType(OccultismEntities.WILD_HUNT_SKELETON, "Wild Hunt Skeleton");
         this.addEntityType(OccultismEntities.WILD_HUNT_WITHER_SKELETON, "Wild Hunt Wither Skeleton");
@@ -881,6 +883,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.possess_witch.started", "Started summoning possessed witch.");
         this.add("ritual.occultism.possess_witch.finished", "Summoned possessed witch successfully.");
         this.add("ritual.occultism.possess_witch.interrupted", "Summoning of possessed witch interrupted.");
+        this.add("ritual.occultism.possess_zombie_piglin.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_zombie_piglin.started", "Started summoning possessed zombie piglin.");
+        this.add("ritual.occultism.possess_zombie_piglin.finished", "Summoned possessed zombie piglin successfully.");
+        this.add("ritual.occultism.possess_zombie_piglin.interrupted", "Summoning of possessed zombie piglin interrupted.");
+        this.add("ritual.occultism.possess_bee.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_bee.started", "Started summoning possessed bee.");
+        this.add("ritual.occultism.possess_bee.finished", "Summoned possessed bee successfully.");
+        this.add("ritual.occultism.possess_bee.interrupted", "Summoning of possessed bee interrupted.");
         this.add("ritual.occultism.possess_goat.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.possess_goat.started", "Started summoning goat of mercy.");
         this.add("ritual.occultism.possess_goat.finished", "Summoned goat of mercy successfully.");
@@ -2769,6 +2779,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.possess_hoglin.tooltip", "The possessed Hoglin has a chance to drop smithing template of netherite upgrade when killed.");
         this.add("item.occultism.ritual_dummy.possess_witch", "Ritual: Summon Possessed Witch");
         this.add("item.occultism.ritual_dummy.possess_witch.tooltip", "The possessed Witch will drop a special filled bottle.");
+        this.add("item.occultism.ritual_dummy.possess_zombie_piglin", "Ritual: Summon Possessed Zombie Piglin");
+        this.add("item.occultism.ritual_dummy.possess_zombie_piglin.tooltip", "The possessed Zombie Piglin will drop demonic meat.");
+        this.add("item.occultism.ritual_dummy.possess_bee", "Ritual: Summon Possessed Bee");
+        this.add("item.occultism.ritual_dummy.possess_bee.tooltip", "The possessed Bee will drop cursed honey.");
         this.add("item.occultism.ritual_dummy.possess_goat", "Ritual: Summon Goat of Mercy");
         this.add("item.occultism.ritual_dummy.possess_goat.tooltip", "The Goat of Mercy will drop the Cruelty Essence.");
         this.add("item.occultism.ritual_dummy.summon_afrit_rain_weather", "Ritual: Rainy Weather");

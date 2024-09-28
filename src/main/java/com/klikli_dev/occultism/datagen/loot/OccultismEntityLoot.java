@@ -160,6 +160,13 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .add(LootItem.lootTableItem(OccultismItems.DEMONIC_MEAT)
                                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F)))
                                         .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))));
+
+        this.add(OccultismEntities.POSSESSED_BEE_TYPE.get(),
+                LootTable.lootTable().withPool(
+                        LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(OccultismItems.CURSED_HONEY)
+                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.5F, 1.0F)))
+                                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.3F, 1.0F))))));
     }
 
     /**

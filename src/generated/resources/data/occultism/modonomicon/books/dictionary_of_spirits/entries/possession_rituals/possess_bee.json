@@ -8,9 +8,9 @@
   "description": "",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:ender_pearl"
+    "item": "occultism:cursed_honey"
   },
-  "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_enderman.name",
+  "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_bee.name",
   "pages": [
     {
       "type": "modonomicon:entity",
@@ -19,12 +19,12 @@
         "type": "modonomicon:none"
       },
       "default_rotation": -45.0,
-      "entity_id": "occultism:possessed_enderman",
+      "entity_id": "occultism:possessed_bee",
       "name": "",
       "offset": 0.0,
       "rotate": true,
       "scale": 1.0,
-      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_enderman.entity.text"
+      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_bee.entity.text"
     },
     {
       "type": "occultism:ritual_recipe",
@@ -32,7 +32,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/possess_enderman",
+      "recipe_id_1": "occultism:ritual/possess_bee",
       "text": "",
       "title1": "",
       "title2": ""
@@ -44,7 +44,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_enderman.description.text",
+      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_bee.description.text",
       "title": "",
       "use_markdown_in_title": false
     }
@@ -59,6 +59,6 @@
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": -1,
-  "x": -2,
-  "y": -3
+  "x": -1,
+  "y": -5
 }
