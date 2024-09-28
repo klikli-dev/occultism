@@ -73,3 +73,60 @@ and thus shelved until further notice.
   "command": "execute run say hi"
 }
 ```
+
+## Sample Recipe with new compound syntax and runtime conditions
+
+```json
+{
+  "type": "occultism:ritual",
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:foliot",
+    "spirit_job_type": "occultism:crush_tier1"
+  },
+  "result": {
+    "count": 1,
+    "id": "occultism:jei_dummy/none"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/summon_foliot_crusher"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_foliot"
+    },
+    "duration": 60,
+    "ingredients": [
+      {
+        "tag": "c:raw_materials/iron"
+      },
+      {
+        "tag": "c:raw_materials/gold"
+      },
+      {
+        "tag": "c:raw_materials/copper"
+      },
+      {
+        "tag": "c:raw_materials/silver"
+      }
+    ],
+    "pentacle_id": "occultism:summon_foliot"
+  },
+  "ritual_start_settings": {
+    "condition": {
+      "type": "neoforge:or",
+      "values": [
+        {
+          "type": "occultism:is_in_dimension_type",
+          "dimension_type": "minecraft:the_nether"
+        },
+        {
+          "type": "occultism:is_in_biome_with_tag",
+          "tag": "minecraft:has_structure/nether_fortress"
+        }
+      ]
+    }
+  },
+  "ritual_type": "occultism:summon_spirit_with_job"
+}
+```
