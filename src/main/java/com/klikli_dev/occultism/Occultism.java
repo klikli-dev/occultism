@@ -111,6 +111,7 @@ public class Occultism {
         OccultismAdvancements.TRIGGER_TYPES.register(modEventBus);
         OccultismDataComponents.DATA_COMPONENTS.register(modEventBus);
         OccultismRecipeResults.RECIPE_RESULT_TYPES.register(modEventBus);
+        OccultismConditionCodecs.CONDITION_CODECS.register(modEventBus);
 
         //now register the custom registries
         OccultismSpiritJobs.JOBS.register(modEventBus);

@@ -128,9 +128,9 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                 var activationItemStack = this.getStackInSlot(0);
 
                 if (!simulate && insertResult.getCount() != stack.getCount() && ritualRecipe != null) {
-                    if (ritualRecipe.value().getRitual().isValid(GoldenSacrificialBowlBlockEntity.this.level, GoldenSacrificialBowlBlockEntity.this.getBlockPos(), GoldenSacrificialBowlBlockEntity.this, null, activationItemStack,
+                    if (ritualRecipe.value().getRitual().isValid(GoldenSacrificialBowlBlockEntity.this.level, GoldenSacrificialBowlBlockEntity.this.getBlockPos(), GoldenSacrificialBowlBlockEntity.this, GoldenSacrificialBowlBlockEntity.this.castingPlayer, activationItemStack,
                             ritualRecipe.value().getIngredients()))
-                        GoldenSacrificialBowlBlockEntity.this.startRitual(null, activationItemStack, ritualRecipe);
+                        GoldenSacrificialBowlBlockEntity.this.startRitual(GoldenSacrificialBowlBlockEntity.this.castingPlayer, activationItemStack, ritualRecipe);
                 }
 
                 return insertResult;
@@ -434,11 +434,13 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                 if (ritualRecipe != null) {
                     if (ritualRecipe.value().getRitual().isValid(level, pos, this, player, activationItem,
                             ritualRecipe.value().getIngredients())) {
+                        this.castingPlayer = serverPlayer; // set casting player so the item stack handler insert code can access it
                         this.itemStackHandler.insertItem(0, activationItem.split(1), false);
-                        this.startRitual(serverPlayer, activationItem, ritualRecipe);
+                        //no need to start the ritual as insertItem calls it
+//                        this.startRitual(serverPlayer, activationItem, ritualRecipe);
                     } else {
                         //if ritual is not valid, inform player.
-                        player.displayClientMessage(Component.translatable(ritualRecipe.value().getRitual().getConditionsMessage(serverPlayer)), true);
+                        player.sendSystemMessage(Component.translatable(ritualRecipe.value().getRitual().getConditionsMessage(serverPlayer)));
                         return false;
                     }
                 } else {
@@ -465,7 +467,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         return true;
     }
 
-    public void startRitual(@Nullable ServerPlayer player, ItemStack activationItem, RecipeHolder<RitualRecipe> ritualRecipe) {
+    public boolean startRitual(@Nullable ServerPlayer player, ItemStack activationItem, RecipeHolder<RitualRecipe> ritualRecipe) {
         if (!this.level.isClientSide) {
             this.currentRitualRecipe = ritualRecipe;
             this.castingPlayerId = player == null? null : player.getUUID();
@@ -475,9 +477,11 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             this.itemUseProvided = false;
             this.consumedIngredients.clear();
             this.remainingAdditionalIngredients = new ArrayList<>(this.currentRitualRecipe.value().getIngredients());
-            //place activation item in handler
-            this.currentRitualRecipe.value().getRitual().start(this.level, this.getBlockPos(), this, player, this.itemStackHandler.getStackInSlot(0));
 
+            if(!this.currentRitualRecipe.value().getRitual().start(this.level, this.getBlockPos(), this, player, this.itemStackHandler.getStackInSlot(0))) {
+                this.stopRitual(false, false); //do not show message as start will already do that
+                return false;
+            }
 
             NeoForge.EVENT_BUS.addListener(this.rightClickItemListener);
             NeoForge.EVENT_BUS.addListener(this.livingDeathEventListener);
@@ -487,9 +491,14 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
             this.level.updateNeighborsAt(this.getBlockPos(), this.getBlockState().getBlock());
         }
+        return true;
     }
 
-    public void stopRitual(boolean finished) {
+    public void stopRitual(boolean finished){
+        this.stopRitual(finished, true);
+    }
+
+    public void stopRitual(boolean finished, boolean showInterruptedMessage) {
         if (!this.level.isClientSide) {
             var recipe = this.getCurrentRitualRecipe();
             if (recipe != null) {
@@ -499,7 +508,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                     recipe.value().getRitual().finish(this.level, this.getBlockPos(), this, this.castingPlayer, activationItem);
                 } else {
                     recipe.value().getRitual().interrupt(this.level, this.getBlockPos(), this, this.castingPlayer,
-                            handler.getStackInSlot(0));
+                            handler.getStackInSlot(0), showInterruptedMessage);
                     //Pop activation item back into level
                     Containers.dropItemStack(this.level, this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ(),
                             handler.extractItem(0, 1, false));

@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.160.0] - 2024-09-28
+### :sparkles: New Features
+- [`4920269`](https://github.com/klikli-dev/occultism/commit/492026948477690e327c201a5c564a5ec7e640c4) - flexible ritual conditions *(PR [#1219](https://github.com/klikli-dev/occultism/pull/1219) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *addresses issue [#1210](https://github.com/klikli-dev/occultism/issues/1210) opened by [@Drackion](https://github.com/Drackion)*
+
+### :wrench: Chores
+- [`4e98f67`](https://github.com/klikli-dev/occultism/commit/4e98f6753d61403d5efcb87368d63bd7c793d2e5) - improve github action to allow manual ref input *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.159.7] - 2024-09-27
 ### :bug: Bug Fixes
 - [`5b7b8c2`](https://github.com/klikli-dev/occultism/commit/5b7b8c2a3aa6a277f207edd2195032af57971099) - change satchel recipe not to consume t1 satchel *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1750,3 +1759,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.159.5]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.159.3...release/v1.21.1-1.159.5
 [release/v1.21.1-1.159.6]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.159.5...release/v1.21.1-1.159.6
 [release/v1.21.1-1.159.7]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.159.6...release/v1.21.1-1.159.7
+[release/v1.21.1-1.160.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.159.7...release/v1.21.1-1.160.0

@@ -1,11 +1,16 @@
 package com.klikli_dev.occultism.integration.emi.impl.recipes;
 
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
+import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionWrapperFactory;
+import com.klikli_dev.occultism.crafting.recipe.conditionextension.OccultismConditionContext;
+import com.klikli_dev.occultism.crafting.recipe.conditionextension.RitualRecipeConditionDescriptionVisitor;
 import com.klikli_dev.occultism.integration.emi.impl.OccultismEmiPlugin;
 import com.klikli_dev.occultism.integration.emi.impl.render.ItemWidget;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
+import com.mojang.datafixers.util.Pair;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
@@ -35,10 +40,16 @@ import java.util.stream.Stream;
 public class RitualRecipeCategory implements EmiRecipe {
     private final RitualRecipe recipe;
     private final ResourceLocation id;
+    private final List<Pair<Integer, Integer>> infoTextSlots = new ArrayList<>();
 
     public RitualRecipeCategory(RecipeHolder<RitualRecipe> recipe) {
         this.recipe = recipe.value();
         this.id=recipe.id();
+
+        this.infoTextSlots.add(new Pair<>(90, 0));
+        this.infoTextSlots.add(new Pair<>(90, 18));
+        this.infoTextSlots.add(new Pair<>(108, 0));
+        this.infoTextSlots.add(new Pair<>(108, 18));
     }
 
     @Override
@@ -151,8 +162,7 @@ public class RitualRecipeCategory implements EmiRecipe {
         widgetHolder.addSlot(EmiIngredient.of(Ingredient.of(recipe.getRitualDummy())), 82, 53).drawBack(false);
 
         int infotextY = 0;
-        int infoTextX = 90;
-        int lineHeight = 17;
+        int infoTextIndex = 0;
         var pentacle = ModonomiconAPI.get().getMultiblock(recipe.getPentacleId());
 
         if (pentacle != null) {
@@ -166,7 +176,8 @@ public class RitualRecipeCategory implements EmiRecipe {
             widgetHolder.addText(Component.translatable("jei.occultism.error.pentacle_not_loaded"), getDisplayWidth() / 2, 0, -1, true).horizontalAlign(TextWidget.Alignment.CENTER);
         }
         if (recipe.requiresSacrifice()) {
-            ItemWidget knife = new ItemWidget(EmiStack.of(OccultismItems.BUTCHER_KNIFE.get()),infoTextX,infotextY);
+            var infoSlot = this.infoTextSlots.get(infoTextIndex++);
+            ItemWidget knife = new ItemWidget(EmiStack.of(OccultismItems.BUTCHER_KNIFE.get()), infoSlot.getFirst(), infoSlot.getSecond() + infotextY);
 
             knife.tooltip((mouseX, mouseY) ->
             {
@@ -175,14 +186,11 @@ public class RitualRecipeCategory implements EmiRecipe {
                 return tooltip;
             });
             widgetHolder.add(knife);
-
-            infotextY += lineHeight;
         }
 
         if(recipe.requiresItemUse()) {
-
-            int textX = Minecraft.getInstance().font.width(Component.translatable("jei.occultism.item_to_use"))+infoTextX+1;
-            ItemWidget itemToUse = new ItemWidget(EmiStack.of(recipe.getItemToUse().getItems()[0]),infoTextX,infotextY);
+            var infoSlot = this.infoTextSlots.get(infoTextIndex++);
+            ItemWidget itemToUse = new ItemWidget(EmiStack.of(recipe.getItemToUse().getItems()[0]),infoSlot.getFirst(), infoSlot.getSecond() + infotextY);
             itemToUse.tooltip((mouseX, mouseY) ->
             {
                 List<ClientTooltipComponent> tooltip = new ArrayList<>();
@@ -191,10 +199,10 @@ public class RitualRecipeCategory implements EmiRecipe {
             });
 
             widgetHolder.add(itemToUse);
-            infotextY += lineHeight;
         }
         if (recipe.getEntityToSummon() != null) {
-            widgetHolder.addTexture(new EmiTexture(OccultismEmiPlugin.EMI_WIDGETS, 16, 16, 16, 16), infoTextX, infotextY).tooltip((mouseX, mouseY) ->
+            var infoSlot = this.infoTextSlots.get(infoTextIndex++);
+            widgetHolder.addTexture(new EmiTexture(OccultismEmiPlugin.EMI_WIDGETS, 16, 16, 16, 16), infoSlot.getFirst(), infoSlot.getSecond() + infotextY).tooltip((mouseX, mouseY) ->
             {
                 List<ClientTooltipComponent> tooltip = new ArrayList<>();
                 tooltip.add(new ClientTextTooltip(Component.translatable("jei.occultism.summon", Component.translatable(recipe.getEntityToSummon().getDescriptionId())).getVisualOrderText()));
@@ -204,7 +212,20 @@ public class RitualRecipeCategory implements EmiRecipe {
                 }
                 return tooltip;
             });
-            infotextY += lineHeight;
+        }
+
+        if(recipe.getCondition() != null){
+            var infoSlot = this.infoTextSlots.get(infoTextIndex++);
+            widgetHolder.addTexture(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/checklist.png"), infoSlot.getFirst(), infoSlot.getSecond() + infotextY, 16, 16, 0, 0, 64, 64, 64, 64).tooltip((mouseX, mouseY) ->
+            {
+                List<ClientTooltipComponent> tooltip = new ArrayList<>();
+                var visitor = new RitualRecipeConditionDescriptionVisitor();
+                var condition = ConditionWrapperFactory.wrap(recipe.getCondition());
+                if(condition!=null) {
+                    tooltip.add(new ClientTextTooltip(condition.accept(visitor, OccultismConditionContext.EMPTY).getVisualOrderText()));
+                }
+                return tooltip;
+            });
         }
 
 
