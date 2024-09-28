@@ -1,0 +1,54 @@
+{
+  "type": "occultism:ritual",
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:deer_familiar"
+  },
+  "result": {
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.familiar_deer\"}",
+      "minecraft:lore": [
+        "{\"translate\":\"item.occultism.ritual_dummy.familiar_deer.tooltip\"}"
+      ]
+    },
+    "count": 1,
+    "id": "occultism:spawn_egg/familiar_deer"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/familiar_deer"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_foliot"
+    },
+    "duration": 15,
+    "ingredients": [
+      {
+        "tag": "c:rods/wooden"
+      },
+      {
+        "tag": "c:rods/wooden"
+      },
+      {
+        "tag": "c:rods/wooden"
+      },
+      {
+        "tag": "c:rods/wooden"
+      },
+      {
+        "tag": "c:strings"
+      },
+      {
+        "tag": "c:strings"
+      }
+    ],
+    "pentacle_id": "occultism:possess_foliot"
+  },
+  "ritual_start_settings": {
+    "entity_to_sacrifice": {
+      "display_name": "ritual.occultism.sacrifice.cows",
+      "tag": "c:cows"
+    }
+  },
+  "ritual_type": "occultism:familiar"
+}

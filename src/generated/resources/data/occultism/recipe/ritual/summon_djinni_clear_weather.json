@@ -1,0 +1,39 @@
+{
+  "type": "occultism:ritual",
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:djinni",
+    "spirit_job_type": "occultism:clear_weather",
+    "spirit_max_age": 60
+  },
+  "result": {
+    "count": 1,
+    "id": "occultism:jei_dummy/none"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/summon_djinni_clear_weather"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_djinni"
+    },
+    "duration": 60,
+    "ingredients": [
+      {
+        "tag": "c:crops/beetroot"
+      },
+      {
+        "tag": "c:crops/carrot"
+      },
+      {
+        "tag": "c:crops/potato"
+      },
+      {
+        "tag": "c:crops/wheat"
+      }
+    ],
+    "pentacle_id": "occultism:summon_djinni"
+  },
+  "ritual_start_settings": {},
+  "ritual_type": "occultism:summon_spirit_with_job"
+}

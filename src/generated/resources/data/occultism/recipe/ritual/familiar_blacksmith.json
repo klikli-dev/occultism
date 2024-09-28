@@ -1,0 +1,59 @@
+{
+  "type": "occultism:ritual",
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:blacksmith_familiar"
+  },
+  "result": {
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.familiar_blacksmith\"}",
+      "minecraft:lore": [
+        "{\"translate\":\"item.occultism.ritual_dummy.familiar_blacksmith.tooltip\"}"
+      ]
+    },
+    "count": 1,
+    "id": "occultism:spawn_egg/familiar_blacksmith"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/familiar_blacksmith"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_foliot"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:iron_shovel"
+      },
+      {
+        "item": "minecraft:iron_pickaxe"
+      },
+      {
+        "item": "minecraft:iron_axe"
+      },
+      {
+        "item": "minecraft:anvil"
+      },
+      {
+        "tag": "c:stones"
+      },
+      {
+        "tag": "c:stones"
+      },
+      {
+        "tag": "c:stones"
+      },
+      {
+        "tag": "c:stones"
+      }
+    ],
+    "pentacle_id": "occultism:possess_foliot"
+  },
+  "ritual_start_settings": {
+    "entity_to_sacrifice": {
+      "display_name": "ritual.occultism.sacrifice.zombies",
+      "tag": "c:zombies"
+    }
+  },
+  "ritual_type": "occultism:familiar"
+}

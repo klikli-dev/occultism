@@ -1,0 +1,38 @@
+{
+  "type": "occultism:ritual",
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:foliot",
+    "spirit_job_type": "occultism:trade_otherstone_t1",
+    "spirit_max_age": 3600
+  },
+  "result": {
+    "count": 1,
+    "id": "occultism:jei_dummy/none"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/summon_foliot_otherstone_trader"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_foliot"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:stone"
+      },
+      {
+        "item": "minecraft:granite"
+      },
+      {
+        "item": "minecraft:diorite"
+      },
+      {
+        "item": "minecraft:andesite"
+      }
+    ],
+    "pentacle_id": "occultism:summon_foliot"
+  },
+  "ritual_start_settings": {},
+  "ritual_type": "occultism:summon_spirit_with_job"
+}

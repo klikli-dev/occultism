@@ -1,0 +1,48 @@
+{
+  "type": "occultism:ritual",
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:possessed_weak_shulker"
+  },
+  "result": {
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_weak_shulker\"}",
+      "minecraft:lore": [
+        "{\"translate\":\"item.occultism.ritual_dummy.possess_weak_shulker.tooltip\"}"
+      ]
+    },
+    "count": 1,
+    "id": "minecraft:chorus_fruit"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/possess_weak_shulker"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_djinni"
+    },
+    "duration": 60,
+    "ingredients": [
+      {
+        "tag": "c:ender_pearls"
+      },
+      {
+        "item": "minecraft:purple_concrete"
+      },
+      {
+        "tag": "c:end_stones"
+      },
+      {
+        "item": "minecraft:magenta_concrete"
+      }
+    ],
+    "pentacle_id": "occultism:possess_djinni"
+  },
+  "ritual_start_settings": {
+    "entity_to_sacrifice": {
+      "display_name": "ritual.occultism.sacrifice.cubemob",
+      "tag": "occultism:cubemob"
+    }
+  },
+  "ritual_type": "occultism:summon"
+}

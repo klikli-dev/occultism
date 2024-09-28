@@ -1,0 +1,35 @@
+{
+  "type": "occultism:ritual",
+  "entity_to_summon_settings": {},
+  "result": {
+    "count": 1,
+    "id": "occultism:miner_foliot_unspecialized"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/craft_miner_foliot_unspecialized"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_foliot"
+    },
+    "duration": 60,
+    "ingredients": [
+      {
+        "item": "occultism:magic_lamp_empty"
+      },
+      {
+        "item": "occultism:iesnium_pickaxe"
+      },
+      {
+        "tag": "c:raw_materials/iron"
+      },
+      {
+        "tag": "c:gravels"
+      }
+    ],
+    "pentacle_id": "occultism:craft_foliot"
+  },
+  "ritual_start_settings": {},
+  "ritual_type": "occultism:craft_miner_spirit"
+}

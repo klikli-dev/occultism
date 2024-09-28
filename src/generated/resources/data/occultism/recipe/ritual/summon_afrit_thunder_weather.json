@@ -1,0 +1,44 @@
+{
+  "type": "occultism:ritual",
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:afrit",
+    "spirit_job_type": "occultism:thunder_weather",
+    "spirit_max_age": 240
+  },
+  "result": {
+    "count": 1,
+    "id": "occultism:jei_dummy/none"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/summon_afrit_thunder_weather"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_afrit"
+    },
+    "duration": 60,
+    "ingredients": [
+      {
+        "tag": "c:bones"
+      },
+      {
+        "tag": "c:gunpowders"
+      },
+      {
+        "tag": "c:gunpowders"
+      },
+      {
+        "item": "minecraft:ghast_tear"
+      }
+    ],
+    "pentacle_id": "occultism:summon_afrit"
+  },
+  "ritual_start_settings": {
+    "entity_to_sacrifice": {
+      "display_name": "ritual.occultism.sacrifice.cows",
+      "tag": "c:cows"
+    }
+  },
+  "ritual_type": "occultism:summon_spirit_with_job"
+}

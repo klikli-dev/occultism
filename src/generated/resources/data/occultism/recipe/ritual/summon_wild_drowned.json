@@ -1,0 +1,54 @@
+{
+  "type": "occultism:ritual",
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:wild_horde_drowned",
+    "summon_number": 5
+  },
+  "result": {
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_wild_drowned\"}",
+      "minecraft:lore": [
+        "{\"translate\":\"item.occultism.ritual_dummy.summon_wild_drowned.tooltip\"}"
+      ]
+    },
+    "count": 1,
+    "id": "minecraft:sniffer_egg"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/summon_wild_drowned"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "minecraft:heart_of_the_sea"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:dead_brain_coral"
+      },
+      {
+        "item": "minecraft:dead_bubble_coral"
+      },
+      {
+        "item": "minecraft:dead_fire_coral"
+      },
+      {
+        "item": "minecraft:dead_horn_coral"
+      },
+      {
+        "item": "minecraft:dead_tube_coral"
+      },
+      {
+        "item": "minecraft:dried_kelp_block"
+      }
+    ],
+    "pentacle_id": "occultism:summon_wild_greater_spirit"
+  },
+  "ritual_start_settings": {
+    "entity_to_sacrifice": {
+      "display_name": "ritual.occultism.sacrifice.dolphin",
+      "tag": "occultism:dolphin"
+    }
+  },
+  "ritual_type": "occultism:summon_wild"
+}

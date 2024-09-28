@@ -1,0 +1,47 @@
+{
+  "type": "occultism:ritual",
+  "entity_to_summon_settings": {},
+  "result": {
+    "count": 1,
+    "id": "occultism:ritual_satchel_t1"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/craft_ritual_satchel_t1"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_djinni"
+    },
+    "duration": 240,
+    "ingredients": [
+      {
+        "item": "minecraft:hopper"
+      },
+      {
+        "item": "minecraft:dispenser"
+      },
+      {
+        "tag": "minecraft:wool"
+      },
+      {
+        "tag": "minecraft:wool"
+      },
+      {
+        "tag": "c:leathers"
+      },
+      {
+        "tag": "c:leathers"
+      },
+      {
+        "tag": "c:strings"
+      },
+      {
+        "tag": "c:ingots/silver"
+      }
+    ],
+    "pentacle_id": "occultism:craft_djinni"
+  },
+  "ritual_start_settings": {},
+  "ritual_type": "occultism:craft_with_spirit_name"
+}

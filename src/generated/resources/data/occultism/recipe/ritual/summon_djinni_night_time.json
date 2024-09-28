@@ -1,0 +1,39 @@
+{
+  "type": "occultism:ritual",
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:djinni",
+    "spirit_job_type": "occultism:night_time",
+    "spirit_max_age": 60
+  },
+  "result": {
+    "count": 1,
+    "id": "occultism:jei_dummy/none"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/summon_djinni_night_time"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_djinni"
+    },
+    "duration": 60,
+    "ingredients": [
+      {
+        "tag": "minecraft:beds"
+      },
+      {
+        "item": "minecraft:rotten_flesh"
+      },
+      {
+        "tag": "c:bones"
+      },
+      {
+        "tag": "c:dyes/black"
+      }
+    ],
+    "pentacle_id": "occultism:summon_djinni"
+  },
+  "ritual_start_settings": {},
+  "ritual_type": "occultism:summon_spirit_with_job"
+}

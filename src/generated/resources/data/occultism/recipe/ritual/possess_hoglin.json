@@ -1,0 +1,60 @@
+{
+  "type": "occultism:ritual",
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:possessed_hoglin"
+  },
+  "result": {
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_hoglin\"}",
+      "minecraft:lore": [
+        "{\"translate\":\"item.occultism.ritual_dummy.possess_hoglin.tooltip\"}"
+      ]
+    },
+    "count": 1,
+    "id": "minecraft:netherite_upgrade_smithing_template"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/possess_hoglin"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_afrit"
+    },
+    "duration": 60,
+    "ingredients": [
+      {
+        "item": "minecraft:netherite_scrap"
+      },
+      {
+        "tag": "c:leathers"
+      },
+      {
+        "tag": "c:netherracks"
+      },
+      {
+        "tag": "c:netherracks"
+      },
+      {
+        "item": "minecraft:porkchop"
+      },
+      {
+        "item": "minecraft:porkchop"
+      },
+      {
+        "item": "minecraft:porkchop"
+      },
+      {
+        "item": "occultism:spirit_attuned_crystal"
+      }
+    ],
+    "pentacle_id": "occultism:possess_afrit"
+  },
+  "ritual_start_settings": {
+    "entity_to_sacrifice": {
+      "display_name": "ritual.occultism.sacrifice.pigs",
+      "tag": "c:pigs"
+    }
+  },
+  "ritual_type": "occultism:summon"
+}

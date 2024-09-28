@@ -1,0 +1,60 @@
+{
+  "type": "occultism:ritual",
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:cthulhu_familiar"
+  },
+  "result": {
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.familiar_cthulhu\"}",
+      "minecraft:lore": [
+        "{\"translate\":\"item.occultism.ritual_dummy.familiar_cthulhu.tooltip\"}"
+      ]
+    },
+    "count": 1,
+    "id": "occultism:spawn_egg/familiar_cthulhu"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/familiar_cthulhu"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_djinni"
+    },
+    "duration": 60,
+    "ingredients": [
+      {
+        "tag": "minecraft:fishes"
+      },
+      {
+        "tag": "minecraft:fishes"
+      },
+      {
+        "tag": "minecraft:fishes"
+      },
+      {
+        "tag": "minecraft:fishes"
+      },
+      {
+        "tag": "minecraft:fishes"
+      },
+      {
+        "tag": "minecraft:fishes"
+      },
+      {
+        "tag": "minecraft:fishes"
+      },
+      {
+        "tag": "minecraft:fishes"
+      }
+    ],
+    "pentacle_id": "occultism:possess_djinni"
+  },
+  "ritual_start_settings": {
+    "entity_to_sacrifice": {
+      "display_name": "ritual.occultism.sacrifice.squid",
+      "tag": "c:squid"
+    }
+  },
+  "ritual_type": "occultism:familiar"
+}

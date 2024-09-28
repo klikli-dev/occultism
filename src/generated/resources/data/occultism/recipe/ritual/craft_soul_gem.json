@@ -1,0 +1,47 @@
+{
+  "type": "occultism:ritual",
+  "entity_to_summon_settings": {},
+  "result": {
+    "count": 1,
+    "id": "occultism:soul_gem"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/craft_soul_gem"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_djinni"
+    },
+    "duration": 60,
+    "ingredients": [
+      {
+        "tag": "c:gems/diamond"
+      },
+      {
+        "tag": "c:ingots/copper"
+      },
+      {
+        "tag": "c:ingots/silver"
+      },
+      {
+        "tag": "c:ingots/gold"
+      },
+      {
+        "item": "minecraft:soul_sand"
+      },
+      {
+        "item": "minecraft:soul_sand"
+      },
+      {
+        "item": "minecraft:soul_sand"
+      },
+      {
+        "item": "minecraft:soul_sand"
+      }
+    ],
+    "pentacle_id": "occultism:craft_djinni"
+  },
+  "ritual_start_settings": {},
+  "ritual_type": "occultism:craft"
+}

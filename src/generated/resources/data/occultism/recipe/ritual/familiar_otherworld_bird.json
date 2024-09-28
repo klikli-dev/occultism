@@ -1,0 +1,50 @@
+{
+  "type": "occultism:ritual",
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:otherworld_bird"
+  },
+  "result": {
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.familiar_otherworld_bird\"}",
+      "minecraft:lore": [
+        "{\"translate\":\"item.occultism.ritual_dummy.familiar_otherworld_bird.tooltip\"}"
+      ]
+    },
+    "count": 1,
+    "id": "occultism:spawn_egg/otherworld_bird"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/familiar_otherworld_bird"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_djinni"
+    },
+    "ingredients": [
+      {
+        "tag": "c:feathers"
+      },
+      {
+        "tag": "c:feathers"
+      },
+      {
+        "item": "minecraft:cobweb"
+      },
+      {
+        "tag": "minecraft:leaves"
+      },
+      {
+        "tag": "c:strings"
+      }
+    ],
+    "pentacle_id": "occultism:possess_djinni"
+  },
+  "ritual_start_settings": {
+    "entity_to_sacrifice": {
+      "display_name": "ritual.occultism.sacrifice.parrots",
+      "tag": "c:parrots"
+    }
+  },
+  "ritual_type": "occultism:summon_tamed"
+}

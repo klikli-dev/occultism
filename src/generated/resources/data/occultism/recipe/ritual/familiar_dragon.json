@@ -1,0 +1,60 @@
+{
+  "type": "occultism:ritual",
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:dragon_familiar"
+  },
+  "result": {
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.familiar_dragon\"}",
+      "minecraft:lore": [
+        "{\"translate\":\"item.occultism.ritual_dummy.familiar_dragon.tooltip\"}"
+      ]
+    },
+    "count": 1,
+    "id": "occultism:spawn_egg/familiar_dragon"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/familiar_dragon"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_djinni"
+    },
+    "duration": 60,
+    "ingredients": [
+      {
+        "item": "minecraft:lava_bucket"
+      },
+      {
+        "item": "minecraft:flint_and_steel"
+      },
+      {
+        "tag": "c:storage_blocks/coal"
+      },
+      {
+        "item": "minecraft:quartz_block"
+      },
+      {
+        "tag": "c:storage_blocks/gold"
+      },
+      {
+        "tag": "c:gunpowders"
+      },
+      {
+        "item": "minecraft:obsidian"
+      },
+      {
+        "item": "minecraft:obsidian"
+      }
+    ],
+    "pentacle_id": "occultism:possess_djinni"
+  },
+  "ritual_start_settings": {
+    "entity_to_sacrifice": {
+      "display_name": "ritual.occultism.sacrifice.horses",
+      "tag": "c:horses"
+    }
+  },
+  "ritual_type": "occultism:familiar"
+}

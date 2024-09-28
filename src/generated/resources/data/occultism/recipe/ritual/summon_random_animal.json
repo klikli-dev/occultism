@@ -1,0 +1,57 @@
+{
+  "type": "occultism:ritual",
+  "entity_to_summon_settings": {
+    "entity_tag_to_summon": "occultism:random_animals_to_summon_list"
+  },
+  "result": {
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_random_animal\"}",
+      "minecraft:lore": [
+        "{\"translate\":\"item.occultism.ritual_dummy.summon_random_animal.tooltip\"}"
+      ]
+    },
+    "count": 1,
+    "id": "minecraft:sheep_spawn_egg"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/summon_random_animal"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_foliot"
+    },
+    "ingredients": [
+      {
+        "tag": "c:crops"
+      },
+      {
+        "tag": "c:crops"
+      },
+      {
+        "tag": "c:crops"
+      },
+      {
+        "tag": "c:crops"
+      },
+      {
+        "tag": "c:crops"
+      },
+      {
+        "tag": "c:crops"
+      },
+      {
+        "tag": "c:crops"
+      },
+      {
+        "tag": "c:crops"
+      },
+      {
+        "item": "minecraft:egg"
+      }
+    ],
+    "pentacle_id": "occultism:summon_foliot"
+  },
+  "ritual_start_settings": {},
+  "ritual_type": "occultism:summon"
+}

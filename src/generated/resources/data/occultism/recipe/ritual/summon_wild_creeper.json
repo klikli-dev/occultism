@@ -1,0 +1,72 @@
+{
+  "type": "occultism:ritual",
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:wild_horde_creeper",
+    "summon_number": 5
+  },
+  "result": {
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_wild_creeper\"}",
+      "minecraft:lore": [
+        "{\"translate\":\"item.occultism.ritual_dummy.summon_wild_creeper.tooltip\"}"
+      ]
+    },
+    "count": 1,
+    "id": "minecraft:music_disc_cat"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/summon_wild_creeper"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "minecraft:tnt"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:tnt"
+      },
+      {
+        "item": "minecraft:oak_leaves"
+      },
+      {
+        "item": "minecraft:moss_block"
+      },
+      {
+        "item": "minecraft:tnt"
+      },
+      {
+        "item": "minecraft:birch_leaves"
+      },
+      {
+        "item": "minecraft:moss_block"
+      },
+      {
+        "item": "minecraft:tnt"
+      },
+      {
+        "item": "minecraft:spruce_leaves"
+      },
+      {
+        "item": "minecraft:moss_block"
+      },
+      {
+        "item": "minecraft:tnt"
+      },
+      {
+        "item": "minecraft:jungle_leaves"
+      },
+      {
+        "item": "minecraft:moss_block"
+      }
+    ],
+    "pentacle_id": "occultism:summon_wild_greater_spirit"
+  },
+  "ritual_start_settings": {
+    "entity_to_sacrifice": {
+      "display_name": "ritual.occultism.sacrifice.pigs",
+      "tag": "c:pigs"
+    }
+  },
+  "ritual_type": "occultism:summon_wild"
+}

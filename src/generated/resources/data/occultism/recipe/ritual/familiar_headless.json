@@ -1,0 +1,54 @@
+{
+  "type": "occultism:ritual",
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:headless_familiar"
+  },
+  "result": {
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.familiar_headless\"}",
+      "minecraft:lore": [
+        "{\"translate\":\"item.occultism.ritual_dummy.familiar_headless.tooltip\"}"
+      ]
+    },
+    "count": 1,
+    "id": "occultism:spawn_egg/familiar_headless"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/familiar_headless"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_djinni"
+    },
+    "duration": 60,
+    "ingredients": [
+      {
+        "tag": "c:crops/wheat"
+      },
+      {
+        "tag": "c:crops/wheat"
+      },
+      {
+        "item": "minecraft:hay_block"
+      },
+      {
+        "tag": "c:rods/wooden"
+      },
+      {
+        "tag": "c:rods/wooden"
+      },
+      {
+        "item": "minecraft:carved_pumpkin"
+      }
+    ],
+    "pentacle_id": "occultism:possess_djinni"
+  },
+  "ritual_start_settings": {
+    "entity_to_sacrifice": {
+      "display_name": "ritual.occultism.sacrifice.snow_golem",
+      "tag": "c:golems/snow"
+    }
+  },
+  "ritual_type": "occultism:familiar"
+}
