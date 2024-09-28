@@ -6,7 +6,22 @@
   "duration": 240,
   "ingredients": [
     {
-      "item": "occultism:ritual_satchel_t1"
+      "item": "minecraft:hopper"
+    },
+    {
+      "item": "minecraft:dispenser"
+    },
+    {
+      "tag": "minecraft:wool"
+    },
+    {
+      "tag": "c:leathers"
+    },
+    {
+      "tag": "c:strings"
+    },
+    {
+      "tag": "c:ingots/silver"
     },
     {
       "item": "occultism:afrit_essence"
