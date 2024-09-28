@@ -48,7 +48,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.conditions.ICondition;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -57,16 +56,18 @@ import java.util.function.Supplier;
 
 public class RitualRecipe implements Recipe<SingleRecipeInput> {
 
+    public static final int DEFAULT_DURATION = 30;
+
     public static final MapCodec<RitualRecipe> COMPOSITE_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     ResourceLocation.CODEC.fieldOf("ritual_type").forGetter((r) -> r.ritualType),
                     RitualRequirementSettings.CODEC.fieldOf("ritual_requirement_settings").forGetter((r) -> r.ritualRequirementSettings),
                     RitualStartSettings.CODEC.fieldOf("ritual_start_settings").forGetter((r) -> r.ritualStartSettings),
-                    EntityToSummonSettings.CODEC.fieldOf("entity_to_summon_settings").forGetter((r) -> r.entityToSummonSettings),
+                    EntityToSummonSettings.CODEC.optionalFieldOf("entity_to_summon_settings").forGetter((r) -> Optional.ofNullable(r.entityToSummonSettings)),
                     ItemStack.STRICT_CODEC.fieldOf("ritual_dummy").forGetter((r) -> r.ritualDummy),
                     ItemStack.OPTIONAL_CODEC.fieldOf("result").forGetter((r) -> r.result),
                     Codec.STRING.optionalFieldOf("command").forGetter(r -> Optional.ofNullable(r.command))
             ).apply(instance, (ritualType, ritualRequirementSettings, ritualStartSettings, entityToSummonSettings, ritualDummy, result, command) ->
-                    new RitualRecipe(ritualType, ritualRequirementSettings, ritualStartSettings, entityToSummonSettings, ritualDummy, result, command.orElse(null))
+                    new RitualRecipe(ritualType, ritualRequirementSettings, ritualStartSettings, entityToSummonSettings.orElse(null), ritualDummy, result, command.orElse(null))
             )
     );
 
@@ -80,7 +81,7 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
                     CompoundTag.CODEC.optionalFieldOf("entity_nbt").forGetter(r -> Optional.ofNullable(r.getEntityNbt())),
                     Ingredient.CODEC.fieldOf("activation_item").forGetter((r) -> r.getActivationItem()),
                     Ingredient.LIST_CODEC.fieldOf("ingredients").forGetter((r) -> r.getIngredients()),
-                    Codec.INT.optionalFieldOf("duration", 30).forGetter((r) -> r.getDuration()),
+                    Codec.INT.optionalFieldOf("duration", DEFAULT_DURATION).forGetter((r) -> r.getDuration()),
                     Codec.INT.optionalFieldOf("spirit_max_age", -1).forGetter((r) -> r.getSpiritMaxAge()),
                     Codec.INT.optionalFieldOf("summon_number", 1).forGetter((r) -> r.getSummonNumber()),
                     ResourceLocation.CODEC.optionalFieldOf("spirit_job_type").forGetter(r -> Optional.ofNullable(r.getSpiritJobType())),
@@ -116,6 +117,7 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
     private final ResourceLocation ritualType;
     private final RitualRequirementSettings ritualRequirementSettings;
     private final RitualStartSettings ritualStartSettings;
+    @Nullable
     private final EntityToSummonSettings entityToSummonSettings;
     private final ItemStack ritualDummy;
     private final ItemStack result;
@@ -124,11 +126,12 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
     @Nullable
     private final String command;
 
-    public RitualRecipe(ResourceLocation ritualType, RitualRequirementSettings ritualRequirementSettings, RitualStartSettings ritualStartSettings, EntityToSummonSettings entityToSummonSettings, ItemStack ritualDummy, ItemStack result, String command) {
+    public RitualRecipe(ResourceLocation ritualType, RitualRequirementSettings ritualRequirementSettings, RitualStartSettings ritualStartSettings, @Nullable EntityToSummonSettings entityToSummonSettings, ItemStack ritualDummy, ItemStack result, String command) {
         this.ritualType = ritualType;
         this.ritualRequirementSettings = ritualRequirementSettings;
         this.ritualStartSettings = ritualStartSettings;
-        this.entityToSummonSettings = entityToSummonSettings;
+        this.entityToSummonSettings = entityToSummonSettings != null ?
+                entityToSummonSettings : new EntityToSummonSettings(null, null, null, null, -1, 1);
         this.ritualDummy = ritualDummy;
         this.result = result;
         this.ritual = () -> OccultismRituals.REGISTRY.get(this.ritualType).create(this);
@@ -140,7 +143,8 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
         this(ritualType,
                 new RitualRequirementSettings(pentacleId, ingredients, activationItem, duration, duration / (float) (ingredients.size() + 1)),
                 new RitualStartSettings(entityToSacrifice, itemToUse, null),
-                new EntityToSummonSettings(entityToSummon, entityTagToSummon, entityNbt, spiritJobType, spiritMaxAge, summonNumber),
+                entityTagToSummon == null && entityToSummon == null ? null :
+                        new EntityToSummonSettings(entityToSummon, entityTagToSummon, entityNbt, spiritJobType, spiritMaxAge, summonNumber),
                 ritualDummy, result, command);
     }
 
@@ -296,8 +300,8 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
                         TagKey.codec(Registries.ENTITY_TYPE).optionalFieldOf("entity_tag_to_summon").forGetter(r -> Optional.ofNullable(r.entityTagToSummon)),
                         CompoundTag.CODEC.optionalFieldOf("entity_nbt").forGetter(r -> Optional.ofNullable(r.entityNbt)),
                         ResourceLocation.CODEC.optionalFieldOf("spirit_job_type").forGetter(r -> Optional.ofNullable(r.spiritJobType)),
-                        Codec.INT.fieldOf("spirit_max_age").forGetter(r -> r.spiritMaxAge),
-                        Codec.INT.fieldOf("summon_number").forGetter(r -> r.summonNumber)
+                        Codec.INT.optionalFieldOf("spirit_max_age", -1).forGetter(r -> r.spiritMaxAge),
+                        Codec.INT.optionalFieldOf("summon_number", 1).forGetter(r -> r.summonNumber)
                 ).apply(instance, (entityToSummon, entityTagToSummon, entityNbt, spiritJobType, spiritMaxAge, summonNumber) -> new EntityToSummonSettings(entityToSummon.orElse(null), entityTagToSummon.orElse(null), entityNbt.orElse(null), spiritJobType.orElse(null), spiritMaxAge, summonNumber))
         );
 
@@ -365,9 +369,8 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
                         ResourceLocation.CODEC.fieldOf("pentacle_id").forGetter(r -> r.pentacleId),
                         Ingredient.LIST_CODEC.fieldOf("ingredients").forGetter(r -> r.ingredients),
                         Ingredient.CODEC.fieldOf("activation_item").forGetter(r -> r.activationItem),
-                        Codec.INT.fieldOf("duration").forGetter(r -> r.duration),
-                        Codec.FLOAT.fieldOf("duration_per_ingredient").forGetter(r -> r.durationPerIngredient)
-                ).apply(instance, (pentacleId, ingredients, activationItem, duration, durationPerIngredient) -> new RitualRequirementSettings(pentacleId, NonNullList.copyOf(ingredients), activationItem, duration, durationPerIngredient))
+                        Codec.INT.optionalFieldOf("duration", DEFAULT_DURATION).forGetter(r -> r.duration)
+                ).apply(instance, (pentacleId, ingredients, activationItem, duration) -> new RitualRequirementSettings(pentacleId, NonNullList.copyOf(ingredients), activationItem, duration, -1))
         );
 
         public static StreamCodec<RegistryFriendlyByteBuf, RitualRequirementSettings> STREAM_CODEC = StreamCodec.composite(
@@ -383,6 +386,14 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
                 (r) -> r.durationPerIngredient,
                 (pentacleId, ingredients, activationItem, duration, durationPerIngredient) -> new RitualRequirementSettings(pentacleId, NonNullList.copyOf(ingredients), activationItem, duration, durationPerIngredient)
         );
+
+        public RitualRequirementSettings(ResourceLocation pentacleId, NonNullList<Ingredient> ingredients, Ingredient activationItem, int duration, float durationPerIngredient) {
+            this.pentacleId = pentacleId;
+            this.ingredients = ingredients;
+            this.activationItem = activationItem;
+            this.duration = duration;
+            this.durationPerIngredient = durationPerIngredient == -1 ? duration / (float) (ingredients.size() + 1) : durationPerIngredient;
+        }
     }
 
     public record EntityToSacrifice(TagKey<EntityType<?>> tag, String displayName) {
