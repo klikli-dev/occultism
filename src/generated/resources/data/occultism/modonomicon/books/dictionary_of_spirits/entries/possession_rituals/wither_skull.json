@@ -8,9 +8,9 @@
   "description": "",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:afrit_essence"
+    "item": "minecraft:wither_skeleton_skull"
   },
-  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.afrit_essence.name",
+  "name": "book.occultism.dictionary_of_spirits.possession_rituals.wither_skull.name",
   "pages": [
     {
       "type": "modonomicon:text",
@@ -19,8 +19,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.afrit_essence.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.afrit_essence.intro.title",
+      "text": "book.occultism.dictionary_of_spirits.possession_rituals.wither_skull.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.possession_rituals.wither_skull.intro.title",
       "use_markdown_in_title": false
     },
     {
@@ -29,7 +29,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/summon_unbound_afrit",
+      "recipe_id_1": "occultism:ritual/wild_hunt",
       "text": "",
       "title1": "",
       "title2": ""
@@ -38,13 +38,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "possession_rituals/overview",
+      "entry": "possession_rituals/possess_skeleton",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": -1,
-  "x": -5,
-  "y": -4
+  "x": -4,
+  "y": -5
 }

@@ -669,8 +669,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         var afritEssence = this.makeAfritEssenceEntry(entryMap, 'a');
         afritEssence.withParent(BookEntryParentModel.create(overview.getId()));
 
-        var witherSkull = this.makeWitherSkullEntry(entryMap, 'm');
-        witherSkull.withParent(BookEntryParentModel.create(overview.getId()));
+        var maridEssence = this.makeMaridEssenceEntry(entryMap, 'm');
+        maridEssence.withParent(BookEntryParentModel.create(afritEssence.getId()));
 
         //add true condition to all entries to enable them by default
         overview.withCondition(BookTrueConditionModel.create());
@@ -691,7 +691,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         weatherMagic.withCondition(BookTrueConditionModel.create());
         timeMagic.withCondition(BookTrueConditionModel.create());
         afritEssence.withCondition(BookTrueConditionModel.create());
-        witherSkull.withCondition(BookTrueConditionModel.create());
+        maridEssence.withCondition(BookTrueConditionModel.create());
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon(this.modLoc("textures/gui/book/summoning.png"))
@@ -716,8 +716,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         summonRandomAnimal,
                         timeMagic,
                         weatherMagic,
-                        witherSkull,
-                        afritEssence
+                        maridEssence
                 );
     }
 
@@ -752,6 +751,27 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.AFRIT_ESSENCE.get())
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        intro,
+                        ritual
+                );
+    }
+
+    private BookEntryModel makeMaridEssenceEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("marid_essence");
+
+        this.context().page("intro");
+        var intro = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_unbound_marid"));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(OccultismItems.MARID_ESSENCE.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,
@@ -1373,26 +1393,6 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 );
     }
 
-    private BookEntryModel makeWitherSkullEntry(CategoryEntryMap entryMap, char icon) {
-        this.context().entry("wither_skull");
-
-        this.context().page("intro");
-        var intro = BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText());
-
-        this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/wild_hunt"));
-
-        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(Items.WITHER_SKELETON_SKULL)
-                .withLocation(entryMap.get(icon))
-                .withPages(
-                        intro,
-                        ritual
-                );
-    }
     //endregion
 
     //region Possession Rituals
@@ -1455,12 +1455,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         possessBreeze.withParent(BookEntryParentModel.create(possessWeakBreeze.getId()));
         var possessStrongBreeze = this.makePossessStrongBreezeEntry(entryMap, 'U');
         possessStrongBreeze.withParent(BookEntryParentModel.create(possessBreeze.getId()));
-
-        this.context().category("summoning_rituals"); //re-use the entries from the summoning rituals category
         var possessWitherSkeleton = this.makeWitherSkullEntry(entryMap, 'H');
         possessWitherSkeleton.withParent(BookEntryParentModel.create(possessSkeleton.getId()));
-        var afritEssence = this.makeAfritEssenceEntry(entryMap, 'A');
-        afritEssence.withParent(BookEntryParentModel.create(overview.getId()));
         this.context().category("possession_rituals");
 
         //add true condition to all entries to enable them by default
@@ -1476,7 +1472,6 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         possessWarden.withCondition(BookTrueConditionModel.create());
         possessHoglin.withCondition(BookTrueConditionModel.create());
         possessWitherSkeleton.withCondition(BookTrueConditionModel.create());
-        afritEssence.withCondition(BookTrueConditionModel.create());
         hordeHusk.withCondition(BookTrueConditionModel.create());
         hordeDrowned.withCondition(BookTrueConditionModel.create());
         hordeCreeper.withCondition(BookTrueConditionModel.create());
@@ -1499,7 +1494,6 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         possessWarden,
                         possessHoglin,
                         possessWitherSkeleton,
-                        afritEssence,
                         hordeHusk,
                         hordeDrowned,
                         hordeCreeper,
@@ -1525,6 +1519,27 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withEntryBackground(0, 1)
                 .withPages(
                         intro
+                );
+    }
+
+    private BookEntryModel makeWitherSkullEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("wither_skull");
+
+        this.context().page("intro");
+        var intro = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/wild_hunt"));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.WITHER_SKELETON_SKULL)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        intro,
+                        ritual
                 );
     }
 

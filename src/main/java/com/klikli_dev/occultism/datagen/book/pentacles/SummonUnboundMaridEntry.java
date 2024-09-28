@@ -48,7 +48,7 @@ public class SummonUnboundMaridEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
-                - [Marid Essence](entry://summoning_rituals/afrit_essence)
+                - [Marid Essence](entry://summoning_rituals/marid_essence)
                 """
         );
 

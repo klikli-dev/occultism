@@ -1390,19 +1390,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("ritual_night");
         //no text
 
-        helper.entry("wither_skull");
-        this.add(helper.entryName(), "Wither Skeleton Skull");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Wither Skeleton Skull");
-        this.add(helper.pageText(),
-                """
-                        Besides venturing into nether dungeons, there is one more way to get these skulls. The legendary [#](%1$s)Wild Hunt[#]() consists of [#](%1$s)Greater Spirits[#]() taking the form of wither skeletons. While summoning the Wild Hunt is incredibly dangerous, it is the fastest way to get wither skeleton skulls.
-                           """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-
         helper.entry("afrit_essence");
         this.add(helper.entryName(), "Afrit Essence");
 
@@ -1411,6 +1398,19 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         [](item://occultism:afrit_essence) is required to safely call on the more powerful spirits, commonly used in the form of red chalk. To obtain the essence, an [#](%1$s)Afrit[#]() needs to be summoned unbound into this plane, and killed. Be warned that this is no simple endeavour, and unbound spirit presents great danger to all nearby.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("marid_essence");
+        this.add(helper.entryName(), "Marid Essence");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Marid Essence");
+        this.add(helper.pageText(),
+                """
+                        [](item://occultism:marid_essence) is required to safely control the most powerful spirits, commonly used in the form of blue chalk. To obtain the essence, an [#](%1$s)Marid[#]() needs to be summoned unbound into this plane, and killed. Be warned that this is no simple endeavour, and unbound spirit presents great danger to all nearby.
                            """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
@@ -1445,6 +1445,19 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                 """
                         **Drops**: 1-3x [](item://minecraft:ender_pearl)
                                 """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("wither_skull");
+        this.add(helper.entryName(), "Wither Skeleton Skull");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Wither Skeleton Skull");
+        this.add(helper.pageText(),
+                """
+                        Besides venturing into nether dungeons, there is one more way to get these skulls. The legendary [#](%1$s)Wild Hunt[#]() consists of [#](%1$s)Greater Spirits[#]() taking the form of wither skeletons. While summoning the Wild Hunt is incredibly dangerous, it is the fastest way to get wither skeleton skulls.
+                           """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
         //no text
@@ -2668,10 +2681,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         this.add("item.occultism.ritual_dummy.craft_satchel", "Ritual: Craft Surprisingly Substantial Satchel");
         this.add("item.occultism.ritual_dummy.craft_satchel.tooltip", "This satchels allows to store more items than it's size would indicate, making it a practical traveller's companion.");
-        this.add("item.occultism.ritual_dummy.craft_ritual_satchel_t1", "Ritual: Craft Apprentice Ritual Satchel");
-        this.add("item.occultism.ritual_dummy.craft_ritual_satchel_t1.tooltip", "This satchel allows you to store pentacles items and automatically select the right ones to put in the preview.");
-        this.add("item.occultism.ritual_dummy.craft_ritual_satchel_t2", "Ritual: Craft Artisanal Ritual Satchel");
-        this.add("item.occultism.ritual_dummy.craft_ritual_satchel_t2.tooltip", "This satchel allows you to store pentacles items and automatically fully construct clicking in the preview.");
         this.add("item.occultism.ritual_dummy.craft_soul_gem", "Ritual: Craft Soul Gem");
         this.add("item.occultism.ritual_dummy.craft_soul_gem.tooltip", "The soul gem allows the temporary storage of living beings. ");
         this.add("item.occultism.ritual_dummy.craft_familiar_ring", "Ritual: Craft Familiar Ring");

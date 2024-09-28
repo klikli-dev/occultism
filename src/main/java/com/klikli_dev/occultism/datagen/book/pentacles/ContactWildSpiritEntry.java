@@ -46,7 +46,7 @@ public class ContactWildSpiritEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
-                - [Wither Skeleton Skull](entry://summoning_rituals/wither_skull)
+                - [Wither Skeleton Skull](entry://possession_rituals/wither_skull)
                 - [Horde Husk](entry://possession_rituals/horde_husk)
                 - [Horde Drowned](entry://possession_rituals/horde_drowned)
                 - [Horde Creeper](entry://possession_rituals/horde_creeper)

@@ -8,9 +8,9 @@
   "description": "",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:wither_skeleton_skull"
+    "item": "occultism:marid_essence"
   },
-  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.wither_skull.name",
+  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.marid_essence.name",
   "pages": [
     {
       "type": "modonomicon:text",
@@ -19,8 +19,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.wither_skull.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.wither_skull.intro.title",
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.marid_essence.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.marid_essence.intro.title",
       "use_markdown_in_title": false
     },
     {
@@ -29,7 +29,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/wild_hunt",
+      "recipe_id_1": "occultism:ritual/summon_unbound_marid",
       "text": "",
       "title1": "",
       "title2": ""
@@ -38,7 +38,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "summoning_rituals/overview",
+      "entry": "summoning_rituals/afrit_essence",
       "line_enabled": true,
       "line_reversed": false
     }
