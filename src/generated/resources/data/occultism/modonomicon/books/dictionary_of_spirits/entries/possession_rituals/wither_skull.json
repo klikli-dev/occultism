@@ -38,13 +38,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "possession_rituals/possess_skeleton",
+      "entry": "possession_rituals/overview",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": -1,
-  "x": -4,
-  "y": -5
+  "x": -6,
+  "y": 1
 }

@@ -843,6 +843,22 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrifice(OccultismTags.Entities.CATS)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_witch"));
 
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
+                        makeLoreSpawnEgg(OccultismItems.DEMONIC_MEAT.get(), "item.occultism.ritual_dummy.possess_zombie_piglin"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/possess_zombie_piglin")),
+                        90,
+                        RITUAL_SUMMON,
+                        PENTACLE_POSSESS_UNBOUND_AFRIT,
+                        Ingredient.of(Items.CHERRY_LEAVES),
+                        Ingredient.of(Items.PINK_PETALS),
+                        Ingredient.of(Items.PORKCHOP),
+                        Ingredient.of(Items.QUARTZ))
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .entityToSummon(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN.get())
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.pigs")
+                .entityToSacrifice(OccultismTags.Entities.PIGS)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_zombie_piglin"));
+
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()),
                         makeLoreSpawnEgg(OccultismItems.CRUELTY_ESSENCE.get(), "item.occultism.ritual_dummy.possess_goat"),
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/possess_goat")),

@@ -46,7 +46,7 @@ public class PossessUnboundAfritEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
-                - [Demonic Meat]
+                - [Possessed Pig](entry://possession_rituals/possess_zombie_piglin)
                 """
         );
 

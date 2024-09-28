@@ -1401,17 +1401,17 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         var entryMap = ModonomiconAPI.get().getEntryMap();
         entryMap.setMap(
-                "_________H____F_J_K_N______",
-                "________A_C________________",
-                "_______D_G___I_E_L_M_______",
+                "________I_A_E_J_P_N_C______", //The Places follow the tier progression
+                "___________________________",
+                "_______D_G_B_F_M_L_K_______", //B Possess Bee
                 "___________________________",
                 "___r_o_____________________",
                 "___________________________",
-                "_______V_W_Y____S__________",
+                "_______H_W_Y__S____________", //Down part is wild
                 "___________________________",
-                "__________X_Z___T__________",
+                "________V_X_Z_T____________",
                 "___________________________",
-                "________________U__________"
+                "______________U____________"
         );
 
         var overview = this.makePossessionRitualsOverviewEntry(entryMap, 'o');
@@ -1458,9 +1458,11 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         var possessStrongBreeze = this.makePossessStrongBreezeEntry(entryMap, 'U');
         possessStrongBreeze.withParent(BookEntryParentModel.create(possessBreeze.getId()));
         var possessWitherSkeleton = this.makeWitherSkullEntry(entryMap, 'H');
-        possessWitherSkeleton.withParent(BookEntryParentModel.create(possessSkeleton.getId()));
+        possessWitherSkeleton.withParent(BookEntryParentModel.create(overview.getId()));
         var mercyGoat = this.makeMercyGoatEntry(entryMap, 'C');
         mercyGoat.withParent(BookEntryParentModel.create(overview.getId()));
+        var possessZombiePiglin = this.makePossessZombiePiglinEntry(entryMap, 'P');
+        possessZombiePiglin.withParent(BookEntryParentModel.create(overview.getId()));
         this.context().category("possession_rituals");
 
         //add true condition to all entries to enable them by default
@@ -1482,6 +1484,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         hordeCreeper.withCondition(BookTrueConditionModel.create());
         hordeSilverfish.withCondition(BookTrueConditionModel.create());
         mercyGoat.withCondition(BookTrueConditionModel.create());
+        possessZombiePiglin.withCondition(BookTrueConditionModel.create());
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon(this.modLoc("textures/gui/book/possession.png"))
@@ -1509,7 +1512,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         possessWeakBreeze,
                         possessBreeze,
                         possessStrongBreeze,
-                        mercyGoat
+                        mercyGoat,
+                        possessZombiePiglin
                 );
     }
 
@@ -1951,6 +1955,46 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.CRUELTY_ESSENCE)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+
+    private BookEntryModel makePossessZombiePiglinEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("possess_zombie_piglin");
+        this.lang().add(this.context().entryName(), "Possessed Zombified Piglin");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.create()
+                .withEntityId("occultism:possessed_zombie_piglin")
+                .withScale(0.7f)
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                          **Drops**: [](item://occultism:demonic_meat);
+                        """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_zombie_piglin"));
+
+        this.context().page("description");
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        In this ritual an [#](%1$s)afrit[#]() will possess an [#](%1$s)Old Zombified Piglin[#](),
+                         unifying the energies of the [#](%1$s)nether[#](), the power of the [#](%1$s)afrit[#](),
+                          the material [#](%1$s)pork[#]() and the concept of the color [#](%1$s)pink[#]().
+                         This is the only known method to obtain [](item://occultism:demonic_meat), its properties
+                          prevent cooking but grant fire resistance to whoever consumes it.
+                        """.formatted(COLOR_PURPLE));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(OccultismItems.DEMONIC_MEAT)
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         entity,

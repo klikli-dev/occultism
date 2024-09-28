@@ -153,6 +153,13 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                         LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                                 .add(LootItem.lootTableItem(OccultismItems.CRUELTY_ESSENCE)
                                         .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))));
+
+        this.add(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get(),
+                LootTable.lootTable().withPool(
+                        LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(OccultismItems.DEMONIC_MEAT)
+                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F)))
+                                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))));
     }
 
     /**

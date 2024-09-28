@@ -47,6 +47,7 @@ public class PossessFoliotEntry extends EntryProvider {
         this.pageText("""
                 - [Possessed Endermite](entry://possession_rituals/possess_endermite)
                 - [Possessed Skeleton](entry://possession_rituals/possess_skeleton)
+                - [Possessed Witch](entry://possession_rituals/possess_witch)
                 - [Possessed Phantom](entry://possession_rituals/possess_phantom)
                 - [Parrot Familiar](entry://familiar_rituals/familiar_parrot)
                 - [Unbound Parrot](entry://summoning_rituals/possess_unbound_parrot)

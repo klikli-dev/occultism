@@ -79,6 +79,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.POSSESSED_WARDEN_TYPE.get())
                 .add(OccultismEntities.POSSESSED_HOGLIN_TYPE.get())
                 .add(OccultismEntities.POSSESSED_WITCH_TYPE.get())
+                .add(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get())
                 .add(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get())
                 .add(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get())
                 .add(OccultismEntities.OTHERWORLD_BIRD_TYPE.get())
