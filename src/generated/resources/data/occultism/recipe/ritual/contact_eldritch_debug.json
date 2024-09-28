@@ -19,7 +19,7 @@
   },
   "ritual_dummy": {
     "count": 1,
-    "id": "occultism:ritual_dummy/craft_eldritch_debug"
+    "id": "occultism:ritual_dummy/contact_eldritch_debug"
   },
   "ritual_type": "occultism:craft"
 }

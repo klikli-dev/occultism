@@ -609,8 +609,9 @@ public class OccultismItems {
         ITEMS.register("ritual_dummy/custom_ritual_possess", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/custom_ritual_craft", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/custom_ritual_misc", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/craft_eldritch_debug", () -> new DummyTooltipItem(defaultProperties()));
     }
+    public static final DeferredItem<Item> RITUAL_DUMMY_CONTACT_ELDRITCH = ITEMS.register("ritual_dummy/contact_eldritch_debug",
+            () -> new DummyTooltipItem(defaultProperties()));
 
     //Debug
     public static final DeferredItem<Item> DEBUG_WAND = ITEMS.register("debug_wand",
@@ -678,6 +679,7 @@ public class OccultismItems {
                 || item == JEI_DUMMY_REQUIRE_ITEM_USE.get()
                 || item == REPAIR_ICON.get()
                 || item == RESURRECT_ICON.get()
+                || item ==  RITUAL_DUMMY_CONTACT_ELDRITCH.get()
         )
             return true;
 

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_eldritch_debug"
+        "recipe": "occultism:ritual/contact_eldritch_debug"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "occultism:ritual/craft_eldritch_debug"
+      "occultism:ritual/contact_eldritch_debug"
     ]
   }
 }

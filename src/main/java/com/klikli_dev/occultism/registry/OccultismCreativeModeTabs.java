@@ -33,7 +33,7 @@ public class OccultismCreativeModeTabs {
 
                         // Spawn eggs, ritual dummy and debug items
                         OccultismItems.ITEMS.getEntries().forEach(i -> {
-                            if (OccultismItems.laterCreativeModTab(i.get())) {
+                            if (OccultismItems.laterCreativeModTab(i.get()) && !OccultismItems.shouldSkipCreativeModTab(i.get())) {
                                 var stack = new ItemStack(i.get());
                                 if (OccultismItems.shouldPregenerateSpiritName(i.get())) {
                                     stack.set(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)");
