@@ -1,0 +1,32 @@
+{
+  "type": "occultism:ritual",
+  "entity_to_summon_settings": {},
+  "result": {
+    "count": 1,
+    "id": "occultism:gray_paste"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/craft_gray_paste"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_djinni"
+    },
+    "duration": 90,
+    "ingredients": [
+      {
+        "tag": "c:gunpowders"
+      },
+      {
+        "item": "minecraft:clay_ball"
+      },
+      {
+        "item": "minecraft:wind_charge"
+      }
+    ],
+    "pentacle_id": "occultism:craft_djinni"
+  },
+  "ritual_start_settings": {},
+  "ritual_type": "occultism:craft"
+}

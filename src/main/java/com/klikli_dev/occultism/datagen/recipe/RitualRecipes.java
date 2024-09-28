@@ -95,7 +95,7 @@ public abstract class RitualRecipes extends RecipeProvider {
         craftingRituals(recipeOutput);
         familiarRituals(recipeOutput);
         possessRituals(recipeOutput);
-        summonRituals(recipeOutput);
+        summonRituals(recipeOutput, registries);
         resurrectRituals(recipeOutput);
         repairRituals(recipeOutput);
     }

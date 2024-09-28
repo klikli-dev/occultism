@@ -6,8 +6,14 @@
     "spirit_max_age": 60
   },
   "result": {
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_djinni_clear_weather\"}",
+      "minecraft:lore": [
+        "{\"translate\":\"item.occultism.ritual_dummy.summon_djinni_clear_weather.tooltip\"}"
+      ]
+    },
     "count": 1,
-    "id": "occultism:jei_dummy/none"
+    "id": "occultism:spawn_egg/djinni"
   },
   "ritual_dummy": {
     "count": 1,

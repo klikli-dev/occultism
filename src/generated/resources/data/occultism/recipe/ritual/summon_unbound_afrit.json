@@ -5,9 +5,9 @@
   },
   "result": {
     "components": {
-      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_wild_afrit\"}",
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_unbound_afrit\"}",
       "minecraft:lore": [
-        "{\"translate\":\"item.occultism.ritual_dummy.summon_wild_afrit.tooltip\"}"
+        "{\"translate\":\"item.occultism.ritual_dummy.summon_unbound_afrit.tooltip\"}"
       ]
     },
     "count": 1,
@@ -15,7 +15,7 @@
   },
   "ritual_dummy": {
     "count": 1,
-    "id": "occultism:ritual_dummy/summon_wild_afrit"
+    "id": "occultism:ritual_dummy/summon_unbound_afrit"
   },
   "ritual_requirement_settings": {
     "activation_item": {
@@ -33,10 +33,10 @@
         "item": "minecraft:flint_and_steel"
       },
       {
-        "item": "minecraft:gunpowder"
+        "tag": "c:gunpowders"
       }
     ],
-    "pentacle_id": "occultism:summon_wild_afrit"
+    "pentacle_id": "occultism:summon_unbound_afrit"
   },
   "ritual_start_settings": {
     "entity_to_sacrifice": {

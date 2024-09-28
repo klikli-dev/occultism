@@ -1,47 +1,46 @@
 {
   "type": "occultism:ritual",
   "entity_to_summon_settings": {
-    "entity_to_summon": "occultism:possessed_skeleton"
+    "entity_to_summon": "occultism:possessed_witch"
   },
   "result": {
     "components": {
-      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_skeleton\"}",
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_witch\"}",
       "minecraft:lore": [
-        "{\"translate\":\"item.occultism.ritual_dummy.possess_skeleton.tooltip\"}"
+        "{\"translate\":\"item.occultism.ritual_dummy.possess_witch.tooltip\"}"
       ]
     },
     "count": 1,
-    "id": "minecraft:skeleton_skull"
+    "id": "minecraft:experience_bottle"
   },
   "ritual_dummy": {
     "count": 1,
-    "id": "occultism:ritual_dummy/possess_skeleton"
+    "id": "occultism:ritual_dummy/possess_witch"
   },
   "ritual_requirement_settings": {
     "activation_item": {
       "item": "occultism:book_of_binding_bound_foliot"
     },
-    "duration": 15,
     "ingredients": [
       {
-        "tag": "c:bones"
+        "item": "minecraft:glass_bottle"
       },
       {
-        "tag": "c:bones"
+        "tag": "c:dusts/redstone"
       },
       {
-        "tag": "c:bones"
+        "item": "minecraft:brown_mushroom"
       },
       {
-        "tag": "c:bones"
+        "item": "minecraft:red_mushroom"
       }
     ],
     "pentacle_id": "occultism:possess_foliot"
   },
   "ritual_start_settings": {
     "entity_to_sacrifice": {
-      "display_name": "ritual.occultism.sacrifice.chicken",
-      "tag": "c:chicken"
+      "display_name": "ritual.occultism.sacrifice.cats",
+      "tag": "occultism:cats"
     }
   },
   "ritual_type": "occultism:summon"

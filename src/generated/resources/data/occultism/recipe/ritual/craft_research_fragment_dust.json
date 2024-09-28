@@ -1,0 +1,32 @@
+{
+  "type": "occultism:ritual",
+  "entity_to_summon_settings": {},
+  "result": {
+    "count": 1,
+    "id": "occultism:research_fragment_dust"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/craft_research_fragment_dust"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_foliot"
+    },
+    "duration": 60,
+    "ingredients": [
+      {
+        "tag": "c:dusts/emerald"
+      },
+      {
+        "item": "minecraft:experience_bottle"
+      },
+      {
+        "item": "minecraft:experience_bottle"
+      }
+    ],
+    "pentacle_id": "occultism:craft_foliot"
+  },
+  "ritual_start_settings": {},
+  "ritual_type": "occultism:craft"
+}

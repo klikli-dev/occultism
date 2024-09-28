@@ -6,9 +6,9 @@
   },
   "result": {
     "components": {
-      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_wild_creeper\"}",
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.wild_creeper\"}",
       "minecraft:lore": [
-        "{\"translate\":\"item.occultism.ritual_dummy.summon_wild_creeper.tooltip\"}"
+        "{\"translate\":\"item.occultism.ritual_dummy.wild_creeper.tooltip\"}"
       ]
     },
     "count": 1,
@@ -16,7 +16,7 @@
   },
   "ritual_dummy": {
     "count": 1,
-    "id": "occultism:ritual_dummy/summon_wild_creeper"
+    "id": "occultism:ritual_dummy/wild_creeper"
   },
   "ritual_requirement_settings": {
     "activation_item": {
@@ -60,7 +60,7 @@
         "item": "minecraft:moss_block"
       }
     ],
-    "pentacle_id": "occultism:summon_wild_greater_spirit"
+    "pentacle_id": "occultism:contact_wild_spirit"
   },
   "ritual_start_settings": {
     "entity_to_sacrifice": {

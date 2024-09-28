@@ -5,9 +5,9 @@
   },
   "result": {
     "components": {
-      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_allay\"}",
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.resurrect_allay\"}",
       "minecraft:lore": [
-        "{\"translate\":\"item.occultism.ritual_dummy.summon_allay.tooltip\"}"
+        "{\"translate\":\"item.occultism.ritual_dummy.resurrect_allay.tooltip\"}"
       ]
     },
     "count": 1,
@@ -15,7 +15,7 @@
   },
   "ritual_dummy": {
     "count": 1,
-    "id": "occultism:ritual_dummy/summon_allay"
+    "id": "occultism:ritual_dummy/resurrect_allay"
   },
   "ritual_requirement_settings": {
     "activation_item": {
@@ -35,7 +35,7 @@
         "tag": "c:dusts/gold"
       }
     ],
-    "pentacle_id": "occultism:summon_foliot"
+    "pentacle_id": "occultism:resurrect_spirit"
   },
   "ritual_start_settings": {
     "entity_to_sacrifice": {

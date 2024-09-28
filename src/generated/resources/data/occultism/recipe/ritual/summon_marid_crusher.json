@@ -5,8 +5,14 @@
     "spirit_job_type": "occultism:crush_tier4"
   },
   "result": {
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_marid_crusher\"}",
+      "minecraft:lore": [
+        "{\"translate\":\"item.occultism.ritual_dummy.summon_marid_crusher.tooltip\"}"
+      ]
+    },
     "count": 1,
-    "id": "occultism:jei_dummy/none"
+    "id": "occultism:spawn_egg/marid"
   },
   "ritual_dummy": {
     "count": 1,

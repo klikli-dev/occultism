@@ -5,9 +5,9 @@
   },
   "result": {
     "components": {
-      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_wild_otherworld_bird\"}",
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_unbound_otherworld_bird\"}",
       "minecraft:lore": [
-        "{\"translate\":\"item.occultism.ritual_dummy.summon_wild_otherworld_bird.tooltip\"}"
+        "{\"translate\":\"item.occultism.ritual_dummy.possess_unbound_otherworld_bird.tooltip\"}"
       ]
     },
     "count": 1,
@@ -15,7 +15,7 @@
   },
   "ritual_dummy": {
     "count": 1,
-    "id": "occultism:ritual_dummy/summon_wild_otherworld_bird"
+    "id": "occultism:ritual_dummy/possess_unbound_otherworld_bird"
   },
   "ritual_requirement_settings": {
     "activation_item": {

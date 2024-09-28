@@ -5,9 +5,9 @@
   },
   "result": {
     "components": {
-      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_horde_illager\"}",
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.wild_horde_illager\"}",
       "minecraft:lore": [
-        "{\"translate\":\"item.occultism.ritual_dummy.summon_horde_illager.tooltip\"}"
+        "{\"translate\":\"item.occultism.ritual_dummy.wild_horde_illager.tooltip\"}"
       ]
     },
     "count": 1,
@@ -15,7 +15,7 @@
   },
   "ritual_dummy": {
     "count": 1,
-    "id": "occultism:ritual_dummy/summon_horde_illager"
+    "id": "occultism:ritual_dummy/wild_horde_illager"
   },
   "ritual_requirement_settings": {
     "activation_item": {
@@ -23,9 +23,6 @@
     },
     "ingredients": [
       {
-        "item": "minecraft:ominous_bottle"
-      },
-      {
         "item": "minecraft:dark_oak_log"
       },
       {
@@ -35,13 +32,16 @@
         "item": "minecraft:dark_oak_log"
       },
       {
-        "item": "minecraft:end_crystal"
+        "tag": "c:dusts/emerald"
       },
       {
-        "item": "minecraft:emerald_block"
+        "tag": "c:dusts/emerald"
+      },
+      {
+        "tag": "c:dusts/emerald"
       }
     ],
-    "pentacle_id": "occultism:summon_wild_greater_spirit"
+    "pentacle_id": "occultism:contact_wild_spirit"
   },
   "ritual_start_settings": {
     "entity_to_sacrifice": {

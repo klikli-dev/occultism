@@ -5,9 +5,9 @@
   },
   "result": {
     "components": {
-      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_strong_breeze\"}",
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.wild_strong_breeze\"}",
       "minecraft:lore": [
-        "{\"translate\":\"item.occultism.ritual_dummy.possess_strong_breeze.tooltip\"}"
+        "{\"translate\":\"item.occultism.ritual_dummy.wild_strong_breeze.tooltip\"}"
       ]
     },
     "count": 1,
@@ -15,7 +15,7 @@
   },
   "ritual_dummy": {
     "count": 1,
-    "id": "occultism:ritual_dummy/possess_strong_breeze"
+    "id": "occultism:ritual_dummy/wild_strong_breeze"
   },
   "ritual_requirement_settings": {
     "activation_item": {
@@ -56,7 +56,7 @@
         "item": "minecraft:ominous_bottle"
       }
     ],
-    "pentacle_id": "occultism:summon_wild_greater_spirit"
+    "pentacle_id": "occultism:contact_wild_spirit"
   },
   "ritual_start_settings": {
     "entity_to_sacrifice": {

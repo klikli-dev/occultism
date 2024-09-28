@@ -1,45 +1,6 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "occultism:book_of_binding_bound_afrit"
-  },
-  "duration": 240,
-  "ingredients": [
-    {
-      "item": "minecraft:hopper"
-    },
-    {
-      "item": "minecraft:dispenser"
-    },
-    {
-      "tag": "minecraft:wool"
-    },
-    {
-      "tag": "c:leathers"
-    },
-    {
-      "tag": "c:strings"
-    },
-    {
-      "tag": "c:ingots/silver"
-    },
-    {
-      "item": "occultism:afrit_essence"
-    },
-    {
-      "tag": "c:ender_pearls"
-    },
-    {
-      "tag": "c:ender_pearls"
-    },
-    {
-      "tag": "c:ender_pearls"
-    },
-    {
-      "tag": "c:ender_pearls"
-    }
-  ],
-  "pentacle_id": "occultism:craft_djinni",
+  "entity_to_summon_settings": {},
   "result": {
     "count": 1,
     "id": "occultism:ritual_satchel_t2"
@@ -48,5 +9,48 @@
     "count": 1,
     "id": "occultism:ritual_dummy/craft_ritual_satchel_t2"
   },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_afrit"
+    },
+    "duration": 240,
+    "ingredients": [
+      {
+        "item": "minecraft:hopper"
+      },
+      {
+        "item": "minecraft:dispenser"
+      },
+      {
+        "tag": "minecraft:wool"
+      },
+      {
+        "tag": "c:leathers"
+      },
+      {
+        "tag": "c:strings"
+      },
+      {
+        "tag": "c:ingots/silver"
+      },
+      {
+        "item": "occultism:afrit_essence"
+      },
+      {
+        "tag": "c:ender_pearls"
+      },
+      {
+        "tag": "c:ender_pearls"
+      },
+      {
+        "tag": "c:ender_pearls"
+      },
+      {
+        "tag": "c:ender_pearls"
+      }
+    ],
+    "pentacle_id": "occultism:craft_afrit"
+  },
+  "ritual_start_settings": {},
   "ritual_type": "occultism:craft_with_spirit_name"
 }

@@ -5,9 +5,9 @@
   },
   "result": {
     "components": {
-      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_wild_parrot\"}",
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_unbound_parrot\"}",
       "minecraft:lore": [
-        "{\"translate\":\"item.occultism.ritual_dummy.summon_wild_parrot.tooltip\"}"
+        "{\"translate\":\"item.occultism.ritual_dummy.possess_unbound_parrot.tooltip\"}"
       ]
     },
     "count": 1,
@@ -15,7 +15,7 @@
   },
   "ritual_dummy": {
     "count": 1,
-    "id": "occultism:ritual_dummy/summon_wild_parrot"
+    "id": "occultism:ritual_dummy/possess_unbound_parrot"
   },
   "ritual_requirement_settings": {
     "activation_item": {
@@ -38,7 +38,7 @@
         "tag": "c:dyes/blue"
       }
     ],
-    "pentacle_id": "occultism:summon_foliot"
+    "pentacle_id": "occultism:possess_foliot"
   },
   "ritual_start_settings": {
     "entity_to_sacrifice": {
