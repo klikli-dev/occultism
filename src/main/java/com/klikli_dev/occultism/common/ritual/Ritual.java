@@ -226,7 +226,7 @@ public abstract class Ritual {
             var context = RitualRecipeConditionContext.of(blockEntity);
             if(!this.recipe.getCondition().test(context)){
                 if (castingPlayer != null)
-                    castingPlayer.displayClientMessage(this.getConditionNotMetMessage(blockEntity, castingPlayer), true);
+                    castingPlayer.displayClientMessage(this.getConditionNotMetMessage(blockEntity, castingPlayer), false);
                 return false;
             }
         }
