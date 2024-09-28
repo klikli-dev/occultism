@@ -15,9 +15,21 @@ public class RitualRecipeConditionFailureInformationVisitor implements Condition
     public MutableComponent visit(AndConditionWrapper condition, OccultismConditionContext context) {
         var contained = Component.empty();
 
-        condition.condition().children().stream()
-                .map(c -> ConditionWrapperFactory.wrap(c).accept(this, context))
-                .forEach(c -> contained.append("\n AND \n").append("(").append(c).append(")"));
+        var children = condition.condition().children();
+        boolean isFirst = true;
+        for (var child : children) {
+            //ignore conditions that are fulfilled
+            if (condition.condition().test(context))
+                continue;
+
+            var c = ConditionWrapperFactory.wrap(child).accept(this, context);
+            if (isFirst) {
+                isFirst = false;
+                contained.append("\n\n").append("(").append(c).append(")");
+            } else {
+                contained.append("\n AND \n").append("(").append(c).append(")");
+            }
+        }
 
         return Component.translatable(TranslationKeys.Condition.Ritual.AND_NOT_FULFILLED, contained);
     }
@@ -26,9 +38,21 @@ public class RitualRecipeConditionFailureInformationVisitor implements Condition
     public MutableComponent visit(OrConditionWrapper condition, OccultismConditionContext context) {
         var contained = Component.empty();
 
-        condition.condition().values().stream()
-                .map(c -> ConditionWrapperFactory.wrap(c).accept(this, context))
-                .forEach(c -> contained.append("\n OR \n").append("(").append(c).append(")"));
+        var children = condition.condition().values();
+        boolean isFirst = true;
+        for (var child : children) {
+            //ignore conditions that are fulfilled
+            if (condition.condition().test(context))
+                continue;
+
+            var c = ConditionWrapperFactory.wrap(child).accept(this, context);
+            if (isFirst) {
+                isFirst = false;
+                contained.append("\n\n").append("(").append(c).append(")");
+            } else {
+                contained.append("\n OR \n").append("(").append(c).append(")");
+            }
+        }
 
         return Component.translatable(TranslationKeys.Condition.Ritual.OR_NOT_FULFILLED, contained);
     }
