@@ -172,7 +172,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
         this.tag(OccultismTags.Entities.COWS).add(EntityType.COW).replace(false);
         this.tag(OccultismTags.Entities.DONKEYS).add(EntityType.DONKEY).replace(false);
         this.tag(OccultismTags.Entities.FISH).add(EntityType.COD).add(EntityType.SALMON).add(EntityType.TROPICAL_FISH).add(EntityType.PUFFERFISH).replace(false);
-        this.tag(OccultismTags.Entities.GOATS).add(EntityType.GOAT).replace(false);
+        this.tag(OccultismTags.Entities.GOATS).add(EntityType.GOAT).add(OccultismEntities.GOAT_OF_MERCY_TYPE.get()).replace(false);
         this.tag(OccultismTags.Entities.HOGLINS).add(EntityType.HOGLIN).replace(false);
         this.tag(OccultismTags.Entities.HORSES).add(EntityType.HORSE).replace(false);
         this.tag(OccultismTags.Entities.LLAMAS).add(EntityType.LLAMA).add(EntityType.TRADER_LLAMA).replace(false);
@@ -191,5 +191,6 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
         this.tag(OccultismTags.Entities.OCELOT).add(EntityType.OCELOT).replace(false);
         this.tag(OccultismTags.Entities.CATS).add(EntityType.CAT).add(EntityType.OCELOT).replace(false);
         this.tag(OccultismTags.Entities.VEX).add(EntityType.VEX).replace(false);
+        this.tag(OccultismTags.Entities.TADPOLES).add(EntityType.TADPOLE).replace(false);
     }
 }

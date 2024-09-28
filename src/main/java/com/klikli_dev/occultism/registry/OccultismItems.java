@@ -414,6 +414,8 @@ public class OccultismItems {
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE, 0xb5b3a3, 0x4b4d60, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_WITCH = ITEMS.register("spawn_egg/possessed_witch",
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_WITCH_TYPE, 0x280000, 0x346828, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_GOAT_OF_MERCY = ITEMS.register("spawn_egg/possessed_goat",
+            () -> new DeferredSpawnEggItem(OccultismEntities.GOAT_OF_MERCY_TYPE, 0xa0a0a0, 0x835432, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_WILD_HUNT_SKELETON = ITEMS.register("spawn_egg/wild_hunt_skeleton",
             () -> new DeferredSpawnEggItem(OccultismEntities.WILD_HUNT_SKELETON_TYPE, 12698049, 4802889, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_WILD_HUNT_WITHER_SKELETON = ITEMS.register("spawn_egg/wild_hunt_wither_skeleton",
@@ -547,6 +549,7 @@ public class OccultismItems {
         ITEMS.register("ritual_dummy/possess_hoglin", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/possess_shulker", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/possess_witch", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/possess_goat", () -> new DummyTooltipItem(defaultProperties()));
 
         // CRAFT
         ITEMS.register("ritual_dummy/craft_dimensional_matrix", () -> new DummyTooltipItem(defaultProperties()));

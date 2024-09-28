@@ -842,6 +842,30 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.cats")
                 .entityToSacrifice(OccultismTags.Entities.CATS)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_witch"));
+
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()),
+                        makeLoreSpawnEgg(OccultismItems.CRUELTY_ESSENCE.get(), "item.occultism.ritual_dummy.possess_goat"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/possess_goat")),
+                        240,
+                        RITUAL_SUMMON,
+                        PENTACLE_POSSESS_MARID,
+                        Ingredient.of(Items.POINTED_DRIPSTONE),
+                        Ingredient.of(Items.POINTED_DRIPSTONE),
+                        Ingredient.of(Items.RABBIT_FOOT),
+                        Ingredient.of(Items.RABBIT_FOOT),
+                        Ingredient.of(Items.RABBIT_FOOT),
+                        Ingredient.of(Items.RABBIT_FOOT),
+                        Ingredient.of(Items.ARMADILLO_SCUTE),
+                        Ingredient.of(Items.ARMADILLO_SCUTE),
+                        Ingredient.of(Items.ARMADILLO_SCUTE),
+                        Ingredient.of(Items.ARMADILLO_SCUTE),
+                        Ingredient.of(ItemTags.WOOL),
+                        Ingredient.of(ItemTags.WOOL))
+                .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
+                .entityToSummon(OccultismEntities.GOAT_OF_MERCY_TYPE.get())
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.tadpoles")
+                .entityToSacrifice(OccultismTags.Entities.TADPOLES)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_goat"));
     }
 
     private static void familiarRituals(RecipeOutput recipeOutput) {

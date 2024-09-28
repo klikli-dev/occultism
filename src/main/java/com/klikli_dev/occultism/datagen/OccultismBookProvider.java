@@ -1402,7 +1402,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         var entryMap = ModonomiconAPI.get().getEntryMap();
         entryMap.setMap(
                 "_________H____F_J_K_N______",
-                "________A__________________",
+                "________A_C________________",
                 "_______D_G___I_E_L_M_______",
                 "___________________________",
                 "___r_o_____________________",
@@ -1459,6 +1459,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         possessStrongBreeze.withParent(BookEntryParentModel.create(possessBreeze.getId()));
         var possessWitherSkeleton = this.makeWitherSkullEntry(entryMap, 'H');
         possessWitherSkeleton.withParent(BookEntryParentModel.create(possessSkeleton.getId()));
+        var mercyGoat = this.makeMercyGoatEntry(entryMap, 'C');
+        mercyGoat.withParent(BookEntryParentModel.create(overview.getId()));
         this.context().category("possession_rituals");
 
         //add true condition to all entries to enable them by default
@@ -1479,6 +1481,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         hordeDrowned.withCondition(BookTrueConditionModel.create());
         hordeCreeper.withCondition(BookTrueConditionModel.create());
         hordeSilverfish.withCondition(BookTrueConditionModel.create());
+        mercyGoat.withCondition(BookTrueConditionModel.create());
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon(this.modLoc("textures/gui/book/possession.png"))
@@ -1505,7 +1508,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         hordeIllager,
                         possessWeakBreeze,
                         possessBreeze,
-                        possessStrongBreeze
+                        possessStrongBreeze,
+                        mercyGoat
                 );
     }
 
@@ -1910,6 +1914,43 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(Items.EXPERIENCE_BOTTLE)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+
+    private BookEntryModel makeMercyGoatEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("possess_goat");
+        this.lang().add(this.context().entryName(), "Goat of Mery");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.create()
+                .withEntityId("occultism:mercy_goat")
+                .withScale(0.7f)
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                          **Drops**: [](item://occultism:cruelty_essence);
+                        """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_goat"));
+
+        this.context().page("description");
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        In this ritual, a [#](%1$s)Goat of Mercy[#]() is summoned to be sacrificed. This is the only way to obtain the [](item://occultism:cruelty_essence).
+                         Be sure of your actions, because they will forever mark your history.
+                        """.formatted(COLOR_PURPLE));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(OccultismItems.CRUELTY_ESSENCE)
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         entity,

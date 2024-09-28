@@ -157,6 +157,7 @@ public class ClientSetupEventHandler {
         event.registerEntityRenderer(OccultismEntities.POSSESSED_WARDEN.get(), WardenRenderer::new);
         event.registerEntityRenderer(OccultismEntities.POSSESSED_HOGLIN.get(), HoglinRenderer::new);
         event.registerEntityRenderer(OccultismEntities.POSSESSED_WITCH.get(), WitchRenderer::new);
+        event.registerEntityRenderer(OccultismEntities.GOAT_OF_MERCY.get(), GoatRenderer::new);
         event.registerEntityRenderer(OccultismEntities.WILD_HUNT_SKELETON.get(), SkeletonRenderer::new);
         event.registerEntityRenderer(OccultismEntities.WILD_HUNT_WITHER_SKELETON.get(), WitherSkeletonRenderer::new);
         event.registerEntityRenderer(OccultismEntities.OTHERWORLD_BIRD.get(), OtherworldBirdRenderer::new);

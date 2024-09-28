@@ -142,6 +142,11 @@ public class OccultismEntities {
                     .clientTrackingRange(16)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_witch").toString()));
 
+    public static final Lazy<EntityType<GoatOfMercyEntity>> GOAT_OF_MERCY_TYPE =
+            Lazy.of(() -> EntityType.Builder.of(GoatOfMercyEntity::new, MobCategory.CREATURE)
+                    .sized(0.9F, 1.3F)
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "mercy_goat").toString()));
+
     public static final Lazy<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON_TYPE =
             Lazy.of(() -> EntityType.Builder.of(WildHuntSkeletonEntity::new, MobCategory.MONSTER)
                     .sized(0.6F, 2.9F)
@@ -379,6 +384,8 @@ public class OccultismEntities {
             ENTITIES.register("possessed_hoglin", POSSESSED_HOGLIN_TYPE::get);
     public static final Supplier<EntityType<PossessedWitchEntity>> POSSESSED_WITCH =
             ENTITIES.register("possessed_witch", POSSESSED_WITCH_TYPE::get);
+    public static final Supplier<EntityType<GoatOfMercyEntity>> GOAT_OF_MERCY =
+            ENTITIES.register("mercy_goat", GOAT_OF_MERCY_TYPE::get);
     public static final Supplier<EntityType<WildHuntWitherSkeletonEntity>> WILD_HUNT_WITHER_SKELETON =
             ENTITIES.register("wild_hunt_wither_skeleton", WILD_HUNT_WITHER_SKELETON_TYPE::get);
     public static final Supplier<EntityType<OtherworldBirdEntity>> OTHERWORLD_BIRD =

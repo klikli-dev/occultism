@@ -179,6 +179,7 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> SHEEP = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "sheep"));
         public static final TagKey<EntityType<?>> SPIDERS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "spiders"));
         public static final TagKey<EntityType<?>> SQUID = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "squid"));
+        public static final TagKey<EntityType<?>> TADPOLES = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "tadpoles"));
         //Entity Tags
         public static final TagKey<EntityType<?>> SOUL_GEM_DENY_LIST = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "soul_gem_deny_list"));
         public static final TagKey<EntityType<?>> AFRIT_ALLIES = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "afrit_allies"));

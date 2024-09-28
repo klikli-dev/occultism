@@ -299,6 +299,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WARDEN, "Possessed Warden Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_HOGLIN, "Possessed Hoglin Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WITCH, "Possessed Witch Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_GOAT_OF_MERCY, "Goat of Mercy Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HUNT_SKELETON, "Wild Hunt Skeleton Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HUNT_WITHER_SKELETON, "Wild Hunt Wither Skeleton Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_OTHERWORLD_BIRD, "Drikwing Spawn Egg");
@@ -478,6 +479,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.POSSESSED_WARDEN, "Possessed Warden");
         this.addEntityType(OccultismEntities.POSSESSED_HOGLIN, "Possessed Hoglin");
         this.addEntityType(OccultismEntities.POSSESSED_WITCH, "Possessed Witch");
+        this.addEntityType(OccultismEntities.GOAT_OF_MERCY, "Goat of Mercy");
         this.addEntityType(OccultismEntities.WILD_HUNT_SKELETON, "Wild Hunt Skeleton");
         this.addEntityType(OccultismEntities.WILD_HUNT_WITHER_SKELETON, "Wild Hunt Wither Skeleton");
         this.addEntityType(OccultismEntities.OTHERWORLD_BIRD, "Drikwing");
@@ -597,6 +599,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.sacrifice.ocelot", "Ocelot");
         this.add("ritual.occultism.sacrifice.cats", "Cat");
         this.add("ritual.occultism.sacrifice.vex", "Vex");
+        this.add("ritual.occultism.sacrifice.tadpoles", "Tadpole");
 
         //Network Message
         this.add("network.messages.occultism.request_order.order_received", "Order received!");
@@ -876,6 +879,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.possess_witch.started", "Started summoning possessed witch.");
         this.add("ritual.occultism.possess_witch.finished", "Summoned possessed witch successfully.");
         this.add("ritual.occultism.possess_witch.interrupted", "Summoning of possessed witch interrupted.");
+        this.add("ritual.occultism.possess_goat.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_goat.started", "Started summoning goat of mercy.");
+        this.add("ritual.occultism.possess_goat.finished", "Summoned goat of mercy successfully.");
+        this.add("ritual.occultism.possess_goat.interrupted", "Summoning of goat of mercy interrupted.");
         this.add("ritual.occultism.familiar_otherworld_bird.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.familiar_otherworld_bird.started", "Started summoning drikwing familiar.");
         this.add("ritual.occultism.familiar_otherworld_bird.finished", "Summoned drikwing familiar successfully.");
@@ -2760,6 +2767,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.possess_hoglin.tooltip", "The possessed Hoglin has a chance to drop smithing template of netherite upgrade when killed.");
         this.add("item.occultism.ritual_dummy.possess_witch", "Ritual: Summon Possessed Witch");
         this.add("item.occultism.ritual_dummy.possess_witch.tooltip", "The possessed Witch will drop a special filled bottle.");
+        this.add("item.occultism.ritual_dummy.possess_goat", "Ritual: Summon Goat of Mercy");
+        this.add("item.occultism.ritual_dummy.possess_goat.tooltip", "The Goat of Mercy will drop the Cruelty Essence.");
         this.add("item.occultism.ritual_dummy.summon_afrit_rain_weather", "Ritual: Rainy Weather");
         this.add("item.occultism.ritual_dummy.summon_afrit_rain_weather.tooltip", "Summons an bound Afrit that creates rain.");
         this.add("item.occultism.ritual_dummy.summon_afrit_thunder_weather", "Ritual: Thunderstorm");
