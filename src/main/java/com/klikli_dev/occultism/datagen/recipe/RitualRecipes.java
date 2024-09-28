@@ -827,7 +827,21 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSummon(OccultismEntities.POSSESSED_WEAK_SHULKER_TYPE.get())
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_weak_shulker"));
 
-
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
+                        makeLoreSpawnEgg(Items.EXPERIENCE_BOTTLE, "item.occultism.ritual_dummy.possess_witch"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/possess_witch")),
+                        30,
+                        RITUAL_SUMMON,
+                        PENTACLE_POSSESS_FOLIOT,
+                        Ingredient.of(Items.GLASS_BOTTLE),
+                        Ingredient.of(Tags.Items.DUSTS_REDSTONE),
+                        Ingredient.of(Items.BROWN_MUSHROOM),
+                        Ingredient.of(Items.RED_MUSHROOM))
+                .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
+                .entityToSummon(OccultismEntities.POSSESSED_WITCH_TYPE.get())
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.cats")
+                .entityToSacrifice(OccultismTags.Entities.CATS)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_witch"));
     }
 
     private static void familiarRituals(RecipeOutput recipeOutput) {

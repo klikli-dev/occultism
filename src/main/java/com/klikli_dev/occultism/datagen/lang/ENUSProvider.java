@@ -298,6 +298,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ELDER_GUARDIAN, "Possessed Elder Guardian Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WARDEN, "Possessed Warden Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_HOGLIN, "Possessed Hoglin Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WITCH, "Possessed Witch Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HUNT_SKELETON, "Wild Hunt Skeleton Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HUNT_WITHER_SKELETON, "Wild Hunt Wither Skeleton Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_OTHERWORLD_BIRD, "Drikwing Spawn Egg");
@@ -476,6 +477,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.POSSESSED_ELDER_GUARDIAN, "Possessed Elder Guardian");
         this.addEntityType(OccultismEntities.POSSESSED_WARDEN, "Possessed Warden");
         this.addEntityType(OccultismEntities.POSSESSED_HOGLIN, "Possessed Hoglin");
+        this.addEntityType(OccultismEntities.POSSESSED_WITCH, "Possessed Witch");
         this.addEntityType(OccultismEntities.WILD_HUNT_SKELETON, "Wild Hunt Skeleton");
         this.addEntityType(OccultismEntities.WILD_HUNT_WITHER_SKELETON, "Wild Hunt Wither Skeleton");
         this.addEntityType(OccultismEntities.OTHERWORLD_BIRD, "Drikwing");
@@ -593,6 +595,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.sacrifice.dolphin", "Dolphin");
         this.add("ritual.occultism.sacrifice.wolfs", "Wolf");
         this.add("ritual.occultism.sacrifice.ocelot", "Ocelot");
+        this.add("ritual.occultism.sacrifice.cats", "Cat");
         this.add("ritual.occultism.sacrifice.vex", "Vex");
 
         //Network Message
@@ -869,6 +872,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.possess_hoglin.started", "Started summoning possessed hoglin.");
         this.add("ritual.occultism.possess_hoglin.finished", "Summoned possessed hoglin successfully.");
         this.add("ritual.occultism.possess_hoglin.interrupted", "Summoning of possessed hoglin interrupted.");
+        this.add("ritual.occultism.possess_witch.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_witch.started", "Started summoning possessed witch.");
+        this.add("ritual.occultism.possess_witch.finished", "Summoned possessed witch successfully.");
+        this.add("ritual.occultism.possess_witch.interrupted", "Summoning of possessed witch interrupted.");
         this.add("ritual.occultism.familiar_otherworld_bird.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.familiar_otherworld_bird.started", "Started summoning drikwing familiar.");
         this.add("ritual.occultism.familiar_otherworld_bird.finished", "Summoned drikwing familiar successfully.");
@@ -2751,6 +2758,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.possess_warden.tooltip", "The possessed Warden will always drop at least six echo shard and can drop anothers ancient stuff (smithing templates and discs) when killed.");
         this.add("item.occultism.ritual_dummy.possess_hoglin", "Ritual: Summon Possessed Hoglin");
         this.add("item.occultism.ritual_dummy.possess_hoglin.tooltip", "The possessed Hoglin has a chance to drop smithing template of netherite upgrade when killed.");
+        this.add("item.occultism.ritual_dummy.possess_witch", "Ritual: Summon Possessed Witch");
+        this.add("item.occultism.ritual_dummy.possess_witch.tooltip", "The possessed Witch will drop a special filled bottle.");
         this.add("item.occultism.ritual_dummy.summon_afrit_rain_weather", "Ritual: Rainy Weather");
         this.add("item.occultism.ritual_dummy.summon_afrit_rain_weather.tooltip", "Summons an bound Afrit that creates rain.");
         this.add("item.occultism.ritual_dummy.summon_afrit_thunder_weather", "Ritual: Thunderstorm");

@@ -1439,6 +1439,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         possessWarden.withParent(BookEntryParentModel.create(overview.getId()));
         var possessHoglin = this.makePossessHoglinEntry(entryMap, 'N');
         possessHoglin.withParent(BookEntryParentModel.create(overview.getId()));
+        var possessWitch = this.makePossessWitchEntry(entryMap, 'A');
+        possessWitch.withParent(BookEntryParentModel.create(overview.getId()));
         var hordeHusk = this.makeHordeHuskEntry(entryMap, 'W');
         hordeHusk.withParent(BookEntryParentModel.create(overview.getId()));
         var hordeDrowned = this.makeHordeDrownedEntry(entryMap, 'X');
@@ -1471,6 +1473,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         possessElderGuardian.withCondition(BookTrueConditionModel.create());
         possessWarden.withCondition(BookTrueConditionModel.create());
         possessHoglin.withCondition(BookTrueConditionModel.create());
+        possessWitch.withCondition(BookTrueConditionModel.create());
         possessWitherSkeleton.withCondition(BookTrueConditionModel.create());
         hordeHusk.withCondition(BookTrueConditionModel.create());
         hordeDrowned.withCondition(BookTrueConditionModel.create());
@@ -1493,6 +1496,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         possessElderGuardian,
                         possessWarden,
                         possessHoglin,
+                        possessWitch,
                         possessWitherSkeleton,
                         hordeHusk,
                         hordeDrowned,
@@ -1871,6 +1875,41 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+    private BookEntryModel makePossessWitchEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("possess_witch");
+        this.lang().add(this.context().entryName(), "Possessed Witch");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.create()
+                .withEntityId("occultism:possessed_witch")
+                .withScale(0.4f).withOffset(0.8f)
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                          **Drops**: Can drop: [](item://minecraft:experience_bottle) or other bottles (See next page);
+                        """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_witch"));
+
+        this.context().page("description");
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        In this ritual a [#](%1$s)Witch[#]() is spawned using the rage energy from the [#](%1$s)Cat[#]() death. The [#](%1$s)Possessed Witch[#]() can drop a [](item://minecraft:experience_bottle), [](item://minecraft:honey_bottle), [](item://minecraft:ominous_bottle) or a useless uncraftable potion.
+                        """.formatted(COLOR_PURPLE));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.EXPERIENCE_BOTTLE)
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         entity,

@@ -69,8 +69,16 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.MARID_TYPE.get())
                 .add(OccultismEntities.MARID_UNBOUND_TYPE.get())
                 .add(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get())
+                .add(OccultismEntities.POSSESSED_SKELETON_TYPE.get())
                 .add(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get())
                 .add(OccultismEntities.POSSESSED_GHAST_TYPE.get())
+                .add(OccultismEntities.POSSESSED_PHANTOM_TYPE.get())
+                .add(OccultismEntities.POSSESSED_WEAK_SHULKER_TYPE.get())
+                .add(OccultismEntities.POSSESSED_SHULKER_TYPE.get())
+                .add(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE.get())
+                .add(OccultismEntities.POSSESSED_WARDEN_TYPE.get())
+                .add(OccultismEntities.POSSESSED_HOGLIN_TYPE.get())
+                .add(OccultismEntities.POSSESSED_WITCH_TYPE.get())
                 .add(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get())
                 .add(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get())
                 .add(OccultismEntities.OTHERWORLD_BIRD_TYPE.get())
@@ -181,6 +189,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
         this.tag(OccultismTags.Entities.DOLPHIN).add(EntityType.DOLPHIN).replace(false);
         this.tag(OccultismTags.Entities.WOLFS).add(EntityType.WOLF).replace(false);
         this.tag(OccultismTags.Entities.OCELOT).add(EntityType.OCELOT).replace(false);
+        this.tag(OccultismTags.Entities.CATS).add(EntityType.CAT).add(EntityType.OCELOT).replace(false);
         this.tag(OccultismTags.Entities.VEX).add(EntityType.VEX).replace(false);
     }
 }

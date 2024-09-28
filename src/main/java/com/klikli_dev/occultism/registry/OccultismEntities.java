@@ -129,14 +129,19 @@ public class OccultismEntities {
                     .fireImmune()
                     .clientTrackingRange(48)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_warden").toString()));
-
     public static final Lazy<EntityType<PossessedHoglinEntity>> POSSESSED_HOGLIN_TYPE =
             Lazy.of(() -> EntityType.Builder.of(PossessedHoglinEntity::new, MobCategory.MONSTER)
                     .sized(1.88F, 1.88F)
-
                     .fireImmune()
                     .clientTrackingRange(24)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_hoglin").toString()));
+    public static final Lazy<EntityType<PossessedWitchEntity>> POSSESSED_WITCH_TYPE =
+            Lazy.of(() -> EntityType.Builder.of(PossessedWitchEntity::new, MobCategory.MONSTER)
+                    .sized(1.0F, 0.98F)
+                    .fireImmune()
+                    .clientTrackingRange(16)
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_witch").toString()));
+
     public static final Lazy<EntityType<WildHuntSkeletonEntity>> WILD_HUNT_SKELETON_TYPE =
             Lazy.of(() -> EntityType.Builder.of(WildHuntSkeletonEntity::new, MobCategory.MONSTER)
                     .sized(0.6F, 2.9F)
@@ -372,6 +377,8 @@ public class OccultismEntities {
             ENTITIES.register("possessed_warden", POSSESSED_WARDEN_TYPE::get);
     public static final Supplier<EntityType<PossessedHoglinEntity>> POSSESSED_HOGLIN =
             ENTITIES.register("possessed_hoglin", POSSESSED_HOGLIN_TYPE::get);
+    public static final Supplier<EntityType<PossessedWitchEntity>> POSSESSED_WITCH =
+            ENTITIES.register("possessed_witch", POSSESSED_WITCH_TYPE::get);
     public static final Supplier<EntityType<WildHuntWitherSkeletonEntity>> WILD_HUNT_WITHER_SKELETON =
             ENTITIES.register("wild_hunt_wither_skeleton", WILD_HUNT_WITHER_SKELETON_TYPE::get);
     public static final Supplier<EntityType<OtherworldBirdEntity>> OTHERWORLD_BIRD =
