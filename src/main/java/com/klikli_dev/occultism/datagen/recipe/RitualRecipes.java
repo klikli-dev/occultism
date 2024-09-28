@@ -865,7 +865,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         PENTACLE_POSSESS_UNBOUND_AFRIT,
                         Ingredient.of(Items.CHERRY_LEAVES),
                         Ingredient.of(Items.PINK_PETALS),
-                        Ingredient.of(Items.PORKCHOP),
+                        Ingredient.of(OccultismItems.TALLOW),
                         Ingredient.of(Items.QUARTZ))
                 .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
                 .entityToSummon(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get())

@@ -1331,8 +1331,30 @@ public class GettingStartedCategory extends CategoryProvider {
                         - **0** if no ritual is active
                         - **1** if the ritual is active, but waiting for a sacrifice
                         - **2** if the ritual is active, but waiting for an item to be used
-                        - **4** if the ritual is active and running
+                        - **8** if the ritual is active and running
                         """.formatted(COLOR_PURPLE));
+
+        this.context().page("clone_redstone");
+        var cloneRedstoneText = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "All sides blocked?");
+        this.lang().add(this.context().pageText(),
+                """
+                        You can place another [](item://occultism:golden_sacrificial_bowl) in the third block below the
+                         original [](item://occultism:golden_sacrificial_bowl). Every time this new bowl receives an
+                         block update, it clones the actual signal strength of the original bowl.
+                        """.formatted(COLOR_PURPLE));
+
+        this.context().page("clone_placement");
+        var clonePlacementImage = BookImagePageModel.create()
+                .withImages(this.modLoc("textures/gui/book/redstone_clone.png"))
+                .withBorder(true)
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        One suggestion is to use any block that interacts with redstone and an observer.
+                          """.formatted(COLOR_PURPLE));
 
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
@@ -1349,7 +1371,9 @@ public class GettingStartedCategory extends CategoryProvider {
                         pentacleLinkHint,
                         startRitualText,
                         automationText,
-                        redstoneText
+                        redstoneText,
+                        cloneRedstoneText,
+                        clonePlacementImage
                 );
     }
 
