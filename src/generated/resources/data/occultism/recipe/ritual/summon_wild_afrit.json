@@ -1,29 +1,8 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "occultism:book_of_binding_bound_afrit"
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:afrit_wild"
   },
-  "duration": 60,
-  "entity_to_sacrifice": {
-    "display_name": "ritual.occultism.sacrifice.cows",
-    "tag": "c:cows"
-  },
-  "entity_to_summon": "occultism:afrit_wild",
-  "ingredients": [
-    {
-      "tag": "c:netherracks"
-    },
-    {
-      "tag": "c:gems/quartz"
-    },
-    {
-      "item": "minecraft:flint_and_steel"
-    },
-    {
-      "item": "minecraft:gunpowder"
-    }
-  ],
-  "pentacle_id": "occultism:summon_wild_afrit",
   "result": {
     "components": {
       "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_wild_afrit\"}",
@@ -37,6 +16,33 @@
   "ritual_dummy": {
     "count": 1,
     "id": "occultism:ritual_dummy/summon_wild_afrit"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_afrit"
+    },
+    "duration": 60,
+    "ingredients": [
+      {
+        "tag": "c:netherracks"
+      },
+      {
+        "tag": "c:gems/quartz"
+      },
+      {
+        "item": "minecraft:flint_and_steel"
+      },
+      {
+        "item": "minecraft:gunpowder"
+      }
+    ],
+    "pentacle_id": "occultism:summon_wild_afrit"
+  },
+  "ritual_start_settings": {
+    "entity_to_sacrifice": {
+      "display_name": "ritual.occultism.sacrifice.cows",
+      "tag": "c:cows"
+    }
   },
   "ritual_type": "occultism:summon"
 }

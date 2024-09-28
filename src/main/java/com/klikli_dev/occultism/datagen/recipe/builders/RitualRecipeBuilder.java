@@ -16,6 +16,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.neoforged.neoforge.common.conditions.ICondition;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -53,6 +54,8 @@ public class RitualRecipeBuilder implements RecipeBuilder {
     private String entityToSacrificeDisplayName;
     @Nullable
     private String command;
+    @Nullable
+    private ICondition condition;
 
     public RitualRecipeBuilder(Ingredient activationIngredient, NonNullList<Ingredient> ingredients, ItemStack output, ItemStack ritualDummy, int duration, ResourceLocation ritualType, ResourceLocation pentacleId) {
         this.activationIngredient = activationIngredient;
@@ -71,20 +74,20 @@ public class RitualRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    public RitualRecipeBuilder unlockedBy(String s, Criterion<?> criterion) {
+    public @NotNull RitualRecipeBuilder unlockedBy(@NotNull String s, @NotNull Criterion<?> criterion) {
         this.criteria.put(s, criterion);
         return this;
     }
 
     @Override
-    public RitualRecipeBuilder group(@Nullable String s) {
+    public @NotNull RitualRecipeBuilder group(@Nullable String s) {
         //NOOP
         return this;
     }
 
     @Override
     public @NotNull Item getResult() {
-        return output.getItem();
+        return this.output.getItem();
     }
 
     public RitualRecipeBuilder spiritJobType(ResourceLocation spiritJobType) {
@@ -137,15 +140,29 @@ public class RitualRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
+    /**
+     * The ritual start condition - this is different from the recipe load condition neoforge adds!
+     */
+    public RitualRecipeBuilder condition(ICondition condition) {
+        this.condition = condition;
+        return this;
+    }
+
     @Override
-    public void save(RecipeOutput pRecipeOutput, ResourceLocation pId) {
+    public void save(RecipeOutput pRecipeOutput, @NotNull ResourceLocation pId) {
         this.ensureValid(pId);
         Advancement.Builder advancement$builder = pRecipeOutput.advancement()
                 .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId))
                 .rewards(AdvancementRewards.Builder.recipe(pId))
                 .requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
-        RitualRecipe recipe = new RitualRecipe(this.pentacleId, this.ritualType, this.ritualDummy, this.output, entityToSummon, this.entityTagToSummon, this.entityNbt, this.activationIngredient, this.ingredients, this.duration, this.spiritMaxAge == null ? -1 : this.spiritMaxAge, this.summonNumber == null ? 1 : this.summonNumber, this.spiritJobType, this.entityToSacrifice == null ? null : new RitualRecipe.EntityToSacrifice(this.entityToSacrifice, this.entityToSacrificeDisplayName), this.itemToUse, this.command);
+
+        var recipe = new RitualRecipe(this.ritualType,
+                new RitualRecipe.RitualRequirementSettings(this.pentacleId, this.ingredients, this.activationIngredient, this.duration, this.duration / (float) (this.ingredients.size() + 1)),
+                new RitualRecipe.RitualStartSettings(this.entityToSacrifice == null ? null : new RitualRecipe.EntityToSacrifice(this.entityToSacrifice, this.entityToSacrificeDisplayName), this.itemToUse, this.condition),
+                new RitualRecipe.EntityToSummonSettings(this.entityToSummon, this.entityTagToSummon, this.entityNbt, this.spiritJobType,this.spiritMaxAge == null ? -1 : this.spiritMaxAge, this.summonNumber == null ? 1 : this.summonNumber),
+                this.ritualDummy, this.output, this.command);
+
         pRecipeOutput.accept(pId, recipe, advancement$builder.build(pId.withPrefix("recipes/ritual/")));
     }
 

@@ -1,25 +1,9 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "occultism:book_of_binding_bound_djinni"
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:djinni",
+    "spirit_job_type": "occultism:manage_machine"
   },
-  "duration": 60,
-  "entity_to_summon": "occultism:djinni",
-  "ingredients": [
-    {
-      "tag": "c:storage_blocks/coal"
-    },
-    {
-      "tag": "c:ingots/gold"
-    },
-    {
-      "tag": "c:ingots/iron"
-    },
-    {
-      "item": "minecraft:furnace"
-    }
-  ],
-  "pentacle_id": "occultism:summon_djinni",
   "result": {
     "count": 1,
     "id": "occultism:book_of_calling_djinni_manage_machine"
@@ -28,6 +12,27 @@
     "count": 1,
     "id": "occultism:ritual_dummy/summon_djinni_manage_machine"
   },
-  "ritual_type": "occultism:summon_spirit_with_job",
-  "spirit_job_type": "occultism:manage_machine"
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_djinni"
+    },
+    "duration": 60,
+    "ingredients": [
+      {
+        "tag": "c:storage_blocks/coal"
+      },
+      {
+        "tag": "c:ingots/gold"
+      },
+      {
+        "tag": "c:ingots/iron"
+      },
+      {
+        "item": "minecraft:furnace"
+      }
+    ],
+    "pentacle_id": "occultism:summon_djinni"
+  },
+  "ritual_start_settings": {},
+  "ritual_type": "occultism:summon_spirit_with_job"
 }

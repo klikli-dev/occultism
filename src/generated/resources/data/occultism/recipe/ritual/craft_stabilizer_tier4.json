@@ -1,27 +1,6 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "occultism:book_of_binding_bound_marid"
-  },
-  "duration": 240,
-  "ingredients": [
-    {
-      "item": "occultism:storage_stabilizer_tier3"
-    },
-    {
-      "tag": "c:storage_blocks/iesnium"
-    },
-    {
-      "item": "minecraft:dragon_head"
-    },
-    {
-      "item": "occultism:spirit_attuned_crystal"
-    },
-    {
-      "item": "occultism:spirit_attuned_crystal"
-    }
-  ],
-  "pentacle_id": "occultism:craft_marid",
+  "entity_to_summon_settings": {},
   "result": {
     "count": 1,
     "id": "occultism:storage_stabilizer_tier4"
@@ -30,5 +9,30 @@
     "count": 1,
     "id": "occultism:ritual_dummy/craft_stabilizer_tier4"
   },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_marid"
+    },
+    "duration": 240,
+    "ingredients": [
+      {
+        "item": "occultism:storage_stabilizer_tier3"
+      },
+      {
+        "tag": "c:storage_blocks/iesnium"
+      },
+      {
+        "item": "minecraft:dragon_head"
+      },
+      {
+        "item": "occultism:spirit_attuned_crystal"
+      },
+      {
+        "item": "occultism:spirit_attuned_crystal"
+      }
+    ],
+    "pentacle_id": "occultism:craft_marid"
+  },
+  "ritual_start_settings": {},
   "ritual_type": "occultism:craft"
 }

@@ -1,30 +1,6 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "occultism:book_of_binding_bound_afrit"
-  },
-  "duration": 120,
-  "ingredients": [
-    {
-      "item": "occultism:miner_djinni_ores"
-    },
-    {
-      "item": "occultism:iesnium_pickaxe"
-    },
-    {
-      "item": "occultism:spirit_attuned_crystal"
-    },
-    {
-      "item": "occultism:afrit_essence"
-    },
-    {
-      "item": "minecraft:echo_shard"
-    },
-    {
-      "item": "minecraft:crying_obsidian"
-    }
-  ],
-  "pentacle_id": "occultism:craft_afrit",
+  "entity_to_summon_settings": {},
   "result": {
     "count": 1,
     "id": "occultism:miner_afrit_deeps"
@@ -33,5 +9,33 @@
     "count": 1,
     "id": "occultism:ritual_dummy/craft_miner_afrit_deeps"
   },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_afrit"
+    },
+    "duration": 120,
+    "ingredients": [
+      {
+        "item": "occultism:miner_djinni_ores"
+      },
+      {
+        "item": "occultism:iesnium_pickaxe"
+      },
+      {
+        "item": "occultism:spirit_attuned_crystal"
+      },
+      {
+        "item": "occultism:afrit_essence"
+      },
+      {
+        "item": "minecraft:echo_shard"
+      },
+      {
+        "item": "minecraft:crying_obsidian"
+      }
+    ],
+    "pentacle_id": "occultism:craft_afrit"
+  },
+  "ritual_start_settings": {},
   "ritual_type": "occultism:craft_miner_spirit"
 }

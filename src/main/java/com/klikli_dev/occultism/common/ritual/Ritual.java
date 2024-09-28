@@ -27,12 +27,16 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
 import com.klikli_dev.occultism.common.blockentity.SacrificialBowlBlockEntity;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
+import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionWrapperFactory;
+import com.klikli_dev.occultism.crafting.recipe.conditionextension.RitualRecipeConditionContext;
+import com.klikli_dev.occultism.crafting.recipe.conditionextension.RitualRecipeConditionFailureInformationVisitor;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -167,7 +171,18 @@ public abstract class Ritual {
     public String getInterruptedMessage(ServerPlayer player) {
         return String.format("ritual.%s.interrupted", this.getRitualID(player));
     }
-    //endregion Getter / Setter
+
+    /**
+     * @return the interrupted message translation key for this ritual.
+     */
+    public MutableComponent getConditionNotMetMessage(GoldenSacrificialBowlBlockEntity bowl, ServerPlayer player) {
+        var visitor = new RitualRecipeConditionFailureInformationVisitor();
+        var condition = ConditionWrapperFactory.wrap(this.recipe.getCondition());
+        if(condition == null)
+            return Component.literal("Unknown condition");
+
+        return condition.accept(visitor, RitualRecipeConditionContext.of(bowl));
+    }
 
     /**
      * @return the finished message translation key for this ritual.
@@ -203,12 +218,23 @@ public abstract class Ritual {
      * @param castingPlayer      the player starting the ritual.
      * @param activationItem     the item used to start the ritual.
      */
-    public void start(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
+    public boolean start(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
                       @Nullable ServerPlayer castingPlayer, ItemStack activationItem) {
         level.playSound(null, goldenBowlPosition, OccultismSounds.START_RITUAL.get(), SoundSource.BLOCKS, 1, 1);
 
+        if(this.recipe.getCondition() != null){
+            var context = RitualRecipeConditionContext.of(blockEntity);
+            if(!this.recipe.getCondition().test(context)){
+                if (castingPlayer != null)
+                    castingPlayer.displayClientMessage(this.getConditionNotMetMessage(blockEntity, castingPlayer), false);
+                return false;
+            }
+        }
+
         if (castingPlayer != null)
             castingPlayer.displayClientMessage(Component.translatable(this.getStartedMessage(castingPlayer)), true);
+
+        return true;
     }
 
     /**
@@ -241,9 +267,9 @@ public abstract class Ritual {
      * @param activationItem     the item used to start the ritual.
      */
     public void interrupt(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                          @Nullable ServerPlayer castingPlayer, ItemStack activationItem) {
+                          @Nullable ServerPlayer castingPlayer, ItemStack activationItem, boolean showMessage) {
         level.playSound(null, goldenBowlPosition, SoundEvents.CHICKEN_EGG, SoundSource.BLOCKS, 0.7f, 0.7f);
-        if (castingPlayer != null)
+        if (castingPlayer != null && showMessage)
             castingPlayer.displayClientMessage(Component.translatable(this.getInterruptedMessage(castingPlayer)), true);
     }
 

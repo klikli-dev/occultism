@@ -1,35 +1,8 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "occultism:book_of_binding_bound_djinni"
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:demonic_wife"
   },
-  "duration": 60,
-  "entity_to_sacrifice": {
-    "display_name": "ritual.occultism.sacrifice.chicken",
-    "tag": "c:chicken"
-  },
-  "entity_to_summon": "occultism:demonic_wife",
-  "ingredients": [
-    {
-      "tag": "c:ingots/gold"
-    },
-    {
-      "tag": "c:gems/diamond"
-    },
-    {
-      "tag": "c:gunpowders"
-    },
-    {
-      "item": "minecraft:porkchop"
-    },
-    {
-      "tag": "minecraft:swords"
-    },
-    {
-      "item": "minecraft:glass_bottle"
-    }
-  ],
-  "pentacle_id": "occultism:summon_djinni",
   "result": {
     "components": {
       "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_demonic_wife\"}",
@@ -43,6 +16,39 @@
   "ritual_dummy": {
     "count": 1,
     "id": "occultism:ritual_dummy/summon_demonic_wife"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_djinni"
+    },
+    "duration": 60,
+    "ingredients": [
+      {
+        "tag": "c:ingots/gold"
+      },
+      {
+        "tag": "c:gems/diamond"
+      },
+      {
+        "tag": "c:gunpowders"
+      },
+      {
+        "item": "minecraft:porkchop"
+      },
+      {
+        "tag": "minecraft:swords"
+      },
+      {
+        "item": "minecraft:glass_bottle"
+      }
+    ],
+    "pentacle_id": "occultism:summon_djinni"
+  },
+  "ritual_start_settings": {
+    "entity_to_sacrifice": {
+      "display_name": "ritual.occultism.sacrifice.chicken",
+      "tag": "c:chicken"
+    }
   },
   "ritual_type": "occultism:summon_tamed"
 }

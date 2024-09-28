@@ -1,28 +1,8 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "minecraft:sugar"
+  "entity_to_summon_settings": {
+    "entity_to_summon": "minecraft:allay"
   },
-  "entity_to_sacrifice": {
-    "display_name": "ritual.occultism.sacrifice.vex",
-    "tag": "occultism:vex"
-  },
-  "entity_to_summon": "minecraft:allay",
-  "ingredients": [
-    {
-      "tag": "c:dusts/redstone"
-    },
-    {
-      "tag": "c:dusts/glowstone"
-    },
-    {
-      "tag": "c:dusts/silver"
-    },
-    {
-      "tag": "c:dusts/gold"
-    }
-  ],
-  "pentacle_id": "occultism:summon_foliot",
   "result": {
     "components": {
       "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_allay\"}",
@@ -36,6 +16,32 @@
   "ritual_dummy": {
     "count": 1,
     "id": "occultism:ritual_dummy/summon_allay"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "minecraft:sugar"
+    },
+    "ingredients": [
+      {
+        "tag": "c:dusts/redstone"
+      },
+      {
+        "tag": "c:dusts/glowstone"
+      },
+      {
+        "tag": "c:dusts/silver"
+      },
+      {
+        "tag": "c:dusts/gold"
+      }
+    ],
+    "pentacle_id": "occultism:summon_foliot"
+  },
+  "ritual_start_settings": {
+    "entity_to_sacrifice": {
+      "display_name": "ritual.occultism.sacrifice.vex",
+      "tag": "occultism:vex"
+    }
   },
   "ritual_type": "occultism:summon"
 }

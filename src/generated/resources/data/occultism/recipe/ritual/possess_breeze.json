@@ -1,34 +1,8 @@
 {
   "type": "occultism:ritual",
-  "activation_item": {
-    "item": "minecraft:trial_key"
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:possessed_breeze"
   },
-  "entity_to_sacrifice": {
-    "display_name": "ritual.occultism.sacrifice.wolfs",
-    "tag": "occultism:wolfs"
-  },
-  "entity_to_summon": "occultism:possessed_breeze",
-  "ingredients": [
-    {
-      "item": "minecraft:lightning_rod"
-    },
-    {
-      "item": "minecraft:copper_door"
-    },
-    {
-      "item": "minecraft:copper_trapdoor"
-    },
-    {
-      "item": "minecraft:copper_bulb"
-    },
-    {
-      "item": "minecraft:polished_tuff"
-    },
-    {
-      "item": "minecraft:tuff_bricks"
-    }
-  ],
-  "pentacle_id": "occultism:summon_wild_greater_spirit",
   "result": {
     "components": {
       "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_breeze\"}",
@@ -42,6 +16,38 @@
   "ritual_dummy": {
     "count": 1,
     "id": "occultism:ritual_dummy/possess_breeze"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "minecraft:trial_key"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:lightning_rod"
+      },
+      {
+        "item": "minecraft:copper_door"
+      },
+      {
+        "item": "minecraft:copper_trapdoor"
+      },
+      {
+        "item": "minecraft:copper_bulb"
+      },
+      {
+        "item": "minecraft:polished_tuff"
+      },
+      {
+        "item": "minecraft:tuff_bricks"
+      }
+    ],
+    "pentacle_id": "occultism:summon_wild_greater_spirit"
+  },
+  "ritual_start_settings": {
+    "entity_to_sacrifice": {
+      "display_name": "ritual.occultism.sacrifice.wolfs",
+      "tag": "occultism:wolfs"
+    }
   },
   "ritual_type": "occultism:summon_wild"
 }

@@ -21,6 +21,7 @@ and thus shelved until further notice.
 - `entity_nbt`: An NBT Tag that will be merged into the entity's nbt. E.g. could be used to set `RabbitType` for rabbits, or `ForgeData` for arbitrary nbt. Uses the NBT formats also used in vanilla shapeless recipe's output: either a json object representing the tag, or a string containing the tag in NBT format.
 - `duration`: The duration of the ritual in seconds.
 - `spirit_max_age`: The max age of the spirit in seconds.
+- `condition`: allows to use Neoforge conditions, plus the additional conditions provided by occultism: "occultism:is_in_biome", "occultism:is_in_biome_with_tag", "occultism:is_in_dimension", "occultism:is_in_dimension_type". Conditions are evaluated at the start of the ritual.
 - ...
 
 ## Sample Recipe
@@ -70,5 +71,62 @@ and thus shelved until further notice.
     "id": "occultism:jei_dummy/none"
   },
   "command": "execute run say hi"
+}
+```
+
+## Sample Recipe with new compound syntax and runtime conditions
+
+```json
+{
+  "type": "occultism:ritual",
+  "entity_to_summon_settings": {
+    "entity_to_summon": "occultism:foliot",
+    "spirit_job_type": "occultism:crush_tier1"
+  },
+  "result": {
+    "count": 1,
+    "id": "occultism:jei_dummy/none"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/summon_foliot_crusher"
+  },
+  "ritual_requirement_settings": {
+    "activation_item": {
+      "item": "occultism:book_of_binding_bound_foliot"
+    },
+    "duration": 60,
+    "ingredients": [
+      {
+        "tag": "c:raw_materials/iron"
+      },
+      {
+        "tag": "c:raw_materials/gold"
+      },
+      {
+        "tag": "c:raw_materials/copper"
+      },
+      {
+        "tag": "c:raw_materials/silver"
+      }
+    ],
+    "pentacle_id": "occultism:summon_foliot"
+  },
+  "ritual_start_settings": {
+    "condition": {
+      "type": "neoforge:or",
+      "values": [
+        {
+          "type": "occultism:is_in_dimension_type",
+          "dimension_type": "minecraft:the_nether"
+        },
+        {
+          "type": "occultism:is_in_biome_with_tag",
+          "tag": "minecraft:has_structure/nether_fortress"
+        }
+      ]
+    }
+  },
+  "ritual_type": "occultism:summon_spirit_with_job"
 }
 ```

@@ -40,6 +40,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 
@@ -587,6 +588,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("occultism.subtitle.crunching", "Crunching");
         this.add("occultism.subtitle.poof", "Poof!");
 
+        //Dimension types
+
+        this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.OVERWORLD.location()), "Overworld");
+        this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.NETHER.location()), "Nether");
+        this.add(Util.makeDescriptionId("dimension_type", BuiltinDimensionTypes.END.location()), "The End");
     }
 
     private void addGuiTranslations() {
@@ -3371,7 +3377,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.Miners.DEEPS, "Deepslate Miners");
         this.addItemTag(OccultismTags.Items.Miners.MASTER, "Rare Resource Miners");
         this.addItemTag(OccultismTags.Items.Miners.ORES, "General Miners");
-        this.addItemTag(OccultismTags.Items.TOOLS_KNIFE, "Knives");
         this.addItemTag(OccultismTags.Items.ELYTRA, "Elytras");
         this.addItemTag(OccultismTags.Items.OTHERWORLD_GOGGLES, "Otherworld Goggles");
         this.addItemTag(OccultismTags.Items.DATURA_SEEDS, "Demon's Dream Seeds");
@@ -3400,6 +3405,22 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.MAGMA, "Magma");
         this.addItemTag(OccultismTags.Items.BOOKS, "Books");
         this.addItemTag(OccultismTags.Items.FRUITS, "Fruits");
+
+        this.addItemTag(OccultismTags.Items.BLAZE_DUST, "Blaze Dust");
+        this.addItemTag(OccultismTags.Items.MANUALS, "Manuals");
+        this.addItemTag(OccultismTags.Items.TOOLS_KNIFE, "Knives");
+        this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "belt"), "Belts");
+        this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "hands"), "Hands");
+        this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "heads"), "Heads");
+        this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "ring"), "Ring");
+        this.addItemTag(OccultismTags.Items.OCCULTISM_CANDLES, "Candles");
+        this.addItemTag(OccultismTags.Items.DEMONIC_PARTNER_FOOD, "Demonic Partner Food");
+        this.addItemTag(OccultismTags.Items.Miners.MINERS, "Miners");
+        this.addItemTag(OccultismTags.Items.OTHERCOBBLESTONE, "Other Cobblestone");
+        this.addItemTag(OccultismTags.Items.OTHERSTONE, "Otherstone");
+        this.addItemTag(OccultismTags.Items.OTHERWORLD_LOGS, "Otherworld Logs");
+        this.addItemTag(OccultismTags.Items.PENTACLE_MATERIALS, "Pentacle Materials");
+        this.addItemTag(OccultismTags.Items.TOOLS_CHALK, "Chalks");
     }
 
     private void addItemTag(ResourceLocation resourceLocation, String string) {
@@ -3424,6 +3445,46 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("emi.category.occultism.miner", "Dimensional Mineshaft");
         this.add("emi.category.occultism.ritual", "Rituals");
         this.add("emi.occultism.item_to_use", "Item to use: %s");
+    }
+
+    private void addConditionMessages() {
+        this.add(TranslationKeys.Condition.Ritual.IS_IN_DIMENSION_TYPE_NOT_FULFILLED, "Perform the ritual in a %s dimension! It was performed in %s.");
+        this.add(TranslationKeys.Condition.Ritual.IS_IN_DIMENSION_TYPE_DESCRIPTION, "Needs to be performed in a %s dimension.");
+
+        this.add(TranslationKeys.Condition.Ritual.IS_IN_DIMENSION_NOT_FULFILLED, "Perform the ritual in the %s dimension! It was performed in %s.");
+        this.add(TranslationKeys.Condition.Ritual.IS_IN_DIMENSION_DESCRIPTION, "Needs to be performed in the %s dimension.");
+
+        this.add(TranslationKeys.Condition.Ritual.IS_IN_BIOME_NOT_FULFILLED, "Perform the ritual in the %s biome! It was performed in %s.");
+        this.add(TranslationKeys.Condition.Ritual.IS_IN_BIOME_DESCRIPTION, "Needs to be performed in the %s biome.");
+
+        this.add(TranslationKeys.Condition.Ritual.IS_IN_BIOME_WITH_TAG_NOT_FULFILLED, "Perform the ritual in a biome with the tag %s! It was performed in the biome %s which does not have the tag.");
+        this.add(TranslationKeys.Condition.Ritual.IS_IN_BIOME_WITH_TAG_DESCRIPTION, "Needs to be performed in a biome with the tag %s.");
+
+        this.add(TranslationKeys.Condition.Ritual.AND_NOT_FULFILLED, "One or more of the required conditions were not met (all must be met): %s");
+        this.add(TranslationKeys.Condition.Ritual.AND_DESCRIPTION, "All of the following conditions need to be met: %s");
+
+        this.add(TranslationKeys.Condition.Ritual.OR_NOT_FULFILLED, "None of the required conditions were met (at least one must be met): %s");
+        this.add(TranslationKeys.Condition.Ritual.OR_DESCRIPTION, "At least one of the following conditions needs to be met: %s");
+
+        this.add(TranslationKeys.Condition.Ritual.TRUE_NOT_FULFILLED, "Always Fulfilled Condition somehow not fulfilled. This should never happen.");
+        this.add(TranslationKeys.Condition.Ritual.TRUE_DESCRIPTION, "This condition is always fulfilled.");
+
+        this.add(TranslationKeys.Condition.Ritual.FALSE_NOT_FULFILLED, "This Condition is never fulfilled. Use a different condition in the recipe to make the ritual work.");
+        this.add(TranslationKeys.Condition.Ritual.FALSE_DESCRIPTION, "This condition is never fulfilled.");
+
+        this.add(TranslationKeys.Condition.Ritual.NOT_NOT_FULFILLED, "The condition was met, but should not be met: %s");
+        this.add(TranslationKeys.Condition.Ritual.NOT_DESCRIPTION, "The following condition must not be met: %s");
+
+        this.add(TranslationKeys.Condition.Ritual.ITEM_EXISTS_NOT_FULFILLED, "The item %s does not exist.");
+        this.add(TranslationKeys.Condition.Ritual.ITEM_EXISTS_DESCRIPTION, "The item %s must exist.");
+
+
+        this.add(TranslationKeys.Condition.Ritual.MOD_LOADED_NOT_FULFILLED, "The mod %s is not loaded.");
+        this.add(TranslationKeys.Condition.Ritual.MOD_LOADED_DESCRIPTION, "The mod %s must be loaded.");
+
+        this.add(TranslationKeys.Condition.Ritual.TAG_EMPTY_NOT_FULFILLED, "The tag %s is not empty.");
+        this.add(TranslationKeys.Condition.Ritual.TAG_EMPTY_DESCRIPTION, "The tag %s must be empty.");
+
     }
 
     private void addConfigurationTranslations() {
@@ -3534,5 +3595,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEmiTranslations();
         this.addConfigurationTranslations();
         this.addTags();
+        this.addConditionMessages();
     }
 }
