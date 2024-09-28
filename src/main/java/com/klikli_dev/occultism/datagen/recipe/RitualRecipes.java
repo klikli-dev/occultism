@@ -1539,6 +1539,17 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_dragonyst_dust"));
 
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.DEBUG_WAND.get()),
+                        new ItemStack(Items.BEDROCK),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/craft_eldritch_debug")),
+                        240,
+                        RITUAL_CRAFT,
+                        PENTACLE_CONTACT_ELDRITCH_SPIRIT,
+                        Ingredient.of(Tags.Items.STONES),
+                        Ingredient.of(ItemTags.BEDS))
+                .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_eldritch_debug"));
+
     }
 
     private static void minerRecipes(RecipeOutput recipeOutput) {

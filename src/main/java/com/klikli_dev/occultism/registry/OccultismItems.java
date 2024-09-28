@@ -609,6 +609,7 @@ public class OccultismItems {
         ITEMS.register("ritual_dummy/custom_ritual_possess", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/custom_ritual_craft", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/custom_ritual_misc", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/craft_eldritch_debug", () -> new DummyTooltipItem(defaultProperties()));
     }
 
     //Debug
