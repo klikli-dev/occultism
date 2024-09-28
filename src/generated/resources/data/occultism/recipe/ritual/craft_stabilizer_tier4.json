@@ -1,9 +1,6 @@
 {
   "type": "occultism:ritual",
-  "entity_to_summon_settings": {
-    "spirit_max_age": -1,
-    "summon_number": 1
-  },
+  "entity_to_summon_settings": {},
   "result": {
     "count": 1,
     "id": "occultism:storage_stabilizer_tier4"
@@ -17,7 +14,6 @@
       "item": "occultism:book_of_binding_bound_marid"
     },
     "duration": 240,
-    "duration_per_ingredient": 40.0,
     "ingredients": [
       {
         "item": "occultism:storage_stabilizer_tier3"

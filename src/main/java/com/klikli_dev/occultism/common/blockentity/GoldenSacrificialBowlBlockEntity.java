@@ -441,7 +441,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 //                        this.startRitual(serverPlayer, activationItem, ritualRecipe);
                     } else {
                         //if ritual is not valid, inform player.
-                        player.displayClientMessage(Component.translatable(ritualRecipe.value().getRitual().getConditionsMessage(serverPlayer)), true);
+                        player.sendSystemMessage(Component.translatable(ritualRecipe.value().getRitual().getConditionsMessage(serverPlayer)));
                         return false;
                     }
                 } else {

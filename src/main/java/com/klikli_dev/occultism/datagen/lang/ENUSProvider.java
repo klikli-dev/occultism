@@ -3447,9 +3447,44 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("emi.occultism.item_to_use", "Item to use: %s");
     }
 
-    private void addConditionMessages(){
+    private void addConditionMessages() {
         this.add(TranslationKeys.Condition.Ritual.IS_IN_DIMENSION_TYPE_NOT_FULFILLED, "Perform the ritual in a %s dimension! It was performed in %s.");
         this.add(TranslationKeys.Condition.Ritual.IS_IN_DIMENSION_TYPE_DESCRIPTION, "Needs to be performed in a %s dimension.");
+
+        this.add(TranslationKeys.Condition.Ritual.IS_IN_DIMENSION_NOT_FULFILLED, "Perform the ritual in the %s dimension! It was performed in %s.");
+        this.add(TranslationKeys.Condition.Ritual.IS_IN_DIMENSION_DESCRIPTION, "Needs to be performed in the %s dimension.");
+
+        this.add(TranslationKeys.Condition.Ritual.IS_IN_BIOME_NOT_FULFILLED, "Perform the ritual in the %s biome! It was performed in %s.");
+        this.add(TranslationKeys.Condition.Ritual.IS_IN_BIOME_DESCRIPTION, "Needs to be performed in the %s biome.");
+
+        this.add(TranslationKeys.Condition.Ritual.IS_IN_BIOME_WITH_TAG_NOT_FULFILLED, "Perform the ritual in a biome with the tag %s! It was performed in the biome %s which does not have the tag.");
+        this.add(TranslationKeys.Condition.Ritual.IS_IN_BIOME_WITH_TAG_DESCRIPTION, "Needs to be performed in a biome with the tag %s.");
+
+        this.add(TranslationKeys.Condition.Ritual.AND_NOT_FULFILLED, "One or more of the required conditions were not met (all must be met): %s");
+        this.add(TranslationKeys.Condition.Ritual.AND_DESCRIPTION, "All of the following conditions need to be met: %s");
+
+        this.add(TranslationKeys.Condition.Ritual.OR_NOT_FULFILLED, "None of the required conditions were met (at least one must be met): %s");
+        this.add(TranslationKeys.Condition.Ritual.OR_DESCRIPTION, "At least one of the following conditions needs to be met: %s");
+
+        this.add(TranslationKeys.Condition.Ritual.TRUE_NOT_FULFILLED, "Always Fulfilled Condition somehow not fulfilled. This should never happen.");
+        this.add(TranslationKeys.Condition.Ritual.TRUE_DESCRIPTION, "This condition is always fulfilled.");
+
+        this.add(TranslationKeys.Condition.Ritual.FALSE_NOT_FULFILLED, "This Condition is never fulfilled. Use a different condition in the recipe to make the ritual work.");
+        this.add(TranslationKeys.Condition.Ritual.FALSE_DESCRIPTION, "This condition is never fulfilled.");
+
+        this.add(TranslationKeys.Condition.Ritual.NOT_NOT_FULFILLED, "The condition was met, but should not be met: %s");
+        this.add(TranslationKeys.Condition.Ritual.NOT_DESCRIPTION, "The following condition must not be met: %s");
+
+        this.add(TranslationKeys.Condition.Ritual.ITEM_EXISTS_NOT_FULFILLED, "The item %s does not exist.");
+        this.add(TranslationKeys.Condition.Ritual.ITEM_EXISTS_DESCRIPTION, "The item %s must exist.");
+
+
+        this.add(TranslationKeys.Condition.Ritual.MOD_LOADED_NOT_FULFILLED, "The mod %s is not loaded.");
+        this.add(TranslationKeys.Condition.Ritual.MOD_LOADED_DESCRIPTION, "The mod %s must be loaded.");
+
+        this.add(TranslationKeys.Condition.Ritual.TAG_EMPTY_NOT_FULFILLED, "The tag %s is not empty.");
+        this.add(TranslationKeys.Condition.Ritual.TAG_EMPTY_DESCRIPTION, "The tag %s must be empty.");
+
     }
 
     private void addConfigurationTranslations() {

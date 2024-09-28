@@ -2,9 +2,7 @@
   "type": "occultism:ritual",
   "entity_to_summon_settings": {
     "entity_to_summon": "occultism:foliot",
-    "spirit_job_type": "occultism:transport_items",
-    "spirit_max_age": -1,
-    "summon_number": 1
+    "spirit_job_type": "occultism:transport_items"
   },
   "result": {
     "count": 1,
@@ -19,7 +17,6 @@
       "item": "occultism:book_of_binding_bound_foliot"
     },
     "duration": 60,
-    "duration_per_ingredient": 12.0,
     "ingredients": [
       {
         "item": "minecraft:minecart"

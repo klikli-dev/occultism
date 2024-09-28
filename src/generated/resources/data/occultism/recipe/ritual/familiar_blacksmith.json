@@ -1,9 +1,7 @@
 {
   "type": "occultism:ritual",
   "entity_to_summon_settings": {
-    "entity_to_summon": "occultism:blacksmith_familiar",
-    "spirit_max_age": -1,
-    "summon_number": 1
+    "entity_to_summon": "occultism:blacksmith_familiar"
   },
   "result": {
     "components": {
@@ -23,8 +21,6 @@
     "activation_item": {
       "item": "occultism:book_of_binding_bound_foliot"
     },
-    "duration": 30,
-    "duration_per_ingredient": 3.3333333,
     "ingredients": [
       {
         "item": "minecraft:iron_shovel"

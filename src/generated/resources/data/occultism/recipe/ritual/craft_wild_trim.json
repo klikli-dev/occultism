@@ -1,9 +1,6 @@
 {
   "type": "occultism:ritual",
-  "entity_to_summon_settings": {
-    "spirit_max_age": -1,
-    "summon_number": 1
-  },
+  "entity_to_summon_settings": {},
   "result": {
     "count": 1,
     "id": "minecraft:wild_armor_trim_smithing_template"
@@ -17,7 +14,6 @@
       "item": "minecraft:diamond_block"
     },
     "duration": 240,
-    "duration_per_ingredient": 18.461538,
     "ingredients": [
       {
         "item": "minecraft:mossy_cobblestone"

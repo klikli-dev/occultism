@@ -3,8 +3,7 @@
   "entity_to_summon_settings": {
     "entity_to_summon": "occultism:djinni",
     "spirit_job_type": "occultism:night_time",
-    "spirit_max_age": 60,
-    "summon_number": 1
+    "spirit_max_age": 60
   },
   "result": {
     "count": 1,
@@ -19,7 +18,6 @@
       "item": "occultism:book_of_binding_bound_djinni"
     },
     "duration": 60,
-    "duration_per_ingredient": 12.0,
     "ingredients": [
       {
         "tag": "minecraft:beds"

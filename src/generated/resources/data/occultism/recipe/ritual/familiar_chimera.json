@@ -1,9 +1,7 @@
 {
   "type": "occultism:ritual",
   "entity_to_summon_settings": {
-    "entity_to_summon": "occultism:chimera_familiar",
-    "spirit_max_age": -1,
-    "summon_number": 1
+    "entity_to_summon": "occultism:chimera_familiar"
   },
   "result": {
     "components": {
@@ -24,7 +22,6 @@
       "item": "occultism:book_of_binding_bound_djinni"
     },
     "duration": 60,
-    "duration_per_ingredient": 6.0,
     "ingredients": [
       {
         "tag": "c:leathers"

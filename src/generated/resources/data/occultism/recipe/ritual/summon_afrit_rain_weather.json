@@ -3,8 +3,7 @@
   "entity_to_summon_settings": {
     "entity_to_summon": "occultism:afrit",
     "spirit_job_type": "occultism:rain_weather",
-    "spirit_max_age": 120,
-    "summon_number": 1
+    "spirit_max_age": 120
   },
   "result": {
     "count": 1,
@@ -19,7 +18,6 @@
       "item": "occultism:book_of_binding_bound_afrit"
     },
     "duration": 60,
-    "duration_per_ingredient": 12.0,
     "ingredients": [
       {
         "tag": "c:sands"

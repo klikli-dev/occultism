@@ -3,8 +3,7 @@
   "entity_to_summon_settings": {
     "entity_to_summon": "occultism:foliot",
     "spirit_job_type": "occultism:trade_otherworld_saplings_t1",
-    "spirit_max_age": 3600,
-    "summon_number": 1
+    "spirit_max_age": 3600
   },
   "result": {
     "count": 1,
@@ -18,8 +17,6 @@
     "activation_item": {
       "item": "occultism:book_of_binding_bound_foliot"
     },
-    "duration": 30,
-    "duration_per_ingredient": 6.0,
     "ingredients": [
       {
         "item": "minecraft:oak_sapling"

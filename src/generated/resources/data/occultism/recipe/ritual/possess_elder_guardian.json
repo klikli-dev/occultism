@@ -1,9 +1,7 @@
 {
   "type": "occultism:ritual",
   "entity_to_summon_settings": {
-    "entity_to_summon": "occultism:possessed_elder_guardian",
-    "spirit_max_age": -1,
-    "summon_number": 1
+    "entity_to_summon": "occultism:possessed_elder_guardian"
   },
   "result": {
     "components": {
@@ -24,7 +22,6 @@
       "item": "occultism:book_of_binding_bound_afrit"
     },
     "duration": 90,
-    "duration_per_ingredient": 8.181818,
     "ingredients": [
       {
         "item": "minecraft:oxidized_copper"
