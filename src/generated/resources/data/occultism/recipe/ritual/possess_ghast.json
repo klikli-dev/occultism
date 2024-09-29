@@ -1,8 +1,47 @@
 {
   "type": "occultism:ritual",
-  "entity_to_summon_settings": {
-    "entity_to_summon": "occultism:possessed_ghast"
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_djinni"
   },
+  "duration": 60,
+  "entity_to_sacrifice": {
+    "display_name": "ritual.occultism.sacrifice.cows",
+    "tag": "c:cows"
+  },
+  "entity_to_summon": "occultism:possessed_ghast",
+  "ingredients": [
+    {
+      "tag": "c:netherracks"
+    },
+    {
+      "tag": "c:netherracks"
+    },
+    {
+      "tag": "c:netherracks"
+    },
+    {
+      "tag": "c:magma"
+    },
+    {
+      "tag": "c:magma"
+    },
+    {
+      "tag": "c:magma"
+    },
+    {
+      "item": "minecraft:lava_bucket"
+    },
+    {
+      "item": "minecraft:lava_bucket"
+    },
+    {
+      "item": "minecraft:lava_bucket"
+    },
+    {
+      "tag": "c:gems/diamond"
+    }
+  ],
+  "pentacle_id": "occultism:possess_djinni",
   "result": {
     "components": {
       "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_ghast\"}",
@@ -16,51 +55,6 @@
   "ritual_dummy": {
     "count": 1,
     "id": "occultism:ritual_dummy/possess_ghast"
-  },
-  "ritual_requirement_settings": {
-    "activation_item": {
-      "item": "occultism:book_of_binding_bound_djinni"
-    },
-    "duration": 60,
-    "ingredients": [
-      {
-        "tag": "c:netherracks"
-      },
-      {
-        "tag": "c:netherracks"
-      },
-      {
-        "tag": "c:netherracks"
-      },
-      {
-        "tag": "c:magma"
-      },
-      {
-        "tag": "c:magma"
-      },
-      {
-        "tag": "c:magma"
-      },
-      {
-        "item": "minecraft:lava_bucket"
-      },
-      {
-        "item": "minecraft:lava_bucket"
-      },
-      {
-        "item": "minecraft:lava_bucket"
-      },
-      {
-        "tag": "c:gems/diamond"
-      }
-    ],
-    "pentacle_id": "occultism:possess_djinni"
-  },
-  "ritual_start_settings": {
-    "entity_to_sacrifice": {
-      "display_name": "ritual.occultism.sacrifice.cows",
-      "tag": "c:cows"
-    }
   },
   "ritual_type": "occultism:summon"
 }

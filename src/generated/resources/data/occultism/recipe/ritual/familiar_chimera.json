@@ -1,8 +1,44 @@
 {
   "type": "occultism:ritual",
-  "entity_to_summon_settings": {
-    "entity_to_summon": "occultism:chimera_familiar"
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_djinni"
   },
+  "duration": 60,
+  "entity_to_sacrifice": {
+    "display_name": "ritual.occultism.sacrifice.sheep",
+    "tag": "c:sheep"
+  },
+  "entity_to_summon": "occultism:chimera_familiar",
+  "ingredients": [
+    {
+      "tag": "c:leathers"
+    },
+    {
+      "tag": "c:strings"
+    },
+    {
+      "tag": "c:feathers"
+    },
+    {
+      "tag": "minecraft:wool"
+    },
+    {
+      "tag": "c:bones"
+    },
+    {
+      "item": "minecraft:mutton"
+    },
+    {
+      "item": "minecraft:porkchop"
+    },
+    {
+      "item": "minecraft:beef"
+    },
+    {
+      "item": "minecraft:chicken"
+    }
+  ],
+  "pentacle_id": "occultism:possess_djinni",
   "result": {
     "components": {
       "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.familiar_chimera\"}",
@@ -16,48 +52,6 @@
   "ritual_dummy": {
     "count": 1,
     "id": "occultism:ritual_dummy/familiar_chimera"
-  },
-  "ritual_requirement_settings": {
-    "activation_item": {
-      "item": "occultism:book_of_binding_bound_djinni"
-    },
-    "duration": 60,
-    "ingredients": [
-      {
-        "tag": "c:leathers"
-      },
-      {
-        "tag": "c:strings"
-      },
-      {
-        "tag": "c:feathers"
-      },
-      {
-        "tag": "minecraft:wool"
-      },
-      {
-        "tag": "c:bones"
-      },
-      {
-        "item": "minecraft:mutton"
-      },
-      {
-        "item": "minecraft:porkchop"
-      },
-      {
-        "item": "minecraft:beef"
-      },
-      {
-        "item": "minecraft:chicken"
-      }
-    ],
-    "pentacle_id": "occultism:possess_djinni"
-  },
-  "ritual_start_settings": {
-    "entity_to_sacrifice": {
-      "display_name": "ritual.occultism.sacrifice.sheep",
-      "tag": "c:sheep"
-    }
   },
   "ritual_type": "occultism:familiar"
 }

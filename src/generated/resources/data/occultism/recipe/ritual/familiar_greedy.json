@@ -1,8 +1,28 @@
 {
   "type": "occultism:ritual",
-  "entity_to_summon_settings": {
-    "entity_to_summon": "occultism:greedy_familiar"
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_foliot"
   },
+  "entity_to_sacrifice": {
+    "display_name": "ritual.occultism.sacrifice.zombies",
+    "tag": "c:zombies"
+  },
+  "entity_to_summon": "occultism:greedy_familiar",
+  "ingredients": [
+    {
+      "tag": "c:chests"
+    },
+    {
+      "tag": "c:storage_blocks/iron"
+    },
+    {
+      "item": "minecraft:dispenser"
+    },
+    {
+      "item": "minecraft:hopper"
+    }
+  ],
+  "pentacle_id": "occultism:possess_foliot",
   "result": {
     "components": {
       "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.familiar_greedy\"}",
@@ -16,32 +36,6 @@
   "ritual_dummy": {
     "count": 1,
     "id": "occultism:ritual_dummy/familiar_greedy"
-  },
-  "ritual_requirement_settings": {
-    "activation_item": {
-      "item": "occultism:book_of_binding_bound_foliot"
-    },
-    "ingredients": [
-      {
-        "tag": "c:chests"
-      },
-      {
-        "tag": "c:storage_blocks/iron"
-      },
-      {
-        "item": "minecraft:dispenser"
-      },
-      {
-        "item": "minecraft:hopper"
-      }
-    ],
-    "pentacle_id": "occultism:possess_foliot"
-  },
-  "ritual_start_settings": {
-    "entity_to_sacrifice": {
-      "display_name": "ritual.occultism.sacrifice.zombies",
-      "tag": "c:zombies"
-    }
   },
   "ritual_type": "occultism:familiar"
 }

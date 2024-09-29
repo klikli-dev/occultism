@@ -1,8 +1,29 @@
 {
   "type": "occultism:ritual",
-  "entity_to_summon_settings": {
-    "entity_to_summon": "occultism:possessed_enderman"
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_djinni"
   },
+  "duration": 60,
+  "entity_to_sacrifice": {
+    "display_name": "ritual.occultism.sacrifice.pigs",
+    "tag": "c:pigs"
+  },
+  "entity_to_summon": "occultism:possessed_enderman",
+  "ingredients": [
+    {
+      "tag": "c:bones"
+    },
+    {
+      "tag": "c:strings"
+    },
+    {
+      "tag": "c:end_stones"
+    },
+    {
+      "item": "minecraft:rotten_flesh"
+    }
+  ],
+  "pentacle_id": "occultism:possess_djinni",
   "result": {
     "components": {
       "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_enderman\"}",
@@ -16,33 +37,6 @@
   "ritual_dummy": {
     "count": 1,
     "id": "occultism:ritual_dummy/possess_enderman"
-  },
-  "ritual_requirement_settings": {
-    "activation_item": {
-      "item": "occultism:book_of_binding_bound_djinni"
-    },
-    "duration": 60,
-    "ingredients": [
-      {
-        "tag": "c:bones"
-      },
-      {
-        "tag": "c:strings"
-      },
-      {
-        "tag": "c:end_stones"
-      },
-      {
-        "item": "minecraft:rotten_flesh"
-      }
-    ],
-    "pentacle_id": "occultism:possess_djinni"
-  },
-  "ritual_start_settings": {
-    "entity_to_sacrifice": {
-      "display_name": "ritual.occultism.sacrifice.pigs",
-      "tag": "c:pigs"
-    }
   },
   "ritual_type": "occultism:summon"
 }

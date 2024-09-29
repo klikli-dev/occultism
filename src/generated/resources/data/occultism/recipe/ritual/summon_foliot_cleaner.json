@@ -1,9 +1,25 @@
 {
   "type": "occultism:ritual",
-  "entity_to_summon_settings": {
-    "entity_to_summon": "occultism:foliot",
-    "spirit_job_type": "occultism:cleaner"
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_foliot"
   },
+  "duration": 60,
+  "entity_to_summon": "occultism:foliot",
+  "ingredients": [
+    {
+      "item": "occultism:brush"
+    },
+    {
+      "tag": "c:chests"
+    },
+    {
+      "item": "minecraft:dispenser"
+    },
+    {
+      "item": "minecraft:hopper"
+    }
+  ],
+  "pentacle_id": "occultism:summon_foliot",
   "result": {
     "count": 1,
     "id": "occultism:book_of_calling_foliot_cleaner"
@@ -12,27 +28,6 @@
     "count": 1,
     "id": "occultism:ritual_dummy/summon_foliot_cleaner"
   },
-  "ritual_requirement_settings": {
-    "activation_item": {
-      "item": "occultism:book_of_binding_bound_foliot"
-    },
-    "duration": 60,
-    "ingredients": [
-      {
-        "item": "occultism:brush"
-      },
-      {
-        "tag": "c:chests"
-      },
-      {
-        "item": "minecraft:dispenser"
-      },
-      {
-        "item": "minecraft:hopper"
-      }
-    ],
-    "pentacle_id": "occultism:summon_foliot"
-  },
-  "ritual_start_settings": {},
-  "ritual_type": "occultism:summon_spirit_with_job"
+  "ritual_type": "occultism:summon_spirit_with_job",
+  "spirit_job_type": "occultism:cleaner"
 }
