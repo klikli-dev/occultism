@@ -1,0 +1,34 @@
+{
+  "type": "occultism:ritual",
+  "activation_item": {
+    "tag": "occultism:miners"
+  },
+  "duration": 60,
+  "ingredients": [
+    {
+      "tag": "c:storage_blocks/iesnium"
+    },
+    {
+      "item": "occultism:spirit_attuned_crystal"
+    },
+    {
+      "item": "occultism:otherworld_essence"
+    }
+  ],
+  "pentacle_id": "occultism:craft_afrit",
+  "result": {
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.repair_miners\"}",
+      "minecraft:lore": [
+        "{\"translate\":\"item.occultism.ritual_dummy.repair_miners.tooltip\"}"
+      ]
+    },
+    "count": 1,
+    "id": "occultism:repair_icon"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/repair_miners"
+  },
+  "ritual_type": "occultism:repair"
+}

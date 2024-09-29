@@ -28,12 +28,12 @@
       "item": "minecraft:soul_sand"
     }
   ],
-  "pentacle_id": "occultism:summon_wild_greater_spirit",
+  "pentacle_id": "occultism:contact_wild_spirit",
   "result": {
     "components": {
-      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_wild_hunt\"}",
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.wild_hunt\"}",
       "minecraft:lore": [
-        "{\"translate\":\"item.occultism.ritual_dummy.summon_wild_hunt.tooltip\"}"
+        "{\"translate\":\"item.occultism.ritual_dummy.wild_hunt.tooltip\"}"
       ]
     },
     "count": 1,
@@ -41,7 +41,7 @@
   },
   "ritual_dummy": {
     "count": 1,
-    "id": "occultism:ritual_dummy/summon_wild_hunt"
+    "id": "occultism:ritual_dummy/wild_hunt"
   },
   "ritual_type": "occultism:summon_wild"
 }

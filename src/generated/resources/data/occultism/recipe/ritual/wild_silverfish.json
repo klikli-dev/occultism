@@ -30,12 +30,12 @@
   "item_to_use": {
     "item": "minecraft:egg"
   },
-  "pentacle_id": "occultism:summon_wild_greater_spirit",
+  "pentacle_id": "occultism:contact_wild_spirit",
   "result": {
     "components": {
-      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_wild_silverfish\"}",
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.wild_silverfish\"}",
       "minecraft:lore": [
-        "{\"translate\":\"item.occultism.ritual_dummy.summon_wild_silverfish.tooltip\"}"
+        "{\"translate\":\"item.occultism.ritual_dummy.wild_silverfish.tooltip\"}"
       ]
     },
     "count": 1,
@@ -43,7 +43,7 @@
   },
   "ritual_dummy": {
     "count": 1,
-    "id": "occultism:ritual_dummy/summon_wild_silverfish"
+    "id": "occultism:ritual_dummy/wild_silverfish"
   },
   "ritual_type": "occultism:summon_wild",
   "summon_number": 7

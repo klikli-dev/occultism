@@ -22,12 +22,12 @@
       "tag": "c:dusts/gold"
     }
   ],
-  "pentacle_id": "occultism:summon_foliot",
+  "pentacle_id": "occultism:resurrect_spirit",
   "result": {
     "components": {
-      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_allay\"}",
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.resurrect_allay\"}",
       "minecraft:lore": [
-        "{\"translate\":\"item.occultism.ritual_dummy.summon_allay.tooltip\"}"
+        "{\"translate\":\"item.occultism.ritual_dummy.resurrect_allay.tooltip\"}"
       ]
     },
     "count": 1,
@@ -35,7 +35,7 @@
   },
   "ritual_dummy": {
     "count": 1,
-    "id": "occultism:ritual_dummy/summon_allay"
+    "id": "occultism:ritual_dummy/resurrect_allay"
   },
   "ritual_type": "occultism:summon"
 }
