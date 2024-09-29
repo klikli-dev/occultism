@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.161.0] - 2024-09-29
+### :sparkles: New Features
+- [`eca3dd9`](https://github.com/klikli-dev/occultism/commit/eca3dd95b3fb61b7eb32a0be5f27be3445094e37) - use codec merging to switch back to old ritual format while keeping new condition field *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.160.1] - 2024-09-29
+### :wrench: Chores
+- [`87afbc2`](https://github.com/klikli-dev/occultism/commit/87afbc28b43bbd4de1dffed78dbf116ec8b057eb) - update t2 satchel recipe to new format *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.160.0] - 2024-09-28
 ### :sparkles: New Features
 - [`4920269`](https://github.com/klikli-dev/occultism/commit/492026948477690e327c201a5c564a5ec7e640c4) - flexible ritual conditions *(PR [#1219](https://github.com/klikli-dev/occultism/pull/1219) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1760,3 +1770,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.159.6]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.159.5...release/v1.21.1-1.159.6
 [release/v1.21.1-1.159.7]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.159.6...release/v1.21.1-1.159.7
 [release/v1.21.1-1.160.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.159.7...release/v1.21.1-1.160.0
+[release/v1.21.1-1.160.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.160.0...release/v1.21.1-1.160.1
+[release/v1.21.1-1.161.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.160.1...release/v1.21.1-1.161.0

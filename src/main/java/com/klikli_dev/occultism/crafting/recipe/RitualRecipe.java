@@ -27,7 +27,6 @@ import com.klikli_dev.modonomicon.api.multiblock.Multiblock;
 import com.klikli_dev.occultism.common.ritual.Ritual;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismRituals;
-import com.klikli_dev.occultism.util.OccultismExtraCodecs;
 import com.klikli_dev.occultism.util.OccultismExtraStreamCodecs;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -58,41 +57,18 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
 
     public static final int DEFAULT_DURATION = 30;
 
-    public static final MapCodec<RitualRecipe> COMPOSITE_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                    ResourceLocation.CODEC.fieldOf("ritual_type").forGetter((r) -> r.ritualType),
-                    RitualRequirementSettings.CODEC.fieldOf("ritual_requirement_settings").forGetter((r) -> r.ritualRequirementSettings),
-                    RitualStartSettings.CODEC.fieldOf("ritual_start_settings").forGetter((r) -> r.ritualStartSettings),
-                    EntityToSummonSettings.CODEC.optionalFieldOf("entity_to_summon_settings").forGetter((r) -> Optional.ofNullable(r.entityToSummonSettings)),
-                    ItemStack.STRICT_CODEC.fieldOf("ritual_dummy").forGetter((r) -> r.ritualDummy),
-                    ItemStack.OPTIONAL_CODEC.fieldOf("result").forGetter((r) -> r.result),
-                    Codec.STRING.optionalFieldOf("command").forGetter(r -> Optional.ofNullable(r.command))
+    public static final MapCodec<RitualRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            ResourceLocation.CODEC.fieldOf("ritual_type").forGetter((r) -> r.ritualType),
+            RitualRequirementSettings.CODEC.forGetter((r) -> r.ritualRequirementSettings),
+            RitualStartSettings.CODEC.forGetter((r) -> r.ritualStartSettings),
+            EntityToSummonSettings.CODEC.forGetter((r) -> r.entityToSummonSettings),
+            ItemStack.STRICT_CODEC.fieldOf("ritual_dummy").forGetter((r) -> r.ritualDummy),
+            ItemStack.OPTIONAL_CODEC.fieldOf("result").forGetter((r) -> r.result),
+            Codec.STRING.optionalFieldOf("command").forGetter(r -> Optional.ofNullable(r.command))
             ).apply(instance, (ritualType, ritualRequirementSettings, ritualStartSettings, entityToSummonSettings, ritualDummy, result, command) ->
-                    new RitualRecipe(ritualType, ritualRequirementSettings, ritualStartSettings, entityToSummonSettings.orElse(null), ritualDummy, result, command.orElse(null))
+                    new RitualRecipe(ritualType, ritualRequirementSettings, ritualStartSettings, entityToSummonSettings, ritualDummy, result, command.orElse(null))
             )
     );
-
-    public static final MapCodec<RitualRecipe> OLD_FLAT_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                    ResourceLocation.CODEC.fieldOf("pentacle_id").forGetter((r) -> r.getPentacleId()),
-                    ResourceLocation.CODEC.fieldOf("ritual_type").forGetter((r) -> r.ritualType),
-                    ItemStack.STRICT_CODEC.fieldOf("ritual_dummy").forGetter((r) -> r.ritualDummy),
-                    ItemStack.OPTIONAL_CODEC.fieldOf("result").forGetter((r) -> r.result),
-                    BuiltInRegistries.ENTITY_TYPE.byNameCodec().optionalFieldOf("entity_to_summon").forGetter(r -> Optional.ofNullable(r.getEntityToSummon())),
-                    TagKey.codec(Registries.ENTITY_TYPE).optionalFieldOf("entity_tag_to_summon").forGetter(r -> Optional.ofNullable(r.getEntityTagToSummon())),
-                    CompoundTag.CODEC.optionalFieldOf("entity_nbt").forGetter(r -> Optional.ofNullable(r.getEntityNbt())),
-                    Ingredient.CODEC.fieldOf("activation_item").forGetter((r) -> r.getActivationItem()),
-                    Ingredient.LIST_CODEC.fieldOf("ingredients").forGetter((r) -> r.getIngredients()),
-                    Codec.INT.optionalFieldOf("duration", DEFAULT_DURATION).forGetter((r) -> r.getDuration()),
-                    Codec.INT.optionalFieldOf("spirit_max_age", -1).forGetter((r) -> r.getSpiritMaxAge()),
-                    Codec.INT.optionalFieldOf("summon_number", 1).forGetter((r) -> r.getSummonNumber()),
-                    ResourceLocation.CODEC.optionalFieldOf("spirit_job_type").forGetter(r -> Optional.ofNullable(r.getSpiritJobType())),
-                    EntityToSacrifice.CODEC.optionalFieldOf("entity_to_sacrifice").forGetter(r -> Optional.ofNullable(r.ritualStartSettings.entityToSacrifice())),
-                    Ingredient.CODEC.optionalFieldOf("item_to_use").forGetter(r -> Optional.ofNullable(r.getItemToUse())),
-                    Codec.STRING.optionalFieldOf("command").forGetter(r -> Optional.ofNullable(r.command))
-            ).apply(instance, (pentacleId, ritualType, ritualDummy, result, entityToSummon, entityTagToSummon, entityNbt, activationItem, ingredients, duration, spiritMaxAge, summonNumber, spiritJobType, entityToSacrifice, itemToUse, command) -> new RitualRecipe(pentacleId, ritualType, ritualDummy, result, entityToSummon.orElse(null), entityTagToSummon.orElse(null), entityNbt.orElse(null), activationItem,
-                    NonNullList.copyOf(ingredients), duration, spiritMaxAge, summonNumber, spiritJobType.orElse(null), entityToSacrifice.orElse(null), itemToUse.orElse(Ingredient.EMPTY), command.orElse(null)))
-    );
-
-    public static final MapCodec<RitualRecipe> CODEC = OccultismExtraCodecs.mapWithAlternative(COMPOSITE_CODEC, OLD_FLAT_CODEC);
 
     public static final StreamCodec<RegistryFriendlyByteBuf, RitualRecipe> STREAM_CODEC = OccultismExtraStreamCodecs.composite(
             ResourceLocation.STREAM_CODEC,
@@ -295,7 +271,7 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
             int spiritMaxAge,
             int summonNumber
     ) {
-        public static Codec<EntityToSummonSettings> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+        public static MapCodec<EntityToSummonSettings> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                         BuiltInRegistries.ENTITY_TYPE.byNameCodec().optionalFieldOf("entity_to_summon").forGetter(r -> Optional.ofNullable(r.entityToSummon)),
                         TagKey.codec(Registries.ENTITY_TYPE).optionalFieldOf("entity_tag_to_summon").forGetter(r -> Optional.ofNullable(r.entityTagToSummon)),
                         CompoundTag.CODEC.optionalFieldOf("entity_nbt").forGetter(r -> Optional.ofNullable(r.entityNbt)),
@@ -327,8 +303,8 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
             @Nullable Ingredient itemToUse,
             @Nullable ICondition condition
     ) {
-        public static Codec<RitualStartSettings> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                        EntityToSacrifice.CODEC.optionalFieldOf("entity_to_sacrifice").forGetter(r -> Optional.ofNullable(r.entityToSacrifice)),
+        public static MapCodec<RitualStartSettings> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+                        EntityToSacrifice.CODEC.codec().optionalFieldOf("entity_to_sacrifice").forGetter(r -> Optional.ofNullable(r.entityToSacrifice)),
                         Ingredient.CODEC.optionalFieldOf("item_to_use").forGetter(r -> Optional.ofNullable(r.itemToUse)),
                         ICondition.CODEC.optionalFieldOf("condition").forGetter(r -> Optional.ofNullable(r.condition))
                 ).apply(instance, (entityToSacrifice, itemToUse, condition) -> new RitualStartSettings(entityToSacrifice.orElse(null), itemToUse.orElse(null), condition.orElse(null)))
@@ -365,7 +341,7 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
             int duration,
             float durationPerIngredient
     ) {
-        public static Codec<RitualRequirementSettings> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+        public static MapCodec<RitualRequirementSettings> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                         ResourceLocation.CODEC.fieldOf("pentacle_id").forGetter(r -> r.pentacleId),
                         Ingredient.LIST_CODEC.fieldOf("ingredients").forGetter(r -> r.ingredients),
                         Ingredient.CODEC.fieldOf("activation_item").forGetter(r -> r.activationItem),
@@ -397,7 +373,7 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
     }
 
     public record EntityToSacrifice(TagKey<EntityType<?>> tag, String displayName) {
-        public static Codec<EntityToSacrifice> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+        public static MapCodec<EntityToSacrifice> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 TagKey.codec(Registries.ENTITY_TYPE).fieldOf("tag").forGetter(EntityToSacrifice::tag),
                 Codec.STRING.fieldOf("display_name").forGetter(EntityToSacrifice::displayName)
         ).apply(instance, EntityToSacrifice::new));
