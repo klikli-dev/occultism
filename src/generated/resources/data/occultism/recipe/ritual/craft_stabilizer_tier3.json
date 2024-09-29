@@ -1,6 +1,24 @@
 {
   "type": "occultism:ritual",
-  "entity_to_summon_settings": {},
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_afrit"
+  },
+  "duration": 240,
+  "ingredients": [
+    {
+      "item": "occultism:storage_stabilizer_tier2"
+    },
+    {
+      "tag": "c:storage_blocks/gold"
+    },
+    {
+      "item": "minecraft:nether_star"
+    },
+    {
+      "item": "occultism:spirit_attuned_crystal"
+    }
+  ],
+  "pentacle_id": "occultism:craft_afrit",
   "result": {
     "count": 1,
     "id": "occultism:storage_stabilizer_tier3"
@@ -9,27 +27,5 @@
     "count": 1,
     "id": "occultism:ritual_dummy/craft_stabilizer_tier3"
   },
-  "ritual_requirement_settings": {
-    "activation_item": {
-      "item": "occultism:book_of_binding_bound_afrit"
-    },
-    "duration": 240,
-    "ingredients": [
-      {
-        "item": "occultism:storage_stabilizer_tier2"
-      },
-      {
-        "tag": "c:storage_blocks/gold"
-      },
-      {
-        "item": "minecraft:nether_star"
-      },
-      {
-        "item": "occultism:spirit_attuned_crystal"
-      }
-    ],
-    "pentacle_id": "occultism:craft_afrit"
-  },
-  "ritual_start_settings": {},
   "ritual_type": "occultism:craft"
 }

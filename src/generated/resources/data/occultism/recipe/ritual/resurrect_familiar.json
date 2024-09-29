@@ -1,6 +1,24 @@
 {
   "type": "occultism:ritual",
-  "entity_to_summon_settings": {},
+  "activation_item": {
+    "item": "occultism:soul_shard"
+  },
+  "duration": 15,
+  "ingredients": [
+    {
+      "item": "occultism:otherworld_essence"
+    },
+    {
+      "item": "occultism:otherworld_essence"
+    },
+    {
+      "item": "occultism:otherworld_essence"
+    },
+    {
+      "item": "occultism:otherworld_essence"
+    }
+  ],
+  "pentacle_id": "occultism:summon_foliot",
   "result": {
     "count": 1,
     "id": "occultism:jei_dummy/none"
@@ -9,27 +27,5 @@
     "count": 1,
     "id": "occultism:ritual_dummy/resurrect_familiar"
   },
-  "ritual_requirement_settings": {
-    "activation_item": {
-      "item": "occultism:soul_shard"
-    },
-    "duration": 15,
-    "ingredients": [
-      {
-        "item": "occultism:otherworld_essence"
-      },
-      {
-        "item": "occultism:otherworld_essence"
-      },
-      {
-        "item": "occultism:otherworld_essence"
-      },
-      {
-        "item": "occultism:otherworld_essence"
-      }
-    ],
-    "pentacle_id": "occultism:summon_foliot"
-  },
-  "ritual_start_settings": {},
   "ritual_type": "occultism:resurrect_familiar"
 }

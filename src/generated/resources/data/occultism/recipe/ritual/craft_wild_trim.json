@@ -1,6 +1,52 @@
 {
   "type": "occultism:ritual",
-  "entity_to_summon_settings": {},
+  "activation_item": {
+    "item": "minecraft:diamond_block"
+  },
+  "duration": 240,
+  "entity_to_sacrifice": {
+    "display_name": "ritual.occultism.sacrifice.ocelot",
+    "tag": "occultism:ocelot"
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:mossy_cobblestone"
+    },
+    {
+      "item": "minecraft:jungle_sapling"
+    },
+    {
+      "item": "minecraft:bamboo"
+    },
+    {
+      "item": "minecraft:glistering_melon_slice"
+    },
+    {
+      "item": "minecraft:mossy_cobblestone"
+    },
+    {
+      "item": "minecraft:jungle_sapling"
+    },
+    {
+      "item": "minecraft:bamboo"
+    },
+    {
+      "item": "minecraft:glistering_melon_slice"
+    },
+    {
+      "item": "minecraft:mossy_cobblestone"
+    },
+    {
+      "item": "minecraft:jungle_sapling"
+    },
+    {
+      "item": "minecraft:bamboo"
+    },
+    {
+      "item": "minecraft:glistering_melon_slice"
+    }
+  ],
+  "pentacle_id": "occultism:craft_marid",
   "result": {
     "count": 1,
     "id": "minecraft:wild_armor_trim_smithing_template"
@@ -8,57 +54,6 @@
   "ritual_dummy": {
     "count": 1,
     "id": "occultism:ritual_dummy/craft_wild_trim"
-  },
-  "ritual_requirement_settings": {
-    "activation_item": {
-      "item": "minecraft:diamond_block"
-    },
-    "duration": 240,
-    "ingredients": [
-      {
-        "item": "minecraft:mossy_cobblestone"
-      },
-      {
-        "item": "minecraft:jungle_sapling"
-      },
-      {
-        "item": "minecraft:bamboo"
-      },
-      {
-        "item": "minecraft:glistering_melon_slice"
-      },
-      {
-        "item": "minecraft:mossy_cobblestone"
-      },
-      {
-        "item": "minecraft:jungle_sapling"
-      },
-      {
-        "item": "minecraft:bamboo"
-      },
-      {
-        "item": "minecraft:glistering_melon_slice"
-      },
-      {
-        "item": "minecraft:mossy_cobblestone"
-      },
-      {
-        "item": "minecraft:jungle_sapling"
-      },
-      {
-        "item": "minecraft:bamboo"
-      },
-      {
-        "item": "minecraft:glistering_melon_slice"
-      }
-    ],
-    "pentacle_id": "occultism:craft_marid"
-  },
-  "ritual_start_settings": {
-    "entity_to_sacrifice": {
-      "display_name": "ritual.occultism.sacrifice.ocelot",
-      "tag": "occultism:ocelot"
-    }
   },
   "ritual_type": "occultism:craft"
 }

@@ -70,63 +70,19 @@ and thus shelved until further notice.
   "result": {
     "id": "occultism:jei_dummy/none"
   },
-  "command": "execute run say hi"
-}
-```
-
-## Sample Recipe with new compound syntax and runtime conditions
-
-```json
-{
-  "type": "occultism:ritual",
-  "entity_to_summon_settings": {
-    "entity_to_summon": "occultism:foliot",
-    "spirit_job_type": "occultism:crush_tier1"
-  },
-  "result": {
-    "count": 1,
-    "id": "occultism:jei_dummy/none"
-  },
-  "ritual_dummy": {
-    "count": 1,
-    "id": "occultism:ritual_dummy/summon_foliot_crusher"
-  },
-  "ritual_requirement_settings": {
-    "activation_item": {
-      "item": "occultism:book_of_binding_bound_foliot"
-    },
-    "duration": 60,
-    "ingredients": [
+  "command": "execute run say hi",
+  "condition": {
+    "type": "neoforge:or",
+    "values": [
       {
-        "tag": "c:raw_materials/iron"
+        "type": "occultism:is_in_dimension_type",
+        "dimension_type": "minecraft:the_nether"
       },
       {
-        "tag": "c:raw_materials/gold"
-      },
-      {
-        "tag": "c:raw_materials/copper"
-      },
-      {
-        "tag": "c:raw_materials/silver"
+        "type": "occultism:is_in_biome_with_tag",
+        "tag": "minecraft:has_structure/nether_fortress"
       }
-    ],
-    "pentacle_id": "occultism:summon_foliot"
-  },
-  "ritual_start_settings": {
-    "condition": {
-      "type": "neoforge:or",
-      "values": [
-        {
-          "type": "occultism:is_in_dimension_type",
-          "dimension_type": "minecraft:the_nether"
-        },
-        {
-          "type": "occultism:is_in_biome_with_tag",
-          "tag": "minecraft:has_structure/nether_fortress"
-        }
-      ]
-    }
-  },
-  "ritual_type": "occultism:summon_spirit_with_job"
+    ]
+  }
 }
 ```

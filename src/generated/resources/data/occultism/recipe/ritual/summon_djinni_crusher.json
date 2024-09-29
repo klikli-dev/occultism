@@ -1,9 +1,25 @@
 {
   "type": "occultism:ritual",
-  "entity_to_summon_settings": {
-    "entity_to_summon": "occultism:djinni",
-    "spirit_job_type": "occultism:crush_tier2"
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_djinni"
   },
+  "duration": 90,
+  "entity_to_summon": "occultism:djinni",
+  "ingredients": [
+    {
+      "tag": "c:dusts/iron"
+    },
+    {
+      "tag": "c:dusts/gold"
+    },
+    {
+      "tag": "c:dusts/copper"
+    },
+    {
+      "tag": "c:dusts/silver"
+    }
+  ],
+  "pentacle_id": "occultism:summon_djinni",
   "result": {
     "count": 1,
     "id": "occultism:jei_dummy/none"
@@ -12,27 +28,6 @@
     "count": 1,
     "id": "occultism:ritual_dummy/summon_djinni_crusher"
   },
-  "ritual_requirement_settings": {
-    "activation_item": {
-      "item": "occultism:book_of_binding_bound_djinni"
-    },
-    "duration": 90,
-    "ingredients": [
-      {
-        "tag": "c:dusts/iron"
-      },
-      {
-        "tag": "c:dusts/gold"
-      },
-      {
-        "tag": "c:dusts/copper"
-      },
-      {
-        "tag": "c:dusts/silver"
-      }
-    ],
-    "pentacle_id": "occultism:summon_djinni"
-  },
-  "ritual_start_settings": {},
-  "ritual_type": "occultism:summon_spirit_with_job"
+  "ritual_type": "occultism:summon_spirit_with_job",
+  "spirit_job_type": "occultism:crush_tier2"
 }

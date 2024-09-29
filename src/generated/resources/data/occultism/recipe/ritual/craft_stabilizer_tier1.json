@@ -1,6 +1,24 @@
 {
   "type": "occultism:ritual",
-  "entity_to_summon_settings": {},
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_foliot"
+  },
+  "duration": 120,
+  "ingredients": [
+    {
+      "item": "occultism:otherstone_pedestal"
+    },
+    {
+      "tag": "c:storage_blocks/copper"
+    },
+    {
+      "tag": "c:dusts/blaze"
+    },
+    {
+      "item": "occultism:spirit_attuned_gem"
+    }
+  ],
+  "pentacle_id": "occultism:craft_foliot",
   "result": {
     "count": 1,
     "id": "occultism:storage_stabilizer_tier1"
@@ -9,27 +27,5 @@
     "count": 1,
     "id": "occultism:ritual_dummy/craft_stabilizer_tier1"
   },
-  "ritual_requirement_settings": {
-    "activation_item": {
-      "item": "occultism:book_of_binding_bound_foliot"
-    },
-    "duration": 120,
-    "ingredients": [
-      {
-        "item": "occultism:otherstone_pedestal"
-      },
-      {
-        "tag": "c:storage_blocks/copper"
-      },
-      {
-        "tag": "c:dusts/blaze"
-      },
-      {
-        "item": "occultism:spirit_attuned_gem"
-      }
-    ],
-    "pentacle_id": "occultism:craft_foliot"
-  },
-  "ritual_start_settings": {},
   "ritual_type": "occultism:craft"
 }

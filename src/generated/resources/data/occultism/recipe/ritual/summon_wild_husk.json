@@ -1,9 +1,52 @@
 {
   "type": "occultism:ritual",
-  "entity_to_summon_settings": {
-    "entity_to_summon": "occultism:wild_horde_husk",
-    "summon_number": 5
+  "activation_item": {
+    "item": "minecraft:raw_gold"
   },
+  "entity_to_sacrifice": {
+    "display_name": "ritual.occultism.sacrifice.camel",
+    "tag": "occultism:camel"
+  },
+  "entity_to_summon": "occultism:wild_horde_husk",
+  "ingredients": [
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:sandstone"
+    },
+    {
+      "item": "minecraft:chiseled_sandstone"
+    },
+    {
+      "item": "minecraft:cut_sandstone"
+    },
+    {
+      "item": "minecraft:smooth_sandstone"
+    },
+    {
+      "item": "minecraft:dead_bush"
+    },
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:sandstone"
+    },
+    {
+      "item": "minecraft:chiseled_sandstone"
+    },
+    {
+      "item": "minecraft:cut_sandstone"
+    },
+    {
+      "item": "minecraft:smooth_sandstone"
+    },
+    {
+      "item": "minecraft:dead_bush"
+    }
+  ],
+  "pentacle_id": "occultism:summon_wild_greater_spirit",
   "result": {
     "components": {
       "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_wild_husk\"}",
@@ -18,55 +61,6 @@
     "count": 1,
     "id": "occultism:ritual_dummy/summon_wild_husk"
   },
-  "ritual_requirement_settings": {
-    "activation_item": {
-      "item": "minecraft:raw_gold"
-    },
-    "ingredients": [
-      {
-        "item": "minecraft:sand"
-      },
-      {
-        "item": "minecraft:sandstone"
-      },
-      {
-        "item": "minecraft:chiseled_sandstone"
-      },
-      {
-        "item": "minecraft:cut_sandstone"
-      },
-      {
-        "item": "minecraft:smooth_sandstone"
-      },
-      {
-        "item": "minecraft:dead_bush"
-      },
-      {
-        "item": "minecraft:sand"
-      },
-      {
-        "item": "minecraft:sandstone"
-      },
-      {
-        "item": "minecraft:chiseled_sandstone"
-      },
-      {
-        "item": "minecraft:cut_sandstone"
-      },
-      {
-        "item": "minecraft:smooth_sandstone"
-      },
-      {
-        "item": "minecraft:dead_bush"
-      }
-    ],
-    "pentacle_id": "occultism:summon_wild_greater_spirit"
-  },
-  "ritual_start_settings": {
-    "entity_to_sacrifice": {
-      "display_name": "ritual.occultism.sacrifice.camel",
-      "tag": "occultism:camel"
-    }
-  },
-  "ritual_type": "occultism:summon_wild"
+  "ritual_type": "occultism:summon_wild",
+  "summon_number": 5
 }

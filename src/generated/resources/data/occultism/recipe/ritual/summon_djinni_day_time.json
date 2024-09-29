@@ -1,10 +1,25 @@
 {
   "type": "occultism:ritual",
-  "entity_to_summon_settings": {
-    "entity_to_summon": "occultism:djinni",
-    "spirit_job_type": "occultism:day_time",
-    "spirit_max_age": 60
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_djinni"
   },
+  "duration": 60,
+  "entity_to_summon": "occultism:djinni",
+  "ingredients": [
+    {
+      "item": "minecraft:torch"
+    },
+    {
+      "tag": "minecraft:saplings"
+    },
+    {
+      "item": "minecraft:wheat"
+    },
+    {
+      "tag": "c:dyes/yellow"
+    }
+  ],
+  "pentacle_id": "occultism:summon_djinni",
   "result": {
     "count": 1,
     "id": "occultism:jei_dummy/none"
@@ -13,27 +28,7 @@
     "count": 1,
     "id": "occultism:ritual_dummy/summon_djinni_day_time"
   },
-  "ritual_requirement_settings": {
-    "activation_item": {
-      "item": "occultism:book_of_binding_bound_djinni"
-    },
-    "duration": 60,
-    "ingredients": [
-      {
-        "item": "minecraft:torch"
-      },
-      {
-        "tag": "minecraft:saplings"
-      },
-      {
-        "item": "minecraft:wheat"
-      },
-      {
-        "tag": "c:dyes/yellow"
-      }
-    ],
-    "pentacle_id": "occultism:summon_djinni"
-  },
-  "ritual_start_settings": {},
-  "ritual_type": "occultism:summon_spirit_with_job"
+  "ritual_type": "occultism:summon_spirit_with_job",
+  "spirit_job_type": "occultism:day_time",
+  "spirit_max_age": 60
 }

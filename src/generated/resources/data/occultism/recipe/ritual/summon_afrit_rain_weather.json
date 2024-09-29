@@ -1,10 +1,29 @@
 {
   "type": "occultism:ritual",
-  "entity_to_summon_settings": {
-    "entity_to_summon": "occultism:afrit",
-    "spirit_job_type": "occultism:rain_weather",
-    "spirit_max_age": 120
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_afrit"
   },
+  "duration": 60,
+  "entity_to_sacrifice": {
+    "display_name": "ritual.occultism.sacrifice.cows",
+    "tag": "c:cows"
+  },
+  "entity_to_summon": "occultism:afrit",
+  "ingredients": [
+    {
+      "tag": "c:sands"
+    },
+    {
+      "tag": "c:gems/diamond"
+    },
+    {
+      "item": "minecraft:cactus"
+    },
+    {
+      "item": "minecraft:dead_bush"
+    }
+  ],
+  "pentacle_id": "occultism:summon_afrit",
   "result": {
     "count": 1,
     "id": "occultism:jei_dummy/none"
@@ -13,32 +32,7 @@
     "count": 1,
     "id": "occultism:ritual_dummy/summon_afrit_rain_weather"
   },
-  "ritual_requirement_settings": {
-    "activation_item": {
-      "item": "occultism:book_of_binding_bound_afrit"
-    },
-    "duration": 60,
-    "ingredients": [
-      {
-        "tag": "c:sands"
-      },
-      {
-        "tag": "c:gems/diamond"
-      },
-      {
-        "item": "minecraft:cactus"
-      },
-      {
-        "item": "minecraft:dead_bush"
-      }
-    ],
-    "pentacle_id": "occultism:summon_afrit"
-  },
-  "ritual_start_settings": {
-    "entity_to_sacrifice": {
-      "display_name": "ritual.occultism.sacrifice.cows",
-      "tag": "c:cows"
-    }
-  },
-  "ritual_type": "occultism:summon_spirit_with_job"
+  "ritual_type": "occultism:summon_spirit_with_job",
+  "spirit_job_type": "occultism:rain_weather",
+  "spirit_max_age": 120
 }
