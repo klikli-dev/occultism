@@ -1,0 +1,47 @@
+{
+  "type": "occultism:ritual",
+  "activation_item": {
+    "item": "minecraft:golden_apple"
+  },
+  "entity_to_sacrifice": {
+    "display_name": "ritual.occultism.sacrifice.humans",
+    "tag": "occultism:humans"
+  },
+  "entity_to_summon": "occultism:possessed_evoker",
+  "ingredients": [
+    {
+      "item": "minecraft:ominous_bottle"
+    },
+    {
+      "item": "minecraft:dark_oak_log"
+    },
+    {
+      "item": "minecraft:dark_oak_log"
+    },
+    {
+      "item": "minecraft:dark_oak_log"
+    },
+    {
+      "item": "minecraft:end_crystal"
+    },
+    {
+      "item": "minecraft:emerald_block"
+    }
+  ],
+  "pentacle_id": "occultism:summon_wild_greater_spirit",
+  "result": {
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_horde_illager\"}",
+      "minecraft:lore": [
+        "{\"translate\":\"item.occultism.ritual_dummy.summon_horde_illager.tooltip\"}"
+      ]
+    },
+    "count": 1,
+    "id": "minecraft:totem_of_undying"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/summon_horde_illager"
+  },
+  "ritual_type": "occultism:summon_wild"
+}
