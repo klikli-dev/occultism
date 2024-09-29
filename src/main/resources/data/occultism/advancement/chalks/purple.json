@@ -3,8 +3,8 @@
     "icon": {
       "id": "occultism:chalk_purple"
     },
-    "title": {"translate":"Purple Chalk"},
-    "description": {"color":"green","translate":"Infusion"},
+    "title": {"translate": "advancements.occultism.chalks.purple.title"},
+    "description": {"color":"green","translate":"advancements.occultism.chalks.purple.description"},
     "show_toast": true,
     "announce_to_chat": false
   },

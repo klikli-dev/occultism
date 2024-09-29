@@ -2554,6 +2554,40 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.advancementDescr("familiar.mummy_dodge", "Dodge an attack with the Mummy familiar dodge effect");
         this.advancementTitle("familiar.beaver_woodchop", "Woodchopper");
         this.advancementDescr("familiar.beaver_woodchop", "Let your Beaver familiar chop down a tree");
+        this.advancementTitle("chalks.root", "Occultism: Chalks");
+        this.advancementDescr("chalks.root", "Colorful");
+        this.advancementTitle("chalks.white", "White Chalk");
+        this.advancementDescr("chalks.white", "First Foundation");
+        this.advancementTitle("chalks.light_gray", "Light Gray Chalk");
+        this.advancementDescr("chalks.light_gray", "Second Foundation");
+        this.advancementTitle("chalks.gray", "Gray Chalk");
+        this.advancementDescr("chalks.gray", "Third Foundation");
+        this.advancementTitle("chalks.black", "Black Chalk");
+        this.advancementDescr("chalks.black", "Fourth Foundation");
+        this.advancementTitle("chalks.brown", "Brown Chalk");
+        this.advancementDescr("chalks.brown", "Bait for what?");
+        this.advancementTitle("chalks.red", "Red Chalk");
+        this.advancementDescr("chalks.red", "Third Tier!");
+        this.advancementTitle("chalks.orange", "Orange Chalk");
+        this.advancementDescr("chalks.orange", "Third Tier?");
+        this.advancementTitle("chalks.yellow", "Yellow Chalk");
+        this.advancementDescr("chalks.yellow", "Possession");
+        this.advancementTitle("chalks.lime", "Lime Chalk");
+        this.advancementDescr("chalks.lime", "Second Tier");
+        this.advancementTitle("chalks.green", "Green Chalk");
+        this.advancementDescr("chalks.green", "Wild Attraction");
+        this.advancementTitle("chalks.cyan", "Cyan Chalk");
+        this.advancementDescr("chalks.cyan", "Ancient Knowledge");
+        this.advancementTitle("chalks.light_blue", "Light Blue Chalk");
+        this.advancementDescr("chalks.light_blue", "Wild Stabilizer");
+        this.advancementTitle("chalks.blue", "Blue Chalk");
+        this.advancementDescr("chalks.blue", "Fourth Tier");
+        this.advancementTitle("chalks.purple", "Purple Chalk");
+        this.advancementDescr("chalks.purple", "Infusion");
+        this.advancementTitle("chalks.magenta", "Magenta Chalk");
+        this.advancementDescr("chalks.magenta", "Dragon Power");
+        this.advancementTitle("chalks.pink", "Pink Chalk");
+        this.advancementDescr("chalks.pink", "Wild Power");
     }
 
     private void addKeybinds() {

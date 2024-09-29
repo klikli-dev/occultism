@@ -3,8 +3,8 @@
     "icon": {
       "id": "occultism:chalk_light_blue"
     },
-    "title": {"translate":"Light Blue Chalk"},
-    "description": {"color":"green","translate":"Wild Stabiliser"},
+    "title": {"translate": "advancements.occultism.chalks.light_blue.title"},
+    "description": {"color":"green","translate":"advancements.occultism.chalks.light_blue.description"},
     "show_toast": true,
     "announce_to_chat": false
   },

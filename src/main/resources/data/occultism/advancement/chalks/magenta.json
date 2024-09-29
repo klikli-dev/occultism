@@ -3,8 +3,8 @@
     "icon": {
       "id": "occultism:chalk_magenta"
     },
-    "title": {"translate":"Magenta Chalk"},
-    "description": {"color":"green","translate":"Dragon Power"},
+    "title": {"translate": "advancements.occultism.chalks.magenta.title"},
+    "description": {"color":"green","translate":"advancements.occultism.chalks.magenta.description"},
     "show_toast": true,
     "announce_to_chat": false
   },

@@ -3,8 +3,8 @@
     "icon": {
       "id": "occultism:chalk_brown"
     },
-    "title": {"translate":"Brown Chalk"},
-    "description": {"color":"green","translate":"Bait for what?"},
+    "title": {"translate": "advancements.occultism.chalks.brown.title"},
+    "description": {"color":"green","translate":"advancements.occultism.chalks.brown.description"},
     "show_toast": true,
     "announce_to_chat": false
   },

@@ -3,8 +3,8 @@
     "icon": {
       "id": "occultism:brush"
     },
-    "title": {"translate":"Occultism: Chalks"},
-    "description": {"color":"#CCCCCC","translate":"Just follow the lines"},
+    "title": {"translate": "advancements.occultism.chalks.root.title"},
+    "description": {"color":"#CCCCCC","translate":"advancements.occultism.chalks.root.description"},
     "background": "occultism:textures/block/otherstone.png",
     "show_toast": true,
     "announce_to_chat": false

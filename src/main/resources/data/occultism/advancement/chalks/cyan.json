@@ -3,8 +3,8 @@
     "icon": {
       "id": "occultism:chalk_cyan"
     },
-    "title": {"translate":"Cyan Chalk"},
-    "description": {"color":"green","translate":"Ancient Knowledge"},
+    "title": {"translate": "advancements.occultism.chalks.cyan.title"},
+    "description": {"color":"green","translate":"advancements.occultism.chalks.cyan.description"},
     "show_toast": true,
     "announce_to_chat": false
   },

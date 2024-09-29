@@ -3,8 +3,8 @@
     "icon": {
       "id": "occultism:chalk_gray"
     },
-    "title": {"translate":"Gray Chalk"},
-    "description": {"color":"green","translate":"Third Foundation"},
+    "title": {"translate": "advancements.occultism.chalks.gray.title"},
+    "description": {"color":"green","translate":"advancements.occultism.chalks.gray.description"},
     "show_toast": true,
     "announce_to_chat": false
   },

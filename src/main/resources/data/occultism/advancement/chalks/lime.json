@@ -3,8 +3,8 @@
     "icon": {
       "id": "occultism:chalk_lime"
     },
-    "title": {"translate":"Lime Chalk"},
-    "description": {"color":"green","translate":"Second Tier"},
+    "title": {"translate": "advancements.occultism.chalks.lime.title"},
+    "description": {"color":"green","translate":"advancements.occultism.chalks.lime.description"},
     "show_toast": true,
     "announce_to_chat": false
   },
