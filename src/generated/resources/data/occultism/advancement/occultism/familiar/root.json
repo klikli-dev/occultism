@@ -8,7 +8,7 @@
     }
   },
   "display": {
-    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "background": "occultism:textures/block/otherplanks.png",
     "description": {
       "translate": "advancements.occultism.familiars.description"
     },
