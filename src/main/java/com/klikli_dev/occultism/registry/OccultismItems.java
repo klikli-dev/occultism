@@ -113,7 +113,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> CHALK_ORANGE = ITEMS.register("chalk_orange",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     OccultismBlocks.CHALK_GLYPH_ORANGE));
-    public static final DeferredItem<Item> CHALK_YELLOW = ITEMS.register("chalk_yellow",
+    public static final DeferredItem<Item> CHALK_YELLOW = ITEMS.register("chalk_gold",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     OccultismBlocks.CHALK_GLYPH_YELLOW));
     public static final DeferredItem<Item> CHALK_LIME = ITEMS.register("chalk_lime",

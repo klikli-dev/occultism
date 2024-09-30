@@ -9,7 +9,7 @@
   "description": "book.occultism.dictionary_of_spirits.pentacles.yellow_chalk.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:chalk_yellow"
+    "item": "occultism:chalk_gold"
   },
   "name": "book.occultism.dictionary_of_spirits.pentacles.yellow_chalk.name",
   "pages": [
@@ -31,7 +31,7 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "item": "occultism:chalk_yellow"
+        "item": "occultism:chalk_gold"
       },
       "text": "book.occultism.dictionary_of_spirits.pentacles.yellow_chalk.spotlight.text",
       "title": ""

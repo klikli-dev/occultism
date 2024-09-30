@@ -97,7 +97,7 @@ public class OccultismBlocks {
     public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_WHITE = register("chalk_glyph_white",
             () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.whiteChalkGlyphColor, () -> OccultismItems.CHALK_WHITE.get()),
             false, LootTableType.EMPTY);
-    public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_YELLOW = register("chalk_glyph_yellow",
+    public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_YELLOW = register("chalk_glyph_gold",
             () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.yellowChalkGlyphColor, () -> OccultismItems.CHALK_YELLOW.get()), false,
             LootTableType.EMPTY);
     public static final DeferredBlock<ChalkGlyphBlock> CHALK_GLYPH_PURPLE = register("chalk_glyph_purple",

@@ -23,7 +23,7 @@
     },
     "Y": {
       "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_yellow"
+      "block": "occultism:chalk_glyph_gold"
     }
   },
   "pattern": [
