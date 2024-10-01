@@ -1481,6 +1481,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("ritual");
         //no text
 
+        helper.page("description");
+        this.add(helper.pageText(),
+                """
+                        In this ritual an [#](%1$s)Enderman[#]() is spawned using the life energy of a [#](%1$s)Pig[#]() and immediately possessed by the summoned [#](%1$s)Djinni[#](). The [#](%1$s)Possessed Enderman[#]() will always drop at least one [](item://minecraft:ender_pearl) when killed.
+                                """.formatted(COLOR_PURPLE));
+
         helper.entry("wither_skull");
         this.add(helper.entryName(), "Wither Skeleton Skull");
 
@@ -1493,12 +1499,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         helper.page("ritual");
         //no text
-
-        helper.page("description");
-        this.add(helper.pageText(),
-                """
-                        In this ritual an [#](%1$s)Enderman[#]() is spawned using the life energy of a [#](%1$s)Pig[#]() and immediately possessed by the summoned [#](%1$s)Djinni[#](). The [#](%1$s)Possessed Enderman[#]() will always drop at least one [](item://minecraft:ender_pearl) when killed.
-                                """.formatted(COLOR_PURPLE));
 
         helper.entry("possess_endermite");
         this.add(helper.entryName(), "Possessed Endermite");
