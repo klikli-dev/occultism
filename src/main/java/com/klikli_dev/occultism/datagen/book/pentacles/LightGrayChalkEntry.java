@@ -30,7 +30,7 @@ public class LightGrayChalkEntry extends EntryProvider {
         );
         this.pageTitle("Most Common Foundation");
         this.pageText("""
-                        The light gray chalk uses mineral compounds to enhance the foundation of a pentagram.
+                        The light gray chalk uses mineral compounds to enhance the foundation of a pentacle.
                          The foundation is an important property, often considered the stabilization of the "core."
                         """
         );
@@ -41,7 +41,7 @@ public class LightGrayChalkEntry extends EntryProvider {
         this.pageText("""
                         Due to its relatively low cost and inherent magical properties, it is the most common
                          foundation option among practitioners of occultism, capable of replacing white chalk
-                         in almost all pentagrams.
+                         in almost all pentacles.
                         """
         );
 

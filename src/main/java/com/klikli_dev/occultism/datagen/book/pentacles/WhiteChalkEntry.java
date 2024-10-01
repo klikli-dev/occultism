@@ -31,7 +31,7 @@ public class WhiteChalkEntry extends EntryProvider {
         this.pageTitle("First Foundation");
         this.pageText("""
                         This is the first chalk in the journey of any occultist. Due to its simplicity, it serves as a
-                         weak foundation. Pentagrams drawn only with this chalk attract only the weakest spirits, 
+                         weak foundation. Pentacles drawn only with this chalk attract only the weakest spirits,
                          known as Folit.
                         """
         );
@@ -40,7 +40,7 @@ public class WhiteChalkEntry extends EntryProvider {
                 .withItem(Ingredient.of(OccultismItems.CHALK_WHITE.get()))
                 .withText(this.context().pageText()));
         this.pageText("""
-                        In almost any pentagram where you see a white glyph, it can be replaced with another
+                        In almost any pentacle where you see a white glyph, it can be replaced with another
                          "colorless" chalk (light gray, gray, or black).
                         """
         );

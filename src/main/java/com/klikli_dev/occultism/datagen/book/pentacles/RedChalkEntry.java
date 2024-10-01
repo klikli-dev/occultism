@@ -32,7 +32,7 @@ public class RedChalkEntry extends EntryProvider {
         this.pageTitle("Under Control");
         this.pageText("""
                         The red chalk is made from the very essence of Afrit, making its glyphs directly
-                         connected to these spirits. Additionally, it elevates the pentagrams
+                         connected to these spirits. Additionally, it elevates the pentacles
                           capacity to the most demonic levels.
                         """
         );

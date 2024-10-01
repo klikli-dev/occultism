@@ -40,7 +40,7 @@ public class GrayChalkEntry extends EntryProvider {
                 .withItem(Ingredient.of(OccultismItems.CHALK_GRAY.get()))
                 .withText(this.context().pageText()));
         this.pageText("""
-                        As an enhanced foundation chalk, it further strengthens the core of the pentagram and
+                        As an enhanced foundation chalk, it further strengthens the core of the pentacle and
                          (almost always) can replace white glyphs or light gray glyphs.
                         """
         );

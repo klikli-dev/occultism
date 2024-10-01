@@ -31,7 +31,7 @@ public class ContactWildSpiritEntry extends EntryProvider {
                 **Purpose:** Contact {0}\\
                 \\
                 **Osorins Unbound Calling** has a unique form, mixing different aspects obtained in each chalk
-                 and none of the common stabilizing paraphernalia. Therefore, the pentagram offers no protection
+                 and none of the common stabilizing paraphernalia. Therefore, the pentacle offers no protection
                   to the occultist, but acts as an irresistible contact with the {1}.
                 """,
                 this.color("Wild Spirits", ChatFormatting.DARK_PURPLE),

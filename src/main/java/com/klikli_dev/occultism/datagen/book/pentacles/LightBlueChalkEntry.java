@@ -32,7 +32,7 @@ public class LightBlueChalkEntry extends EntryProvider {
         this.pageTitle("Never Melt");
         this.pageText("""
                         The light blue chalk is made with such icy materials that its glyphs
-                         are inert and impart a natural stability to the pentagram.
+                         are inert and impart a natural stability to the pentacles.
                         """
         );
 

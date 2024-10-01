@@ -40,7 +40,7 @@ public class BlackChalkEntry extends EntryProvider {
                 .withItem(Ingredient.of(OccultismItems.CHALK_BLACK.get()))
                 .withText(this.context().pageText()));
         this.pageText("""
-                        Perfect for the foundation of any pentagram, the power of the black chalk is sufficient
+                        Perfect for the foundation of any pentacle, the power of the black chalk is sufficient
                          to replace any other "colorless" chalk.
                         """
         );

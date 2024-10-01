@@ -39,7 +39,7 @@ public class DidacticsEntry extends EntryProvider {
                         This category is organized as a table.\\
                          Each line refers to a type of ritual.\\
                          And each column represents a tier.\\
-                         By following the line you can just upgrade the pentagram you drew before,
+                         By following the line you can just upgrade the pentacle you drew before,
                          working like the previous and the new one.
                         """
         );

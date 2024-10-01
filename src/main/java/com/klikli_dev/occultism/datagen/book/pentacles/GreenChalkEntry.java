@@ -31,7 +31,7 @@ public class GreenChalkEntry extends EntryProvider {
         );
         this.pageTitle("Wildness");
         this.pageText("""
-                        The green chalk uses herbal concentrate to bring the energies of flora into the pentagrams.
+                        The green chalk uses herbal concentrate to bring the energies of flora into the pentacles.
                         """
         );
 

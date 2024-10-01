@@ -42,7 +42,7 @@ public class OrangeChalkEntry extends EntryProvider {
         this.pageText("""
                         Being a sweet and slightly warm chalk, it does not guarantee control over the invoked Afrit.
                          Commanding an Afrit requires power directly related to its class of spirits and
-                         extreme stability in the pentagram.
+                         extreme stability in the pentacle.
                         """
         );
 
