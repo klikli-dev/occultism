@@ -157,10 +157,10 @@ dependencies {
     runtimeOnly ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version_major}") {transitive=false}
 
     //geckolib
-    implementation ("software.bernie.geckolib:geckolib-neoforge-${minecraft_version_major}:${geckolib_version}") {transitive=false}
+    implementation ("software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}") {transitive=false}
 
     //smartbrainlib
-    implementation ("net.tslat.smartbrainlib:SmartBrainLib-neoforge-${minecraft_version_major}:${smartbrainlib_version}") {transitive=false}
+    implementation ("net.tslat.smartbrainlib:SmartBrainLib-neoforge-${minecraft_version}:${smartbrainlib_version}") {transitive=false}
 
     //TODO: enable once available
     //almostunified
