@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.161.1] - 2024-10-06
+### :bug: Bug Fixes
+- [`395ff34`](https://github.com/klikli-dev/occultism/commit/395ff344104e61a00f33ad25f76733c1d4705fd8) - emi transfer handler not working on servers *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`6c18c4a`](https://github.com/klikli-dev/occultism/commit/6c18c4acc8bf0abfddf4566019c1a6b422b5fd95) - update dependencies *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.161.0] - 2024-09-29
 ### :sparkles: New Features
 - [`eca3dd9`](https://github.com/klikli-dev/occultism/commit/eca3dd95b3fb61b7eb32a0be5f27be3445094e37) - use codec merging to switch back to old ritual format while keeping new condition field *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1772,3 +1780,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.160.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.159.7...release/v1.21.1-1.160.0
 [release/v1.21.1-1.160.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.160.0...release/v1.21.1-1.160.1
 [release/v1.21.1-1.161.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.160.1...release/v1.21.1-1.161.0
+[release/v1.21.1-1.161.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.161.0...release/v1.21.1-1.161.1
