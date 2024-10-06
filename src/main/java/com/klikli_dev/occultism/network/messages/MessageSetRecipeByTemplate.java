@@ -27,6 +27,7 @@ import com.google.common.base.Preconditions;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
+import com.klikli_dev.occultism.integration.emi.impl.EmiHelper;
 import com.klikli_dev.occultism.integration.emi.impl.StorageControllerEMIRecipeHandler;
 import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.network.Networking;
@@ -137,7 +138,7 @@ public class MessageSetRecipeByTemplate implements IMessage {
         if (this.recipeId != null) {
             var recipe = player.level().getRecipeManager().byKey(this.recipeId).orElse(null);
             if (recipe != null) {
-                return StorageControllerEMIRecipeHandler.ensure3by3CraftingMatrix(recipe.value());
+                return EmiHelper.ensure3by3CraftingMatrix(recipe.value());
             }
         }
 
