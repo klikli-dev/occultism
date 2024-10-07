@@ -210,7 +210,7 @@ public class OccultismEntities {
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_bogged").toString()));
     public static final Lazy<EntityType<WildSlimeEntity>> WILD_SLIME_TYPE =
             Lazy.of(() -> EntityType.Builder.of(WildSlimeEntity::new, MobCategory.MONSTER)
-                    .sized(1.0F, 1.0F)
+                    .sized(0.5F, 0.5F)
                     .clientTrackingRange(32)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_slime").toString()));
     public static final Lazy<EntityType<WildHuskEntity>> WILD_HUSK_TYPE =
