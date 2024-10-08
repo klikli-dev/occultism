@@ -21,7 +21,7 @@ public class SpiritRenderable<T extends SpiritEntity> implements EmiRenderable {
     @Override
     public void render(GuiGraphics draw, int x, int y, float delta) {
         if (this.spiritEntity == null || this.spiritEntity.get() == null)
-            this.spiritEntity = new WeakReference(this.spiritType.create(Minecraft.getInstance().level));
+            this.spiritEntity = new WeakReference<>(this.spiritType.create(Minecraft.getInstance().level));
 
 
         SpiritGui.drawEntityToGui(draw, x + 8, (int) (y + (this.spiritEntity.get().getEyeHeight() * 15) + 5), 15, 1, 1, this.spiritEntity.get());
