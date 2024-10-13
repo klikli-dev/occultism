@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.161.3] - 2024-10-08
+### :bug: Bug Fixes
+- [`dd0187b`](https://github.com/klikli-dev/occultism/commit/dd0187bfa497d7f36f581601a96c038a72fe277d) - memory leak *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`e871a21`](https://github.com/klikli-dev/occultism/commit/e871a216742ddc9719c16c9d43a8a0cae87771c0) - generics *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.161.2] - 2024-10-07
+### :bug: Bug Fixes
+- [`12f7783`](https://github.com/klikli-dev/occultism/commit/12f77833c7848b62bc975018f08f162235e50a06) - wild slime hitbox *(PR [#1226](https://github.com/klikli-dev/occultism/pull/1226) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+  - :arrow_lower_right: *fixes issue [#1225](https://github.com/klikli-dev/occultism/issues/1225) opened by [@YocyCraft](https://github.com/YocyCraft)*
+
+
+## [release/v1.21.1-1.161.1] - 2024-10-06
+### :bug: Bug Fixes
+- [`395ff34`](https://github.com/klikli-dev/occultism/commit/395ff344104e61a00f33ad25f76733c1d4705fd8) - emi transfer handler not working on servers *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`6c18c4a`](https://github.com/klikli-dev/occultism/commit/6c18c4acc8bf0abfddf4566019c1a6b422b5fd95) - update dependencies *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.161.0] - 2024-09-29
 ### :sparkles: New Features
 - [`eca3dd9`](https://github.com/klikli-dev/occultism/commit/eca3dd95b3fb61b7eb32a0be5f27be3445094e37) - use codec merging to switch back to old ritual format while keeping new condition field *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1772,3 +1794,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.160.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.159.7...release/v1.21.1-1.160.0
 [release/v1.21.1-1.160.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.160.0...release/v1.21.1-1.160.1
 [release/v1.21.1-1.161.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.160.1...release/v1.21.1-1.161.0
+[release/v1.21.1-1.161.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.161.0...release/v1.21.1-1.161.1
+[release/v1.21.1-1.161.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.161.1...release/v1.21.1-1.161.2
+[release/v1.21.1-1.161.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.161.2...release/v1.21.1-1.161.3
