@@ -15,6 +15,7 @@ import com.klikli_dev.occultism.datagen.book.BindingRitualsCategory;
 import com.klikli_dev.occultism.datagen.book.FamiliarRitualsCategory;
 import com.klikli_dev.occultism.datagen.book.GettingStartedCategory;
 import com.klikli_dev.occultism.datagen.book.PentaclesCategory;
+import com.klikli_dev.occultism.datagen.book.pentacles.*;
 import com.klikli_dev.occultism.integration.modonomicon.pages.*;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
@@ -57,7 +58,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         craftingRitualsCategory.withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/purple"));
 
         var storageCategory = this.add(this.makeStorageCategory().withSortNumber(sortNum++));
-        storageCategory.withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/craft_foliot")));;
+        storageCategory.withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/craft_foliot")));
 
         var introReadCondition = BookEntryReadConditionModel.create()
                 .withEntry(this.modLoc("getting_started/intro"));
@@ -1415,79 +1416,88 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         );
 
         var overview = this.makePossessionRitualsOverviewEntry(entryMap, 'o');
-        var returnToRituals = this.makeReturnToRitualsEntry(entryMap, 'r');
-        returnToRituals.withParent(BookEntryParentModel.create(overview.getId()));
-        returnToRituals.withCondition(BookTrueConditionModel.create());
-
-        var possessEndermite = this.makePossessEndermiteEntry(entryMap, 'D');
-        possessEndermite.withParent(BookEntryParentModel.create(overview.getId()));
-        var possessEnderman = this.makePossessEndermanEntry(entryMap, 'E');
-        possessEnderman.withParent(BookEntryParentModel.create(overview.getId()));
-        var possessGhast = this.makePossessGhastEntry(entryMap, 'F');
-        possessGhast.withParent(BookEntryParentModel.create(overview.getId()));
-        var possessSkeleton = this.makePossessSkeletonEntry(entryMap, 'G');
-        possessSkeleton.withParent(BookEntryParentModel.create(overview.getId()));
-        var possessPhantom = this.makePossessPhantomEntry(entryMap, 'I');
-        possessPhantom.withParent(BookEntryParentModel.create(overview.getId()));
-        var possessWeakShulker = this.makePossessWeakShulkerEntry(entryMap, 'J');
-        possessWeakShulker.withParent(BookEntryParentModel.create(overview.getId()));
-        var possessShulker = this.makePossessShulkerEntry(entryMap, 'K');
-        possessShulker.withParent(BookEntryParentModel.create(overview.getId()));
-        var possessElderGuardian = this.makePossessElderGuardianEntry(entryMap, 'L');
-        possessElderGuardian.withParent(BookEntryParentModel.create(overview.getId()));
-        var possessWarden = this.makePossessWardenEntry(entryMap, 'M');
-        possessWarden.withParent(BookEntryParentModel.create(overview.getId()));
-        var possessHoglin = this.makePossessHoglinEntry(entryMap, 'N');
-        possessHoglin.withParent(BookEntryParentModel.create(overview.getId()));
-        var possessWitch = this.makePossessWitchEntry(entryMap, 'A');
-        possessWitch.withParent(BookEntryParentModel.create(overview.getId()));
-        var hordeHusk = this.makeHordeHuskEntry(entryMap, 'W');
-        hordeHusk.withParent(BookEntryParentModel.create(overview.getId()));
-        var hordeDrowned = this.makeHordeDrownedEntry(entryMap, 'X');
-        hordeDrowned.withParent(BookEntryParentModel.create(overview.getId()));
-        var hordeCreeper = this.makeHordeCreeperEntry(entryMap, 'Y');
-        hordeCreeper.withParent(BookEntryParentModel.create(overview.getId()));
-        var hordeSilverfish = this.makeHordeSilverfishEntry(entryMap, 'Z');
-        hordeSilverfish.withParent(BookEntryParentModel.create(overview.getId()));
-        var hordeIllager = this.makeHordeIllagerEntry(entryMap, 'V');
-        hordeIllager.withParent(BookEntryParentModel.create(overview.getId()));
-        var possessWeakBreeze = this.makePossessWeakBreezeEntry(entryMap, 'S');
-        possessWeakBreeze.withParent(BookEntryParentModel.create(overview.getId()));
-        var possessBreeze = this.makePossessBreezeEntry(entryMap, 'T');
-        possessBreeze.withParent(BookEntryParentModel.create(possessWeakBreeze.getId()));
-        var possessStrongBreeze = this.makePossessStrongBreezeEntry(entryMap, 'U');
-        possessStrongBreeze.withParent(BookEntryParentModel.create(possessBreeze.getId()));
-        var possessWitherSkeleton = this.makeWitherSkullEntry(entryMap, 'H');
-        possessWitherSkeleton.withParent(BookEntryParentModel.create(overview.getId()));
-        var mercyGoat = this.makeMercyGoatEntry(entryMap, 'C');
-        mercyGoat.withParent(BookEntryParentModel.create(overview.getId()));
-        var possessZombiePiglin = this.makePossessZombiePiglinEntry(entryMap, 'P');
-        possessZombiePiglin.withParent(BookEntryParentModel.create(overview.getId()));
-        var possessBee = this.makePossessBeeEntry(entryMap, 'B');
-        possessBee.withParent(BookEntryParentModel.create(overview.getId()));
-        this.context().category("possession_rituals");
-
-        //add true condition to all entries to enable them by default
         overview.withCondition(BookTrueConditionModel.create());
-        possessEnderman.withCondition(BookTrueConditionModel.create());
-        possessEndermite.withCondition(BookTrueConditionModel.create());
-        possessGhast.withCondition(BookTrueConditionModel.create());
-        possessSkeleton.withCondition(BookTrueConditionModel.create());
-        possessPhantom.withCondition(BookTrueConditionModel.create());
-        possessWeakShulker.withCondition(BookTrueConditionModel.create());
-        possessShulker.withCondition(BookTrueConditionModel.create());
-        possessElderGuardian.withCondition(BookTrueConditionModel.create());
-        possessWarden.withCondition(BookTrueConditionModel.create());
-        possessHoglin.withCondition(BookTrueConditionModel.create());
-        possessWitch.withCondition(BookTrueConditionModel.create());
-        possessWitherSkeleton.withCondition(BookTrueConditionModel.create());
-        hordeHusk.withCondition(BookTrueConditionModel.create());
-        hordeDrowned.withCondition(BookTrueConditionModel.create());
-        hordeCreeper.withCondition(BookTrueConditionModel.create());
-        hordeSilverfish.withCondition(BookTrueConditionModel.create());
-        mercyGoat.withCondition(BookTrueConditionModel.create());
-        possessZombiePiglin.withCondition(BookTrueConditionModel.create());
-        possessBee.withCondition(BookTrueConditionModel.create());
+        var returnToRituals = this.makeReturnToRitualsEntry(entryMap, 'r');
+        returnToRituals.withParent(BookEntryParentModel.create(overview.getId()))
+            .withCondition(BookTrueConditionModel.create());
+
+        String possessFoliotID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessFoliotEntry.ENTRY_ID;
+        var possessEndermite = this.makePossessEndermiteEntry(entryMap, 'D');
+        possessEndermite.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
+        var possessPhantom = this.makePossessPhantomEntry(entryMap, 'I');
+        possessPhantom.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
+        var possessSkeleton = this.makePossessSkeletonEntry(entryMap, 'G');
+        possessSkeleton.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
+        var possessWitch = this.makePossessWitchEntry(entryMap, 'A');
+        possessWitch.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
+        String possessDjinniID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessDjinniEntry.ENTRY_ID;
+        var possessEnderman = this.makePossessEndermanEntry(entryMap, 'E');
+        possessEnderman.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
+        var possessBee = this.makePossessBeeEntry(entryMap, 'B');
+        possessBee.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
+        var possessGhast = this.makePossessGhastEntry(entryMap, 'F');
+        possessGhast.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
+        var possessWeakShulker = this.makePossessWeakShulkerEntry(entryMap, 'J');
+        possessWeakShulker.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
+        var possessWarden = this.makePossessWardenEntry(entryMap, 'M');
+        possessWarden.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
+        String possessUnboundAfritID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessUnboundAfritEntry.ENTRY_ID;
+        var possessZombiePiglin = this.makePossessZombiePiglinEntry(entryMap, 'P');
+        possessZombiePiglin.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessUnboundAfritID));
+        String possessAfritID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessAfritEntry.ENTRY_ID;
+        var possessElderGuardian = this.makePossessElderGuardianEntry(entryMap, 'L');
+        possessElderGuardian.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessAfritID));
+        var possessHoglin = this.makePossessHoglinEntry(entryMap, 'N');
+        possessHoglin.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessAfritID));
+        var possessShulker = this.makePossessShulkerEntry(entryMap, 'K');
+        possessShulker.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessAfritID));
+        String possessMaridID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessMaridEntry.ENTRY_ID;
+        var mercyGoat = this.makeMercyGoatEntry(entryMap, 'C');
+        mercyGoat.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessMaridID));
+
+        String possessWildID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + ContactWildSpiritEntry.ENTRY_ID;
+        var possessWitherSkeleton = this.makeWitherSkullEntry(entryMap, 'H');
+        possessWitherSkeleton.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessWildID));
+        var hordeIllager = this.makeHordeIllagerEntry(entryMap, 'V');
+        hordeIllager.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessWildID));
+        var hordeHusk = this.makeHordeHuskEntry(entryMap, 'W');
+        hordeHusk.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessWildID));
+        var hordeDrowned = this.makeHordeDrownedEntry(entryMap, 'X');
+        hordeDrowned.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessWildID));
+        var hordeCreeper = this.makeHordeCreeperEntry(entryMap, 'Y');
+        hordeCreeper.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessWildID));
+        var hordeSilverfish = this.makeHordeSilverfishEntry(entryMap, 'Z');
+        hordeSilverfish.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessWildID));
+        var possessWeakBreeze = this.makePossessWeakBreezeEntry(entryMap, 'S');
+        possessWeakBreeze.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessWildID));
+        var possessBreeze = this.makePossessBreezeEntry(entryMap, 'T');
+        possessBreeze.withParent(BookEntryParentModel.create(possessWeakBreeze.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessWeakBreeze.getId()));
+        var possessStrongBreeze = this.makePossessStrongBreezeEntry(entryMap, 'U');
+        possessStrongBreeze.withParent(BookEntryParentModel.create(possessBreeze.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessBreeze.getId()));
+        this.context().category("possession_rituals");
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon(this.modLoc("textures/gui/book/possession.png"))

@@ -8,8 +8,6 @@ import com.klikli_dev.occultism.datagen.OccultismBookProvider;
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.occultism.datagen.book.pentacles.*;
-import com.klikli_dev.occultism.registry.OccultismItems;
-import net.neoforged.neoforge.common.conditions.TrueCondition;
 
 public class PentaclesCategory extends CategoryProvider {
     public static final String CATEGORY_ID = "pentacles";
