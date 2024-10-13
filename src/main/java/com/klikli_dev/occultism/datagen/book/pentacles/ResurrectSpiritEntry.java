@@ -28,7 +28,7 @@ public class ResurrectSpiritEntry extends EntryProvider {
         );
         this.pageTitle("Susjes Simple Circle");
         this.pageText("""
-                **Purpose:** "**Purpose:** Resurrect a {0}\\
+                **Purpose:** Resurrect a {0}\\
                 \\
                 **Susjes Simple Circle** is a simple pentacle that returns the physical form of a spirit that has
                  been slaughtered, not needing much to do so.\\
