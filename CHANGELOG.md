@@ -4,6 +4,41 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.139.1] - 2024-10-08
+### :bug: Bug Fixes
+- [`7331811`](https://github.com/klikli-dev/occultism/commit/7331811bd1ffb5911868022d42e536ac76eada3b) - memory leak *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.20.1-1.139.0] - 2024-09-13
+### :sparkles: New Features
+- [`de77062`](https://github.com/klikli-dev/occultism/commit/de770627f5066e8d0260c57633e6efb74f69541b) - updated Spanish translation - thanks _kAiN_ ! *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.20.1-1.138.0] - 2024-09-09
+### :sparkles: New Features
+- [`dc4a0de`](https://github.com/klikli-dev/occultism/commit/dc4a0de1c7c7f2eeb69b5e7a0b10ec20cd2dfb1a) - allow broken links in dictionary of spirits (makes translations more flexible) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.20.1-1.137.1] - 2024-09-02
+### :bug: Bug Fixes
+- [`a8214ad`](https://github.com/klikli-dev/occultism/commit/a8214ad17049b991c5a5976da0a106ae74a500f8) - typo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.20.1-1.137.0] - 2024-08-30
+### :sparkles: New Features
+- [`f392d31`](https://github.com/klikli-dev/occultism/commit/f392d316f2bbc0c4247a537609bba3c1c4828051) - Update a russian translation *(PR [#1199](https://github.com/klikli-dev/occultism/pull/1199) by [@Heimdallr-1](https://github.com/Heimdallr-1))*
+
+
+## [release/v1.20.1-1.136.3] - 2024-08-29
+### :bug: Bug Fixes
+- [`acfa07e`](https://github.com/klikli-dev/occultism/commit/acfa07ecdb664c97718dea8120d4b2ee4e287b1a) - spirit name random despite using renamed dictionary *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.20.1-1.136.2] - 2024-08-29
+### :bug: Bug Fixes
+- [`6c7217c`](https://github.com/klikli-dev/occultism/commit/6c7217c5c2ec82df72025668c01cc335428ffd24) - remove link to nonexisting entry from russian version of dictionary of spirits *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.136.1] - 2024-08-17
 ### :bug: Bug Fixes
 - [`5e6e726`](https://github.com/klikli-dev/occultism/commit/5e6e726ed45579792c2497e7f34daff28fad8c87) - new bound book of binding recipes do not show up in recipe viewers *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1199,3 +1234,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.135.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.134.2...release/v1.20.1-1.135.0
 [release/v1.20.1-1.136.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.135.0...release/v1.20.1-1.136.0
 [release/v1.20.1-1.136.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.136.0...release/v1.20.1-1.136.1
+[release/v1.20.1-1.136.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.136.1...release/v1.20.1-1.136.2
+[release/v1.20.1-1.136.3]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.136.2...release/v1.20.1-1.136.3
+[release/v1.20.1-1.137.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.136.3...release/v1.20.1-1.137.0
+[release/v1.20.1-1.137.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.137.0...release/v1.20.1-1.137.1
+[release/v1.20.1-1.138.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.137.1...release/v1.20.1-1.138.0
+[release/v1.20.1-1.139.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.138.0...release/v1.20.1-1.139.0
+[release/v1.20.1-1.139.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.139.0...release/v1.20.1-1.139.1

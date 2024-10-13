@@ -40,7 +40,6 @@ public class BookOfBindingBoundItem extends Item {
         super(properties);
     }
 
-
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip,
                                 TooltipFlag flagIn) {
@@ -49,10 +48,9 @@ public class BookOfBindingBoundItem extends Item {
                 TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(stack))));
     }
 
-
     @Override
     public void onCraftedBy(ItemStack pStack, Level pLevel, Player pPlayer) {
-        ItemNBTUtil.generateBoundSpiritName(pStack);
+        ItemNBTUtil.generateBoundSpiritNameIfNone(pStack);
         super.onCraftedBy(pStack, pLevel, pPlayer);
     }
 }
