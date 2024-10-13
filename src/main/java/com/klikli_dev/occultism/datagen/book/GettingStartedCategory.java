@@ -120,7 +120,8 @@ public class GettingStartedCategory extends CategoryProvider {
         advancedChalksEntry.withParent(BookEntryParentModel.create(ritualEntry.getId()));
 
         var ritualSatchelsEntry = this.add(new RitualSatchelsEntry(this).generate('ĝ'));
-        ritualSatchelsEntry.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()));
+        ritualSatchelsEntry.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()))
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/purple"));
 
         var moreRitualsEntry = this.add(this.makeMoreRitualsEntry(this.entryMap, 'm'));
         moreRitualsEntry.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()));
@@ -132,7 +133,8 @@ public class GettingStartedCategory extends CategoryProvider {
         spiritsSubcategory.withParent(BookEntryParentModel.create(greyParticlesEntry.getId()));
 
         var otherworldGoggles = this.add(this.makeOtherworldGogglesEntry(this.entryMap, 'g'));
-        otherworldGoggles.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()));
+        otherworldGoggles.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()))
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/purple"));
 
         var infusedPickaxe = this.add(this.makeInfusedPickaxeEntry(this.entryMap, 'I'));
         infusedPickaxe.withParent(BookEntryParentModel.create(otherworldGoggles.getId()));
@@ -153,7 +155,8 @@ public class GettingStartedCategory extends CategoryProvider {
         mineshaftEntry.withParent(BookEntryParentModel.create(spiritMinersEntry.getId()));
 
         var storageEntry = this.add(this.makeStorageEntry(this.entryMap, 's'));
-        storageEntry.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()));
+        storageEntry.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()))
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/purple"));
 
         var possessionRitualsEntry = this.add(this.makePossessionRitualsEntry(this.entryMap, 'w'));
         possessionRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()))

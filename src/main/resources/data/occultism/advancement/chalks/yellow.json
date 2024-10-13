@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "id": "occultism:chalk_yellow"
+      "id": "occultism:chalk_gold"
     },
     "title": {"translate": "advancements.occultism.chalks.yellow.title"},
     "description": {"color":"green","translate":"advancements.occultism.chalks.yellow.description"},
@@ -16,7 +16,7 @@
         "items": [
           {
             "items": [
-              "occultism:chalk_yellow"
+              "occultism:chalk_gold"
             ]
           }
         ]

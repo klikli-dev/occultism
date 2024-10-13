@@ -763,7 +763,7 @@
   "book.occultism.dictionary_of_spirits.pentacles.red_chalk.name": "The Afrit Control Chalk",
   "book.occultism.dictionary_of_spirits.pentacles.red_chalk.spotlight.text": "These properties allow for an incredible achievement that has been sought\n for ages before being attained: the summoning of an Afrit bound to the occultist.\n",
   "book.occultism.dictionary_of_spirits.pentacles.resurrect_spirit.description": "Spirit Resurrection",
-  "book.occultism.dictionary_of_spirits.pentacles.resurrect_spirit.intro.text": "**Purpose:** \"**Purpose:** Resurrect a [#](AA00AA)Familiar[#]()\\\n\\\n**Susjes Simple Circle** is a simple pentacle that returns the physical form of a spirit that has\n been slaughtered, not needing much to do so.\\\n \\\n**Note:** This is the only pentacle where the [#](FF55FF)White Chalk[#]() cannot be replaced with another better [#](FF55FF)Foundation Chalk[#]().\n",
+  "book.occultism.dictionary_of_spirits.pentacles.resurrect_spirit.intro.text": "**Purpose:** Resurrect a [#](AA00AA)Familiar[#]()\\\n\\\n**Susjes Simple Circle** is a simple pentacle that returns the physical form of a spirit that has\n been slaughtered, not needing much to do so.\\\n \\\n**Note:** This is the only pentacle where the [#](FF55FF)White Chalk[#]() cannot be replaced with another better [#](FF55FF)Foundation Chalk[#]().\n",
   "book.occultism.dictionary_of_spirits.pentacles.resurrect_spirit.intro.title": "Susjes Simple Circle",
   "book.occultism.dictionary_of_spirits.pentacles.resurrect_spirit.name": "Susje's Simple Circle",
   "book.occultism.dictionary_of_spirits.pentacles.resurrect_spirit.uses.text": "- [Resurrect Familiar](entry://familiar_rituals/resurrection)\n- [Purify Vex to Allay](entry://familiar_rituals/resurrect_allay)\n",
