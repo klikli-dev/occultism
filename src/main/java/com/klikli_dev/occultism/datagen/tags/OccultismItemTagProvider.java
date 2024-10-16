@@ -235,6 +235,11 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
     }
 
     private void addCommonTags(HolderLookup.Provider provider) {
+        this.tag(Tags.Items.MINING_TOOL_TOOLS)
+                .add(OccultismItems.INFUSED_PICKAXE.get())
+                .add(OccultismItems.IESNIUM_PICKAXE.get())
+                .replace(false);
+
         this.copy(BlockTags.SLABS, ItemTags.SLABS);
 
         // Ore Blocks
