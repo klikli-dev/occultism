@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.161.4] - 2024-10-16
+### :bug: Bug Fixes
+- [`417fab7`](https://github.com/klikli-dev/occultism/commit/417fab7712deb3d4aab79a81ff3ffcf2bad7eca1) - add missing mining tool tag to pickaxes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`a5a9ef7`](https://github.com/klikli-dev/occultism/commit/a5a9ef79833666d7dbb71e4b41d25880399b93e5) - cthulhu is even more floaty than he should be *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.161.3] - 2024-10-08
 ### :bug: Bug Fixes
 - [`dd0187b`](https://github.com/klikli-dev/occultism/commit/dd0187bfa497d7f36f581601a96c038a72fe277d) - memory leak *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1797,3 +1803,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.161.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.161.0...release/v1.21.1-1.161.1
 [release/v1.21.1-1.161.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.161.1...release/v1.21.1-1.161.2
 [release/v1.21.1-1.161.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.161.2...release/v1.21.1-1.161.3
+[release/v1.21.1-1.161.4]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.161.3...release/v1.21.1-1.161.4
