@@ -63,6 +63,14 @@ public class CrushingRecipeBuilder implements RecipeBuilder {
         return new CrushingRecipeBuilder(ingredient, RecipeResult.of(new ItemStack(result)), crushingTime);
     }
 
+    public static CrushingRecipeBuilder crushingRecipe(Item item, TagKey<Item> result, int crushingTime) {
+        return new CrushingRecipeBuilder(Ingredient.of(item), TagRecipeResult.of(result), crushingTime);
+    }
+
+    public static CrushingRecipeBuilder crushingRecipe(Item item, ItemLike result, int crushingTime) {
+        return new CrushingRecipeBuilder(Ingredient.of(item), RecipeResult.of(new ItemStack(result)), crushingTime);
+    }
+
     public static CrushingRecipeBuilder crushingRecipe(TagKey<Item> ingredient, TagKey<Item> result, int crushingTime) {
         return new CrushingRecipeBuilder(Ingredient.of(ingredient), TagRecipeResult.of(result), crushingTime);
     }

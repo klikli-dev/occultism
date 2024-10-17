@@ -3,7 +3,8 @@
   "background_v_index": 0,
   "category": "possession_rituals",
   "condition": {
-    "type": "modonomicon:true"
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/contact_wild_spirit"
   },
   "description": "",
   "hide_while_locked": false,
@@ -32,7 +33,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/summon_wild_drowned",
+      "recipe_id_1": "occultism:ritual/wild_drowned",
       "text": "",
       "title1": "",
       "title2": ""

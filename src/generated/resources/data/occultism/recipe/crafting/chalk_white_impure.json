@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "x": {
-      "item": "occultism:burnt_otherstone"
+      "tag": "c:dusts/otherstone"
     },
     "y": {
-      "item": "occultism:otherworld_ashes"
+      "tag": "c:dusts/otherworld_wood"
     }
   },
   "pattern": [

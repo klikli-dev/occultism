@@ -6,13 +6,13 @@
       "item": "occultism:chalk_white_impure"
     },
     {
-      "item": "minecraft:torchflower"
+      "item": "occultism:cursed_honey"
     },
     {
       "item": "minecraft:glow_berries"
     },
     {
-      "item": "minecraft:honeycomb"
+      "tag": "c:dusts/blaze"
     }
   ],
   "result": {

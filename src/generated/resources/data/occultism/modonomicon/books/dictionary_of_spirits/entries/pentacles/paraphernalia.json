@@ -2,10 +2,7 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "pentacles",
-  "condition": {
-    "type": "modonomicon:true"
-  },
-  "description": "",
+  "description": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.description",
   "hide_while_locked": false,
   "icon": {
     "item": "minecraft:skeleton_skull"
@@ -33,6 +30,18 @@
         "item": "occultism:large_candle"
       },
       "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.candle.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "minecraft:skeleton_skull"
+      },
+      "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.skull.text",
       "title": ""
     },
     {
@@ -76,22 +85,22 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "item": "minecraft:skeleton_skull"
+        "item": "minecraft:wither_skeleton_skull"
       },
-      "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.skeleton_skull.text",
+      "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.wither_skull.text",
       "title": ""
     }
   ],
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "pentacles/pentacles_overview",
+      "entry": "pentacles/pentacle_overview",
       "line_enabled": true,
-      "line_reversed": false
+      "line_reversed": true
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
-  "x": -8,
-  "y": -2
+  "sort_number": 1,
+  "x": -11,
+  "y": -1
 }

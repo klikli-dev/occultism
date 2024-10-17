@@ -135,7 +135,7 @@ public class SpiritTradeRecipe extends SingleInputRecipe<SingleRecipeInput> {
 
     @Override
     public @NotNull ItemStack getToastSymbol() {
-        return new ItemStack(OccultismItems.PENTACLE.get());
+        return new ItemStack(OccultismItems.PENTACLE_SUMMON.get());
     }
 
     @Override

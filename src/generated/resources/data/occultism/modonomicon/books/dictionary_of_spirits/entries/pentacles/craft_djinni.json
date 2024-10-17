@@ -3,12 +3,22 @@
   "background_v_index": 0,
   "category": "pentacles",
   "condition": {
-    "type": "modonomicon:true"
+    "type": "modonomicon:and",
+    "children": [
+      {
+        "type": "modonomicon:advancement",
+        "advancement_id": "occultism:chalks/light_gray"
+      },
+      {
+        "type": "modonomicon:advancement",
+        "advancement_id": "occultism:chalks/lime"
+      }
+    ]
   },
-  "description": "",
+  "description": "book.occultism.dictionary_of_spirits.pentacles.craft_djinni.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:pentacle"
+    "item": "occultism:pentacle_craft"
   },
   "name": "book.occultism.dictionary_of_spirits.pentacles.craft_djinni.name",
   "pages": [
@@ -55,7 +65,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
-  "x": -4,
-  "y": 2
+  "sort_number": 17,
+  "x": -2,
+  "y": 0
 }

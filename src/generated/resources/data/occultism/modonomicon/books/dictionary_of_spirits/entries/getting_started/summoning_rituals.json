@@ -2,6 +2,10 @@
   "background_u_index": 1,
   "background_v_index": 1,
   "category": "getting_started",
+  "condition": {
+    "type": "modonomicon:advancement",
+    "advancement_id": "occultism:chalks/white"
+  },
   "description": "book.occultism.dictionary_of_spirits.getting_started.summoning_rituals.description",
   "hide_while_locked": false,
   "icon": {

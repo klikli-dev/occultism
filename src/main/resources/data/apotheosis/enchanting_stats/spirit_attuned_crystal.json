@@ -1,8 +1,8 @@
 {
   "block": "occultism:spirit_attuned_crystal",
   "stats": {
-    "maxEterna": 22.5,
-    "eterna": 1,
+    "maxEterna": 45,
+    "eterna": 3,
     "quanta": 0,
     "arcana": 0,
     "rectification": 0,

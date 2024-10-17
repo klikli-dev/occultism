@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:ritual/repair_chalks"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_white_chalk": {
+      "conditions": {
+        "items": [
+          {
+            "items": "occultism:chalk_white"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_white_chalk"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:ritual/repair_chalks"
+    ]
+  }
+}

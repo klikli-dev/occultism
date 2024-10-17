@@ -8,13 +8,13 @@
     }
   },
   "display": {
-    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "background": "occultism:textures/block/otherplanks.png",
     "description": {
       "translate": "advancements.occultism.familiars.description"
     },
     "icon": {
       "count": 1,
-      "id": "occultism:jei_dummy/none"
+      "id": "occultism:pentacle_possess"
     },
     "title": {
       "translate": "advancements.occultism.familiars.title"

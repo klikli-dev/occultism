@@ -6,6 +6,7 @@ import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryParentModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
+import com.klikli_dev.modonomicon.api.datagen.book.condition.BookAdvancementConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookAndConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookEntryReadConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookModLoadedConditionModel;
@@ -119,7 +120,8 @@ public class GettingStartedCategory extends CategoryProvider {
         advancedChalksEntry.withParent(BookEntryParentModel.create(ritualEntry.getId()));
 
         var ritualSatchelsEntry = this.add(new RitualSatchelsEntry(this).generate('ĝ'));
-        ritualSatchelsEntry.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()));
+        ritualSatchelsEntry.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()))
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/purple"));
 
         var moreRitualsEntry = this.add(this.makeMoreRitualsEntry(this.entryMap, 'm'));
         moreRitualsEntry.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()));
@@ -131,7 +133,8 @@ public class GettingStartedCategory extends CategoryProvider {
         spiritsSubcategory.withParent(BookEntryParentModel.create(greyParticlesEntry.getId()));
 
         var otherworldGoggles = this.add(this.makeOtherworldGogglesEntry(this.entryMap, 'g'));
-        otherworldGoggles.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()));
+        otherworldGoggles.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()))
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/purple"));
 
         var infusedPickaxe = this.add(this.makeInfusedPickaxeEntry(this.entryMap, 'I'));
         infusedPickaxe.withParent(BookEntryParentModel.create(otherworldGoggles.getId()));
@@ -152,19 +155,24 @@ public class GettingStartedCategory extends CategoryProvider {
         mineshaftEntry.withParent(BookEntryParentModel.create(spiritMinersEntry.getId()));
 
         var storageEntry = this.add(this.makeStorageEntry(this.entryMap, 's'));
-        storageEntry.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()));
+        storageEntry.withParent(BookEntryParentModel.create(advancedChalksEntry.getId()))
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/purple"));
 
         var possessionRitualsEntry = this.add(this.makePossessionRitualsEntry(this.entryMap, 'w'));
-        possessionRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()));
+        possessionRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()))
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/yellow"));
 
         var familiarRitualsEntry = this.add(this.makeFamiliarRitualsEntry(this.entryMap, 'x'));
-        familiarRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()));
+        familiarRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()))
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/yellow"));
 
         var summoningRitualsEntry = this.add(this.makeSummoningRitualsEntry(this.entryMap, 'y'));
-        summoningRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()));
+        summoningRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()))
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/white"));
 
         var craftingRitualsEntry = this.add(this.makeCraftingRitualsEntry(this.entryMap, 'z'));
-        craftingRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()));
+        craftingRitualsEntry.withParent(BookEntryParentModel.create(moreRitualsEntry.getId()))
+                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/purple"));
     }
 
     @Override
@@ -1326,13 +1334,35 @@ public class GettingStartedCategory extends CategoryProvider {
                         - **0** if no ritual is active
                         - **1** if the ritual is active, but waiting for a sacrifice
                         - **2** if the ritual is active, but waiting for an item to be used
-                        - **4** if the ritual is active and running
+                        - **8** if the ritual is active and running
                         """.formatted(COLOR_PURPLE));
+
+        this.context().page("clone_redstone");
+        var cloneRedstoneText = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "All sides blocked?");
+        this.lang().add(this.context().pageText(),
+                """
+                        You can place another [](item://occultism:golden_sacrificial_bowl) in the third block below the
+                         original [](item://occultism:golden_sacrificial_bowl). Every time this new bowl receives an
+                         block update, it clones the actual signal strength of the original bowl.
+                        """.formatted(COLOR_PURPLE));
+
+        this.context().page("clone_placement");
+        var clonePlacementImage = BookImagePageModel.create()
+                .withImages(this.modLoc("textures/gui/book/redstone_clone.png"))
+                .withBorder(true)
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        One suggestion is to use any block that interacts with redstone and an observer.
+                          """.formatted(COLOR_PURPLE));
 
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
-                .withIcon(OccultismItems.PENTACLE.get())
+                .withIcon(OccultismItems.PENTACLE_SUMMON.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,
@@ -1344,7 +1374,9 @@ public class GettingStartedCategory extends CategoryProvider {
                         pentacleLinkHint,
                         startRitualText,
                         automationText,
-                        redstoneText
+                        redstoneText,
+                        cloneRedstoneText,
+                        clonePlacementImage
                 );
     }
 
@@ -1443,136 +1475,24 @@ public class GettingStartedCategory extends CategoryProvider {
                         For more advanced rituals the basic [White Chalk](entry://occultism:dictionary_of_spirits/getting_started/ritual_prep_chalk) is not sufficient. Instead chalks made from more arcane materials are required.
                         """);
 
-        this.context().page("impure_gold_chalk_recipe");
-        var impureGoldChalkRecipe = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/chalk_gold_impure"));
-        //no text
-
-        this.context().page("gold_chalk_recipe");
-        var goldChalkRecipe = BookSpiritFireRecipePageModel.create()
-                .withRecipeId1(this.modLoc("spirit_fire/chalk_gold"));
-        //no text
-
-        this.context().page("impure_purple_chalk_recipe");
-        var impurePurpleChalkRecipe = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/chalk_purple_impure"))
-                .withText(this.context().pageText());
-        this.lang().add(this.context().pageText(),
-                """
-                        You do not need to visit the [#](%1$s)The End[#]() to obtain Endstone. You can summon a [Possessed Endermite](entry://possession_rituals/possess_endermite) which has a high chance to drop it.
-                             """.formatted(COLOR_PURPLE));
-
-        this.context().page("purple_chalk_recipe");
-        var purpleChalkRecipe = BookSpiritFireRecipePageModel.create()
-                .withRecipeId1(this.modLoc("spirit_fire/chalk_purple"));
-        //no text
-
-        this.context().page("impure_red_chalk_recipe");
-        var impureRedChalkRecipe = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/chalk_red_impure"));
-        //no text
-
-        this.context().page("red_chalk_recipe");
-        var redChalkRecipe = BookSpiritFireRecipePageModel.create()
-                .withRecipeId1(this.modLoc("spirit_fire/chalk_red"));
-        //no text
-
-        this.context().page("afrit_essence");
-        var afritEssenceSpotlight = BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismItems.AFRIT_ESSENCE.get()))
-                .withText(this.context().pageText());
-        this.lang().add(this.context().pageText(),
-                """
-                        To obtain the essence of an [#](%1$s)Afrit[#]() for [](item://occultism:chalk_red) you need to [summon and kill an Unbound Afrit](entry://summoning_rituals/afrit_essence).
-                        """.formatted(COLOR_PURPLE));
-
-        this.context().page("decoColors");
-        var decoColors = BookTextPageModel.create()
+        this.context().page("more");
+        var more = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
-        this.lang().add(this.context().pageTitle(), "Decorative Chalks");
+        this.lang().add(this.context().pageTitle(), "Pentacle Category");
         this.lang().add(this.context().pageText(),
                 """
-                        Other colored chalks (for now) only have decorative purposes, you can check the recipes in next pages. All needs to be purified in spirit fire.
-                        """);
+                       Follow the progression in [Pentacle page](category://pentacles) to get the 16 chalks and do all pentacles,
+                       """);
 
-        this.context().page("impure_light_gray_chalk_recipe");
-        var impureLightGrayChalkRecipe = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/chalk_light_gray_impure"));
-        //no text
-
-        this.context().page("impure_gray_chalk_recipe");
-        var impureGrayChalkRecipe = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/chalk_gray_impure"));
-        //no text
-
-        this.context().page("impure_Black_chalk_recipe");
-        var impureBlackChalkRecipe = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/chalk_black_impure"));
-        //no text
-
-        this.context().page("impure_brown_chalk_recipe");
-        var impureBrownChalkRecipe = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/chalk_brown_impure"));
-        //no text
-        this.context().page("impure_orange_chalk_recipe");
-        var impureOrangeChalkRecipe = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/chalk_orange_impure"));
-        //no text
-        this.context().page("impure_lime_chalk_recipe");
-        var impureLimeChalkRecipe = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/chalk_lime_impure"));
-        //no text
-        this.context().page("impure_green_chalk_recipe");
-        var impureGreenChalkRecipe = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/chalk_green_impure"));
-        //no text
-        this.context().page("impure_cyan_chalk_recipe");
-        var impureCyanChalkRecipe = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/chalk_cyan_impure"));
-        //no text
-        this.context().page("impure_blue_chalk_recipe");
-        var impureBlueChalkRecipe = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/chalk_blue_impure"));
-        //no text
-        this.context().page("impure_light_blue_chalk_recipe");
-        var impureLightBlueChalkRecipe = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/chalk_light_blue_impure"));
-        //no text
-        this.context().page("impure_pink_chalk_recipe");
-        var impurePinkChalkRecipe = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/chalk_pink_impure"));
-        //no text
-        this.context().page("impure_magenta_chalk_recipe");
-        var impureMagentaChalkRecipe = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/chalk_magenta_impure"));
         //no text
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
-                .withIcon(OccultismItems.CHALK_GOLD.get())
+                .withIcon(OccultismItems.CHALK_YELLOW.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,
-                        impureGoldChalkRecipe,
-                        goldChalkRecipe,
-                        impurePurpleChalkRecipe,
-                        purpleChalkRecipe,
-                        impureRedChalkRecipe,
-                        redChalkRecipe,
-                        afritEssenceSpotlight,
-                        decoColors,
-                        impureLightGrayChalkRecipe,
-                        impureGrayChalkRecipe,
-                        impureBlackChalkRecipe,
-                        impureBrownChalkRecipe,
-                        impureOrangeChalkRecipe,
-                        impureLimeChalkRecipe,
-                        impureGreenChalkRecipe,
-                        impureCyanChalkRecipe,
-                        impureBlueChalkRecipe,
-                        impureLightBlueChalkRecipe,
-                        impurePinkChalkRecipe,
-                        impureMagentaChalkRecipe
+                        more
                 );
     }
 
@@ -1957,7 +1877,7 @@ public class GettingStartedCategory extends CategoryProvider {
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
-                .withIcon(this.modLoc("textures/gui/book/parrot.png"))
+                .withIcon(this.modLoc("textures/gui/book/familiar.png"))
                 .withLocation(entryMap.get(icon))
                 .withEntryBackground(1, 1) //silver background and wavey entry shape
                 .withPages(

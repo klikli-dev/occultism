@@ -1,0 +1,71 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "pentacles",
+  "condition": {
+    "type": "modonomicon:and",
+    "children": [
+      {
+        "type": "modonomicon:advancement",
+        "advancement_id": "occultism:chalks/gray"
+      },
+      {
+        "type": "modonomicon:advancement",
+        "advancement_id": "occultism:chalks/orange"
+      }
+    ]
+  },
+  "description": "book.occultism.dictionary_of_spirits.pentacles.possess_unbound_afrit.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "occultism:pentacle_possess"
+  },
+  "name": "book.occultism.dictionary_of_spirits.pentacles.possess_unbound_afrit.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.possess_unbound_afrit.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.possess_unbound_afrit.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "multiblock_id": "possess_unbound_afrit",
+      "multiblock_name": "",
+      "show_visualize_button": true,
+      "text": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.possess_unbound_afrit.uses.text",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.possess_unbound_afrit.uses.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "pentacles/possess_djinni",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 21,
+  "x": 1,
+  "y": -2
+}
