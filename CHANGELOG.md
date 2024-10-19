@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.162.0] - 2024-10-19
+### :sparkles: New Features
+- [`ed6db5a`](https://github.com/klikli-dev/occultism/commit/ed6db5a0545638caeba72fb69f854ab63e353803) - add allthemodum alloy dust recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.161.4] - 2024-10-16
 ### :bug: Bug Fixes
 - [`417fab7`](https://github.com/klikli-dev/occultism/commit/417fab7712deb3d4aab79a81ff3ffcf2bad7eca1) - add missing mining tool tag to pickaxes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1804,3 +1809,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.161.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.161.1...release/v1.21.1-1.161.2
 [release/v1.21.1-1.161.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.161.2...release/v1.21.1-1.161.3
 [release/v1.21.1-1.161.4]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.161.3...release/v1.21.1-1.161.4
+[release/v1.21.1-1.162.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.161.4...release/v1.21.1-1.162.0
