@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 1,
-  "category": "occultism:getting_started",
+  "category": "getting_started",
   "description": "book.occultism.dictionary_of_spirits.getting_started.intro.description",
   "hide_while_locked": false,
   "icon": {
@@ -33,7 +33,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
+  "sort_number": 0,
   "x": -11,
-  "y": -2
+  "y": 0
 }

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "o": {
+      "item": "occultism:otherstone"
+    }
+  },
+  "pattern": [
+    "oo",
+    "oo"
+  ],
+  "result": {
+    "count": 4,
+    "id": "occultism:otherstone_bricks"
+  }
+}

@@ -106,6 +106,20 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get())
                 .add(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get())
                 .replace(false);
+        this.tag(OccultismTags.Entities.WILD_TRIAL)
+                .add(OccultismEntities.WILD_BOGGED_TYPE.get())
+                .add(OccultismEntities.WILD_CAVE_SPIDER_TYPE.get())
+                .add(OccultismEntities.WILD_HUSK_TYPE.get())
+                .add(OccultismEntities.WILD_SILVERFISH_TYPE.get())
+                .add(OccultismEntities.WILD_SKELETON_TYPE.get())
+                .add(OccultismEntities.WILD_SLIME_TYPE.get())
+                .add(OccultismEntities.WILD_SPIDER_TYPE.get())
+                .add(OccultismEntities.WILD_STRAY_TYPE.get())
+                .add(OccultismEntities.WILD_ZOMBIE_TYPE.get())
+                .add(OccultismEntities.POSSESSED_STRONG_BREEZE_TYPE.get())
+                .add(OccultismEntities.POSSESSED_BREEZE_TYPE.get())
+                .add(OccultismEntities.POSSESSED_WEAK_BREEZE_TYPE.get())
+                .replace(false);
 
 
         this.tag(OccultismTags.Entities.RANDOM_ANIMALS_TO_SUMMON_LIST)

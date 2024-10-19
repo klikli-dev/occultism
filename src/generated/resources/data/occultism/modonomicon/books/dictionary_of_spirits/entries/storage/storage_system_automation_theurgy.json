@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "occultism:storage",
+  "category": "storage",
   "condition": {
     "type": "modonomicon:mod_loaded",
     "mod_id": "theurgy"
@@ -39,7 +39,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:storage/storage_system_automation",
+      "entry": "storage/storage_system_automation",
       "line_enabled": true,
       "line_reversed": false
     }

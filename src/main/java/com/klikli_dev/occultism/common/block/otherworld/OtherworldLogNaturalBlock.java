@@ -27,6 +27,7 @@ import com.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -36,14 +37,18 @@ import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.neoforged.neoforge.common.ItemAbilities;
+import net.neoforged.neoforge.common.ItemAbility;
 
 import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 public class OtherworldLogNaturalBlock extends RotatedPillarBlock implements IOtherworldBlock {
-
-    public OtherworldLogNaturalBlock(Properties properties) {
+    Supplier<Block> strippedState;
+    public OtherworldLogNaturalBlock(Properties properties, Supplier<Block> stateSupplier) {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(UNCOVERED, false));
+        this.strippedState = stateSupplier;
     }
 
     @Override
@@ -84,6 +89,11 @@ public class OtherworldLogNaturalBlock extends RotatedPillarBlock implements IOt
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(UNCOVERED);
         super.createBlockStateDefinition(builder);
+    }
+
+    @Override
+    public @Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility itemAbility, boolean simulate) {
+        return itemAbility == ItemAbilities.AXE_STRIP ? strippedState.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)) : null;
     }
 
 }

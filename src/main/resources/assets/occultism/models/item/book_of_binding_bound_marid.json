@@ -1,6 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "occultism:item/book_of_binding_bound_marid"
-  }
-}

@@ -1,8 +1,8 @@
 {
   "background_u_index": 1,
   "background_v_index": 1,
-  "category": "occultism:getting_started",
-  "category_to_open": "occultism:spirits",
+  "category": "getting_started",
+  "category_to_open": "spirits",
   "description": "",
   "hide_while_locked": false,
   "icon": {
@@ -14,13 +14,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:getting_started/grey_particles",
+      "entry": "getting_started/grey_particles",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
+  "sort_number": 19,
   "x": 5,
-  "y": 4
+  "y": 6
 }

@@ -69,6 +69,7 @@ runs {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    mavenLocal()
     maven {
         url "https://dl.cloudsmith.io/public/klikli-dev/mods/maven/"
         content {
@@ -156,10 +157,10 @@ dependencies {
     runtimeOnly ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version_major}") {transitive=false}
 
     //geckolib
-    implementation ("software.bernie.geckolib:geckolib-neoforge-${minecraft_version_major}:${geckolib_version}") {transitive=false}
+    implementation ("software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}") {transitive=false}
 
     //smartbrainlib
-    implementation ("net.tslat.smartbrainlib:SmartBrainLib-neoforge-${minecraft_version_major}:${smartbrainlib_version}") {transitive=false}
+    implementation ("net.tslat.smartbrainlib:SmartBrainLib-neoforge-${minecraft_version}:${smartbrainlib_version}") {transitive=false}
 
     //TODO: enable once available
     //almostunified
@@ -170,7 +171,7 @@ dependencies {
 
     //theurgy
     compileOnly ("com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}") {transitive=false}
-//    runtimeOnly ("com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}") {transitive=false}
+    runtimeOnly ("com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}") {transitive=false}
 
     // emi
     compileOnly ("dev.emi:emi-neoforge:${emi_version}:api") {transitive=false}
@@ -190,9 +191,23 @@ dependencies {
 }
 
 processResources {
-    filesMatching(['META-INF/neoforge.mods.toml', 'pack.mcmeta']) {
-        expand project.properties
+    def props = new HashMap<>(project.properties)
+    def keys = new ArrayList<String>(props.keySet()) //to avoid concurrent modification exception
+
+    for (String key : keys) {
+        if (!(props.get(key) instanceof String) && !(props.get(key) instanceof Integer)) {
+            props.remove(key)
+        }
     }
+
+    if (System.getenv('MOD_VERSION') != null) {
+        props.put('mod_version', System.getenv('MOD_VERSION'))
+    }
+
+    filesMatching(['META-INF/neoforge.mods.toml', 'pack.mcmeta']) {
+        expand props
+    }
+    getInputs().properties(props)
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

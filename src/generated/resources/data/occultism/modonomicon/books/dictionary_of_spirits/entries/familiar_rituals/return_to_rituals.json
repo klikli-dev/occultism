@@ -1,8 +1,8 @@
 {
   "background_u_index": 1,
   "background_v_index": 2,
-  "category": "occultism:familiar_rituals",
-  "category_to_open": "occultism:rituals",
+  "category": "familiar_rituals",
+  "category_to_open": "rituals",
   "condition": {
     "type": "modonomicon:true"
   },
@@ -17,7 +17,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:familiar_rituals/overview",
+      "entry": "familiar_rituals/overview",
       "line_enabled": true,
       "line_reversed": false
     }

@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "occultism:spirits",
+  "category": "spirits",
   "description": "book.occultism.dictionary_of_spirits.spirits.wild_hunt.description",
   "hide_while_locked": false,
   "icon": {
@@ -37,7 +37,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:spirits/unbound_spirits",
+      "entry": "spirits/unbound_spirits",
       "line_enabled": true,
       "line_reversed": false
     }

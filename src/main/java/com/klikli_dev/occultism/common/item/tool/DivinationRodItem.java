@@ -50,13 +50,16 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.Tags;
 
+import java.lang.reflect.Array;
 import java.util.List;
 
 public class DivinationRodItem extends Item {
 
     public static final float NOT_FOUND = 7.0f;
     public static final float SEARCHING = 8.0f;
+    public static Object[] blocktags = null;
 
     public DivinationRodItem(Properties properties) {
         super(properties);
@@ -218,10 +221,15 @@ public class DivinationRodItem extends Item {
                 || state.getBlock() == OccultismBlocks.OTHERSTONE.get()) {
             return OccultismBlocks.OTHERSTONE_NATURAL.get();
         }
-        //Otherworld logs are linked to oak leaves.
+        //Otherworld logs are linked to oak logs.
         if (state.getBlock() == Blocks.OAK_LOG || state.getBlock() == OccultismBlocks.OTHERWORLD_LOG_NATURAL.get()
                 || state.getBlock() == OccultismBlocks.OTHERWORLD_LOG.get()) {
             return OccultismBlocks.OTHERWORLD_LOG_NATURAL.get();
+        }
+        //Stripped otherworld logs are linked to stripped oak logs.
+        if (state.getBlock() == Blocks.STRIPPED_OAK_LOG || state.getBlock() == OccultismBlocks.STRIPPED_OTHERWORLD_LOG_NATURAL.get()
+                || state.getBlock() == OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get()) {
+            return OccultismBlocks.STRIPPED_OTHERWORLD_LOG_NATURAL.get();
         }
         //Otherworld leaves are linked to oak leaves.
         if (state.getBlock() == Blocks.OAK_LEAVES || state.getBlock() == OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get()
@@ -232,6 +240,15 @@ public class DivinationRodItem extends Item {
         if (state.getBlock() == Blocks.NETHERRACK || state.getBlock() == OccultismBlocks.IESNIUM_ORE_NATURAL.get()
                 || state.getBlock() == OccultismBlocks.IESNIUM_ORE.get()) {
             return OccultismBlocks.IESNIUM_ORE_NATURAL.get();
+        }
+        //check server config to link to any block that have c:ores
+        if (Occultism.SERVER_CONFIG.itemSettings.anyOreDivinationRod.getAsBoolean()) {
+            blocktags = state.getTags().toArray();
+            for (Object tag : blocktags) {
+                if (tag.equals(Tags.Blocks.ORES)) {
+                    return state.getBlock();
+                }
+            }
         }
         //In creative allow to find the clicked block
         return isCreative ? state.getBlock() : null;

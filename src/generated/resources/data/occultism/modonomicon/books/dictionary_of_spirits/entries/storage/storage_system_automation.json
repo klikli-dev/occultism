@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "occultism:storage",
+  "category": "storage",
   "description": "",
   "hide_while_locked": false,
   "icon": {
@@ -57,7 +57,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:storage/storage_controller",
+      "entry": "storage/storage_controller",
       "line_enabled": true,
       "line_reversed": false
     }

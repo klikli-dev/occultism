@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "occultism:familiar_rituals",
+  "category": "familiar_rituals",
   "condition": {
     "type": "modonomicon:true"
   },
@@ -76,31 +76,6 @@
         "type": "modonomicon:none"
       },
       "default_rotation": -45.0,
-      "entity_id": "occultism:demonic_wife",
-      "name": "book.occultism.dictionary_of_spirits.familiar_rituals.demonic_partner.wife.title",
-      "offset": 0.0,
-      "rotate": true,
-      "scale": 1.0,
-      "text": ""
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/summon_demonic_wife",
-      "text": "",
-      "title1": "",
-      "title2": ""
-    },
-    {
-      "type": "modonomicon:entity",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "default_rotation": -45.0,
       "entity_id": "occultism:demonic_husband",
       "name": "book.occultism.dictionary_of_spirits.familiar_rituals.demonic_partner.husband.title",
       "offset": 0.0,
@@ -118,12 +93,37 @@
       "text": "",
       "title1": "",
       "title2": ""
+    },
+    {
+      "type": "modonomicon:entity",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "default_rotation": -45.0,
+      "entity_id": "occultism:demonic_wife",
+      "name": "book.occultism.dictionary_of_spirits.familiar_rituals.demonic_partner.wife.title",
+      "offset": 0.0,
+      "rotate": true,
+      "scale": 1.0,
+      "text": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/summon_demonic_wife",
+      "text": "",
+      "title1": "",
+      "title2": ""
     }
   ],
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:familiar_rituals/overview",
+      "entry": "familiar_rituals/overview",
       "line_enabled": true,
       "line_reversed": false
     }

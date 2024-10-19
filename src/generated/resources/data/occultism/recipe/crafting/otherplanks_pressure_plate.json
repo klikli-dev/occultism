@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "o": {
+      "item": "occultism:otherplanks"
+    }
+  },
+  "pattern": [
+    "oo"
+  ],
+  "result": {
+    "count": 1,
+    "id": "occultism:otherplanks_pressure_plate"
+  }
+}

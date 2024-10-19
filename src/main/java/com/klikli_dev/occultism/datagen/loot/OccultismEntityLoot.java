@@ -290,7 +290,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .setRolls(ConstantValue.exactly(1.0F))
                                 .add(
                                         LootItem.lootTableItem(Items.ECHO_SHARD)
-                                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))
+                                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(6.0F, 9.0F))
                                                 )
                                 )
                 )

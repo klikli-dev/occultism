@@ -55,7 +55,7 @@ public class StableWormholeBlockItem extends BlockItem {
     public void verifyComponentsAfterLoad(ItemStack pStack) {
         super.verifyComponentsAfterLoad(pStack);
 
-        if(pStack.has(DataComponents.BLOCK_ENTITY_DATA) && pStack.get(DataComponents.BLOCK_ENTITY_DATA).contains("linkedStorageControllerPosition"))
+        if(pStack.has(OccultismDataComponents.LINKED_STORAGE_CONTROLLER))
             pStack.set(DataComponents.RARITY, Rarity.RARE);
         else
             pStack.set(DataComponents.RARITY, Rarity.COMMON);
@@ -73,10 +73,13 @@ public class StableWormholeBlockItem extends BlockItem {
                 if (blockEntity instanceof IStorageController) {
                     //if this is a storage controller, write the position into the block entity tag that will be used to spawn the block entity.
 
-
-                    CustomData.update(DataComponents.BLOCK_ENTITY_DATA, stack, (data) -> {
-                        data.put("linkedStorageControllerPosition", GlobalBlockPos.from(blockEntity).serializeNBT(level.registryAccess()));
-                    });
+                    //if we already have block entity data stored, we update the linkedStorageControllerPosition
+                    //we don't do this if we do not have a block entity data, because an incomplete BE data causes a crash on serialization
+                    if(stack.has(DataComponents.BLOCK_ENTITY_DATA)){
+                        CustomData.update(DataComponents.BLOCK_ENTITY_DATA, stack, (data) -> {
+                            data.put("linkedStorageControllerPosition", GlobalBlockPos.from(blockEntity).serializeNBT(level.registryAccess()));
+                        });
+                    }
 
                     stack.set(OccultismDataComponents.LINKED_STORAGE_CONTROLLER, GlobalBlockPos.from(blockEntity));
                     stack.set(DataComponents.RARITY, Rarity.RARE);
@@ -95,9 +98,9 @@ public class StableWormholeBlockItem extends BlockItem {
     public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
         super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
 
-        if (pStack.has(DataComponents.BLOCK_ENTITY_DATA) && pStack.get(DataComponents.BLOCK_ENTITY_DATA).contains("linkedStorageControllerPosition")) {
-            GlobalBlockPos globalPos = GlobalBlockPos.from(pContext.registries(), pStack.get(DataComponents.BLOCK_ENTITY_DATA).getUnsafe()
-                    .getCompound("linkedStorageControllerPosition"));
+        if (pStack.has(OccultismDataComponents.LINKED_STORAGE_CONTROLLER)) {
+            GlobalBlockPos globalPos = pStack.get(OccultismDataComponents.LINKED_STORAGE_CONTROLLER);
+
             String formattedPosition =
                     ChatFormatting.GOLD.toString() + ChatFormatting.BOLD + globalPos.getPos().toString() +
                             ChatFormatting.RESET;

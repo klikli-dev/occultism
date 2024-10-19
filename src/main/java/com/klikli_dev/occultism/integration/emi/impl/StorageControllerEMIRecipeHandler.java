@@ -123,7 +123,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
         var ingredientPriorities = getIngredientPriorities(menu, ENTRY_COMPARATOR);
 
         var templateItems = NonNullList.withSize(9, ItemStack.EMPTY);
-        var ingredients = ensure3by3CraftingMatrix(recipe);
+        var ingredients = EmiHelper.ensure3by3CraftingMatrix(recipe);
         for (int i = 0; i < ingredients.size(); i++) {
             var ingredient = ingredients.get(i);
             if (!ingredient.isEmpty()) {
@@ -163,37 +163,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
         return result;
     }
 
-    public static NonNullList<Ingredient> ensure3by3CraftingMatrix(Recipe<?> recipe) {
-        var ingredients = recipe.getIngredients();
-        var expandedIngredients = NonNullList.withSize(9, Ingredient.EMPTY);
 
-        Preconditions.checkArgument(ingredients.size() <= 9);
-
-        // shaped recipes can be smaller than 3x3, expand to 3x3 to match the crafting
-        // matrix
-        if (recipe instanceof ShapedRecipe shapedRecipe) {
-            var width = shapedRecipe.getWidth();
-            var height = shapedRecipe.getHeight();
-            Preconditions.checkArgument(width <= 3 && height <= 3);
-
-            for (var h = 0; h < height; h++) {
-                for (var w = 0; w < width; w++) {
-                    var source = w + h * width;
-                    var target = w + h * 3;
-                    var i = ingredients.get(source);
-                    expandedIngredients.set(target, i);
-                }
-            }
-        }
-        // Anything else should be a flat list
-        else {
-            for (var i = 0; i < ingredients.size(); i++) {
-                expandedIngredients.set(i, ingredients.get(i));
-            }
-        }
-
-        return expandedIngredients;
-    }
 
     private static void renderMissingAndCraftableSlotOverlays(Map<Integer, SlotWidget> inputSlots,
                                                               GuiGraphics guiGraphics,

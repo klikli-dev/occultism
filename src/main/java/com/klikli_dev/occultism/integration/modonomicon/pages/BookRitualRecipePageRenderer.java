@@ -10,9 +10,13 @@ import com.klikli_dev.modonomicon.book.page.BookRecipePage;
 import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
+import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionWrapperFactory;
+import com.klikli_dev.occultism.crafting.recipe.conditionextension.OccultismConditionContext;
+import com.klikli_dev.occultism.crafting.recipe.conditionextension.RitualRecipeConditionDescriptionVisitor;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.Util;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Vec3i;
@@ -247,9 +251,37 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
 
             guiGraphics.pose().popPose();
         }
+
+        if (recipe.getCondition() != null) {
+            guiGraphics.pose().pushPose();
+
+            int y = recipeY + 15 + 9;
+            int x = recipeX - 15;
+            int maxWidth = BookEntryScreen.MAX_TITLE_WIDTH;
+
+            var visitor = new RitualRecipeConditionDescriptionVisitor();
+            var condition = ConditionWrapperFactory.wrap(recipe.getCondition());
+            if(condition!=null) {
+                var text = condition.accept(visitor, OccultismConditionContext.EMPTY);
+
+                var scale = Math.min(1.0f, (float) maxWidth / (float) this.font.width(text));
+                if (scale < 1) {
+                    guiGraphics.pose().translate(x - x * scale, y - y * scale, 0);
+                    guiGraphics.pose().scale(scale, scale, scale);
+                }
+
+                this.drawScaledStringNoShadow(guiGraphics, text, x, y, 0x000000, scale);
+
+            }
+            guiGraphics.pose().popPose();
+        }
     }
 
     public void drawScaledStringNoShadow(GuiGraphics guiGraphics, String s, int x, int y, int color, float scale) {
         guiGraphics.drawString(this.font, s, x, y + (this.font.lineHeight * (1 - scale)), color, false);
+    }
+
+    public void drawScaledStringNoShadow(GuiGraphics guiGraphics, Component s, int x, int y, int color, float scale) {
+        guiGraphics.drawString(this.font, s.getVisualOrderText(), x, y + (this.font.lineHeight * (1 - scale)), color, false);
     }
 }

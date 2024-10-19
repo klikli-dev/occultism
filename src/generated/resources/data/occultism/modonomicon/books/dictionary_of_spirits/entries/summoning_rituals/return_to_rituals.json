@@ -1,8 +1,8 @@
 {
   "background_u_index": 1,
   "background_v_index": 2,
-  "category": "occultism:summoning_rituals",
-  "category_to_open": "occultism:rituals",
+  "category": "summoning_rituals",
+  "category_to_open": "rituals",
   "condition": {
     "type": "modonomicon:true"
   },
@@ -17,7 +17,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:summoning_rituals/overview",
+      "entry": "summoning_rituals/overview",
       "line_enabled": true,
       "line_reversed": false
     }

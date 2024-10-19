@@ -28,7 +28,7 @@ import com.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
@@ -38,6 +38,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 
 /**
  * Based on https://github.com/McJty/YouTubeModding14
+ * and https://github.com/Tutorials-By-Kaupenjoe
  */
 public class StandardBlockStateProvider extends BlockStateProvider {
 
@@ -70,6 +71,66 @@ public class StandardBlockStateProvider extends BlockStateProvider {
                 this.models().getExistingFile(this.modLoc("block/storage_stabilizer_tier3")));
         this.directionalBlock(OccultismBlocks.STORAGE_STABILIZER_TIER4.get(),
                 this.models().getExistingFile(this.modLoc("block/storage_stabilizer_tier4")));
+
+        stairsBlock(((StairBlock) OccultismBlocks.OTHERPLANKS_STAIRS.get()), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
+        fenceBlock(((FenceBlock) OccultismBlocks.OTHERPLANKS_FENCE.get()), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
+        fenceGateBlock(((FenceGateBlock) OccultismBlocks.OTHERPLANKS_FENCE_GATE.get()), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
+        doorBlockWithRenderType(((DoorBlock) OccultismBlocks.OTHERPLANKS_DOOR.get()), modLoc("block/otherplanks_door_bottom"), modLoc("block/otherplanks_door_top"), "cutout");
+        trapdoorBlockWithRenderType(((TrapDoorBlock) OccultismBlocks.OTHERPLANKS_TRAPDOOR.get()), modLoc("block/otherplanks_trapdoor"), true, "cutout");
+        pressurePlateBlock(((PressurePlateBlock) OccultismBlocks.OTHERPLANKS_PRESSURE_PLATE.get()), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
+        buttonBlock(((ButtonBlock) OccultismBlocks.OTHERPLANKS_BUTTON.get()), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
+
+        stairsBlock(((StairBlock) OccultismBlocks.OTHERSTONE_STAIRS.get()), blockTexture(OccultismBlocks.OTHERSTONE.get()));
+        wallBlock(((WallBlock) OccultismBlocks.OTHERSTONE_WALL.get()), blockTexture(OccultismBlocks.OTHERSTONE.get()));
+        pressurePlateBlock(((PressurePlateBlock) OccultismBlocks.OTHERSTONE_PRESSURE_PLATE.get()), blockTexture(OccultismBlocks.OTHERSTONE.get()));
+        buttonBlock(((ButtonBlock) OccultismBlocks.OTHERSTONE_BUTTON.get()), blockTexture(OccultismBlocks.OTHERSTONE.get()));
+
+        stairsBlock(((StairBlock) OccultismBlocks.OTHERCOBBLESTONE_STAIRS.get()), blockTexture(OccultismBlocks.OTHERCOBBLESTONE.get()));
+        slabBlock(((SlabBlock) OccultismBlocks.OTHERCOBBLESTONE_SLAB.get()), blockTexture(OccultismBlocks.OTHERCOBBLESTONE.get()), blockTexture(OccultismBlocks.OTHERCOBBLESTONE.get()));
+        wallBlock(((WallBlock) OccultismBlocks.OTHERCOBBLESTONE_WALL.get()), blockTexture(OccultismBlocks.OTHERCOBBLESTONE.get()));
+
+        stairsBlock(((StairBlock) OccultismBlocks.POLISHED_OTHERSTONE_STAIRS.get()), blockTexture(OccultismBlocks.POLISHED_OTHERSTONE.get()));
+        slabBlock(((SlabBlock) OccultismBlocks.POLISHED_OTHERSTONE_SLAB.get()), blockTexture(OccultismBlocks.POLISHED_OTHERSTONE.get()), blockTexture(OccultismBlocks.POLISHED_OTHERSTONE.get()));
+        wallBlock(((WallBlock) OccultismBlocks.POLISHED_OTHERSTONE_WALL.get()), blockTexture(OccultismBlocks.POLISHED_OTHERSTONE.get()));
+
+        stairsBlock(((StairBlock) OccultismBlocks.OTHERSTONE_BRICKS_STAIRS.get()), blockTexture(OccultismBlocks.OTHERSTONE_BRICKS.get()));
+        slabBlock(((SlabBlock) OccultismBlocks.OTHERSTONE_BRICKS_SLAB.get()), blockTexture(OccultismBlocks.OTHERSTONE_BRICKS.get()), blockTexture(OccultismBlocks.OTHERSTONE_BRICKS.get()));
+        wallBlock(((WallBlock) OccultismBlocks.OTHERSTONE_BRICKS_WALL.get()), blockTexture(OccultismBlocks.OTHERSTONE_BRICKS.get()));
+
+        this.simpleBlock(OccultismBlocks.LARGE_CANDLE.get(),
+                this.models().getExistingFile(this.modLoc("block/large_candle")));
+        this.simpleBlock(OccultismBlocks.LARGE_CANDLE_WHITE.get(),
+                this.models().getExistingFile(this.modLoc("block/large_candle_white")));
+        this.simpleBlock(OccultismBlocks.LARGE_CANDLE_LIGHT_GRAY.get(),
+                this.models().getExistingFile(this.modLoc("block/large_candle_light_gray")));
+        this.simpleBlock(OccultismBlocks.LARGE_CANDLE_GRAY.get(),
+                this.models().getExistingFile(this.modLoc("block/large_candle_gray")));
+        this.simpleBlock(OccultismBlocks.LARGE_CANDLE_BLACK.get(),
+                this.models().getExistingFile(this.modLoc("block/large_candle_black")));
+        this.simpleBlock(OccultismBlocks.LARGE_CANDLE_BROWN.get(),
+                this.models().getExistingFile(this.modLoc("block/large_candle_brown")));
+        this.simpleBlock(OccultismBlocks.LARGE_CANDLE_RED.get(),
+                this.models().getExistingFile(this.modLoc("block/large_candle_red")));
+        this.simpleBlock(OccultismBlocks.LARGE_CANDLE_ORANGE.get(),
+                this.models().getExistingFile(this.modLoc("block/large_candle_orange")));
+        this.simpleBlock(OccultismBlocks.LARGE_CANDLE_YELLOW.get(),
+                this.models().getExistingFile(this.modLoc("block/large_candle_yellow")));
+        this.simpleBlock(OccultismBlocks.LARGE_CANDLE_LIME.get(),
+                this.models().getExistingFile(this.modLoc("block/large_candle_lime")));
+        this.simpleBlock(OccultismBlocks.LARGE_CANDLE_GREEN.get(),
+                this.models().getExistingFile(this.modLoc("block/large_candle_green")));
+        this.simpleBlock(OccultismBlocks.LARGE_CANDLE_CYAN.get(),
+                this.models().getExistingFile(this.modLoc("block/large_candle_cyan")));
+        this.simpleBlock(OccultismBlocks.LARGE_CANDLE_BLUE.get(),
+                this.models().getExistingFile(this.modLoc("block/large_candle_blue")));
+        this.simpleBlock(OccultismBlocks.LARGE_CANDLE_LIGHT_BLUE.get(),
+                this.models().getExistingFile(this.modLoc("block/large_candle_light_blue")));
+        this.simpleBlock(OccultismBlocks.LARGE_CANDLE_PINK.get(),
+                this.models().getExistingFile(this.modLoc("block/large_candle_pink")));
+        this.simpleBlock(OccultismBlocks.LARGE_CANDLE_MAGENTA.get(),
+                this.models().getExistingFile(this.modLoc("block/large_candle_magenta")));
+        this.simpleBlock(OccultismBlocks.LARGE_CANDLE_PURPLE.get(),
+                this.models().getExistingFile(this.modLoc("block/large_candle_purple")));
     }
 
     protected void generateStableWormholeState(Block block) {

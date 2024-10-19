@@ -2,7 +2,9 @@
   "values": [
     "occultism:otherstone",
     "occultism:otherstone_natural",
+    "occultism:otherstone_stairs",
     "occultism:otherstone_slab",
+    "occultism:otherstone_pressure_plate",
     "occultism:otherstone_pedestal",
     "occultism:storage_controller_base",
     "occultism:sacrificial_bowl",
@@ -22,6 +24,17 @@
     "occultism:raw_silver_block",
     "occultism:iesnium_block",
     "occultism:raw_iesnium_block",
-    "occultism:spirit_lantern"
+    "occultism:spirit_lantern",
+    "occultism:othercobblestone",
+    "occultism:othercobblestone_stairs",
+    "occultism:othercobblestone_slab",
+    "occultism:polished_otherstone",
+    "occultism:polished_otherstone_stairs",
+    "occultism:polished_otherstone_slab",
+    "occultism:otherstone_bricks",
+    "occultism:otherstone_bricks_stairs",
+    "occultism:otherstone_bricks_slab",
+    "occultism:chiseled_otherstone_bricks",
+    "occultism:cracked_otherstone_bricks"
   ]
 }

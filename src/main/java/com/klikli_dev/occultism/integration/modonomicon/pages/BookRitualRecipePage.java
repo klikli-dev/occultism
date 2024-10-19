@@ -28,11 +28,11 @@ public class BookRitualRecipePage extends BookRecipePage<RitualRecipe> {
         super(OccultismRecipes.RITUAL_TYPE.get(), title1, recipeId1, title2, recipeId2, text, anchor, condition);
     }
 
-    public static BookRitualRecipePage fromJson(JsonObject json, HolderLookup.Provider provider) {
+    public static BookRitualRecipePage fromJson(ResourceLocation conditionParentId, JsonObject json, HolderLookup.Provider provider) {
         var common = BookRecipePage.commonFromJson(json, provider);
         var anchor = GsonHelper.getAsString(json, "anchor", "");
         var condition = json.has("condition")
-                ? BookCondition.fromJson(json.getAsJsonObject("condition"), provider)
+                ? BookCondition.fromJson(conditionParentId, json.getAsJsonObject("condition"), provider)
                 : new BookNoneCondition();
         return new BookRitualRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
     }

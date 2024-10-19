@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "occultism:storage",
+  "category": "storage",
   "description": "",
   "hide_while_locked": false,
   "icon": {
@@ -49,7 +49,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "multiblock_id": "occultism:storage_stabilizer_demo",
+      "multiblock_id": "storage_stabilizer_demo",
       "multiblock_name": "book.occultism.dictionary_of_spirits.storage.storage_stabilizer.demo.title",
       "show_visualize_button": true,
       "text": ""
@@ -58,7 +58,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:storage/storage_controller",
+      "entry": "storage/storage_controller",
       "line_enabled": true,
       "line_reversed": false
     }

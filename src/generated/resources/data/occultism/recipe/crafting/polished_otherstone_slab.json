@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "o": {
+      "item": "occultism:polished_otherstone"
+    }
+  },
+  "pattern": [
+    "ooo"
+  ],
+  "result": {
+    "count": 6,
+    "id": "occultism:polished_otherstone_slab"
+  }
+}

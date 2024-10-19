@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "occultism:pentacles",
+  "category": "pentacles",
   "condition": {
     "type": "modonomicon:true"
   },
@@ -30,7 +30,7 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "item": "occultism:candle_white"
+        "item": "occultism:large_candle"
       },
       "text": "book.occultism.dictionary_of_spirits.pentacles.paraphernalia.candle.text",
       "title": ""
@@ -85,7 +85,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:pentacles/pentacles_overview",
+      "entry": "pentacles/pentacles_overview",
       "line_enabled": true,
       "line_reversed": false
     }

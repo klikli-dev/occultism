@@ -24,6 +24,8 @@ package com.klikli_dev.occultism.handlers;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.client.gui.DimensionalMineshaftScreen;
+import com.klikli_dev.occultism.client.gui.satchel.RitualSatchelScreen;
+import com.klikli_dev.occultism.client.gui.satchel.SatchelScreen;
 import com.klikli_dev.occultism.client.gui.spirit.SpiritGui;
 import com.klikli_dev.occultism.client.gui.spirit.SpiritTransporterGui;
 import com.klikli_dev.occultism.client.gui.storage.*;
@@ -51,14 +53,14 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
+import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.monster.Drowned;
-import net.minecraft.world.entity.monster.Zombie;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -209,6 +211,8 @@ public class ClientSetupEventHandler {
         BlockEntityRenderers.register(OccultismBlockEntities.STORAGE_CONTROLLER.get(), StorageControllerGeoRenderer::new);
         BlockEntityRenderers.register(OccultismBlockEntities.SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
         BlockEntityRenderers.register(OccultismBlockEntities.GOLDEN_SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
+        BlockEntityRenderers.register(OccultismBlockEntities.OTHERPLANKS_SIGN.get(), SignRenderer::new);
+        BlockEntityRenderers.register(OccultismBlockEntities.OTHERPLANKS_HANGING_SIGN.get(), HangingSignRenderer::new);
 
         registerItemModelProperties(event);
 
@@ -227,6 +231,8 @@ public class ClientSetupEventHandler {
         event.register(OccultismContainers.SPIRIT_TRANSPORTER.get(), SpiritTransporterGui::new);
         event.register(OccultismContainers.OTHERWORLD_MINER.get(), DimensionalMineshaftScreen::new);
         event.register(OccultismContainers.SATCHEL.get(), SatchelScreen::new);
+        event.register(OccultismContainers.RITUAL_SATCHEL_T1.get(), RitualSatchelScreen::new);
+        event.register(OccultismContainers.RITUAL_SATCHEL_T2.get(), RitualSatchelScreen::new);
     }
 
     public static void onRegisterClientExtensions(RegisterClientExtensionsEvent event) {

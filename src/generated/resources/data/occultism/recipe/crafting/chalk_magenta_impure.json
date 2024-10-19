@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "occultism:chalk_white_impure"
+    },
+    {
+      "item": "minecraft:dragon_breath"
+    },
+    {
+      "tag": "c:gems/amethyst"
+    },
+    {
+      "item": "minecraft:end_crystal"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "occultism:chalk_magenta_impure"
+  }
+}

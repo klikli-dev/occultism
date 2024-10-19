@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "occultism:crafting_rituals",
+  "category": "crafting_rituals",
   "condition": {
     "type": "modonomicon:true"
   },
@@ -39,13 +39,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:crafting_rituals/craft_stabilizer_tier3",
+      "entry": "crafting_rituals/craft_stabilizer_tier3",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
+  "sort_number": 14,
   "x": 4,
   "y": 5
 }

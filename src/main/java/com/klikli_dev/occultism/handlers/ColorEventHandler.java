@@ -54,6 +54,42 @@ public class ColorEventHandler {
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_RED.get().getColor(),
                         OccultismBlocks.CHALK_GLYPH_RED.get());
+        event.getBlockColors()
+                .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY.get().getColor(),
+                        OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY.get());
+        event.getBlockColors()
+                .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_GRAY.get().getColor(),
+                        OccultismBlocks.CHALK_GLYPH_GRAY.get());
+        event.getBlockColors()
+                .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_BLACK.get().getColor(),
+                        OccultismBlocks.CHALK_GLYPH_BLACK.get());
+        event.getBlockColors()
+                .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_BROWN.get().getColor(),
+                        OccultismBlocks.CHALK_GLYPH_BROWN.get());
+        event.getBlockColors()
+                .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_ORANGE.get().getColor(),
+                        OccultismBlocks.CHALK_GLYPH_ORANGE.get());
+        event.getBlockColors()
+                .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_LIME.get().getColor(),
+                        OccultismBlocks.CHALK_GLYPH_LIME.get());
+        event.getBlockColors()
+                .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_GREEN.get().getColor(),
+                        OccultismBlocks.CHALK_GLYPH_GREEN.get());
+        event.getBlockColors()
+                .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_CYAN.get().getColor(),
+                        OccultismBlocks.CHALK_GLYPH_CYAN.get());
+        event.getBlockColors()
+                .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_LIGHT_BLUE.get().getColor(),
+                        OccultismBlocks.CHALK_GLYPH_LIGHT_BLUE.get());
+        event.getBlockColors()
+                .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_BLUE.get().getColor(),
+                        OccultismBlocks.CHALK_GLYPH_BLUE.get());
+        event.getBlockColors()
+                .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_MAGENTA.get().getColor(),
+                        OccultismBlocks.CHALK_GLYPH_MAGENTA.get());
+        event.getBlockColors()
+                .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_PINK.get().getColor(),
+                        OccultismBlocks.CHALK_GLYPH_PINK.get());
 
         //Otherworld leaves have a colored texture, so return white tint;
         //but while covered the oak leaves need their vanilla tint

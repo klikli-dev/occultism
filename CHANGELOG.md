@@ -4,6 +4,169 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.161.4] - 2024-10-16
+### :bug: Bug Fixes
+- [`417fab7`](https://github.com/klikli-dev/occultism/commit/417fab7712deb3d4aab79a81ff3ffcf2bad7eca1) - add missing mining tool tag to pickaxes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`a5a9ef7`](https://github.com/klikli-dev/occultism/commit/a5a9ef79833666d7dbb71e4b41d25880399b93e5) - cthulhu is even more floaty than he should be *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.161.3] - 2024-10-08
+### :bug: Bug Fixes
+- [`dd0187b`](https://github.com/klikli-dev/occultism/commit/dd0187bfa497d7f36f581601a96c038a72fe277d) - memory leak *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`e871a21`](https://github.com/klikli-dev/occultism/commit/e871a216742ddc9719c16c9d43a8a0cae87771c0) - generics *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.161.2] - 2024-10-07
+### :bug: Bug Fixes
+- [`12f7783`](https://github.com/klikli-dev/occultism/commit/12f77833c7848b62bc975018f08f162235e50a06) - wild slime hitbox *(PR [#1226](https://github.com/klikli-dev/occultism/pull/1226) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+  - :arrow_lower_right: *fixes issue [#1225](https://github.com/klikli-dev/occultism/issues/1225) opened by [@YocyCraft](https://github.com/YocyCraft)*
+
+
+## [release/v1.21.1-1.161.1] - 2024-10-06
+### :bug: Bug Fixes
+- [`395ff34`](https://github.com/klikli-dev/occultism/commit/395ff344104e61a00f33ad25f76733c1d4705fd8) - emi transfer handler not working on servers *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`6c18c4a`](https://github.com/klikli-dev/occultism/commit/6c18c4acc8bf0abfddf4566019c1a6b422b5fd95) - update dependencies *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.161.0] - 2024-09-29
+### :sparkles: New Features
+- [`eca3dd9`](https://github.com/klikli-dev/occultism/commit/eca3dd95b3fb61b7eb32a0be5f27be3445094e37) - use codec merging to switch back to old ritual format while keeping new condition field *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.160.1] - 2024-09-29
+### :wrench: Chores
+- [`87afbc2`](https://github.com/klikli-dev/occultism/commit/87afbc28b43bbd4de1dffed78dbf116ec8b057eb) - update t2 satchel recipe to new format *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.160.0] - 2024-09-28
+### :sparkles: New Features
+- [`4920269`](https://github.com/klikli-dev/occultism/commit/492026948477690e327c201a5c564a5ec7e640c4) - flexible ritual conditions *(PR [#1219](https://github.com/klikli-dev/occultism/pull/1219) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *addresses issue [#1210](https://github.com/klikli-dev/occultism/issues/1210) opened by [@Drackion](https://github.com/Drackion)*
+
+### :wrench: Chores
+- [`4e98f67`](https://github.com/klikli-dev/occultism/commit/4e98f6753d61403d5efcb87368d63bd7c793d2e5) - improve github action to allow manual ref input *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.159.7] - 2024-09-27
+### :bug: Bug Fixes
+- [`5b7b8c2`](https://github.com/klikli-dev/occultism/commit/5b7b8c2a3aa6a277f207edd2195032af57971099) - change satchel recipe not to consume t1 satchel *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.159.6] - 2024-09-27
+### :bug: Bug Fixes
+- [`0a43cbf`](https://github.com/klikli-dev/occultism/commit/0a43cbff75cac37cf18cd396f2a399ed7411c6a5) - add missing ritual text *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.159.5] - 2024-09-18
+### :wrench: Chores
+- [`70f6789`](https://github.com/klikli-dev/occultism/commit/70f6789888ef0b81ff18713731c46a4926b90381) - adjust demonic partner book text *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.159.3] - 2024-09-18
+### :bug: Bug Fixes
+- [`303be1b`](https://github.com/klikli-dev/occultism/commit/303be1be885ee05ca5a0cfa5087e788b6877a2b1) - item tags for ritual materials *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.159.1] - 2024-09-15
+### :bug: Bug Fixes
+- [`421ddbb`](https://github.com/klikli-dev/occultism/commit/421ddbb70a11ae614899496aea92a9baea7f1961) - remove accidental reference to theurgy's resource location factory *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.159.0] - 2024-09-15
+### :sparkles: New Features
+- [`2f5be97`](https://github.com/klikli-dev/occultism/commit/2f5be9734d9ada20ec9dc7942ccc6fd56ccbc12b) - Ritual Satchels - speed up drawing pentacles! *(PR [#1209](https://github.com/klikli-dev/occultism/pull/1209) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *addresses issue [#1208](https://github.com/klikli-dev/occultism/issues/1208) opened by [@klikli-dev](https://github.com/klikli-dev)*
+
+
+## [release/v1.21.1-1.158.0] - 2024-09-14
+### :sparkles: New Features
+- [`dcecfb1`](https://github.com/klikli-dev/occultism/commit/dcecfb1baaaad15369d00808e14369e23de47536) - move dimensional miner config to startup config *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.157.1] - 2024-09-12
+### :bug: Bug Fixes
+- [`986741c`](https://github.com/klikli-dev/occultism/commit/986741c37c185f9f7f060cc14f079522fcd18a2c) - tallow not dropping *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.157.0] - 2024-09-11
+### :sparkles: New Features
+- [`ff9d595`](https://github.com/klikli-dev/occultism/commit/ff9d595c69069b4a51ced6e21b6a3e1b55916889) - update to latest modonomicon *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.156.0] - 2024-09-10
+### :sparkles: New Features
+- [`6f54f8a`](https://github.com/klikli-dev/occultism/commit/6f54f8a1c1f3620bb91b37c35c0dda3816e2e6bd) - Server config to allow divination rod in survival for `c:ores` and better slab/wall recipe *(PR [#1206](https://github.com/klikli-dev/occultism/pull/1206) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+
+
+## [release/v1.21.1-1.155.1] - 2024-09-07
+### :bug: Bug Fixes
+- [`22193ca`](https://github.com/klikli-dev/occultism/commit/22193ca2ac38793887f86af1afd5bedec9be7041) - Stonecutter recipe and fix otherworld log name ([#1204](https://github.com/klikli-dev/occultism/pull/1204)) - thanks @Eqis-Edu *(commit by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+
+### :wrench: Chores
+- [`872a4c2`](https://github.com/klikli-dev/occultism/commit/872a4c2b9550d7f38f99ba9142c8ac0ded89dd87) - run datagen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.155.0] - 2024-09-06
+### :sparkles: New Features
+- [`fed9138`](https://github.com/klikli-dev/occultism/commit/fed91382792c40d61370e279da865c139112044e) - Deco Update ([#1201](https://github.com/klikli-dev/occultism/pull/1201)) - Thanks @Eqis-Edu *(commit by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+
+
+## [release/v1.21.1-1.154.1] - 2024-09-02
+### :bug: Bug Fixes
+- [`fae2f64`](https://github.com/klikli-dev/occultism/commit/fae2f647ea9dc34efb2d5e5c7aabadea6eb7c557) - typo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`9c60a73`](https://github.com/klikli-dev/occultism/commit/9c60a7313117473f8b5a440a45b6440e6873395c) - drop dual version support *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.154.0] - 2024-08-31
+### :sparkles: New Features
+- [`c654e07`](https://github.com/klikli-dev/occultism/commit/c654e0785105746771a5e079a2eb7221f5ecf268) - allow broken links in dictionary of spirits (makes translations more flexible) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.153.5] - 2024-08-30
+### :bug: Bug Fixes
+- [`16f7456`](https://github.com/klikli-dev/occultism/commit/16f74566b88993145381110fa56dded74877efc8) - github tag version not used in jar versioning *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.153.4] - 2024-08-29
+### :wrench: Chores
+- [`08e1618`](https://github.com/klikli-dev/occultism/commit/08e161854aac68ee090400089e593662fcb738d6) - improve requiresItemUse handling in ritual recipe *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.153.3] - 2024-08-29
+### :bug: Bug Fixes
+- [`cf2553e`](https://github.com/klikli-dev/occultism/commit/cf2553e991ab547d9fd363ba23e6aeca5eb4cb65) - storage controller does not save any items, if serializing one item errors out *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`64c27a0`](https://github.com/klikli-dev/occultism/commit/64c27a047fa9a20baeddbcc655fe99c7e43b0312) - stable wormhole causes serialization errors *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.153.2] - 2024-08-29
+### :wrench: Chores
+- [`e69d568`](https://github.com/klikli-dev/occultism/commit/e69d568e4b4eac36b9fc153dfc9e444845afaba4) - singularize occultism knife tag *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.153.1] - 2024-08-22
+### :bug: Bug Fixes
+- [`bf51900`](https://github.com/klikli-dev/occultism/commit/bf51900d5f03c8f2566ac369c28e4479a04e8929) - pickaxe durabilities *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`c403bf5`](https://github.com/klikli-dev/occultism/commit/c403bf53aecccc6be752d3538eb6ff62b1a3450b) - add maven local repo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`86adf51`](https://github.com/klikli-dev/occultism/commit/86adf517c548db5d8fb37edf6bb500e1c1330617) - ensure mod_version in resource files is not cached *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.153.0] - 2024-08-21
+### :sparkles: New Features
+- [`09e9713`](https://github.com/klikli-dev/occultism/commit/09e9713db7549818c39fb47e69a153f706f0491b) - support ingredient notation in item recipe results *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`5900e7b`](https://github.com/klikli-dev/occultism/commit/5900e7bfa315925cec068469653e42f86132a564) - remove deprecated calls to serializeNBT *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`ab178e5`](https://github.com/klikli-dev/occultism/commit/ab178e5a413e8488e8f5cc0a988eaa852fb12c80) - enable theurgy runtime dep for book datagen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.152.0] - 2024-08-18
 ### :sparkles: New Features
 - [`98e2ec5`](https://github.com/klikli-dev/occultism/commit/98e2ec59bc9b62b728dd60bf6ac47a3f5a52f211) - add transfer handler for storage actuator for EMI *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1614,3 +1777,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.151.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.151.1...release/v1.21.1-1.151.2
 [release/v1.21.1-1.151.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.151.2...release/v1.21.1-1.151.3
 [release/v1.21.1-1.152.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.151.3...release/v1.21.1-1.152.0
+[release/v1.21.1-1.153.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.152.0...release/v1.21.1-1.153.0
+[release/v1.21.1-1.153.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.153.0...release/v1.21.1-1.153.1
+[release/v1.21.1-1.153.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.153.1...release/v1.21.1-1.153.2
+[release/v1.21.1-1.153.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.153.2...release/v1.21.1-1.153.3
+[release/v1.21.1-1.153.4]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.153.3...release/v1.21.1-1.153.4
+[release/v1.21.1-1.153.5]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.153.4...release/v1.21.1-1.153.5
+[release/v1.21.1-1.154.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.153.6...release/v1.21.1-1.154.0
+[release/v1.21.1-1.154.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.154.0...release/v1.21.1-1.154.1
+[release/v1.21.1-1.155.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.154.1...release/v1.21.1-1.155.0
+[release/v1.21.1-1.155.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.155.0...release/v1.21.1-1.155.1
+[release/v1.21.1-1.156.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.155.1...release/v1.21.1-1.156.0
+[release/v1.21.1-1.157.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.156.0...release/v1.21.1-1.157.0
+[release/v1.21.1-1.157.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.157.0...release/v1.21.1-1.157.1
+[release/v1.21.1-1.158.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.157.1...release/v1.21.1-1.158.0
+[release/v1.21.1-1.159.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.158.0...release/v1.21.1-1.159.0
+[release/v1.21.1-1.159.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.159.0...release/v1.21.1-1.159.1
+[release/v1.21.1-1.159.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.159.2...release/v1.21.1-1.159.3
+[release/v1.21.1-1.159.5]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.159.3...release/v1.21.1-1.159.5
+[release/v1.21.1-1.159.6]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.159.5...release/v1.21.1-1.159.6
+[release/v1.21.1-1.159.7]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.159.6...release/v1.21.1-1.159.7
+[release/v1.21.1-1.160.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.159.7...release/v1.21.1-1.160.0
+[release/v1.21.1-1.160.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.160.0...release/v1.21.1-1.160.1
+[release/v1.21.1-1.161.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.160.1...release/v1.21.1-1.161.0
+[release/v1.21.1-1.161.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.161.0...release/v1.21.1-1.161.1
+[release/v1.21.1-1.161.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.161.1...release/v1.21.1-1.161.2
+[release/v1.21.1-1.161.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.161.2...release/v1.21.1-1.161.3
+[release/v1.21.1-1.161.4]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.161.3...release/v1.21.1-1.161.4

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_chalk_white": {
+      "conditions": {
+        "items": [
+          {
+            "items": "occultism:chalk_white_impure"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crafting/chalk_pink_impure"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_chalk_white"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crafting/chalk_pink_impure"
+    ]
+  }
+}

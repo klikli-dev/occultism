@@ -35,11 +35,11 @@ public class BookBindingCraftingRecipePage extends BookRecipePage<Recipe<?>> {
         this.unboundBook = unboundBook;
     }
 
-    public static BookBindingCraftingRecipePage fromJson(JsonObject json, HolderLookup.Provider provider) {
+    public static BookBindingCraftingRecipePage fromJson(ResourceLocation conditionParentId, JsonObject json, HolderLookup.Provider provider) {
         var common = BookRecipePage.commonFromJson(json, provider);
         var anchor = GsonHelper.getAsString(json, "anchor", "");
         var condition = json.has("condition")
-                ? BookCondition.fromJson(json.getAsJsonObject("condition"), provider)
+                ? BookCondition.fromJson(conditionParentId, json.getAsJsonObject("condition"), provider)
                 : new BookNoneCondition();
 
         var unboundBook = ItemStack.STRICT_CODEC.parse(provider.createSerializationContext(JsonOps.INSTANCE), json.get("unbound_book")).result().get();

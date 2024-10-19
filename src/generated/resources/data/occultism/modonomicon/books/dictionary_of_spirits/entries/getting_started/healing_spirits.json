@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "occultism:getting_started",
+  "category": "getting_started",
   "description": "book.occultism.dictionary_of_spirits.getting_started.healing_spirits.description",
   "hide_while_locked": false,
   "icon": {
@@ -49,13 +49,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:getting_started/demons_dream",
+      "entry": "getting_started/demons_dream",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
+  "sort_number": 3,
   "x": -9,
-  "y": 2
+  "y": 4
 }

@@ -1,0 +1,84 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "crafting_rituals",
+  "condition": {
+    "type": "modonomicon:true"
+  },
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.artisanal_ritual_satchel.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "occultism:ritual_satchel_t2"
+  },
+  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.artisanal_ritual_satchel.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "occultism:ritual_satchel_t2"
+      },
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.artisanal_ritual_satchel.spotlight.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.artisanal_ritual_satchel.about.text",
+      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.artisanal_ritual_satchel.about.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/craft_ritual_satchel_t2",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.artisanal_ritual_satchel.usage_drawing.text",
+      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.artisanal_ritual_satchel.usage_drawing.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.artisanal_ritual_satchel.usage_cleaning.text",
+      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.artisanal_ritual_satchel.usage_cleaning.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "crafting_rituals/apprentice_ritual_satchel",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 20,
+  "x": 5,
+  "y": 1
+}

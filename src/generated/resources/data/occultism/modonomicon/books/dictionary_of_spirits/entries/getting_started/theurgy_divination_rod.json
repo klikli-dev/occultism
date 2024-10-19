@@ -1,13 +1,13 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "occultism:getting_started",
+  "category": "getting_started",
   "condition": {
     "type": "modonomicon:and",
     "children": [
       {
         "type": "modonomicon:entry_read",
-        "entry_id": "occultism:getting_started/divination_rod"
+        "entry_id": "getting_started/divination_rod"
       },
       {
         "type": "modonomicon:mod_loaded",
@@ -71,13 +71,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "occultism:getting_started/divination_rod",
+      "entry": "getting_started/divination_rod",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
+  "sort_number": 6,
   "x": -7,
-  "y": -4
+  "y": -2
 }
