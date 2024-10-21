@@ -89,6 +89,45 @@ public class OccultismItems {
     public static final DeferredItem<Item> FAMILIAR_RING = ITEMS.register("familiar_ring",
             () -> new FamiliarRingItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
 
+    //Books of Binding
+    public static final DeferredItem<BookOfBindingItem> BOOK_OF_BINDING_EMPTY = ITEMS.register(
+            "book_of_binding_empty", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
+    public static final DeferredItem<BookOfBindingItem> BOOK_OF_BINDING_FOLIOT = ITEMS.register(
+            "book_of_binding_foliot", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
+    public static final DeferredItem<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_FOLIOT = ITEMS.register(
+            "book_of_binding_bound_foliot", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)));
+    public static final DeferredItem<BookOfBindingItem> BOOK_OF_BINDING_DJINNI = ITEMS.register(
+            "book_of_binding_djinni", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
+    public static final DeferredItem<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_DJINNI = ITEMS.register(
+            "book_of_binding_bound_djinni", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)));
+    public static final DeferredItem<BookOfBindingItem> BOOK_OF_BINDING_AFRIT = ITEMS.register(
+            "book_of_binding_afrit", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
+    public static final DeferredItem<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_AFRIT = ITEMS.register(
+            "book_of_binding_bound_afrit", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)));
+    public static final DeferredItem<BookOfBindingItem> BOOK_OF_BINDING_MARID = ITEMS.register(
+            "book_of_binding_marid", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
+    public static final DeferredItem<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_MARID = ITEMS.register(
+            "book_of_binding_bound_marid", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)));
+    //Books of Calling
+    //Foliot
+    public static final DeferredItem<BookOfCallingLumberjackItem> BOOK_OF_CALLING_FOLIOT_LUMBERJACK =
+            ITEMS.register("book_of_calling_foliot_lumberjack",
+                    () -> new BookOfCallingLumberjackItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
+                            TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
+    public static final DeferredItem<BookOfCallingTransportItems> BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS =
+            ITEMS.register("book_of_calling_foliot_transport_items",
+                    () -> new BookOfCallingTransportItems(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
+                            TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
+    public static final DeferredItem<BookOfCallingCleanerItem> BOOK_OF_CALLING_FOLIOT_CLEANER =
+            ITEMS.register("book_of_calling_foliot_cleaner",
+                    () -> new BookOfCallingCleanerItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
+                            TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
+    //Djinn
+    public static final DeferredItem<BookOfCallingManageMachineItem> BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE =
+            ITEMS.register("book_of_calling_djinni_manage_machine",
+                    () -> new BookOfCallingManageMachineItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
+                            TranslationKeys.BOOK_OF_CALLING_GENERIC + "_djinni"));
+
     //Brush. Chalks and Impure Chalks
     public static final DeferredItem<BrushItem> BRUSH = ITEMS.register("brush",
             () -> new BrushItem(defaultProperties().stacksTo(1)));
@@ -173,44 +212,6 @@ public class OccultismItems {
     public static final DeferredItem<Item> CHALK_PINK_IMPURE = ITEMS.register("chalk_pink_impure",
             () -> new Item(defaultProperties()));
 
-    //Books of Binding
-    public static final DeferredItem<BookOfBindingItem> BOOK_OF_BINDING_EMPTY = ITEMS.register(
-            "book_of_binding_empty", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
-    public static final DeferredItem<BookOfBindingItem> BOOK_OF_BINDING_FOLIOT = ITEMS.register(
-            "book_of_binding_foliot", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
-    public static final DeferredItem<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_FOLIOT = ITEMS.register(
-            "book_of_binding_bound_foliot", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)));
-    public static final DeferredItem<BookOfBindingItem> BOOK_OF_BINDING_DJINNI = ITEMS.register(
-            "book_of_binding_djinni", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
-    public static final DeferredItem<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_DJINNI = ITEMS.register(
-            "book_of_binding_bound_djinni", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)));
-    public static final DeferredItem<BookOfBindingItem> BOOK_OF_BINDING_AFRIT = ITEMS.register(
-            "book_of_binding_afrit", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
-    public static final DeferredItem<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_AFRIT = ITEMS.register(
-            "book_of_binding_bound_afrit", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)));
-    public static final DeferredItem<BookOfBindingItem> BOOK_OF_BINDING_MARID = ITEMS.register(
-            "book_of_binding_marid", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
-    public static final DeferredItem<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_MARID = ITEMS.register(
-            "book_of_binding_bound_marid", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)));
-    //Books of Calling
-    //Foliot
-    public static final DeferredItem<BookOfCallingLumberjackItem> BOOK_OF_CALLING_FOLIOT_LUMBERJACK =
-            ITEMS.register("book_of_calling_foliot_lumberjack",
-                    () -> new BookOfCallingLumberjackItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
-                            TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
-    public static final DeferredItem<BookOfCallingTransportItems> BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS =
-            ITEMS.register("book_of_calling_foliot_transport_items",
-                    () -> new BookOfCallingTransportItems(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
-                            TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
-    public static final DeferredItem<BookOfCallingCleanerItem> BOOK_OF_CALLING_FOLIOT_CLEANER =
-            ITEMS.register("book_of_calling_foliot_cleaner",
-                    () -> new BookOfCallingCleanerItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
-                            TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
-    //Djinn
-    public static final DeferredItem<BookOfCallingManageMachineItem> BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE =
-            ITEMS.register("book_of_calling_djinni_manage_machine",
-                    () -> new BookOfCallingManageMachineItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
-                            TranslationKeys.BOOK_OF_CALLING_GENERIC + "_djinni"));
 
     //Miner Spirits
     public static final DeferredItem<Item> MAGIC_LAMP_EMPTY = ITEMS.register("magic_lamp_empty",
