@@ -5,12 +5,14 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryParentModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
+import com.klikli_dev.modonomicon.api.datagen.book.condition.BookEntryReadConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookTrueConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookEntityPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.occultism.datagen.OccultismBookProvider;
 import com.klikli_dev.occultism.datagen.book.familiar_rituals.DemonicPartnerEntry;
 import com.klikli_dev.occultism.datagen.book.familiar_rituals.ResurrectionEntry;
+import com.klikli_dev.occultism.datagen.book.pentacles.*;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 
 public class FamiliarRitualsCategory extends CategoryProvider {
@@ -24,89 +26,93 @@ public class FamiliarRitualsCategory extends CategoryProvider {
     @Override
     public String[] generateEntryMap() {
         return new String[]{
-                "________R_T_V_X____________",
+                "________J_O__Y_____________",
                 "___________________________",
-                "_____a_Q_S_U_W_Z___________",
+                "_____a_X_S_L_M_T___________",
                 "___________________________",
-                "___r_o___________H_________",
+                "___r_o___________Z_________",
                 "___________________________",
-                "_______I_K_M_O_Y___________",
+                "_____H_W_K_N_Q_P___________",
                 "___________________________",
-                "________J_L_N_P____________"
+                "________R_U_V_I____________"
         };
     }
 
     @Override
     protected void generateEntries() {
+        String possessFoliotID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessFoliotEntry.ENTRY_ID;
+        String possessDjinniID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessDjinniEntry.ENTRY_ID;
+        String summonDjinniID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + SummonDjinniEntry.ENTRY_ID;
+        String possessAfritID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessAfritEntry.ENTRY_ID;
+        String resurrectionID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + ResurrectSpiritEntry.ENTRY_ID;
+
         var overview = this.add(this.makeFamiliarsRitualsOverviewEntry(this.entryMap, 'o'));
+        overview.withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
         var returnToRituals = this.add(this.makeReturnToRitualsEntry(this.entryMap, 'r'));
-        returnToRituals.withParent(BookEntryParentModel.create(overview.getId()));
-        returnToRituals.withCondition(BookTrueConditionModel.create());
+        returnToRituals.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
 
         var resurrection = new ResurrectionEntry(this).generate('a');
-        resurrection.withParent(BookEntryParentModel.create(overview.getId()));
+        resurrection.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(resurrectionID));
+        var resurrectAllay = this.add(this.makeResurrectAllayEntry(this.entryMap, 'H'));
+        resurrectAllay.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(resurrectionID));
 
         var familiarBat = this.add(this.makeFamiliarBatEntry(this.entryMap, 'I'));
-        familiarBat.withParent(BookEntryParentModel.create(overview.getId()));
+        familiarBat.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
         var familiarBeaver = this.add(this.makeFamiliarBeaverEntry(this.entryMap, 'J'));
-        familiarBeaver.withParent(BookEntryParentModel.create(overview.getId()));
+        familiarBeaver.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
         var familiarBeholder = this.add(this.makeFamiliarBeholderEntry(this.entryMap, 'K'));
-        familiarBeholder.withParent(BookEntryParentModel.create(overview.getId()));
+        familiarBeholder.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
         var familiarBlacksmith = this.add(this.makeFamiliarBlacksmithEntry(this.entryMap, 'L'));
-        familiarBlacksmith.withParent(BookEntryParentModel.create(overview.getId()));
+        familiarBlacksmith.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
         var familiarChimera = this.add(this.makeFamiliarChimeraEntry(this.entryMap, 'M'));
-        familiarChimera.withParent(BookEntryParentModel.create(overview.getId()));
+        familiarChimera.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
         var familiarCthulhu = this.add(this.makeFamiliarCthulhuEntry(this.entryMap, 'N'));
-        familiarCthulhu.withParent(BookEntryParentModel.create(overview.getId()));
+        familiarCthulhu.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
         var familiarDeer = this.add(this.makeFamiliarDeerEntry(this.entryMap, 'O'));
-        familiarDeer.withParent(BookEntryParentModel.create(overview.getId()));
+        familiarDeer.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
         var familiarDevil = this.add(this.makeFamiliarDevilEntry(this.entryMap, 'P'));
-        familiarDevil.withParent(BookEntryParentModel.create(overview.getId()));
+        familiarDevil.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
         var familiarDragon = this.add(this.makeFamiliarDragonEntry(this.entryMap, 'Q'));
-        familiarDragon.withParent(BookEntryParentModel.create(overview.getId()));
+        familiarDragon.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
         var familiarFairy = this.add(this.makeFamiliarFairyEntry(this.entryMap, 'R'));
-        familiarFairy.withParent(BookEntryParentModel.create(overview.getId()));
+        familiarFairy.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
         var familiarGreedy = this.add(this.makeFamiliarGreedyEntry(this.entryMap, 'S'));
-        familiarGreedy.withParent(BookEntryParentModel.create(overview.getId()));
+        familiarGreedy.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
         var familiarGuardian = this.add(this.makeFamiliarGuardianEntry(this.entryMap, 'T'));
-        familiarGuardian.withParent(BookEntryParentModel.create(overview.getId()));
+        familiarGuardian.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessAfritID));
         var familiarHeadlessRatman = this.add(this.makeFamiliarHeadlessRatmanEntry(this.entryMap, 'U'));
-        familiarHeadlessRatman.withParent(BookEntryParentModel.create(overview.getId()));
+        familiarHeadlessRatman.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
         var familiarMummy = this.add(this.makeFamiliarMummyEntry(this.entryMap, 'V'));
-        familiarMummy.withParent(BookEntryParentModel.create(overview.getId()));
+        familiarMummy.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
         var familiarOtherworldBird = this.add(this.makeFamiliarOtherworldBirdEntry(this.entryMap, 'W'));
-        familiarOtherworldBird.withParent(BookEntryParentModel.create(overview.getId()));
+        familiarOtherworldBird.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
         var familiarParrot = this.add(this.makeFamiliarParrotEntry(this.entryMap, 'X'));
-        familiarParrot.withParent(BookEntryParentModel.create(overview.getId()));
+        familiarParrot.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
         var familiarShubNiggurath = this.add(this.makeFamiliarShubNiggurathEntry(this.entryMap, 'Y'));
-        familiarShubNiggurath.withParent(BookEntryParentModel.create(overview.getId()));
-        var resurrectAllay = this.add(this.makeResurrectAllayEntry(this.entryMap, 'H'));
-        resurrectAllay.withParent(BookEntryParentModel.create(overview.getId()));
-
-        //add true condition to all entries to enable them by default
-        overview.withCondition(BookTrueConditionModel.create());
-        familiarBat.withCondition(BookTrueConditionModel.create());
-        familiarBeaver.withCondition(BookTrueConditionModel.create());
-        familiarBeholder.withCondition(BookTrueConditionModel.create());
-        familiarBlacksmith.withCondition(BookTrueConditionModel.create());
-        familiarChimera.withCondition(BookTrueConditionModel.create());
-        familiarCthulhu.withCondition(BookTrueConditionModel.create());
-        familiarDeer.withCondition(BookTrueConditionModel.create());
-        familiarDevil.withCondition(BookTrueConditionModel.create());
-        familiarDragon.withCondition(BookTrueConditionModel.create());
-        familiarFairy.withCondition(BookTrueConditionModel.create());
-        familiarGreedy.withCondition(BookTrueConditionModel.create());
-        familiarGuardian.withCondition(BookTrueConditionModel.create());
-        familiarHeadlessRatman.withCondition(BookTrueConditionModel.create());
-        familiarMummy.withCondition(BookTrueConditionModel.create());
-        familiarOtherworldBird.withCondition(BookTrueConditionModel.create());
-        familiarParrot.withCondition(BookTrueConditionModel.create());
-        familiarShubNiggurath.withCondition(BookTrueConditionModel.create());
-        resurrectAllay.withCondition(BookTrueConditionModel.create());
+        familiarShubNiggurath.withParent(BookEntryParentModel.create(familiarChimera.getId()));
 
         var demonicPartner = new DemonicPartnerEntry(this).generate('Z');
-        demonicPartner.withParent(BookEntryParentModel.create(overview.getId()));
-        demonicPartner.withCondition(BookTrueConditionModel.create());
+        demonicPartner.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonDjinniID));
     }
 
     @Override

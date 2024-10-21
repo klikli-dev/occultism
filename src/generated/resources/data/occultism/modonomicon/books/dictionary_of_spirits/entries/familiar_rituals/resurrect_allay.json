@@ -3,7 +3,8 @@
   "background_v_index": 0,
   "category": "familiar_rituals",
   "condition": {
-    "type": "modonomicon:true"
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/resurrect_spirit"
   },
   "description": "",
   "hide_while_locked": false,
@@ -60,7 +61,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 20,
-  "x": 4,
-  "y": 0
+  "sort_number": 3,
+  "x": -8,
+  "y": 2
 }

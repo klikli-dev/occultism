@@ -2,9 +2,6 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "familiar_rituals",
-  "condition": {
-    "type": "modonomicon:true"
-  },
   "description": "",
   "hide_while_locked": false,
   "icon": {
@@ -54,13 +51,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "familiar_rituals/overview",
+      "entry": "familiar_rituals/familiar_chimera",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 19,
-  "x": 2,
-  "y": 2
+  "sort_number": 20,
+  "x": 0,
+  "y": -4
 }

@@ -54,6 +54,7 @@ public class SummonDjinniEntry extends EntryProvider {
                 - [Djinni Machine Operator](entry://summoning_rituals/summon_manage_machine)
                 - [Clear Weather](entry://summoning_rituals/weather_magic@clear)
                 - [Time Magic](entry://summoning_rituals/time_magic)
+                - [Demonic Partner](entry://familiar_rituals/demonic_partner)
                 """
         );
 

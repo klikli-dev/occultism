@@ -1415,13 +1415,18 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 "______________U____________"
         );
 
+        String possessFoliotID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessFoliotEntry.ENTRY_ID;
+        String possessDjinniID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessDjinniEntry.ENTRY_ID;
+        String possessUnboundAfritID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessUnboundAfritEntry.ENTRY_ID;
+        String possessAfritID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessAfritEntry.ENTRY_ID;
+        String possessMaridID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessMaridEntry.ENTRY_ID;
+
         var overview = this.makePossessionRitualsOverviewEntry(entryMap, 'o');
-        overview.withCondition(BookTrueConditionModel.create());
+        overview.withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
         var returnToRituals = this.makeReturnToRitualsEntry(entryMap, 'r');
         returnToRituals.withParent(BookEntryParentModel.create(overview.getId()))
-            .withCondition(BookTrueConditionModel.create());
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
 
-        String possessFoliotID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessFoliotEntry.ENTRY_ID;
         var possessEndermite = this.makePossessEndermiteEntry(entryMap, 'D');
         possessEndermite.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
@@ -1434,7 +1439,6 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         var possessWitch = this.makePossessWitchEntry(entryMap, 'A');
         possessWitch.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
-        String possessDjinniID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessDjinniEntry.ENTRY_ID;
         var possessEnderman = this.makePossessEndermanEntry(entryMap, 'E');
         possessEnderman.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
@@ -1450,11 +1454,9 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         var possessWarden = this.makePossessWardenEntry(entryMap, 'M');
         possessWarden.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
-        String possessUnboundAfritID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessUnboundAfritEntry.ENTRY_ID;
         var possessZombiePiglin = this.makePossessZombiePiglinEntry(entryMap, 'P');
         possessZombiePiglin.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessUnboundAfritID));
-        String possessAfritID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessAfritEntry.ENTRY_ID;
         var possessElderGuardian = this.makePossessElderGuardianEntry(entryMap, 'L');
         possessElderGuardian.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessAfritID));
@@ -1464,7 +1466,6 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         var possessShulker = this.makePossessShulkerEntry(entryMap, 'K');
         possessShulker.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessAfritID));
-        String possessMaridID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessMaridEntry.ENTRY_ID;
         var mercyGoat = this.makeMercyGoatEntry(entryMap, 'C');
         mercyGoat.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessMaridID));

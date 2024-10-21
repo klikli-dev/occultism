@@ -69,6 +69,7 @@ public class PossessDjinniEntry extends EntryProvider {
                 - [Beholder Familiar](entry://familiar_rituals/familiar_beholder)
                 - [Fairy Familiar](entry://familiar_rituals/familiar_fairy)
                 - [Chimera Familiar](entry://familiar_rituals/familiar_chimera)
+                - [Mummy Familiar](entry://familiar_rituals/familiar_mummy)
                 """
         );
 
