@@ -3,12 +3,13 @@
   "background_v_index": 0,
   "category": "pentacles",
   "condition": {
-    "type": "modonomicon:true"
+    "type": "modonomicon:advancement",
+    "advancement_id": "occultism:chalks/red"
   },
-  "description": "",
+  "description": "book.occultism.dictionary_of_spirits.pentacles.summon_afrit.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:pentacle"
+    "item": "occultism:pentacle_summon"
   },
   "name": "book.occultism.dictionary_of_spirits.pentacles.summon_afrit.name",
   "pages": [
@@ -49,13 +50,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "pentacles/summon_wild_afrit",
+      "entry": "pentacles/summon_unbound_afrit",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": -1,
-  "x": 0,
-  "y": -2
+  "sort_number": 24,
+  "x": 4,
+  "y": -4
 }

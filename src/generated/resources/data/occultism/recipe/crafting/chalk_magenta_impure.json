@@ -6,13 +6,13 @@
       "item": "occultism:chalk_white_impure"
     },
     {
-      "item": "minecraft:dragon_breath"
+      "tag": "c:dusts/dragonyst"
     },
     {
-      "tag": "c:gems/amethyst"
+      "tag": "c:dusts/amethyst"
     },
     {
-      "item": "minecraft:end_crystal"
+      "tag": "c:dusts/amethyst"
     }
   ],
   "result": {

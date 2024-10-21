@@ -7,7 +7,21 @@
     "#c:dusts/iesnium",
     "#c:dusts/silver",
     "#c:dusts/obsidian",
-    "occultism:burnt_otherstone",
-    "occultism:otherworld_ashes"
+    "#c:dusts/amethyst",
+    "#c:dusts/blackstone",
+    "#c:dusts/blue_ice",
+    "#c:dusts/calcite",
+    "#c:dusts/ice",
+    "#c:dusts/packed_ice",
+    "#c:dusts/dragonyst",
+    "#c:dusts/echo",
+    "#c:dusts/emerald",
+    "#c:dusts/lapis",
+    "#c:dusts/netherite",
+    "#c:dusts/netherite_scrap",
+    "#c:dusts/research",
+    "#c:dusts/witherite",
+    "#c:dusts/otherstone",
+    "#c:dusts/otherworld_wood"
   ]
 }

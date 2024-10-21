@@ -21,8 +21,14 @@
   ],
   "pentacle_id": "occultism:summon_djinni",
   "result": {
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_djinni_day_time\"}",
+      "minecraft:lore": [
+        "{\"translate\":\"item.occultism.ritual_dummy.summon_djinni_day_time.tooltip\"}"
+      ]
+    },
     "count": 1,
-    "id": "occultism:jei_dummy/none"
+    "id": "occultism:spawn_egg/marid"
   },
   "ritual_dummy": {
     "count": 1,

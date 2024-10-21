@@ -25,8 +25,14 @@
   ],
   "pentacle_id": "occultism:summon_afrit",
   "result": {
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_afrit_rain_weather\"}",
+      "minecraft:lore": [
+        "{\"translate\":\"item.occultism.ritual_dummy.summon_afrit_rain_weather.tooltip\"}"
+      ]
+    },
     "count": 1,
-    "id": "occultism:jei_dummy/none"
+    "id": "occultism:spawn_egg/afrit"
   },
   "ritual_dummy": {
     "count": 1,

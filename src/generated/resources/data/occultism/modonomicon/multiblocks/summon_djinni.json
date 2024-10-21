@@ -13,45 +13,57 @@
       "type": "modonomicon:block",
       "block": "occultism:golden_sacrificial_bowl"
     },
-    "C": {
+    "1": {
       "type": "modonomicon:tag",
       "tag": "#minecraft:candles"
     },
-    "P": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_purple"
-    },
-    "W": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_white"
-    },
-    "Z": {
+    "2": {
       "type": "modonomicon:block",
       "block": "minecraft:skeleton_skull"
+    },
+    "L": {
+      "type": "modonomicon:block",
+      "block": "occultism:chalk_glyph_lime"
+    },
+    "S": {
+      "type": "modonomicon:tag",
+      "tag": "#occultism:foundation_glyphs_no_white"
+    },
+    "W": {
+      "type": "modonomicon:tag",
+      "tag": "#occultism:foundation_glyphs_any"
     }
   },
   "pattern": [
     [
-      "___C_C___",
-      "___PPP___",
-      "__W_Z_W__",
-      "CP_W_W_PC",
-      "_PZ_0_ZP_",
-      "CP_W_W_PC",
-      "__W_Z_W__",
-      "___PPP___",
-      "___C_C___"
+      "_____________",
+      "____LLLLL____",
+      "___L_L1L_L___",
+      "__L2_WWW_2L__",
+      "_L__W_S_W__L_",
+      "_LLW_1S1_WLL_",
+      "_L1WSS0SSW1L_",
+      "_LLW_1S1_WLL_",
+      "_L__W_S_W__L_",
+      "__L2_WWW_2L__",
+      "___L_L1L_L___",
+      "____LLLLL____",
+      "_____________"
     ],
     [
-      "*+*+*+*+*",
-      "+*+*+*+*+",
-      "*+*+*+*+*",
-      "+*+*+*+*+",
-      "*+*+*+*+*",
-      "+*+*+*+*+",
-      "*+*+*+*+*",
-      "+*+*+*+*+",
-      "*+*+*+*+*"
+      "*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*"
     ]
   ]
 }

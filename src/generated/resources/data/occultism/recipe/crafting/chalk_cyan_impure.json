@@ -9,10 +9,10 @@
       "tag": "c:dusts/iesnium"
     },
     {
-      "item": "minecraft:glow_ink_sac"
+      "tag": "c:dusts/echo"
     },
     {
-      "item": "minecraft:echo_shard"
+      "item": "minecraft:glow_ink_sac"
     }
   ],
   "result": {

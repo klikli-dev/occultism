@@ -55,7 +55,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Rotation;
@@ -308,7 +307,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         return this.currentRitualRecipe;
     }
 
-    public int getSignal(BlockState pBlockState, BlockGetter pBlockAccess, BlockPos pPos, Direction pSide) {
+    public int getSignal() {
         if(this.getCurrentRitualRecipe() == null)
             return 0;
 

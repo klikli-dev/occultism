@@ -97,10 +97,10 @@ public class OccultismAdvancementSubProvider implements AdvancementProvider.Adva
                 .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "occultism/root")));
 
         var familiarsRoot = this.add(Advancement.Builder.advancement()
-                .display(OccultismItems.JEI_DUMMY_NONE.get(),
+                .display(OccultismItems.PENTACLE_POSSESS.get(),
                         title("familiars"),
                         descr("familiars"),
-                        ResourceLocation.parse("textures/gui/advancements/backgrounds/stone.png"), AdvancementType.TASK, true,
+                        ResourceLocation.fromNamespaceAndPath(Occultism.MODID,"textures/block/otherplanks.png"), AdvancementType.TASK, true,
                         true, false)
                 .addCriterion("summon_familiar",
                         RitualTrigger.TriggerInstance.ritualFactory(OccultismRituals.FAMILIAR.getId()))

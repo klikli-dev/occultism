@@ -18,10 +18,16 @@
       "item": "occultism:otherworld_essence"
     }
   ],
-  "pentacle_id": "occultism:summon_foliot",
+  "pentacle_id": "occultism:resurrect_spirit",
   "result": {
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.resurrect_familiar\"}",
+      "minecraft:lore": [
+        "{\"translate\":\"item.occultism.ritual_dummy.resurrect_familiar.tooltip\"}"
+      ]
+    },
     "count": 1,
-    "id": "occultism:jei_dummy/none"
+    "id": "occultism:resurrect_icon"
   },
   "ritual_dummy": {
     "count": 1,

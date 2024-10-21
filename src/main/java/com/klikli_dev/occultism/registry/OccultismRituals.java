@@ -76,6 +76,9 @@ public class OccultismRituals {
     public static final DeferredHolder<RitualFactory, RitualFactory> CRAFT_MINER_SPIRIT =
             RITUAL_FACTORIES.register("craft_miner_spirit",
                     () -> new RitualFactory(CraftMinerSpiritRitual::new));
+    public static final DeferredHolder<RitualFactory, RitualFactory> REPAIR =
+            RITUAL_FACTORIES.register("repair",
+                    () -> new RitualFactory(RepairRitual::new));
 
     //Other
     public static final DeferredHolder<RitualFactory, RitualFactory> COMMAND =

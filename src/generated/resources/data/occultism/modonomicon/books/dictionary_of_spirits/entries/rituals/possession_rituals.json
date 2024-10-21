@@ -4,7 +4,8 @@
   "category": "rituals",
   "category_to_open": "possession_rituals",
   "condition": {
-    "type": "modonomicon:true"
+    "type": "modonomicon:advancement",
+    "advancement_id": "occultism:chalks/yellow"
   },
   "description": "",
   "hide_while_locked": false,

@@ -13,25 +13,25 @@
       "type": "modonomicon:block",
       "block": "occultism:golden_sacrificial_bowl"
     },
-    "C": {
+    "1": {
       "type": "modonomicon:tag",
       "tag": "#minecraft:candles"
     },
     "W": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_white"
+      "type": "modonomicon:tag",
+      "tag": "#occultism:foundation_glyphs_any"
     }
   },
   "pattern": [
     [
       "_________",
-      "___WCW___",
+      "___WWW___",
       "__W_W_W__",
-      "_W__W__W_",
-      "_CWW0WWC_",
-      "_W__W__W_",
+      "_W_1W1_W_",
+      "_WWW0WWW_",
+      "_W_1W1_W_",
       "__W_W_W__",
-      "___WCW___",
+      "___WWW___",
       "_________"
     ],
     [

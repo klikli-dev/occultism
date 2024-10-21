@@ -2,6 +2,10 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "possession_rituals",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/contact_wild_spirit"
+  },
   "description": "",
   "hide_while_locked": false,
   "icon": {
@@ -29,7 +33,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/summon_horde_illager",
+      "recipe_id_1": "occultism:ritual/wild_horde_illager",
       "text": "",
       "title1": "",
       "title2": ""
@@ -56,6 +60,6 @@
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": -1,
-  "x": -6,
-  "y": 1
+  "x": -5,
+  "y": 3
 }

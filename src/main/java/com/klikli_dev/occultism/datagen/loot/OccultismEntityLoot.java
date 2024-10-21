@@ -41,20 +41,21 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
 
     @Override
     public void generate() {
-        this.add(OccultismEntities.POSSESSED_SHULKER.get(), this.shulkerLootTable());
-        this.add(OccultismEntities.POSSESSED_WARDEN.get(), this.wardenLootTable());
-        this.add(OccultismEntities.POSSESSED_HOGLIN.get(), this.hoglinLootTable());
-        this.add(OccultismEntities.POSSESSED_WEAK_SHULKER.get(), this.weakShulkerTable());
+        this.add(OccultismEntities.POSSESSED_SHULKER_TYPE.get(), this.shulkerLootTable());
+        this.add(OccultismEntities.POSSESSED_WARDEN_TYPE.get(), this.wardenLootTable());
+        this.add(OccultismEntities.POSSESSED_HOGLIN_TYPE.get(), this.hoglinLootTable());
+        this.add(OccultismEntities.POSSESSED_WITCH_TYPE.get(), this.witchLootTable());
+        this.add(OccultismEntities.POSSESSED_WEAK_SHULKER_TYPE.get(), this.weakShulkerTable());
         this.add(OccultismEntities.POSSESSED_GHAST_TYPE.get(), this.ghastLootTable());
         this.add(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE.get(), this.elderGuardianLootTable());
         this.add(OccultismEntities.WILD_HORDE_HUSK_TYPE.get(), this.huskLootTable());
         this.add(OccultismEntities.WILD_HORDE_DROWNED_TYPE.get(), this.drownedLootTable());
         this.add(OccultismEntities.WILD_HORDE_CREEPER_TYPE.get(), this.creeperLootTable());
         this.add(OccultismEntities.WILD_HORDE_SILVERFISH_TYPE.get(), this.silverfishLootTable());
-        this.add(OccultismEntities.POSSESSED_WEAK_BREEZE.get(), this.weakBreezeTable());
-        this.add(OccultismEntities.POSSESSED_BREEZE.get(), this.breezeTable());
-        this.add(OccultismEntities.POSSESSED_STRONG_BREEZE.get(), this.strongBreezeTable());
-        this.add(OccultismEntities.POSSESSED_EVOKER.get(), this.evokerTable());
+        this.add(OccultismEntities.POSSESSED_WEAK_BREEZE_TYPE.get(), this.weakBreezeTable());
+        this.add(OccultismEntities.POSSESSED_BREEZE_TYPE.get(), this.breezeTable());
+        this.add(OccultismEntities.POSSESSED_STRONG_BREEZE_TYPE.get(), this.strongBreezeTable());
+        this.add(OccultismEntities.POSSESSED_EVOKER_TYPE.get(), this.evokerTable());
         this.add(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(),
                 LootTable.lootTable().withPool(
                         LootPool.lootPool().setRolls(ConstantValue.exactly(1))
@@ -108,6 +109,14 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.7f, 1.0F)))
                                         .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))));
 
+        //Essence drop from unbound marid
+        this.add(OccultismEntities.MARID_UNBOUND_TYPE.get(),
+                LootTable.lootTable().withPool(
+                        LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(OccultismItems.MARID_ESSENCE.get())
+                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.9f, 1.0F)))
+                                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))));
+
         //increased wither skull drop from wild hunt
         this.add(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get(), LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
@@ -138,6 +147,26 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                         .add(LootItem.lootTableItem(Items.BONE)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
                                 .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))));
+
+        this.add(OccultismEntities.GOAT_OF_MERCY_TYPE.get(),
+                LootTable.lootTable().withPool(
+                        LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(OccultismItems.CRUELTY_ESSENCE)
+                                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))));
+
+        this.add(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get(),
+                LootTable.lootTable().withPool(
+                        LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(OccultismItems.DEMONIC_MEAT)
+                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F)))
+                                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))));
+
+        this.add(OccultismEntities.POSSESSED_BEE_TYPE.get(),
+                LootTable.lootTable().withPool(
+                        LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(OccultismItems.CURSED_HONEY)
+                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.5F, 1.0F)))
+                                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.3F, 1.0F))))));
     }
 
     /**
@@ -349,8 +378,8 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                 .withPool(
                         LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1.0F))
-                                .add(EmptyLootItem.emptyItem().setWeight(3))
-                                .add(LootItem.lootTableItem(Items.SNIFFER_EGG).setWeight(1))
+                                .add(EmptyLootItem.emptyItem().setWeight(2))
+                                .add(LootItem.lootTableItem(Items.SNIFFER_EGG).setWeight(2))
                                 .add(LootItem.lootTableItem(Items.TURTLE_EGG).setWeight(3))
                                 .add(LootItem.lootTableItem(Items.TRIDENT).setWeight(3))
                 )
@@ -500,5 +529,16 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .add(LootItem.lootTableItem(Items.OMINOUS_BOTTLE).setWeight(1))
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.5F, 2.0F)))
                 );
+    }
+    public LootTable.Builder witchLootTable(){
+        return LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(Items.EXPERIENCE_BOTTLE).setWeight(8))
+                                .add(LootItem.lootTableItem(Items.HONEY_BOTTLE).setWeight(4))
+                                .add(LootItem.lootTableItem(Items.OMINOUS_BOTTLE).setWeight(2))
+                                .add(LootItem.lootTableItem(Items.POTION).setWeight(1))
+                ).apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries,UniformGenerator.between(0,2)));
     }
 }

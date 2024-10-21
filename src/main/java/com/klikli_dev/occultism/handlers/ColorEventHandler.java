@@ -46,8 +46,8 @@ public class ColorEventHandler {
                 .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_WHITE.get().getColor(),
                         OccultismBlocks.CHALK_GLYPH_WHITE.get());
         event.getBlockColors()
-                .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_GOLD.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_GOLD.get());
+                .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_YELLOW.get().getColor(),
+                        OccultismBlocks.CHALK_GLYPH_YELLOW.get());
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_PURPLE.get().getColor(),
                         OccultismBlocks.CHALK_GLYPH_PURPLE.get());
