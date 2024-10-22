@@ -934,10 +934,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.possess_unbound_parrot.finished", "Summoned unbound parrot successfully.");
         this.add("ritual.occultism.possess_unbound_parrot.interrupted", "Summoning of unbound parrot interrupted.");
 
-        this.add("ritual.occultism.summon_random_animal.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_random_animal.started", "Started summoning a random animal.");
-        this.add("ritual.occultism.summon_random_animal.finished", "Summoned successfully.");
-        this.add("ritual.occultism.summon_random_animal.interrupted", "Summoning of random animal interrupted.");
+        this.add("ritual.occultism.possess_random_animal.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_random_animal.started", "Started summoning a random animal.");
+        this.add("ritual.occultism.possess_random_animal.finished", "Summoned successfully.");
+        this.add("ritual.occultism.possess_random_animal.interrupted", "Summoning of random animal interrupted.");
 
         this.add("ritual.occultism.familiar_parrot.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.familiar_parrot.started", "Started summoning parrot familiar.");
@@ -1336,51 +1336,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("ritual");
         //no text
 
-        helper.entry("possess_unbound_parrot");
-        this.add(helper.entryName(), "possess Unbound Parrot");
-
-        helper.page("entity");
-        this.add(helper.pageText(),
-                """
-                        **Provides**: A tameable Parrot
-                          """);
-
-        helper.page("ritual");
-        //no text
-
-        helper.page("description");
-        this.add(helper.pageText(),
-                """
-                        In this ritual a [#](%1$s)Foliot[#]() is summoned **as an untamed spirit**.
-                        \\
-                        \\
-                        The slaughter of a [#](%1$s)Chicken[#]() and the offering of dyes are intended to entice the Foliot to take the shape of a parrot. As [#](%1$s)Foliot[#]() are not among the smartest spirits, they sometimes misunderstand the instructions ...
-                          """.formatted(COLOR_PURPLE));
-
-        helper.page("description2");
-        this.add(helper.pageText(),
-                """
-                        *This means, if a [#](%1$s)Chicken[#]() is spawned, that's not a bug, just bad luck!*
-                           """.formatted(COLOR_PURPLE));
-
-        helper.entry("possess_unbound_otherworld_bird");
-        this.add(helper.entryName(), "possess Unbound Drikwing");
-
-        helper.page("entity");
-        this.add(helper.pageText(),
-                """
-                        **Provides**: A tameable Drikwing
-                          """);
-
-        helper.page("ritual");
-        //no text
-
-        helper.page("description");
-        this.add(helper.pageText(),
-                """
-                        See [Drikwing Familiar](entry://familiar_rituals/familiar_otherworld_bird) for more information.
-                          """);
-
         helper.entry("weather_magic");
         this.add(helper.entryName(), "Weather Magic");
 
@@ -1538,6 +1493,51 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                 """
                         In this ritual an [#](%1$s)Skeleton[#]() is spawned using the life energy of a [#](%1$s)Chicken[#]() and possessed by a [#](%1$s)Foliot[#](). The [#](%1$s)Possessed Skeleton[#]() will be immune to daylight and always drop at least one [](item://minecraft:skeleton_skull) when killed.
                                 """.formatted(COLOR_PURPLE));
+
+        helper.entry("possess_unbound_parrot");
+        this.add(helper.entryName(), "Unbound Parrot");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: A tameable Parrot
+                          """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageText(),
+                """
+                        In this ritual a [#](%1$s)Foliot[#]() is summoned **as an untamed spirit**.
+                        \\
+                        \\
+                        The slaughter of a [#](%1$s)Chicken[#]() and the offering of dyes are intended to entice the Foliot to take the shape of a parrot. As [#](%1$s)Foliot[#]() are not among the smartest spirits, they sometimes misunderstand the instructions ...
+                          """.formatted(COLOR_PURPLE));
+
+        helper.page("description2");
+        this.add(helper.pageText(),
+                """
+                        *This means, if a [#](%1$s)Chicken[#]() is spawned, that's not a bug, just bad luck!*
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("possess_unbound_otherworld_bird");
+        this.add(helper.entryName(), "Unbound Drikwing");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: A tameable Drikwing
+                          """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageText(),
+                """
+                        See [Drikwing Familiar](entry://familiar_rituals/familiar_otherworld_bird) for more information.
+                          """);
     }
 
     private void addCraftingRitualsCategory(BookContextHelper helper) {
@@ -2916,8 +2916,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.RITUAL_DUMMY_RESURRECT_FAMILIAR.get(), "Ritual: Resurrect Familiar");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_RESURRECT_FAMILIAR.get(), "Resurrects a Familiar from a Soul Shard.");
 
-        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_RANDOM_ANIMAL.get(), "Ritual: Summon Random Animal");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_RANDOM_ANIMAL.get(), "Summons a random passive animal.");
+        this.add(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL.get(), "Ritual: Summon Random Animal");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL.get(), "Summons a random passive animal.");
 
         this.add(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1.get(), "Ritual: Craft Apprentice Ritual Satchel");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1.get(), "Binds a Djinni into a satchel to build pentacles step-by-step for the summoner.");

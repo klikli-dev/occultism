@@ -637,11 +637,11 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_unbound_parrot"));
 
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
-                        makeLoreSpawnEgg(Items.SHEEP_SPAWN_EGG, "item.occultism.ritual_dummy.summon_random_animal"),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_random_animal")),
+                        makeLoreSpawnEgg(Items.SHEEP_SPAWN_EGG, "item.occultism.ritual_dummy.possess_random_animal"),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/possess_random_animal")),
                         30,
                         RITUAL_SUMMON,
-                        PENTACLE_SUMMON_FOLIOT,
+                        PENTACLE_POSSESS_FOLIOT,
                         Ingredient.of(Tags.Items.CROPS),
                         Ingredient.of(Tags.Items.CROPS),
                         Ingredient.of(Tags.Items.CROPS),
@@ -653,7 +653,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.EGG))
                 .entityTagToSummon(OccultismTags.Entities.RANDOM_ANIMALS_TO_SUMMON_LIST)
                 .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_random_animal"));
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_random_animal"));
     }
 
     private static void possessRituals(RecipeOutput recipeOutput) {

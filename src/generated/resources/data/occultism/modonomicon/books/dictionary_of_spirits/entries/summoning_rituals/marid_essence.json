@@ -3,7 +3,8 @@
   "background_v_index": 0,
   "category": "summoning_rituals",
   "condition": {
-    "type": "modonomicon:true"
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/summon_unbound_marid"
   },
   "description": "",
   "hide_while_locked": false,
@@ -45,6 +46,6 @@
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": -1,
-  "x": 6,
-  "y": 0
+  "x": 4,
+  "y": 2
 }

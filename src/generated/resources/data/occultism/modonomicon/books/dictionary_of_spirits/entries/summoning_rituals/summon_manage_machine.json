@@ -3,7 +3,8 @@
   "background_v_index": 0,
   "category": "summoning_rituals",
   "condition": {
-    "type": "modonomicon:true"
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/summon_djinni"
   },
   "description": "",
   "hide_while_locked": false,
@@ -71,13 +72,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "summoning_rituals/summon_transport_items",
+      "entry": "summoning_rituals/overview",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": -1,
-  "x": 2,
-  "y": -4
+  "x": -1,
+  "y": -5
 }

@@ -33,12 +33,12 @@
       "item": "minecraft:egg"
     }
   ],
-  "pentacle_id": "occultism:summon_foliot",
+  "pentacle_id": "occultism:possess_foliot",
   "result": {
     "components": {
-      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.summon_random_animal\"}",
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_random_animal\"}",
       "minecraft:lore": [
-        "{\"translate\":\"item.occultism.ritual_dummy.summon_random_animal.tooltip\"}"
+        "{\"translate\":\"item.occultism.ritual_dummy.possess_random_animal.tooltip\"}"
       ]
     },
     "count": 1,
@@ -46,7 +46,7 @@
   },
   "ritual_dummy": {
     "count": 1,
-    "id": "occultism:ritual_dummy/summon_random_animal"
+    "id": "occultism:ritual_dummy/possess_random_animal"
   },
   "ritual_type": "occultism:summon"
 }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/summon_random_animal"
+        "recipe": "occultism:ritual/possess_random_animal"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "occultism:ritual/summon_random_animal"
+      "occultism:ritual/possess_random_animal"
     ]
   }
 }

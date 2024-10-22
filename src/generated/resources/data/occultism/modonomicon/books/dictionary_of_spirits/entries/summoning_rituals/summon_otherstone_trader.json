@@ -2,9 +2,6 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "summoning_rituals",
-  "condition": {
-    "type": "modonomicon:true"
-  },
   "description": "",
   "hide_while_locked": false,
   "icon": {
@@ -49,9 +46,9 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "summoning_rituals/summon_otherworld_sapling_trader",
+      "entry": "summoning_rituals/trade_spirits",
       "line_enabled": true,
-      "line_reversed": false
+      "line_reversed": true
     }
   ],
   "show_when_any_parent_unlocked": false,

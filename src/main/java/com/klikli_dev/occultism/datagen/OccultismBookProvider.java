@@ -608,91 +608,83 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         var entryMap = ModonomiconAPI.get().getEntryMap();
         entryMap.setMap(
-                "___________b___l______",
                 "______________________",
-                "_________c_d_h_k______",
+                "__________h___________",
+                "_______c_d_b_k_l______",
                 "______________________",
-                "___r_o________________",
+                "__r_o_________________",
                 "______________________",
-                "_________1_e_i_a_m___",
+                "_______1__e____a______",
                 "______________________",
-                "_________2_f___I______",
+                "_______2___f___m______",
                 "______________________",
-                "_________3_g_j________",
+                "_______3___g__________",
                 "______________________",
-                "_________4____________"
+                "_______4______________"
         );
 
+        String summonFoliotID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + SummonFoliotEntry.ENTRY_ID;
+        String summonDjinniID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + SummonDjinniEntry.ENTRY_ID;
+        String summonUnboundAfritID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + SummonUnboundAfritEntry.ENTRY_ID;
+        String summonAfritID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + SummonAfritEntry.ENTRY_ID;
+        String summonUnboundsMaridID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + SummonUnboundMaridEntry.ENTRY_ID;
+        String summonMaridID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + SummonMaridEntry.ENTRY_ID;
+
         var overview = this.makeSummoningRitualsOverviewEntry(entryMap, 'o');
+        overview.withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
         var returnToRituals = this.makeReturnToRitualsEntry(entryMap, 'r');
-        returnToRituals.withParent(BookEntryParentModel.create(overview.getId()));
-        returnToRituals.withCondition(BookTrueConditionModel.create());
+        returnToRituals.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
 
         var summonT1Crusher = this.makeSummonCrusherT1Entry(entryMap, '1');
-        summonT1Crusher.withParent(BookEntryParentModel.create(overview.getId()));
+        summonT1Crusher.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
         var summonT2Crusher = this.makeSummonCrusherT2Entry(entryMap, '2');
-        summonT2Crusher.withParent(BookEntryParentModel.create(summonT1Crusher.getId()));
+        summonT2Crusher.withParent(BookEntryParentModel.create(summonT1Crusher.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonDjinniID));
         var summonT3Crusher = this.makeSummonCrusherT3Entry(entryMap, '3');
-        summonT3Crusher.withParent(BookEntryParentModel.create(summonT2Crusher.getId()));
+        summonT3Crusher.withParent(BookEntryParentModel.create(summonT2Crusher.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonAfritID));
         var summonT4Crusher = this.makeSummonCrusherT4Entry(entryMap, '4');
-        summonT4Crusher.withParent(BookEntryParentModel.create(summonT3Crusher.getId()));
+        summonT4Crusher.withParent(BookEntryParentModel.create(summonT3Crusher.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonMaridID));
 
         var summonLumberjack = this.makeSummonLumberjackEntry(entryMap, 'c');
-        summonLumberjack.withParent(BookEntryParentModel.create(overview.getId()));
+        summonLumberjack.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
 
         var summonTransportItems = this.makeSummonTransportItemsEntry(entryMap, 'd');
-        summonTransportItems.withParent(BookEntryParentModel.create(overview.getId()));
+        summonTransportItems.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
         var summonCleaner = this.makeSummonCleanerEntry(entryMap, 'b');
-        summonCleaner.withParent(BookEntryParentModel.create(summonTransportItems.getId()));
+        summonCleaner.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
         var summonManageMachine = this.makeSummonManageMachineEntry(entryMap, 'h');
-        summonManageMachine.withParent(BookEntryParentModel.create(summonTransportItems.getId()));
+        summonManageMachine.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonDjinniID));
 
         var tradeSpirits = this.makeTradeSpiritsEntry(entryMap, 'e');
-        tradeSpirits.withParent(BookEntryParentModel.create(overview.getId()));
+        tradeSpirits.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
         var summonOtherworldSaplingTrader = this.makeSummonOtherworldSaplingTraderEntry(entryMap, 'f');
-        summonOtherworldSaplingTrader.withParent(BookEntryParentModel.create(tradeSpirits.getId()));
+        summonOtherworldSaplingTrader.withParent(BookEntryParentModel.create(tradeSpirits.getId()).withLineReversed(true));
         var summonOtherstoneTrader = this.makeSummonOtherstoneTraderEntry(entryMap, 'g');
-        summonOtherstoneTrader.withParent(BookEntryParentModel.create(summonOtherworldSaplingTrader.getId()));
-
-        var possessUnboundParrot = this.makePossessUnboundParrotEntry(entryMap, 'i');
-        possessUnboundParrot.withParent(BookEntryParentModel.create(overview.getId()));
-        var possessUnboundOtherworldBird = this.makePossessUnboundOtherworldBirdEntry(entryMap, 'j');
-        possessUnboundOtherworldBird.withParent(BookEntryParentModel.create(possessUnboundParrot.getId()));
-
-        var summonRandomAnimal = this.makeSummonRandomAnimalEntry(entryMap, 'I');
-        summonRandomAnimal.withParent(BookEntryParentModel.create(possessUnboundParrot.getId()).withLineReversed(true));
+        summonOtherstoneTrader.withParent(BookEntryParentModel.create(tradeSpirits.getId()).withLineReversed(true));
 
         var weatherMagic = this.makeWeatherMagicEntry(entryMap, 'k');
-        weatherMagic.withParent(BookEntryParentModel.create(overview.getId()));
+        weatherMagic.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonDjinniID));
         var timeMagic = this.makeTimeMagicEntry(entryMap, 'l');
-        timeMagic.withParent(BookEntryParentModel.create(weatherMagic.getId()));
+        timeMagic.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonDjinniID));
 
         var afritEssence = this.makeAfritEssenceEntry(entryMap, 'a');
-        afritEssence.withParent(BookEntryParentModel.create(overview.getId()));
+        afritEssence.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonUnboundAfritID));
 
         var maridEssence = this.makeMaridEssenceEntry(entryMap, 'm');
-        maridEssence.withParent(BookEntryParentModel.create(afritEssence.getId()));
-
-        //add true condition to all entries to enable them by default
-        overview.withCondition(BookTrueConditionModel.create());
-        summonT1Crusher.withCondition(BookTrueConditionModel.create());
-        summonT2Crusher.withCondition(BookTrueConditionModel.create());
-        summonT3Crusher.withCondition(BookTrueConditionModel.create());
-        summonT4Crusher.withCondition(BookTrueConditionModel.create());
-        summonLumberjack.withCondition(BookTrueConditionModel.create());
-        summonTransportItems.withCondition(BookTrueConditionModel.create());
-        summonCleaner.withCondition(BookTrueConditionModel.create());
-        summonManageMachine.withCondition(BookTrueConditionModel.create());
-        tradeSpirits.withCondition(BookTrueConditionModel.create());
-        summonOtherworldSaplingTrader.withCondition(BookTrueConditionModel.create());
-        summonOtherstoneTrader.withCondition(BookTrueConditionModel.create());
-        possessUnboundParrot.withCondition(BookTrueConditionModel.create());
-        summonRandomAnimal.withCondition(BookTrueConditionModel.create());
-        possessUnboundOtherworldBird.withCondition(BookTrueConditionModel.create());
-        weatherMagic.withCondition(BookTrueConditionModel.create());
-        timeMagic.withCondition(BookTrueConditionModel.create());
-        afritEssence.withCondition(BookTrueConditionModel.create());
-        maridEssence.withCondition(BookTrueConditionModel.create());
+        maridEssence.withParent(BookEntryParentModel.create(afritEssence.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonUnboundsMaridID));
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
                 .withIcon(this.modLoc("textures/gui/book/summoning.png"))
@@ -712,9 +704,6 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         tradeSpirits,
                         summonOtherstoneTrader,
                         summonOtherworldSaplingTrader,
-                        possessUnboundOtherworldBird,
-                        possessUnboundParrot,
-                        summonRandomAnimal,
                         timeMagic,
                         weatherMagic,
                         maridEssence
@@ -1230,108 +1219,6 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 );
     }
 
-    private BookEntryModel makePossessUnboundParrotEntry(CategoryEntryMap entryMap, char icon) {
-        this.context().entry("possess_unbound_parrot");
-
-        this.context().page("entity");
-        var entity = BookEntityPageModel.create()
-                .withEntityId("minecraft:parrot")
-                .withText(this.context().pageText());
-
-        this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/possess_unbound_parrot"));
-
-        this.context().page("description");
-        var description = BookTextPageModel.create()
-                .withText(this.context().pageText());
-
-        this.context().page("description2");
-        var description2 = BookTextPageModel.create()
-                .withText(this.context().pageText());
-
-
-        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(this.modLoc("textures/gui/book/parrot.png"))
-                .withLocation(entryMap.get(icon))
-                .withPages(
-                        entity,
-                        ritual,
-                        description,
-                        description2
-                );
-    }
-
-    private BookEntryModel makeSummonRandomAnimalEntry(CategoryEntryMap entryMap, char icon) {
-        this.context().entry("summon_random_animal");
-        this.add(this.context().entryName(), "Summon Random Animal");
-
-        this.context().page("entity");
-        var entity = BookEntityPageModel.create()
-                .withEntityId("minecraft:cow")
-                .withEntityName(this.context().pageTitle())
-                .withText(this.context().pageText());
-
-        this.add(this.context().pageTitle(), "Summon Random Animal");
-        this.add(this.context().pageText(),
-                """
-                    **Provides**: A random animal
-                    """
-        );
-
-        this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/summon_random_animal"));
-        //no text
-
-        this.context().page("description");
-        var description = BookTextPageModel.create()
-                .withText(this.context().pageText());
-        this.add(this.context().pageText(),
-                """
-                        In this ritual a [#](%1$s)Foliot[#]() is summoned **as an untamed spirit** to take the shape of a random animal.
-                        \\
-                        \\
-                        The animal can be interacted with as it's natural counterpart, including taming, breeding and loot.
-                        """.formatted(COLOR_PURPLE));
-
-
-        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(Items.COW_SPAWN_EGG)
-                .withLocation(entryMap.get(icon))
-                .withPages(
-                        entity,
-                        ritual,
-                        description
-                );
-    }
-
-    private BookEntryModel makePossessUnboundOtherworldBirdEntry(CategoryEntryMap entryMap, char icon) {
-        this.context().entry("possess_unbound_otherworld_bird");
-
-        this.context().page("entity");
-        var entity = BookEntityPageModel.create()
-                .withEntityId("occultism:otherworld_bird")
-                .withText(this.context().pageText());
-
-        this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/possess_unbound_otherworld_bird"));
-
-        this.context().page("description");
-        var description = BookTextPageModel.create()
-                .withText(this.context().pageText());
-
-        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(this.modLoc("textures/gui/book/otherworld_bird.png"))
-                .withLocation(entryMap.get(icon))
-                .withPages(
-                        entity,
-                        ritual,
-                        description
-                );
-    }
-
     private BookEntryModel makeWeatherMagicEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("weather_magic");
 
@@ -1408,9 +1295,9 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 "___________________________",
                 "___r_o_____________________",
                 "___________________________",
-                "_______H_W_Y__S____________", //Down part is wild
+                "_______H_W_Y__S___p_a______", //Down part is wild
                 "___________________________",
-                "________V_X_Z_T____________",
+                "________V_X_Z_T___d________",
                 "___________________________",
                 "______________U____________"
         );
@@ -1420,6 +1307,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         String possessUnboundAfritID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessUnboundAfritEntry.ENTRY_ID;
         String possessAfritID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessAfritEntry.ENTRY_ID;
         String possessMaridID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessMaridEntry.ENTRY_ID;
+        String possessWildID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + ContactWildSpiritEntry.ENTRY_ID;
 
         var overview = this.makePossessionRitualsOverviewEntry(entryMap, 'o');
         overview.withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
@@ -1470,7 +1358,6 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         mercyGoat.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessMaridID));
 
-        String possessWildID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + ContactWildSpiritEntry.ENTRY_ID;
         var possessWitherSkeleton = this.makeWitherSkullEntry(entryMap, 'H');
         possessWitherSkeleton.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessWildID));
@@ -1498,6 +1385,18 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         var possessStrongBreeze = this.makePossessStrongBreezeEntry(entryMap, 'U');
         possessStrongBreeze.withParent(BookEntryParentModel.create(possessBreeze.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessBreeze.getId()));
+
+        var possessUnboundParrot = this.makePossessUnboundParrotEntry(entryMap, 'p');
+        possessUnboundParrot.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
+        var possessUnboundOtherworldBird = this.makePossessUnboundOtherworldBirdEntry(entryMap, 'd');
+        possessUnboundOtherworldBird.withParent(BookEntryParentModel.create(possessUnboundParrot.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
+
+        var possessRandomAnimal = this.makePossessRandomAnimalEntry(entryMap, 'a');
+        possessRandomAnimal.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
+
         this.context().category("possession_rituals");
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
@@ -1528,7 +1427,10 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         possessStrongBreeze,
                         mercyGoat,
                         possessZombiePiglin,
-                        possessBee
+                        possessBee,
+                        possessUnboundOtherworldBird,
+                        possessUnboundParrot,
+                        possessRandomAnimal
                 );
     }
 
@@ -1807,7 +1709,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 """
                         **Drops**: 2-4x [](item://minecraft:nautilus_shell)
                         and as 40% to drop a [](item://minecraft:heart_of_the_sea)
-                        Also commom Elder Guardian loot;
+                        Also common Elder Guardian loot;
                                 """);
 
         this.context().page("ritual");
@@ -2338,6 +2240,108 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(Items.HEAVY_CORE)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+
+    private BookEntryModel makePossessUnboundParrotEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("possess_unbound_parrot");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.create()
+                .withEntityId("minecraft:parrot")
+                .withText(this.context().pageText());
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_unbound_parrot"));
+
+        this.context().page("description");
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
+
+        this.context().page("description2");
+        var description2 = BookTextPageModel.create()
+                .withText(this.context().pageText());
+
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(this.modLoc("textures/gui/book/parrot.png"))
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description,
+                        description2
+                );
+    }
+
+    private BookEntryModel makePossessRandomAnimalEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("possess_random_animal");
+        this.add(this.context().entryName(), "Possessed Random Animal");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.create()
+                .withEntityId("minecraft:cow")
+                .withEntityName(this.context().pageTitle())
+                .withText(this.context().pageText());
+
+        this.add(this.context().pageTitle(), "Summon Random Animal");
+        this.add(this.context().pageText(),
+                """
+                    **Provides**: A random animal
+                    """
+        );
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_random_animal"));
+        //no text
+
+        this.context().page("description");
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
+        this.add(this.context().pageText(),
+                """
+                        In this ritual a [#](%1$s)Foliot[#]() is summoned **as an untamed spirit** to take the shape of a random animal.
+                        \\
+                        \\
+                        The animal can be interacted with as it's natural counterpart, including taming, breeding and loot.
+                        """.formatted(COLOR_PURPLE));
+
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.COW_SPAWN_EGG)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+
+    private BookEntryModel makePossessUnboundOtherworldBirdEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("possess_unbound_otherworld_bird");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.create()
+                .withEntityId("occultism:otherworld_bird")
+                .withText(this.context().pageText());
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_unbound_otherworld_bird"));
+
+        this.context().page("description");
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(this.modLoc("textures/gui/book/otherworld_bird.png"))
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         entity,

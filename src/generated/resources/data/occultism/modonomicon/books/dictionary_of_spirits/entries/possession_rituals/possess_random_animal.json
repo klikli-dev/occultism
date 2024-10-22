@@ -1,18 +1,17 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "summoning_rituals",
+  "category": "possession_rituals",
   "condition": {
-    "type": "modonomicon:true"
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/possess_foliot"
   },
   "description": "",
   "hide_while_locked": false,
   "icon": {
-    "height": 16,
-    "texture": "occultism:textures/gui/book/otherworld_bird.png",
-    "width": 16
+    "item": "minecraft:cow_spawn_egg"
   },
-  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.possess_unbound_otherworld_bird.name",
+  "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_random_animal.name",
   "pages": [
     {
       "type": "modonomicon:entity",
@@ -21,12 +20,12 @@
         "type": "modonomicon:none"
       },
       "default_rotation": -45.0,
-      "entity_id": "occultism:otherworld_bird",
-      "name": "",
+      "entity_id": "minecraft:cow",
+      "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_random_animal.entity.title",
       "offset": 0.0,
       "rotate": true,
       "scale": 1.0,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.possess_unbound_otherworld_bird.entity.text"
+      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_random_animal.entity.text"
     },
     {
       "type": "occultism:ritual_recipe",
@@ -34,7 +33,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/possess_unbound_otherworld_bird",
+      "recipe_id_1": "occultism:ritual/possess_random_animal",
       "text": "",
       "title1": "",
       "title2": ""
@@ -46,7 +45,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.possess_unbound_otherworld_bird.description.text",
+      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_random_animal.description.text",
       "title": "",
       "use_markdown_in_title": false
     }
@@ -54,13 +53,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "summoning_rituals/possess_unbound_parrot",
+      "entry": "possession_rituals/overview",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": -1,
-  "x": 2,
-  "y": 4
+  "x": 7,
+  "y": 1
 }
