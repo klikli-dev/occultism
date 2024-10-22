@@ -5,13 +5,14 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryParentModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
-import com.klikli_dev.modonomicon.api.datagen.book.condition.BookTrueConditionModel;
+import com.klikli_dev.modonomicon.api.datagen.book.condition.BookEntryReadConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.occultism.datagen.OccultismBookProvider;
 import com.klikli_dev.occultism.datagen.book.binding_rituals.ApprenticeRitualSatchelEntry;
 import com.klikli_dev.occultism.datagen.book.binding_rituals.ArtisanalRitualSatchelEntry;
+import com.klikli_dev.occultism.datagen.book.pentacles.*;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
@@ -37,7 +38,7 @@ public class BindingRitualsCategory extends CategoryProvider {
                 "___________________________",
                 "_______f_z_a__g_ĝ_ğ________",
                 "___________________________",
-                "___________n_m_o___________",
+                "_________o_n_m_____________",
                 "___________________________",
                 "___________i_j_k_l_________",
                 "___________________________"
@@ -46,12 +47,21 @@ public class BindingRitualsCategory extends CategoryProvider {
 
     @Override
     protected void generateEntries() {
+        String craftFoliotID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + CraftFoliotEntry.ENTRY_ID;
+        String craftDjinniID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + CraftDjinniEntry.ENTRY_ID;
+        String craftAfritID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + CraftAfritEntry.ENTRY_ID;
+        String craftMaridID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + CraftMaridEntry.ENTRY_ID;
+        String contactWildID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + ContactWildSpiritEntry.ENTRY_ID;
+
         var overview = this.add(this.makeCraftingRitualsOverviewEntry(this.entryMap, '0'));
+        overview.withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
         var returnToRituals = this.add(this.makeReturnToRitualsEntry(this.entryMap, '9'));
-        returnToRituals.withParent(BookEntryParentModel.create(overview.getId()));
+        returnToRituals.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
 
         var craftInfusedPickaxe = this.add(this.makeCraftInfusedPickaxeEntry(this.entryMap, 'd'));
-        craftInfusedPickaxe.withParent(BookEntryParentModel.create(overview.getId()));
+        craftInfusedPickaxe.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
         var craftDimensionalMineshaft = this.add(this.makeCraftDimensionalMineshaftEntry(this.entryMap, 'b'));
         craftDimensionalMineshaft.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()));
         var craftFoliotMiner = this.add(this.makeCraftFoliotMinerEntry(this.entryMap, 'e'));
@@ -59,12 +69,15 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftDjinniMiner = this.add(this.makeCraftDjinniMinerEntry(this.entryMap, 'x'));
         craftDjinniMiner.withParent(BookEntryParentModel.create(craftFoliotMiner.getId()));
         var craftAfritMiner = this.add(this.makeCraftAfritMinerEntry(this.entryMap, 'p'));
-        craftAfritMiner.withParent(BookEntryParentModel.create(craftDjinniMiner.getId()));
+        craftAfritMiner.withParent(BookEntryParentModel.create(craftDjinniMiner.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftAfritID));
         var craftMaridMiner = this.add(this.makeCraftMaridMinerEntry(this.entryMap, 'q'));
-        craftMaridMiner.withParent(BookEntryParentModel.create(craftAfritMiner.getId()));
+        craftMaridMiner.withParent(BookEntryParentModel.create(craftAfritMiner.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftMaridID));
 
         var craftStorageSystem = this.add(this.makeCraftStorageSystemEntry(this.entryMap, 'z'));
-        craftStorageSystem.withParent(BookEntryParentModel.create(overview.getId()));
+        craftStorageSystem.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
 
         var craftDimensionalMatrix = this.add(this.makeCraftDimensionalMatrixEntry(this.entryMap, 'a'));
         craftDimensionalMatrix.withParent(BookEntryParentModel.create(craftStorageSystem.getId()));
@@ -75,37 +88,42 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftStabilizerTier2 = this.add(this.makeCraftStabilizerTier2Entry(this.entryMap, 'j'));
         craftStabilizerTier2.withParent(BookEntryParentModel.create(craftStabilizerTier1.getId()));
         var craftStabilizerTier3 = this.add(this.makeCraftStabilizerTier3Entry(this.entryMap, 'k'));
-        craftStabilizerTier3.withParent(BookEntryParentModel.create(craftStabilizerTier2.getId()));
+        craftStabilizerTier3.withParent(BookEntryParentModel.create(craftStabilizerTier2.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftAfritID));
         var craftStabilizerTier4 = this.add(this.makeCraftStabilizerTier4Entry(this.entryMap, 'l'));
-        craftStabilizerTier4.withParent(BookEntryParentModel.create(craftStabilizerTier3.getId()));
+        craftStabilizerTier4.withParent(BookEntryParentModel.create(craftStabilizerTier3.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftMaridID));
 
         var craftStableWormhole = this.add(this.makeCraftStableWormholeEntry(this.entryMap, 'm'));
         craftStableWormhole.withParent(BookEntryParentModel.create(craftStorageControllerBase.getId()));
         var craftStorageRemote = this.add(this.makeCraftStorageRemoteEntry(this.entryMap, 'o'));
-        craftStorageRemote.withParent(BookEntryParentModel.create(craftStableWormhole.getId()));
+        craftStorageRemote.withParent(BookEntryParentModel.create(craftStorageControllerBase.getId()));
 
         var craftOtherworldGoggles = this.add(this.makeCraftOtherworldGogglesEntry(this.entryMap, 'f'));
-        craftOtherworldGoggles.withParent(BookEntryParentModel.create(overview.getId()));
+        craftOtherworldGoggles.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
 
         var craftSatchel = this.add(this.makeCraftSatchelEntry(this.entryMap, 'g'));
-        craftSatchel.withParent(BookEntryParentModel.create(overview.getId()));
+        craftSatchel.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
 
         var apprenticeRitualSatchel = this.add(new ApprenticeRitualSatchelEntry(this).generate('ĝ'));
-        apprenticeRitualSatchel.withParent(craftSatchel);
+        apprenticeRitualSatchel.withParent(craftSatchel)
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
 
         var artisanalRitualSatchel = this.add(new ArtisanalRitualSatchelEntry(this).generate('ğ'));
-        artisanalRitualSatchel.withParent(apprenticeRitualSatchel);
+        artisanalRitualSatchel.withParent(apprenticeRitualSatchel)
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftAfritID));
 
         var craftSoulGem = this.add(this.makeCraftSoulGemEntry(this.entryMap, 'h'));
-        craftSoulGem.withParent(BookEntryParentModel.create(overview.getId()));
+        craftSoulGem.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
         var craftFamiliarRing = this.add(this.makeCraftFamiliarRingEntry(this.entryMap, 'c'));
         craftFamiliarRing.withParent(BookEntryParentModel.create(craftSoulGem.getId()));
 
         var craftWildTrim = this.add(this.makeCraftWildTrimEntry(this.entryMap, 'w'));
-        craftWildTrim.withParent(BookEntryParentModel.create(overview.getId()));
-
-        //Note: by default entries get an "entry read" condition for their parent entry, but we want to show all of these right away
-        this.category.getEntries().forEach(entry -> entry.withCondition(BookTrueConditionModel.create()));
+        craftWildTrim.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(contactWildID));
     }
 
     @Override

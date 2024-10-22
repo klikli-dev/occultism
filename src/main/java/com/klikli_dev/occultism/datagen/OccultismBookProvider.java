@@ -58,7 +58,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         craftingRitualsCategory.withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/purple"));
 
         var storageCategory = this.add(this.makeStorageCategory().withSortNumber(sortNum++));
-        storageCategory.withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/craft_foliot")));
+        storageCategory.withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("crafting_rituals/craft_storage_system")));
 
         var introReadCondition = BookEntryReadConditionModel.create()
                 .withEntry(this.modLoc("getting_started/intro"));
@@ -2354,11 +2354,11 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         entryMap.setMap(
                 "_______ṡ___________________",
                 "___________________________",
-                "_______ș_w_r_______________",
+                "_______ș_w_________________",
                 "___________________________",
-                "_____0_c___s_1_2_3_4________",
+                "_____0_c___s_1_2_3_4_______",
                 "___________________________",
-                "_________d_________________",
+                "_______d_r_________________",
                 "___________________________"
         );
 
@@ -2397,24 +2397,19 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         craftStabilizerTier2.getId().getNamespace(),
                         "storage/" + craftStabilizerTier2.getId().getPath()
                 )
-        ));
+        )).withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/craft_afrit")));
         var craftStabilizerTier4 = bindingRitualsCategory.makeCraftStabilizerTier4Entry(entryMap, '4');
         craftStabilizerTier4.withParent(BookEntryParentModel.create(
                 ResourceLocation.fromNamespaceAndPath(
                         craftStabilizerTier3.getId().getNamespace(),
                         "storage/" + craftStabilizerTier3.getId().getPath()
                 )
-        ));
+        )).withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/craft_marid")));
 
         var craftStableWormhole = bindingRitualsCategory.makeCraftStableWormholeEntry(entryMap, 'w');
         craftStableWormhole.withParent(BookEntryParentModel.create(storageController.getId()));
         var craftStorageRemote = bindingRitualsCategory.makeCraftStorageRemoteEntry(entryMap, 'r');
-        craftStorageRemote.withParent(BookEntryParentModel.create(
-                ResourceLocation.fromNamespaceAndPath(
-                        craftStableWormhole.getId().getNamespace(),
-                        "storage/" + craftStableWormhole.getId().getPath()
-                )
-        ));
+        craftStorageRemote.withParent(BookEntryParentModel.create(storageController.getId()));
 
         this.context().category("summoning_rituals"); //re-use existing entries
         var summonManageMachine = this.makeSummonManageMachineEntry(entryMap, 'd');

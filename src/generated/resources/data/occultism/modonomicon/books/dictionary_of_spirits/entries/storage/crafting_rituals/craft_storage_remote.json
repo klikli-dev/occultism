@@ -36,13 +36,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "storage/crafting_rituals/craft_stable_wormhole",
+      "entry": "storage/storage_controller",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": -1,
-  "x": -2,
-  "y": -2
+  "x": -4,
+  "y": 2
 }
