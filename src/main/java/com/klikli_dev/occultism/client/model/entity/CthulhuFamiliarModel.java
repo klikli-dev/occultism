@@ -132,7 +132,7 @@ public class CthulhuFamiliarModel extends EntityModel<CthulhuFamiliarEntity> {
 
     @Override
     public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, int pColor) {
-        this.head.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
+        this.body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
         this.lantern4.proxyRender(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
     }
 

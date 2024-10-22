@@ -312,6 +312,11 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .setResultAmount(2)
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/datura"));
         this.crushingMetalRecipe("allthemodium", pRecipeOutput);
+        this.crushingMetalRecipe("unobtainium", pRecipeOutput);
+        this.crushingMetalRecipe("vibranium", pRecipeOutput);
+        this.crushingMetalRecipe("unobtainium_allthemodium_alloy", pRecipeOutput);
+        this.crushingMetalRecipe("unobtainium_vibranium_alloy", pRecipeOutput);
+        this.crushingMetalRecipe("vibranium_allthemodium_alloy", pRecipeOutput);
         this.crushingMetalRecipe("iesnium", pRecipeOutput);
         this.crushingMetalRecipe("aluminum", pRecipeOutput);
         this.crushingMetalRecipe("signalum", pRecipeOutput);
@@ -325,7 +330,6 @@ public class OccultismRecipeProvider extends RecipeProvider {
         this.crushingMetalRecipe("lead", pRecipeOutput);
         this.crushingMetalRecipe("bronze", pRecipeOutput);
         this.crushingMetalRecipe("cobalt", pRecipeOutput);
-        this.crushingMetalRecipe("unobtainium", pRecipeOutput);
         this.crushingMetalRecipe("tungsten", pRecipeOutput);
         this.crushingMetalRecipe("iridium", pRecipeOutput);
         this.crushingMetalRecipe("steel", pRecipeOutput);
@@ -338,7 +342,6 @@ public class OccultismRecipeProvider extends RecipeProvider {
         this.crushingMetalRecipe("crimson_iron", pRecipeOutput);
         this.crushingMetalRecipe("platinum", pRecipeOutput);
         this.crushingMetalRecipe("invar", pRecipeOutput);
-        this.crushingMetalRecipe("vibranium", pRecipeOutput);
         this.crushingMetalRecipe("silver", pRecipeOutput);
         this.crushingMetalRecipe("copper", pRecipeOutput);
         this.crushingMetalRecipe("pewter", pRecipeOutput);
