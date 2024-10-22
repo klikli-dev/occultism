@@ -811,11 +811,9 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.SCULK_SENSOR),
                         Ingredient.of(Items.SCULK),
                         Ingredient.of(Items.SCULK),
-                        Ingredient.of(Items.SCULK_SHRIEKER),
                         Ingredient.of(Items.SCULK_SENSOR),
                         Ingredient.of(Items.SCULK),
                         Ingredient.of(Items.SCULK),
-                        Ingredient.of(Items.SCULK_SHRIEKER),
                         Ingredient.of(Items.SCULK_SENSOR),
                         Ingredient.of(Items.SCULK),
                         Ingredient.of(Items.SCULK))
