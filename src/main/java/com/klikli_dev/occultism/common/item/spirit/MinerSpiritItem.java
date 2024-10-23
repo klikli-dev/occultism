@@ -46,12 +46,14 @@ public class MinerSpiritItem extends Item {
     private final Supplier<Integer> maxMiningTime;
     private final Supplier<Integer> rollsPerOperation;
     private final Supplier<Integer> maxDamage;
+    private final int enchantmentValue;
 
     public MinerSpiritItem(Properties properties, Supplier<Integer> maxMiningTime, Supplier<Integer> rollsPerOperation, Supplier<Integer> maxDamage) {
         super(properties.component(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY));
         this.maxMiningTime = maxMiningTime;
         this.rollsPerOperation = rollsPerOperation;
         this.maxDamage = maxDamage;
+        this.enchantmentValue = 9;
     }
 
     @Override
@@ -81,5 +83,10 @@ public class MinerSpiritItem extends Item {
         if(!stack.has(OccultismDataComponents.ROLLS_PER_OPERATION))
             stack.set(OccultismDataComponents.ROLLS_PER_OPERATION, this.rollsPerOperation.get());
         return super.getMaxStackSize(stack);
+    }
+
+    @Override
+    public int getEnchantmentValue() {
+        return this.enchantmentValue;
     }
 }
