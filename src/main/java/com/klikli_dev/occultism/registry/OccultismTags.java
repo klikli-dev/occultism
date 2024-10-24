@@ -196,6 +196,8 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> OCELOT = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ocelot"));
         public static final TagKey<EntityType<?>> CATS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "cats"));
         public static final TagKey<EntityType<?>> VEX = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "vex"));
+        public static final TagKey<EntityType<?>> WARDEN = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "warden"));
+        public static final TagKey<EntityType<?>> ALLAY = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "allay"));
 
         public static final TagKey<EntityType<?>> RANDOM_ANIMALS_TO_SUMMON_LIST = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "random_animals_to_summon_list"));
     }

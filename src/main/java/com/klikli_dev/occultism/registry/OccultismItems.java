@@ -367,11 +367,10 @@ public class OccultismItems {
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> STORAGE_REMOTE_INERT = ITEMS.register("storage_remote_inert",
             () -> new Item(defaultProperties()));
-
-    public static final DeferredItem<Item> MINING_DIMENSION_CORE_PIECE = ITEMS.register("mining_dim_core",
-            () -> new Item(defaultProperties()));
     public static final DeferredItem<DimensionalMatrixItem> DIMENSIONAL_MATRIX = ITEMS.register("dimensional_matrix",
             () -> new DimensionalMatrixItem(defaultProperties().component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
+    public static final DeferredItem<Item> MINING_DIMENSION_CORE_PIECE = ITEMS.register("mining_dim_core",
+            () -> new Item(defaultProperties()));
 
     //Others
     public static final DeferredItem<SoulShardItem> SOUL_SHARD_ITEM = ITEMS.register("soul_shard",
@@ -624,7 +623,10 @@ public class OccultismItems {
         ITEMS.register("ritual_dummy/custom_ritual_craft", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/custom_ritual_misc", () -> new DummyTooltipItem(defaultProperties()));
     }
-    public static final DeferredItem<Item> RITUAL_DUMMY_CONTACT_ELDRITCH = ITEMS.register("ritual_dummy/contact_eldritch_debug",
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST = ITEMS.register("ritual_dummy/craft_budding_amethyst",
+            () -> new DummyTooltipItem(defaultProperties()));
+
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE= ITEMS.register("ritual_dummy/craft_reinforced_deepslate",
             () -> new DummyTooltipItem(defaultProperties()));
 
     //Debug
@@ -693,7 +695,6 @@ public class OccultismItems {
                 || item == JEI_DUMMY_REQUIRE_ITEM_USE.get()
                 || item == REPAIR_ICON.get()
                 || item == RESURRECT_ICON.get()
-                || item ==  RITUAL_DUMMY_CONTACT_ELDRITCH.get()
         )
             return true;
 

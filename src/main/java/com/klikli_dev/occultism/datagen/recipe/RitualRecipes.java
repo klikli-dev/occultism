@@ -17,6 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -1551,16 +1552,51 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_dragonyst_dust"));
 
-        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.DEBUG_WAND.get()),
-                        new ItemStack(Items.BEDROCK),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/contact_eldritch_debug")),
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.AMETHYST_BLOCK),
+                        new ItemStack(Items.BUDDING_AMETHYST),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST.get()),
+                        180,
+                        RITUAL_CRAFT,
+                        PENTACLE_CONTACT_WILD_SPIRIT,
+                        Ingredient.of(Items.SMALL_AMETHYST_BUD),
+                        Ingredient.of(Items.MEDIUM_AMETHYST_BUD),
+                        Ingredient.of(Items.LARGE_AMETHYST_BUD),
+                        Ingredient.of(Items.AMETHYST_CLUSTER),
+                        Ingredient.of(Items.AMETHYST_SHARD),
+                        Ingredient.of(OccultismTags.Items.AMETHYST_DUST),
+                        Ingredient.of(Items.SMALL_AMETHYST_BUD),
+                        Ingredient.of(Items.MEDIUM_AMETHYST_BUD),
+                        Ingredient.of(Items.LARGE_AMETHYST_BUD),
+                        Ingredient.of(Items.AMETHYST_CLUSTER),
+                        Ingredient.of(Items.AMETHYST_SHARD),
+                        Ingredient.of(OccultismTags.Items.AMETHYST_DUST))
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.allay")
+                .entityToSacrifice(OccultismTags.Entities.ALLAY)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_budding_amethyst"));
+
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.DEEPSLATE),
+                        new ItemStack(Items.REINFORCED_DEEPSLATE),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE.get()),
                         360,
                         RITUAL_CRAFT,
                         PENTACLE_CONTACT_ELDRITCH_SPIRIT,
-                        Ingredient.of(Tags.Items.STONES),
-                        Ingredient.of(ItemTags.BEDS))
+                        Ingredient.of(Tags.Items.NETHER_STARS),
+                        Ingredient.of(Items.SHULKER_SHELL),
+                        Ingredient.of(Items.ARMADILLO_SCUTE),
+                        Ingredient.of(Items.TURTLE_SCUTE),
+                        Ingredient.of(Items.ECHO_SHARD),
+                        Ingredient.of(Items.ANVIL),
+                        Ingredient.of(Tags.Items.STORAGE_BLOCKS_NETHERITE),
+                        Ingredient.of(Tags.Items.OBSIDIANS),
+                        Ingredient.of(Tags.Items.OBSIDIANS_CRYING),
+                        Ingredient.of(Items.END_STONE_BRICKS),
+                        Ingredient.of(Items.SCULK_CATALYST),
+                        Ingredient.of(OccultismTags.Items.STORAGE_BLOCK_IESNIUM))
                 .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/contact_eldritch_debug"));
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.warden")
+                .entityToSacrifice(OccultismTags.Entities.WARDEN)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_reinforced_deepslate"));
 
     }
 

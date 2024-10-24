@@ -1,0 +1,59 @@
+{
+  "type": "occultism:ritual",
+  "activation_item": {
+    "item": "minecraft:amethyst_block"
+  },
+  "duration": 180,
+  "entity_to_sacrifice": {
+    "display_name": "ritual.occultism.sacrifice.allay",
+    "tag": "occultism:allay"
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:small_amethyst_bud"
+    },
+    {
+      "item": "minecraft:medium_amethyst_bud"
+    },
+    {
+      "item": "minecraft:large_amethyst_bud"
+    },
+    {
+      "item": "minecraft:amethyst_cluster"
+    },
+    {
+      "item": "minecraft:amethyst_shard"
+    },
+    {
+      "tag": "c:dusts/amethyst"
+    },
+    {
+      "item": "minecraft:small_amethyst_bud"
+    },
+    {
+      "item": "minecraft:medium_amethyst_bud"
+    },
+    {
+      "item": "minecraft:large_amethyst_bud"
+    },
+    {
+      "item": "minecraft:amethyst_cluster"
+    },
+    {
+      "item": "minecraft:amethyst_shard"
+    },
+    {
+      "tag": "c:dusts/amethyst"
+    }
+  ],
+  "pentacle_id": "occultism:contact_wild_spirit",
+  "result": {
+    "count": 1,
+    "id": "minecraft:budding_amethyst"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/craft_budding_amethyst"
+  },
+  "ritual_type": "occultism:craft"
+}

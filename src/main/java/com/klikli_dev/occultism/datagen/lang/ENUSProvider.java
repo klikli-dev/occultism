@@ -608,6 +608,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.sacrifice.cats", "Cat");
         this.add("ritual.occultism.sacrifice.vex", "Vex");
         this.add("ritual.occultism.sacrifice.tadpoles", "Tadpole");
+        this.add("ritual.occultism.sacrifice.allay", "Allay");
+        this.add("ritual.occultism.sacrifice.warden", "Warden");
 
         //Network Message
         this.add("network.messages.occultism.request_order.order_received", "Order received!");
@@ -1083,6 +1085,16 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "started", "Started binding an afrit into a ritual satchel.");
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "finished", "Successfully bound an afrit into a ritual satchel.");
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "interrupted", "Binding of afrit interrupted.");
+
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST, "conditions", "Not all requirements for this ritual are met.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST, "started", "Started forging budding amethyst.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST, "finished", "Successfully forged budding amethyst.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST, "interrupted", "Forging budding amethyst interrupted.");
+
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE, "conditions", "Not all requirements for this ritual are met.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE, "started", "Started forging reinforced deepslate.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE, "finished", "Successfully forged reinforced deepslate.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE, "interrupted", "Forging reinforced deepslate interrupted.");
     }
 
     public void addRitualMessage(DeferredHolder<RitualFactory, RitualFactory> ritual, String key, String message) {
@@ -1891,6 +1903,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         helper.page("ritual");
         //no text
+
         helper.entry("craft_wild_trim");
         this.add(helper.entryName(), "Forge Wild Trim");
 
@@ -1901,6 +1914,50 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
+        //no text
+
+        helper.entry("craft_budding_amethyst");
+        this.add(helper.entryName(), "Forge Budding Amethyst");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        Unlike other rituals, creating a [](item://minecraft:budding_amethyst) is a service provided by Wild Spirits and not bound any spirit to the final object. You sacrifice the items and the Wild Spirits uses his power to forge that item for you.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_reinforced_deepslate");
+        this.add(helper.entryName(), "Forge Reinforced Deepslate");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        Unlike other rituals, creating a [](item://minecraft:reinforced deepslate) is a service provided by Ancient Spirits and not bound any spirit to the final object. You sacrifice the items and the Ancient Spirits uses his power to forge that item for you.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("repair");
+        this.add(helper.entryName(), "Repair Rituals");
+
+        helper.page("spotlight");
+        this.add(helper.pageTitle(), "Repairing");
+        this.add(helper.pageText(),
+                """
+                        With simple materials, a Djinni can repair any chalk for you. By evolving in the occult path, an Afrit can repair miners, tools and armors. Any item repaired in this way retains its properties.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual_chalks");
+        //no text
+        helper.page("ritual_miners");
+        //no text
+        helper.page("ritual_tools");
+        //no text
+        helper.page("ritual_armors");
+        //no text
     }
 
     private void addFamiliarRitualsCategory(BookContextHelper helper) {
@@ -2946,6 +3003,13 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         this.add(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2.get(), "Ritual: Craft Artisanal Ritual Satchel");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2.get(), "Binds an Afrit into a satchel to build pentacles all at once for the summoner.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST.get(), "Ritual: Forge Budding Amethyst");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST.get(), "Wild Spirits will forge a Budding Amethyst.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE.get(), "Ritual: Forge Reinforced Deepslate");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE.get(), "Ancient Spirits will forge a Reinforced Deepslate.");
+
     }
 
     public void addTooltip(ItemLike key, String value) {

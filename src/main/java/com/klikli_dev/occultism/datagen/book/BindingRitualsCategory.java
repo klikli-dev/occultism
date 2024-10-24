@@ -32,9 +32,9 @@ public class BindingRitualsCategory extends CategoryProvider {
                 "___________________________",
                 "_______b_e_x_p_q_r_________",
                 "___________________________",
-                "_______d_h_c__w____________",
+                "_______d_h_c__w_v_s________",
                 "___________________________",
-                "___9_0_____________________",
+                "___9_0______________y______",
                 "___________________________",
                 "_______f_z_a__g_ĝ_ğ________",
                 "___________________________",
@@ -128,6 +128,17 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftWildTrim = this.add(this.makeCraftWildTrimEntry(this.entryMap, 'w'));
         craftWildTrim.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactWildID));
+        var craftAmethyst = this.add(this.makeCraftAmethystEntry(this.entryMap, 'v'));
+        craftAmethyst.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(contactWildID));
+        var craftDeepslate = this.add(this.makeCraftDeepslateEntry(this.entryMap, 's'));
+        craftDeepslate.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID))
+                .hideWhileLocked(true);
+
+        var repairRituals = this.add(this.makeRepairEntry(this.entryMap, 'y'));
+        repairRituals.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
     }
 
     @Override
@@ -667,6 +678,85 @@ public class BindingRitualsCategory extends CategoryProvider {
                 .withPages(
                         spotlight,
                         ritual
+                );
+    }
+
+    private BookEntryModel makeCraftAmethystEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("craft_budding_amethyst");
+
+        this.context().page("spotlight");
+        var spotlight = BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(Items.BUDDING_AMETHYST))
+                .withText(this.context().pageText());
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_budding_amethyst"));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.BUDDING_AMETHYST)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        spotlight,
+                        ritual
+                );
+    }
+
+    private BookEntryModel makeCraftDeepslateEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("craft_reinforced_deepslate");
+
+        this.context().page("spotlight");
+        var spotlight = BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(Items.REINFORCED_DEEPSLATE))
+                .withText(this.context().pageText());
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_reinforced_deepslate"));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.REINFORCED_DEEPSLATE)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        spotlight,
+                        ritual
+                );
+    }
+
+    private BookEntryModel makeRepairEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("repair");
+
+        this.context().page("spotlight");
+        var spotlight = BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(Items.ANVIL))
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+
+        this.context().page("ritual_chalks");
+        var ritualChalks = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/repair_chalks"));
+
+        this.context().page("ritual_chalks");
+        var ritualMiners = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/repair_miners"));
+
+        this.context().page("ritual_chalks");
+        var ritualTools = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/repair_tools"));
+
+        this.context().page("ritual_chalks");
+        var ritualArmors = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/repair_armors"));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(OccultismItems.REPAIR_ICON)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        spotlight,
+                        ritualChalks,
+                        ritualMiners,
+                        ritualTools,
+                        ritualArmors
                 );
     }
 }
