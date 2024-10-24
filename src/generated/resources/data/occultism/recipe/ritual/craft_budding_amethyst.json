@@ -6,7 +6,7 @@
   "duration": 180,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.allay",
-    "tag": "occultism:allay"
+    "tag": "c:allay"
   },
   "ingredients": [
     {

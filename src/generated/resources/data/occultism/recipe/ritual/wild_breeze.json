@@ -5,7 +5,7 @@
   },
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.wolfs",
-    "tag": "occultism:wolfs"
+    "tag": "c:wolfs"
   },
   "entity_to_summon": "occultism:possessed_breeze",
   "ingredients": [

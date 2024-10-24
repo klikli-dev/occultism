@@ -5,7 +5,7 @@
   },
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.dolphin",
-    "tag": "occultism:dolphin"
+    "tag": "c:dolphins"
   },
   "entity_to_summon": "occultism:wild_horde_drowned",
   "ingredients": [

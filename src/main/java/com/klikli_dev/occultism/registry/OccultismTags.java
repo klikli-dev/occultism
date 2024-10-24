@@ -160,7 +160,7 @@ public class OccultismTags {
 
     public static class Entities {
         public static final TagKey<EntityType<?>> AXOLOTL = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "axolotls"));
-        public static final TagKey<EntityType<?>> CHICKEN = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "chicken"));
+        public static final TagKey<EntityType<?>> CHICKEN = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "chickens"));
         public static final TagKey<EntityType<?>> PARROTS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "parrots"));
         public static final TagKey<EntityType<?>> PIGS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "pigs"));
         public static final TagKey<EntityType<?>> COWS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "cows"));
@@ -179,8 +179,16 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> PANDAS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "pandas"));
         public static final TagKey<EntityType<?>> SHEEP = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "sheep"));
         public static final TagKey<EntityType<?>> SPIDERS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "spiders"));
-        public static final TagKey<EntityType<?>> SQUID = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "squid"));
+        public static final TagKey<EntityType<?>> SQUID = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "squids"));
         public static final TagKey<EntityType<?>> TADPOLES = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "tadpoles"));
+        public static final TagKey<EntityType<?>> CAMEL = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "camels"));
+        public static final TagKey<EntityType<?>> DOLPHIN = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "dolphins"));
+        public static final TagKey<EntityType<?>> WOLFS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "wolfs"));
+        public static final TagKey<EntityType<?>> OCELOT = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "ocelots"));
+        public static final TagKey<EntityType<?>> CATS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "cats"));
+        public static final TagKey<EntityType<?>> WARDEN = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "wardens"));
+        public static final TagKey<EntityType<?>> VEX = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "vex"));
+        public static final TagKey<EntityType<?>> ALLAY = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "allay"));
         //Entity Tags
         public static final TagKey<EntityType<?>> SOUL_GEM_DENY_LIST = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "soul_gem_deny_list"));
         public static final TagKey<EntityType<?>> AFRIT_ALLIES = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "afrit_allies"));
@@ -190,14 +198,6 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> CUBEMOB = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "cubemob"));
         public static final TagKey<EntityType<?>> FLYING_PASSIVE = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "flying_passive"));
         public static final TagKey<EntityType<?>> HUMANS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "humans"));
-        public static final TagKey<EntityType<?>> CAMEL = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "camel"));
-        public static final TagKey<EntityType<?>> DOLPHIN = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "dolphin"));
-        public static final TagKey<EntityType<?>> WOLFS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wolfs"));
-        public static final TagKey<EntityType<?>> OCELOT = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ocelot"));
-        public static final TagKey<EntityType<?>> CATS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "cats"));
-        public static final TagKey<EntityType<?>> VEX = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "vex"));
-        public static final TagKey<EntityType<?>> WARDEN = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "warden"));
-        public static final TagKey<EntityType<?>> ALLAY = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "allay"));
 
         public static final TagKey<EntityType<?>> RANDOM_ANIMALS_TO_SUMMON_LIST = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "random_animals_to_summon_list"));
     }

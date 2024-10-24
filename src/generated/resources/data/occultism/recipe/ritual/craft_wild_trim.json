@@ -6,7 +6,7 @@
   "duration": 240,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.ocelot",
-    "tag": "occultism:ocelot"
+    "tag": "c:ocelots"
   },
   "ingredients": [
     {

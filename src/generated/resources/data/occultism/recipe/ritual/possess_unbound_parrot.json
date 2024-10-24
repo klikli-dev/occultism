@@ -5,7 +5,7 @@
   },
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.chicken",
-    "tag": "c:chicken"
+    "tag": "c:chickens"
   },
   "entity_to_summon": "minecraft:parrot",
   "ingredients": [

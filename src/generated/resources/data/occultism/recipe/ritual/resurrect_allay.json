@@ -5,7 +5,7 @@
   },
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.vex",
-    "tag": "occultism:vex"
+    "tag": "c:vex"
   },
   "entity_to_summon": "minecraft:allay",
   "ingredients": [

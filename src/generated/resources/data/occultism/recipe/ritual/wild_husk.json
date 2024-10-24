@@ -5,7 +5,7 @@
   },
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.camel",
-    "tag": "occultism:camel"
+    "tag": "c:camels"
   },
   "entity_to_summon": "occultism:wild_horde_husk",
   "ingredients": [
