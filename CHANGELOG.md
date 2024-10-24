@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.164.0] - 2024-10-24
+### :sparkles: New Features
+- [`2282acf`](https://github.com/klikli-dev/occultism/commit/2282acf96bf47d4bdeba75949b31825d074e7d65) - Update A Russian Translation *(PR [#1229](https://github.com/klikli-dev/occultism/pull/1229) by [@Heimdallr-1](https://github.com/Heimdallr-1))*
+
+
 ## [release/v1.21.1-1.163.0] - 2024-10-24
 ### :sparkles: New Features
 - [`51a3ad4`](https://github.com/klikli-dev/occultism/commit/51a3ad41d57c0c0339f9e167cc7146f77423af7a) - Pentacle Rework ([#1215](https://github.com/klikli-dev/occultism/pull/1215)) - thanks @Eqis-Edu! *(commit by [@Eqis-Edu](https://github.com/Eqis-Edu))*
@@ -1819,3 +1824,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.161.4]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.161.3...release/v1.21.1-1.161.4
 [release/v1.21.1-1.162.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.161.4...release/v1.21.1-1.162.0
 [release/v1.21.1-1.163.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.162.0...release/v1.21.1-1.163.0
+[release/v1.21.1-1.164.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.163.0...release/v1.21.1-1.164.0
