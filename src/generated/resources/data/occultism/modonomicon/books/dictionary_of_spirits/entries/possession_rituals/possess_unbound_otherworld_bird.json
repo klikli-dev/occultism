@@ -1,0 +1,67 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "possession_rituals",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/possess_djinni"
+  },
+  "description": "",
+  "hide_while_locked": false,
+  "icon": {
+    "height": 16,
+    "texture": "occultism:textures/gui/book/otherworld_bird.png",
+    "width": 16
+  },
+  "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_unbound_otherworld_bird.name",
+  "pages": [
+    {
+      "type": "modonomicon:entity",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "default_rotation": -45.0,
+      "entity_id": "occultism:otherworld_bird",
+      "name": "",
+      "offset": 0.0,
+      "rotate": true,
+      "scale": 1.0,
+      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_unbound_otherworld_bird.entity.text"
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/possess_unbound_otherworld_bird",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_unbound_otherworld_bird.description.text",
+      "title": "",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "possession_rituals/possess_unbound_parrot",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": -1,
+  "x": 5,
+  "y": 3
+}

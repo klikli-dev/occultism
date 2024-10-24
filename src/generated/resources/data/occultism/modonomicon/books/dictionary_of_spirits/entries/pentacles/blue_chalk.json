@@ -1,0 +1,74 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "pentacles",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/summon_unbound_marid"
+  },
+  "description": "book.occultism.dictionary_of_spirits.pentacles.blue_chalk.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "occultism:chalk_blue"
+  },
+  "name": "book.occultism.dictionary_of_spirits.pentacles.blue_chalk.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.blue_chalk.lore.text",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.blue_chalk.lore.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "occultism:chalk_blue"
+      },
+      "text": "book.occultism.dictionary_of_spirits.pentacles.blue_chalk.spotlight.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:crafting/chalk_blue_impure",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "occultism:spirit_fire_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:spirit_fire/chalk_blue",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "pentacles/red_chalk",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 29,
+  "x": 10,
+  "y": 2
+}

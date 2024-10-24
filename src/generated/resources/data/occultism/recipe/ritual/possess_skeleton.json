@@ -3,9 +3,10 @@
   "activation_item": {
     "item": "occultism:book_of_binding_bound_foliot"
   },
+  "duration": 15,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.chicken",
-    "tag": "c:chicken"
+    "tag": "c:chickens"
   },
   "entity_to_summon": "occultism:possessed_skeleton",
   "ingredients": [

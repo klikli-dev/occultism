@@ -10,10 +10,10 @@
   "entity_to_summon": "occultism:mummy_familiar",
   "ingredients": [
     {
-      "tag": "c:slimeballs"
+      "tag": "c:slime_balls"
     },
     {
-      "tag": "c:slimeballs"
+      "tag": "c:slime_balls"
     },
     {
       "item": "minecraft:paper"

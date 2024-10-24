@@ -1,0 +1,78 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "possession_rituals",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/possess_foliot"
+  },
+  "description": "",
+  "hide_while_locked": false,
+  "icon": {
+    "height": 16,
+    "texture": "occultism:textures/gui/book/parrot.png",
+    "width": 16
+  },
+  "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_unbound_parrot.name",
+  "pages": [
+    {
+      "type": "modonomicon:entity",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "default_rotation": -45.0,
+      "entity_id": "minecraft:parrot",
+      "name": "",
+      "offset": 0.0,
+      "rotate": true,
+      "scale": 1.0,
+      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_unbound_parrot.entity.text"
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/possess_unbound_parrot",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_unbound_parrot.description.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_unbound_parrot.description2.text",
+      "title": "",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "possession_rituals/overview",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": -1,
+  "x": 5,
+  "y": 1
+}

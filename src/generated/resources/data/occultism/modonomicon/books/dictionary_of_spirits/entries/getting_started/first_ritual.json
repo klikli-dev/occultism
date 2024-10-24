@@ -5,7 +5,7 @@
   "description": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:pentacle"
+    "item": "occultism:pentacle_summon"
   },
   "name": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.name",
   "pages": [
@@ -121,6 +121,31 @@
       "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.redstone.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.redstone.title",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.clone_redstone.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.clone_redstone.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:image",
+      "anchor": "",
+      "border": true,
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "images": [
+        "occultism:textures/gui/book/redstone_clone.png"
+      ],
+      "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.clone_placement.text",
+      "title": "",
+      "use_legacy_rendering": false
     }
   ],
   "parents": [

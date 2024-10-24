@@ -3,7 +3,8 @@
   "background_v_index": 0,
   "category": "crafting_rituals",
   "condition": {
-    "type": "modonomicon:true"
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/craft_djinni"
   },
   "description": "",
   "hide_while_locked": false,
@@ -56,7 +57,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 21,
+  "sort_number": 22,
   "x": -4,
   "y": -3
 }

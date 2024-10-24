@@ -3,7 +3,8 @@
   "background_v_index": 0,
   "category": "summoning_rituals",
   "condition": {
-    "type": "modonomicon:true"
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/summon_unbound_afrit"
   },
   "description": "",
   "hide_while_locked": false,
@@ -29,7 +30,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/summon_wild_afrit",
+      "recipe_id_1": "occultism:ritual/summon_unbound_afrit",
       "text": "",
       "title1": "",
       "title2": ""

@@ -126,6 +126,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.MINER_DEBUG_UNSPECIALIZED.get().getDescriptionId() + ".tooltip", "Debug Miner will mine random blocks in the mining dimension.");
         this.add(OccultismItems.MINER_AFRIT_DEEPS.get().getDescriptionId() + ".tooltip", "%s will mine random ores and deepslate ores in the mining dimension.");
         this.add(OccultismItems.MINER_MARID_MASTER.get().getDescriptionId() + ".tooltip", "%s will mine random ores, deepslate ores and rare ores in the mining dimension.");
+        this.add(OccultismItems.MINER_ANCIENT_ELDRITCH.get().getDescriptionId() + ".tooltip", "Something will mine random raw ores blocks, gems blocks and rare ores in the mining dimension.");
         this.add(OccultismItems.SOUL_GEM_ITEM.get().getDescriptionId() + ".tooltip_filled", "Contains a captured %s.");
         this.add(OccultismItems.SOUL_GEM_ITEM.get().getDescriptionId() + ".tooltip_empty", "Use on a creature to capture it.");
         this.add(OccultismItems.SATCHEL.get().getDescriptionId() + ".tooltip", "%s is bound to this satchel.");
@@ -143,7 +144,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         this.add("itemGroup.occultism", "Occultism");
 
-        this.addItem(OccultismItems.PENTACLE, "Pentacle");
+        this.addItem(OccultismItems.PENTACLE_SUMMON, "Pentacle Summon");
+        this.addItem(OccultismItems.PENTACLE_POSSESS, "Pentacle Possess");
+        this.addItem(OccultismItems.PENTACLE_CRAFT, "Pentacle Craft");
+        this.addItem(OccultismItems.PENTACLE_MISC, "Pentacle Misc");
+        this.addItem(OccultismItems.REPAIR_ICON, "Repair Icon");
+        this.addItem(OccultismItems.RESURRECT_ICON, "Resurrect Icon");
         this.addItem(OccultismItems.DEBUG_WAND, "Debug Wand");
         this.addItem(OccultismItems.DEBUG_FOLIOT_LUMBERJACK, "Summon Debug Foliot Lumberjack");
         this.addItem(OccultismItems.DEBUG_FOLIOT_TRANSPORT_ITEMS, "Summon Debug Foliot Transporter");
@@ -174,7 +180,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(TranslationKeys.RITUAL_SATCHEL_NO_PREVIEW_BLOCK_TARGETED, "You need to aim the ritual satchel at a preview block.");
         this.add(TranslationKeys.RITUAL_SATCHEL_NO_VALID_ITEM_IN_SATCHEL, "There is no valid item in the satchel for this previewed block.");
 
-        this.addItem(OccultismItems.CHALK_GOLD, "Yellow Chalk");
+        this.addItem(OccultismItems.CHALK_YELLOW, "Yellow Chalk");
         this.addItem(OccultismItems.CHALK_PURPLE, "Purple Chalk");
         this.addItem(OccultismItems.CHALK_RED, "Red Chalk");
         this.addItem(OccultismItems.CHALK_WHITE, "White Chalk");
@@ -190,7 +196,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.CHALK_BLUE, "Blue Chalk");
         this.addItem(OccultismItems.CHALK_MAGENTA, "Magenta Chalk");
         this.addItem(OccultismItems.CHALK_PINK, "Pink Chalk");
-        this.addItem(OccultismItems.CHALK_GOLD_IMPURE, "Impure Yellow Chalk");
+        this.addItem(OccultismItems.CHALK_YELLOW_IMPURE, "Impure Yellow Chalk");
         this.addItem(OccultismItems.CHALK_PURPLE_IMPURE, "Impure Purple Chalk");
         this.addItem(OccultismItems.CHALK_RED_IMPURE, "Impure Red Chalk");
         this.addItem(OccultismItems.CHALK_WHITE_IMPURE, "Impure White Chalk");
@@ -273,6 +279,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.MINER_DEBUG_UNSPECIALIZED, "Debug Miner");
         this.addItem(OccultismItems.MINER_AFRIT_DEEPS, "Deep Ore Miner Afrit");
         this.addItem(OccultismItems.MINER_MARID_MASTER, "Master Miner Marid");
+        this.addItem(OccultismItems.MINER_ANCIENT_ELDRITCH, "Eldritch Ancient Miner");
+        this.addItem(OccultismItems.MINING_DIMENSION_CORE_PIECE, "Mining Dimension Core Piece");
         this.addItem(OccultismItems.SOUL_GEM_ITEM, "Soul Gem");
         this.add(OccultismItems.SOUL_GEM_ITEM.get().getDescriptionId() + "_empty", "Empty Soul Gem");
         this.addItem(OccultismItems.SOUL_SHARD_ITEM, "Soul Shard");
@@ -281,8 +289,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_FOLIOT, "Foliot Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_DJINNI, "Djinni Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_AFRIT, "Afrit Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_AFRIT_WILD, "Unbound Afrit Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_AFRIT_UNBOUND, "Unbound Afrit Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_MARID, "Marid Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_MARID_UNBOUND, "Unbound Marid Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ENDERMITE, "Possessed Endermite Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_SKELETON, "Possessed Skeleton Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ENDERMAN, "Possessed Enderman Spawn Egg");
@@ -293,6 +302,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ELDER_GUARDIAN, "Possessed Elder Guardian Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WARDEN, "Possessed Warden Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_HOGLIN, "Possessed Hoglin Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WITCH, "Possessed Witch Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ZOMBIE_PIGLIN, "Possessed Zombified Piglin Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_BEE, "Possessed Bee Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_GOAT_OF_MERCY, "Goat of Mercy Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HUNT_SKELETON, "Wild Hunt Skeleton Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HUNT_WITHER_SKELETON, "Wild Hunt Wither Skeleton Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_OTHERWORLD_BIRD, "Drikwing Spawn Egg");
@@ -319,10 +332,31 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_DROWNED, "Wild Horde Drowned Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_CREEPER, "Wild Horde Creeper Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_SILVERFISH, "Wild Horde Silverfish Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WEAK_BREEZE, "Possessed Weak Breeze Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_BREEZE, "Possessed Breeze Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_STRONG_BREEZE, "Possessed Strong Breeze Spawn Egg");
-        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_EVOKER, "Possessed Evoker Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_WILD_WEAK_BREEZE, "Wild Weak Breeze Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_WILD_BREEZE, "Wild Breeze Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_WILD_STRONG_BREEZE, "Wild Strong Breeze Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_WILD_EVOKER, "Wild Evoker Spawn Egg");
+        //Pentacle Rework Update
+        this.addItem(OccultismItems.AMETHYST_DUST,"Amethyst Dust");
+        this.addItem(OccultismItems.CRUELTY_ESSENCE,"Cruelty Essence");
+        this.addItem(OccultismItems.CRUSHED_BLACKSTONE,"Crushed Blackstone");
+        this.addItem(OccultismItems.CRUSHED_BLUE_ICE,"Crushed Blue Ice");
+        this.addItem(OccultismItems.CRUSHED_CALCITE,"Crushed Calcite");
+        this.addItem(OccultismItems.CRUSHED_ICE,"Crushed Ice");
+        this.addItem(OccultismItems.CRUSHED_PACKED_ICE,"Crushed Packed Ice");
+        this.addItem(OccultismItems.CURSED_HONEY,"Cursed Honey");
+        this.addItem(OccultismItems.DEMONIC_MEAT,"Demonic Meat");
+        this.addItem(OccultismItems.DRAGONYST_DUST,"Dragonyst Dust");
+        this.addItem(OccultismItems.ECHO_DUST,"Echo Dust");
+        this.addItem(OccultismItems.EMERALD_DUST,"Emerald Dust");
+        this.addItem(OccultismItems.GRAY_PASTE,"Gray Paste");
+        this.addItem(OccultismItems.LAPIS_DUST,"Lapis Dust");
+        this.addItem(OccultismItems.MARID_ESSENCE,"Marid Essence");
+        this.addItem(OccultismItems.NATURE_PASTE,"Nature Paste");
+        this.addItem(OccultismItems.NETHERITE_DUST,"Netherite Dust");
+        this.addItem(OccultismItems.NETHERITE_SCRAP_DUST,"Netherite Scrap Dust");
+        this.addItem(OccultismItems.RESEARCH_FRAGMENT_DUST,"Research Fragment Dust");
+        this.addItem(OccultismItems.WITHERITE_DUST,"Witherite Dust");
     }
 
     private void addBlocks() {
@@ -353,7 +387,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.SACRIFICIAL_BOWL, "Sacrificial Bowl");
         this.addBlock(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL, "Golden Sacrificial Bowl");
         this.addBlock(OccultismBlocks.CHALK_GLYPH_WHITE, "White Chalk Glyph");
-        this.addBlock(OccultismBlocks.CHALK_GLYPH_GOLD, "Yellow Chalk Glyph");
+        this.addBlock(OccultismBlocks.CHALK_GLYPH_YELLOW, "Yellow Chalk Glyph");
         this.addBlock(OccultismBlocks.CHALK_GLYPH_PURPLE, "Purple Chalk Glyph");
         this.addBlock(OccultismBlocks.CHALK_GLYPH_RED, "Red Chalk Glyph");
         this.addBlock(OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY, "Light Gray Chalk Glyph");
@@ -439,6 +473,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.AFRIT, "Afrit");
         this.addEntityType(OccultismEntities.AFRIT_WILD, "Unbound Afrit");
         this.addEntityType(OccultismEntities.MARID, "Marid");
+        this.addEntityType(OccultismEntities.MARID_UNBOUND, "Unbound Marid");
         this.addEntityType(OccultismEntities.POSSESSED_ENDERMITE, "Possessed Endermite");
         this.addEntityType(OccultismEntities.POSSESSED_SKELETON, "Possessed Skeleton");
         this.addEntityType(OccultismEntities.POSSESSED_ENDERMAN, "Possessed Enderman");
@@ -449,6 +484,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.POSSESSED_ELDER_GUARDIAN, "Possessed Elder Guardian");
         this.addEntityType(OccultismEntities.POSSESSED_WARDEN, "Possessed Warden");
         this.addEntityType(OccultismEntities.POSSESSED_HOGLIN, "Possessed Hoglin");
+        this.addEntityType(OccultismEntities.POSSESSED_WITCH, "Possessed Witch");
+        this.addEntityType(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN, "Possessed Zombified Piglin");
+        this.addEntityType(OccultismEntities.POSSESSED_BEE, "Possessed Bee");
+        this.addEntityType(OccultismEntities.GOAT_OF_MERCY, "Goat of Mercy");
         this.addEntityType(OccultismEntities.WILD_HUNT_SKELETON, "Wild Hunt Skeleton");
         this.addEntityType(OccultismEntities.WILD_HUNT_WITHER_SKELETON, "Wild Hunt Wither Skeleton");
         this.addEntityType(OccultismEntities.OTHERWORLD_BIRD, "Drikwing");
@@ -476,9 +515,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.WILD_HORDE_DROWNED, "Wild Horde Drowned");
         this.addEntityType(OccultismEntities.WILD_HORDE_CREEPER, "Wild Horde Creeper");
         this.addEntityType(OccultismEntities.WILD_HORDE_SILVERFISH, "Wild Horde Silverfish");
-        this.addEntityType(OccultismEntities.POSSESSED_WEAK_BREEZE, "Possessed Weak Breeze");
-        this.addEntityType(OccultismEntities.POSSESSED_BREEZE, "Possessed Breeze");
-        this.addEntityType(OccultismEntities.POSSESSED_STRONG_BREEZE, "Possessed Strong Breeze");
+        this.addEntityType(OccultismEntities.POSSESSED_WEAK_BREEZE, "Wild Weak Breeze");
+        this.addEntityType(OccultismEntities.POSSESSED_BREEZE, "Wild Breeze");
+        this.addEntityType(OccultismEntities.POSSESSED_STRONG_BREEZE, "Wild Strong Breeze");
         this.addEntityType(OccultismEntities.WILD_ZOMBIE, "Wild Zombie");
         this.addEntityType(OccultismEntities.WILD_SKELETON, "Wild Skeleton");
         this.addEntityType(OccultismEntities.WILD_SILVERFISH, "Wild Silverfish");
@@ -488,7 +527,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.WILD_HUSK, "Wild Husk");
         this.addEntityType(OccultismEntities.WILD_STRAY, "Wild Stray");
         this.addEntityType(OccultismEntities.WILD_CAVE_SPIDER, "Wild Cave Spider");
-        this.addEntityType(OccultismEntities.POSSESSED_EVOKER, "Possessed Evoker");
+        this.addEntityType(OccultismEntities.POSSESSED_EVOKER, "Wild Evoker");
     }
 
     private void addMiscTranslations() {
@@ -566,7 +605,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.sacrifice.dolphin", "Dolphin");
         this.add("ritual.occultism.sacrifice.wolfs", "Wolf");
         this.add("ritual.occultism.sacrifice.ocelot", "Ocelot");
+        this.add("ritual.occultism.sacrifice.cats", "Cat");
         this.add("ritual.occultism.sacrifice.vex", "Vex");
+        this.add("ritual.occultism.sacrifice.tadpoles", "Tadpole");
+        this.add("ritual.occultism.sacrifice.allay", "Allay");
+        this.add("ritual.occultism.sacrifice.warden", "Warden");
 
         //Network Message
         this.add("network.messages.occultism.request_order.order_received", "Order received!");
@@ -714,14 +757,18 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.summon_afrit_thunder_weather.started", "Started summoning afrit for a thunderstorm.");
         this.add("ritual.occultism.summon_afrit_thunder_weather.finished", "Summoned afrit successfully.");
         this.add("ritual.occultism.summon_afrit_thunder_weather.interrupted", "Summoning of afrit interrupted.");
-        this.add("ritual.occultism.summon_wild_afrit.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_wild_afrit.started", "Started summoning unbound afrit.");
-        this.add("ritual.occultism.summon_wild_afrit.finished", "Summoned unbound afrit successfully.");
-        this.add("ritual.occultism.summon_wild_afrit.interrupted", "Summoning of unbound afrit interrupted.");
-        this.add("ritual.occultism.summon_wild_hunt.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_wild_hunt.started", "Started summoning the wild hunt.");
-        this.add("ritual.occultism.summon_wild_hunt.finished", "Summoned the wild hunt successfully.");
-        this.add("ritual.occultism.summon_wild_hunt.interrupted", "Summoning of the wild hunt interrupted.");
+        this.add("ritual.occultism.summon_unbound_afrit.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.summon_unbound_afrit.started", "Started summoning unbound afrit.");
+        this.add("ritual.occultism.summon_unbound_afrit.finished", "Summoned unbound afrit successfully.");
+        this.add("ritual.occultism.summon_unbound_afrit.interrupted", "Summoning of unbound afrit interrupted.");
+        this.add("ritual.occultism.summon_unbound_marid.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.summon_unbound_marid.started", "Started summoning unbound marid.");
+        this.add("ritual.occultism.summon_unbound_marid.finished", "Summoned unbound marid successfully.");
+        this.add("ritual.occultism.summon_unbound_marid.interrupted", "Summoning of unbound marid interrupted.");
+        this.add("ritual.occultism.wild_hunt.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.wild_hunt.started", "Started summoning the wild hunt.");
+        this.add("ritual.occultism.wild_hunt.finished", "Summoned the wild hunt successfully.");
+        this.add("ritual.occultism.wild_hunt.interrupted", "Summoning of the wild hunt interrupted.");
         this.add("ritual.occultism.craft_dimensional_matrix.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.craft_dimensional_matrix.started", "Started binding djinni into dimensional matrix.");
         this.add("ritual.occultism.craft_dimensional_matrix.finished", "Successfully bound djinni into dimensional matrix.");
@@ -787,6 +834,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.craft_miner_marid_master.finished", "Successfully summoned marid into magic lamp.");
         this.add("ritual.occultism.craft_miner_marid_master.interrupted", "Summoning of marid interrupted.");
 
+        this.add("ritual.occultism.craft_miner_ancient_eldritch.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.craft_miner_ancient_eldritch.started", "Started summoning something into magic lamp.");
+        this.add("ritual.occultism.craft_miner_ancient_eldritch.finished", "Successfully summoned something into magic lamp.");
+        this.add("ritual.occultism.craft_miner_ancient_eldritch.interrupted", "Summoning of something interrupted.");
+
         this.add("ritual.occultism.craft_satchel.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.craft_satchel.started", "Started binding foliot into satchel.");
         this.add("ritual.occultism.craft_satchel.finished", "Successfully bound foliot into satchel.");
@@ -800,7 +852,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.craft_familiar_ring.finished", "Successfully bound djinni into familiar ring.");
         this.add("ritual.occultism.craft_familiar_ring.interrupted", "Binding of djinni interrupted.");
         this.add("ritual.occultism.craft_wild_trim.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_wild_trim.started", "Marid has started to forge the Wild Armor Trim Smithing Template.");
+        this.add("ritual.occultism.craft_wild_trim.started", "Wild Spirits has started to forge the Wild Armor Trim Smithing Template.");
         this.add("ritual.occultism.craft_wild_trim.finished", "Successfully forged the Wild Armor Trim Smithing Template.");
         this.add("ritual.occultism.craft_wild_trim.interrupted", "Binding of djinni interrupted.");
         this.add("ritual.occultism.possess_endermite.conditions", "Not all requirements for this ritual are met.");
@@ -843,6 +895,22 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.possess_hoglin.started", "Started summoning possessed hoglin.");
         this.add("ritual.occultism.possess_hoglin.finished", "Summoned possessed hoglin successfully.");
         this.add("ritual.occultism.possess_hoglin.interrupted", "Summoning of possessed hoglin interrupted.");
+        this.add("ritual.occultism.possess_witch.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_witch.started", "Started summoning possessed witch.");
+        this.add("ritual.occultism.possess_witch.finished", "Summoned possessed witch successfully.");
+        this.add("ritual.occultism.possess_witch.interrupted", "Summoning of possessed witch interrupted.");
+        this.add("ritual.occultism.possess_zombie_piglin.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_zombie_piglin.started", "Started summoning possessed zombie piglin.");
+        this.add("ritual.occultism.possess_zombie_piglin.finished", "Summoned possessed zombie piglin successfully.");
+        this.add("ritual.occultism.possess_zombie_piglin.interrupted", "Summoning of possessed zombie piglin interrupted.");
+        this.add("ritual.occultism.possess_bee.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_bee.started", "Started summoning possessed bee.");
+        this.add("ritual.occultism.possess_bee.finished", "Summoned possessed bee successfully.");
+        this.add("ritual.occultism.possess_bee.interrupted", "Summoning of possessed bee interrupted.");
+        this.add("ritual.occultism.possess_goat.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_goat.started", "Started summoning goat of mercy.");
+        this.add("ritual.occultism.possess_goat.finished", "Summoned goat of mercy successfully.");
+        this.add("ritual.occultism.possess_goat.interrupted", "Summoning of goat of mercy interrupted.");
         this.add("ritual.occultism.familiar_otherworld_bird.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.familiar_otherworld_bird.started", "Started summoning drikwing familiar.");
         this.add("ritual.occultism.familiar_otherworld_bird.finished", "Summoned drikwing familiar successfully.");
@@ -867,28 +935,28 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.familiar_guardian.started", "Started summoning guardian familiar.");
         this.add("ritual.occultism.familiar_guardian.finished", "Summoned guardian familiar successfully.");
         this.add("ritual.occultism.familiar_guardian.interrupted", "Summoning of guardian familiar interrupted.");
-        this.add("ritual.occultism.summon_wild_otherworld_bird.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_wild_otherworld_bird.started", "Started summoning wild drikwing.");
-        this.add("ritual.occultism.summon_wild_otherworld_bird.finished", "Summoned wild drikwing successfully.");
-        this.add("ritual.occultism.summon_wild_otherworld_bird.interrupted", "Summoning of wild drikwing interrupted.");
-        this.add("ritual.occultism.summon_wild_parrot.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_wild_parrot.started", "Started summoning wild parrot.");
-        this.add("ritual.occultism.summon_wild_parrot.finished", "Summoned wild parrot successfully.");
-        this.add("ritual.occultism.summon_wild_parrot.interrupted", "Summoning of wild parrot interrupted.");
+        this.add("ritual.occultism.possess_unbound_otherworld_bird.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_unbound_otherworld_bird.started", "Started summoning unbound drikwing.");
+        this.add("ritual.occultism.possess_unbound_otherworld_bird.finished", "Summoned unbound drikwing successfully.");
+        this.add("ritual.occultism.possess_unbound_otherworld_bird.interrupted", "Summoning of unbound drikwing interrupted.");
+        this.add("ritual.occultism.possess_unbound_parrot.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_unbound_parrot.started", "Started summoning unbound parrot.");
+        this.add("ritual.occultism.possess_unbound_parrot.finished", "Summoned unbound parrot successfully.");
+        this.add("ritual.occultism.possess_unbound_parrot.interrupted", "Summoning of unbound parrot interrupted.");
 
-        this.add("ritual.occultism.summon_random_animal.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_random_animal.started", "Started summoning a random animal.");
-        this.add("ritual.occultism.summon_random_animal.finished", "Summoned successfully.");
-        this.add("ritual.occultism.summon_random_animal.interrupted", "Summoning of random animal interrupted.");
+        this.add("ritual.occultism.possess_random_animal.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_random_animal.started", "Started summoning a random animal.");
+        this.add("ritual.occultism.possess_random_animal.finished", "Summoned successfully.");
+        this.add("ritual.occultism.possess_random_animal.interrupted", "Summoning of random animal interrupted.");
 
         this.add("ritual.occultism.familiar_parrot.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.familiar_parrot.started", "Started summoning parrot familiar.");
         this.add("ritual.occultism.familiar_parrot.finished", "Summoned parrot familiar successfully.");
         this.add("ritual.occultism.familiar_parrot.interrupted", "Summoning of parrot familiar interrupted.");
-        this.add("ritual.occultism.summon_allay.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_allay.started", "Started purifying Vex to Allay.");
-        this.add("ritual.occultism.summon_allay.finished", "Purified Vex to Allay successfully.");
-        this.add("ritual.occultism.summon_allay.interrupted", "Purifying Vex to allay interrupted.");
+        this.add("ritual.occultism.resurrect_allay.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.resurrect_allay.started", "Started purifying Vex to Allay.");
+        this.add("ritual.occultism.resurrect_allay.finished", "Purified Vex to Allay successfully.");
+        this.add("ritual.occultism.resurrect_allay.interrupted", "Purifying Vex to allay interrupted.");
         this.add("ritual.occultism.familiar_greedy.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.familiar_greedy.started", "Started summoning greedy familiar.");
         this.add("ritual.occultism.familiar_greedy.finished", "Summoned v familiar successfully.");
@@ -936,38 +1004,71 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.summon_demonic_husband.finished", "Summoned successfully.");
         this.add("ritual.occultism.summon_demonic_husband.interrupted", "Summoning interrupted.");
 
-        this.add("ritual.occultism.summon_wild_husk.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_wild_husk.started", "Started summoning the wild horde husk.");
-        this.add("ritual.occultism.summon_wild_husk.finished", "Summoned the wild horde husk successfully.");
-        this.add("ritual.occultism.summon_wild_husk.interrupted", "Summoning of the wild horde husk interrupted.");
-        this.add("ritual.occultism.summon_wild_drowned.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_wild_drowned.started", "Started summoning the wild horde drowned.");
-        this.add("ritual.occultism.summon_wild_drowned.finished", "Summoned the wild horde drowned successfully.");
-        this.add("ritual.occultism.summon_wild_drowned.interrupted", "Summoning of the wild horde drowned interrupted.");
-        this.add("ritual.occultism.summon_wild_creeper.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_wild_creeper.started", "Started summoning the wild horde creeper.");
-        this.add("ritual.occultism.summon_wild_creeper.finished", "Summoned the wild horde creeper successfully.");
-        this.add("ritual.occultism.summon_wild_creeper.interrupted", "Summoning of the wild horde creeper interrupted.");
-        this.add("ritual.occultism.summon_wild_silverfish.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_wild_silverfish.started", "Started summoning the wild horde silverfish.");
-        this.add("ritual.occultism.summon_wild_silverfish.finished", "Summoned the wild horde silverfish successfully.");
-        this.add("ritual.occultism.summon_wild_silverfish.interrupted", "Summoning of the wild horde silverfish interrupted.");
-        this.add("ritual.occultism.possess_weak_breeze.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_weak_breeze.started", "Started summoning possessed weak breeze.");
-        this.add("ritual.occultism.possess_weak_breeze.finished", "Summoned possessed weak breeze successfully.");
-        this.add("ritual.occultism.possess_weak_breeze.interrupted", "Summoning of possessed weak breeze interrupted.");
-        this.add("ritual.occultism.possess_breeze.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_breeze.started", "Started summoning possessed breeze.");
-        this.add("ritual.occultism.possess_breeze.finished", "Summoned possessed breeze successfully.");
-        this.add("ritual.occultism.possess_breeze.interrupted", "Summoning of possessed breeze interrupted.");
-        this.add("ritual.occultism.possess_strong_breeze.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_strong_breeze.started", "Started summoning possessed strong breeze.");
-        this.add("ritual.occultism.possess_strong_breeze.finished", "Summoned possessed strong breeze successfully.");
-        this.add("ritual.occultism.possess_strong_breeze.interrupted", "Summoning of possessed strong breeze interrupted.");
+        this.add("ritual.occultism.wild_husk.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.wild_husk.started", "Started summoning the wild horde husk.");
+        this.add("ritual.occultism.wild_husk.finished", "Summoned the wild horde husk successfully.");
+        this.add("ritual.occultism.wild_husk.interrupted", "Summoning of the wild horde husk interrupted.");
+        this.add("ritual.occultism.wild_drowned.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.wild_drowned.started", "Started summoning the wild horde drowned.");
+        this.add("ritual.occultism.wild_drowned.finished", "Summoned the wild horde drowned successfully.");
+        this.add("ritual.occultism.wild_drowned.interrupted", "Summoning of the wild horde drowned interrupted.");
+        this.add("ritual.occultism.wild_creeper.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.wild_creeper.started", "Started summoning the wild horde creeper.");
+        this.add("ritual.occultism.wild_creeper.finished", "Summoned the wild horde creeper successfully.");
+        this.add("ritual.occultism.wild_creeper.interrupted", "Summoning of the wild horde creeper interrupted.");
+        this.add("ritual.occultism.wild_silverfish.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.wild_silverfish.started", "Started summoning the wild horde silverfish.");
+        this.add("ritual.occultism.wild_silverfish.finished", "Summoned the wild horde silverfish successfully.");
+        this.add("ritual.occultism.wild_silverfish.interrupted", "Summoning of the wild horde silverfish interrupted.");
+        this.add("ritual.occultism.wild_weak_breeze.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.wild_weak_breeze.started", "Started summoning wild weak breeze.");
+        this.add("ritual.occultism.wild_weak_breeze.finished", "Summoned wild weak breeze successfully.");
+        this.add("ritual.occultism.wild_weak_breeze.interrupted", "Summoning of wild weak breeze interrupted.");
+        this.add("ritual.occultism.wild_breeze.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.wild_breeze.started", "Started summoning wild breeze.");
+        this.add("ritual.occultism.wild_breeze.finished", "Summoned wild breeze successfully.");
+        this.add("ritual.occultism.wild_breeze.interrupted", "Summoning of wild breeze interrupted.");
+        this.add("ritual.occultism.wild_strong_breeze.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.wild_strong_breeze.started", "Started summoning wild strong breeze.");
+        this.add("ritual.occultism.wild_strong_breeze.finished", "Summoned wild strong breeze successfully.");
+        this.add("ritual.occultism.wild_strong_breeze.interrupted", "Summoning of wild strong breeze interrupted.");
         this.add("ritual.occultism.summon_horde_illager.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.summon_horde_illager.started", "Started summoning the small illager invasion.");
         this.add("ritual.occultism.summon_horde_illager.finished", "Summoned the small illager invasion successfully.");
         this.add("ritual.occultism.summon_horde_illager.interrupted", "Summoning of the small illager invasion interrupted.");
+
+        this.add("ritual.occultism.craft_nature_paste.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.craft_nature_paste.started", "Started infusing Nature Paste.");
+        this.add("ritual.occultism.craft_nature_paste.finished", "Successfully infused Nature Paste.");
+        this.add("ritual.occultism.craft_nature_paste.interrupted", "Craft of Nature Paste interrupted.");
+        this.add("ritual.occultism.craft_gray_paste.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.craft_gray_paste.started", "Started infusing Gray Paste.");
+        this.add("ritual.occultism.craft_gray_paste.finished", "Successfully infused Gray Paste.");
+        this.add("ritual.occultism.craft_gray_paste.interrupted", "Craft of Gray Paste interrupted.");
+        this.add("ritual.occultism.craft_research_fragment_dust.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.craft_research_fragment_dust.started", "Started infusing Research Fragment Dust.");
+        this.add("ritual.occultism.craft_research_fragment_dust.finished", "Successfully infused Research Fragment Dust.");
+        this.add("ritual.occultism.craft_research_fragment_dust.interrupted", "Craft of Research Fragment Dust interrupted.");
+        this.add("ritual.occultism.craft_witherite_dust.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.craft_witherite_dust.started", "Started infusing Witherite.");
+        this.add("ritual.occultism.craft_witherite_dust.finished", "Successfully infused Witherite.");
+        this.add("ritual.occultism.craft_witherite_dust.interrupted", "Craft of Witherite interrupted.");
+        this.add("ritual.occultism.repair_chalks.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.repair_chalks.started", "Started repairing chalk.");
+        this.add("ritual.occultism.repair_chalks.finished", "Successfully repaired chalk.");
+        this.add("ritual.occultism.repair_chalks.interrupted", "Chalk repair interrupted.");
+        this.add("ritual.occultism.repair_tools.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.repair_tools.started", "Started repairing tool.");
+        this.add("ritual.occultism.repair_tools.finished", "Successfully repaired tool.");
+        this.add("ritual.occultism.repair_tools.interrupted", "Tool repair interrupted.");
+        this.add("ritual.occultism.repair_armors.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.repair_armors.started", "Started repairing armor.");
+        this.add("ritual.occultism.repair_armors.finished", "Successfully repaired armor.");
+        this.add("ritual.occultism.repair_armors.interrupted", "Armor repair interrupted.");
+        this.add("ritual.occultism.repair_miners.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.repair_miners.started", "Started repairing miner.");
+        this.add("ritual.occultism.repair_miners.finished", "Successfully repaired miner.");
+        this.add("ritual.occultism.repair_miners.interrupted", "Miner repair interrupted.");
 
         this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "conditions", "Not all requirements for this ritual are met.");
         this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "started", "Started resurrecting familiar.");
@@ -984,6 +1085,16 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "started", "Started binding an afrit into a ritual satchel.");
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "finished", "Successfully bound an afrit into a ritual satchel.");
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "interrupted", "Binding of afrit interrupted.");
+
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST, "conditions", "Not all requirements for this ritual are met.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST, "started", "Started forging budding amethyst.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST, "finished", "Successfully forged budding amethyst.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST, "interrupted", "Forging budding amethyst interrupted.");
+
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE, "conditions", "Not all requirements for this ritual are met.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE, "started", "Started forging reinforced deepslate.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE, "finished", "Successfully forged reinforced deepslate.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE, "interrupted", "Forging reinforced deepslate interrupted.");
     }
 
     public void addRitualMessage(DeferredHolder<RitualFactory, RitualFactory> ritual, String key, String message) {
@@ -1000,586 +1111,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         var helper = ModonomiconAPI.get().getContextHelper(Occultism.MODID);
         helper.book("dictionary_of_spirits");
 
-        this.addPentaclesCategory(helper);
         this.addRitualsCategory(helper);
         this.addSummoningRitualsCategory(helper);
         this.addCraftingRitualsCategory(helper);
         this.addPossessionRitualsCategory(helper);
         this.addFamiliarRitualsCategory(helper);
         this.addStorageCategory(helper);
-    }
-
-    private void addPentaclesCategory(BookContextHelper helper) {
-        helper.category("pentacles");
-        this.add(helper.categoryName(), "Pentacles");
-
-        helper.entry("pentacles_overview");
-        this.add(helper.entryName(), "On Pentacles");
-
-        helper.page("intro1");
-        this.add(helper.pageTitle(), "On Pentacles");
-        this.add(helper.pageText(),
-                """
-                        The name [#](%1$s)Pentacle[#]() in this context refers to ritual drawings of any shape, not just five-pointed stars. \\
-                        \\
-                        Pentacles are used to summon and bind spirits from [#](%1$s)The Other Place[#]().
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("intro2");
-        this.add(helper.pageText(),
-                """
-                        They act both as a device to call on the entity, an amplifier for the summoner's commanding power
-                        and as a protecting circle preventing attacks from within against the summoner.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("intro3");
-        this.add(helper.pageText(),
-                """
-                        Each pentacle consists of a central golden sacrificial bowl, surrounding runes of various colors and occult paraphernalia that improve the intended effect in various ways.
-                        """.formatted(COLOR_PURPLE));
-
-
-        helper.page("intro4");
-        this.add(helper.pageText(),
-                """
-                        The combination of chosen runes and supporting items as well as their exact spatial positioning determines the use and effectiveness of the pentacle.
-                        \\
-                        \\
-                        Ingredients are placed in [#](%1$s)Sacrifical Bowls[#]() near the pentacle.
-                         """.formatted(COLOR_PURPLE));
-
-        //exact copy found in first ritual entry
-        helper.page("bowl_placement");
-        //no text
-
-        //exact copy found in first ritual entry
-        helper.page("bowl_text");
-        this.add(helper.pageText(),
-                """
-                        [Sacrificial Bowls](item://occultism:sacrificial_bowl) must be placed **anywhere** within 8 blocks horizontally of the central [](item://occultism:golden_sacrificial_bowl). The exact location does not matter.
-                        \\
-                        \\
-                        Now it is time to place the ingredients you see on the next page in the (regular, not golden) sacrificial bowls.
-                          """);
-
-        helper.page("summoning_pentacles");
-        this.add(helper.pageTitle(), "Summoning Pentacles");
-        this.add(helper.pageText(),
-                """
-                        The purpose of this type of pentacle is to summon spirits in their chosen form into the world. Spirits summoned thus suffer from strong essence decay, and only very powerful spirits can remain for extended periods of time.
-                        """);
-
-        helper.page("infusion_pentacles");
-        this.add(helper.pageTitle(), "Infusion Pentacles");
-        this.add(helper.pageText(),
-                """
-                        Infusion pentacles allow the binding of spirits into objects. While the spirits suffer from essence decay in some cases, this can often be averted with the right pentacle setup, and by embedding crystals and precious metals into the object to support the spirit.
-                        """);
-
-        helper.page("possession_pentacles");
-        this.add(helper.pageTitle(), "Possession Pentacles");
-        this.add(helper.pageText(),
-                """
-                        These pentacles force spirits to possess a living being, which, depending on the ritual context, gives the summoner control over various aspects of that being, ranging from it's strength to it what it drops when killed, and in some cases even allows total control.
-                        """);
-
-        helper.entry("paraphernalia");
-        this.add(helper.entryName(), "Occult Paraphernalia");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Occult Paraphernalia");
-        this.add(helper.pageText(),
-                """
-                        In addition to runes various occult paraphernalia are used to improve the intended effect of the pentacle.
-                        """);
-
-        helper.page("candle");
-        this.add(helper.pageText(),
-                """
-                        Candles increase the stability of the pentacle, thus allowing a slowed essence decay of the summoned spirit, leading to a longer lifetime of the spirit, or possessed object or being.
-                        """);
-
-        helper.page("crystal");
-        this.add(helper.pageText(),
-                """
-                        Crystals increase the binding power of the pentacle, allowing a permanent binding of the spirit into an item or living being.
-                        """);
-
-        helper.page("gem_recipe");
-        //no text
-
-        helper.page("crystal_recipe");
-        //no text
-
-        helper.page("skeleton_skull");
-        this.add(helper.pageText(),
-                """
-                        Skulls increase the calling power of the pentacle, allowing to summon more dangerous spirits.
-                        """);
-
-        helper.entry("chalk_uses");
-        this.add(helper.entryName(), "Chalk Types");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Chalk Types");
-        this.add(helper.pageText(),
-                """
-                        Chalk is used to draw pentacle runes and define the pentacle shape. Different types of chalk are used for different purposes, as outlined on the next pages.
-                        \\
-                        \\
-                        The different runes are purely decorative.
-                        """);
-
-        helper.page("intro2");
-        this.add(helper.pageText(),
-                """
-                        **Repeatedly** use chalk on a block to switch to a different rune.
-                        \\
-                        \\
-                        Using a [](item://occultism:brush) is the easiest way to **remove** chalk runes that have been incorrectly placed.
-                        """);
-
-        helper.page("white_chalk");
-        this.add(helper.pageText(),
-                """
-                        White chalk is the most basic type of ritual chalk and is found in most pentacles. It has no special power beyond defining the shape of the pentacle.
-                           """);
-
-
-        helper.page("white_chalk_uses");
-        this.add(helper.pageTitle(), "White Chalk Uses");
-        this.add(helper.pageText(),
-                """
-                        - [Aviar's Circle](entry://occultism:dictionary_of_spirits/pentacles/summon_foliot)
-                        - [Eziveus' Spectral Compulsion](entry://occultism:dictionary_of_spirits/pentacles/craft_foliot)
-                        - [Hedyrin's Lure](entry://occultism:dictionary_of_spirits/pentacles/possess_foliot)
-                        - [Ophyx' Calling](entry://occultism:dictionary_of_spirits/pentacles/summon_djinni)
-                        - [Strigeor's Higher Binding](entry://occultism:dictionary_of_spirits/pentacles/craft_djinni)
-                        - [Ihagan's Enthrallment](entry://occultism:dictionary_of_spirits/pentacles/possess_djinni)
-                        - [Abras' Conjure](entry://occultism:dictionary_of_spirits/pentacles/summon_afrit)
-                        - [Sevira's Permanent Confinement](entry://occultism:dictionary_of_spirits/pentacles/craft_afrit)
-                        - [Abras' Open Conjure](entry://occultism:dictionary_of_spirits/pentacles/summon_wild_afrit)
-                         """);
-
-        helper.page("white_chalk_uses2");
-        this.add(helper.pageTitle(), "White Chalk Uses");
-        this.add(helper.pageText(),
-                """
-                        - [Uphyxes Inverted Tower](entry://occultism:dictionary_of_spirits/pentacles/craft_marid)
-                        - [Osorin' Unbound Calling](entry://occultism:dictionary_of_spirits/pentacles/summon_wild_greater_spirit)
-                         """);
-
-        helper.page("golden_chalk");
-        this.add(helper.pageText(),
-                """
-                        Yellow chalk is used for binding runes, which allow to infuse a spirit into an item, or make it possess a living being.
-                               """);
-
-
-        helper.page("golden_chalk_uses");
-        this.add(helper.pageTitle(), "Yellow Chalk Uses");
-        this.add(helper.pageText(),
-                """
-                        - [Eziveus' Spectral Compulsion](entry://occultism:dictionary_of_spirits/pentacles/craft_foliot)
-                        - [Hedyrin's Lure](entry://occultism:dictionary_of_spirits/pentacles/possess_foliot)
-                        - [Strigeor's Higher Binding](entry://occultism:dictionary_of_spirits/pentacles/craft_djinni)
-                        - [Ihagan's Enthrallment](entry://occultism:dictionary_of_spirits/pentacles/possess_djinni)
-                        - [Sevira's Permanent Confinement](entry://occultism:dictionary_of_spirits/pentacles/craft_afrit)
-                        - [Uphyxes Inverted Tower](entry://occultism:dictionary_of_spirits/pentacles/craft_marid)
-                           """);
-
-        helper.page("purple_chalk");
-        this.add(helper.pageText(),
-                """
-                        Purple chalk is generally used to call on higher beings such as [#](%1$s)Djinn[#]() or [#](%1$s)Afrit[#](), but also slows essence decay of summoned spirits.
-                               """.formatted(COLOR_PURPLE));
-
-        helper.page("purple_chalk_uses");
-        this.add(helper.pageTitle(), "Purple Chalk Uses");
-        this.add(helper.pageText(),
-                """
-                        - [Ophyx' Calling](entry://occultism:dictionary_of_spirits/pentacles/summon_djinni)
-                        - [Strigeor's Higher Binding](entry://occultism:dictionary_of_spirits/pentacles/craft_djinni)
-                        - [Ihagan's Enthrallment](entry://occultism:dictionary_of_spirits/pentacles/possess_djinni)
-                        - [Abras' Conjure](entry://occultism:dictionary_of_spirits/pentacles/summon_afrit)
-                        - [Sevira's Permanent Confinement](entry://occultism:dictionary_of_spirits/pentacles/craft_afrit)
-                        - [Abras' Open Conjure](entry://occultism:dictionary_of_spirits/pentacles/summon_wild_afrit)
-                        - [Osorin' Unbound Calling](entry://occultism:dictionary_of_spirits/pentacles/summon_wild_greater_spirit)
-                           """);
-
-        helper.page("red_chalk");
-        this.add(helper.pageText(),
-                """
-                        Red chalk is used to call on the most powerful and dangerous beings, such as [#](%1$s)Marid[#]().
-                        \\
-                        \\
-                        [Afrit Essence](entry://occultism:dictionary_of_spirits/summoning_rituals/afrit_essence) is required to craft red chalk.
-                                """.formatted(COLOR_PURPLE));
-
-        helper.page("red_chalk_uses");
-        this.add(helper.pageTitle(), "Red Chalk Uses");
-        this.add(helper.pageText(),
-                """
-                        - [Abras' Conjure](entry://occultism:dictionary_of_spirits/pentacles/summon_afrit)
-                        - [Uphyxes Inverted Tower](entry://occultism:dictionary_of_spirits/pentacles/craft_marid)
-                           """);
-
-
-        helper.entry("summon_foliot");
-        this.add(helper.entryName(), "Aviar's Circle");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Aviar's Circle");
-        this.add(helper.pageText(),
-                """
-                        **Purpose:** Summon a [#](%1$s)Foliot[#]()
-                        \\
-                        \\
-                        Considered by most to be the simplest pentacle, [#](%1$s)Aviar's Circle[#]() is easy to set up, but provides only a minimum of binding power and protection for the summoner.
-                        \\
-                        \\
-                        Only the weakest [#](%1$s)Foliot[#]() can be summoned in rituals using this pentacle.
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("multiblock");
-        //no text
-
-        helper.page("uses");
-        this.add(helper.pageTitle(), "Uses");
-        this.add(helper.pageText(),
-                """
-                        - [Foliot Crusher](entry://summoning_rituals/summon_crusher_t1)
-                        - [Foliot Lumberjack](entry://summoning_rituals/summon_lumberjack)
-                        - [Foliot Transporter](entry://summoning_rituals/summon_transport_items)
-                        - [Foliot Janitor](entry://summoning_rituals/summon_cleaner)
-                        - [Otherstone Trader](entry://summoning_rituals/summon_otherstone_trader)
-                        - [Otherworld Sapling Trader](entry://summoning_rituals/summon_otherworld_sapling_trader)
-                        - [Resurrect Familiar](entry://familiar_rituals/resurrection)
-                        - [Purify Vex to Allay](entry://familiar_rituals/summon_allay)
-                        """);
-
-
-        helper.entry("summon_djinni");
-        this.add(helper.entryName(), "Ophyx' Calling");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Ophyx' Calling");
-        //Add link rituals/possession/possess_skeleton instead of [Obtain here]
-        this.add(helper.pageText(),
-                """
-                        **Purpose:** Summon a [#](%1$s)Djinni[#]()
-                        \\
-                        \\
-                        Developed by [#](%1$s)Ophyx[#]() during the Third Era, the [#](%1$s)Calling[#]() is the go-to pentacle for [#](%1$s)Djinni[#]() summonings ever since. Skeleton skulls ([Obtain here](entry://possession_rituals/possess_skeleton)) and [#](%1$s)Purple Chalk[#]() provide the calling power required to force Djinni into appearance and candles stabilize the ritual.
-                         """.formatted(COLOR_PURPLE));
-
-        helper.page("multiblock");
-        //no text
-
-        helper.page("uses");
-        this.add(helper.pageTitle(), "Uses");
-        this.add(helper.pageText(),
-                """
-                        - [Djinni Machine Operator](entry://summoning_rituals/summon_manage_machine)
-                        - [Djinni Crusher](entry://summoning_rituals/summon_crusher_t2)
-                        - [Clear Weather](entry://summoning_rituals/weather_magic@clear)
-                        - [Time Magic](entry://summoning_rituals/time_magic)
-                        """.formatted(COLOR_PURPLE));
-
-        helper.entry("summon_afrit");
-        this.add(helper.entryName(), "Abras' Conjure");
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Abras' Conjure");
-        this.add(helper.pageText(),
-                """
-                        **Purpose:** Summon an [#](%1$s)Afrit[#]()
-                        \\
-                        \\
-                        **Abras' Conjure** is one of the few pentacles capable of (mostly) safely summoning an [#](%1$s)Afrit[#](). While the requirement of a wither skeleton skull makes it comparatively expensive, the additional calling potential is required to reach these high-power spirits.
-                         """.formatted(COLOR_PURPLE));
-
-        helper.page("multiblock");
-        //no text
-
-        helper.page("uses");
-        this.add(helper.pageTitle(), "Uses");
-        this.add(helper.pageText(),
-                """
-                        - [Thunderstorm](entry://summoning_rituals/weather_magic@thunder)
-                        - [Rainy Weather](entry://summoning_rituals/weather_magic@rain)
-                        - [Afrit Crusher](entry://summoning_rituals/summon_crusher_t3)
-                        """.formatted(COLOR_PURPLE));
-
-        helper.entry("summon_marid");
-        this.add(helper.entryName(), "Fatma's Incentivized Attraction");
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Fatma's Incentivized Attraction");
-        this.add(helper.pageText(),
-                """
-                        **Purpose:** Summon a [#](%1$s)Marid[#]()
-                        \\
-                        \\
-                        **Fatma's Incentivized Attraction** is a powerful pentacle, allowing to summon [#](%1$s)Marid[#]() and bind them to the summoner's will.
-                         """.formatted(COLOR_PURPLE));
-
-        helper.page("multiblock");
-        //no text
-
-        helper.page("uses");
-        this.add(helper.pageTitle(), "Uses");
-        this.add(helper.pageText(),
-                """
-                        - [Marid Crusher](entry://summoning_rituals/summon_crusher_t4)
-                        """.formatted(COLOR_PURPLE));
-
-        helper.entry("summon_wild_afrit");
-        this.add(helper.entryName(), "Abras' Open Conjure");
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Abras' Open Conjure");
-        this.add(helper.pageText(),
-                """
-                        **Purpose:** Summon an unbound [#](%1$s)Afrit[#]()
-                        \\
-                        \\
-                        **Abras' Open Conjure** is a simplified version of [#](%1$s)Abras' Conjure[#](), allowing to summon [#](%1$s)Afrit[#]() without red chalk. Due to the much reduced power of the pentacle, it cannot be used to control [#](%1$s)Afrit[#](), and it thus can only be used to fight and kill [#](%1$s)Afrit[#]().
-                         """.formatted(COLOR_PURPLE));
-
-        helper.page("multiblock");
-        //no text
-
-        helper.page("uses");
-        this.add(helper.pageTitle(), "Uses");
-        this.add(helper.pageText(),
-                """
-                        - [Afrit Essence](entry://summoning_rituals/afrit_essence)
-                        """.formatted(COLOR_PURPLE));
-
-        helper.entry("summon_wild_greater_spirit");
-        this.add(helper.entryName(), "Osorin's Unbound Calling");
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Osorin's Unbound Calling");
-        this.add(helper.pageText(),
-                """
-                        **Purpose:** Summon an unbound [#](%1$s)Greater Spirit[#]()
-                        \\
-                        \\
-                        **Osorin's Unbound Calling** is based on [#](%1$s)Abras' Open Conjure[#](), but features none of the stabilizing paraphernalia. The pentacle offers no protection whatsoever to the summoner, but acts as an irresistible call to [#](%1$s)Greater Spirits[#]().
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("multiblock");
-        //no text
-
-        helper.page("uses");
-        this.add(helper.pageTitle(), "Uses");
-        this.add(helper.pageText(),
-                """
-                        - [Wither Skeleton Skull](entry://summoning_rituals/wither_skull)
-                        - [Horde Husk](entry://possession_rituals/horde_husk)
-                        - [Horde Drowned](entry://possession_rituals/horde_drowned)
-                        - [Horde Creeper](entry://possession_rituals/horde_creeper)
-                        - [Horde Silverfish](entry://possession_rituals/horde_silverfish)
-                        - [Trial Key](entry://possession_rituals/possess_weak_breeze)
-                        - [Ominous Trial Key](entry://possession_rituals/possess_breeze)
-                        - [Heavy Core](entry://possession_rituals/possess_strong_breeze)
-                        - [Small Illager Invasion](entry://possession_rituals/horde_illager)
-                        """.formatted(COLOR_PURPLE));
-
-        helper.entry("possess_foliot");
-        this.add(helper.entryName(), "Hedyrin's Lure");
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Hedyrin's Lure");
-        this.add(helper.pageText(),
-                """
-                        **Purpose:** Foliot Possession
-                        \\
-                        \\
-                        **Hedyrin's Lure** attracts [#](%1$s)Foliot[#]() and forces them to possess a nearby creature. This pentacle does not lead to permanent imprisonment, the spirit and possessed creature will perish within a short period of time.
-                         """.formatted(COLOR_PURPLE));
-
-        helper.page("multiblock");
-        //no text
-
-        helper.page("uses");
-        this.add(helper.pageTitle(), "Uses");
-        this.add(helper.pageText(),
-                """
-                        - [Possessed Endermite](entry://possession_rituals/possess_endermite)
-                        - [Possessed Skeleton](entry://possession_rituals/possess_skeleton)
-                        - [Possessed Phantom](entry://possession_rituals/possess_phantom)
-                        - [Parrot Familiar](entry://familiar_rituals/familiar_parrot)
-                        - [Greedy Familiar](entry://familiar_rituals/familiar_greedy)
-                        - [Deer Familiar](entry://familiar_rituals/familiar_deer)
-                        - [Blacksmith Familiar](entry://familiar_rituals/familiar_blacksmith)
-                        - [Beaver Familiar](entry://familiar_rituals/familiar_beaver)
-                        """.formatted(COLOR_PURPLE));
-
-        helper.entry("possess_djinni");
-        this.add(helper.entryName(), "Ihagan's Enthrallment");
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Ihagan's Enthrallment");
-        this.add(helper.pageText(),
-                """
-                        **Purpose:** Djinni Possession
-                        \\
-                        \\
-                        **Ihagan's Enthrallment** forces [#](%1$s)Djinn[#]() to possess a nearby creature. This pentacle does not lead to permanent imprisonment, the spirit and possessed creature will perish within a short period of time.
-                         """.formatted(COLOR_PURPLE));
-
-        helper.page("multiblock");
-        //no text
-
-        helper.page("uses");
-        this.add(helper.pageTitle(), "Uses");
-        this.add(helper.pageText(),
-                """
-                        - [Possessed Enderman](entry://possession_rituals/possess_enderman)
-                        - [Possessed Ghast](entry://possession_rituals/possess_ghast)
-                        - [Possessed Weak Shulker](entry://possession_rituals/possess_weak_shulker)
-                        - [Possessed Warden](entry://possession_rituals/possess_warden)
-                        - [Drikwing Familiar](entry://familiar_rituals/familiar_otherworld_bird)
-                        - [Bat Familiar](entry://familiar_rituals/familiar_bat)
-                        - [Cthulhu Familiar](entry://familiar_rituals/familiar_cthulhu)
-                        - [Devil Familiar](entry://familiar_rituals/familiar_devil)
-                        - [Dragon Familiar](entry://familiar_rituals/familiar_dragon)
-                        - [Headless Ratman Familiar](entry://familiar_rituals/familiar_headless)
-                        - [Chimera Familiar](entry://familiar_rituals/familiar_chimera)
-                        """.formatted(COLOR_PURPLE));
-
-        helper.page("uses2");
-        this.add(helper.pageTitle(), "Uses");
-        this.add(helper.pageText(),
-                """
-                        - [Beholder Familiar](entry://familiar_rituals/familiar_beholder)                        
-                        - [Fairy Familiar](entry://familiar_rituals/familiar_fairy)
-                        """.formatted(COLOR_PURPLE));
-
-        helper.entry("possess_afrit");
-        this.add(helper.entryName(), "Abras' Commanding Conjure");
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Abras' Commanding Conjure");
-        this.add(helper.pageText(),
-                """
-                        **Purpose:** Afrit Possession
-                        \\
-                        \\
-                        **Abras' Commanding Conjure** is a modified version of [#](%1$s)Abras' Conjure[#]() that allows possessing entities, and thus summoning familiars.
-                         """.formatted(COLOR_PURPLE));
-
-        helper.page("multiblock");
-        //no text
-
-        helper.page("uses");
-        this.add(helper.pageTitle(), "Uses");
-        this.add(helper.pageText(),
-                """
-                        - [Guardian Familiar](entry://familiar_rituals/familiar_guardian)
-                        - [Possessed Shulker](entry://possession_rituals/possess_shulker)
-                        - [Possessed Elder Guardian](entry://possession_rituals/possess_elder_guardian)
-                        - [Possessed Hoglin](entry://possession_rituals/possess_hoglin)
-                        """.formatted(COLOR_PURPLE));
-
-        helper.entry("craft_foliot");
-        this.add(helper.entryName(), "Eziveus' Spectral Compulsion");
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Eziveus' Spectral Compulsion");
-        this.add(helper.pageText(),
-                """
-                        **Purpose:** Bind Foliot
-                        \\
-                        \\
-                        As a simple binding pentacle, **Eziveus' Spectral Compulsion** is a common starting point for object infusion with lower spirits. The enchantment is made permanent by stabilizing candles and spirit attuned crystals.
-                         """.formatted(COLOR_PURPLE));
-
-        helper.page("multiblock");
-        //no text
-
-        helper.page("uses");
-        this.add(helper.pageTitle(), "Uses");
-        this.add(helper.pageText(),
-                """
-                        - [Infused Lenses](entry://crafting_rituals/craft_otherworld_goggles)
-                        - [Surprisingsly Substantial Satchel](entry://crafting_rituals/craft_satchel)
-                        - [Storage Actuator Base](entry://crafting_rituals/craft_storage_controller_base)
-                        - [Stable Wormhole](entry://crafting_rituals/craft_stable_wormhole)
-                        - [Storage Stabilizer Tier 1](entry://crafting_rituals/craft_stabilizer_tier1)
-                        - [Foliot Miner](entry://crafting_rituals/craft_foliot_miner)
-                        """.formatted(COLOR_PURPLE));
-
-        helper.entry("craft_djinni");
-        this.add(helper.entryName(), "Strigeor's Higher Binding");
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Strigeor's Higher Binding");
-        this.add(helper.pageText(),
-                """
-                        **Purpose:** Bind Djinni
-                        \\
-                        \\
-                        **Strigeor's Higher Binding** is a pentacle for binding [#](%1$s)Djinn[#]() into objects, should not be attempted by the novice summoner. Supported by spirit attuned crystals and stabilized by candles it is highly suitable for permanent infusions of objects with spirits.
-                         """.formatted(COLOR_PURPLE));
-
-        helper.page("multiblock");
-        //no text
-
-        helper.page("uses");
-        this.add(helper.pageTitle(), "Uses");
-        this.add(helper.pageText(),
-                """
-                        - [Infused Pickaxe](entry://crafting_rituals/craft_infused_pickaxe)
-                        - [Soul Gem](entry://crafting_rituals/craft_soul_gem)
-                        - [Familiar Ring](entry://crafting_rituals/craft_familiar_ring)
-                        - [Dimensional Matrix](entry://crafting_rituals/craft_dimensional_matrix)
-                        - [Storage Accessor](entry://crafting_rituals/craft_storage_remote)
-                        - [Storage Stabilizer Tier 2](entry://crafting_rituals/craft_stabilizer_tier2)
-                        - [Dimensional Mineshaft](entry://crafting_rituals/craft_dimensional_mineshaft)
-                        - [Djinni Ore Miner](entry://crafting_rituals/craft_djinni_miner)
-                        """.formatted(COLOR_PURPLE));
-
-        helper.entry("craft_afrit");
-        this.add(helper.entryName(), "Sevira's Permanent Confinement");
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Sevira's Permanent Confinement");
-        this.add(helper.pageText(),
-                """
-                        **Purpose:** Bind Afrit
-                        \\
-                        \\
-                        First discovered by Grandmistress Sevira of Emberwoods, **Sevira's Permanent Confinement** is used for binding [#](%1$s)Afrit[#]() into objects. Due to the power of the spirits involved, this should be performed only by advanced summoners.
-                         """.formatted(COLOR_PURPLE));
-
-        helper.page("multiblock");
-        //no text
-
-        helper.page("uses");
-        this.add(helper.pageTitle(), "Uses");
-        this.add(helper.pageText(),
-                """
-                        - [Storage Stabilizer Tier 3](entry://crafting_rituals/craft_stabilizer_tier3)
-                        - [Afrit Deep Ore Miner](entry://crafting_rituals/craft_afrit_miner)
-                        """.formatted(COLOR_PURPLE));
-
-        helper.entry("craft_marid");
-        this.add(helper.entryName(), "Uphyxes Inverted Tower");
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Uphyxes Inverted Tower");
-        this.add(helper.pageText(),
-                """
-                        **Purpose:** Bind Marid
-                        \\
-                        \\
-                        **Uphyxes Inverted Tower** is one of the few pentacles capable of binding [#](%1$s)Marid[#]() into objects. Any rituals involving [#](%1$s)Marid[#]() should be performed only by the most experienced summoners.
-                         """.formatted(COLOR_PURPLE));
-
-        helper.page("multiblock");
-        //no text
-
-        helper.page("uses");
-        this.add(helper.pageTitle(), "Uses");
-        this.add(helper.pageText(),
-                """
-                        - [Storage Stabilizer Tier 4](entry://crafting_rituals/craft_stabilizer_tier4)
-                        - [Marid Master Miner](entry://crafting_rituals/craft_marid_miner)
-                        - [Wild Armor Trim Smithing Template](entry://crafting_rituals/craft_wild_trim)
-                        """.formatted(COLOR_PURPLE));
     }
 
     private void addRitualsCategory(BookContextHelper helper) {
@@ -1819,51 +1356,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("ritual");
         //no text
 
-        helper.entry("summon_wild_parrot");
-        this.add(helper.entryName(), "Summon Wild Parrot");
-
-        helper.page("entity");
-        this.add(helper.pageText(),
-                """
-                        **Provides**: A tameable Parrot
-                          """);
-
-        helper.page("ritual");
-        //no text
-
-        helper.page("description");
-        this.add(helper.pageText(),
-                """
-                        In this ritual a [#](%1$s)Foliot[#]() is summoned **as an untamed spirit**.
-                        \\
-                        \\
-                        The slaughter of a [#](%1$s)Chicken[#]() and the offering of dyes are intended to entice the Foliot to take the shape of a parrot. As [#](%1$s)Foliot[#]() are not among the smartest spirits, they sometimes misunderstand the instructions ...
-                          """.formatted(COLOR_PURPLE));
-
-        helper.page("description2");
-        this.add(helper.pageText(),
-                """
-                        *This means, if a [#](%1$s)Chicken[#]() is spawned, that's not a bug, just bad luck!*
-                           """.formatted(COLOR_PURPLE));
-
-        helper.entry("summon_wild_otherworld_bird");
-        this.add(helper.entryName(), "Summon Wild Drikwing");
-
-        helper.page("entity");
-        this.add(helper.pageText(),
-                """
-                        **Provides**: A tameable Drikwing
-                          """);
-
-        helper.page("ritual");
-        //no text
-
-        helper.page("description");
-        this.add(helper.pageText(),
-                """
-                        See [Drikwing Familiar](entry://familiar_rituals/familiar_otherworld_bird) for more information.
-                          """);
-
         helper.entry("weather_magic");
         this.add(helper.entryName(), "Weather Magic");
 
@@ -1905,19 +1397,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("ritual_night");
         //no text
 
-        helper.entry("wither_skull");
-        this.add(helper.entryName(), "Wither Skeleton Skull");
-
-        helper.page("intro");
-        this.add(helper.pageTitle(), "Wither Skeleton Skull");
-        this.add(helper.pageText(),
-                """
-                        Besides venturing into nether dungeons, there is one more way to get these skulls. The legendary [#](%1$s)Wild Hunt[#]() consists of [#](%1$s)Greater Spirits[#]() taking the form of wither skeletons. While summoning the Wild Hunt is incredibly dangerous, it is the fastest way to get wither skeleton skulls.
-                           """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-
         helper.entry("afrit_essence");
         this.add(helper.entryName(), "Afrit Essence");
 
@@ -1926,6 +1405,19 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         [](item://occultism:afrit_essence) is required to safely call on the more powerful spirits, commonly used in the form of red chalk. To obtain the essence, an [#](%1$s)Afrit[#]() needs to be summoned unbound into this plane, and killed. Be warned that this is no simple endeavour, and unbound spirit presents great danger to all nearby.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("marid_essence");
+        this.add(helper.entryName(), "Marid Essence");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Marid Essence");
+        this.add(helper.pageText(),
+                """
+                        [](item://occultism:marid_essence) is required to safely control the most powerful spirits, commonly used in the form of blue chalk. To obtain the essence, an [#](%1$s)Marid[#]() needs to be summoned unbound into this plane, and killed. Be warned that this is no simple endeavour, and unbound spirit presents great danger to all nearby.
                            """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
@@ -1970,6 +1462,19 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         In this ritual an [#](%1$s)Enderman[#]() is spawned using the life energy of a [#](%1$s)Pig[#]() and immediately possessed by the summoned [#](%1$s)Djinni[#](). The [#](%1$s)Possessed Enderman[#]() will always drop at least one [](item://minecraft:ender_pearl) when killed.
                                 """.formatted(COLOR_PURPLE));
 
+        helper.entry("wither_skull");
+        this.add(helper.entryName(), "Wither Skeleton Skull");
+
+        helper.page("intro");
+        this.add(helper.pageTitle(), "Wither Skeleton Skull");
+        this.add(helper.pageText(),
+                """
+                        Besides venturing into nether dungeons, there is one more way to get these skulls. The legendary [#](%1$s)Wild Hunt[#]() consists of [#](%1$s)Greater Spirits[#]() taking the form of wither skeletons. While summoning the Wild Hunt is incredibly dangerous, it is the fastest way to get wither skeleton skulls.
+                           """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
         helper.entry("possess_endermite");
         this.add(helper.entryName(), "Possessed Endermite");
 
@@ -2008,6 +1513,51 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                 """
                         In this ritual an [#](%1$s)Skeleton[#]() is spawned using the life energy of a [#](%1$s)Chicken[#]() and possessed by a [#](%1$s)Foliot[#](). The [#](%1$s)Possessed Skeleton[#]() will be immune to daylight and always drop at least one [](item://minecraft:skeleton_skull) when killed.
                                 """.formatted(COLOR_PURPLE));
+
+        helper.entry("possess_unbound_parrot");
+        this.add(helper.entryName(), "Unbound Parrot");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: A tameable Parrot
+                          """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageText(),
+                """
+                        In this ritual a [#](%1$s)Foliot[#]() is summoned **as an untamed spirit**.
+                        \\
+                        \\
+                        The slaughter of a [#](%1$s)Chicken[#]() and the offering of dyes are intended to entice the Foliot to take the shape of a parrot. As [#](%1$s)Foliot[#]() are not among the smartest spirits, they sometimes misunderstand the instructions ...
+                          """.formatted(COLOR_PURPLE));
+
+        helper.page("description2");
+        this.add(helper.pageText(),
+                """
+                        *This means, if a [#](%1$s)Chicken[#]() is spawned, that's not a bug, just bad luck!*
+                           """.formatted(COLOR_PURPLE));
+
+        helper.entry("possess_unbound_otherworld_bird");
+        this.add(helper.entryName(), "Unbound Drikwing");
+
+        helper.page("entity");
+        this.add(helper.pageText(),
+                """
+                        **Provides**: A tameable Drikwing
+                          """);
+
+        helper.page("ritual");
+        //no text
+
+        helper.page("description");
+        this.add(helper.pageText(),
+                """
+                        See [Drikwing Familiar](entry://familiar_rituals/familiar_otherworld_bird) for more information.
+                          """);
     }
 
     private void addCraftingRitualsCategory(BookContextHelper helper) {
@@ -2284,6 +1834,18 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("ritual");
         //no text
 
+        helper.entry("craft_ancient_miner");
+        this.add(helper.entryName(), "Ancient Miner");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        By compressing MMM you get an extremely powerful miner, but something starts watching you. [](item://occultism:mining_dim_core) are a extremely rarely mined by a Marid.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
         helper.entry("craft_satchel");
         this.add(helper.entryName(), "Surprisingly Substantial Satchel");
 
@@ -2341,16 +1903,61 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         helper.page("ritual");
         //no text
+
         helper.entry("craft_wild_trim");
         this.add(helper.entryName(), "Forge Wild Trim");
 
         helper.page("spotlight");
         this.add(helper.pageText(),
                 """
-                        Unlike other rituals, creating a [](item://minecraft:wild_armor_trim_smithing_template) is a service provided by a Marid that is not bound to the final object. You sacrifice the items and the Marid uses his power to forge that item for you.
+                        Unlike other rituals, creating a [](item://minecraft:wild_armor_trim_smithing_template) is a service provided by Wild Spirits and not bound any spirit to the final object. You sacrifice the items and the Wild Spirits uses his power to forge that item for you.
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
+        //no text
+
+        helper.entry("craft_budding_amethyst");
+        this.add(helper.entryName(), "Forge Budding Amethyst");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        Unlike other rituals, creating a [](item://minecraft:budding_amethyst) is a service provided by Wild Spirits and not bound any spirit to the final object. You sacrifice the items and the Wild Spirits uses his power to forge that item for you.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("craft_reinforced_deepslate");
+        this.add(helper.entryName(), "Forge Reinforced Deepslate");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        Unlike other rituals, creating a [](item://minecraft:reinforced deepslate) is a service provided by Ancient Spirits and not bound any spirit to the final object. You sacrifice the items and the Ancient Spirits uses his power to forge that item for you.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
+        helper.entry("repair");
+        this.add(helper.entryName(), "Repair Rituals");
+
+        helper.page("spotlight");
+        this.add(helper.pageTitle(), "Repairing");
+        this.add(helper.pageText(),
+                """
+                        With simple materials, a Djinni can repair any chalk for you. By evolving in the occult path, an Afrit can repair miners, tools and armors. Any item repaired in this way retains its properties.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual_chalks");
+        //no text
+        helper.page("ritual_miners");
+        //no text
+        helper.page("ritual_tools");
+        //no text
+        helper.page("ritual_armors");
+        //no text
     }
 
     private void addFamiliarRitualsCategory(BookContextHelper helper) {
@@ -2769,7 +2376,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("description2");
         this.add(helper.pageText(),
                 """
-                        To obtain the parrot or parrot familiar for the sacrifice, consider summoning them using either the [Wild Parrot Ritual](entry://summoning_rituals/summon_wild_parrot) or [Parrot Familiar Ritual](entry://familiar_rituals/familiar_parrot)
+                        To obtain the parrot or parrot familiar for the sacrifice, consider summoning them using either the [Wild Parrot Ritual](entry://possession_rituals/possess_unbound_parrot) or [Parrot Familiar Ritual](entry://familiar_rituals/familiar_parrot)
                         \\
                         \\
                         **Hint:** If you use mods that protect pets from death, use the wild parrot ritual!
@@ -2808,7 +2415,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                            """.formatted(COLOR_PURPLE));
         //no text
 
-        helper.entry("summon_allay");
+        helper.entry("resurrect_allay");
         this.add(helper.entryName(), "Purify Vex to Allay");
 
         helper.page("entity");
@@ -3024,6 +2631,40 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.advancementDescr("familiar.mummy_dodge", "Dodge an attack with the Mummy familiar dodge effect");
         this.advancementTitle("familiar.beaver_woodchop", "Woodchopper");
         this.advancementDescr("familiar.beaver_woodchop", "Let your Beaver familiar chop down a tree");
+        this.advancementTitle("chalks.root", "Occultism: Chalks");
+        this.advancementDescr("chalks.root", "Colorful");
+        this.advancementTitle("chalks.white", "White Chalk");
+        this.advancementDescr("chalks.white", "First Foundation");
+        this.advancementTitle("chalks.light_gray", "Light Gray Chalk");
+        this.advancementDescr("chalks.light_gray", "Second Foundation");
+        this.advancementTitle("chalks.gray", "Gray Chalk");
+        this.advancementDescr("chalks.gray", "Third Foundation");
+        this.advancementTitle("chalks.black", "Black Chalk");
+        this.advancementDescr("chalks.black", "Fourth Foundation");
+        this.advancementTitle("chalks.brown", "Brown Chalk");
+        this.advancementDescr("chalks.brown", "Bait for what?");
+        this.advancementTitle("chalks.red", "Red Chalk");
+        this.advancementDescr("chalks.red", "Third Tier!");
+        this.advancementTitle("chalks.orange", "Orange Chalk");
+        this.advancementDescr("chalks.orange", "Third Tier?");
+        this.advancementTitle("chalks.yellow", "Yellow Chalk");
+        this.advancementDescr("chalks.yellow", "Possession");
+        this.advancementTitle("chalks.lime", "Lime Chalk");
+        this.advancementDescr("chalks.lime", "Second Tier");
+        this.advancementTitle("chalks.green", "Green Chalk");
+        this.advancementDescr("chalks.green", "Wild Attraction");
+        this.advancementTitle("chalks.cyan", "Cyan Chalk");
+        this.advancementDescr("chalks.cyan", "Ancient Knowledge");
+        this.advancementTitle("chalks.light_blue", "Light Blue Chalk");
+        this.advancementDescr("chalks.light_blue", "Wild Stabilizer");
+        this.advancementTitle("chalks.blue", "Blue Chalk");
+        this.advancementDescr("chalks.blue", "Fourth Tier");
+        this.advancementTitle("chalks.purple", "Purple Chalk");
+        this.advancementDescr("chalks.purple", "Infusion");
+        this.advancementTitle("chalks.magenta", "Magenta Chalk");
+        this.advancementDescr("chalks.magenta", "Dragon Power");
+        this.advancementTitle("chalks.pink", "Pink Chalk");
+        this.advancementDescr("chalks.pink", "Wild Power");
     }
 
     private void addKeybinds() {
@@ -3128,19 +2769,24 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
     private void addPentacles() {
         this.addPentacle("otherworld_bird", "Otherworld Bird");
-        this.addPentacle("craft_afrit", "Sevira's Permanent Confinement");
-        this.addPentacle("craft_djinni", "Strigeor's Higher Binding");
-        this.addPentacle("craft_foliot", "Eziveus' Spectral Compulsion");
-        this.addPentacle("craft_marid", "Uphyxes Inverted Tower");
-        this.addPentacle("possess_afrit", "Abras' Commanding Conjure");
-        this.addPentacle("possess_djinni", "Ihagan's Enthrallment");
-        this.addPentacle("possess_foliot", "Hedyrin's Lure");
-        this.addPentacle("summon_afrit", "Abras' Conjure");
-        this.addPentacle("summon_djinni", "Ophyx' Calling");
         this.addPentacle("summon_foliot", "Aviar's Circle");
-        this.addPentacle("summon_wild_afrit", "Abras' Open Conjure");
+        this.addPentacle("summon_djinni", "Ophyx' Calling");
+        this.addPentacle("summon_unbound_afrit", "Abras' Open Conjure");
+        this.addPentacle("summon_afrit", "Abras' Conjure");
+        this.addPentacle("summon_unbound_marid", "Abras' Fortified Conjure");
         this.addPentacle("summon_marid", "Fatma's Incentivized Attraction");
-        this.addPentacle("summon_wild_greater_spirit", "Osorin's Unbound Calling");
+        this.addPentacle("possess_foliot", "Hedyrin's Lure");
+        this.addPentacle("possess_djinni", "Ihagan's Enthrallment");
+        this.addPentacle("possess_unbound_afrit", "Abras' Open Commanding Conjure");
+        this.addPentacle("possess_afrit", "Abras' Commanding Conjure");
+        this.addPentacle("possess_marid", "Xeovrenth Adjure");
+        this.addPentacle("craft_foliot", "Eziveus' Spectral Compulsion");
+        this.addPentacle("craft_djinni", "Strigeor's Higher Binding");
+        this.addPentacle("craft_afrit", "Sevira's Permanent Confinement");
+        this.addPentacle("craft_marid", "Uphyxes Inverted Tower");
+        this.addPentacle("resurrect_spirit", "Susje's Simple Circle");
+        this.addPentacle("contact_wild_spirit", "Osorin's Wild Calling");
+        this.addPentacle("contact_eldritch_spirit", "Ronaza's Contact");
     }
 
     private void addPentacle(String id, String name) {
@@ -3148,10 +2794,16 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addRitualDummies() {
-        this.add("item.occultism.ritual_dummy.custom_ritual", "Custom Ritual Dummy");
-        this.add("item.occultism.ritual_dummy.custom_ritual.tooltip", "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
+        this.add("item.occultism.ritual_dummy.custom_ritual_summon", "Custom Ritual Dummy");
+        this.add("item.occultism.ritual_dummy.custom_ritual_summon.tooltip", "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
+        this.add("item.occultism.ritual_dummy.custom_ritual_possess", "Custom Ritual Dummy");
+        this.add("item.occultism.ritual_dummy.custom_ritual_possess.tooltip", "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
+        this.add("item.occultism.ritual_dummy.custom_ritual_craft", "Custom Ritual Dummy");
+        this.add("item.occultism.ritual_dummy.custom_ritual_craft.tooltip", "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
+        this.add("item.occultism.ritual_dummy.custom_ritual_misc", "Custom Ritual Dummy");
+        this.add("item.occultism.ritual_dummy.custom_ritual_misc.tooltip", "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
         this.add("item.occultism.ritual_dummy.craft_wild_trim", "Ritual: Forge Wild Armor Trim Smithing Template");
-        this.add("item.occultism.ritual_dummy.craft_wild_trim.tooltip", "Marid will forge a Wild Armor Trim Smithing Template.");
+        this.add("item.occultism.ritual_dummy.craft_wild_trim.tooltip", "Wild Spirits will forge a Wild Armor Trim Smithing Template.");
         this.add("item.occultism.ritual_dummy.craft_dimensional_matrix", "Ritual: Craft Dimensional Matrix");
         this.add("item.occultism.ritual_dummy.craft_dimensional_matrix.tooltip", "The dimensional matrix is the entry point to a small dimension used for storing items.");
         this.add("item.occultism.ritual_dummy.craft_dimensional_mineshaft", "Ritual: Craft Dimensional Mineshaft");
@@ -3169,6 +2821,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.craft_miner_afrit_deeps.tooltip", "Summon Afrit Deep Ore Miner into a magic lamp.");
         this.add("item.occultism.ritual_dummy.craft_miner_marid_master", "Ritual: Summon Marid Master Miner");
         this.add("item.occultism.ritual_dummy.craft_miner_marid_master.tooltip", "Summon Marid Master Miner into a magic lamp.");
+        this.add("item.occultism.ritual_dummy.craft_miner_ancient_eldritch", "Ritual: Summon Eldritch Ancient Miner");
+        this.add("item.occultism.ritual_dummy.craft_miner_ancient_eldritch.tooltip", "Summon Eldritch Ancient Miner into a magic lamp.");
 
         this.add("item.occultism.ritual_dummy.craft_satchel", "Ritual: Craft Surprisingly Substantial Satchel");
         this.add("item.occultism.ritual_dummy.craft_satchel.tooltip", "This satchels allows to store more items than it's size would indicate, making it a practical traveller's companion.");
@@ -3242,6 +2896,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.possess_warden.tooltip", "The possessed Warden will always drop at least six echo shard and can drop anothers ancient stuff (smithing templates and discs) when killed.");
         this.add("item.occultism.ritual_dummy.possess_hoglin", "Ritual: Summon Possessed Hoglin");
         this.add("item.occultism.ritual_dummy.possess_hoglin.tooltip", "The possessed Hoglin has a chance to drop smithing template of netherite upgrade when killed.");
+        this.add("item.occultism.ritual_dummy.possess_witch", "Ritual: Summon Possessed Witch");
+        this.add("item.occultism.ritual_dummy.possess_witch.tooltip", "The possessed Witch will drop a special filled bottle.");
+        this.add("item.occultism.ritual_dummy.possess_zombie_piglin", "Ritual: Summon Possessed Zombie Piglin");
+        this.add("item.occultism.ritual_dummy.possess_zombie_piglin.tooltip", "The possessed Zombie Piglin will drop demonic meat.");
+        this.add("item.occultism.ritual_dummy.possess_bee", "Ritual: Summon Possessed Bee");
+        this.add("item.occultism.ritual_dummy.possess_bee.tooltip", "The possessed Bee will drop cursed honey.");
+        this.add("item.occultism.ritual_dummy.possess_goat", "Ritual: Summon Goat of Mercy");
+        this.add("item.occultism.ritual_dummy.possess_goat.tooltip", "The Goat of Mercy will drop the Cruelty Essence.");
         this.add("item.occultism.ritual_dummy.summon_afrit_rain_weather", "Ritual: Rainy Weather");
         this.add("item.occultism.ritual_dummy.summon_afrit_rain_weather.tooltip", "Summons an bound Afrit that creates rain.");
         this.add("item.occultism.ritual_dummy.summon_afrit_thunder_weather", "Ritual: Thunderstorm");
@@ -3272,33 +2934,56 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.summon_foliot_transport_items.tooltip", "The transporter will move all items it can access from one inventory to another, including machines.");
         this.add("item.occultism.ritual_dummy.summon_foliot_cleaner", "Ritual: Summon Foliot Janitor");
         this.add("item.occultism.ritual_dummy.summon_foliot_cleaner.tooltip", "The janitor will pick up dropped items and deposit them into a target inventory.");
-        this.add("item.occultism.ritual_dummy.summon_wild_afrit", "Ritual: Summon Unbound Afrit");
-        this.add("item.occultism.ritual_dummy.summon_wild_afrit.tooltip", "Summons an unbound Afrit that can be killed to obtain Afrit Essence");
-        this.add("item.occultism.ritual_dummy.summon_wild_hunt", "Ritual: Summon The Wild Hunt");
-        this.add("item.occultism.ritual_dummy.summon_wild_hunt.tooltip", "The Wild Hunt consists of Wither Skeletons that as a big chance to drop Wither Skeleton Skulls, and their minions.");
-        this.add("item.occultism.ritual_dummy.summon_wild_otherworld_bird", "Ritual: Summon Wild Drikwing");
-        this.add("item.occultism.ritual_dummy.summon_wild_otherworld_bird.tooltip", "Summons a Drikwing Familiar that can be tamed by anyone, not just the summoner.");
-        this.add("item.occultism.ritual_dummy.summon_wild_parrot", "Ritual: Summon Wild Parrot");
-        this.add("item.occultism.ritual_dummy.summon_wild_parrot.tooltip", "Summons a Parrot that can be tamed by anyone, not just the summoner.");
-        this.add("item.occultism.ritual_dummy.summon_allay", "Ritual: Purify Vex to Allay");
-        this.add("item.occultism.ritual_dummy.summon_allay.tooltip", "Purify a Vex to a Allay on a resurrection process.");
+        this.add("item.occultism.ritual_dummy.summon_unbound_afrit", "Ritual: Summon Unbound Afrit");
+        this.add("item.occultism.ritual_dummy.summon_unbound_afrit.tooltip", "Summons an unbound Afrit that can be killed to obtain Afrit Essence");
+        this.add("item.occultism.ritual_dummy.summon_unbound_marid", "Ritual: Summon Unbound Marid");
+        this.add("item.occultism.ritual_dummy.summon_unbound_marid.tooltip", "Summons an unbound Marid that can be killed to obtain Marid Essence");
+        this.add("item.occultism.ritual_dummy.wild_hunt", "Ritual: Summon The Wild Hunt");
+        this.add("item.occultism.ritual_dummy.wild_hunt.tooltip", "The Wild Hunt consists of Wither Skeletons that as a big chance to drop Wither Skeleton Skulls, and their minions.");
+        this.add("item.occultism.ritual_dummy.possess_unbound_otherworld_bird", "Ritual: Possess Unbound Drikwing");
+        this.add("item.occultism.ritual_dummy.possess_unbound_otherworld_bird.tooltip", "Possess a Drikwing Familiar that can be tamed by anyone, not just the summoner.");
+        this.add("item.occultism.ritual_dummy.possess_unbound_parrot", "Ritual: Possess Unbound Parrot");
+        this.add("item.occultism.ritual_dummy.possess_unbound_parrot.tooltip", "Possess a Parrot that can be tamed by anyone, not just the summoner.");
+        this.add("item.occultism.ritual_dummy.resurrect_allay", "Ritual: Purify Vex to Allay");
+        this.add("item.occultism.ritual_dummy.resurrect_allay.tooltip", "Purify a Vex to a Allay on a resurrection process.");
 
-        this.add("item.occultism.ritual_dummy.summon_wild_husk", "Ritual: Summon The Wild Horde Husk");
-        this.add("item.occultism.ritual_dummy.summon_wild_husk.tooltip", "The Wild Horde Husk consists of a few Husks that drop items related to desert trails.");
-        this.add("item.occultism.ritual_dummy.summon_wild_drowned", "Ritual: Summon The Wild Horde Drowned");
-        this.add("item.occultism.ritual_dummy.summon_wild_drowned.tooltip", "The Wild Horde Drowned consists of a few Drowneds that drop items related to ocean trails.");
-        this.add("item.occultism.ritual_dummy.summon_wild_creeper", "Ritual: Summon The Wild Horde Creeper");
-        this.add("item.occultism.ritual_dummy.summon_wild_creeper.tooltip", "The Wild Horde Creeper consists of a few charged Creepers that drop many disks.");
-        this.add("item.occultism.ritual_dummy.summon_wild_silverfish", "Ritual: Summon The Wild Horde Silverfish");
-        this.add("item.occultism.ritual_dummy.summon_wild_silverfish.tooltip", "The Wild Horde Silverfish consists of a few Silverfishs that drop items related to ruins trails.");
-        this.add("item.occultism.ritual_dummy.possess_weak_breeze", "Ritual: Summon Possessed Weak Breeze");
-        this.add("item.occultism.ritual_dummy.possess_weak_breeze.tooltip", "The possessed Weak Breeze will drop a Trial Key and trial chamber related items.");
-        this.add("item.occultism.ritual_dummy.possess_breeze", "Ritual: Summon Possessed Breeze");
-        this.add("item.occultism.ritual_dummy.possess_breeze.tooltip", "The possessed Breeze will drop a Ominous Trial Key and trial chamber related items.");
-        this.add("item.occultism.ritual_dummy.possess_strong_breeze", "Ritual: Summon Possessed Strong Breeze");
-        this.add("item.occultism.ritual_dummy.possess_strong_breeze.tooltip", "The possessed Strong Breeze will drop a Heavy Core and trial chamber related items.");
-        this.add("item.occultism.ritual_dummy.summon_horde_illager", "Ritual: Summon Possessed Evoker");
-        this.add("item.occultism.ritual_dummy.summon_horde_illager.tooltip", "Summon a possessed Evoker and his henchmen.");
+        this.add("item.occultism.ritual_dummy.wild_husk", "Ritual: Summon The Wild Horde Husk");
+        this.add("item.occultism.ritual_dummy.wild_husk.tooltip", "The Wild Horde Husk consists of a few Husks that drop items related to desert trails.");
+        this.add("item.occultism.ritual_dummy.wild_drowned", "Ritual: Summon The Wild Horde Drowned");
+        this.add("item.occultism.ritual_dummy.wild_drowned.tooltip", "The Wild Horde Drowned consists of a few Drowneds that drop items related to ocean trails.");
+        this.add("item.occultism.ritual_dummy.wild_creeper", "Ritual: Summon The Wild Horde Creeper");
+        this.add("item.occultism.ritual_dummy.wild_creeper.tooltip", "The Wild Horde Creeper consists of a few charged Creepers that drop many disks.");
+        this.add("item.occultism.ritual_dummy.wild_silverfish", "Ritual: Summon The Wild Horde Silverfish");
+        this.add("item.occultism.ritual_dummy.wild_silverfish.tooltip", "The Wild Horde Silverfish consists of a few Silverfishs that drop items related to ruins trails.");
+        this.add("item.occultism.ritual_dummy.wild_weak_breeze", "Ritual: Summon Possessed Weak Breeze");
+        this.add("item.occultism.ritual_dummy.wild_weak_breeze.tooltip", "The possessed Weak Breeze will drop a Trial Key and trial chamber related items.");
+        this.add("item.occultism.ritual_dummy.wild_breeze", "Ritual: Summon Possessed Breeze");
+        this.add("item.occultism.ritual_dummy.wild_breeze.tooltip", "The possessed Breeze will drop a Ominous Trial Key and trial chamber related items.");
+        this.add("item.occultism.ritual_dummy.wild_strong_breeze", "Ritual: Summon Possessed Strong Breeze");
+        this.add("item.occultism.ritual_dummy.wild_strong_breeze.tooltip", "The possessed Strong Breeze will drop a Heavy Core and trial chamber related items.");
+        this.add("item.occultism.ritual_dummy.wild_horde_illager", "Ritual: Summon Possessed Evoker");
+        this.add("item.occultism.ritual_dummy.wild_horde_illager.tooltip", "Summon a possessed Evoker and his henchmen.");
+
+        this.add("item.occultism.ritual_dummy.craft_nature_paste", "Ritual: Craft Nature Paste");
+        this.add("item.occultism.ritual_dummy.craft_nature_paste.tooltip", "A foliot will craft the nature paste mixing ingredients.");
+        this.add("item.occultism.ritual_dummy.craft_gray_paste", "Ritual: Craft Gray Paste");
+        this.add("item.occultism.ritual_dummy.craft_gray_paste.tooltip", "A djinni will craft the gray paste mixing ingredients.");
+        this.add("item.occultism.ritual_dummy.craft_research_fragment_dust", "Ritual: Craft Research Fragment Dust");
+        this.add("item.occultism.ritual_dummy.craft_research_fragment_dust.tooltip", "A foliot will infuse experience in the emerald dust.");
+        this.add("item.occultism.ritual_dummy.craft_witherite_dust", "Ritual: Craft Witherite Dust");
+        this.add("item.occultism.ritual_dummy.craft_witherite_dust.tooltip", "A afrit will infuse wither essence in the netherite dust.");
+        this.add("item.occultism.ritual_dummy.craft_dragonyst_dust", "Ritual: Craft Dragonyst Dust");
+        this.add("item.occultism.ritual_dummy.craft_dragonyst_dust.tooltip", "A marid will infuse ender dragon essence in the amethyst dust.");
+
+
+        this.add("item.occultism.ritual_dummy.repair_chalks", "Ritual: Repair Chalk");
+        this.add("item.occultism.ritual_dummy.repair_chalks.tooltip", "A djinni will repair your chalk.");
+        this.add("item.occultism.ritual_dummy.repair_tools", "Ritual: Repair Tool");
+        this.add("item.occultism.ritual_dummy.repair_tools.tooltip", "A afrit will repair your tool.");
+        this.add("item.occultism.ritual_dummy.repair_armors", "Ritual: Repair Armor");
+        this.add("item.occultism.ritual_dummy.repair_armors.tooltip", "A afrit will repair your armor.");
+        this.add("item.occultism.ritual_dummy.repair_miners", "Ritual: Repair Miner");
+        this.add("item.occultism.ritual_dummy.repair_miners.tooltip", "A afrit will extend your miner contract.");
 
         this.add(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Ritual: Summon Demonic Wife");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Summons a Demonic Wife to support you: She will fight for you, help with cooking, and extend potion durations.");
@@ -3310,14 +2995,21 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.RITUAL_DUMMY_RESURRECT_FAMILIAR.get(), "Ritual: Resurrect Familiar");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_RESURRECT_FAMILIAR.get(), "Resurrects a Familiar from a Soul Shard.");
 
-        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_RANDOM_ANIMAL.get(), "Ritual: Summon Random Animal");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_RANDOM_ANIMAL.get(), "Summons a random passive animal.");
+        this.add(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL.get(), "Ritual: Summon Random Animal");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL.get(), "Summons a random passive animal.");
 
         this.add(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1.get(), "Ritual: Craft Apprentice Ritual Satchel");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1.get(), "Binds a Djinni into a satchel to build pentacles step-by-step for the summoner.");
 
         this.add(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2.get(), "Ritual: Craft Artisanal Ritual Satchel");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2.get(), "Binds an Afrit into a satchel to build pentacles all at once for the summoner.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST.get(), "Ritual: Forge Budding Amethyst");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST.get(), "Wild Spirits will forge a Budding Amethyst.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE.get(), "Ritual: Forge Reinforced Deepslate");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE.get(), "Ancient Spirits will forge a Reinforced Deepslate.");
+
     }
 
     public void addTooltip(ItemLike key, String value) {
@@ -3354,6 +3046,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     private void addTags() {
         // Block tags
         this.addBlockTag(OccultismTags.Blocks.OTHERWORLD_SAPLINGS, "Otherworld Saplings");
+        this.addBlockTag(OccultismTags.Blocks.OTHERWORLD_SAPLINGS_NATURAL, "Otherworld Saplings_NATURAL");
         this.addBlockTag(OccultismTags.Blocks.CANDLES, "Candles");
         this.addBlockTag(OccultismTags.Blocks.CAVE_WALL_BLOCKS, "Cave Wall Blocks");
         this.addBlockTag(OccultismTags.Blocks.NETHERRACK, "Netherrack");
@@ -3370,12 +3063,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         // Item tags
         this.addItemTag(OccultismTags.Items.OTHERWORLD_SAPLINGS, "Otherworld Saplings");
+        this.addItemTag(OccultismTags.Items.OTHERWORLD_SAPLINGS_NATURAL, "Otherworld Saplings Natural");
         this.addItemTag(OccultismTags.Items.BOOK_OF_CALLING_DJINNI, "Book of Calling Djinni");
         this.addItemTag(OccultismTags.Items.BOOK_OF_CALLING_FOLIOT, "Book of Calling Foliot");
         this.addItemTag(OccultismTags.Items.BOOKS_OF_BINDING, "Books of Binding");
         this.addItemTag(OccultismTags.Items.Miners.BASIC_RESOURCES, "Basic Resource Miners");
         this.addItemTag(OccultismTags.Items.Miners.DEEPS, "Deepslate Miners");
         this.addItemTag(OccultismTags.Items.Miners.MASTER, "Rare Resource Miners");
+        this.addItemTag(OccultismTags.Items.Miners.ELDRITCH, "Eldritch Miners");
         this.addItemTag(OccultismTags.Items.Miners.ORES, "General Miners");
         this.addItemTag(OccultismTags.Items.ELYTRA, "Elytras");
         this.addItemTag(OccultismTags.Items.OTHERWORLD_GOGGLES, "Otherworld Goggles");
@@ -3405,7 +3100,25 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.MAGMA, "Magma");
         this.addItemTag(OccultismTags.Items.BOOKS, "Books");
         this.addItemTag(OccultismTags.Items.FRUITS, "Fruits");
-
+        this.addItemTag(OccultismTags.Items.AMETHYST_DUST,"Amethyst Dust");
+        this.addItemTag(OccultismTags.Items.BLACKSTONE_DUST,"Blackstone Dust");
+        this.addItemTag(OccultismTags.Items.BLUE_ICE_DUST,"Blue Ice Dust");
+        this.addItemTag(OccultismTags.Items.CALCITE_DUST,"Calcite Dust");
+        this.addItemTag(OccultismTags.Items.ICE_DUST,"Ice Dust");
+        this.addItemTag(OccultismTags.Items.PACKED_ICE_DUST,"Packed Ice Dust");
+        this.addItemTag(OccultismTags.Items.DRAGONYST_DUST,"Dragonyst Dust");
+        this.addItemTag(OccultismTags.Items.ECHO_DUST,"Echo Dust");
+        this.addItemTag(OccultismTags.Items.EMERALD_DUST,"Emerald Dust");
+        this.addItemTag(OccultismTags.Items.LAPIS_DUST,"Lapis Dust");
+        this.addItemTag(OccultismTags.Items.NETHERITE_DUST,"Netherite Dust");
+        this.addItemTag(OccultismTags.Items.NETHERITE_SCRAP_DUST,"Netherite Scrap Dust");
+        this.addItemTag(OccultismTags.Items.RESEARCH_DUST,"Research Dust");
+        this.addItemTag(OccultismTags.Items.WITHERITE_DUST,"Witherite Dust");
+        this.addItemTag(OccultismTags.Items.OTHERSTONE_DUST,"Otherstone Dust");
+        this.addItemTag(OccultismTags.Items.OTHERWORLD_WOOD_DUST,"Otherworld Wood Dust");
+        this.addItemTag(OccultismTags.Items.OCCULTISM_CANDLES,"Occultism Candles");
+        this.addItemTag(OccultismTags.Items.Miners.MINERS,"Dimensional Miners");
+        this.addItemTag(OccultismTags.Items.SCUTESHELL,"Scute or Shell");
         this.addItemTag(OccultismTags.Items.BLAZE_DUST, "Blaze Dust");
         this.addItemTag(OccultismTags.Items.MANUALS, "Manuals");
         this.addItemTag(OccultismTags.Items.TOOLS_KNIFE, "Knives");
@@ -3413,9 +3126,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "hands"), "Hands");
         this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "heads"), "Heads");
         this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "ring"), "Ring");
-        this.addItemTag(OccultismTags.Items.OCCULTISM_CANDLES, "Candles");
         this.addItemTag(OccultismTags.Items.DEMONIC_PARTNER_FOOD, "Demonic Partner Food");
-        this.addItemTag(OccultismTags.Items.Miners.MINERS, "Miners");
         this.addItemTag(OccultismTags.Items.OTHERCOBBLESTONE, "Other Cobblestone");
         this.addItemTag(OccultismTags.Items.OTHERSTONE, "Otherstone");
         this.addItemTag(OccultismTags.Items.OTHERWORLD_LOGS, "Otherworld Logs");
@@ -3495,7 +3206,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("disableHolidayTheming", "Disable Otherworld Goggles Shaders");
         this.addConfig("useAlternativeDivinationRodRenderer", "Use Alternative Divination Rod Renderer");
         this.addConfig("whiteChalkGlyphColor", "White Chalk Glyph Color");
-        this.addConfig("goldenChalkGlyphColor", "Yellow Chalk Glyph Color");
+        this.addConfig("yellowChalkGlyphColor", "Yellow Chalk Glyph Color");
         this.addConfig("purpleChalkGlyphColor", "Purple Chalk Glyph Color");
         this.addConfig("redChalkGlyphColor", "Red Chalk Glyph Color");
         this.addConfig("lightGrayChalkGlyphColor", "Light Gray Chalk Glyph Color");
@@ -3560,6 +3271,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("miner_djinni_ores", "Djinni Ore Miner");
         this.addConfig("miner_afrit_deeps", "Afrit Deep Ore Miner");
         this.addConfig("miner_marid_master", "Marid Master Miner");
+        this.addConfig("miner_ancient_eldritch", "Eldritch Ancient Miner");
 
         this.addConfig("maxMiningTime", "Max Mining Time");
         this.addConfig("rollsPerOperation", "Rolls Per Operation");
@@ -3567,6 +3279,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         this.addConfig("items", "Items");
         this.addConfig("anyOreDivinationRod", "Divination c:ores");
+        this.addConfig("minerOutputBeforeBreak", "Save miners before breaking");
     }
 
     private void addConfig(String key, String name) {

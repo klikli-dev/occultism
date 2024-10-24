@@ -45,15 +45,25 @@ public class OccultismServerConfig {
 
     public static class ItemSettings {
         public final BooleanValue anyOreDivinationRod;
+        public final BooleanValue minerOutputBeforeBreak;
+
         public ItemSettings(ModConfigSpec.Builder builder) {
             builder.comment("Item Settings").push("items");
+
             this.anyOreDivinationRod =
                     builder.comment(
                             "Allow the Divining Rod to attune to any ore"
                     )
                             .define("anyOreDivinationRod", false);
+            this.minerOutputBeforeBreak =
+                    builder.comment(
+                                    "Miners head to the output in the Dimensional Mineshaft before it breaks"
+                            )
+                            .define("minerOutputBeforeBreak", false);
+
             builder.pop();
         }
+
     }
 
     public static class SpiritJobSettings {
@@ -170,7 +180,7 @@ public class OccultismServerConfig {
                                             "(very very) many rituals are running.")
                             .define("enableRemainingIngredientCountMatching", false);
             this.ritualDurationMultiplier =
-                    builder.comment("Set a value below 1.0 to speed up rituals.")
+                    builder.comment("Set a value below 1.0 to speed up rituals. Please ensure to use a preceding 0 for values below 1.0, e.g. '0.05' instead of '.05', otherwise Nightconfig (NeoForge's config sytem) will reset the value to 1.0.")
                             .defineInRange("ritualDurationMultiplier", 1.0, 0.05, Double.MAX_VALUE);
 
             builder.pop();

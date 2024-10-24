@@ -88,6 +88,13 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .add(Items.WITHER_SKELETON_SKULL)
                 .replace(false);
 
+        this.tag(OccultismTags.Items.SCUTESHELL)
+                .add(Items.ARMADILLO_SCUTE)
+                .add(Items.TURTLE_SCUTE)
+                .add(Items.SHULKER_SHELL)
+                .add(Items.NAUTILUS_SHELL)
+                .replace(false);
+
         this.copy(OccultismTags.Blocks.PENTACLE_MATERIALS, OccultismTags.Items.PENTACLE_MATERIALS);
         this.tag(OccultismTags.Items.PENTACLE_MATERIALS)
                 .addOptionalTag(OccultismTags.Items.TOOLS_CHALK)
@@ -116,15 +123,17 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(OccultismTags.Items.Miners.MASTER).add(OccultismItems.MINER_MARID_MASTER.get()).replace(false);
         this.tag(OccultismTags.Items.Miners.ORES).add(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get(),
                 OccultismItems.MINER_DEBUG_UNSPECIALIZED.get(), OccultismItems.MINER_AFRIT_DEEPS.get(), OccultismItems.MINER_MARID_MASTER.get(), OccultismItems.MINER_DJINNI_ORES.get()).replace(false);
+        this.tag(OccultismTags.Items.Miners.ELDRITCH).add(OccultismItems.MINER_ANCIENT_ELDRITCH.get()).replace(false);
 
         this.tag(OccultismTags.Items.Miners.MINERS)
                 .addTag(OccultismTags.Items.Miners.BASIC_RESOURCES)
                 .addTag(OccultismTags.Items.Miners.DEEPS)
                 .addTag(OccultismTags.Items.Miners.MASTER)
-                .addTag(OccultismTags.Items.Miners.ORES).replace(false);
+                .addTag(OccultismTags.Items.Miners.ORES)
+                .addTag(OccultismTags.Items.Miners.ELDRITCH).replace(false);
 
         this.tag(OccultismTags.Items.TOOLS_CHALK)
-                .add(OccultismItems.CHALK_GOLD.get())
+                .add(OccultismItems.CHALK_YELLOW.get())
                 .add(OccultismItems.CHALK_WHITE.get())
                 .add(OccultismItems.CHALK_RED.get())
                 .add(OccultismItems.CHALK_PURPLE.get())
@@ -143,7 +152,9 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .replace(false);
 
         this.copy(OccultismTags.Blocks.OTHERWORLD_SAPLINGS, OccultismTags.Items.OTHERWORLD_SAPLINGS);
+        this.copy(OccultismTags.Blocks.OTHERWORLD_SAPLINGS_NATURAL, OccultismTags.Items.OTHERWORLD_SAPLINGS_NATURAL);
         this.tag(OccultismTags.Items.TOOLS_KNIFE).add(OccultismItems.BUTCHER_KNIFE.get()).replace(false);
+        this.tag(Tags.Items.TOOLS).addOptionalTag(OccultismTags.Items.TOOLS_KNIFE).replace(false); //Don't place chalks
         this.tag(OccultismTags.Items.ELYTRA).add(Items.ELYTRA).addOptional(ResourceLocation.fromNamespaceAndPath("mana-and-artifice", "spectral_elytra")).replace(false);
         this.tag(OccultismTags.Items.OTHERWORLD_GOGGLES).add(OccultismItems.OTHERWORLD_GOGGLES.get()).replace(false);
         this.tag(OccultismTags.Items.OTHERSTONE).add(OccultismBlocks.OTHERSTONE.asItem());
@@ -319,12 +330,46 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(OccultismTags.Items.IESNIUM_DUST).add(OccultismItems.IESNIUM_DUST.get()).replace(false);
         this.tag(OccultismTags.Items.SILVER_DUST).add(OccultismItems.SILVER_DUST.get()).replace(false);
         this.tag(OccultismTags.Items.OBSIDIAN_DUST).add(OccultismItems.OBSIDIAN_DUST.get()).replace(false);
-        this.tag(Tags.Items.DUSTS)
-                .addTags(OccultismTags.Items.COPPER_DUST, OccultismTags.Items.END_STONE_DUST,
-                        OccultismTags.Items.GOLD_DUST, OccultismTags.Items.IRON_DUST, OccultismTags.Items.IESNIUM_DUST,
-                        OccultismTags.Items.SILVER_DUST, OccultismTags.Items.OBSIDIAN_DUST)
-                .add(OccultismItems.BURNT_OTHERSTONE.get(), OccultismItems.OTHERWORLD_ASHES.get()).replace(false);
-
+        this.tag(OccultismTags.Items.AMETHYST_DUST).add(OccultismItems.AMETHYST_DUST.get()).replace(false);
+        this.tag(OccultismTags.Items.BLACKSTONE_DUST).add(OccultismItems.CRUSHED_BLACKSTONE.get()).replace(false);
+        this.tag(OccultismTags.Items.BLUE_ICE_DUST).add(OccultismItems.CRUSHED_BLUE_ICE.get()).replace(false);
+        this.tag(OccultismTags.Items.CALCITE_DUST).add(OccultismItems.CRUSHED_CALCITE.get()).replace(false);
+        this.tag(OccultismTags.Items.ICE_DUST).add(OccultismItems.CRUSHED_ICE.get()).replace(false);
+        this.tag(OccultismTags.Items.PACKED_ICE_DUST).add(OccultismItems.CRUSHED_PACKED_ICE.get()).replace(false);
+        this.tag(OccultismTags.Items.DRAGONYST_DUST).add(OccultismItems.DRAGONYST_DUST.get()).replace(false);
+        this.tag(OccultismTags.Items.ECHO_DUST).add(OccultismItems.ECHO_DUST.get()).replace(false);
+        this.tag(OccultismTags.Items.EMERALD_DUST).add(OccultismItems.EMERALD_DUST.get()).replace(false);
+        this.tag(OccultismTags.Items.LAPIS_DUST).add(OccultismItems.LAPIS_DUST.get()).replace(false);
+        this.tag(OccultismTags.Items.NETHERITE_DUST).add(OccultismItems.NETHERITE_DUST.get()).replace(false);
+        this.tag(OccultismTags.Items.NETHERITE_SCRAP_DUST).add(OccultismItems.NETHERITE_SCRAP_DUST.get()).replace(false);
+        this.tag(OccultismTags.Items.RESEARCH_DUST).add(OccultismItems.RESEARCH_FRAGMENT_DUST.get()).replace(false);
+        this.tag(OccultismTags.Items.WITHERITE_DUST).add(OccultismItems.WITHERITE_DUST.get()).replace(false);
+        this.tag(OccultismTags.Items.OTHERSTONE_DUST).add(OccultismItems.BURNT_OTHERSTONE.get()).replace(false);
+        this.tag(OccultismTags.Items.OTHERWORLD_WOOD_DUST).add(OccultismItems.OTHERWORLD_ASHES.get()).replace(false);
+        this.tag(Tags.Items.DUSTS).addTags(
+                        OccultismTags.Items.COPPER_DUST,
+                        OccultismTags.Items.END_STONE_DUST,
+                        OccultismTags.Items.GOLD_DUST,
+                        OccultismTags.Items.IRON_DUST,
+                        OccultismTags.Items.IESNIUM_DUST,
+                        OccultismTags.Items.SILVER_DUST,
+                        OccultismTags.Items.OBSIDIAN_DUST,
+                        OccultismTags.Items.AMETHYST_DUST,
+                        OccultismTags.Items.BLACKSTONE_DUST,
+                        OccultismTags.Items.BLUE_ICE_DUST,
+                        OccultismTags.Items.CALCITE_DUST,
+                        OccultismTags.Items.ICE_DUST,
+                        OccultismTags.Items.PACKED_ICE_DUST,
+                        OccultismTags.Items.DRAGONYST_DUST,
+                        OccultismTags.Items.ECHO_DUST,
+                        OccultismTags.Items.EMERALD_DUST,
+                        OccultismTags.Items.LAPIS_DUST,
+                        OccultismTags.Items.NETHERITE_DUST,
+                        OccultismTags.Items.NETHERITE_SCRAP_DUST,
+                        OccultismTags.Items.RESEARCH_DUST,
+                        OccultismTags.Items.WITHERITE_DUST,
+                        OccultismTags.Items.OTHERSTONE_DUST,
+                        OccultismTags.Items.OTHERWORLD_WOOD_DUST);
     }
 
     private TagKey<Item> cTag(String path) {

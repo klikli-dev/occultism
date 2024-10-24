@@ -4,13 +4,14 @@
   "category": "rituals",
   "category_to_open": "familiar_rituals",
   "condition": {
-    "type": "modonomicon:true"
+    "type": "modonomicon:advancement",
+    "advancement_id": "occultism:chalks/yellow"
   },
   "description": "",
   "hide_while_locked": false,
   "icon": {
     "height": 16,
-    "texture": "occultism:textures/gui/book/parrot.png",
+    "texture": "occultism:textures/gui/book/familiar.png",
     "width": 16
   },
   "name": "book.occultism.dictionary_of_spirits.rituals.familiar_rituals.name",

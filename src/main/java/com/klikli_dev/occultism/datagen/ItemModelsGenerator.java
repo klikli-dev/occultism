@@ -62,7 +62,11 @@ public class ItemModelsGenerator extends ItemModelProvider {
         this.registerItemGenerated(this.name(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get()),"book_of_calling_cleaner");
         this.registerItemGenerated(this.name(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get()),"book_of_calling_lumberjack");
         this.registerItemGenerated(this.name(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get()),"book_of_calling_transport_items");
-        this.registerItemGenerated(this.name(OccultismItems.PENTACLE.get()),"ritual_dummy");
+
+        this.registerItemGenerated(this.name(OccultismItems.PENTACLE_SUMMON.get()),"ritual_dummy_summon");
+        this.registerItemGenerated(this.name(OccultismItems.PENTACLE_POSSESS.get()),"ritual_dummy_possess");
+        this.registerItemGenerated(this.name(OccultismItems.PENTACLE_CRAFT.get()),"ritual_dummy_craft");
+        this.registerItemGenerated(this.name(OccultismItems.PENTACLE_MISC.get()),"ritual_dummy_misc");
 
     }
 
@@ -77,7 +81,15 @@ public class ItemModelsGenerator extends ItemModelProvider {
     }
 
     private void registerRitualDummy(String name) {
-        this.getBuilder(name).parent(new ModelFile.UncheckedModelFile("occultism:item/ritual_dummy"));
+        if (name.contains("misc") || name.contains("contact") || name.contains("wild") || name.contains("resurrect")) {
+            this.getBuilder(name).parent(new ModelFile.UncheckedModelFile("occultism:item/pentacle_misc"));
+        } else if (name.contains("craft") || name.contains("repair")) {
+            this.getBuilder(name).parent(new ModelFile.UncheckedModelFile("occultism:item/pentacle_craft"));
+        } else if (name.contains("invoke") || name.contains("possess") || name.contains("familiar")) {
+            this.getBuilder(name).parent(new ModelFile.UncheckedModelFile("occultism:item/pentacle_possess"));
+        } else if (name.contains("summon")) {
+            this.getBuilder(name).parent(new ModelFile.UncheckedModelFile("occultism:item/pentacle_summon"));
+        }
     }
 
     private void registerSpawnEgg(String name) {
@@ -102,6 +114,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
     private void registerItemCommon() {
         String[] items = {
                 this.name(OccultismItems.AFRIT_ESSENCE.get()),
+                this.name(OccultismItems.AMETHYST_DUST.get()),
                 this.name(OccultismItems.AWAKENED_FEATHER.get()),
                 this.name(OccultismItems.BEAVER_NUGGET.get()),
                 this.name(OccultismItems.BOOK_OF_BINDING_AFRIT.get()),
@@ -123,8 +136,8 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismItems.CHALK_BROWN_IMPURE.get()),
                 this.name(OccultismItems.CHALK_CYAN.get()),
                 this.name(OccultismItems.CHALK_CYAN_IMPURE.get()),
-                this.name(OccultismItems.CHALK_GOLD.get()),
-                this.name(OccultismItems.CHALK_GOLD_IMPURE.get()),
+                this.name(OccultismItems.CHALK_YELLOW.get()),
+                this.name(OccultismItems.CHALK_YELLOW_IMPURE.get()),
                 this.name(OccultismItems.CHALK_GRAY.get()),
                 this.name(OccultismItems.CHALK_GRAY_IMPURE.get()),
                 this.name(OccultismItems.CHALK_GREEN.get()),
@@ -146,32 +159,53 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismItems.CHALK_RED.get()),
                 this.name(OccultismItems.CHALK_RED_IMPURE.get()),
                 this.name(OccultismItems.CHALK_WHITE.get()),
-                this.name(OccultismItems.RITUAL_SATCHEL_T1.get()),
-                this.name(OccultismItems.RITUAL_SATCHEL_T2.get()),
                 this.name(OccultismItems.CHALK_WHITE_IMPURE.get()),
                 this.name(OccultismItems.COPPER_DUST.get()),
+                this.name(OccultismItems.CRUELTY_ESSENCE.get()),
+                this.name(OccultismItems.CRUSHED_BLACKSTONE.get()),
+                this.name(OccultismItems.CRUSHED_BLUE_ICE.get()),
+                this.name(OccultismItems.CRUSHED_CALCITE.get()),
                 this.name(OccultismItems.CRUSHED_END_STONE.get()),
+                this.name(OccultismItems.CRUSHED_ICE.get()),
+                this.name(OccultismItems.CRUSHED_PACKED_ICE.get()),
+                this.name(OccultismItems.CURSED_HONEY.get()),
                 this.name(OccultismItems.DATURA.get()),
                 this.name(OccultismItems.DATURA_SEEDS.get()),
                 this.name(OccultismItems.DEBUG_WAND.get()),
+                this.name(OccultismItems.DEMONIC_MEAT.get()),
                 this.name(OccultismItems.DEMONS_DREAM_ESSENCE.get()),
                 this.name(OccultismItems.DICTIONARY_OF_SPIRITS.get()),
+                this.name(OccultismItems.DRAGONYST_DUST.get()),
+                this.name(OccultismItems.ECHO_DUST.get()),
+                this.name(OccultismItems.EMERALD_DUST.get()),
                 this.name(OccultismItems.FAMILIAR_RING.get()),
                 this.name(OccultismItems.GOLD_DUST.get()),
+                this.name(OccultismItems.GRAY_PASTE.get()),
                 this.name(OccultismItems.IESNIUM_DUST.get()),
                 this.name(OccultismItems.IESNIUM_INGOT.get()),
                 this.name(OccultismItems.IESNIUM_NUGGET.get()),
                 this.name(OccultismItems.INFUSED_LENSES.get()),
                 this.name(OccultismItems.IRON_DUST.get()),
+                this.name(OccultismItems.LAPIS_DUST.get()),
                 this.name(OccultismItems.LENS_FRAME.get()),
                 this.name(OccultismItems.LENSES.get()),
                 this.name(OccultismItems.MAGIC_LAMP_EMPTY.get()),
+                this.name(OccultismItems.MARID_ESSENCE.get()),
+                this.name(OccultismItems.MINING_DIMENSION_CORE_PIECE.get()),
+                this.name(OccultismItems.NATURE_PASTE.get()),
+                this.name(OccultismItems.NETHERITE_DUST.get()),
+                this.name(OccultismItems.NETHERITE_SCRAP_DUST.get()),
                 this.name(OccultismItems.OBSIDIAN_DUST.get()),
                 this.name(OccultismItems.OTHERSTONE_FRAME.get()),
                 this.name(OccultismItems.OTHERSTONE_TABLET.get()),
                 this.name(OccultismItems.OTHERWORLD_ASHES.get()),
                 this.name(OccultismItems.OTHERWORLD_ESSENCE.get()),
                 this.name(OccultismItems.PURIFIED_INK.get()),
+                this.name(OccultismItems.REPAIR_ICON.get()),
+                this.name(OccultismItems.RESEARCH_FRAGMENT_DUST.get()),
+                this.name(OccultismItems.RESURRECT_ICON.get()),
+                this.name(OccultismItems.RITUAL_SATCHEL_T1.get()),
+                this.name(OccultismItems.RITUAL_SATCHEL_T2.get()),
                 this.name(OccultismItems.RAW_IESNIUM.get()),
                 this.name(OccultismItems.RAW_SILVER.get()),
                 this.name(OccultismItems.SATCHEL.get()),
@@ -185,7 +219,8 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismBlocks.SPIRIT_LANTERN.asItem()),
                 this.name(OccultismItems.STORAGE_REMOTE_INERT.get()),
                 this.name(OccultismItems.TABOO_BOOK.get()),
-                this.name(OccultismItems.TALLOW.get())
+                this.name(OccultismItems.TALLOW.get()),
+                this.name(OccultismItems.WITHERITE_DUST.get())
         };
         for (String item : items){
             this.registerItemGenerated(item, item);
@@ -275,7 +310,8 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismItems.MINER_DEBUG_UNSPECIALIZED.get()),
                 this.name(OccultismItems.MINER_DJINNI_ORES.get()),
                 this.name(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get()),
-                this.name(OccultismItems.MINER_MARID_MASTER.get())
+                this.name(OccultismItems.MINER_MARID_MASTER.get()),
+                this.name(OccultismItems.MINER_ANCIENT_ELDRITCH.get())
         };
         for (String item : items){
             this.getBuilder(item)

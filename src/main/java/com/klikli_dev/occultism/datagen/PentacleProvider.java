@@ -37,6 +37,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.neoforged.neoforge.common.Tags;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -61,192 +62,350 @@ public class PentacleProvider implements DataProvider {
     }
 
     private void start() {
-        this.addPentacle("craft_afrit",
-                this.createPattern(
-                        "     N     ",
-                        "    GGG    ",
-                        "   GCPCG   ",
-                        "  G WCW G  ",
-                        " GCWW WWCG ",
-                        "ZGPC 0 CPGZ",
-                        " GCWW WWCG ",
-                        "  G WCW G  ",
-                        "   GCPCG   ",
-                        "    GGG    ",
-                        "     Z     "),
-                new MappingBuilder().bowl().whiteChalk().goldChalk().purpleChalk().redChalk().candle().crystal().skeleton().wither().ground().build());
-        this.addPentacle("craft_djinni",
-                this.createPattern(
-                        "         ",
-                        " C WGW C ",
-                        "  P W P  ",
-                        " W SWS W ",
-                        " GWW0WWG ",
-                        " W SWS W ",
-                        "  P W P  ",
-                        " C WGW C ",
-                        "         "),
-                new MappingBuilder().bowl().whiteChalk().goldChalk().purpleChalk().candle().crystal().ground().build());
-        this.addPentacle("craft_foliot",
-                this.createPattern(
-                        "  WSW  ",
-                        " G   G ",
-                        "W  W  W",
-                        "C W0W C",
-                        "W  W  W",
-                        " G   G ",
-                        "  WSW  "),
-                new MappingBuilder().bowl().whiteChalk().goldChalk().candle().crystal().ground().build());
-        this.addPentacle("craft_marid",
-                this.createPattern(
-                        "       Z       ",
-                        "      RRR      ",
-                        "     RCWCR     ",
-                        "    R  W  R    ",
-                        "   RGSWNWSGR   ",
-                        "  R SGW WGS R  ",
-                        " RC WW   WW CR ",
-                        "ZRWWN  0  NWWRZ",
-                        " RC WW   WW CR ",
-                        "  R SGW WGS R  ",
-                        "   RGSWNWSGR   ",
-                        "    R  W  R    ",
-                        "     RCWCR     ",
-                        "      RRR      ",
-                        "       Z       "),
-                new MappingBuilder().bowl().whiteChalk().goldChalk().redChalk().candle().crystal().skeleton().wither().ground().build());
-        this.addPentacle("debug",
-                this.createPattern(
-                        "  GCG  ",
-                        " G P G ",
-                        "G  P  G",
-                        "CPP0PPC",
-                        "G  P  G",
-                        " G P G ",
-                        "  GCG  "),
-                new MappingBuilder().bowl().goldChalk().purpleChalk().candle().skeleton().ground().build());
-        this.addPentacle("possess_afrit",
-                this.createPattern(
-                        "           ",
-                        "    PRP    ",
-                        "   GCWCG   ",
-                        "  G WNW G  ",
-                        " PCWP PWCP ",
-                        " RWZ 0 ZWR ",
-                        " PCWP PWCP ",
-                        "  G WNW G  ",
-                        "   GCWCG   ",
-                        "    PRP    ",
-                        "           "),
-                new MappingBuilder().bowl().whiteChalk().goldChalk().purpleChalk().redChalk().candle().skeleton().wither().ground().build());
-        this.addPentacle("possess_djinni",
-                this.createPattern(
-                        "   GPG   ",
-                        "  GC CG  ",
-                        " GZW WZG ",
-                        "GCWP PWCG",
-                        "P   0   P",
-                        "GCWP PWCG",
-                        " GZW WZG ",
-                        "  GC CG  ",
-                        "   GPG   "),
-                new MappingBuilder().bowl().whiteChalk().goldChalk().purpleChalk().candle().skeleton().ground().build());
-        this.addPentacle("possess_foliot",
-                this.createPattern(
-                        "   GGG   ",
-                        "  GC CG  ",
-                        " GW   WG ",
-                        "GC W W CG",
-                        "G   0   G",
-                        "GC W W CG",
-                        " GW   WG ",
-                        "  GC CG  ",
-                        "   GGG   "),
-                new MappingBuilder().bowl().whiteChalk().goldChalk().candle().ground().build());
-        this.addPentacle("summon_afrit",
-                this.createPattern(
-                        "           ",
-                        "    PRP    ",
-                        "   WCWCW   ",
-                        "  W WNW W  ",
-                        " PCWP PWCP ",
-                        " RWZ 0 ZWR ",
-                        " PCWP PWCP ",
-                        "  W WNW W  ",
-                        "   WCWCW   ",
-                        "    PRP    ",
-                        "           "),
-                new MappingBuilder().bowl().whiteChalk().purpleChalk().redChalk().candle().skeleton().wither().ground().build());
-        this.addPentacle("summon_djinni",
-                this.createPattern(
-                        "   C C   ",
-                        "   PPP   ",
-                        "  W Z W  ",
-                        "CP W W PC",
-                        " PZ 0 ZP ",
-                        "CP W W PC",
-                        "  W Z W  ",
-                        "   PPP   ",
-                        "   C C   "),
-                new MappingBuilder().bowl().whiteChalk().purpleChalk().candle().skeleton().ground().build());
-        this.addPentacle("summon_marid",
-                this.createPattern(
-                        "       Z       ",
-                        "      RRR      ",
-                        "     RCWCR     ",
-                        "    R  W  R    ",
-                        "   RG WNW GR   ",
-                        "  R  GW WG  R  ",
-                        " RC WW   WW CR ",
-                        "ZRWWN  0  NWWRZ",
-                        " RC WW   WW CR ",
-                        "  R  GW WG  R  ",
-                        "   RG WNW GR   ",
-                        "    R  W  R    ",
-                        "     RCWCR     ",
-                        "      RRR      ",
-                        "       Z       "),
-                new MappingBuilder().bowl().whiteChalk().goldChalk().redChalk().candle().skeleton().wither().ground().build());
+        //Summon
         this.addPentacle("summon_foliot",
                 this.createPattern(
-                        "         ",
-                        "   WCW   ",
-                        "  W W W  ",
-                        " W  W  W ",
-                        " CWW0WWC ",
-                        " W  W  W ",
-                        "  W W W  ",
-                        "   WCW   ",
-                        "         "),
+                        "_________",
+                        "___WWW___",
+                        "__W_W_W__",
+                        "_W_1W1_W_",
+                        "_WWW0WWW_",
+                        "_W_1W1_W_",
+                        "__W_W_W__",
+                        "___WWW___",
+                        "_________"),
                 new MappingBuilder().bowl().whiteChalk().candle().ground().build());
-        this.addPentacle("summon_wild_afrit",
+        this.addPentacle("summon_djinni",
                 this.createPattern(
-                        "           ",
-                        "    PPP    ",
-                        "   WCWCW   ",
-                        "  W WNW W  ",
-                        " PCWP PWCP ",
-                        " PWZ 0 ZWP ",
-                        " PCWP PWCP ",
-                        "  W WNW W  ",
-                        "   WCWCW   ",
-                        "    PPP    ",
-                        "           "),
-                new MappingBuilder().bowl().whiteChalk().purpleChalk().candle().skeleton().wither().ground().build());
-        this.addPentacle("summon_wild_greater_spirit",
+                        "_____________",
+                        "____LLLLL____",
+                        "___L_L1L_L___",
+                        "__L2_WWW_2L__",
+                        "_L__W_S_W__L_",
+                        "_LLW_1S1_WLL_",
+                        "_L1WSS0SSW1L_",
+                        "_LLW_1S1_WLL_",
+                        "_L__W_S_W__L_",
+                        "__L2_WWW_2L__",
+                        "___L_L1L_L___",
+                        "____LLLLL____",
+                        "_____________"),
+                new MappingBuilder().bowl().whiteChalk().lightGrayChalk().limeChalk().candle().skeleton().ground().build());
+        this.addPentacle("summon_unbound_afrit",
                 this.createPattern(
-                        "           ",
-                        "    PPP    ",
-                        "   W W W   ",
-                        "  W WZW W  ",
-                        " P WP PW P ",
-                        " PWZ 0 ZWP ",
-                        " P WP PW P ",
-                        "  W WZW W  ",
-                        "   W W W   ",
-                        "    PPP    ",
-                        "           "),
-                new MappingBuilder().bowl().whiteChalk().purpleChalk().skeleton().ground().build());
+                        "_________________",
+                        "______OOOOO______",
+                        "____OO__2__OO____",
+                        "___O__LLLLL__O___",
+                        "__O__L_L1L_L__O__",
+                        "__O_L2_WWW_2L_O__",
+                        "_O_L__W_G_W__L_O_",
+                        "_O_LLW_1G1_WLL_O_",
+                        "_O2L1WGG0GGW1L2O_",
+                        "_O_LLW_1G1_WLL_O_",
+                        "_O_L__W_G_W__L_O_",
+                        "__O_L2_WWW_2L_O__",
+                        "__O__L_L1L_L__O__",
+                        "___O__LLLLL__O___",
+                        "____OO__2__OO____",
+                        "______OOOOO______",
+                        "_________________"),
+                new MappingBuilder().bowl().whiteChalk().grayChalk().limeChalk().orangeChalk().candle().skeleton().crystal().ground().build());
+        this.addPentacle("summon_afrit",
+                this.createPattern(
+                        "_________________",
+                        "______OOOOO______",
+                        "____OOR_2_ROO____",
+                        "___OR_LLLLL_RO___",
+                        "__OR3L_L1L_L3RO__",
+                        "__O_L2_WWW_2L_O__",
+                        "_ORL__W_G_W__LRO_",
+                        "_O_LLW_1G1_WLL_O_",
+                        "_O2L1WGG0GGW1L2O_",
+                        "_O_LLW_1G1_WLL_O_",
+                        "_ORL__W_G_W__LRO_",
+                        "__O_L2_WWW_2L_O__",
+                        "__OR3L_L1L_L3RO__",
+                        "___OR_LLLLL_RO___",
+                        "____OOR_2_ROO____",
+                        "______OOOOO______",
+                        "_________________"),
+                new MappingBuilder().bowl().whiteChalk().grayChalk().limeChalk().orangeChalk().redChalk().candle().skeleton().crystal().ground().build());
+        this.addPentacle("summon_unbound_marid",
+                this.createPattern(
+                        "_________________",
+                        "______OOOOO______",
+                        "__4_OOR_2_ROO_4__",
+                        "___OR_LLLLL_RO___",
+                        "__OR3L_L1L_L3RO__",
+                        "__O_L2_WWW_2L_O__",
+                        "_ORL__W_K_W__LRO_",
+                        "_O_LLW_1K1_WLL_O_",
+                        "_O2L1WKK0KKW1L2O_",
+                        "_O_LLW_1K1_WLL_O_",
+                        "_ORL__W_K_W__LRO_",
+                        "__O_L2_WWW_2L_O__",
+                        "__OR3L_L1L_L3RO__",
+                        "___OR_LLLLL_RO___",
+                        "__4_OOR_2_ROO_4__",
+                        "______OOOOO______",
+                        "_________________"),
+                new MappingBuilder().bowl().whiteChalk().blackChalk().limeChalk().orangeChalk().redChalk().candle().skeleton().crystal().wither().ground().build());
+        this.addPentacle("summon_marid",
+                this.createPattern(
+                        "_____________________",
+                        "_______UUUUUUU_______",
+                        "_____UU__U3U__UU_____",
+                        "____U___OOOOO___U____",
+                        "___U4_OOR_2_ROO_4U___",
+                        "__U__OR_LLLLL_RO__U__",
+                        "__U_OR3L_L1L_L3RO_U__",
+                        "_U__O_L2_WWW_2L_O__U_",
+                        "_U_ORL__W_K_W__LRO_U_",
+                        "_UUO_LLW_1K1_WLL_OUU_",
+                        "_U3O2L1WKK0KKW1L2O3U_",
+                        "_UUO_LLW_1K1_WLL_OUU_",
+                        "_U_ORL__W_K_W__LRO_U_",
+                        "_U__O_L2_WWW_2L_O__U_",
+                        "__U_OR3L_L1L_L3RO_U__",
+                        "__U__OR_LLLLL_RO__U__",
+                        "___U4_OOR_2_ROO_4U___",
+                        "____U___OOOOO___U____",
+                        "_____UU__U3U__UU_____",
+                        "_______UUUUUUU_______",
+                        "_____________________"),
+                new MappingBuilder().bowl().whiteChalk().blackChalk().limeChalk().orangeChalk().redChalk().blueChalk().candle().skeleton().crystal().wither().ground().build());
+        //Possess
+        this.addPentacle("possess_foliot",
+                this.createPattern(
+                        "_________",
+                        "____W____",
+                        "___W1W___",
+                        "__W_Y_W__",
+                        "_W1Y0Y1W_",
+                        "__W_Y_W__",
+                        "___W1W___",
+                        "____W____",
+                        "_________"),
+                new MappingBuilder().bowl().whiteChalk().yellowChalk().candle().ground().build());
+        this.addPentacle("possess_djinni",
+                this.createPattern(
+                        "_____________",
+                        "______L______",
+                        "_____L2L_____",
+                        "____Y_W_Y____",
+                        "___Y1S1S1Y___",
+                        "__L_S_Y_S_L__",
+                        "_L2W1Y0Y1W2L_",
+                        "__L_S_Y_S_L__",
+                        "___Y1S1S1Y___",
+                        "____Y_W_Y____",
+                        "_____L2L_____",
+                        "______L______",
+                        "_____________"),
+                new MappingBuilder().bowl().whiteChalk().lightGrayChalk().yellowChalk().limeChalk().candle().skeleton().ground().build());
+        this.addPentacle("possess_unbound_afrit",
+                this.createPattern(
+                        "_________________",
+                        "________Y________",
+                        "_______Y3Y_______",
+                        "________L________",
+                        "_____O_L2L_O_____",
+                        "____O2Y_W_Y2O____",
+                        "_____Y1G1G1Y_____",
+                        "__Y_L_G_Y_G_L_Y__",
+                        "_Y3L2W1Y0Y1W2L3Y_",
+                        "__Y_L_G_Y_G_L_Y__",
+                        "_____Y1G1G1Y_____",
+                        "____O2Y_W_Y2O____",
+                        "_____O_L2L_O_____",
+                        "________L________",
+                        "_______Y3Y_______",
+                        "________Y________",
+                        "_________________"),
+                new MappingBuilder().bowl().whiteChalk().grayChalk().yellowChalk().limeChalk().orangeChalk().candle().skeleton().crystal().ground().build());
+        this.addPentacle("possess_afrit",
+                this.createPattern(
+                        "_________________",
+                        "________Y________",
+                        "_______Y3Y_______",
+                        "______R_L_R______",
+                        "_____O_L2L_O_____",
+                        "____O2Y_W_Y2O____",
+                        "___R_Y1G1G1Y_R___",
+                        "__Y_L_G_Y_G_L_Y__",
+                        "_Y3L2W1Y0Y1W2L3Y_",
+                        "__Y_L_G_Y_G_L_Y__",
+                        "___R_Y1G1G1Y_R___",
+                        "____O2Y_W_Y2O____",
+                        "_____O_L2L_O_____",
+                        "______R_L_R______",
+                        "_______Y3Y_______",
+                        "________Y________",
+                        "_________________"),
+                new MappingBuilder().bowl().whiteChalk().grayChalk().yellowChalk().limeChalk().orangeChalk().redChalk().candle().skeleton().crystal().ground().build());
+        this.addPentacle("possess_marid",
+                this.createPattern(
+                        "_____________________",
+                        "__________U__________",
+                        "_________Y4Y_________",
+                        "________U_Y_U________",
+                        "_______Y_Y3Y_Y_______",
+                        "______U_R_L_R_U______",
+                        "_____U3O_L2L_O3U_____",
+                        "____Y_O2Y_W_Y2O_Y____",
+                        "___U_R_Y1K1K1Y_R_U___",
+                        "__Y_Y_L_K_Y_K_L_Y_Y__",
+                        "_U4Y3L2W1Y0Y1W2L3Y4U_",
+                        "__Y_Y_L_K_Y_K_L_Y_Y__",
+                        "___U_R_Y1K1K1Y_R_U___",
+                        "____Y_O2Y_W_Y2O_Y____",
+                        "_____U3O_L2L_O3U_____",
+                        "______U_R_L_R_U______",
+                        "_______Y_Y3Y_Y_______",
+                        "________U_Y_U________",
+                        "_________Y4Y_________",
+                        "__________U__________",
+                        "_____________________"),
+                new MappingBuilder().bowl().whiteChalk().blackChalk().yellowChalk().limeChalk().orangeChalk().redChalk().blueChalk().candle().skeleton().crystal().wither().ground().build());
+        //Craft
+        this.addPentacle("craft_foliot",
+                this.createPattern(
+                        "_________",
+                        "__WXXXW__",
+                        "_WW1_1WW_",
+                        "_X1W_W1X_",
+                        "_X__0__X_",
+                        "_X1W_W1X_",
+                        "_WW1_1WW_",
+                        "__WXXXW__",
+                        "_________"),
+                new MappingBuilder().bowl().whiteChalk().purpleChalk().candle().ground().build());
+        this.addPentacle("craft_djinni",
+                this.createPattern(
+                        "_____________",
+                        "__XLXLXLXLX__",
+                        "_XL_2___2_LX_",
+                        "_L__WXXXW__L_",
+                        "_X2WS1_1SW2X_",
+                        "_L_X1S_S1X_L_",
+                        "_X_X__0__X_X_",
+                        "_L_X1S_S1X_L_",
+                        "_X2WS1_1SW2X_",
+                        "_L__WXXXW__L_",
+                        "_XL_2___2_LX_",
+                        "__XLXLXLXLX__",
+                        "_____________"),
+                new MappingBuilder().bowl().whiteChalk().lightGrayChalk().purpleChalk().limeChalk().candle().skeleton().ground().build());
+        this.addPentacle("craft_afrit",
+                this.createPattern(
+                        "_________________",
+                        "__RXOXOXRXOXOXR__",
+                        "_RX____3_3____XR_",
+                        "_X__XLXLXLXLX__X_",
+                        "_O_XL_2___2_LX_O_",
+                        "_X_L__WXXXW__L_X_",
+                        "_O_X2WG1_1GW2X_O_",
+                        "_X3L_X1G_G1X_L3X_",
+                        "_R_X_X__0__X_X_R_",
+                        "_X3L_X1G_G1X_L3X_",
+                        "_O_X2WG1_1GW2X_O_",
+                        "_X_L__WXXXW__L_X_",
+                        "_O_XL_2___2_LX_O_",
+                        "_X__XLXLXLXLX__X_",
+                        "_RX____3_3____XR_",
+                        "__RXOXOXRXOXOXR__",
+                        "_________________"),
+                new MappingBuilder().bowl().whiteChalk().grayChalk().purpleChalk().limeChalk().orangeChalk().redChalk().candle().skeleton().crystal().ground().build());
+        this.addPentacle("craft_marid",
+                this.createPattern(
+                        "_____________________",
+                        "__XXUUUXUUUUUXUUUXX__",
+                        "_XX_______4_______XX_",
+                        "_X__RXOXOXRXOXOXR__X_",
+                        "_U_RX____3_3____XR_U_",
+                        "_U_X__XLXLXLXLX__X_U_",
+                        "_U_O_XL_2___2_LX_O_U_",
+                        "_X_X_L__WXXXW__L_X_X_",
+                        "_U_O_X2WK1_1KW2X_O_U_",
+                        "_U_X3L_X1K_K1X_L3X_U_",
+                        "_U4R_X_X__0__X_X_R4U_",
+                        "_U_X3L_X1K_K1X_L3X_U_",
+                        "_U_O_X2WK1_1KW2X_O_U_",
+                        "_X_X_L__WXXXW__L_X_X_",
+                        "_U_O_XL_2___2_LX_O_U_",
+                        "_U_X__XLXLXLXLX__X_U_",
+                        "_U_RX____3_3____XR_U_",
+                        "_X__RXOXOXRXOXOXR__X_",
+                        "_XX_______4_______XX_",
+                        "__XXUUUXUUUUUXUUUXX__",
+                        "_____________________"),
+                new MappingBuilder().bowl().whiteChalk().blackChalk().purpleChalk().limeChalk().orangeChalk().redChalk().blueChalk().candle().skeleton().crystal().wither().ground().build());
+        //Others
+        this.addPentacle("resurrect_spirit",
+                this.createPattern(
+                        "___________",
+                        "_____W_____",
+                        "__W_____W__",
+                        "___________",
+                        "____WWW____",
+                        "_W__W0W__W_",
+                        "____WWW____",
+                        "___________",
+                        "__W_____W__",
+                        "_____W_____",
+                        "___________"),
+                new MappingBuilder().bowl().onlyWhiteChalk().ground().build());
+       this.addPentacle("contact_wild_spirit",
+                this.createPattern(
+                        "_____________",
+                        "______P______",
+                        "__A_AE_EA_A__",
+                        "____PE_EP____",
+                        "__APA_P_APA__",
+                        "__EE_____EE__",
+                        "_P__P_0_P__P_",
+                        "__EE_____EE__",
+                        "__APA_P_APA__",
+                        "____PE_EP____",
+                        "__A_AE_EA_A__",
+                        "______P______",
+                        "_____________"),
+                new MappingBuilder().bowl().pinkChalk().greenChalk().lightBlueChalk().ground().build());
+        this.addPentacle("contact_eldritch_spirit",
+                this.createPattern(
+                        "_____________________",
+                        "__________C__________",
+                        "_________CeC_________",
+                        "_________CMC_________",
+                        "____BB__CMMMC__BB____",
+                        "____BlBBCM_MCBBfB____",
+                        "_____B_B_____B_B_____",
+                        "_____BB_______BB_____",
+                        "____CC_________CC____",
+                        "__CCMM_________MMCC__",
+                        "_CkMM_____0_____MMgC_",
+                        "__CCMM_________MMCC__",
+                        "____CC_________CC____",
+                        "_____BB_______BB_____",
+                        "_____B_B_____B_B_____",
+                        "____BjBBCM_MCBBhB____",
+                        "____BB__CMMMC__BB____",
+                        "_________CMC_________",
+                        "_________CiC_________",
+                        "__________C__________",
+                        "_____________________"),
+                new MappingBuilder().bowl().magentaChalk().brownChalk().cyanChalk().eldritch().ground().build());
+        this.addPentacle("debug",
+                this.createPattern(
+                        "  Y1Y  ",
+                        " Y X Y ",
+                        "Y  X  Y",
+                        "1XX0XX1",
+                        "Y  X  Y",
+                        " Y X Y ",
+                        "  Y1Y  "),
+                new MappingBuilder().bowl().yellowChalk().purpleChalk().candle().skeleton().eldritch().ground().build());
     }
 
     private List<String> createPattern(String... rows) {
@@ -340,6 +499,13 @@ public class PentacleProvider implements DataProvider {
             json.addProperty("block", BuiltInRegistries.BLOCK.getKey(b.get()).toString());
             return this.element(c, json);
         }
+        private MappingBuilder block(char c, Block b) {
+
+            JsonObject json = new JsonObject();
+            json.addProperty("type", "modonomicon:block");
+            json.addProperty("block", b.toString());
+            return this.element(c, json);
+        }
 
         private MappingBuilder blockDisplay(char c, Supplier<? extends Block> b, Supplier<? extends Block> display) {
             JsonObject json = new JsonObject();
@@ -366,42 +532,87 @@ public class PentacleProvider implements DataProvider {
         private MappingBuilder bowl() {
             return this.block('0', OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL);
         }
-
         private MappingBuilder candle() {
-            return this.tag('C', OccultismTags.Blocks.CANDLES);
+            return this.tag('1', OccultismTags.Blocks.CANDLES);
+        }
+        private MappingBuilder skeleton() {
+            return this.block('2', () -> Blocks.SKELETON_SKULL);
+        }
+        private MappingBuilder crystal() {
+            return this.block('3', OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL);
+        }
+        private MappingBuilder wither() {
+            return this.block('4', () -> Blocks.WITHER_SKELETON_SKULL);
         }
 
         private MappingBuilder whiteChalk() {
-            return this.block('W', OccultismBlocks.CHALK_GLYPH_WHITE);
+            return this.tag('W', OccultismTags.Blocks.FOUNDATION_GLYPHS_ANY);
         }
-
-        private MappingBuilder goldChalk() {
-            return this.block('G', OccultismBlocks.CHALK_GLYPH_GOLD);
+        private MappingBuilder lightGrayChalk() {
+            return this.tag('S', OccultismTags.Blocks.FOUNDATION_GLYPHS_NO_WHITE);
         }
-
-        private MappingBuilder purpleChalk() {
-            return this.block('P', OccultismBlocks.CHALK_GLYPH_PURPLE);
+        private MappingBuilder grayChalk() {
+            return this.tag('G', OccultismTags.Blocks.FOUNDATION_GLYPHS_DARK);
         }
-
+        private MappingBuilder blackChalk() {
+            return this.block('K', OccultismBlocks.CHALK_GLYPH_BLACK);
+        }
+        private MappingBuilder brownChalk() {
+            return this.block('B', OccultismBlocks.CHALK_GLYPH_BROWN);
+        }
         private MappingBuilder redChalk() {
             return this.block('R', OccultismBlocks.CHALK_GLYPH_RED);
         }
-
-        private MappingBuilder crystal() {
-            return this.block('S', OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL);
+        private MappingBuilder orangeChalk() {
+            return this.block('O', OccultismBlocks.CHALK_GLYPH_ORANGE);
+        }
+        private MappingBuilder yellowChalk() {
+            return this.block('Y', OccultismBlocks.CHALK_GLYPH_YELLOW);
+        }
+        private MappingBuilder limeChalk() {
+            return this.block('L', OccultismBlocks.CHALK_GLYPH_LIME);
+        }
+        private MappingBuilder greenChalk() {
+            return this.block('E', OccultismBlocks.CHALK_GLYPH_GREEN);
+        }
+        private MappingBuilder cyanChalk() {
+            return this.block('C', OccultismBlocks.CHALK_GLYPH_CYAN);
+        }
+        private MappingBuilder lightBlueChalk() {
+            return this.block('A', OccultismBlocks.CHALK_GLYPH_LIGHT_BLUE);
+        }
+        private MappingBuilder blueChalk() {
+            return this.block('U', OccultismBlocks.CHALK_GLYPH_BLUE);
+        }
+        private MappingBuilder purpleChalk() {
+            return this.block('X', OccultismBlocks.CHALK_GLYPH_PURPLE);
+        }
+        private MappingBuilder magentaChalk() {
+            return this.block('M', OccultismBlocks.CHALK_GLYPH_MAGENTA);
+        }
+        private MappingBuilder pinkChalk() {
+            return this.block('P', OccultismBlocks.CHALK_GLYPH_PINK);
+        }
+        private MappingBuilder onlyWhiteChalk() {
+            return this.block('W', OccultismBlocks.CHALK_GLYPH_WHITE);
         }
 
-        private MappingBuilder skeleton() {
-            return this.block('Z', () -> Blocks.SKELETON_SKULL);
+        private MappingBuilder eldritch(){
+            return this.block('e', () -> Blocks.LODESTONE)
+                    .block('f', () -> Blocks.END_ROD)
+                    .block('g', () ->Blocks.AMETHYST_CLUSTER)
+                    .tag('h', Tags.Blocks.GLASS_PANES)
+                    .block('i', () -> Blocks.BEACON)
+                    .block('j', () -> Blocks.LIGHTNING_ROD)
+                    .block('k', () -> Blocks.ENCHANTING_TABLE)
+                    .block('l', () -> Blocks.IRON_BARS);
         }
 
         private MappingBuilder ground() {
             return this.display('*', OccultismBlocks.OTHERSTONE).display('+', () -> Blocks.STONE);
         }
 
-        private MappingBuilder wither() {
-            return this.block('N', () -> Blocks.WITHER_SKELETON_SKULL);
-        }
+
     }
 
 }

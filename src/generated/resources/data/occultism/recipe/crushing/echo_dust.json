@@ -1,0 +1,13 @@
+{
+  "type": "occultism:crushing",
+  "ignore_crushing_multiplier": true,
+  "ingredient": {
+    "item": "minecraft:echo_shard"
+  },
+  "min_tier": 4,
+  "result": {
+    "type": "occultism:tag",
+    "count": 1,
+    "tag": "c:dusts/echo"
+  }
+}

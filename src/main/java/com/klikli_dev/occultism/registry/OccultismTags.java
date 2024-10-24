@@ -43,6 +43,9 @@ public class OccultismTags {
 
         public static final TagKey<Block> NETHERRACK = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "netherrack"));
         public static final TagKey<Block> CANDLES = makeBlockTag(ResourceLocation.fromNamespaceAndPath("minecraft", "candles"));
+        public static final TagKey<Block> FOUNDATION_GLYPHS_ANY = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "foundation_glyphs_any"));
+        public static final TagKey<Block> FOUNDATION_GLYPHS_NO_WHITE = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "foundation_glyphs_no_white"));
+        public static final TagKey<Block> FOUNDATION_GLYPHS_DARK = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "foundation_glyphs_dark"));
         public static final TagKey<Block> CHALK_GLYPHS = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "chalk_glyphs"));
         public static final TagKey<Block> IESNIUM_ORE = makeBlockTag(ResourceLocation.fromNamespaceAndPath("c", "ores/iesnium"));
         public static final TagKey<Block> SILVER_ORE = makeBlockTag(ResourceLocation.fromNamespaceAndPath("c", "ores/silver"));
@@ -53,6 +56,7 @@ public class OccultismTags {
         public static final TagKey<Block> STORAGE_BLOCKS_RAW_SILVER = makeBlockTag(ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/raw_silver"));
 
         public static final TagKey<Block> OTHERWORLD_SAPLINGS = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "saplings/otherworld"));
+        public static final TagKey<Block> OTHERWORLD_SAPLINGS_NATURAL = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "saplings/otherworld_natural"));
         public static final TagKey<Block> OCCULTISM_CANDLES = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "candles"));
         public static final TagKey<Block> STORAGE_STABILIZER = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "storage_stabilizer"));
         public static final TagKey<Block> OTHERWORLD_LOGS = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "otherworld_logs"));
@@ -63,6 +67,7 @@ public class OccultismTags {
         public static final TagKey<Item> PENTACLE_MATERIALS = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "pentacle_materials"));
         public static final TagKey<Item> SKULLS = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "skulls"));
         public static final TagKey<Item> OCCULTISM_CANDLES = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "candles"));
+        public static final TagKey<Item> SCUTESHELL = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "armored_items"));
 
         public static final TagKey<Item> DEMONIC_PARTNER_FOOD = makeItemTag(ResourceLocation.fromNamespaceAndPath("occultism", "demonic_partner_food"));
 
@@ -85,6 +90,23 @@ public class OccultismTags {
         public static final TagKey<Item> RAW_MATERIALS_SILVER =makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "raw_materials/silver"));
         public static final TagKey<Item> OBSIDIAN_DUST=makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/obsidian"));
         public static final TagKey<Item> BLAZE_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/blaze"));
+
+        public static final TagKey<Item> AMETHYST_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/amethyst"));
+        public static final TagKey<Item> BLACKSTONE_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/blackstone"));
+        public static final TagKey<Item> BLUE_ICE_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/blue_ice"));
+        public static final TagKey<Item> CALCITE_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/calcite"));
+        public static final TagKey<Item> ICE_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/ice"));
+        public static final TagKey<Item> PACKED_ICE_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/packed_ice"));
+        public static final TagKey<Item> DRAGONYST_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/dragonyst"));
+        public static final TagKey<Item> ECHO_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/echo"));
+        public static final TagKey<Item> EMERALD_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/emerald"));
+        public static final TagKey<Item> LAPIS_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/lapis"));
+        public static final TagKey<Item> NETHERITE_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/netherite"));
+        public static final TagKey<Item> NETHERITE_SCRAP_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/netherite_scrap"));
+        public static final TagKey<Item> RESEARCH_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/research"));
+        public static final TagKey<Item> WITHERITE_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/witherite"));
+        public static final TagKey<Item> OTHERSTONE_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/otherstone"));
+        public static final TagKey<Item> OTHERWORLD_WOOD_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/otherworld_wood"));
 
         public static final TagKey<Item> DATURA_CROP = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "crops/datura"));
 
@@ -118,6 +140,7 @@ public class OccultismTags {
 
         public static final TagKey<Item> METAL_AXES = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "tools/metal/axes"));
         public static final TagKey<Item> OTHERWORLD_SAPLINGS = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "saplings/otherworld"));
+        public static final TagKey<Item> OTHERWORLD_SAPLINGS_NATURAL = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "saplings/otherworld_natural"));
 
         public static class Miners {
             public static final TagKey<Item> MINERS = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miners"));
@@ -126,6 +149,7 @@ public class OccultismTags {
             public static final TagKey<Item> DEEPS = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miners/deeps"));
             public static final TagKey<Item> MASTER = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miners/master"));
             public static final TagKey<Item> ORES = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miners/ores"));
+            public static final TagKey<Item> ELDRITCH = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miners/eldritch"));
         }
 
         public static final TagKey<Item> TOOLS_CHALK = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "tools/chalk"));
@@ -136,7 +160,7 @@ public class OccultismTags {
 
     public static class Entities {
         public static final TagKey<EntityType<?>> AXOLOTL = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "axolotls"));
-        public static final TagKey<EntityType<?>> CHICKEN = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "chicken"));
+        public static final TagKey<EntityType<?>> CHICKEN = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "chickens"));
         public static final TagKey<EntityType<?>> PARROTS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "parrots"));
         public static final TagKey<EntityType<?>> PIGS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "pigs"));
         public static final TagKey<EntityType<?>> COWS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "cows"));
@@ -155,7 +179,16 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> PANDAS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "pandas"));
         public static final TagKey<EntityType<?>> SHEEP = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "sheep"));
         public static final TagKey<EntityType<?>> SPIDERS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "spiders"));
-        public static final TagKey<EntityType<?>> SQUID = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "squid"));
+        public static final TagKey<EntityType<?>> SQUID = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "squids"));
+        public static final TagKey<EntityType<?>> TADPOLES = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "tadpoles"));
+        public static final TagKey<EntityType<?>> CAMEL = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "camels"));
+        public static final TagKey<EntityType<?>> DOLPHIN = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "dolphins"));
+        public static final TagKey<EntityType<?>> WOLFS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "wolfs"));
+        public static final TagKey<EntityType<?>> OCELOT = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "ocelots"));
+        public static final TagKey<EntityType<?>> CATS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "cats"));
+        public static final TagKey<EntityType<?>> WARDEN = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "wardens"));
+        public static final TagKey<EntityType<?>> VEX = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "vex"));
+        public static final TagKey<EntityType<?>> ALLAY = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "allay"));
         //Entity Tags
         public static final TagKey<EntityType<?>> SOUL_GEM_DENY_LIST = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "soul_gem_deny_list"));
         public static final TagKey<EntityType<?>> AFRIT_ALLIES = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "afrit_allies"));
@@ -165,11 +198,6 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> CUBEMOB = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "cubemob"));
         public static final TagKey<EntityType<?>> FLYING_PASSIVE = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "flying_passive"));
         public static final TagKey<EntityType<?>> HUMANS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "humans"));
-        public static final TagKey<EntityType<?>> CAMEL = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "camel"));
-        public static final TagKey<EntityType<?>> DOLPHIN = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "dolphin"));
-        public static final TagKey<EntityType<?>> WOLFS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wolfs"));
-        public static final TagKey<EntityType<?>> OCELOT = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ocelot"));
-        public static final TagKey<EntityType<?>> VEX = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "vex"));
 
         public static final TagKey<EntityType<?>> RANDOM_ANIMALS_TO_SUMMON_LIST = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "random_animals_to_summon_list"));
     }

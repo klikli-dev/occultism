@@ -6,7 +6,7 @@
   "background_width": 512,
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "getting_started/intro"
+    "entry_id": "crafting_rituals/craft_storage_system"
   },
   "description": "",
   "display_mode": "node",
@@ -18,5 +18,5 @@
   "max_scroll_y": 512,
   "name": "book.occultism.dictionary_of_spirits.storage.name",
   "show_category_button": true,
-  "sort_number": 3
+  "sort_number": 9
 }

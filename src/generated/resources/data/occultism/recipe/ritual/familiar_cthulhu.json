@@ -6,7 +6,7 @@
   "duration": 60,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.squid",
-    "tag": "c:squid"
+    "tag": "c:squids"
   },
   "entity_to_summon": "occultism:cthulhu_familiar",
   "ingredients": [

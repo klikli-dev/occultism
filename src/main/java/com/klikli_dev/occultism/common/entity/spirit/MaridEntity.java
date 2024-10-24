@@ -23,6 +23,8 @@
 package com.klikli_dev.occultism.common.entity.spirit;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -85,5 +87,17 @@ public class MaridEntity extends SpiritEntity implements GeoEntity {
     @Override
     public boolean isFood(ItemStack pStack) {
         return false;
+    }
+
+    @Override
+    public boolean isInvulnerableTo(DamageSource source) {
+        if (source.is(DamageTypeTags.IS_FIRE)
+                || source.is(DamageTypeTags.IS_DROWNING)
+                || source.is(DamageTypeTags.IS_FREEZING)
+                || source.is(DamageTypeTags.IS_EXPLOSION)
+                || source.is(DamageTypeTags.WITCH_RESISTANT_TO))
+            return true;
+
+        return super.isInvulnerableTo(source);
     }
 }

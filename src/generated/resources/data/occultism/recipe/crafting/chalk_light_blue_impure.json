@@ -6,13 +6,13 @@
       "item": "occultism:chalk_white_impure"
     },
     {
-      "item": "minecraft:ice"
+      "tag": "c:dusts/ice"
     },
     {
-      "item": "minecraft:packed_ice"
+      "tag": "c:dusts/packed_ice"
     },
     {
-      "item": "minecraft:blue_ice"
+      "tag": "c:dusts/blue_ice"
     }
   ],
   "result": {
