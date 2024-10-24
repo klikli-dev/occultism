@@ -299,6 +299,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
         MinerRecipes.deeps(pRecipeOutput);
         MinerRecipes.master_resources(pRecipeOutput);
         MinerRecipes.ores(pRecipeOutput);
+        MinerRecipes.eldritch(pRecipeOutput);
         MinerRecipeBuilder.minerRecipe(OccultismItems.DEBUG_WAND.get(), OccultismBlocks.OTHERSTONE.get(), 200)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()

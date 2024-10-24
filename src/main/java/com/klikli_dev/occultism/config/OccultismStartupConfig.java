@@ -73,6 +73,7 @@ public class OccultismStartupConfig {
         public final MinerSpiritSettings minerDjinniOres;
         public final MinerSpiritSettings minerAfritDeeps;
         public final MinerSpiritSettings minerMaridMaster;
+        public final MinerSpiritSettings minerAncientEldritch;
 
         public DimensionalMineshaftSettings(ModConfigSpec.Builder builder) {
             builder.comment("Dimensional Mineshaft Settings").push("dimensional_mineshaft");
@@ -88,6 +89,9 @@ public class OccultismStartupConfig {
 
             this.minerMaridMaster =
                     new MinerSpiritSettings("miner_marid_master", builder, 100, 1, 1600);
+
+            this.minerAncientEldritch =
+                    new MinerSpiritSettings("miner_ancient_eldritch", builder, 15, 1, 3200);
 
             builder.pop();
         }

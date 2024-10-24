@@ -1,0 +1,14 @@
+{
+  "type": "occultism:miner",
+  "ingredient": {
+    "tag": "occultism:miners/master"
+  },
+  "result": {
+    "type": "occultism:weighted_item",
+    "stack": {
+      "count": 1,
+      "id": "occultism:mining_dim_core"
+    },
+    "weight": 1
+  }
+}

@@ -1474,7 +1474,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.JUNGLE_SAPLING),
                         Ingredient.of(Items.BAMBOO),
                         Ingredient.of(Items.GLISTERING_MELON_SLICE))
-                .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
                 .entityToSacrifice(OccultismTags.Entities.OCELOT)
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.ocelot")
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_wild_trim"));
@@ -1554,7 +1554,7 @@ public abstract class RitualRecipes extends RecipeProvider {
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.DEBUG_WAND.get()),
                         new ItemStack(Items.BEDROCK),
                         makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/contact_eldritch_debug")),
-                        240,
+                        360,
                         RITUAL_CRAFT,
                         PENTACLE_CONTACT_ELDRITCH_SPIRIT,
                         Ingredient.of(Tags.Items.STONES),
@@ -1623,6 +1623,23 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.NETHER_STAR))
                 .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_miner_marid_master"));
+
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.MINING_DIMENSION_CORE_PIECE.get()),
+                        new ItemStack(OccultismItems.MINER_ANCIENT_ELDRITCH.get()),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/craft_miner_ancient_eldritch")),
+                        360,
+                        RITUAL_CRAFT_MINER_SPIRIT,
+                        PENTACLE_CONTACT_ELDRITCH_SPIRIT,
+                        Ingredient.of(OccultismItems.MINER_MARID_MASTER.get()),
+                        Ingredient.of(OccultismItems.MINER_MARID_MASTER.get()),
+                        Ingredient.of(OccultismItems.MINER_MARID_MASTER.get()),
+                        Ingredient.of(OccultismItems.MINER_MARID_MASTER.get()),
+                        Ingredient.of(OccultismItems.MINER_MARID_MASTER.get()),
+                        Ingredient.of(OccultismItems.MINER_MARID_MASTER.get()),
+                        Ingredient.of(OccultismItems.MINER_MARID_MASTER.get()),
+                        Ingredient.of(OccultismItems.MINER_MARID_MASTER.get()))
+                .unlockedBy("has_mining_dimension_core", has(OccultismItems.MINING_DIMENSION_CORE_PIECE.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_miner_ancient_eldritch"));
     }
     private static void resurrectRituals(RecipeOutput recipeOutput) {
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.SOUL_SHARD_ITEM.get()),

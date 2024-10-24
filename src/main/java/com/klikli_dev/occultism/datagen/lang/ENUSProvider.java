@@ -126,6 +126,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.MINER_DEBUG_UNSPECIALIZED.get().getDescriptionId() + ".tooltip", "Debug Miner will mine random blocks in the mining dimension.");
         this.add(OccultismItems.MINER_AFRIT_DEEPS.get().getDescriptionId() + ".tooltip", "%s will mine random ores and deepslate ores in the mining dimension.");
         this.add(OccultismItems.MINER_MARID_MASTER.get().getDescriptionId() + ".tooltip", "%s will mine random ores, deepslate ores and rare ores in the mining dimension.");
+        this.add(OccultismItems.MINER_ANCIENT_ELDRITCH.get().getDescriptionId() + ".tooltip", "Something will mine random raw ores blocks, gems blocks and rare ores in the mining dimension.");
         this.add(OccultismItems.SOUL_GEM_ITEM.get().getDescriptionId() + ".tooltip_filled", "Contains a captured %s.");
         this.add(OccultismItems.SOUL_GEM_ITEM.get().getDescriptionId() + ".tooltip_empty", "Use on a creature to capture it.");
         this.add(OccultismItems.SATCHEL.get().getDescriptionId() + ".tooltip", "%s is bound to this satchel.");
@@ -278,6 +279,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.MINER_DEBUG_UNSPECIALIZED, "Debug Miner");
         this.addItem(OccultismItems.MINER_AFRIT_DEEPS, "Deep Ore Miner Afrit");
         this.addItem(OccultismItems.MINER_MARID_MASTER, "Master Miner Marid");
+        this.addItem(OccultismItems.MINER_ANCIENT_ELDRITCH, "Eldritch Ancient Miner");
+        this.addItem(OccultismItems.MINING_DIMENSION_CORE_PIECE, "Mining Dimension Core Piece");
         this.addItem(OccultismItems.SOUL_GEM_ITEM, "Soul Gem");
         this.add(OccultismItems.SOUL_GEM_ITEM.get().getDescriptionId() + "_empty", "Empty Soul Gem");
         this.addItem(OccultismItems.SOUL_SHARD_ITEM, "Soul Shard");
@@ -828,6 +831,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.craft_miner_marid_master.started", "Started summoning marid into magic lamp.");
         this.add("ritual.occultism.craft_miner_marid_master.finished", "Successfully summoned marid into magic lamp.");
         this.add("ritual.occultism.craft_miner_marid_master.interrupted", "Summoning of marid interrupted.");
+
+        this.add("ritual.occultism.craft_miner_ancient_eldritch.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.craft_miner_ancient_eldritch.started", "Started summoning something into magic lamp.");
+        this.add("ritual.occultism.craft_miner_ancient_eldritch.finished", "Successfully summoned something into magic lamp.");
+        this.add("ritual.occultism.craft_miner_ancient_eldritch.interrupted", "Summoning of something interrupted.");
 
         this.add("ritual.occultism.craft_satchel.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.craft_satchel.started", "Started binding foliot into satchel.");
@@ -1814,6 +1822,18 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("ritual");
         //no text
 
+        helper.entry("craft_ancient_miner");
+        this.add(helper.entryName(), "Ancient Miner");
+
+        helper.page("spotlight");
+        this.add(helper.pageText(),
+                """
+                        By compressing MMM you get an extremely powerful miner, but something starts watching you. [](item://occultism:mining_dim_core) are a extremely rarely mined by a Marid.
+                        """.formatted(COLOR_PURPLE));
+
+        helper.page("ritual");
+        //no text
+
         helper.entry("craft_satchel");
         this.add(helper.entryName(), "Surprisingly Substantial Satchel");
 
@@ -2744,6 +2764,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.craft_miner_afrit_deeps.tooltip", "Summon Afrit Deep Ore Miner into a magic lamp.");
         this.add("item.occultism.ritual_dummy.craft_miner_marid_master", "Ritual: Summon Marid Master Miner");
         this.add("item.occultism.ritual_dummy.craft_miner_marid_master.tooltip", "Summon Marid Master Miner into a magic lamp.");
+        this.add("item.occultism.ritual_dummy.craft_miner_ancient_eldritch", "Ritual: Summon Eldritch Ancient Miner");
+        this.add("item.occultism.ritual_dummy.craft_miner_ancient_eldritch.tooltip", "Summon Eldritch Ancient Miner into a magic lamp.");
 
         this.add("item.occultism.ritual_dummy.craft_satchel", "Ritual: Craft Surprisingly Substantial Satchel");
         this.add("item.occultism.ritual_dummy.craft_satchel.tooltip", "This satchels allows to store more items than it's size would indicate, making it a practical traveller's companion.");
@@ -2984,6 +3006,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.Miners.BASIC_RESOURCES, "Basic Resource Miners");
         this.addItemTag(OccultismTags.Items.Miners.DEEPS, "Deepslate Miners");
         this.addItemTag(OccultismTags.Items.Miners.MASTER, "Rare Resource Miners");
+        this.addItemTag(OccultismTags.Items.Miners.ELDRITCH, "Eldritch Miners");
         this.addItemTag(OccultismTags.Items.Miners.ORES, "General Miners");
         this.addItemTag(OccultismTags.Items.ELYTRA, "Elytras");
         this.addItemTag(OccultismTags.Items.OTHERWORLD_GOGGLES, "Otherworld Goggles");
@@ -3184,6 +3207,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("miner_djinni_ores", "Djinni Ore Miner");
         this.addConfig("miner_afrit_deeps", "Afrit Deep Ore Miner");
         this.addConfig("miner_marid_master", "Marid Master Miner");
+        this.addConfig("miner_ancient_eldritch", "Eldritch Ancient Miner");
 
         this.addConfig("maxMiningTime", "Max Mining Time");
         this.addConfig("rollsPerOperation", "Rolls Per Operation");

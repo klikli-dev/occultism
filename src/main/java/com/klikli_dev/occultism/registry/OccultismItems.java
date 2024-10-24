@@ -243,6 +243,13 @@ public class OccultismItems {
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerMaridMaster.rollsPerOperation,
                     Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerMaridMaster.durability));
 
+    public static final DeferredItem<MinerSpiritItem> MINER_ANCIENT_ELDRITCH = ITEMS.register("miner_ancient_eldritch",
+            () -> new MinerSpiritItem(defaultProperties().durability(3200)
+                    .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAncientEldritch.maxMiningTime,
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAncientEldritch.rollsPerOperation,
+                    Occultism.STARTUP_CONFIG.dimensionalMineshaft.minerAncientEldritch.durability));
+
     //Crops and food
     public static final DeferredItem<Item> DATURA_SEEDS =
             ITEMS.register("datura_seeds", () -> new ItemNameBlockItem(OccultismBlocks.DATURA.get(), defaultProperties()));
@@ -359,6 +366,9 @@ public class OccultismItems {
     public static final DeferredItem<Item> OTHERSTONE_TABLET = ITEMS.register("otherstone_tablet",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> STORAGE_REMOTE_INERT = ITEMS.register("storage_remote_inert",
+            () -> new Item(defaultProperties()));
+
+    public static final DeferredItem<Item> MINING_DIMENSION_CORE_PIECE = ITEMS.register("mining_dim_core",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<DimensionalMatrixItem> DIMENSIONAL_MATRIX = ITEMS.register("dimensional_matrix",
             () -> new DimensionalMatrixItem(defaultProperties().component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
@@ -591,6 +601,7 @@ public class OccultismItems {
     }
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1 = ITEMS.register("ritual_dummy/craft_ritual_satchel_t1", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2 = ITEMS.register("ritual_dummy/craft_ritual_satchel_t2", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_MINER_ANCIENT_ELDRITCH = ITEMS.register("ritual_dummy/craft_miner_ancient_eldritch", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_RESURRECT_FAMILIAR = ITEMS.register("ritual_dummy/resurrect_familiar", () -> new DummyTooltipItem(defaultProperties()));
 
     static {
@@ -717,6 +728,7 @@ public class OccultismItems {
                 || item == MINER_DJINNI_ORES.get()
                 || item == MINER_AFRIT_DEEPS.get()
                 || item == MINER_MARID_MASTER.get()
+                || item == MINER_ANCIENT_ELDRITCH.get()
                 || item == MINER_DEBUG_UNSPECIALIZED.get();
     }
 }

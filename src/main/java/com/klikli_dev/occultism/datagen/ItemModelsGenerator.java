@@ -191,6 +191,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismItems.LENSES.get()),
                 this.name(OccultismItems.MAGIC_LAMP_EMPTY.get()),
                 this.name(OccultismItems.MARID_ESSENCE.get()),
+                this.name(OccultismItems.MINING_DIMENSION_CORE_PIECE.get()),
                 this.name(OccultismItems.NATURE_PASTE.get()),
                 this.name(OccultismItems.NETHERITE_DUST.get()),
                 this.name(OccultismItems.NETHERITE_SCRAP_DUST.get()),
@@ -309,7 +310,8 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismItems.MINER_DEBUG_UNSPECIALIZED.get()),
                 this.name(OccultismItems.MINER_DJINNI_ORES.get()),
                 this.name(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get()),
-                this.name(OccultismItems.MINER_MARID_MASTER.get())
+                this.name(OccultismItems.MINER_MARID_MASTER.get()),
+                this.name(OccultismItems.MINER_ANCIENT_ELDRITCH.get())
         };
         for (String item : items){
             this.getBuilder(item)

@@ -59,10 +59,18 @@ public class MinerRecipeBuilder implements RecipeBuilder {
     public static MinerRecipeBuilder minerRecipe(Ingredient ingredient, TagKey<Item> output, int weight) {
         return new MinerRecipeBuilder(ingredient, WeightedTagRecipeResult.of(output, 1, weight));
     }
+    public static MinerRecipeBuilder minerRecipe(Ingredient ingredient, TagKey<Item> output, int weight, int count) {
+        return new MinerRecipeBuilder(ingredient, WeightedTagRecipeResult.of(output, count, weight));
+    }
 
     public static MinerRecipeBuilder minerRecipe(TagKey<Item> ingredient, TagKey<Item> output, int weight) {
         return minerRecipe(Ingredient.of(ingredient), output, weight);
     }
+
+    public static MinerRecipeBuilder minerRecipe(TagKey<Item> ingredient, TagKey<Item> output, int weight, int count) {
+        return minerRecipe(Ingredient.of(ingredient), output, weight, count);
+    }
+
 
     @Override
     public MinerRecipeBuilder unlockedBy(String s, Criterion<?> criterionTriggerInstance) {

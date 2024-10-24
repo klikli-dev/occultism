@@ -30,7 +30,7 @@ public class BindingRitualsCategory extends CategoryProvider {
     protected String[] generateEntryMap() {
         return new String[]{
                 "___________________________",
-                "_______b_e_x_p_q___________",
+                "_______b_e_x_p_q_r_________",
                 "___________________________",
                 "_______d_h_c__w____________",
                 "___________________________",
@@ -52,6 +52,7 @@ public class BindingRitualsCategory extends CategoryProvider {
         String craftAfritID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + CraftAfritEntry.ENTRY_ID;
         String craftMaridID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + CraftMaridEntry.ENTRY_ID;
         String contactWildID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + ContactWildSpiritEntry.ENTRY_ID;
+        String contactEldritchID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + ContactEldritchSpiritEntry.ENTRY_ID;
 
         var overview = this.add(this.makeCraftingRitualsOverviewEntry(this.entryMap, '0'));
         overview.withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
@@ -74,6 +75,9 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftMaridMiner = this.add(this.makeCraftMaridMinerEntry(this.entryMap, 'q'));
         craftMaridMiner.withParent(BookEntryParentModel.create(craftAfritMiner.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftMaridID));
+        var craftAncientMiner = this.add(this.makeCraftAncientMinerEntry(this.entryMap, 'r'));
+        craftAncientMiner.withParent(BookEntryParentModel.create(craftAfritMiner.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
 
         var craftStorageSystem = this.add(this.makeCraftStorageSystemEntry(this.entryMap, 'z'));
         craftStorageSystem.withParent(BookEntryParentModel.create(overview.getId()))
@@ -494,6 +498,27 @@ public class BindingRitualsCategory extends CategoryProvider {
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.MINER_MARID_MASTER.get())
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        spotlight,
+                        ritual
+                );
+    }
+
+    private BookEntryModel makeCraftAncientMinerEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("craft_ancient_miner");
+
+        this.context().page("spotlight");
+        var spotlight = BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismItems.MINER_ANCIENT_ELDRITCH.get()))
+                .withText(this.context().pageText());
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_miner_ancient_eldritch"));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(OccultismItems.MINER_ANCIENT_ELDRITCH.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         spotlight,

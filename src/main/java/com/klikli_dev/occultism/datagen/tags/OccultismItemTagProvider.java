@@ -123,12 +123,14 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(OccultismTags.Items.Miners.MASTER).add(OccultismItems.MINER_MARID_MASTER.get()).replace(false);
         this.tag(OccultismTags.Items.Miners.ORES).add(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get(),
                 OccultismItems.MINER_DEBUG_UNSPECIALIZED.get(), OccultismItems.MINER_AFRIT_DEEPS.get(), OccultismItems.MINER_MARID_MASTER.get(), OccultismItems.MINER_DJINNI_ORES.get()).replace(false);
+        this.tag(OccultismTags.Items.Miners.ELDRITCH).add(OccultismItems.MINER_ANCIENT_ELDRITCH.get()).replace(false);
 
         this.tag(OccultismTags.Items.Miners.MINERS)
                 .addTag(OccultismTags.Items.Miners.BASIC_RESOURCES)
                 .addTag(OccultismTags.Items.Miners.DEEPS)
                 .addTag(OccultismTags.Items.Miners.MASTER)
-                .addTag(OccultismTags.Items.Miners.ORES).replace(false);
+                .addTag(OccultismTags.Items.Miners.ORES)
+                .addTag(OccultismTags.Items.Miners.ELDRITCH).replace(false);
 
         this.tag(OccultismTags.Items.TOOLS_CHALK)
                 .add(OccultismItems.CHALK_YELLOW.get())
