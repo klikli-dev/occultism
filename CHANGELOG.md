@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.163.0] - 2024-10-24
+### :sparkles: New Features
+- [`51a3ad4`](https://github.com/klikli-dev/occultism/commit/51a3ad41d57c0c0339f9e167cc7146f77423af7a) - Pentacle Rework ([#1215](https://github.com/klikli-dev/occultism/pull/1215)) - thanks @Eqis-Edu! *(commit by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+
+### :wrench: Chores
+- [`2d1ec51`](https://github.com/klikli-dev/occultism/commit/2d1ec518a2d0757dbc159273f7ea77225a1f2924) - add comment to config about format *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.162.0] - 2024-10-19
 ### :sparkles: New Features
 - [`ed6db5a`](https://github.com/klikli-dev/occultism/commit/ed6db5a0545638caeba72fb69f854ab63e353803) - add allthemodum alloy dust recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1810,3 +1818,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.161.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.161.2...release/v1.21.1-1.161.3
 [release/v1.21.1-1.161.4]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.161.3...release/v1.21.1-1.161.4
 [release/v1.21.1-1.162.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.161.4...release/v1.21.1-1.162.0
+[release/v1.21.1-1.163.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.162.0...release/v1.21.1-1.163.0
