@@ -2376,7 +2376,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("description2");
         this.add(helper.pageText(),
                 """
-                        To obtain the parrot or parrot familiar for the sacrifice, consider summoning them using either the [Wild Parrot Ritual](entry://summoning_rituals/possess_unbound_parrot) or [Parrot Familiar Ritual](entry://familiar_rituals/familiar_parrot)
+                        To obtain the parrot or parrot familiar for the sacrifice, consider summoning them using either the [Wild Parrot Ritual](entry://possession_rituals/possess_unbound_parrot) or [Parrot Familiar Ritual](entry://familiar_rituals/familiar_parrot)
                         \\
                         \\
                         **Hint:** If you use mods that protect pets from death, use the wild parrot ritual!
