@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_bound_marid": {
+    "has_bound_afrit": {
       "conditions": {
         "items": [
           {
-            "items": "occultism:book_of_binding_bound_marid"
+            "items": "occultism:book_of_binding_bound_afrit"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_bound_marid"
+      "has_bound_afrit"
     ]
   ],
   "rewards": {

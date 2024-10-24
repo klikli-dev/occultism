@@ -13,61 +13,81 @@
       "type": "modonomicon:block",
       "block": "occultism:golden_sacrificial_bowl"
     },
-    "C": {
+    "1": {
       "type": "modonomicon:tag",
       "tag": "#minecraft:candles"
     },
+    "2": {
+      "type": "modonomicon:block",
+      "block": "minecraft:skeleton_skull"
+    },
+    "3": {
+      "type": "modonomicon:block",
+      "block": "occultism:spirit_attuned_crystal"
+    },
     "G": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_gold"
+      "type": "modonomicon:tag",
+      "tag": "#occultism:foundation_glyphs_dark"
     },
-    "N": {
+    "L": {
       "type": "modonomicon:block",
-      "block": "minecraft:wither_skeleton_skull"
+      "block": "occultism:chalk_glyph_lime"
     },
-    "P": {
+    "O": {
       "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_purple"
+      "block": "occultism:chalk_glyph_orange"
     },
     "R": {
       "type": "modonomicon:block",
       "block": "occultism:chalk_glyph_red"
     },
     "W": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_white"
+      "type": "modonomicon:tag",
+      "tag": "#occultism:foundation_glyphs_any"
     },
-    "Z": {
+    "Y": {
       "type": "modonomicon:block",
-      "block": "minecraft:skeleton_skull"
+      "block": "occultism:chalk_glyph_gold"
     }
   },
   "pattern": [
     [
-      "___________",
-      "____PRP____",
-      "___GCWCG___",
-      "__G_WNW_G__",
-      "_PCWP_PWCP_",
-      "_RWZ_0_ZWR_",
-      "_PCWP_PWCP_",
-      "__G_WNW_G__",
-      "___GCWCG___",
-      "____PRP____",
-      "___________"
+      "_________________",
+      "________Y________",
+      "_______Y3Y_______",
+      "______R_L_R______",
+      "_____O_L2L_O_____",
+      "____O2Y_W_Y2O____",
+      "___R_Y1G1G1Y_R___",
+      "__Y_L_G_Y_G_L_Y__",
+      "_Y3L2W1Y0Y1W2L3Y_",
+      "__Y_L_G_Y_G_L_Y__",
+      "___R_Y1G1G1Y_R___",
+      "____O2Y_W_Y2O____",
+      "_____O_L2L_O_____",
+      "______R_L_R______",
+      "_______Y3Y_______",
+      "________Y________",
+      "_________________"
     ],
     [
-      "*+*+*+*+*+*",
-      "+*+*+*+*+*+",
-      "*+*+*+*+*+*",
-      "+*+*+*+*+*+",
-      "*+*+*+*+*+*",
-      "+*+*+*+*+*+",
-      "*+*+*+*+*+*",
-      "+*+*+*+*+*+",
-      "*+*+*+*+*+*",
-      "+*+*+*+*+*+",
-      "*+*+*+*+*+*"
+      "*+*+*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*+*+*"
     ]
   ]
 }

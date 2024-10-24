@@ -80,7 +80,7 @@ public class DjinniEntity extends SpiritEntity implements GeoEntity {
         }
 
         if (JOB_ID.equals(pKey)) {
-            if (Objects.equals(this.getJobID(), OccultismSpiritJobs.CRUSH_TIER2.getId().toString()) && this.getSizeState() != 1) {
+            if (!Objects.equals(this.getJobID(), OccultismSpiritJobs.MANAGE_MACHINE.getId().toString()) && this.getSizeState() != 1) {
                 this.setSizeState(1);
             }
         }

@@ -1,0 +1,59 @@
+{
+  "type": "occultism:ritual",
+  "activation_item": {
+    "item": "minecraft:deepslate"
+  },
+  "duration": 360,
+  "entity_to_sacrifice": {
+    "display_name": "ritual.occultism.sacrifice.warden",
+    "tag": "c:wardens"
+  },
+  "ingredients": [
+    {
+      "tag": "c:nether_stars"
+    },
+    {
+      "item": "minecraft:shulker_shell"
+    },
+    {
+      "item": "minecraft:armadillo_scute"
+    },
+    {
+      "item": "minecraft:turtle_scute"
+    },
+    {
+      "item": "minecraft:echo_shard"
+    },
+    {
+      "item": "minecraft:anvil"
+    },
+    {
+      "tag": "c:storage_blocks/netherite"
+    },
+    {
+      "tag": "c:obsidians"
+    },
+    {
+      "tag": "c:obsidians/crying"
+    },
+    {
+      "item": "minecraft:end_stone_bricks"
+    },
+    {
+      "item": "minecraft:sculk_catalyst"
+    },
+    {
+      "tag": "c:storage_blocks/iesnium"
+    }
+  ],
+  "pentacle_id": "occultism:contact_eldritch_spirit",
+  "result": {
+    "count": 1,
+    "id": "minecraft:reinforced_deepslate"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/craft_reinforced_deepslate"
+  },
+  "ritual_type": "occultism:craft"
+}

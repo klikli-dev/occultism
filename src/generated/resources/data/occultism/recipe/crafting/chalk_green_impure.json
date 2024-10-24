@@ -6,13 +6,7 @@
       "item": "occultism:chalk_white_impure"
     },
     {
-      "tag": "c:seeds"
-    },
-    {
-      "tag": "minecraft:saplings"
-    },
-    {
-      "tag": "minecraft:leaves"
+      "item": "occultism:nature_paste"
     }
   ],
   "result": {

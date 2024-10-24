@@ -3,7 +3,8 @@
   "background_v_index": 0,
   "category": "familiar_rituals",
   "condition": {
-    "type": "modonomicon:true"
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/possess_djinni"
   },
   "description": "",
   "hide_while_locked": false,
@@ -60,7 +61,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 10,
-  "x": 1,
-  "y": 4
+  "sort_number": 11,
+  "x": 2,
+  "y": 2
 }

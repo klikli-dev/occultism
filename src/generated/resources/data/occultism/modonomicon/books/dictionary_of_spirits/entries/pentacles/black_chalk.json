@@ -1,0 +1,85 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "pentacles",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/craft_afrit"
+  },
+  "description": "book.occultism.dictionary_of_spirits.pentacles.black_chalk.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "occultism:chalk_black"
+  },
+  "name": "book.occultism.dictionary_of_spirits.pentacles.black_chalk.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.black_chalk.lore.text",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.black_chalk.lore.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "occultism:chalk_black"
+      },
+      "text": "book.occultism.dictionary_of_spirits.pentacles.black_chalk.spotlight.text",
+      "title": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/craft_witherite_dust",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:crafting/chalk_black_impure",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "occultism:spirit_fire_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:spirit_fire/chalk_black",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "pentacles/gray_chalk",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 27,
+  "x": 7,
+  "y": -6
+}

@@ -45,15 +45,25 @@ public class OccultismServerConfig {
 
     public static class ItemSettings {
         public final BooleanValue anyOreDivinationRod;
+        public final BooleanValue minerOutputBeforeBreak;
+
         public ItemSettings(ModConfigSpec.Builder builder) {
             builder.comment("Item Settings").push("items");
+
             this.anyOreDivinationRod =
                     builder.comment(
                             "Allow the Divining Rod to attune to any ore"
                     )
                             .define("anyOreDivinationRod", false);
+            this.minerOutputBeforeBreak =
+                    builder.comment(
+                                    "Miners head to the output in the Dimensional Mineshaft before it breaks"
+                            )
+                            .define("minerOutputBeforeBreak", false);
+
             builder.pop();
         }
+
     }
 
     public static class SpiritJobSettings {

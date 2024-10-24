@@ -13,49 +13,61 @@
       "type": "modonomicon:block",
       "block": "occultism:golden_sacrificial_bowl"
     },
-    "C": {
+    "1": {
       "type": "modonomicon:tag",
       "tag": "#minecraft:candles"
     },
-    "G": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_gold"
-    },
-    "P": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_purple"
-    },
-    "W": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_white"
-    },
-    "Z": {
+    "2": {
       "type": "modonomicon:block",
       "block": "minecraft:skeleton_skull"
+    },
+    "L": {
+      "type": "modonomicon:block",
+      "block": "occultism:chalk_glyph_lime"
+    },
+    "S": {
+      "type": "modonomicon:tag",
+      "tag": "#occultism:foundation_glyphs_no_white"
+    },
+    "W": {
+      "type": "modonomicon:tag",
+      "tag": "#occultism:foundation_glyphs_any"
+    },
+    "Y": {
+      "type": "modonomicon:block",
+      "block": "occultism:chalk_glyph_gold"
     }
   },
   "pattern": [
     [
-      "___GPG___",
-      "__GC_CG__",
-      "_GZW_WZG_",
-      "GCWP_PWCG",
-      "P___0___P",
-      "GCWP_PWCG",
-      "_GZW_WZG_",
-      "__GC_CG__",
-      "___GPG___"
+      "_____________",
+      "______L______",
+      "_____L2L_____",
+      "____Y_W_Y____",
+      "___Y1S1S1Y___",
+      "__L_S_Y_S_L__",
+      "_L2W1Y0Y1W2L_",
+      "__L_S_Y_S_L__",
+      "___Y1S1S1Y___",
+      "____Y_W_Y____",
+      "_____L2L_____",
+      "______L______",
+      "_____________"
     ],
     [
-      "*+*+*+*+*",
-      "+*+*+*+*+",
-      "*+*+*+*+*",
-      "+*+*+*+*+",
-      "*+*+*+*+*",
-      "+*+*+*+*+",
-      "*+*+*+*+*",
-      "+*+*+*+*+",
-      "*+*+*+*+*"
+      "*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*"
     ]
   ]
 }

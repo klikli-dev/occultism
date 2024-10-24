@@ -33,7 +33,6 @@ import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
@@ -277,7 +276,6 @@ public class LargeCandleBlock extends AbstractCandleBlock implements SimpleWater
             }
 
         }
-        super.animateTick(state, level, blockPos, rand);
     }
 
 }

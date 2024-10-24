@@ -1,0 +1,109 @@
+{
+  "type": "modonomicon:dense",
+  "mapping": {
+    "*": {
+      "type": "modonomicon:display",
+      "display": "occultism:otherstone"
+    },
+    "+": {
+      "type": "modonomicon:display",
+      "display": "minecraft:stone"
+    },
+    "0": {
+      "type": "modonomicon:block",
+      "block": "occultism:golden_sacrificial_bowl"
+    },
+    "B": {
+      "type": "modonomicon:block",
+      "block": "occultism:chalk_glyph_brown"
+    },
+    "C": {
+      "type": "modonomicon:block",
+      "block": "occultism:chalk_glyph_cyan"
+    },
+    "M": {
+      "type": "modonomicon:block",
+      "block": "occultism:chalk_glyph_magenta"
+    },
+    "e": {
+      "type": "modonomicon:block",
+      "block": "minecraft:lodestone"
+    },
+    "f": {
+      "type": "modonomicon:block",
+      "block": "minecraft:end_rod"
+    },
+    "g": {
+      "type": "modonomicon:block",
+      "block": "minecraft:amethyst_cluster"
+    },
+    "h": {
+      "type": "modonomicon:tag",
+      "tag": "#c:glass_panes"
+    },
+    "i": {
+      "type": "modonomicon:block",
+      "block": "minecraft:beacon"
+    },
+    "j": {
+      "type": "modonomicon:block",
+      "block": "minecraft:lightning_rod"
+    },
+    "k": {
+      "type": "modonomicon:block",
+      "block": "minecraft:enchanting_table"
+    },
+    "l": {
+      "type": "modonomicon:block",
+      "block": "minecraft:iron_bars"
+    }
+  },
+  "pattern": [
+    [
+      "_____________________",
+      "__________C__________",
+      "_________CeC_________",
+      "_________CMC_________",
+      "____BB__CMMMC__BB____",
+      "____BlBBCM_MCBBfB____",
+      "_____B_B_____B_B_____",
+      "_____BB_______BB_____",
+      "____CC_________CC____",
+      "__CCMM_________MMCC__",
+      "_CkMM_____0_____MMgC_",
+      "__CCMM_________MMCC__",
+      "____CC_________CC____",
+      "_____BB_______BB_____",
+      "_____B_B_____B_B_____",
+      "____BjBBCM_MCBBhB____",
+      "____BB__CMMMC__BB____",
+      "_________CMC_________",
+      "_________CiC_________",
+      "__________C__________",
+      "_____________________"
+    ],
+    [
+      "*+*+*+*+*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*+*+*+*+*"
+    ]
+  ]
+}

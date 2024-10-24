@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_mining_dimension_core": {
+      "conditions": {
+        "items": [
+          {
+            "items": "occultism:mining_dim_core"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:ritual/craft_miner_ancient_eldritch"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_mining_dimension_core"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:ritual/craft_miner_ancient_eldritch"
+    ]
+  }
+}

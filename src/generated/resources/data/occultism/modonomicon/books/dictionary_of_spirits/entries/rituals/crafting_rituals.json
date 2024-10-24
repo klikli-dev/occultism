@@ -4,7 +4,8 @@
   "category": "rituals",
   "category_to_open": "crafting_rituals",
   "condition": {
-    "type": "modonomicon:true"
+    "type": "modonomicon:advancement",
+    "advancement_id": "occultism:chalks/purple"
   },
   "description": "",
   "hide_while_locked": false,
