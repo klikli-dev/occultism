@@ -30,8 +30,8 @@ public class PossessUnboundAfritEntry extends EntryProvider {
         this.pageText("""
                 **Purpose:** {0} Possession\\
                 \\
-                **Abras Open Commanding Conjure** is a simplified version of {1}, allowing to possess {2} without red chalk.
-                 Due to the very reduced power of the pentacle, it has limitations in its use.
+                **Abras Open Commanding Conjure** is a simplified version of {1}, allowing you to forces {2} to possess a nearby Creature without red chalk.
+                 Due to the very reduced power of the Pentacle it's limited in use.
                 """,
                 this.color("Unbound Afrit", ChatFormatting.DARK_PURPLE),
                 this.color("Abras Commanding Conjure", ChatFormatting.DARK_PURPLE),
