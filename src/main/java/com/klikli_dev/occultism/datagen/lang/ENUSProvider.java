@@ -851,10 +851,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.craft_familiar_ring.started", "Started binding djinni into familiar ring.");
         this.add("ritual.occultism.craft_familiar_ring.finished", "Successfully bound djinni into familiar ring.");
         this.add("ritual.occultism.craft_familiar_ring.interrupted", "Binding of djinni interrupted.");
-        this.add("ritual.occultism.craft_wild_trim.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_wild_trim.started", "Wild Spirits has started to forge the Wild Armor Trim Smithing Template.");
-        this.add("ritual.occultism.craft_wild_trim.finished", "Successfully forged the Wild Armor Trim Smithing Template.");
-        this.add("ritual.occultism.craft_wild_trim.interrupted", "Binding of djinni interrupted.");
+        this.add("ritual.occultism.misc_wild_trim.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.misc_wild_trim.started", "Wild Spirits has started to forge the Wild Armor Trim Smithing Template.");
+        this.add("ritual.occultism.misc_wild_trim.finished", "Successfully forged the Wild Armor Trim Smithing Template.");
+        this.add("ritual.occultism.misc_wild_trim.interrupted", "Binding of djinni interrupted.");
         this.add("ritual.occultism.possess_endermite.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.possess_endermite.started", "Started summoning possessed endermite.");
         this.add("ritual.occultism.possess_endermite.finished", "Summoned possessed endermite successfully.");
@@ -1934,7 +1934,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("spotlight");
         this.add(helper.pageText(),
                 """
-                        Unlike other rituals, creating a [](item://minecraft:reinforced deepslate) is a service provided by Ancient Spirits and not bound any spirit to the final object. You sacrifice the items and the Ancient Spirits uses his power to forge that item for you.
+                        Unlike other rituals, creating a [](item://minecraft:reinforced_deepslate) is a service provided by Ancient Spirits and not bound any spirit to the final object. You sacrifice the items and the Ancient Spirits uses his power to forge that item for you.
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
@@ -2802,8 +2802,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.custom_ritual_craft.tooltip", "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
         this.add("item.occultism.ritual_dummy.custom_ritual_misc", "Custom Ritual Dummy");
         this.add("item.occultism.ritual_dummy.custom_ritual_misc.tooltip", "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
-        this.add("item.occultism.ritual_dummy.craft_wild_trim", "Ritual: Forge Wild Armor Trim Smithing Template");
-        this.add("item.occultism.ritual_dummy.craft_wild_trim.tooltip", "Wild Spirits will forge a Wild Armor Trim Smithing Template.");
+        this.add("item.occultism.ritual_dummy.misc_wild_trim", "Ritual: Forge Wild Armor Trim Smithing Template");
+        this.add("item.occultism.ritual_dummy.misc_wild_trim.tooltip", "Wild Spirits will forge a Wild Armor Trim Smithing Template.");
         this.add("item.occultism.ritual_dummy.craft_dimensional_matrix", "Ritual: Craft Dimensional Matrix");
         this.add("item.occultism.ritual_dummy.craft_dimensional_matrix.tooltip", "The dimensional matrix is the entry point to a small dimension used for storing items.");
         this.add("item.occultism.ritual_dummy.craft_dimensional_mineshaft", "Ritual: Craft Dimensional Mineshaft");

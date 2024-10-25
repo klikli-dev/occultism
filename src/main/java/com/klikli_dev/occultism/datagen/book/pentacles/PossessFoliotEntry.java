@@ -30,8 +30,8 @@ public class PossessFoliotEntry extends EntryProvider {
         this.pageText("""
                 **Purpose:** {0} Possession\\
                 \\
-                **Hedyrins Lure** attracts {1} and forces them to possess a nearby creature. This pentacle can
-                 perform basic possessions, bringing back only low-power Spirits and Possessed creatures.
+                **Hedyrins Lure** attracts {1} and forces them to possess a nearby Creature. This pentacle can
+                 perform basic possessions, bringing back only low-power Spirits and Possessed Creatures.
                 """,
                 this.color("Foliot", ChatFormatting.DARK_PURPLE),
                 this.color("Foliot", ChatFormatting.DARK_PURPLE)

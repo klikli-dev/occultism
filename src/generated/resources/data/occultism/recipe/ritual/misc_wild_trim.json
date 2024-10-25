@@ -53,7 +53,7 @@
   },
   "ritual_dummy": {
     "count": 1,
-    "id": "occultism:ritual_dummy/craft_wild_trim"
+    "id": "occultism:ritual_dummy/misc_wild_trim"
   },
   "ritual_type": "occultism:craft"
 }

@@ -691,7 +691,7 @@ public class BindingRitualsCategory extends CategoryProvider {
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/craft_budding_amethyst"));
+                .withRecipeId1(this.modLoc("ritual/misc_budding_amethyst"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(Items.BUDDING_AMETHYST)
@@ -712,7 +712,7 @@ public class BindingRitualsCategory extends CategoryProvider {
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/craft_reinforced_deepslate"));
+                .withRecipeId1(this.modLoc("ritual/misc_reinforced_deepslate"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(Items.REINFORCED_DEEPSLATE)

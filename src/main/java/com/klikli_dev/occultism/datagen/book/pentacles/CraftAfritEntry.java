@@ -49,6 +49,7 @@ public class CraftAfritEntry extends EntryProvider {
                 - [Storage Stabilizer Tier 3](entry://crafting_rituals/craft_stabilizer_tier3)
                 - [Afrit Deep Ore Miner](entry://crafting_rituals/craft_afrit_miner)
                 - [Artisanal Ritual Satchel](entry://crafting_rituals/artisanal_ritual_satchel)
+                - [Repair Items](entry://crafting_rituals/repair)
                 """
         );
 

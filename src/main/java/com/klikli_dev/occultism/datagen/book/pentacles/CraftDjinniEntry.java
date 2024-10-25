@@ -55,6 +55,7 @@ public class CraftDjinniEntry extends EntryProvider {
                 - [Dimensional Mineshaft](entry://crafting_rituals/craft_dimensional_mineshaft)
                 - [Djinni Ore Miner](entry://crafting_rituals/craft_djinni_miner)
                 - [Apprentice Ritual Satchel](entry://crafting_rituals/apprentice_ritual_satchel)
+                - [Repair Chalks](entry://crafting_rituals/repair)
                 """
         );
 

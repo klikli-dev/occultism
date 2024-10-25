@@ -1459,7 +1459,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_storage_remote"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.DIAMOND_BLOCK),
                         new ItemStack(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/craft_wild_trim")),
+                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/misc_wild_trim")),
                         240,
                         RITUAL_CRAFT,
                         PENTACLE_CONTACT_WILD_SPIRIT,
@@ -1478,7 +1478,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
                 .entityToSacrifice(OccultismTags.Entities.OCELOT)
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.ocelot")
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_wild_trim"));
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_wild_trim"));
 
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                         new ItemStack(OccultismItems.RESEARCH_FRAGMENT_DUST.get()),
@@ -1573,7 +1573,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.allay")
                 .entityToSacrifice(OccultismTags.Entities.ALLAY)
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_budding_amethyst"));
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_budding_amethyst"));
 
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.DEEPSLATE),
                         new ItemStack(Items.REINFORCED_DEEPSLATE),
@@ -1596,7 +1596,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.warden")
                 .entityToSacrifice(OccultismTags.Entities.WARDEN)
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_reinforced_deepslate"));
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_reinforced_deepslate"));
 
     }
 

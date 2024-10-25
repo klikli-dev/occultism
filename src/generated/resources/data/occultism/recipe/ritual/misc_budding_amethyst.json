@@ -53,7 +53,7 @@
   },
   "ritual_dummy": {
     "count": 1,
-    "id": "occultism:ritual_dummy/craft_budding_amethyst"
+    "id": "occultism:ritual_dummy/misc_budding_amethyst"
   },
   "ritual_type": "occultism:craft"
 }

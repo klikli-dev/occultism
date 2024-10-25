@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/craft_budding_amethyst"
+        "recipe": "occultism:ritual/misc_budding_amethyst"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "occultism:ritual/craft_budding_amethyst"
+      "occultism:ritual/misc_budding_amethyst"
     ]
   }
 }

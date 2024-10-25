@@ -56,6 +56,7 @@ public class ContactWildSpiritEntry extends EntryProvider {
                 - [Heavy Core](entry://possession_rituals/possess_strong_breeze)
                 - [Small Illager Invasion](entry://possession_rituals/horde_illager)
                 - [Wild Armor Trim Smithing Template](entry://crafting_rituals/craft_wild_trim)
+                - [Budding Amethyst](entry://crafting_rituals/craft_budding_amethyst)
                 """
         );
 

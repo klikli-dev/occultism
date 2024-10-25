@@ -53,7 +53,7 @@
   },
   "ritual_dummy": {
     "count": 1,
-    "id": "occultism:ritual_dummy/craft_reinforced_deepslate"
+    "id": "occultism:ritual_dummy/misc_reinforced_deepslate"
   },
   "ritual_type": "occultism:craft"
 }

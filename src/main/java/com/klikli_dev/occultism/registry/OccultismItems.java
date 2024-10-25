@@ -606,7 +606,6 @@ public class OccultismItems {
     static {
         //CONTACT and others
         ITEMS.register("ritual_dummy/resurrect_allay", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/craft_wild_trim", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/wild_hunt", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/wild_husk", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/wild_drowned", () -> new DummyTooltipItem(defaultProperties()));
@@ -616,18 +615,22 @@ public class OccultismItems {
         ITEMS.register("ritual_dummy/wild_breeze", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/wild_strong_breeze", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/wild_horde_illager", () -> new DummyTooltipItem(defaultProperties()));
+        ITEMS.register("ritual_dummy/misc_wild_trim", () -> new DummyTooltipItem(defaultProperties()));
+    }
 
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST = ITEMS.register("ritual_dummy/misc_budding_amethyst",
+            () -> new DummyTooltipItem(defaultProperties()));
+
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE= ITEMS.register("ritual_dummy/misc_reinforced_deepslate",
+            () -> new DummyTooltipItem(defaultProperties()));
+
+    static {
         // CUSTOM
         ITEMS.register("ritual_dummy/custom_ritual_summon", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/custom_ritual_possess", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/custom_ritual_craft", () -> new DummyTooltipItem(defaultProperties()));
         ITEMS.register("ritual_dummy/custom_ritual_misc", () -> new DummyTooltipItem(defaultProperties()));
     }
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST = ITEMS.register("ritual_dummy/craft_budding_amethyst",
-            () -> new DummyTooltipItem(defaultProperties()));
-
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE= ITEMS.register("ritual_dummy/craft_reinforced_deepslate",
-            () -> new DummyTooltipItem(defaultProperties()));
 
     //Debug
     public static final DeferredItem<Item> DEBUG_WAND = ITEMS.register("debug_wand",
