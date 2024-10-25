@@ -1202,7 +1202,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withRecipeId1(this.modLoc("spirit_trade/otherworld_sapling"))
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(), """
-                To trade, drop an your offered item next to the trader, he will pick it up and drop the exchanged item.
+                To trade, drop your offered item next to the trader, he will pick it up and drop the exchanged item.
                 """);
 
         this.context().page("ritual");
