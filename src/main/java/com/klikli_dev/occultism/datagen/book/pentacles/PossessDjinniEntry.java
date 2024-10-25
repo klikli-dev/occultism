@@ -30,13 +30,13 @@ public class PossessDjinniEntry extends EntryProvider {
         this.pageText("""
                 **Purpose:** {0} Possession\\
                 \\
-                **Ihagans Enthrallment** forces {1} to possess a nearby creature. This pentacle is very versatile
-                  for imprisonment, the spirit and creature possessed are diverse and have moderate power.
+                **Ihagans Enthrallment** forces {1} to possess a nearby Creature. This pentacle is very versatile
+                  for imprisonment, allowing you to summon more powerful Spirits and Creatures.
                 """,
                 this.color("Djinni", ChatFormatting.DARK_PURPLE),
                 this.color("Djinni", ChatFormatting.DARK_PURPLE)
         );
-
+       
         this.page("multiblock", () -> BookMultiblockPageModel.create().withMultiblockId(this.modLoc(ENTRY_ID)));
 
         this.page("uses", () -> BookTextPageModel.create()
