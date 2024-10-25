@@ -30,11 +30,11 @@ public class SummonMaridEntry extends EntryProvider {
         this.pageText("""
                 **Purpose:** Summon a {0}\\
                 \\
-                **Fatmas Incentivized Attraction** is a powerful pentacle, allowing to summon {1}
-                 and bind them to the summoners will.
+                **Fatmas Incentivized Attraction** is a powerful pentacle, allowing you to summon and bind {1}
+                 to your will.
                 """,
                 this.color("Marid", ChatFormatting.DARK_PURPLE),
-                this.color("Marid", ChatFormatting.DARK_PURPLE)
+                this.color("Marids", ChatFormatting.DARK_PURPLE)
         );
 
         this.page("multiblock", () -> BookMultiblockPageModel.create().withMultiblockId(this.modLoc(ENTRY_ID)));
