@@ -1,9 +1,9 @@
 {
   "parent": "occultism:occultism/root",
   "criteria": {
-    "summon_wild_afrit": {
+    "resurrect_allay": {
       "conditions": {
-        "ritual_id": "occultism:ritual/summon_wild_afrit"
+        "ritual_id": "occultism:ritual/resurrect_allay"
       },
       "trigger": "occultism:ritual"
     }
@@ -11,7 +11,7 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "advancements.occultism.summon_wild_afrit.description"
+      "translate": "advancements.occultism.resurrect_allay.description"
     },
     "hidden": true,
     "icon": {
@@ -20,12 +20,12 @@
     },
     "show_toast": false,
     "title": {
-      "translate": "advancements.occultism.summon_wild_afrit.title"
+      "translate": "advancements.occultism.resurrect_allay.title"
     }
   },
   "requirements": [
     [
-      "summon_wild_afrit"
+      "resurrect_allay"
     ]
   ],
   "sends_telemetry_event": true

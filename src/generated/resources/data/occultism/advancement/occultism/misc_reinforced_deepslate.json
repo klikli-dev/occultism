@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "misc_reinforced_deepslate": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/misc_reinforced_deepslate"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.misc_reinforced_deepslate.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.misc_reinforced_deepslate.title"
+    }
+  },
+  "requirements": [
+    [
+      "misc_reinforced_deepslate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

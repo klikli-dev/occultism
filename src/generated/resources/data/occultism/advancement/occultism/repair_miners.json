@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "repair_miners": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/repair_miners"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.repair_miners.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.repair_miners.title"
+    }
+  },
+  "requirements": [
+    [
+      "repair_miners"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "wild_silverfish": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/wild_silverfish"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.wild_silverfish.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.wild_silverfish.title"
+    }
+  },
+  "requirements": [
+    [
+      "wild_silverfish"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "summon_unbound_afrit": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/summon_unbound_afrit"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.summon_unbound_afrit.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.summon_unbound_afrit.title"
+    }
+  },
+  "requirements": [
+    [
+      "summon_unbound_afrit"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "possess_elder_guardian": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/possess_elder_guardian"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.possess_elder_guardian.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.possess_elder_guardian.title"
+    }
+  },
+  "requirements": [
+    [
+      "possess_elder_guardian"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

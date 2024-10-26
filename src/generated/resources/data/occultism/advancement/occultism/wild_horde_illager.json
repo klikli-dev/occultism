@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "wild_horde_illager": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/wild_horde_illager"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.wild_horde_illager.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.wild_horde_illager.title"
+    }
+  },
+  "requirements": [
+    [
+      "wild_horde_illager"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

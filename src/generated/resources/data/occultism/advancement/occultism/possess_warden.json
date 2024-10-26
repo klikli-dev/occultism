@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "possess_warden": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/possess_warden"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.possess_warden.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.possess_warden.title"
+    }
+  },
+  "requirements": [
+    [
+      "possess_warden"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

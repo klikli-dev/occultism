@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "possess_unbound_parrot": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/possess_unbound_parrot"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.possess_unbound_parrot.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.possess_unbound_parrot.title"
+    }
+  },
+  "requirements": [
+    [
+      "possess_unbound_parrot"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

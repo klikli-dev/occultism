@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "wild_drowned": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/wild_drowned"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.wild_drowned.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.wild_drowned.title"
+    }
+  },
+  "requirements": [
+    [
+      "wild_drowned"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

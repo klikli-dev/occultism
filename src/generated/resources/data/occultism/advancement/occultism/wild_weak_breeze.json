@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "wild_weak_breeze": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/wild_weak_breeze"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.wild_weak_breeze.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.wild_weak_breeze.title"
+    }
+  },
+  "requirements": [
+    [
+      "wild_weak_breeze"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "craft_ritual_satchel_t2": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/craft_ritual_satchel_t2"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.craft_ritual_satchel_t2.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.craft_ritual_satchel_t2.title"
+    }
+  },
+  "requirements": [
+    [
+      "craft_ritual_satchel_t2"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

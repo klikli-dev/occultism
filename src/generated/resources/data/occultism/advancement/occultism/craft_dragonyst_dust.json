@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "craft_dragonyst_dust": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/craft_dragonyst_dust"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.craft_dragonyst_dust.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.craft_dragonyst_dust.title"
+    }
+  },
+  "requirements": [
+    [
+      "craft_dragonyst_dust"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

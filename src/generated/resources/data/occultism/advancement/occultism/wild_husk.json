@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "wild_husk": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/wild_husk"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.wild_husk.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.wild_husk.title"
+    }
+  },
+  "requirements": [
+    [
+      "wild_husk"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

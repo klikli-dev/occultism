@@ -1,9 +1,9 @@
 {
   "parent": "occultism:occultism/root",
   "criteria": {
-    "summon_wild_hunt": {
+    "possess_zombie_piglin": {
       "conditions": {
-        "ritual_id": "occultism:ritual/summon_wild_hunt"
+        "ritual_id": "occultism:ritual/possess_zombie_piglin"
       },
       "trigger": "occultism:ritual"
     }
@@ -11,7 +11,7 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "advancements.occultism.summon_wild_hunt.description"
+      "translate": "advancements.occultism.possess_zombie_piglin.description"
     },
     "hidden": true,
     "icon": {
@@ -20,12 +20,12 @@
     },
     "show_toast": false,
     "title": {
-      "translate": "advancements.occultism.summon_wild_hunt.title"
+      "translate": "advancements.occultism.possess_zombie_piglin.title"
     }
   },
   "requirements": [
     [
-      "summon_wild_hunt"
+      "possess_zombie_piglin"
     ]
   ],
   "sends_telemetry_event": true

@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "repair_armors": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/repair_armors"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.repair_armors.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.repair_armors.title"
+    }
+  },
+  "requirements": [
+    [
+      "repair_armors"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

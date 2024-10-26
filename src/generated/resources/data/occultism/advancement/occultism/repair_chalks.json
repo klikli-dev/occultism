@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "repair_chalks": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/repair_chalks"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.repair_chalks.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.repair_chalks.title"
+    }
+  },
+  "requirements": [
+    [
+      "repair_chalks"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

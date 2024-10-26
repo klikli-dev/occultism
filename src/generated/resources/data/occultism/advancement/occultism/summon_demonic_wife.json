@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "summon_demonic_wife": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/summon_demonic_wife"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.summon_demonic_wife.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.summon_demonic_wife.title"
+    }
+  },
+  "requirements": [
+    [
+      "summon_demonic_wife"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
