@@ -32,7 +32,7 @@ public class LimeChalkEntry extends EntryProvider {
         );
         this.pageTitle("Getting Experience");
         this.pageText("""
-                        The lime chalk attracts spirits beyond Folio.
+                        The lime chalk attracts greater spirits than Foliots.
                          Anyone wishing to elevate the level of their rituals will need this chalk.
                         """
         );
@@ -61,7 +61,7 @@ public class LimeChalkEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "First Tier Increase Chalk";
+        return "The Knowledge Chalk";
     }
 
     @Override

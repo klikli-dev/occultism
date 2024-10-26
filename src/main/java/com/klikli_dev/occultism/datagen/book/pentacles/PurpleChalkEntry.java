@@ -63,7 +63,7 @@ public class PurpleChalkEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "The Chalk to Infusion";
+        return "The Chalk of Infusion";
     }
 
     @Override

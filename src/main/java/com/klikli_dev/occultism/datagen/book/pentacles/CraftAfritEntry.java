@@ -62,7 +62,7 @@ public class CraftAfritEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Afrit Infusing";
+        return "Afrit Infusion";
     }
 
     @Override

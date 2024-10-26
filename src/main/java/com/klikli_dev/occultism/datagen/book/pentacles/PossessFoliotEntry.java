@@ -68,7 +68,7 @@ public class PossessFoliotEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Possessing Foliot";
+        return "Foliot Possession";
     }
 
     @Override

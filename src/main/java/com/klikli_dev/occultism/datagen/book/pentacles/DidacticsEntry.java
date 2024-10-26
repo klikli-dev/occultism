@@ -48,7 +48,7 @@ public class DidacticsEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Reading this category";
+        return "Reading this Section";
     }
 
     @Override

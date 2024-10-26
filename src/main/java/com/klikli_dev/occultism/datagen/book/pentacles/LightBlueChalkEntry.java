@@ -28,7 +28,7 @@ public class LightBlueChalkEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
-        this.pageTitle("Never Melt");
+        this.pageTitle("Never Melts");
         this.pageText("""
                         The light blue chalk is made with such icy materials that its glyphs
                          are inert and impart a natural stability to the pentacles.
@@ -47,7 +47,7 @@ public class LightBlueChalkEntry extends EntryProvider {
                 .withRecipeId1(this.modLoc("crafting/chalk_light_blue_impure"))
                 .withText(this.context().pageText()));
         this.pageText("""
-                Crushing ice without melting it is a job a Foliot can't do, so you need a better crusher.
+                Crushing ice without melting it is a job a Foliot can't do, so you'll need a better crusher.
                 """);
 
         this.page("recipe", () -> BookSpiritFireRecipePageModel.create()
@@ -58,7 +58,7 @@ public class LightBlueChalkEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "The Glaced Chalk";
+        return "The Glacial Chalk";
     }
 
     @Override

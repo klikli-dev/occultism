@@ -61,7 +61,7 @@ public class PossessAfritEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Possessing Afrit";
+        return "Afrit Possession";
     }
 
     @Override

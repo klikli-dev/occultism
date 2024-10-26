@@ -59,7 +59,7 @@ public class PossessUnboundAfritEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Possessing Unbound Afrit";
+        return "Unbound Afrit Possession";
     }
 
     @Override

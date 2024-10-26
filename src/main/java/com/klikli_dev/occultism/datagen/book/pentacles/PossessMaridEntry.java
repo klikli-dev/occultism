@@ -57,7 +57,7 @@ public class PossessMaridEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Possessing Marid";
+        return "Marid Possession";
     }
 
     @Override

@@ -56,7 +56,7 @@ public class YellowChalkEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "The Chalk to Possession";
+        return "The Chalk of Possession";
     }
 
     @Override

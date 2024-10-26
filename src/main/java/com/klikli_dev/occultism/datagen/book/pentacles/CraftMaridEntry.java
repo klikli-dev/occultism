@@ -60,7 +60,7 @@ public class CraftMaridEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Marid Infusing";
+        return "Marid Infusion";
     }
 
     @Override

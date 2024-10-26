@@ -82,7 +82,7 @@ public class PossessDjinniEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Possessing Djinni";
+        return "Djinni Possession";
     }
 
     @Override

@@ -64,7 +64,7 @@ public class CraftFoliotEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Foliot Infusing";
+        return "Foliot Infusion";
     }
 
     @Override

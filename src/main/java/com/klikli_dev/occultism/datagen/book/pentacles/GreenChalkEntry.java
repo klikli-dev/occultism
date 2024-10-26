@@ -59,7 +59,7 @@ public class GreenChalkEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "The Nature Chalk, specifically The Flora Chalk";
+        return "The Plant Chalk";
     }
 
     @Override

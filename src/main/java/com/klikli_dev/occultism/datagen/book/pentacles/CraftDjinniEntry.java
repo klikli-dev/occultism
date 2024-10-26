@@ -68,7 +68,7 @@ public class CraftDjinniEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Djinni Infusing";
+        return "Djinni Infusion";
     }
 
     @Override

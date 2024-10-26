@@ -50,7 +50,7 @@ public class CyanChalkEntry extends EntryProvider {
                 .withRecipeId1(this.modLoc("crafting/chalk_cyan_impure"))
                 .withText(this.context().pageText()));
         this.pageText("""
-                Pulverize the {0} keeping their properties is a job that only the best crusher can do.
+                "Pulverizing an {0} while retaining its properties is a job that only the best crushers can do.
                 """,
                 this.color("Echo Shard", ChatFormatting.LIGHT_PURPLE));
 
