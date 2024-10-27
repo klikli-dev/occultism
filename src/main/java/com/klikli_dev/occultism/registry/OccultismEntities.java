@@ -46,35 +46,35 @@ public class OccultismEntities {
 
     public static final Lazy<EntityType<FoliotEntity>> FOLIOT_TYPE =
             Lazy.of(() -> EntityType.Builder.of(FoliotEntity::new, MobCategory.CREATURE)
-                    .sized(0.6f, 1.2f)
+                    .sized(0.5f, 1.2f)
                     .clientTrackingRange(8)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "foliot").toString()));
     public static final Lazy<EntityType<DjinniEntity>> DJINNI_TYPE =
             Lazy.of(() -> EntityType.Builder.of(DjinniEntity::new, MobCategory.CREATURE)
-                    .sized(0.6f, 1.2f)
+                    .sized(1.0f, 2.4f)
                     .clientTrackingRange(8)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "djinni").toString()));
     public static final Lazy<EntityType<AfritEntity>> AFRIT_TYPE =
             Lazy.of(() -> EntityType.Builder.of((EntityType<AfritEntity> t, Level l) -> new AfritEntity(t, l), MobCategory.CREATURE)
                     .fireImmune()
-                    .sized(1.2f, 2.4f)
+                    .sized(1.0f, 2.4f)
                     .clientTrackingRange(8)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "afrit").toString()));
     public static final Lazy<EntityType<AfritWildEntity>> AFRIT_WILD_TYPE =
             Lazy.of(() -> EntityType.Builder.of((EntityType<AfritWildEntity> t, Level l) -> new AfritWildEntity(t, l), MobCategory.CREATURE)
                     .fireImmune()
-                    .sized(1.2f, 2.4f)
+                    .sized(1.0f, 2.4f)
                     .clientTrackingRange(8)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "afrit_wild").toString()));
     public static final Lazy<EntityType<MaridEntity>> MARID_TYPE =
             Lazy.of(() -> EntityType.Builder.of(MaridEntity::new, MobCategory.CREATURE)
-                    .sized(1.2f, 2.4f)
+                    .sized(1.0f, 2.4f)
                     .clientTrackingRange(8)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "marid").toString()));
 
     public static final Lazy<EntityType<MaridUnboundEntity>> MARID_UNBOUND_TYPE =
             Lazy.of(() -> EntityType.Builder.of((EntityType<MaridUnboundEntity> t, Level l) -> new MaridUnboundEntity(t, l), MobCategory.CREATURE)
-                    .sized(1.2f, 2.4f)
+                    .sized(1.0f, 2.4f)
                     .clientTrackingRange(16)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "marid_unbound").toString()));
 

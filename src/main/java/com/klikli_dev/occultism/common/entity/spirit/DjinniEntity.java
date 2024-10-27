@@ -44,7 +44,7 @@ import java.util.Objects;
 public class DjinniEntity extends SpiritEntity implements GeoEntity {
 
     private static final EntityDataAccessor<Integer> SIZE_STATE = SynchedEntityData.defineId(DjinniEntity.class, EntityDataSerializers.INT);
-    protected EntityDimensions t2CrusherDimensions = EntityDimensions.scalable(1.2f, 2.4f);
+    protected EntityDimensions manageMachineDimensions = EntityDimensions.scalable(0.5f, 0.8f);
     AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
     public DjinniEntity(EntityType<? extends SpiritEntity> type, Level level) {
@@ -80,7 +80,7 @@ public class DjinniEntity extends SpiritEntity implements GeoEntity {
         }
 
         if (JOB_ID.equals(pKey)) {
-            if (!Objects.equals(this.getJobID(), OccultismSpiritJobs.MANAGE_MACHINE.getId().toString()) && this.getSizeState() != 1) {
+            if (Objects.equals(this.getJobID(), OccultismSpiritJobs.MANAGE_MACHINE.getId().toString()) && this.getSizeState() != 1) {
                 this.setSizeState(1);
             }
         }
@@ -91,7 +91,7 @@ public class DjinniEntity extends SpiritEntity implements GeoEntity {
     @Override
     public EntityDimensions getDefaultDimensions(Pose pPose) {
         if (this.getSizeState() == 1)
-            return this.t2CrusherDimensions;
+            return this.manageMachineDimensions;
 
         return super.getDefaultDimensions(pPose);
     }
