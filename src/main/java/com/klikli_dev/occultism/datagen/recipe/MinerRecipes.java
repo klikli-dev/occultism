@@ -142,7 +142,7 @@ public abstract class MinerRecipes extends RecipeProvider {
         //Raw
         makeStorageRecipe("raw_aethersent", 90, recipeOutput);
         makeStorageRecipe("raw_allthemodium", 30, recipeOutput);
-        makeStorageRecipe("raw_aluminium", 90, recipeOutput);
+        makeStorageRecipe("raw_aluminum", 90, recipeOutput);
         makeStorageRecipe("raw_azure_silver", 90, recipeOutput);
         makeStorageRecipe("raw_antimony", 90, recipeOutput);
         makeStorageRecipe("raw_cloggrum", 90, recipeOutput);

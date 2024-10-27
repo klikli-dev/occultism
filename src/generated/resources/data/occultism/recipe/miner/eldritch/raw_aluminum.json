@@ -11,7 +11,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:storage_blocks/raw_aluminium"
+        "tag": "c:storage_blocks/raw_aluminum"
       }
     }
   ],
@@ -22,7 +22,7 @@
   "result": {
     "type": "occultism:weighted_tag",
     "count": 1,
-    "tag": "c:storage_blocks/raw_aluminium",
+    "tag": "c:storage_blocks/raw_aluminum",
     "weight": 90
   }
 }

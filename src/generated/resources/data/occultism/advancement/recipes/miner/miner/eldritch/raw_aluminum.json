@@ -11,7 +11,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:storage_blocks/raw_aluminium"
+        "tag": "c:storage_blocks/raw_aluminum"
       }
     }
   ],
@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miner/eldritch/raw_aluminium"
+        "recipe": "occultism:miner/eldritch/raw_aluminum"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -42,7 +42,7 @@
   ],
   "rewards": {
     "recipes": [
-      "occultism:miner/eldritch/raw_aluminium"
+      "occultism:miner/eldritch/raw_aluminum"
     ]
   }
 }
