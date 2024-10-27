@@ -2106,7 +2106,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
     private BookEntryModel makeHordeIllagerEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("horde_illager");
-        this.lang().add(this.context().entryName(), "Mini Illager Invasion");
+        this.lang().add(this.context().entryName(), "Wild Illager Invasion");
 
         this.context().page("entity");
         var entity = BookEntityPageModel.create()
@@ -2127,7 +2127,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        Summon a possessed Evoker and his henchmen to get [](item://minecraft:totem_of_undying), [](item://minecraft:vex_armor_trim_smithing_template) and [](item://minecraft:sentry_armor_trim_smithing_template).
+                        Summon a Wild Evoker and his henchmen to get [](item://minecraft:totem_of_undying), [](item://minecraft:vex_armor_trim_smithing_template) and [](item://minecraft:sentry_armor_trim_smithing_template).
                         """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
@@ -2163,7 +2163,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        [](item://minecraft:breeze_rod) cannot be obtained from Possessed Weak Breeze rods due to their fragile nature, but this version of Breeze hides some treasures and has a chance to drop: [](item://minecraft:guster_pottery_sherd), [](item://minecraft:scrape_pottery_sherd), [](item://minecraft:music_disc_creator_music_box) and [](item://minecraft:ominous_bottle).
+                        [](item://minecraft:breeze_rod) cannot be obtained from Wild Weak Breeze rods due to their fragile nature, but this version of Breeze hides some treasures and has a chance to drop: [](item://minecraft:guster_pottery_sherd), [](item://minecraft:scrape_pottery_sherd), [](item://minecraft:music_disc_creator_music_box) and [](item://minecraft:ominous_bottle).
                         """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
@@ -2199,7 +2199,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        The Possessed Breeze has intrinsic Ominous Essence causing a drop of [](item://minecraft:ominous_trial_key). The [](item://minecraft:breeze_rod) form this enemy can survive after the battle and the extra loot is: [](item://minecraft:bolt_armor_trim_smithing_template), [](item://minecraft:guster_banner_pattern) and [](item://minecraft:music_disc_precipice).
+                        The Wild Breeze has intrinsic Ominous Essence causing a drop of [](item://minecraft:ominous_trial_key). The [](item://minecraft:breeze_rod) form this enemy can survive after the battle and the extra loot is: [](item://minecraft:bolt_armor_trim_smithing_template), [](item://minecraft:guster_banner_pattern) and [](item://minecraft:music_disc_precipice).
                         """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
@@ -2235,7 +2235,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        The Possessed Strong Breeze is 'Flow-Forged', granting a powerful version of the regular Breeze. This is the final target to obtain a [](item://minecraft:heavy_core) and as a bonus, you can get: [](item://minecraft:flow_armor_trim_smithing_template), [](item://minecraft:flow_banner_pattern), [](item://minecraft:flow_pottery_sherd) and [](item://minecraft:music_disc_creator).
+                        The Wild Strong Breeze is 'Flow-Forged', granting a powerful version of the regular Breeze. This is the final target to obtain a [](item://minecraft:heavy_core) and as a bonus, you can get: [](item://minecraft:flow_armor_trim_smithing_template), [](item://minecraft:flow_banner_pattern), [](item://minecraft:flow_pottery_sherd) and [](item://minecraft:music_disc_creator).
                         """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())

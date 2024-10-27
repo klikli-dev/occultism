@@ -54,7 +54,7 @@ public class ContactWildSpiritEntry extends EntryProvider {
                 - [Trial Key](entry://possession_rituals/possess_weak_breeze)
                 - [Ominous Trial Key](entry://possession_rituals/possess_breeze)
                 - [Heavy Core](entry://possession_rituals/possess_strong_breeze)
-                - [Small Illager Invasion](entry://possession_rituals/horde_illager)
+                - [Wild Illager Invasion](entry://possession_rituals/horde_illager)
                 - [Wild Armor Trim Smithing Template](entry://crafting_rituals/craft_wild_trim)
                 - [Budding Amethyst](entry://crafting_rituals/craft_budding_amethyst)
                 """
