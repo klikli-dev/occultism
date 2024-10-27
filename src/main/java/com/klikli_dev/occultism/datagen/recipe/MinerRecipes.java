@@ -146,6 +146,7 @@ public abstract class MinerRecipes extends RecipeProvider {
         makeStorageRecipe("raw_azure_silver", 90, recipeOutput);
         makeStorageRecipe("raw_antimony", 90, recipeOutput);
         makeStorageRecipe("raw_cloggrum", 90, recipeOutput);
+        makeStorageRecipe("raw_cobalt", 90, recipeOutput);
         makeStorageRecipe("raw_copper", 90, recipeOutput);
         makeStorageRecipe("raw_crimson_iron", 90, recipeOutput);
         makeStorageRecipe("raw_froststeel", 90, recipeOutput);
@@ -174,9 +175,11 @@ public abstract class MinerRecipes extends RecipeProvider {
         makeStorageRecipe("emerald", 90, recipeOutput);
         makeStorageRecipe("fluorite", 90, recipeOutput);
         makeStorageRecipe("inferium_essence", 90, recipeOutput);
+        makeStorageRecipe("jade", 90, recipeOutput);
         makeStorageRecipe("lapis", 90, recipeOutput);
         makeStorageRecipe("lignite_coal", 90, recipeOutput);
         makeStorageRecipe("monazite", 90, recipeOutput);
+        makeStorageRecipe("onyx", 90, recipeOutput);
         makeStorageRecipe("peridot", 90, recipeOutput);
         makeStorageRecipe("prosperity_shard", 90, recipeOutput);
         makeStorageRecipe("redstone", 90, recipeOutput);
@@ -197,7 +200,6 @@ public abstract class MinerRecipes extends RecipeProvider {
         makeStorageRecipe("beryl", 90, recipeOutput);
         makeStorageRecipe("boron", 90, recipeOutput);
         makeStorageRecipe("cinnabar", 90, recipeOutput);
-        makeStorageRecipe("cobalt", 90, recipeOutput);
         makeStorageRecipe("dimensional_shard",90,recipeOutput);
         makeStorageRecipe("electrotine", 90, recipeOutput);
         makeStorageRecipe("garnet", 90, recipeOutput);
@@ -210,7 +212,6 @@ public abstract class MinerRecipes extends RecipeProvider {
         makeStorageRecipe("mithril", 90, recipeOutput);
         makeStorageRecipe("morganite", 90, recipeOutput);
         makeStorageRecipe("niter", 90, recipeOutput);
-        makeStorageRecipe("onyx", 90, recipeOutput);
         makeStorageRecipe("opal", 90, recipeOutput);
         makeStorageRecipe("tanzanite", 90, recipeOutput);
         makeStorageRecipe("thorium", 90, recipeOutput);
@@ -230,7 +231,6 @@ public abstract class MinerRecipes extends RecipeProvider {
         makeStorageRecipe("ghastly", 90, recipeOutput);
         makeStorageRecipe("ghoulish", 90, recipeOutput);
         makeStorageRecipe("green_gemstone", 90, recipeOutput);
-        makeStorageRecipe("jade", 90, recipeOutput);
         makeStorageRecipe("jewelyte", 90, recipeOutput);
         makeStorageRecipe("limonite", 90, recipeOutput);
         makeStorageRecipe("lyon", 90, recipeOutput);
