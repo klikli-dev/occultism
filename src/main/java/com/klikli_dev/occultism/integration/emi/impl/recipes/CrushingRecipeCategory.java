@@ -26,8 +26,13 @@ public class CrushingRecipeCategory implements EmiRecipe {
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
 
+    private final Integer min;
+    private final Integer max;
+
     public CrushingRecipeCategory(RecipeHolder<CrushingRecipe> recipe) {
         id=recipe.id();
+        this.min = recipe.value().getMinTier();
+        this.max = recipe.value().getMaxTier();
         this.input = List.of(EmiIngredient.of(recipe.value().getIngredients().get(0)));
         this.output = List.of(EmiStack.of(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess())));
     }
@@ -52,6 +57,14 @@ public class CrushingRecipeCategory implements EmiRecipe {
         return this.output;
     }
 
+    public Integer getMin() {
+        return this.min;
+    }
+
+    public Integer getMax() {
+        return this.max;
+    }
+
     @Override
     public int getDisplayWidth() {
         return 110;
@@ -59,21 +72,34 @@ public class CrushingRecipeCategory implements EmiRecipe {
 
     @Override
     public int getDisplayHeight() {
-        return 20;
+        return 30;
     }
 
     @Override
     public void addWidgets(WidgetHolder widgetHolder) {
-        widgetHolder.addSlot(input.get(0), 0, 2);
-        widgetHolder.addTexture(EmiTexture.EMPTY_ARROW,18,2);
-
-        SpiritWidget widget= new SpiritWidget(53,0, OccultismEntities.FOLIOT.get());
-        widgetHolder.add(widget);
-        widgetHolder.addTexture(EmiTexture.EMPTY_ARROW,64,2);
+        widgetHolder.addSlot(input.get(0), 0, 7);
+        widgetHolder.addTexture(EmiTexture.EMPTY_ARROW,18,7);
+        if(getMin() <= 1) {
+            SpiritWidget widget = new SpiritWidget(53, 10, OccultismEntities.FOLIOT.get(),15);
+            widgetHolder.add(widget);
+        }
+        if(getMin() == 2) {
+            SpiritWidget widget = new SpiritWidget(53, 0, OccultismEntities.DJINNI.get(),12);
+            widgetHolder.add(widget);
+        }
+        if(getMin() == 3) {
+            SpiritWidget widget = new SpiritWidget(53, 0, OccultismEntities.AFRIT.get(),12);
+            widgetHolder.add(widget);
+        }
+        if(getMin() >= 4) {
+            SpiritWidget widget = new SpiritWidget(53, 0, OccultismEntities.MARID.get(),13);
+            widgetHolder.add(widget);
+        }
+        widgetHolder.addTexture(EmiTexture.EMPTY_ARROW,64,7);
         // Adds an output slot on the right
         // Note that output slots need to call `recipeContext` to inform EMI about their recipe context
         // This includes being able to resolve recipe trees, favorite stacks with recipe context, and more
-        widgetHolder.addSlot(output.get(0), 90, 2).recipeContext(this);
+        widgetHolder.addSlot(output.get(0), 90, 7).recipeContext(this);
     }
 
     private static final List<EmiIngredient> tiers = List.of(
