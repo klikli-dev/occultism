@@ -1,0 +1,11 @@
+{
+  "type": "occultism:crushing",
+  "ingredient": {
+    "tag": "c:bones"
+  },
+  "result": {
+    "type": "occultism:item",
+    "count": 4,
+    "id": "minecraft:bone_meal"
+  }
+}
