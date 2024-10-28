@@ -3,8 +3,8 @@
   "background_v_index": 0,
   "category": "getting_started",
   "condition": {
-    "type": "modonomicon:advancement",
-    "advancement_id": "occultism:chalks/purple"
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/craft_djinni"
   },
   "description": "book.occultism.dictionary_of_spirits.getting_started.ritual_satchels.description",
   "hide_while_locked": false,

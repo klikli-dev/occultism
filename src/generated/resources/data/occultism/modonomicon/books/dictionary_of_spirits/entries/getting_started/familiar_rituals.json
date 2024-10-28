@@ -3,8 +3,8 @@
   "background_v_index": 1,
   "category": "getting_started",
   "condition": {
-    "type": "modonomicon:advancement",
-    "advancement_id": "occultism:chalks/yellow"
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/possess_foliot"
   },
   "description": "book.occultism.dictionary_of_spirits.getting_started.familiar_rituals.description",
   "hide_while_locked": false,

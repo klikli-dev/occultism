@@ -4,8 +4,8 @@
   "category": "rituals",
   "category_to_open": "crafting_rituals",
   "condition": {
-    "type": "modonomicon:advancement",
-    "advancement_id": "occultism:chalks/purple"
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/craft_foliot"
   },
   "description": "",
   "hide_while_locked": false,

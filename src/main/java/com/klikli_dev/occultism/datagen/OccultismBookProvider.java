@@ -49,13 +49,13 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         var pentaclesCategory = this.add(new PentaclesCategory(this).generate().withSortNumber(sortNum++));
 
         var summoningRitualsCategory = this.add(this.makeSummoningRitualsSubcategory().withSortNumber(sortNum++));
-        summoningRitualsCategory.withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/white"));
+        summoningRitualsCategory.withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/summon_foliot")));
         var possessionRitualsCategory = this.add(this.makePossessionRitualsSubcategory().withSortNumber(sortNum++));
-        possessionRitualsCategory.withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/yellow"));
+        possessionRitualsCategory.withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/possess_foliot")));
         var familiarRitualsCategory = this.add(new FamiliarRitualsCategory(this).generate().withSortNumber(sortNum++));
-        familiarRitualsCategory.withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/yellow"));
+        familiarRitualsCategory.withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/possess_foliot")));
         var craftingRitualsCategory = this.add(new BindingRitualsCategory(this).generate().withSortNumber(sortNum++));
-        craftingRitualsCategory.withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/purple"));
+        craftingRitualsCategory.withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/craft_foliot")));
 
         var storageCategory = this.add(this.makeStorageCategory().withSortNumber(sortNum++));
         storageCategory.withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("crafting_rituals/craft_storage_system")));
@@ -470,16 +470,16 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         var summoning = this.makeSummoningRitualsSubcategoryEntry(entryMap, 's');
         summoning.withParent(BookEntryParentModel.create(sacrifice.getId()))
-                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/white"));
+                .withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/summon_foliot")));
         var possession = this.makePossessionRitualsSubcategoryEntry(entryMap, 'p');
         possession.withParent(BookEntryParentModel.create(sacrifice.getId()))
-                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/yellow"));
+                .withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/possess_foliot")));
         var crafting = this.makeCraftingRitualsSubcategoryEntry(entryMap, 'c');
         crafting.withParent(BookEntryParentModel.create(sacrifice.getId()))
-                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/purple"));
+                .withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/craft_foliot")));
         var familiars = this.makeFamiliarRitualsSubcategoryEntry(entryMap, 'f');
         familiars.withParent(BookEntryParentModel.create(sacrifice.getId()))
-                .withCondition(BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/yellow"));
+                .withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/possess_foliot")));
 
         //enable all entries by default
         itemUse.withCondition(BookTrueConditionModel.create());

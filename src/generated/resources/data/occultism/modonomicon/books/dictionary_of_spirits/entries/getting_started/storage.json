@@ -4,8 +4,8 @@
   "category": "getting_started",
   "category_to_open": "storage",
   "condition": {
-    "type": "modonomicon:advancement",
-    "advancement_id": "occultism:chalks/purple"
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/craft_djinni"
   },
   "description": "book.occultism.dictionary_of_spirits.getting_started.storage.description",
   "hide_while_locked": false,

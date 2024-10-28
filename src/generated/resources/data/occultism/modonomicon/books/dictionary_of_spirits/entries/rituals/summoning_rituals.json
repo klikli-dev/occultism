@@ -4,8 +4,8 @@
   "category": "rituals",
   "category_to_open": "summoning_rituals",
   "condition": {
-    "type": "modonomicon:advancement",
-    "advancement_id": "occultism:chalks/white"
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/summon_foliot"
   },
   "description": "",
   "hide_while_locked": false,

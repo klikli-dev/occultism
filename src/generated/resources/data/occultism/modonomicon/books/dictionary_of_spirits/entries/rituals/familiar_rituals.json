@@ -4,8 +4,8 @@
   "category": "rituals",
   "category_to_open": "familiar_rituals",
   "condition": {
-    "type": "modonomicon:advancement",
-    "advancement_id": "occultism:chalks/yellow"
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/possess_foliot"
   },
   "description": "",
   "hide_while_locked": false,
