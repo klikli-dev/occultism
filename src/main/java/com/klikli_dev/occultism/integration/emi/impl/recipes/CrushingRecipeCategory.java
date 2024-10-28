@@ -12,13 +12,18 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTextTooltip;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CrushingRecipeCategory implements EmiRecipe {
@@ -75,26 +80,38 @@ public class CrushingRecipeCategory implements EmiRecipe {
         return 30;
     }
 
+
     @Override
     public void addWidgets(WidgetHolder widgetHolder) {
         widgetHolder.addSlot(input.get(0), 0, 7);
         widgetHolder.addTexture(EmiTexture.EMPTY_ARROW,18,7);
+        int y = 0;
+        int s = 12;
+        EntityType spiritType;
         if(getMin() <= 1) {
-            SpiritWidget widget = new SpiritWidget(53, 10, OccultismEntities.FOLIOT.get(),15);
-            widgetHolder.add(widget);
+            y = 10;
+            s = 16;
+            spiritType = OccultismEntities.FOLIOT.get();
+        } else if(getMin() == 2){
+            spiritType = OccultismEntities.DJINNI.get();
+        } else if(getMin() == 3){
+            spiritType = OccultismEntities.AFRIT.get();
+        } else {
+            spiritType = OccultismEntities.MARID.get();
         }
-        if(getMin() == 2) {
-            SpiritWidget widget = new SpiritWidget(53, 0, OccultismEntities.DJINNI.get(),12);
-            widgetHolder.add(widget);
-        }
-        if(getMin() == 3) {
-            SpiritWidget widget = new SpiritWidget(53, 0, OccultismEntities.AFRIT.get(),12);
-            widgetHolder.add(widget);
-        }
-        if(getMin() >= 4) {
-            SpiritWidget widget = new SpiritWidget(53, 0, OccultismEntities.MARID.get(),13);
-            widgetHolder.add(widget);
-        }
+        SpiritWidget widget = new SpiritWidget(53, y, spiritType,s).tooltip((mouseX, mouseY) ->
+        {
+            List<ClientTooltipComponent> tooltip = new ArrayList<>();
+            if(getMin() >= 1) {
+                tooltip.add(new ClientTextTooltip(Component.translatable("jei.occultism.crushing.min_tier", getMin()).getVisualOrderText()));
+            }
+            if(getMax() >= 1) {
+                tooltip.add(new ClientTextTooltip(Component.translatable("jei.occultism.crushing.max_tier", getMax()).getVisualOrderText()));
+            }
+            return tooltip;
+        });
+
+        widgetHolder.add(widget);
         widgetHolder.addTexture(EmiTexture.EMPTY_ARROW,64,7);
         // Adds an output slot on the right
         // Note that output slots need to call `recipeContext` to inform EMI about their recipe context
