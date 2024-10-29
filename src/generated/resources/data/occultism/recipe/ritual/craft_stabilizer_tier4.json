@@ -19,6 +19,9 @@
     },
     {
       "item": "occultism:spirit_attuned_crystal"
+    },
+    {
+      "item": "occultism:marid_essence"
     }
   ],
   "pentacle_id": "occultism:craft_marid",

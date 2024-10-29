@@ -25,6 +25,9 @@
     },
     {
       "item": "minecraft:nether_star"
+    },
+    {
+      "item": "occultism:marid_essence"
     }
   ],
   "pentacle_id": "occultism:craft_marid",

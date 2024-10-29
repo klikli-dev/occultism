@@ -1402,7 +1402,8 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER2.get()),
                         Ingredient.of(Tags.Items.STORAGE_BLOCKS_GOLD),
                         Ingredient.of(Items.NETHER_STAR),
-                        Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()))
+                        Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
+                        Ingredient.of(OccultismItems.AFRIT_ESSENCE.get()))
                 .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_stabilizer_tier3"));
 
@@ -1416,7 +1417,8 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(OccultismTags.Items.STORAGE_BLOCK_IESNIUM),
                         Ingredient.of(Items.DRAGON_HEAD),
                         Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
-                        Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()))
+                        Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
+                        Ingredient.of(OccultismItems.MARID_ESSENCE.get()))
                 .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_stabilizer_tier4"));
 
@@ -1656,7 +1658,8 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.NETHERITE_PICKAXE),
                         Ingredient.of(Items.DRAGON_BREATH),
                         Ingredient.of(Items.TOTEM_OF_UNDYING),
-                        Ingredient.of(Items.NETHER_STAR))
+                        Ingredient.of(Items.NETHER_STAR),
+                        Ingredient.of(OccultismItems.MARID_ESSENCE.get()))
                 .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_miner_marid_master"));
 

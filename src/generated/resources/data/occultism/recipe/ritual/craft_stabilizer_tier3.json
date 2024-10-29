@@ -16,6 +16,9 @@
     },
     {
       "item": "occultism:spirit_attuned_crystal"
+    },
+    {
+      "item": "occultism:afrit_essence"
     }
   ],
   "pentacle_id": "occultism:craft_afrit",
