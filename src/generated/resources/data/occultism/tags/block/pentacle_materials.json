@@ -4,6 +4,14 @@
     "occultism:golden_sacrificial_bowl",
     "occultism:spirit_attuned_crystal",
     "#minecraft:candles",
+    "#c:glass_panes",
+    "minecraft:enchanting_table",
+    "minecraft:beacon",
+    "minecraft:lodestone",
+    "minecraft:amethyst_cluster",
+    "minecraft:end_rod",
+    "minecraft:lightning_rod",
+    "minecraft:iron_bars",
     {
       "id": "#occultism:chalk_glyphs",
       "required": false

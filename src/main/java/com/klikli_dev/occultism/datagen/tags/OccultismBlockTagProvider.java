@@ -7,6 +7,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
@@ -124,6 +125,14 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get())
                 .add(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get())
                 .addTag(BlockTags.CANDLES)
+                .addTag(Tags.Blocks.GLASS_PANES)
+                .add(Blocks.ENCHANTING_TABLE)
+                .add(Blocks.BEACON)
+                .add(Blocks.LODESTONE)
+                .add(Blocks.AMETHYST_CLUSTER)
+                .add(Blocks.END_ROD)
+                .add(Blocks.LIGHTNING_ROD)
+                .add(Blocks.IRON_BARS)
                 .addOptionalTag(OccultismTags.Blocks.CHALK_GLYPHS)
                 .replace(false);
 
