@@ -237,13 +237,19 @@ public class BindingRitualsCategory extends CategoryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
 
+        this.context().page("config");
+        var config = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.DIMENSIONAL_MINESHAFT.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         spotlight,
                         ritual,
-                        description
+                        description,
+                        config
                 );
     }
 

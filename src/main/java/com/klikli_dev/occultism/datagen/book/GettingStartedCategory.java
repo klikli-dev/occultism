@@ -688,6 +688,20 @@ public class GettingStartedCategory extends CategoryProvider {
                         Trees grown from Stable Otherworld Saplings as obtained from spirit traders do not have that limitation.
                          """);
 
+        this.context().page("config");
+        var config = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "Extra Config");
+        this.lang().add(this.context().pageText(),
+                """
+                        An additional function of the Divination Rod is to locate any ore,
+                         however this is not a default function and needs to be enabled,
+                         as we recommend using the Theurgy mod for this type of divination.
+                         If you want to enable this feature directly in Occultism, check
+                         "Server Configuration > Items" and set "Divination c:ores" to "on".
+                          """);
+
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismItems.DIVINATION_ROD.get())
@@ -708,7 +722,9 @@ public class GettingStartedCategory extends CategoryProvider {
                         otherworldGroves,
                         otherworldGroves2,
                         otherworldTrees,
-                        otherworldTrees2);
+                        otherworldTrees2,
+                        config
+                );
     }
 
 

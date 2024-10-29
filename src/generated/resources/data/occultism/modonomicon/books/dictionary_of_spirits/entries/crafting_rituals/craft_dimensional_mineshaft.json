@@ -42,6 +42,17 @@
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_mineshaft.description.text",
       "title": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_mineshaft.description.title",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_mineshaft.config.text",
+      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_mineshaft.config.title",
+      "use_markdown_in_title": false
     }
   ],
   "parents": [

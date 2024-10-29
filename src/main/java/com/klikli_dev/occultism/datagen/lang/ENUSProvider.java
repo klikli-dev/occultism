@@ -1616,6 +1616,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         The dimensional mineshaft will discard any items it cannot store, so it is important to regularly empty the mineshaft, either manually, with hoppers or using a transporter spirit. Spirits in lamps can be **inserted** from the top, all other sides can be used to **extract** items.
                            """.formatted(COLOR_PURPLE));
 
+        helper.page("config");
+        this.add(helper.pageTitle(), "Config");
+        this.add(helper.pageText(),
+                """
+                        If you want to save your miners before they break, check "Server Configuration > Items". By setting the "Save miners before breaking" option to "on", a miner will go to the output of the dimensional mineshaft when it reaches 1 durability.
+                """.formatted(COLOR_PURPLE));
 
         helper.entry("craft_infused_pickaxe");
         this.add(helper.entryName(), "Infused Pickaxe");
@@ -3219,7 +3225,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("lightBlueChalkGlyphColor", "Light Blue Chalk Glyph Color");
         this.addConfig("blueChalkGlyphColor", "Blue Chalk Glyph Color");
         this.addConfig("magentaChalkGlyphColor", "Magenta Chalk Glyph Color");
-        this.addConfig("pinkChalkGlyphColor", "PinkChalk Glyph Color");
+        this.addConfig("pinkChalkGlyphColor", "Pink Chalk Glyph Color");
 
         this.addConfig("misc", "Misc Settings");
         this.addConfig("syncJeiSearch", "Sync JEI Search");
