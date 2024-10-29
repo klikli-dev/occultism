@@ -288,6 +288,19 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(OccultismTags.Items.DATURA_SEEDS).add(OccultismItems.DATURA_SEEDS.get()).replace(false);
         this.tag(Tags.Items.SEEDS).addTags(OccultismTags.Items.DATURA_SEEDS).replace(false);
 
+        //Foods
+        this.tag(Tags.Items.FOODS)
+                .add(OccultismItems.DATURA.get())
+                .add(OccultismItems.DEMONS_DREAM_ESSENCE.get())
+                .add(OccultismItems.OTHERWORLD_ESSENCE.get())
+                .add(OccultismItems.BEAVER_NUGGET.get())
+                .add(OccultismItems.CURSED_HONEY.get())
+                .add(OccultismItems.DEMONIC_MEAT.get())
+                .replace(false);
+        this.tag(ItemTags.MEAT)
+                .add(OccultismItems.DEMONIC_MEAT.get())
+                .replace(false);
+
         // Storage Blocks
         this.copy(OccultismTags.Blocks.STORAGE_BLOCKS_IESNIUM, OccultismTags.Items.STORAGE_BLOCK_IESNIUM);
         this.copy(OccultismTags.Blocks.STORAGE_BLOCKS_SILVER, OccultismTags.Items.STORAGE_BLOCK_SILVER);
