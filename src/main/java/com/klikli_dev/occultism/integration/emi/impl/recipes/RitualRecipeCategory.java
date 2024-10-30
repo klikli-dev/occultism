@@ -8,8 +8,7 @@ import com.klikli_dev.occultism.crafting.recipe.conditionextension.OccultismCond
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.RitualRecipeConditionDescriptionVisitor;
 import com.klikli_dev.occultism.integration.emi.impl.OccultismEmiPlugin;
 import com.klikli_dev.occultism.integration.emi.impl.render.ItemWidget;
-import com.klikli_dev.occultism.registry.OccultismBlocks;
-import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.registry.*;
 import com.mojang.datafixers.util.Pair;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
@@ -82,6 +81,13 @@ public class RitualRecipeCategory implements EmiRecipe {
             }
             extraItems(recipe.getEntityToSummon().getDefaultLootTable().toString(), outputs);
         }
+
+        if(recipe.getRitualType().toString().contains("repair")){
+            for(ItemStack item:recipe.getActivationItemStack()){
+                outputs.add(EmiStack.of(item));
+            }
+        }
+
         outputs.add(EmiStack.of(recipe.getRitualDummy()));
         return outputs;
     }

@@ -157,6 +157,10 @@ public class RitualRecipe implements Recipe<SingleRecipeInput> {
         return this.ritualRequirementSettings.activationItem();
     }
 
+    public ItemStack[] getActivationItemStack() {
+        return this.ritualRequirementSettings.activationItem.getItems();
+    }
+
     public int getDuration() {
         return this.ritualRequirementSettings.duration();
     }
