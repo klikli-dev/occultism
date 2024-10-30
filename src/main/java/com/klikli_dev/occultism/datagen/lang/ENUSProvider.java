@@ -1199,7 +1199,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageTitle(), "Summoning Rituals");
         this.add(helper.pageText(),
                 """
-                        Summon rituals force spirits to enter this world in their chosen shape, leading to little restrictions on their power, but expose them to essence decay. Summoned spirits range from trade spirits that trade and convert items, to slave-like helpers for manual labour.
+                        Summon rituals force spirits to enter this world in their chosen shape, leading to little restrictions on their power. Summoned spirits range from trade spirits that trade and convert items, to slave-like helpers for manual labour.
                          """);
 
         helper.entry("return_to_rituals");
@@ -1215,8 +1215,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageTitle(), "Djinni Crusher");
         this.add(helper.pageText(),
                 """
-                        The djinni crusher is resistant essence decay and faster and more efficient than the foliot crusher.
-                        \\
+                        The djinni crusher is faster, more efficient and proficient than the foliot crusher.
+                        Allowing ice to be crushed without melting.
                         \\
                         It will crush **one** ore into **three** corresponding dusts.
                          """);
@@ -1231,7 +1231,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageTitle(), "Afrit Crusher");
         this.add(helper.pageText(),
                 """
-                        The afrit crusher is resistant to essence decay and faster and more efficient than the djinni crusher.
+                        The afrit crusher is faster and more efficient than the djinni crusher.
                         \\
                         \\
                         It will crush **one** ore into **four** corresponding dusts.
@@ -1247,8 +1247,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageTitle(), "Marid Crusher");
         this.add(helper.pageText(),
                 """
-                        The marid crusher is resistant to essence decay and faster and more efficient than the afrit crusher.
-                        \\
+                        The marid crusher is faster, more efficient and proficient than the afrit crusher.
+                        Allowing crushing the echo shard while maintaining its properties.
                         \\
                         It will crush **one** ore into **six** corresponding dusts.
                           """);
@@ -2924,11 +2924,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.summon_foliot_crusher", "Ritual: Summon Foliot Crusher");
         this.add("item.occultism.ritual_dummy.summon_foliot_crusher.tooltip", "The crusher is a spirit summoned to crush ores into dusts, effectively doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
         this.add("item.occultism.ritual_dummy.summon_djinni_crusher", "Ritual: Summon Djinni Crusher");
-        this.add("item.occultism.ritual_dummy.summon_djinni_crusher.tooltip", "The crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output. This crusher decays (much) slower than lower tier crushers.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
+        this.add("item.occultism.ritual_dummy.summon_djinni_crusher.tooltip", "The crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
         this.add("item.occultism.ritual_dummy.summon_afrit_crusher", "Ritual: Summon Afrit Crusher");
-        this.add("item.occultism.ritual_dummy.summon_afrit_crusher.tooltip", "The crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output. This crusher decays (much) slower than lower tier crushers.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
+        this.add("item.occultism.ritual_dummy.summon_afrit_crusher.tooltip", "The crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
         this.add("item.occultism.ritual_dummy.summon_marid_crusher", "Ritual: Summon Marid Crusher");
-        this.add("item.occultism.ritual_dummy.summon_marid_crusher.tooltip", "The crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output. This crusher decays (much) slower than lower tier crushers.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
+        this.add("item.occultism.ritual_dummy.summon_marid_crusher.tooltip", "The crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
         this.add("item.occultism.ritual_dummy.summon_foliot_lumberjack", "Ritual: Summon Foliot Lumberjack");
         this.add("item.occultism.ritual_dummy.summon_foliot_lumberjack.tooltip", "The lumberjack will harvest trees in it's working area and deposit the dropped items into the specified chest.");
         this.add("item.occultism.ritual_dummy.summon_foliot_otherstone_trader", "Ritual: Summon Otherstone Trader");

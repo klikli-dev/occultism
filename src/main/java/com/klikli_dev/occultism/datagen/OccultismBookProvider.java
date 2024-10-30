@@ -293,7 +293,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageTitle(), "Affected Spirits");
         this.lang().add(this.context().pageText(),
                 """
-                        Only tier 1 spirits are affected by essence decay, by default. All higher tiers are immune and will not despawn. Modpacks may modify this behaviour.
+                        Only trader, time and weather spirits are affected by essence decay, by default. All others are immune and will not despawn. Modpacks may modify this behaviour.
                               """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
