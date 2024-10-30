@@ -16,17 +16,6 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.spirits.essence_decay.affected_spirits.text",
-      "title": "book.occultism.dictionary_of_spirits.spirits.essence_decay.affected_spirits.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.spirits.essence_decay.intro.text",
       "title": "book.occultism.dictionary_of_spirits.spirits.essence_decay.intro.title",
       "use_markdown_in_title": false
@@ -40,6 +29,17 @@
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.spirits.essence_decay.countermeasures.text",
       "title": "book.occultism.dictionary_of_spirits.spirits.essence_decay.countermeasures.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.spirits.essence_decay.affected_spirits.text",
+      "title": "book.occultism.dictionary_of_spirits.spirits.essence_decay.affected_spirits.title",
       "use_markdown_in_title": false
     }
   ],
