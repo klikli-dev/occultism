@@ -108,10 +108,11 @@ public abstract class RitualRecipes extends RecipeProvider {
                         120,
                         RITUAL_SUMMON_JOB,
                         PENTACLE_SUMMON_AFRIT,
-                        Ingredient.of(Tags.Items.GEMS_DIAMOND),
                         Ingredient.of(OccultismTags.Items.IESNIUM_DUST),
-                        Ingredient.of(OccultismTags.Items.IESNIUM_DUST),
-                        Ingredient.of(Tags.Items.GEMS_EMERALD))
+                        Ingredient.of(OccultismTags.Items.EMERALD_DUST),
+                        Ingredient.of(OccultismTags.Items.LAPIS_DUST),
+                        Ingredient.of(OccultismTags.Items.AMETHYST_DUST),
+                        Ingredient.of(OccultismTags.Items.OBSIDIAN_DUST))
                 .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
                 .spiritMaxAge(-1)
                 .spiritJobType(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crush_tier3"))

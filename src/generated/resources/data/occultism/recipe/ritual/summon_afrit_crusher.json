@@ -7,16 +7,19 @@
   "entity_to_summon": "occultism:afrit",
   "ingredients": [
     {
-      "tag": "c:gems/diamond"
-    },
-    {
       "tag": "c:dusts/iesnium"
     },
     {
-      "tag": "c:dusts/iesnium"
+      "tag": "c:dusts/emerald"
     },
     {
-      "tag": "c:gems/emerald"
+      "tag": "c:dusts/lapis"
+    },
+    {
+      "tag": "c:dusts/amethyst"
+    },
+    {
+      "tag": "c:dusts/obsidian"
     }
   ],
   "pentacle_id": "occultism:summon_afrit",
