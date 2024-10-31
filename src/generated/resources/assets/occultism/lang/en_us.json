@@ -624,7 +624,7 @@
   "book.occultism.dictionary_of_spirits.pentacles.brown_chalk.name": "The Cruelty Chalk",
   "book.occultism.dictionary_of_spirits.pentacles.brown_chalk.spotlight.text": "This chalk is known to be part of an \"Alignment Test.\" Anyone who possesses it is\n automatically classified as \"Evil.\" What kind of spirits will these glyphs attract?\n",
   "book.occultism.dictionary_of_spirits.pentacles.contact_eldritch_spirit.description": "Contact Eldritch",
-  "book.occultism.dictionary_of_spirits.pentacles.contact_eldritch_spirit.intro.text": "**Purpose:** Contact [#](AA00AA)Eldritch[#]()\\\n\\\nThis is a very strange pentacle that you dont understand for now.\n",
+  "book.occultism.dictionary_of_spirits.pentacles.contact_eldritch_spirit.intro.text": "**Purpose:** Contact [#](AA00AA)Eldritch[#]()\\\n\\\nThis is a very strange pentacle that you dont understand for now.\n\\\n\\\n**NOTE** Iron bar is not rendering in the world preview, just put one in the last brown pointed part.\n",
   "book.occultism.dictionary_of_spirits.pentacles.contact_eldritch_spirit.intro.title": "Ronazas Contact",
   "book.occultism.dictionary_of_spirits.pentacles.contact_eldritch_spirit.name": "Ronaza's Contact",
   "book.occultism.dictionary_of_spirits.pentacles.contact_eldritch_spirit.uses.text": "- [Eldritch Ancient Miner](entry://crafting_rituals/craft_ancient_miner)\n- [Reinforced Deepslate](entry://crafting_rituals/craft_reinforced_deepslate)\n",

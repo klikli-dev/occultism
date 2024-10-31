@@ -30,6 +30,9 @@ public class ContactEldritchSpiritEntry extends EntryProvider {
                 **Purpose:** Contact {0}\\
                 \\
                 This is a very strange pentacle that you dont understand for now.
+                \\
+                \\
+                **NOTE** Iron bar is not rendering in the world preview, just put one in the last brown pointed part.
                 """,
                 this.color("Eldritch", ChatFormatting.DARK_PURPLE)
         );
