@@ -10,16 +10,17 @@
   "parent": "occultism:chalks/black",
   "criteria": {
     "chalk_blue": {
+      "trigger": "minecraft:any_block_use",
       "conditions": {
-        "items": [
+        "location": [
           {
-            "items": [
-              "occultism:chalk_blue"
-            ]
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": "occultism:chalk_blue"
+            }
           }
         ]
-      },
-      "trigger": "minecraft:inventory_changed"
+      }
     }
   },
   "requirements": [["chalk_blue"]],

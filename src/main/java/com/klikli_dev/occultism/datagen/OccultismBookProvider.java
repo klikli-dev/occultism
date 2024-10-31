@@ -2199,7 +2199,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        The Wild Breeze has intrinsic Ominous Essence causing a drop of [](item://minecraft:ominous_trial_key). The [](item://minecraft:breeze_rod) form this enemy can survive after the battle and the extra loot is: [](item://minecraft:bolt_armor_trim_smithing_template), [](item://minecraft:guster_banner_pattern) and [](item://minecraft:music_disc_precipice).
+                        The Wild Breeze has intrinsic Ominous Essence causing a drop of [](item://minecraft:ominous_trial_key). The [](item://minecraft:breeze_rod) from this enemy can survive after the battle and the extra loot is: [](item://minecraft:bolt_armor_trim_smithing_template), [](item://minecraft:guster_banner_pattern) and [](item://minecraft:music_disc_precipice).
                         """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())

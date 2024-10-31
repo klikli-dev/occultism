@@ -10,16 +10,17 @@
   "parent": "occultism:chalks/root",
   "criteria": {
     "chalk_white": {
+      "trigger": "minecraft:any_block_use",
       "conditions": {
-        "items": [
+        "location": [
           {
-            "items": [
-              "occultism:chalk_white"
-            ]
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": "occultism:chalk_white"
+            }
           }
         ]
-      },
-      "trigger": "minecraft:inventory_changed"
+      }
     }
   },
   "requirements": [["chalk_white"]],
