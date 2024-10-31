@@ -10,17 +10,8 @@
     "announce_to_chat": false
   },
   "criteria": {
-    "chalk_impure": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "occultism:chalk_white_impure"
-            ]
-          }
-        ]
-      }
+    "always": {
+      "trigger": "minecraft:tick"
     }
   }
 }

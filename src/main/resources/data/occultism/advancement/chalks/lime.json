@@ -1,17 +1,15 @@
 {
   "display": {
     "icon": {
+      "count": 1,
       "id": "occultism:chalk_lime"
     },
     "title": {"translate": "advancements.occultism.chalks.lime.title"},
-    "description": {"color":"green","translate":"advancements.occultism.chalks.lime.description"},
-    "show_toast": true,
-    "announce_to_chat": false
+    "description": {"color":"green","translate":"advancements.occultism.chalks.lime.description"}
   },
   "parent": "occultism:chalks/purple",
   "criteria": {
-    "chalk_white": {
-      "trigger": "minecraft:inventory_changed",
+    "chalk_lime": {
       "conditions": {
         "items": [
           {
@@ -20,7 +18,10 @@
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     }
-  }
+  },
+  "requirements": [["chalk_lime"]],
+  "sends_telemetry_event": true
 }

@@ -1,17 +1,15 @@
 {
   "display": {
     "icon": {
+      "count": 1,
       "id": "occultism:chalk_gold"
     },
     "title": {"translate": "advancements.occultism.chalks.yellow.title"},
-    "description": {"color":"green","translate":"advancements.occultism.chalks.yellow.description"},
-    "show_toast": true,
-    "announce_to_chat": false
+    "description": {"color":"green","translate":"advancements.occultism.chalks.yellow.description"}
   },
   "parent": "occultism:chalks/white",
   "criteria": {
-    "chalk_white": {
-      "trigger": "minecraft:inventory_changed",
+    "chalk_gold": {
       "conditions": {
         "items": [
           {
@@ -20,7 +18,10 @@
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     }
-  }
+  },
+  "requirements": [["chalk_gold"]],
+  "sends_telemetry_event": true
 }
