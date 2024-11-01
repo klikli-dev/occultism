@@ -1,20 +1,4 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "occultism:miners/eldritch"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:dusts/glowstone"
-      }
-    }
-  ],
   "type": "occultism:miner",
   "ingredient": {
     "tag": "occultism:miners/eldritch"

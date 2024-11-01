@@ -127,6 +127,7 @@ public abstract class MinerRecipes extends RecipeProvider {
         makeOreRecipe("varsium", 200, recipeOutput);
         makeOreRecipe("white_gemstone", 300, recipeOutput);
         makeOreRecipe("yellow_gemstone", 300, recipeOutput);
+        makeOreRecipe("black_quartz", 360, recipeOutput);
 
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ORES, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/" + "xpetrified_ore")), 200)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
@@ -245,23 +246,18 @@ public abstract class MinerRecipes extends RecipeProvider {
         makeStorageRecipe("white_gemstone", 90, recipeOutput);
         makeStorageRecipe("yellow_gemstone", 90, recipeOutput);
          */
-
+        makeGemEldritchOutputRecipe("sal_ammoniac", 90, 9, recipeOutput);
+        makeGemEldritchOutputRecipe("amethyst", 90, 9, recipeOutput);
+        makeGemEldritchOutputRecipe("quartz", 90, 9, recipeOutput);
+        makeGemEldritchOutputRecipe("black_quartz", 90, 9, recipeOutput);
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ELDRITCH, Tags.Items.ORES_NETHERITE_SCRAP, 90, 9)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/eldritch/ancient_debris"));
-        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ELDRITCH, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "gems/sal_ammoniac")), 90, 9)
+        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ELDRITCH, Tags.Items.DUSTS_GLOWSTONE, 90, 9)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/eldritch/sal_ammoniac"));
-        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ELDRITCH, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "gems/amethyst")), 90, 9)
-                .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/eldritch/amethyst"));
-        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ELDRITCH, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/glowstone")), 90, 9)
-                .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
+                .allowEmpty()
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/eldritch/glowstone_dust"));
-        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ELDRITCH, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "gems/quartz")), 90, 9)
-                .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/eldritch/quartz"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ELDRITCH, OccultismItems.MINING_DIMENSION_CORE_PIECE, 1)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
@@ -299,6 +295,11 @@ public abstract class MinerRecipes extends RecipeProvider {
 
     public static void makeStorageRecipe(String type, int weight, RecipeOutput consumer) {
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ELDRITCH, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/" + type)), weight)
+                .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
+                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/eldritch/" + type));
+    }
+    public static void makeGemEldritchOutputRecipe(String type, int weight, int amount, RecipeOutput consumer) {
+        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ELDRITCH, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "gems/" + type)), weight, amount)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/eldritch/" + type));
     }

@@ -4,25 +4,24 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:gems/diamond"
+        "tag": "c:ores/fluix"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:dusts/diamond"
+        "tag": "c:dusts/fluix"
       }
     }
   ],
   "type": "occultism:crushing",
-  "ignore_crushing_multiplier": true,
   "ingredient": {
-    "tag": "c:gems/diamond"
+    "tag": "c:ores/fluix"
   },
   "result": {
     "type": "occultism:tag",
-    "count": 1,
-    "tag": "c:dusts/diamond"
+    "count": 4,
+    "tag": "c:dusts/fluix"
   }
 }

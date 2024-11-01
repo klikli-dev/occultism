@@ -4,25 +4,25 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:gems/diamond"
+        "tag": "occultism:miners/ores"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:dusts/diamond"
+        "tag": "c:ores/black_quartz"
       }
     }
   ],
-  "type": "occultism:crushing",
-  "ignore_crushing_multiplier": true,
+  "type": "occultism:miner",
   "ingredient": {
-    "tag": "c:gems/diamond"
+    "tag": "occultism:miners/ores"
   },
   "result": {
-    "type": "occultism:tag",
+    "type": "occultism:weighted_tag",
     "count": 1,
-    "tag": "c:dusts/diamond"
+    "tag": "c:ores/black_quartz",
+    "weight": 360
   }
 }

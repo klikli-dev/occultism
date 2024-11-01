@@ -4,24 +4,25 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:gems/charged_certus_quartz"
+        "tag": "c:gems/black_quartz"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:dusts/charged_certus_quartz"
+        "tag": "c:dusts/black_quartz"
       }
     }
   ],
   "type": "occultism:crushing",
+  "ignore_crushing_multiplier": true,
   "ingredient": {
-    "tag": "c:gems/charged_certus_quartz"
+    "tag": "c:gems/black_quartz"
   },
   "result": {
     "type": "occultism:tag",
     "count": 1,
-    "tag": "c:dusts/charged_certus_quartz"
+    "tag": "c:dusts/black_quartz"
   }
 }

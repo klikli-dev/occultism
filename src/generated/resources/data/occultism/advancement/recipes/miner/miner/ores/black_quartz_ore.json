@@ -1,4 +1,20 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "occultism:miners/ores"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/black_quartz"
+      }
+    }
+  ],
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_miner": {
@@ -13,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miner/eldritch/glowstone_dust"
+        "recipe": "occultism:miner/ores/black_quartz_ore"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +42,7 @@
   ],
   "rewards": {
     "recipes": [
-      "occultism:miner/eldritch/glowstone_dust"
+      "occultism:miner/ores/black_quartz_ore"
     ]
   }
 }

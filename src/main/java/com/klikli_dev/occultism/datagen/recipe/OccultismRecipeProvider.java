@@ -364,13 +364,14 @@ public class OccultismRecipeProvider extends RecipeProvider {
         this.crushingGemRecipe("cinnabar", pRecipeOutput);
         this.crushingGemRecipe("amber", pRecipeOutput);
         this.crushingGemRecipe("certus_quartz", pRecipeOutput);
-        this.crushingGemRecipe("charged_certus_quartz", pRecipeOutput);
+        this.crushingGemRecipe("fluix", pRecipeOutput);
         this.crushingGemRecipe("peridot", pRecipeOutput);
         this.crushingGemRecipe("ruby", pRecipeOutput);
         this.crushingGemRecipe("sapphire", pRecipeOutput);
         this.crushingGemRecipe("topaz", pRecipeOutput);
         this.crushingGemRecipe("arcane_crystal", pRecipeOutput);
         this.crushingGemRecipe("amethyst", pRecipeOutput);
+        this.crushingGemRecipe("black_quartz", pRecipeOutput);
 
         CrushingRecipeBuilder.crushingRecipe(Tags.Items.RODS_BLAZE, Items.BLAZE_POWDER, 200)
                 .allowEmpty()
@@ -458,6 +459,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_" + gemName + "_gem", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "gems/" + gemName))))
                 .setResultAmount(1)
                 .setAllowEmpty(false)
+                .setIgnoreCrushingMultiplier(true)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/" + gemName + "_dust_from_gem"));
 
     }

@@ -70,6 +70,11 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
 
         this.tag(this.cTag("dusts/dark_gem"))
                 .addOptional(this.loc("evilcraft:dark_gem_crushed"));
+        this.tag(this.cTag("ores/black_quartz")).addOptional(this.loc("actuallyadditions:black_quartz_ore"));
+        this.tag(this.cTag("gems/black_quartz")).addOptional(this.loc("actuallyadditions:black_quartz"));
+        this.tag(this.cTag("dusts/certus_quartz")).addOptional(this.loc("ae2:certus_quartz_dust"));
+        this.tag(this.cTag("dusts/fluix")).addOptional(this.loc("ae2:fluix_dust"));
+        this.tag(this.cTag("gems/fluix")).addOptional(this.loc("ae2:fluix_crystal"));
     }
 
     private void addCuriosTags(HolderLookup.Provider provider) {

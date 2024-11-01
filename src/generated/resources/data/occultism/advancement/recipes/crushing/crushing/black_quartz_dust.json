@@ -4,24 +4,24 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:ores/charged_certus_quartz"
+        "tag": "c:ores/black_quartz"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:dusts/charged_certus_quartz"
+        "tag": "c:dusts/black_quartz"
       }
     }
   ],
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_charged_certus_quartz": {
+    "has_black_quartz": {
       "conditions": {
         "items": [
           {
-            "items": "#c:ores/charged_certus_quartz"
+            "items": "#c:ores/black_quartz"
           }
         ]
       },
@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/charged_certus_quartz_dust"
+        "recipe": "occultism:crushing/black_quartz_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -37,12 +37,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_charged_certus_quartz"
+      "has_black_quartz"
     ]
   ],
   "rewards": {
     "recipes": [
-      "occultism:crushing/charged_certus_quartz_dust"
+      "occultism:crushing/black_quartz_dust"
     ]
   }
 }

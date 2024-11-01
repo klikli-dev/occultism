@@ -1,0 +1,48 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:gems/black_quartz"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/black_quartz"
+      }
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_black_quartz_gem": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:gems/black_quartz"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crushing/black_quartz_dust_from_gem"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_black_quartz_gem"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crushing/black_quartz_dust_from_gem"
+    ]
+  }
+}
