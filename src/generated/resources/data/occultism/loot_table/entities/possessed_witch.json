@@ -32,6 +32,12 @@
         },
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:water"
+            }
+          ],
           "name": "minecraft:potion"
         }
       ],

@@ -3,10 +3,15 @@ package com.klikli_dev.occultism.datagen.loot;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.PotionItem;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -16,6 +21,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 import net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.functions.SetPotionFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
@@ -538,7 +544,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .add(LootItem.lootTableItem(Items.EXPERIENCE_BOTTLE).setWeight(8))
                                 .add(LootItem.lootTableItem(Items.HONEY_BOTTLE).setWeight(4))
                                 .add(LootItem.lootTableItem(Items.OMINOUS_BOTTLE).setWeight(2))
-                                .add(LootItem.lootTableItem(Items.POTION).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.POTION).setWeight(1).apply(SetPotionFunction.setPotion(Potions.WATER)))
                 ).apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries,UniformGenerator.between(0,2)));
     }
 }

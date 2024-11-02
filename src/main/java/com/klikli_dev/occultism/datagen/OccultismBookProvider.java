@@ -1830,7 +1830,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        In this ritual a [#](%1$s)Witch[#]() is spawned using the rage energy from the [#](%1$s)Cat[#]() death. The [#](%1$s)Possessed Witch[#]() can drop a [](item://minecraft:experience_bottle), [](item://minecraft:honey_bottle), [](item://minecraft:ominous_bottle) or a useless uncraftable potion.
+                        In this ritual a [#](%1$s)Witch[#]() is spawned using the rage energy from the [#](%1$s)Cat[#]() death. The [#](%1$s)Possessed Witch[#]() can drop a [](item://minecraft:experience_bottle), [](item://minecraft:honey_bottle), [](item://minecraft:ominous_bottle) or a simple water bottle.
                         """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
