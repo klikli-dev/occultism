@@ -219,7 +219,6 @@ public class PentaclesCategory extends CategoryProvider {
                 .withCondition(BookAndConditionModel.create().withChildren(
                         BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/magenta"),
                         BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/brown"),
-                        BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/cyan")))
-                .hideWhileLocked(true);
+                        BookAdvancementConditionModel.create().withAdvancementId("occultism:chalks/cyan")));
     }
 }
