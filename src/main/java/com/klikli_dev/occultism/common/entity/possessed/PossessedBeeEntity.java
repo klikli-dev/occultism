@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.common.entity.possessed;
 
 import com.klikli_dev.occultism.registry.OccultismEntities;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.Difficulty;

@@ -25,7 +25,6 @@ package com.klikli_dev.occultism.common.entity.possessed;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.level.Level;
 

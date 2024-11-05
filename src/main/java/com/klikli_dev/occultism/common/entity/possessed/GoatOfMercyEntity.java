@@ -22,14 +22,10 @@
 
 package com.klikli_dev.occultism.common.entity.possessed;
 
-import com.mojang.serialization.Dynamic;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.goat.Goat;
-import net.minecraft.world.entity.animal.goat.GoatAi;
-import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.level.Level;
 
 public class GoatOfMercyEntity extends Goat {

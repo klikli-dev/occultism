@@ -5,8 +5,8 @@
   },
   "duration": 60,
   "entity_to_sacrifice": {
-    "display_name": "ritual.occultism.sacrifice.bats",
-    "tag": "c:bats"
+    "display_name": "ritual.occultism.sacrifice.flying_passive",
+    "tag": "occultism:flying_passive"
   },
   "entity_to_summon": "occultism:possessed_bee",
   "ingredients": [

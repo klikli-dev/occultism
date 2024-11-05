@@ -885,8 +885,8 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.HONEYCOMB_BLOCK))
                 .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
                 .entityToSummon(OccultismEntities.POSSESSED_BEE_TYPE.get())
-                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.bats")
-                .entityToSacrifice(OccultismTags.Entities.BATS)
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.flying_passive")
+                .entityToSacrifice(OccultismTags.Entities.FLYING_PASSIVE)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_bee"));
 
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()),
