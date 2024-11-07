@@ -12,7 +12,10 @@
       "item": "minecraft:clay_ball"
     },
     {
-      "item": "minecraft:wind_charge"
+      "item": "minecraft:phantom_membrane"
+    },
+    {
+      "tag": "c:dyes/gray"
     }
   ],
   "pentacle_id": "occultism:craft_djinni",

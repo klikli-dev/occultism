@@ -1519,7 +1519,8 @@ public abstract class RitualRecipes extends RecipeProvider {
                         PENTACLE_CRAFT_DJINNI,
                         Ingredient.of(Tags.Items.GUNPOWDERS),
                         Ingredient.of(Items.CLAY_BALL),
-                        Ingredient.of(Items.WIND_CHARGE))
+                        Ingredient.of(Items.PHANTOM_MEMBRANE),
+                        Ingredient.of(Tags.Items.DYES_GRAY))
                 .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_gray_paste"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
