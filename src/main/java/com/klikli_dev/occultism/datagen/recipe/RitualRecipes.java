@@ -426,7 +426,7 @@ public abstract class RitualRecipes extends RecipeProvider {
 
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.SKELETON_SKULL),
                         makeLoreSpawnEgg(Items.WITHER_SKELETON_SKULL, "item.occultism.ritual_dummy.wild_hunt"),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/wild_hunt")),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_HUNT.get()),
                         30,
                         RITUAL_SUMMON_WILD,
                         PENTACLE_CONTACT_WILD_SPIRIT,
@@ -444,7 +444,7 @@ public abstract class RitualRecipes extends RecipeProvider {
 
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.RAW_GOLD),
                         makeLoreSpawnEgg(Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE, "item.occultism.ritual_dummy.wild_husk"),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/wild_husk")),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_HUSK.get()),
                         30,
                         RITUAL_SUMMON_WILD,
                         PENTACLE_CONTACT_WILD_SPIRIT,
@@ -468,7 +468,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_husk"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.HEART_OF_THE_SEA),
                         makeLoreSpawnEgg(Items.SNIFFER_EGG, "item.occultism.ritual_dummy.wild_drowned"),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/wild_drowned")),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_DROWNED.get()),
                         30,
                         RITUAL_SUMMON_WILD,
                         PENTACLE_CONTACT_WILD_SPIRIT,
@@ -486,7 +486,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_drowned"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.TNT),
                         makeLoreSpawnEgg(Items.MUSIC_DISC_CAT, "item.occultism.ritual_dummy.wild_creeper"),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/wild_creeper")),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_CREEPER.get()),
                         30,
                         RITUAL_SUMMON_WILD,
                         PENTACLE_CONTACT_WILD_SPIRIT,
@@ -510,7 +510,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_creeper"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.BRUSH),
                         makeLoreSpawnEgg(Items.MUSIC_DISC_RELIC, "item.occultism.ritual_dummy.wild_silverfish"),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/wild_silverfish")),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_SILVERFISH.get()),
                         30,
                         RITUAL_SUMMON_WILD,
                         PENTACLE_CONTACT_WILD_SPIRIT,
@@ -526,10 +526,9 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .summonNumber(7)
                 .itemToUse(Ingredient.of(Items.EGG))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_silverfish"));
-
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.HONEYCOMB),
                         makeLoreSpawnEgg(Items.TRIAL_KEY, "item.occultism.ritual_dummy.wild_weak_breeze"),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/wild_weak_breeze")),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_WEAK_BREEZE.get()),
                         30,
                         RITUAL_SUMMON_WILD,
                         PENTACLE_CONTACT_WILD_SPIRIT,
@@ -548,7 +547,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_weak_breeze"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.TRIAL_KEY),
                         makeLoreSpawnEgg(Items.OMINOUS_TRIAL_KEY, "item.occultism.ritual_dummy.wild_breeze"),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/wild_breeze")),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_BREEZE.get()),
                         30,
                         RITUAL_SUMMON_WILD,
                         PENTACLE_CONTACT_WILD_SPIRIT,
@@ -565,7 +564,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_breeze"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.OMINOUS_TRIAL_KEY),
                         makeLoreSpawnEgg(Items.HEAVY_CORE, "item.occultism.ritual_dummy.wild_strong_breeze"),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/wild_strong_breeze")),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_STRONG_BREEZE.get()),
                         30,
                         RITUAL_SUMMON_WILD,
                         PENTACLE_CONTACT_WILD_SPIRIT,
@@ -585,10 +584,9 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.iron_golem")
                 .entityToSacrifice(OccultismTags.Entities.IRON_GOLEM)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_strong_breeze"));
-
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.GOLDEN_APPLE),
                         makeLoreSpawnEgg(Items.TOTEM_OF_UNDYING, "item.occultism.ritual_dummy.wild_horde_illager"),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/wild_horde_illager")),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_ILLAGER.get()),
                         30,
                         RITUAL_SUMMON_WILD,
                         PENTACLE_CONTACT_WILD_SPIRIT,
@@ -1462,7 +1460,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_storage_remote"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.DIAMOND_BLOCK),
                         new ItemStack(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/misc_wild_trim")),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_WILD_TRIM.get()),
                         240,
                         RITUAL_CRAFT,
                         PENTACLE_CONTACT_WILD_SPIRIT,
@@ -1558,7 +1556,7 @@ public abstract class RitualRecipes extends RecipeProvider {
 
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.AMETHYST_BLOCK),
                         new ItemStack(Items.BUDDING_AMETHYST),
-                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST.get()),
                         180,
                         RITUAL_CRAFT,
                         PENTACLE_CONTACT_WILD_SPIRIT,
@@ -1581,7 +1579,7 @@ public abstract class RitualRecipes extends RecipeProvider {
 
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.DEEPSLATE),
                         new ItemStack(Items.REINFORCED_DEEPSLATE),
-                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE.get()),
                         360,
                         RITUAL_CRAFT,
                         PENTACLE_CONTACT_ELDRITCH_SPIRIT,
@@ -1667,7 +1665,7 @@ public abstract class RitualRecipes extends RecipeProvider {
 
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.MINING_DIMENSION_CORE_PIECE.get()),
                         new ItemStack(OccultismItems.MINER_ANCIENT_ELDRITCH.get()),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/craft_miner_ancient_eldritch")),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_MINER_ANCIENT_ELDRITCH.get()),
                         360,
                         RITUAL_CRAFT_MINER_SPIRIT,
                         PENTACLE_CONTACT_ELDRITCH_SPIRIT,
@@ -1680,12 +1678,12 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(OccultismItems.MINER_MARID_MASTER.get()),
                         Ingredient.of(OccultismItems.MINER_MARID_MASTER.get()))
                 .unlockedBy("has_mining_dimension_core", has(OccultismItems.MINING_DIMENSION_CORE_PIECE.get()))
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_miner_ancient_eldritch"));
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_miner_ancient_eldritch"));
     }
     private static void resurrectRituals(RecipeOutput recipeOutput) {
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.SOUL_SHARD_ITEM.get()),
                         makeLoreSpawnEgg(OccultismItems.RESURRECT_ICON.get(), "item.occultism.ritual_dummy.resurrect_familiar"),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/resurrect_familiar")),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_RESURRECT_FAMILIAR.get()),
                         15,
                         RITUAL_RESURRECT_FAMILIAR,
                         PENTACLE_RESURRECT_SPIRIT,
@@ -1698,7 +1696,7 @@ public abstract class RitualRecipes extends RecipeProvider {
 
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.SUGAR),
                         makeLoreSpawnEgg(Items.ALLAY_SPAWN_EGG, "item.occultism.ritual_dummy.resurrect_allay"),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/resurrect_allay")),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_RESURRECT_ALLAY.get()),
                         30,
                         RITUAL_SUMMON,
                         PENTACLE_RESURRECT_SPIRIT,

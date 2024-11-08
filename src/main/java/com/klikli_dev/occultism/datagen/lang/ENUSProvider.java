@@ -834,10 +834,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.craft_miner_marid_master.finished", "Successfully summoned marid into magic lamp.");
         this.add("ritual.occultism.craft_miner_marid_master.interrupted", "Summoning of marid interrupted.");
 
-        this.add("ritual.occultism.craft_miner_ancient_eldritch.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_miner_ancient_eldritch.started", "Started summoning something into magic lamp.");
-        this.add("ritual.occultism.craft_miner_ancient_eldritch.finished", "Successfully summoned something into magic lamp.");
-        this.add("ritual.occultism.craft_miner_ancient_eldritch.interrupted", "Summoning of something interrupted.");
+        this.add("ritual.occultism.misc_miner_ancient_eldritch.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.misc_miner_ancient_eldritch.started", "Started summoning something into magic lamp.");
+        this.add("ritual.occultism.misc_miner_ancient_eldritch.finished", "Successfully summoned something into magic lamp.");
+        this.add("ritual.occultism.misc_miner_ancient_eldritch.interrupted", "Summoning of something interrupted.");
 
         this.add("ritual.occultism.craft_satchel.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.craft_satchel.started", "Started binding foliot into satchel.");
@@ -1085,15 +1085,15 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "finished", "Successfully bound an afrit into a ritual satchel.");
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "interrupted", "Binding of afrit interrupted.");
 
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST, "started", "Started forging budding amethyst.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST, "finished", "Successfully forged budding amethyst.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST, "interrupted", "Forging budding amethyst interrupted.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "conditions", "Not all requirements for this ritual are met.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "started", "Started forging budding amethyst.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "finished", "Successfully forged budding amethyst.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "interrupted", "Forging budding amethyst interrupted.");
 
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE, "started", "Started forging reinforced deepslate.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE, "finished", "Successfully forged reinforced deepslate.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE, "interrupted", "Forging reinforced deepslate interrupted.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "conditions", "Not all requirements for this ritual are met.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "started", "Started forging reinforced deepslate.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "finished", "Successfully forged reinforced deepslate.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "interrupted", "Forging reinforced deepslate interrupted.");
     }
 
     public void addRitualMessage(DeferredHolder<RitualFactory, RitualFactory> ritual, String key, String message) {
@@ -2799,16 +2799,17 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addRitualDummies() {
-        this.add("item.occultism.ritual_dummy.custom_ritual_summon", "Custom Ritual Dummy");
-        this.add("item.occultism.ritual_dummy.custom_ritual_summon.tooltip", "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
-        this.add("item.occultism.ritual_dummy.custom_ritual_possess", "Custom Ritual Dummy");
-        this.add("item.occultism.ritual_dummy.custom_ritual_possess.tooltip", "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
-        this.add("item.occultism.ritual_dummy.custom_ritual_craft", "Custom Ritual Dummy");
-        this.add("item.occultism.ritual_dummy.custom_ritual_craft.tooltip", "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
-        this.add("item.occultism.ritual_dummy.custom_ritual_misc", "Custom Ritual Dummy");
-        this.add("item.occultism.ritual_dummy.custom_ritual_misc.tooltip", "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
-        this.add("item.occultism.ritual_dummy.misc_wild_trim", "Ritual: Forge Wild Armor Trim Smithing Template");
-        this.add("item.occultism.ritual_dummy.misc_wild_trim.tooltip", "Wild Spirits will forge a Wild Armor Trim Smithing Template.");
+        //Custom dummy
+        this.add(OccultismItems.RITUAL_DUMMY_CUSTOM_SUMMON.get(), "Custom Ritual Dummy");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_CUSTOM_SUMMON.get(), "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
+        this.add(OccultismItems.RITUAL_DUMMY_CUSTOM_POSSESS.get(), "Custom Ritual Dummy");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_CUSTOM_POSSESS.get(), "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
+        this.add(OccultismItems.RITUAL_DUMMY_CUSTOM_CRAFT.get(), "Custom Ritual Dummy");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_CUSTOM_CRAFT.get(), "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
+        this.add(OccultismItems.RITUAL_DUMMY_CUSTOM_MISC.get(), "Custom Ritual Dummy");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_CUSTOM_MISC.get(), "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
+
+        //Improve this
         this.add("item.occultism.ritual_dummy.craft_dimensional_matrix", "Ritual: Craft Dimensional Matrix");
         this.add("item.occultism.ritual_dummy.craft_dimensional_matrix.tooltip", "The Dimensional Matrix is the entry point to a small dimension used for storing items.");
         this.add("item.occultism.ritual_dummy.craft_dimensional_mineshaft", "Ritual: Craft Dimensional Mineshaft");
@@ -2826,8 +2827,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.craft_miner_afrit_deeps.tooltip", "Summon Afrit Deep Ore Miner into a magic lamp.");
         this.add("item.occultism.ritual_dummy.craft_miner_marid_master", "Ritual: Summon Marid Master Miner");
         this.add("item.occultism.ritual_dummy.craft_miner_marid_master.tooltip", "Summon Marid Master Miner into a magic lamp.");
-        this.add("item.occultism.ritual_dummy.craft_miner_ancient_eldritch", "Ritual: Summon Eldritch Ancient Miner");
-        this.add("item.occultism.ritual_dummy.craft_miner_ancient_eldritch.tooltip", "Summon Eldritch Ancient Miner into a magic lamp.");
 
         this.add("item.occultism.ritual_dummy.craft_satchel", "Ritual: Craft Surprisingly Substantial Satchel");
         this.add("item.occultism.ritual_dummy.craft_satchel.tooltip", "This satchels allows to store more items than it's size would indicate, making it a practical traveller's companion.");
@@ -2943,31 +2942,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.summon_unbound_afrit.tooltip", "Summons an Unbound Afrit that can be killed to obtain Afrit Essence");
         this.add("item.occultism.ritual_dummy.summon_unbound_marid", "Ritual: Summon Unbound Marid");
         this.add("item.occultism.ritual_dummy.summon_unbound_marid.tooltip", "Summons an Unbound Marid that can be killed to obtain Marid Essence");
-        this.add("item.occultism.ritual_dummy.wild_hunt", "Ritual: Summon The Wild Hunt");
-        this.add("item.occultism.ritual_dummy.wild_hunt.tooltip", "The Wild Hunt consists of Wither Skeletons that as a big chance to drop Wither Skeleton Skulls, and their minions.");
         this.add("item.occultism.ritual_dummy.possess_unbound_otherworld_bird", "Ritual: Possess Unbound Drikwing");
         this.add("item.occultism.ritual_dummy.possess_unbound_otherworld_bird.tooltip", "Possess a Drikwing Familiar that can be tamed by anyone, not just the summoner.");
         this.add("item.occultism.ritual_dummy.possess_unbound_parrot", "Ritual: Possess Unbound Parrot");
         this.add("item.occultism.ritual_dummy.possess_unbound_parrot.tooltip", "Possess a Parrot that can be tamed by anyone, not just the summoner.");
-        this.add("item.occultism.ritual_dummy.resurrect_allay", "Ritual: Purify Vex to Allay");
-        this.add("item.occultism.ritual_dummy.resurrect_allay.tooltip", "Purifies a Vex into an Allay.");
-
-        this.add("item.occultism.ritual_dummy.wild_husk", "Ritual: Summon The Wild Horde Husk");
-        this.add("item.occultism.ritual_dummy.wild_husk.tooltip", "The Wild Horde Husk consists of a few husks that drop items related to desert trails.");
-        this.add("item.occultism.ritual_dummy.wild_drowned", "Ritual: Summon The Wild Horde Drowned");
-        this.add("item.occultism.ritual_dummy.wild_drowned.tooltip", "The Wild Horde Drowned consists of a few drowneds that drop items related to ocean trails.");
-        this.add("item.occultism.ritual_dummy.wild_creeper", "Ritual: Summon The Wild Horde Creeper");
-        this.add("item.occultism.ritual_dummy.wild_creeper.tooltip", "The Wild Horde Creeper consists of a few charged creepers that drop many disks.");
-        this.add("item.occultism.ritual_dummy.wild_silverfish", "Ritual: Summon The Wild Horde Silverfish");
-        this.add("item.occultism.ritual_dummy.wild_silverfish.tooltip", "The Wild Horde Silverfish consists of a few silverfishs that drop items related to ruins trails.");
-        this.add("item.occultism.ritual_dummy.wild_weak_breeze", "Ritual: Summon Wild Weak Breeze");
-        this.add("item.occultism.ritual_dummy.wild_weak_breeze.tooltip", "The Wild Weak Breeze will drop a Trial Key and trial chamber related items.");
-        this.add("item.occultism.ritual_dummy.wild_breeze", "Ritual: Summon Wild Breeze");
-        this.add("item.occultism.ritual_dummy.wild_breeze.tooltip", "The Wild Breeze will drop a Ominous Trial Key and trial chamber related items.");
-        this.add("item.occultism.ritual_dummy.wild_strong_breeze", "Ritual: Summon Wild Strong Breeze");
-        this.add("item.occultism.ritual_dummy.wild_strong_breeze.tooltip", "The Wild Strong Breeze will drop a Heavy Core and trial chamber related items.");
-        this.add("item.occultism.ritual_dummy.wild_horde_illager", "Ritual: Summon Wild Illagers");
-        this.add("item.occultism.ritual_dummy.wild_horde_illager.tooltip", "Summon a Wild Evoker and his henchmen.");
 
         this.add("item.occultism.ritual_dummy.craft_nature_paste", "Ritual: Craft Nature Paste");
         this.add("item.occultism.ritual_dummy.craft_nature_paste.tooltip", "A Foliot will craft the nature paste mixing ingredients.");
@@ -2996,10 +2974,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND.get(), "Ritual: Summon Demonic Husband");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND.get(), "Summons a Demonic Husband to support you: He will fight for you, help with cooking, and extend potion durations.");
 
-
-        this.add(OccultismItems.RITUAL_DUMMY_RESURRECT_FAMILIAR.get(), "Ritual: Resurrect Familiar");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_RESURRECT_FAMILIAR.get(), "Resurrects a Familiar from a Soul Shard.");
-
         this.add(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL.get(), "Ritual: Summon Random Animal");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL.get(), "Summons a random passive animal.");
 
@@ -3009,12 +2983,51 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2.get(), "Ritual: Craft Artisanal Ritual Satchel");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2.get(), "Binds an Afrit into a satchel to build pentacles all at once for the summoner.");
 
-        this.add(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST.get(), "Ritual: Forge Budding Amethyst");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST.get(), "Wild Spirits will forge a Budding Amethyst.");
+        //Misc dummy
+        this.add(OccultismItems.RITUAL_DUMMY_RESURRECT_FAMILIAR.get(), "Ritual: Resurrect Familiar");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_RESURRECT_FAMILIAR.get(), "Resurrects a Familiar from a Soul Shard.");
 
-        this.add(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE.get(), "Ritual: Forge Reinforced Deepslate");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE.get(), "Ancient Spirits will forge a Reinforced Deepslate.");
+        this.add(OccultismItems.RITUAL_DUMMY_RESURRECT_ALLAY.get(), "Ritual: Purify Vex to Allay");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_RESURRECT_ALLAY.get(), "Purifies a Vex into an Allay.");
 
+        this.add(OccultismItems.RITUAL_DUMMY_WILD_HUNT.get(), "Ritual: Summon The Wild Hunt");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_HUNT.get(), "The Wild Hunt consists of Wither Skeletons that as a big chance to drop Wither Skeleton Skulls, and their minions.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_WILD_HUSK.get(), "Ritual: Summon The Wild Horde Husk");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_HUSK.get(), "The Wild Horde Husk consists of a few husks that drop items related to desert trails.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_WILD_DROWNED.get(), "Ritual: Summon The Wild Horde Drowned");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_DROWNED.get(), "The Wild Horde Drowned consists of a few drowneds that drop items related to ocean trails.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_WILD_CREEPER.get(), "Ritual: Summon The Wild Horde Creeper");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_CREEPER.get(), "The Wild Horde Creeper consists of a few charged creepers that drop many disks.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_WILD_SILVERFISH.get(), "Ritual: Summon The Wild Horde Silverfish");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_SILVERFISH.get(), "The Wild Horde Silverfish consists of a few silverfishs that drop items related to ruins trails.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_WILD_WEAK_BREEZE.get(), "Ritual: Summon Wild Weak Breeze");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_WEAK_BREEZE.get(), "The Wild Weak Breeze will drop a Trial Key and trial chamber related items.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_WILD_BREEZE.get(), "Ritual: Summon Wild Breeze");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_BREEZE.get(), "The Wild Breeze will drop a Ominous Trial Key and trial chamber related items.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_WILD_STRONG_BREEZE.get(), "Ritual: Summon Wild Strong Breeze");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_STRONG_BREEZE.get(), "The Wild Strong Breeze will drop a Heavy Core and trial chamber related items.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_WILD_ILLAGER.get(), "Ritual: Summon Wild Illagers");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_ILLAGER.get(), "Summon a Wild Evoker and his henchmen.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_FORGE_WILD_TRIM.get(), "Ritual: Forge Wild Armor Trim Smithing Template");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_WILD_TRIM.get(), "Wild Spirits will forge a Wild Armor Trim Smithing Template.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST.get(), "Ritual: Forge Budding Amethyst");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST.get(), "Wild Spirits will forge a Budding Amethyst.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE.get(), "Ritual: Forge Reinforced Deepslate");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE.get(), "Ancient Spirits will forge a Reinforced Deepslate.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_FORGE_MINER_ANCIENT_ELDRITCH.get(), "Ritual: Summon Eldritch Ancient Miner");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_MINER_ANCIENT_ELDRITCH.get(), "Summon Eldritch Ancient Miner into a magic lamp.");
     }
 
     public void addTooltip(ItemLike key, String value) {

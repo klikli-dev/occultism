@@ -837,10 +837,10 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add("ritual.occultism.craft_miner_marid_master.finished", "Марид успешно вызван в магическую лампу.");
         this.lang("ru_ru").add("ritual.occultism.craft_miner_marid_master.interrupted", "Вызов Марида прерван.");
 		
-		this.lang("ru_ru").add("ritual.occultism.craft_miner_ancient_eldritch.conditions", "Удовлетворены не все требования для этого ритуала.");
-        this.lang("ru_ru").add("ritual.occultism.craft_miner_ancient_eldritch.started", "Успешно вызвано нечто в магическую лампу.");
-        this.lang("ru_ru").add("ritual.occultism.craft_miner_ancient_eldritch.finished", "Успешно вызвано нечто в магическую лампу.");
-        this.lang("ru_ru").add("ritual.occultism.craft_miner_ancient_eldritch.interrupted", "Вызов нечто прерван.");
+		this.lang("ru_ru").add("ritual.occultism.misc_miner_ancient_eldritch.conditions", "Удовлетворены не все требования для этого ритуала.");
+        this.lang("ru_ru").add("ritual.occultism.misc_miner_ancient_eldritch.started", "Успешно вызвано нечто в магическую лампу.");
+        this.lang("ru_ru").add("ritual.occultism.misc_miner_ancient_eldritch.finished", "Успешно вызвано нечто в магическую лампу.");
+        this.lang("ru_ru").add("ritual.occultism.misc_miner_ancient_eldritch.interrupted", "Вызов нечто прерван.");
 
         this.lang("ru_ru").add("ritual.occultism.craft_satchel.conditions", "Удовлетворены не все требования для этого ритуала.");
         this.lang("ru_ru").add("ritual.occultism.craft_satchel.started", "Началось заточение Фолиота в сумку.");
@@ -1088,15 +1088,15 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "finished", "Успешно заточил Африта в наплечную сумку.");
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "interrupted", "Заточение Африта прервано.");
 
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST, "conditions", "Удовлетворены не все требования для этого ритуала..");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST, "started", "Началась ковка цветущего аметиста.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST, "finished", "Успешно сковал цветущий аметист.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST, "interrupted", "Ковка цветущего аметиста прервана.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "conditions", "Удовлетворены не все требования для этого ритуала..");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "started", "Началась ковка цветущего аметиста.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "finished", "Успешно сковал цветущий аметист.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "interrupted", "Ковка цветущего аметиста прервана.");
 
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE, "conditions", "Удовлетворены не все требования для этого ритуала..");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE, "started", "Началась ковка укреплённого глубинного сланца.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE, "finished", "Успешно сковал укреплённый глубинный сланец.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE, "interrupted", "Ковка укреплённого глубинного сланца прервана.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "conditions", "Удовлетворены не все требования для этого ритуала..");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "started", "Началась ковка укреплённого глубинного сланца.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "finished", "Успешно сковал укреплённый глубинный сланец.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "interrupted", "Ковка укреплённого глубинного сланца прервана.");
     }
 
     public void addRitualMessage(DeferredHolder<RitualFactory, RitualFactory> ritual, String key, String message) {
@@ -2822,8 +2822,8 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_miner_afrit_deeps.tooltip", "Вызывайте Рудокопа-Африта для глубинносланцевой руды в магическую лампу.");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_miner_marid_master", "Ритуал: Вызов мастера Рудокопа-Марида");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_miner_marid_master.tooltip", "Вызывайте мастера Рудокопа-Марида в магическую лампу.");
-		this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_miner_ancient_eldritch", "Ритуал: Вызов сверхъестественного древнего рудокопа");
-        this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_miner_ancient_eldritch.tooltip", "Вызывайте сверхъестественного древнего рудокопа в магическую лампу.");
+		this.lang("ru_ru").add("item.occultism.ritual_dummy.misc_miner_ancient_eldritch", "Ритуал: Вызов сверхъестественного древнего рудокопа");
+        this.lang("ru_ru").add("item.occultism.ritual_dummy.misc_miner_ancient_eldritch.tooltip", "Вызывайте сверхъестественного древнего рудокопа в магическую лампу.");
 
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_satchel", "Ритуал: Создать необычайно большую сумку");
         this.lang("ru_ru").add("item.occultism.ritual_dummy.craft_satchel.tooltip", "Эта сумка позволяет хранить больше предметов, чем указывают её размеры, что делает её практичным спутником путешественника.");
@@ -2997,11 +2997,11 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2.get(), "Ритуал: Создать ритуальную наплечную сумку ручной работы");
         this.lang("ru_ru").addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2.get(), "Связывает Африта в сумку для мгновенной постройки пентаклей в пользу вызывателя.");
 
-		this.add(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST.get(), "Ритуал: Ковка цветущего аметиста");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST.get(), "Дикие духи скуют цветущий аметист.");
+		this.add(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST.get(), "Ритуал: Ковка цветущего аметиста");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST.get(), "Дикие духи скуют цветущий аметист.");
 
-        this.add(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE.get(), "Ритуал: Ковка укреплённого глубинного сланца");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE.get(), "Древние духи скуют укреплённый глубинный сланец.");
+        this.add(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE.get(), "Ритуал: Ковка укреплённого глубинного сланца");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE.get(), "Древние духи скуют укреплённый глубинный сланец.");
 
     }
 

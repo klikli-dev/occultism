@@ -600,39 +600,32 @@ public class OccultismItems {
     }
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1 = ITEMS.register("ritual_dummy/craft_ritual_satchel_t1", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2 = ITEMS.register("ritual_dummy/craft_ritual_satchel_t2", () -> new DummyTooltipItem(defaultProperties()));
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_MINER_ANCIENT_ELDRITCH = ITEMS.register("ritual_dummy/craft_miner_ancient_eldritch", () -> new DummyTooltipItem(defaultProperties()));
+
+    //MISC
+    //resurrect, wild (group possess), forge (cursed craft)
     public static final DeferredItem<Item> RITUAL_DUMMY_RESURRECT_FAMILIAR = ITEMS.register("ritual_dummy/resurrect_familiar", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_RESURRECT_ALLAY = ITEMS.register("ritual_dummy/resurrect_allay", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_HUNT = ITEMS.register("ritual_dummy/wild_hunt", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_HUSK = ITEMS.register("ritual_dummy/wild_husk", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_DROWNED = ITEMS.register("ritual_dummy/wild_drowned", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_CREEPER = ITEMS.register("ritual_dummy/wild_creeper", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_SILVERFISH = ITEMS.register("ritual_dummy/wild_silverfish", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_WEAK_BREEZE = ITEMS.register("ritual_dummy/wild_weak_breeze", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_BREEZE = ITEMS.register("ritual_dummy/wild_breeze", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_STRONG_BREEZE = ITEMS.register("ritual_dummy/wild_strong_breeze", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_ILLAGER = ITEMS.register("ritual_dummy/wild_horde_illager", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_WILD_TRIM = ITEMS.register("ritual_dummy/misc_wild_trim", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_BUDDING_AMETHYST = ITEMS.register("ritual_dummy/misc_budding_amethyst", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE = ITEMS.register("ritual_dummy/misc_reinforced_deepslate", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_MINER_ANCIENT_ELDRITCH = ITEMS.register("ritual_dummy/misc_miner_ancient_eldritch", () -> new DummyTooltipItem(defaultProperties()));
 
-    static {
-        //CONTACT and others
-        ITEMS.register("ritual_dummy/resurrect_allay", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/wild_hunt", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/wild_husk", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/wild_drowned", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/wild_creeper", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/wild_silverfish", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/wild_weak_breeze", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/wild_breeze", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/wild_strong_breeze", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/wild_horde_illager", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/misc_wild_trim", () -> new DummyTooltipItem(defaultProperties()));
-    }
+    // CUSTOM
+    public static final DeferredItem<Item> RITUAL_DUMMY_CUSTOM_SUMMON = ITEMS.register("ritual_dummy/custom_ritual_summon", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_CUSTOM_POSSESS = ITEMS.register("ritual_dummy/custom_ritual_possess", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_CUSTOM_CRAFT = ITEMS.register("ritual_dummy/custom_ritual_craft", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_CUSTOM_MISC = ITEMS.register("ritual_dummy/custom_ritual_misc", () -> new DummyTooltipItem(defaultProperties()));
 
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_BUDDING_AMETHYST = ITEMS.register("ritual_dummy/misc_budding_amethyst",
-            () -> new DummyTooltipItem(defaultProperties()));
-
-    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_REINFORCED_DEEPSLATE= ITEMS.register("ritual_dummy/misc_reinforced_deepslate",
-            () -> new DummyTooltipItem(defaultProperties()));
-
-    static {
-        // CUSTOM
-        ITEMS.register("ritual_dummy/custom_ritual_summon", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/custom_ritual_possess", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/custom_ritual_craft", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/custom_ritual_misc", () -> new DummyTooltipItem(defaultProperties()));
-    }
-
-    //Debug
+    //DEBUG
     public static final DeferredItem<Item> DEBUG_WAND = ITEMS.register("debug_wand",
             () -> new DebugWandItem(defaultProperties().stacksTo(1)));
     public static final DeferredItem<Item> DEBUG_FOLIOT_LUMBERJACK = ITEMS.register("debug_foliot_lumberjack",
@@ -658,15 +651,14 @@ public class OccultismItems {
     //Placeholders
     public static final DeferredItem<Item> DICTIONARY_OF_SPIRITS_ICON =
             ITEMS.register("dictionary_of_spirits_icon", () -> new Item(new Item.Properties()));
-
     public static final DeferredItem<Item> PENTACLE_SUMMON = ITEMS.register("pentacle_summon",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> PENTACLE_POSSESS = ITEMS.register("pentacle_possess",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> PENTACLE_CRAFT = ITEMS.register("pentacle_craft",
             () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> PENTACLE_MISC =
-            ITEMS.register("pentacle_misc", () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> PENTACLE_MISC = ITEMS.register("pentacle_misc",
+            () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> ADVANCEMENT_ICON =
             ITEMS.register("advancement_icon", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> REPAIR_ICON =
