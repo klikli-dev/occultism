@@ -157,7 +157,13 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.DEBUG_FOLIOT_TRADER_ITEM, "Summon Debug Foliot Trader");
         this.addItem(OccultismItems.DEBUG_DJINNI_MANAGE_MACHINE, "Summon Debug Djinni Manage Machine");
         this.addItem(OccultismItems.DEBUG_DJINNI_TEST, "Summon Debug Djinni Test");
-
+        this.addAutoTooltip(OccultismItems.DIVINATION_ROD.get(),
+                """
+                        Don't see anything?
+                        Check the Troubleshooting page in the Dictionary of Spirits!
+                        In the "Getting Started" tab find the Divination Rod item.
+                        """
+        );
         this.addItem(OccultismItems.RITUAL_SATCHEL_T1, "Apprentice Ritual Satchel");
         this.addAutoTooltip(OccultismItems.RITUAL_SATCHEL_T1.get(),
                 """
