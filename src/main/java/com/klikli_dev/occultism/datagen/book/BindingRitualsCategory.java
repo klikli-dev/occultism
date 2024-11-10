@@ -12,6 +12,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.occultism.datagen.OccultismBookProvider;
 import com.klikli_dev.occultism.datagen.book.binding_rituals.ApprenticeRitualSatchelEntry;
 import com.klikli_dev.occultism.datagen.book.binding_rituals.ArtisanalRitualSatchelEntry;
+import com.klikli_dev.occultism.datagen.book.binding_rituals.DimensionalMineshaftEntry;
 import com.klikli_dev.occultism.datagen.book.pentacles.*;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
@@ -63,7 +64,7 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftInfusedPickaxe = this.add(this.makeCraftInfusedPickaxeEntry(this.entryMap, 'd'));
         craftInfusedPickaxe.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
-        var craftDimensionalMineshaft = this.add(this.makeCraftDimensionalMineshaftEntry(this.entryMap, 'b'));
+        var craftDimensionalMineshaft = this.add(new DimensionalMineshaftEntry(this).generate('b'));
         craftDimensionalMineshaft.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()));
         var craftFoliotMiner = this.add(this.makeCraftFoliotMinerEntry(this.entryMap, 'e'));
         craftFoliotMiner.withParent(BookEntryParentModel.create(craftDimensionalMineshaft.getId()));
@@ -217,39 +218,6 @@ public class BindingRitualsCategory extends CategoryProvider {
                 .withPages(
                         spotlight,
                         ritual
-                );
-    }
-
-    private BookEntryModel makeCraftDimensionalMineshaftEntry(CategoryEntryMap entryMap, char icon) {
-        this.context().entry("craft_dimensional_mineshaft");
-
-        this.context().page("spotlight");
-        var spotlight = BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(OccultismBlocks.DIMENSIONAL_MINESHAFT.get()))
-                .withText(this.context().pageText());
-
-        this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/craft_dimensional_mineshaft"));
-
-        this.context().page("description");
-        var description = BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText());
-
-        this.context().page("config");
-        var config = BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText());
-
-        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(OccultismBlocks.DIMENSIONAL_MINESHAFT.get())
-                .withLocation(entryMap.get(icon))
-                .withPages(
-                        spotlight,
-                        ritual,
-                        description,
-                        config
                 );
     }
 

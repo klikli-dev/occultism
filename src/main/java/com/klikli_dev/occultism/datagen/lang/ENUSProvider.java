@@ -1597,32 +1597,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("ritual");
         //no text
 
-        helper.entry("craft_dimensional_mineshaft");
-        this.add(helper.entryName(), "Dimensional Mineshaft");
-
-        helper.page("spotlight");
-        this.add(helper.pageText(),
-                """
-                        The dimensional mineshaft houses a [#](%1$s)Djinni[#]() which opens up a stable connection into an uninhabited dimension, perfectly suited for mining. While the portal is too small to transfer humans, other spirits can use it to enter the mining dimension and bring back resources.
-                           """.formatted(COLOR_PURPLE));
-
-        helper.page("ritual");
-        //no text
-
-        helper.page("description");
-        this.add(helper.pageTitle(), "Operation");
-        this.add(helper.pageText(),
-                """
-                        The dimensional mineshaft will discard any items it cannot store, so it is important to regularly empty the mineshaft, either manually, with hoppers or using a transporter spirit. Spirits in lamps can be **inserted** from the top, all other sides can be used to **extract** items.
-                           """.formatted(COLOR_PURPLE));
-
-        helper.page("config");
-        this.add(helper.pageTitle(), "Config");
-        this.add(helper.pageText(),
-                """
-                        If you want to save your miners before they break, check "Server Configuration > Items". By setting the "Save miners before breaking" option to "on", a miner will go to the output of the dimensional mineshaft when it reaches 1 durability.
-                """.formatted(COLOR_PURPLE));
-
         helper.entry("craft_infused_pickaxe");
         this.add(helper.entryName(), "Infused Pickaxe");
 

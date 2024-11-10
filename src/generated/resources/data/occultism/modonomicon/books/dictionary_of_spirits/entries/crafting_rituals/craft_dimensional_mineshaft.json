@@ -2,7 +2,7 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "crafting_rituals",
-  "description": "",
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_dimensional_mineshaft.description",
   "hide_while_locked": false,
   "icon": {
     "item": "occultism:dimensional_mineshaft"
