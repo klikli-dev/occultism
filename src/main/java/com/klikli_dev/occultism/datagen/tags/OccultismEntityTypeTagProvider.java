@@ -60,6 +60,8 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(EntityType.PARROT)
                 .add(EntityType.BEE)
                 .add(EntityType.ALLAY)
+                .add(OccultismEntities.POSSESSED_BEE_TYPE.get())
+                .add(OccultismEntities.BAT_FAMILIAR_TYPE.get())
                 .replace(false);
         this.tag(OccultismTags.Entities.HEALED_BY_DEMONS_DREAM_FRUIT)
                 .add(OccultismEntities.FOLIOT_TYPE.get())
@@ -81,8 +83,21 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.POSSESSED_WITCH_TYPE.get())
                 .add(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get())
                 .add(OccultismEntities.POSSESSED_BEE_TYPE.get())
+                .add(OccultismEntities.GOAT_OF_MERCY_TYPE.get())
                 .add(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get())
                 .add(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get())
+                .add(OccultismEntities.WILD_BOGGED_TYPE.get())
+                .add(OccultismEntities.WILD_CAVE_SPIDER_TYPE.get())
+                .add(OccultismEntities.WILD_HUSK_TYPE.get())
+                .add(OccultismEntities.WILD_SILVERFISH_TYPE.get())
+                .add(OccultismEntities.WILD_SKELETON_TYPE.get())
+                .add(OccultismEntities.WILD_SLIME_TYPE.get())
+                .add(OccultismEntities.WILD_SPIDER_TYPE.get())
+                .add(OccultismEntities.WILD_STRAY_TYPE.get())
+                .add(OccultismEntities.WILD_ZOMBIE_TYPE.get())
+                .add(OccultismEntities.POSSESSED_STRONG_BREEZE_TYPE.get())
+                .add(OccultismEntities.POSSESSED_BREEZE_TYPE.get())
+                .add(OccultismEntities.POSSESSED_WEAK_BREEZE_TYPE.get())
                 .add(OccultismEntities.OTHERWORLD_BIRD_TYPE.get())
                 .add(OccultismEntities.GREEDY_FAMILIAR_TYPE.get())
                 .add(OccultismEntities.BAT_FAMILIAR_TYPE.get())
@@ -174,8 +189,8 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
         this.tag(OccultismTags.Entities.COWS).add(EntityType.COW).replace(false);
         this.tag(OccultismTags.Entities.DONKEYS).add(EntityType.DONKEY).replace(false);
         this.tag(OccultismTags.Entities.FISH).add(EntityType.COD).add(EntityType.SALMON).add(EntityType.TROPICAL_FISH).add(EntityType.PUFFERFISH).replace(false);
-        this.tag(OccultismTags.Entities.GOATS).add(EntityType.GOAT).add(OccultismEntities.GOAT_OF_MERCY_TYPE.get()).replace(false);
-        this.tag(OccultismTags.Entities.HOGLINS).add(EntityType.HOGLIN).replace(false);
+        this.tag(OccultismTags.Entities.GOATS).add(EntityType.GOAT).add(OccultismEntities.GOAT_OF_MERCY_TYPE.get()).add(OccultismEntities.GOAT_FAMILIAR_TYPE.get()).replace(false);
+        this.tag(OccultismTags.Entities.HOGLINS).add(EntityType.HOGLIN).add(OccultismEntities.POSSESSED_HOGLIN_TYPE.get()).replace(false);
         this.tag(OccultismTags.Entities.HORSES).add(EntityType.HORSE).replace(false);
         this.tag(OccultismTags.Entities.LLAMAS).add(EntityType.LLAMA).add(EntityType.TRADER_LLAMA).replace(false);
         this.tag(OccultismTags.Entities.MULES).add(EntityType.MULE).replace(false);
@@ -186,7 +201,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
         this.tag(OccultismTags.Entities.SPIDERS).add(EntityType.SPIDER).add(EntityType.CAVE_SPIDER).replace(false);
         this.tag(OccultismTags.Entities.SQUID).add(EntityType.SQUID).add(EntityType.GLOW_SQUID).replace(false);
         this.tag(OccultismTags.Entities.VILLAGERS).add(EntityType.VILLAGER).add(EntityType.WANDERING_TRADER).replace(false);
-        this.tag(OccultismTags.Entities.ZOMBIES).add(EntityType.ZOMBIE).add(EntityType.ZOMBIE_VILLAGER).add(EntityType.HUSK).add(EntityType.DROWNED).replace(false);
+        this.tag(OccultismTags.Entities.ZOMBIES).add(EntityType.ZOMBIE).add(EntityType.ZOMBIE_VILLAGER).add(EntityType.HUSK).add(EntityType.DROWNED).add(OccultismEntities.WILD_ZOMBIE_TYPE.get()).add(OccultismEntities.WILD_HUSK_TYPE.get()).add(OccultismEntities.WILD_HORDE_DROWNED.get()).add(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get()).replace(false);
         this.tag(OccultismTags.Entities.CAMEL).add(EntityType.CAMEL).replace(false);
         this.tag(OccultismTags.Entities.DOLPHIN).add(EntityType.DOLPHIN).replace(false);
         this.tag(OccultismTags.Entities.WOLFS).add(EntityType.WOLF).replace(false);

@@ -3,6 +3,10 @@
     "minecraft:zombie",
     "minecraft:zombie_villager",
     "minecraft:husk",
-    "minecraft:drowned"
+    "minecraft:drowned",
+    "occultism:wild_zombie",
+    "occultism:wild_husk",
+    "occultism:wild_horde_drowned",
+    "occultism:possessed_zombie_piglin"
   ]
 }

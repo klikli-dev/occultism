@@ -1,5 +1,6 @@
 {
   "values": [
-    "minecraft:hoglin"
+    "minecraft:hoglin",
+    "occultism:possessed_hoglin"
   ]
 }
