@@ -2329,7 +2329,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(Items.COW_SPAWN_EGG)
+                .withIcon(OccultismItems.MYSTERIOUS_EGG_ICON)
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         description,
