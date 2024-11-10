@@ -532,7 +532,7 @@ public class BindingRitualsCategory extends CategoryProvider {
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/craft_miner_ancient_eldritch"));
+                .withRecipeId1(this.modLoc("ritual/misc_miner_ancient_eldritch"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.MINER_ANCIENT_ELDRITCH.get())
