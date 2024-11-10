@@ -3,10 +3,20 @@
   "activation_item": {
     "item": "occultism:book_of_binding_bound_foliot"
   },
-  "entity_tag_to_summon": "occultism:random_animals_to_summon_list",
+  "duration": 15,
+  "entity_tag_to_summon": "occultism:random_animals_common",
   "ingredients": [
     {
-      "tag": "c:crops"
+      "tag": "c:seeds"
+    },
+    {
+      "tag": "c:seeds"
+    },
+    {
+      "tag": "c:seeds"
+    },
+    {
+      "tag": "c:seeds"
     },
     {
       "tag": "c:crops"
@@ -19,34 +29,25 @@
     },
     {
       "tag": "c:crops"
-    },
-    {
-      "tag": "c:crops"
-    },
-    {
-      "tag": "c:crops"
-    },
-    {
-      "tag": "c:crops"
-    },
-    {
-      "item": "minecraft:egg"
     }
   ],
+  "item_to_use": {
+    "item": "minecraft:egg"
+  },
   "pentacle_id": "occultism:possess_foliot",
   "result": {
     "components": {
-      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_random_animal\"}",
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_random_animal_common\"}",
       "minecraft:lore": [
-        "{\"translate\":\"item.occultism.ritual_dummy.possess_random_animal.tooltip\"}"
+        "{\"translate\":\"item.occultism.ritual_dummy.possess_random_animal_common.tooltip\"}"
       ]
     },
     "count": 1,
-    "id": "minecraft:sheep_spawn_egg"
+    "id": "occultism:mysterious_egg_icon"
   },
   "ritual_dummy": {
     "count": 1,
-    "id": "occultism:ritual_dummy/possess_random_animal"
+    "id": "occultism:ritual_dummy/possess_random_animal_common"
   },
   "ritual_type": "occultism:summon"
 }

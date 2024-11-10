@@ -14,31 +14,6 @@
   "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_random_animal.name",
   "pages": [
     {
-      "type": "modonomicon:entity",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "default_rotation": -45.0,
-      "entity_id": "minecraft:cow",
-      "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_random_animal.entity.title",
-      "offset": 0.0,
-      "rotate": true,
-      "scale": 1.0,
-      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_random_animal.entity.text"
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/possess_random_animal",
-      "text": "",
-      "title1": "",
-      "title2": ""
-    },
-    {
       "type": "modonomicon:text",
       "anchor": "",
       "condition": {
@@ -46,8 +21,74 @@
       },
       "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_random_animal.description.text",
-      "title": "",
+      "title": "book.occultism.dictionary_of_spirits.possession_rituals.possess_random_animal.description.title",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/possess_random_animal_common",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/possess_random_animal_water",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/possess_random_animal_small",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/possess_random_animal_rideable",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/possess_villager",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/possess_random_animal_special",
+      "text": "",
+      "title1": "",
+      "title2": ""
     }
   ],
   "parents": [

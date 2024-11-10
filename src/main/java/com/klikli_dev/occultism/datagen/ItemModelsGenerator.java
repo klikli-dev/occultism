@@ -192,6 +192,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismItems.MAGIC_LAMP_EMPTY.get()),
                 this.name(OccultismItems.MARID_ESSENCE.get()),
                 this.name(OccultismItems.MINING_DIMENSION_CORE_PIECE.get()),
+                this.name(OccultismItems.MYSTERIOUS_EGG_ICON.get()),
                 this.name(OccultismItems.NATURE_PASTE.get()),
                 this.name(OccultismItems.NETHERITE_DUST.get()),
                 this.name(OccultismItems.NETHERITE_SCRAP_DUST.get()),

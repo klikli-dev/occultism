@@ -2284,43 +2284,61 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.context().entry("possess_random_animal");
         this.add(this.context().entryName(), "Possessed Random Animal");
 
-        this.context().page("entity");
-        var entity = BookEntityPageModel.create()
-                .withEntityId("minecraft:cow")
-                .withEntityName(this.context().pageTitle())
+        this.context().page("description");
+        var description = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
-
         this.add(this.context().pageTitle(), "Summon Random Animal");
         this.add(this.context().pageText(),
                 """
-                    **Provides**: A random animal
-                    """
-        );
-
-        this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/possess_random_animal"));
-        //no text
-
-        this.context().page("description");
-        var description = BookTextPageModel.create()
-                .withText(this.context().pageText());
-        this.add(this.context().pageText(),
-                """
-                        In this ritual a [#](%1$s)Foliot[#]() is summoned **as an untamed spirit** to take the shape of a random animal.
-                        \\
+                        In this type of ritual, a [#](%1$s)Spirit[#]() is summoned **as an untamed creature** to take the shape of a random animal.
+                        Different rituals can be performed, each with their own respective animals, check in the ritual dummy or in the recipe output the possibilities.
                         \\
                         The animal can be interacted with as it's natural counterpart, including taming, breeding and loot.
                         """.formatted(COLOR_PURPLE));
+
+        this.context().page("ritual_common");
+        var ritualCommon = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_random_animal_common"));
+        //no text
+
+        this.context().page("ritual_water");
+        var ritualWater = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_random_animal_water"));
+        //no text
+
+        this.context().page("ritual_small");
+        var ritualSmall = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_random_animal_small"));
+        //no text
+
+        this.context().page("ritual_rideable");
+        var ritualRideable = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_random_animal_rideable"));
+        //no text
+
+        this.context().page("ritual_villager");
+        var ritualVillager = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_villager"));
+        //no text
+
+        this.context().page("ritual_special");
+        var ritualSpecial = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_random_animal_special"));
+        //no text
 
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(Items.COW_SPAWN_EGG)
                 .withLocation(entryMap.get(icon))
                 .withPages(
-                        entity,
-                        ritual,
-                        description
+                        description,
+                        ritualCommon,
+                        ritualWater,
+                        ritualSmall,
+                        ritualRideable,
+                        ritualVillager,
+                        ritualSpecial
                 );
     }
 

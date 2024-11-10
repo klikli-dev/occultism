@@ -637,23 +637,118 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_unbound_parrot"));
 
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
-                        makeLoreSpawnEgg(Items.SHEEP_SPAWN_EGG, "item.occultism.ritual_dummy.possess_random_animal"),
-                        makeRitualDummy(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/possess_random_animal")),
-                        30,
+                        makeLoreSpawnEgg(OccultismItems.MYSTERIOUS_EGG_ICON.get(), "item.occultism.ritual_dummy.possess_random_animal_common"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_COMMON),
+                        15,
                         RITUAL_SUMMON,
                         PENTACLE_POSSESS_FOLIOT,
+                        Ingredient.of(Tags.Items.SEEDS),
+                        Ingredient.of(Tags.Items.SEEDS),
+                        Ingredient.of(Tags.Items.SEEDS),
+                        Ingredient.of(Tags.Items.SEEDS),
                         Ingredient.of(Tags.Items.CROPS),
                         Ingredient.of(Tags.Items.CROPS),
                         Ingredient.of(Tags.Items.CROPS),
-                        Ingredient.of(Tags.Items.CROPS),
-                        Ingredient.of(Tags.Items.CROPS),
-                        Ingredient.of(Tags.Items.CROPS),
-                        Ingredient.of(Tags.Items.CROPS),
-                        Ingredient.of(Tags.Items.CROPS),
-                        Ingredient.of(Items.EGG))
-                .entityTagToSummon(OccultismTags.Entities.RANDOM_ANIMALS_TO_SUMMON_LIST)
+                        Ingredient.of(Tags.Items.CROPS))
+                .entityTagToSummon(OccultismTags.Entities.RANDOM_ANIMALS_COMMON)
+                .itemToUse(Ingredient.of(Items.EGG))
                 .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_random_animal"));
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_random_animal_common"));
+
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
+                        makeLoreSpawnEgg(OccultismItems.MYSTERIOUS_EGG_ICON.get(), "item.occultism.ritual_dummy.possess_random_animal_water"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_WATER),
+                        15,
+                        RITUAL_SUMMON,
+                        PENTACLE_POSSESS_FOLIOT,
+                        Ingredient.of(Items.SEAGRASS),
+                        Ingredient.of(Items.SEAGRASS),
+                        Ingredient.of(Items.KELP),
+                        Ingredient.of(Items.KELP),
+                        Ingredient.of(Items.MUD),
+                        Ingredient.of(Items.MUD),
+                        Ingredient.of(Items.CLAY),
+                        Ingredient.of(Items.CLAY))
+                .entityTagToSummon(OccultismTags.Entities.RANDOM_ANIMALS_WATER)
+                .itemToUse(Ingredient.of(Items.SNOWBALL))
+                .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_random_animal_water"));
+
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
+                        makeLoreSpawnEgg(OccultismItems.MYSTERIOUS_EGG_ICON.get(), "item.occultism.ritual_dummy.possess_random_animal_small"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SMALL),
+                        15,
+                        RITUAL_SUMMON,
+                        PENTACLE_POSSESS_FOLIOT,
+                        Ingredient.of(Tags.Items.FEATHERS),
+                        Ingredient.of(Tags.Items.FEATHERS),
+                        Ingredient.of(Tags.Items.STRINGS),
+                        Ingredient.of(Tags.Items.STRINGS),
+                        Ingredient.of(Tags.Items.NUGGETS_IRON),
+                        Ingredient.of(Tags.Items.NUGGETS_IRON),
+                        Ingredient.of(Items.SUGAR),
+                        Ingredient.of(Items.SUGAR))
+                .entityTagToSummon(OccultismTags.Entities.RANDOM_ANIMALS_SMALL)
+                .itemToUse(Ingredient.of(Items.EGG))
+                .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_random_animal_small"));
+
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                        makeLoreSpawnEgg(OccultismItems.MYSTERIOUS_EGG_ICON.get(), "item.occultism.ritual_dummy.possess_random_animal_rideable"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_RIDEABLE),
+                        30,
+                        RITUAL_SUMMON,
+                        PENTACLE_POSSESS_DJINNI,
+                        Ingredient.of(Tags.Items.STORAGE_BLOCKS_WHEAT),
+                        Ingredient.of(Tags.Items.STORAGE_BLOCKS_WHEAT),
+                        Ingredient.of(Items.APPLE),
+                        Ingredient.of(Items.GOLDEN_APPLE),
+                        Ingredient.of(Items.CARROT),
+                        Ingredient.of(Items.GOLDEN_CARROT),
+                        Ingredient.of(Tags.Items.CROPS_CACTUS),
+                        Ingredient.of(Items.WARPED_FUNGUS))
+                .entityTagToSummon(OccultismTags.Entities.RANDOM_ANIMALS_RIDEABLE)
+                .itemToUse(Ingredient.of(Items.EXPERIENCE_BOTTLE))
+                .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_random_animal_rideable"));
+
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                        makeLoreSpawnEgg(OccultismItems.MYSTERIOUS_EGG_ICON.get(), "item.occultism.ritual_dummy.possess_villager"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_POSSESS_VILLAGER),
+                        30,
+                        RITUAL_SUMMON,
+                        PENTACLE_POSSESS_DJINNI,
+                        Ingredient.of(Tags.Items.BUCKETS_WATER),
+                        Ingredient.of(Tags.Items.BUCKETS_MILK),
+                        Ingredient.of(Tags.Items.STORAGE_BLOCKS_COAL),
+                        Ingredient.of(Tags.Items.STORAGE_BLOCKS_COAL),
+                        Ingredient.of(Tags.Items.STORAGE_BLOCKS_BONE_MEAL),
+                        Ingredient.of(Tags.Items.STORAGE_BLOCKS_BONE_MEAL),
+                        Ingredient.of(Items.SOUL_SAND),
+                        Ingredient.of(Tags.Items.GEMS_QUARTZ))
+            .entityTagToSummon(OccultismTags.Entities.VILLAGERS)
+                .itemToUse(Ingredient.of(Items.EXPERIENCE_BOTTLE))
+                .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_villager"));
+
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
+                        makeLoreSpawnEgg(OccultismItems.MYSTERIOUS_EGG_ICON.get(), "item.occultism.ritual_dummy.possess_random_animal_special"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SPECIAL),
+                        60,
+                        RITUAL_SUMMON,
+                        PENTACLE_POSSESS_AFRIT,
+                        Ingredient.of(Items.WHITE_WOOL),
+                        Ingredient.of(Items.LIGHT_GRAY_WOOL),
+                        Ingredient.of(Items.GRAY_WOOL),
+                        Ingredient.of(Items.BLACK_WOOL),
+                        Ingredient.of(Items.BROWN_MUSHROOM_BLOCK),
+                        Ingredient.of(Items.RED_MUSHROOM_BLOCK),
+                        Ingredient.of(Items.TERRACOTTA),
+                        Ingredient.of(Items.BAMBOO_BLOCK))
+                .entityTagToSummon(OccultismTags.Entities.RANDOM_ANIMALS_SPECIAL)
+                .itemToUse(Ingredient.of(Items.FIREWORK_ROCKET))
+                .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_random_animal_special"));
     }
 
     private static void possessRituals(RecipeOutput recipeOutput) {

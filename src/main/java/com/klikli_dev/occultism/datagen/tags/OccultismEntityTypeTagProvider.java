@@ -147,35 +147,55 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.POSSESSED_WEAK_BREEZE_TYPE.get())
                 .replace(false);
 
-
-        this.tag(OccultismTags.Entities.RANDOM_ANIMALS_TO_SUMMON_LIST)
-                .add(EntityType.ARMADILLO)
-                .add(EntityType.AXOLOTL)
-                .add(EntityType.BAT)
-                .add(EntityType.BEE)
-                .add(EntityType.CAMEL)
-                .add(EntityType.CAT)
+        this.tag(OccultismTags.Entities.RANDOM_ANIMALS_COMMON)
                 .add(EntityType.CHICKEN)
                 .add(EntityType.COW)
-                .add(EntityType.DONKEY)
-                .add(EntityType.FOX)
-                .add(EntityType.FROG)
-                .add(EntityType.HORSE)
-                .add(EntityType.IRON_GOLEM)
-                .add(EntityType.LLAMA)
-                .add(EntityType.MOOSHROOM)
-                .add(EntityType.MULE)
-                .add(EntityType.OCELOT)
-                .add(EntityType.PANDA)
-                .add(EntityType.PARROT)
                 .add(EntityType.PIG)
-                .add(EntityType.POLAR_BEAR)
-                .add(EntityType.RABBIT)
                 .add(EntityType.SHEEP)
-                .add(EntityType.SNOW_GOLEM)
-                .add(EntityType.TURTLE)
-                .add(EntityType.VILLAGER)
+                .add(EntityType.SQUID)
                 .add(EntityType.WOLF);
+
+        this.tag(OccultismTags.Entities.RANDOM_ANIMALS_WATER)
+                .add(EntityType.AXOLOTL)
+                .add(EntityType.FROG)
+                .add(EntityType.DOLPHIN)
+                .add(EntityType.SALMON)
+                .add(EntityType.COD)
+                .add(EntityType.TROPICAL_FISH)
+                .add(EntityType.PUFFERFISH)
+                .add(EntityType.SQUID)
+                .add(EntityType.SNOW_GOLEM)
+                .add(EntityType.GLOW_SQUID)
+                .add(EntityType.TADPOLE)
+                .add(EntityType.TURTLE);
+
+        this.tag(OccultismTags.Entities.RANDOM_ANIMALS_SMALL)
+                .add(EntityType.BAT)
+                .add(EntityType.BEE)
+                .add(EntityType.CAT)
+                .add(EntityType.FOX)
+                .add(EntityType.OCELOT)
+                .add(EntityType.PARROT)
+                .add(EntityType.RABBIT);
+
+        this.tag(OccultismTags.Entities.RANDOM_ANIMALS_SPECIAL)
+                .add(EntityType.ARMADILLO)
+                .add(EntityType.MOOSHROOM)
+                .add(EntityType.PANDA)
+                .add(EntityType.POLAR_BEAR)
+                .add(EntityType.GOAT);
+
+        this.tag(OccultismTags.Entities.RANDOM_ANIMALS_RIDEABLE)
+                .add(EntityType.PIG)
+                .add(EntityType.CAMEL)
+                .add(EntityType.DONKEY)
+                .add(EntityType.HORSE)
+                .add(EntityType.SKELETON_HORSE)
+                .add(EntityType.ZOMBIE_HORSE)
+                .add(EntityType.LLAMA)
+                .add(EntityType.TRADER_LLAMA)
+                .add(EntityType.MULE)
+                .add(EntityType.STRIDER);
     }
 
     private void addCommonTags() {

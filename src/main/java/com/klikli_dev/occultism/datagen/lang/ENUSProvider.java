@@ -150,6 +150,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.PENTACLE_MISC, "Pentacle Misc");
         this.addItem(OccultismItems.REPAIR_ICON, "Repair Icon");
         this.addItem(OccultismItems.RESURRECT_ICON, "Resurrect Icon");
+        this.addItem(OccultismItems.MYSTERIOUS_EGG_ICON, "Mysterious Egg Icon");
         this.addItem(OccultismItems.DEBUG_WAND, "Debug Wand");
         this.addItem(OccultismItems.DEBUG_FOLIOT_LUMBERJACK, "Summon Debug Foliot Lumberjack");
         this.addItem(OccultismItems.DEBUG_FOLIOT_TRANSPORT_ITEMS, "Summon Debug Foliot Transporter");
@@ -950,10 +951,30 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.possess_unbound_parrot.finished", "Summoned unbound parrot successfully.");
         this.add("ritual.occultism.possess_unbound_parrot.interrupted", "Summoning of unbound parrot interrupted.");
 
-        this.add("ritual.occultism.possess_random_animal.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_random_animal.started", "Started summoning a random animal.");
-        this.add("ritual.occultism.possess_random_animal.finished", "Summoned successfully.");
-        this.add("ritual.occultism.possess_random_animal.interrupted", "Summoning of random animal interrupted.");
+        this.add("ritual.occultism.possess_random_animal_common.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_random_animal_common.started", "Started summoning a common random animal.");
+        this.add("ritual.occultism.possess_random_animal_common.finished", "Summoned successfully.");
+        this.add("ritual.occultism.possess_random_animal_common.interrupted", "Summoning of common random animal interrupted.");
+        this.add("ritual.occultism.possess_random_animal_water.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_random_animal_water.started", "Started summoning a water random animal.");
+        this.add("ritual.occultism.possess_random_animal_water.finished", "Summoned successfully.");
+        this.add("ritual.occultism.possess_random_animal_water.interrupted", "Summoning of water random animal interrupted.");
+        this.add("ritual.occultism.possess_random_animal_small.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_random_animal_small.started", "Started summoning a small random animal.");
+        this.add("ritual.occultism.possess_random_animal_small.finished", "Summoned successfully.");
+        this.add("ritual.occultism.possess_random_animal_small.interrupted", "Summoning of small random animal interrupted.");
+        this.add("ritual.occultism.possess_random_animal_special.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_random_animal_special.started", "Started summoning a special random animal.");
+        this.add("ritual.occultism.possess_random_animal_special.finished", "Summoned successfully.");
+        this.add("ritual.occultism.possess_random_animal_special.interrupted", "Summoning of special random animal interrupted.");
+        this.add("ritual.occultism.possess_random_animal_rideable.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_random_animal_rideable.started", "Started summoning a rideable random animal.");
+        this.add("ritual.occultism.possess_random_animal_rideable.finished", "Summoned successfully.");
+        this.add("ritual.occultism.possess_random_animal_rideable.interrupted", "Summoning of rideable random animal interrupted.");
+        this.add("ritual.occultism.possess_villager.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.possess_villager.started", "Started summoning a villager.");
+        this.add("ritual.occultism.possess_villager.finished", "Summoned successfully.");
+        this.add("ritual.occultism.possess_villager.interrupted", "Summoning of villager interrupted.");
 
         this.add("ritual.occultism.familiar_parrot.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.familiar_parrot.started", "Started summoning parrot familiar.");
@@ -2954,9 +2975,18 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND.get(), "Ritual: Summon Demonic Husband");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND.get(), "Summons a Demonic Husband to support you: He will fight for you, help with cooking, and extend potion durations.");
 
-        this.add(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL.get(), "Ritual: Summon Random Animal");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL.get(), "Summons a random passive animal.");
-
+        this.add(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_COMMON.get(), "Ritual: Summon Common Random Animal");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_COMMON.get(), "Summons a common random passive animal. (Possibilities: chicken, cow, pig, sheep, squid, wolf)");
+        this.add(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_WATER.get(), "Ritual: Summon Water Random Animal");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_WATER.get(), "Summons a Water random passive animal. (Possibilities: axolotl, frog, dolphin, cod, salmon, tropical fish, pufferfish, squid, glow squid, tadpole, turtle, snow golem)");
+        this.add(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SMALL.get(), "Ritual: Summon Small Random Animal");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SMALL.get(), "Summons a small random passive animal. (Possibilities: bat, bee, parrot, cat, ocelot, fox, rabbit)");
+        this.add(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SPECIAL.get(), "Ritual: Summon Special Random Animal");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SPECIAL.get(), "Summons a special random passive animal. (Possibilities: armadillo, mooshroom, panda, polar bear, goat)");
+        this.add(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_RIDEABLE.get(), "Ritual: Summon Rideable Random Animal");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_RIDEABLE.get(), "Summons a rideable random passive animal. (Possibilities: pig, camel, donkey, horse, skeleton horse, zombie horse, llama, trader llama, mule, strider)");
+        this.add(OccultismItems.RITUAL_DUMMY_POSSESS_VILLAGER.get(), "Ritual: Summon Villager");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_VILLAGER.get(), "Summons a Villager or Wandering Trader.");
         this.add(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1.get(), "Ritual: Craft Apprentice Ritual Satchel");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1.get(), "Binds a Djinni into a satchel to build pentacles step-by-step for the summoner.");
 

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_bound_djinni": {
+      "conditions": {
+        "items": [
+          {
+            "items": "occultism:book_of_binding_bound_djinni"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:ritual/possess_random_animal_rideable"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_bound_djinni"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:ritual/possess_random_animal_rideable"
+    ]
+  }
+}

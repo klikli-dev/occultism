@@ -566,7 +566,12 @@ public class OccultismItems {
         ITEMS.register("ritual_dummy/possess_goat", () -> new DummyTooltipItem(defaultProperties()));
     }
 
-    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL = ITEMS.register("ritual_dummy/possess_random_animal", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_COMMON = ITEMS.register("ritual_dummy/possess_random_animal_common", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_WATER = ITEMS.register("ritual_dummy/possess_random_animal_water", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SMALL = ITEMS.register("ritual_dummy/possess_random_animal_small", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_RIDEABLE = ITEMS.register("ritual_dummy/possess_random_animal_rideable", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SPECIAL = ITEMS.register("ritual_dummy/possess_random_animal_special", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_VILLAGER = ITEMS.register("ritual_dummy/possess_villager", () -> new DummyTooltipItem(defaultProperties()));
 
     static {
         // CRAFT
@@ -665,6 +670,8 @@ public class OccultismItems {
             ITEMS.register("repair_icon", () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> RESURRECT_ICON =
             ITEMS.register("resurrect_icon", () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> MYSTERIOUS_EGG_ICON =
+            ITEMS.register("mysterious_egg_icon", () -> new Item(defaultProperties()));
     //JEI Dummy Items
     public static final DeferredItem<DummyTooltipItem> JEI_DUMMY_NONE = ITEMS.register(
             "jei_dummy/none", () -> new DummyTooltipItem(new Item.Properties()));
@@ -690,6 +697,7 @@ public class OccultismItems {
                 || item == JEI_DUMMY_REQUIRE_ITEM_USE.get()
                 || item == REPAIR_ICON.get()
                 || item == RESURRECT_ICON.get()
+                || item == MYSTERIOUS_EGG_ICON.get()
         )
             return true;
 

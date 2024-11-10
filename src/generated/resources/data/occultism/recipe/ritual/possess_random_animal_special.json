@@ -1,0 +1,53 @@
+{
+  "type": "occultism:ritual",
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_afrit"
+  },
+  "duration": 60,
+  "entity_tag_to_summon": "occultism:random_animals_special",
+  "ingredients": [
+    {
+      "item": "minecraft:white_wool"
+    },
+    {
+      "item": "minecraft:light_gray_wool"
+    },
+    {
+      "item": "minecraft:gray_wool"
+    },
+    {
+      "item": "minecraft:black_wool"
+    },
+    {
+      "item": "minecraft:brown_mushroom_block"
+    },
+    {
+      "item": "minecraft:red_mushroom_block"
+    },
+    {
+      "item": "minecraft:terracotta"
+    },
+    {
+      "item": "minecraft:bamboo_block"
+    }
+  ],
+  "item_to_use": {
+    "item": "minecraft:firework_rocket"
+  },
+  "pentacle_id": "occultism:possess_afrit",
+  "result": {
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_random_animal_special\"}",
+      "minecraft:lore": [
+        "{\"translate\":\"item.occultism.ritual_dummy.possess_random_animal_special.tooltip\"}"
+      ]
+    },
+    "count": 1,
+    "id": "occultism:mysterious_egg_icon"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/possess_random_animal_special"
+  },
+  "ritual_type": "occultism:summon"
+}

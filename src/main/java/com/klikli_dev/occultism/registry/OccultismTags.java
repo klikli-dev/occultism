@@ -199,7 +199,11 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> FLYING_PASSIVE = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "flying_passive"));
         public static final TagKey<EntityType<?>> HUMANS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "humans"));
 
-        public static final TagKey<EntityType<?>> RANDOM_ANIMALS_TO_SUMMON_LIST = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "random_animals_to_summon_list"));
+        public static final TagKey<EntityType<?>> RANDOM_ANIMALS_COMMON = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "random_animals_common"));
+        public static final TagKey<EntityType<?>> RANDOM_ANIMALS_WATER = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "random_animals_water"));
+        public static final TagKey<EntityType<?>> RANDOM_ANIMALS_SMALL = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "random_animals_small"));
+        public static final TagKey<EntityType<?>> RANDOM_ANIMALS_SPECIAL = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "random_animals_special"));
+        public static final TagKey<EntityType<?>> RANDOM_ANIMALS_RIDEABLE = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "random_animals_rideable"));
     }
 
 

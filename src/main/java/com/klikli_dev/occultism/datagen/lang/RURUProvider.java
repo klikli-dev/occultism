@@ -947,10 +947,10 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").add("ritual.occultism.possess_unbound_parrot.finished", "Дикий попугай успешно вызван.");
         this.lang("ru_ru").add("ritual.occultism.possess_unbound_parrot.interrupted", "Вызов дикого попугая прерван.");
 
-        this.add("ritual.occultism.summon_random_animal.conditions", "Удовлетворены не все требования для этого ритуала.");
-        this.add("ritual.occultism.summon_random_animal.started", "Начался вызов случайного животного.");
-        this.add("ritual.occultism.summon_random_animal.finished", "Успешно вызван.");
-        this.add("ritual.occultism.summon_random_animal.interrupted", "Вызов случайного животного прерван.");
+        this.add("ritual.occultism.summon_random_animal_common.conditions", "Удовлетворены не все требования для этого ритуала.");
+        this.add("ritual.occultism.summon_random_animal_common.started", "Начался вызов случайного животного.");
+        this.add("ritual.occultism.summon_random_animal_common.finished", "Успешно вызван.");
+        this.add("ritual.occultism.summon_random_animal_common.interrupted", "Вызов случайного животного прерван.");
 
         this.lang("ru_ru").add("ritual.occultism.familiar_parrot.conditions", "Удовлетворены не все требования для этого ритуала.");
         this.lang("ru_ru").add("ritual.occultism.familiar_parrot.started", "Начался вызов попугая-фамильяра.");

@@ -1,0 +1,52 @@
+{
+  "type": "occultism:ritual",
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_djinni"
+  },
+  "entity_tag_to_summon": "occultism:random_animals_rideable",
+  "ingredients": [
+    {
+      "tag": "c:storage_blocks/wheat"
+    },
+    {
+      "tag": "c:storage_blocks/wheat"
+    },
+    {
+      "item": "minecraft:apple"
+    },
+    {
+      "item": "minecraft:golden_apple"
+    },
+    {
+      "item": "minecraft:carrot"
+    },
+    {
+      "item": "minecraft:golden_carrot"
+    },
+    {
+      "tag": "c:crops/cactus"
+    },
+    {
+      "item": "minecraft:warped_fungus"
+    }
+  ],
+  "item_to_use": {
+    "item": "minecraft:experience_bottle"
+  },
+  "pentacle_id": "occultism:possess_djinni",
+  "result": {
+    "components": {
+      "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_random_animal_rideable\"}",
+      "minecraft:lore": [
+        "{\"translate\":\"item.occultism.ritual_dummy.possess_random_animal_rideable.tooltip\"}"
+      ]
+    },
+    "count": 1,
+    "id": "occultism:mysterious_egg_icon"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/possess_random_animal_rideable"
+  },
+  "ritual_type": "occultism:summon"
+}
