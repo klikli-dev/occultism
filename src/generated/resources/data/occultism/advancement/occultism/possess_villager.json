@@ -1,9 +1,9 @@
 {
   "parent": "occultism:occultism/root",
   "criteria": {
-    "craft_miner_ancient_eldritch": {
+    "possess_villager": {
       "conditions": {
-        "ritual_id": "occultism:ritual/craft_miner_ancient_eldritch"
+        "ritual_id": "occultism:ritual/possess_villager"
       },
       "trigger": "occultism:ritual"
     }
@@ -11,7 +11,7 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "advancements.occultism.craft_miner_ancient_eldritch.description"
+      "translate": "advancements.occultism.possess_villager.description"
     },
     "hidden": true,
     "icon": {
@@ -20,12 +20,12 @@
     },
     "show_toast": false,
     "title": {
-      "translate": "advancements.occultism.craft_miner_ancient_eldritch.title"
+      "translate": "advancements.occultism.possess_villager.title"
     }
   },
   "requirements": [
     [
-      "craft_miner_ancient_eldritch"
+      "possess_villager"
     ]
   ],
   "sends_telemetry_event": true

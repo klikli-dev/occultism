@@ -1,9 +1,9 @@
 {
   "parent": "occultism:occultism/root",
   "criteria": {
-    "possess_random_animal": {
+    "possess_random_animal_common": {
       "conditions": {
-        "ritual_id": "occultism:ritual/possess_random_animal"
+        "ritual_id": "occultism:ritual/possess_random_animal_common"
       },
       "trigger": "occultism:ritual"
     }
@@ -11,7 +11,7 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "advancements.occultism.possess_random_animal.description"
+      "translate": "advancements.occultism.possess_random_animal_common.description"
     },
     "hidden": true,
     "icon": {
@@ -20,12 +20,12 @@
     },
     "show_toast": false,
     "title": {
-      "translate": "advancements.occultism.possess_random_animal.title"
+      "translate": "advancements.occultism.possess_random_animal_common.title"
     }
   },
   "requirements": [
     [
-      "possess_random_animal"
+      "possess_random_animal_common"
     ]
   ],
   "sends_telemetry_event": true

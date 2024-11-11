@@ -238,7 +238,6 @@ public class OccultismAdvancementSubProvider implements AdvancementProvider.Adva
         this.addRitualHidden(root, "craft_infused_lenses");
         this.addRitualHidden(root, "craft_infused_pickaxe");
         this.addRitualHidden(root, "craft_miner_afrit_deeps");
-        this.addRitualHidden(root, "craft_miner_ancient_eldritch");
         this.addRitualHidden(root, "craft_miner_djinni_ores");
         this.addRitualHidden(root, "craft_miner_foliot_unspecialized");
         this.addRitualHidden(root, "craft_miner_marid_master");
@@ -273,6 +272,7 @@ public class OccultismAdvancementSubProvider implements AdvancementProvider.Adva
         this.addRitualHidden(root, "familiar_otherworld_bird");
         this.addRitualHidden(root, "familiar_parrot");
         this.addRitualHidden(root, "misc_budding_amethyst");
+        this.addRitualHidden(root, "misc_miner_ancient_eldritch");
         this.addRitualHidden(root, "misc_reinforced_deepslate");
         this.addRitualHidden(root, "misc_wild_trim");
         this.addRitualHidden(root, "possess_bee");
@@ -283,7 +283,12 @@ public class OccultismAdvancementSubProvider implements AdvancementProvider.Adva
         this.addRitualHidden(root, "possess_goat");
         this.addRitualHidden(root, "possess_hoglin");
         this.addRitualHidden(root, "possess_phantom");
-        this.addRitualHidden(root, "possess_random_animal");
+        this.addRitualHidden(root, "possess_random_animal_common");
+        this.addRitualHidden(root, "possess_random_animal_rideable");
+        this.addRitualHidden(root, "possess_random_animal_small");
+        this.addRitualHidden(root, "possess_random_animal_special");
+        this.addRitualHidden(root, "possess_random_animal_water");
+        this.addRitualHidden(root, "possess_villager");
         this.addRitualHidden(root, "possess_shulker");
         this.addRitualHidden(root, "possess_skeleton");
         this.addRitualHidden(root, "possess_unbound_otherworld_bird");

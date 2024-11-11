@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "misc_miner_ancient_eldritch": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/misc_miner_ancient_eldritch"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.misc_miner_ancient_eldritch.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.misc_miner_ancient_eldritch.title"
+    }
+  },
+  "requirements": [
+    [
+      "misc_miner_ancient_eldritch"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
