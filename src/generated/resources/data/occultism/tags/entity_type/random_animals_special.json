@@ -1,7 +1,9 @@
 {
   "values": [
     "minecraft:armadillo",
+    "minecraft:iron_golem",
     "minecraft:mooshroom",
+    "minecraft:sniffer",
     "minecraft:panda",
     "minecraft:polar_bear",
     "minecraft:goat"

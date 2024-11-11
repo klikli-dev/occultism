@@ -170,6 +170,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(EntityType.TURTLE);
 
         this.tag(OccultismTags.Entities.RANDOM_ANIMALS_SMALL)
+                .add(EntityType.ALLAY)
                 .add(EntityType.BAT)
                 .add(EntityType.BEE)
                 .add(EntityType.CAT)
@@ -180,7 +181,9 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
 
         this.tag(OccultismTags.Entities.RANDOM_ANIMALS_SPECIAL)
                 .add(EntityType.ARMADILLO)
+                .add(EntityType.IRON_GOLEM)
                 .add(EntityType.MOOSHROOM)
+                .add(EntityType.SNIFFER)
                 .add(EntityType.PANDA)
                 .add(EntityType.POLAR_BEAR)
                 .add(EntityType.GOAT);
