@@ -50,7 +50,7 @@ public class PossessFoliotEntry extends EntryProvider {
                 - [Possessed Witch](entry://possession_rituals/possess_witch)
                 - [Possessed Phantom](entry://possession_rituals/possess_phantom)
                 - [Unbound Parrot](entry://possession_rituals/possess_unbound_parrot)
-                - [Random Animal](entry://possession_rituals/possess_random_animal)
+                - [Random Animal (Common, Water, Small)](entry://possession_rituals/possess_random_animal)
                 - [Parrot Familiar](entry://familiar_rituals/familiar_parrot)
                 - [Greedy Familiar](entry://familiar_rituals/familiar_greedy)
                 - [Deer Familiar](entry://familiar_rituals/familiar_deer)

@@ -56,6 +56,7 @@ public class PossessDjinniEntry extends EntryProvider {
                 - [Cthulhu Familiar](entry://familiar_rituals/familiar_cthulhu)
                 - [Devil Familiar](entry://familiar_rituals/familiar_devil)
                 - [Dragon Familiar](entry://familiar_rituals/familiar_dragon)
+                - [Random Animal (Rideable, Villager)](entry://possession_rituals/possess_random_animal)
                 """
         );
 
