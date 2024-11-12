@@ -6,28 +6,13 @@
   "entity_tag_to_summon": "c:villagers",
   "ingredients": [
     {
-      "tag": "c:buckets/water"
+      "tag": "minecraft:beds"
     },
     {
-      "tag": "c:buckets/milk"
+      "item": "minecraft:campfire"
     },
     {
-      "tag": "c:storage_blocks/coal"
-    },
-    {
-      "tag": "c:storage_blocks/coal"
-    },
-    {
-      "tag": "c:storage_blocks/bone_meal"
-    },
-    {
-      "tag": "c:storage_blocks/bone_meal"
-    },
-    {
-      "item": "minecraft:soul_sand"
-    },
-    {
-      "tag": "c:gems/quartz"
+      "tag": "c:foods/pie"
     }
   ],
   "item_to_use": {

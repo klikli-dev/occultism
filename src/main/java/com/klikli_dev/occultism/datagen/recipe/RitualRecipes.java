@@ -718,15 +718,10 @@ public abstract class RitualRecipes extends RecipeProvider {
                         30,
                         RITUAL_SUMMON,
                         PENTACLE_POSSESS_DJINNI,
-                        Ingredient.of(Tags.Items.BUCKETS_WATER),
-                        Ingredient.of(Tags.Items.BUCKETS_MILK),
-                        Ingredient.of(Tags.Items.STORAGE_BLOCKS_COAL),
-                        Ingredient.of(Tags.Items.STORAGE_BLOCKS_COAL),
-                        Ingredient.of(Tags.Items.STORAGE_BLOCKS_BONE_MEAL),
-                        Ingredient.of(Tags.Items.STORAGE_BLOCKS_BONE_MEAL),
-                        Ingredient.of(Items.SOUL_SAND),
-                        Ingredient.of(Tags.Items.GEMS_QUARTZ))
-            .entityTagToSummon(OccultismTags.Entities.VILLAGERS)
+                        Ingredient.of(ItemTags.BEDS),
+                        Ingredient.of(Items.CAMPFIRE),
+                        Ingredient.of(Tags.Items.FOODS_PIE))
+                .entityTagToSummon(OccultismTags.Entities.VILLAGERS)
                 .itemToUse(Ingredient.of(Items.EXPERIENCE_BOTTLE))
                 .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_villager"));
@@ -737,12 +732,12 @@ public abstract class RitualRecipes extends RecipeProvider {
                         60,
                         RITUAL_SUMMON,
                         PENTACLE_POSSESS_AFRIT,
-                        Ingredient.of(Items.WHITE_WOOL),
-                        Ingredient.of(Items.LIGHT_GRAY_WOOL),
-                        Ingredient.of(Items.GRAY_WOOL),
-                        Ingredient.of(Items.BLACK_WOOL),
-                        Ingredient.of(Items.BROWN_MUSHROOM_BLOCK),
-                        Ingredient.of(Items.RED_MUSHROOM_BLOCK),
+                        Ingredient.of(ItemTags.WOOL),
+                        Ingredient.of(ItemTags.WOOL),
+                        Ingredient.of(Tags.Items.MUSHROOMS),
+                        Ingredient.of(Tags.Items.MUSHROOMS),
+                        Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON),
+                        Ingredient.of(Items.MOSS_BLOCK),
                         Ingredient.of(Items.TERRACOTTA),
                         Ingredient.of(Items.BAMBOO_BLOCK))
                 .entityTagToSummon(OccultismTags.Entities.RANDOM_ANIMALS_SPECIAL)

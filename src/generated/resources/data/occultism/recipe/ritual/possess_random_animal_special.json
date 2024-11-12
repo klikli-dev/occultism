@@ -7,22 +7,22 @@
   "entity_tag_to_summon": "occultism:random_animals_special",
   "ingredients": [
     {
-      "item": "minecraft:white_wool"
+      "tag": "minecraft:wool"
     },
     {
-      "item": "minecraft:light_gray_wool"
+      "tag": "minecraft:wool"
     },
     {
-      "item": "minecraft:gray_wool"
+      "tag": "c:mushrooms"
     },
     {
-      "item": "minecraft:black_wool"
+      "tag": "c:mushrooms"
     },
     {
-      "item": "minecraft:brown_mushroom_block"
+      "tag": "c:storage_blocks/iron"
     },
     {
-      "item": "minecraft:red_mushroom_block"
+      "item": "minecraft:moss_block"
     },
     {
       "item": "minecraft:terracotta"
