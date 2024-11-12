@@ -130,7 +130,7 @@ public class OccultismServerConfig {
             this.blacksmithFamiliarRepairChance =
                     builder.comment(
                                     "The chance for a blacksmith familiar to repair an item (by 2 durability) whenever stone is picked up. 1.0 = 100%, 0.0 = 0%.")
-                            .defineInRange("blacksmithFamiliarRepairChance", 0.05, 0.0, Double.MAX_VALUE);
+                            .defineInRange("blacksmithFamiliarRepairChance", 0.33, 0.0, Double.MAX_VALUE);
             this.blacksmithFamiliarUpgradeCost =
                     builder.comment(
                                     "The amount of iron required for a blacksmith familiar to upgrade another familiar.")

@@ -2866,7 +2866,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.familiar_dragon", "Ritual: Summon Dragon Familiar");
         this.add("item.occultism.ritual_dummy.familiar_dragon.tooltip", "The Dragon familiars provide increased experience gain to their master.");
         this.add("item.occultism.ritual_dummy.familiar_blacksmith", "Ritual: Summon Blacksmith Familiar");
-        this.add("item.occultism.ritual_dummy.familiar_blacksmith.tooltip", "The Nlacksmith familiars take stone their master mines and uses it to repair equipment.");
+        this.add("item.occultism.ritual_dummy.familiar_blacksmith.tooltip", "The Blacksmith familiars take stone their master mines and uses it to repair equipment.");
         this.add("item.occultism.ritual_dummy.familiar_guardian", "Ritual: Summon Guardian Familiar");
         this.add("item.occultism.ritual_dummy.familiar_guardian.tooltip", "The Guardian familiars prevent their master's violent demise.");
         this.add("item.occultism.ritual_dummy.familiar_headless", "Ritual: Summon Headless Ratman Familiar");
