@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.google.common.collect.ImmutableList;
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEntities;
@@ -336,7 +337,7 @@ public class GreedyFamiliarEntity extends FamiliarEntity {
         GreedyFamiliarEntity greedy;
 
         public FindBlockGoal(GreedyFamiliarEntity greedy) {
-            super(greedy, 1, 10, 5);
+            super(greedy, 1, Occultism.SERVER_CONFIG.spiritJobs.greedySearchRange.getAsInt(), Occultism.SERVER_CONFIG.spiritJobs.greedyVerticalSearchRange.getAsInt());
             this.greedy = greedy;
         }
 

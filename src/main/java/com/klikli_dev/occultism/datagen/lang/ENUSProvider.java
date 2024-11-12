@@ -3283,6 +3283,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("blacksmithFamiliarRepairChance", "Chance for Blacksmith Familiar to repair an item each tick.");
         this.addConfig("blacksmithFamiliarUpgradeCost", "Cost in experience levels for upgrading items with Blacksmith Familiar.");
         this.addConfig("blacksmithFamiliarUpgradeCooldown", "Cooldown in ticks before Blacksmith Familiar can upgrade items again.");
+        this.addConfig("greedySearchRange", "Upgraded Greedy familiar horizontal search range");
+        this.addConfig("greedyVerticalSearchRange", "Upgraded Greedy familiar vertical search range");
 
         this.addConfig("rituals", "Rituals Settings");
         this.addConfig("enableClearWeatherRitual", "Enable the ritual to clear weather conditions.");

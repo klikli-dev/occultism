@@ -697,8 +697,8 @@ public class GettingStartedCategory extends CategoryProvider {
                 """
                         An additional function of the Divination Rod is to locate any ore,
                          however this is not a default function and needs to be enabled,
-                         as we recommend using the Theurgy mod for this type of divination.
-                         If you want to enable this feature directly in Occultism, check
+                         as we recommend using the Greedy familiar or Theurgy mod for this type of divination.
+                         If you want to enable this feature directly in Occultism Divination Rod, check
                          "Server Configuration > Items" and set "Divination c:ores" to "on".
                           """);
 

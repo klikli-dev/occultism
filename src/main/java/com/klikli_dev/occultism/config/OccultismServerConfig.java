@@ -80,6 +80,8 @@ public class OccultismServerConfig {
         public final IntValue blacksmithFamiliarUpgradeCost;
         public final IntValue blacksmithFamiliarUpgradeCooldown;
         public final DoubleValue blacksmithFamiliarRepairChance;
+        public final IntValue greedySearchRange;
+        public final IntValue greedyVerticalSearchRange;
 
         public SpiritJobSettings(ModConfigSpec.Builder builder) {
             builder.comment("Spirit Job Settings").push("spirit_job");
@@ -98,11 +100,11 @@ public class OccultismServerConfig {
                             .defineInRange("tier2CrusherTimeMultiplier", 1.0, 0.0, Double.MAX_VALUE);
             this.tier3CrusherTimeMultiplier =
                     builder.comment(
-                                    "Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 3 (Afrit) Crusher Spirits.")
+                                    "The multiplier to each crushing recipe's crushing_time for Tier 3 (Afrit) Crusher Spirits.")
                             .defineInRange("tier3CrusherTimeMultiplier", 0.5, 0.0, Double.MAX_VALUE);
             this.tier4CrusherTimeMultiplier =
                     builder.comment(
-                                    "Currently unused. The multiplier to each crushing recipe's crushing_time for Tier 4 (Marid) Crusher Spirits.")
+                                    "The multiplier to each crushing recipe's crushing_time for Tier 4 (Marid) Crusher Spirits.")
                             .defineInRange("tier4CrusherTimeMultiplier", 0.2, 0.0, Double.MAX_VALUE);
 
             this.tier1CrusherOutputMultiplier =
@@ -140,6 +142,15 @@ public class OccultismServerConfig {
                                     "The cooldown for a blacksmith familiar to upgrade another familiar.")
                             .defineInRange("blacksmithFamiliarUpgradeCooldown", 20 * 20, 0, Integer.MAX_VALUE);
 
+            this.greedySearchRange =
+                    builder.comment(
+                                    "The horizontal value that the upgraded greedy familiar will seek blocks. (Large distances can cause delays in finding)")
+                            .defineInRange("greedySearchRange", 32, 0, Integer.MAX_VALUE);
+
+            this.greedyVerticalSearchRange =
+                    builder.comment(
+                                    "The vertical value that the upgraded greedy familiar will seek blocks. (Large distances can cause delays in finding)")
+                            .defineInRange("greedyVerticalSearchRange", 16, 0, Integer.MAX_VALUE);
 
             builder.pop();
         }
