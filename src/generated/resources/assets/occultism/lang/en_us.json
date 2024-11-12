@@ -319,7 +319,7 @@
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_cthulhu.description.title": "Description",
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_cthulhu.entity.text": "**Provides**: [#](ad03fc)Water Breathing[#](), [#](ad03fc)General Coolness[#]()\n",
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_cthulhu.name": "Cthulhu Familiar",
-  "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_deer.description.text": "**Upgrade Behaviour**\\\nWhen upgraded by a blacksmith familiar, it will attack nearby enemies with a hammer. Yep, a **hammer**.\n",
+  "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_deer.description.text": "**Upgrade Behaviour**\\\nWhen upgraded by a blacksmith familiar, will increase the step assist and it will attack nearby enemies with a hammer. Yep, a **hammer**.\n",
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_deer.description.title": "Description",
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_deer.entity.text": "**Provides**: [#](ad03fc)Speed and Jump Boost, Step assist[#]()\n",
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_deer.name": "Deer Familiar",

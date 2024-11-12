@@ -44,6 +44,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DeerFamiliarEntity extends FamiliarEntity {
 
@@ -126,12 +128,15 @@ public class DeerFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
-        return ImmutableList.of(
-                new MobEffectInstance(MobEffects.JUMP, 300, 0, false, true),
-                new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 300, 0, false, true),
-                new MobEffectInstance(OccultismEffects.STEP_HEIGHT, 300, 0, false, true)
-
-        );
+        List<MobEffectInstance> effects = new ArrayList<>();
+        effects.add(new MobEffectInstance(MobEffects.JUMP, 300, 0, false, false));
+        effects.add(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 300, 0, false, false));
+        if (DeerFamiliarEntity.this.hasBlacksmithUpgrade()){
+            effects.add(new MobEffectInstance(OccultismEffects.STEP_HEIGHT, 300, 1, false, false));
+        } else {
+            effects.add(new MobEffectInstance(OccultismEffects.STEP_HEIGHT, 300, 0, false, false));
+        }
+        return effects;
     }
 
     @Override

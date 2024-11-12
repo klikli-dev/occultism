@@ -50,7 +50,7 @@ public class OccultismEffects {
 
     public static final DeferredHolder<MobEffect, MobEffect> STEP_HEIGHT = EFFECTS.register("step_height", () ->
             new ModEffect(MobEffectCategory.BENEFICIAL, 3402751)
-                    .addAttributeModifier(Attributes.STEP_HEIGHT, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "step_height"), 2, AttributeModifier.Operation.ADD_VALUE));
+                    .addAttributeModifier(Attributes.STEP_HEIGHT, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "step_height"), 1, AttributeModifier.Operation.ADD_VALUE));
 
     public static class ModEffect extends MobEffect {
 
