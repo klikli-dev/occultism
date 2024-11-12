@@ -2177,7 +2177,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("entity");
         this.add(helper.pageText(),
                 """
-                        **Provides**: [#](%1$s)Jump Boost[#]()
+                        **Provides**: [#](%1$s)Speed and Jump Boost, Step assist[#]()
                                    """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
@@ -2323,7 +2323,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         The headless ratman familiar steals heads of mobs near the ratman when they are killed. It then provides a damage buff against that type of mob to their master. If the ratman drops **below 50%% health** it dies, but can then be rebuilt by their master by giving them [](item://minecraft:wheat), [](item://minecraft:stick), [](item://minecraft:hay_block) and a [](item://minecraft:carved_pumpkin).
-                           """.formatted(COLOR_PURPLE));
+                           """);
 
         helper.page("description2");
         this.add(helper.pageText(),
@@ -2372,7 +2372,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageTitle(), "Description");
         this.add(helper.pageText(),
                 """
-                        [#](%1$s)Drikwings$[#]() are a subclass of [#](%1$s)Djinni[#]() that are known to be amicable towards humans. They usually take the shape of a dark blue and purple parrot. Drikwings will provide their owner with limited flight abilities when nearby.
+                        [#](%1$s)Drikwings[#]() are a subclass of [#](%1$s)Djinni[#]() that are known to be amicable towards humans. They usually take the shape of a dark blue and purple parrot. Drikwings will provide their owner with limited flight abilities when nearby.
                         \\
                         \\
                         **Upgrade Behaviour**\\
