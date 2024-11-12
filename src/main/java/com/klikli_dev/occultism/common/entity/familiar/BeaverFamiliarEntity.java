@@ -170,7 +170,7 @@ public class BeaverFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
-        return ImmutableList.of(new MobEffectInstance(OccultismEffects.BEAVER_HARVEST, 300));
+        return ImmutableList.of(new MobEffectInstance(OccultismEffects.BEAVER_HARVEST, 300, 0, false,false));
     }
 
     public void setTreeTarget(BlockPos pos) {
