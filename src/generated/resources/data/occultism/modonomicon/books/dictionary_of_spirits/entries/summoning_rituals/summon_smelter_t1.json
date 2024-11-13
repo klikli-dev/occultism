@@ -1,0 +1,73 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "summoning_rituals",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "pentacles/summon_foliot"
+  },
+  "description": "",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "minecraft:copper_ingot"
+  },
+  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_smelter_t1.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_smelter_t1.about_smelters.text",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_smelter_t1.about_smelters.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_smelter_t1.automation.text",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_smelter_t1.automation.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_smelter_t1.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_smelter_t1.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/summon_foliot_smelter",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "summoning_rituals/overview",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": -1,
+  "x": -2,
+  "y": 0
+}

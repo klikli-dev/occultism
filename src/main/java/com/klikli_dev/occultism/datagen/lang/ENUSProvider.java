@@ -720,22 +720,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.summon_foliot_cleaner.started", "Started summoning foliot janitor.");
         this.add("ritual.occultism.summon_foliot_cleaner.finished", "Summoned foliot janitor successfully.");
         this.add("ritual.occultism.summon_foliot_cleaner.interrupted", "Summoning of janitor transporter interrupted.");
-        this.add("ritual.occultism.summon_foliot_crusher.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_foliot_crusher.started", "Started summoning foliot ore crusher.");
-        this.add("ritual.occultism.summon_foliot_crusher.finished", "Summoned foliot ore crusher successfully.");
-        this.add("ritual.occultism.summon_foliot_crusher.interrupted", "Summoning of foliot ore crusher interrupted.");
-        this.add("ritual.occultism.summon_djinni_crusher.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_djinni_crusher.started", "Started summoning djinni ore crusher.");
-        this.add("ritual.occultism.summon_djinni_crusher.finished", "Summoned djinni ore crusher successfully.");
-        this.add("ritual.occultism.summon_djinni_crusher.interrupted", "Summoning of djinni ore crusher interrupted.");
-        this.add("ritual.occultism.summon_afrit_crusher.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_afrit_crusher.started", "Started summoning afrit ore crusher.");
-        this.add("ritual.occultism.summon_afrit_crusher.finished", "Summoned afrit ore crusher successfully.");
-        this.add("ritual.occultism.summon_afrit_crusher.interrupted", "Summoning of afrit ore crusher interrupted.");
-        this.add("ritual.occultism.summon_marid_crusher.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_marid_crusher.started", "Started summoning marid ore crusher.");
-        this.add("ritual.occultism.summon_marid_crusher.finished", "Summoned marid ore crusher successfully.");
-        this.add("ritual.occultism.summon_marid_crusher.interrupted", "Summoning of marid ore crusher interrupted.");
         this.add("ritual.occultism.summon_foliot_sapling_trader.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.summon_foliot_sapling_trader.started", "Started summoning foliot otherworld sapling trader.");
         this.add("ritual.occultism.summon_foliot_sapling_trader.finished", "Summoned foliot otherworld sapling successfully.");
@@ -1125,6 +1109,23 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.repair_miners.started", "Started repairing miner.");
         this.add("ritual.occultism.repair_miners.finished", "Successfully repaired miner.");
         this.add("ritual.occultism.repair_miners.interrupted", "Miner repair interrupted.");
+
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRUSHER, "conditions", "Not all requirements for this ritual are met.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRUSHER, "started", "Started summoning foliot crusher.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRUSHER, "finished", "Summoned foliot crusher successfully.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRUSHER, "interrupted", "Summoning of foliot crusher interrupted.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRUSHER, "conditions", "Not all requirements for this ritual are met.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRUSHER, "started", "Started summoning djinni crusher.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRUSHER, "finished", "Summoned djinni crusher successfully.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRUSHER, "interrupted", "Summoning of djinni crusher interrupted.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRUSHER, "conditions", "Not all requirements for this ritual are met.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRUSHER, "started", "Started summoning afrit crusher.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRUSHER, "finished", "Summoned afrit crusher successfully.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRUSHER, "interrupted", "Summoning of afrit crusher interrupted.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRUSHER, "conditions", "Not all requirements for this ritual are met.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRUSHER, "started", "Started summoning marid crusher.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRUSHER, "finished", "Summoned marid crusher successfully.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRUSHER, "interrupted", "Summoning of marid crusher interrupted.");
 
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER, "conditions", "Not all requirements for this ritual are met.");
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER, "started", "Started summoning foliot smelter.");
@@ -2967,14 +2968,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.summon_djinni_manage_machine.tooltip", "The Machine Operator automatically transfers items between dimensional storage systems and connected inventories and machines.");
         this.add("item.occultism.ritual_dummy.summon_djinni_night_time", "Ritual: Summoning of Dusk");
         this.add("item.occultism.ritual_dummy.summon_djinni_night_time.tooltip", "Summons a Djinni that sets the time to midnight.");
-        this.add("item.occultism.ritual_dummy.summon_foliot_crusher", "Ritual: Summon Foliot Crusher");
-        this.add("item.occultism.ritual_dummy.summon_foliot_crusher.tooltip", "The crusher is a spirit summoned to crush ores into dusts, effectively doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
-        this.add("item.occultism.ritual_dummy.summon_djinni_crusher", "Ritual: Summon Djinni Crusher");
-        this.add("item.occultism.ritual_dummy.summon_djinni_crusher.tooltip", "The crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
-        this.add("item.occultism.ritual_dummy.summon_afrit_crusher", "Ritual: Summon Afrit Crusher");
-        this.add("item.occultism.ritual_dummy.summon_afrit_crusher.tooltip", "The crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
-        this.add("item.occultism.ritual_dummy.summon_marid_crusher", "Ritual: Summon Marid Crusher");
-        this.add("item.occultism.ritual_dummy.summon_marid_crusher.tooltip", "The crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
         this.add("item.occultism.ritual_dummy.summon_foliot_lumberjack", "Ritual: Summon Foliot Lumberjack");
         this.add("item.occultism.ritual_dummy.summon_foliot_lumberjack.tooltip", "The Lumberjack will harvest trees in it's working area and deposit the dropped items into the specified chest.");
         this.add("item.occultism.ritual_dummy.summon_foliot_otherstone_trader", "Ritual: Summon Otherstone Trader");
@@ -3005,7 +2998,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.craft_dragonyst_dust", "Ritual: Craft Dragonyst Dust");
         this.add("item.occultism.ritual_dummy.craft_dragonyst_dust.tooltip", "A Marid will infuse ender dragon essence in the amethyst dust.");
 
-
         this.add("item.occultism.ritual_dummy.repair_chalks", "Ritual: Repair Chalk");
         this.add("item.occultism.ritual_dummy.repair_chalks.tooltip", "Fully repair chalk by infusing it with a Djinni.");
         this.add("item.occultism.ritual_dummy.repair_tools", "Ritual: Repair Tool");
@@ -3014,6 +3006,15 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.repair_armors.tooltip", "Fully repair armor by infusing it with an Afrit.");
         this.add("item.occultism.ritual_dummy.repair_miners", "Ritual: Repair Miner");
         this.add("item.occultism.ritual_dummy.repair_miners.tooltip", "Extend a Miner's contract by striking a deal with an Afrit.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRUSHER.get(), "Ritual: Summon Foliot Crusher");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRUSHER.get(), "The crusher is a spirit summoned to crush ores into dusts, effectively doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
+        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRUSHER.get(), "Ritual: Summon Djinni Crusher");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRUSHER.get(), "The crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
+        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRUSHER.get(), "Ritual: Summon Afrit Crusher");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRUSHER.get(), "The crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
+        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRUSHER.get(), "Ritual: Summon Marid Crusher");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRUSHER.get(), "The crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
 
         this.add(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER.get(), "Ritual: Summon Foliot Smelter");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER.get(), "The smelter is a spirit summoned to make furnace recipes without using fuel.");

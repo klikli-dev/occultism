@@ -614,13 +614,13 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 "______________________",
                 "__r_o_________________",
                 "______________________",
-                "_______1__e____a______",
+                "_______1_5__e__a______",
                 "______________________",
-                "_______2___f___m______",
+                "_______2_6_f_g_m______",
                 "______________________",
-                "_______3___g__________",
+                "_______3_7____________",
                 "______________________",
-                "_______4______________"
+                "_______4_8____________"
         );
 
         String summonFoliotID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + SummonFoliotEntry.ENTRY_ID;
@@ -647,6 +647,19 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonAfritID));
         var summonT4Crusher = this.makeSummonCrusherT4Entry(entryMap, '4');
         summonT4Crusher.withParent(BookEntryParentModel.create(summonT3Crusher.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonMaridID));
+
+        var summonT1Smelter = this.makeSummonSmelterT1Entry(entryMap, '5');
+        summonT1Smelter.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
+        var summonT2Smelter = this.makeSummonSmelterT2Entry(entryMap, '6');
+        summonT2Smelter.withParent(BookEntryParentModel.create(summonT1Smelter.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonDjinniID));
+        var summonT3Smelter = this.makeSummonSmelterT3Entry(entryMap, '7');
+        summonT3Smelter.withParent(BookEntryParentModel.create(summonT2Smelter.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonAfritID));
+        var summonT4Smelter = this.makeSummonSmelterT4Entry(entryMap, '8');
+        summonT4Smelter.withParent(BookEntryParentModel.create(summonT3Smelter.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonMaridID));
 
         var summonLumberjack = this.makeSummonLumberjackEntry(entryMap, 'c');
@@ -698,6 +711,10 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         summonT2Crusher,
                         summonT3Crusher,
                         summonT4Crusher,
+                        summonT1Smelter,
+                        summonT2Smelter,
+                        summonT3Smelter,
+                        summonT4Smelter,
                         summonLumberjack,
                         summonManageMachine,
                         summonTransportItems,
@@ -780,7 +797,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageTitle(), "Crusher Spirits");
         this.lang().add(this.context().pageText(),
                 """
-                        Crusher spirits are summoned to crush ores into dusts, effectively multiplying the metal output. They will pick up appropriate ores and drop the resulting dusts into the world. A purple particle effect and a crushing sound indicate the crusher is at work.
+                        Crusher spirits are summoned to crush ores into dusts, effectively multiplying the metal output. They will pick up appropriate ores and drop the resulting dusts into the world. A spark particle effect and a crushing sound indicate the crusher is at work.
                           """);
 
         this.context().page("automation");
@@ -857,7 +874,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withRecipeId1(this.modLoc("ritual/summon_afrit_crusher"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(OccultismItems.SILVER_DUST.get())
+                .withIcon(OccultismItems.GOLD_DUST.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,
@@ -878,7 +895,141 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withRecipeId1(this.modLoc("ritual/summon_marid_crusher"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
-                .withIcon(OccultismItems.GOLD_DUST.get())
+                .withIcon(OccultismItems.IESNIUM_DUST.get())
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        intro,
+                        ritual
+                );
+    }
+    private BookEntryModel makeSummonSmelterT1Entry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("summon_smelter_t1");
+        this.lang().add(this.context().entryName(), "Summon Foliot Smelter");
+
+        this.context().page("about_smelters");
+        var aboutSmelters = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "Smelter Spirits");
+        this.lang().add(this.context().pageText(),
+                """
+                        Smelter spirits are summoned to do furnace process, without using fuel. They will pick up appropriate items and drop the resulting into the world. A fire particle effect and a flame sound indicate the smelter is at work.
+                          """);
+
+        this.context().page("automation");
+        var automation = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "Automation");
+        this.lang().add(this.context().pageText(),
+                """
+                        To ease automation, try summoning a [Transporter Spirit](entry://occultism:dictionary_of_spirits/summoning_rituals/summon_transport_items)
+                        to place items from chests in the smelter's inventory, and a [Janitor Spirit](entry://occultism:dictionary_of_spirits/summoning_rituals/summon_cleaner) to collect the processed items.
+                         """);
+
+        this.context().page("intro");
+        var intro = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "Foliot Smelter");
+        this.lang().add(this.context().pageText(),
+                """
+                        The foliot smelter is the most basic smelter spirit.
+                        \\
+                        \\
+                        It will smelt an item at the same speed as the furnace.
+                         """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_foliot_smelter"));
+        //no text
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.COPPER_INGOT)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        aboutSmelters,
+                        automation,
+                        intro,
+                        ritual
+                );
+    }
+
+    private BookEntryModel makeSummonSmelterT2Entry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("summon_smelter_t2");
+        this.lang().add(this.context().entryName(), "Summon Djinni Smelter");
+
+        this.context().page("intro");
+        var intro = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "Djinni Smelter");
+        this.lang().add(this.context().pageText(),
+                """
+                        The djinni smelter is faster, doubling the speed of processing.
+                          """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_djinni_smelter"));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.IRON_INGOT)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        intro,
+                        ritual
+                );
+    }
+
+    private BookEntryModel makeSummonSmelterT3Entry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("summon_smelter_t3");
+        this.lang().add(this.context().entryName(), "Summon Afrit Smelter");
+
+        this.context().page("intro");
+        var intro = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "Afrit Smelter");
+        this.lang().add(this.context().pageText(),
+                """
+                        The afrit smelter is more faster, doing the process in a tenth of the time.
+                          """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_afrit_smelter"));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.GOLD_INGOT)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        intro,
+                        ritual
+                );
+    }
+
+    private BookEntryModel makeSummonSmelterT4Entry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("summon_smelter_t4");
+        this.lang().add(this.context().entryName(), "Summon Marid Smelter");
+
+        this.context().page("intro");
+        var intro = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "Marid Smelter");
+        this.lang().add(this.context().pageText(),
+                """
+                        The marid smelter is extremely faster, doing the process in one percent of the time.
+                          """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_marid_smelter"));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(OccultismItems.IESNIUM_INGOT.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,
@@ -1001,7 +1152,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageTitle(), "Spirit Inventories");
         this.lang().add(this.context().pageText(),
                 """
-                        The Transporter can also interact with the inventories of other spirits. This is especially useful to automatically supply a [Crusher spirit](entry://summoning_rituals/summon_crusher_t1) with items to crush.
+                        The Transporter can also interact with the inventories of other spirits. This is especially useful to automatically supply a [Crusher spirit](entry://summoning_rituals/summon_crusher_t1) with items to crush or a [Smelter spirit](entry://summoning_rituals/summon_smelter_t1) with items to smelt.
                            """);
 
         this.context().page("item_filters");
