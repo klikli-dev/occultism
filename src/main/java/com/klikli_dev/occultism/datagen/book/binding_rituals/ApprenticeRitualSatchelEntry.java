@@ -39,7 +39,9 @@ public class ApprenticeRitualSatchelEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("About");
         this.pageText("""
-                A ritual satchel can hold items needed to create pentacles for rituals. Other items cannot be placed in the satchel.
+                A ritual satchel can hold items needed to create pentacles for rituals,
+                 if an item inside has less than 40 percent of durability the foil effect will stop.
+                 Other items cannot be placed in the satchel.
                 \\
                 The satchel allows to speed up setting pentacles by automatically choosing the right items from the satchel, instead of manually selecting chalks, candles and other items to place them.
                 """);

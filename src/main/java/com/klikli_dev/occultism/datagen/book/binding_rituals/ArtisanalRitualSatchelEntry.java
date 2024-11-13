@@ -41,7 +41,9 @@ public class ArtisanalRitualSatchelEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("About");
         this.pageText("""
-                A ritual satchel can hold items needed to create pentacles for rituals. Other items cannot be placed in the satchel.
+                A ritual satchel can hold items needed to create pentacles for rituals,
+                 if an item inside has less than 40 percent of durability the foil effect will stop.
+                 Other items cannot be placed in the satchel.
                 \\
                 The satchel sets up an entire pentacle at once, if all necessary items are present in the satchel.\\
                 It can also remove (intact) pentacles by {0} the {1} and store all blocks back in the satchel.
