@@ -185,7 +185,8 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(EntityType.MOOSHROOM)
                 .add(EntityType.PANDA)
                 .add(EntityType.POLAR_BEAR)
-                .add(EntityType.GOAT);
+                .add(EntityType.GOAT)
+                .add(EntityType.SNIFFER);
 
         this.tag(OccultismTags.Entities.RANDOM_ANIMALS_RIDEABLE)
                 .add(EntityType.PIG)

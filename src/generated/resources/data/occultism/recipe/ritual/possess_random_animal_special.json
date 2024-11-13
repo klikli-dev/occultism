@@ -12,10 +12,10 @@
       "tag": "minecraft:wool"
     },
     {
-      "tag": "c:mushrooms"
+      "tag": "c:mushroom_blocks"
     },
     {
-      "tag": "c:mushrooms"
+      "item": "minecraft:moss_block"
     },
     {
       "tag": "c:storage_blocks/iron"

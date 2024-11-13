@@ -13,10 +13,10 @@
       "tag": "minecraft:wool"
     },
     {
-      "tag": "c:mushrooms"
+      "tag": "c:mushroom_blocks"
     },
     {
-      "tag": "c:mushrooms"
+      "item": "minecraft:moss_block"
     },
     {
       "tag": "c:storage_blocks/iron"
@@ -50,5 +50,5 @@
     "id": "occultism:ritual_dummy/wild_random_animal_special"
   },
   "ritual_type": "occultism:summon_wild",
-  "summon_number": 5
+  "summon_number": 3
 }
