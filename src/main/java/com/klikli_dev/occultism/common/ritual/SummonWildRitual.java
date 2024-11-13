@@ -64,11 +64,12 @@ public class SummonWildRitual extends SummonRitual {
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         //Spawn the wither skeletons, who will spawn their minions
-        EntityType<?> entityType = this.recipe.getEntityToSummon();
+        EntityType<?> entityType = this.getEntityToSummon(level);
         if (entityType != null) {
 
             for (int i = 0; i < this.recipe.getSummonNumber(); i++) {
-                Entity entity = this.createSummonedEntity(entityType, level, goldenBowlPosition, blockEntity, castingPlayer);
+                EntityType<?> newEntityType = this.getEntityToSummon(level);
+                Entity entity = this.createSummonedEntity(newEntityType, level, goldenBowlPosition, blockEntity, castingPlayer);
 
                 if (entity instanceof LivingEntity living) {
                     double offsetX = level.getRandom().nextGaussian() * (1 + level.getRandom().nextInt(4));
