@@ -623,6 +623,12 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_WILD_BREEZE = ITEMS.register("ritual_dummy/wild_breeze", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_WILD_STRONG_BREEZE = ITEMS.register("ritual_dummy/wild_strong_breeze", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_WILD_ILLAGER = ITEMS.register("ritual_dummy/wild_horde_illager", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_RANDOM_ANIMAL_COMMON = ITEMS.register("ritual_dummy/wild_random_animal_common", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_RANDOM_ANIMAL_WATER = ITEMS.register("ritual_dummy/wild_random_animal_water", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SMALL = ITEMS.register("ritual_dummy/wild_random_animal_small", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_RANDOM_ANIMAL_RIDEABLE = ITEMS.register("ritual_dummy/wild_random_animal_rideable", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SPECIAL = ITEMS.register("ritual_dummy/wild_random_animal_special", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_WILD_VILLAGER = ITEMS.register("ritual_dummy/wild_villager", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_WILD_TRIM = ITEMS.register("ritual_dummy/misc_wild_trim", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_BUDDING_AMETHYST = ITEMS.register("ritual_dummy/misc_budding_amethyst", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE = ITEMS.register("ritual_dummy/misc_reinforced_deepslate", () -> new DummyTooltipItem(defaultProperties()));

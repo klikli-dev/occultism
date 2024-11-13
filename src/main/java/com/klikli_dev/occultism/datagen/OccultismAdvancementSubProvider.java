@@ -332,6 +332,11 @@ public class OccultismAdvancementSubProvider implements AdvancementProvider.Adva
         this.addRitualHidden(root, "wild_horde_illager");
         this.addRitualHidden(root, "wild_hunt");
         this.addRitualHidden(root, "wild_husk");
+        this.addRitualHidden(root, "wild_random_animal_common");
+        this.addRitualHidden(root, "wild_random_animal_rideable");
+        this.addRitualHidden(root, "wild_random_animal_small");
+        this.addRitualHidden(root, "wild_random_animal_special");
+        this.addRitualHidden(root, "wild_random_animal_water");
         this.addRitualHidden(root, "wild_silverfish");
         this.addRitualHidden(root, "wild_strong_breeze");
         this.addRitualHidden(root, "wild_weak_breeze");

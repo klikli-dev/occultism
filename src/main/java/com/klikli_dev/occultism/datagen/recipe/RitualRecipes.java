@@ -787,23 +787,23 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_villager"));
 
-        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                         makeLoreSpawnEgg(OccultismItems.MYSTERIOUS_EGG_ICON.get(), "item.occultism.ritual_dummy.possess_random_animal_special"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SPECIAL),
-                        60,
+                        30,
                         RITUAL_SUMMON,
-                        PENTACLE_POSSESS_AFRIT,
+                        PENTACLE_POSSESS_DJINNI,
                         Ingredient.of(ItemTags.WOOL),
                         Ingredient.of(ItemTags.WOOL),
                         Ingredient.of(Tags.Items.MUSHROOMS),
                         Ingredient.of(Tags.Items.MUSHROOMS),
                         Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON),
-                        Ingredient.of(Items.MOSS_BLOCK),
+                        Ingredient.of(Items.PACKED_ICE),
                         Ingredient.of(Items.TERRACOTTA),
                         Ingredient.of(Items.BAMBOO_BLOCK))
                 .entityTagToSummon(OccultismTags.Entities.RANDOM_ANIMALS_SPECIAL)
                 .itemToUse(Ingredient.of(Items.FIREWORK_ROCKET))
-                .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_random_animal_special"));
     }
 
@@ -1061,6 +1061,121 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.tadpoles")
                 .entityToSacrifice(OccultismTags.Entities.TADPOLES)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_goat"));
+
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.asItem()),
+                        makeLoreSpawnEgg(OccultismItems.MYSTERIOUS_EGG_ICON.get(), "item.occultism.ritual_dummy.wild_random_animal_common"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_COMMON),
+                        60,
+                        RITUAL_SUMMON_WILD,
+                        PENTACLE_CONTACT_WILD_SPIRIT,
+                        Ingredient.of(Tags.Items.SEEDS),
+                        Ingredient.of(Tags.Items.SEEDS),
+                        Ingredient.of(Tags.Items.SEEDS),
+                        Ingredient.of(Tags.Items.SEEDS),
+                        Ingredient.of(Tags.Items.CROPS),
+                        Ingredient.of(Tags.Items.CROPS),
+                        Ingredient.of(Tags.Items.CROPS),
+                        Ingredient.of(Tags.Items.CROPS))
+                .entityTagToSummon(OccultismTags.Entities.RANDOM_ANIMALS_COMMON)
+                .itemToUse(Ingredient.of(Items.EGG))
+                .unlockedBy("has_spirit_attuned_crystal", has(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.asItem()))
+                .summonNumber(10)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_random_animal_common"));
+
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.asItem()),
+                        makeLoreSpawnEgg(OccultismItems.MYSTERIOUS_EGG_ICON.get(), "item.occultism.ritual_dummy.wild_random_animal_water"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_WATER),
+                        60,
+                        RITUAL_SUMMON_WILD,
+                        PENTACLE_CONTACT_WILD_SPIRIT,
+                        Ingredient.of(Items.SEAGRASS),
+                        Ingredient.of(Items.SEAGRASS),
+                        Ingredient.of(Items.KELP),
+                        Ingredient.of(Items.KELP),
+                        Ingredient.of(Items.MUD),
+                        Ingredient.of(Items.MUD),
+                        Ingredient.of(Items.CLAY),
+                        Ingredient.of(Items.CLAY))
+                .entityTagToSummon(OccultismTags.Entities.RANDOM_ANIMALS_WATER)
+                .itemToUse(Ingredient.of(Items.SNOWBALL))
+                .unlockedBy("has_spirit_attuned_crystal", has(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.asItem()))
+                .summonNumber(10)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_random_animal_water"));
+
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.asItem()),
+                        makeLoreSpawnEgg(OccultismItems.MYSTERIOUS_EGG_ICON.get(), "item.occultism.ritual_dummy.wild_random_animal_small"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SMALL),
+                        60,
+                        RITUAL_SUMMON_WILD,
+                        PENTACLE_CONTACT_WILD_SPIRIT,
+                        Ingredient.of(Tags.Items.FEATHERS),
+                        Ingredient.of(Tags.Items.FEATHERS),
+                        Ingredient.of(Tags.Items.STRINGS),
+                        Ingredient.of(Tags.Items.STRINGS),
+                        Ingredient.of(Tags.Items.NUGGETS_IRON),
+                        Ingredient.of(Tags.Items.NUGGETS_IRON),
+                        Ingredient.of(Items.SUGAR),
+                        Ingredient.of(Items.SUGAR))
+                .entityTagToSummon(OccultismTags.Entities.RANDOM_ANIMALS_SMALL)
+                .itemToUse(Ingredient.of(Items.EGG))
+                .unlockedBy("has_spirit_attuned_crystal", has(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.asItem()))
+                .summonNumber(10)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_random_animal_small"));
+
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.asItem()),
+                        makeLoreSpawnEgg(OccultismItems.MYSTERIOUS_EGG_ICON.get(), "item.occultism.ritual_dummy.wild_random_animal_rideable"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_RIDEABLE),
+                        60,
+                        RITUAL_SUMMON_WILD,
+                        PENTACLE_CONTACT_WILD_SPIRIT,
+                        Ingredient.of(Tags.Items.STORAGE_BLOCKS_WHEAT),
+                        Ingredient.of(Tags.Items.STORAGE_BLOCKS_WHEAT),
+                        Ingredient.of(Items.APPLE),
+                        Ingredient.of(Items.GOLDEN_APPLE),
+                        Ingredient.of(Items.CARROT),
+                        Ingredient.of(Items.GOLDEN_CARROT),
+                        Ingredient.of(Tags.Items.CROPS_CACTUS),
+                        Ingredient.of(Items.WARPED_FUNGUS))
+                .entityTagToSummon(OccultismTags.Entities.RANDOM_ANIMALS_RIDEABLE)
+                .itemToUse(Ingredient.of(Items.EXPERIENCE_BOTTLE))
+                .unlockedBy("has_spirit_attuned_crystal", has(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.asItem()))
+                .summonNumber(5)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_random_animal_rideable"));
+
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.asItem()),
+                        makeLoreSpawnEgg(OccultismItems.MYSTERIOUS_EGG_ICON.get(), "item.occultism.ritual_dummy.wild_villager"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_VILLAGER),
+                        60,
+                        RITUAL_SUMMON_WILD,
+                        PENTACLE_CONTACT_WILD_SPIRIT,
+                        Ingredient.of(ItemTags.BEDS),
+                        Ingredient.of(Items.CAMPFIRE),
+                        Ingredient.of(Tags.Items.FOODS_PIE))
+                .entityTagToSummon(OccultismTags.Entities.VILLAGERS)
+                .itemToUse(Ingredient.of(Items.EXPERIENCE_BOTTLE))
+                .unlockedBy("has_spirit_attuned_crystal", has(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.asItem()))
+                .summonNumber(5)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_villager"));
+
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.asItem()),
+                        makeLoreSpawnEgg(OccultismItems.MYSTERIOUS_EGG_ICON.get(), "item.occultism.ritual_dummy.wild_random_animal_special"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SPECIAL),
+                        60,
+                        RITUAL_SUMMON_WILD,
+                        PENTACLE_CONTACT_WILD_SPIRIT,
+                        Ingredient.of(ItemTags.WOOL),
+                        Ingredient.of(ItemTags.WOOL),
+                        Ingredient.of(Tags.Items.MUSHROOMS),
+                        Ingredient.of(Tags.Items.MUSHROOMS),
+                        Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON),
+                        Ingredient.of(Items.PACKED_ICE),
+                        Ingredient.of(Items.TERRACOTTA),
+                        Ingredient.of(Items.BAMBOO_BLOCK))
+                .entityTagToSummon(OccultismTags.Entities.RANDOM_ANIMALS_SPECIAL)
+                .itemToUse(Ingredient.of(Items.FIREWORK_ROCKET))
+                .unlockedBy("has_spirit_attuned_crystal", has(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.asItem()))
+                .summonNumber(5)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_random_animal_special"));
     }
 
     private static void familiarRituals(RecipeOutput recipeOutput) {

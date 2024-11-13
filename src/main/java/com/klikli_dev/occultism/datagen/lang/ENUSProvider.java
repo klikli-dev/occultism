@@ -1068,6 +1068,31 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.summon_horde_illager.finished", "Summoned the wild illager invasion successfully.");
         this.add("ritual.occultism.summon_horde_illager.interrupted", "Summoning of the wild illager invasion interrupted.");
 
+        this.add("ritual.occultism.wild_random_animal_common.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.wild_random_animal_common.started", "Started summoning a group of common random animal.");
+        this.add("ritual.occultism.wild_random_animal_common.finished", "Summoned successfully.");
+        this.add("ritual.occultism.wild_random_animal_common.interrupted", "Summoning a group of common random animal interrupted.");
+        this.add("ritual.occultism.wild_random_animal_water.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.wild_random_animal_water.started", "Started summoning a group of water random animal.");
+        this.add("ritual.occultism.wild_random_animal_water.finished", "Summoned successfully.");
+        this.add("ritual.occultism.wild_random_animal_water.interrupted", "Summoning a group of water random animal interrupted.");
+        this.add("ritual.occultism.wild_random_animal_small.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.wild_random_animal_small.started", "Started summoning a group of small random animal.");
+        this.add("ritual.occultism.wild_random_animal_small.finished", "Summoned successfully.");
+        this.add("ritual.occultism.wild_random_animal_small.interrupted", "Summoning a group of small random animal interrupted.");
+        this.add("ritual.occultism.wild_random_animal_special.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.wild_random_animal_special.started", "Started summoning a group of special random animal.");
+        this.add("ritual.occultism.wild_random_animal_special.finished", "Summoned successfully.");
+        this.add("ritual.occultism.wild_random_animal_special.interrupted", "Summoning a group of special random animal interrupted.");
+        this.add("ritual.occultism.wild_random_animal_rideable.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.wild_random_animal_rideable.started", "Started summoning a group of rideable random animal.");
+        this.add("ritual.occultism.wild_random_animal_rideable.finished", "Summoned successfully.");
+        this.add("ritual.occultism.wild_random_animal_rideable.interrupted", "Summoning a group of rideable random animal interrupted.");
+        this.add("ritual.occultism.wild_villager.conditions", "Not all requirements for this ritual are met.");
+        this.add("ritual.occultism.wild_villager.started", "Started summoning a group of villager.");
+        this.add("ritual.occultism.wild_villager.finished", "Summoned successfully.");
+        this.add("ritual.occultism.wild_villager.interrupted", "Summoning a group of villager interrupted.");
+
         this.add("ritual.occultism.craft_nature_paste.conditions", "Not all requirements for this ritual are met.");
         this.add("ritual.occultism.craft_nature_paste.started", "Started infusing Nature Paste.");
         this.add("ritual.occultism.craft_nature_paste.finished", "Successfully infused Nature Paste.");
@@ -3012,11 +3037,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SMALL.get(), "Ritual: Summon Small Random Animal");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SMALL.get(), "Summons a small random passive animal. (Possibilities: allay, bat, bee, parrot, cat, ocelot, fox, rabbit)");
         this.add(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SPECIAL.get(), "Ritual: Summon Special Random Animal");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SPECIAL.get(), "Summons a special random passive animal. (Possibilities: armadillo, mooshroom, panda, polar bear, goat, iron golem, sniffer)");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SPECIAL.get(), "Summons a special random passive animal. (Possibilities: armadillo, mooshroom, panda, polar bear, goat, iron golem)");
         this.add(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_RIDEABLE.get(), "Ritual: Summon Rideable Random Animal");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_RIDEABLE.get(), "Summons a rideable random passive animal. (Possibilities: pig, camel, donkey, horse, skeleton horse, zombie horse, llama, trader llama, mule, strider)");
         this.add(OccultismItems.RITUAL_DUMMY_POSSESS_VILLAGER.get(), "Ritual: Summon Villager");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_VILLAGER.get(), "Summons a Villager or Wandering Trader.");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_VILLAGER.get(), "Summons a villager or wandering Trader.");
         this.add(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1.get(), "Ritual: Craft Apprentice Ritual Satchel");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1.get(), "Binds a Djinni into a satchel to build pentacles step-by-step for the summoner.");
 
@@ -3056,6 +3081,19 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         this.add(OccultismItems.RITUAL_DUMMY_WILD_ILLAGER.get(), "Ritual: Summon Wild Illagers");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_ILLAGER.get(), "Summon a Wild Evoker and his henchmen.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_COMMON.get(), "Ritual: Summon Common Random Animal Group");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_COMMON.get(), "Summons a group of common random passive animal. (Possibilities: chicken, cow, pig, sheep, squid, wolf)");
+        this.add(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_WATER.get(), "Ritual: Summon Water Random Animal Group");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_WATER.get(), "Summons a group of Water random passive animal. (Possibilities: axolotl, frog, dolphin, cod, salmon, tropical fish, pufferfish, squid, glow squid, tadpole, turtle, snow golem)");
+        this.add(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SMALL.get(), "Ritual: Summon Small Random Animal Group");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SMALL.get(), "Summons a group of small random passive animal. (Possibilities: allay, bat, bee, parrot, cat, ocelot, fox, rabbit)");
+        this.add(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SPECIAL.get(), "Ritual: Summon Special Random Animal Group");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SPECIAL.get(), "Summons a group of special random passive animal. (Possibilities: armadillo, mooshroom, panda, polar bear, goat, iron golem)");
+        this.add(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_RIDEABLE.get(), "Ritual: Summon Rideable Random Animal Group");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_RIDEABLE.get(), "Summons a group of rideable random passive animal. (Possibilities: pig, camel, donkey, horse, skeleton horse, zombie horse, llama, trader llama, mule, strider)");
+        this.add(OccultismItems.RITUAL_DUMMY_WILD_VILLAGER.get(), "Ritual: Summon Villager Group");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_VILLAGER.get(), "Summons a group of villager and wandering Trader.");
 
         this.add(OccultismItems.RITUAL_DUMMY_FORGE_WILD_TRIM.get(), "Ritual: Forge Wild Armor Trim Smithing Template");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_WILD_TRIM.get(), "Wild Spirits will forge a Wild Armor Trim Smithing Template.");

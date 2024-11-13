@@ -183,7 +183,6 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(EntityType.ARMADILLO)
                 .add(EntityType.IRON_GOLEM)
                 .add(EntityType.MOOSHROOM)
-                .add(EntityType.SNIFFER)
                 .add(EntityType.PANDA)
                 .add(EntityType.POLAR_BEAR)
                 .add(EntityType.GOAT);

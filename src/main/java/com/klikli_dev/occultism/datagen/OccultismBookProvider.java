@@ -1297,7 +1297,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 "___________________________",
                 "_______H_W_Y__S___p_a______", //Down part is wild
                 "___________________________",
-                "________V_X_Z_T___d________",
+                "________V_X_Z_T___d_b______",
                 "___________________________",
                 "______________U____________"
         );
@@ -1397,6 +1397,10 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         possessRandomAnimal.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessFoliotID));
 
+        var wildRandomAnimal = this.makeWildRandomAnimalEntry(entryMap, 'b');
+        wildRandomAnimal.withParent(BookEntryParentModel.create(possessRandomAnimal.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessWildID));
+
         this.context().category("possession_rituals");
 
         return BookCategoryModel.create(this.modLoc(this.context().categoryId()), this.context().categoryName())
@@ -1430,7 +1434,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         possessBee,
                         possessUnboundOtherworldBird,
                         possessUnboundParrot,
-                        possessRandomAnimal
+                        possessRandomAnimal,
+                        wildRandomAnimal
                 );
     }
 
@@ -2325,6 +2330,67 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.context().page("ritual_special");
         var ritualSpecial = BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/possess_random_animal_special"));
+        //no text
+
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(OccultismItems.MYSTERIOUS_EGG_ICON)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        description,
+                        ritualCommon,
+                        ritualWater,
+                        ritualSmall,
+                        ritualRideable,
+                        ritualVillager,
+                        ritualSpecial
+                );
+    }
+
+    private BookEntryModel makeWildRandomAnimalEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("wild_random_animal");
+        this.add(this.context().entryName(), "Group of Random Animal");
+
+        this.context().page("description");
+        var description = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.add(this.context().pageTitle(), "Summon Group of Random Animal");
+        this.add(this.context().pageText(),
+                """
+                        You have learned how to attract groups of random animals by changing
+                         the pentacle to [#](%1$s)Osorin's Wild Calling[#]() and using a
+                         [](item://occultism:spirit_attuned_crystal) instead of a bound book of binding.
+                        """.formatted(COLOR_PURPLE));
+
+        this.context().page("ritual_common");
+        var ritualCommon = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/wild_random_animal_common"));
+        //no text
+
+        this.context().page("ritual_water");
+        var ritualWater = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/wild_random_animal_water"));
+        //no text
+
+        this.context().page("ritual_small");
+        var ritualSmall = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/wild_random_animal_small"));
+        //no text
+
+        this.context().page("ritual_rideable");
+        var ritualRideable = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/wild_random_animal_rideable"));
+        //no text
+
+        this.context().page("ritual_villager");
+        var ritualVillager = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/wild_villager"));
+        //no text
+
+        this.context().page("ritual_special");
+        var ritualSpecial = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/wild_random_animal_special"));
         //no text
 
 
