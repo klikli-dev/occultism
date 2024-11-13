@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "summon_foliot_smelter": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/summon_foliot_smelter"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.summon_foliot_smelter.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.summon_foliot_smelter.title"
+    }
+  },
+  "requirements": [
+    [
+      "summon_foliot_smelter"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

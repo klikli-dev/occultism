@@ -89,6 +89,23 @@ public class OccultismSpiritJobs {
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier4CrusherOutputMultiplier.get().floatValue(),
                     () -> 4
             ), SpiritJobClient.create("crusher")));
+    //Smelting Jobs
+    public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> SMELT_TIER1 = JOBS.register("smelt_tier1",
+            () -> new SpiritJobFactory((entity) -> new SmelterJob(entity,
+                    () -> Occultism.SERVER_CONFIG.spiritJobs.tier1SmelterTimeMultiplier.get().floatValue()
+            ), SpiritJobClient.create("smelter")));
+    public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> SMELT_TIER2 = JOBS.register("smelt_tier2",
+            () -> new SpiritJobFactory((entity) -> new SmelterJob(entity,
+                    () -> Occultism.SERVER_CONFIG.spiritJobs.tier2SmelterTimeMultiplier.get().floatValue()
+            ), SpiritJobClient.create("smelter")));
+    public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> SMELT_TIER3 = JOBS.register("smelt_tier3",
+            () -> new SpiritJobFactory((entity) -> new SmelterJob(entity,
+                    () -> Occultism.SERVER_CONFIG.spiritJobs.tier3SmelterTimeMultiplier.get().floatValue()
+            ), SpiritJobClient.create("smelter")));
+    public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> SMELT_TIER4 = JOBS.register("smelt_tier4",
+            () -> new SpiritJobFactory((entity) -> new SmelterJob(entity,
+                    () -> Occultism.SERVER_CONFIG.spiritJobs.tier4SmelterTimeMultiplier.get().floatValue()
+            ), SpiritJobClient.create("smelter")));
 
     //Weather Jobs
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> CLEAR_WEATHER = JOBS.register("clear_weather",

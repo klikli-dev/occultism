@@ -553,6 +553,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("job.occultism.crush_tier2", "Crusher");
         this.add("job.occultism.crush_tier3", "Fast Crusher");
         this.add("job.occultism.crush_tier4", "Very Fast Crusher");
+        this.add("job.occultism.smelt_tier1", "Slow Smelter");
+        this.add("job.occultism.smelt_tier2", "Smelter");
+        this.add("job.occultism.smelt_tier3", "Fast Smelter");
+        this.add("job.occultism.smelt_tier4", "Very Fast Smelter");
         this.add("job.occultism.manage_machine", "Machine Operator");
         this.add("job.occultism.transport_items", "Transporter");
         this.add("job.occultism.cleaner", "Janitor");
@@ -1096,6 +1100,23 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.repair_miners.started", "Started repairing miner.");
         this.add("ritual.occultism.repair_miners.finished", "Successfully repaired miner.");
         this.add("ritual.occultism.repair_miners.interrupted", "Miner repair interrupted.");
+
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER, "conditions", "Not all requirements for this ritual are met.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER, "started", "Started summoning foliot smelter.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER, "finished", "Summoned foliot smelter successfully.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER, "interrupted", "Summoning of foliot smelter interrupted.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER, "conditions", "Not all requirements for this ritual are met.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER, "started", "Started summoning djinni smelter.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER, "finished", "Summoned djinni smelter successfully.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER, "interrupted", "Summoning of djinni smelter interrupted.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER, "conditions", "Not all requirements for this ritual are met.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER, "started", "Started summoning afrit smelter.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER, "finished", "Summoned afrit smelter successfully.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER, "interrupted", "Summoning of afrit smelter interrupted.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER, "conditions", "Not all requirements for this ritual are met.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER, "started", "Started summoning marid smelter.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER, "finished", "Summoned marid smelter successfully.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER, "interrupted", "Summoning of marid smelter interrupted.");
 
         this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "conditions", "Not all requirements for this ritual are met.");
         this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "started", "Started resurrecting familiar.");
@@ -2969,6 +2990,15 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.ritual_dummy.repair_miners", "Ritual: Repair Miner");
         this.add("item.occultism.ritual_dummy.repair_miners.tooltip", "Extend a Miner's contract by striking a deal with an Afrit.");
 
+        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER.get(), "Ritual: Summon Foliot Smelter");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER.get(), "The smelter is a spirit summoned to make furnace recipes without using fuel.");
+        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER.get(), "Ritual: Summon Foliot Smelter");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER.get(), "The smelter is a spirit summoned to make furnace recipes without using fuel.");
+        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER.get(), "Ritual: Summon Foliot Smelter");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER.get(), "The smelter is a spirit summoned to make furnace recipes without using fuel.");
+        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER.get(), "Ritual: Summon Foliot Smelter");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER.get(), "The smelter is a spirit summoned to make furnace recipes without using fuel.");
+
         this.add(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Ritual: Summon Demonic Wife");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Summons a Demonic Wife to support you: She will fight for you, help with cooking, and extend potion durations.");
 
@@ -3280,6 +3310,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("tier3CrusherOutputMultiplier", "Output multiplier for Tier 3 Crusher operations.");
         this.addConfig("tier4CrusherOutputMultiplier", "Output multiplier for Tier 4 Crusher operations.");
         this.addConfig("crusherResultPickupDelay", "Delay before items from crusher operations can be picked up.");
+        this.addConfig("tier1SmelterTimeMultiplier", "Time multiplier for Tier 1 Smelter operations.");
+        this.addConfig("tier2SmelterTimeMultiplier", "Time multiplier for Tier 2 Smelter operations.");
+        this.addConfig("tier3SmelterTimeMultiplier", "Time multiplier for Tier 3 Smelter operations.");
+        this.addConfig("tier4SmelterTimeMultiplier", "Time multiplier for Tier 4 Smelter operations.");
+        this.addConfig("smelterResultPickupDelay", "Delay before items from smelter operations can be picked up.");
         this.addConfig("blacksmithFamiliarRepairChance", "Chance for Blacksmith Familiar to repair an item each tick.");
         this.addConfig("blacksmithFamiliarUpgradeCost", "Cost in experience levels for upgrading items with Blacksmith Familiar.");
         this.addConfig("blacksmithFamiliarUpgradeCooldown", "Cooldown in ticks before Blacksmith Familiar can upgrade items again.");

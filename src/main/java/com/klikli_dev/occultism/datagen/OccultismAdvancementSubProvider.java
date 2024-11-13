@@ -305,6 +305,7 @@ public class OccultismAdvancementSubProvider implements AdvancementProvider.Adva
         this.addRitualHidden(root, "resurrect_familiar");
         this.addRitualHidden(root, "summon_afrit_crusher");
         this.addRitualHidden(root, "summon_afrit_rain_weather");
+        this.addRitualHidden(root, "summon_afrit_smelter");
         this.addRitualHidden(root, "summon_afrit_thunder_weather");
         this.addRitualHidden(root, "summon_demonic_husband");
         this.addRitualHidden(root, "summon_demonic_wife");
@@ -313,13 +314,16 @@ public class OccultismAdvancementSubProvider implements AdvancementProvider.Adva
         this.addRitualHidden(root, "summon_djinni_day_time");
         this.addRitualHidden(root, "summon_djinni_manage_machine");
         this.addRitualHidden(root, "summon_djinni_night_time");
+        this.addRitualHidden(root, "summon_djinni_smelter");
         this.addRitualHidden(root, "summon_foliot_cleaner");
         this.addRitualHidden(root, "summon_foliot_crusher");
         this.addRitualHidden(root, "summon_foliot_lumberjack");
         this.addRitualHidden(root, "summon_foliot_otherstone_trader");
         this.addRitualHidden(root, "summon_foliot_sapling_trader");
+        this.addRitualHidden(root, "summon_foliot_smelter");
         this.addRitualHidden(root, "summon_foliot_transport_items");
         this.addRitualHidden(root, "summon_marid_crusher");
+        this.addRitualHidden(root, "summon_marid_smelter");
         this.addRitualHidden(root, "summon_unbound_afrit");
         this.addRitualHidden(root, "summon_unbound_marid");
         this.addRitualHidden(root, "wild_breeze");
