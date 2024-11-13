@@ -39,6 +39,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.decoration.ArmorStand;
@@ -401,9 +402,23 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
             this.entity.getNavigation().stop();
         }
 
+        //Causing lifting when changing dimensions
+        //@Override
+        //public void stop() {
+        //    this.entity.setSitting(false);
+        //}
+    }
+    public static class FamiliarPanicGoal extends PanicGoal {
+        protected final FamiliarEntity entity;
+        public FamiliarPanicGoal(FamiliarEntity mob, double speedModifier) {
+            super(mob, speedModifier);
+            this.entity = mob;
+        }
         @Override
-        public void stop() {
+        public void start() {
             this.entity.setSitting(false);
+            this.mob.getNavigation().moveTo(this.posX, this.posY, this.posZ, this.speedModifier);
+            this.isRunning = true;
         }
     }
 }

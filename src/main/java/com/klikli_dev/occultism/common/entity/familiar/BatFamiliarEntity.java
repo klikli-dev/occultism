@@ -75,7 +75,7 @@ public class BatFamiliarEntity extends FamiliarEntity implements FlyingAnimal {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new PanicGoal(this, 1.25));
+        this.goalSelector.addGoal(0, new FamiliarPanicGoal(this, 1.25));
         SitGoal sitGoal = new SitGoal(this);
         sitGoal.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE, Goal.Flag.LOOK));
         this.goalSelector.addGoal(2, sitGoal);
