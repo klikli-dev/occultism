@@ -7,8 +7,10 @@ import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
+import dev.emi.emi.api.widget.TextWidget;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -26,6 +28,7 @@ public class MinerRecipeCategory implements EmiRecipe {
     private final ResourceLocation id;
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
+    private final double chances;
 
     public MinerRecipeCategory(RecipeHolder<MinerRecipe> recipe) {
         this.id = recipe.id();
@@ -38,6 +41,7 @@ public class MinerRecipeCategory implements EmiRecipe {
                 stack.setChance((float) chance);
             }
         }
+        this.chances = (double) recipe.value().getWeightedResult().weight() / 100;
         this.output = List.of(stack);
     }
 
@@ -68,7 +72,7 @@ public class MinerRecipeCategory implements EmiRecipe {
 
     @Override
     public int getDisplayHeight() {
-        return 18;
+        return 28;
     }
 
     @Override
@@ -80,7 +84,7 @@ public class MinerRecipeCategory implements EmiRecipe {
     public void addWidgets(@NotNull WidgetHolder widgetHolder) {
         widgetHolder.addTexture(EmiTexture.EMPTY_ARROW, 26, 1);
         widgetHolder.addSlot(this.input.get(0), 0, 0);
-
+        widgetHolder.addText(Component.translatable("occultism.jei.miner.chance", chances),getDisplayWidth() / 2, getDisplayHeight() - 8,0,false).horizontalAlign(TextWidget.Alignment.CENTER);
         // Adds an output slot on the right
         // Note that output slots need to call `recipeContext` to inform EMI about their recipe context
         // This includes being able to resolve recipe trees, favorite stacks with recipe context, and more
