@@ -50,13 +50,10 @@ public class PossessDjinniEntry extends EntryProvider {
                 - [Possessed Weak Shulker](entry://possession_rituals/possess_weak_shulker)
                 - [Possessed Warden](entry://possession_rituals/possess_warden)
                 - [Possessed Bee](entry://possession_rituals/possess_bee)
+                - [Random Animal (Rideable, Special, Villager)](entry://possession_rituals/possess_random_animal)
                 - [Unbound Drikwing](entry://possession_rituals/possess_unbound_otherworld_bird)
                 - [Drikwing Familiar](entry://familiar_rituals/familiar_otherworld_bird)
                 - [Bat Familiar](entry://familiar_rituals/familiar_bat)
-                - [Cthulhu Familiar](entry://familiar_rituals/familiar_cthulhu)
-                - [Devil Familiar](entry://familiar_rituals/familiar_devil)
-                - [Dragon Familiar](entry://familiar_rituals/familiar_dragon)
-                - [Random Animal (Rideable, Villager)](entry://possession_rituals/possess_random_animal)
                 """
         );
 
@@ -66,6 +63,9 @@ public class PossessDjinniEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
+                - [Cthulhu Familiar](entry://familiar_rituals/familiar_cthulhu)
+                - [Devil Familiar](entry://familiar_rituals/familiar_devil)
+                - [Dragon Familiar](entry://familiar_rituals/familiar_dragon)
                 - [Headless Ratman Familiar](entry://familiar_rituals/familiar_headless)
                 - [Beholder Familiar](entry://familiar_rituals/familiar_beholder)
                 - [Fairy Familiar](entry://familiar_rituals/familiar_fairy)

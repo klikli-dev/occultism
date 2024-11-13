@@ -58,6 +58,17 @@
       "text": "book.occultism.dictionary_of_spirits.pentacles.contact_wild_spirit.uses.text",
       "title": "book.occultism.dictionary_of_spirits.pentacles.contact_wild_spirit.uses.title",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.contact_wild_spirit.uses2.text",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.contact_wild_spirit.uses2.title",
+      "use_markdown_in_title": false
     }
   ],
   "parents": [

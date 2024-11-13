@@ -55,11 +55,19 @@ public class ContactWildSpiritEntry extends EntryProvider {
                 - [Ominous Trial Key](entry://possession_rituals/possess_breeze)
                 - [Heavy Core](entry://possession_rituals/possess_strong_breeze)
                 - [Wild Illager Invasion](entry://possession_rituals/horde_illager)
+                - [Group of Random Animal](entry://possession_rituals/wild_random_animal)
+                """
+        );
+        this.page("uses2", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+        );
+        this.pageTitle("Uses");
+        this.pageText("""
                 - [Wild Armor Trim Smithing Template](entry://crafting_rituals/craft_wild_trim)
                 - [Budding Amethyst](entry://crafting_rituals/craft_budding_amethyst)
                 """
         );
-
     }
 
     @Override
