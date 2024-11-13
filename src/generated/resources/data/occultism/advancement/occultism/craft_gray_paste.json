@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "craft_gray_paste": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/craft_gray_paste"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.craft_gray_paste.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.craft_gray_paste.title"
+    }
+  },
+  "requirements": [
+    [
+      "craft_gray_paste"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
