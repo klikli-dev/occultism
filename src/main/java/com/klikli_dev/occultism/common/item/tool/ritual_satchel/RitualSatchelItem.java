@@ -156,6 +156,19 @@ public abstract class RitualSatchelItem extends Item {
 
     @Override
     public boolean isFoil(@NotNull ItemStack stack) {
+        var inventory = new ComponentItemHandler(
+                stack,
+                DataComponents.CONTAINER,
+                RitualSatchelContainer.SATCHEL_SIZE
+        );
+        for (int i = 0; i < inventory.getSlots(); i++) {
+            var item = inventory.getStackInSlot(i);
+            if (getMaxDamage(item) > 0) {
+                if ((float) getDamage(item)/ (float) getMaxDamage(item) > 0.6f) {
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
