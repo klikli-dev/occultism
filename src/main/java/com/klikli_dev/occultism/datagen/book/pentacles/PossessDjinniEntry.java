@@ -48,7 +48,6 @@ public class PossessDjinniEntry extends EntryProvider {
                 - [Possessed Enderman](entry://possession_rituals/possess_enderman)
                 - [Possessed Ghast](entry://possession_rituals/possess_ghast)
                 - [Possessed Weak Shulker](entry://possession_rituals/possess_weak_shulker)
-                - [Possessed Warden](entry://possession_rituals/possess_warden)
                 - [Possessed Bee](entry://possession_rituals/possess_bee)
                 - [Random Animal (Rideable, Special, Villager)](entry://possession_rituals/possess_random_animal)
                 - [Unbound Drikwing](entry://possession_rituals/possess_unbound_otherworld_bird)

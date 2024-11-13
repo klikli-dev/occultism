@@ -1,9 +1,9 @@
 {
   "type": "occultism:ritual",
   "activation_item": {
-    "item": "occultism:book_of_binding_bound_djinni"
+    "item": "occultism:book_of_binding_bound_afrit"
   },
-  "duration": 60,
+  "duration": 90,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.axolotls",
     "tag": "c:axolotls"
@@ -41,7 +41,7 @@
       "item": "minecraft:sculk"
     }
   ],
-  "pentacle_id": "occultism:possess_djinni",
+  "pentacle_id": "occultism:possess_afrit",
   "result": {
     "components": {
       "minecraft:item_name": "{\"translate\":\"item.occultism.ritual_dummy.possess_warden\"}",

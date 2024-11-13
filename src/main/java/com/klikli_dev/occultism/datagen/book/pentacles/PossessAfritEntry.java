@@ -49,6 +49,7 @@ public class PossessAfritEntry extends EntryProvider {
                 - [Possessed Shulker](entry://possession_rituals/possess_shulker)
                 - [Possessed Elder Guardian](entry://possession_rituals/possess_elder_guardian)
                 - [Possessed Hoglin](entry://possession_rituals/possess_hoglin)
+                - [Possessed Warden](entry://possession_rituals/possess_warden)
                 """
         );
 

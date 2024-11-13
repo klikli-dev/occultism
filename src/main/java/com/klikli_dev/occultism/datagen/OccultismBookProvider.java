@@ -1440,9 +1440,9 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         var entryMap = ModonomiconAPI.get().getEntryMap();
         entryMap.setMap(
-                "________I_A_B_J_P_N_C______", //The Places follow the tier progression
+                "________I_A_B_J_M_N_C______", //The Places follow the tier progression
                 "___________________________",
-                "_______D_G_E_F_M_L_K_______",
+                "_______D_G_E_F_P_L_K_______",
                 "___________________________",
                 "___r_o_____________________",
                 "___________________________",
@@ -1490,12 +1490,12 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         var possessWeakShulker = this.makePossessWeakShulkerEntry(entryMap, 'J');
         possessWeakShulker.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
-        var possessWarden = this.makePossessWardenEntry(entryMap, 'M');
-        possessWarden.withParent(BookEntryParentModel.create(overview.getId()))
-                .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
         var possessZombiePiglin = this.makePossessZombiePiglinEntry(entryMap, 'P');
         possessZombiePiglin.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessUnboundAfritID));
+        var possessWarden = this.makePossessWardenEntry(entryMap, 'M');
+        possessWarden.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessAfritID));
         var possessElderGuardian = this.makePossessElderGuardianEntry(entryMap, 'L');
         possessElderGuardian.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessAfritID));
@@ -1914,7 +1914,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        In this ritual a [#](%1$s)Warden[#]() is spawned using the life energy of a [#](%1$s)Axolotl[#]() and immediately possessed by the summoned [#](%1$s)Djinni[#](). The [#](%1$s)Possessed Warden[#]() will always drop at least six [](item://minecraft:echo_shard) when killed and as a chance to drop [](item://minecraft:disc_fragment_5), [](item://minecraft:music_disc_otherside), [](item://minecraft:silence_armor_trim_smithing_template), [](item://minecraft:ward_armor_trim_smithing_template). If you try to escape, this possessed Warden will go to the floor like a normal warden.
+                        In this ritual a [#](%1$s)Warden[#]() is spawned using the life energy of a [#](%1$s)Axolotl[#]() and immediately possessed by the summoned [#](%1$s)Afrit[#](). The [#](%1$s)Possessed Warden[#]() will always drop at least six [](item://minecraft:echo_shard) when killed and as a chance to drop [](item://minecraft:disc_fragment_5), [](item://minecraft:music_disc_otherside), [](item://minecraft:silence_armor_trim_smithing_template), [](item://minecraft:ward_armor_trim_smithing_template). If you try to escape, this possessed Warden will go to the floor like a normal warden.
                         """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
@@ -2511,7 +2511,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 """
                         You have learned how to attract groups of random animals by changing
                          the pentacle to [#](%1$s)Osorin's Wild Calling[#]() and using a
-                         [](item://occultism:spirit_attuned_crystal) instead of a bound book of binding.
+                         [](item://occultism:spirit_attuned_gem) instead of a bound book of binding.
                         """.formatted(COLOR_PURPLE));
 
         this.context().page("ritual_common");

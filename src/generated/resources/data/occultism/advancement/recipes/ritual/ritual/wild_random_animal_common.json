@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_spirit_attuned_crystal": {
+    "has_spirit_attuned_gem": {
       "conditions": {
         "items": [
           {
-            "items": "occultism:spirit_attuned_crystal"
+            "items": "occultism:spirit_attuned_gem"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_spirit_attuned_crystal"
+      "has_spirit_attuned_gem"
     ]
   ],
   "rewards": {

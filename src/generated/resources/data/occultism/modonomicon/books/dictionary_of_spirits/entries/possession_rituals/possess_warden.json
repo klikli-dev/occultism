@@ -4,7 +4,7 @@
   "category": "possession_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/possess_djinni"
+    "entry_id": "pentacles/possess_afrit"
   },
   "description": "",
   "hide_while_locked": false,
@@ -60,6 +60,6 @@
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": -1,
-  "x": 2,
-  "y": -3
+  "x": 3,
+  "y": -5
 }
