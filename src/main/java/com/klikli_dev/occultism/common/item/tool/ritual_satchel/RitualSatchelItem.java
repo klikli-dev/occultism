@@ -2,16 +2,15 @@ package com.klikli_dev.occultism.common.item.tool.ritual_satchel;
 
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.multiblock.Multiblock;
-import com.klikli_dev.modonomicon.api.multiblock.StateMatcher;
 import com.klikli_dev.modonomicon.multiblock.matcher.AnyMatcher;
 import com.klikli_dev.modonomicon.multiblock.matcher.DisplayOnlyMatcher;
-import com.klikli_dev.modonomicon.multiblock.matcher.Matchers;
 import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.common.container.satchel.RitualSatchelContainer;
 import com.klikli_dev.occultism.common.container.satchel.SatchelInventory;
 import com.klikli_dev.occultism.common.item.tool.ChalkItem;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSendPreviewedPentacle;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import com.mojang.datafixers.util.Function4;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMaps;
@@ -28,7 +27,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -85,6 +83,9 @@ public abstract class RitualSatchelItem extends Item {
         if(!context.getLevel().getBlockState(context.getClickedPos().above()).isAir())
             return false;
 
+        if(context.getItemInHand().is(OccultismItems.RITUAL_SATCHEL_T2) && !context.getLevel().getBlockState(context.getClickedPos()).isAir())
+            return false;
+
         for (int i = 0; i < inventory.getSlots(); i++) {
             var stack = inventory.getStackInSlot(i);
 
@@ -98,7 +99,8 @@ public abstract class RitualSatchelItem extends Item {
                 blockStateToPlace = block.getStateForPlacement(blockPlaceContext);
             } else if (stack.getItem() instanceof ChalkItem chalkItem) {
                 var chalkBlock = chalkItem.getGlyphBlock().get();
-                blockStateToPlace = chalkBlock.getStateForPlacement(new BlockPlaceContext(context));
+                if(!context.getLevel().getBlockState(context.getClickedPos().below()).isAir())
+                    blockStateToPlace = chalkBlock.getStateForPlacement(new BlockPlaceContext(context));
             }
 
             if (blockStateToPlace == null)
