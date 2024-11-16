@@ -55,7 +55,7 @@ public class BiomeModifiers {
                 GenerationStep.Decoration.VEGETAL_DECORATION));
 
         context.register(ADD_GROVE_UNDERGROUND, new net.neoforged.neoforge.common.world.BiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(BiomeTags.STRONGHOLD_BIASED_TO),
+                biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
                 HolderSet.direct(placedFeatures.getOrThrow(PlacedFeatures.GROVE_UNDERGROUND)),
                 GenerationStep.Decoration.UNDERGROUND_STRUCTURES));
     }

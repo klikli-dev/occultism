@@ -53,8 +53,8 @@ public class MultiChunkFeature extends Feature<MultiChunkFeatureConfig> {
                                               ChunkPos generatingChunk,
                                               MultiChunkFeatureConfig config) {
         ArrayList<BlockPos> result = new ArrayList<>(1);
-        for (int i = -config.maxChunksToRoot; i < config.maxChunksToRoot; i++) {
-            for (int j = -config.maxChunksToRoot; j < config.maxChunksToRoot; j++) {
+        for (int i = -config.maxChunksToRoot/2; i < config.maxChunksToRoot/2; i++) {
+            for (int j = -config.maxChunksToRoot/2; j < config.maxChunksToRoot/2; j++) {
 
                 ChunkPos currentChunk = new ChunkPos(generatingChunk.x + i, generatingChunk.z + j);
 

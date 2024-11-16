@@ -28,7 +28,6 @@ import com.klikli_dev.occultism.common.level.multichunk.MultiChunkFeatureConfig;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
@@ -48,8 +47,6 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
     protected ICaveDecorator caveDecorator;
     protected int radius;
     protected int maxRandomRadiusOffset;
-    protected int additionalSpheres;
-    protected int maxRandomAdditionalSpheres;
 
     /**
      * @param caveDecorator         the decorator for the generated cave.
@@ -57,23 +54,9 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
      * @param maxRandomRadiusOffset the maximum random offset for the radius
      */
     public SphericalCaveSubFeature(ICaveDecorator caveDecorator, int radius, int maxRandomRadiusOffset) {
-        this(caveDecorator, radius, maxRandomRadiusOffset, 3, 2);
-    }
-
-    /**
-     * @param caveDecorator              the decorator for the generated cave.
-     * @param radius                     the radius of the cave.
-     * @param maxRandomRadiusOffset      the maximum random offset for the radius
-     * @param additionalSpheres          the amount of additional spheres to add on to the main sphere.
-     * @param maxRandomAdditionalSpheres the maximum amount of random additional sphere to add to the main sphere.
-     */
-    public SphericalCaveSubFeature(ICaveDecorator caveDecorator, int radius, int maxRandomRadiusOffset,
-                                   int additionalSpheres, int maxRandomAdditionalSpheres) {
         this.caveDecorator = caveDecorator;
         this.radius = radius;
         this.maxRandomRadiusOffset = maxRandomRadiusOffset;
-        this.additionalSpheres = additionalSpheres;
-        this.maxRandomAdditionalSpheres = maxRandomAdditionalSpheres;
     }
 
     @Override
@@ -96,14 +79,10 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         int radiusBase = this.radius + rand.nextInt(this.maxRandomRadiusOffset);
         int radius = (int) (radiusBase * 0.2F) + rand.nextInt(8);
         spheres.add(this.generateSphere(reader, rand, rootPosition, radius, bounds));
-        for (int i = 0; i < this.additionalSpheres + rand.nextInt(this.maxRandomAdditionalSpheres); i++) {
-            Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(rand);
-            spheres.add(this.generateSphere(reader, rand, rootPosition.relative(direction, radius - 2),
-                    2 * (int) (radius / 3F) + rand.nextInt(8), bounds));
-        }
         for (Sphere sphere : spheres) {
-            this.hollowOutSphere(reader, rand, sphere.center, sphere.radius - 2, bounds);
-            this.decorateSphere(reader, generator, rand, sphere.center, sphere.radius + 2, bounds, config);
+            this.closeOutSphere(reader, sphere.center, sphere.radius + 3 , bounds);
+            this.hollowOutSphere(reader, rand, sphere.center, sphere.radius - 1, bounds);
+            this.decorateSphere(reader, generator, rand, sphere.center, sphere.radius + 1, bounds, config);
         }
         spheres.clear();
         return true;
@@ -129,10 +108,23 @@ public class SphericalCaveSubFeature implements IMultiChunkSubFeature {
         });
     }
 
+    protected void closeOutSphere(WorldGenLevel reader, BlockPos center, int radius, AABB bounds) {
+        int k = radius / 2;
+        float f = (float) (2 * radius + k) * 0.333F + 0.5F;
+        BlockPos min = Math3DUtil.clamp(center.offset(-radius, -k, -radius), bounds);
+        BlockPos max = Math3DUtil.clamp(center.offset(radius, k + 2, radius), bounds);
+
+        BlockPos.betweenClosed(min, max).forEach(blockPos -> {
+            if (blockPos.distSqr(center) <= (double) (f * f) ) {
+                BlockState currentState = reader.getBlockState(blockPos);
+                this.setBlockSafely(reader, blockPos, currentState, Blocks.STONE.defaultBlockState(), 2);
+            }
+        });
+    }
+
     protected void decorateSphere(WorldGenLevel reader, ChunkGenerator generator, RandomSource rand,
                                   BlockPos center, int radius, AABB bounds, MultiChunkFeatureConfig config) {
         int j = radius;
-        //int k = radius / 2;
         int k = radius / 2;
         int l = radius;
         CaveDecoratordata data = new CaveDecoratordata();

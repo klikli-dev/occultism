@@ -2,12 +2,12 @@
   "type": "occultism:underground_grove",
   "config": {
     "ceiling_light_chance": 0.1,
-    "chance_to_generate": 400,
+    "chance_to_generate": 300,
     "feature_seed_salt": 14653667,
     "grass_chance": 0.6,
-    "max_chunks_to_root": 7,
-    "max_generation_height": 60,
-    "min_generation_height": 25,
+    "max_chunks_to_root": 9,
+    "max_generation_height": 48,
+    "min_generation_height": 9,
     "otherworld_tree_feature": "occultism:tree_otherworld_natural",
     "tree_chance": 0.1,
     "vine_chance": 0.3

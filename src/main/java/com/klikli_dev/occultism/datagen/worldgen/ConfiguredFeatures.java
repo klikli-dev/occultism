@@ -62,10 +62,10 @@ public class ConfiguredFeatures {
         var placedTreeOtherworldNatural = placedFeatures.getOrThrow(PlacedFeatures.TREE_OTHERWORLD_NATURAL);
         FeatureUtils.register(context, GROVE_UNDERGROUND, OccultismFeatures.UNDERGROUND_GROVE_FEATURE.get(),
                 new MultiChunkFeatureConfig(
-                        7,
-                        400,
-                        25,
-                        60,
+                        9,
+                        300,
+                        9,
+                        48,
                         14653667,
                         0.6f,
                         0.1f,

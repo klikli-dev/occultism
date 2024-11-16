@@ -44,7 +44,7 @@ public class OccultismFeatures {
             FEATURES.register("underground_grove",
                     () -> new MultiChunkFeature(
                             MultiChunkFeatureConfig.CODEC,
-                            new SphericalCaveSubFeature(new UndergroundGroveDecorator(), 25, 25)));
+                            new SphericalCaveSubFeature(new UndergroundGroveDecorator(), 40, 20)));
 
 
     private static List<PlacementModifier> orePlacement(PlacementModifier modifier1, PlacementModifier modifier2) {

@@ -1,6 +1,6 @@
 {
   "type": "neoforge:add_features",
-  "biomes": "#minecraft:stronghold_biased_to",
+  "biomes": "#minecraft:is_overworld",
   "features": "occultism:grove_underground",
   "step": "underground_structures"
 }
