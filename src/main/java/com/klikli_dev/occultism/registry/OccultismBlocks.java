@@ -462,6 +462,11 @@ public class OccultismBlocks {
                             .noOcclusion()
             ));
 
+    public static final DeferredBlock<IesniumAnvilBlock> IESNIUM_ANVIL =
+            register("iesnium_anvil", () -> new IesniumAnvilBlock(
+                    BlockBehaviour.Properties.of().sound(SoundType.ANVIL).strength(5,1200)
+            ));
+
     //Crops
     public static final DeferredBlock<ReplantableCropsBlock> DATURA = register("datura",
             () -> new ReplantableCropsBlock(

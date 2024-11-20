@@ -48,6 +48,7 @@ public class CraftMaridEntry extends EntryProvider {
         this.pageText("""
                 - [Storage Stabilizer Tier 4](entry://crafting_rituals/craft_stabilizer_tier4)
                 - [Marid Master Miner](entry://crafting_rituals/craft_marid_miner)
+                - [Iesnium Anvil](entry://crafting_rituals/craft_iesnium_anvil)
                 """
         );
 

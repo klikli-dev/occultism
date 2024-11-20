@@ -77,8 +77,10 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.OTHERSTONE_BRICKS_STAIRS.get())
                 .add(OccultismBlocks.OTHERSTONE_BRICKS_SLAB.get())
                 .add(OccultismBlocks.CHISELED_OTHERSTONE_BRICKS.get())
-                .add(OccultismBlocks.CRACKED_OTHERSTONE_BRICKS.get());
+                .add(OccultismBlocks.CRACKED_OTHERSTONE_BRICKS.get())
+                .add(OccultismBlocks.IESNIUM_ANVIL.get()).replace(false);
         this.tag(BlockTags.CAMPFIRES).add(OccultismBlocks.SPIRIT_CAMPFIRE.get()).replace(false);
+        this.tag(BlockTags.ANVIL).add(OccultismBlocks.IESNIUM_ANVIL.get()).replace(false);
         this.tag(BlockTags.STAIRS)
                 .add(OccultismBlocks.OTHERSTONE_STAIRS.get())
                 .add(OccultismBlocks.OTHERCOBBLESTONE_STAIRS.get())

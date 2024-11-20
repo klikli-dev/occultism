@@ -43,6 +43,7 @@ public class ContactEldritchSpiritEntry extends EntryProvider {
         this.pageTitle("Uses");
         this.pageText("""
                 - [Eldritch Ancient Miner](entry://crafting_rituals/craft_ancient_miner)
+                - [Stabilized Storage](entry://crafting_rituals/craft_stabilized_storage)
                 - [Eldritch Chalice](entry://crafting_rituals/craft_eldritch_chalice)
                 """
         );

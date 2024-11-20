@@ -129,6 +129,9 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftIesniumSacrificialBowl = this.add(new IesniumSacrificialBowlEntry(this).generate('u'));
         craftIesniumSacrificialBowl.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftAfritID));
+        var craftIesniumAnvil = this.add(new IesniumAnvilEntry(this).generate('A'));
+        craftIesniumAnvil.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftMaridID));
 
         var craftWildTrim = this.add(this.makeCraftWildTrimEntry(this.entryMap, 'w'));
         craftWildTrim.withParent(BookEntryParentModel.create(overview.getId()))
