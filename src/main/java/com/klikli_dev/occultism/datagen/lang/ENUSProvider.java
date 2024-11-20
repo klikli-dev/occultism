@@ -371,7 +371,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     private void addBlocks() {
         //"block\.occultism\.(.*?)": "(.*)",
         //this.addBlock\(OccultismItems.\U\1\E, "\2"\);
-
+        this.addBlock(OccultismBlocks.OTHERGLASS, "Otherglass");
         this.addBlock(OccultismBlocks.OTHERSTONE, "Otherstone");
         this.addBlock(OccultismBlocks.OTHERSTONE_STAIRS, "Otherstone Stairs");
         this.addBlock(OccultismBlocks.OTHERSTONE_SLAB, "Otherstone Slab");
@@ -393,7 +393,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.CHISELED_OTHERSTONE_BRICKS, "Chiseled Otherstone Bricks");
         this.addBlock(OccultismBlocks.CRACKED_OTHERSTONE_BRICKS, "Cracked Otherstone Bricks");
         this.addBlock(OccultismBlocks.OTHERSTONE_PEDESTAL, "Otherstone Pedestal");
+        this.addBlock(OccultismBlocks.OTHERSTONE_PEDESTAL_SILVER, "Silver Otherstone Pedestal");
         this.addBlock(OccultismBlocks.SACRIFICIAL_BOWL, "Sacrificial Bowl");
+        this.addBlock(OccultismBlocks.COPPER_SACRIFICIAL_BOWL, "Copper Sacrificial Bowl");
+        this.addBlock(OccultismBlocks.SILVER_SACRIFICIAL_BOWL, "Silver Sacrificial Bowl");
         this.addBlock(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL, "Golden Sacrificial Bowl");
         this.addBlock(OccultismBlocks.CHALK_GLYPH_WHITE, "White Chalk Glyph");
         this.addBlock(OccultismBlocks.CHALK_GLYPH_YELLOW, "Yellow Chalk Glyph");
@@ -412,7 +415,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.CHALK_GLYPH_MAGENTA, "Magenta Chalk Glyph");
         this.addBlock(OccultismBlocks.CHALK_GLYPH_PINK, "Pink Chalk Glyph");
         this.addBlock(OccultismBlocks.STORAGE_CONTROLLER, "Dimensional Storage Actuator");
+        this.addBlock(OccultismBlocks.STORAGE_CONTROLLER_STABILIZED, "Stabilized Dimensional Storage Actuator");
         this.addBlock(OccultismBlocks.STORAGE_CONTROLLER_BASE, "Storage Actuator Base");
+        this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER0, "Dimensional Storage Stabilizer Base");
         this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER1, "Tier 1 Dimensional Storage Stabilizer");
         this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER2, "Tier 2 Dimensional Storage Stabilizer");
         this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER3, "Tier 3 Dimensional Storage Stabilizer");
@@ -459,9 +464,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.LARGE_CANDLE_PURPLE, "Large Purple Candle");
         this.addBlock(OccultismBlocks.SILVER_ORE, "Silver Ore");
         this.addBlock(OccultismBlocks.SILVER_ORE_DEEPSLATE, "Deepslate Silver Ore");
+        this.addBlock(OccultismBlocks.IESNIUM_ANVIL, "Iesnium Anvil");
         this.addBlock(OccultismBlocks.IESNIUM_ORE, "Iesnium Ore");
         this.addBlock(OccultismBlocks.SILVER_BLOCK, "Block of Silver");
         this.addBlock(OccultismBlocks.IESNIUM_BLOCK, "Block of Iesnium");
+        this.addBlock(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL, "Iesnium Sacrificial Bowl");
         this.addBlock(OccultismBlocks.RAW_SILVER_BLOCK, "Block of Raw Silver");
         this.addBlock(OccultismBlocks.RAW_IESNIUM_BLOCK, "Block of Raw Iesnium");
         this.addBlock(OccultismBlocks.DIMENSIONAL_MINESHAFT, "Dimensional Mineshaft");
@@ -471,6 +478,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.SPIRIT_LANTERN, "Spirit Lantern");
         this.addBlock(OccultismBlocks.SPIRIT_CAMPFIRE, "Spirit Campfire");
         this.addBlock(OccultismBlocks.SPIRIT_TORCH, "Spirit Torch"); //spirit wall torch automatically uses the same translation
+        this.addBlock(OccultismBlocks.ELDRITCH_CHALICE, "Eldritch Chalice");
     }
 
     private void addEntities() {
@@ -623,6 +631,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.sacrifice.tadpoles", "Tadpole");
         this.add("ritual.occultism.sacrifice.allay", "Allay");
         this.add("ritual.occultism.sacrifice.warden", "Warden");
+        this.add("ritual.occultism.sacrifice.ravager", "Ravager");
 
         //Network Message
         this.add("network.messages.occultism.request_order.order_received", "Order received!");
@@ -698,7 +707,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.pentacle_help.no_pentacle", "\u00a7lNo pentacle found!\u00a7r\nIt seems you did not draw a pentacle, or your pentacle is missing large parts. See the \"Rituals\" section of the Dictionary of Spirits, the required Pentacle will be a clickable blue link above the ritual recipe on the ritual's page.");
         this.add("ritual.occultism.ritual_help", "\u00a7lInvalid ritual!\u00a7r\nWere you trying to perform ritual: \"%s\"? Missing items:\n%s");
         this.add("ritual.occultism.disabled", "This ritual is disabled on this server.");
-        this.add("ritual.occultism.does_not_exist", "\u00a7lUnknown ritual\u00a7r. Make sure the pentacle & ingredients are set up correctly. If you are still unsuccessful join our discord at https://discord.gg/trE4SHRXvb");
+        this.add("ritual.occultism.does_not_exist", "\u00a7lUnknown ritual\u00a7r. Make sure the pentacle & ingredients are set up correctly. If you are still unsuccessful join our discord at https://invite.gg/klikli");
         this.add("ritual.occultism.book_not_bound", "\u00a7lUnbound Book of Calling\u00a7r. You must craft this book with Dictionary of Spirits to bind to a spirit before starting a ritual.");
 
         this.add("ritual.occultism.unknown.conditions", "Not all requirements for this ritual are met.");
@@ -1161,6 +1170,16 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "finished", "Successfully bound an afrit into a ritual satchel.");
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "interrupted", "Binding of afrit interrupted.");
 
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL, "conditions", "Not all requirements for this ritual are met.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL, "started", "Started binding an afrit into iesnium sacrificial bowl.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL, "finished", "Successfully bound an afrit into iesnium sacrificial bowl.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL, "interrupted", "Binding of afrit interrupted.");
+
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL, "conditions", "Not all requirements for this ritual are met.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL, "started", "Started binding a marid into iesnium anvil.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL, "finished", "Successfully bound a marid into iesnium anvil.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL, "interrupted", "Binding of marid interrupted.");
+
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "conditions", "Not all requirements for this ritual are met.");
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "started", "Started forging budding amethyst.");
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "finished", "Successfully forged budding amethyst.");
@@ -1170,6 +1189,17 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "started", "Started forging reinforced deepslate.");
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "finished", "Successfully forged reinforced deepslate.");
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "interrupted", "Forging reinforced deepslate interrupted.");
+
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE, "conditions", "Not all requirements for this ritual are met.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE, "started", "Started forging eldritch chalice.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE, "finished", "Successfully forged eldritch chalice.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE, "interrupted", "Forging eldritch chalice interrupted.");
+
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE, "conditions", "Not all requirements for this ritual are met.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE, "started", "Started forging stabilized dimensional storage actuator.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE, "finished", "Successfully forged stabilized dimensional storage actuator.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE, "interrupted", "Forging stabilized dimensional storage actuator interrupted.");
+
     }
 
     public void addRitualMessage(DeferredHolder<RitualFactory, RitualFactory> ritual, String key, String message) {
@@ -1989,7 +2019,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("spotlight");
         this.add(helper.pageText(),
                 """
-                        Unlike other rituals, creating a [](item://minecraft:reinforced_deepslate) is a service provided by Ancient Spirits and not bound any spirit to the final object. You sacrifice the items and the Ancient Spirits uses his power to forge that item for you.
+                        Unlike other rituals, creating a [](item://minecraft:reinforced_deepslate) is a service provided by Wild Spirits and not bound any spirit to the final object. You sacrifice the items and the Wild Spirits uses his power to forge that item for you.
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
@@ -3051,6 +3081,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2.get(), "Ritual: Craft Artisanal Ritual Satchel");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2.get(), "Binds an Afrit into a satchel to build pentacles all at once for the summoner.");
 
+        this.add(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL.get(), "Ritual: Craft Iesnium Sacrificial Bowl");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL.get(), "The Iesnium Sacrificial Bowl performs any ritual in only a quarter of the normal time. All other things will works like the Golden Sacrificial Bowl.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL.get(), "Ritual: Craft Iesnium Anvil");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL.get(), "The iesnium anvil is an improvement on the common anvil, see all the advantages in the dictionary.");
+
         //Misc dummy
         this.add(OccultismItems.RITUAL_DUMMY_RESURRECT_FAMILIAR.get(), "Ritual: Resurrect Familiar");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_RESURRECT_FAMILIAR.get(), "Resurrects a Familiar from a Soul Shard.");
@@ -3105,10 +3141,16 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST.get(), "Wild Spirits will forge a Budding Amethyst.");
 
         this.add(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE.get(), "Ritual: Forge Reinforced Deepslate");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE.get(), "Ancient Spirits will forge a Reinforced Deepslate.");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE.get(), "Wild Spirits will forge a Reinforced Deepslate.");
 
         this.add(OccultismItems.RITUAL_DUMMY_FORGE_MINER_ANCIENT_ELDRITCH.get(), "Ritual: Summon Eldritch Ancient Miner");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_MINER_ANCIENT_ELDRITCH.get(), "Summon Eldritch Ancient Miner into a magic lamp.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE.get(), "Ritual: Forge Eldritch Chalice");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE.get(), "Eldritch Spirits will forge an Eldritch Chalice, that performs any ritual instantly. Here is your trophy.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE.get(), "Ritual: Forge Stabilized Dimensional Storage Actuator");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE.get(), "Eldritch Spirits will forge a Stabilized Dimensional Storage Actuator, works as an actuator with maximum stabilizers in only one block.");
     }
 
     public void addTooltip(ItemLike key, String value) {
