@@ -60,6 +60,9 @@ public class StandardBlockStateProvider extends BlockStateProvider {
         this.simpleBlock(OccultismBlocks.STORAGE_CONTROLLER_BASE.get(),
                 this.models().getExistingFile(this.modLoc("block/storage_controller_base")));
         this.models().withExistingParent("item/storage_controller_base", this.modLoc("block/storage_controller_base"));
+        this.simpleBlock(OccultismBlocks.STORAGE_CONTROLLER_STABILIZED.get(),
+                this.models().getExistingFile(this.modLoc("block/storage_controller_stabilized")));
+        this.models().withExistingParent("item/storage_controller_stabilized", this.modLoc("block/storage_controller_stabilized"));
         this.generateStableWormholeState(OccultismBlocks.STABLE_WORMHOLE.get());
         this.directionalBlock(OccultismBlocks.SACRIFICIAL_BOWL.get(),
                 this.models().getExistingFile(this.modLoc("block/sacrificial_bowl")));
@@ -67,6 +70,8 @@ public class StandardBlockStateProvider extends BlockStateProvider {
                 this.models().getExistingFile(this.modLoc("block/copper_sacrificial_bowl")));
         this.directionalBlock(OccultismBlocks.SILVER_SACRIFICIAL_BOWL.get(),
                 this.models().getExistingFile(this.modLoc("block/silver_sacrificial_bowl")));
+        this.directionalBlock(OccultismBlocks.STORAGE_STABILIZER_TIER0.get(),
+                this.models().getExistingFile(this.modLoc("block/storage_stabilizer_tier0")));
         this.directionalBlock(OccultismBlocks.STORAGE_STABILIZER_TIER1.get(),
                 this.models().getExistingFile(this.modLoc("block/storage_stabilizer_tier1")));
         this.directionalBlock(OccultismBlocks.STORAGE_STABILIZER_TIER2.get(),

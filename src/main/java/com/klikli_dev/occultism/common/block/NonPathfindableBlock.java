@@ -27,13 +27,30 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
+
+import java.util.stream.Stream;
 
 public class NonPathfindableBlock extends Block {
     public NonPathfindableBlock(Properties properties) {
         super(properties);
     }
 
-
+    private static final VoxelShape SHAPE = Stream.of(
+            Block.box(0, 0, 0, 16, 4, 16),
+            Block.box(4, 4, 4, 12, 12, 12),
+            Block.box(2, 12, 2, 14, 16, 14)
+    ).reduce((v1, v2) -> {
+        return Shapes.join(v1, v2, BooleanOp.OR);
+    }).get();
+    @Override
+    @SuppressWarnings("deprecation")
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+        return SHAPE;
+    }
     @Override
     protected boolean isPathfindable(BlockState pState, PathComputationType pPathComputationType) {
         return false;

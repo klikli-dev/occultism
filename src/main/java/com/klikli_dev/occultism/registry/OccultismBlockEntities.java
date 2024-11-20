@@ -36,7 +36,7 @@ public class OccultismBlockEntities {
 
     public static final Supplier<BlockEntityType<StorageControllerBlockEntity>> STORAGE_CONTROLLER = BLOCK_ENTITIES.register(
             "storage_controller", () -> BlockEntityType.Builder.of(StorageControllerBlockEntity::new,
-                    OccultismBlocks.STORAGE_CONTROLLER.get()).build(null));
+                    OccultismBlocks.STORAGE_CONTROLLER.get(), OccultismBlocks.STORAGE_CONTROLLER_STABILIZED.get()).build(null));
 
     public static final Supplier<BlockEntityType<StableWormholeBlockEntity>> STABLE_WORMHOLE = BLOCK_ENTITIES.register(
             "stable_wormhole", () -> BlockEntityType.Builder.of(StableWormholeBlockEntity::new,

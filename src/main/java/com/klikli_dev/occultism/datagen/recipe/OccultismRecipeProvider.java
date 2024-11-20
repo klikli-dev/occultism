@@ -957,6 +957,15 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .define('o', OccultismBlocks.OTHERSTONE.get())
                 .unlockedBy("has_otherstone", has(OccultismBlocks.OTHERSTONE.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherstone_pedestal"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismBlocks.OTHERSTONE_PEDESTAL_SILVER.get())
+                .requires(OccultismTags.Items.SILVER_INGOT)
+                .requires(OccultismBlocks.OTHERSTONE_PEDESTAL.get())
+                .unlockedBy("has_otherstone_pedestal", has(OccultismBlocks.OTHERSTONE_PEDESTAL.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherstone_pedestal_silver"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismBlocks.STORAGE_STABILIZER_TIER0.get())
+                .requires(OccultismBlocks.OTHERSTONE_PEDESTAL.get())
+                .unlockedBy("has_otherstone_pedestal", has(OccultismBlocks.OTHERSTONE_PEDESTAL.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/storage_stabilizer_tier0"));
 
         stairBuilder(OccultismBlocks.OTHERSTONE_STAIRS.get(), Ingredient.of(OccultismBlocks.OTHERSTONE.asItem()))
                 .unlockedBy("has_otherstone", has(OccultismBlocks.OTHERSTONE.asItem())).save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherstone_stairs"));

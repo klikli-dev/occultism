@@ -41,6 +41,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.OTHERSTONE_SLAB.get())
                 .add(OccultismBlocks.OTHERSTONE_PRESSURE_PLATE.get())
                 .add(OccultismBlocks.OTHERSTONE_PEDESTAL.get())
+                .add(OccultismBlocks.OTHERSTONE_PEDESTAL_SILVER.get())
                 .add(OccultismBlocks.STORAGE_CONTROLLER_BASE.get())
                 .add(OccultismBlocks.SACRIFICIAL_BOWL.get())
                 .add(OccultismBlocks.COPPER_SACRIFICIAL_BOWL.get())
@@ -49,6 +50,8 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get())
                 .add(OccultismBlocks.ELDRITCH_CHALICE.get())
                 .add(OccultismBlocks.STORAGE_CONTROLLER.get())
+                .add(OccultismBlocks.STORAGE_CONTROLLER_STABILIZED.get())
+                .add(OccultismBlocks.STORAGE_STABILIZER_TIER0.get())
                 .add(OccultismBlocks.STORAGE_STABILIZER_TIER1.get())
                 .add(OccultismBlocks.STORAGE_STABILIZER_TIER2.get())
                 .add(OccultismBlocks.STORAGE_STABILIZER_TIER3.get())
@@ -204,6 +207,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
         this.tag(OccultismTags.Blocks.CAVE_WALL_BLOCKS).add(Blocks.STONE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE).replace(false);
         this.tag(OccultismTags.Blocks.NETHERRACK).add(Blocks.NETHERRACK).replace(false);
         this.tag(OccultismTags.Blocks.STORAGE_STABILIZER)
+                .add(OccultismBlocks.STORAGE_STABILIZER_TIER0.get())
                 .add(OccultismBlocks.STORAGE_STABILIZER_TIER1.get())
                 .add(OccultismBlocks.STORAGE_STABILIZER_TIER2.get())
                 .add(OccultismBlocks.STORAGE_STABILIZER_TIER3.get())

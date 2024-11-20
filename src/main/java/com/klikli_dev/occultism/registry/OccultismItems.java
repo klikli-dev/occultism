@@ -380,9 +380,7 @@ public class OccultismItems {
     public static final DeferredItem<BlockItem> SPIRIT_FIRE =
             ITEMS.register("spirit_fire", () -> new BlockItem(OccultismBlocks.SPIRIT_FIRE.get(), defaultProperties()));
     public static final DeferredItem<StableWormholeBlockItem> STABLE_WORMHOLE = ITEMS.register("stable_wormhole",
-            () -> new StableWormholeBlockItem(OccultismBlocks.STABLE_WORMHOLE.get(), defaultProperties()));
-    public static final DeferredItem<StorageControllerBlockItem> STORAGE_CONTROLLER = ITEMS.register("storage_controller",
-            () -> new StorageControllerBlockItem(OccultismBlocks.STORAGE_CONTROLLER.get(), defaultProperties()));
+            () -> new StableWormholeBlockItem(OccultismBlocks.STABLE_WORMHOLE.get(), defaultProperties())); //not work if auto-gen
 
     //Deco Block Items
     public static final DeferredItem<Item> SPIRIT_TORCH = ITEMS.register("spirit_torch",

@@ -188,10 +188,7 @@ public class OccultismBlocks {
             Block.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(1.5f, 30)));
     public static final DeferredBlock<Block> CRACKED_OTHERSTONE_BRICKS = register("cracked_otherstone_bricks", () -> new Block(
             Block.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(1.5f, 30)));
-    public static final DeferredBlock<Block> OTHERSTONE_PEDESTAL = register("otherstone_pedestal",
-            () -> new Block(Block.Properties.ofLegacyCopy(OTHERSTONE.get())));
-    public static final DeferredBlock<Block> STORAGE_CONTROLLER_BASE = register("storage_controller_base",
-            () -> new NonPathfindableBlock(Block.Properties.ofLegacyCopy(OTHERSTONE.get()).noOcclusion()));
+
     //Components
     public static final DeferredBlock<OtherstoneNaturalBlock> OTHERSTONE_NATURAL =
             register("otherstone_natural", () -> new OtherstoneNaturalBlock(
@@ -400,13 +397,32 @@ public class OccultismBlocks {
                             .sound(SoundType.STONE).strength(5.1f, 77)
                             .noOcclusion()));
 
+    public static final DeferredBlock<Block> OTHERSTONE_PEDESTAL = register("otherstone_pedestal",
+            () -> new NonPathfindableBlock(Block.Properties.ofLegacyCopy(OTHERSTONE.get()).noOcclusion()));
+    public static final DeferredBlock<Block> STORAGE_CONTROLLER_BASE = register("storage_controller_base",
+            () -> new NonPathfindableBlock(Block.Properties.ofLegacyCopy(OTHERSTONE.get()).noOcclusion()));
+    public static final DeferredBlock<Block> OTHERSTONE_PEDESTAL_SILVER = register("otherstone_pedestal_silver",
+            () -> new NonPathfindableBlock(Block.Properties.ofLegacyCopy(OTHERSTONE.get()).noOcclusion()));
+
     public static final DeferredBlock<StorageControllerBlock> STORAGE_CONTROLLER = register("storage_controller",
             () -> new StorageControllerBlock(
                     Block.Properties.of()
                             .mapColor(MapColor.STONE)
                             .sound(SoundType.STONE)
-                            .strength(5f, 100).noOcclusion()), false, LootTableType.CUSTOM);
-                            
+                            .strength(5f, 100).noOcclusion()), true, LootTableType.CUSTOM);
+    public static final DeferredBlock<StorageControllerBlock> STORAGE_CONTROLLER_STABILIZED = register("storage_controller_stabilized",
+            () -> new StorageControllerBlock(
+                    Block.Properties.of()
+                            .mapColor(MapColor.STONE)
+                            .sound(SoundType.STONE)
+                            .strength(5f, 100).noOcclusion()), true, LootTableType.CUSTOM);
+
+    public static final DeferredBlock<StorageStabilizerBlock> STORAGE_STABILIZER_TIER0 = register(
+            "storage_stabilizer_tier0", () -> new StorageStabilizerBlock(
+                    Block.Properties.of()
+                            .mapColor(MapColor.STONE)
+                            .sound(SoundType.STONE).strength(1.5f, 30)
+                            .noOcclusion()));
     public static final DeferredBlock<StorageStabilizerBlock> STORAGE_STABILIZER_TIER1 = register(
             "storage_stabilizer_tier1", () -> new StorageStabilizerBlock(
                     Block.Properties.of()

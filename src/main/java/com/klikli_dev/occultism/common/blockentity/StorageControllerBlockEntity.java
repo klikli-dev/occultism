@@ -86,7 +86,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     public static final int MAX_STABILIZER_DISTANCE = 5;
 
     protected static final List<DeferredBlock<? extends Block>> BLOCK_BLACKLIST = Stream.of(
-            OccultismBlocks.STORAGE_CONTROLLER).collect(Collectors.toList());
+            OccultismBlocks.STORAGE_CONTROLLER, OccultismBlocks.STORAGE_CONTROLLER_STABILIZED).collect(Collectors.toList());
     private final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
     public Map<Integer, ItemStack> matrix = new HashMap<>();
     public ItemStack orderStack = ItemStack.EMPTY;
@@ -124,12 +124,15 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         int additionalMaxItemTypes = 0;
         long additionalTotalItemCount = 0;
         List<BlockPos> stabilizerLocations = this.findValidStabilizers();
-        for (BlockPos pos : stabilizerLocations) {
-            additionalMaxItemTypes += this.getAdditionalMaxItemTypesForStabilizer(this.level.getBlockState(pos));
-            additionalTotalItemCount += this.getAdditionalMaxTotalItemCountForStabilizer(this.level.getBlockState(pos));
+        if (this.getBlockState().getBlock().equals(OccultismBlocks.STORAGE_CONTROLLER.get())) {
+            for (BlockPos pos : stabilizerLocations) {
+                additionalMaxItemTypes += this.getAdditionalMaxItemTypesForStabilizer(this.level.getBlockState(pos));
+                additionalTotalItemCount += this.getAdditionalMaxTotalItemCountForStabilizer(this.level.getBlockState(pos));
+            }
+            this.setStorageLimits(Occultism.SERVER_CONFIG.storage.controllerMaxItemTypes.get() + additionalMaxItemTypes, Occultism.SERVER_CONFIG.storage.controllerMaxTotalItemCount.get() + additionalTotalItemCount);
+        } else {
+            this.setStorageLimits(Occultism.SERVER_CONFIG.storage.controllerMaxItemTypes.get() + 6 * Occultism.SERVER_CONFIG.storage.stabilizerTier4AdditionalMaxItemTypes.get(), Occultism.SERVER_CONFIG.storage.controllerMaxTotalItemCount.get() + 6 * Occultism.SERVER_CONFIG.storage.stabilizerTier4AdditionalMaxTotalItemCount.get());
         }
-
-        this.setStorageLimits(Occultism.SERVER_CONFIG.storage.controllerMaxItemTypes.get() + additionalMaxItemTypes, Occultism.SERVER_CONFIG.storage.controllerMaxTotalItemCount.get() + additionalTotalItemCount);
     }
 
     public List<BlockPos> findValidStabilizers() {

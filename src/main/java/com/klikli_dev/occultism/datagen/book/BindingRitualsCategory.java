@@ -142,6 +142,9 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftEldritchChalice = this.add(new EldritchChaliceEntry(this).generate('t'));
         craftEldritchChalice.withParent(BookEntryParentModel.create(craftIesniumSacrificialBowl.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
+        var craftStabilizedStorage = this.add(new StabilizedStorageEntry(this).generate('ç'));
+        craftStabilizedStorage.withParent(BookEntryParentModel.create(craftStabilizerTier4.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
 
         var repairRituals = this.add(this.makeRepairEntry(this.entryMap, 'y'));
         repairRituals.withParent(BookEntryParentModel.create(overview.getId()))
