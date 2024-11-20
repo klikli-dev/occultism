@@ -35,7 +35,7 @@ public class PlacedFeatures {
                 commonOrePlacement(10, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(50))));
 
         PlacementUtils.register(context, ORE_IESNIUM, configuredFeatures.getOrThrow(ConfiguredFeatures.ORE_IESNIUM),
-                commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(50))));
+                commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(0), VerticalAnchor.absolute(128))));
 
         PlacementUtils.register(context, TREE_OTHERWORLD, configuredFeatures.getOrThrow(ConfiguredFeatures.TREE_OTHERWORLD),
                 PlacementUtils.filteredByBlockSurvival(OccultismBlocks.OTHERWORLD_SAPLING.get()));
