@@ -10,9 +10,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageMo
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.occultism.datagen.OccultismBookProvider;
-import com.klikli_dev.occultism.datagen.book.binding_rituals.ApprenticeRitualSatchelEntry;
-import com.klikli_dev.occultism.datagen.book.binding_rituals.ArtisanalRitualSatchelEntry;
-import com.klikli_dev.occultism.datagen.book.binding_rituals.DimensionalMineshaftEntry;
+import com.klikli_dev.occultism.datagen.book.binding_rituals.*;
 import com.klikli_dev.occultism.datagen.book.pentacles.*;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
@@ -31,17 +29,19 @@ public class BindingRitualsCategory extends CategoryProvider {
     protected String[] generateEntryMap() {
         return new String[]{
                 "___________________________",
-                "_______b_e_x_p_q_r_________",
+                "_______e_x_p_q_r___________",
                 "___________________________",
-                "_______d_h_c__w_v_s________",
+                "_______b_u_t_______________",
                 "___________________________",
-                "___9_0______________y______",
+                "_______d___A_g_ĝ_ğ_y_______",
                 "___________________________",
-                "_______f_z_a__g_ĝ_ğ________",
+                "___9_0_____________________",
                 "___________________________",
-                "_________o_n_m_____________",
+                "_______f_z_h_c_w_v_s_______",
                 "___________________________",
-                "___________i_j_k_l_________",
+                "_________a_m_i_j_k_l_______",
+                "___________________________",
+                "_________n_____o___ç_______",
                 "___________________________"
         };
     }
@@ -126,6 +126,10 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftFamiliarRing = this.add(this.makeCraftFamiliarRingEntry(this.entryMap, 'c'));
         craftFamiliarRing.withParent(BookEntryParentModel.create(craftSoulGem.getId()));
 
+        var craftIesniumSacrificialBowl = this.add(new IesniumSacrificialBowlEntry(this).generate('u'));
+        craftIesniumSacrificialBowl.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftAfritID));
+
         var craftWildTrim = this.add(this.makeCraftWildTrimEntry(this.entryMap, 'w'));
         craftWildTrim.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactWildID));
@@ -134,8 +138,10 @@ public class BindingRitualsCategory extends CategoryProvider {
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactWildID));
         var craftDeepslate = this.add(this.makeCraftDeepslateEntry(this.entryMap, 's'));
         craftDeepslate.withParent(BookEntryParentModel.create(overview.getId()))
-                .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID))
-                .hideWhileLocked(true);
+                .withCondition(BookEntryReadConditionModel.create().withEntry(contactWildID));
+        var craftEldritchChalice = this.add(new EldritchChaliceEntry(this).generate('t'));
+        craftEldritchChalice.withParent(BookEntryParentModel.create(craftIesniumSacrificialBowl.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
 
         var repairRituals = this.add(this.makeRepairEntry(this.entryMap, 'y'));
         repairRituals.withParent(BookEntryParentModel.create(overview.getId()))
@@ -644,7 +650,7 @@ public class BindingRitualsCategory extends CategoryProvider {
 
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/craft_wild_trim"));
+                .withRecipeId1(this.modLoc("ritual/misc_wild_trim"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE)

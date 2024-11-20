@@ -43,7 +43,11 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.OTHERSTONE_PEDESTAL.get())
                 .add(OccultismBlocks.STORAGE_CONTROLLER_BASE.get())
                 .add(OccultismBlocks.SACRIFICIAL_BOWL.get())
+                .add(OccultismBlocks.COPPER_SACRIFICIAL_BOWL.get())
+                .add(OccultismBlocks.SILVER_SACRIFICIAL_BOWL.get())
                 .add(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get())
+                .add(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get())
+                .add(OccultismBlocks.ELDRITCH_CHALICE.get())
                 .add(OccultismBlocks.STORAGE_CONTROLLER.get())
                 .add(OccultismBlocks.STORAGE_STABILIZER_TIER1.get())
                 .add(OccultismBlocks.STORAGE_STABILIZER_TIER2.get())
@@ -123,6 +127,8 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
         this.tag(OccultismTags.Blocks.PENTACLE_MATERIALS)
                 .addTag(Tags.Blocks.SKULLS)
                 .add(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get())
+                .add(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get())
+                .add(OccultismBlocks.ELDRITCH_CHALICE.get())
                 .add(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get())
                 .addTag(BlockTags.CANDLES)
                 .addTag(Tags.Blocks.GLASS_PANES)
@@ -178,6 +184,10 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.CHALK_GLYPH_MAGENTA.get())
                 .add(OccultismBlocks.CHALK_GLYPH_PINK.get()).replace(false);
 
+        this.tag(OccultismTags.Blocks.CENTER_SACRIFICIAL_BOWL)
+                .add(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get())
+                .add(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get())
+                .add(OccultismBlocks.ELDRITCH_CHALICE.get()).replace(false);
         this.tag(OccultismTags.Blocks.FOUNDATION_GLYPHS_ANY)
                 .add(OccultismBlocks.CHALK_GLYPH_WHITE.get())
                 .add(OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY.get())

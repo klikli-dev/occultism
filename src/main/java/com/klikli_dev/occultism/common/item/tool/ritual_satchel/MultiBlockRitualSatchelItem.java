@@ -58,7 +58,9 @@ public class MultiBlockRitualSatchelItem extends RitualSatchelItem {
     @Override
     protected InteractionResult useOnClientSide(UseOnContext context) {
         //non-preview golden sacrifical bowl means we try to collect the ritual pentacle.
-        if (context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()))
+        if (context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get())
+                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get())
+                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.ELDRITCH_CHALICE.get()))
             return InteractionResult.SUCCESS;
 
         return super.useOnClientSide(context);
@@ -124,7 +126,9 @@ public class MultiBlockRitualSatchelItem extends RitualSatchelItem {
 
     @Override
     protected InteractionResult useOnServerSide(UseOnContext context) {
-        if (context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()))
+        if (context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get())
+                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get())
+                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.ELDRITCH_CHALICE.get()))
             return this.collectPentacle(context);
 
         var targetPentacle = this.targetPentacles().get(context.getPlayer().getUUID());

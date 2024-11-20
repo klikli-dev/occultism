@@ -945,8 +945,12 @@ public class GettingStartedCategory extends CategoryProvider {
 
         this.context().page("sacrificial_bowl_recipe");
         var sacrificialBowlRecipe = BookCraftingRecipePageModel.create()
-                .withRecipeId1(this.modLoc("crafting/sacrificial_bowl"));
-        //no text
+                .withRecipeId1(this.modLoc("crafting/sacrificial_bowl"))
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        You can mix a sacrificial bowl with a copper or silver ingot to create variations with the same functionality.
+                        """);
 
 
         this.context().page("golden_sacrificial_bowl");

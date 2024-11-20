@@ -44,12 +44,12 @@ public class OccultismBlockEntities {
 
     public static final Supplier<BlockEntityType<SacrificialBowlBlockEntity>> SACRIFICIAL_BOWL = BLOCK_ENTITIES.register(
             "sacrificial_bowl", () -> BlockEntityType.Builder.of(SacrificialBowlBlockEntity::new,
-                    OccultismBlocks.SACRIFICIAL_BOWL.get()).build(null));
+                    OccultismBlocks.SACRIFICIAL_BOWL.get(), OccultismBlocks.COPPER_SACRIFICIAL_BOWL.get(), OccultismBlocks.SILVER_SACRIFICIAL_BOWL.get()).build(null));
 
     public static final Supplier<BlockEntityType<GoldenSacrificialBowlBlockEntity>> GOLDEN_SACRIFICIAL_BOWL =
             BLOCK_ENTITIES.register(
                     "golden_sacrificial_bowl", () -> BlockEntityType.Builder.of(GoldenSacrificialBowlBlockEntity::new,
-                            OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()).build(null));
+                            OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get(), OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get(), OccultismBlocks.ELDRITCH_CHALICE.get()).build(null));
 
     public static final Supplier<BlockEntityType<DimensionalMineshaftBlockEntity>> DIMENSIONAL_MINESHAFT =
             BLOCK_ENTITIES.register(

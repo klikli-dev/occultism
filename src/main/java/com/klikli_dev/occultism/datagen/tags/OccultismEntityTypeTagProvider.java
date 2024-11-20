@@ -234,5 +234,6 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
         this.tag(OccultismTags.Entities.TADPOLES).add(EntityType.TADPOLE).replace(false);
         this.tag(OccultismTags.Entities.ALLAY).add(EntityType.ALLAY).replace(false);
         this.tag(OccultismTags.Entities.WARDEN).add(EntityType.WARDEN).add(OccultismEntities.POSSESSED_WARDEN_TYPE.get()).replace(false);
+        this.tag(OccultismTags.Entities.RAVAGER).add(EntityType.RAVAGER).replace(false);
     }
 }

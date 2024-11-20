@@ -122,7 +122,10 @@ public class JeiPlugin implements IModPlugin {
                 JeiRecipeTypes.MINER);
         registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()),
                 JeiRecipeTypes.RITUAL);
-
+        registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get()),
+                JeiRecipeTypes.RITUAL);
+        registration.addRecipeCatalyst(new ItemStack(OccultismBlocks.ELDRITCH_CHALICE.get()),
+                JeiRecipeTypes.RITUAL);
         registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_marid_crusher"))),
                 JeiRecipeTypes.CRUSHING);
         registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_afrit_crusher"))),

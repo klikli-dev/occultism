@@ -1,0 +1,6 @@
+{
+  "parent": "occultism:block/sacrificial_bowl",
+  "textures": {
+    "1": "occultism:block/otherstone_platinum"
+  }
+}

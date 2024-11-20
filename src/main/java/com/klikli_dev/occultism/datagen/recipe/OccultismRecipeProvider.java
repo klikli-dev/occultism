@@ -1035,6 +1035,16 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .define('o', OccultismBlocks.OTHERSTONE.get())
                 .unlockedBy("has_otherstone", has(OccultismBlocks.OTHERSTONE.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/sacrificial_bowl"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismBlocks.COPPER_SACRIFICIAL_BOWL.get())
+                .requires(OccultismBlocks.SACRIFICIAL_BOWL.asItem())
+                .requires(Tags.Items.INGOTS_COPPER)
+                .unlockedBy("has_sacrificial_bowl", has(OccultismBlocks.SACRIFICIAL_BOWL.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/copper_sacrificial_bowl"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismBlocks.SILVER_SACRIFICIAL_BOWL.get())
+                .requires(OccultismBlocks.SACRIFICIAL_BOWL.asItem())
+                .requires(OccultismTags.Items.SILVER_INGOT)
+                .unlockedBy("has_sacrificial_bowl", has(OccultismBlocks.SACRIFICIAL_BOWL.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/silver_sacrificial_bowl"));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get())
                 .pattern("gg")

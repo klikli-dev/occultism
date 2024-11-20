@@ -31,6 +31,7 @@ import com.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.klikli_dev.occultism.common.ritual.Ritual;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
+import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismParticles;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.util.EntityUtil;
@@ -83,6 +84,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     public boolean sacrificeProvided;
     public boolean itemUseProvided;
     public int currentTime;
+    public int tier;
 
     public Consumer<RightClickItem> rightClickItemListener;
     public Consumer<LivingDeathEvent> livingDeathEventListener;
@@ -321,6 +323,21 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         return 8;
     }
 
+    public int getTier(BlockState pBlockState){
+        Block blockBowl = pBlockState.getBlock();
+
+        if (blockBowl.equals(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()))
+            return 1;
+
+        if (blockBowl.equals(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get()))
+            return 2;
+
+        if (blockBowl.equals(OccultismBlocks.ELDRITCH_CHALICE.get()))
+            return 3;
+
+        return 0;
+    }
+
     public void tick() {
         RecipeHolder<RitualRecipe> recipe = this.getCurrentRitualRecipe();
         if (!this.level.isClientSide && recipe != null) {
@@ -377,8 +394,19 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             }
 
             //Advance ritual time every second, based on the standard 20 tps, but taking into account duration multiplier
-            if (this.level.getGameTime() % ((int) (20 * Occultism.SERVER_CONFIG.rituals.ritualDurationMultiplier.get())) == 0)
-                this.currentTime++;
+            if (getTier(this.getBlockState()) == 1){ //golden bowl
+                if (this.level.getGameTime() % ((int) (20 * Occultism.SERVER_CONFIG.rituals.ritualDurationMultiplier.get())) == 0){
+                    this.currentTime++;
+                }
+            } else if (getTier(this.getBlockState()) == 2) {
+                if (Occultism.SERVER_CONFIG.rituals.ritualDurationMultiplier.get() < 0.2) { //avoiding crash of divide by 0 with iesnium bowl
+                    this.currentTime++;
+                } else if (this.level.getGameTime() % ((int) (5 * Occultism.SERVER_CONFIG.rituals.ritualDurationMultiplier.get())) == 0) {
+                    this.currentTime++;
+                }
+            } else {
+                this.currentTime = recipe.value().getDuration();
+            }
 
             recipe
                     .value().getRitual()

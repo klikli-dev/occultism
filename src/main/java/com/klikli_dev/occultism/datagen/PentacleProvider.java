@@ -530,7 +530,7 @@ public class PentacleProvider implements DataProvider {
         }
 
         private MappingBuilder bowl() {
-            return this.block('0', OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL);
+            return this.tag('0', OccultismTags.Blocks.CENTER_SACRIFICIAL_BOWL);
         }
         private MappingBuilder candle() {
             return this.tag('1', OccultismTags.Blocks.CANDLES);

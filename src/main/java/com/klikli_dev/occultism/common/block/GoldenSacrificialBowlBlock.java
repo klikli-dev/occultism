@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.block;
 
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
+import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -40,14 +41,35 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
+import java.util.stream.Stream;
 
 public class GoldenSacrificialBowlBlock extends Block implements EntityBlock {
 
     private static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 2.3, 12);
+    private static final VoxelShape SHAPE_TROPHY = Stream.of(
+            Block.box(6, 0, 6, 10, 1, 10),
+            Block.box(5, 0, 7, 11, 1, 9),
+            Block.box(7, 0, 5, 9, 1, 11),
+            Block.box(7.5, 1, 7.5, 8.5, 6, 8.5),
+            Block.box(6, 6, 6, 10, 7, 10),
+            Block.box(5, 6, 7, 11, 7, 9),
+            Block.box(7, 6, 5, 9, 7, 11),
+            Block.box(5, 7, 5, 11, 10, 11),
+            Block.box(4, 7, 7, 12, 10, 9),
+            Block.box(7, 7, 4, 9, 10, 12),
+            Block.box(5, 10, 4, 11, 15, 12),
+            Block.box(4, 10, 5, 12, 15, 11),
+            Block.box(3, 10, 6, 13, 15, 10),
+            Block.box(6, 10, 3, 10, 15, 13)
+    ).reduce((v1, v2) -> {
+        return Shapes.join(v1, v2, BooleanOp.OR);
+    }).get();
 
     public GoldenSacrificialBowlBlock(Properties properties) {
         super(properties);
@@ -89,6 +111,9 @@ public class GoldenSacrificialBowlBlock extends Block implements EntityBlock {
     @Override
     @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+        if (state.getBlock().equals(OccultismBlocks.ELDRITCH_CHALICE.get()))
+            return SHAPE_TROPHY;
+
         return SHAPE;
     }
 

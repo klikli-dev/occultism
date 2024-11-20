@@ -41,7 +41,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -370,11 +369,35 @@ public class OccultismBlocks {
                             .mapColor(MapColor.STONE)
                             .sound(SoundType.STONE).strength(1.5f, 30)
                             .noOcclusion()));
+    public static final DeferredBlock<SacrificialBowlBlock> COPPER_SACRIFICIAL_BOWL =
+            register("copper_sacrificial_bowl", () -> new SacrificialBowlBlock(
+                    Block.Properties.of()
+                            .mapColor(MapColor.STONE)
+                            .sound(SoundType.STONE).strength(1.5f, 30)
+                            .noOcclusion()));
+    public static final DeferredBlock<SacrificialBowlBlock> SILVER_SACRIFICIAL_BOWL =
+            register("silver_sacrificial_bowl", () -> new SacrificialBowlBlock(
+                    Block.Properties.of()
+                            .mapColor(MapColor.STONE)
+                            .sound(SoundType.STONE).strength(1.5f, 30)
+                            .noOcclusion()));
     public static final DeferredBlock<GoldenSacrificialBowlBlock> GOLDEN_SACRIFICIAL_BOWL =
             register("golden_sacrificial_bowl", () -> new GoldenSacrificialBowlBlock(
                     Block.Properties.of()
                             .mapColor(MapColor.STONE)
                             .sound(SoundType.STONE).strength(1.5f, 30)
+                            .noOcclusion()));
+    public static final DeferredBlock<GoldenSacrificialBowlBlock> IESNIUM_SACRIFICIAL_BOWL =
+            register("iesnium_sacrificial_bowl", () -> new GoldenSacrificialBowlBlock(
+                    Block.Properties.of()
+                            .mapColor(MapColor.STONE)
+                            .sound(SoundType.STONE).strength(1.5f, 30)
+                            .noOcclusion()));
+    public static final DeferredBlock<GoldenSacrificialBowlBlock> ELDRITCH_CHALICE =
+            register("eldritch_chalice", () -> new GoldenSacrificialBowlBlock(
+                    Block.Properties.of()
+                            .mapColor(MapColor.STONE)
+                            .sound(SoundType.STONE).strength(5.1f, 77)
                             .noOcclusion()));
 
     public static final DeferredBlock<StorageControllerBlock> STORAGE_CONTROLLER = register("storage_controller",

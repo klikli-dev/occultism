@@ -66,6 +66,7 @@ public class ContactWildSpiritEntry extends EntryProvider {
         this.pageText("""
                 - [Wild Armor Trim Smithing Template](entry://crafting_rituals/craft_wild_trim)
                 - [Budding Amethyst](entry://crafting_rituals/craft_budding_amethyst)
+                - [Reinforced Deepslate](entry://crafting_rituals/craft_reinforced_deepslate)
                 """
         );
     }
