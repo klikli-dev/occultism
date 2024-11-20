@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:reinforced_deepslate",
+          "conditions": [
+            {
+              "condition": "minecraft:match_tool",
+              "predicate": {
+                "items": [
+                  "occultism:infused_pickaxe",
+                  "occultism:iesnium_pickaxe"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
