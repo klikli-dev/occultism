@@ -46,6 +46,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -194,6 +195,19 @@ public class OccultismBlocks {
             register("otherstone_natural", () -> new OtherstoneNaturalBlock(
                             Block.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(1.5f, 30)),
                     true, LootTableType.OTHERWORLD_BLOCK);
+    public static final DeferredBlock<OtherglassNaturalBlock> OTHERGLASS_NATURAL =
+            register("otherglass_natural", () -> new OtherglassNaturalBlock(
+                            Block.Properties.of()
+                                    .instrument(NoteBlockInstrument.HAT)
+                                    .sound(SoundType.GLASS)
+                                    .noOcclusion()
+                                    .noTerrainParticles()
+                                    .strength(5f, 50)),
+                    true, LootTableType.CUSTOM);
+    //For otherglass natural
+    public static final DeferredBlock<Block> OTHERGLASS = register("otherglass", () -> new Block(
+            Block.Properties.of().mapColor(MapColor.SAND).noOcclusion().noTerrainParticles().sound(SoundType.GLASS).strength(2.5f, 50)),false);
+
     //Wood
     public static final DeferredBlock<OtherworldSaplingBlock> OTHERWORLD_SAPLING =
             register("otherworld_sapling", () -> new OtherworldSaplingBlock(

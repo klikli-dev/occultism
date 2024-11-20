@@ -70,6 +70,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.OTHERCOBBLESTONE.get())
                 .add(OccultismBlocks.OTHERCOBBLESTONE_STAIRS.get())
                 .add(OccultismBlocks.OTHERCOBBLESTONE_SLAB.get())
+                .add(OccultismBlocks.OTHERGLASS_NATURAL.get())
                 .add(OccultismBlocks.POLISHED_OTHERSTONE.get())
                 .add(OccultismBlocks.POLISHED_OTHERSTONE_STAIRS.get())
                 .add(OccultismBlocks.POLISHED_OTHERSTONE_SLAB.get())

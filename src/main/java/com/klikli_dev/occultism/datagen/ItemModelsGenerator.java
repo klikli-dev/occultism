@@ -270,6 +270,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismBlocks.OTHERCOBBLESTONE.asItem()),
                 this.name(OccultismBlocks.OTHERCOBBLESTONE_SLAB.asItem()),
                 this.name(OccultismBlocks.OTHERCOBBLESTONE_STAIRS.asItem()),
+                this.name(OccultismBlocks.OTHERGLASS_NATURAL.asItem()),
                 this.name(OccultismBlocks.OTHERPLANKS.asItem()),
                 this.name(OccultismBlocks.OTHERPLANKS_FENCE_GATE.asItem()),
                 this.name(OccultismBlocks.OTHERPLANKS_PRESSURE_PLATE.asItem()),

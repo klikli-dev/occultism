@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "block": "occultism:otherglass_natural",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "uncovered": "true"
+                  }
+                }
+              ],
+              "name": "occultism:otherglass_natural"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "occultism:crushed_end_stone"
+            }
+          ]
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "occultism:blocks/otherglass_natural"
+}

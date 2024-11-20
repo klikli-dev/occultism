@@ -1672,6 +1672,16 @@ public class GettingStartedCategory extends CategoryProvider {
                         Iesnium can be used to craft an improved pickaxe, spirit lamps, and other powerful items. Follow the progress in this book to learn more about it.
                              """.formatted(COLOR_PURPLE));
 
+        this.context().page("otherglass");
+        var otherglass = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/otherglass"))
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                One of the uses of iesnium is the creation of Otherglass, this block hides from common eyes and is revealed only to those who see the other world. To collect this you need an infused or iesnium pickaxe.
+                 """.formatted(COLOR_PURPLE));
+
+
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(OccultismBlocks.IESNIUM_ORE.get())
@@ -1681,7 +1691,8 @@ public class GettingStartedCategory extends CategoryProvider {
                         where,
                         how,
                         processing,
-                        uses
+                        uses,
+                        otherglass
                 );
     }
 

@@ -241,6 +241,11 @@ public class DivinationRodItem extends Item {
                 || state.getBlock() == OccultismBlocks.IESNIUM_ORE.get()) {
             return OccultismBlocks.IESNIUM_ORE_NATURAL.get();
         }
+        //Otherglass are linked to end stone
+        if (state.getBlock() == Blocks.END_STONE || state.getBlock() == OccultismBlocks.OTHERGLASS_NATURAL.get()
+                || state.getBlock() == OccultismBlocks.OTHERGLASS.get()) {
+            return OccultismBlocks.OTHERGLASS_NATURAL.get();
+        }
         //check server config to link to any block that have c:ores
         if (Occultism.SERVER_CONFIG.itemSettings.anyOreDivinationRod.getAsBoolean()) {
             blocktags = state.getTags().toArray();

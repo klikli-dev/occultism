@@ -1174,6 +1174,17 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern("###")
                 .unlockedBy("has_stripped_otherworld_log", has(OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_hanging_sign"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, OccultismBlocks.OTHERGLASS_NATURAL.get())
+                .pattern("nen")
+                .pattern("ege")
+                .pattern("nen")
+                .define('n', OccultismTags.Items.IESNIUM_NUGGET)
+                .define('e', OccultismTags.Items.END_STONE_DUST)
+                .define('g', Tags.Items.GLASS_BLOCKS)
+                .unlockedBy("has_iesnium_nugget", has(OccultismItems.IESNIUM_NUGGET.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherglass"));
+
     }
 
     private void smeltingRecipes(RecipeOutput pRecipeOutput) {
