@@ -36,5 +36,5 @@
   },
   "ritual_type": "occultism:summon_spirit_with_job",
   "spirit_job_type": "occultism:clear_weather",
-  "spirit_max_age": 60
+  "spirit_max_age": 15
 }

@@ -3,7 +3,7 @@
   "activation_item": {
     "item": "occultism:book_of_binding_bound_foliot"
   },
-  "duration": 240,
+  "duration": 60,
   "ingredients": [
     {
       "tag": "c:chests/wooden"

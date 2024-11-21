@@ -3,7 +3,7 @@
   "activation_item": {
     "item": "occultism:mining_dim_core"
   },
-  "duration": 360,
+  "duration": 780,
   "ingredients": [
     {
       "item": "occultism:miner_marid_master"

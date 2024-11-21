@@ -3,6 +3,7 @@
   "activation_item": {
     "item": "occultism:book_of_binding_bound_foliot"
   },
+  "duration": 45,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.zombies",
     "tag": "c:zombies"
@@ -49,5 +50,5 @@
     "count": 1,
     "id": "occultism:ritual_dummy/familiar_blacksmith"
   },
-  "ritual_type": "occultism:familiar"
+  "ritual_type": "occultism:summon_tamed"
 }

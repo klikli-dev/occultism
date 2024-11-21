@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "misc_stabilized_storage": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/misc_stabilized_storage"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.misc_stabilized_storage.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.misc_stabilized_storage.title"
+    }
+  },
+  "requirements": [
+    [
+      "misc_stabilized_storage"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

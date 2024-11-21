@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_sacrificial_bowl": {
+      "conditions": {
+        "items": [
+          {
+            "items": "occultism:sacrificial_bowl"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crafting/silver_sacrificial_bowl"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_sacrificial_bowl"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crafting/silver_sacrificial_bowl"
+    ]
+  }
+}

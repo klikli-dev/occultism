@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_iesnium_nugget": {
+      "conditions": {
+        "items": [
+          {
+            "items": "occultism:iesnium_nugget"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crafting/otherglass"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_iesnium_nugget"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crafting/otherglass"
+    ]
+  }
+}

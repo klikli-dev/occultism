@@ -3,6 +3,7 @@
   "activation_item": {
     "item": "minecraft:ominous_trial_key"
   },
+  "duration": 90,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.iron_golem",
     "tag": "c:golems/iron"

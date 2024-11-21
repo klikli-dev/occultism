@@ -3,7 +3,7 @@
   "activation_item": {
     "item": "occultism:book_of_binding_bound_djinni"
   },
-  "duration": 60,
+  "duration": 90,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.snow_golem",
     "tag": "c:golems/snow"
@@ -44,5 +44,5 @@
     "count": 1,
     "id": "occultism:ritual_dummy/familiar_headless"
   },
-  "ritual_type": "occultism:familiar"
+  "ritual_type": "occultism:summon_tamed"
 }

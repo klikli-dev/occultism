@@ -3,7 +3,7 @@
   "activation_item": {
     "item": "occultism:book_of_binding_bound_djinni"
   },
-  "duration": 90,
+  "duration": 120,
   "entity_to_summon": "occultism:djinni",
   "ingredients": [
     {

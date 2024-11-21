@@ -3,10 +3,10 @@
   "activation_item": {
     "item": "occultism:book_of_binding_bound_foliot"
   },
-  "duration": 120,
+  "duration": 60,
   "ingredients": [
     {
-      "item": "occultism:otherstone_pedestal"
+      "item": "occultism:storage_stabilizer_tier0"
     },
     {
       "tag": "c:storage_blocks/copper"

@@ -3,6 +3,7 @@
   "activation_item": {
     "item": "minecraft:tnt"
   },
+  "duration": 90,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.pigs",
     "tag": "c:pigs"

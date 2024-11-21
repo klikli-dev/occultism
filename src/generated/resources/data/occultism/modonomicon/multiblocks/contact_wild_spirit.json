@@ -10,8 +10,9 @@
       "display": "minecraft:stone"
     },
     "0": {
-      "type": "modonomicon:block",
-      "block": "occultism:golden_sacrificial_bowl"
+      "type": "modonomicon:tag",
+      "display": "occultism:golden_sacrificial_bowl",
+      "tag": "#occultism:center_sacrificial_bowl"
     },
     "A": {
       "type": "modonomicon:block",

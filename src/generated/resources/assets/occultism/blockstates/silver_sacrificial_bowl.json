@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "occultism:block/silver_sacrificial_bowl",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "occultism:block/silver_sacrificial_bowl",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "occultism:block/silver_sacrificial_bowl",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "occultism:block/silver_sacrificial_bowl",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "occultism:block/silver_sacrificial_bowl"
+    },
+    "facing=west": {
+      "model": "occultism:block/silver_sacrificial_bowl",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

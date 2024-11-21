@@ -31,7 +31,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/craft_wild_trim",
+      "recipe_id_1": "occultism:ritual/misc_wild_trim",
       "text": "",
       "title1": "",
       "title2": ""
@@ -46,7 +46,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 24,
-  "x": 1,
-  "y": -3
+  "sort_number": 26,
+  "x": 2,
+  "y": 2
 }

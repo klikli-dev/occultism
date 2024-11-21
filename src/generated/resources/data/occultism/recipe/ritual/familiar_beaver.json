@@ -3,6 +3,7 @@
   "activation_item": {
     "item": "occultism:book_of_binding_bound_foliot"
   },
+  "duration": 45,
   "entity_to_summon": "occultism:beaver_familiar",
   "ingredients": [
     {
@@ -33,5 +34,5 @@
     "count": 1,
     "id": "occultism:ritual_dummy/familiar_beaver"
   },
-  "ritual_type": "occultism:familiar"
+  "ritual_type": "occultism:summon_tamed"
 }

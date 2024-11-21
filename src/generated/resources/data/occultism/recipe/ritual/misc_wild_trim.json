@@ -3,7 +3,7 @@
   "activation_item": {
     "item": "minecraft:diamond_block"
   },
-  "duration": 240,
+  "duration": 180,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.ocelot",
     "tag": "c:ocelots"

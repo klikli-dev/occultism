@@ -3,6 +3,7 @@
   "activation_item": {
     "item": "minecraft:skeleton_skull"
   },
+  "duration": 90,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.humans",
     "tag": "occultism:humans"

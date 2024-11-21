@@ -3,6 +3,7 @@
   "activation_item": {
     "item": "minecraft:raw_gold"
   },
+  "duration": 90,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.camel",
     "tag": "c:camels"

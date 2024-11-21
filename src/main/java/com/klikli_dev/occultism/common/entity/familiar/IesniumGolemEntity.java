@@ -69,9 +69,12 @@ public class IesniumGolemEntity extends IronGolem{
     public static AttributeSupplier.Builder createAttributes() {
         return IronGolem.createAttributes()
                 .add(Attributes.MAX_HEALTH, 1.0)
-                .add(Attributes.MOVEMENT_SPEED, 0.4)
-                .add(Attributes.ATTACK_DAMAGE, 50.0);
+                .add(Attributes.MOVEMENT_SPEED, 0.5)
+                .add(Attributes.ATTACK_DAMAGE, 100.0)
+                .add(Attributes.ATTACK_SPEED,5)
+                .add(Attributes.FOLLOW_RANGE,64);
     }
+
     @Override
     public boolean canAttackType(EntityType<?> type) {
         return type != EntityType.PLAYER;
@@ -79,8 +82,9 @@ public class IesniumGolemEntity extends IronGolem{
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        if (!(source.getEntity() == null) && !source.getEntity().isCrouching())
+        if (source.getEntity() == null || !source.getEntity().isCrouching())
             return true;
+
         return super.isInvulnerableTo(source);
     }
 

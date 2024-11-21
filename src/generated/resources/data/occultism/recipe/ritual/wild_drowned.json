@@ -3,6 +3,7 @@
   "activation_item": {
     "item": "minecraft:heart_of_the_sea"
   },
+  "duration": 90,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.dolphin",
     "tag": "c:dolphins"

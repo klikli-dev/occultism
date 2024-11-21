@@ -64,6 +64,17 @@
       "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.uses.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.iesnium.uses.title",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:crafting/otherglass",
+      "text": "book.occultism.dictionary_of_spirits.getting_started.iesnium.otherglass.text",
+      "title1": "",
+      "title2": ""
     }
   ],
   "parents": [

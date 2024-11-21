@@ -3,7 +3,7 @@
   "activation_item": {
     "item": "occultism:book_of_binding_bound_afrit"
   },
-  "duration": 120,
+  "duration": 180,
   "entity_to_summon": "occultism:afrit",
   "ingredients": [
     {

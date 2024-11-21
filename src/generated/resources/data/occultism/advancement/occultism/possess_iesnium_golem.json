@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "possess_iesnium_golem": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/possess_iesnium_golem"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.possess_iesnium_golem.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.possess_iesnium_golem.title"
+    }
+  },
+  "requirements": [
+    [
+      "possess_iesnium_golem"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

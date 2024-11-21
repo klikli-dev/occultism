@@ -3,7 +3,7 @@
   "activation_item": {
     "item": "occultism:book_of_binding_bound_djinni"
   },
-  "duration": 60,
+  "duration": 150,
   "ingredients": [
     {
       "tag": "c:gems/diamond"

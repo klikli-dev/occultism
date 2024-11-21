@@ -89,6 +89,17 @@
       "text": "",
       "title1": "",
       "title2": ""
+    },
+    {
+      "type": "occultism:spirit_fire_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:spirit_fire/otherflower",
+      "text": "book.occultism.dictionary_of_spirits.getting_started.spirit_fire.otherflower_recipe.text",
+      "title1": "",
+      "title2": ""
     }
   ],
   "parents": [

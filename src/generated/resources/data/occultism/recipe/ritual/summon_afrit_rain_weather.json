@@ -3,7 +3,7 @@
   "activation_item": {
     "item": "occultism:book_of_binding_bound_afrit"
   },
-  "duration": 60,
+  "duration": 90,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.cows",
     "tag": "c:cows"
@@ -40,5 +40,5 @@
   },
   "ritual_type": "occultism:summon_spirit_with_job",
   "spirit_job_type": "occultism:rain_weather",
-  "spirit_max_age": 120
+  "spirit_max_age": 15
 }

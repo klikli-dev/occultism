@@ -3,7 +3,7 @@
   "activation_item": {
     "item": "occultism:book_of_binding_bound_marid"
   },
-  "duration": 300,
+  "duration": 510,
   "ingredients": [
     {
       "tag": "c:dusts/amethyst"

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_bound_marid": {
+      "conditions": {
+        "items": [
+          {
+            "items": "occultism:book_of_binding_bound_marid"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:ritual/misc_stabilized_storage"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_bound_marid"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:ritual/misc_stabilized_storage"
+    ]
+  }
+}

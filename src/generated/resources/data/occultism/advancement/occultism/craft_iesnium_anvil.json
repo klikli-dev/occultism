@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "craft_iesnium_anvil": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/craft_iesnium_anvil"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.craft_iesnium_anvil.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.craft_iesnium_anvil.title"
+    }
+  },
+  "requirements": [
+    [
+      "craft_iesnium_anvil"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

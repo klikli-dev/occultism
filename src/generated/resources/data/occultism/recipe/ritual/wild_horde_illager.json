@@ -3,6 +3,7 @@
   "activation_item": {
     "item": "minecraft:golden_apple"
   },
+  "duration": 90,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.humans",
     "tag": "occultism:humans"

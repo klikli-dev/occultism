@@ -3,6 +3,7 @@
   "activation_item": {
     "item": "minecraft:honeycomb"
   },
+  "duration": 90,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.snow_golem",
     "tag": "c:golems/snow"

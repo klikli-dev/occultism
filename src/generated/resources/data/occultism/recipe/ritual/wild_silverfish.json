@@ -3,6 +3,7 @@
   "activation_item": {
     "item": "minecraft:brush"
   },
+  "duration": 90,
   "entity_to_summon": "occultism:wild_horde_silverfish",
   "ingredients": [
     {

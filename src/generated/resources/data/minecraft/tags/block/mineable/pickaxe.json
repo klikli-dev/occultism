@@ -6,10 +6,17 @@
     "occultism:otherstone_slab",
     "occultism:otherstone_pressure_plate",
     "occultism:otherstone_pedestal",
+    "occultism:otherstone_pedestal_silver",
     "occultism:storage_controller_base",
     "occultism:sacrificial_bowl",
+    "occultism:copper_sacrificial_bowl",
+    "occultism:silver_sacrificial_bowl",
     "occultism:golden_sacrificial_bowl",
+    "occultism:iesnium_sacrificial_bowl",
+    "occultism:eldritch_chalice",
     "occultism:storage_controller",
+    "occultism:storage_controller_stabilized",
+    "occultism:storage_stabilizer_tier0",
     "occultism:storage_stabilizer_tier1",
     "occultism:storage_stabilizer_tier2",
     "occultism:storage_stabilizer_tier3",
@@ -28,6 +35,7 @@
     "occultism:othercobblestone",
     "occultism:othercobblestone_stairs",
     "occultism:othercobblestone_slab",
+    "occultism:otherglass_natural",
     "occultism:polished_otherstone",
     "occultism:polished_otherstone_stairs",
     "occultism:polished_otherstone_slab",
@@ -35,6 +43,7 @@
     "occultism:otherstone_bricks_stairs",
     "occultism:otherstone_bricks_slab",
     "occultism:chiseled_otherstone_bricks",
-    "occultism:cracked_otherstone_bricks"
+    "occultism:cracked_otherstone_bricks",
+    "occultism:iesnium_anvil"
   ]
 }

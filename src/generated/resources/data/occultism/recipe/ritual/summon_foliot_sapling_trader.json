@@ -3,6 +3,7 @@
   "activation_item": {
     "item": "occultism:book_of_binding_bound_foliot"
   },
+  "duration": 60,
   "entity_to_summon": "occultism:foliot",
   "ingredients": [
     {

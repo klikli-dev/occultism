@@ -3,50 +3,41 @@
   "activation_item": {
     "item": "minecraft:deepslate"
   },
-  "duration": 360,
+  "duration": 180,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.warden",
     "tag": "c:wardens"
   },
   "ingredients": [
     {
-      "tag": "c:nether_stars"
+      "item": "minecraft:iron_bars"
     },
     {
-      "item": "minecraft:shulker_shell"
+      "item": "minecraft:iron_bars"
     },
     {
-      "item": "minecraft:armadillo_scute"
+      "item": "minecraft:iron_bars"
     },
     {
-      "item": "minecraft:turtle_scute"
-    },
-    {
-      "item": "minecraft:echo_shard"
-    },
-    {
-      "item": "minecraft:anvil"
-    },
-    {
-      "tag": "c:storage_blocks/netherite"
+      "item": "minecraft:iron_bars"
     },
     {
       "tag": "c:obsidians"
     },
     {
-      "tag": "c:obsidians/crying"
+      "tag": "c:obsidians"
     },
     {
-      "item": "minecraft:end_stone_bricks"
+      "tag": "c:obsidians"
     },
     {
-      "item": "minecraft:sculk_catalyst"
+      "tag": "c:obsidians"
     },
     {
-      "tag": "c:storage_blocks/iesnium"
+      "tag": "c:ingots/iesnium"
     }
   ],
-  "pentacle_id": "occultism:contact_eldritch_spirit",
+  "pentacle_id": "occultism:contact_wild_spirit",
   "result": {
     "count": 1,
     "id": "minecraft:reinforced_deepslate"

@@ -3,7 +3,7 @@
   "activation_item": {
     "item": "occultism:book_of_binding_bound_afrit"
   },
-  "duration": 60,
+  "duration": 135,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.humans",
     "tag": "occultism:humans"
@@ -44,5 +44,5 @@
     "count": 1,
     "id": "occultism:ritual_dummy/familiar_guardian"
   },
-  "ritual_type": "occultism:familiar"
+  "ritual_type": "occultism:summon_tamed"
 }
