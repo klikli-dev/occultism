@@ -499,13 +499,6 @@ public class PentacleProvider implements DataProvider {
             json.addProperty("block", BuiltInRegistries.BLOCK.getKey(b.get()).toString());
             return this.element(c, json);
         }
-        private MappingBuilder block(char c, Block b) {
-
-            JsonObject json = new JsonObject();
-            json.addProperty("type", "modonomicon:block");
-            json.addProperty("block", b.toString());
-            return this.element(c, json);
-        }
 
         private MappingBuilder blockDisplay(char c, Supplier<? extends Block> b, Supplier<? extends Block> display) {
             JsonObject json = new JsonObject();
