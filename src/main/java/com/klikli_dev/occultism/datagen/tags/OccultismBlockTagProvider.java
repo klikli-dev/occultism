@@ -120,9 +120,9 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
         this.tag(BlockTags.PIGLIN_REPELLENTS).add(OccultismBlocks.SPIRIT_CAMPFIRE.get()).replace(false);
         this.tag(BlockTags.SAPLINGS).addTags(OccultismTags.Blocks.OTHERWORLD_SAPLINGS).replace(false);
         this.tag(BlockTags.SAPLINGS).addTags(OccultismTags.Blocks.OTHERWORLD_SAPLINGS_NATURAL).replace(false);
-        this.tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(OccultismBlocks.SILVER_ORE.get())
-                .add(OccultismBlocks.SILVER_ORE_DEEPSLATE.get()).replace(false);
+        this.tag(BlockTags.NEEDS_IRON_TOOL).add(OccultismBlocks.SILVER_ORE.get()).add(OccultismBlocks.SILVER_ORE_DEEPSLATE.get()).replace(false);
+        this.tag(BlockTags.SMALL_FLOWERS).add(OccultismBlocks.OTHERFLOWER.get()).add(OccultismBlocks.OTHERFLOWER_NATURAL.get()).replace(false);
+        this.tag(BlockTags.FLOWER_POTS).add(OccultismBlocks.POTTED_OTHERFLOWER.get()).replace(false);
     }
 
     @Override

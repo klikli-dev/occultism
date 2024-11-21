@@ -1,0 +1,20 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "uncovered": "false"
+      },
+      "apply": {
+        "model": "occultism:block/otherflower_natural"
+      }
+    },
+    {
+      "when": {
+        "uncovered": "true"
+      },
+      "apply": {
+        "model": "occultism:block/otherflower"
+      }
+    }
+  ]
+}

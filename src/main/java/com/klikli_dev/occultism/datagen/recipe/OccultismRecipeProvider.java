@@ -14,6 +14,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -111,6 +112,30 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .requires(OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER)
                 .unlockedBy("has_raw_silver_block", has(OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/raw_silver_ingot_from_block"));
+        otherflowerDye(Items.WHITE_DYE, Tags.Items.DYES_WHITE, pRecipeOutput);
+        otherflowerDye(Items.LIGHT_GRAY_DYE, Tags.Items.DYES_LIGHT_GRAY, pRecipeOutput);
+        otherflowerDye(Items.GRAY_DYE, Tags.Items.DYES_GRAY, pRecipeOutput);
+        otherflowerDye(Items.BLACK_DYE, Tags.Items.DYES_BLACK, pRecipeOutput);
+        otherflowerDye(Items.BROWN_DYE, Tags.Items.DYES_BROWN, pRecipeOutput);
+        otherflowerDye(Items.RED_DYE, Tags.Items.DYES_RED, pRecipeOutput);
+        otherflowerDye(Items.ORANGE_DYE, Tags.Items.DYES_ORANGE, pRecipeOutput);
+        otherflowerDye(Items.YELLOW_DYE, Tags.Items.DYES_YELLOW, pRecipeOutput);
+        otherflowerDye(Items.LIME_DYE, Tags.Items.DYES_LIME, pRecipeOutput);
+        otherflowerDye(Items.GREEN_DYE, Tags.Items.DYES_GREEN, pRecipeOutput);
+        otherflowerDye(Items.CYAN_DYE, Tags.Items.DYES_CYAN, pRecipeOutput);
+        otherflowerDye(Items.BLUE_DYE, Tags.Items.DYES_BLUE, pRecipeOutput);
+        otherflowerDye(Items.LIGHT_BLUE_DYE, Tags.Items.DYES_LIGHT_BLUE, pRecipeOutput);
+        otherflowerDye(Items.PINK_DYE, Tags.Items.DYES_PINK, pRecipeOutput);
+        otherflowerDye(Items.MAGENTA_DYE, Tags.Items.DYES_MAGENTA, pRecipeOutput);
+        otherflowerDye(Items.PURPLE_DYE, Tags.Items.DYES_PURPLE, pRecipeOutput);
+    }
+    private static void otherflowerDye(ItemLike result, TagKey<Item> colorTag, RecipeOutput pRecipeOutput){
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, result, 3)
+                .requires(OccultismBlocks.OTHERFLOWER.asItem())
+                .requires(colorTag)
+                .unlockedBy("has_otherflower", has(OccultismBlocks.OTHERFLOWER.asItem()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+                        "crafting/otherflower_to_" + colorTag.toString().substring(31).replace("]","_")) + "dye");
     }
 
     private static void blastingRecipes(RecipeOutput pRecipeOutput) {
@@ -289,6 +314,9 @@ public class OccultismRecipeProvider extends RecipeProvider {
         SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(Items.BOOK), new ItemStack(OccultismItems.TABOO_BOOK.get()))
                 .unlockedBy("has_book", has(Items.BOOK))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/taboo_book"));
+        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(ItemTags.FLOWERS), new ItemStack(OccultismBlocks.OTHERFLOWER.asItem()))
+                .unlockedBy("has_flower", has(ItemTags.FLOWERS))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/otherflower"));
     }
 
     private void miningRecipes(RecipeOutput pRecipeOutput) {

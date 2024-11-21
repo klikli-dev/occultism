@@ -45,6 +45,8 @@ public class MultiChunkFeatureConfig implements FeatureConfiguration {
                     return config.featureSeedSalt;
                 }), Codec.floatRange(0.0f, 1.0f).fieldOf("grass_chance").forGetter((config) -> {
                     return config.grassChance;
+                }), Codec.floatRange(0.0f, 1.0f).fieldOf("flower_chance").forGetter((config) -> {
+                    return config.flowerChance;
                 }), Codec.floatRange(0.0f, 1.0f).fieldOf("tree_chance").forGetter((config) -> {
                     return config.treeChance;
                 }), Codec.floatRange(0.0f, 1.0f).fieldOf("vine_chance").forGetter((config) -> {
@@ -69,6 +71,7 @@ public class MultiChunkFeatureConfig implements FeatureConfiguration {
     public final int featureSeedSalt;
 
     public final float grassChance;
+    public final float flowerChance;
 
     public final float treeChance;
     public final float vineChance;
@@ -77,7 +80,7 @@ public class MultiChunkFeatureConfig implements FeatureConfiguration {
 
 
     public MultiChunkFeatureConfig(int maxChunksToRoot, int chanceToGenerate, int minGenerationHeight,
-                                   int maxGenerationHeight, int featureSeedSalt, float grassChance, float treeChance,
+                                   int maxGenerationHeight, int featureSeedSalt, float grassChance, float flowerChance, float treeChance,
                                    float vineChance, float ceilingLightChance,
                                    Holder<PlacedFeature> otherworldTreeFeature) {
         this.maxChunksToRoot = maxChunksToRoot;
@@ -86,6 +89,7 @@ public class MultiChunkFeatureConfig implements FeatureConfiguration {
         this.minGenerationHeight = minGenerationHeight;
         this.maxGenerationHeight = maxGenerationHeight;
         this.grassChance = grassChance;
+        this.flowerChance = grassChance;
         this.treeChance = treeChance;
         this.vineChance = vineChance;
         this.ceilingLightChance = ceilingLightChance;

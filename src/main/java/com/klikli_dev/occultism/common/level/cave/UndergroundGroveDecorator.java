@@ -47,9 +47,13 @@ public class UndergroundGroveDecorator extends CaveDecorator {
     @Override
     public void finalFloorPass(WorldGenLevel seedReader, ChunkGenerator generator, RandomSource rand,
                                BlockPos pos, MultiChunkFeatureConfig config) {
-        if (seedReader.getBlockState(pos).getBlock() == Blocks.GRASS_BLOCK &&
-                rand.nextFloat() < config.grassChance)
-            seedReader.setBlock(pos.above(), Blocks.SHORT_GRASS.defaultBlockState(), 2);
+        if (seedReader.getBlockState(pos).getBlock() == Blocks.GRASS_BLOCK) {
+            if (rand.nextFloat() < config.grassChance) {
+                seedReader.setBlock(pos.above(), Blocks.SHORT_GRASS.defaultBlockState(), 2);
+            } else if (rand.nextFloat() < config.flowerChance) {
+                seedReader.setBlock(pos.above(), OccultismBlocks.OTHERFLOWER_NATURAL.get().defaultBlockState(), 2);
+            }
+        }
 
         if (rand.nextFloat() < config.treeChance) {
             config.otherworldTreeFeature.value().place(seedReader, generator, rand, pos.above());

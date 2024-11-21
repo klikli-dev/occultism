@@ -406,6 +406,15 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withRecipeId1(this.modLoc("spirit_fire/spirit_attuned_gem"));
         //no text
 
+        this.context().page("otherflower_recipe");
+        var otherflowerRecipe = BookSpiritFireRecipePageModel.create()
+                .withRecipeId1(this.modLoc("spirit_fire/otherflower"))
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        An easier way to clone any dye, mix this flower and the target color. You can also make ~~suspicious~~ delicious stews.
+                              """);
+
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
@@ -418,7 +427,8 @@ public class GettingStartedCategory extends CategoryProvider {
                         otherstoneRecipe,
                         otherworldSaplingNaturalRecipe,
                         otherworldAshesRecipe,
-                        gemRecipe
+                        gemRecipe,
+                        otherflowerRecipe
                 );
     }
 

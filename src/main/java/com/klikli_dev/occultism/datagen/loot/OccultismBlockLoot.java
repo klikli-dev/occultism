@@ -134,6 +134,7 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
         this.add(OccultismBlocks.OTHERPLANKS_WALL_SIGN.get(), item -> createSingleItemTable(OccultismItems.OTHERPLANKS_SIGN));
         this.add(OccultismBlocks.OTHERPLANKS_HANGING_SIGN.get(), item -> createSingleItemTable(OccultismItems.OTHERPLANKS_HANGING_SIGN));
         this.add(OccultismBlocks.OTHERPLANKS_WALL_HANGING_SIGN.get(), item -> createSingleItemTable(OccultismItems.OTHERPLANKS_HANGING_SIGN));
+        this.add(OccultismBlocks.POTTED_OTHERFLOWER.get(), createPotFlowerItemTable(OccultismBlocks.OTHERFLOWER.get()));
     }
 
     protected void registerOtherworldBlockTable(Block block) {

@@ -53,6 +53,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.Tags;
 
 import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 
 public class DivinationRodItem extends Item {
@@ -240,6 +241,10 @@ public class DivinationRodItem extends Item {
         if (state.getBlock() == Blocks.NETHERRACK || state.getBlock() == OccultismBlocks.IESNIUM_ORE_NATURAL.get()
                 || state.getBlock() == OccultismBlocks.IESNIUM_ORE.get()) {
             return OccultismBlocks.IESNIUM_ORE_NATURAL.get();
+        }
+        //otherflower ore is linked to any flower.
+        if (Arrays.toString(state.getTags().toArray()).contains("flower")) {
+            return OccultismBlocks.OTHERFLOWER_NATURAL.get();
         }
         //Otherglass are linked to end stone
         if (state.getBlock() == Blocks.END_STONE || state.getBlock() == OccultismBlocks.OTHERGLASS_NATURAL.get()

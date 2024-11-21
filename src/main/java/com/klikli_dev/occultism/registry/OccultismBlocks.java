@@ -208,6 +208,23 @@ public class OccultismBlocks {
     public static final DeferredBlock<Block> OTHERGLASS = register("otherglass", () -> new Block(
             Block.Properties.of().mapColor(MapColor.SAND).noOcclusion().noTerrainParticles().sound(SoundType.GLASS).strength(2.5f, 50)),false);
 
+    //Flower
+    public static final DeferredBlock<FlowerBlock> OTHERFLOWER =
+            register("otherflower", () -> new FlowerBlock(
+                    OccultismEffects.THIRD_EYE, 11,
+                    Block.Properties.of()
+                            .mapColor(MapColor.PLANT)
+                            .sound(SoundType.GRASS)
+                            .strength(0.0f).noOcclusion().noCollission()));
+    public static final DeferredBlock<OtherflowerNaturalBlock> OTHERFLOWER_NATURAL =
+            register("otherflower_natural", () -> new OtherflowerNaturalBlock(
+                    Block.Properties.of()
+                            .mapColor(MapColor.PLANT)
+                            .sound(SoundType.GRASS)
+                            .strength(0.0f).noCollission().noOcclusion()), true, LootTableType.OTHERWORLD_BLOCK);
+    public static final DeferredBlock<FlowerPotBlock> POTTED_OTHERFLOWER =
+            register("potted_otherflower", () -> new FlowerPotBlock(
+                    OccultismBlocks.OTHERFLOWER.get(), Block.Properties.ofFullCopy(Blocks.POTTED_POPPY)), false);
     //Wood
     public static final DeferredBlock<OtherworldSaplingBlock> OTHERWORLD_SAPLING =
             register("otherworld_sapling", () -> new OtherworldSaplingBlock(
