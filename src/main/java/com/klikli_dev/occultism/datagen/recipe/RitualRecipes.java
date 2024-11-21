@@ -755,6 +755,23 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.tadpoles")
                 .entityToSacrifice(OccultismTags.Entities.TADPOLES)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_goat"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()),
+                        makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_IESNIUM_GOLEM.get(), "item.occultism.ritual_dummy.possess_iesnium_golem"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_POSSESS_IESNIUM_GOLEM.get()),
+                        240,
+                        RITUAL_SUMMON,
+                        PENTACLE_POSSESS_MARID,
+                        Ingredient.of(OccultismTags.Items.STORAGE_BLOCK_IESNIUM),
+                        Ingredient.of(OccultismTags.Items.STORAGE_BLOCK_IESNIUM),
+                        Ingredient.of(OccultismTags.Items.STORAGE_BLOCK_IESNIUM),
+                        Ingredient.of(OccultismItems.MARID_ESSENCE),
+                        Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.asItem()),
+                        Ingredient.of(Tags.Items.NETHER_STARS))
+                .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
+                .entityToSummon(OccultismEntities.IESNIUM_GOLEM_TYPE.get())
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.iron_golem")
+                .entityToSacrifice(OccultismTags.Entities.IRON_GOLEM)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_iesnium_golem"));
     }
 
     private static void familiarRituals(RecipeOutput recipeOutput) {

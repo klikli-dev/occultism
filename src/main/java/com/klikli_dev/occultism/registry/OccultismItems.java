@@ -492,6 +492,8 @@ public class OccultismItems {
             () -> new DeferredSpawnEggItem(OccultismEntities.DEMONIC_WIFE, 0xf2f0d7, 0xa01d1d, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_DEMONIC_HUSBAND = ITEMS.register("spawn_egg/demonic_husband",
             () -> new DeferredSpawnEggItem(OccultismEntities.DEMONIC_HUSBAND, 0xf2f0d7, 0xa01d1d, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_IESNIUM_GOLEM = ITEMS.register("spawn_egg/iesnium_golem",
+            () -> new DeferredSpawnEggItem(OccultismEntities.IESNIUM_GOLEM_TYPE, 0x94d4db, 0x345f7c, defaultProperties()));
     
     //Ritual Dummy Items
         //SUMMON
@@ -567,6 +569,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_RIDEABLE = ITEMS.register("ritual_dummy/possess_random_animal_rideable", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SPECIAL = ITEMS.register("ritual_dummy/possess_random_animal_special", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_VILLAGER = ITEMS.register("ritual_dummy/possess_villager", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_IESNIUM_GOLEM = ITEMS.register("ritual_dummy/possess_iesnium_golem", () -> new DummyTooltipItem(defaultProperties()));
 
         // CRAFT
     static {

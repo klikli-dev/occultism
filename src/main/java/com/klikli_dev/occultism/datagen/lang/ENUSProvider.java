@@ -337,6 +337,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_PARROT_FAMILIAR, "Parrot Familiar Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_DEMONIC_WIFE, "Demonic Wife Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_DEMONIC_HUSBAND, "Demonic Husband Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_IESNIUM_GOLEM, "Iesnium Golem Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_HUSK, "Wild Horde Husk Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_DROWNED, "Wild Horde Drowned Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HORDE_CREEPER, "Wild Horde Creeper Spawn Egg");
@@ -528,6 +529,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.THROWN_SWORD, "Thrown Sword");
         this.addEntityType(OccultismEntities.DEMONIC_WIFE, "Demonic Wife");
         this.addEntityType(OccultismEntities.DEMONIC_HUSBAND, "Demonic Husband");
+        this.addEntityType(OccultismEntities.IESNIUM_GOLEM, "Iesnium Golem");
         this.addEntityType(OccultismEntities.WILD_HORDE_HUSK, "Wild Horde Husk");
         this.addEntityType(OccultismEntities.WILD_HORDE_DROWNED, "Wild Horde Drowned");
         this.addEntityType(OccultismEntities.WILD_HORDE_CREEPER, "Wild Horde Creeper");
@@ -1154,6 +1156,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER, "started", "Started summoning marid smelter.");
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER, "finished", "Summoned marid smelter successfully.");
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER, "interrupted", "Summoning of marid smelter interrupted.");
+
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_POSSESS_IESNIUM_GOLEM, "conditions", "Not all requirements for this ritual are met.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_POSSESS_IESNIUM_GOLEM, "started", "Started possessing a marid into iesnium golem.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_POSSESS_IESNIUM_GOLEM, "finished", "Successfully bound a marid into iesnium golem.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_POSSESS_IESNIUM_GOLEM, "interrupted", "Possessing of marid interrupted.");
 
         this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "conditions", "Not all requirements for this ritual are met.");
         this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "started", "Started resurrecting familiar.");
@@ -3075,6 +3082,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_RIDEABLE.get(), "Summons a rideable random passive animal. (Possibilities: pig, camel, donkey, horse, skeleton horse, zombie horse, llama, trader llama, mule, strider)");
         this.add(OccultismItems.RITUAL_DUMMY_POSSESS_VILLAGER.get(), "Ritual: Summon Villager");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_VILLAGER.get(), "Summons a villager or wandering Trader.");
+        this.add(OccultismItems.RITUAL_DUMMY_POSSESS_IESNIUM_GOLEM.get(), "Ritual: Summon Iesnium Golem");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_IESNIUM_GOLEM.get(), "Summons the strong and invulnerable iesnium golem to defend a region.");
         this.add(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1.get(), "Ritual: Craft Apprentice Ritual Satchel");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1.get(), "Binds a Djinni into a satchel to build pentacles step-by-step for the summoner.");
 

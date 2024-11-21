@@ -44,6 +44,7 @@ public class PossessMaridEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
+                - [Iesnium Golem](entry://familiar_rituals/iesnium_golem)
                 - [Cruelty Essence](entry://possession_rituals/possess_goat)
                 """
         );

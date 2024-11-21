@@ -11,6 +11,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookEntityPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.occultism.datagen.OccultismBookProvider;
 import com.klikli_dev.occultism.datagen.book.familiar_rituals.DemonicPartnerEntry;
+import com.klikli_dev.occultism.datagen.book.familiar_rituals.IesniumGolemEntry;
 import com.klikli_dev.occultism.datagen.book.familiar_rituals.ResurrectionEntry;
 import com.klikli_dev.occultism.datagen.book.pentacles.*;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
@@ -26,11 +27,11 @@ public class FamiliarRitualsCategory extends CategoryProvider {
     @Override
     public String[] generateEntryMap() {
         return new String[]{
-                "________J_O__Y_____________",
+                "________J_O__Y__G__________",
                 "___________________________",
                 "_____a_X_S_L_M_T___________",
                 "___________________________",
-                "___r_o___________Z_________",
+                "___r_o____________Z________",
                 "___________________________",
                 "_____H_W_K_N_Q_P___________",
                 "___________________________",
@@ -44,6 +45,7 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         String possessDjinniID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessDjinniEntry.ENTRY_ID;
         String summonDjinniID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + SummonDjinniEntry.ENTRY_ID;
         String possessAfritID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessAfritEntry.ENTRY_ID;
+        String possessMaridID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + PossessMaridEntry.ENTRY_ID;
         String resurrectionID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + ResurrectSpiritEntry.ENTRY_ID;
 
         var overview = this.add(this.makeFamiliarsRitualsOverviewEntry(this.entryMap, 'o'));
@@ -113,6 +115,9 @@ public class FamiliarRitualsCategory extends CategoryProvider {
         var demonicPartner = new DemonicPartnerEntry(this).generate('Z');
         demonicPartner.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonDjinniID));
+        var iesniumGolem = new IesniumGolemEntry(this).generate('G');
+        iesniumGolem.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessMaridID));
     }
 
     @Override

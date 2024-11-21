@@ -362,6 +362,12 @@ public class OccultismEntities {
                     .clientTrackingRange(8)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "shub_niggurath_spawn").toString()));
 
+    public static final Lazy<EntityType<IesniumGolemEntity>> IESNIUM_GOLEM_TYPE =
+            Lazy.of(() -> EntityType.Builder.of(IesniumGolemEntity::new, MobCategory.MISC)
+                    .sized(1.4F, 2.7F)
+                    .clientTrackingRange(24)
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "iesnium_golem").toString()));
+
     public static final Supplier<EntityType<FoliotEntity>> FOLIOT = ENTITIES.register("foliot", FOLIOT_TYPE::get);
     public static final Supplier<EntityType<DjinniEntity>> DJINNI = ENTITIES.register("djinni", DJINNI_TYPE::get);
     public static final Supplier<EntityType<AfritEntity>> AFRIT = ENTITIES.register("afrit", AFRIT_TYPE::get);
@@ -474,6 +480,8 @@ public class OccultismEntities {
             ENTITIES.register("thrown_sword", THROWN_SWORD_TYPE::get);
     public static final Supplier<EntityType<ShubNiggurathSpawnEntity>> SHUB_NIGGURATH_SPAWN =
             ENTITIES.register("shub_niggurath_spawn", SHUB_NIGGURATH_SPAWN_TYPE::get);
+    public static final Supplier<EntityType<IesniumGolemEntity>> IESNIUM_GOLEM =
+            ENTITIES.register("iesnium_golem", IESNIUM_GOLEM_TYPE::get);
 
     public static final Supplier<EntityType<DemonicWife>> DEMONIC_WIFE = ENTITIES.register(DemonicWife.ID.getPath(), DemonicWife.ENTITY_TYPE::get);
     public static final Supplier<EntityType<DemonicHusband>> DEMONIC_HUSBAND = ENTITIES.register(DemonicHusband.ID.getPath(), DemonicHusband.ENTITY_TYPE::get);
