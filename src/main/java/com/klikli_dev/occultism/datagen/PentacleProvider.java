@@ -514,6 +514,13 @@ public class PentacleProvider implements DataProvider {
             json.addProperty("display", BuiltInRegistries.BLOCK.getKey(display.get()).toString());
             return this.element(c, json);
         }
+        private MappingBuilder tagDisplay(char c, TagKey<Block> tag, Supplier<? extends Block> display) {
+            JsonObject json = new JsonObject();
+            json.addProperty("type", "modonomicon:tag");
+            json.addProperty("tag", "#" + tag.location());
+            json.addProperty("display", BuiltInRegistries.BLOCK.getKey(display.get()).toString());
+            return this.element(c, json);
+        }
 
         private MappingBuilder display(char c, Supplier<? extends Block> display) {
             JsonObject json = new JsonObject();
@@ -530,7 +537,7 @@ public class PentacleProvider implements DataProvider {
         }
 
         private MappingBuilder bowl() {
-            return this.tag('0', OccultismTags.Blocks.CENTER_SACRIFICIAL_BOWL);
+            return this.tagDisplay('0', OccultismTags.Blocks.CENTER_SACRIFICIAL_BOWL, OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL);
         }
         private MappingBuilder candle() {
             return this.tag('1', OccultismTags.Blocks.CANDLES);
