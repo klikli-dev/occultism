@@ -42,7 +42,7 @@ public class ArtisanalRitualSatchelEntry extends EntryProvider {
         this.pageTitle("About");
         this.pageText("""
                 A ritual satchel can hold items needed to create pentacles for rituals,
-                 if an item inside has less than 40 percent of durability the foil effect will stop.
+                 if an item inside has less than 40 percent of durability the glint effect will stop.
                  Other items cannot be placed in the satchel.
                 \\
                 The satchel sets up an entire pentacle at once, if all necessary items are present in the satchel.\\

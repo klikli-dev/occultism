@@ -31,7 +31,7 @@
     }
   ],
   "item_to_use": {
-    "item": "minecraft:firework_rocket"
+    "item": "minecraft:ender_pearl"
   },
   "pentacle_id": "occultism:possess_djinni",
   "result": {

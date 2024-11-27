@@ -1941,7 +1941,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.TERRACOTTA),
                         Ingredient.of(Items.BAMBOO_BLOCK))
                 .entityTagToSummon(OccultismTags.Entities.RANDOM_ANIMALS_SPECIAL)
-                .itemToUse(Ingredient.of(Items.FIREWORK_ROCKET))
+                .itemToUse(Ingredient.of(Items.ENDER_PEARL))
                 .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_random_animal_special"));
         //Group
@@ -2050,7 +2050,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.TERRACOTTA),
                         Ingredient.of(Items.BAMBOO_BLOCK))
                 .entityTagToSummon(OccultismTags.Entities.RANDOM_ANIMALS_SPECIAL)
-                .itemToUse(Ingredient.of(Items.FIREWORK_ROCKET))
+                .itemToUse(Ingredient.of(Items.ENDER_PEARL))
                 .unlockedBy("has_spirit_attuned_gem", has(OccultismItems.SPIRIT_ATTUNED_GEM))
                 .summonNumber(3)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_random_animal_special"));
