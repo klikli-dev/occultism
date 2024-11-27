@@ -171,7 +171,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         A basic ritual satchel that can place ritual circles block by block.
                         Right-Click a preview block to place it out of the satchel.
                         Shift-Right-Click to open the satchel and add ritual ingredients.
-                        If an item inside has less than 40% of durability the foil effect will stop.
+                        If an item inside has less than 40% of durability the glint effect will stop.
                         """
         );
         this.addItem(OccultismItems.RITUAL_SATCHEL_T2, "Artisanal Ritual Satchel");
@@ -181,7 +181,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         Right-Click any preview block to place all preview blocks out of the satchel.
                         Shift-Right-Click to open the satchel and add ritual ingredients.
                         Right-Click a Golden Bowl to remove the ritual circle and collect the ingredients.
-                        If an item inside has less than 40% of durability the foil effect will stop.
+                        If an item inside has less than 40% of durability the glint effect will stop.
                         """
         );
 
