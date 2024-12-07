@@ -91,21 +91,21 @@ public class OccultismItems {
 
     //Books of Binding
     public static final DeferredItem<BookOfBindingItem> BOOK_OF_BINDING_EMPTY = ITEMS.register(
-            "book_of_binding_empty", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
+            "book_of_binding_empty", () -> new BookOfBindingItem(defaultProperties().stacksTo(16)));
     public static final DeferredItem<BookOfBindingItem> BOOK_OF_BINDING_FOLIOT = ITEMS.register(
-            "book_of_binding_foliot", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
+            "book_of_binding_foliot", () -> new BookOfBindingItem(defaultProperties().stacksTo(16)));
     public static final DeferredItem<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_FOLIOT = ITEMS.register(
             "book_of_binding_bound_foliot", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)));
     public static final DeferredItem<BookOfBindingItem> BOOK_OF_BINDING_DJINNI = ITEMS.register(
-            "book_of_binding_djinni", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
+            "book_of_binding_djinni", () -> new BookOfBindingItem(defaultProperties().stacksTo(16)));
     public static final DeferredItem<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_DJINNI = ITEMS.register(
             "book_of_binding_bound_djinni", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)));
     public static final DeferredItem<BookOfBindingItem> BOOK_OF_BINDING_AFRIT = ITEMS.register(
-            "book_of_binding_afrit", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
+            "book_of_binding_afrit", () -> new BookOfBindingItem(defaultProperties().stacksTo(16)));
     public static final DeferredItem<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_AFRIT = ITEMS.register(
             "book_of_binding_bound_afrit", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)));
     public static final DeferredItem<BookOfBindingItem> BOOK_OF_BINDING_MARID = ITEMS.register(
-            "book_of_binding_marid", () -> new BookOfBindingItem(defaultProperties().stacksTo(1)));
+            "book_of_binding_marid", () -> new BookOfBindingItem(defaultProperties().stacksTo(16)));
     public static final DeferredItem<BookOfBindingBoundItem> BOOK_OF_BINDING_BOUND_MARID = ITEMS.register(
             "book_of_binding_bound_marid", () -> new BookOfBindingBoundItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)));
     //Books of Calling
