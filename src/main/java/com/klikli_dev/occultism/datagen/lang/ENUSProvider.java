@@ -2026,7 +2026,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("spotlight");
         this.add(helper.pageText(),
                 """
-                        Unlike other rituals, creating a [](item://minecraft:reinforced_deepslate) is a service provided by Wild Spirits and not bound any spirit to the final object. You sacrifice the items and the Wild Spirits uses his power to forge that item for you.
+                        Unlike other rituals, creating a [](item://minecraft:reinforced_deepslate) is a service provided by Wild Spirits and not bound any spirit to the final object. You sacrifice the items and the Wild Spirits uses his power to forge that item for you.\\
+                        \\
+                        These blocks can be collected with a infused or iesnium pickaxe.
                         """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");

@@ -30,7 +30,7 @@ public class IesniumGolemEntry extends EntryProvider {
         this.pageTitle("Iesnium Golem");
         this.pageText("""
                 An Iesnium Golem is a direct upgrade from a regular Iron Golem, this new version is much stronger and invulnerable. \\
-                Only a player can dismiss them, by hitting while is crouched, returning the {0}.
+                Only a player can dismiss them, by hitting while crouched, returning the {0}.
                 """,
                 this.itemLink(OccultismItems.SOUL_SHARD_ITEM.get()));
 
