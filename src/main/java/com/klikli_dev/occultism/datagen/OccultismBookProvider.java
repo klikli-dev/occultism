@@ -2103,7 +2103,9 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                          a bee invoked by this way does not lose its stinger, always poison the target,
                          attacks faster and can summon other bees when it takes damage.
                          This is the only known method to obtain [](item://occultism:cursed_honey), eating will grants
-                         a short regeneration buff.
+                         a short regeneration buff.\\
+                         \\
+                         If this bee enters a hive, the djinni will return to [#](%1$s)The Other Place[#]().
                         """.formatted(COLOR_PURPLE));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())

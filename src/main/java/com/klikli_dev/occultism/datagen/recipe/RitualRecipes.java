@@ -1475,6 +1475,8 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(OccultismItems.MINER_MARID_MASTER.get()),
                         Ingredient.of(OccultismItems.MINER_MARID_MASTER.get()))
                 .unlockedBy("has_mining_dimension_core", has(OccultismItems.MINING_DIMENSION_CORE_PIECE.get()))
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.humans")
+                .entityToSacrifice(OccultismTags.Entities.HUMANS)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_miner_ancient_eldritch"));
     }
     private static void resurrectRituals(RecipeOutput recipeOutput) {
@@ -1802,18 +1804,18 @@ public abstract class RitualRecipes extends RecipeProvider {
                         780,
                         RITUAL_CRAFT,
                         PENTACLE_CONTACT_ELDRITCH_SPIRIT,
-                        Ingredient.of(Tags.Items.NETHER_STARS),
-                        Ingredient.of(Items.SHULKER_SHELL),
-                        Ingredient.of(Items.ARMADILLO_SCUTE),
-                        Ingredient.of(Items.TURTLE_SCUTE),
-                        Ingredient.of(Items.ECHO_SHARD),
-                        Ingredient.of(Items.ANVIL),
+                        Ingredient.of(Items.HEAVY_CORE),
+                        Ingredient.of(Items.BELL),
+                        Ingredient.of(Items.SOUL_LANTERN),
+                        Ingredient.of(Items.CHORUS_FLOWER),
                         Ingredient.of(Tags.Items.STORAGE_BLOCKS_NETHERITE),
+                        Ingredient.of(Items.SPONGE),
                         Ingredient.of(Items.REINFORCED_DEEPSLATE),
-                        Ingredient.of(Tags.Items.OBSIDIANS_CRYING),
+                        Ingredient.of(Items.RESPAWN_ANCHOR),
+                        Ingredient.of(OccultismTags.Items.STORAGE_BLOCK_IESNIUM),
                         Ingredient.of(Items.END_STONE_BRICKS),
                         Ingredient.of(Items.SCULK_CATALYST),
-                        Ingredient.of(OccultismTags.Items.STORAGE_BLOCK_IESNIUM))
+                        Ingredient.of(Items.BUDDING_AMETHYST))
                 .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.ravager")
                 .entityToSacrifice(OccultismTags.Entities.RAVAGER)
@@ -1941,7 +1943,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.TERRACOTTA),
                         Ingredient.of(Items.BAMBOO_BLOCK))
                 .entityTagToSummon(OccultismTags.Entities.RANDOM_ANIMALS_SPECIAL)
-                .itemToUse(Ingredient.of(Items.ENDER_PEARL))
+                .itemToUse(Ingredient.of(Items.WIND_CHARGE))
                 .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_random_animal_special"));
         //Group
@@ -2050,7 +2052,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.TERRACOTTA),
                         Ingredient.of(Items.BAMBOO_BLOCK))
                 .entityTagToSummon(OccultismTags.Entities.RANDOM_ANIMALS_SPECIAL)
-                .itemToUse(Ingredient.of(Items.ENDER_PEARL))
+                .itemToUse(Ingredient.of(Items.WIND_CHARGE))
                 .unlockedBy("has_spirit_attuned_gem", has(OccultismItems.SPIRIT_ATTUNED_GEM))
                 .summonNumber(3)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_random_animal_special"));
