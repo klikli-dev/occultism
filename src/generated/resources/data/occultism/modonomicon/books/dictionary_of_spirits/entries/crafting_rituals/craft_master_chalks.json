@@ -4,14 +4,14 @@
   "category": "crafting_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/craft_djinni"
+    "entry_id": "pentacles/contact_eldritch_spirit"
   },
-  "description": "",
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_master_chalks.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:repair_icon"
+    "item": "occultism:chalk_rainbow"
   },
-  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.repair.name",
+  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_master_chalks.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
@@ -20,10 +20,10 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "item": "minecraft:anvil"
+        "item": "occultism:chalk_rainbow"
       },
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.repair.spotlight.text",
-      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.repair.spotlight.title"
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_master_chalks.spotlight.text",
+      "title": ""
     },
     {
       "type": "occultism:ritual_recipe",
@@ -31,21 +31,22 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/repair_chalks",
+      "recipe_id_1": "occultism:ritual/misc_chalk_rainbow",
       "text": "",
       "title1": "",
       "title2": ""
     },
     {
-      "type": "occultism:ritual_recipe",
+      "type": "modonomicon:spotlight",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/repair_miners",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "item": {
+        "item": "occultism:chalk_void"
+      },
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_master_chalks.spotlight2.text",
+      "title": ""
     },
     {
       "type": "occultism:ritual_recipe",
@@ -53,18 +54,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/repair_tools",
-      "text": "",
-      "title1": "",
-      "title2": ""
-    },
-    {
-      "type": "occultism:ritual_recipe",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "occultism:ritual/repair_armors",
+      "recipe_id_1": "occultism:ritual/misc_chalk_void",
       "text": "",
       "title1": "",
       "title2": ""
@@ -79,7 +69,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 32,
-  "x": 8,
-  "y": 0
+  "sort_number": 31,
+  "x": 6,
+  "y": -2
 }

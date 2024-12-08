@@ -33,9 +33,9 @@ public class BindingRitualsCategory extends CategoryProvider {
                 "___________________________",
                 "_______b_u_t_______________",
                 "___________________________",
-                "_______d___A_g_ĝ_ğ_y_______",
+                "_______d___A_g_ĝ_ğ_Č_______",
                 "___________________________",
-                "___9_0_____________________",
+                "___9_0_______________y_____",
                 "___________________________",
                 "_______f_z_h_c_w_v_s_______",
                 "___________________________",
@@ -149,6 +149,9 @@ public class BindingRitualsCategory extends CategoryProvider {
         craftStabilizedStorage.withParent(BookEntryParentModel.create(craftStabilizerTier4.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
 
+        var craftMasterChalks = this.add(new MasterChalksEntry(this).generate('Č'));
+        craftMasterChalks.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
         var repairRituals = this.add(this.makeRepairEntry(this.entryMap, 'y'));
         repairRituals.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
