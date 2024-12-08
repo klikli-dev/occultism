@@ -25,11 +25,16 @@ package com.klikli_dev.occultism.handlers;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.common.entity.familiar.*;
+import com.klikli_dev.occultism.common.item.tool.FamiliarRingItem;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.registry.OccultismEntities;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.FamiliarUtil;
+import com.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
@@ -38,16 +43,20 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.level.BlockGrowFeatureEvent;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotResult;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
 import java.util.List;
 
@@ -194,6 +203,32 @@ public class FamiliarEventHandler {
 
         if (!guardian.sacrifice())
             return;
+
+        ICuriosItemHandler handler = CuriosApi.getCuriosInventory(event.getEntity()).orElse(null);
+        if (handler == null)
+            return;
+
+        List<SlotResult> equipped = handler.findCurios(itemStack -> itemStack.getItem() instanceof FamiliarRingItem);
+        if (equipped != null) {
+            equipped.forEach(ring -> {
+                    if (FamiliarRingItem.getFamiliar(ring.stack(), event.getEntity().level()) instanceof GuardianFamiliarEntity) {
+                        var familiarTag = new CompoundTag();
+                        FamiliarRingItem.getFamiliar(ring.stack(), event.getEntity().level()).getFamiliarEntity().saveAsPassenger(familiarTag);
+                        EntityType.loadEntityRecursive(familiarTag, event.getEntity().level(), e -> {
+                            e.setPos(player.getX(), player.getY(), player.getZ());
+                            ((IFamiliar) e).setFamiliarOwner(player);
+                            var name = ItemNBTUtil.getBoundSpiritName(ring.stack());
+                            e.setCustomName(Component.literal(name));
+                            event.getEntity().level().addFreshEntity(e);
+                            ((GuardianFamiliarEntity) e).sacrifice();
+                            ring.stack().shrink(1);
+                            ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(OccultismItems.FAMILIAR_RING.get()));
+                            return e;
+                        });
+                    }
+                }
+            );
+        }
 
         event.setCanceled(true);
         player.setHealth(1);

@@ -242,6 +242,7 @@ public class GuardianFamiliarEntity extends ColoredFamiliarEntity {
 
         var health = this.getHealth();
         this.setHealth(this.getMaxHealth()); //simulate a healthy familiar to avoid death on respawn
+        this.resetFallDistance();
 
         var lives = this.getLives();
         this.setLives((byte) (this.getRandom().nextInt(5) + 1)); //randomize lives for next respawn
