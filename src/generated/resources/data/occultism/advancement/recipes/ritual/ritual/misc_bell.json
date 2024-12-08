@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_bound_afrit": {
+      "conditions": {
+        "items": [
+          {
+            "items": "occultism:book_of_binding_bound_afrit"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:ritual/misc_bell"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_bound_afrit"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:ritual/misc_bell"
+    ]
+  }
+}

@@ -192,6 +192,7 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> VILLAGERS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "villagers"));
         public static final TagKey<EntityType<?>> ZOMBIES = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "zombies"));
         public static final TagKey<EntityType<?>> BATS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "bats"));
+        public static final TagKey<EntityType<?>> BEES = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "bees"));
         public static final TagKey<EntityType<?>> SNOW_GOLEM=makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "golems/snow"));
         public static final TagKey<EntityType<?>> IRON_GOLEM=makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "golems/iron"));
         public static final TagKey<EntityType<?>> DONKEYS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "donkeys"));
@@ -217,6 +218,7 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> ALLAY = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "allay"));
         //Entity Tags
         public static final TagKey<EntityType<?>> SOUL_GEM_DENY_LIST = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "soul_gem_deny_list"));
+        public static final TagKey<EntityType<?>> TRINITY_GEM_DENY_LIST = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "trinity_gem_deny_list"));
         public static final TagKey<EntityType<?>> AFRIT_ALLIES = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "afrit_allies"));
         public static final TagKey<EntityType<?>> WILD_HUNT = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_hunt"));
         public static final TagKey<EntityType<?>> WILD_TRIAL = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_trial"));

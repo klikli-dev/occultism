@@ -1,0 +1,50 @@
+{
+  "type": "occultism:ritual",
+  "activation_item": {
+    "item": "occultism:soul_gem"
+  },
+  "duration": 780,
+  "entity_to_sacrifice": {
+    "display_name": "ritual.occultism.sacrifice.humans",
+    "tag": "occultism:humans"
+  },
+  "ingredients": [
+    {
+      "item": "occultism:afrit_essence"
+    },
+    {
+      "item": "occultism:marid_essence"
+    },
+    {
+      "item": "occultism:cruelty_essence"
+    },
+    {
+      "tag": "c:dusts/echo"
+    },
+    {
+      "tag": "c:dusts/dragonyst"
+    },
+    {
+      "tag": "c:dusts/witherite"
+    },
+    {
+      "tag": "c:dusts/iesnium"
+    },
+    {
+      "tag": "c:dusts/iesnium"
+    },
+    {
+      "tag": "c:dusts/iesnium"
+    }
+  ],
+  "pentacle_id": "occultism:contact_eldritch_spirit",
+  "result": {
+    "count": 1,
+    "id": "occultism:trinity_gem"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/misc_trinity_gem"
+  },
+  "ritual_type": "occultism:craft"
+}

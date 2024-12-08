@@ -1798,6 +1798,35 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.warden")
                 .entityToSacrifice(OccultismTags.Entities.WARDEN)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_reinforced_deepslate"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.BEEHIVE),
+                        new ItemStack(Items.BEE_NEST),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_BEE_NEST.get()),
+                        180,
+                        RITUAL_CRAFT,
+                        PENTACLE_CONTACT_WILD_SPIRIT,
+                        Ingredient.of(Items.HONEYCOMB_BLOCK),
+                        Ingredient.of(Items.HONEYCOMB_BLOCK),
+                        Ingredient.of(Items.HONEYCOMB_BLOCK),
+                        Ingredient.of(Items.HONEYCOMB_BLOCK))
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.bees")
+                .entityToSacrifice(OccultismTags.Entities.BEES)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_bee_nest"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Tags.Items.STORAGE_BLOCKS_GOLD),
+                        new ItemStack(Items.BELL),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_BELL.get()),
+                        180,
+                        RITUAL_CRAFT,
+                        PENTACLE_CONTACT_WILD_SPIRIT,
+                        Ingredient.of(Tags.Items.NUGGETS_GOLD),
+                        Ingredient.of(Items.CHAIN),
+                        Ingredient.of(Tags.Items.STONES),
+                        Ingredient.of(Tags.Items.STONES),
+                        Ingredient.of(ItemTags.LOGS))
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.goats")
+                .entityToSacrifice(OccultismTags.Entities.GOATS)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_bell"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.asItem()),
                         new ItemStack(OccultismBlocks.ELDRITCH_CHALICE.asItem()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE.get()),
@@ -1876,6 +1905,25 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.humans")
                 .entityToSacrifice(OccultismTags.Entities.HUMANS)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_chalk_void"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.SOUL_GEM_ITEM),
+                        new ItemStack(OccultismItems.TRINITY_GEM_ITEM.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_TRINITY_GEM.get()),
+                        780,
+                        RITUAL_CRAFT,
+                        PENTACLE_CONTACT_ELDRITCH_SPIRIT,
+                        Ingredient.of(OccultismItems.AFRIT_ESSENCE),
+                        Ingredient.of(OccultismItems.MARID_ESSENCE),
+                        Ingredient.of(OccultismItems.CRUELTY_ESSENCE),
+                        Ingredient.of(OccultismTags.Items.ECHO_DUST),
+                        Ingredient.of(OccultismTags.Items.DRAGONYST_DUST),
+                        Ingredient.of(OccultismTags.Items.WITHERITE_DUST),
+                        Ingredient.of(OccultismTags.Items.IESNIUM_DUST),
+                        Ingredient.of(OccultismTags.Items.IESNIUM_DUST),
+                        Ingredient.of(OccultismTags.Items.IESNIUM_DUST))
+                .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.humans")
+                .entityToSacrifice(OccultismTags.Entities.HUMANS)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_trinity_gem"));
     }
     private static void randomRituals(RecipeOutput recipeOutput) {
         //Individual

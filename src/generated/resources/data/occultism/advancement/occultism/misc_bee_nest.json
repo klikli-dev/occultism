@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "misc_bee_nest": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/misc_bee_nest"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.misc_bee_nest.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.misc_bee_nest.title"
+    }
+  },
+  "requirements": [
+    [
+      "misc_bee_nest"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

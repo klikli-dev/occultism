@@ -4,14 +4,14 @@
   "category": "crafting_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/craft_afrit"
+    "entry_id": "pentacles/contact_eldritch_spirit"
   },
-  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_iesnium_sacrificial_bowl.description",
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.trinity_gem.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:iesnium_sacrificial_bowl"
+    "item": "occultism:trinity_gem"
   },
-  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_iesnium_sacrificial_bowl.name",
+  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.trinity_gem.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
@@ -20,9 +20,9 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "item": "occultism:iesnium_sacrificial_bowl"
+        "item": "occultism:trinity_gem"
       },
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_iesnium_sacrificial_bowl.spotlight.text",
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.trinity_gem.spotlight.text",
       "title": ""
     },
     {
@@ -31,7 +31,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/craft_iesnium_sacrificial_bowl",
+      "recipe_id_1": "occultism:ritual/misc_trinity_gem",
       "text": "",
       "title1": "",
       "title2": ""
@@ -40,13 +40,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "crafting_rituals/craft_infused_pickaxe",
+      "entry": "crafting_rituals/craft_soul_gem",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 25,
-  "x": -4,
+  "sort_number": 24,
+  "x": 4,
   "y": -4
 }

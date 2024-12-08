@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.common.item.tool;
 
+import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.EntityUtil;
 import com.mojang.serialization.MapCodec;
@@ -137,7 +138,13 @@ public class SoulGemItem extends Item {
             return InteractionResult.FAIL;
 
         //do not capture entities on deny lists
-        if (target.getType().is(OccultismTags.Entities.SOUL_GEM_DENY_LIST)) {
+        if (target.getType().is(OccultismTags.Entities.SOUL_GEM_DENY_LIST) && stack.getItem().equals(OccultismItems.SOUL_GEM_ITEM.get())) {
+            player.sendSystemMessage(
+                    Component.translatable(this.getDescriptionId() + ".message.entity_type_denied"));
+            return InteractionResult.FAIL;
+        }
+
+        if (target.getType().is(OccultismTags.Entities.TRINITY_GEM_DENY_LIST) && stack.getItem().equals(OccultismItems.TRINITY_GEM_ITEM.get())) {
             player.sendSystemMessage(
                     Component.translatable(this.getDescriptionId() + ".message.entity_type_denied"));
             return InteractionResult.FAIL;

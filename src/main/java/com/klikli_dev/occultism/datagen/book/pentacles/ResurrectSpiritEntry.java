@@ -31,7 +31,7 @@ public class ResurrectSpiritEntry extends EntryProvider {
                 **Purpose:** Resurrect a {0}\\
                 \\
                 **Susjes Simple Circle** is a simple pentacle that returns the physical form of a spirit that has
-                 been slaughtered, not needing much to do so.\\
+                 been slaughtered, not needing much to do so.
                 """,
                 this.color("Familiar", ChatFormatting.DARK_PURPLE)
         );

@@ -31,13 +31,13 @@ public class BindingRitualsCategory extends CategoryProvider {
                 "___________________________",
                 "_______e_x_p_q_r___________",
                 "___________________________",
-                "_______b_u_t_______________",
+                "_______b_u_t_ĝ_ğ_Ť_________",
                 "___________________________",
-                "_______d___A_g_ĝ_ğ_Č_______",
+                "_______d___A_g_Č_h_c_______",
                 "___________________________",
-                "___9_0_______________y_____",
+                "___9_0_______________y____",
                 "___________________________",
-                "_______f_z_h_c_w_v_s_______",
+                "_______f_z_w_v_s_B_H______",
                 "___________________________",
                 "_________a_m_i_j_k_l_______",
                 "___________________________",
@@ -125,6 +125,9 @@ public class BindingRitualsCategory extends CategoryProvider {
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
         var craftFamiliarRing = this.add(this.makeCraftFamiliarRingEntry(this.entryMap, 'c'));
         craftFamiliarRing.withParent(BookEntryParentModel.create(craftSoulGem.getId()));
+        var craftTrinityGem = this.add(new TrinityGemEntry(this).generate('Ť'));
+        craftTrinityGem.withParent(BookEntryParentModel.create(craftSoulGem.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
 
         var craftIesniumSacrificialBowl = this.add(new IesniumSacrificialBowlEntry(this).generate('u'));
         craftIesniumSacrificialBowl.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
@@ -141,6 +144,12 @@ public class BindingRitualsCategory extends CategoryProvider {
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactWildID));
         var craftDeepslate = this.add(this.makeCraftDeepslateEntry(this.entryMap, 's'));
         craftDeepslate.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(contactWildID));
+        var craftBeeNest = this.add(new BeeNestEntry(this).generate('B'));
+        craftBeeNest.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(contactWildID));
+        var craftBell = this.add(new BellEntry(this).generate('H'));
+        craftBell.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactWildID));
         var craftEldritchChalice = this.add(new EldritchChaliceEntry(this).generate('t'));
         craftEldritchChalice.withParent(BookEntryParentModel.create(craftIesniumSacrificialBowl.getId()))

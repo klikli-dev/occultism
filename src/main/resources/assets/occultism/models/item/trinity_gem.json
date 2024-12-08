@@ -1,0 +1,22 @@
+{
+  "parent": "occultism:item/trinity_gem_filled",
+  "textures": {
+    "layer0": "occultism:item/trinity_gem_empty"
+  },
+  "overrides": [
+    {
+      "__comment": "has_entity >= 0.0",
+      "predicate": {
+        "occultism:has_entity": 0.0
+      },
+      "model": "occultism:item/trinity_gem_empty"
+    },
+    {
+      "__comment": "has_entity >= 1.0",
+      "predicate": {
+        "occultism:has_entity": 1.0
+      },
+      "model": "occultism:item/trinity_gem_filled"
+    }
+  ]
+}

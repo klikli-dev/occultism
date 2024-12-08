@@ -86,6 +86,8 @@ public class OccultismItems {
             () -> new StorageRemoteItem(defaultProperties().stacksTo(1)));
     public static final DeferredItem<SoulGemItem> SOUL_GEM_ITEM = ITEMS.register("soul_gem",
             () -> new SoulGemItem(defaultProperties().stacksTo(1)));
+    public static final DeferredItem<SoulGemItem> TRINITY_GEM_ITEM = ITEMS.register("trinity_gem",
+            () -> new SoulGemItem(defaultProperties().stacksTo(1)));
     public static final DeferredItem<Item> FAMILIAR_RING = ITEMS.register("familiar_ring",
             () -> new FamiliarRingItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
 
@@ -638,11 +640,14 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_WILD_TRIM = ITEMS.register("ritual_dummy/misc_wild_trim", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_BUDDING_AMETHYST = ITEMS.register("ritual_dummy/misc_budding_amethyst", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE = ITEMS.register("ritual_dummy/misc_reinforced_deepslate", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_BEE_NEST = ITEMS.register("ritual_dummy/misc_bee_nest", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_BELL = ITEMS.register("ritual_dummy/misc_bell", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_MINER_ANCIENT_ELDRITCH = ITEMS.register("ritual_dummy/misc_miner_ancient_eldritch", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE = ITEMS.register("ritual_dummy/misc_eldritch_chalice", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_STABILIZED_STORAGE = ITEMS.register("ritual_dummy/misc_stabilized_storage", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CHALK_RAINBOW = ITEMS.register("ritual_dummy/misc_chalk_rainbow", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CHALK_VOID = ITEMS.register("ritual_dummy/misc_chalk_void", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_TRINITY_GEM = ITEMS.register("ritual_dummy/misc_trinity_gem", () -> new DummyTooltipItem(defaultProperties()));
 
     // CUSTOM
     public static final DeferredItem<Item> RITUAL_DUMMY_CUSTOM_SUMMON = ITEMS.register("ritual_dummy/custom_ritual_summon", () -> new DummyTooltipItem(defaultProperties()));
