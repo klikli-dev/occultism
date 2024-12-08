@@ -1,6 +1,7 @@
 package com.klikli_dev.occultism.common.block;
 
 import com.klikli_dev.occultism.client.gui.IesniumAnvilMenu;
+import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -44,7 +45,7 @@ public class IesniumAnvilBlock extends FallingBlock {
     private static final VoxelShape Z_AXIS_AABB = Shapes.or(BASE, Z_LEG1, Z_LEG2, Z_TOP);
     private static final Component CONTAINER_TITLE = Component.translatable("container.repair");
     private static final float FALL_DAMAGE_PER_DISTANCE = 2.0F;
-    private static final int FALL_DAMAGE_MAX = 40;
+    private static final int FALL_DAMAGE_MAX = 4096;
 
     @Override
     public MapCodec<IesniumAnvilBlock> codec() {
@@ -103,6 +104,7 @@ public class IesniumAnvilBlock extends FallingBlock {
         if (!fallingBlock.isSilent()) {
             level.levelEvent(1029, pos, 0);
         }
+        level.setBlockAndUpdate(pos, fallingBlock.getBlockState());
     }
 
     @Override

@@ -22,21 +22,26 @@ public class IesniumGolemEntry extends EntryProvider {
     @Override
     protected void generatePages() {
 
+        this.page("golem", () -> BookEntityPageModel.create()
+                .withEntityId("occultism:iesnium_golem")
+                .withEntityName(this.context().pageTitle())
+        );
+        this.pageTitle("Iesnium Golem");
 
+        this.page("ritual", () -> BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_iesnium_golem"))
+        );
         this.page("description", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
+
         this.pageTitle("Iesnium Golem");
         this.pageText("""
                 An Iesnium Golem is a direct upgrade from a regular Iron Golem, this new version is much stronger and invulnerable. \\
                 Only a player can dismiss them, by hitting while crouched, returning the {0}.
                 """,
                 this.itemLink(OccultismItems.SOUL_SHARD_ITEM.get()));
-
-        this.page("ritual", () -> BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/possess_iesnium_golem"))
-        );
 
         this.page("familiar", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

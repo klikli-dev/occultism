@@ -2793,6 +2793,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.advancementDescr("chalks.magenta", "Dragon Power");
         this.advancementTitle("chalks.pink", "Use the Pink Chalk");
         this.advancementDescr("chalks.pink", "Wild Power");
+        this.advancementTitle("chalks.rainbow", "Use the Rainbow Chalk");
+        this.advancementDescr("chalks.rainbow", "Why Many Chalks?");
+        this.advancementTitle("chalks.void", "Use the Void Chalk");
+        this.advancementDescr("chalks.void", "...");
     }
 
     private void addKeybinds() {

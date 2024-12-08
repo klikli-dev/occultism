@@ -2,7 +2,7 @@
   "parent": "block/anvil",
   "textures": {
     "particle": "occultism:block/iesnium_block",
-    "body": "occultism:block/iesnium_block",
-    "top": "occultism:block/iesnium_block"
+    "body": "occultism:block/iesnium_anvil_base",
+    "top": "occultism:block/iesnium_anvil_top"
   }
 }

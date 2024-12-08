@@ -16,15 +16,18 @@
   "name": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.name",
   "pages": [
     {
-      "type": "modonomicon:text",
+      "type": "modonomicon:entity",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.description.text",
-      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.description.title",
-      "use_markdown_in_title": false
+      "default_rotation": -45.0,
+      "entity_id": "occultism:iesnium_golem",
+      "name": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.golem.title",
+      "offset": 0.0,
+      "rotate": true,
+      "scale": 1.0,
+      "text": ""
     },
     {
       "type": "occultism:ritual_recipe",
@@ -36,6 +39,17 @@
       "text": "",
       "title1": "",
       "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.description.text",
+      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.iesnium_golem.description.title",
+      "use_markdown_in_title": false
     },
     {
       "type": "modonomicon:text",
