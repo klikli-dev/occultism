@@ -102,6 +102,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         var health = this.getHealth();
         this.setHealth(this.getMaxHealth()); //simulate a healthy familiar to avoid death on respawn
         this.resetFallDistance();
+        this.removeAllEffects();
 
         var entityData = new CompoundTag();
         var id = this.getEncodeId();
