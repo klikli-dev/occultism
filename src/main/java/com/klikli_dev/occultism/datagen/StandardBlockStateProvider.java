@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.datagen;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.block.ChalkGlyphBlock;
+import com.klikli_dev.occultism.common.block.RainbowGlyphBlock;
 import com.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.core.Direction;
@@ -54,6 +55,10 @@ public class StandardBlockStateProvider extends BlockStateProvider {
                 .map(DeferredHolder::get)
                 .filter(block -> block instanceof ChalkGlyphBlock)
                 .forEach(this::generateGlyphBlockState);
+        OccultismBlocks.BLOCKS.getEntries().stream()
+                .map(DeferredHolder::get)
+                .filter(block -> block instanceof RainbowGlyphBlock)
+                .forEach(this::generateRainbowGlyphBlockState);
         this.simpleBlock(OccultismBlocks.STORAGE_CONTROLLER.get(),
                 this.models().getExistingFile(this.modLoc("block/storage_controller")));
         this.models().withExistingParent("item/storage_controller", this.modLoc("block/storage_controller"));
@@ -178,5 +183,24 @@ public class StandardBlockStateProvider extends BlockStateProvider {
                             .build();
                 });
     }
+    protected void generateRainbowGlyphBlockState(Block block) {
+        ModelFile.ExistingModelFile parent = this.models()
+                .getExistingFile(this.modLoc("block/chalk_glyph/chalk_glyph"));
+        this.getVariantBuilder(block)
+                .forAllStatesExcept(state -> {
+                    //this is called for every state combination
+                    //create a child model for each glyph texture option
+                    int sign = state.getValue(RainbowGlyphBlock.SIGN);
+                    ModelFile subModel = this.models().getBuilder("block/chalk_glyph/" + sign).parent(parent)
+                            .texture("texture", this.modLoc("block/chalk_glyph/" + sign));
 
+                    return ConfiguredModel.builder()
+                            //load the child model
+                            .modelFile(subModel)
+                            //
+                            .rotationY((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING)
+                                    .toYRot())
+                            .build();
+                }, RainbowGlyphBlock.COLOR);
+    }
 }

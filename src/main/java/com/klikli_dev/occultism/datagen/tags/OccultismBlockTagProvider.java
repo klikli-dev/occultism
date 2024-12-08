@@ -191,24 +191,80 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.CHALK_GLYPH_LIGHT_BLUE.get())
                 .add(OccultismBlocks.CHALK_GLYPH_BLUE.get())
                 .add(OccultismBlocks.CHALK_GLYPH_MAGENTA.get())
-                .add(OccultismBlocks.CHALK_GLYPH_PINK.get()).replace(false);
+                .add(OccultismBlocks.CHALK_GLYPH_PINK.get())
+                .add(OccultismBlocks.CHALK_GLYPH_RAINBOW.get())
+                .add(OccultismBlocks.CHALK_GLYPH_VOID.get()).replace(false);
 
         this.tag(OccultismTags.Blocks.CENTER_SACRIFICIAL_BOWL)
                 .add(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get())
                 .add(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get())
                 .add(OccultismBlocks.ELDRITCH_CHALICE.get()).replace(false);
         this.tag(OccultismTags.Blocks.FOUNDATION_GLYPHS_ANY)
+                .add(OccultismBlocks.CHALK_GLYPH_VOID.get())
                 .add(OccultismBlocks.CHALK_GLYPH_WHITE.get())
                 .add(OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY.get())
                 .add(OccultismBlocks.CHALK_GLYPH_GRAY.get())
                 .add(OccultismBlocks.CHALK_GLYPH_BLACK.get()).replace(false);
         this.tag(OccultismTags.Blocks.FOUNDATION_GLYPHS_NO_WHITE)
+                .add(OccultismBlocks.CHALK_GLYPH_VOID.get())
                 .add(OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY.get())
                 .add(OccultismBlocks.CHALK_GLYPH_GRAY.get())
                 .add(OccultismBlocks.CHALK_GLYPH_BLACK.get()).replace(false);
         this.tag(OccultismTags.Blocks.FOUNDATION_GLYPHS_DARK)
+                .add(OccultismBlocks.CHALK_GLYPH_VOID.get())
                 .add(OccultismBlocks.CHALK_GLYPH_GRAY.get())
                 .add(OccultismBlocks.CHALK_GLYPH_BLACK.get()).replace(false);
+        this.tag(OccultismTags.Blocks.GLYPHS_BLACK)
+                .add(OccultismBlocks.CHALK_GLYPH_VOID.get())
+                .add(OccultismBlocks.CHALK_GLYPH_BLACK.get()).replace(false);
+        this.tag(OccultismTags.Blocks.GLYPHS_RED)
+                .add(OccultismBlocks.CHALK_GLYPH_RAINBOW.get())
+                .add(OccultismBlocks.CHALK_GLYPH_VOID.get())
+                .add(OccultismBlocks.CHALK_GLYPH_RED.get()).replace(false);
+        this.tag(OccultismTags.Blocks.GLYPHS_BROWN)
+                .add(OccultismBlocks.CHALK_GLYPH_RAINBOW.get())
+                .add(OccultismBlocks.CHALK_GLYPH_VOID.get())
+                .add(OccultismBlocks.CHALK_GLYPH_BROWN.get()).replace(false);
+        this.tag(OccultismTags.Blocks.GLYPHS_ORANGE)
+                .add(OccultismBlocks.CHALK_GLYPH_RAINBOW.get())
+                .add(OccultismBlocks.CHALK_GLYPH_VOID.get())
+                .add(OccultismBlocks.CHALK_GLYPH_ORANGE.get()).replace(false);
+        this.tag(OccultismTags.Blocks.GLYPHS_YELLOW)
+                .add(OccultismBlocks.CHALK_GLYPH_RAINBOW.get())
+                .add(OccultismBlocks.CHALK_GLYPH_VOID.get())
+                .add(OccultismBlocks.CHALK_GLYPH_YELLOW.get()).replace(false);
+        this.tag(OccultismTags.Blocks.GLYPHS_LIME)
+                .add(OccultismBlocks.CHALK_GLYPH_RAINBOW.get())
+                .add(OccultismBlocks.CHALK_GLYPH_VOID.get())
+                .add(OccultismBlocks.CHALK_GLYPH_LIME.get()).replace(false);
+        this.tag(OccultismTags.Blocks.GLYPHS_GREEN)
+                .add(OccultismBlocks.CHALK_GLYPH_RAINBOW.get())
+                .add(OccultismBlocks.CHALK_GLYPH_VOID.get())
+                .add(OccultismBlocks.CHALK_GLYPH_GREEN.get()).replace(false);
+        this.tag(OccultismTags.Blocks.GLYPHS_CYAN)
+                .add(OccultismBlocks.CHALK_GLYPH_RAINBOW.get())
+                .add(OccultismBlocks.CHALK_GLYPH_VOID.get())
+                .add(OccultismBlocks.CHALK_GLYPH_CYAN.get()).replace(false);
+        this.tag(OccultismTags.Blocks.GLYPHS_BLUE)
+                .add(OccultismBlocks.CHALK_GLYPH_RAINBOW.get())
+                .add(OccultismBlocks.CHALK_GLYPH_VOID.get())
+                .add(OccultismBlocks.CHALK_GLYPH_BLUE.get()).replace(false);
+        this.tag(OccultismTags.Blocks.GLYPHS_LIGHT_BLUE)
+                .add(OccultismBlocks.CHALK_GLYPH_RAINBOW.get())
+                .add(OccultismBlocks.CHALK_GLYPH_VOID.get())
+                .add(OccultismBlocks.CHALK_GLYPH_LIGHT_BLUE.get()).replace(false);
+        this.tag(OccultismTags.Blocks.GLYPHS_PINK)
+                .add(OccultismBlocks.CHALK_GLYPH_RAINBOW.get())
+                .add(OccultismBlocks.CHALK_GLYPH_VOID.get())
+                .add(OccultismBlocks.CHALK_GLYPH_PINK.get()).replace(false);
+        this.tag(OccultismTags.Blocks.GLYPHS_MAGENTA)
+                .add(OccultismBlocks.CHALK_GLYPH_RAINBOW.get())
+                .add(OccultismBlocks.CHALK_GLYPH_VOID.get())
+                .add(OccultismBlocks.CHALK_GLYPH_MAGENTA.get()).replace(false);
+        this.tag(OccultismTags.Blocks.GLYPHS_PURPLE)
+                .add(OccultismBlocks.CHALK_GLYPH_RAINBOW.get())
+                .add(OccultismBlocks.CHALK_GLYPH_VOID.get())
+                .add(OccultismBlocks.CHALK_GLYPH_PURPLE.get()).replace(false);
 
         this.tag(OccultismTags.Blocks.CAVE_WALL_BLOCKS).add(Blocks.STONE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE).replace(false);
         this.tag(OccultismTags.Blocks.NETHERRACK).add(Blocks.NETHERRACK).replace(false);

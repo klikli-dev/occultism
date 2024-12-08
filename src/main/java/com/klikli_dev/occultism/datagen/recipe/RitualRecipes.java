@@ -1840,6 +1840,42 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.humans")
                 .entityToSacrifice(OccultismTags.Entities.HUMANS)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_stabilized_storage"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BRUSH),
+                        new ItemStack(OccultismItems.CHALK_RAINBOW.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_RAINBOW.get()),
+                        780,
+                        RITUAL_CRAFT,
+                        PENTACLE_CONTACT_ELDRITCH_SPIRIT,
+                        Ingredient.of(OccultismItems.CHALK_RED),
+                        Ingredient.of(OccultismItems.CHALK_BROWN),
+                        Ingredient.of(OccultismItems.CHALK_ORANGE),
+                        Ingredient.of(OccultismItems.CHALK_YELLOW),
+                        Ingredient.of(OccultismItems.CHALK_LIME),
+                        Ingredient.of(OccultismItems.CHALK_GREEN),
+                        Ingredient.of(OccultismItems.CHALK_CYAN),
+                        Ingredient.of(OccultismItems.CHALK_BLUE),
+                        Ingredient.of(OccultismItems.CHALK_LIGHT_BLUE),
+                        Ingredient.of(OccultismItems.CHALK_PINK),
+                        Ingredient.of(OccultismItems.CHALK_MAGENTA),
+                        Ingredient.of(OccultismItems.CHALK_PURPLE))
+                .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.parrots")
+                .entityToSacrifice(OccultismTags.Entities.PARROTS)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_chalk_rainbow"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.CHALK_RAINBOW),
+                        new ItemStack(OccultismItems.CHALK_VOID.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_VOID.get()),
+                        780,
+                        RITUAL_CRAFT,
+                        PENTACLE_CONTACT_ELDRITCH_SPIRIT,
+                        Ingredient.of(OccultismItems.CHALK_WHITE),
+                        Ingredient.of(OccultismItems.CHALK_LIGHT_GRAY),
+                        Ingredient.of(OccultismItems.CHALK_GRAY),
+                        Ingredient.of(OccultismItems.CHALK_BLACK))
+                .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.humans")
+                .entityToSacrifice(OccultismTags.Entities.HUMANS)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_chalk_void"));
     }
     private static void randomRituals(RecipeOutput recipeOutput) {
         //Individual

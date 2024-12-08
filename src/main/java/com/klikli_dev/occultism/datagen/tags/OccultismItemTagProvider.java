@@ -154,6 +154,8 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .add(OccultismItems.CHALK_BLUE.get())
                 .add(OccultismItems.CHALK_MAGENTA.get())
                 .add(OccultismItems.CHALK_PINK.get())
+                .add(OccultismItems.CHALK_RAINBOW.get())
+                .add(OccultismItems.CHALK_VOID.get())
                 .replace(false);
 
         this.copy(OccultismTags.Blocks.OTHERWORLD_SAPLINGS, OccultismTags.Items.OTHERWORLD_SAPLINGS);

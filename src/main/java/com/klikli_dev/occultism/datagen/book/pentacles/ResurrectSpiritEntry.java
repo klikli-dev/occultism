@@ -32,12 +32,8 @@ public class ResurrectSpiritEntry extends EntryProvider {
                 \\
                 **Susjes Simple Circle** is a simple pentacle that returns the physical form of a spirit that has
                  been slaughtered, not needing much to do so.\\
-                 \\
-                **Note:** This is the only pentacle where the {1} cannot be replaced with another better {2}.
                 """,
-                this.color("Familiar", ChatFormatting.DARK_PURPLE),
-                this.color("White Chalk", ChatFormatting.LIGHT_PURPLE),
-                this.color("Foundation Chalk", ChatFormatting.LIGHT_PURPLE)
+                this.color("Familiar", ChatFormatting.DARK_PURPLE)
         );
 
         this.page("multiblock", () -> BookMultiblockPageModel.create().withMultiblockId(this.modLoc(ENTRY_ID)));

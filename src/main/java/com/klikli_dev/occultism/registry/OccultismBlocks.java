@@ -144,6 +144,13 @@ public class OccultismBlocks {
             () -> new ChalkGlyphBlock(GLYPH_PROPERTIES, Occultism.CLIENT_CONFIG.visuals.pinkChalkGlyphColor, () -> OccultismItems.CHALK_PINK.get()),
             false, LootTableType.EMPTY);
 
+    public static final DeferredBlock<RainbowGlyphBlock> CHALK_GLYPH_RAINBOW = register("chalk_glyph_rainbow",
+            () -> new RainbowGlyphBlock(GLYPH_PROPERTIES, true, () -> OccultismItems.CHALK_RAINBOW.get()),
+            false, LootTableType.EMPTY);
+    public static final DeferredBlock<RainbowGlyphBlock> CHALK_GLYPH_VOID = register("chalk_glyph_void",
+            () -> new RainbowGlyphBlock(GLYPH_PROPERTIES, false, () -> OccultismItems.CHALK_VOID.get()),
+            false, LootTableType.EMPTY);
+
     //Resources
     public static final DeferredBlock<Block> OTHERSTONE = register("otherstone", () -> new Block(
             Block.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(1.5f, 30)));

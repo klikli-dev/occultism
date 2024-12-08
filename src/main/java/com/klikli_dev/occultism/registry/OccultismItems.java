@@ -179,6 +179,14 @@ public class OccultismItems {
     public static final DeferredItem<Item> CHALK_PINK = ITEMS.register("chalk_pink",
             () -> new ChalkItem(defaultProperties().setNoRepair().durability(256),
                     OccultismBlocks.CHALK_GLYPH_PINK));
+
+    public static final DeferredItem<Item> CHALK_RAINBOW = ITEMS.register("chalk_rainbow",
+            () -> new RainbowChalkItem(defaultProperties().setNoRepair().durability(4096),
+                    OccultismBlocks.CHALK_GLYPH_RAINBOW));
+    public static final DeferredItem<Item> CHALK_VOID = ITEMS.register("chalk_void",
+            () -> new RainbowChalkItem(defaultProperties().setNoRepair().durability(4096),
+                    OccultismBlocks.CHALK_GLYPH_VOID));
+
     public static final DeferredItem<Item> CHALK_WHITE_IMPURE = ITEMS.register("chalk_white_impure",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> CHALK_LIGHT_GRAY_IMPURE = ITEMS.register("chalk_light_gray_impure",
@@ -633,6 +641,8 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_MINER_ANCIENT_ELDRITCH = ITEMS.register("ritual_dummy/misc_miner_ancient_eldritch", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE = ITEMS.register("ritual_dummy/misc_eldritch_chalice", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_STABILIZED_STORAGE = ITEMS.register("ritual_dummy/misc_stabilized_storage", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CHALK_RAINBOW = ITEMS.register("ritual_dummy/misc_chalk_rainbow", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CHALK_VOID = ITEMS.register("ritual_dummy/misc_chalk_void", () -> new DummyTooltipItem(defaultProperties()));
 
     // CUSTOM
     public static final DeferredItem<Item> RITUAL_DUMMY_CUSTOM_SUMMON = ITEMS.register("ritual_dummy/custom_ritual_summon", () -> new DummyTooltipItem(defaultProperties()));

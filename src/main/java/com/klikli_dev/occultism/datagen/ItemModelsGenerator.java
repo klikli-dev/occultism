@@ -160,6 +160,8 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismItems.CHALK_RED_IMPURE.get()),
                 this.name(OccultismItems.CHALK_WHITE.get()),
                 this.name(OccultismItems.CHALK_WHITE_IMPURE.get()),
+                this.name(OccultismItems.CHALK_RAINBOW.get()),
+                this.name(OccultismItems.CHALK_VOID.get()),
                 this.name(OccultismItems.COPPER_DUST.get()),
                 this.name(OccultismItems.CRUELTY_ESSENCE.get()),
                 this.name(OccultismItems.CRUSHED_BLACKSTONE.get()),
