@@ -4,6 +4,10 @@
     "item": "occultism:mining_dim_core"
   },
   "duration": 780,
+  "entity_to_sacrifice": {
+    "display_name": "ritual.occultism.sacrifice.humans",
+    "tag": "occultism:humans"
+  },
   "ingredients": [
     {
       "item": "occultism:miner_marid_master"

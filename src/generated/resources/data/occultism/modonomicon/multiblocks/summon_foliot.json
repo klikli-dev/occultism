@@ -20,6 +20,7 @@
     },
     "W": {
       "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_white",
       "tag": "#occultism:foundation_glyphs_any"
     }
   },

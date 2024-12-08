@@ -28,27 +28,33 @@
     },
     "G": {
       "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_gray",
       "tag": "#occultism:foundation_glyphs_dark"
     },
     "L": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_lime"
+      "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_lime",
+      "tag": "#occultism:glyphs_lime"
     },
     "O": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_orange"
+      "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_orange",
+      "tag": "#occultism:glyphs_orange"
     },
     "R": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_red"
+      "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_red",
+      "tag": "#occultism:glyphs_red"
     },
     "W": {
       "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_white",
       "tag": "#occultism:foundation_glyphs_any"
     },
     "X": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_purple"
+      "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_purple",
+      "tag": "#occultism:glyphs_purple"
     }
   },
   "pattern": [

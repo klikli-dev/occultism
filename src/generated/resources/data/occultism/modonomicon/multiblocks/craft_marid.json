@@ -31,32 +31,39 @@
       "block": "minecraft:wither_skeleton_skull"
     },
     "K": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_black"
+      "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_black",
+      "tag": "#occultism:glyphs_black"
     },
     "L": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_lime"
+      "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_lime",
+      "tag": "#occultism:glyphs_lime"
     },
     "O": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_orange"
+      "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_orange",
+      "tag": "#occultism:glyphs_orange"
     },
     "R": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_red"
+      "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_red",
+      "tag": "#occultism:glyphs_red"
     },
     "U": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_blue"
+      "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_blue",
+      "tag": "#occultism:glyphs_blue"
     },
     "W": {
       "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_white",
       "tag": "#occultism:foundation_glyphs_any"
     },
     "X": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_purple"
+      "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_purple",
+      "tag": "#occultism:glyphs_purple"
     }
   },
   "pattern": [

@@ -10,31 +10,31 @@
   },
   "ingredients": [
     {
-      "tag": "c:nether_stars"
+      "item": "minecraft:heavy_core"
     },
     {
-      "item": "minecraft:shulker_shell"
+      "item": "minecraft:bell"
     },
     {
-      "item": "minecraft:armadillo_scute"
+      "item": "minecraft:soul_lantern"
     },
     {
-      "item": "minecraft:turtle_scute"
-    },
-    {
-      "item": "minecraft:echo_shard"
-    },
-    {
-      "item": "minecraft:anvil"
+      "item": "minecraft:chorus_flower"
     },
     {
       "tag": "c:storage_blocks/netherite"
     },
     {
+      "item": "minecraft:sponge"
+    },
+    {
       "item": "minecraft:reinforced_deepslate"
     },
     {
-      "tag": "c:obsidians/crying"
+      "item": "minecraft:respawn_anchor"
+    },
+    {
+      "tag": "c:storage_blocks/iesnium"
     },
     {
       "item": "minecraft:end_stone_bricks"
@@ -43,7 +43,7 @@
       "item": "minecraft:sculk_catalyst"
     },
     {
-      "tag": "c:storage_blocks/iesnium"
+      "item": "minecraft:budding_amethyst"
     }
   ],
   "pentacle_id": "occultism:contact_eldritch_spirit",

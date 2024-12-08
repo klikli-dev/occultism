@@ -23,12 +23,14 @@
       "block": "minecraft:skeleton_skull"
     },
     "X": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_purple"
+      "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_purple",
+      "tag": "#occultism:glyphs_purple"
     },
     "Y": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_gold"
+      "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_gold",
+      "tag": "#occultism:glyphs_yellow"
     },
     "e": {
       "type": "modonomicon:block",

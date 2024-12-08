@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "misc_chalk_rainbow": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/misc_chalk_rainbow"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.misc_chalk_rainbow.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.misc_chalk_rainbow.title"
+    }
+  },
+  "requirements": [
+    [
+      "misc_chalk_rainbow"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

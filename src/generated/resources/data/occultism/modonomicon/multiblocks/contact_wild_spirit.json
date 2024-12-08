@@ -15,16 +15,19 @@
       "tag": "#occultism:center_sacrificial_bowl"
     },
     "A": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_light_blue"
+      "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_light_blue",
+      "tag": "#occultism:glyphs_light_blue"
     },
     "E": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_green"
+      "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_green",
+      "tag": "#occultism:glyphs_green"
     },
     "P": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_pink"
+      "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_pink",
+      "tag": "#occultism:glyphs_pink"
     }
   },
   "pattern": [

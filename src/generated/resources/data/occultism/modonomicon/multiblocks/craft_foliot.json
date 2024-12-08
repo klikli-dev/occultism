@@ -20,11 +20,13 @@
     },
     "W": {
       "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_white",
       "tag": "#occultism:foundation_glyphs_any"
     },
     "X": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_purple"
+      "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_purple",
+      "tag": "#occultism:glyphs_purple"
     }
   },
   "pattern": [

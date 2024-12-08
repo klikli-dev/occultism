@@ -15,8 +15,9 @@
       "tag": "#occultism:center_sacrificial_bowl"
     },
     "W": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_white"
+      "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_white",
+      "tag": "#occultism:foundation_glyphs_any"
     }
   },
   "pattern": [

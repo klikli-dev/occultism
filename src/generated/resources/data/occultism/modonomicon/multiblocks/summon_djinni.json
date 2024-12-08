@@ -23,15 +23,18 @@
       "block": "minecraft:skeleton_skull"
     },
     "L": {
-      "type": "modonomicon:block",
-      "block": "occultism:chalk_glyph_lime"
+      "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_lime",
+      "tag": "#occultism:glyphs_lime"
     },
     "S": {
       "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_light_gray",
       "tag": "#occultism:foundation_glyphs_no_white"
     },
     "W": {
       "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_white",
       "tag": "#occultism:foundation_glyphs_any"
     }
   },
