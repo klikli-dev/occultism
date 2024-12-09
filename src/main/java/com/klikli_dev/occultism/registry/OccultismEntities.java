@@ -125,7 +125,7 @@ public class OccultismEntities {
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_elder_guardian").toString()));
     public static final Lazy<EntityType<PossessedWardenEntity>> POSSESSED_WARDEN_TYPE =
             Lazy.of(() -> EntityType.Builder.of(PossessedWardenEntity::new, MobCategory.MONSTER)
-                    .sized(1.8F, 5.8F)
+                    .sized(0.9F, 2.9F)
                     .fireImmune()
                     .clientTrackingRange(48)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_warden").toString()));
@@ -174,39 +174,39 @@ public class OccultismEntities {
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "otherworld_bird").toString()));
     public static final Lazy<EntityType<WildHordeHuskEntity>> WILD_HORDE_HUSK_TYPE =
             Lazy.of(() -> EntityType.Builder.of(WildHordeHuskEntity::new, MobCategory.MONSTER)
-                    .sized(0.6F, 2.9F)
+                    .sized(0.6F, 1.95F)
                     .clientTrackingRange(8)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_horde_husk").toString()));
     public static final Lazy<EntityType<WildHordeDrownedEntity>> WILD_HORDE_DROWNED_TYPE =
             Lazy.of(() -> EntityType.Builder.of(WildHordeDrownedEntity::new, MobCategory.MONSTER)
-                    .sized(0.6F, 2.9F)
+                    .sized(0.6F, 1.95F)
                     .clientTrackingRange(8)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_horde_drowned").toString()));
     public static final Lazy<EntityType<WildHordeCreeperEntity>> WILD_HORDE_CREEPER_TYPE =
             Lazy.of(() -> EntityType.Builder.of(WildHordeCreeperEntity::new, MobCategory.MONSTER)
-                    .sized(0.8F, 1.4F)
+                    .sized(0.6F, 1.7F)
                     .clientTrackingRange(8)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_horde_creeper").toString()));
     public static final Lazy<EntityType<WildHordeSilverfishEntity>> WILD_HORDE_SILVERFISH_TYPE =
             Lazy.of(() -> EntityType.Builder.of(WildHordeSilverfishEntity::new, MobCategory.MONSTER)
-                    .sized(0.2F, 0.15F)
+                    .sized(0.4F, 0.3F)
                     .clientTrackingRange(16)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "wild_horde_silverfish").toString()));
     public static final Lazy<EntityType<PossessedWeakBreezeEntity>> POSSESSED_WEAK_BREEZE_TYPE =
             Lazy.of(() -> EntityType.Builder.of(PossessedWeakBreezeEntity::new, MobCategory.MONSTER)
-                    .sized(0.4F, 1.18F)
+                    .sized(0.6F, 1.77F)
                     .clientTrackingRange(32)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_weak_breeze").toString()));
     public static final Lazy<EntityType<PossessedBreezeEntity>> POSSESSED_BREEZE_TYPE =
             Lazy.of(() -> EntityType.Builder.of(PossessedBreezeEntity::new, MobCategory.MONSTER)
                     .fireImmune()
-                    .sized(0.9F, 2.65F)
+                    .sized(0.6F, 1.77F)
                     .clientTrackingRange(32)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_breeze").toString()));
     public static final Lazy<EntityType<PossessedStrongBreezeEntity>> POSSESSED_STRONG_BREEZE_TYPE =
             Lazy.of(() -> EntityType.Builder.of(PossessedStrongBreezeEntity::new, MobCategory.MONSTER)
                     .fireImmune()
-                    .sized(1.2F, 3.54F)
+                    .sized(0.6F, 1.77F)
                     .clientTrackingRange(32)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_strong_breeze").toString()));
     public static final Lazy<EntityType<WildZombieEntity>> WILD_ZOMBIE_TYPE =
