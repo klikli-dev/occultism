@@ -52,6 +52,18 @@ public class DimensionalMineshaftEntry extends EntryProvider {
                         """
         );
 
+        this.page("redstone", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Redstone");
+        this.pageText("""
+                        The dimensional mineshaft has two interactions with redstone:
+                        1. The spirit will stop working when receives a redstone signal;
+                        2. A comparator can be used to extract a signal based on occupied slots and lamp durability.
+                         Tip, if the comparator sends a power of 10, it is better to stop the operations.
+                       """
+        );
+
         this.page("config", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));

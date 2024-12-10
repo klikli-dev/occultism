@@ -28,7 +28,6 @@ import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
@@ -41,7 +40,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -122,5 +120,21 @@ public class DimensionalMineshaftBlock extends Block implements EntityBlock {
             if (be instanceof DimensionalMineshaftBlockEntity shaft)
                 shaft.tick();
         };
+    }
+
+    @Override
+    protected boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+
+    @Override
+    protected int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos) {
+        BlockEntity blockentity = level.getBlockEntity(pos);
+        return (blockentity instanceof DimensionalMineshaftBlockEntity mineshaft)? mineshaft.getRedstoneSignal() : 0;
+    }
+
+    @Override
+    protected boolean isSignalSource(BlockState state) {
+        return true;
     }
 }

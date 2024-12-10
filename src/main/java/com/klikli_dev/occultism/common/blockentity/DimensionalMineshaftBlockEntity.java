@@ -24,7 +24,6 @@ package com.klikli_dev.occultism.common.blockentity;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
-import com.klikli_dev.occultism.config.OccultismServerConfig;
 import com.klikli_dev.occultism.crafting.recipe.MinerRecipe;
 import com.klikli_dev.occultism.crafting.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.occultism.crafting.recipe.result.WeightedRecipeResult;
@@ -56,7 +55,6 @@ import net.neoforged.neoforge.common.util.FakePlayerFactory;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -148,6 +146,10 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
 
     public void tick() {
+        if(this.level.hasNeighborSignal(this.getBlockPos())){
+            this.miningTime = 0;
+            return;
+        }
         if (!this.level.isClientSide) {
             ItemStack input = this.inputHandler.getStackInSlot(0);
 
@@ -241,5 +243,20 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             input.hurtAndBreak(100, (ServerLevel) this.level, (LivingEntity) null, (item) -> {});
             ItemHandlerHelper.insertItemStacked(this.outputHandler, minerCopy,false);
         }
+    }
+
+    public int getRedstoneSignal() {
+        ItemStack lamp = this.inputHandler.getStackInSlot(0);
+        int signalI = 0;
+        int signalO = 0;
+        if (!lamp.isEmpty()) {
+            signalI = (int) (10 * ((float) lamp.getItem().getDamage(lamp) / (lamp.getMaxDamage() - 1)));
+            signalO++;
+        }
+        for (int i = 0; i < 9; i++) {
+            if (!this.outputHandler.getStackInSlot(i).isEmpty())
+                signalO++;
+        }
+        return Math.max(signalI, signalO);
     }
 }
