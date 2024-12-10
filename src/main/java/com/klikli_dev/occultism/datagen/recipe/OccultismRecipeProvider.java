@@ -401,6 +401,13 @@ public class OccultismRecipeProvider extends RecipeProvider {
         this.crushingGemRecipe("amethyst", pRecipeOutput);
         this.crushingGemRecipe("black_quartz", pRecipeOutput);
 
+        CrushingRecipeBuilder.crushingRecipe(ItemTags.COALS, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/" + "coal")), 200)
+                .setAllowEmpty(false)
+                .setResultAmount(1)
+                .setIgnoreCrushingMultiplier(true)
+                .unlockedBy("has_coal", has(ItemTags.COALS))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/coal_dust_from_tag"));
+
         CrushingRecipeBuilder.crushingRecipe(Tags.Items.RODS_BLAZE, Items.BLAZE_POWDER, 200)
                 .allowEmpty()
                 .setResultAmount(4)
