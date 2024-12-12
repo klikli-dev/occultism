@@ -694,6 +694,14 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .define('s', Tags.Items.RODS_WOODEN)
                 .unlockedBy("has_iron_ingot", has(Tags.Items.INGOTS_IRON))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/butcher_knife"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.TALLOW_BLOCK.get())
+                .requires(Ingredient.of(OccultismTags.Items.TALLOW), 9)
+                .unlockedBy("has_tallow", has(OccultismTags.Items.TALLOW))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/tallow_block"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.TALLOW, 9)
+                .requires(OccultismBlocks.TALLOW_BLOCK.get())
+                .unlockedBy("has_tallow_block", has(OccultismBlocks.TALLOW_BLOCK.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/tallow"));
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, OccultismBlocks.LARGE_CANDLE.get())
                 .pattern("s")
                 .pattern("t")

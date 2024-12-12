@@ -307,7 +307,8 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismBlocks.STORAGE_STABILIZER_TIER3.asItem()),
                 this.name(OccultismBlocks.STORAGE_STABILIZER_TIER4.asItem()),
                 this.name(OccultismBlocks.STRIPPED_OTHERWORLD_LOG.asItem()),
-                this.name(OccultismBlocks.STRIPPED_OTHERWORLD_WOOD.asItem())
+                this.name(OccultismBlocks.STRIPPED_OTHERWORLD_WOOD.asItem()),
+                this.name(OccultismBlocks.TALLOW_BLOCK.asItem())
         };
         for (String item : items){
             this.getBuilder(item)

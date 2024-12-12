@@ -32,6 +32,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get())
                 .add(OccultismBlocks.STRIPPED_OTHERWORLD_WOOD.get())
                 .add(OccultismBlocks.SPIRIT_CAMPFIRE.get())
+                .add(OccultismBlocks.TALLOW_BLOCK.get())
                 .replace(false);
         this.tag(BlockTags.MINEABLE_WITH_HOE).add(OccultismBlocks.OTHERWORLD_LEAVES.get(), OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get()).replace(false);
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
@@ -123,6 +124,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
         this.tag(BlockTags.NEEDS_IRON_TOOL).add(OccultismBlocks.SILVER_ORE.get()).add(OccultismBlocks.SILVER_ORE_DEEPSLATE.get()).replace(false);
         this.tag(BlockTags.SMALL_FLOWERS).add(OccultismBlocks.OTHERFLOWER.get()).add(OccultismBlocks.OTHERFLOWER_NATURAL.get()).replace(false);
         this.tag(BlockTags.FLOWER_POTS).add(OccultismBlocks.POTTED_OTHERFLOWER.get()).replace(false);
+        this.tag(BlockTags.INFINIBURN_OVERWORLD).add(OccultismBlocks.TALLOW_BLOCK.get());
     }
 
     @Override
