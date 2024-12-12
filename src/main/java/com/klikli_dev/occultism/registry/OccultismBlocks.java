@@ -196,8 +196,7 @@ public class OccultismBlocks {
             Block.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(1.5f, 30)));
     public static final DeferredBlock<Block> CRACKED_OTHERSTONE_BRICKS = register("cracked_otherstone_bricks", () -> new Block(
             Block.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(1.5f, 30)));
-    public static final DeferredBlock<Block> TALLOW_BLOCK = register("tallow_block", () -> new Block(
-            Block.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).sound(SoundType.HONEY_BLOCK).speedFactor(0.8F).jumpFactor(0.8F).strength(0.2f, 3)));
+
     //Components
     public static final DeferredBlock<OtherstoneNaturalBlock> OTHERSTONE_NATURAL =
             register("otherstone_natural", () -> new OtherstoneNaturalBlock(
@@ -325,6 +324,8 @@ public class OccultismBlocks {
     public static final DeferredBlock<Block> RAW_IESNIUM_BLOCK = register("raw_iesnium_block", () -> new Block(Block.Properties.ofFullCopy(Blocks.RAW_IRON_BLOCK)));
 
     //Decorative and Ritual Blocks
+    public static final DeferredBlock<Block> TALLOW_BLOCK = register("tallow_block", () -> new Block(
+            Block.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).sound(SoundType.HONEY_BLOCK).speedFactor(0.8F).jumpFactor(0.8F).strength(0.2f, 3)));
     public static final DeferredBlock<LargeCandleBlock> LARGE_CANDLE = register("large_candle",
             () -> new LargeCandleBlock(Block.Properties.of()
                     .mapColor(MapColor.SAND).sound(SoundType.CANDLE).noCollission().strength(0.1f, 0)
@@ -547,7 +548,7 @@ public class OccultismBlocks {
 
     public static final DeferredBlock<Block> SPIRIT_WALL_TORCH = register("spirit_wall_torch",
             () -> new SpiritWallTorchBlock(
-                    () -> OccultismParticles.SPIRIT_FIRE_FLAME.get(), //particles are not registered at block construct time, hence the supplier
+                    OccultismParticles.SPIRIT_FIRE_FLAME, //particles are not registered at block construct time, hence the supplier
                     BlockBehaviour.Properties.of()
                     .noCollission().instabreak().lightLevel((state) -> 10).sound(SoundType.WOOD).lootFrom(SPIRIT_TORCH)), false);
 

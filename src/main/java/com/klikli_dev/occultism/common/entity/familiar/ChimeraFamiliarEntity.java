@@ -28,8 +28,11 @@ import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.common.entity.ai.goal.OwnerHurtByTargetGoal;
 import com.klikli_dev.occultism.common.entity.ai.goal.OwnerHurtTargetGoal;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
+import com.klikli_dev.occultism.registry.OccultismDataComponents;
+import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -311,6 +314,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
                 GoatFamiliarEntity goat = new GoatFamiliarEntity(this.level(), this.hasRing(), this.hasBeard(),
                         this.getSize(), this.getFamiliarOwner());
                 goat.setPos(this.getX(), this.getY(), this.getZ());
+                goat.setCustomName(Component.literal(TextUtil.generateName()));
                 this.level().addFreshEntity(goat);
                 OccultismAdvancements.FAMILIAR.get().trigger(playerIn, FamiliarTrigger.Type.GOAT_DETACH);
             }

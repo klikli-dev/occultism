@@ -29,6 +29,7 @@ import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -195,6 +196,7 @@ public class GoatFamiliarEntity extends ResizableFamiliarEntity {
                         0);
         } else {
             ShubNiggurathFamiliarEntity shubNiggurath = new ShubNiggurathFamiliarEntity(this.level(), this);
+            shubNiggurath.setCustomName(this.getName());
             this.level().addFreshEntity(shubNiggurath);
             this.remove(RemovalReason.DISCARDED);
         }
