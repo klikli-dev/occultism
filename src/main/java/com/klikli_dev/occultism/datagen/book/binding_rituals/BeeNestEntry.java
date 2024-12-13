@@ -43,7 +43,7 @@ public class BeeNestEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Bee nest";
+        return "Forge Bee nest";
     }
 
     @Override
