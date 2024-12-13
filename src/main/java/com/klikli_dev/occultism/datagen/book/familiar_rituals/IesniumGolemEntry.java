@@ -9,6 +9,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.ChatFormatting;
 
 public class IesniumGolemEntry extends EntryProvider {
 
@@ -25,8 +26,11 @@ public class IesniumGolemEntry extends EntryProvider {
         this.page("golem", () -> BookEntityPageModel.create()
                 .withEntityId("occultism:iesnium_golem")
                 .withEntityName(this.context().pageTitle())
+                .withText(this.context().pageText())
         );
         this.pageTitle("Iesnium Golem");
+        this.pageText("**Provides:** {0}",
+                this.color("Immortal area protector", ChatFormatting.DARK_PURPLE));
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/possess_iesnium_golem"))

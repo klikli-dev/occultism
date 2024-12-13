@@ -4,7 +4,6 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.Container;
@@ -15,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
+import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AnvilUpdateEvent;
 
@@ -56,9 +56,7 @@ public class IesniumAnvilMenu extends AnvilMenu {
         }
 
         this.cost.set(0);
-        this.access.execute((p_150479_, p_150480_) -> {
-                p_150479_.levelEvent(1030, p_150480_, 0);
-        });
+        this.access.execute((p_150479_, p_150480_) -> p_150479_.levelEvent(1030, p_150480_, 0));
     }
 
     @Override
@@ -72,8 +70,8 @@ public class IesniumAnvilMenu extends AnvilMenu {
             ItemStack itemstack1 = itemstack.copy();
             ItemStack itemstack2 = this.inputSlots.getItem(1);
             ItemEnchantments.Mutable itemenchantments$mutable = new ItemEnchantments.Mutable(EnchantmentHelper.getEnchantmentsForCrafting(itemstack1));
-            j += (long)itemstack.getOrDefault(DataComponents.REPAIR_COST, Integer.valueOf(0)).intValue()
-                    + (long)itemstack2.getOrDefault(DataComponents.REPAIR_COST, Integer.valueOf(0)).intValue();
+            j += (long) itemstack.getOrDefault(DataComponents.REPAIR_COST, 0)
+                    + (long) itemstack2.getOrDefault(DataComponents.REPAIR_COST, 0);
             this.repairItemCountCost = 0;
             boolean flag = false;
             if (!onIesniumAnvilChange(this, itemstack, itemstack2, resultSlots, itemName, j, this.player)) return;
@@ -147,10 +145,16 @@ public class IesniumAnvilMenu extends AnvilMenu {
                             flag3 = true;
                         } else {
                             flag2 = true;
-                            if (j2 > enchantment.getMaxLevel()) {
-                                j2 = enchantment.getMaxLevel() + 1;
+                            System.out.println();
+                            if(ModList.get().isLoaded("apothic_enchanting")) {
+                                if (j2 > 9) {
+                                    j2 = 10;
+                                }
+                            } else {
+                                if (j2 > enchantment.getMaxLevel()) {
+                                    j2 = enchantment.getMaxLevel() + 1;
+                                }
                             }
-
                             itemenchantments$mutable.set(holder, j2);
                             int l3 = enchantment.getAnvilCost();
                             if (flag) {
@@ -200,9 +204,9 @@ public class IesniumAnvilMenu extends AnvilMenu {
             }
 
             if (!itemstack1.isEmpty()) {
-                int i3 = itemstack1.getOrDefault(DataComponents.REPAIR_COST, Integer.valueOf(0));
-                if (i3 < itemstack2.getOrDefault(DataComponents.REPAIR_COST, Integer.valueOf(0))) {
-                    i3 = itemstack2.getOrDefault(DataComponents.REPAIR_COST, Integer.valueOf(0));
+                int i3 = itemstack1.getOrDefault(DataComponents.REPAIR_COST, 0);
+                if (i3 < itemstack2.getOrDefault(DataComponents.REPAIR_COST, 0)) {
+                    i3 = itemstack2.getOrDefault(DataComponents.REPAIR_COST, 0);
                 }
 
                 if (k != i || k == 0) {
