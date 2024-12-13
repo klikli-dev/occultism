@@ -17,6 +17,7 @@ import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AnvilUpdateEvent;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
@@ -28,7 +29,6 @@ public class IesniumAnvilMenu extends AnvilMenu {
 
     public IesniumAnvilMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access) {
         super(containerId, playerInventory, access);
-        this.addDataSlot(this.cost);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class IesniumAnvilMenu extends AnvilMenu {
     }
 
     @Override
-    protected void onTake(Player player, ItemStack stack) {
+    protected void onTake(Player player, @NotNull ItemStack stack) {
         if (!player.getAbilities().instabuild) {
             player.giveExperienceLevels(-this.cost.get()/2);
         }
@@ -145,7 +145,6 @@ public class IesniumAnvilMenu extends AnvilMenu {
                             flag3 = true;
                         } else {
                             flag2 = true;
-                            System.out.println();
                             if(ModList.get().isLoaded("apothic_enchanting")) {
                                 if (j2 > 9) {
                                     j2 = 10;
@@ -229,7 +228,7 @@ public class IesniumAnvilMenu extends AnvilMenu {
         return (int)Math.min((long)oldRepairCost + 1L, 2147483647L);
     }
 
-    public boolean setItemName(String itemName) {
+    public boolean setItemName(@NotNull String itemName) {
         String s = validateName(itemName);
         if (s != null && !s.equals(this.itemName)) {
             this.itemName = s;
@@ -255,9 +254,6 @@ public class IesniumAnvilMenu extends AnvilMenu {
         return s.length() <= 50 ? s : null;
     }
 
-    /**
-     * Neo: Sets the cost. Will be clamped to an integer.
-     */
     public void setMaximumCost(long value) {
         this.cost.set((int)Mth.clamp(value/2, 0L, Integer.MAX_VALUE));
     }
