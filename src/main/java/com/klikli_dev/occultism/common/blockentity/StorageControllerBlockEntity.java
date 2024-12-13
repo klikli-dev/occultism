@@ -129,9 +129,11 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
                 additionalMaxItemTypes += this.getAdditionalMaxItemTypesForStabilizer(this.level.getBlockState(pos));
                 additionalTotalItemCount += this.getAdditionalMaxTotalItemCountForStabilizer(this.level.getBlockState(pos));
             }
-            this.setStorageLimits(Occultism.SERVER_CONFIG.storage.controllerMaxItemTypes.get() + additionalMaxItemTypes, Occultism.SERVER_CONFIG.storage.controllerMaxTotalItemCount.get() + additionalTotalItemCount);
+            this.setStorageLimits(Occultism.SERVER_CONFIG.storage.controllerMaxItemTypes.get() + additionalMaxItemTypes,
+                    Occultism.SERVER_CONFIG.storage.controllerMaxTotalItemCount.get() + additionalTotalItemCount);
         } else {
-            this.setStorageLimits(Occultism.SERVER_CONFIG.storage.controllerMaxItemTypes.get() + 6 * Occultism.SERVER_CONFIG.storage.stabilizerTier4AdditionalMaxItemTypes.get(), Occultism.SERVER_CONFIG.storage.controllerMaxTotalItemCount.get() + 6 * Occultism.SERVER_CONFIG.storage.stabilizerTier4AdditionalMaxTotalItemCount.get());
+            this.setStorageLimits(Occultism.SERVER_CONFIG.storage.controllerMaxItemTypes.get() + Occultism.SERVER_CONFIG.storage.stabilizedControllerStabilizers.get() * Occultism.SERVER_CONFIG.storage.stabilizerTier4AdditionalMaxItemTypes.get(),
+                    Occultism.SERVER_CONFIG.storage.controllerMaxTotalItemCount.get() + Occultism.SERVER_CONFIG.storage.stabilizedControllerStabilizers.get() * Occultism.SERVER_CONFIG.storage.stabilizerTier4AdditionalMaxTotalItemCount.get());
         }
     }
 

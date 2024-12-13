@@ -3445,6 +3445,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("stabilizerTier4AdditionalMaxTotalItemCount", "Stabilizer Tier 4 Additional Max Total Item Count");
         this.addConfig("controllerMaxItemTypes", "Controller Max Item Types");
         this.addConfig("controllerMaxTotalItemCount", "Controller Max Total Item Count");
+        this.addConfig("stabilizedControllerStabilizers", "Stabilized Controller Built-in Stabilizers");
         this.addConfig("unlinkWormholeOnBreak", "Unlink Wormhole on Break");
 
         this.addConfig("spirit_job", "Spirit Job Settings");

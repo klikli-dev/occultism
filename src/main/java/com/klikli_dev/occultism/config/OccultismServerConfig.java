@@ -239,6 +239,7 @@ public class OccultismServerConfig {
         public final LongValue stabilizerTier4AdditionalMaxTotalItemCount;
         public final IntValue controllerMaxItemTypes;
         public final LongValue controllerMaxTotalItemCount;
+        public final IntValue stabilizedControllerStabilizers;
         public final BooleanValue unlinkWormholeOnBreak;
 
         public StorageSettings(ModConfigSpec.Builder builder) {
@@ -273,7 +274,9 @@ public class OccultismServerConfig {
             this.controllerMaxTotalItemCount =
                     builder.comment("The stack size the storage actuator uses.")
                             .defineInRange("controllerMaxTotalItemCount", 256 * 1000L, 0, Long.MAX_VALUE);
-
+            this.stabilizedControllerStabilizers =
+                    builder.comment("The amount of stabilizers tier 4 in the stabilized storage actuator. (Don't auto change the recipe)")
+                            .defineInRange("stabilizedControllerStabilizers", 7, 0, Integer.MAX_VALUE);
             this.unlinkWormholeOnBreak =
                     builder.comment(
                                     "True to use the configured controllerStackSize for all items, instead of the stack sizes provided by " +
