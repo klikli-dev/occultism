@@ -6,7 +6,6 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
-import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
@@ -45,7 +44,7 @@ public class MasterChalksEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("""
                         Forging the [](item://occultism:chalk_void) is a service provided by an {0}.
-                        This chalk can replace any chalk and has the same abilities as the [](item://occultism:rainbow_void).
+                        This chalk can replace any chalk and has the same abilities as the [](item://occultism:chalk_rainbow).
                         """,
                 this.color("Eldritch Spirit", ChatFormatting.DARK_PURPLE)
         );

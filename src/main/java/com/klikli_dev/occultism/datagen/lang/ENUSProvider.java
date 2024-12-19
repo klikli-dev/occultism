@@ -2917,7 +2917,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addPentacle("craft_afrit", "Sevira's Permanent Confinement");
         this.addPentacle("craft_marid", "Uphyxes Inverted Tower");
         this.addPentacle("resurrect_spirit", "Susje's Simple Circle");
-        this.addPentacle("contact_wild_spirit", "Osorin's Wild Calling");
+        this.addPentacle("contact_wild_spirit", "Osorin's Unbound Calling");
         this.addPentacle("contact_eldritch_spirit", "Ronaza's Contact");
     }
 
