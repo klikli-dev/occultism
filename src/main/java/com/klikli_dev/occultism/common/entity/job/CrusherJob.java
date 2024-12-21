@@ -35,11 +35,15 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.EntityEvent;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -156,9 +160,13 @@ public class CrusherJob extends SpiritJob {
                     handHeld.shrink(1);
 
                     this.onCrush(inputCopy, result);
-                    ItemEntity droppedItem = this.entity.spawnAtLocation(result);
-                    if (droppedItem != null) {
-                        droppedItem.addTag(DROPPED_BY_CRUSHER);
+                    var event = new CrusherJobEvent(this.entity, inputCopy, result);
+                    NeoForge.EVENT_BUS.post(event);
+                    if(!event.getResult().isEmpty()) {
+                        ItemEntity droppedItem = this.entity.spawnAtLocation(event.getResult());
+                        if (droppedItem != null) {
+                            droppedItem.addTag(DROPPED_BY_CRUSHER);
+                        }
                     }
                     //Don't reset recipe here, keep it cached
                 }
@@ -202,5 +210,31 @@ public class CrusherJob extends SpiritJob {
      */
     public void onCrush(ItemStack input, ItemStack output) {
 
+    }
+
+    public static class CrusherJobEvent extends EntityEvent {
+        private ItemStack input;
+        private ItemStack result;
+        public CrusherJobEvent(Entity entity, ItemStack input, ItemStack result) {
+            super(entity);
+            this.input = input;
+            this.result = result;
+        }
+
+        public ItemStack getInput() {
+            return input;
+        }
+
+        public void setInput(ItemStack input) {
+            this.input = input;
+        }
+
+        public ItemStack getResult() {
+            return result;
+        }
+
+        public void setResult(ItemStack result) {
+            this.result = result;
+        }
     }
 }
