@@ -380,7 +380,8 @@ public class OccultismItems {
     public static final DeferredItem<DimensionalMatrixItem> DIMENSIONAL_MATRIX = ITEMS.register("dimensional_matrix",
             () -> new DimensionalMatrixItem(defaultProperties().component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
     public static final DeferredItem<Item> MINING_DIMENSION_CORE_PIECE = ITEMS.register("mining_dim_core",
-            () -> new Item(defaultProperties()));
+            () -> new Item(defaultProperties()
+                    .component(OccultismDataComponents.SPIRIT_NAME, "Something")));
 
     //Others
     public static final DeferredItem<SoulShardItem> SOUL_SHARD_ITEM = ITEMS.register("soul_shard",
