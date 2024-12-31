@@ -125,9 +125,6 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(EntityType.PLAYER)
                 .replace(false);
 
-        this.tag(OccultismTags.Entities.SOUL_GEM_DENY_LIST)
-                .add(EntityType.WITHER, EntityType.ENDER_DRAGON)
-                .replace(false);
         this.tag(OccultismTags.Entities.WILD_HUNT)
                 .add(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get())
                 .add(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get())
@@ -202,7 +199,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
     }
 
     private void addCommonTags() {
-        this.tag(OccultismTags.Entities.SOUL_GEM_DENY_LIST).addOptionalTag(Tags.EntityTypes.CAPTURING_NOT_SUPPORTED);
+        this.tag(OccultismTags.Entities.SOUL_GEM_DENY_LIST).addOptionalTag(Tags.EntityTypes.CAPTURING_NOT_SUPPORTED).addTag(Tags.EntityTypes.BOSSES);
 
         this.tag(OccultismTags.Entities.SNOW_GOLEM).add(EntityType.SNOW_GOLEM).replace(false);
         this.tag(OccultismTags.Entities.IRON_GOLEM).add(EntityType.IRON_GOLEM).replace(false);

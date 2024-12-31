@@ -4,7 +4,6 @@
       "id": "#c:capturing_not_supported",
       "required": false
     },
-    "minecraft:wither",
-    "minecraft:ender_dragon"
+    "#c:bosses"
   ]
 }
