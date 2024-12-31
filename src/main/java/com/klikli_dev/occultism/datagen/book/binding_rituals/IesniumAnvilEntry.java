@@ -5,7 +5,6 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.mojang.datafixers.util.Pair;
@@ -42,16 +41,6 @@ public class IesniumAnvilEntry extends EntryProvider {
                 .withRecipeId1(this.modLoc("ritual/craft_iesnium_anvil"))
         );
         //no text
-
-        this.page("apothic", () -> BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()));
-        this.pageTitle("Apotheosis Information");
-        this.pageText("""
-                        When using {0} you can get all enchantments at level 10 instead of one level higher than the maximum
-                        """,
-                this.color("Apothic Enchanting Mod", ChatFormatting.DARK_PURPLE)
-        );
     }
 
     @Override

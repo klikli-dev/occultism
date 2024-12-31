@@ -262,8 +262,6 @@
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.magic_lamp.title": "Magic Lamp",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.name": "Foliot Miner",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.spotlight.text": "The [#](ad03fc)Foliot[#]() miner harvests block without much aim and returns anything it finds. The mining process is quite slow, due to this the Foliot expends only minor amounts of energy, damaging the lamp it is housed in slowly over time.\n",
-  "book.occultism.dictionary_of_spirits.crafting_rituals.craft_iesnium_anvil.apothic.text": "When using [#](AA00AA)Apothic Enchanting Mod[#]() you can get all enchantments at level 10 instead of one level higher than the maximum\n",
-  "book.occultism.dictionary_of_spirits.crafting_rituals.craft_iesnium_anvil.apothic.title": "Apotheosis Information",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_iesnium_anvil.description": "Upgraded Anvil",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_iesnium_anvil.name": "Iesnium Anvil",
   "book.occultism.dictionary_of_spirits.crafting_rituals.craft_iesnium_anvil.spotlight.text": "The [](item://occultism:iesnium_anvil) is a [#](AA00AA)Marid[#]() infusion.\nThis anvil has some improvements:\n1. Is unbreakable;\n2. Can exceed the maximum level of enchantments by 1;\n3. Marid will pay half of the showed level cost (round up);\n4. The cost increase of working with the same item is reduced;\n5. The maximum cost limit is increased;\n",
