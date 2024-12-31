@@ -67,14 +67,17 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(this.cTag("ores/dark_gem"))
                 .addOptional(this.loc("evilcraft:dark_ores"))
                 .addOptionalTag(this.loc("evilcraft:ores/dark_gem")); //does not exist as of 1.21, but if they unify the pattern it will
-
-        this.tag(this.cTag("dusts/dark_gem"))
-                .addOptional(this.loc("evilcraft:dark_gem_crushed"));
+        this.tag(this.cTag("dusts/dark_gem")).addOptional(this.loc("evilcraft:dark_gem_crushed"));
         this.tag(this.cTag("ores/black_quartz")).addOptional(this.loc("actuallyadditions:black_quartz_ore"));
         this.tag(this.cTag("gems/black_quartz")).addOptional(this.loc("actuallyadditions:black_quartz"));
         this.tag(this.cTag("dusts/certus_quartz")).addOptional(this.loc("ae2:certus_quartz_dust"));
         this.tag(this.cTag("dusts/fluix")).addOptional(this.loc("ae2:fluix_dust"));
-        this.tag(this.cTag("gems/fluix")).addOptional(this.loc("ae2:fluix_crystal"));
+        this.tag(this.cTag("dusts/sky_stone")).addOptional(this.loc("ae2:sky_dust"));
+        this.tag(this.cTag("sky_stones"))
+                .addOptional(this.loc("ae2:sky_stone_block"))
+                .addOptional(this.loc("ae2:smooth_sky_stone_block"))
+                .addOptional(this.loc("ae2:sky_stone_brick"))
+                .addOptional(this.loc("ae2:sky_stone_small_brick"));
     }
 
     private void addCuriosTags(HolderLookup.Provider provider) {

@@ -407,7 +407,11 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .setIgnoreCrushingMultiplier(true)
                 .unlockedBy("has_coal", has(ItemTags.COALS))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/coal_dust_from_tag"));
-
+        CrushingRecipeBuilder.crushingRecipe(Tags.Items.ENDER_PEARLS, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/" + "ender_pearl")), 200)
+                .setAllowEmpty(false)
+                .setResultAmount(2)
+                .unlockedBy("has_ender_pearl", has(Tags.Items.ENDER_PEARLS))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/ender_pearl_dust_from_tag"));
         CrushingRecipeBuilder.crushingRecipe(Tags.Items.RODS_BLAZE, Items.BLAZE_POWDER, 200)
                 .allowEmpty()
                 .setResultAmount(4)
@@ -480,7 +484,12 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .setIgnoreCrushingMultiplier(true)
                 .setMinTier(4)
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/echo_dust"));
-
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "sky_stones")), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/sky_stone")), 200)
+                .unlockedBy("has_sky_stone", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "sky_stones"))))
+                .setResultAmount(1)
+                .setAllowEmpty(false)
+                .setIgnoreCrushingMultiplier(true)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/sky_stone_dust"));
     }
 
     private void crushingGemRecipe(String gemName, RecipeOutput recipeOutput) {

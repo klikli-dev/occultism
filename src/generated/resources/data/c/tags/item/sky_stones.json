@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "ae2:sky_stone_block",
+      "required": false
+    },
+    {
+      "id": "ae2:smooth_sky_stone_block",
+      "required": false
+    },
+    {
+      "id": "ae2:sky_stone_brick",
+      "required": false
+    },
+    {
+      "id": "ae2:sky_stone_small_brick",
+      "required": false
+    }
+  ]
+}
