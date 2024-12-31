@@ -139,6 +139,13 @@ repositories {
             includeGroup "dev.emi"
         }
     }
+    maven {
+        name = "Shadows of Fire"
+        url "https://maven.shadowsoffire.dev/releases"
+        content {
+            includeGroup "dev.shadowsoffire"
+        }
+    }
     flatDir {
         dirs 'lib'
     }
@@ -188,6 +195,11 @@ dependencies {
     //runtimeOnly "curse.maven:perviaminvenire-449945:xyz" //
     //enable once available for 1.20
     //runtimeOnly "com.ldtteam:per_viam_invenire:1.19.3-XYZ-RELEASE:universal"
+
+    //Apothic Enchanting
+    compileOnly ("dev.shadowsoffire:ApothicEnchanting:${minecraft_version}-${apothic_enchanting_version}") {transitive=false}
+    //need more dependencies, so it doesn't run here
+    //runtimeOnly ("dev.shadowsoffire:ApothicEnchanting:${minecraft_version}-${apothic_enchanting_version}") {transitive=false}
 }
 
 processResources {

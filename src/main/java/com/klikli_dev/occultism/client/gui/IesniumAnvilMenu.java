@@ -1,5 +1,6 @@
 package com.klikli_dev.occultism.client.gui;
 
+import com.klikli_dev.occultism.integration.apothicenchanting.ApothicEnchantingIntegration;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -14,7 +15,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
-import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AnvilUpdateEvent;
 import org.jetbrains.annotations.NotNull;
@@ -145,9 +145,9 @@ public class IesniumAnvilMenu extends AnvilMenu {
                             flag3 = true;
                         } else {
                             flag2 = true;
-                            if(ModList.get().isLoaded("apothic_enchanting")) {
-                                if (j2 > 9) {
-                                    j2 = 10;
+                            if(ApothicEnchantingIntegration.isLoaded()) {
+                                if (j2 > ApothicEnchantingIntegration.getApothicMaxLevel(enchantment)) {
+                                    j2 = ApothicEnchantingIntegration.getApothicMaxLevel(enchantment) + 1;
                                 }
                             } else {
                                 if (j2 > enchantment.getMaxLevel()) {
