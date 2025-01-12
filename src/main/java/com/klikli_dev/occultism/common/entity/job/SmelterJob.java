@@ -44,8 +44,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class SmelterJob extends SpiritJob {
 
@@ -210,7 +208,7 @@ public class SmelterJob extends SpiritJob {
     }
 
     private void commonFinish(ItemStack handHeld, ItemStack result){
-        result.setCount((int) (result.getCount()));
+        result.setCount((result.getCount()));
         ItemStack inputCopy = handHeld.copy();
         inputCopy.setCount(1);
         handHeld.shrink(1);
