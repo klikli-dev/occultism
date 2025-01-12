@@ -913,7 +913,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageTitle(), "Smelter Spirits");
         this.lang().add(this.context().pageText(),
                 """
-                        Smelter spirits are summoned to do furnace process, without using fuel. They will pick up appropriate items and drop the resulting into the world. A fire particle effect and a flame sound indicate the smelter is at work.
+                        Smelter spirits are summoned to do furnace, blast furnace, smoker and campfire process, without using fuel. They will pick up appropriate items and drop the resulting into the world. A fire particle effect and a flame sound indicate the smelter is at work.
                           """);
 
         this.context().page("automation");

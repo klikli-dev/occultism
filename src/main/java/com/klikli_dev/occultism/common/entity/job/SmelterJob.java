@@ -45,6 +45,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SmelterJob extends SpiritJob {
 
@@ -60,6 +61,9 @@ public class SmelterJob extends SpiritJob {
     protected Supplier<Integer> tier;
 
     protected Optional<RecipeHolder<SmeltingRecipe>> currentRecipe = Optional.empty();
+    protected Optional<RecipeHolder<BlastingRecipe>> currentRecipeBlast = Optional.empty();
+    protected Optional<RecipeHolder<SmokingRecipe>> currentRecipeSmoke = Optional.empty();
+    protected Optional<RecipeHolder<CampfireCookingRecipe>> currentRecipeCamp = Optional.empty();
     protected PickupItemsGoal pickupItemsGoal;
 
     protected List<Ingredient> itemsToPickUp = new ArrayList<>();
@@ -73,8 +77,14 @@ public class SmelterJob extends SpiritJob {
     @Override
     public void onInit() {
         this.entity.targetSelector.addGoal(1, this.pickupItemsGoal = new PickupItemsGoal(this.entity));
-        this.itemsToPickUp = this.entity.level().getRecipeManager().getAllRecipesFor(RecipeType.SMELTING).stream()
-                .flatMap(recipe -> recipe.value().getIngredients().stream()).collect(Collectors.toList());
+        this.itemsToPickUp.addAll(this.entity.level().getRecipeManager().getAllRecipesFor(RecipeType.SMELTING).stream()
+                .flatMap(recipe -> recipe.value().getIngredients().stream()).toList());
+        this.itemsToPickUp.addAll(this.entity.level().getRecipeManager().getAllRecipesFor(RecipeType.BLASTING).stream()
+                .flatMap(recipe -> recipe.value().getIngredients().stream()).toList());
+        this.itemsToPickUp.addAll(this.entity.level().getRecipeManager().getAllRecipesFor(RecipeType.SMOKING).stream()
+                .flatMap(recipe -> recipe.value().getIngredients().stream()).toList());
+        this.itemsToPickUp.addAll(this.entity.level().getRecipeManager().getAllRecipesFor(RecipeType.CAMPFIRE_COOKING).stream()
+                .flatMap(recipe -> recipe.value().getIngredients().stream()).toList());
     }
 
     @Override
@@ -87,12 +97,28 @@ public class SmelterJob extends SpiritJob {
         ItemStack handHeld = this.entity.getItemInHand(InteractionHand.MAIN_HAND);
         var recipeInput = new SingleRecipeInput(handHeld);
 
-        if (!this.currentRecipe.isPresent() && !handHeld.isEmpty()) {
+        if (!handHeld.isEmpty() && this.currentRecipe.isEmpty()
+                                && this.currentRecipeBlast.isEmpty()
+                                && this.currentRecipeSmoke.isEmpty()
+                                && this.currentRecipeCamp.isEmpty()) {
+
             this.currentRecipe = this.entity.level().getRecipeManager().getRecipeFor(RecipeType.SMELTING,
                     recipeInput, this.entity.level());
+            if (this.currentRecipe.isEmpty()) {
+                this.currentRecipeBlast = this.entity.level().getRecipeManager().getRecipeFor(RecipeType.BLASTING,
+                        recipeInput, this.entity.level());
+                if (this.currentRecipeBlast.isEmpty()) {
+                    this.currentRecipeSmoke = this.entity.level().getRecipeManager().getRecipeFor(RecipeType.SMOKING,
+                            recipeInput, this.entity.level());
+                    if (this.currentRecipeSmoke.isEmpty()) {
+                        this.currentRecipeCamp = this.entity.level().getRecipeManager().getRecipeFor(RecipeType.CAMPFIRE_COOKING,
+                                recipeInput, this.entity.level());
+                    }
+                }
+            }
             this.smeltingTimer = 0;
 
-            if (this.currentRecipe.isPresent()) {
+            if (this.currentRecipe.isPresent() || this.currentRecipeBlast.isPresent() || this.currentRecipeSmoke.isPresent() || this.currentRecipeCamp.isPresent()) {
                 //play smelting sound
                 this.entity.level()
                         .playSound(null, this.entity.blockPosition(), SoundEvents.FIRE_AMBIENT, SoundSource.NEUTRAL, 1f,
@@ -111,48 +137,93 @@ public class SmelterJob extends SpiritJob {
                 //Reset cached recipe if it no longer matches
                 this.currentRecipe = Optional.empty();
             } else {
-                //advance conversion
-                this.smeltingTimer++;
-
-                //show particle effect while smelting
-                if (this.entity.level().getGameTime() % 10 == 0) {
-                    Vec3 pos = this.entity.position();
-                    ((ServerLevel) this.entity.level())
-                            .sendParticles(ParticleTypes.FLAME, pos.x + this.entity.level().random.nextGaussian() / 3,
-                                    pos.y + 0.5, pos.z + this.entity.level().random.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
-                                    0.0);
-                }
-
-                //every two seconds, play another smelting sound
-                if (this.smeltingTimer % 40 == 0) {
-                    this.entity.level().playSound(null, this.entity.blockPosition(), SoundEvents.FIRE_AMBIENT,
-                            SoundSource.NEUTRAL, 1f,
-                            1 + 0.5f * this.entity.getRandom().nextFloat());
-                }
-
+                commomTick();
                 if (this.smeltingTimer >= this.currentRecipe.get().value().getCookingTime() * this.smeltingTimeMultiplier.get()) {
                     this.smeltingTimer = 0;
-
                     ItemStack result = this.currentRecipe.get().value().assemble(recipeInput, this.entity.level().registryAccess());
-                    result.setCount((int) (result.getCount()));
-                    ItemStack inputCopy = handHeld.copy();
-                    inputCopy.setCount(1);
-                    handHeld.shrink(1);
-
-                    this.onSmelt(inputCopy, result);
-                    var event = new SmelterJobEvent(this.entity, inputCopy, result);
-                    NeoForge.EVENT_BUS.post(event);
-                    if(!event.getResult().isEmpty()) {
-                        ItemEntity droppedItem = this.entity.spawnAtLocation(event.getResult());
-                        if (droppedItem != null) {
-                            droppedItem.addTag(DROPPED_BY_SMELTER);
-                        }
-                    }
+                    commonFinish(handHeld, result);
+                    //Don't reset recipe here, keep it cached
+                }
+            }
+        } else if (this.currentRecipeBlast.isPresent()) {
+            if (handHeld.isEmpty() || !this.currentRecipeBlast.get().value().matches(recipeInput, this.entity.level())) {
+                //Reset cached recipe if it no longer matches
+                this.currentRecipeBlast = Optional.empty();
+            } else {
+                commomTick();
+                if (this.smeltingTimer >= this.currentRecipeBlast.get().value().getCookingTime() * this.smeltingTimeMultiplier.get()) {
+                    this.smeltingTimer = 0;
+                    ItemStack result = this.currentRecipeBlast.get().value().assemble(recipeInput, this.entity.level().registryAccess());
+                    commonFinish(handHeld, result);
+                    //Don't reset recipe here, keep it cached
+                }
+            }
+        } else if (this.currentRecipeSmoke.isPresent()) {
+            if (handHeld.isEmpty() || !this.currentRecipeSmoke.get().value().matches(recipeInput, this.entity.level())) {
+                //Reset cached recipe if it no longer matches
+                this.currentRecipeSmoke = Optional.empty();
+            } else {
+                commomTick();
+                if (this.smeltingTimer >= this.currentRecipeSmoke.get().value().getCookingTime() * this.smeltingTimeMultiplier.get()) {
+                    this.smeltingTimer = 0;
+                    ItemStack result = this.currentRecipeSmoke.get().value().assemble(recipeInput, this.entity.level().registryAccess());
+                    commonFinish(handHeld, result);
+                    //Don't reset recipe here, keep it cached
+                }
+            }
+        } else if (this.currentRecipeCamp.isPresent()) {
+            if (handHeld.isEmpty() || !this.currentRecipeCamp.get().value().matches(recipeInput, this.entity.level())) {
+                //Reset cached recipe if it no longer matches
+                this.currentRecipeCamp = Optional.empty();
+            } else {
+                commomTick();
+                if (this.smeltingTimer >= this.currentRecipeCamp.get().value().getCookingTime() * this.smeltingTimeMultiplier.get()) {
+                    this.smeltingTimer = 0;
+                    ItemStack result = this.currentRecipeCamp.get().value().assemble(recipeInput, this.entity.level().registryAccess());
+                    commonFinish(handHeld, result);
                     //Don't reset recipe here, keep it cached
                 }
             }
         }
         super.update();
+    }
+
+    private void commomTick(){
+        //advance conversion
+        this.smeltingTimer++;
+
+        //show particle effect while smelting
+        if (this.entity.level().getGameTime() % 10 == 0) {
+            Vec3 pos = this.entity.position();
+            ((ServerLevel) this.entity.level())
+                    .sendParticles(ParticleTypes.FLAME, pos.x + this.entity.level().random.nextGaussian() / 3,
+                            pos.y + 0.5, pos.z + this.entity.level().random.nextGaussian() / 3, 1, 0.0, 0.0, 0.0,
+                            0.0);
+        }
+
+        //every two seconds, play another smelting sound
+        if (this.smeltingTimer % 40 == 0) {
+            this.entity.level().playSound(null, this.entity.blockPosition(), SoundEvents.FIRE_AMBIENT,
+                    SoundSource.NEUTRAL, 1f,
+                    1 + 0.5f * this.entity.getRandom().nextFloat());
+        }
+    }
+
+    private void commonFinish(ItemStack handHeld, ItemStack result){
+        result.setCount((int) (result.getCount()));
+        ItemStack inputCopy = handHeld.copy();
+        inputCopy.setCount(1);
+        handHeld.shrink(1);
+
+        this.onSmelt(inputCopy, result);
+        var event = new SmelterJobEvent(this.entity, inputCopy, result);
+        NeoForge.EVENT_BUS.post(event);
+        if(!event.getResult().isEmpty()) {
+            ItemEntity droppedItem = this.entity.spawnAtLocation(event.getResult());
+            if (droppedItem != null) {
+                droppedItem.addTag(DROPPED_BY_SMELTER);
+            }
+        }
     }
 
     @Override
