@@ -82,6 +82,15 @@ public class IesniumGolemEntity extends IronGolem{
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
+        if(source.is(DamageTypes.FELL_OUT_OF_WORLD)) {
+            this.teleportTo(this.level().getSharedSpawnPos().getX(), this.level().getSharedSpawnPos().getY(), this.level().getSharedSpawnPos().getZ());
+            while (!level().getBlockState(this.getOnPos()).getBlock().isPossibleToRespawnInThis(level().getBlockState(this.getOnPos()))
+                    || !level().getBlockState(this.getOnPos(1)).getBlock().isPossibleToRespawnInThis(level().getBlockState(this.getOnPos(1)))
+                    || !level().getBlockState(this.getOnPos(2)).getBlock().isPossibleToRespawnInThis(level().getBlockState(this.getOnPos(2)))
+                    || !level().getBlockState(this.getOnPos(3)).getBlock().isPossibleToRespawnInThis(level().getBlockState(this.getOnPos(3))))
+                this.teleportRelative(0, 1, 0);
+        }
+
         if (source.getEntity() == null || !source.getEntity().isCrouching())
             return true;
 
