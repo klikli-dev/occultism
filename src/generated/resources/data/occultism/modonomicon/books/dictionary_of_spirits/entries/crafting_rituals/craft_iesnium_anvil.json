@@ -35,17 +35,6 @@
       "text": "",
       "title1": "",
       "title2": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_iesnium_anvil.apothic.text",
-      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_iesnium_anvil.apothic.title",
-      "use_markdown_in_title": false
     }
   ],
   "parents": [

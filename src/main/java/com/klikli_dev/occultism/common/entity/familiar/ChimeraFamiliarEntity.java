@@ -76,7 +76,7 @@ public class ChimeraFamiliarEntity extends ResizableFamiliarEntity implements It
     private static final ResourceLocation DAMAGE_BONUS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "chimera_damage_bonus");
     private static final ResourceLocation SPEED_BONUS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "chimera_speed_bonus");
     private static final byte RIDING_SIZE = 80;
-    private static final double SHRINK_CHANCE = 0.005;
+    private static final double SHRINK_CHANCE = 0.0001;
     private static final int ATTACK_TIME = 10;
 
     private static final EntityDataAccessor<Byte> ATTACKER = SynchedEntityData.defineId(ChimeraFamiliarEntity.class,

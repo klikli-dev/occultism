@@ -1,6 +1,6 @@
 {
 "_comment": "Updated by: Heimdallr-1",
-"_comment": "Update date 20.12.2024",
+"_comment": "Update date 1.01.2025",
 "_comment": "Не изменяйте перевод!",
 
 "advancements.occultism.chalks.black.description": "Для четвёртого основания пентакля.",
@@ -266,8 +266,6 @@
 "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.magic_lamp.title": "Магическая лампа",
 "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.name": "Рудокоп-Фолиот",
 "book.occultism.dictionary_of_spirits.crafting_rituals.craft_foliot_miner.spotlight.text": "Рудокоп-[#](ad03fc)Фолиот[#]() добывает блоки без особой цели и возвращает всё, что находит. Процесс добычи ресурсов довольно медленный, по этой причине Фолиот тратит лишь незначительное количество энергии, постепенно вредя лампе, в которой он содержится.\n",
-"book.occultism.dictionary_of_spirits.crafting_rituals.craft_iesnium_anvil.apothic.text": "При использовании мода [#](AA00AA)Apothic Enchanting[#](), Вы сможете получите все чары до 10 уровня, а не на один уровень выше максимума.\n",
-"book.occultism.dictionary_of_spirits.crafting_rituals.craft_iesnium_anvil.apothic.title": "Информация о Apotheosis",
 "book.occultism.dictionary_of_spirits.crafting_rituals.craft_iesnium_anvil.description": "Улучшенная наковальня",
 "book.occultism.dictionary_of_spirits.crafting_rituals.craft_iesnium_anvil.name": "Наковальня из айзния",
 "book.occultism.dictionary_of_spirits.crafting_rituals.craft_iesnium_anvil.spotlight.text": "В [](item://occultism:iesnium_anvil) вселяется [#](AA00AA)Марид[#]().\nЭта наковальня обладает несколькими новшествами:\n1. Нерушимая;\n2. Превышает предел максимального уровня чар на 1;\n3. Марид покроет половину указанной стоимости уровня (округляя к большему);\n4. Прирост затрат при работе с одним и тем же предметов снижена;\n5. Предел максимальной стоимости повышен;\n",
