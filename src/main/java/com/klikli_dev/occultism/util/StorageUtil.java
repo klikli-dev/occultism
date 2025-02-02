@@ -34,6 +34,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -72,7 +73,7 @@ public class StorageUtil {
                     continue;
                 }
 
-                //move items into storage, and if storage is full, keep remainder in crafting matrix
+                //move items into storage, and if storage is full, give to player
                 int amountBeforeInsert = stackInSlot.getCount();
                 int remainingAfterInsert = storageController.insertStack(stackInSlot.copy(), false);
                 if (amountBeforeInsert == remainingAfterInsert) {
@@ -81,8 +82,10 @@ public class StorageUtil {
                 if (remainingAfterInsert == 0)
                     craftMatrix.setItem(i, ItemStack.EMPTY);
                 else
-                    craftMatrix.setItem(i,
-                            ItemHandlerHelper.copyStackWithSize(stackInSlot, remainingAfterInsert));
+                {
+                    ItemHandlerHelper.giveItemToPlayer(player, stackInSlot.copyWithCount(remainingAfterInsert));
+                    craftMatrix.setItem(i, ItemStack.EMPTY);
+                }
             }
 
             //finally if requested, send the updated storage controller contents to the player.
