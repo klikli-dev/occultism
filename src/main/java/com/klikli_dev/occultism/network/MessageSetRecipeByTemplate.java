@@ -24,7 +24,7 @@ package com.klikli_dev.occultism.network;
 import com.google.common.base.Preconditions;
 import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
-import com.klikli_dev.occultism.integration.emi.impl.StorageControllerEMIRecipeHandler;
+import com.klikli_dev.occultism.integration.emi.impl.EmiHelper;
 import com.klikli_dev.occultism.util.StorageUtil;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
@@ -119,7 +119,7 @@ public class MessageSetRecipeByTemplate extends MessageBase {
         if (this.id != null) {
             var recipe = player.level().getRecipeManager().byKey(this.id).orElse(null);
             if (recipe != null) {
-                return StorageControllerEMIRecipeHandler.ensure3by3CraftingMatrix(recipe);
+                return EmiHelper.ensure3by3CraftingMatrix(recipe);
             }
         }
 
