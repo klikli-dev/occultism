@@ -1,18 +1,23 @@
 package com.klikli_dev.occultism.integration.emi;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
+import com.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
+import com.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
 import com.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import com.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.klikli_dev.occultism.crafting.recipe.MinerRecipe;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
 import com.klikli_dev.occultism.integration.BoundBookRecipeMaker;
+import com.klikli_dev.occultism.integration.emi.impl.StorageControllerEMIRecipeHandler;
 import com.klikli_dev.occultism.integration.emi.recipes.CrushingRecipeCategory;
 import com.klikli_dev.occultism.integration.emi.recipes.MinerRecipeCategory;
 import com.klikli_dev.occultism.integration.emi.recipes.RitualRecipeCategory;
 import com.klikli_dev.occultism.integration.emi.recipes.SpiritFireRecipeCategory;
 import com.klikli_dev.occultism.integration.emi.render.SpiritRenderable;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.registry.OccultismContainers;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
@@ -27,6 +32,7 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -53,6 +59,10 @@ public class OccultismEmiPlugin implements EmiPlugin {
 
     @Override
     public void register(EmiRegistry emiRegistry) {
+        emiRegistry.addRecipeHandler(OccultismContainers.STORAGE_CONTROLLER.get(), new StorageControllerEMIRecipeHandler<>(StorageControllerContainer.class));
+        emiRegistry.addRecipeHandler(OccultismContainers.STORAGE_REMOTE.get(), new StorageControllerEMIRecipeHandler<>(StorageRemoteContainer.class));
+        emiRegistry.addRecipeHandler(OccultismContainers.STABLE_WORMHOLE.get(), new StorageControllerEMIRecipeHandler<>(StableWormholeContainer.class));
+        
         emiRegistry.addCategory(SPIRIT_FIRE_CATEGORY);
         emiRegistry.addWorkstation(SPIRIT_FIRE_CATEGORY, SPIRIT_FIRE);
         emiRegistry.addCategory(CRUSHING_CATEGORY);
