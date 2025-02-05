@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.141.2] - 2025-02-05
+### :bug: Bug Fixes
+- [`17d537a`](https://github.com/klikli-dev/occultism/commit/17d537a4ed38196792880d72bd60eeaaf63f5eee) - update to theurgy particle changes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`f2ee8ea`](https://github.com/klikli-dev/occultism/commit/f2ee8ea10121065c740bb98be4ae6801525d70aa) - incorrect name for japanese translation file *(PR [#1294](https://github.com/klikli-dev/occultism/pull/1294) by [@ThePixelatedCat](https://github.com/ThePixelatedCat))*
+
+
 ## [release/v1.20.1-1.141.0] - 2025-02-04
 ### :sparkles: New Features
 - [`c9ddc2d`](https://github.com/klikli-dev/occultism/commit/c9ddc2d69817eb62a7a9d496982a915ca611f563) - Backported fixes to client and server side EMI autofilling in the dimensional storage device, resolving issues [#1282](https://github.com/klikli-dev/occultism/pull/1282) and [#1255](https://github.com/klikli-dev/occultism/pull/1255) *(PR [#1292](https://github.com/klikli-dev/occultism/pull/1292) by [@ThePixelatedCat](https://github.com/ThePixelatedCat))*
@@ -1259,3 +1265,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.140.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.140.0...release/v1.20.1-1.140.1
 [release/v1.20.1-1.140.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.140.1...release/v1.20.1-1.140.2
 [release/v1.20.1-1.141.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.140.2...release/v1.20.1-1.141.0
+[release/v1.20.1-1.141.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.141.0...release/v1.20.1-1.141.2
