@@ -182,10 +182,24 @@ public class DemonicPartner extends TamableAnimal {
             if (recipe.isPresent()) {
                 this.lastRecipe = recipe;
                 var result = recipe.get().value().getResultItem(this.level().registryAccess());
-                if (!pPlayer.getAbilities().instabuild) {
-                    itemstack.shrink(1);
+
+                if (pPlayer.isShiftKeyDown()) 
+                {
+                    var multiResult = result.copy();
+                    multiResult.setCount(result.getCount() * itemstack.getCount());
+
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(itemstack.getCount());
+                    }
+                    ItemHandlerHelper.giveItemToPlayer(pPlayer, multiResult);
                 }
-                ItemHandlerHelper.giveItemToPlayer(pPlayer, result);
+                else
+                {
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(1);
+                    }
+                    ItemHandlerHelper.giveItemToPlayer(pPlayer, result);
+                }
 
                 for (int i = 0; i < 2; i++) {
                     Vec3 pos = this.position().add((this.getRandom().nextFloat() - 0.5f) * 0.7,
