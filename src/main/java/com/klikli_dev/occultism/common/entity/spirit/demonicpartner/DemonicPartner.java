@@ -169,7 +169,7 @@ public class DemonicPartner extends TamableAnimal {
                     }
                 }
 
-                if (!pPlayer.getAbilities().instabuild) {
+                if (!pPlayer.isCreative()) {
                     itemstack.shrink(1);
                     ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(Items.GLASS_BOTTLE));
                 }
@@ -188,14 +188,14 @@ public class DemonicPartner extends TamableAnimal {
                     var multiResult = result.copy();
                     multiResult.setCount(result.getCount() * itemstack.getCount());
 
-                    if (!pPlayer.getAbilities().instabuild) {
+                    if (!pPlayer.isCreative()) {
                         itemstack.shrink(itemstack.getCount());
                     }
                     ItemHandlerHelper.giveItemToPlayer(pPlayer, multiResult);
                 }
                 else
                 {
-                    if (!pPlayer.getAbilities().instabuild) {
+                    if (!pPlayer.isCreative()) {
                         itemstack.shrink(1);
                     }
                     ItemHandlerHelper.giveItemToPlayer(pPlayer, result);
@@ -214,7 +214,7 @@ public class DemonicPartner extends TamableAnimal {
             //heal with food
             if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
                 this.heal((float) itemstack.getFoodProperties(this).nutrition());
-                if (!pPlayer.getAbilities().instabuild) {
+                if (!pPlayer.isCreative()) {
                     itemstack.shrink(1);
                 }
 
@@ -235,7 +235,7 @@ public class DemonicPartner extends TamableAnimal {
             }
         } else if (itemstack.is(Items.DIAMOND)) {
             //tame with a diamond
-            if (!pPlayer.getAbilities().instabuild) {
+            if (!pPlayer.isCreative()) {
                 itemstack.shrink(1);
             }
 
