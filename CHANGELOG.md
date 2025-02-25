@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.141.3] - 2025-02-25
+### :bug: Bug Fixes
+- [`e4ac109`](https://github.com/klikli-dev/occultism/commit/e4ac10968be7333197cc383643cf7e48f3f8fb65) - ensure beholder can deal damage even if owner player cannot be retrieved *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.141.2] - 2025-02-05
 ### :bug: Bug Fixes
 - [`17d537a`](https://github.com/klikli-dev/occultism/commit/17d537a4ed38196792880d72bd60eeaaf63f5eee) - update to theurgy particle changes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1266,3 +1271,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.140.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.140.1...release/v1.20.1-1.140.2
 [release/v1.20.1-1.141.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.140.2...release/v1.20.1-1.141.0
 [release/v1.20.1-1.141.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.141.0...release/v1.20.1-1.141.2
+[release/v1.20.1-1.141.3]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.141.2...release/v1.20.1-1.141.3
