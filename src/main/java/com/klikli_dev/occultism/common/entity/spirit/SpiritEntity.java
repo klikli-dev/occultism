@@ -30,6 +30,7 @@ import com.klikli_dev.occultism.common.entity.job.SpiritJob;
 import com.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
+import com.klikli_dev.occultism.registry.OccultismTags;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -679,12 +680,16 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
 
     @Override
     public InteractionResult interactAt(Player player, Vec3 vec, InteractionHand hand) {
+      ItemStack itemStack = player.getItemInHand(hand);
+
+      if (!(itemStack.is(OccultismTags.Items.BOOK_OF_CALLING_FOLIOT) || itemStack.is(OccultismTags.Items.BOOK_OF_CALLING_DJINNI))) {
         if (this.isTame() && player.isShiftKeyDown()) {
             this.openScreen(player);
             return InteractionResult.SUCCESS;
         }
+      }
         
-        return super.interactAt(player, vec, hand);
+      return super.interactAt(player, vec, hand);
     }
 
     @Override
