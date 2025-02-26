@@ -844,7 +844,7 @@ public class GettingStartedCategory extends CategoryProvider {
                 """
                         Just like the candles from Minecraft, [](item://occultism:large_candle) and colored versions can be lit, turning in a great light source. 
                         \\
-                        In addiction, you can use a [](item://minecraft:torch), [](item://minecraft:soul_torch), [](item://minecraft:redstone_torch) or [](item://occultism:spirit_torch) to change the type of fire.
+                        In addition, you can use a [](item://minecraft:torch), [](item://minecraft:soul_torch), [](item://minecraft:redstone_torch) or [](item://occultism:spirit_torch) to change the type of fire.
                         \\
                         Also can be waterlogged.
                         """);
