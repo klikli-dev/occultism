@@ -3524,5 +3524,13 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfigurationTranslations();
         this.addTags();
         this.addConditionMessages();
+        this.addWaila();
+    }
+
+    private void addWaila() {
+        this.add("occultism.waila.current_ritual","Current Ritual: %s");
+        this.add("occultism.waila.no_current_ritual","No Current Ritual");
+        this.add("occultism.waila.no_item_use","Required item not used");
+        this.add("occultism.waila.no_sacrifice","Required sacrifice not performed");
     }
 }

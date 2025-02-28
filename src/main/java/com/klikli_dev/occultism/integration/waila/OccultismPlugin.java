@@ -2,6 +2,7 @@ package com.klikli_dev.occultism.integration.waila;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
+import com.klikli_dev.occultism.common.block.GoldenSacrificialBowlBlock;
 import com.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.util.CuriosUtil;
@@ -13,6 +14,7 @@ public class OccultismPlugin implements IWailaPlugin {
     @Override
     public void register(IWailaCommonRegistration registration) {
         //TODO register data providers
+
     }
 
     @Override
@@ -36,6 +38,7 @@ public class OccultismPlugin implements IWailaPlugin {
             }
             return accessor;
         });
+        registration.registerBlockComponent(SacrificialComponentProvider.INSTANCE, GoldenSacrificialBowlBlock.class);
     }
 
 }

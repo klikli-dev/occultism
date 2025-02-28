@@ -85,6 +85,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     public boolean itemUseProvided;
     public int currentTime;
     public int tier;
+    public boolean ritualActive;
 
     public Consumer<RightClickItem> rightClickItemListener;
     public Consumer<LivingDeathEvent> livingDeathEventListener;
@@ -505,7 +506,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             this.itemUseProvided = false;
             this.consumedIngredients.clear();
             this.remainingAdditionalIngredients = new ArrayList<>(this.currentRitualRecipe.value().getIngredients());
-
+            this.ritualActive=true;
             if(!this.currentRitualRecipe.value().getRitual().start(this.level, this.getBlockPos(), this, player, this.itemStackHandler.getStackInSlot(0))) {
                 this.stopRitual(false, false); //do not show message as start will already do that
                 return false;
@@ -554,7 +555,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
             NeoForge.EVENT_BUS.unregister(this.rightClickItemListener);
             NeoForge.EVENT_BUS.unregister(this.livingDeathEventListener);
-
+            this.ritualActive=false;
             this.setChanged();
             this.markNetworkDirty();
 
@@ -670,6 +671,9 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         }
 
         this.currentTime = compound.getInt("currentTime");
+        if(compound.contains("ritualActive")) {
+            this.ritualActive = compound.getBoolean("ritualActive");
+        }
     }
 
     @Override
@@ -682,6 +686,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             compound.putUUID("castingPlayerId", this.castingPlayerId);
         }
         compound.putInt("currentTime", this.currentTime);
+        compound.putBoolean("ritualActive", this.ritualActive);
         return super.saveNetwork(compound, provider);
     }
 }
