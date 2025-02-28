@@ -13,6 +13,7 @@ import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
+import snownee.jade.api.ui.IElement;
 
 public class SacrificialComponentProvider implements IBlockComponentProvider {
 public static SacrificialComponentProvider INSTANCE;
@@ -22,25 +23,26 @@ public static SacrificialComponentProvider INSTANCE;
     @Override
     public void appendTooltip(ITooltip iTooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
         if(blockAccessor.getBlockEntity() instanceof GoldenSacrificialBowlBlockEntity goldenSacrificialBowlBlockEntity) {
-            ClientPentacleManager.rebuild(blockAccessor.getPosition());
-            if(!ClientPentacleManager.lastPentacles.isEmpty()){
-                for (var text : ClientPentacleManager.lastPentacles) {
-                    iTooltip.add(Component.translatable(TranslationKeys.HUD_PENTACLE_FOUND, text.withStyle(ChatFormatting.GREEN)).withStyle(ChatFormatting.WHITE));
-                }
-            } else {
-                iTooltip.add(ClientPentacleManager.noPentacleFound.withStyle(ChatFormatting.YELLOW));
-            }
             if(goldenSacrificialBowlBlockEntity.getCurrentRitualRecipe()!=null && goldenSacrificialBowlBlockEntity.getCurrentRitualRecipe().value() instanceof RitualRecipe recipe && goldenSacrificialBowlBlockEntity.ritualActive) {
 
                 String ritualName = I18n.get("item.occultism.ritual_dummy." + goldenSacrificialBowlBlockEntity.getCurrentRitualRecipe().id().getPath().substring(7));
 
                     iTooltip.add(Component.translatable("occultism.waila.current_ritual", Component.translatable(ritualName).withStyle(ChatFormatting.GREEN)).withStyle(ChatFormatting.WHITE));
                     if(!goldenSacrificialBowlBlockEntity.sacrificeFulfilled()) {
-                        iTooltip.add(Component.translatable("occultism.waila.no_sacrifice"));
+                        iTooltip.add(Component.translatable("occultism.waila.no_sacrifice").withStyle(ChatFormatting.RED));
                     }
                     if(!goldenSacrificialBowlBlockEntity.itemUseFulfilled()) {
-                        iTooltip.add(Component.translatable("occultism.waila.no_item_use"));
+                        iTooltip.add(Component.translatable("occultism.waila.no_item_use").withStyle(ChatFormatting.RED));
                     }
+                    return;
+            }
+            ClientPentacleManager.rebuild(blockAccessor.getPosition());
+            if(!ClientPentacleManager.lastPentacles.isEmpty()){
+                for (var text : ClientPentacleManager.lastPentacles) {
+                    iTooltip.add(text);
+                }
+            } else {
+                iTooltip.add(ClientPentacleManager.noPentacleFound.withStyle(ChatFormatting.YELLOW));
             }
         }
     }

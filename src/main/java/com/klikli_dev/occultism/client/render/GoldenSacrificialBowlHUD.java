@@ -47,7 +47,7 @@ public class GoldenSacrificialBowlHUD implements LayeredDraw.Layer {
 
         if(!ClientPentacleManager.lastPentacles.isEmpty()){
             for (var text : ClientPentacleManager.lastPentacles) {
-                pGuiGraphics.drawCenteredString(font, Component.translatable(TranslationKeys.HUD_PENTACLE_FOUND, text.withStyle(ChatFormatting.GREEN)).withStyle(ChatFormatting.WHITE), x, y, -1);
+                pGuiGraphics.drawCenteredString(font, text, x, y, -1);
                 y += 9;
             }
         } else {

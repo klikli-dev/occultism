@@ -14,45 +14,34 @@ public class SpiritComponentProvider implements IEntityComponentProvider {
 
     @Override
     public void appendTooltip(ITooltip iTooltip, EntityAccessor entityAccessor, IPluginConfig iPluginConfig) {
-
-        if(entityAccessor!=null && entityAccessor.getEntity() instanceof SpiritEntity spiritEntity) {
+        if (entityAccessor != null && entityAccessor.getEntity() instanceof SpiritEntity spiritEntity) {
             int maxAge = spiritEntity.getSpiritMaxAge();
             int age = spiritEntity.getSpiritAge();
-            if (entityAccessor.getEntity() instanceof FoliotEntity ) {
+
+            // Determine spirit type and add appropriate tooltip
+            String spiritType = getSpiritType(spiritEntity);
+            if (spiritType != null) {
                 if (maxAge != -1) {
-                    iTooltip.add(Component.translatable("occultism.waila.foliot_age", maxAge - age));
+                    iTooltip.add(Component.translatable("occultism.waila." + spiritType + "_age", maxAge - age));
                 } else {
-                    iTooltip.add(Component.translatable("occultism.waila.foliot"));
-                }
-            }
-            if (entityAccessor.getEntity() instanceof DjinniEntity) {
-                if (maxAge != -1) {
-                    iTooltip.add(Component.translatable("occultism.waila.djinni_age", maxAge - age));
-                } else {
-                    iTooltip.add(Component.translatable("occultism.waila.djinni"));
-                }
-            }
-            if (entityAccessor.getEntity() instanceof AfritEntity) {
-                if (maxAge != -1) {
-                    iTooltip.add(Component.translatable("occultism.waila.afrit_age", maxAge - age));
-                } else {
-                    iTooltip.add(Component.translatable("occultism.waila.afrit"));
-                }
-            }
-            if (entityAccessor.getEntity() instanceof MaridEntity ) {
-                if (maxAge != -1) {
-                    iTooltip.add(Component.translatable("occultism.waila.marid_age", maxAge - age));
-                } else {
-                    iTooltip.add(Component.translatable("occultism.waila.marid"));
+                    iTooltip.add(Component.translatable("occultism.waila." + spiritType));
                 }
             }
 
+            // Add job information if available
             if (spiritEntity.getJobID() != null && !spiritEntity.getJobID().isEmpty()) {
                 String job = spiritEntity.getJobID().split(":", 2)[1];
                 iTooltip.add(Component.translatable("job.occultism." + job));
             }
-
         }
+    }
+
+    private String getSpiritType(SpiritEntity spiritEntity) {
+        if (spiritEntity instanceof FoliotEntity) return "foliot";
+        if (spiritEntity instanceof DjinniEntity) return "djinni";
+        if (spiritEntity instanceof AfritEntity) return "afrit";
+        if (spiritEntity instanceof MaridEntity) return "marid";
+        return null;
     }
 
     @Override

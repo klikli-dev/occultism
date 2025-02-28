@@ -9,6 +9,7 @@ import snownee.jade.api.*;
 
 @WailaPlugin
 public class OccultismPlugin implements IWailaPlugin {
+
     @Override
     public void register(IWailaCommonRegistration registration) {
         //TODO register data providers

@@ -63,6 +63,7 @@ public class OccultismClientConfig {
         public final IntValue pinkChalkGlyphColor;
 
 
+
         public VisualSettings(ModConfigSpec.Builder builder) {
             builder.comment("Visual Settings").push("visual");
             this.showItemTagsInTooltip = builder.comment("Shows all tags an item has in the tooltip on hover if advanced tooltips (F3+H) are enabled.")
@@ -171,7 +172,6 @@ public class OccultismClientConfig {
                     "This is intended to allow people with color blindness to change the color of the glyph.",
                     "For most types of color blindness it should not be necessary to change this."
             ).defineInRange("pinkChalkGlyphColor", 0xf38baa, 0, 0xffffff);
-
             builder.pop();
         }
     }
@@ -181,6 +181,8 @@ public class OccultismClientConfig {
         public final BooleanValue divinationRodHighlightAllResults;
         public final IntValue divinationRodScanRange;
         public final BooleanValue disableSpiritFireSuccessSound;
+        public final IntValue pentagramInBowlInfoCount;
+        public final IntValue pentagramInBowlInfoTicks;
 
         public MiscSettings(ModConfigSpec.Builder builder) {
             builder.comment("Misc Settings").push("misc");
@@ -197,6 +199,12 @@ public class OccultismClientConfig {
                             "Disables the sound played when a spirit fire successfully crafted an item."
                     )
                     .define("disableSpiritFireSuccessSound", false);
+            this.pentagramInBowlInfoCount = builder.comment(
+                    "How many pentagrams to show at one time on the bowl information"
+            ).defineInRange("pentagramInBowlInfoCount", 3, 1, Integer.MAX_VALUE);
+            this.pentagramInBowlInfoTicks = builder.comment(
+                    "How many ticks between each page for the pentagram information on a bowl"
+            ).defineInRange("pentagramInBowlInfoTicks", 40, 1, Integer.MAX_VALUE);
             builder.pop();
         }
     }
