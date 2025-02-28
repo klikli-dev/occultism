@@ -190,7 +190,7 @@ dependencies {
     //alltheores - for recipe testing
     //enable once available for 1.20
     //runtimeOnly "curse.maven:alltheores-405593:xyz" //
-
+    implementation "curse.maven:jade-324717:${jade_id}"
     //PerViamInvenire - for AI integration testing
     //runtimeOnly "curse.maven:perviaminvenire-449945:xyz" //
     //enable once available for 1.20
