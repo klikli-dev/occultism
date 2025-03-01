@@ -12,6 +12,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.phys.BlockHitResult;
+import net.neoforged.fml.ModList;
+import snownee.jade.Jade;
 
 public class GoldenSacrificialBowlHUD implements LayeredDraw.Layer {
     private static final GoldenSacrificialBowlHUD instance = new GoldenSacrificialBowlHUD();
@@ -36,24 +38,25 @@ public class GoldenSacrificialBowlHUD implements LayeredDraw.Layer {
         }
 
         ClientPentacleManager.rebuild(pos);
+        if(!ModList.get().isLoaded("jade")) {
+            Font font = mc.font;
 
-        Font font = mc.font;
+            int x = pGuiGraphics.guiWidth() / 2;
+            int y = pGuiGraphics.guiHeight() / 2 + 18;
 
-        int x = pGuiGraphics.guiWidth() / 2;
-        int y = pGuiGraphics.guiHeight() / 2 + 18;
+            PoseStack pose = pGuiGraphics.pose();
+            pose.pushPose();
 
-        PoseStack pose = pGuiGraphics.pose();
-        pose.pushPose();
-
-        if(!ClientPentacleManager.lastPentacles.isEmpty()){
-            for (var text : ClientPentacleManager.lastPentacles) {
-                pGuiGraphics.drawCenteredString(font, text, x, y, -1);
-                y += 9;
+            if (!ClientPentacleManager.lastPentacles.isEmpty()) {
+                for (var text : ClientPentacleManager.lastPentacles) {
+                    pGuiGraphics.drawCenteredString(font, text, x, y, -1);
+                    y += 9;
+                }
+            } else {
+                pGuiGraphics.drawCenteredString(font, ClientPentacleManager.noPentacleFound.withStyle(ChatFormatting.YELLOW), x, y, -1);
             }
-        } else {
-            pGuiGraphics.drawCenteredString(font, ClientPentacleManager.noPentacleFound.withStyle(ChatFormatting.YELLOW), x, y, -1);
-        }
 
-        pose.popPose();
+            pose.popPose();
+        }
     }
 }
