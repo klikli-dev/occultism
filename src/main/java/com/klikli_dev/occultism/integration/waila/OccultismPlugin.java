@@ -5,11 +5,11 @@ import com.klikli_dev.occultism.common.block.GoldenSacrificialBowlBlock;
 import com.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.util.CuriosUtil;
+
 import snownee.jade.api.*;
 
 @WailaPlugin
 public class OccultismPlugin implements IWailaPlugin {
-
     @Override
     public void register(IWailaCommonRegistration registration) {
         //TODO register data providers
@@ -36,6 +36,7 @@ public class OccultismPlugin implements IWailaPlugin {
             }
             return accessor;
         });
+
         registration.registerBlockComponent(SacrificialComponentProvider.INSTANCE, GoldenSacrificialBowlBlock.class);
         registration.registerEntityComponent(SpiritComponentProvider.INSTANCE, SpiritEntity.class);
     }
