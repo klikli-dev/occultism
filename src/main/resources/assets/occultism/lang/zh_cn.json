@@ -2689,7 +2689,7 @@
   "item.occultism.divination_rod.auto_tooltip": "什么都没看到？\n查看魔灵全典的答疑页！\n在 \"新手入门\" 页找到探测杖。\n",
   "item.occultism.ritual_satchel.block_above_not_air": "点击的坐标上方的方块不为空.",
   "item.occultism.ritual_satchel.block_at_position_not_air": "点击的坐标的方块不为空。",
-  "item.occultism.ritual_satchel.invalid_matcher": "Cannot place a block for an ANY or DISPLAY_ONLY multiblock matcher",
+  "item.occultism.ritual_satchel.invalid_matcher": "无法为 ANY 或 DISPLAY_ONLY 多方块匹配器放置方块",
   "item.occultism.spawn_egg.afrit_unbound": "未约束火灵刷怪蛋",
   "occultism.waila.afrit": "火灵",
   "occultism.waila.afrit_age": "火灵: 剩余%s秒",
