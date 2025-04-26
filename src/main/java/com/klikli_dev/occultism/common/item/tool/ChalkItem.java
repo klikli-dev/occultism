@@ -22,7 +22,9 @@
 
 package com.klikli_dev.occultism.common.item.tool;
 
+import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.block.ChalkGlyphBlock;
+import com.klikli_dev.occultism.config.OccultismServerConfig;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -75,7 +77,7 @@ public class ChalkItem extends Item {
                         1 + 0.5f * player.getRandom().nextFloat());
 
                 // do not consume durability if creative, or if same kind of chalk (= cycle through sings)
-                if (!player.isCreative() && !isSameChalkType)
+                if (!player.isCreative() && !isSameChalkType && !Occultism.SERVER_CONFIG.itemSettings.unbreakableChalks.getAsBoolean())
                     heldChalk.hurtAndBreak(1, player, player.getEquipmentSlotForItem(heldChalk));
             }
         }

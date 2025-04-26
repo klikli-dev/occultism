@@ -46,6 +46,7 @@ public class OccultismServerConfig {
     public static class ItemSettings {
         public final BooleanValue anyOreDivinationRod;
         public final BooleanValue minerOutputBeforeBreak;
+        public final BooleanValue unbreakableChalks;
 
         public ItemSettings(ModConfigSpec.Builder builder) {
             builder.comment("Item Settings").push("items");
@@ -60,6 +61,11 @@ public class OccultismServerConfig {
                                     "Miners head to the output in the Dimensional Mineshaft before it breaks"
                             )
                             .define("minerOutputBeforeBreak", false);
+            this.unbreakableChalks =
+                    builder.comment(
+                                    "Don't damage chalks on use"
+                            )
+                            .define("unbreakableChalks", false);
 
             builder.pop();
         }

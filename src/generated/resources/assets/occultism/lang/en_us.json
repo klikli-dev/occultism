@@ -2058,6 +2058,7 @@
   "occultism.configuration.tier4CrusherOutputMultiplier": "Output multiplier for Tier 4 Crusher operations.",
   "occultism.configuration.tier4CrusherTimeMultiplier": "Time multiplier for Tier 4 Crusher operations.",
   "occultism.configuration.tier4SmelterTimeMultiplier": "Time multiplier for Tier 4 Smelter operations.",
+  "occultism.configuration.unbreakableChalks": "Unbreakable Chalks",
   "occultism.configuration.unlinkWormholeOnBreak": "Unlink Wormhole on Break",
   "occultism.configuration.useAlternativeDivinationRodRenderer": "Use Alternative Divination Rod Renderer",
   "occultism.configuration.visual": "Visual Settings",

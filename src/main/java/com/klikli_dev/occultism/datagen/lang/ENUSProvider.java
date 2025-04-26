@@ -3498,6 +3498,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("items", "Items");
         this.addConfig("anyOreDivinationRod", "Divination c:ores");
         this.addConfig("minerOutputBeforeBreak", "Save miners before breaking");
+        this.addConfig("unbreakableChalks", "Unbreakable Chalks");
     }
 
     private void addConfig(String key, String name) {
