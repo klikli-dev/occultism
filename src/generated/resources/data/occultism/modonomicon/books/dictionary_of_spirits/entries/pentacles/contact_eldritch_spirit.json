@@ -16,6 +16,10 @@
       {
         "type": "modonomicon:entry_read",
         "entry_id": "pentacles/cyan_chalk"
+      },
+      {
+        "type": "modonomicon:entry_read",
+        "entry_id": "pentacles/contact_wild_spirit"
       }
     ]
   },
@@ -65,7 +69,7 @@
       "draw_arrow": true,
       "entry": "pentacles/magenta_chalk",
       "line_enabled": true,
-      "line_reversed": true
+      "line_reversed": false
     },
     {
       "draw_arrow": true,
@@ -77,11 +81,17 @@
       "draw_arrow": true,
       "entry": "pentacles/cyan_chalk",
       "line_enabled": true,
-      "line_reversed": true
+      "line_reversed": false
+    },
+    {
+      "draw_arrow": true,
+      "entry": "pentacles/contact_wild_spirit",
+      "line_enabled": true,
+      "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": 36,
-  "x": 10,
-  "y": 6
+  "x": 7,
+  "y": 5
 }

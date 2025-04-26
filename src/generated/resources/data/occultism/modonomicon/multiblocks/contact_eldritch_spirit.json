@@ -14,6 +14,11 @@
       "display": "occultism:golden_sacrificial_bowl",
       "tag": "#occultism:center_sacrificial_bowl"
     },
+    "A": {
+      "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_light_blue",
+      "tag": "#occultism:glyphs_light_blue"
+    },
     "B": {
       "type": "modonomicon:tag",
       "display": "occultism:chalk_glyph_brown",
@@ -24,10 +29,20 @@
       "display": "occultism:chalk_glyph_cyan",
       "tag": "#occultism:glyphs_cyan"
     },
+    "E": {
+      "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_green",
+      "tag": "#occultism:glyphs_green"
+    },
     "M": {
       "type": "modonomicon:tag",
       "display": "occultism:chalk_glyph_magenta",
       "tag": "#occultism:glyphs_magenta"
+    },
+    "P": {
+      "type": "modonomicon:tag",
+      "display": "occultism:chalk_glyph_pink",
+      "tag": "#occultism:glyphs_pink"
     },
     "e": {
       "type": "modonomicon:block",
@@ -69,17 +84,17 @@
       "_________CeC_________",
       "_________CMC_________",
       "____BB__CMMMC__BB____",
-      "____BlBBCM_MCBBfB____",
-      "_____B_B_____B_B_____",
-      "_____BB_______BB_____",
-      "____CC_________CC____",
-      "__CCMM_________MMCC__",
-      "_CkMM_____0_____MMgC_",
-      "__CCMM_________MMCC__",
-      "____CC_________CC____",
-      "_____BB_______BB_____",
-      "_____B_B_____B_B_____",
-      "____BjBBCM_MCBBhB____",
+      "____BlBBCMPMCBBfB____",
+      "_____BABAE_EABAB_____",
+      "_____BB_PE_EP_BB_____",
+      "____CCAPA_P_APACC____",
+      "__CCMMEE_____EEMMCC__",
+      "_CkMMP__P_0_P__PMMgC_",
+      "__CCMMEE_____EEMMCC__",
+      "____CCAPA_P_APACC____",
+      "_____BB_PE_EP_BB_____",
+      "_____BABAE_EABAB_____",
+      "____BjBBCMPMCBBhB____",
       "____BB__CMMMC__BB____",
       "_________CMC_________",
       "_________CiC_________",

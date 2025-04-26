@@ -40,9 +40,9 @@ public class PentaclesCategory extends CategoryProvider {
                 "_________________________",
                 "__________L__O__R_____U__",
                 "_________________________",
-                "____________EAP______MBC_",
-                "_________________________",
-                "_______k_____p________q__"
+                "_____________E________C__",
+                "_______k_____A__p__q__B__",
+                "_____________P________M__"
         };
     }
 
@@ -192,8 +192,8 @@ public class PentaclesCategory extends CategoryProvider {
         var contactWildSpirit = this.add(new ContactWildSpiritEntry(this).generate('p'));
         contactWildSpirit
                 .withParents(
-                        BookEntryParentModel.create(pinkChalkEntry.getId()).withLineReversed(true),
-                        BookEntryParentModel.create(greenChalkEntry.getId()).withLineReversed(true),
+                        BookEntryParentModel.create(pinkChalkEntry.getId()),
+                        BookEntryParentModel.create(greenChalkEntry.getId()),
                         BookEntryParentModel.create(lightBlueChalkEntry.getId()))
                 .withCondition(
                         this.condition().and(
@@ -272,13 +272,15 @@ public class PentaclesCategory extends CategoryProvider {
         var contactEldritch = this.add(new ContactEldritchSpiritEntry(this).generate('q'));
         contactEldritch
                 .withParents(
-                        BookEntryParentModel.create(magentaChalkEntry.getId()).withLineReversed(true),
+                        BookEntryParentModel.create(magentaChalkEntry.getId()),
                         BookEntryParentModel.create(brownChalkEntry.getId()),
-                        BookEntryParentModel.create(cyanChalkEntry.getId()).withLineReversed(true))
+                        BookEntryParentModel.create(cyanChalkEntry.getId()),
+                        BookEntryParentModel.create(contactWildSpirit.getId()))
                 .withCondition(this.condition().and(
                             this.condition().entryRead(magentaChalkEntry),
                             this.condition().entryRead(brownChalkEntry),
-                            this.condition().entryRead(cyanChalkEntry)
+                            this.condition().entryRead(cyanChalkEntry),
+                            this.condition().entryRead(contactWildSpirit)
                         ));
         //TODO: enable advancement condition once modonomicon supports skipping them
 //                .withCondition(BookAndConditionModel.create().withChildren(

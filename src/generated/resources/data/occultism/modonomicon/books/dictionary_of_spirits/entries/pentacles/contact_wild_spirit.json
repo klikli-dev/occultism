@@ -76,13 +76,13 @@
       "draw_arrow": true,
       "entry": "pentacles/pink_chalk",
       "line_enabled": true,
-      "line_reversed": true
+      "line_reversed": false
     },
     {
       "draw_arrow": true,
       "entry": "pentacles/green_chalk",
       "line_enabled": true,
-      "line_reversed": true
+      "line_reversed": false
     },
     {
       "draw_arrow": true,
@@ -93,6 +93,6 @@
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": 23,
-  "x": 1,
-  "y": 6
+  "x": 4,
+  "y": 5
 }
