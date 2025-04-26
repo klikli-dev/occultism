@@ -105,7 +105,7 @@ public class GuardianFamiliarEntity extends ColoredFamiliarEntity {
 
     @Override
     public boolean canBlacksmithUpgrade() {
-        return !this.hasBlacksmithUpgrade() && this.getLives() != MAX_LIVES;
+        return this.getLives() != MAX_LIVES;
     }
 
     @Override
