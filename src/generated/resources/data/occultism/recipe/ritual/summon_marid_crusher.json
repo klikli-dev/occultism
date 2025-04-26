@@ -10,13 +10,16 @@
       "tag": "c:storage_blocks/diamond"
     },
     {
-      "item": "minecraft:ghast_tear"
-    },
-    {
       "tag": "c:storage_blocks/iesnium"
     },
     {
       "tag": "c:storage_blocks/emerald"
+    },
+    {
+      "tag": "c:storage_blocks/netherite"
+    },
+    {
+      "item": "minecraft:ghast_tear"
     }
   ],
   "pentacle_id": "occultism:summon_marid",

@@ -11,28 +11,19 @@
   "entity_to_summon": "occultism:possessed_ghast",
   "ingredients": [
     {
-      "tag": "c:netherracks"
-    },
-    {
-      "tag": "c:netherracks"
-    },
-    {
-      "tag": "c:netherracks"
+      "tag": "minecraft:soul_fire_base_blocks"
     },
     {
       "tag": "c:magma"
     },
     {
-      "tag": "c:magma"
+      "tag": "minecraft:soul_fire_base_blocks"
     },
     {
       "tag": "c:magma"
     },
     {
-      "item": "minecraft:lava_bucket"
-    },
-    {
-      "item": "minecraft:lava_bucket"
+      "tag": "c:netherracks"
     },
     {
       "item": "minecraft:lava_bucket"

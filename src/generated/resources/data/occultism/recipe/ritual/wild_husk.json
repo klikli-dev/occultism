@@ -1,7 +1,7 @@
 {
   "type": "occultism:ritual",
   "activation_item": {
-    "item": "minecraft:raw_gold"
+    "tag": "minecraft:pickaxes"
   },
   "duration": 90,
   "entity_to_sacrifice": {
@@ -11,40 +11,16 @@
   "entity_to_summon": "occultism:wild_horde_husk",
   "ingredients": [
     {
-      "item": "minecraft:sand"
-    },
-    {
       "item": "minecraft:sandstone"
-    },
-    {
-      "item": "minecraft:chiseled_sandstone"
-    },
-    {
-      "item": "minecraft:cut_sandstone"
-    },
-    {
-      "item": "minecraft:smooth_sandstone"
     },
     {
       "item": "minecraft:dead_bush"
     },
     {
-      "item": "minecraft:sand"
+      "item": "minecraft:rotten_flesh"
     },
     {
-      "item": "minecraft:sandstone"
-    },
-    {
-      "item": "minecraft:chiseled_sandstone"
-    },
-    {
-      "item": "minecraft:cut_sandstone"
-    },
-    {
-      "item": "minecraft:smooth_sandstone"
-    },
-    {
-      "item": "minecraft:dead_bush"
+      "item": "minecraft:gold_ingot"
     }
   ],
   "pentacle_id": "occultism:contact_wild_spirit",

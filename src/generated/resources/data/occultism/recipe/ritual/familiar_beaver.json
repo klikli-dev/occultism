@@ -4,6 +4,10 @@
     "item": "occultism:book_of_binding_bound_foliot"
   },
   "duration": 45,
+  "entity_to_sacrifice": {
+    "display_name": "ritual.occultism.sacrifice.pigs",
+    "tag": "c:pigs"
+  },
   "entity_to_summon": "occultism:beaver_familiar",
   "ingredients": [
     {

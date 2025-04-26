@@ -1,7 +1,7 @@
 {
   "type": "occultism:ritual",
   "activation_item": {
-    "item": "minecraft:tnt"
+    "item": "minecraft:flint_and_steel"
   },
   "duration": 90,
   "entity_to_sacrifice": {
@@ -14,22 +14,10 @@
       "item": "minecraft:moss_block"
     },
     {
-      "item": "minecraft:moss_block"
+      "item": "minecraft:tnt"
     },
     {
       "item": "minecraft:moss_block"
-    },
-    {
-      "item": "minecraft:moss_block"
-    },
-    {
-      "tag": "minecraft:leaves"
-    },
-    {
-      "tag": "minecraft:leaves"
-    },
-    {
-      "tag": "minecraft:leaves"
     },
     {
       "tag": "minecraft:leaves"

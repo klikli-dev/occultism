@@ -11,28 +11,19 @@
   "entity_to_summon": "occultism:devil_familiar",
   "ingredients": [
     {
-      "item": "minecraft:lava_bucket"
-    },
-    {
-      "item": "minecraft:lava_bucket"
-    },
-    {
-      "item": "minecraft:lava_bucket"
-    },
-    {
-      "item": "minecraft:lava_bucket"
+      "tag": "c:magma"
     },
     {
       "tag": "c:bones"
     },
     {
-      "tag": "c:bones"
+      "tag": "c:magma"
     },
     {
       "tag": "c:bones"
     },
     {
-      "tag": "c:bones"
+      "item": "minecraft:lava_bucket"
     }
   ],
   "pentacle_id": "occultism:possess_djinni",

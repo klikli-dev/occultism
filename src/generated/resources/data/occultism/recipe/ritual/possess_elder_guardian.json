@@ -26,13 +26,7 @@
       "item": "minecraft:sea_lantern"
     },
     {
-      "item": "minecraft:sea_lantern"
-    },
-    {
-      "item": "minecraft:sea_lantern"
-    },
-    {
-      "item": "minecraft:sea_lantern"
+      "tag": "c:buckets/water"
     },
     {
       "tag": "c:gems/emerald"

@@ -29,7 +29,7 @@
       "tag": "c:gunpowders"
     },
     {
-      "item": "minecraft:dragon_breath"
+      "tag": "c:buckets/milk"
     }
   ],
   "pentacle_id": "occultism:possess_djinni",

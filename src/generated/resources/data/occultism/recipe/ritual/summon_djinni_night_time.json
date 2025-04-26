@@ -7,7 +7,7 @@
   "entity_to_summon": "occultism:djinni",
   "ingredients": [
     {
-      "tag": "minecraft:beds"
+      "tag": "c:gunpowders"
     },
     {
       "item": "minecraft:rotten_flesh"
