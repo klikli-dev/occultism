@@ -57,7 +57,7 @@ public class PinkChalkEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "The Meat Chalk?";
+        return "The Meat Chalk";
     }
 
     @Override
