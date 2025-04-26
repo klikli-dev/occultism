@@ -39,7 +39,11 @@ public class IesniumAnvilMenu extends AnvilMenu {
     @Override
     protected void onTake(Player player, @NotNull ItemStack stack) {
         if (!player.getAbilities().instabuild) {
-            player.giveExperienceLevels(-this.cost.get()/2);
+            if(ApothicEnchantingIntegration.isLoaded()) {
+                player.giveExperiencePoints(-ApothicEnchantingIntegration.getTotalExperiencePointsForLevel(this.cost.get() / 2));
+            } else {
+                player.giveExperienceLevels(-this.cost.get() / 2);
+            }
         }
 
         this.inputSlots.setItem(0, ItemStack.EMPTY);

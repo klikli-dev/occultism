@@ -24,4 +24,19 @@ public class ApothicEnchantingIntegration {
         return enchantment.getMaxLevel();
     }
 
+    public static int getTotalExperiencePointsForLevel(int level) {
+        int expReq = 0;
+        for (int lvl = 1; lvl <= level; lvl++) {
+            expReq += getExperienceForLevel(lvl);
+        }
+        return expReq;
+    }
+
+    public static int getExperienceForLevel(int level) {
+        if (level == 0) return 0;
+        if (level > 30) return 112 + (level - 31) * 9;
+        if (level > 15) return 37 + (level - 16) * 5;
+        return 7 + (level - 1) * 2;
+    }
+
 }
