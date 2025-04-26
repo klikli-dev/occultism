@@ -155,7 +155,10 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .blasting(Ingredient.of(OccultismTags.Items.IESNIUM_DUST), RecipeCategory.MISC, OccultismItems.IESNIUM_INGOT.get(), 0.7f, 100)
                 .unlockedBy("has_iesnium_dust", has(OccultismTags.Items.IESNIUM_DUST))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "blasting/iesnium_ingot_from_dust"));
-
+        SimpleCookingRecipeBuilder
+                .blasting(Ingredient.of(OccultismTags.Items.NETHERITE_SCRAP_DUST), RecipeCategory.MISC, Items.NETHERITE_SCRAP, 0.7f, 100)
+                .unlockedBy("has_netherite_scrap_dust", has(OccultismTags.Items.NETHERITE_SCRAP_DUST))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "blasting/netherite_scrap_from_dust"));
         SimpleCookingRecipeBuilder
                 .blasting(Ingredient.of(OccultismTags.Items.RAW_IESNIUM), RecipeCategory.MISC, OccultismItems.IESNIUM_INGOT.get(), 0.7f, 100)
                 .unlockedBy("has_raw_iesnium", has(OccultismTags.Items.RAW_IESNIUM))
@@ -1259,6 +1262,10 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .smelting(Ingredient.of(OccultismTags.Items.IESNIUM_DUST), RecipeCategory.MISC, OccultismItems.IESNIUM_INGOT.get(), 0.7f, 200)
                 .unlockedBy("has_iesnium_dust", has(OccultismTags.Items.IESNIUM_DUST))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "smelting/iesnium_ingot_from_dust"));
+        SimpleCookingRecipeBuilder
+                .smelting(Ingredient.of(OccultismTags.Items.NETHERITE_SCRAP_DUST), RecipeCategory.MISC, Items.NETHERITE_SCRAP, 0.7f, 200)
+                .unlockedBy("has_netherite_scrap_dust", has(OccultismTags.Items.NETHERITE_SCRAP_DUST))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "smelting/netherite_scrap_from_dust"));
 
         SimpleCookingRecipeBuilder
                 .smelting(Ingredient.of(OccultismTags.Items.RAW_IESNIUM), RecipeCategory.MISC, OccultismItems.IESNIUM_INGOT.get(), 0.7f, 200)
