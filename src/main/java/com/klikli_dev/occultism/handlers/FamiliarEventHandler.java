@@ -250,4 +250,18 @@ public class FamiliarEventHandler {
 
         event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
     }
+
+    @SubscribeEvent
+    public static void beholderDarknessImmune(MobEffectEvent.Applicable event) {
+        if (event.getEffectInstance().getEffect() != MobEffects.DARKNESS)
+            return;
+
+        LivingEntity entity = event.getEntity();
+        EntityType<BeholderFamiliarEntity> beholder = OccultismEntities.BEHOLDER_FAMILIAR.get();
+
+        if (!FamiliarUtil.hasFamiliar(entity, beholder, FamiliarEntity::hasBlacksmithUpgrade) || !FamiliarUtil.hasFamiliar(entity, beholder, BeholderFamiliarEntity::hasWardenUpgrade))
+            return;
+
+        event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
+    }
 }

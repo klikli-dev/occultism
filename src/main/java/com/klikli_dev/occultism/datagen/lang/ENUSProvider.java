@@ -2188,7 +2188,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         \\
                         \\
                         **Upgrade Behaviour**\\
-                        When upgraded by a blacksmith familiar, it give it's master immunity to blindness.
+                        When upgraded by a blacksmith familiar, it give it's master immunity to blindness, and after highlighting a Warden, the immunity extends to darkness.
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_blacksmith");

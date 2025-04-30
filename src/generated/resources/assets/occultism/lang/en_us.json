@@ -345,7 +345,7 @@
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_beaver.description.title": "Description",
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_beaver.entity.text": "**Provides**: [#](ad03fc)Increased wood break speed[#]()\n",
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_beaver.name": "Beaver Familiar",
-  "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_beholder.description.text": "The Beholder familiar highlights nearby entities with a glow effect, and shoots laser rays at enemies. It **eats** (poor) **Shub Niggurath babies** to gain temporary damage and speed.\n\\\n\\\n**Upgrade Behaviour**\\\nWhen upgraded by a blacksmith familiar, it give it's master immunity to blindness.\n",
+  "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_beholder.description.text": "The Beholder familiar highlights nearby entities with a glow effect, and shoots laser rays at enemies. It **eats** (poor) **Shub Niggurath babies** to gain temporary damage and speed.\n\\\n\\\n**Upgrade Behaviour**\\\nWhen upgraded by a blacksmith familiar, it give it's master immunity to blindness, and after highlighting a Warden, the immunity extends to darkness.\n",
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_beholder.description.title": "Description",
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_beholder.entity.text": "**Provides**: [#](ad03fc)Highlights enemies[#](), [#](ad03fc)Shoots **FREAKING LAZORS**[#]()\n",
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_beholder.name": "Beholder Familiar",

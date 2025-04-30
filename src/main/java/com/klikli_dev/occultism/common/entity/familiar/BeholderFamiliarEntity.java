@@ -24,12 +24,17 @@ package com.klikli_dev.occultism.common.entity.familiar;
 
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
+import com.klikli_dev.occultism.common.entity.possessed.PossessedWardenEntity;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageBeholderAttack;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.util.FamiliarUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -42,6 +47,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.FollowMobGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -55,6 +61,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
 
@@ -67,10 +74,39 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
     private int eatTimer = -1;
     private float mouthRot, actualMouthRot, actualMouthRot0;
 
+    private static final EntityDataAccessor<Boolean> WARDEN_UPGRADE = SynchedEntityData.defineId(BeholderFamiliarEntity.class,
+            EntityDataSerializers.BOOLEAN);
+
     public BeholderFamiliarEntity(EntityType<? extends BeholderFamiliarEntity> type, Level level) {
         super(type, level);
         this.bigEyePos = this.bigEyePos0 = this.bigEyeTarget = Vec2.ZERO;
         this.heightOffset = this.getRandom().nextFloat() * 5;
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(WARDEN_UPGRADE, false);
+    }
+
+    public boolean hasWardenUpgrade() {
+        return this.entityData.get(WARDEN_UPGRADE);
+    }
+
+    private void setWardenUpgrade(boolean b) {
+        this.entityData.set(WARDEN_UPGRADE, b);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setWardenUpgrade(compound.getBoolean("hasWardenUpgrade"));
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean("hasWardenUpgrade", this.hasWardenUpgrade());
     }
 
     @Override
@@ -184,8 +220,12 @@ public class BeholderFamiliarEntity extends ColoredFamiliarEntity {
         if (nearby.isEmpty())
             return;
 
-        nearby.get(this.getRandom().nextInt(nearby.size()))
-                .addEffect(new MobEffectInstance(MobEffects.GLOWING, 20 * 60, 0, false, false));
+        LivingEntity mob = nearby.get(this.getRandom().nextInt(nearby.size()));
+        mob.addEffect(new MobEffectInstance(MobEffects.GLOWING, 20 * 60, 0, false, false));
+
+        if (this.hasBlacksmithUpgrade() && (mob instanceof Warden || mob instanceof PossessedWardenEntity)){
+            this.setWardenUpgrade(true);
+        }
     }
 
     public boolean hasBeard() {
