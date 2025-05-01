@@ -22,7 +22,6 @@
 
 package com.klikli_dev.occultism.common.entity.possessed.horde;
 
-import com.klikli_dev.occultism.common.entity.spirit.WildHuntSkeletonEntity;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.TextUtil;
@@ -30,6 +29,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
@@ -41,8 +42,14 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.neoforged.neoforge.event.EventHooks;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PossessedWeakBreezeEntity extends Breeze {
+
+    List<WildZombieEntity> minionsA = new ArrayList<>();
+    List<WildSkeletonEntity> minionsB = new ArrayList<>();
+    List<WildSilverfishEntity> minionsC = new ArrayList<>();
 
     public PossessedWeakBreezeEntity(EntityType<? extends Breeze> type,
                                      Level worldIn) {
@@ -68,6 +75,8 @@ public class PossessedWeakBreezeEntity extends Breeze {
                     level.getRandom().nextInt(360), 0);
             entity.setCustomName(Component.literal(TextUtil.generateName()));
             level.addFreshEntity(entity);
+            entity.setMaster(this);
+            this.minionsA.add(entity);
         }
 
         for (int i = 0; i < 3; i++) {
@@ -80,6 +89,8 @@ public class PossessedWeakBreezeEntity extends Breeze {
                     level.getRandom().nextInt(360), 0);
             entity.setCustomName(Component.literal(TextUtil.generateName()));
             level.addFreshEntity(entity);
+            entity.setMaster(this);
+            this.minionsB.add(entity);
         }
 
         for (int i = 0; i < 3; i++) {
@@ -92,6 +103,8 @@ public class PossessedWeakBreezeEntity extends Breeze {
                     level.getRandom().nextInt(360), 0);
             entity.setCustomName(Component.literal(TextUtil.generateName()));
             level.addFreshEntity(entity);
+            entity.setMaster(this);
+            this.minionsC.add(entity);
         }
 
         return super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn);
@@ -99,6 +112,13 @@ public class PossessedWeakBreezeEntity extends Breeze {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
+        if (isInvulnerable()) {
+            minionsA.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
+            minionsB.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
+            minionsC.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
+            return true;
+        }
+
         TagKey<EntityType<?>> wildTrialTag = OccultismTags.Entities.WILD_TRIAL;
 
         Entity trueSource = source.getEntity();
@@ -116,5 +136,19 @@ public class PossessedWeakBreezeEntity extends Breeze {
     protected boolean shouldDespawnInPeaceful() {
         return false;
     }
-    //endregion Static Methods
+
+    @Override
+    public boolean isInvulnerable() {
+        return !this.minionsA.isEmpty() || !this.minionsB.isEmpty() || !this.minionsC.isEmpty() || super.isInvulnerable();
+    }
+
+    public void notifyMinionDeath(WildZombieEntity minion) {
+        this.minionsA.remove(minion);
+    }
+    public void notifyMinionDeath(WildSkeletonEntity minion) {
+        this.minionsB.remove(minion);
+    }
+    public void notifyMinionDeath(WildSilverfishEntity minion) {
+        this.minionsC.remove(minion);
+    }
 }

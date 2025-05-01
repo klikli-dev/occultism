@@ -30,6 +30,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
@@ -95,6 +97,11 @@ public class WildHuntWitherSkeletonEntity extends WitherSkeleton {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
+        if (isInvulnerable()) {
+            minions.forEach(e -> e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)));
+            return true;
+        }
+
         TagKey<EntityType<?>> wildHuntTag = OccultismTags.Entities.WILD_HUNT;
 
         Entity trueSource = source.getEntity();

@@ -32,14 +32,29 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.level.Level;
 
+import java.util.Optional;
+
 public class WildSpiderEntity extends Spider {
+
+    protected Optional<PossessedBreezeEntity> master = Optional.empty();
 
     public WildSpiderEntity(EntityType<? extends Spider> type,
                             Level worldIn) {
         super(type, worldIn);
     }
 
-    //region Static Methods
+    public void setMaster(PossessedBreezeEntity master) {
+        this.master = Optional.ofNullable(master);
+    }
+
+    @Override
+    public void remove(RemovalReason reason) {
+        this.master.ifPresent(boss -> {
+            boss.notifyMinionDeath(this);
+        });
+        super.remove(reason);
+    }
+
     public static AttributeSupplier.Builder createAttributes() {
         return Spider.createAttributes()
                 .add(Attributes.MAX_HEALTH, 45.0)

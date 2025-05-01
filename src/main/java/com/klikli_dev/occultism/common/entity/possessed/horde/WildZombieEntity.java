@@ -32,7 +32,11 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.Level;
 
+import java.util.Optional;
+
 public class WildZombieEntity extends Zombie {
+
+    protected Optional<PossessedWeakBreezeEntity> master = Optional.empty();
 
     public WildZombieEntity(EntityType<? extends Zombie> type,
                             Level worldIn) {
@@ -45,6 +49,18 @@ public class WildZombieEntity extends Zombie {
                 .add(Attributes.MAX_HEALTH, 30.0)
                 .add(Attributes.ARMOR,5)
                 .add(Attributes.KNOCKBACK_RESISTANCE,0.25);
+    }
+
+    public void setMaster(PossessedWeakBreezeEntity master) {
+        this.master = Optional.ofNullable(master);
+    }
+
+    @Override
+    public void remove(RemovalReason reason) {
+        this.master.ifPresent(boss -> {
+            boss.notifyMinionDeath(this);
+        });
+        super.remove(reason);
     }
 
     @Override

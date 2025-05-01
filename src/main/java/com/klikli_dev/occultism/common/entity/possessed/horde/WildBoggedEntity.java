@@ -30,10 +30,13 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Bogged;
-import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.Level;
 
+import java.util.Optional;
+
 public class WildBoggedEntity extends Bogged {
+
+    protected Optional<PossessedStrongBreezeEntity> master = Optional.empty();
 
     public WildBoggedEntity(EntityType<? extends Bogged> type,
                             Level worldIn) {
@@ -46,6 +49,18 @@ public class WildBoggedEntity extends Bogged {
                 .add(Attributes.MAX_HEALTH, 60.0)
                 .add(Attributes.ARMOR,15)
                 .add(Attributes.KNOCKBACK_RESISTANCE,0.75);
+    }
+
+    public void setMaster(PossessedStrongBreezeEntity master) {
+        this.master = Optional.ofNullable(master);
+    }
+
+    @Override
+    public void remove(RemovalReason reason) {
+        this.master.ifPresent(boss -> {
+            boss.notifyMinionDeath(this);
+        });
+        super.remove(reason);
     }
 
     @Override

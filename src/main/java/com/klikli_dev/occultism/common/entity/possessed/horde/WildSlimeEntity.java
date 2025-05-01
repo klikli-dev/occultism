@@ -32,7 +32,11 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.level.Level;
 
+import java.util.Optional;
+
 public class WildSlimeEntity extends Slime {
+
+    protected Optional<PossessedStrongBreezeEntity> master = Optional.empty();
 
     public WildSlimeEntity(EntityType<? extends WildSlimeEntity> type, Level world) {
         super(type, world);
@@ -47,6 +51,18 @@ public class WildSlimeEntity extends Slime {
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH);
+    }
+
+    public void setMaster(PossessedStrongBreezeEntity master) {
+        this.master = Optional.ofNullable(master);
+    }
+
+    @Override
+    public void remove(RemovalReason reason) {
+        this.master.ifPresent(boss -> {
+            boss.notifyMinionDeath(this);
+        });
+        super.remove(reason);
     }
 
     @Override

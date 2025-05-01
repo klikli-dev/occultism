@@ -32,7 +32,11 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Stray;
 import net.minecraft.world.level.Level;
 
+import java.util.Optional;
+
 public class WildStrayEntity extends Stray {
+
+    protected Optional<PossessedBreezeEntity> master = Optional.empty();
 
     public WildStrayEntity(EntityType<? extends Stray> type,
                            Level worldIn) {
@@ -45,6 +49,18 @@ public class WildStrayEntity extends Stray {
                 .add(Attributes.MAX_HEALTH, 45.0)
                 .add(Attributes.ARMOR,10)
                 .add(Attributes.KNOCKBACK_RESISTANCE,0.5);
+    }
+
+    public void setMaster(PossessedBreezeEntity master) {
+        this.master = Optional.ofNullable(master);
+    }
+
+    @Override
+    public void remove(RemovalReason reason) {
+        this.master.ifPresent(boss -> {
+            boss.notifyMinionDeath(this);
+        });
+        super.remove(reason);
     }
 
     @Override
