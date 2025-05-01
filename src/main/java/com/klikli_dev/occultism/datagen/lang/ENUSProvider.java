@@ -2440,7 +2440,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Upgrade Behaviour**\\
-                        When upgraded by a blacksmith familiar, it regains a limb (can only be done once).
+                        When upgraded by a blacksmith familiar, it regains a limb.
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_headless");
