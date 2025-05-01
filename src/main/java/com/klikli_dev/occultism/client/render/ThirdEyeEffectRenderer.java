@@ -26,6 +26,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.data.OtherworldBlockTier;
 import com.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.klikli_dev.occultism.registry.OccultismEffects;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.Window;
@@ -61,9 +62,9 @@ public class ThirdEyeEffectRenderer {
         if (event.getEntity().level().isClientSide && event.getEntity() == Minecraft.getInstance().player) {
             this.onThirdEyeTick(event);
             this.onGogglesTick(event);
+            this.onStaffTick(event);
         }
     }
-
 
     public void renderOverlay(PoseStack pose) {
         RenderSystem.setShaderTexture(0, ThirdEyeEffectRenderer.THIRD_EYE_TEXTURE);
@@ -187,6 +188,20 @@ public class ThirdEyeEffectRenderer {
                     //this uncovers tier 1 blocks that we still can see under normal third eye
                     this.uncoverBlocks(event.getEntity(), event.getEntity().level(), OtherworldBlockTier.ONE);
                 }
+            }
+        }
+    }
+
+    public void onStaffTick(PlayerTickEvent.Post event) {
+        boolean hasStaff = event.getEntity().getOffhandItem().is(OccultismItems.TRUE_SIGHT_STAFF) || CuriosUtil.hasStaff(event.getEntity());
+        if (hasStaff) {
+            this.uncoverBlocks(event.getEntity(), event.getEntity().level(), OtherworldBlockTier.TWO);
+        } else {
+            //only cover blocks if third eye is not active and still needs them visible.
+            this.resetUncoveredBlocks(event.getEntity().level(), true);
+            if (this.thirdEyeActiveLastTick) {
+                //this uncovers tier 1 blocks that we still can see under normal third eye
+                this.uncoverBlocks(event.getEntity(), event.getEntity().level(), OtherworldBlockTier.ONE);
             }
         }
     }

@@ -81,6 +81,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.DIVINATION_ROD.get().getDescriptionId() + ".message.no_linked_block", "The divination rod is not attuned to any material.");
         this.add(OccultismItems.DIVINATION_ROD.get().getDescriptionId() + ".message.linked_block", "The divination rod is now attuned to %s.");
         this.add(OccultismItems.DIVINATION_ROD.get().getDescriptionId() + ".message.no_link_found", "There is no resonance with this block.");
+        this.add(OccultismItems.TRUE_SIGHT_STAFF.get().getDescriptionId() + ".message.no_linked_block", "The true sight rod is not attuned to any material.");
+        this.add(OccultismItems.TRUE_SIGHT_STAFF.get().getDescriptionId() + ".message.linked_block", "The true sight rod is now attuned to %s.");
+        this.add(OccultismItems.TRUE_SIGHT_STAFF.get().getDescriptionId() + ".message.no_link_found", "There is no resonance with this block.");
         this.add(OccultismItems.SOUL_GEM_ITEM.get().getDescriptionId() + ".message.entity_type_denied", "Soul gems cannot contain this type of being.");
         this.add(OccultismItems.TRINITY_GEM_ITEM.get().getDescriptionId() + ".message.entity_type_denied", "Trinity gems cannot contain this type of being.");
     }
@@ -121,6 +124,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.STORAGE_REMOTE.get().getDescriptionId() + ".tooltip.linked", "Bound to %s.");
         this.add(OccultismItems.DIVINATION_ROD.get().getDescriptionId() + ".tooltip.no_linked_block", "Not attuned to any material.");
         this.add(OccultismItems.DIVINATION_ROD.get().getDescriptionId() + ".tooltip.linked_block", "Attuned to %s.");
+        this.add(OccultismItems.TRUE_SIGHT_STAFF.get().getDescriptionId() + ".tooltip.no_linked_block", "Not attuned to any material.");
+        this.add(OccultismItems.TRUE_SIGHT_STAFF.get().getDescriptionId() + ".tooltip.linked_block", "Attuned to %s.");
         this.add(OccultismItems.DIMENSIONAL_MATRIX.get().getDescriptionId() + ".tooltip", "%s is bound to this dimensional matrix.");
         this.add(OccultismItems.INFUSED_PICKAXE.get().getDescriptionId() + ".tooltip", "%s is bound to this pickaxe.");
         this.add(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get().getDescriptionId() + ".tooltip", "%s will mine random blocks in the mining dimension.");
@@ -252,6 +257,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.STORAGE_REMOTE_INERT, "Inert Storage Accessor");
         this.addItem(OccultismItems.DIMENSIONAL_MATRIX, "Dimensional Crystal Matrix");
         this.addItem(OccultismItems.DIVINATION_ROD, "Divination Rod");
+        this.addItem(OccultismItems.TRUE_SIGHT_STAFF, "True Sight Staff");
         this.addItem(OccultismItems.DATURA_SEEDS, "Demon's Dream Seeds");
         this.addAutoTooltip(OccultismItems.DATURA_SEEDS.get(), "Plant to grow Demon's Dream Fruit.\nConsumption may allow to see beyond the veil ... it may also cause general un-wellness.");
         this.addItem(OccultismItems.DATURA, "Demon's Dream Fruit");
@@ -1201,6 +1207,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL, "started", "Started binding a marid into iesnium anvil.");
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL, "finished", "Successfully bound a marid into iesnium anvil.");
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL, "interrupted", "Binding of marid interrupted.");
+
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF, "conditions", "Not all requirements for this ritual are met.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF, "started", "Started binding a marid into true sight staff.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF, "finished", "Successfully bound a marid into true sight staff.");
+        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF, "interrupted", "Binding of marid interrupted.");
 
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "conditions", "Not all requirements for this ritual are met.");
         this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "started", "Started forging budding amethyst.");
@@ -3139,6 +3150,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         this.add(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL.get(), "Ritual: Craft Iesnium Anvil");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL.get(), "The iesnium anvil is an improvement on the common anvil, see all the advantages in the dictionary.");
+
+        this.add(OccultismItems.RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF.get(), "Ritual: Craft True Sight Staff");
+        this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF.get(), "The true sight staff give abilities to find, see and interact with the otherworld.");
 
         //Misc dummy
         this.add(OccultismItems.RITUAL_DUMMY_RESURRECT_FAMILIAR.get(), "Ritual: Resurrect Familiar");

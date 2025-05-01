@@ -33,7 +33,7 @@ public class ArtisanalRitualSatchelEntry extends EntryProvider {
                          Moreover, the spirit can also clean up the pentacle after the ritual is complete, leaving no trace of the ritual behind.
                         """,
                 this.color("Afrit", ChatFormatting.DARK_PURPLE),
-                this.color("Djinni", ChatFormatting.DARK_PURPLE)
+                this.color("Foliot", ChatFormatting.DARK_PURPLE)
         );
 
         this.page("about", () -> BookTextPageModel.create()

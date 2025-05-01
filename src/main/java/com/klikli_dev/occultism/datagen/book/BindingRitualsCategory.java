@@ -39,7 +39,7 @@ public class BindingRitualsCategory extends CategoryProvider {
                 "___________________________",
                 "_______f_z_w_v_s_B_H______",
                 "___________________________",
-                "_________a_m_i_j_k_l_______",
+                "_______F_a_m_i_j_k_l_______",
                 "___________________________",
                 "_________n_____o___ç_______",
                 "___________________________"
@@ -134,6 +134,9 @@ public class BindingRitualsCategory extends CategoryProvider {
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftAfritID));
         var craftIesniumAnvil = this.add(new IesniumAnvilEntry(this).generate('A'));
         craftIesniumAnvil.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftMaridID));
+        var trueSightStaff = this.add(new TrueSightStaffEntry(this).generate('F'));
+        trueSightStaff.withParent(craftOtherworldGoggles)
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftMaridID));
 
         var craftWildTrim = this.add(this.makeCraftWildTrimEntry(this.entryMap, 'w'));

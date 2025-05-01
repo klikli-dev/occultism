@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.util;
 import com.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.klikli_dev.occultism.common.item.storage.SatchelItem;
 import com.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -51,6 +52,25 @@ public class CuriosUtil {
                         if (OtherworldGogglesItem.isGogglesItem(stack)) {
                             return true;
 
+                        }
+                    }
+                    return false;
+                }
+        );
+    }
+
+    public static boolean hasStaff(Player player) {
+        var curiosHandler = player.getCapability(CuriosCapability.INVENTORY);
+        if (curiosHandler == null)
+            return false;
+
+        var slotsHandler = curiosHandler.getCurios().values();
+        return slotsHandler.stream().map(ICurioStacksHandler::getStacks).anyMatch(
+                stackHandler -> {
+                    for (int i = 0; i < stackHandler.getSlots(); i++) {
+                        ItemStack stack = stackHandler.getStackInSlot(i);
+                        if (stack.is(OccultismItems.TRUE_SIGHT_STAFF)) {
+                            return true;
                         }
                     }
                     return false;

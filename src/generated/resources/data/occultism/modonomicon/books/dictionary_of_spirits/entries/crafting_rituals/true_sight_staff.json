@@ -4,14 +4,14 @@
   "category": "crafting_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/contact_wild_spirit"
+    "entry_id": "pentacles/craft_marid"
   },
-  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.bee_nest.description",
+  "description": "book.occultism.dictionary_of_spirits.crafting_rituals.true_sight_staff.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:bee_nest"
+    "item": "occultism:true_sight_staff"
   },
-  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.bee_nest.name",
+  "name": "book.occultism.dictionary_of_spirits.crafting_rituals.true_sight_staff.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
@@ -20,9 +20,9 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "item": "minecraft:bee_nest"
+        "item": "occultism:true_sight_staff"
       },
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.bee_nest.spotlight.text",
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.true_sight_staff.spotlight.text",
       "title": ""
     },
     {
@@ -31,7 +31,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/misc_bee_nest",
+      "recipe_id_1": "occultism:ritual/craft_true_sight_staff",
       "text": "",
       "title1": "",
       "title2": ""
@@ -40,13 +40,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "crafting_rituals/overview",
+      "entry": "crafting_rituals/craft_otherworld_goggles",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 31,
-  "x": 4,
-  "y": 2
+  "sort_number": 27,
+  "x": -6,
+  "y": 4
 }

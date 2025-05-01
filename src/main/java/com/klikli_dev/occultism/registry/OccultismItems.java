@@ -54,6 +54,8 @@ public class OccultismItems {
     //Tools and equipable
     public static final DeferredItem<DivinationRodItem> DIVINATION_ROD = ITEMS.register("divination_rod",
             () -> new DivinationRodItem(defaultProperties().stacksTo(1)));
+    public static final DeferredItem<DivinationRodItem> TRUE_SIGHT_STAFF = ITEMS.register("true_sight_staff",
+            () -> new DivinationRodItem(defaultProperties().stacksTo(1).rarity(Rarity.EPIC)));
     public static final DeferredItem<SwordItem> BUTCHER_KNIFE = ITEMS.register("butcher_knife",
             () -> new SwordItem(Tiers.IRON, defaultProperties().attributes(SwordItem.createAttributes(Tiers.IRON, 3, -2.4F))));
     public static final DeferredItem<InfusedPickaxeItem> INFUSED_PICKAXE = ITEMS.register("infused_pickaxe",
@@ -65,7 +67,7 @@ public class OccultismItems {
     public static final DeferredItem<OtherworldGogglesItem> OTHERWORLD_GOGGLES = ITEMS.register("otherworld_goggles",
             () -> new OtherworldGogglesItem(ArmorMaterials.IRON,
                     ArmorItem.Type.HELMET, defaultProperties().stacksTo(1)));
-    public static final DeferredItem<Item> SATCHEL = ITEMS.register("satchel",
+    public static final DeferredItem<SatchelItem> SATCHEL = ITEMS.register("satchel",
             () -> new SatchelItem(defaultProperties().stacksTo(1).rarity(Rarity.RARE)
                     .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
                     .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
@@ -537,43 +539,41 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_UNBOUND_AFRIT = ITEMS.register("ritual_dummy/summon_unbound_afrit", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_UNBOUND_MARID = ITEMS.register("ritual_dummy/summon_unbound_marid", () -> new DummyTooltipItem(defaultProperties()));
         //POSSESS
-    static {
             //Familiar
-        ITEMS.register("ritual_dummy/familiar_beaver", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_blacksmith", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_deer", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_greedy", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_parrot", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_unbound_parrot", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_bat", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_beholder", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_chimera", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_cthulhu", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_devil", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_dragon", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_fairy", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_headless", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_mummy", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_otherworld_bird", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_unbound_otherworld_bird", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/familiar_guardian", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_BEAVER = ITEMS.register("ritual_dummy/familiar_beaver", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_BLACKSMITH = ITEMS.register("ritual_dummy/familiar_blacksmith", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_DEER = ITEMS.register("ritual_dummy/familiar_deer", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_GREEDY = ITEMS.register("ritual_dummy/familiar_greedy", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_PARROT = ITEMS.register("ritual_dummy/familiar_parrot", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_UNBOUND_PARROT = ITEMS.register("ritual_dummy/possess_unbound_parrot", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_BAT = ITEMS.register("ritual_dummy/familiar_bat", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_BEHOLDER = ITEMS.register("ritual_dummy/familiar_beholder", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_CHIMERA = ITEMS.register("ritual_dummy/familiar_chimera", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_CTHULHU = ITEMS.register("ritual_dummy/familiar_cthulhu", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_DEVIL = ITEMS.register("ritual_dummy/familiar_devil", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_DRAGON = ITEMS.register("ritual_dummy/familiar_dragon", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_FAIRY = ITEMS.register("ritual_dummy/familiar_fairy", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_HEADLESS = ITEMS.register("ritual_dummy/familiar_headless", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_MUMMY = ITEMS.register("ritual_dummy/familiar_mummy", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_OTHERWORLD_BIRD = ITEMS.register("ritual_dummy/familiar_otherworld_bird", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_UNBOUND_OTHERWORLD_BIRD = ITEMS.register("ritual_dummy/possess_unbound_otherworld_bird", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FAMILIAR_GUARDIAN = ITEMS.register("ritual_dummy/familiar_guardian", () -> new DummyTooltipItem(defaultProperties()));
             //Possessed
-        ITEMS.register("ritual_dummy/possess_endermite", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_skeleton", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_phantom", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_enderman", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_ghast", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_warden", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_weak_shulker", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_elder_guardian", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_hoglin", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_shulker", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_witch", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_zombie_piglin", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_bee", () -> new DummyTooltipItem(defaultProperties()));
-        ITEMS.register("ritual_dummy/possess_goat", () -> new DummyTooltipItem(defaultProperties()));
-    }
-
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_ENDERMITE = ITEMS.register("ritual_dummy/possess_endermite", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_SKELETON = ITEMS.register("ritual_dummy/possess_skeleton", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_PHANTOM = ITEMS.register("ritual_dummy/possess_phantom", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_ENDERMAN = ITEMS.register("ritual_dummy/possess_enderman", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_GHAST = ITEMS.register("ritual_dummy/possess_ghast", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_WARDEN = ITEMS.register("ritual_dummy/possess_warden", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_WEAK_SHULKER = ITEMS.register("ritual_dummy/possess_weak_shulker", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_ELDER_GUARDIAN = ITEMS.register("ritual_dummy/possess_elder_guardian", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_HOGLIN = ITEMS.register("ritual_dummy/possess_hoglin", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_SHULKER = ITEMS.register("ritual_dummy/possess_shulker", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_WITCH = ITEMS.register("ritual_dummy/possess_witch", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_ZOMBIE_PIGLIN = ITEMS.register("ritual_dummy/possess_zombie_piglin", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_BEE = ITEMS.register("ritual_dummy/possess_bee", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_GOAT = ITEMS.register("ritual_dummy/possess_goat", () -> new DummyTooltipItem(defaultProperties()));
+            //Random
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_COMMON = ITEMS.register("ritual_dummy/possess_random_animal_common", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_WATER = ITEMS.register("ritual_dummy/possess_random_animal_water", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SMALL = ITEMS.register("ritual_dummy/possess_random_animal_small", () -> new DummyTooltipItem(defaultProperties()));
@@ -616,6 +616,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2 = ITEMS.register("ritual_dummy/craft_ritual_satchel_t2", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL = ITEMS.register("ritual_dummy/craft_iesnium_sacrificial_bowl", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL = ITEMS.register("ritual_dummy/craft_iesnium_anvil", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF = ITEMS.register("ritual_dummy/craft_true_sight_staff", () -> new DummyTooltipItem(defaultProperties()));
 
     //MISC
         //Resurrect

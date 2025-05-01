@@ -280,6 +280,8 @@ public class ClientSetupEventHandler {
                     ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "has_entity"), new SoulGemItemPropertyGetter());
             ItemProperties.register(OccultismItems.DIVINATION_ROD.get(),
                     ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "distance"), new DivinationRodItemPropertyGetter());
+            ItemProperties.register(OccultismItems.TRUE_SIGHT_STAFF.get(),
+                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "distance"), new DivinationRodItemPropertyGetter());
             //ItemProperties.register(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.asItem(),
             //        ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "simulated"), new OtherworldBlockItemPropertyGetter());
             ItemProperties.register(OccultismItems.STORAGE_REMOTE.get(),

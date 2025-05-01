@@ -1,0 +1,37 @@
+{
+  "type": "occultism:ritual",
+  "activation_item": {
+    "item": "occultism:book_of_binding_bound_marid"
+  },
+  "duration": 510,
+  "ingredients": [
+    {
+      "tag": "c:ingots/netherite"
+    },
+    {
+      "item": "occultism:iesnium_pickaxe"
+    },
+    {
+      "tag": "occultism:otherworld_goggles"
+    },
+    {
+      "item": "occultism:divination_rod"
+    },
+    {
+      "item": "occultism:otherworld_essence"
+    },
+    {
+      "item": "occultism:marid_essence"
+    }
+  ],
+  "pentacle_id": "occultism:craft_marid",
+  "result": {
+    "count": 1,
+    "id": "occultism:true_sight_staff"
+  },
+  "ritual_dummy": {
+    "count": 1,
+    "id": "occultism:ritual_dummy/craft_true_sight_staff"
+  },
+  "ritual_type": "occultism:craft"
+}
