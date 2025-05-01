@@ -741,8 +741,8 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(ItemTags.WOOL))
                 .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
                 .entityToSummon(OccultismEntities.GOAT_OF_MERCY_TYPE.get())
-                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.chicken")
-                .entityToSacrifice(OccultismTags.Entities.CHICKEN)
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.humans")
+                .entityToSacrifice(OccultismTags.Entities.HUMANS)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_goat"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()),
                         makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_IESNIUM_GOLEM.get(), "item.occultism.ritual_dummy.possess_iesnium_golem"),
@@ -1669,8 +1669,8 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.TUFF_BRICKS))
                 .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
                 .entityToSummon(OccultismEntities.POSSESSED_WEAK_BREEZE.get())
-                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.chicken")
-                .entityToSacrifice(OccultismTags.Entities.CHICKEN)
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.humans")
+                .entityToSacrifice(OccultismTags.Entities.HUMANS)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_weak_breeze"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.TRIAL_KEY),
                         makeLoreSpawnEgg(Items.OMINOUS_TRIAL_KEY, "item.occultism.ritual_dummy.wild_breeze"),
@@ -1689,8 +1689,8 @@ public abstract class RitualRecipes extends RecipeProvider {
                 )
                 .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
                 .entityToSummon(OccultismEntities.POSSESSED_BREEZE.get())
-                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.chicken")
-                .entityToSacrifice(OccultismTags.Entities.CHICKEN)
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.humans")
+                .entityToSacrifice(OccultismTags.Entities.HUMANS)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_breeze"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.OMINOUS_TRIAL_KEY),
                         makeLoreSpawnEgg(Items.HEAVY_CORE, "item.occultism.ritual_dummy.wild_strong_breeze"),
@@ -1711,8 +1711,8 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.OMINOUS_BOTTLE))
                 .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
                 .entityToSummon(OccultismEntities.POSSESSED_STRONG_BREEZE.get())
-                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.chicken")
-                .entityToSacrifice(OccultismTags.Entities.CHICKEN)
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.humans")
+                .entityToSacrifice(OccultismTags.Entities.HUMANS)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_strong_breeze"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Items.GOLDEN_APPLE),
                         makeLoreSpawnEgg(Items.TOTEM_OF_UNDYING, "item.occultism.ritual_dummy.wild_horde_illager"),
