@@ -1,5 +1,5 @@
 {
-  "parent": "occultism:item/divination_rod_0",
+  "parent": "minecraft:item/handheld",
   "overrides": [
     {
       "__comment": "distance >= 0.0",

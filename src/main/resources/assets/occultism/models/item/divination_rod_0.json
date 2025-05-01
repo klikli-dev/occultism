@@ -1,5 +1,5 @@
 {
-  "parent": "item/generated",
+  "parent": "minecraft:item/handheld",
   "textures": {
     "layer0": "occultism:item/divination_rod/divination_rod_0"
   }
