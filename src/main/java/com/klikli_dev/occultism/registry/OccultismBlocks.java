@@ -41,6 +41,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -432,13 +433,13 @@ public class OccultismBlocks {
                     Block.Properties.of()
                             .mapColor(MapColor.STONE)
                             .sound(SoundType.STONE).strength(1.5f, 30)
-                            .noOcclusion()));
+                            .noOcclusion()), Rarity.UNCOMMON);
     public static final DeferredBlock<GoldenSacrificialBowlBlock> ELDRITCH_CHALICE =
             register("eldritch_chalice", () -> new GoldenSacrificialBowlBlock(
                     Block.Properties.of()
                             .mapColor(MapColor.STONE)
                             .sound(SoundType.STONE).strength(5.1f, 77)
-                            .noOcclusion()));
+                            .noOcclusion()), Rarity.EPIC);
 
     public static final DeferredBlock<Block> OTHERSTONE_PEDESTAL = register("otherstone_pedestal",
             () -> new NonPathfindableBlock(Block.Properties.ofFullCopy(OTHERSTONE.get()).noOcclusion()));
@@ -458,7 +459,7 @@ public class OccultismBlocks {
                     Block.Properties.of()
                             .mapColor(MapColor.STONE)
                             .sound(SoundType.STONE)
-                            .strength(5f, 100).noOcclusion()), true, LootTableType.CUSTOM);
+                            .strength(5f, 100).noOcclusion()), true, Rarity.EPIC, LootTableType.CUSTOM);
 
     public static final DeferredBlock<StorageStabilizerBlock> STORAGE_STABILIZER_TIER0 = register(
             "storage_stabilizer_tier0", () -> new StorageStabilizerBlock(
@@ -483,13 +484,13 @@ public class OccultismBlocks {
                     Block.Properties.of()
                             .mapColor(MapColor.STONE)
                             .sound(SoundType.STONE).strength(1.5f, 30)
-                            .noOcclusion()));
+                            .noOcclusion()), Rarity.UNCOMMON);
     public static final DeferredBlock<StorageStabilizerBlock> STORAGE_STABILIZER_TIER4 = register(
             "storage_stabilizer_tier4", () -> new StorageStabilizerBlock(
                     Block.Properties.of()
                             .mapColor(MapColor.STONE)
                             .sound(SoundType.STONE).strength(1.5f, 30)
-                            .noOcclusion()));
+                            .noOcclusion()), Rarity.RARE);
 
     public static final DeferredBlock<StableWormholeBlock> STABLE_WORMHOLE = register("stable_wormhole",
             () -> new StableWormholeBlock(
@@ -508,7 +509,7 @@ public class OccultismBlocks {
     public static final DeferredBlock<IesniumAnvilBlock> IESNIUM_ANVIL =
             register("iesnium_anvil", () -> new IesniumAnvilBlock(
                     BlockBehaviour.Properties.of().sound(SoundType.ANVIL).strength(5,1200)
-            ));
+            ), Rarity.RARE);
 
     //Crops
     public static final DeferredBlock<ReplantableCropsBlock> DATURA = register("datura",
@@ -556,6 +557,10 @@ public class OccultismBlocks {
         return register(name, sup, true);
     }
 
+    public static <I extends Block> DeferredBlock<I> register(final String name, final Supplier<? extends I> sup, Rarity rarity) {
+        return register(name, sup, true, rarity, LootTableType.DROP_SELF);
+    }
+
     public static <I extends Block> DeferredBlock<I> register(final String name, final Supplier<? extends I> sup,
                                                               boolean generateDefaultBlockItem) {
         return register(name, sup, generateDefaultBlockItem, LootTableType.DROP_SELF);
@@ -564,6 +569,12 @@ public class OccultismBlocks {
     public static <I extends Block> DeferredBlock<I> register(final String name, final Supplier<? extends I> sup,
                                                               boolean generateDefaultBlockItem,
                                                               LootTableType lootTableType) {
+        return register(name, sup, generateDefaultBlockItem, Rarity.COMMON, lootTableType);
+    }
+
+    public static <I extends Block> DeferredBlock<I> register(final String name, final Supplier<? extends I> sup,
+                                                              boolean generateDefaultBlockItem, Rarity rarity,
+                                                              LootTableType lootTableType) {
         DeferredBlock<I> object = BLOCKS.register(name, sup);
         BLOCK_DATA_GEN_SETTINGS.put(object.getId(), new BlockDataGenSettings(generateDefaultBlockItem, lootTableType));
 
@@ -571,7 +582,7 @@ public class OccultismBlocks {
             if (name.contains("natural")) {
                 OccultismItems.ITEMS.register(name, () -> new OccultismBlockItem(object.get(), new Item.Properties()));
             } else {
-                OccultismItems.ITEMS.register(name, () -> new BlockItem(object.get(), new Item.Properties()));
+                OccultismItems.ITEMS.register(name, () -> new BlockItem(object.get(), new Item.Properties().rarity(rarity)));
             }
         }
 
