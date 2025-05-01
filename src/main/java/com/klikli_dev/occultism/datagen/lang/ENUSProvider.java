@@ -3282,7 +3282,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_SILVER, "Silver Storage Blocks");
         this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_RAW_IESNIUM, "Raw Iesnium Storage Blocks");
         this.addBlockTag(OccultismTags.Blocks.STORAGE_BLOCKS_RAW_SILVER, "Raw Silver Storage Blocks");
-
+        this.addBlockTag(OccultismTags.Blocks.OTHERWORLD_COLLECTS, "Otherworld can collect");
 
         // Item tags
         this.addItemTag(OccultismTags.Items.OTHERWORLD_SAPLINGS, "Otherworld Saplings");

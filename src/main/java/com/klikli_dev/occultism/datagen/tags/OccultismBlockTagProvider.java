@@ -153,6 +153,9 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .addOptionalTag(OccultismTags.Blocks.CHALK_GLYPHS)
                 .replace(false);
 
+        this.tag(OccultismTags.Blocks.OTHERWORLD_COLLECTS)
+                .add(Blocks.REINFORCED_DEEPSLATE);
+
         this.tag(OccultismTags.Blocks.OTHERWORLD_SAPLINGS)
                 .add(OccultismBlocks.OTHERWORLD_SAPLING.get(), OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get()).replace(false);
         this.tag(OccultismTags.Blocks.OTHERWORLD_SAPLINGS_NATURAL)

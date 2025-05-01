@@ -25,19 +25,24 @@ package com.klikli_dev.occultism.handlers;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.registry.OccultismEntities;
+import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.registry.OccultismTags;
+import com.klikli_dev.occultism.util.CuriosUtil;
 import com.klikli_dev.occultism.util.FamiliarUtil;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.util.TriState;
 import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
 
 @EventBusSubscriber(modid = Occultism.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class LootEventHandler {
@@ -85,5 +90,23 @@ public class LootEventHandler {
         }
     }
 
+    @SubscribeEvent
+    public static void breakSpecialBlocks(BlockEvent.BreakEvent event) {
+        Player player = event.getPlayer();
+        if (player.isCreative())
+                return;
 
+        event.getState().getTags().forEach(blockTagKey -> {
+            if (blockTagKey.equals(OccultismTags.Blocks.OTHERWORLD_COLLECTS)) {
+                if (player.getItemInHand(InteractionHand.OFF_HAND).is(OccultismItems.TRUE_SIGHT_STAFF)
+                        || player.getItemInHand(player.getUsedItemHand()).is(OccultismItems.IESNIUM_PICKAXE)
+                        || player.getItemInHand(player.getUsedItemHand()).is(OccultismItems.INFUSED_PICKAXE)
+                        || CuriosUtil.hasStaff(player)) {
+                    ItemEntity itementity = new ItemEntity((Level) event.getLevel(), event.getPos().getX(), event.getPos().getY(), event.getPos().getZ(),
+                            event.getState().getBlock().asItem().getDefaultInstance());
+                    event.getLevel().addFreshEntity(itementity);
+                }
+            }
+        });
+    }
 }

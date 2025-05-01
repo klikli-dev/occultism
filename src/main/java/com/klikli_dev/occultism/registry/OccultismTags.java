@@ -35,7 +35,7 @@ public class OccultismTags {
     public static class Blocks {
 
         public static final TagKey<Block> PENTACLE_MATERIALS = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "pentacle_materials"));
-
+        public static final TagKey<Block> OTHERWORLD_COLLECTS = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "otherworld_collects"));
         // Block Tags
         public static final TagKey<Block> TREE_SOIL = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "tree_soil"));
         public static final TagKey<Block> CAVE_WALL_BLOCKS = makeBlockTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "cave_wall_blocks"));
