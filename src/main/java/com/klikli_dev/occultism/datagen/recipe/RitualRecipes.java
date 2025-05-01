@@ -1378,7 +1378,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         PENTACLE_CRAFT_AFRIT,
                         Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER2.get()),
                         Ingredient.of(Tags.Items.STORAGE_BLOCKS_GOLD),
-                        Ingredient.of(Items.NETHER_STAR),
+                        Ingredient.of(Items.TOTEM_OF_UNDYING),
                         Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
                         Ingredient.of(OccultismItems.AFRIT_ESSENCE.get()))
                 .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
@@ -1392,7 +1392,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         PENTACLE_CRAFT_MARID,
                         Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER3.get()),
                         Ingredient.of(OccultismTags.Items.STORAGE_BLOCK_IESNIUM),
-                        Ingredient.of(Items.DRAGON_HEAD),
+                        Ingredient.of(Items.BEACON),
                         Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
                         Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
                         Ingredient.of(OccultismItems.MARID_ESSENCE.get()))
