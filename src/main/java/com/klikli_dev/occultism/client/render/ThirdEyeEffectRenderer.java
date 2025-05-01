@@ -198,7 +198,8 @@ public class ThirdEyeEffectRenderer {
             this.uncoverBlocks(event.getEntity(), event.getEntity().level(), OtherworldBlockTier.TWO);
         } else {
             //only cover blocks if third eye is not active and still needs them visible.
-            this.resetUncoveredBlocks(event.getEntity().level(), true);
+            if (!gogglesActiveLastTick)
+                this.resetUncoveredBlocks(event.getEntity().level(), true);
             if (this.thirdEyeActiveLastTick) {
                 //this uncovers tier 1 blocks that we still can see under normal third eye
                 this.uncoverBlocks(event.getEntity(), event.getEntity().level(), OtherworldBlockTier.ONE);
