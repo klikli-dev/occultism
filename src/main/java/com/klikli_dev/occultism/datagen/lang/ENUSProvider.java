@@ -742,520 +742,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.debug.started", "Ritual started.");
         this.add("ritual.occultism.debug.finished", "Ritual completed successfully.");
         this.add("ritual.occultism.debug.interrupted", "Ritual interrupted.");
-        this.add("ritual.occultism.summon_foliot_lumberjack.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_foliot_lumberjack.started", "Started summoning foliot lumberjack.");
-        this.add("ritual.occultism.summon_foliot_lumberjack.finished", "Summoned foliot lumberjack successfully.");
-        this.add("ritual.occultism.summon_foliot_lumberjack.interrupted", "Summoning of foliot lumberjack interrupted.");
-        this.add("ritual.occultism.summon_foliot_transport_items.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_foliot_transport_items.started", "Started summoning foliot transporter.");
-        this.add("ritual.occultism.summon_foliot_transport_items.finished", "Summoned foliot transporter successfully.");
-        this.add("ritual.occultism.summon_foliot_transport_items.interrupted", "Summoning of foliot transporter interrupted.");
-        this.add("ritual.occultism.summon_foliot_cleaner.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_foliot_cleaner.started", "Started summoning foliot janitor.");
-        this.add("ritual.occultism.summon_foliot_cleaner.finished", "Summoned foliot janitor successfully.");
-        this.add("ritual.occultism.summon_foliot_cleaner.interrupted", "Summoning of janitor transporter interrupted.");
-        this.add("ritual.occultism.summon_foliot_sapling_trader.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_foliot_sapling_trader.started", "Started summoning foliot otherworld sapling trader.");
-        this.add("ritual.occultism.summon_foliot_sapling_trader.finished", "Summoned foliot otherworld sapling successfully.");
-        this.add("ritual.occultism.summon_foliot_sapling_trader.interrupted", "Summoning of foliot otherworld sapling trader interrupted.");
-        this.add("ritual.occultism.summon_foliot_otherstone_trader.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_foliot_otherstone_trader.started", "Started summoning foliot otherstone trader.");
-        this.add("ritual.occultism.summon_foliot_otherstone_trader.finished", "Summoned foliot otherstone trader successfully.");
-        this.add("ritual.occultism.summon_foliot_otherstone_trader.interrupted", "Summoning of foliot otherstone trader interrupted.");
-        this.add("ritual.occultism.summon_djinni_manage_machine.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_djinni_manage_machine.started", "Started summoning djinni machine operator.");
-        this.add("ritual.occultism.summon_djinni_manage_machine.finished", "Summoned djinni machine operator successfully.");
-        this.add("ritual.occultism.summon_djinni_manage_machine.interrupted", "Summoning of djinni machine operator interrupted.");
-        this.add("ritual.occultism.summon_djinni_clear_weather.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_djinni_clear_weather.started", "Started summoning djinni to clear weather.");
-        this.add("ritual.occultism.summon_djinni_clear_weather.finished", "Summoned djinni successfully.");
-        this.add("ritual.occultism.summon_djinni_clear_weather.interrupted", "Summoning of djinni interrupted.");
-        this.add("ritual.occultism.summon_djinni_day_time.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_djinni_day_time.started", "Started summoning djinni to set time to day.");
-        this.add("ritual.occultism.summon_djinni_day_time.finished", "Summoned djinni successfully.");
-        this.add("ritual.occultism.summon_djinni_day_time.interrupted", "Summoning of djinni interrupted.");
-        this.add("ritual.occultism.summon_djinni_night_time.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_djinni_night_time.started", "Started summoning djinni to set time to night.");
-        this.add("ritual.occultism.summon_djinni_night_time.finished", "Summoned djinni successfully.");
-        this.add("ritual.occultism.summon_djinni_night_time.interrupted", "Summoning of djinni interrupted.");
-        this.add("ritual.occultism.summon_afrit_rain_weather.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_afrit_rain_weather.started", "Started summoning afrit for rainy weather.");
-        this.add("ritual.occultism.summon_afrit_rain_weather.finished", "Summoned afrit successfully.");
-        this.add("ritual.occultism.summon_afrit_rain_weather.interrupted", "Summoning of afrit interrupted.");
-        this.add("ritual.occultism.summon_afrit_thunder_weather.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_afrit_thunder_weather.started", "Started summoning afrit for a thunderstorm.");
-        this.add("ritual.occultism.summon_afrit_thunder_weather.finished", "Summoned afrit successfully.");
-        this.add("ritual.occultism.summon_afrit_thunder_weather.interrupted", "Summoning of afrit interrupted.");
-        this.add("ritual.occultism.summon_unbound_afrit.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_unbound_afrit.started", "Started summoning unbound afrit.");
-        this.add("ritual.occultism.summon_unbound_afrit.finished", "Summoned unbound afrit successfully.");
-        this.add("ritual.occultism.summon_unbound_afrit.interrupted", "Summoning of unbound afrit interrupted.");
-        this.add("ritual.occultism.summon_unbound_marid.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_unbound_marid.started", "Started summoning unbound marid.");
-        this.add("ritual.occultism.summon_unbound_marid.finished", "Summoned unbound marid successfully.");
-        this.add("ritual.occultism.summon_unbound_marid.interrupted", "Summoning of unbound marid interrupted.");
-        this.add("ritual.occultism.wild_hunt.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.wild_hunt.started", "Started summoning the wild hunt.");
-        this.add("ritual.occultism.wild_hunt.finished", "Summoned the wild hunt successfully.");
-        this.add("ritual.occultism.wild_hunt.interrupted", "Summoning of the wild hunt interrupted.");
-        this.add("ritual.occultism.craft_dimensional_matrix.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_dimensional_matrix.started", "Started binding djinni into dimensional matrix.");
-        this.add("ritual.occultism.craft_dimensional_matrix.finished", "Successfully bound djinni into dimensional matrix.");
-        this.add("ritual.occultism.craft_dimensional_matrix.interrupted", "Binding of djinni interrupted.");
-        this.add("ritual.occultism.craft_dimensional_mineshaft.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_dimensional_mineshaft.started", "Started binding djinni into dimensional mineshaft.");
-        this.add("ritual.occultism.craft_dimensional_mineshaft.finished", "Successfully bound djinni into dimensional mineshaft.");
-        this.add("ritual.occultism.craft_dimensional_mineshaft.interrupted", "Binding of djinni interrupted.");
-        this.add("ritual.occultism.craft_storage_controller_base.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_storage_controller_base.started", "Started binding foliot into storage actuator base.");
-        this.add("ritual.occultism.craft_storage_controller_base.finished", "Successfully bound foliot into storage actuator base.");
-        this.add("ritual.occultism.craft_storage_controller_base.interrupted", "Binding of foliot interrupted.");
-        this.add("ritual.occultism.craft_stabilizer_tier1.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_stabilizer_tier1.started", "Started binding foliot into storage stabilizer.");
-        this.add("ritual.occultism.craft_stabilizer_tier1.finished", "Successfully bound foliot into storage stabilizer.");
-        this.add("ritual.occultism.craft_stabilizer_tier1.interrupted", "Binding of foliot interrupted.");
-        this.add("ritual.occultism.craft_stabilizer_tier2.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_stabilizer_tier2.started", "Started binding djinni into storage stabilizer.");
-        this.add("ritual.occultism.craft_stabilizer_tier2.finished", "Successfully bound djinni into storage stabilizer.");
-        this.add("ritual.occultism.craft_stabilizer_tier2.interrupted", "Binding of djinni interrupted.");
-        this.add("ritual.occultism.craft_stabilizer_tier3.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_stabilizer_tier3.started", "Started binding afrit into storage stabilizer.");
-        this.add("ritual.occultism.craft_stabilizer_tier3.finished", "Successfully bound afrit into storage stabilizer.");
-        this.add("ritual.occultism.craft_stabilizer_tier3.interrupted", "Binding of afrit interrupted.");
-        this.add("ritual.occultism.craft_stabilizer_tier4.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_stabilizer_tier4.started", "Started binding marid into storage stabilizer.");
-        this.add("ritual.occultism.craft_stabilizer_tier4.finished", "Successfully bound marid into storage stabilizer.");
-        this.add("ritual.occultism.craft_stabilizer_tier4.interrupted", "Binding of marid interrupted.");
-        this.add("ritual.occultism.craft_stable_wormhole.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_stable_wormhole.started", "Started binding foliot into wormhole frame.");
-        this.add("ritual.occultism.craft_stable_wormhole.finished", "Successfully bound foliot into wormhole frame.");
-        this.add("ritual.occultism.craft_stable_wormhole.interrupted", "Binding of foliot interrupted.");
-        this.add("ritual.occultism.craft_storage_remote.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_storage_remote.started", "Started binding djinni into storage remote.");
-        this.add("ritual.occultism.craft_storage_remote.finished", "Successfully bound djinni into storage remote.");
-        this.add("ritual.occultism.craft_storage_remote.interrupted", "Binding of djinni interrupted.");
-        this.add("ritual.occultism.craft_infused_lenses.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_infused_lenses.started", "Started binding foliot into lenses.");
-        this.add("ritual.occultism.craft_infused_lenses.finished", "Successfully bound foliot into lenses.");
-        this.add("ritual.occultism.craft_infused_lenses.interrupted", "Binding of foliot interrupted.");
-        this.add("ritual.occultism.craft_infused_pickaxe.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_infused_pickaxe.started", "Started binding djinni into pickaxe.");
-        this.add("ritual.occultism.craft_infused_pickaxe.finished", "Successfully bound djinni into pickaxe.");
-        this.add("ritual.occultism.craft_infused_pickaxe.interrupted", "Binding of djinni interrupted.");
-
-        this.add("ritual.occultism.craft_miner_foliot_unspecialized.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_miner_foliot_unspecialized.started", "Started summoning foliot into magic lamp.");
-        this.add("ritual.occultism.craft_miner_foliot_unspecialized.finished", "Successfully summoned foliot into magic lamp.");
-        this.add("ritual.occultism.craft_miner_foliot_unspecialized.interrupted", "Summoning of foliot interrupted.");
-
-        this.add("ritual.occultism.craft_miner_djinni_ores.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_miner_djinni_ores.started", "Started summoning djinni into magic lamp.");
-        this.add("ritual.occultism.craft_miner_djinni_ores.finished", "Successfully summoned djinni into magic lamp.");
-        this.add("ritual.occultism.craft_miner_djinni_ores.interrupted", "Summoning of djinni interrupted.");
-
-        this.add("ritual.occultism.craft_miner_afrit_deeps.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_miner_afrit_deeps.started", "Started summoning afrit into magic lamp.");
-        this.add("ritual.occultism.craft_miner_afrit_deeps.finished", "Successfully summoned afrit into magic lamp.");
-        this.add("ritual.occultism.craft_miner_afrit_deeps.interrupted", "Summoning of afrit interrupted.");
-
-        this.add("ritual.occultism.craft_miner_marid_master.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_miner_marid_master.started", "Started summoning marid into magic lamp.");
-        this.add("ritual.occultism.craft_miner_marid_master.finished", "Successfully summoned marid into magic lamp.");
-        this.add("ritual.occultism.craft_miner_marid_master.interrupted", "Summoning of marid interrupted.");
-
-        this.add("ritual.occultism.misc_miner_ancient_eldritch.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.misc_miner_ancient_eldritch.started", "Started summoning something into magic lamp.");
-        this.add("ritual.occultism.misc_miner_ancient_eldritch.finished", "Successfully summoned something into magic lamp.");
-        this.add("ritual.occultism.misc_miner_ancient_eldritch.interrupted", "Summoning of something interrupted.");
-
-        this.add("ritual.occultism.craft_satchel.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_satchel.started", "Started binding foliot into satchel.");
-        this.add("ritual.occultism.craft_satchel.finished", "Successfully bound foliot into satchel.");
-        this.add("ritual.occultism.craft_satchel.interrupted", "Binding of foliot interrupted.");
-        this.add("ritual.occultism.craft_soul_gem.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_soul_gem.started", "Started binding djinni into soul gem.");
-        this.add("ritual.occultism.craft_soul_gem.finished", "Successfully bound djinni into soul gem.");
-        this.add("ritual.occultism.craft_soul_gem.interrupted", "Binding of djinni interrupted.");
-        this.add("ritual.occultism.craft_familiar_ring.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_familiar_ring.started", "Started binding djinni into familiar ring.");
-        this.add("ritual.occultism.craft_familiar_ring.finished", "Successfully bound djinni into familiar ring.");
-        this.add("ritual.occultism.craft_familiar_ring.interrupted", "Binding of djinni interrupted.");
-        this.add("ritual.occultism.misc_wild_trim.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.misc_wild_trim.started", "Wild Spirits has started to forge the Wild Armor Trim Smithing Template.");
-        this.add("ritual.occultism.misc_wild_trim.finished", "Successfully forged the Wild Armor Trim Smithing Template.");
-        this.add("ritual.occultism.misc_wild_trim.interrupted", "Binding of djinni interrupted.");
-        this.add("ritual.occultism.possess_endermite.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_endermite.started", "Started summoning possessed endermite.");
-        this.add("ritual.occultism.possess_endermite.finished", "Summoned possessed endermite successfully.");
-        this.add("ritual.occultism.possess_endermite.interrupted", "Summoning of possessed endermite interrupted.");
-        this.add("ritual.occultism.possess_skeleton.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_skeleton.started", "Started summoning possessed skeleton.");
-        this.add("ritual.occultism.possess_skeleton.finished", "Summoned possessed skeleton successfully.");
-        this.add("ritual.occultism.possess_skeleton.interrupted", "Summoning of possessed skeleton interrupted.");
-        this.add("ritual.occultism.possess_enderman.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_enderman.started", "Started summoning possessed enderman.");
-        this.add("ritual.occultism.possess_enderman.finished", "Summoned possessed enderman successfully.");
-        this.add("ritual.occultism.possess_enderman.interrupted", "Summoning of possessed enderman interrupted.");
-        this.add("ritual.occultism.possess_ghast.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_ghast.started", "Started summoning possessed ghast.");
-        this.add("ritual.occultism.possess_ghast.finished", "Summoned possessed ghast successfully.");
-        this.add("ritual.occultism.possess_ghast.interrupted", "Summoning of possessed ghast interrupted.");
-        this.add("ritual.occultism.possess_phantom.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_phantom.started", "Started summoning possessed phantom.");
-        this.add("ritual.occultism.possess_phantom.finished", "Summoned possessed phantom successfully.");
-        this.add("ritual.occultism.possess_phantom.interrupted", "Summoning of possessed phantom interrupted.");
-        this.add("ritual.occultism.possess_weak_shulker.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_weak_shulker.started", "Started summoning possessed weak shulker.");
-        this.add("ritual.occultism.possess_weak_shulker.finished", "Summoned possessed weak shulker successfully.");
-        this.add("ritual.occultism.possess_weak_shulker.interrupted", "Summoning of possessed weak shulker interrupted.");
-        this.add("ritual.occultism.possess_shulker.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_shulker.started", "Started summoning possessed shulker.");
-        this.add("ritual.occultism.possess_shulker.finished", "Summoned possessed shulker successfully.");
-        this.add("ritual.occultism.possess_shulker.interrupted", "Summoning of possessed shulker interrupted.");
-        this.add("ritual.occultism.possess_elder_guardian.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_elder_guardian.started", "Started summoning possessed elder_guardian.");
-        this.add("ritual.occultism.possess_elder_guardian.finished", "Summoned possessed elder_guardian successfully.");
-        this.add("ritual.occultism.possess_elder_guardian.interrupted", "Summoning of possessed elder_guardian interrupted.");
-        this.add("ritual.occultism.possess_warden.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_warden.started", "Started summoning possessed warden.");
-        this.add("ritual.occultism.possess_warden.finished", "Summoned possessed warden successfully.");
-        this.add("ritual.occultism.possess_warden.interrupted", "Summoning of possessed warden interrupted.");
-        this.add("ritual.occultism.possess_hoglin.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_hoglin.started", "Started summoning possessed hoglin.");
-        this.add("ritual.occultism.possess_hoglin.finished", "Summoned possessed hoglin successfully.");
-        this.add("ritual.occultism.possess_hoglin.interrupted", "Summoning of possessed hoglin interrupted.");
-        this.add("ritual.occultism.possess_witch.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_witch.started", "Started summoning possessed witch.");
-        this.add("ritual.occultism.possess_witch.finished", "Summoned possessed witch successfully.");
-        this.add("ritual.occultism.possess_witch.interrupted", "Summoning of possessed witch interrupted.");
-        this.add("ritual.occultism.possess_zombie_piglin.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_zombie_piglin.started", "Started summoning possessed zombified piglin.");
-        this.add("ritual.occultism.possess_zombie_piglin.finished", "Summoned possessed zombified piglin successfully.");
-        this.add("ritual.occultism.possess_zombie_piglin.interrupted", "Summoning of possessed zombified piglin interrupted.");
-        this.add("ritual.occultism.possess_bee.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_bee.started", "Started summoning possessed bee.");
-        this.add("ritual.occultism.possess_bee.finished", "Summoned possessed bee successfully.");
-        this.add("ritual.occultism.possess_bee.interrupted", "Summoning of possessed bee interrupted.");
-        this.add("ritual.occultism.possess_goat.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_goat.started", "Started summoning goat of mercy.");
-        this.add("ritual.occultism.possess_goat.finished", "Summoned goat of mercy successfully.");
-        this.add("ritual.occultism.possess_goat.interrupted", "Summoning of goat of mercy interrupted.");
-        this.add("ritual.occultism.familiar_otherworld_bird.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.familiar_otherworld_bird.started", "Started summoning drikwing familiar.");
-        this.add("ritual.occultism.familiar_otherworld_bird.finished", "Summoned drikwing familiar successfully.");
-        this.add("ritual.occultism.familiar_otherworld_bird.interrupted", "Summoning of drikwing familiar interrupted.");
-        this.add("ritual.occultism.familiar_cthulhu.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.familiar_cthulhu.started", "Started summoning cthulhu familiar.");
-        this.add("ritual.occultism.familiar_cthulhu.finished", "Summoned cthulhu familiar successfully.");
-        this.add("ritual.occultism.familiar_cthulhu.interrupted", "Summoning of cthulhu familiar interrupted.");
-        this.add("ritual.occultism.familiar_devil.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.familiar_devil.started", "Started summoning devil familiar.");
-        this.add("ritual.occultism.familiar_devil.finished", "Summoned devil familiar successfully.");
-        this.add("ritual.occultism.familiar_devil.interrupted", "Summoning of devil familiar interrupted.");
-        this.add("ritual.occultism.familiar_dragon.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.familiar_dragon.started", "Started summoning dragon familiar.");
-        this.add("ritual.occultism.familiar_dragon.finished", "Summoned dragon familiar successfully.");
-        this.add("ritual.occultism.familiar_dragon.interrupted", "Summoning of dragon familiar interrupted.");
-        this.add("ritual.occultism.familiar_blacksmith.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.familiar_blacksmith.started", "Started summoning blacksmith familiar.");
-        this.add("ritual.occultism.familiar_blacksmith.finished", "Summoned blacksmith familiar successfully.");
-        this.add("ritual.occultism.familiar_blacksmith.interrupted", "Summoning of blacksmith familiar interrupted.");
-        this.add("ritual.occultism.familiar_guardian.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.familiar_guardian.started", "Started summoning guardian familiar.");
-        this.add("ritual.occultism.familiar_guardian.finished", "Summoned guardian familiar successfully.");
-        this.add("ritual.occultism.familiar_guardian.interrupted", "Summoning of guardian familiar interrupted.");
-        this.add("ritual.occultism.possess_unbound_otherworld_bird.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_unbound_otherworld_bird.started", "Started summoning unbound drikwing.");
-        this.add("ritual.occultism.possess_unbound_otherworld_bird.finished", "Summoned unbound drikwing successfully.");
-        this.add("ritual.occultism.possess_unbound_otherworld_bird.interrupted", "Summoning of unbound drikwing interrupted.");
-        this.add("ritual.occultism.possess_unbound_parrot.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_unbound_parrot.started", "Started summoning unbound parrot.");
-        this.add("ritual.occultism.possess_unbound_parrot.finished", "Summoned unbound parrot successfully.");
-        this.add("ritual.occultism.possess_unbound_parrot.interrupted", "Summoning of unbound parrot interrupted.");
-
-        this.add("ritual.occultism.possess_random_animal_common.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_random_animal_common.started", "Started summoning a common random animal.");
-        this.add("ritual.occultism.possess_random_animal_common.finished", "Summoned successfully.");
-        this.add("ritual.occultism.possess_random_animal_common.interrupted", "Summoning of common random animal interrupted.");
-        this.add("ritual.occultism.possess_random_animal_water.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_random_animal_water.started", "Started summoning a water random animal.");
-        this.add("ritual.occultism.possess_random_animal_water.finished", "Summoned successfully.");
-        this.add("ritual.occultism.possess_random_animal_water.interrupted", "Summoning of water random animal interrupted.");
-        this.add("ritual.occultism.possess_random_animal_small.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_random_animal_small.started", "Started summoning a small random animal.");
-        this.add("ritual.occultism.possess_random_animal_small.finished", "Summoned successfully.");
-        this.add("ritual.occultism.possess_random_animal_small.interrupted", "Summoning of small random animal interrupted.");
-        this.add("ritual.occultism.possess_random_animal_special.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_random_animal_special.started", "Started summoning a special random animal.");
-        this.add("ritual.occultism.possess_random_animal_special.finished", "Summoned successfully.");
-        this.add("ritual.occultism.possess_random_animal_special.interrupted", "Summoning of special random animal interrupted.");
-        this.add("ritual.occultism.possess_random_animal_rideable.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_random_animal_rideable.started", "Started summoning a rideable random animal.");
-        this.add("ritual.occultism.possess_random_animal_rideable.finished", "Summoned successfully.");
-        this.add("ritual.occultism.possess_random_animal_rideable.interrupted", "Summoning of rideable random animal interrupted.");
-        this.add("ritual.occultism.possess_villager.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.possess_villager.started", "Started summoning a villager.");
-        this.add("ritual.occultism.possess_villager.finished", "Summoned successfully.");
-        this.add("ritual.occultism.possess_villager.interrupted", "Summoning of villager interrupted.");
-
-        this.add("ritual.occultism.familiar_parrot.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.familiar_parrot.started", "Started summoning parrot familiar.");
-        this.add("ritual.occultism.familiar_parrot.finished", "Summoned parrot familiar successfully.");
-        this.add("ritual.occultism.familiar_parrot.interrupted", "Summoning of parrot familiar interrupted.");
-        this.add("ritual.occultism.resurrect_allay.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.resurrect_allay.started", "Started purifying Vex to Allay.");
-        this.add("ritual.occultism.resurrect_allay.finished", "Purified Vex to Allay successfully.");
-        this.add("ritual.occultism.resurrect_allay.interrupted", "Purifying Vex to allay interrupted.");
-        this.add("ritual.occultism.familiar_greedy.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.familiar_greedy.started", "Started summoning greedy familiar.");
-        this.add("ritual.occultism.familiar_greedy.finished", "Summoned v familiar successfully.");
-        this.add("ritual.occultism.familiar_greedy.interrupted", "Summoning of greedy familiar interrupted.");
-        this.add("ritual.occultism.familiar_bat.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.familiar_bat.started", "Started summoning bat familiar.");
-        this.add("ritual.occultism.familiar_bat.finished", "Summoned bat familiar successfully.");
-        this.add("ritual.occultism.familiar_bat.interrupted", "Summoning of bat familiar interrupted.");
-        this.add("ritual.occultism.familiar_deer.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.familiar_deer.started", "Started summoning deer familiar.");
-        this.add("ritual.occultism.familiar_deer.finished", "Summoned deer familiar successfully.");
-        this.add("ritual.occultism.familiar_deer.interrupted", "Summoning of deer familiar interrupted.");
-        this.add("ritual.occultism.familiar_headless.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.familiar_headless.started", "Started summoning headless ratman familiar.");
-        this.add("ritual.occultism.familiar_headless.finished", "Summoned headless ratman familiar successfully.");
-        this.add("ritual.occultism.familiar_headless.interrupted", "Summoning of headless ratman familiar interrupted.");
-        this.add("ritual.occultism.familiar_chimera.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.familiar_chimera.started", "Started summoning chimera familiar.");
-        this.add("ritual.occultism.familiar_chimera.finished", "Summoned chimera familiar successfully.");
-        this.add("ritual.occultism.familiar_chimera.interrupted", "Summoning of chimera familiar interrupted.");
-        this.add("ritual.occultism.familiar_beholder.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.familiar_beholder.started", "Started summoning beholder familiar.");
-        this.add("ritual.occultism.familiar_beholder.finished", "Summoned beholder familiar successfully.");
-        this.add("ritual.occultism.familiar_beholder.interrupted", "Summoning of beholder familiar interrupted.");
-        this.add("ritual.occultism.familiar_fairy.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.familiar_fairy.started", "Started summoning fairy familiar.");
-        this.add("ritual.occultism.familiar_fairy.finished", "Summoned fairy familiar successfully.");
-        this.add("ritual.occultism.familiar_fairy.interrupted", "Summoning of fairy familiar interrupted.");
-        this.add("ritual.occultism.familiar_mummy.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.familiar_mummy.started", "Started summoning mummy familiar.");
-        this.add("ritual.occultism.familiar_mummy.finished", "Summoned mummy familiar successfully.");
-        this.add("ritual.occultism.familiar_mummy.interrupted", "Summoning of mummy familiar interrupted.");
-        this.add("ritual.occultism.familiar_beaver.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.familiar_beaver.started", "Started summoning beaver familiar.");
-        this.add("ritual.occultism.familiar_beaver.finished", "Summoned beaver familiar successfully.");
-        this.add("ritual.occultism.familiar_beaver.interrupted", "Summoning of beaver familiar interrupted.");
-
-
-        this.add("ritual.occultism.summon_demonic_wife.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_demonic_wife.started", "Started summoning.");
-        this.add("ritual.occultism.summon_demonic_wife.finished", "Summoned successfully.");
-        this.add("ritual.occultism.summon_demonic_wife.interrupted", "Summoning interrupted.");
-        this.add("ritual.occultism.summon_demonic_husband.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_demonic_husband.started", "Started summoning.");
-        this.add("ritual.occultism.summon_demonic_husband.finished", "Summoned successfully.");
-        this.add("ritual.occultism.summon_demonic_husband.interrupted", "Summoning interrupted.");
-
-        this.add("ritual.occultism.wild_husk.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.wild_husk.started", "Started summoning the wild horde husk.");
-        this.add("ritual.occultism.wild_husk.finished", "Summoned the wild horde husk successfully.");
-        this.add("ritual.occultism.wild_husk.interrupted", "Summoning of the wild horde husk interrupted.");
-        this.add("ritual.occultism.wild_drowned.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.wild_drowned.started", "Started summoning the wild horde drowned.");
-        this.add("ritual.occultism.wild_drowned.finished", "Summoned the wild horde drowned successfully.");
-        this.add("ritual.occultism.wild_drowned.interrupted", "Summoning of the wild horde drowned interrupted.");
-        this.add("ritual.occultism.wild_creeper.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.wild_creeper.started", "Started summoning the wild horde creeper.");
-        this.add("ritual.occultism.wild_creeper.finished", "Summoned the wild horde creeper successfully.");
-        this.add("ritual.occultism.wild_creeper.interrupted", "Summoning of the wild horde creeper interrupted.");
-        this.add("ritual.occultism.wild_silverfish.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.wild_silverfish.started", "Started summoning the wild horde silverfish.");
-        this.add("ritual.occultism.wild_silverfish.finished", "Summoned the wild horde silverfish successfully.");
-        this.add("ritual.occultism.wild_silverfish.interrupted", "Summoning of the wild horde silverfish interrupted.");
-        this.add("ritual.occultism.wild_weak_breeze.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.wild_weak_breeze.started", "Started summoning wild weak breeze.");
-        this.add("ritual.occultism.wild_weak_breeze.finished", "Summoned wild weak breeze successfully.");
-        this.add("ritual.occultism.wild_weak_breeze.interrupted", "Summoning of wild weak breeze interrupted.");
-        this.add("ritual.occultism.wild_breeze.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.wild_breeze.started", "Started summoning wild breeze.");
-        this.add("ritual.occultism.wild_breeze.finished", "Summoned wild breeze successfully.");
-        this.add("ritual.occultism.wild_breeze.interrupted", "Summoning of wild breeze interrupted.");
-        this.add("ritual.occultism.wild_strong_breeze.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.wild_strong_breeze.started", "Started summoning wild strong breeze.");
-        this.add("ritual.occultism.wild_strong_breeze.finished", "Summoned wild strong breeze successfully.");
-        this.add("ritual.occultism.wild_strong_breeze.interrupted", "Summoning of wild strong breeze interrupted.");
-        this.add("ritual.occultism.summon_horde_illager.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.summon_horde_illager.started", "Started summoning the wild illager invasion.");
-        this.add("ritual.occultism.summon_horde_illager.finished", "Summoned the wild illager invasion successfully.");
-        this.add("ritual.occultism.summon_horde_illager.interrupted", "Summoning of the wild illager invasion interrupted.");
-
-        this.add("ritual.occultism.wild_random_animal_common.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.wild_random_animal_common.started", "Started summoning a group of common random animal.");
-        this.add("ritual.occultism.wild_random_animal_common.finished", "Summoned successfully.");
-        this.add("ritual.occultism.wild_random_animal_common.interrupted", "Summoning a group of common random animal interrupted.");
-        this.add("ritual.occultism.wild_random_animal_water.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.wild_random_animal_water.started", "Started summoning a group of water random animal.");
-        this.add("ritual.occultism.wild_random_animal_water.finished", "Summoned successfully.");
-        this.add("ritual.occultism.wild_random_animal_water.interrupted", "Summoning a group of water random animal interrupted.");
-        this.add("ritual.occultism.wild_random_animal_small.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.wild_random_animal_small.started", "Started summoning a group of small random animal.");
-        this.add("ritual.occultism.wild_random_animal_small.finished", "Summoned successfully.");
-        this.add("ritual.occultism.wild_random_animal_small.interrupted", "Summoning a group of small random animal interrupted.");
-        this.add("ritual.occultism.wild_random_animal_special.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.wild_random_animal_special.started", "Started summoning a group of special random animal.");
-        this.add("ritual.occultism.wild_random_animal_special.finished", "Summoned successfully.");
-        this.add("ritual.occultism.wild_random_animal_special.interrupted", "Summoning a group of special random animal interrupted.");
-        this.add("ritual.occultism.wild_random_animal_rideable.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.wild_random_animal_rideable.started", "Started summoning a group of rideable random animal.");
-        this.add("ritual.occultism.wild_random_animal_rideable.finished", "Summoned successfully.");
-        this.add("ritual.occultism.wild_random_animal_rideable.interrupted", "Summoning a group of rideable random animal interrupted.");
-        this.add("ritual.occultism.wild_villager.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.wild_villager.started", "Started summoning a group of villager.");
-        this.add("ritual.occultism.wild_villager.finished", "Summoned successfully.");
-        this.add("ritual.occultism.wild_villager.interrupted", "Summoning a group of villager interrupted.");
-
-        this.add("ritual.occultism.craft_nature_paste.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_nature_paste.started", "Started infusing Nature Paste.");
-        this.add("ritual.occultism.craft_nature_paste.finished", "Successfully infused Nature Paste.");
-        this.add("ritual.occultism.craft_nature_paste.interrupted", "Craft of Nature Paste interrupted.");
-        this.add("ritual.occultism.craft_gray_paste.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_gray_paste.started", "Started infusing Gray Paste.");
-        this.add("ritual.occultism.craft_gray_paste.finished", "Successfully infused Gray Paste.");
-        this.add("ritual.occultism.craft_gray_paste.interrupted", "Craft of Gray Paste interrupted.");
-        this.add("ritual.occultism.craft_research_fragment_dust.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_research_fragment_dust.started", "Started infusing Research Fragment Dust.");
-        this.add("ritual.occultism.craft_research_fragment_dust.finished", "Successfully infused Research Fragment Dust.");
-        this.add("ritual.occultism.craft_research_fragment_dust.interrupted", "Craft of Research Fragment Dust interrupted.");
-        this.add("ritual.occultism.craft_witherite_dust.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.craft_witherite_dust.started", "Started infusing Witherite.");
-        this.add("ritual.occultism.craft_witherite_dust.finished", "Successfully infused Witherite.");
-        this.add("ritual.occultism.craft_witherite_dust.interrupted", "Craft of Witherite interrupted.");
-        this.add("ritual.occultism.repair_chalks.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.repair_chalks.started", "Started repairing chalk.");
-        this.add("ritual.occultism.repair_chalks.finished", "Successfully repaired chalk.");
-        this.add("ritual.occultism.repair_chalks.interrupted", "Chalk repair interrupted.");
-        this.add("ritual.occultism.repair_tools.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.repair_tools.started", "Started repairing tool.");
-        this.add("ritual.occultism.repair_tools.finished", "Successfully repaired tool.");
-        this.add("ritual.occultism.repair_tools.interrupted", "Tool repair interrupted.");
-        this.add("ritual.occultism.repair_armors.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.repair_armors.started", "Started repairing armor.");
-        this.add("ritual.occultism.repair_armors.finished", "Successfully repaired armor.");
-        this.add("ritual.occultism.repair_armors.interrupted", "Armor repair interrupted.");
-        this.add("ritual.occultism.repair_miners.conditions", "Not all requirements for this ritual are met.");
-        this.add("ritual.occultism.repair_miners.started", "Started repairing miner.");
-        this.add("ritual.occultism.repair_miners.finished", "Successfully repaired miner.");
-        this.add("ritual.occultism.repair_miners.interrupted", "Miner repair interrupted.");
-
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRUSHER, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRUSHER, "started", "Started summoning foliot crusher.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRUSHER, "finished", "Summoned foliot crusher successfully.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRUSHER, "interrupted", "Summoning of foliot crusher interrupted.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRUSHER, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRUSHER, "started", "Started summoning djinni crusher.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRUSHER, "finished", "Summoned djinni crusher successfully.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRUSHER, "interrupted", "Summoning of djinni crusher interrupted.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRUSHER, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRUSHER, "started", "Started summoning afrit crusher.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRUSHER, "finished", "Summoned afrit crusher successfully.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRUSHER, "interrupted", "Summoning of afrit crusher interrupted.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRUSHER, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRUSHER, "started", "Started summoning marid crusher.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRUSHER, "finished", "Summoned marid crusher successfully.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRUSHER, "interrupted", "Summoning of marid crusher interrupted.");
-
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER, "started", "Started summoning foliot smelter.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER, "finished", "Summoned foliot smelter successfully.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER, "interrupted", "Summoning of foliot smelter interrupted.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER, "started", "Started summoning djinni smelter.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER, "finished", "Summoned djinni smelter successfully.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER, "interrupted", "Summoning of djinni smelter interrupted.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER, "started", "Started summoning afrit smelter.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER, "finished", "Summoned afrit smelter successfully.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER, "interrupted", "Summoning of afrit smelter interrupted.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER, "started", "Started summoning marid smelter.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER, "finished", "Summoned marid smelter successfully.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER, "interrupted", "Summoning of marid smelter interrupted.");
-
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_POSSESS_IESNIUM_GOLEM, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_POSSESS_IESNIUM_GOLEM, "started", "Started possessing a marid into iesnium golem.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_POSSESS_IESNIUM_GOLEM, "finished", "Successfully bound a marid into iesnium golem.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_POSSESS_IESNIUM_GOLEM, "interrupted", "Possessing of marid interrupted.");
-
-        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "started", "Started resurrecting familiar.");
-        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "finished", "Successfully resurrected familiar.");
-        this.addRitualMessage(OccultismRituals.RESURRECT_FAMILIAR, "interrupted", "Resurrection interrupted.");
-
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1, "started", "Started binding a djinni into a satchel.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1, "finished", "Successfully bound a djinni into a satchel.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1, "interrupted", "Binding of djinni interrupted.");
-
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "started", "Started binding an afrit into a ritual satchel.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "finished", "Successfully bound an afrit into a ritual satchel.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "interrupted", "Binding of afrit interrupted.");
-
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL, "started", "Started binding an afrit into iesnium sacrificial bowl.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL, "finished", "Successfully bound an afrit into iesnium sacrificial bowl.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL, "interrupted", "Binding of afrit interrupted.");
-
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL, "started", "Started binding a marid into iesnium anvil.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL, "finished", "Successfully bound a marid into iesnium anvil.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL, "interrupted", "Binding of marid interrupted.");
-
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF, "started", "Started binding a marid into true sight staff.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF, "finished", "Successfully bound a marid into true sight staff.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF, "interrupted", "Binding of marid interrupted.");
-
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "started", "Started forging budding amethyst.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "finished", "Successfully forged budding amethyst.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "interrupted", "Forging budding amethyst interrupted.");
-
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "started", "Started forging reinforced deepslate.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "finished", "Successfully forged reinforced deepslate.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "interrupted", "Forging reinforced deepslate interrupted.");
-
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BEE_NEST, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BEE_NEST, "started", "Started forging bee nest.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BEE_NEST, "finished", "Successfully forged bee nest.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BEE_NEST, "interrupted", "Forging bee nest interrupted.");
-
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BELL, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BELL, "started", "Started forging bell.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BELL, "finished", "Successfully forged bell.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_BELL, "interrupted", "Forging bell interrupted.");
-
-
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE, "started", "Started forging eldritch chalice.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE, "finished", "Successfully forged eldritch chalice.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE, "interrupted", "Forging eldritch chalice interrupted.");
-
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE, "started", "Started forging stabilized dimensional storage actuator.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE, "finished", "Successfully forged stabilized dimensional storage actuator.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE, "interrupted", "Forging stabilized dimensional storage actuator interrupted.");
-
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_RAINBOW, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_RAINBOW, "started", "Started forging rainbow chalk.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_RAINBOW, "finished", "Successfully forged rainbow chalk.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_RAINBOW, "interrupted", "Forging rainbow chalk interrupted.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_VOID, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_VOID, "started", "Started forging void chalk.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_VOID, "finished", "Successfully forged void chalk.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_VOID, "interrupted", "Forging void chalk interrupted.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_TRINITY_GEM, "conditions", "Not all requirements for this ritual are met.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_TRINITY_GEM, "started", "Started forging trinity gem.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_TRINITY_GEM, "finished", "Successfully forged trinity gem.");
-        this.addRitualMessage(OccultismItems.RITUAL_DUMMY_FORGE_TRINITY_GEM, "interrupted", "Forging trinity gem interrupted.");
     }
 
     public void addRitualMessage(DeferredHolder<RitualFactory, RitualFactory> ritual, String key, String message) {
@@ -2951,288 +2437,159 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.RITUAL_DUMMY_CUSTOM_MISC.get(), "Custom Ritual Dummy");
         this.addTooltip(OccultismItems.RITUAL_DUMMY_CUSTOM_MISC.get(), "Used for modpacks as a fallback for custom rituals that do not have their own ritual item.");
 
-        //Improve this
-        this.add("item.occultism.ritual_dummy.craft_dimensional_matrix", "Ritual: Craft Dimensional Matrix");
-        this.add("item.occultism.ritual_dummy.craft_dimensional_matrix.tooltip", "The Dimensional Matrix is the entry point to a small dimension used for storing items.");
-        this.add("item.occultism.ritual_dummy.craft_dimensional_mineshaft", "Ritual: Craft Dimensional Mineshaft");
-        this.add("item.occultism.ritual_dummy.craft_dimensional_mineshaft.tooltip", "Allows miner spirits to enter the mining dimension and bring back resources.");
-        this.add("item.occultism.ritual_dummy.craft_infused_lenses", "Ritual: Craft Infused Lenses");
-        this.add("item.occultism.ritual_dummy.craft_infused_lenses.tooltip", "These lenses are used to craft spectacles that give thee ability to see beyond the physical world.");
-        this.add("item.occultism.ritual_dummy.craft_infused_pickaxe", "Ritual: Craft Infused Pickaxe");
-        this.add("item.occultism.ritual_dummy.craft_infused_pickaxe.tooltip", "Infuse a Pickaxe.");
+        //SUMMON
+            //Crusher
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRUSHER, "Summon Foliot Crusher", "Foliot", "The Crusher is a spirit summoned to crush ores into dusts, effectively doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRUSHER, "Summon Djinni Crusher", "Djinni", "The Crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRUSHER, "Summon Afrit Crusher", "Afrit", "The Crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRUSHER, "Summon Marid Crusher", "Marid", "The Crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
+            //Smelter
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER, "Summon Foliot Smelter", "Foliot", "The Smelter is a spirit summoned to make furnace, blast furnace, smoker and campfire recipes without using fuel and faster depending of the spirit.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER, "Summon Djinni Smelter", "Djinni", "The Smelter is a spirit summoned to make furnace, blast furnace, smoker and campfire recipes without using fuel and faster depending of the spirit.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER, "Summon Afrit Smelter", "Afrit", "The Smelter is a spirit summoned to make furnace, blast furnace, smoker and campfire recipes without using fuel and faster depending of the spirit.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER, "Summon Marid Smelter", "Marid", "The Smelter is a spirit summoned to make furnace, blast furnace, smoker and campfire recipes without using fuel and faster depending of the spirit.");
+            //Partner
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE, "Summon Demonic Wife", "Djinni", "Summons a Demonic Wife to support you: She will fight for you, help with cooking, and extend potion durations.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND, "Summon Demonic Husband", "Djinni", "Summons a Demonic Husband to support you: He will fight for you, help with cooking, and extend potion durations.");
+            //One tier worker
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_LUMBERJACK, "Summon Foliot Lumberjack", "Foliot", "The Lumberjack will harvest trees in it's working area and deposit the dropped items into the specified chest.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_OTHERSTONE_TRADER, "Summon Otherstone Trader", "Foliot", "The Otherstone Trader trades normal stone for otherstone.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SAPLING_TRADER, "Summon Otherworld Sapling Trader", "Foliot", "The Otherworld Sapling Trader trades natural otherworld saplings for stable ones, that can be harvested without the third eye.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_TRANSPORT_ITEMS, "Summon Foliot Transporter", "Foliot", "The Transporter will move all items it can access from one inventory to another, including machines.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CLEANER, "Summon Foliot Janitor", "Foliot", "The Janitor will pick up dropped items and deposit them into a target inventory.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_MANAGE_MACHINE, "Summon Djinni Machine Operator", "Djinni", "The Machine Operator automatically transfers items between dimensional storage systems and connected inventories and machines.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_DAY_TIME, "Summoning of Dawn", "Djinni", "Summons a Djinni that sets the time to high noon.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_NIGHT_TIME, "Summoning of Dusk", "Djinni", "Summons a Djinni that sets the time to midnight.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CLEAR_WEATHER, "Summoning of Clear Sky", "Djinni", "Summons a Djinni that clears the weather.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_RAIN_WEATHER, "Summoning of Rain", "Afrit", "Summons an Afrit that creates rain.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_THUNDER_WEATHER, "Summoning of Thunderstorm", "Afrit", "Summons an Afrit that creates a thunderstorm.");
+            //Unbound
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_UNBOUND_AFRIT, "Summon Unbound Afrit", "Afrit", "Summons an Unbound Afrit that can be killed to obtain Afrit Essence.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_UNBOUND_MARID, "Summon Unbound Marid", "Marid", "Summons an Unbound Marid that can be killed to obtain Marid Essence.");
+        //POSSESS
+            //Familiar
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_BEAVER, "Summon Beaver Familiar", "Foliot", "The Beaver familiar provides increased woodcutting speed to their masters and harvests nearby trees when they grow from a sapling.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_BLACKSMITH, "Summon Blacksmith Familiar", "Foliot", "The Blacksmith familiars take stone their master mines and uses it to repair equipment.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_DEER, "Summon Deer Familiar", "Foliot", "The Deer familiars provide jump boost to their master.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_GREEDY, "Summon Greedy Familiar", "Foliot", "The Greedy familiars pick up items for their master. When stored in a familiar ring, they increase the pickup range (like an item magnet).");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_PARROT, "Summon Parrot Familiar", "Foliot", "The Parrot familiars behave exactly like tamed parrots.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_UNBOUND_PARROT, "Possess Unbound Parrot", "Foliot", "Possess a Parrot that can be tamed by anyone, not just the summoner.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_BAT, "Summon Bat Familiar", "Djinni", "The Bat familiars provide night vision to their master.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_BEHOLDER, "Summon Beholder Familiar", "Djinni", "The Beholder familiars highlight nearby entities with a glow effect and shoot laser rays at enemies.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_CHIMERA, "Summon Chimera Familiar", "Djinni", "The Chimera familiars can be fed to grow in size and gain attack speed and damage. Once big enough, players can ride them.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_CTHULHU, "Summon Cthulhu Familiar", "Djinni", "The Cthulhu familiars provide water breathing to their master.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_DEVIL, "Summon Devil Familiar", "Djinni", "The Devil familiars provide fire resistance to their master.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_DRAGON, "Summon Dragon Familiar", "Djinni", "The Dragon familiars provide increased experience gain to their master.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_FAIRY, "Summon Fairy Familiar", "Djinni", "The Fairy familiar keeps other familiars from dying, drains enemies of their life force and heals its master and their familiars.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_HEADLESS, "Summon Headless Ratman Familiar", "Djinni", "The Headless ratman familiars increase their master's attack damage against enemies of the kind it stole the head from.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_MUMMY, "Summon Mummy Familiar", "Djinni", "The Mummy familiar is a martial arts expert and fights to protect their master.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_OTHERWORLD_BIRD, "Summon Drikwing Familiar", "Djinni", "The Drikwings will provide their owner with limited flight abilities when nearby.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_UNBOUND_OTHERWORLD_BIRD, "Possess Unbound Drikwing", "Djinni", "Possess a Drikwing Familiar that can be tamed by anyone, not just the summoner.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_GUARDIAN, "Summon Guardian Familiar", "Afrit", "The Guardian familiars prevent their master's violent demise.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_IESNIUM_GOLEM, "Summon Iesnium Golem", "Marid", "Summons the strong and invulnerable iesnium golem to defend a region.");
+            //Possessed
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ENDERMITE, "Summon Possessed Endermite", "Foliot", "The Possessed Endermite drops End Stone.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_PHANTOM, "Summon Possessed Phantom", "Foliot", "The Possessed Phantom will always drop at least one phantom membrane when killed and is easy to trap.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_SKELETON, "Summon Possessed Skeleton", "Foliot", "The Possessed Skeleton is immune to daylight and always drop at least one Skeleton Skull when killed.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_WITCH, "Summon Possessed Witch", "Foliot", "The Possessed Witch will drop a special filled bottle.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ENDERMAN, "Summon Possessed Enderman", "Djinni", "The Possessed Enderman will always drop at least one ender pearl when killed.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_BEE, "Summon Possessed Bee", "Djinni", "The Possessed Bee will drop cursed honey.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_GHAST, "Summon Possessed Ghast", "Djinni", "The Possessed Ghast will always drop at least one ghast tear when killed.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_WEAK_SHULKER, "Summon Possessed Weak Shulker", "Djinni", "The Possessed Weak Shulker will drop at least one chorus fruit when killed and can drop shulker shell.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ZOMBIE_PIGLIN, "Summon Possessed Zombified Piglin", "Afrit", "The Possessed Zombified Piglin will drop demonic meat.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_WARDEN, "Summon Possessed Warden", "Afrit", "The Possessed Warden will always drop at least six echo shard and can drop anothers ancient stuff (smithing templates and discs) when killed.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ELDER_GUARDIAN, "Summon Possessed Elder Guardian", "Afrit", "The Possessed Elder Guardian will drop at least one nautilus shell when killed, also can drop heart of the sea and the common drops.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_HOGLIN, "Summon Possessed Hoglin", "Afrit", "The Possessed Hoglin has a chance to drop smithing template of netherite upgrade when killed.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_SHULKER, "Summon Possessed Shulker", "Afrit", "The Possessed Shulker will always drop at least one shulker shell when killed.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_GOAT, "Summon Goat of Mercy", "Marid", "The Goat of Mercy will drop the Cruelty Essence.");
+            //Random
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_COMMON, "Summon Common Random Animal", "Foliot", "Summons a common random passive animal. (Possibilities: chicken, cow, pig, sheep, squid, wolf)");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_WATER, "Summon Water Random Animal", "Foliot", "Summons a Water random passive animal. (Possibilities: axolotl, frog, dolphin, cod, salmon, tropical fish, pufferfish, squid, glow squid, tadpole, turtle, snow golem)");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SMALL, "Summon Small Random Animal", "Foliot", "Summons a small random passive animal. (Possibilities: allay, bat, bee, parrot, cat, ocelot, fox, rabbit)");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SPECIAL, "Summon Special Random Animal", "Djinni", "Summons a special random passive animal. (Possibilities: armadillo, mooshroom, panda, polar bear, goat, iron golem, sniffer)");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_RIDEABLE, "Summon Rideable Random Animal", "Djinni", "Summons a rideable random passive animal. (Possibilities: pig, camel, donkey, horse, skeleton horse, zombie horse, llama, trader llama, mule, strider)");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_VILLAGER, "Summon Villager", "Djinni", "Summons a villager or wandering Trader.");
+        //CRAFT
+            //Tools
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_INFUSED_LENSES, "Craft Infused Lenses", "Foliot", "These lenses are used to craft spectacles that give thee ability to see beyond the physical world.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_INFUSED_PICKAXE, "Craft Infused Pickaxe", "Djinni", "Infuse a Pickaxe to mine otherworld ores.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_SATCHEL, "Craft Surprisingly Substantial Satchel", "Foliot", "This satchels allows to store more items than it's size would indicate, making it a practical traveller's companion.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1, "Craft Apprentice Ritual Satchel", "Foliot", "Binds a Foliot into a satchel to build pentacles step-by-step for the summoner.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "Craft Artisanal Ritual Satchel", "Afrit", "Binds an Afrit into a satchel to build pentacles all at once for the summoner.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_SOUL_GEM, "Craft Soul Gem", "Djinni", "The Soul Gem allows the temporary storage of living beings.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_FAMILIAR_RING, "Craft Familiar Ring", "Djinni", "The Familiar Ring allows to store familiars. The ring will apply the familiar effect to the wearer.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF, "Craft True Sight Staff", "Marid", "The true sight staff give abilities to find, see and interact with the otherworld.");
+            //Miners
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DIMENSIONAL_MINESHAFT, "Craft Dimensional Mineshaft", "Djinni", "Allows miner spirits to enter the mining dimension and bring back resources.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_MINER_FOLIOT_UNSPECIALIZED, "Infuse Foliot Miner", "Foliot", "Summon Foliot Miner into a magic lamp.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_MINER_DJINNI_ORES, "Infuse Djinni Ore Miner", "Djinni", "Summon Djinni Ore Miner into a magic lamp.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_MINER_AFRIT_DEEPS, "Infuse Afrit Deep Ore Miner", "Afrit", "Summon Afrit Deep Ore Miner into a magic lamp.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_MINER_MARID_MASTER, "Infuse Marid Master Miner", "Marid", "Summon Marid Master Miner into a magic lamp.");
+            //Storage
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STORAGE_CONTROLLER_BASE, "Craft Storage Actuator Base", "Foliot", "The Storage Actuator Base imprisons a Foliot responsible for interacting with items in a dimensional storage matrix.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DIMENSIONAL_MATRIX, "Craft Dimensional Matrix", "Djinni", "The Dimensional Matrix is the entry point to a small dimension used for storing items.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER1, "Craft Storage Stabilizer Tier 1", "Foliot", "The Storage Stabilizer allows to store more items in the dimensional storage accessor.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER2, "Craft Storage Stabilizer Tier 2", "Djinni", "The Storage Stabilizer allows to store more items in the dimensional storage accessor.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER3, "Craft Storage Stabilizer Tier 3", "Afrit", "The Storage Stabilizer allows to store more items in the dimensional storage accessor.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER4, "Craft Storage Stabilizer Tier 4", "Marid", "The Storage Stabilizer allows to store more items in the dimensional storage accessor.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABLE_WORMHOLE, "Craft Stable Wormhole", "Foliot", "The Stable Wormhole allows access to a dimensional matrix from a remote destination.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STORAGE_REMOTE, "Craft Storage Accessor", "Djinni", "The Storage Accessor can be linked to a Storage Actuator to remotely access items.");
+            //Materials
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_RESEARCH_FRAGMENT_DUST, "Craft Research Fragment Dust", "Foliot", "A Foliot will infuse experience in the emerald dust.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_NATURE_PASTE, "Craft Nature Paste", "Foliot", "A Foliot will craft the nature paste mixing ingredients.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_GRAY_PASTE, "Craft Gray Paste", "Djinni", "A Djinni will craft the gray paste mixing ingredients.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_WITHERITE_DUST, "Craft Witherite Dust", "Afrit", "An Afrit will infuse netherite dust with wither essence.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DRAGONYST_DUST, "Craft Dragonyst Dust", "Marid", "A Marid will infuse ender dragon essence in the amethyst dust.");
+            //Extras
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL, "Craft Iesnium Sacrificial Bowl", "Afrit", "The Iesnium Sacrificial Bowl performs any ritual in only a quarter of the normal time. All other things will works like the Golden Sacrificial Bowl.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL, "Craft Iesnium Anvil", "Marid", "The iesnium anvil is an improvement on the common anvil, see all the advantages in the dictionary.");
+            //Repair
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_REPAIR_CHALKS, "Repair Chalk", "Djinni", "Fully repair chalk by infusing it with a Djinni.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_REPAIR_TOOLS, "Repair Tool", "Afrit", "Fully repair a tool by infusing it with an Afrit.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_REPAIR_ARMORS, "Repair Armor", "Afrit", "Fully repair armor by infusing it with an Afrit.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_REPAIR_MINERS, "Repair Miner", "Afrit", "Extend a Miner's contract by striking a deal with an Afrit.");
+        //MISC
+            //Resurrect
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_RESURRECT_FAMILIAR, "Resurrect Familiar", "Familiar", "Resurrects a Familiar from a Soul Shard.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_RESURRECT_ALLAY, "Purify Vex to Allay", "Familiar", "Purifies a Vex into an Allay through resurrection.");
+            //Wild
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_HUNT, "Invoke The Wild Hunt", "Wild", "The Wild Hunt consists of Wither Skeletons that as a big chance to drop Wither Skeleton Skulls, and their minions.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_CREEPER, "Invoke a Horde of Creeper", "Wild", "The Wild Horde Creeper consists of a few charged creepers that drop many disks.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_DROWNED, "Invoke a Horde of Drowned", "Wild", "The Wild Horde Drowned consists of a few drowneds that drop items related to ocean trails.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_HUSK, "Invoke a Horde of Husk", "Wild", "The Wild Horde Husk consists of a few husks that drop items related to desert trails.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_SILVERFISH, "Invoke a Horde of Silverfish", "Wild", "The Wild Horde Silverfish consists of a few silverfishs that drop items related to ruins trails.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_WEAK_BREEZE, "Invoke Wild Weak Breeze", "Wild", "The Wild Weak Breeze will drop a Trial Key and trial chamber related items.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_BREEZE, "Invoke Wild Breeze", "Wild", "The Wild Breeze will drop a Ominous Trial Key and trial chamber related items.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_STRONG_BREEZE, "Invoke Wild Strong Breeze", "Wild", "The Wild Strong Breeze will drop a Heavy Core and trial chamber related items.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_ILLAGER, "Invoke Wild Illagers", "Wild", "Summon a Wild Evoker and his henchmen.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_COMMON, "Invoke Common Random Animal Group", "Wild", "Summons a group of common random passive animal. (Possibilities: chicken, cow, pig, sheep, squid, wolf)");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_WATER, "Invoke Water Random Animal Group", "Wild", "Summons a group of Water random passive animal. (Possibilities: axolotl, frog, dolphin, cod, salmon, tropical fish, pufferfish, squid, glow squid, tadpole, turtle, snow golem)");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SMALL, "Invoke Small Random Animal Group", "Wild", "Summons a group of small random passive animal. (Possibilities: allay, bat, bee, parrot, cat, ocelot, fox, rabbit)");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_RIDEABLE, "Invoke Special Random Animal Group", "Wild", "Summons a group of special random passive animal. (Possibilities: armadillo, mooshroom, panda, polar bear, goat, iron golem, sniffer)");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SPECIAL, "Invoke Rideable Random Animal Group", "Wild", "Summons a group of rideable random passive animal. (Possibilities: pig, camel, donkey, horse, skeleton horse, zombie horse, llama, trader llama, mule, strider)");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_VILLAGER, "Invoke Villager Group", "Wild", "Summons a group of villager and wandering Trader.");
+            //Forge
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_BEE_NEST, "Forge Bee Nest", "Wild", "Wild Spirits will forge a bee nest, more beautiful than beehive.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_BELL, "Forge Bell", "Wild", "Wild Spirits will forge a bell.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "Forge Budding Amethyst", "Wild", "Wild Spirits will forge a Budding Amethyst.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_WILD_TRIM, "Forge Wild Armor Trim Smithing Template", "Wild", "Wild Spirits will forge a Wild Armor Trim Smithing Template.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "Forge Reinforced Deepslate", "Wild", "Wild Spirits will forge a Reinforced Deepslate.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE, "Forge Eldritch Chalice", "Eldritch", "Eldritch Spirits will forge an Eldritch Chalice, that performs any ritual instantly. Here is your trophy.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_RAINBOW, "Forge Rainbow Chalk", "Eldritch", "Eldritch Spirits will forge a rainbow chalk, substitute any colored chalk.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_VOID, "Forge Void Chalk", "Eldritch", "Eldritch Spirits will forge a rainbow chalk, substitute any chalk.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_TRINITY_GEM, "Forge Trinity Gem", "Eldritch", "Eldritch Spirits will forge a trinity gem, upgrading a soul gem.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE, "Forge Stabilized Dimensional Storage Actuator", "Eldritch", "Eldritch Spirits will forge a Stabilized Dimensional Storage Actuator, works as an actuator with maximum stabilizers in only one block.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_MINER_ANCIENT_ELDRITCH, "Infuse Eldritch Ancient Miner", "Eldritch", "Summon Eldritch Ancient Miner into a magic lamp.");
+    }
 
-        this.add("item.occultism.ritual_dummy.craft_miner_djinni_ores", "Ritual: Summon Djinni Ore Miner");
-        this.add("item.occultism.ritual_dummy.craft_miner_djinni_ores.tooltip", "Summon Djinni Ore Miner into a magic lamp.");
-        this.add("item.occultism.ritual_dummy.craft_miner_foliot_unspecialized", "Ritual: Summon Foliot Miner");
-        this.add("item.occultism.ritual_dummy.craft_miner_foliot_unspecialized.tooltip", "Summon Foliot Miner into a magic lamp.");
-        this.add("item.occultism.ritual_dummy.craft_miner_afrit_deeps", "Ritual: Summon Afrit Deep Ore Miner");
-        this.add("item.occultism.ritual_dummy.craft_miner_afrit_deeps.tooltip", "Summon Afrit Deep Ore Miner into a magic lamp.");
-        this.add("item.occultism.ritual_dummy.craft_miner_marid_master", "Ritual: Summon Marid Master Miner");
-        this.add("item.occultism.ritual_dummy.craft_miner_marid_master.tooltip", "Summon Marid Master Miner into a magic lamp.");
-
-        this.add("item.occultism.ritual_dummy.craft_satchel", "Ritual: Craft Surprisingly Substantial Satchel");
-        this.add("item.occultism.ritual_dummy.craft_satchel.tooltip", "This satchels allows to store more items than it's size would indicate, making it a practical traveller's companion.");
-        this.add("item.occultism.ritual_dummy.craft_soul_gem", "Ritual: Craft Soul Gem");
-        this.add("item.occultism.ritual_dummy.craft_soul_gem.tooltip", "The Soul Gem allows the temporary storage of living beings. ");
-        this.add("item.occultism.ritual_dummy.craft_familiar_ring", "Ritual: Craft Familiar Ring");
-        this.add("item.occultism.ritual_dummy.craft_familiar_ring.tooltip", "The Familiar Ring allows to store familiars. The ring will apply the familiar effect to the wearer.");
-        this.add("item.occultism.ritual_dummy.craft_stabilizer_tier1", "Ritual: Craft Storage Stabilizer Tier 1");
-        this.add("item.occultism.ritual_dummy.craft_stabilizer_tier1.tooltip", "The Storage Stabilizer allows to store more items in the dimensional storage accessor.");
-        this.add("item.occultism.ritual_dummy.craft_stabilizer_tier2", "Ritual: Craft Storage Stabilizer Tier 2");
-        this.add("item.occultism.ritual_dummy.craft_stabilizer_tier2.tooltip", "The Storage Stabilizer allows to store more items in the dimensional storage accessor.");
-        this.add("item.occultism.ritual_dummy.craft_stabilizer_tier3", "Ritual: Craft Storage Stabilizer Tier 3");
-        this.add("item.occultism.ritual_dummy.craft_stabilizer_tier3.tooltip", "The Storage Stabilizer allows to store more items in the dimensional storage accessor.");
-        this.add("item.occultism.ritual_dummy.craft_stabilizer_tier4", "Ritual: Craft Storage Stabilizer Tier 4");
-        this.add("item.occultism.ritual_dummy.craft_stabilizer_tier4.tooltip", "The Storage Stabilizer allows to store more items in the dimensional storage accessor.");
-        this.add("item.occultism.ritual_dummy.craft_stable_wormhole", "Ritual: Craft Stable Wormhole");
-        this.add("item.occultism.ritual_dummy.craft_stable_wormhole.tooltip", "The Stable Wormhole allows access to a dimensional matrix from a remote destination.");
-        this.add("item.occultism.ritual_dummy.craft_storage_controller_base", "Ritual: Craft Storage Actuator Base");
-        this.add("item.occultism.ritual_dummy.craft_storage_controller_base.tooltip", "The Storage Actuator Base imprisons a Foliot responsible for interacting with items in a dimensional storage matrix.");
-        this.add("item.occultism.ritual_dummy.craft_storage_remote", "Ritual: Craft Storage Accessor");
-        this.add("item.occultism.ritual_dummy.craft_storage_remote.tooltip", "The Storage Accessor can be linked to a Storage Actuator to remotely access items.");
-        this.add("item.occultism.ritual_dummy.familiar_otherworld_bird", "Ritual: Summon Drikwing Familiar");
-        this.add("item.occultism.ritual_dummy.familiar_otherworld_bird.tooltip", "The Drikwings will provide their owner with limited flight abilities when nearby.");
-        this.add("item.occultism.ritual_dummy.familiar_parrot", "Ritual: Summon Parrot Familiar");
-        this.add("item.occultism.ritual_dummy.familiar_parrot.tooltip", "The Parrot familiars behave exactly like tamed parrots.");
-        this.add("item.occultism.ritual_dummy.familiar_greedy", "Ritual: Summon Greedy Familiar");
-        this.add("item.occultism.ritual_dummy.familiar_greedy.tooltip", "The Greedy familiars pick up items for their master. When stored in a familiar ring, they increase the pickup range (like an item magnet).");
-        this.add("item.occultism.ritual_dummy.familiar_bat", "Ritual: Summon Bat Familiar");
-        this.add("item.occultism.ritual_dummy.familiar_bat.tooltip", "The Bat familiars provide night vision to their master.");
-        this.add("item.occultism.ritual_dummy.familiar_deer", "Ritual: Summon Deer Familiar");
-        this.add("item.occultism.ritual_dummy.familiar_deer.tooltip", "The Deer familiars provide jump boost to their master.");
-        this.add("item.occultism.ritual_dummy.familiar_cthulhu", "Ritual: Summon Cthulhu Familiar");
-        this.add("item.occultism.ritual_dummy.familiar_cthulhu.tooltip", "The Cthulhu familiars provide water breathing to their master.");
-        this.add("item.occultism.ritual_dummy.familiar_devil", "Ritual: Summon Devil Familiar");
-        this.add("item.occultism.ritual_dummy.familiar_devil.tooltip", "The Devil familiars provide fire resistance to their master.");
-        this.add("item.occultism.ritual_dummy.familiar_dragon", "Ritual: Summon Dragon Familiar");
-        this.add("item.occultism.ritual_dummy.familiar_dragon.tooltip", "The Dragon familiars provide increased experience gain to their master.");
-        this.add("item.occultism.ritual_dummy.familiar_blacksmith", "Ritual: Summon Blacksmith Familiar");
-        this.add("item.occultism.ritual_dummy.familiar_blacksmith.tooltip", "The Blacksmith familiars take stone their master mines and uses it to repair equipment.");
-        this.add("item.occultism.ritual_dummy.familiar_guardian", "Ritual: Summon Guardian Familiar");
-        this.add("item.occultism.ritual_dummy.familiar_guardian.tooltip", "The Guardian familiars prevent their master's violent demise.");
-        this.add("item.occultism.ritual_dummy.familiar_headless", "Ritual: Summon Headless Ratman Familiar");
-        this.add("item.occultism.ritual_dummy.familiar_headless.tooltip", "The Headless ratman familiars increase their master's attack damage against enemies of the kind it stole the head from.");
-        this.add("item.occultism.ritual_dummy.familiar_chimera", "Ritual: Summon Chimera Familiar");
-        this.add("item.occultism.ritual_dummy.familiar_chimera.tooltip", "The Chimera familiars can be fed to grow in size and gain attack speed and damage. Once big enough, players can ride them.");
-        this.add("item.occultism.ritual_dummy.familiar_beholder", "Ritual: Summon Beholder Familiar");
-        this.add("item.occultism.ritual_dummy.familiar_beholder.tooltip", "The Beholder familiars highlight nearby entities with a glow effect and shoot laser rays at enemies.");
-        this.add("item.occultism.ritual_dummy.familiar_fairy", "Ritual: Summon Fairy Familiar");
-        this.add("item.occultism.ritual_dummy.familiar_fairy.tooltip", "The Fairy familiar keeps other familiars from dying, drains enemies of their life force and heals its master and their familiars.");
-        this.add("item.occultism.ritual_dummy.familiar_mummy", "Ritual: Summon Mummy Familiar");
-        this.add("item.occultism.ritual_dummy.familiar_mummy.tooltip", "The Mummy familiar is a martial arts expert and fights to protect their master.");
-        this.add("item.occultism.ritual_dummy.familiar_beaver", "Ritual: Summon Beaver Familiar");
-        this.add("item.occultism.ritual_dummy.familiar_beaver.tooltip", "The Beaver familiar provides increased woodcutting speed to their masters and harvests nearby trees when they grow from a sapling.");
-        this.add("item.occultism.ritual_dummy.possess_enderman", "Ritual: Summon Possessed Enderman");
-        this.add("item.occultism.ritual_dummy.possess_enderman.tooltip", "The Possessed Enderman will always drop at least one ender pearl when killed.");
-        this.add("item.occultism.ritual_dummy.possess_endermite", "Ritual: Summon Possessed Endermite");
-        this.add("item.occultism.ritual_dummy.possess_endermite.tooltip", "The Possessed Endermite drops End Stone.");
-        this.add("item.occultism.ritual_dummy.possess_skeleton", "Ritual: Summon Possessed Skeleton");
-        this.add("item.occultism.ritual_dummy.possess_skeleton.tooltip", " The Possessed Skeleton is immune to daylight and always drop at least one Skeleton Skull when killed.");
-        this.add("item.occultism.ritual_dummy.possess_ghast", "Ritual: Summon Possessed Ghast");
-        this.add("item.occultism.ritual_dummy.possess_ghast.tooltip", "The Possessed Ghast will always drop at least one ghast tear when killed.");
-        this.add("item.occultism.ritual_dummy.possess_phantom", "Ritual: Summon Possessed Phantom");
-        this.add("item.occultism.ritual_dummy.possess_phantom.tooltip", "The Possessed Phantom will always drop at least one phantom membrane when killed and is easy to trap.");
-        this.add("item.occultism.ritual_dummy.possess_weak_shulker", "Ritual: Summon Possessed Weak Shulker");
-        this.add("item.occultism.ritual_dummy.possess_weak_shulker.tooltip", "The Possessed Weak Shulker will drop at least one chorus fruit when killed and can drop shulker shell.");
-        this.add("item.occultism.ritual_dummy.possess_shulker", "Ritual: Summon Possessed Shulker");
-        this.add("item.occultism.ritual_dummy.possess_shulker.tooltip", "The Possessed Shulker will always drop at least one shulker shell when killed.");
-        this.add("item.occultism.ritual_dummy.possess_elder_guardian", "Ritual: Summon Possessed Elder Guardian");
-        this.add("item.occultism.ritual_dummy.possess_elder_guardian.tooltip", "The Possessed Elder Guardian will drop at least one nautilus shell when killed, also can drop heart of the sea and the commom drops.");
-        this.add("item.occultism.ritual_dummy.possess_warden", "Ritual: Summon Possessed Warden");
-        this.add("item.occultism.ritual_dummy.possess_warden.tooltip", "The Possessed Warden will always drop at least six echo shard and can drop anothers ancient stuff (smithing templates and discs) when killed.");
-        this.add("item.occultism.ritual_dummy.possess_hoglin", "Ritual: Summon Possessed Hoglin");
-        this.add("item.occultism.ritual_dummy.possess_hoglin.tooltip", "The Possessed Hoglin has a chance to drop smithing template of netherite upgrade when killed.");
-        this.add("item.occultism.ritual_dummy.possess_witch", "Ritual: Summon Possessed Witch");
-        this.add("item.occultism.ritual_dummy.possess_witch.tooltip", "The Possessed Witch will drop a special filled bottle.");
-        this.add("item.occultism.ritual_dummy.possess_zombie_piglin", "Ritual: Summon Possessed Zombified Piglin");
-        this.add("item.occultism.ritual_dummy.possess_zombie_piglin.tooltip", "The Possessed Zombified Piglin will drop demonic meat.");
-        this.add("item.occultism.ritual_dummy.possess_bee", "Ritual: Summon Possessed Bee");
-        this.add("item.occultism.ritual_dummy.possess_bee.tooltip", "The Possessed Bee will drop cursed honey.");
-        this.add("item.occultism.ritual_dummy.possess_goat", "Ritual: Summon Goat of Mercy");
-        this.add("item.occultism.ritual_dummy.possess_goat.tooltip", "The Goat of Mercy will drop the Cruelty Essence.");
-        this.add("item.occultism.ritual_dummy.summon_afrit_rain_weather", "Ritual: Rainy Weather");
-        this.add("item.occultism.ritual_dummy.summon_afrit_rain_weather.tooltip", "Summons an Afrit that creates rain.");
-        this.add("item.occultism.ritual_dummy.summon_afrit_thunder_weather", "Ritual: Thunderstorm");
-        this.add("item.occultism.ritual_dummy.summon_afrit_thunder_weather.tooltip", "Summons an Afrit that creates a thunderstorm.");
-        this.add("item.occultism.ritual_dummy.summon_djinni_clear_weather", "Ritual: Clear Weather");
-        this.add("item.occultism.ritual_dummy.summon_djinni_clear_weather.tooltip", "Summons a Djinni that clears the weather.");
-        this.add("item.occultism.ritual_dummy.summon_djinni_day_time", "Ritual: Summoning of Dawn");
-        this.add("item.occultism.ritual_dummy.summon_djinni_day_time.tooltip", "Summons a Djinni that sets the time to high noon.");
-        this.add("item.occultism.ritual_dummy.summon_djinni_manage_machine", "Ritual: Summon Djinni Machine Operator");
-        this.add("item.occultism.ritual_dummy.summon_djinni_manage_machine.tooltip", "The Machine Operator automatically transfers items between dimensional storage systems and connected inventories and machines.");
-        this.add("item.occultism.ritual_dummy.summon_djinni_night_time", "Ritual: Summoning of Dusk");
-        this.add("item.occultism.ritual_dummy.summon_djinni_night_time.tooltip", "Summons a Djinni that sets the time to midnight.");
-        this.add("item.occultism.ritual_dummy.summon_foliot_lumberjack", "Ritual: Summon Foliot Lumberjack");
-        this.add("item.occultism.ritual_dummy.summon_foliot_lumberjack.tooltip", "The Lumberjack will harvest trees in it's working area and deposit the dropped items into the specified chest.");
-        this.add("item.occultism.ritual_dummy.summon_foliot_otherstone_trader", "Ritual: Summon Otherstone Trader");
-        this.add("item.occultism.ritual_dummy.summon_foliot_otherstone_trader.tooltip", "The Otherstone Trader trades normal stone for otherstone.");
-        this.add("item.occultism.ritual_dummy.summon_foliot_sapling_trader", "Ritual: Summon Otherworld Sapling Trader");
-        this.add("item.occultism.ritual_dummy.summon_foliot_sapling_trader.tooltip", "The Otherworld Sapling Trader trades natural otherworld saplings for stable ones, that can be harvested without the third eye.");
-        this.add("item.occultism.ritual_dummy.summon_foliot_transport_items", "Ritual: Summon Foliot Transporter");
-        this.add("item.occultism.ritual_dummy.summon_foliot_transport_items.tooltip", "The transporter will move all items it can access from one inventory to another, including machines.");
-        this.add("item.occultism.ritual_dummy.summon_foliot_cleaner", "Ritual: Summon Foliot Janitor");
-        this.add("item.occultism.ritual_dummy.summon_foliot_cleaner.tooltip", "The Janitor will pick up dropped items and deposit them into a target inventory.");
-        this.add("item.occultism.ritual_dummy.summon_unbound_afrit", "Ritual: Summon Unbound Afrit");
-        this.add("item.occultism.ritual_dummy.summon_unbound_afrit.tooltip", "Summons an Unbound Afrit that can be killed to obtain Afrit Essence");
-        this.add("item.occultism.ritual_dummy.summon_unbound_marid", "Ritual: Summon Unbound Marid");
-        this.add("item.occultism.ritual_dummy.summon_unbound_marid.tooltip", "Summons an Unbound Marid that can be killed to obtain Marid Essence");
-        this.add("item.occultism.ritual_dummy.possess_unbound_otherworld_bird", "Ritual: Possess Unbound Drikwing");
-        this.add("item.occultism.ritual_dummy.possess_unbound_otherworld_bird.tooltip", "Possess a Drikwing Familiar that can be tamed by anyone, not just the summoner.");
-        this.add("item.occultism.ritual_dummy.possess_unbound_parrot", "Ritual: Possess Unbound Parrot");
-        this.add("item.occultism.ritual_dummy.possess_unbound_parrot.tooltip", "Possess a Parrot that can be tamed by anyone, not just the summoner.");
-
-        this.add("item.occultism.ritual_dummy.craft_nature_paste", "Ritual: Craft Nature Paste");
-        this.add("item.occultism.ritual_dummy.craft_nature_paste.tooltip", "A Foliot will craft the nature paste mixing ingredients.");
-        this.add("item.occultism.ritual_dummy.craft_gray_paste", "Ritual: Craft Gray Paste");
-        this.add("item.occultism.ritual_dummy.craft_gray_paste.tooltip", "A Djinni will craft the gray paste mixing ingredients.");
-        this.add("item.occultism.ritual_dummy.craft_research_fragment_dust", "Ritual: Craft Research Fragment Dust");
-        this.add("item.occultism.ritual_dummy.craft_research_fragment_dust.tooltip", "A Foliot will infuse experience in the emerald dust.");
-        this.add("item.occultism.ritual_dummy.craft_witherite_dust", "Ritual: Craft Witherite Dust");
-        this.add("item.occultism.ritual_dummy.craft_witherite_dust.tooltip", "An Afrit will infuse netherite dust with wither essence.");
-        this.add("item.occultism.ritual_dummy.craft_dragonyst_dust", "Ritual: Craft Dragonyst Dust");
-        this.add("item.occultism.ritual_dummy.craft_dragonyst_dust.tooltip", "A Marid will infuse ender dragon essence in the amethyst dust.");
-
-        this.add("item.occultism.ritual_dummy.repair_chalks", "Ritual: Repair Chalk");
-        this.add("item.occultism.ritual_dummy.repair_chalks.tooltip", "Fully repair chalk by infusing it with a Djinni.");
-        this.add("item.occultism.ritual_dummy.repair_tools", "Ritual: Repair Tool");
-        this.add("item.occultism.ritual_dummy.repair_tools.tooltip", "Fully repair a tool by infusing it with an Afrit.");
-        this.add("item.occultism.ritual_dummy.repair_armors", "Ritual: Repair Armor");
-        this.add("item.occultism.ritual_dummy.repair_armors.tooltip", "Fully repair armor by infusing it with an Afrit.");
-        this.add("item.occultism.ritual_dummy.repair_miners", "Ritual: Repair Miner");
-        this.add("item.occultism.ritual_dummy.repair_miners.tooltip", "Extend a Miner's contract by striking a deal with an Afrit.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRUSHER.get(), "Ritual: Summon Foliot Crusher");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRUSHER.get(), "The crusher is a spirit summoned to crush ores into dusts, effectively doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
-        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRUSHER.get(), "Ritual: Summon Djinni Crusher");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRUSHER.get(), "The crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
-        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRUSHER.get(), "Ritual: Summon Afrit Crusher");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRUSHER.get(), "The crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
-        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRUSHER.get(), "Ritual: Summon Marid Crusher");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRUSHER.get(), "The crusher is a spirit summoned to crush ores into dusts, effectively (more than) doubling the metal output.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crushers.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER.get(), "Ritual: Summon Foliot Smelter");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER.get(), "The smelter is a spirit summoned to make furnace recipes without using fuel.");
-        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER.get(), "Ritual: Summon Djinni Smelter");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER.get(), "The smelter is a spirit summoned to make furnace recipes without using fuel.");
-        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER.get(), "Ritual: Summon Afrit Smelter");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER.get(), "The smelter is a spirit summoned to make furnace recipes without using fuel.");
-        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER.get(), "Ritual: Summon Marid Smelter");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER.get(), "The smelter is a spirit summoned to make furnace recipes without using fuel.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Ritual: Summon Demonic Wife");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE.get(), "Summons a Demonic Wife to support you: She will fight for you, help with cooking, and extend potion durations.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND.get(), "Ritual: Summon Demonic Husband");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND.get(), "Summons a Demonic Husband to support you: He will fight for you, help with cooking, and extend potion durations.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_COMMON.get(), "Ritual: Summon Common Random Animal");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_COMMON.get(), "Summons a common random passive animal. (Possibilities: chicken, cow, pig, sheep, squid, wolf)");
-        this.add(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_WATER.get(), "Ritual: Summon Water Random Animal");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_WATER.get(), "Summons a Water random passive animal. (Possibilities: axolotl, frog, dolphin, cod, salmon, tropical fish, pufferfish, squid, glow squid, tadpole, turtle, snow golem)");
-        this.add(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SMALL.get(), "Ritual: Summon Small Random Animal");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SMALL.get(), "Summons a small random passive animal. (Possibilities: allay, bat, bee, parrot, cat, ocelot, fox, rabbit)");
-        this.add(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SPECIAL.get(), "Ritual: Summon Special Random Animal");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SPECIAL.get(), "Summons a special random passive animal. (Possibilities: armadillo, mooshroom, panda, polar bear, goat, iron golem, sniffer)");
-        this.add(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_RIDEABLE.get(), "Ritual: Summon Rideable Random Animal");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_RIDEABLE.get(), "Summons a rideable random passive animal. (Possibilities: pig, camel, donkey, horse, skeleton horse, zombie horse, llama, trader llama, mule, strider)");
-        this.add(OccultismItems.RITUAL_DUMMY_POSSESS_VILLAGER.get(), "Ritual: Summon Villager");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_VILLAGER.get(), "Summons a villager or wandering Trader.");
-        this.add(OccultismItems.RITUAL_DUMMY_POSSESS_IESNIUM_GOLEM.get(), "Ritual: Summon Iesnium Golem");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_POSSESS_IESNIUM_GOLEM.get(), "Summons the strong and invulnerable iesnium golem to defend a region.");
-        this.add(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1.get(), "Ritual: Craft Apprentice Ritual Satchel");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1.get(), "Binds a Foliot into a satchel to build pentacles step-by-step for the summoner.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2.get(), "Ritual: Craft Artisanal Ritual Satchel");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2.get(), "Binds an Afrit into a satchel to build pentacles all at once for the summoner.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL.get(), "Ritual: Craft Iesnium Sacrificial Bowl");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL.get(), "The Iesnium Sacrificial Bowl performs any ritual in only a quarter of the normal time. All other things will works like the Golden Sacrificial Bowl.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL.get(), "Ritual: Craft Iesnium Anvil");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL.get(), "The iesnium anvil is an improvement on the common anvil, see all the advantages in the dictionary.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF.get(), "Ritual: Craft True Sight Staff");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF.get(), "The true sight staff give abilities to find, see and interact with the otherworld.");
-
-        //Misc dummy
-        this.add(OccultismItems.RITUAL_DUMMY_RESURRECT_FAMILIAR.get(), "Ritual: Resurrect Familiar");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_RESURRECT_FAMILIAR.get(), "Resurrects a Familiar from a Soul Shard.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_RESURRECT_ALLAY.get(), "Ritual: Purify Vex to Allay");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_RESURRECT_ALLAY.get(), "Purifies a Vex into an Allay.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_WILD_HUNT.get(), "Ritual: Summon The Wild Hunt");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_HUNT.get(), "The Wild Hunt consists of Wither Skeletons that as a big chance to drop Wither Skeleton Skulls, and their minions.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_WILD_HUSK.get(), "Ritual: Summon The Wild Horde Husk");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_HUSK.get(), "The Wild Horde Husk consists of a few husks that drop items related to desert trails.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_WILD_DROWNED.get(), "Ritual: Summon The Wild Horde Drowned");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_DROWNED.get(), "The Wild Horde Drowned consists of a few drowneds that drop items related to ocean trails.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_WILD_CREEPER.get(), "Ritual: Summon The Wild Horde Creeper");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_CREEPER.get(), "The Wild Horde Creeper consists of a few charged creepers that drop many disks.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_WILD_SILVERFISH.get(), "Ritual: Summon The Wild Horde Silverfish");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_SILVERFISH.get(), "The Wild Horde Silverfish consists of a few silverfishs that drop items related to ruins trails.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_WILD_WEAK_BREEZE.get(), "Ritual: Summon Wild Weak Breeze");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_WEAK_BREEZE.get(), "The Wild Weak Breeze will drop a Trial Key and trial chamber related items.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_WILD_BREEZE.get(), "Ritual: Summon Wild Breeze");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_BREEZE.get(), "The Wild Breeze will drop a Ominous Trial Key and trial chamber related items.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_WILD_STRONG_BREEZE.get(), "Ritual: Summon Wild Strong Breeze");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_STRONG_BREEZE.get(), "The Wild Strong Breeze will drop a Heavy Core and trial chamber related items.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_WILD_ILLAGER.get(), "Ritual: Summon Wild Illagers");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_ILLAGER.get(), "Summon a Wild Evoker and his henchmen.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_COMMON.get(), "Ritual: Summon Common Random Animal Group");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_COMMON.get(), "Summons a group of common random passive animal. (Possibilities: chicken, cow, pig, sheep, squid, wolf)");
-        this.add(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_WATER.get(), "Ritual: Summon Water Random Animal Group");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_WATER.get(), "Summons a group of Water random passive animal. (Possibilities: axolotl, frog, dolphin, cod, salmon, tropical fish, pufferfish, squid, glow squid, tadpole, turtle, snow golem)");
-        this.add(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SMALL.get(), "Ritual: Summon Small Random Animal Group");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SMALL.get(), "Summons a group of small random passive animal. (Possibilities: allay, bat, bee, parrot, cat, ocelot, fox, rabbit)");
-        this.add(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SPECIAL.get(), "Ritual: Summon Special Random Animal Group");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SPECIAL.get(), "Summons a group of special random passive animal. (Possibilities: armadillo, mooshroom, panda, polar bear, goat, iron golem, sniffer)");
-        this.add(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_RIDEABLE.get(), "Ritual: Summon Rideable Random Animal Group");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_RIDEABLE.get(), "Summons a group of rideable random passive animal. (Possibilities: pig, camel, donkey, horse, skeleton horse, zombie horse, llama, trader llama, mule, strider)");
-        this.add(OccultismItems.RITUAL_DUMMY_WILD_VILLAGER.get(), "Ritual: Summon Villager Group");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_WILD_VILLAGER.get(), "Summons a group of villager and wandering Trader.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_FORGE_WILD_TRIM.get(), "Ritual: Forge Wild Armor Trim Smithing Template");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_WILD_TRIM.get(), "Wild Spirits will forge a Wild Armor Trim Smithing Template.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST.get(), "Ritual: Forge Budding Amethyst");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST.get(), "Wild Spirits will forge a Budding Amethyst.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE.get(), "Ritual: Forge Reinforced Deepslate");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE.get(), "Wild Spirits will forge a Reinforced Deepslate.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_FORGE_BEE_NEST.get(), "Ritual: Forge Bee Nest");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_BEE_NEST.get(), "Wild Spirits will forge a bee nest, more beautiful than beehive.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_FORGE_BELL.get(), "Ritual: Forge Bell");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_BELL.get(), "Wild Spirits will forge a bell.");
-
-
-        this.add(OccultismItems.RITUAL_DUMMY_FORGE_MINER_ANCIENT_ELDRITCH.get(), "Ritual: Summon Eldritch Ancient Miner");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_MINER_ANCIENT_ELDRITCH.get(), "Summon Eldritch Ancient Miner into a magic lamp.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE.get(), "Ritual: Forge Eldritch Chalice");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE.get(), "Eldritch Spirits will forge an Eldritch Chalice, that performs any ritual instantly. Here is your trophy.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE.get(), "Ritual: Forge Stabilized Dimensional Storage Actuator");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE.get(), "Eldritch Spirits will forge a Stabilized Dimensional Storage Actuator, works as an actuator with maximum stabilizers in only one block.");
-
-        this.add(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_RAINBOW.get(), "Ritual: Forge Rainbow Chalk");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_RAINBOW.get(), "Eldritch Spirits will forge a rainbow chalk, substitute any colored chalk.");
-        this.add(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_VOID.get(), "Ritual: Forge Void Chalk");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_VOID.get(), "Eldritch Spirits will forge a rainbow chalk, substitute any chalk.");
-        this.add(OccultismItems.RITUAL_DUMMY_FORGE_TRINITY_GEM.get(), "Ritual: Forge Trinity Gem");
-        this.addTooltip(OccultismItems.RITUAL_DUMMY_FORGE_TRINITY_GEM.get(), "Eldritch Spirits will forge a trinity gem, upgrading a soul gem.");
-
+    public void autoDummyFactory(DeferredItem<Item> dummy, String name, String tier, String description) {
+        this.add(dummy.get(), "Ritual: " + name);
+        this.addTooltip(dummy.get(), description);
+        this.addAutoTooltip(dummy.get(), "Tier: " + tier);
+        this.addRitualMessage(dummy, "conditions", "Not all requirements for this ritual are met.");
+        this.addRitualMessage(dummy, "started", "Starting the ritual: " + name +".");
+        this.addRitualMessage(dummy, "finished", "Ritual completed successfully: " + name +".");
+        this.addRitualMessage(dummy, "interrupted", "Interruption in the ritual: " + name +".");
     }
 
     public void addTooltip(ItemLike key, String value) {
