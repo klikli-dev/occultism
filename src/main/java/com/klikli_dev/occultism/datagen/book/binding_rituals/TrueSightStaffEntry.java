@@ -28,7 +28,7 @@ public class TrueSightStaffEntry extends EntryProvider {
         this.pageText("""
                          The [](item://occultism:true_sight_staff) employs an {0} to assist the summoner in tasks of finding and interacting with the otherworld.
                          Unlike {1} in the otherworld goggles, which can only provide vision, with this staff in the off-hand or curio slot, the occultist can collect otherworld materials.
-                         The divining rod's search abilities still work the same.
+                         The divining rod's search abilities receive an upgrade, now is possible locate any block.
                          
                         """,
                 this.color("Marid", ChatFormatting.DARK_PURPLE),

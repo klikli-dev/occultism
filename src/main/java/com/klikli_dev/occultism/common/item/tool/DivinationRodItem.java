@@ -30,6 +30,7 @@ import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSetDivinationResult;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.ChatFormatting;
@@ -84,7 +85,7 @@ public class DivinationRodItem extends Item {
         if (player.isShiftKeyDown()) {
             BlockState state = level.getBlockState(pos);
             if (!state.isAir()) {
-                Block block = this.getOtherBlock(state, player.isCreative());
+                Block block = this.getOtherBlock(state, player.isCreative(), stack);
                 if (block != null) {
                     if (!level.isClientSide) {
                         String translationKey =
@@ -216,7 +217,7 @@ public class DivinationRodItem extends Item {
         super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
     }
 
-    public Block getOtherBlock(BlockState state, boolean isCreative) {
+    public Block getOtherBlock(BlockState state, boolean isCreative, ItemStack stack) {
         //otherstone ore is linked to andesite.
         if (state.getBlock() == Blocks.ANDESITE || state.getBlock() == OccultismBlocks.OTHERSTONE_NATURAL.get()
                 || state.getBlock() == OccultismBlocks.OTHERSTONE.get()) {
@@ -260,8 +261,8 @@ public class DivinationRodItem extends Item {
                 }
             }
         }
-        //In creative allow to find the clicked block
-        return isCreative ? state.getBlock() : null;
+        //In creative or true sight staff allow to find the clicked block
+        return isCreative || stack.is(OccultismItems.TRUE_SIGHT_STAFF)  ? state.getBlock() : null;
     }
 
     /**
