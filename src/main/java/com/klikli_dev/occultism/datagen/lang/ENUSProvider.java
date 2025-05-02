@@ -1999,7 +1999,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         \\
                         \\
                         **Upgrade Behaviour**\\
-                        Cannot be upgraded by the blacksmith familiar.
+                        Increase number of jumps and change the slow fall to immunity to fall damage.
                             """.formatted(COLOR_PURPLE));
 
         helper.page("description2");

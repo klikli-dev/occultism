@@ -38,6 +38,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -263,5 +264,23 @@ public class FamiliarEventHandler {
             return;
 
         event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
+    }
+
+    @SubscribeEvent
+    public static void safeFall(LivingIncomingDamageEvent event) {
+        LivingEntity entity = event.getEntity();
+
+        if (!(entity instanceof Player))
+            return;
+
+        DamageSource source = event.getSource();
+
+        if (!source.is(DamageTypeTags.IS_FALL) && !source.is(DamageTypes.FLY_INTO_WALL))
+            return;
+
+        if (!FamiliarUtil.hasFamiliar(entity, OccultismEntities.OTHERWORLD_BIRD_TYPE.get(), OtherworldBirdEntity::hasBlacksmithUpgrade))
+            return;
+
+        event.setCanceled(true);
     }
 }
