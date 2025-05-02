@@ -90,7 +90,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
 
     @Override
     protected void dropFromLootTable(DamageSource pDamageSource, boolean pAttackedRecently) {
-        if (this.getFamiliarEntity() instanceof GuardianFamiliarEntity)
+        if (this.getFamiliarEntity() instanceof GuardianFamiliarEntity || this.getFamiliarEntity() instanceof HeadlessFamiliarEntity)
             return;
 
         super.dropFromLootTable(pDamageSource, pAttackedRecently);

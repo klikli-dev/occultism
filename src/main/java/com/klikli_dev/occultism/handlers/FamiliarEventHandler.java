@@ -49,6 +49,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.living.EnderManAngerEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
@@ -160,7 +161,7 @@ public class FamiliarEventHandler {
 
     @SubscribeEvent
     public static void livingDamageEvent(LivingIncomingDamageEvent event) {
-        if (!(event.getEntity() instanceof Player player))
+        if (!(event.getSource().getEntity() instanceof Player player))
             return;
 
         if (!FamiliarUtil.isFamiliarEnabled(player, OccultismEntities.HEADLESS_FAMILIAR.get()))
@@ -172,7 +173,19 @@ public class FamiliarEventHandler {
                 h -> h.getHeadType() == headType))
             return;
 
-        event.setAmount(event.getAmount() * 1.3f);
+        event.setAmount(event.getAmount() * 2f);
+    }
+
+    @SubscribeEvent
+    public static void headlessEndermanEvent(EnderManAngerEvent event) {
+
+        if (!FamiliarUtil.isFamiliarEnabled(event.getPlayer(), OccultismEntities.HEADLESS_FAMILIAR.get()))
+            return;
+
+        if (!FamiliarUtil.hasFamiliar(event.getPlayer(), OccultismEntities.HEADLESS_FAMILIAR.get(), FamiliarEntity::hasBlacksmithUpgrade))
+            return;
+
+        event.setCanceled(true);
     }
 
     private static void headlessStealHead(LivingDeathEvent event) {

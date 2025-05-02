@@ -538,13 +538,18 @@ public class FamiliarRitualsCategory extends CategoryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
 
+        this.context().page("description2");
+        var description2 = BookTextPageModel.create()
+                .withText(this.context().pageText());
+
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(this.modLoc("textures/gui/book/familiar_headless_ratman.png"))
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         entity,
                         ritual,
-                        description
+                        description,
+                        description2
                 );
     }
 

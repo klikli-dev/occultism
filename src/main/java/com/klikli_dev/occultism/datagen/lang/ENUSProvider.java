@@ -1952,7 +1952,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Upgrade Behaviour**\\
-                        When upgraded by a blacksmith familiar, it will give weakness to nearby mobs of the type it stole the head from.
+                        When upgraded by a blacksmith familiar, it will give weakness to nearby mobs of the type it stole the head from. And the owner will not make the Enderman angry by looking into his eyes.
                            """.formatted(COLOR_PURPLE));
 
 

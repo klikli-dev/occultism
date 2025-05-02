@@ -247,11 +247,30 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
                 builder.put(EntityType.PLAYER, DefaultPlayerSkin.getDefaultTexture());
                 builder.put(EntityType.SKELETON, ResourceLocation.parse("textures/entity/skeleton/skeleton.png"));
                 builder.put(EntityType.WITHER_SKELETON, ResourceLocation.parse("textures/entity/skeleton/wither_skeleton.png"));
+                builder.put(EntityType.STRAY, ResourceLocation.parse("textures/entity/skeleton/stray.png"));
+                builder.put(EntityType.BOGGED, ResourceLocation.parse("textures/entity/skeleton/bogged_overlay.png"));
                 builder.put(EntityType.ZOMBIE, ResourceLocation.parse("textures/entity/zombie/zombie.png"));
+                builder.put(EntityType.HUSK, ResourceLocation.parse("textures/entity/zombie/husk.png"));
+                builder.put(EntityType.DROWNED, ResourceLocation.parse("textures/entity/zombie/drowned_outer_layer.png"));
                 builder.put(EntityType.CREEPER, ResourceLocation.parse("textures/entity/creeper/creeper.png"));
                 builder.put(EntityType.SPIDER, ResourceLocation.parse("textures/entity/spider/spider.png"));
+                builder.put(EntityType.CAVE_SPIDER, ResourceLocation.parse("textures/entity/spider/cave_spider.png"));
+                builder.put(EntityType.PIGLIN, ResourceLocation.parse("textures/entity/piglin/piglin.png"));
+                builder.put(EntityType.PIGLIN_BRUTE, ResourceLocation.parse("textures/entity/piglin/piglin_brute.png"));
+                builder.put(EntityType.ZOMBIFIED_PIGLIN, ResourceLocation.parse("textures/entity/piglin/zombified_piglin.png"));
+                builder.put(EntityType.BLAZE, ResourceLocation.parse("textures/entity/blaze.png"));
+                builder.put(EntityType.BREEZE, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/entity/breeze_blaze_size.png"));
+                builder.put(EntityType.ENDERMAN, ResourceLocation.parse("textures/entity/enderman/enderman.png"));
+                builder.put(EntityType.ENDER_DRAGON, ResourceLocation.parse("textures/entity/enderdragon/dragon.png"));
                 builder.put(OccultismEntities.CTHULHU_FAMILIAR.get(),
                         ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/entity/cthulhu_familiar.png"));
+                builder.put(EntityType.VILLAGER, ResourceLocation.parse("textures/entity/villager/villager.png"));
+                builder.put(EntityType.WANDERING_TRADER, ResourceLocation.parse("textures/entity/wandering_trader.png"));
+                builder.put(EntityType.ZOMBIE_VILLAGER, ResourceLocation.parse("textures/entity/zombie_villager/zombie_villager.png"));
+                builder.put(EntityType.WITCH, ResourceLocation.parse("textures/entity/witch.png"));
+                builder.put(EntityType.PILLAGER, ResourceLocation.parse("textures/entity/illager/pillager.png"));
+                builder.put(EntityType.VINDICATOR, ResourceLocation.parse("textures/entity/illager/vindicator.png"));
+                builder.put(EntityType.EVOKER, ResourceLocation.parse("textures/entity/illager/evoker.png"));
                 textures = builder.build();
             }
             return textures.get(type);
@@ -263,11 +282,30 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
                 ImmutableMap.Builder<EntityType<?>, SkullModelBase> builder = new ImmutableMap.Builder<>();
                 builder.put(EntityType.SKELETON, new SkullModel(entityModels.bakeLayer(ModelLayers.SKELETON_SKULL)));
                 builder.put(EntityType.WITHER_SKELETON, new SkullModel(entityModels.bakeLayer(ModelLayers.WITHER_SKELETON_SKULL)));
+                builder.put(EntityType.STRAY, new SkullModel(entityModels.bakeLayer(ModelLayers.SKELETON_SKULL)));
+                builder.put(EntityType.BOGGED, new OnlyHeadModel(entityModels.bakeLayer(ModelLayers.BOGGED)));
                 builder.put(EntityType.PLAYER, new SkullModel(entityModels.bakeLayer(ModelLayers.PLAYER_HEAD)));
                 builder.put(EntityType.ZOMBIE, new SkullModel(entityModels.bakeLayer(ModelLayers.ZOMBIE_HEAD)));
+                builder.put(EntityType.HUSK, new SkullModel(entityModels.bakeLayer(ModelLayers.ZOMBIE_HEAD)));
+                builder.put(EntityType.DROWNED, new OnlyHeadModel(entityModels.bakeLayer(ModelLayers.DROWNED)));
                 builder.put(EntityType.CREEPER, new SkullModel(entityModels.bakeLayer(ModelLayers.CREEPER_HEAD)));
-                builder.put(EntityType.SPIDER, new SkullModel(entityModels.bakeLayer(ModelLayers.SPIDER)));
+                builder.put(EntityType.SPIDER, new SpiderHeadModel(entityModels.bakeLayer(ModelLayers.SPIDER)));
+                builder.put(EntityType.CAVE_SPIDER, new SpiderHeadModel(entityModels.bakeLayer(ModelLayers.CAVE_SPIDER)));
+                builder.put(EntityType.PIGLIN, new SkullModel(entityModels.bakeLayer(ModelLayers.PIGLIN_HEAD)));
+                builder.put(EntityType.PIGLIN_BRUTE, new SkullModel(entityModels.bakeLayer(ModelLayers.PIGLIN_HEAD)));
+                builder.put(EntityType.ZOMBIFIED_PIGLIN, new SkullModel(entityModels.bakeLayer(ModelLayers.PIGLIN_HEAD)));
+                builder.put(EntityType.BLAZE, new OnlyHeadModel(entityModels.bakeLayer(ModelLayers.BLAZE)));
+                builder.put(EntityType.BREEZE, new OnlyHeadModel(entityModels.bakeLayer(ModelLayers.BLAZE))); //breeze model crash
+                builder.put(EntityType.ENDERMAN, new EndermanHeadModel(entityModels.bakeLayer(ModelLayers.ENDERMAN)));
+                builder.put(EntityType.ENDER_DRAGON, new SkullModel(entityModels.bakeLayer(ModelLayers.DRAGON_SKULL)));
                 builder.put(OccultismEntities.CTHULHU_FAMILIAR.get(), new CthulhuHeadModel(entityModels.bakeLayer(OccultismModelLayers.FAMILIAR_CTHULHU)));
+                builder.put(EntityType.VILLAGER, new OnlyHeadModel(entityModels.bakeLayer(ModelLayers.VILLAGER)));
+                builder.put(EntityType.WANDERING_TRADER, new OnlyHeadModel(entityModels.bakeLayer(ModelLayers.WANDERING_TRADER)));
+                builder.put(EntityType.ZOMBIE_VILLAGER, new OnlyHeadModel(entityModels.bakeLayer(ModelLayers.ZOMBIE_VILLAGER)));
+                builder.put(EntityType.WITCH, new OnlyHeadModel(entityModels.bakeLayer(ModelLayers.WITCH)));
+                builder.put(EntityType.PILLAGER, new OnlyHeadModel(entityModels.bakeLayer(ModelLayers.PILLAGER)));
+                builder.put(EntityType.VINDICATOR, new OnlyHeadModel(entityModels.bakeLayer(ModelLayers.VINDICATOR)));
+                builder.put(EntityType.EVOKER, new OnlyHeadModel(entityModels.bakeLayer(ModelLayers.EVOKER)));
                 skulls = builder.build();
             }
             return skulls.get(type);
@@ -334,6 +372,62 @@ public class HeadlessFamiliarRenderer extends MobRenderer<HeadlessFamiliarEntity
         public void setupAnim(float p_103811_, float p_103812_, float p_103813_) {
             this.head.yRot = p_103812_ * ((float) Math.PI / 180F);
             this.head.xRot = p_103813_ * ((float) Math.PI / 180F);
+        }
+    }
+
+    private static class OnlyHeadModel extends SkullModelBase {
+        protected final ModelPart head;
+
+        public OnlyHeadModel(ModelPart root) {
+            this.head = root.getChild("head");
+        }
+
+        public void setupAnim(float p_103811_, float p_103812_, float p_103813_) {
+            this.head.yRot = p_103812_ * ((float) Math.PI / 180F);
+            this.head.xRot = p_103813_ * ((float) Math.PI / 180F);
+        }
+
+        @Override
+        public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+            this.head.render(poseStack, buffer, packedLight, packedOverlay, color);
+        }
+    }
+
+    private static class EndermanHeadModel extends SkullModelBase {
+        protected final ModelPart head;
+
+        public EndermanHeadModel(ModelPart root) {
+            this.head = root.getChild("head");
+        }
+
+        public void setupAnim(float p_103811_, float p_103812_, float p_103813_) {
+            this.head.yRot = p_103812_ * ((float) Math.PI / 180F);
+            this.head.xRot = p_103813_ * ((float) Math.PI / 180F);
+        }
+
+        @Override
+        public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+            poseStack.translate(0,0.9,0);
+            this.head.render(poseStack, buffer, packedLight, packedOverlay, color);
+        }
+    }
+
+    private static class SpiderHeadModel extends SkullModelBase {
+        protected final ModelPart head;
+
+        public SpiderHeadModel(ModelPart root) {
+            this.head = root.getChild("head");
+        }
+
+        public void setupAnim(float p_103811_, float p_103812_, float p_103813_) {
+            this.head.yRot = p_103812_ * ((float) Math.PI / 180F);
+            this.head.xRot = p_103813_ * ((float) Math.PI / 180F);
+        }
+
+        @Override
+        public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+            poseStack.translate(0,-1.1,0.3);
+            this.head.render(poseStack, buffer, packedLight, packedOverlay, color);
         }
     }
 }

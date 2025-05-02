@@ -29,6 +29,8 @@ import com.klikli_dev.occultism.network.messages.MessageHeadlessDie;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismEntities;
+import com.klikli_dev.occultism.registry.OccultismItems;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -48,14 +50,17 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
@@ -83,11 +88,30 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
             ImmutableBiMap.Builder<Byte, EntityType<? extends LivingEntity>> builder = new ImmutableBiMap.Builder<>();
             builder.put((byte) 1, EntityType.PLAYER);
             builder.put((byte) 2, EntityType.ZOMBIE);
-            builder.put((byte) 3, EntityType.SKELETON);
-            builder.put((byte) 4, EntityType.WITHER_SKELETON);
-            builder.put((byte) 5, EntityType.CREEPER);
-            builder.put((byte) 6, EntityType.SPIDER);
-            builder.put((byte) 7, OccultismEntities.CTHULHU_FAMILIAR.get());
+            builder.put((byte) 3, EntityType.HUSK);
+            builder.put((byte) 4, EntityType.DROWNED);
+            builder.put((byte) 5, EntityType.SKELETON);
+            builder.put((byte) 6, EntityType.WITHER_SKELETON);
+            builder.put((byte) 7, EntityType.STRAY);
+            builder.put((byte) 8, EntityType.BOGGED);
+            builder.put((byte) 9, EntityType.CREEPER);
+            builder.put((byte) 10, EntityType.SPIDER);
+            builder.put((byte) 11, EntityType.CAVE_SPIDER);
+            builder.put((byte) 12, EntityType.PIGLIN);
+            builder.put((byte) 13, EntityType.PIGLIN_BRUTE);
+            builder.put((byte) 14, EntityType.ZOMBIFIED_PIGLIN);
+            builder.put((byte) 15, EntityType.BLAZE);
+            builder.put((byte) 16, EntityType.BREEZE);
+            builder.put((byte) 17, EntityType.ENDERMAN);
+            builder.put((byte) 18, EntityType.ENDER_DRAGON);
+            builder.put((byte) 19, OccultismEntities.CTHULHU_FAMILIAR.get());
+            builder.put((byte) 20, EntityType.VILLAGER);
+            builder.put((byte) 21, EntityType.WANDERING_TRADER);
+            builder.put((byte) 22, EntityType.ZOMBIE_VILLAGER);
+            builder.put((byte) 23, EntityType.WITCH);
+            builder.put((byte) 24, EntityType.PILLAGER);
+            builder.put((byte) 25, EntityType.VINDICATOR);
+            builder.put((byte) 26, EntityType.EVOKER);
             typesLookup = builder.build();
         }
         return typesLookup;
@@ -359,6 +383,42 @@ public class HeadlessFamiliarEntity extends FamiliarEntity {
 
         public int getValue() {
             return this.value;
+        }
+    }
+
+    @Override
+    protected void dropFromLootTable(DamageSource pDamageSource, boolean pAttackedRecently) {
+        super.dropFromLootTable(pDamageSource, pAttackedRecently);
+
+        var owner = this.getFamiliarOwner();
+
+        var shard = new ItemStack(OccultismItems.SOUL_SHARD_ITEM.get());
+
+        var health = this.getHealth();
+        this.setHealth(this.getMaxHealth()); //simulate a healthy familiar to avoid death on respawn
+        this.resetFallDistance();
+        this.removeAllEffects();
+        this.setHeadlessDead(false);
+        this.entityData.set(REBUILT, (byte) 0);
+
+        var entityData = new CompoundTag();
+        var id = this.getEncodeId();
+        if(id != null)
+            entityData.putString("id", id);
+        entityData = this.saveWithoutId(entityData);
+
+        shard.set(DataComponents.ENTITY_DATA, CustomData.of(entityData));
+
+        this.setHealth(health);
+
+        if (owner instanceof Player player) {
+            ItemHandlerHelper.giveItemToPlayer(player, shard);
+        } else {
+            ItemEntity entityitem = new ItemEntity(this.level(), this.getX(), this.getY() + 0.5, this.getZ(), shard);
+            entityitem.setPickUpDelay(5);
+            entityitem.setDeltaMovement(entityitem.getDeltaMovement().multiply(0, 1, 0));
+
+            this.level().addFreshEntity(entityitem);
         }
     }
 

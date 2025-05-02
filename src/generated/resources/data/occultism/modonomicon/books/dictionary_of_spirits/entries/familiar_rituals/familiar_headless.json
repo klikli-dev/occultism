@@ -50,6 +50,17 @@
       "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_headless.description.text",
       "title": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_headless.description.title",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_headless.description2.text",
+      "title": "",
+      "use_markdown_in_title": false
     }
   ],
   "parents": [
