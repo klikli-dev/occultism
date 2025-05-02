@@ -26,12 +26,14 @@ import com.google.common.collect.ImmutableList;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismEffects;
 import com.klikli_dev.occultism.registry.OccultismItems;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -40,9 +42,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Parrot;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -178,6 +183,40 @@ public class OtherworldBirdEntity extends Parrot implements IFamiliar {
             return stack.interactLivingEntity(playerIn, this, hand);
         }
         return super.mobInteract(playerIn, hand);
+    }
+
+    @Override
+    protected void dropFromLootTable(DamageSource pDamageSource, boolean pAttackedRecently) {
+        super.dropFromLootTable(pDamageSource, pAttackedRecently);
+
+        var owner = this.getFamiliarOwner();
+
+        var shard = new ItemStack(OccultismItems.SOUL_SHARD_ITEM.get());
+
+        var health = this.getHealth();
+        this.setHealth(this.getMaxHealth()); //simulate a healthy familiar to avoid death on respawn
+        this.resetFallDistance();
+        this.removeAllEffects();
+
+        var entityData = new CompoundTag();
+        var id = this.getEncodeId();
+        if(id != null)
+            entityData.putString("id", id);
+        entityData = this.saveWithoutId(entityData);
+
+        shard.set(DataComponents.ENTITY_DATA, CustomData.of(entityData));
+
+        this.setHealth(health);
+
+        if (owner instanceof Player player) {
+            ItemHandlerHelper.giveItemToPlayer(player, shard);
+        } else {
+            ItemEntity entityitem = new ItemEntity(this.level(), this.getX(), this.getY() + 0.5, this.getZ(), shard);
+            entityitem.setPickUpDelay(5);
+            entityitem.setDeltaMovement(entityitem.getDeltaMovement().multiply(0, 1, 0));
+
+            this.level().addFreshEntity(entityitem);
+        }
     }
 //endregion Static Methods
 }
