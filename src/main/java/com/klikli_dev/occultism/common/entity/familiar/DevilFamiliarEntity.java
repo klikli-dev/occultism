@@ -28,8 +28,14 @@ import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.util.FamiliarUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -42,9 +48,12 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -53,6 +62,9 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import java.util.List;
 
 public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
+    private static final EntityDataAccessor<Long> SIN_TIME = SynchedEntityData.defineId(DevilFamiliarEntity.class, EntityDataSerializers.LONG);
+
+    protected static final long SIN_INTERVAL = 20 * 60 * 33;
 
     private final float heightOffset;
 
@@ -82,6 +94,58 @@ public class DevilFamiliarEntity extends FamiliarEntity implements GeoEntity {
         this.goalSelector.addGoal(6, new FollowMobGoal(this, 1, 3, 7));
     }
 
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(SIN_TIME, (long) 0);
+    }
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.entityData.set(SIN_TIME, compound.getLong("sinLastTime"));
+    }
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putLong("sinLastTime", this.getSinTime());
+    }
+
+    private void setSinTime(long b) {
+        this.entityData.set(SIN_TIME, b);
+    }
+
+    private long getSinTime() {
+        return this.entityData.get(SIN_TIME);
+    }
+
+    @Override
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        ItemStack itemstack = pPlayer.getItemInHand(pHand);
+        if (this.getOwner() == pPlayer) {
+
+            if (itemstack.is(Items.GOLDEN_APPLE)) {
+                long time =  this.getSinTime() + SIN_INTERVAL - this.level().getGameTime();
+                if (!this.hasBlacksmithUpgrade()) {
+                    pPlayer.displayClientMessage(Component.translatable("dialog.occultism.devil.no_upgrade"), true);
+                } else if (time < 0) {
+                    this.setSinTime(this.level().getGameTime());
+                    itemstack.shrink(1);
+                    ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(Items.ENCHANTED_GOLDEN_APPLE));
+                } else {
+                    pPlayer.displayClientMessage(Component.translatable("dialog.occultism.devil.sin_on_cooldown", time), true);
+                }
+                //even if we don't give a breath we return success, otherwise we make the familiar change sitting position
+                return InteractionResult.sidedSuccess(this.level().isClientSide);
+            }
+
+        }
+        return super.mobInteract(pPlayer, pHand);
+    }
+
+    @Override
+    public boolean canBlacksmithUpgrade() {
+        return !this.hasBlacksmithUpgrade();
+    }
 
     @Override
     public void aiStep() {

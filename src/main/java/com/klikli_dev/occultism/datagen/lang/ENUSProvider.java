@@ -1831,7 +1831,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Upgrade Behaviour**\\
-                        Cannot be upgraded by the blacksmith familiar.
+                        Enchants a Golden Apple when right-click, but has large time interval.
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_dragon");
@@ -2607,6 +2607,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("dialog.occultism.beaver.no_upgrade", "A Blacksmith Familiar needs to upgrade the Beaver before he dispenses snacks!");
         this.add("dialog.occultism.fairy.breath_on_cooldown", "Hey listen, wait!");
         this.add("dialog.occultism.fairy.no_upgrade", "A Blacksmith Familiar needs to upgrade the Fairy before breathing like a dragon!");
+        this.add("dialog.occultism.devil.sin_on_cooldown", "Another will be available after: %s ticks!");
+        this.add("dialog.occultism.devil.no_upgrade", "A Blacksmith Familiar needs to upgrade the Devil before sinning!");
     }
 
     private void addModonomiconIntegration() {
