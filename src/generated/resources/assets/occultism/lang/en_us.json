@@ -1757,7 +1757,7 @@
   "item.occultism.ritual_dummy.possess_villager.tooltip": "Summons a villager or wandering Trader.",
   "item.occultism.ritual_dummy.possess_warden": "Ritual: Summon Possessed Warden",
   "item.occultism.ritual_dummy.possess_warden.auto_tooltip": "Tier: Afrit",
-  "item.occultism.ritual_dummy.possess_warden.tooltip": "The Possessed Warden will always drop at least six echo shard and can drop other ancient stuff (smithing templates and discs) when killed.",
+  "item.occultism.ritual_dummy.possess_warden.tooltip": "The Possessed Warden will always drop at least six echo shard and can drop anothers ancient stuff (smithing templates and discs) when killed.",
   "item.occultism.ritual_dummy.possess_weak_shulker": "Ritual: Summon Possessed Weak Shulker",
   "item.occultism.ritual_dummy.possess_weak_shulker.auto_tooltip": "Tier: Djinni",
   "item.occultism.ritual_dummy.possess_weak_shulker.tooltip": "The Possessed Weak Shulker will drop at least one chorus fruit when killed and can drop shulker shell.",
