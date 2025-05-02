@@ -1878,7 +1878,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         \\
                         \\
                         **Upgrade Behaviour**\\
-                        Cannot be upgraded by the blacksmith familiar.
+                        Allow getting Dragon's Breath when right-clicked with a glass bottle.
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_greedy");
@@ -2605,6 +2605,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("dialog.occultism.mummy.kapow", "KAPOW!");
         this.add("dialog.occultism.beaver.snack_on_cooldown", "Hey now, don't be greedy!");
         this.add("dialog.occultism.beaver.no_upgrade", "A Blacksmith Familiar needs to upgrade the Beaver before he dispenses snacks!");
+        this.add("dialog.occultism.fairy.breath_on_cooldown", "Hey listen, wait!");
+        this.add("dialog.occultism.fairy.no_upgrade", "A Blacksmith Familiar needs to upgrade the Fairy before breathing like a dragon!");
     }
 
     private void addModonomiconIntegration() {
