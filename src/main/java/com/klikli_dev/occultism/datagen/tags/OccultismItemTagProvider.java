@@ -78,6 +78,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .addOptional(this.loc("ae2:smooth_sky_stone_block"))
                 .addOptional(this.loc("ae2:sky_stone_brick"))
                 .addOptional(this.loc("ae2:sky_stone_small_brick"));
+        this.tag(this.cTag("storage_blocks/rune")).addOptional(this.loc("forbidden_arcanus:rune_block"));
     }
 
     private void addCuriosTags(HolderLookup.Provider provider) {

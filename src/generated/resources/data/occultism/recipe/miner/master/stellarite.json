@@ -1,0 +1,12 @@
+{
+  "type": "occultism:miner",
+  "ingredient": {
+    "tag": "occultism:miners/master"
+  },
+  "result": {
+    "type": "occultism:weighted_tag",
+    "count": 1,
+    "tag": "c:ores/stellarite",
+    "weight": 50
+  }
+}

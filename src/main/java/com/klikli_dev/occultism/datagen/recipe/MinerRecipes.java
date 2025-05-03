@@ -358,6 +358,10 @@ public abstract class MinerRecipes extends RecipeProvider {
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
                 .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/master/mining_dim_core"));
+        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.MASTER, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/stellarite")), 50)
+                .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
+                .allowEmpty()
+                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/master/stellarite"));
     }
 
     public static void basic_resources(RecipeOutput consumer) {
