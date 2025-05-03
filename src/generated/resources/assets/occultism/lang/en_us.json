@@ -397,7 +397,7 @@
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_headless.description2.text": "**Upgrade Behaviour**\\\nWhen upgraded by a blacksmith familiar, it will give weakness to nearby mobs of the type it stole the head from. And the owner will not make the Enderman angry by looking into his eyes.\n",
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_headless.entity.text": "**Provides**: [#](ad03fc)Conditional Damage Buff[#]()\n",
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_headless.name": "Headless Ratman Familiar",
-  "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_mummy.description.text": "The Mummy familiar is a martial arts expert and fights to protect their master.\n\\\n\\\n**Upgrade Behaviour**\\\nWhen upgraded by a blacksmith familiar, it the familiar will deal even more damage.\n",
+  "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_mummy.description.text": "The Mummy familiar is a martial arts expert and fights to protect their master.\n\\\n\\\n**Upgrade Behaviour**\\\nWhen upgraded by a blacksmith familiar, it the familiar will deal even more damage and double the dodge chance.\n",
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_mummy.description.title": "Description",
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_mummy.entity.text": "**Provides**: [#](ad03fc)Fights your enemies[#](), [#](ad03fc)Dodge Effect[#]()\n",
   "book.occultism.dictionary_of_spirits.familiar_rituals.familiar_mummy.name": "Mummy Familiar",

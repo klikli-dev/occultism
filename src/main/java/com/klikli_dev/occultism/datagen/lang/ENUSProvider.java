@@ -1976,7 +1976,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         \\
                         \\
                         **Upgrade Behaviour**\\
-                        When upgraded by a blacksmith familiar, it the familiar will deal even more damage.
+                        When upgraded by a blacksmith familiar, it the familiar will deal even more damage and double the dodge chance.
                             """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_otherworld_bird");

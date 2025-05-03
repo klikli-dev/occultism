@@ -120,7 +120,8 @@ public class MummyFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
-        return ImmutableList.of(new MobEffectInstance(OccultismEffects.MUMMY_DODGE, 300, 0, false, false));
+        return hasBlacksmithUpgrade() ? ImmutableList.of(new MobEffectInstance(OccultismEffects.MUMMY_DODGE, 300, 1, false, false)) :
+                ImmutableList.of(new MobEffectInstance(OccultismEffects.MUMMY_DODGE, 300, 0, false, false));
     }
 
     @Override
