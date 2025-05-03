@@ -26,7 +26,6 @@ import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEnt
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.OccultismItems;
-import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -201,7 +200,7 @@ public class SummonRitual extends Ritual {
         if (setTamed && livingEntity instanceof TamableAnimal tamableAnimal && castingPlayer != null) {
             tamableAnimal.tame(castingPlayer);
         }
-        livingEntity.absMoveTo(goldenBowlPosition.getX(), goldenBowlPosition.getY(), goldenBowlPosition.getZ(),
+        livingEntity.absMoveTo(goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY(), goldenBowlPosition.getZ() + 0.5,
                 level.random.nextInt(360), 0);
         if (!spiritName.isEmpty())
             livingEntity.setCustomName(Component.literal(spiritName));
