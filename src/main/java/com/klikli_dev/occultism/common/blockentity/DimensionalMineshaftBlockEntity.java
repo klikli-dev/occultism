@@ -31,6 +31,7 @@ import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -50,6 +51,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.FakePlayerFactory;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
@@ -164,9 +166,20 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
             boolean dirty = false;
             if (this.miningTime > 0) {
-                this.miningTime--;
 
-                if (this.miningTime == 0 && !this.level.isClientSide) {
+                int efficiency = input.isEnchanted() ? input.getEnchantmentLevel(this.level.holderOrThrow(Enchantments.EFFICIENCY)) : 0;
+
+                if (efficiency > 0) {
+                    int extra1 = this.level.random.nextIntBetweenInclusive(0, efficiency);
+                    int extra2 = this.level.random.nextIntBetweenInclusive(0, efficiency);
+                    efficiency = Math.min(extra1, extra2);
+                }
+
+                for (int i = 0; i < 1 + efficiency; i++) {
+                    this.miningTime--;
+                }
+
+                if (this.miningTime <= 0 && !this.level.isClientSide) {
                     this.mine();
                 }
 
@@ -210,6 +223,8 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
     //endregion Static Methods
 
     public void mine() {
+        if (this.level == null)
+            return;
 
         if (this.possibleResults == null) {
             List<RecipeHolder<MinerRecipe>> recipes = this.level.getRecipeManager()
@@ -225,7 +240,18 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         if (this.possibleResults.size() == 0)
             return;
 
-        for (int i = 0; i < this.rollsPerOperation; i++) {
+        ItemStack input = this.inputHandler.getStackInSlot(0);
+
+        int fortune = input.isEnchanted() ? input.getEnchantmentLevel(this.level.holderOrThrow(Enchantments.FORTUNE)) : 0;
+
+        if (fortune > 0) {
+            int extra1 = this.level.random.nextIntBetweenInclusive(0, fortune);
+            int extra2 = this.level.random.nextIntBetweenInclusive(0, fortune);
+            int extra3 = this.level.random.nextIntBetweenInclusive(0, fortune);
+            fortune = Math.min(extra1, Math.min(extra2, extra3));
+        }
+
+        for (int i = 0; i < this.rollsPerOperation + fortune; i++) {
             var result = WeightedRandom.getRandomItem(this.level.random, this.possibleResults);
             //Important: copy the result, don't use it raw!
             result.ifPresent(r -> {
@@ -236,7 +262,6 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
         }
 
         //damage the item and move to output before breaking
-        ItemStack input = this.inputHandler.getStackInSlot(0);
         input.hurtAndBreak(1, (ServerLevel) this.level, (LivingEntity) null, (item) -> {});
         if (Occultism.SERVER_CONFIG.itemSettings.minerOutputBeforeBreak.getAsBoolean() && input.getMaxDamage()-1 == input.getDamageValue()){
             var minerCopy = input.copy();
