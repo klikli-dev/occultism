@@ -381,6 +381,13 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                                     3,
                                     0.0, 0.0, 0.0,
                                     0.0);
+                    ((ServerLevel) this.level)
+                            .sendParticles(OccultismParticles.RITUAL_WAITING.get(),
+                                    this.getBlockPos().getX() + this.level.random.nextGaussian(),
+                                    this.getBlockPos().getY() + 0.5, this.getBlockPos().getZ() + this.level.random.nextGaussian(),
+                                    3,
+                                    0.0, 0.0, 0.0,
+                                    0.0);
                 }
                 return;
             }
@@ -393,6 +400,10 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                                 0.0, 0.0, 0.0,
                                 0.0);
             }
+
+            //spawn particles in bowl before consume next item
+            if (!this.remainingAdditionalIngredients.isEmpty() && this.level.getGameTime() % 5 == 0)
+                recipe.value().getRitual().markNextIngredient(this.level, this.getBlockPos(), this.remainingAdditionalIngredients.getFirst(), getTier(this.getBlockState()));
 
             //Advance ritual time every second, based on the standard 20 tps, but taking into account duration multiplier
             if (getTier(this.getBlockState()) == 1){ //golden bowl
@@ -519,6 +530,17 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             this.markNetworkDirty();
 
             this.level.updateNeighborsAt(this.getBlockPos(), this.getBlockState().getBlock());
+
+            if (ritualRecipe.value().requiresSacrifice()) {
+                player.displayClientMessage(Component.translatable(String.format("ritual.%s.sacrifice", Occultism.MODID)), false);
+                player.displayClientMessage(Component.translatable(String.format(ritualRecipe.value().getEntityToSacrificeDisplayName())), false);
+            }
+
+            if (ritualRecipe.value().requiresItemUse()) {
+                player.displayClientMessage(Component.translatable(String.format("ritual.%s.use_item", Occultism.MODID)), false);
+                String s = ritualRecipe.value().getItemToUse().getItems()[0].getDisplayName().getString();
+                player.displayClientMessage(Component.translatable(s.substring(1,s.length()-1)), false);
+            }
         }
         return true;
     }

@@ -31,6 +31,7 @@ import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionWrap
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.RitualRecipeConditionContext;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.RitualRecipeConditionFailureInformationVisitor;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
+import com.klikli_dev.occultism.registry.OccultismParticles;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.core.BlockPos;
@@ -50,6 +51,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import org.jetbrains.annotations.Nullable;
 
@@ -394,6 +396,48 @@ public abstract class Ritual {
             }
         }
         return false;
+    }
+
+    /**
+     * Mark the next ingredient to consume.
+     *
+     * @param level               the level.
+     * @param goldenBowlPosition  the position of the golden bowl.
+     * @param ingredient          the ingredient to consume.
+     * @param tier                the tier of central bowl
+     */
+    public void markNextIngredient(Level level,
+                                   BlockPos goldenBowlPosition,
+                                   Ingredient ingredient, int tier) {
+        List<SacrificialBowlBlockEntity> sacrificialBowls = this.getSacrificialBowls(level, goldenBowlPosition);
+        for (SacrificialBowlBlockEntity sacrificialBowl : sacrificialBowls) {
+            //first simulate removal to check the ingredient
+            ItemStack stack = sacrificialBowl.itemStackHandler.extractItem(0, 1, true);
+            if (ingredient.test(stack)) {
+                double gameTime = level.getGameTime() * 0.05;
+                //Show effect in level
+                double sin = Math.sin(gameTime) * 0.3;
+                double cos = Math.cos(gameTime) * 0.3;
+                Vec3 center = sacrificialBowl.getBlockPos().getCenter();
+                ((ServerLevel) level)
+                        .sendParticles(OccultismParticles.SPIRIT_FIRE_FLAME.get(), center.x + cos, center.y + 0.2 + cos, center.z + sin,
+                                1, 0.0, 0.0, 0.0, 0.003);
+                if (tier == 2){
+                    double sin2 = Math.sin(gameTime + (Math.PI * 0.5)) * 0.3;
+                    double cos2 = Math.cos(gameTime + (Math.PI * 0.5)) * 0.3;
+                    ((ServerLevel) level)
+                            .sendParticles(OccultismParticles.SPIRIT_FIRE_FLAME.get(), center.x + cos2, center.y + 0.2 + sin2, center.z + sin2,
+                                    1, 0.0, 0.0, 0.0, 0.003);
+                    ((ServerLevel) level)
+                            .sendParticles(OccultismParticles.SPIRIT_FIRE_FLAME.get(), center.x - cos2, center.y + 0.2 + cos2, center.z - sin2,
+                                    1, 0.0, 0.0, 0.0, 0.003);
+                    ((ServerLevel) level)
+                            .sendParticles(OccultismParticles.SPIRIT_FIRE_FLAME.get(), center.x - cos, center.y + 0.2 + sin, center.z - sin,
+                                    1, 0.0, 0.0, 0.0, 0.003);
+                }
+                return;
+            }
+        }
     }
 
     /**
