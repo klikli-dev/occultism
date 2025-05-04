@@ -49,6 +49,18 @@ public class GrayChalkEntry extends EntryProvider {
                 .withRecipeId1(this.modLoc("ritual/craft_gray_paste"))
         );
 
+        this.page("paste", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+        );
+        this.pageTitle("Gray Paste");
+        this.pageText("""
+                        This strange amorphous paste is mainly used to improve the foundation of your pentacles.
+                         But its secondary use can be very useful, some dusts react with portion of this matter
+                         and return to their original shape as before being crushed.
+                        """
+        );
+
         this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/chalk_gray_impure"))
         );

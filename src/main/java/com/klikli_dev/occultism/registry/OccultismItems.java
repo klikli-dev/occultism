@@ -352,7 +352,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> OTHERWORLD_ASHES = ITEMS.register("otherworld_ashes",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> GRAY_PASTE = ITEMS.register("gray_paste",
-            () -> new Item(defaultProperties()));
+            () -> new GrayPasteItem(defaultProperties().durability(64)));
     public static final DeferredItem<Item> NATURE_PASTE = ITEMS.register("nature_paste",
             () -> new Item(defaultProperties()));
 

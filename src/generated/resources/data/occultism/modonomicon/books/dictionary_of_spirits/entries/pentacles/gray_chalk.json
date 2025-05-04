@@ -48,6 +48,17 @@
       "title2": ""
     },
     {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.pentacles.gray_chalk.paste.text",
+      "title": "book.occultism.dictionary_of_spirits.pentacles.gray_chalk.paste.title",
+      "use_markdown_in_title": false
+    },
+    {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
       "condition": {

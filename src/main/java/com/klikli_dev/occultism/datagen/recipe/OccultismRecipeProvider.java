@@ -1240,6 +1240,66 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_iesnium_nugget", has(OccultismItems.IESNIUM_NUGGET.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherglass"));
 
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, Items.OBSIDIAN)
+                .requires(OccultismItems.GRAY_PASTE)
+                .requires(OccultismTags.Items.OBSIDIAN_DUST)
+                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/obsidian"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, Items.END_STONE)
+                .requires(OccultismItems.GRAY_PASTE)
+                .requires(OccultismTags.Items.END_STONE_DUST)
+                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/end_stone"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, Items.CALCITE)
+                .requires(OccultismItems.GRAY_PASTE)
+                .requires(OccultismTags.Items.CALCITE_DUST)
+                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/calcite"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, Items.ICE)
+                .requires(OccultismItems.GRAY_PASTE)
+                .requires(OccultismTags.Items.ICE_DUST)
+                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/ice"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, Items.PACKED_ICE)
+                .requires(OccultismItems.GRAY_PASTE)
+                .requires(OccultismTags.Items.PACKED_ICE_DUST)
+                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/packed_ice"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, Items.BLUE_ICE)
+                .requires(OccultismItems.GRAY_PASTE)
+                .requires(OccultismTags.Items.BLUE_ICE_DUST)
+                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/blue_ice"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, Items.BLACKSTONE)
+                .requires(OccultismItems.GRAY_PASTE)
+                .requires(OccultismTags.Items.BLACKSTONE_DUST)
+                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/blackstone"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.EMERALD)
+                .requires(OccultismItems.GRAY_PASTE)
+                .requires(OccultismTags.Items.EMERALD_DUST)
+                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/emerald"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.LAPIS_LAZULI)
+                .requires(OccultismItems.GRAY_PASTE)
+                .requires(OccultismTags.Items.LAPIS_DUST)
+                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/lapis_lazuli"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.AMETHYST_SHARD)
+                .requires(OccultismItems.GRAY_PASTE)
+                .requires(OccultismTags.Items.AMETHYST_DUST)
+                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/amethyst_shard"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.ECHO_SHARD)
+                .requires(OccultismItems.GRAY_PASTE)
+                .requires(OccultismTags.Items.ECHO_DUST)
+                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/echo_shard"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.OTHERSTONE)
+                .requires(OccultismItems.GRAY_PASTE)
+                .requires(OccultismTags.Items.OTHERSTONE_DUST)
+                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/otherstone"));
     }
 
     private void smeltingRecipes(RecipeOutput pRecipeOutput) {

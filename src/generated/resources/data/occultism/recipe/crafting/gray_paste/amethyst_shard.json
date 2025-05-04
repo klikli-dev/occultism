@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "occultism:gray_paste"
+    },
+    {
+      "tag": "c:dusts/amethyst"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:amethyst_shard"
+  }
+}
