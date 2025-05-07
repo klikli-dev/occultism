@@ -54,6 +54,7 @@ public class CrusherJob extends SpiritJob {
 
 
     public static final String DROPPED_BY_CRUSHER = "occultism:dropped_by_crusher";
+    public static final String DROPPED_BY_SMELTER = "occultism:dropped_by_smelter";
 
     /**
      * The current ticks in the crushing, will crush once it reaches crushing_time * crushingTimeMultiplier
@@ -189,7 +190,7 @@ public class CrusherJob extends SpiritJob {
 
     @Override
     public boolean canPickupItem(ItemEntity entity) {
-        if (entity.getTags().contains(DROPPED_BY_CRUSHER) && entity.getAge() <
+        if ((entity.getTags().contains(DROPPED_BY_CRUSHER) || entity.getTags().contains(DROPPED_BY_SMELTER)) && entity.getAge() <
                 Occultism.SERVER_CONFIG.spiritJobs.crusherResultPickupDelay.get())
             return false; //cannot pick up items a crusher (most likely *this* one) dropped util delay elapsed.
 
