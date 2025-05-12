@@ -187,6 +187,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get());
         this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get());
         this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_EMPTY.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.TABOO_BOOK.get());
 
         this.tag(ItemTags.MINING_ENCHANTABLE).addTag(OccultismTags.Items.Miners.MINERS);
         this.tag(ItemTags.MINING_LOOT_ENCHANTABLE).addTag(OccultismTags.Items.Miners.MINERS);
