@@ -1096,7 +1096,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         RITUAL_CRAFT,
                         PENTACLE_CRAFT_AFRIT,
                         Ingredient.of(OccultismTags.Items.NETHERITE_DUST),
-                        Ingredient.of(OccultismTags.Items.BLACKSTONE_DUST),
+                        Ingredient.of(Items.WITHER_SKELETON_SKULL),
                         Ingredient.of(OccultismTags.Items.BLACKSTONE_DUST),
                         Ingredient.of(Items.WITHER_ROSE)
                 )
