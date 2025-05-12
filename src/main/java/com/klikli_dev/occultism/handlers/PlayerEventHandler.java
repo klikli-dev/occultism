@@ -25,6 +25,8 @@ package com.klikli_dev.occultism.handlers;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.common.entity.familiar.IFamiliar;
+import com.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
+import com.klikli_dev.occultism.crafting.recipe.BoundBookOfBindingRecipe;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
@@ -39,13 +41,17 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.JukeboxBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import java.util.List;
 
@@ -54,7 +60,12 @@ public class PlayerEventHandler {
     //region Static Methods
     @SubscribeEvent
     public static void onPlayerRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        spiritFire(event);
         dancingFamiliars(event);
+        bookshelfBinding(event);
+    }
+
+    private static void spiritFire(PlayerInteractEvent.RightClickBlock event) {
         boolean isFlintAndSteel = event.getItemStack().getItem() == Items.FLINT_AND_STEEL;
         boolean isFireCharge = event.getItemStack().getItem() == Items.FIRE_CHARGE;
         if (isFlintAndSteel || isFireCharge) {
@@ -110,6 +121,52 @@ public class PlayerEventHandler {
                 .isEmpty())
             return;
         OccultismAdvancements.FAMILIAR.get().trigger(event.getEntity(), FamiliarTrigger.Type.PARTY);
+    }
+
+    private static void bookshelfBinding(PlayerInteractEvent.RightClickBlock event) {
+        if (!(event.getHand() == InteractionHand.MAIN_HAND)
+                || !(event.getItemStack().getItem() == OccultismItems.DICTIONARY_OF_SPIRITS.get())
+                || !(event.getEntity().isCrouching()))
+            return;
+
+        BlockEntity blockEntity = event.getLevel().getBlockEntity(event.getPos());
+        if (!(blockEntity instanceof ChiseledBookShelfBlockEntity bookShelf))
+            return;
+
+        boolean creative = !event.getEntity().isCreative();
+        for (int i = 0; i < 6; i++) {
+            if (bookShelf.getItem(i).getItem() instanceof BookOfBindingItem book) {
+                if (book.equals(OccultismItems.BOOK_OF_BINDING_EMPTY.get())) {
+                    ItemStack dye = event.getEntity().getOffhandItem();
+                    if (dye.getCount() > 3) {
+                        if (dye.is(Tags.Items.DYES_BLUE)){
+                            bookShelf.setItem(i, BoundBookOfBindingRecipe.bookshelfCraft(OccultismItems.BOOK_OF_BINDING_FOLIOT.toStack(), event.getItemStack()));
+                            if (creative)
+                                dye.shrink(4);
+                        } else if (dye.is(Tags.Items.DYES_PURPLE)) {
+                            bookShelf.setItem(i, BoundBookOfBindingRecipe.bookshelfCraft(OccultismItems.BOOK_OF_BINDING_DJINNI.toStack(), event.getItemStack()));
+                            if (creative)
+                                dye.shrink(4);
+                        } else if (dye.is(Tags.Items.DYES_YELLOW)) {
+                            bookShelf.setItem(i, BoundBookOfBindingRecipe.bookshelfCraft(OccultismItems.BOOK_OF_BINDING_AFRIT.toStack(), event.getItemStack()));
+                            if (creative)
+                                dye.shrink(4);
+                        } else if (dye.is(Tags.Items.DYES_GREEN)) {
+                            bookShelf.setItem(i, BoundBookOfBindingRecipe.bookshelfCraft(OccultismItems.BOOK_OF_BINDING_MARID.toStack(), event.getItemStack()));
+                            if (creative)
+                                dye.shrink(4);
+                        }
+                    }
+                } else {
+                    bookShelf.setItem(i, BoundBookOfBindingRecipe.bookshelfCraft(book.getDefaultInstance(), event.getItemStack()));
+                }
+            }
+        }
+
+        //finally, cancel original event to prevent real action and show use animation
+        event.setCancellationResult(InteractionResult.FAIL);
+        event.setCanceled(true);
+        event.getEntity().swing(InteractionHand.MAIN_HAND);
     }
 
     @SubscribeEvent

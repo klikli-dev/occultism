@@ -5,7 +5,6 @@ import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
@@ -106,6 +105,17 @@ public class BoundBookOfBindingRecipe extends CustomRecipe {
             return new ItemStack(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get());
 
         return ItemStack.EMPTY;
+    }
+
+    public static ItemStack bookshelfCraft(ItemStack book, ItemStack dictionary) {
+        var boundBook = getBoundBookFromBook(book);
+        var customName = dictionary.get(DataComponents.CUSTOM_NAME);
+        if (customName != null) {
+            ItemNBTUtil.setBoundSpiritName(boundBook, customName.getString());
+        } else {
+            ItemNBTUtil.generateBoundSpiritName(boundBook);
+        }
+        return boundBook;
     }
 
     @Override
