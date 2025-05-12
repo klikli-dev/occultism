@@ -2749,6 +2749,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("emi.category.occultism.miner", "Dimensional Mineshaft");
         this.add("emi.category.occultism.ritual", "Rituals");
         this.add("emi.occultism.item_to_use", "Item to use: %s");
+        this.add("emi.occultism.ritual_duration", "%s seconds");
     }
 
     private void addConditionMessages() {

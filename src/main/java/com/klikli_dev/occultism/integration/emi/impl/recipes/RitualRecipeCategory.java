@@ -99,7 +99,7 @@ public class RitualRecipeCategory implements EmiRecipe {
 
     @Override
     public int getDisplayHeight() {
-        return 90;
+        return 100;
     }
 
     public void extraItems(String mob, List<EmiStack> list){
@@ -290,6 +290,9 @@ public class RitualRecipeCategory implements EmiRecipe {
         }
 
         widgetHolder.addSlot(EmiIngredient.of(Ingredient.of(recipe.getRitualDummy())), 82, 53).drawBack(false);
+
+        int time = recipe.getDuration();
+        widgetHolder.addText(Component.translatable("emi.occultism.ritual_duration", time), 129, 90, -1, true).horizontalAlign(TextWidget.Alignment.END);
 
         int infotextY = 0;
         int infoTextIndex = 0;
