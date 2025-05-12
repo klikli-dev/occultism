@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/lignite_coal"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/lignite_coal"
+      }
+    }
+  ],
+  "type": "occultism:crushing",
+  "ingredient": {
+    "tag": "c:ores/lignite_coal"
+  },
+  "result": {
+    "type": "occultism:tag",
+    "count": 4,
+    "tag": "c:dusts/lignite_coal"
+  }
+}

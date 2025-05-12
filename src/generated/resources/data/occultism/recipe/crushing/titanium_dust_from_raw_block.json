@@ -1,0 +1,28 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/raw_titanium"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/titanium"
+      }
+    }
+  ],
+  "type": "occultism:crushing",
+  "crushing_time": 1600,
+  "ingredient": {
+    "tag": "c:storage_blocks/raw_titanium"
+  },
+  "result": {
+    "type": "occultism:tag",
+    "count": 18,
+    "tag": "c:dusts/titanium"
+  }
+}

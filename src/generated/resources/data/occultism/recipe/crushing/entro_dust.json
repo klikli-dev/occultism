@@ -4,18 +4,24 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:dusts/coal"
+        "tag": "c:ores/entro"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/entro"
       }
     }
   ],
   "type": "occultism:crushing",
-  "ignore_crushing_multiplier": true,
   "ingredient": {
-    "item": "minecraft:coal"
+    "tag": "c:ores/entro"
   },
   "result": {
     "type": "occultism:tag",
-    "count": 1,
-    "tag": "c:dusts/coal"
+    "count": 4,
+    "tag": "c:dusts/entro"
   }
 }

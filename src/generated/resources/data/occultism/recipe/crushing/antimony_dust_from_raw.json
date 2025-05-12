@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:raw_materials/antimony"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/antimony"
+      }
+    }
+  ],
+  "type": "occultism:crushing",
+  "ingredient": {
+    "tag": "c:raw_materials/antimony"
+  },
+  "result": {
+    "type": "occultism:tag",
+    "count": 2,
+    "tag": "c:dusts/antimony"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/uranium_235"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/uranium_235"
+      }
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crushing/uranium_235_dust_from_ingot"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_uranium_235_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:ingots/uranium_235"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_uranium_235_ingot"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crushing/uranium_235_dust_from_ingot"
+    ]
+  }
+}

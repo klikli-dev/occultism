@@ -4,17 +4,24 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:dusts/coal"
+        "tag": "c:clumps/antimony"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dirty_dusts/antimony"
       }
     }
   ],
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_coal": {
+    "has_clump_antimony": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:coal"
+            "items": "#c:clumps/antimony"
           }
         ]
       },
@@ -22,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/coal_dust_from_tag"
+        "recipe": "occultism:crushing/antimony_dirty_dust_from_clump"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -30,12 +37,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_coal"
+      "has_clump_antimony"
     ]
   ],
   "rewards": {
     "recipes": [
-      "occultism:crushing/coal_dust_from_tag"
+      "occultism:crushing/antimony_dirty_dust_from_clump"
     ]
   }
 }

@@ -1,0 +1,48 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/titanium"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/titanium"
+      }
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crushing/titanium_dust"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_titanium": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:ores/titanium"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_titanium"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crushing/titanium_dust"
+    ]
+  }
+}

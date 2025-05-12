@@ -1,0 +1,28 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "occultism:miners/eldritch"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/bauxite"
+      }
+    }
+  ],
+  "type": "occultism:miner",
+  "ingredient": {
+    "tag": "occultism:miners/eldritch"
+  },
+  "result": {
+    "type": "occultism:weighted_tag",
+    "count": 1,
+    "tag": "c:storage_blocks/bauxite",
+    "weight": 90
+  }
+}

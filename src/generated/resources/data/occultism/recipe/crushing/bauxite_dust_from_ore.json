@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/bauxite"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/bauxite"
+      }
+    }
+  ],
+  "type": "occultism:crushing",
+  "ingredient": {
+    "tag": "c:ores/bauxite"
+  },
+  "result": {
+    "type": "occultism:tag",
+    "count": 4,
+    "tag": "c:dusts/bauxite"
+  }
+}

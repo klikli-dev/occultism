@@ -4,17 +4,24 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:dusts/coal"
+        "tag": "c:plates/carbon"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/carbon"
       }
     }
   ],
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_coal": {
+    "has_carbon_plate": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:coal"
+            "items": "#c:plates/carbon"
           }
         ]
       },
@@ -22,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/coal_dust_from_tag"
+        "recipe": "occultism:crushing/carbon_dust_from_plate"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -30,12 +37,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_coal"
+      "has_carbon_plate"
     ]
   ],
   "rewards": {
     "recipes": [
-      "occultism:crushing/coal_dust_from_tag"
+      "occultism:crushing/carbon_dust_from_plate"
     ]
   }
 }

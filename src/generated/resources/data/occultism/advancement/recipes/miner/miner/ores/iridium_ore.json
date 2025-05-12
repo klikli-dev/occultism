@@ -1,20 +1,11 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:dusts/coal"
-      }
-    }
-  ],
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_coal": {
+    "has_miner": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:coal"
+            "items": "occultism:magic_lamp_empty"
           }
         ]
       },
@@ -22,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/coal_dust_from_tag"
+        "recipe": "occultism:miner/ores/iridium_ore"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -30,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_coal"
+      "has_miner"
     ]
   ],
   "rewards": {
     "recipes": [
-      "occultism:crushing/coal_dust_from_tag"
+      "occultism:miner/ores/iridium_ore"
     ]
   }
 }

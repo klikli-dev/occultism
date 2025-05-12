@@ -343,45 +343,76 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .setAllowEmpty(false)
                 .setResultAmount(2)
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/datura"));
+        //Ores vanilla + occultism
+        this.crushingMetalRecipe("copper", pRecipeOutput);
+        this.crushingMetalRecipe("iron", pRecipeOutput);
+        this.crushingMetalRecipe("gold", pRecipeOutput);
+        this.crushingMetalRecipe("silver", pRecipeOutput);
+        this.crushingMetalRecipe("iesnium", pRecipeOutput);
+        //Ores common
+        this.crushingMetalRecipe("aluminum", pRecipeOutput);
+        this.crushingMetalRecipe("iridium", pRecipeOutput);
+        this.crushingMetalRecipe("lead", pRecipeOutput);
+        this.crushingMetalRecipe("nickel", pRecipeOutput);
+        this.crushingMetalRecipe("osmium", pRecipeOutput);
+        this.crushingMetalRecipe("platinum", pRecipeOutput);
+        this.crushingMetalRecipe("tin", pRecipeOutput);
+        this.crushingMetalRecipe("uranium", pRecipeOutput);
+        this.crushingMetalRecipe("zinc", pRecipeOutput);
+        //Ores specific
+        this.crushingMetalRecipe("antimony", pRecipeOutput);
         this.crushingMetalRecipe("allthemodium", pRecipeOutput);
         this.crushingMetalRecipe("unobtainium", pRecipeOutput);
         this.crushingMetalRecipe("vibranium", pRecipeOutput);
-        this.crushingMetalRecipe("unobtainium_allthemodium_alloy", pRecipeOutput);
-        this.crushingMetalRecipe("unobtainium_vibranium_alloy", pRecipeOutput);
-        this.crushingMetalRecipe("vibranium_allthemodium_alloy", pRecipeOutput);
-        this.crushingMetalRecipe("iesnium", pRecipeOutput);
-        this.crushingMetalRecipe("aluminum", pRecipeOutput);
-        this.crushingMetalRecipe("signalum", pRecipeOutput);
-        this.crushingMetalRecipe("uranium", pRecipeOutput);
-        this.crushingMetalRecipe("graphite", pRecipeOutput);
-        this.crushingMetalRecipe("azure_silver", pRecipeOutput);
-        this.crushingMetalRecipe("zinc", pRecipeOutput);
-        this.crushingMetalRecipe("lumium", pRecipeOutput);
-        this.crushingMetalRecipe("osmium", pRecipeOutput);
-        this.crushingMetalRecipe("nickel", pRecipeOutput);
-        this.crushingMetalRecipe("lead", pRecipeOutput);
-        this.crushingMetalRecipe("bronze", pRecipeOutput);
-        this.crushingMetalRecipe("cobalt", pRecipeOutput);
-        this.crushingMetalRecipe("tungsten", pRecipeOutput);
-        this.crushingMetalRecipe("iridium", pRecipeOutput);
-        this.crushingMetalRecipe("steel", pRecipeOutput);
-        this.crushingMetalRecipe("enderium", pRecipeOutput);
-        this.crushingMetalRecipe("electrum", pRecipeOutput);
-        this.crushingMetalRecipe("constantan", pRecipeOutput);
-        this.crushingMetalRecipe("tin", pRecipeOutput);
-        this.crushingMetalRecipe("netherite", pRecipeOutput);
-        this.crushingMetalRecipe("brass", pRecipeOutput);
         this.crushingMetalRecipe("crimson_iron", pRecipeOutput);
-        this.crushingMetalRecipe("platinum", pRecipeOutput);
-        this.crushingMetalRecipe("invar", pRecipeOutput);
-        this.crushingMetalRecipe("silver", pRecipeOutput);
-        this.crushingMetalRecipe("copper", pRecipeOutput);
+        this.crushingMetalRecipe("azure_silver", pRecipeOutput);
+        this.crushingMetalRecipe("graphite", pRecipeOutput);
+        this.crushingMetalRecipe("cobalt", pRecipeOutput);
+        this.crushingMetalRecipe("titanium", pRecipeOutput);
+        this.crushingMetalRecipe("tungsten", pRecipeOutput);
         this.crushingMetalRecipe("pewter", pRecipeOutput);
         this.crushingMetalRecipe("mithril", pRecipeOutput);
-        this.crushingMetalRecipe("gold", pRecipeOutput);
         this.crushingMetalRecipe("quicksilver", pRecipeOutput);
-        this.crushingMetalRecipe("iron", pRecipeOutput);
-
+        //Ingots without ores
+        this.crushingIngotRecipe("adamant", pRecipeOutput);
+        this.crushingIngotRecipe("azure_electrum", pRecipeOutput);
+        this.crushingIngotRecipe("biosteel", pRecipeOutput);
+        this.crushingIngotRecipe("blaze_gold", pRecipeOutput);
+        this.crushingIngotRecipe("brass", pRecipeOutput);
+        this.crushingIngotRecipe("bronze", pRecipeOutput);
+        this.crushingIngotRecipe("constantan", pRecipeOutput);
+        this.crushingIngotRecipe("crimson_steel", pRecipeOutput);
+        this.crushingIngotRecipe("duratium", pRecipeOutput);
+        this.crushingIngotRecipe("electrum", pRecipeOutput);
+        this.crushingIngotRecipe("enderium", pRecipeOutput);
+        this.crushingIngotRecipe("energite", pRecipeOutput);
+        this.crushingIngotRecipe("hop_graphite", pRecipeOutput);
+        this.crushingIngotRecipe("invar", pRecipeOutput);
+        this.crushingIngotRecipe("lumium", pRecipeOutput);
+        this.crushingIngotRecipe("netherite", pRecipeOutput);
+        this.crushingIngotRecipe("refined_obsidian", pRecipeOutput);
+        this.crushingIngotRecipe("steel", pRecipeOutput);
+        this.crushingIngotRecipe("signalum", pRecipeOutput);
+        this.crushingIngotRecipe("tyrian_steel", pRecipeOutput);
+        this.crushingIngotRecipe("unobtainium_allthemodium_alloy", pRecipeOutput);
+        this.crushingIngotRecipe("unobtainium_vibranium_alloy", pRecipeOutput);
+        this.crushingIngotRecipe("vibranium_allthemodium_alloy", pRecipeOutput);
+        //ModernIndustrialization Ingots
+        this.crushingIngotRecipe("annealed_copper", pRecipeOutput);
+        this.crushingIngotRecipe("battery_alloy", pRecipeOutput);
+        this.crushingIngotRecipe("beryllium", pRecipeOutput);
+        this.crushingIngotRecipe("cadmium", pRecipeOutput);
+        this.crushingIngotRecipe("chromium", pRecipeOutput);
+        this.crushingIngotRecipe("he_mox", pRecipeOutput);
+        this.crushingIngotRecipe("he_uranium", pRecipeOutput);
+        this.crushingIngotRecipe("kanthal", pRecipeOutput);
+        this.crushingIngotRecipe("le_mox", pRecipeOutput);
+        this.crushingIngotRecipe("le_uranium", pRecipeOutput);
+        this.crushingIngotRecipe("plutonium", pRecipeOutput);
+        this.crushingIngotRecipe("silicon", pRecipeOutput);
+        this.crushingIngotRecipe("uranium_235", pRecipeOutput);
+        this.crushingIngotRecipe("uranium_238", pRecipeOutput);
+        //Gems
         this.crushingGemRecipe("dark_gem", pRecipeOutput);
         this.crushingGemRecipe("diamond", pRecipeOutput);
         this.crushingGemRecipe("emerald", pRecipeOutput);
@@ -403,13 +434,21 @@ public class OccultismRecipeProvider extends RecipeProvider {
         this.crushingGemRecipe("arcane_crystal", pRecipeOutput);
         this.crushingGemRecipe("amethyst", pRecipeOutput);
         this.crushingGemRecipe("black_quartz", pRecipeOutput);
+        this.crushingGemRecipe("lignite_coal", pRecipeOutput);
+        this.crushingGemRecipe("entro", pRecipeOutput);
 
-        CrushingRecipeBuilder.crushingRecipe(ItemTags.COALS, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/" + "coal")), 200)
+        CrushingRecipeBuilder.crushingRecipe(Items.COAL, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/" + "coal")), 200)
                 .setAllowEmpty(false)
                 .setResultAmount(1)
                 .setIgnoreCrushingMultiplier(true)
-                .unlockedBy("has_coal", has(ItemTags.COALS))
+                .unlockedBy("has_coal", has(Items.COAL))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/coal_dust_from_tag"));
+        CrushingRecipeBuilder.crushingRecipe(Items.CHARCOAL, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/" + "charcoal")), 200)
+                .setAllowEmpty(false)
+                .setResultAmount(1)
+                .setIgnoreCrushingMultiplier(true)
+                .unlockedBy("has_charcoal", has(Items.CHARCOAL))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/charcoal_dust_from_tag"));
         CrushingRecipeBuilder.crushingRecipe(Tags.Items.ENDER_PEARLS, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/" + "ender_pearl")), 200)
                 .setAllowEmpty(false)
                 .setResultAmount(2)
@@ -493,6 +532,44 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .setAllowEmpty(false)
                 .setIgnoreCrushingMultiplier(true)
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/sky_stone_dust"));
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "coal_coke")), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/coal_coke")), 200)
+                .unlockedBy("has_coal_coke", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "coal_coke"))))
+                .setResultAmount(1)
+                .setAllowEmpty(false)
+                .setIgnoreCrushingMultiplier(true)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/coal_coke_dust"));
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/salt")), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/salt")), 200)
+                .unlockedBy("has_salt_ore", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/salt"))))
+                .setResultAmount(4)
+                .setAllowEmpty(false)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/salt_dust_from_ore"));
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/saltpeter")), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/saltpeter")), 200)
+                .unlockedBy("has_saltpeter_ore", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/saltpeter"))))
+                .setResultAmount(4)
+                .setAllowEmpty(false)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/saltpeter_dust_from_ore"));
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/monazite")), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/monazite")), 200)
+                .unlockedBy("has_monazite_ore", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/monazite"))))
+                .setResultAmount(4)
+                .setAllowEmpty(false)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/monazite_dust_from_ore"));
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/bauxite")), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/bauxite")), 200)
+                .unlockedBy("has_bauxite_ore", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/bauxite"))))
+                .setResultAmount(4)
+                .setAllowEmpty(false)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/bauxite_dust_from_ore"));
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "bricks/normal")), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/brick")), 200)
+                .unlockedBy("has_brick", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "bricks/normal"))))
+                .setResultAmount(1)
+                .setAllowEmpty(false)
+                .setIgnoreCrushingMultiplier(true)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/brick_dust"));
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "plates/carbon")), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/carbon")), 200)
+                .unlockedBy("has_carbon_plate", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "plates/carbon"))))
+                .setResultAmount(1)
+                .setAllowEmpty(false)
+                .setIgnoreCrushingMultiplier(true)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/carbon_dust_from_plate"));
     }
 
     private void crushingGemRecipe(String gemName, RecipeOutput recipeOutput) {
@@ -509,6 +586,15 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .setIgnoreCrushingMultiplier(true)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/" + gemName + "_dust_from_gem"));
 
+    }
+
+    private void crushingIngotRecipe(String metalName, RecipeOutput recipeOutput) {
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ingots/" + metalName)), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/" + metalName)), 200)
+                .unlockedBy("has_" + metalName + "_ingot", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ingots/" + metalName))))
+                .setResultAmount(1)
+                .setAllowEmpty(false)
+                .setIgnoreCrushingMultiplier(true)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/" + metalName + "_dust_from_ingot"));
     }
 
     private void crushingMetalRecipe(String metalName, RecipeOutput recipeOutput) {
@@ -537,7 +623,11 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .setIgnoreCrushingMultiplier(true)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/" + metalName + "_dust_from_ingot"));
 
-
+        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "clumps/" + metalName)), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dirty_dusts/" + metalName)), 200)
+                .unlockedBy("has_clump_" + metalName, has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "clumps/" + metalName))))
+                .setResultAmount(2)
+                .setAllowEmpty(false)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/" + metalName + "_dirty_dust_from_clump"));
     }
 
     private void craftingRecipes(RecipeOutput pRecipeOutput) {

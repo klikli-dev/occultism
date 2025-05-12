@@ -4,17 +4,17 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:dusts/coal"
+        "tag": "c:dusts/charcoal"
       }
     }
   ],
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_coal": {
+    "has_charcoal": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:coal"
+            "items": "minecraft:charcoal"
           }
         ]
       },
@@ -22,7 +22,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/coal_dust_from_tag"
+        "recipe": "occultism:crushing/charcoal_dust_from_tag"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -30,12 +30,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_coal"
+      "has_charcoal"
     ]
   ],
   "rewards": {
     "recipes": [
-      "occultism:crushing/coal_dust_from_tag"
+      "occultism:crushing/charcoal_dust_from_tag"
     ]
   }
 }

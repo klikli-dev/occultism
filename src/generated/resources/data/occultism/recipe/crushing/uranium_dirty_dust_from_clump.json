@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:clumps/uranium"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dirty_dusts/uranium"
+      }
+    }
+  ],
+  "type": "occultism:crushing",
+  "ingredient": {
+    "tag": "c:clumps/uranium"
+  },
+  "result": {
+    "type": "occultism:tag",
+    "count": 2,
+    "tag": "c:dirty_dusts/uranium"
+  }
+}

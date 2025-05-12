@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/monazite"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/monazite"
+      }
+    }
+  ],
+  "type": "occultism:crushing",
+  "ingredient": {
+    "tag": "c:ores/monazite"
+  },
+  "result": {
+    "type": "occultism:tag",
+    "count": 4,
+    "tag": "c:dusts/monazite"
+  }
+}

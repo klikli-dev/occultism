@@ -4,18 +4,25 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:dusts/coal"
+        "tag": "c:ingots/kanthal"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/kanthal"
       }
     }
   ],
   "type": "occultism:crushing",
   "ignore_crushing_multiplier": true,
   "ingredient": {
-    "item": "minecraft:coal"
+    "tag": "c:ingots/kanthal"
   },
   "result": {
     "type": "occultism:tag",
     "count": 1,
-    "tag": "c:dusts/coal"
+    "tag": "c:dusts/kanthal"
   }
 }

@@ -4,17 +4,24 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:dusts/coal"
+        "tag": "c:clumps/vibranium"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dirty_dusts/vibranium"
       }
     }
   ],
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_coal": {
+    "has_clump_vibranium": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:coal"
+            "items": "#c:clumps/vibranium"
           }
         ]
       },
@@ -22,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/coal_dust_from_tag"
+        "recipe": "occultism:crushing/vibranium_dirty_dust_from_clump"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -30,12 +37,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_coal"
+      "has_clump_vibranium"
     ]
   ],
   "rewards": {
     "recipes": [
-      "occultism:crushing/coal_dust_from_tag"
+      "occultism:crushing/vibranium_dirty_dust_from_clump"
     ]
   }
 }

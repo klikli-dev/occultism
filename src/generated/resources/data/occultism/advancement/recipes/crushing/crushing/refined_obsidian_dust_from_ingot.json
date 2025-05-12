@@ -4,17 +4,24 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:dusts/coal"
+        "tag": "c:ingots/refined_obsidian"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/refined_obsidian"
       }
     }
   ],
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_coal": {
+    "has_refined_obsidian_ingot": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:coal"
+            "items": "#c:ingots/refined_obsidian"
           }
         ]
       },
@@ -22,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/coal_dust_from_tag"
+        "recipe": "occultism:crushing/refined_obsidian_dust_from_ingot"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -30,12 +37,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_coal"
+      "has_refined_obsidian_ingot"
     ]
   ],
   "rewards": {
     "recipes": [
-      "occultism:crushing/coal_dust_from_tag"
+      "occultism:crushing/refined_obsidian_dust_from_ingot"
     ]
   }
 }

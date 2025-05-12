@@ -1,0 +1,48 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/tyrian_steel"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/tyrian_steel"
+      }
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crushing/tyrian_steel_dust_from_ingot"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_tyrian_steel_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:ingots/tyrian_steel"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_tyrian_steel_ingot"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crushing/tyrian_steel_dust_from_ingot"
+    ]
+  }
+}
