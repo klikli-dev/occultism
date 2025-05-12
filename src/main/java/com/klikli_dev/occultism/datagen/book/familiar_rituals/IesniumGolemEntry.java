@@ -43,9 +43,9 @@ public class IesniumGolemEntry extends EntryProvider {
         this.pageTitle("Iesnium Golem");
         this.pageText("""
                 An Iesnium Golem is a direct upgrade from a regular Iron Golem, this new version is much stronger and invulnerable. \\
-                Only a player can dismiss them, by hitting while crouched, returning the {0}.
+                Only a player can dismiss them, by hitting while crouched, returning as a {0}.
                 """,
-                this.itemLink(OccultismItems.SOUL_SHARD_ITEM.get()));
+                this.itemLink(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get()));
 
         this.page("familiar", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -55,7 +55,7 @@ public class IesniumGolemEntry extends EntryProvider {
                         The Iesnium Golem Chapter is part of the Familiar Category of this book because of the similarities, however a golem is not exactly a familiar since it does not have an owner.
                         \\
                         \\
-                        As such, they also cannot be stored in a {0}. You can, however, use a {1} as for any other being.
+                        As such, they also cannot be stored in a {0} or in a {1}. You can, however, dispense with them as stated on the previous page.
                         """,
                 this.itemLink(OccultismItems.FAMILIAR_RING.get()),
                 this.itemLink(OccultismItems.SOUL_GEM_ITEM.get())

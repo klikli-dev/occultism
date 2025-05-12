@@ -755,7 +755,8 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(OccultismTags.Items.STORAGE_BLOCK_IESNIUM),
                         Ingredient.of(OccultismItems.MARID_ESSENCE),
                         Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.asItem()),
-                        Ingredient.of(Tags.Items.NETHER_STARS))
+                        Ingredient.of(Tags.Items.NETHER_STARS),
+                        Ingredient.of(OccultismItems.SOUL_GEM_ITEM))
                 .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
                 .entityToSummon(OccultismEntities.IESNIUM_GOLEM_TYPE.get())
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.iron_golem")
@@ -1183,10 +1184,10 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Tags.Items.INGOTS_COPPER),
                         Ingredient.of(OccultismTags.Items.SILVER_INGOT),
                         Ingredient.of(Tags.Items.INGOTS_GOLD),
-                        Ingredient.of(Blocks.SOUL_SAND),
-                        Ingredient.of(Blocks.SOUL_SAND),
-                        Ingredient.of(Blocks.SOUL_SAND),
-                        Ingredient.of(Blocks.SOUL_SAND)
+                        Ingredient.of(OccultismItems.FRAGILE_SOUL_GEM_ITEM),
+                        Ingredient.of(ItemTags.SOUL_FIRE_BASE_BLOCKS),
+                        Ingredient.of(ItemTags.SOUL_FIRE_BASE_BLOCKS),
+                        Ingredient.of(ItemTags.SOUL_FIRE_BASE_BLOCKS)
                 ).unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_soul_gem"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
@@ -1292,6 +1293,17 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Tags.Items.SEEDS))
                 .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_nature_paste"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
+                        new ItemStack(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_FRAGILE_SOUL_GEM.get()),
+                        30, //this item break after one use, half the time
+                        RITUAL_CRAFT,
+                        PENTACLE_CRAFT_FOLIOT,
+                        Ingredient.of(Tags.Items.INGOTS_IRON),
+                        Ingredient.of(Tags.Items.EGGS),
+                        Ingredient.of(Tags.Items.GLASS_BLOCKS)
+                ).unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_fragile_soul_gem"));
 
         //Marid
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()),
@@ -1581,7 +1593,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Tags.Items.STORAGE_BLOCKS_GOLD),
                         Ingredient.of(Tags.Items.GEMS_DIAMOND),
                         Ingredient.of(Tags.Items.NETHERRACKS),
-                        Ingredient.of(Items.SOUL_SAND))
+                        Ingredient.of(ItemTags.SOUL_FIRE_BASE_BLOCKS))
                 .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
                 .entityToSummon(OccultismEntities.WILD_HUNT_WITHER_SKELETON.get())
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.humans")

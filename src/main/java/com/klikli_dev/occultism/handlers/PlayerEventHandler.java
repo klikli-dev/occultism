@@ -124,6 +124,16 @@ public class PlayerEventHandler {
                 event.setCanceled(true);
             }
         }
+        if (event.getItemStack().getItem() == OccultismItems.FRAGILE_SOUL_GEM_ITEM.get() &&
+                event.getTarget() instanceof LivingEntity) {
+            //called from here to bypass sitting entity's sit command.
+            if (OccultismItems.FRAGILE_SOUL_GEM_ITEM.get()
+                    .interactLivingEntity(event.getItemStack(), event.getEntity(),
+                            (LivingEntity) event.getTarget(),
+                            event.getHand()) == InteractionResult.SUCCESS) {
+                event.setCanceled(true);
+            }
+        }
         if (event.getItemStack().getItem() == OccultismItems.TRINITY_GEM_ITEM.get() &&
                 event.getTarget() instanceof LivingEntity) {
             //called from here to bypass sitting entity's sit command.

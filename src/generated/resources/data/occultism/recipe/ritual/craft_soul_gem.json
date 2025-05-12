@@ -18,16 +18,16 @@
       "tag": "c:ingots/gold"
     },
     {
-      "item": "minecraft:soul_sand"
+      "item": "occultism:fragile_soul_gem"
     },
     {
-      "item": "minecraft:soul_sand"
+      "tag": "minecraft:soul_fire_base_blocks"
     },
     {
-      "item": "minecraft:soul_sand"
+      "tag": "minecraft:soul_fire_base_blocks"
     },
     {
-      "item": "minecraft:soul_sand"
+      "tag": "minecraft:soul_fire_base_blocks"
     }
   ],
   "pentacle_id": "occultism:craft_djinni",

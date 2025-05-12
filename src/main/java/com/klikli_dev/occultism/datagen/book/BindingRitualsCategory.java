@@ -29,11 +29,11 @@ public class BindingRitualsCategory extends CategoryProvider {
     protected String[] generateEntryMap() {
         return new String[]{
                 "___________________________",
-                "_______e_x_p_q_r___________",
+                "_______e_x_p_q_r_Ť_________",
                 "___________________________",
-                "_______b_u_t_ĝ_ğ_Ť_________",
+                "_______b_u_t_ĝ_ğ_h_c_______",
                 "___________________________",
-                "_______d___A_g_Č_h_c_______",
+                "_______d___A_g_Č_é_________",
                 "___________________________",
                 "___9_0_______________y____",
                 "___________________________",
@@ -120,8 +120,11 @@ public class BindingRitualsCategory extends CategoryProvider {
         artisanalRitualSatchel.withParent(apprenticeRitualSatchel)
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftAfritID));
 
+        var craftFragileSoulGem = this.add(new FragileSoulGemEntry(this).generate('é'));
+        craftFragileSoulGem.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
         var craftSoulGem = this.add(this.makeCraftSoulGemEntry(this.entryMap, 'h'));
-        craftSoulGem.withParent(BookEntryParentModel.create(overview.getId()))
+        craftSoulGem.withParent(BookEntryParentModel.create(craftFragileSoulGem.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
         var craftFamiliarRing = this.add(this.makeCraftFamiliarRingEntry(this.entryMap, 'c'));
         craftFamiliarRing.withParent(BookEntryParentModel.create(craftSoulGem.getId()));
@@ -567,22 +570,22 @@ public class BindingRitualsCategory extends CategoryProvider {
                 .withItem(Ingredient.of(OccultismItems.SOUL_GEM_ITEM.get()))
                 .withText(this.context().pageText());
 
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_soul_gem"));
+
         this.context().page("usage");
         var usage = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText());
-
-        this.context().page("ritual");
-        var ritual = BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/craft_soul_gem"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.SOUL_GEM_ITEM.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         spotlight,
-                        usage,
-                        ritual
+                        ritual,
+                        usage
                 );
     }
 

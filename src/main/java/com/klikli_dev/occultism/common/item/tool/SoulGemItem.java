@@ -32,6 +32,8 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -108,6 +110,13 @@ public class SoulGemItem extends Item {
                 //                }
 
                 player.swing(context.getHand());
+
+                if (itemStack.getItem().equals(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get())) {
+                    player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                    level.playSound(null, pos, SoundEvents.GLASS_BREAK, SoundSource.PLAYERS, 1f,
+                            1 + 0.5f * player.getRandom().nextFloat());
+                }
+
                 player.inventoryMenu.broadcastChanges();
             }
             return InteractionResult.SUCCESS;
@@ -138,6 +147,12 @@ public class SoulGemItem extends Item {
             return InteractionResult.FAIL;
 
         //do not capture entities on deny lists
+        if (target.getType().is(OccultismTags.Entities.FRAGILE_SOUL_GEM_DENY_LIST) && stack.getItem().equals(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get())) {
+            player.sendSystemMessage(
+                    Component.translatable(this.getDescriptionId() + ".message.entity_type_denied"));
+            return InteractionResult.FAIL;
+        }
+
         if (target.getType().is(OccultismTags.Entities.SOUL_GEM_DENY_LIST) && stack.getItem().equals(OccultismItems.SOUL_GEM_ITEM.get())) {
             player.sendSystemMessage(
                     Component.translatable(this.getDescriptionId() + ".message.entity_type_denied"));

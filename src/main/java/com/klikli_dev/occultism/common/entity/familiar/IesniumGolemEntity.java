@@ -98,30 +98,34 @@ public class IesniumGolemEntity extends IronGolem{
         return super.isInvulnerableTo(source);
     }
 
-    @Override
-    protected void dropFromLootTable(DamageSource pDamageSource, boolean pAttackedRecently) {
-        super.dropFromLootTable(pDamageSource, pAttackedRecently);
+    public boolean hurt(DamageSource source, float amount) {
+        if (this.isInvulnerableTo(source)) {
+            return false;
+        } else {
+            var shard = new ItemStack(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get());
 
-        var shard = new ItemStack(OccultismItems.SOUL_SHARD_ITEM.get());
+            var health = this.getHealth();
+            this.setHealth(this.getMaxHealth()); //simulate a healthy familiar to avoid death on respawn
+            this.resetFallDistance();
+            this.removeAllEffects();
+            this.remove(RemovalReason.DISCARDED);
 
-        var health = this.getHealth();
-        this.setHealth(this.getMaxHealth()); //simulate a healthy familiar to avoid death on respawn
-        this.resetFallDistance();
-        this.removeAllEffects();
+            var entityData = new CompoundTag();
+            var id = this.getEncodeId();
+            if (id != null)
+                entityData.putString("id", id);
+            entityData = this.saveWithoutId(entityData);
 
-        var entityData = new CompoundTag();
-        var id = this.getEncodeId();
-        if (id != null)
-            entityData.putString("id", id);
-        entityData = this.saveWithoutId(entityData);
+            shard.set(DataComponents.ENTITY_DATA, CustomData.of(entityData));
+            this.setHealth(health);
 
-        shard.set(DataComponents.ENTITY_DATA, CustomData.of(entityData));
-        this.setHealth(health);
+            ItemEntity entityitem = new ItemEntity(this.level(), this.getX(), this.getY() + 0.5, this.getZ(), shard);
+            entityitem.setPickUpDelay(5);
+            entityitem.setDeltaMovement(entityitem.getDeltaMovement().multiply(0, 1, 0));
 
-        ItemEntity entityitem = new ItemEntity(this.level(), this.getX(), this.getY() + 0.5, this.getZ(), shard);
-        entityitem.setPickUpDelay(5);
-        entityitem.setDeltaMovement(entityitem.getDeltaMovement().multiply(0, 1, 0));
+            this.level().addFreshEntity(entityitem);
 
-        this.level().addFreshEntity(entityitem);
+            return super.hurt(source, amount);
+        }
     }
 }

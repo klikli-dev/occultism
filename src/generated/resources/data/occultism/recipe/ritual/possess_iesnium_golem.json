@@ -27,6 +27,9 @@
     },
     {
       "tag": "c:nether_stars"
+    },
+    {
+      "item": "occultism:soul_gem"
     }
   ],
   "pentacle_id": "occultism:possess_marid",

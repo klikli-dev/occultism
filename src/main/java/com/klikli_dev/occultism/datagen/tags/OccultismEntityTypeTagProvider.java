@@ -199,7 +199,8 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
     }
 
     private void addCommonTags() {
-        this.tag(OccultismTags.Entities.SOUL_GEM_DENY_LIST).addOptionalTag(Tags.EntityTypes.CAPTURING_NOT_SUPPORTED).addTag(Tags.EntityTypes.BOSSES);
+        this.tag(OccultismTags.Entities.FRAGILE_SOUL_GEM_DENY_LIST).add(OccultismEntities.IESNIUM_GOLEM_TYPE.get()).addOptionalTag(Tags.EntityTypes.CAPTURING_NOT_SUPPORTED).addTag(Tags.EntityTypes.BOSSES);
+        this.tag(OccultismTags.Entities.SOUL_GEM_DENY_LIST).add(OccultismEntities.IESNIUM_GOLEM_TYPE.get()).addOptionalTag(Tags.EntityTypes.CAPTURING_NOT_SUPPORTED).addTag(Tags.EntityTypes.BOSSES);
 
         this.tag(OccultismTags.Entities.SNOW_GOLEM).add(EntityType.SNOW_GOLEM).replace(false);
         this.tag(OccultismTags.Entities.IRON_GOLEM).add(EntityType.IRON_GOLEM).replace(false);

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_bound_foliot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "occultism:book_of_binding_bound_foliot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:ritual/craft_fragile_soul_gem"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_bound_foliot"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:ritual/craft_fragile_soul_gem"
+    ]
+  }
+}

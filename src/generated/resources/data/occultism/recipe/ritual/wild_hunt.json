@@ -26,7 +26,7 @@
       "tag": "c:netherracks"
     },
     {
-      "item": "minecraft:soul_sand"
+      "tag": "minecraft:soul_fire_base_blocks"
     }
   ],
   "pentacle_id": "occultism:contact_wild_spirit",
