@@ -161,6 +161,7 @@ public class OccultismTags {
 
 
         public static final TagKey<Item> MAGMA = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "magma"));
+        public static final TagKey<Item> CLAY = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "clay"));
 
         public static final TagKey<Item> MANUALS = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "manuals"));
 

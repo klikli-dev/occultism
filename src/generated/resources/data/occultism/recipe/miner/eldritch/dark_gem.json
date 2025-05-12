@@ -4,25 +4,25 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "occultism:miners/ores"
+        "tag": "occultism:miners/eldritch"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:ores/dark"
+        "tag": "c:storage_blocks/dark_gem"
       }
     }
   ],
   "type": "occultism:miner",
   "ingredient": {
-    "tag": "occultism:miners/ores"
+    "tag": "occultism:miners/eldritch"
   },
   "result": {
     "type": "occultism:weighted_tag",
     "count": 1,
-    "tag": "c:ores/dark",
-    "weight": 200
+    "tag": "c:storage_blocks/dark_gem",
+    "weight": 90
   }
 }

@@ -403,6 +403,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
         this.crushingIngotRecipe("beryllium", pRecipeOutput);
         this.crushingIngotRecipe("cadmium", pRecipeOutput);
         this.crushingIngotRecipe("chromium", pRecipeOutput);
+        this.crushingIngotRecipe("cupronickel", pRecipeOutput);
         this.crushingIngotRecipe("he_mox", pRecipeOutput);
         this.crushingIngotRecipe("he_uranium", pRecipeOutput);
         this.crushingIngotRecipe("kanthal", pRecipeOutput);
@@ -410,6 +411,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
         this.crushingIngotRecipe("le_uranium", pRecipeOutput);
         this.crushingIngotRecipe("plutonium", pRecipeOutput);
         this.crushingIngotRecipe("silicon", pRecipeOutput);
+        this.crushingIngotRecipe("superconductor", pRecipeOutput);
         this.crushingIngotRecipe("uranium_235", pRecipeOutput);
         this.crushingIngotRecipe("uranium_238", pRecipeOutput);
         //Gems

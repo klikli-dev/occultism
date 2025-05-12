@@ -67,8 +67,9 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(this.cTag("ores/dark_gem"))
                 .addOptional(this.loc("evilcraft:dark_ores"))
                 .addOptionalTag(this.loc("evilcraft:ores/dark_gem")); //does not exist as of 1.21, but if they unify the pattern it will
-        this.tag(this.cTag("gem/dark_gem")).addOptional(this.loc("evilcraft:dark_gem"));
+        this.tag(this.cTag("gems/dark_gem")).addOptional(this.loc("evilcraft:dark_gem"));
         this.tag(this.cTag("dusts/dark_gem")).addOptional(this.loc("evilcraft:dark_gem_crushed"));
+        this.tag(this.cTag("storage_blocks/dark_gem")).addOptional(this.loc("evilcraft:dark_block"));
         this.tag(this.cTag("ores/black_quartz")).addOptional(this.loc("actuallyadditions:black_quartz_ore"));
         this.tag(this.cTag("gems/black_quartz")).addOptional(this.loc("actuallyadditions:black_quartz"));
         this.tag(this.cTag("dusts/certus_quartz")).addOptional(this.loc("ae2:certus_quartz_dust"));
@@ -351,6 +352,9 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
 
         // Wood
         this.copy(OccultismTags.Blocks.OTHERWORLD_LOGS, OccultismTags.Items.OTHERWORLD_LOGS);
+
+        // Clay
+        this.tag(OccultismTags.Items.CLAY).add(Items.CLAY_BALL).replace(false);
     }
 
     private void addDusts(HolderLookup.Provider provider) {

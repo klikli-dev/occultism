@@ -31,7 +31,7 @@ public abstract class MinerRecipes extends RecipeProvider {
         makeOreRecipe("uraninite_regular", 500, recipeOutput);
         makeOreRecipe("uraninite_dense", 200, recipeOutput);
         makeOreRecipe("sal_ammoniac", 750, recipeOutput);
-        makeOreRecipe("dark", 200, recipeOutput);
+        makeOreRecipe("dark_gem", 200, recipeOutput);
         makeOreRecipe("agate", 200, recipeOutput);
         makeOreRecipe("aluminum", 422, recipeOutput);
         makeOreRecipe("amber", 184, recipeOutput);
@@ -55,6 +55,7 @@ public abstract class MinerRecipes extends RecipeProvider {
 //        makeOreRecipe("dimensional_shard",127,recipeOutput);
         makeOreRecipe("electrotine", 155, recipeOutput);
         makeVanillaOreRecipe("emerald", 156, recipeOutput);
+        makeOreRecipe("fluorite", 133, recipeOutput);
         makeOreRecipe("garnet", 200, recipeOutput);
         makeVanillaItemRecipe(Items.GLOWSTONE, 234, recipeOutput);
         makeVanillaOreRecipe("gold", 311, recipeOutput);
@@ -178,7 +179,7 @@ public abstract class MinerRecipes extends RecipeProvider {
         makeStorageRecipe("arcane_crystal", 90, recipeOutput);
         makeStorageRecipe("bauxite", 90, recipeOutput);
         makeStorageRecipe("coal", 90, recipeOutput);
-        makeStorageRecipe("dark", 90, recipeOutput);
+        makeStorageRecipe("dark_gem", 90, recipeOutput);
         makeStorageRecipe("diamond", 90, recipeOutput);
         makeStorageRecipe("emerald", 90, recipeOutput);
         makeStorageRecipe("fluorite", 90, recipeOutput);
@@ -265,6 +266,10 @@ public abstract class MinerRecipes extends RecipeProvider {
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/eldritch/glowstone_dust"));
+        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ELDRITCH, OccultismTags.Items.CLAY, 90, 9)
+                .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
+                .allowEmpty()
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/eldritch/clay"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.ELDRITCH, OccultismItems.MINING_DIMENSION_CORE_PIECE, 1)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
                 .allowEmpty()

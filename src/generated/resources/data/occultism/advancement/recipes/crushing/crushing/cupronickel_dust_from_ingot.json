@@ -4,24 +4,24 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "occultism:miners/ores"
+        "tag": "c:ingots/cupronickel"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:ores/dark"
+        "tag": "c:dusts/cupronickel"
       }
     }
   ],
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_miner": {
+    "has_cupronickel_ingot": {
       "conditions": {
         "items": [
           {
-            "items": "occultism:magic_lamp_empty"
+            "items": "#c:ingots/cupronickel"
           }
         ]
       },
@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miner/ores/dark_ore"
+        "recipe": "occultism:crushing/cupronickel_dust_from_ingot"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -37,12 +37,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_miner"
+      "has_cupronickel_ingot"
     ]
   ],
   "rewards": {
     "recipes": [
-      "occultism:miner/ores/dark_ore"
+      "occultism:crushing/cupronickel_dust_from_ingot"
     ]
   }
 }

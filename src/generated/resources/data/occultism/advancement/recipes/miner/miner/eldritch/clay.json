@@ -1,20 +1,4 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "occultism:miners/eldritch"
-      }
-    },
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:storage_blocks/dark"
-      }
-    }
-  ],
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_miner": {
@@ -29,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:miner/eldritch/dark"
+        "recipe": "occultism:miner/eldritch/clay"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -42,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "occultism:miner/eldritch/dark"
+      "occultism:miner/eldritch/clay"
     ]
   }
 }

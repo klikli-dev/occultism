@@ -1,0 +1,12 @@
+{
+  "type": "occultism:miner",
+  "ingredient": {
+    "tag": "occultism:miners/eldritch"
+  },
+  "result": {
+    "type": "occultism:weighted_tag",
+    "count": 9,
+    "tag": "c:clay",
+    "weight": 90
+  }
+}
