@@ -37,6 +37,18 @@
       "title": ""
     },
     {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "occultism:marid_essence"
+      },
+      "text": "book.occultism.dictionary_of_spirits.pentacles.blue_chalk.essence.text",
+      "title": ""
+    },
+    {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
       "condition": {

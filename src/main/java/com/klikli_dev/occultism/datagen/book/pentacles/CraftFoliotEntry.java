@@ -52,6 +52,10 @@ public class CraftFoliotEntry extends EntryProvider {
                 - [Stable Wormhole](entry://crafting_rituals/craft_stable_wormhole)
                 - [Storage Stabilizer Tier 1](entry://crafting_rituals/craft_stabilizer_tier1)
                 - [Foliot Miner](entry://crafting_rituals/craft_foliot_miner)
+                - [Apprentice Ritual Satchel](entry://crafting_rituals/apprentice_ritual_satchel)
+                - [Fragile Soul Gem](entry://crafting_rituals/fragile_soul_gem)
+                - [Research Fragment Dust](entry://pentacles/lime_chalk)
+                - [Nature Paste](entry://pentacles/green_chalk)
                 """
         );
 

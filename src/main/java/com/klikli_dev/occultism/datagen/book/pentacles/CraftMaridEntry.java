@@ -50,6 +50,7 @@ public class CraftMaridEntry extends EntryProvider {
                 - [Marid Master Miner](entry://crafting_rituals/craft_marid_miner)
                 - [Iesnium Anvil](entry://crafting_rituals/craft_iesnium_anvil)
                 - [True Sight Staff](entry://crafting_rituals/true_sight_staff)
+                - [Dragonyst Dust](entry://pentacles/magenta_chalk)
                 """
         );
 

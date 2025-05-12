@@ -10,6 +10,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.occultism.integration.modonomicon.pages.BookSpiritFireRecipePageModel;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class BlueChalkEntry extends EntryProvider {
@@ -43,6 +44,16 @@ public class BlueChalkEntry extends EntryProvider {
                          excessive use serves as a guarantee that any Marid will be controlled.
                          Should the control fail, it would generate extreme fury in the invoked Marid.
                         """
+        );
+
+        this.page("essence", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismItems.MARID_ESSENCE.get()))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        To obtain the essence of a {0} for [](item://occultism:chalk_blue) you need to
+                         [summon and kill an Unbound Marid](entry://summoning_rituals/marid_essence).
+                        """,
+                this.color("Marid", ChatFormatting.DARK_PURPLE)
         );
 
         this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()

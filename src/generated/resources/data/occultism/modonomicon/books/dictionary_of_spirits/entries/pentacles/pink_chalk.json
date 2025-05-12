@@ -33,6 +33,18 @@
       "title": ""
     },
     {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "occultism:demonic_meat"
+      },
+      "text": "book.occultism.dictionary_of_spirits.pentacles.pink_chalk.meat.text",
+      "title": ""
+    },
+    {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
       "condition": {

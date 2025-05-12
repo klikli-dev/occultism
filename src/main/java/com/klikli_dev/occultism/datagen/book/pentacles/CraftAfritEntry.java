@@ -51,6 +51,7 @@ public class CraftAfritEntry extends EntryProvider {
                 - [Afrit Deep Ore Miner](entry://crafting_rituals/craft_afrit_miner)
                 - [Artisanal Ritual Satchel](entry://crafting_rituals/artisanal_ritual_satchel)
                 - [Repair Items](entry://crafting_rituals/repair)
+                - [Whiterite Dust](entry://pentacles/black_chalk)
                 """
         );
 

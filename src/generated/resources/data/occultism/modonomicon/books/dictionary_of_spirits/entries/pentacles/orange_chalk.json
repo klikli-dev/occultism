@@ -37,6 +37,18 @@
       "title": ""
     },
     {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "occultism:cursed_honey"
+      },
+      "text": "book.occultism.dictionary_of_spirits.pentacles.orange_chalk.honey.text",
+      "title": ""
+    },
+    {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
       "condition": {

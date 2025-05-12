@@ -46,6 +46,15 @@ public class OrangeChalkEntry extends EntryProvider {
                         """
         );
 
+        this.page("honey", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismItems.CURSED_HONEY.get()))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        To obtain the [](item://occultism:cursed_honey) for [](item://occultism:chalk_orange) you need to
+                         [summon and kill a Possessed Bee](entry://possession_rituals/possess_bee)
+                        """
+        );
+
         this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/chalk_orange_impure"))
         );

@@ -44,6 +44,15 @@ public class BrownChalkEntry extends EntryProvider {
                         """
         );
 
+        this.page("essence", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismItems.CRUELTY_ESSENCE.get()))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        To obtain the [](item://occultism:cruelty_essence) for [](item://occultism:chalk_brown) you need to
+                         [summon and kill a Mercy Goat](entry://possession_rituals/possess_goat)
+                        """
+        );
+
         this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/chalk_brown_impure"))
         );
