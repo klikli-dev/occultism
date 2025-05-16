@@ -24,6 +24,7 @@ package com.klikli_dev.occultism.common.ritual;
 
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
 import com.klikli_dev.occultism.common.entity.familiar.FamiliarEntity;
+import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.DemonicPartner;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismSounds;
@@ -37,7 +38,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
@@ -87,6 +87,9 @@ public class ResurrectFamiliarRitual extends SummonRitual {
 
             if (entity instanceof FamiliarEntity familiar && castingPlayer != null)
                 familiar.setFamiliarOwner(castingPlayer);
+
+            if (entity instanceof DemonicPartner partner && castingPlayer != null)
+                partner.setOwnerUUID(castingPlayer.getUUID());
         }
     }
 }
