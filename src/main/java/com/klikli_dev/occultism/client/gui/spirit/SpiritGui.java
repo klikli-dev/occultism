@@ -61,6 +61,11 @@ public class SpiritGui<T extends SpiritContainer> extends AbstractContainerScree
         this.imageHeight = 165;
     }
 
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        super.render(guiGraphics, mouseX, mouseY, partialTicks);
+        this.renderTooltip(guiGraphics, mouseX, mouseY);
+    }
+
     public static void drawEntityToGui(GuiGraphics guiGraphics, int posX, int posY, int scale, float mouseX, float mouseY, LivingEntity entity) {
         var poseStack = guiGraphics.pose();
         //From inventory screen
