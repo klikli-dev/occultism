@@ -2924,10 +2924,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("occultism.waila.foliot_age","Foliot: %s seconds left");
         this.add("occultism.waila.djinni","Djinni");
         this.add("occultism.waila.djinni_age","DJinni: %s seconds left");
-        this.add("occultism.waila.afrit","Affrit");
-        this.add("occultism.waila.afrit_age","Affrit: %s seconds left");
+        this.add("occultism.waila.afrit","Afrit");
+        this.add("occultism.waila.afrit_age","Afrit: %s seconds left");
         this.add("occultism.waila.marid","Marid");
         this.add("occultism.waila.marid_age","Marid: %s seconds left");
+        this.add("config.jade.plugin_occultism.foliot", "Spirits Info");
+        this.add("config.jade.plugin_occultism.sacrificial", "Sacrificial Bowl Info");
 
     }
 }
