@@ -194,7 +194,7 @@ public abstract class FamiliarEntity extends PathfinderMob implements IFamiliar 
         ItemStack stack = playerIn.getItemInHand(hand);
         if (stack.getItem() == OccultismItems.FAMILIAR_RING.get()) {
             return stack.interactLivingEntity(playerIn, this, hand);
-        } else if (stack.getItem() == OccultismItems.DEBUG_WAND.get()) {
+        } else if (stack.getItem() == OccultismItems.DEBUG_WAND.get() || this.getFamiliarOwner() == null) {
             this.setOwnerId(playerIn.getUUID());
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         } else if (stack.isEmpty() && !this.level().isClientSide && this.getFamiliarOwner() == playerIn) {

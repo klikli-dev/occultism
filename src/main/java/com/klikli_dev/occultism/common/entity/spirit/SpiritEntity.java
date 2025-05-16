@@ -683,7 +683,10 @@ public abstract class SpiritEntity extends TamableAnimal implements ISkinnedCrea
       ItemStack itemStack = player.getItemInHand(hand);
 
       if (!(itemStack.is(OccultismTags.Items.BOOK_OF_CALLING_FOLIOT) || itemStack.is(OccultismTags.Items.BOOK_OF_CALLING_DJINNI))) {
-        if (this.isTame() && player.isShiftKeyDown()) {
+        if (!this.isTame())
+            this.tame(player);
+
+        if (player.isShiftKeyDown() && this.getOwner() == player) {
             this.openScreen(player);
             return InteractionResult.SUCCESS;
         }
