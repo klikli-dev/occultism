@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.common.ritual;
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
+import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -200,8 +201,13 @@ public class SummonRitual extends Ritual {
         if (setTamed && livingEntity instanceof TamableAnimal tamableAnimal && castingPlayer != null) {
             tamableAnimal.tame(castingPlayer);
         }
-        livingEntity.absMoveTo(goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY(), goldenBowlPosition.getZ() + 0.5,
-                level.random.nextInt(360), 0);
+        if (level.getBlockState(goldenBowlPosition).getBlock().equals(OccultismBlocks.ELDRITCH_CHALICE.get())) {
+            livingEntity.absMoveTo(goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY() + 1, goldenBowlPosition.getZ() + 0.5,
+                    level.random.nextInt(360), 0);
+        } else {
+            livingEntity.absMoveTo(goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY(), goldenBowlPosition.getZ() + 0.5,
+                    level.random.nextInt(360), 0);
+        }
         if (!spiritName.isEmpty())
             livingEntity.setCustomName(Component.literal(spiritName));
         if (livingEntity instanceof Mob mob) {
