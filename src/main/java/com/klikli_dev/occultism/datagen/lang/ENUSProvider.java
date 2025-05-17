@@ -2715,9 +2715,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.BLAZE_DUST, "Blaze Dust");
         this.addItemTag(OccultismTags.Items.MANUALS, "Manuals");
         this.addItemTag(OccultismTags.Items.TOOLS_KNIFE, "Knives");
+        this.addItemTag(ResourceLocation.fromNamespaceAndPath("c", "tools/knife"), "Knives");
         this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "belt"), "Belts");
         this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "hands"), "Hands");
-        this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "heads"), "Heads");
+        this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "head"), "Head");
         this.addItemTag(ResourceLocation.fromNamespaceAndPath("curios", "ring"), "Ring");
         this.addItemTag(OccultismTags.Items.DEMONIC_PARTNER_FOOD, "Demonic Partner Food");
         this.addItemTag(OccultismTags.Items.OTHERCOBBLESTONE, "Other Cobblestone");
@@ -2725,6 +2726,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.OTHERWORLD_LOGS, "Otherworld Logs");
         this.addItemTag(OccultismTags.Items.PENTACLE_MATERIALS, "Pentacle Materials");
         this.addItemTag(OccultismTags.Items.TOOLS_CHALK, "Chalks");
+        this.addItemTag(OccultismTags.Items.CLAY, "Clay");
     }
 
     private void addItemTag(ResourceLocation resourceLocation, String string) {
@@ -2882,6 +2884,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("items", "Items");
         this.addConfig("anyOreDivinationRod", "Divination c:ores");
         this.addConfig("minerOutputBeforeBreak", "Save miners before breaking");
+        this.addConfig("minerEfficiency", "Efficient miners");
+        this.addConfig("minerFortune", "Fortune miners");
         this.addConfig("unbreakableChalks", "Unbreakable Chalks");
     }
 

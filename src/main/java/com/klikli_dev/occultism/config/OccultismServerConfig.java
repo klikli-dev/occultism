@@ -46,6 +46,8 @@ public class OccultismServerConfig {
     public static class ItemSettings {
         public final BooleanValue anyOreDivinationRod;
         public final BooleanValue minerOutputBeforeBreak;
+        public final BooleanValue minerEfficiency;
+        public final BooleanValue minerFortune;
         public final BooleanValue unbreakableChalks;
 
         public ItemSettings(ModConfigSpec.Builder builder) {
@@ -61,6 +63,16 @@ public class OccultismServerConfig {
                                     "Miners head to the output in the Dimensional Mineshaft before it breaks"
                             )
                             .define("minerOutputBeforeBreak", false);
+            this.minerEfficiency =
+                    builder.comment(
+                                    "Allow miners enchanted with efficiency mine faster"
+                            )
+                            .define("minerEfficiency", true);
+            this.minerFortune =
+                    builder.comment(
+                                    "Allow miners enchanted with fortune to has a chance of mine extra results each operation"
+                            )
+                            .define("minerFortune", true);
             this.unbreakableChalks =
                     builder.comment(
                                     "Don't damage chalks on use"

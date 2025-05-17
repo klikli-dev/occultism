@@ -167,12 +167,15 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
             boolean dirty = false;
             if (this.miningTime > 0) {
 
-                int efficiency = input.isEnchanted() ? input.getEnchantmentLevel(this.level.holderOrThrow(Enchantments.EFFICIENCY)) : 0;
+                int efficiency = 0;
+                if (Occultism.SERVER_CONFIG.itemSettings.minerEfficiency.getAsBoolean()) {
+                    efficiency = input.isEnchanted() ? input.getEnchantmentLevel(this.level.holderOrThrow(Enchantments.EFFICIENCY)) : 0;
 
-                if (efficiency > 0) {
-                    int extra1 = this.level.random.nextIntBetweenInclusive(0, efficiency);
-                    int extra2 = this.level.random.nextIntBetweenInclusive(0, efficiency);
-                    efficiency = Math.min(extra1, extra2);
+                    if (efficiency > 0) {
+                        int extra1 = this.level.random.nextIntBetweenInclusive(0, efficiency);
+                        int extra2 = this.level.random.nextIntBetweenInclusive(0, efficiency);
+                        efficiency = Math.min(extra1, extra2);
+                    }
                 }
 
                 for (int i = 0; i < 1 + efficiency; i++) {
@@ -242,13 +245,16 @@ public class DimensionalMineshaftBlockEntity extends NetworkedBlockEntity implem
 
         ItemStack input = this.inputHandler.getStackInSlot(0);
 
-        int fortune = input.isEnchanted() ? input.getEnchantmentLevel(this.level.holderOrThrow(Enchantments.FORTUNE)) : 0;
+        int fortune = 0;
+        if (Occultism.SERVER_CONFIG.itemSettings.minerFortune.getAsBoolean()) {
+            fortune = input.isEnchanted() ? input.getEnchantmentLevel(this.level.holderOrThrow(Enchantments.FORTUNE)) : 0;
 
-        if (fortune > 0) {
-            int extra1 = this.level.random.nextIntBetweenInclusive(0, fortune);
-            int extra2 = this.level.random.nextIntBetweenInclusive(0, fortune);
-            int extra3 = this.level.random.nextIntBetweenInclusive(0, fortune);
-            fortune = Math.min(extra1, Math.min(extra2, extra3));
+            if (fortune > 0) {
+                int extra1 = this.level.random.nextIntBetweenInclusive(0, fortune);
+                int extra2 = this.level.random.nextIntBetweenInclusive(0, fortune);
+                int extra3 = this.level.random.nextIntBetweenInclusive(0, fortune);
+                fortune = Math.min(extra1, Math.min(extra2, extra3));
+            }
         }
 
         for (int i = 0; i < this.rollsPerOperation + fortune; i++) {
