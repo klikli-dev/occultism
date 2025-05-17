@@ -22,6 +22,7 @@ import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.EmiCraftingRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
+import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
@@ -64,10 +65,10 @@ public class OccultismEmiPlugin implements EmiPlugin {
         emiRegistry.addCategory(SPIRIT_FIRE_CATEGORY);
         emiRegistry.addWorkstation(SPIRIT_FIRE_CATEGORY, SPIRIT_FIRE);
         emiRegistry.addCategory(CRUSHING_CATEGORY);
-        emiRegistry.addWorkstation(CRUSHING_CATEGORY, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_foliot_crusher"))))));
-        emiRegistry.addWorkstation(CRUSHING_CATEGORY, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_djinni_crusher"))))));
-        emiRegistry.addWorkstation(CRUSHING_CATEGORY, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_afrit_crusher"))))));
-        emiRegistry.addWorkstation(CRUSHING_CATEGORY, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_marid_crusher"))))));
+        emiRegistry.addWorkstation(CRUSHING_CATEGORY, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRUSHER.getId())))));
+        emiRegistry.addWorkstation(CRUSHING_CATEGORY, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRUSHER.getId())))));
+        emiRegistry.addWorkstation(CRUSHING_CATEGORY, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRUSHER.getId())))));
+        emiRegistry.addWorkstation(CRUSHING_CATEGORY, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRUSHER.getId())))));
 
         emiRegistry.addCategory(MINER_CATEGORY);
         emiRegistry.addWorkstation(MINER_CATEGORY, EmiStack.of(OccultismBlocks.DIMENSIONAL_MINESHAFT.get()));
@@ -76,6 +77,24 @@ public class OccultismEmiPlugin implements EmiPlugin {
         emiRegistry.addWorkstation(RITUAL_CATEGORY, GOLDEN_SACRIFICIAL_BOWL);
         emiRegistry.addWorkstation(RITUAL_CATEGORY, IESNIUM_SACRIFICIAL_BOWL);
         emiRegistry.addWorkstation(RITUAL_CATEGORY, ELDRITCH_CHALICE);
+
+        emiRegistry.addWorkstation(VanillaEmiRecipeCategories.SMELTING, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER.getId())))));
+        emiRegistry.addWorkstation(VanillaEmiRecipeCategories.SMELTING, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER.getId())))));
+        emiRegistry.addWorkstation(VanillaEmiRecipeCategories.SMELTING, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER.getId())))));
+        emiRegistry.addWorkstation(VanillaEmiRecipeCategories.SMELTING, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER.getId())))));
+        emiRegistry.addWorkstation(VanillaEmiRecipeCategories.SMOKING, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER.getId())))));
+        emiRegistry.addWorkstation(VanillaEmiRecipeCategories.SMOKING, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER.getId())))));
+        emiRegistry.addWorkstation(VanillaEmiRecipeCategories.SMOKING, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER.getId())))));
+        emiRegistry.addWorkstation(VanillaEmiRecipeCategories.SMOKING, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER.getId())))));
+        emiRegistry.addWorkstation(VanillaEmiRecipeCategories.BLASTING, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER.getId())))));
+        emiRegistry.addWorkstation(VanillaEmiRecipeCategories.BLASTING, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER.getId())))));
+        emiRegistry.addWorkstation(VanillaEmiRecipeCategories.BLASTING, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER.getId())))));
+        emiRegistry.addWorkstation(VanillaEmiRecipeCategories.BLASTING, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER.getId())))));
+        emiRegistry.addWorkstation(VanillaEmiRecipeCategories.CAMPFIRE_COOKING, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER.getId())))));
+        emiRegistry.addWorkstation(VanillaEmiRecipeCategories.CAMPFIRE_COOKING, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER.getId())))));
+        emiRegistry.addWorkstation(VanillaEmiRecipeCategories.CAMPFIRE_COOKING, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER.getId())))));
+        emiRegistry.addWorkstation(VanillaEmiRecipeCategories.CAMPFIRE_COOKING, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER.getId())))));
+
         RecipeManager manager=emiRegistry.getRecipeManager();
         for(RecipeHolder<SpiritFireRecipe> recipe: manager.getAllRecipesFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get())) {
             emiRegistry.addRecipe(new SpiritFireRecipeCategory(recipe));
