@@ -318,7 +318,7 @@ public class OccultismBlocks {
             () -> new Block(Block.Properties.ofFullCopy(Blocks.IRON_ORE)), true, LootTableType.CUSTOM);
     public static final DeferredBlock<IesniumOreNaturalBlock> IESNIUM_ORE_NATURAL =
             register("iesnium_ore_natural", () -> new IesniumOreNaturalBlock(Block.Properties.ofFullCopy(Blocks.IRON_ORE)),
-                    true, LootTableType.OTHERWORLD_BLOCK);
+                    true, LootTableType.CUSTOM);
     public static final DeferredBlock<Block> SILVER_BLOCK = register("silver_block", () -> new Block(Block.Properties.ofFullCopy(Blocks.IRON_BLOCK)));
     public static final DeferredBlock<Block> RAW_SILVER_BLOCK = register("raw_silver_block", () -> new Block(Block.Properties.ofFullCopy(Blocks.RAW_IRON_BLOCK)));
     public static final DeferredBlock<Block> IESNIUM_BLOCK = register("iesnium_block", () -> new Block(Block.Properties.ofFullCopy(Blocks.IRON_BLOCK)));

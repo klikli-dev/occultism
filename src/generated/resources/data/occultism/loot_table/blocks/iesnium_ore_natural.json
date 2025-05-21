@@ -3,28 +3,107 @@
   "pools": [
     {
       "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "block": "occultism:iesnium_ore_natural",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "uncovered": "false"
+          }
+        }
+      ],
       "entries": [
         {
-          "type": "minecraft:alternatives",
-          "children": [
+          "type": "minecraft:item",
+          "name": "minecraft:netherrack"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
             {
-              "type": "minecraft:item",
-              "conditions": [
+              "condition": "minecraft:all_of",
+              "terms": [
                 {
                   "block": "occultism:iesnium_ore_natural",
                   "condition": "minecraft:block_state_property",
                   "properties": {
                     "uncovered": "true"
                   }
+                },
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "predicates": {
+                      "minecraft:enchantments": [
+                        {
+                          "enchantments": "minecraft:silk_touch",
+                          "levels": {
+                            "min": 1
+                          }
+                        }
+                      ]
+                    }
+                  }
                 }
-              ],
-              "name": "occultism:iesnium_ore"
-            },
-            {
-              "type": "minecraft:item",
-              "name": "minecraft:netherrack"
+              ]
             }
-          ]
+          ],
+          "name": "occultism:iesnium_ore"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:all_of",
+              "terms": [
+                {
+                  "block": "occultism:iesnium_ore_natural",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "uncovered": "true"
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:match_tool",
+                    "predicate": {
+                      "predicates": {
+                        "minecraft:enchantments": [
+                          {
+                            "enchantments": "minecraft:silk_touch",
+                            "levels": {
+                              "min": 1
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "functions": [
+            {
+              "enchantment": "minecraft:fortune",
+              "formula": "minecraft:ore_drops",
+              "function": "minecraft:apply_bonus"
+            }
+          ],
+          "name": "occultism:raw_iesnium"
         }
       ],
       "rolls": 1.0
