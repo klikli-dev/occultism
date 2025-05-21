@@ -25,22 +25,23 @@ package com.klikli_dev.occultism.common.entity.job;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.storage.ServerLevelData;
+
+import java.util.function.Supplier;
 
 public class RainWeatherJob extends ChangeWeatherJob {
 
-    public RainWeatherJob(SpiritEntity entity, int ticksToClear) {
+    public static final int RAIN_DURATION = 6000;
+
+    public RainWeatherJob(SpiritEntity entity, Supplier<Integer> ticksToClear) {
         super(entity, ticksToClear);
     }
 
     public void changeWeather() {
         if (Occultism.SERVER_CONFIG.rituals.enableRainWeatherRitual.get()) {
-            ServerLevelData level = (ServerLevelData) this.entity.level().getLevelData();
-            level.setClearWeatherTime(0);
-            level.setRainTime(6000);
-            level.setThunderTime(6000);
-            level.setRaining(true);
-            level.setThundering(false);
+            var level = (ServerLevel) this.entity.level();
+            level.setWeatherParameters(0, getDuration(level.getRandom(), RAIN_DURATION, ServerLevel.RAIN_DURATION), true, false);
         } else {
             this.entity.getOwner().sendSystemMessage(Component.translatable("ritual.occultism.disabled"));
         }

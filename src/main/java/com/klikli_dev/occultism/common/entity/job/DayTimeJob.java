@@ -27,9 +27,11 @@ import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.storage.ServerLevelData;
 
+import java.util.function.Supplier;
+
 public class DayTimeJob extends ChangeTimeJob {
 
-    public DayTimeJob(SpiritEntity entity, int ticksToClear) {
+    public DayTimeJob(SpiritEntity entity, Supplier<Integer> ticksToClear) {
         super(entity, ticksToClear);
     }
 

@@ -39,6 +39,5 @@
     "id": "occultism:ritual_dummy/summon_afrit_thunder_weather"
   },
   "ritual_type": "occultism:summon_spirit_with_job",
-  "spirit_job_type": "occultism:thunder_weather",
-  "spirit_max_age": 15
+  "spirit_job_type": "occultism:thunder_weather"
 }

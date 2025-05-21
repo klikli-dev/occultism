@@ -27,9 +27,11 @@ import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.storage.ServerLevelData;
 
+import java.util.function.Supplier;
+
 public class ClearWeatherJob extends ChangeWeatherJob {
 
-    public ClearWeatherJob(SpiritEntity entity, int ticksToClear) {
+    public ClearWeatherJob(SpiritEntity entity, Supplier<Integer> ticksToClear) {
         super(entity, ticksToClear);
     }
 
