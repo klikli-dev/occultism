@@ -461,6 +461,11 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .setResultAmount(4)
                 .unlockedBy("has_blaze_rod", has(Tags.Items.RODS_BLAZE))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/blaze_powder_from_rod"));
+        CrushingRecipeBuilder.crushingRecipe(Tags.Items.RODS_BREEZE, Items.WIND_CHARGE, 200)
+                .allowEmpty()
+                .setResultAmount(4)
+                .unlockedBy("has_breeze_rod", has(Tags.Items.RODS_BREEZE))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/wind_charge_from_rod"));
         CrushingRecipeBuilder.crushingRecipe(Tags.Items.BONES, Items.BONE_MEAL, 200)
                 .allowEmpty()
                 .setResultAmount(4)
