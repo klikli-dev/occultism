@@ -1435,7 +1435,6 @@ public abstract class RitualRecipes extends RecipeProvider {
                         PENTACLE_CRAFT_DJINNI,
                         Ingredient.of(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get()),
                         Ingredient.of(OccultismItems.IESNIUM_PICKAXE.get()),
-                        Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()),
                         Ingredient.of(Tags.Items.INGOTS_GOLD),
                         Ingredient.of(Tags.Items.GEMS_LAPIS),
                         Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()))
