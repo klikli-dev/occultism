@@ -354,7 +354,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> OTHERWORLD_ASHES = ITEMS.register("otherworld_ashes",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> GRAY_PASTE = ITEMS.register("gray_paste",
-            () -> new GrayPasteItem(defaultProperties().durability(64)));
+            () -> new DamageInCraftingItem(defaultProperties().durability(64)));
     public static final DeferredItem<Item> NATURE_PASTE = ITEMS.register("nature_paste",
             () -> new Item(defaultProperties()));
 
@@ -384,7 +384,7 @@ public class OccultismItems {
     public static final DeferredItem<DimensionalMatrixItem> DIMENSIONAL_MATRIX = ITEMS.register("dimensional_matrix",
             () -> new DimensionalMatrixItem(defaultProperties().component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
     public static final DeferredItem<Item> MINING_DIMENSION_CORE_PIECE = ITEMS.register("mining_dim_core",
-            () -> new Item(defaultProperties().rarity(Rarity.EPIC)
+            () -> new DamageInCraftingItem(defaultProperties().rarity(Rarity.EPIC).durability(Integer.MAX_VALUE)
                     .component(OccultismDataComponents.SPIRIT_NAME, "Something")));
 
     //Others

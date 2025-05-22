@@ -195,9 +195,11 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
 
         this.tag(ItemTags.MINING_ENCHANTABLE).addTag(OccultismTags.Items.Miners.MINERS);
         this.tag(ItemTags.MINING_LOOT_ENCHANTABLE).addTag(OccultismTags.Items.Miners.MINERS);
-        this.tag(ItemTags.DURABILITY_ENCHANTABLE).addTag(OccultismTags.Items.Miners.MINERS);
-        this.tag(ItemTags.DURABILITY_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_CHALK);
-        this.tag(ItemTags.DURABILITY_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_KNIFE);
+        this.tag(ItemTags.DURABILITY_ENCHANTABLE)
+                .addTag(OccultismTags.Items.Miners.MINERS)
+                .addTag(OccultismTags.Items.TOOLS_CHALK)
+                .addTag(OccultismTags.Items.TOOLS_KNIFE)
+                .add(OccultismItems.MINING_DIMENSION_CORE_PIECE.asItem());
         this.tag(ItemTags.SHARP_WEAPON_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_KNIFE);
         this.tag(ItemTags.SWORD_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_KNIFE);
 

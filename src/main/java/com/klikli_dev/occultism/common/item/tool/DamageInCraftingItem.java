@@ -3,9 +3,9 @@ package com.klikli_dev.occultism.common.item.tool;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-public class GrayPasteItem extends Item {
+public class DamageInCraftingItem extends Item {
 
-    public GrayPasteItem(Properties properties) {
+    public DamageInCraftingItem(Properties properties) {
         super(properties);
         this.craftingRemainingItem = this;
     }
