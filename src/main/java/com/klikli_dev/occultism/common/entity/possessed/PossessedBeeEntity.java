@@ -37,7 +37,14 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class PossessedBeeEntity extends Bee {
+
+    private static final int MAX_BEES_PER_TIME = 10; // Maximum bees allowed
+    private static final long TIME_WINDOW_TICKS = 20 * 60; // Time window in ticks (60 ticks = 1 minute in Minecraft)
+    private static final AtomicInteger beeSpawnCounter = new AtomicInteger(0);
+    private static long lastResetGameTime = 0;
 
     public PossessedBeeEntity(EntityType<? extends Bee> type,
                               Level worldIn) {
@@ -80,22 +87,38 @@ public class PossessedBeeEntity extends Bee {
 
         return flag;
     }
+
     @Override
     public boolean hurt(DamageSource source, float amount) {
-
         if (this.isInvulnerableTo(source)) {
             return false;
         } else {
             LivingEntity livingentity = this.getTarget();
             if (livingentity != null
-             && (double) this.random.nextFloat() < this.getAttributeValue(Attributes.SPAWN_REINFORCEMENTS_CHANCE)
-             && this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING)) {
+                    && (double) this.random.nextFloat() < this.getAttributeValue(Attributes.SPAWN_REINFORCEMENTS_CHANCE)
+                    && this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING)) {
 
-                Bee bee = OccultismEntities.POSSESSED_BEE.get().create(this.level());
-                double offsetX = this.level().getRandom().nextGaussian() * (1 + this.level().getRandom().nextInt(4));
-                double offsetZ = this.level().getRandom().nextGaussian() * (1 + this.level().getRandom().nextInt(4));
-                bee.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ, this.level().getRandom().nextInt(360), 0);
-                this.level().addFreshEntity(bee);
+                long currentGameTime = this.level().getGameTime();
+
+                // Reset the counter if the time window has passed
+                synchronized (PossessedBeeEntity.class) {
+                    if (currentGameTime - lastResetGameTime > TIME_WINDOW_TICKS) {
+                        beeSpawnCounter.set(0);
+                        lastResetGameTime = currentGameTime;
+                    }
+                }
+
+                // Check if the spawn limit has been reached
+                if (beeSpawnCounter.get() < MAX_BEES_PER_TIME) {
+                    Bee bee = OccultismEntities.POSSESSED_BEE.get().create(this.level());
+                    double offsetX = this.level().getRandom().nextGaussian() * (1 + this.level().getRandom().nextInt(4));
+                    double offsetZ = this.level().getRandom().nextGaussian() * (1 + this.level().getRandom().nextInt(4));
+                    bee.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ, this.level().getRandom().nextInt(360), 0);
+                    this.level().addFreshEntity(bee);
+
+                    // Increment the counter
+                    beeSpawnCounter.incrementAndGet();
+                }
             }
             return super.hurt(source, amount);
         }

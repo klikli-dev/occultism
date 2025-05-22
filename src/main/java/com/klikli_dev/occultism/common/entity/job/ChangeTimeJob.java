@@ -34,14 +34,16 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.storage.ServerLevelData;
 
+import java.util.function.Supplier;
+
 public abstract class ChangeTimeJob extends SpiritJob {
 
     protected int currentChangeTicks;
-    protected int requiredChangeTicks;
+    protected Supplier<Integer> requiredChangeTicks;
 
     protected long newTime;
 
-    public ChangeTimeJob(SpiritEntity entity, int requiredChangeTicks) {
+    public ChangeTimeJob(SpiritEntity entity, Supplier<Integer>  requiredChangeTicks) {
         super(entity);
         this.requiredChangeTicks = requiredChangeTicks;
     }
@@ -89,7 +91,7 @@ public abstract class ChangeTimeJob extends SpiritJob {
         if (this.isEnabled())
             this.updateTime();
 
-        if (this.currentChangeTicks == this.requiredChangeTicks) {
+        if (this.currentChangeTicks == this.requiredChangeTicks.get()) {
             this.finishChangeTime();
         }
     }
@@ -97,7 +99,7 @@ public abstract class ChangeTimeJob extends SpiritJob {
     @Override
     public CompoundTag writeJobToNBT(CompoundTag compound, HolderLookup.Provider provider) {
         compound.putInt("currentChangeTicks", this.currentChangeTicks);
-        compound.putInt("requiredChangeTicks", this.requiredChangeTicks);
+        compound.putInt("requiredChangeTicks", this.requiredChangeTicks.get());
         compound.putLong("newTime", this.newTime);
         return super.writeJobToNBT(compound, provider);
     }
@@ -106,7 +108,8 @@ public abstract class ChangeTimeJob extends SpiritJob {
     public void readJobFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
         super.readJobFromNBT(compound, provider);
         this.currentChangeTicks = compound.getInt("currentChangeTicks");
-        this.requiredChangeTicks = compound.getInt("requiredChangeTicks");
+        var requiredChangeTicks = compound.getInt("requiredChangeTicks");
+        this.requiredChangeTicks = () -> requiredChangeTicks;
         this.newTime = compound.getLong("newTime");
     }
 
@@ -114,7 +117,7 @@ public abstract class ChangeTimeJob extends SpiritJob {
         var level = (ServerLevelData) this.entity.level().getLevelData();
 
         var remainingTime = this.newTime - level.getDayTime();
-        var remainingTicks = Math.max(this.requiredChangeTicks - this.currentChangeTicks, 1);
+        var remainingTicks = Math.max(this.requiredChangeTicks.get() - this.currentChangeTicks, 1);
         var timeChange = remainingTime / remainingTicks;
 
         var interpolatedTime = level.getDayTime() + timeChange;

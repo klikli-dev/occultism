@@ -105,6 +105,11 @@ public class OccultismServerConfig {
         public final DoubleValue blacksmithFamiliarRepairChance;
         public final IntValue greedySearchRange;
         public final IntValue greedyVerticalSearchRange;
+        public final IntValue dayTimeToCast;
+        public final IntValue nightTimeToCast;
+        public final IntValue rainTimeToCast;
+        public final IntValue thunderTimeToCast;
+        public final IntValue clearWeatherTimeToCast;
 
         public SpiritJobSettings(ModConfigSpec.Builder builder) {
             builder.comment("Spirit Job Settings").push("spirit_job");
@@ -197,6 +202,31 @@ public class OccultismServerConfig {
                                     "The vertical value that the upgraded greedy familiar will seek blocks. (Large distances can cause delays in finding)")
                             .defineInRange("greedyVerticalSearchRange", 16, 0, Integer.MAX_VALUE);
 
+            this.dayTimeToCast =
+                    builder.comment(
+                                    "The time in ticks it takes to cast the day time ritual.")
+                            .defineInRange("dayTimeToCast", 20 * 5, 0, Integer.MAX_VALUE);
+
+            this.nightTimeToCast =
+                    builder.comment(
+                                    "The time in ticks it takes to cast the night time ritual.")
+                            .defineInRange("nightTimeToCast", 20 * 5, 0, Integer.MAX_VALUE);
+
+            this.rainTimeToCast =
+                    builder.comment(
+                                    "The time in ticks it takes to cast the rain ritual.")
+                            .defineInRange("rainTimeToCast", 20 * 10, 0, Integer.MAX_VALUE);
+
+            this.thunderTimeToCast =
+                    builder.comment(
+                                    "The time in ticks it takes to cast the thunder ritual.")
+                            .defineInRange("thunderTimeToCast", 20 * 15, 0, Integer.MAX_VALUE);
+
+            this.clearWeatherTimeToCast =
+                    builder.comment(
+                                    "The time in ticks it takes to cast the clear weather ritual.")
+                            .defineInRange("clearWeatherTimeToCast", 20 * 5, 0, Integer.MAX_VALUE);
+
             builder.pop();
         }
     }
@@ -209,7 +239,6 @@ public class OccultismServerConfig {
         public final BooleanValue enableNightTimeRitual;
         public final BooleanValue enableRemainingIngredientCountMatching;
         public final DoubleValue ritualDurationMultiplier;
-
 
         public RitualSettings(ModConfigSpec.Builder builder) {
             builder.comment("Ritual Settings").push("rituals");

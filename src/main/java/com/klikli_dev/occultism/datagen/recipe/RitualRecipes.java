@@ -143,7 +143,6 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.CACTUS),
                         Ingredient.of(Items.DEAD_BUSH))
                 .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
-                .spiritMaxAge(15)
                 .entityToSummon(OccultismEntities.AFRIT_TYPE.get())
                 .spiritJobType(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "rain_weather"))
                 .entityToSacrifice(OccultismTags.Entities.COWS)
@@ -160,7 +159,6 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Tags.Items.GUNPOWDERS),
                         Ingredient.of(Items.GHAST_TEAR))
                 .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
-                .spiritMaxAge(15)
                 .entityToSummon(OccultismEntities.AFRIT_TYPE.get())
                 .spiritJobType(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "thunder_weather"))
                 .entityToSacrifice(OccultismTags.Entities.COWS)
@@ -273,7 +271,6 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.WHEAT),
                         Ingredient.of(Tags.Items.DYES_YELLOW))
                 .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
-                .spiritMaxAge(15)
                 .spiritJobType(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "day_time"))
                 .entityToSummon(OccultismEntities.DJINNI.get())
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_djinni_day_time"));
@@ -288,7 +285,6 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Tags.Items.BONES),
                         Ingredient.of(Tags.Items.DYES_BLACK))
                 .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
-                .spiritMaxAge(15)
                 .spiritJobType(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "night_time"))
                 .entityToSummon(OccultismEntities.DJINNI.get())
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_djinni_night_time"));

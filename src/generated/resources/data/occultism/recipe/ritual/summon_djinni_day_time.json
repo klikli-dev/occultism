@@ -35,6 +35,5 @@
     "id": "occultism:ritual_dummy/summon_djinni_day_time"
   },
   "ritual_type": "occultism:summon_spirit_with_job",
-  "spirit_job_type": "occultism:day_time",
-  "spirit_max_age": 15
+  "spirit_job_type": "occultism:day_time"
 }

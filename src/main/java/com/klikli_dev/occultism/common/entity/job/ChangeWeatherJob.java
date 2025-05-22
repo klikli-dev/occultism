@@ -23,24 +23,33 @@
 package com.klikli_dev.occultism.common.entity.job;
 
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.function.Supplier;
+
 public abstract class ChangeWeatherJob extends SpiritJob {
 
     protected int currentChangeTicks;
-    protected int requiredChangeTicks;
+    protected Supplier<Integer> requiredChangeTicks;
 
-    public ChangeWeatherJob(SpiritEntity entity, int requiredChangeTicks) {
+    public ChangeWeatherJob(SpiritEntity entity, Supplier<Integer> requiredChangeTicks) {
         super(entity);
         this.requiredChangeTicks = requiredChangeTicks;
+    }
+
+    protected static int getDuration(RandomSource randomSource, int time, IntProvider timeProvider) {
+        return time == -1 ? timeProvider.sample(randomSource) : time;
     }
 
     @Override
@@ -77,7 +86,7 @@ public abstract class ChangeWeatherJob extends SpiritJob {
                             0.0);
         }
 
-        if (this.currentChangeTicks == this.requiredChangeTicks) {
+        if (this.currentChangeTicks == this.requiredChangeTicks.get()) {
             this.changeWeather();
 
             LightningBolt lightningboltentity = EntityType.LIGHTNING_BOLT.create(this.entity.level());
@@ -92,7 +101,7 @@ public abstract class ChangeWeatherJob extends SpiritJob {
     @Override
     public CompoundTag writeJobToNBT(CompoundTag compound, HolderLookup.Provider provider) {
         compound.putInt("currentChangeTicks", this.currentChangeTicks);
-        compound.putInt("requiredChangeTicks", this.requiredChangeTicks);
+        compound.putInt("requiredChangeTicks", this.requiredChangeTicks.get());
         return super.writeJobToNBT(compound, provider);
     }
 
@@ -100,7 +109,8 @@ public abstract class ChangeWeatherJob extends SpiritJob {
     public void readJobFromNBT(CompoundTag compound, HolderLookup.Provider provider) {
         super.readJobFromNBT(compound, provider);
         this.currentChangeTicks = compound.getInt("currentChangeTicks");
-        this.requiredChangeTicks = compound.getInt("requiredChangeTicks");
+        var requiredChangeTicks = compound.getInt("requiredChangeTicks");
+        this.requiredChangeTicks = () -> requiredChangeTicks;
     }
 
     public abstract void changeWeather();

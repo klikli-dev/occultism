@@ -109,16 +109,16 @@ public class OccultismSpiritJobs {
 
     //Weather Jobs
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> CLEAR_WEATHER = JOBS.register("clear_weather",
-            () -> new SpiritJobFactory((entity) -> new ClearWeatherJob(entity, 20 * 15), SpiritJobClient.create()));
+            () -> new SpiritJobFactory((entity) -> new ClearWeatherJob(entity, Occultism.SERVER_CONFIG.spiritJobs.clearWeatherTimeToCast::getAsInt), SpiritJobClient.create()));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> RAIN_WEATHER = JOBS.register("rain_weather",
-            () -> new SpiritJobFactory((entity) -> new RainWeatherJob(entity, 20 * 30), SpiritJobClient.create()));
+            () -> new SpiritJobFactory((entity) -> new RainWeatherJob(entity, Occultism.SERVER_CONFIG.spiritJobs.rainTimeToCast::getAsInt), SpiritJobClient.create()));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> THUNDER_WEATHER = JOBS.register("thunder_weather",
-            () -> new SpiritJobFactory((entity) -> new ThunderWeatherJob(entity, 20 * 60), SpiritJobClient.create()));
+            () -> new SpiritJobFactory((entity) -> new ThunderWeatherJob(entity, Occultism.SERVER_CONFIG.spiritJobs.thunderTimeToCast::getAsInt), SpiritJobClient.create()));
 
     //Time Jobs
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> DAY_TIME = JOBS.register("day_time",
-            () -> new SpiritJobFactory((entity) -> new DayTimeJob(entity, 20 * 5), SpiritJobClient.create()));
+            () -> new SpiritJobFactory((entity) -> new DayTimeJob(entity, Occultism.SERVER_CONFIG.spiritJobs.dayTimeToCast::getAsInt), SpiritJobClient.create()));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> NIGHT_TIME = JOBS.register("night_time",
-            () -> new SpiritJobFactory((entity) -> new NightTimeJob(entity, 20 * 5), SpiritJobClient.create()));
+            () -> new SpiritJobFactory((entity) -> new NightTimeJob(entity, Occultism.SERVER_CONFIG.spiritJobs.nightTimeToCast::getAsInt), SpiritJobClient.create()));
 
 }
