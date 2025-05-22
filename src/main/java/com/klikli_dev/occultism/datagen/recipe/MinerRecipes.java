@@ -65,7 +65,7 @@ public abstract class MinerRecipes extends RecipeProvider {
         makeOreRecipe("inferium", 190, recipeOutput);
         makeOreRecipe("iolite", 200, recipeOutput);
         makeVanillaOreRecipe("iron", 750, recipeOutput);
-        makeVanillaOreRecipe("iridium", 40, recipeOutput);
+        makeOreRecipe("iridium", 40, recipeOutput);
         makeVanillaOreRecipe("lapis", 343, recipeOutput);
         makeOreRecipe("lead", 500, recipeOutput);
         makeOreRecipe("lignite_coal", 212, recipeOutput);
@@ -372,7 +372,6 @@ public abstract class MinerRecipes extends RecipeProvider {
                 .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/master/mining_dim_core"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.MASTER, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/stellarite")), 50)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
-                .allowEmpty()
                 .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/master/stellarite"));
     }
 
