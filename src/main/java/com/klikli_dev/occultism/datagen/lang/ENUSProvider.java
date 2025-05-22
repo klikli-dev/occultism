@@ -221,7 +221,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.CHALK_MAGENTA, "Magenta Chalk");
         this.addItem(OccultismItems.CHALK_PINK, "Pink Chalk");
         this.addItem(OccultismItems.CHALK_RAINBOW, "Rainbow Chalk");
+        this.addAutoTooltip(OccultismItems.CHALK_RAINBOW, "Shift + Right Click in a glyph to erase");
         this.addItem(OccultismItems.CHALK_VOID, "Void Chalk");
+        this.addAutoTooltip(OccultismItems.CHALK_VOID, "Shift + Right Click in a glyph to erase");
         this.addItem(OccultismItems.CHALK_YELLOW_IMPURE, "Impure Yellow Chalk");
         this.addItem(OccultismItems.CHALK_PURPLE_IMPURE, "Impure Purple Chalk");
         this.addItem(OccultismItems.CHALK_RED_IMPURE, "Impure Red Chalk");
@@ -264,11 +266,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.DATURA_SEEDS, "Demon's Dream Seeds");
         this.addAutoTooltip(OccultismItems.DATURA_SEEDS.get(), "Plant to grow Demon's Dream Fruit.\nConsumption may allow to see beyond the veil ... it may also cause general un-wellness.");
         this.addItem(OccultismItems.DATURA, "Demon's Dream Fruit");
-        this.addAutoTooltip(OccultismItems.DATURA.get(), "Consumption may allow to see beyond the veil ... it may also cause general un-wellness.");
+        this.addAutoTooltip(OccultismItems.DATURA.get(), "Consumption may allow to see beyond the veil ... it may also cause general un-wellness. (Can grants Third Eye when eating)");
         this.addItem(OccultismItems.DEMONS_DREAM_ESSENCE, "Demon's Dream Essence");
-        this.addAutoTooltip(OccultismItems.DEMONS_DREAM_ESSENCE.get(), "Consumption allows to see beyond the veil ... and a whole lot of other effects.");
+        this.addAutoTooltip(OccultismItems.DEMONS_DREAM_ESSENCE.get(), "Consumption allows to see beyond the veil ... and a whole lot of other effects. (Grants Third Eye when eating)");
         this.addItem(OccultismItems.OTHERWORLD_ESSENCE, "Otherworld Essence");
-        this.addAutoTooltip(OccultismItems.OTHERWORLD_ESSENCE.get(), "Purified Demon's Dream Essence, no longer provides any of the negative effects.");
+        this.addAutoTooltip(OccultismItems.OTHERWORLD_ESSENCE.get(), "Purified Demon's Dream Essence, no longer provides any of the negative effects. (Grants Third Eye when eating)");
         this.addItem(OccultismItems.BEAVER_NUGGET, "Beaver Nugget");
         this.addItem(OccultismItems.SPIRIT_ATTUNED_GEM, "Spirit Attuned Gem");
         this.add("item.occultism.otherworld_sapling", "Otherworld Sapling");
@@ -308,6 +310,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.MINER_MARID_MASTER, "Master Miner Marid");
         this.addItem(OccultismItems.MINER_ANCIENT_ELDRITCH, "Eldritch Ancient Miner");
         this.addItem(OccultismItems.MINING_DIMENSION_CORE_PIECE, "Mining Dimension Core Piece");
+        this.addAutoTooltip(OccultismItems.MINING_DIMENSION_CORE_PIECE, "Very durable fuel");
         this.addItem(OccultismItems.FRAGILE_SOUL_GEM_ITEM, "Fragile Soul Gem");
         this.add(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get().getDescriptionId() + "_empty", "Fragile Empty Soul Gem");
         this.addItem(OccultismItems.SOUL_GEM_ITEM, "Soul Gem");
@@ -316,6 +319,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.TRINITY_GEM_ITEM.get().getDescriptionId() + "_empty", "Empty Trinity Gem");
         this.addItem(OccultismItems.SOUL_SHARD_ITEM, "Soul Shard");
         this.addItem(OccultismItems.SATCHEL, "Surprisingly Substantial Satchel");
+        this.addAutoTooltip(OccultismItems.SATCHEL, "Some people call it a backpack");
         this.addItem(OccultismItems.FAMILIAR_RING, "Familiar Ring");
         this.addItem(OccultismItems.SPAWN_EGG_FOLIOT, "Foliot Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_DJINNI, "Djinni Spawn Egg");
@@ -377,11 +381,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.CRUSHED_ICE,"Crushed Ice");
         this.addItem(OccultismItems.CRUSHED_PACKED_ICE,"Crushed Packed Ice");
         this.addItem(OccultismItems.CURSED_HONEY,"Cursed Honey");
+        this.addAutoTooltip(OccultismItems.CURSED_HONEY, "Grants Regeneration when eating");
         this.addItem(OccultismItems.DEMONIC_MEAT,"Demonic Meat");
+        this.addAutoTooltip(OccultismItems.DEMONIC_MEAT, "Grants Fire Resistance when eating");
         this.addItem(OccultismItems.DRAGONYST_DUST,"Dragonyst Dust");
         this.addItem(OccultismItems.ECHO_DUST,"Echo Dust");
         this.addItem(OccultismItems.EMERALD_DUST,"Emerald Dust");
         this.addItem(OccultismItems.GRAY_PASTE,"Gray Paste");
+        this.addAutoTooltip(OccultismItems.GRAY_PASTE, "Reacts with some dusts, returning to its original shape");
         this.addItem(OccultismItems.LAPIS_DUST,"Lapis Dust");
         this.addItem(OccultismItems.MARID_ESSENCE,"Marid Essence");
         this.addItem(OccultismItems.NATURE_PASTE,"Nature Paste");
