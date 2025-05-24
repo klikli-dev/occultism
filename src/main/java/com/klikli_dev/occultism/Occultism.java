@@ -93,6 +93,7 @@ public class Occultism {
         modContainer.registerConfig(ModConfig.Type.STARTUP, STARTUP_CONFIG.spec);
 
         OccultismEffects.EFFECTS.register(modEventBus);
+        OccultismPotions.POTIONS.register(modEventBus);
         OccultismRecipes.RECIPE_TYPES.register(modEventBus);
         OccultismRecipes.RECIPES.register(modEventBus);
         OccultismBlocks.BLOCKS.register(modEventBus);
