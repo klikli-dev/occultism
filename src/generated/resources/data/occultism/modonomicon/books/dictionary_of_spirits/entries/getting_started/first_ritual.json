@@ -118,6 +118,17 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.upside_down_bowl.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.upside_down_bowl.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
       "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.redstone.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.redstone.title",
       "use_markdown_in_title": false

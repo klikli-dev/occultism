@@ -35,6 +35,7 @@ import com.klikli_dev.occultism.registry.OccultismParticles;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -51,6 +52,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import org.jetbrains.annotations.Nullable;
@@ -598,12 +600,24 @@ public abstract class Ritual {
      */
     public void dropResult(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
                            @Nullable Player castingPlayer, ItemStack stack) {
-        double angle = level.random.nextDouble() * Math.PI * 2;
-        ItemEntity entity = new ItemEntity(level, goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY() + 0.75,
-                goldenBowlPosition.getZ() + 0.5, stack);
-        entity.setDeltaMovement(Math.sin(angle) * 0.125, 0.25, Math.cos(angle) * 0.125);
-        entity.setPickUpDelay(10);
-        level.addFreshEntity(entity);
+
+        if (level.getBlockEntity(goldenBowlPosition.above()) instanceof SacrificialBowlBlockEntity sacrificialBowlBlockEntity
+                && sacrificialBowlBlockEntity.getBlockState().getValue(BlockStateProperties.FACING) == Direction.DOWN) {
+            sacrificialBowlBlockEntity.itemStackHandler.setStackInSlot(0, stack);
+        } else if (level.getBlockEntity(goldenBowlPosition.above(2)) instanceof SacrificialBowlBlockEntity sacrificialBowlBlockEntity
+                && sacrificialBowlBlockEntity.getBlockState().getValue(BlockStateProperties.FACING) == Direction.DOWN) {
+            sacrificialBowlBlockEntity.itemStackHandler.setStackInSlot(0, stack);
+        } else if (level.getBlockEntity(goldenBowlPosition.above(3)) instanceof SacrificialBowlBlockEntity sacrificialBowlBlockEntity
+                && sacrificialBowlBlockEntity.getBlockState().getValue(BlockStateProperties.FACING) == Direction.DOWN) {
+            sacrificialBowlBlockEntity.itemStackHandler.setStackInSlot(0, stack);
+        } else {
+            double angle = level.random.nextDouble() * Math.PI * 2;
+            ItemEntity entity = new ItemEntity(level, goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY() + 0.75,
+                    goldenBowlPosition.getZ() + 0.5, stack);
+            entity.setDeltaMovement(Math.sin(angle) * 0.125, 0.25, Math.cos(angle) * 0.125);
+            entity.setPickUpDelay(10);
+            level.addFreshEntity(entity);
+        }
     }
 
 }

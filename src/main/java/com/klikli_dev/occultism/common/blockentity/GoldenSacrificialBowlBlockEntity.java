@@ -414,7 +414,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                     ((ServerLevel) level)
                             .sendParticles(OccultismParticles.SPIRIT_FIRE_FLAME.get(), center.x + cos, center.y + 0.2 + cos, center.z + sin,
                                     1, 0.0, 0.0, 0.0, 0.003);
-                    if (tier == 2) {
+                    if (this.getTier(getBlockState()) == 2) {
                         double sin2 = Math.sin(gameTime + (Math.PI * 0.5)) * 0.3;
                         double cos2 = Math.cos(gameTime + (Math.PI * 0.5)) * 0.3;
                         ((ServerLevel) level)
