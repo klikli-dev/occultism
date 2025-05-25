@@ -386,7 +386,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .spiritMaxAge(-1)
                 .spiritJobType(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crystal_tier1"))
                 .entityToSummon(OccultismEntities.FOLIOT_TYPE.get())
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_foliot_crystalizer"));
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_foliot_crystallizer"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                         new ItemStack(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_LUMBERJACK.get()),

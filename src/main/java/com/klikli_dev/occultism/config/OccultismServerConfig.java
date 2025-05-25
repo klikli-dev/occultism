@@ -168,19 +168,19 @@ public class OccultismServerConfig {
             this.tier1CrystallizerTimeMultiplier =
                     builder.comment(
                                     "The multiplier to each crystallize recipe's crystallize_time for Tier 1 (Foliot) Crystallizer Spirits.")
-                            .defineInRange("tier1CrystallizerTimeMultiplier", 2.0, 0.0, Double.MAX_VALUE);
+                            .defineInRange("tier1CrystallizerTimeMultiplier", 1.0, 0.0, Double.MAX_VALUE);
             this.tier2CrystallizerTimeMultiplier =
                     builder.comment(
                                     "The multiplier to each crystallize recipe's crystallize_time for Tier 2 (Djinni) Crystallizer Spirits.")
-                            .defineInRange("tier2CrystallizerTimeMultiplier", 1.0, 0.0, Double.MAX_VALUE);
+                            .defineInRange("tier2CrystallizerTimeMultiplier", 0.5, 0.0, Double.MAX_VALUE);
             this.tier3CrystallizerTimeMultiplier =
                     builder.comment(
                                     "The multiplier to each crystallize recipe's crystallize_time for Tier 3 (Afrit) Crystallizer Spirits.")
-                            .defineInRange("tier3CrystallizerTimeMultiplier", 0.5, 0.0, Double.MAX_VALUE);
+                            .defineInRange("tier3CrystallizerTimeMultiplier", 0.3, 0.0, Double.MAX_VALUE);
             this.tier4CrystallizerTimeMultiplier =
                     builder.comment(
                                     "The multiplier to each crystallize recipe's crystallize_time for Tier 4 (Marid) Crystallizer Spirits.")
-                            .defineInRange("tier4CrystallizerTimeMultiplier", 0.2, 0.0, Double.MAX_VALUE);
+                            .defineInRange("tier4CrystallizerTimeMultiplier", 0.1, 0.0, Double.MAX_VALUE);
 
             this.tier1CrystallizerOutputMultiplier =
                     builder.comment(

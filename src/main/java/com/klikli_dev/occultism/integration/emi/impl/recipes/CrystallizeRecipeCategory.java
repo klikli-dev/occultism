@@ -33,11 +33,13 @@ public class CrystallizeRecipeCategory implements EmiRecipe {
 
     private final Integer min;
     private final Integer max;
+    private final Boolean multiplyOutput;
 
     public CrystallizeRecipeCategory(RecipeHolder<CrystallizeRecipe> recipe) {
         id=recipe.id();
         this.min = recipe.value().getMinTier();
         this.max = recipe.value().getMaxTier();
+        this.multiplyOutput = !recipe.value().getIgnoreCrystallizeMultiplier();
         this.input = List.of(EmiIngredient.of(recipe.value().getIngredients().get(0)));
         this.output = List.of(EmiStack.of(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess())));
     }
@@ -68,6 +70,10 @@ public class CrystallizeRecipeCategory implements EmiRecipe {
 
     public Integer getMax() {
         return this.max;
+    }
+
+    public Boolean getIfMultiplyOutput() {
+        return this.multiplyOutput;
     }
 
     @Override
@@ -108,6 +114,9 @@ public class CrystallizeRecipeCategory implements EmiRecipe {
             if(getMax() >= 1) {
                 tooltip.add(new ClientTextTooltip(Component.translatable("jei.occultism.crystallize.max_tier", getMax()).getVisualOrderText()));
             }
+            if(getIfMultiplyOutput()) {
+                tooltip.add(new ClientTextTooltip(Component.translatable("jei.occultism.crystallize.multiply_output").getVisualOrderText()));
+            }
             return tooltip;
         });
 
@@ -121,13 +130,13 @@ public class CrystallizeRecipeCategory implements EmiRecipe {
 
     private static final List<EmiIngredient> tiers = List.of(
             EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
-                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_marid_crusher"))))),
+                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_marid_crystallizer"))))),
             EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
-                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_afrit_crusher"))))),
+                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_afrit_crystallizer"))))),
             EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
-                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_djinni_crusher"))))),
+                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_djinni_crystallizer"))))),
             EmiIngredient.of(Ingredient.of(new ItemStack(BuiltInRegistries.ITEM.get(
-                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_foliot_crusher")))))
+                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual_dummy/summon_foliot_crystallizer")))))
     );
 
     @Override

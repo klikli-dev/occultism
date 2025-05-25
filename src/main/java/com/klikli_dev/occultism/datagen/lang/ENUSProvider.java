@@ -692,6 +692,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.minecraft.splash_potion.effect.long_third_eye_potion", "Splash Potion of Third Eye");
         this.add("item.minecraft.lingering_potion.effect.third_eye_potion", "Lingering Potion of Third Eye");
         this.add("item.minecraft.lingering_potion.effect.long_third_eye_potion", "Lingering Potion of Third Eye");
+        this.add("item.minecraft.tipped_arrow.effect.third_eye_potion", "Tipped Arrow");
+        this.add("item.minecraft.tipped_arrow.effect.long_third_eye_potion", "Tipped Arrow");
 
         //Sounds
         this.add("occultism.subtitle.chalk", "Chalk");
@@ -2361,8 +2363,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         this.add(TranslationKeys.JEI_CRUSHING_RECIPE_MIN_TIER, "Min Crusher Tier: %d");
         this.add(TranslationKeys.JEI_CRUSHING_RECIPE_MAX_TIER, "Max Crusher Tier: %d");
-        this.add(TranslationKeys.JEI_CRYSTALLIZE_RECIPE_MIN_TIER, "Min Crusher Tier: %d");
-        this.add(TranslationKeys.JEI_CRYSTALLIZE_RECIPE_MAX_TIER, "Max Crusher Tier: %d");
+        this.add("jei.occultism.crushing.multiply_output", "The output is multiplied depending of the crusher tier");
+        this.add(TranslationKeys.JEI_CRYSTALLIZE_RECIPE_MIN_TIER, "Min Crystallizer Tier: %d");
+        this.add(TranslationKeys.JEI_CRYSTALLIZE_RECIPE_MAX_TIER, "Max Crystallizer Tier: %d");
+        this.add("jei.occultism.crystallize.multiply_output", "The output is multiplied depending of the crystallizer tier");
         this.add("jei.occultism.ingredient.tallow.description", "Kill animals, such as \u00a72pigs\u00a7r, \u00a72cows\u00a7r, \u00a72sheep\u00a7r, \u00a72horses\u00a7r and \u00a72lamas\u00a7r with the Butcher Knife to obtain tallow.");
         this.add("jei.occultism.ingredient.otherstone.description", "Primarily found in Otherworld Groves. Only visible while the status \u00a76Third Eye\u00a7r is active. See \u00a76Dictionary of Spirits\u00a7r for more information.");
         this.add("jei.occultism.ingredient.otherworld_log.description", "Primarily found in Otherworld Groves. Only visible while the status \u00a76Third Eye\u00a7r is active. See \u00a76Dictionary of Spirits\u00a7r for more information.");

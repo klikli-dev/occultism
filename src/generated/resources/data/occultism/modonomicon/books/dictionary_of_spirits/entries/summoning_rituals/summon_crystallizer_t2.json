@@ -4,14 +4,14 @@
   "category": "summoning_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/summon_unbound_marid"
+    "entry_id": "pentacles/summon_djinni"
   },
   "description": "",
   "hide_while_locked": false,
   "icon": {
-    "item": "occultism:marid_essence"
+    "item": "minecraft:amethyst_shard"
   },
-  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.marid_essence.name",
+  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crystallizer_t2.name",
   "pages": [
     {
       "type": "modonomicon:text",
@@ -20,8 +20,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.marid_essence.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.marid_essence.intro.title",
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crystallizer_t2.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_crystallizer_t2.intro.title",
       "use_markdown_in_title": false
     },
     {
@@ -30,7 +30,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/summon_unbound_marid",
+      "recipe_id_1": "occultism:ritual/summon_djinni_crystallizer",
       "text": "",
       "title1": "",
       "title2": ""
@@ -39,13 +39,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "summoning_rituals/afrit_essence",
+      "entry": "summoning_rituals/summon_crystallizer_t1",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": -1,
-  "x": 6,
+  "x": 0,
   "y": 2
 }

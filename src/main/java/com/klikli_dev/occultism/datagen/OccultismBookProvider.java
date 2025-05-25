@@ -614,13 +614,13 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 "______________________",
                 "__r_o_________________",
                 "______________________",
-                "_______1_5__e__a______",
+                "_______1_5_i__e__a____",
                 "______________________",
-                "_______2_6_f_g_m______",
+                "_______2_6_í_f_g_m____",
                 "______________________",
-                "_______3_7____________",
+                "_______3_7_ì__________",
                 "______________________",
-                "_______4_8____________"
+                "_______4_8_î__________"
         );
 
         String summonFoliotID = this.modId() + ":" + PentaclesCategory.CATEGORY_ID + "/" + SummonFoliotEntry.ENTRY_ID;
@@ -660,6 +660,19 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonAfritID));
         var summonT4Smelter = this.makeSummonSmelterT4Entry(entryMap, '8');
         summonT4Smelter.withParent(BookEntryParentModel.create(summonT3Smelter.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonMaridID));
+
+        var summonT1Crystallizer = this.makeSummonCrystallizerT1Entry(entryMap, 'i');
+        summonT1Crystallizer.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonFoliotID));
+        var summonT2Crystallizer = this.makeSummonCrystallizerT2Entry(entryMap, 'í');
+        summonT2Crystallizer.withParent(BookEntryParentModel.create(summonT1Crystallizer.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonDjinniID));
+        var summonT3Crystallizer = this.makeSummonCrystallizerT3Entry(entryMap, 'ì');
+        summonT3Crystallizer.withParent(BookEntryParentModel.create(summonT2Crystallizer.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(summonAfritID));
+        var summonT4Crystallizer = this.makeSummonCrystallizerT4Entry(entryMap, 'î');
+        summonT4Crystallizer.withParent(BookEntryParentModel.create(summonT3Crystallizer.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(summonMaridID));
 
         var summonLumberjack = this.makeSummonLumberjackEntry(entryMap, 'c');
@@ -715,6 +728,10 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         summonT2Smelter,
                         summonT3Smelter,
                         summonT4Smelter,
+                        summonT1Crystallizer,
+                        summonT2Crystallizer,
+                        summonT3Crystallizer,
+                        summonT4Crystallizer,
                         summonLumberjack,
                         summonManageMachine,
                         summonTransportItems,
@@ -1030,6 +1047,150 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.IESNIUM_INGOT.get())
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        intro,
+                        ritual
+                );
+    }
+
+    private BookEntryModel makeSummonCrystallizerT1Entry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("summon_crystallizer_t1");
+        this.lang().add(this.context().entryName(), "Summon Foliot Crystallizer");
+
+        this.context().page("about_crystallizers");
+        var aboutCrystallizers = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "Crystallizer Spirits");
+        this.lang().add(this.context().pageText(),
+                """
+                        Crystallizer spirits are summoned to regenerate gem from their dusts and directly multiply the output of breaking gem ores. They will pick up appropriate items and drop the resulting into the world. A magical particle effect and a amethyst sound indicate the crystallizer is at work.
+                          """);
+
+        this.context().page("automation");
+        var automation = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "Automation");
+        this.lang().add(this.context().pageText(),
+                """
+                        To ease automation, try summoning a [Transporter Spirit](entry://occultism:dictionary_of_spirits/summoning_rituals/summon_transport_items)
+                        to place items from chests in the crystallizer's inventory, and a [Janitor Spirit](entry://occultism:dictionary_of_spirits/summoning_rituals/summon_cleaner) to collect the processed items.
+                         """);
+
+        this.context().page("intro");
+        var intro = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "Foliot Crystallizer");
+        this.lang().add(this.context().pageText(),
+                """
+                        The foliot crystallizer is the most basic crystallizer spirit.
+                        \\
+                        \\
+                        It will crystallize in a very low speed.
+                         """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_foliot_crystallizer"));
+        //no text
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.LAPIS_LAZULI)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        aboutCrystallizers,
+                        automation,
+                        intro,
+                        ritual
+                );
+    }
+
+    private BookEntryModel makeSummonCrystallizerT2Entry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("summon_crystallizer_t2");
+        this.lang().add(this.context().entryName(), "Summon Djinni Crystallizer");
+
+        this.context().page("intro");
+        var intro = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "Djinni Crystallizer");
+        this.lang().add(this.context().pageText(),
+                """
+                        The djinni crystallizer is faster and more efficient, doubling the speed of processing and increasing the output amount from gem ores.
+                        \\
+                        \\
+                        They also can deconstruct amethyst and quartz blocks.
+                      """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_djinni_crystallizer"));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.AMETHYST_SHARD)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        intro,
+                        ritual
+                );
+    }
+
+    private BookEntryModel makeSummonCrystallizerT3Entry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("summon_crystallizer_t3");
+        this.lang().add(this.context().entryName(), "Summon Afrit Crystallizer");
+
+        this.context().page("intro");
+        var intro = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "Afrit Crystallizer");
+        this.lang().add(this.context().pageText(),
+                """
+                        The afrit Crystallizer is more faster and efficient.
+                        \\
+                        \\
+                        They also can re-materialize crushed blocks.
+                          """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_afrit_crystallizer"));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.QUARTZ)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        intro,
+                        ritual
+                );
+    }
+
+    private BookEntryModel makeSummonCrystallizerT4Entry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("summon_crystallizer_t4");
+        this.lang().add(this.context().entryName(), "Summon Marid Crystallizer");
+
+        this.context().page("intro");
+        var intro = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "Marid Crystallizer");
+        this.lang().add(this.context().pageText(),
+                """
+                        The marid crystallizer is extremely faster and efficient in gem ore multiplier.
+                        \\
+                        \\
+                        They also can transform amethyst cluster in budding amethyst and obsidian in crying obsidian.
+                          """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/summon_marid_crystallizer"));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.EMERALD)
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,

@@ -4,26 +4,26 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "occultism:otherstone"
+        "tag": "c:dusts/ender_pearl"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "occultism:othercobblestone"
+        "tag": "c:ender_pearls"
       }
     }
   ],
-  "type": "occultism:crushing",
-  "crushing_time": 20,
-  "ignore_crushing_multiplier": true,
+  "type": "occultism:crystallize",
+  "ignore_crystallize_multiplier": true,
   "ingredient": {
-    "tag": "occultism:otherstone"
+    "tag": "c:dusts/ender_pearl"
   },
+  "min_tier": 2,
   "result": {
     "type": "occultism:tag",
     "count": 1,
-    "tag": "occultism:othercobblestone"
+    "tag": "c:ender_pearls"
   }
 }

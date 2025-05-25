@@ -1,11 +1,20 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/charcoal"
+      }
+    }
+  ],
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_bound_foliot": {
+    "has_charcoal_dust": {
       "conditions": {
         "items": [
           {
-            "items": "occultism:book_of_binding_bound_foliot"
+            "items": "#c:dusts/charcoal"
           }
         ]
       },
@@ -13,7 +22,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:ritual/summon_foliot_crystalizer"
+        "recipe": "occultism:crystallize/charcoal"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +30,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_bound_foliot"
+      "has_charcoal_dust"
     ]
   ],
   "rewards": {
     "recipes": [
-      "occultism:ritual/summon_foliot_crystalizer"
+      "occultism:crystallize/charcoal"
     ]
   }
 }
