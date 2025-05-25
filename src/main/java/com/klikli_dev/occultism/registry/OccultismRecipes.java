@@ -40,6 +40,7 @@ public class OccultismRecipes {
     public static final DeferredHolder<RecipeType<?>, RecipeType<SpiritTradeRecipe>> SPIRIT_TRADE_TYPE = registerRecipeType("spirit_trade");
     public static final DeferredHolder<RecipeType<?>, RecipeType<SpiritFireRecipe>> SPIRIT_FIRE_TYPE = registerRecipeType("spirit_fire");
     public static final DeferredHolder<RecipeType<?>, RecipeType<CrushingRecipe>> CRUSHING_TYPE = registerRecipeType("crushing");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<CrystallizeRecipe>> CRYSTALLIZE_TYPE = registerRecipeType("crystallize");
     public static final DeferredHolder<RecipeType<?>, RecipeType<MinerRecipe>> MINER_TYPE = registerRecipeType("miner");
     public static final DeferredHolder<RecipeType<?>, RecipeType<RitualRecipe>> RITUAL_TYPE = registerRecipeType("ritual");
 
@@ -49,6 +50,8 @@ public class OccultismRecipes {
             () -> SpiritFireRecipe.SERIALIZER);
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<CrushingRecipe>> CRUSHING = RECIPES.register("crushing",
             () -> CrushingRecipe.SERIALIZER);
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<CrystallizeRecipe>> CRYSTALLIZE = RECIPES.register("crystallize",
+            () -> CrystallizeRecipe.SERIALIZER);
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<MinerRecipe>> MINER = RECIPES.register("miner",
             () -> MinerRecipe.SERIALIZER);
 

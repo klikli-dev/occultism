@@ -130,6 +130,23 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .add(OccultismItems.BOOK_OF_BINDING_AFRIT.get())
                 .add(OccultismItems.BOOK_OF_BINDING_MARID.get());
 
+        this.tag(OccultismTags.Items.BOOKS_FOR_EMPTY)
+                .add(Items.WRITABLE_BOOK)
+                .add(Items.WRITTEN_BOOK)
+                .add(Items.ENCHANTED_BOOK)
+                .add(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get())
+                .add(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get())
+                .add(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get())
+                .add(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get())
+                .add(OccultismItems.BOOK_OF_BINDING_FOLIOT.get())
+                .add(OccultismItems.BOOK_OF_BINDING_DJINNI.get())
+                .add(OccultismItems.BOOK_OF_BINDING_AFRIT.get())
+                .add(OccultismItems.BOOK_OF_BINDING_MARID.get())
+                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get())
+                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get())
+                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get())
+                .add(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get());
+
         this.tag(OccultismTags.Items.Miners.BASIC_RESOURCES).add(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get(),
                 OccultismItems.MINER_DEBUG_UNSPECIALIZED.get()).replace(false);
         this.tag(OccultismTags.Items.Miners.DEEPS).add(OccultismItems.MINER_AFRIT_DEEPS.get(), OccultismItems.MINER_MARID_MASTER.get()).replace(false);

@@ -133,6 +133,22 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSummon(OccultismEntities.AFRIT_TYPE.get())
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_afrit_smelter"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
+                        makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_AFRIT.get(), "item.occultism.ritual_dummy.summon_afrit_crystallizer"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRYSTALLIZER.get()),
+                        180,
+                        RITUAL_SUMMON_JOB,
+                        PENTACLE_SUMMON_AFRIT,
+                        Ingredient.of(OccultismItems.GRAY_PASTE),
+                        Ingredient.of(Tags.Items.STORAGE_BLOCKS_LAPIS),
+                        Ingredient.of(Items.AMETHYST_BLOCK),
+                        Ingredient.of(Items.QUARTZ_BLOCK),
+                        Ingredient.of(Items.DRIPSTONE_BLOCK))
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .spiritMaxAge(-1)
+                .spiritJobType(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crystal_tier3"))
+                .entityToSummon(OccultismEntities.AFRIT_TYPE.get())
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_afrit_crystallizer"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
                         makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_AFRIT.get(), "item.occultism.ritual_dummy.summon_afrit_rain_weather"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_RAIN_WEATHER.get()),
                         90,
@@ -230,6 +246,21 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .spiritJobType(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "smelt_tier2"))
                 .entityToSummon(OccultismEntities.DJINNI_TYPE.get())
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_djinni_smelter"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                        makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_DJINNI.get(), "item.occultism.ritual_dummy.summon_djinni_crystallizer"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRYSTALLIZER.get()),
+                        120,
+                        RITUAL_SUMMON_JOB,
+                        PENTACLE_SUMMON_DJINNI,
+                        Ingredient.of(OccultismItems.GRAY_PASTE),
+                        Ingredient.of(Tags.Items.GEMS_LAPIS),
+                        Ingredient.of(Tags.Items.GEMS_AMETHYST),
+                        Ingredient.of(Tags.Items.GEMS_EMERALD))
+                .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .spiritMaxAge(-1)
+                .spiritJobType(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crystal_tier2"))
+                .entityToSummon(OccultismEntities.DJINNI_TYPE.get())
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_djinni_crystallizer"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                         new ItemStack(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_MANAGE_MACHINE.get()),
@@ -342,6 +373,21 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSummon(OccultismEntities.FOLIOT_TYPE.get())
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_foliot_smelter"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
+                        makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_FOLIOT.get(), "item.occultism.ritual_dummy.summon_foliot_crystallizer"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRYSTALLIZER.get()),
+                        60,
+                        RITUAL_SUMMON_JOB,
+                        PENTACLE_SUMMON_FOLIOT,
+                        Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL),
+                        Ingredient.of(OccultismTags.Items.AMETHYST_DUST),
+                        Ingredient.of(OccultismTags.Items.LAPIS_DUST),
+                        Ingredient.of(OccultismTags.Items.EMERALD_DUST))
+                .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
+                .spiritMaxAge(-1)
+                .spiritJobType(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crystal_tier1"))
+                .entityToSummon(OccultismEntities.FOLIOT_TYPE.get())
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_foliot_crystalizer"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                         new ItemStack(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_LUMBERJACK.get()),
                         60,
@@ -437,6 +483,22 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .spiritJobType(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "smelt_tier4"))
                 .entityToSummon(OccultismEntities.MARID_TYPE.get())
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_marid_smelter"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()),
+                        makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_MARID.get(), "item.occultism.ritual_dummy.summon_marid_crystallizer"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRYSTALLIZER.get()),
+                        240,
+                        RITUAL_SUMMON_JOB,
+                        PENTACLE_SUMMON_MARID,
+                        Ingredient.of(OccultismItems.GRAY_PASTE),
+                        Ingredient.of(OccultismTags.Items.STORAGE_BLOCK_IESNIUM),
+                        Ingredient.of(Items.BUDDING_AMETHYST),
+                        Ingredient.of(Items.SEA_LANTERN),
+                        Ingredient.of(Items.SCULK_CATALYST))
+                .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
+                .spiritMaxAge(-1)
+                .spiritJobType(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crystal_tier4"))
+                .entityToSummon(OccultismEntities.MARID_TYPE.get())
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/summon_marid_crystallizer"));
 
         //Unbound, duration - 30
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),

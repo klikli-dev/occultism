@@ -203,6 +203,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(TranslationKeys.RITUAL_SATCHEL_BLOCK_ABOVE_NOT_AIR, "The block above the clicked position is not empty.");
         this.add(TranslationKeys.RITUAL_SATCHEL_BLOCK_AT_POSITION_NOT_AIR, "The block at the clicked position is not empty.");
         this.add(TranslationKeys.RITUAL_SATCHEL_INVALID_MATCHER, "Cannot place a block for an ANY or DISPLAY_ONLY multiblock matcher");
+        this.add(TranslationKeys.RITUAL_SATCHEL_GLYPH_CANNOT_SURVIVE, "Cannot place a glyph here.");
 
         this.addItem(OccultismItems.CHALK_YELLOW, "Yellow Chalk");
         this.addItem(OccultismItems.CHALK_PURPLE, "Purple Chalk");
@@ -596,6 +597,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("job.occultism.crush_tier2", "Crusher");
         this.add("job.occultism.crush_tier3", "Fast Crusher");
         this.add("job.occultism.crush_tier4", "Very Fast Crusher");
+        this.add("job.occultism.crystal_tier1", "Slow Crystallizer");
+        this.add("job.occultism.crystal_tier2", "Crystallizer");
+        this.add("job.occultism.crystal_tier3", "Fast Crystallizer");
+        this.add("job.occultism.crystal_tier4", "Very Fast Crystallizer");
         this.add("job.occultism.smelt_tier1", "Slow Smelter");
         this.add("job.occultism.smelt_tier2", "Smelter");
         this.add("job.occultism.smelt_tier3", "Fast Smelter");
@@ -2348,6 +2353,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     private void addJeiTranslations() {
         this.add("occultism.jei.spirit_fire", "Spiritfire");
         this.add("occultism.jei.crushing", "Crusher Spirit");
+        this.add("occultism.jei.crystallize", "Crystallizer Spirit");
         this.add("occultism.jei.miner", "Dimensional Mineshaft");
         this.add("occultism.jei.miner.chance", "Weight: %d");
         this.add("occultism.jei.ritual", "Occult Ritual");
@@ -2355,6 +2361,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         this.add(TranslationKeys.JEI_CRUSHING_RECIPE_MIN_TIER, "Min Crusher Tier: %d");
         this.add(TranslationKeys.JEI_CRUSHING_RECIPE_MAX_TIER, "Max Crusher Tier: %d");
+        this.add(TranslationKeys.JEI_CRYSTALLIZE_RECIPE_MIN_TIER, "Min Crusher Tier: %d");
+        this.add(TranslationKeys.JEI_CRYSTALLIZE_RECIPE_MAX_TIER, "Max Crusher Tier: %d");
         this.add("jei.occultism.ingredient.tallow.description", "Kill animals, such as \u00a72pigs\u00a7r, \u00a72cows\u00a7r, \u00a72sheep\u00a7r, \u00a72horses\u00a7r and \u00a72lamas\u00a7r with the Butcher Knife to obtain tallow.");
         this.add("jei.occultism.ingredient.otherstone.description", "Primarily found in Otherworld Groves. Only visible while the status \u00a76Third Eye\u00a7r is active. See \u00a76Dictionary of Spirits\u00a7r for more information.");
         this.add("jei.occultism.ingredient.otherworld_log.description", "Primarily found in Otherworld Groves. Only visible while the status \u00a76Third Eye\u00a7r is active. See \u00a76Dictionary of Spirits\u00a7r for more information.");
@@ -2470,6 +2478,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER, "Summon Djinni Smelter", "Djinni", "The Smelter is a spirit summoned to make furnace, blast furnace, smoker and campfire recipes without using fuel and faster depending of the spirit.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER, "Summon Afrit Smelter", "Afrit", "The Smelter is a spirit summoned to make furnace, blast furnace, smoker and campfire recipes without using fuel and faster depending of the spirit.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER, "Summon Marid Smelter", "Marid", "The Smelter is a spirit summoned to make furnace, blast furnace, smoker and campfire recipes without using fuel and faster depending of the spirit.");
+            //Crystallizer
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRYSTALLIZER, "Summon Foliot Crystallizer", "Foliot", "The Crystallizer is a spirit summoned to turn gem dusts back to gems and can extract extra gems from ores.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crystallizers.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRYSTALLIZER, "Summon Djinni Crystallizer", "Djinni", "The Crystallizer is a spirit summoned to turn gem dusts back to gems and can extract extra gems from ores.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crystallizers.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRYSTALLIZER, "Summon Afrit Crystallizer", "Afrit", "The Crystallizer is a spirit summoned to turn gem dusts back to gems and can extract extra gems from ores.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crystallizers.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRYSTALLIZER, "Summon Marid Crystallizer", "Marid", "The Crystallizer is a spirit summoned to turn gem dusts back to gems and can extract extra gems from ores.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crystallizers.");
             //Partner
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE, "Summon Demonic Wife", "Djinni", "Summons a Demonic Wife to support you: She will fight for you, help with cooking, and extend potion durations.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND, "Summon Demonic Husband", "Djinni", "Summons a Demonic Husband to support you: He will fight for you, help with cooking, and extend potion durations.");
@@ -2674,6 +2687,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.BOOK_OF_CALLING_DJINNI, "Book of Calling Djinni");
         this.addItemTag(OccultismTags.Items.BOOK_OF_CALLING_FOLIOT, "Book of Calling Foliot");
         this.addItemTag(OccultismTags.Items.BOOKS_OF_BINDING, "Books of Binding");
+        this.addItemTag(OccultismTags.Items.BOOKS_FOR_EMPTY, "Books for Empty Bound Book");
         this.addItemTag(OccultismTags.Items.Miners.BASIC_RESOURCES, "Basic Resource Miners");
         this.addItemTag(OccultismTags.Items.Miners.DEEPS, "Deepslate Miners");
         this.addItemTag(OccultismTags.Items.Miners.MASTER, "Rare Resource Miners");
@@ -2763,6 +2777,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     private void addEmiTranslations() {
         this.add("emi.category.occultism.spirit_fire", "Spirit Fire");
         this.add("emi.category.occultism.crushing", "Crushing");
+        this.add("emi.category.occultism.crystallize", "Crystallize");
         this.add("emi.category.occultism.miner", "Dimensional Mineshaft");
         this.add("emi.category.occultism.ritual", "Rituals");
         this.add("emi.occultism.item_to_use", "Item to use: %s");
@@ -2864,6 +2879,15 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("tier3CrusherOutputMultiplier", "Output multiplier for Tier 3 Crusher operations.");
         this.addConfig("tier4CrusherOutputMultiplier", "Output multiplier for Tier 4 Crusher operations.");
         this.addConfig("crusherResultPickupDelay", "Delay before items from crusher operations can be picked up.");
+        this.addConfig("tier1CrystallizerTimeMultiplier", "Time multiplier for Tier 1 Crystallizer operations.");
+        this.addConfig("tier2CrystallizerTimeMultiplier", "Time multiplier for Tier 2 Crystallizer operations.");
+        this.addConfig("tier3CrystallizerTimeMultiplier", "Time multiplier for Tier 3 Crystallizer operations.");
+        this.addConfig("tier4CrystallizerTimeMultiplier", "Time multiplier for Tier 4 Crystallizer operations.");
+        this.addConfig("tier1CrystallizerOutputMultiplier", "Output multiplier for Tier 1 Crystallizer operations.");
+        this.addConfig("tier2CrystallizerOutputMultiplier", "Output multiplier for Tier 2 Crystallizer operations.");
+        this.addConfig("tier3CrystallizerOutputMultiplier", "Output multiplier for Tier 3 Crystallizer operations.");
+        this.addConfig("tier4CrystallizerOutputMultiplier", "Output multiplier for Tier 4 Crystallizer operations.");
+        this.addConfig("crystallizerResultPickupDelay", "Delay before items from crystallizer operations can be picked up.");
         this.addConfig("tier1SmelterTimeMultiplier", "Time multiplier for Tier 1 Smelter operations.");
         this.addConfig("tier2SmelterTimeMultiplier", "Time multiplier for Tier 2 Smelter operations.");
         this.addConfig("tier3SmelterTimeMultiplier", "Time multiplier for Tier 3 Smelter operations.");

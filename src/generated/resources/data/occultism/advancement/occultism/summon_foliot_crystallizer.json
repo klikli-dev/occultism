@@ -1,0 +1,32 @@
+{
+  "parent": "occultism:occultism/root",
+  "criteria": {
+    "summon_foliot_crystallizer": {
+      "conditions": {
+        "ritual_id": "occultism:ritual/summon_foliot_crystallizer"
+      },
+      "trigger": "occultism:ritual"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.occultism.summon_foliot_crystallizer.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "occultism:jei_dummy/none"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.occultism.summon_foliot_crystallizer.title"
+    }
+  },
+  "requirements": [
+    [
+      "summon_foliot_crystallizer"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

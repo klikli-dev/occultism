@@ -522,7 +522,13 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_SMELTER = ITEMS.register("ritual_dummy/summon_djinni_smelter", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_AFRIT_SMELTER = ITEMS.register("ritual_dummy/summon_afrit_smelter", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_MARID_SMELTER = ITEMS.register("ritual_dummy/summon_marid_smelter", () -> new DummyTooltipItem(defaultProperties()));
-            //Partner
+            //Crystallizer
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_CRYSTALLIZER = ITEMS.register("ritual_dummy/summon_foliot_crystallizer", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_CRYSTALLIZER = ITEMS.register("ritual_dummy/summon_djinni_crystallizer", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_AFRIT_CRYSTALLIZER = ITEMS.register("ritual_dummy/summon_afrit_crystallizer", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_MARID_CRYSTALLIZER = ITEMS.register("ritual_dummy/summon_marid_crystallizer", () -> new DummyTooltipItem(defaultProperties()));
+
+    //Partner
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DEMONIC_WIFE = ITEMS.register("ritual_dummy/summon_demonic_wife", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND = ITEMS.register("ritual_dummy/summon_demonic_husband", () -> new DummyTooltipItem(defaultProperties()));
             //One tier worker

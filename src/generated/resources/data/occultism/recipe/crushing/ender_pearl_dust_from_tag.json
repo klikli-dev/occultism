@@ -16,12 +16,13 @@
     }
   ],
   "type": "occultism:crushing",
+  "ignore_crushing_multiplier": true,
   "ingredient": {
     "tag": "c:ender_pearls"
   },
   "result": {
     "type": "occultism:tag",
-    "count": 2,
+    "count": 1,
     "tag": "c:dusts/ender_pearl"
   }
 }

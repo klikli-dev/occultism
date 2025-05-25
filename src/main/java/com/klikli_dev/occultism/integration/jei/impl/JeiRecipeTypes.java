@@ -37,6 +37,9 @@ public class JeiRecipeTypes {
             create(Occultism.MODID, "spirit_fire", SpiritFireRecipe.class);
     public static final RecipeType<RecipeHolder<CrushingRecipe>> CRUSHING =
             create(Occultism.MODID, "crushing", CrushingRecipe.class);
+    public static final RecipeType<RecipeHolder<CrystallizeRecipe>> CRYSTALLIZE =
+            create(Occultism.MODID, "crystallize", CrystallizeRecipe.class);
+
     public static final RecipeType<RecipeHolder<MinerRecipe>> MINER =
             create(Occultism.MODID, "miner", MinerRecipe.class);
     public static final RecipeType<RecipeHolder<RitualRecipe>> RITUAL =
