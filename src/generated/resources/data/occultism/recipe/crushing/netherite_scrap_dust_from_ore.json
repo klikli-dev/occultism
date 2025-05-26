@@ -4,7 +4,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:ingots/netherite_scrap"
+        "tag": "c:ores/netherite_scrap"
       }
     },
     {
@@ -16,13 +16,12 @@
     }
   ],
   "type": "occultism:crushing",
-  "ignore_crushing_multiplier": true,
   "ingredient": {
-    "tag": "c:ingots/netherite_scrap"
+    "tag": "c:ores/netherite_scrap"
   },
   "result": {
     "type": "occultism:tag",
-    "count": 1,
+    "count": 2,
     "tag": "c:dusts/netherite_scrap"
   }
 }

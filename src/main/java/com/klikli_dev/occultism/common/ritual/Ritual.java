@@ -602,13 +602,16 @@ public abstract class Ritual {
                            @Nullable Player castingPlayer, ItemStack stack) {
 
         if (level.getBlockEntity(goldenBowlPosition.above()) instanceof SacrificialBowlBlockEntity sacrificialBowlBlockEntity
-                && sacrificialBowlBlockEntity.getBlockState().getValue(BlockStateProperties.FACING) == Direction.DOWN) {
+                && sacrificialBowlBlockEntity.getBlockState().getValue(BlockStateProperties.FACING) == Direction.DOWN
+                && sacrificialBowlBlockEntity.itemStackHandler.getStackInSlot(0).isEmpty()) {
             sacrificialBowlBlockEntity.itemStackHandler.setStackInSlot(0, stack);
         } else if (level.getBlockEntity(goldenBowlPosition.above(2)) instanceof SacrificialBowlBlockEntity sacrificialBowlBlockEntity
-                && sacrificialBowlBlockEntity.getBlockState().getValue(BlockStateProperties.FACING) == Direction.DOWN) {
+                && sacrificialBowlBlockEntity.getBlockState().getValue(BlockStateProperties.FACING) == Direction.DOWN
+                && sacrificialBowlBlockEntity.itemStackHandler.getStackInSlot(0).isEmpty()) {
             sacrificialBowlBlockEntity.itemStackHandler.setStackInSlot(0, stack);
         } else if (level.getBlockEntity(goldenBowlPosition.above(3)) instanceof SacrificialBowlBlockEntity sacrificialBowlBlockEntity
-                && sacrificialBowlBlockEntity.getBlockState().getValue(BlockStateProperties.FACING) == Direction.DOWN) {
+                && sacrificialBowlBlockEntity.getBlockState().getValue(BlockStateProperties.FACING) == Direction.DOWN
+                && sacrificialBowlBlockEntity.itemStackHandler.getStackInSlot(0).isEmpty()) {
             sacrificialBowlBlockEntity.itemStackHandler.setStackInSlot(0, stack);
         } else {
             double angle = level.random.nextDouble() * Math.PI * 2;

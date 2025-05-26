@@ -4,7 +4,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:ingots/netherite_scrap"
+        "tag": "c:ores/netherite_scrap"
       }
     },
     {
@@ -17,11 +17,11 @@
   ],
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_netherite_scrap_ingot": {
+    "has_ancient_debris": {
       "conditions": {
         "items": [
           {
-            "items": "#c:ingots/netherite_scrap"
+            "items": "#c:ores/netherite_scrap"
           }
         ]
       },
@@ -29,7 +29,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crushing/netherite_scrap_dust_from_ingot"
+        "recipe": "occultism:crushing/netherite_scrap_dust_from_ore"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -37,12 +37,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_netherite_scrap_ingot"
+      "has_ancient_debris"
     ]
   ],
   "rewards": {
     "recipes": [
-      "occultism:crushing/netherite_scrap_dust_from_ingot"
+      "occultism:crushing/netherite_scrap_dust_from_ore"
     ]
   }
 }

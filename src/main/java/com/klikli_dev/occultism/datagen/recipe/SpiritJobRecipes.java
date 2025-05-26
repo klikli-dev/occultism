@@ -14,6 +14,7 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -217,7 +218,16 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
         fullMetalRecipe("silver", OccultismItems.SILVER_INGOT.get(), pRecipeOutput);
         fullMetalRecipe("iesnium", OccultismItems.IESNIUM_INGOT.get(), pRecipeOutput);
         tripleCrushSmeltBlastRecipe("netherite", Items.NETHERITE_INGOT, pRecipeOutput);
-        tripleCrushSmeltBlastRecipe("netherite_scrap", Items.NETHERITE_SCRAP, pRecipeOutput);
+        CrushingRecipeBuilder.crushingRecipe(Tags.Items.ORES_NETHERITE_SCRAP, OccultismTags.Items.NETHERITE_SCRAP_DUST, 200)
+                .unlockedBy("has_ancient_debris", has(Tags.Items.ORES_NETHERITE_SCRAP))
+                .setResultAmount(2)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/netherite_scrap_dust_from_ore"));
+        CrushingRecipeBuilder.crushingRecipe(Items.NETHERITE_SCRAP, OccultismTags.Items.NETHERITE_SCRAP_DUST, 200)
+                .unlockedBy("has_netherite_scrap", has(Items.NETHERITE_SCRAP))
+                .setIgnoreCrushingMultiplier(true)
+                .setResultAmount(1)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/netherite_scrap_dust_from_scrap"));
+        doubleCookingRecipe("netherite_scrap", Items.NETHERITE_SCRAP, pRecipeOutput);
         //Ores common
         crushingMetalRecipe("aluminum", pRecipeOutput);
         crushingMetalRecipe("iridium", pRecipeOutput);
