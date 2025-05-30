@@ -196,6 +196,13 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
                 .setIgnoreCrystallizeMultiplier(true)
                 .unlockedBy("has_blue_ice_dust", has(OccultismTags.Items.BLUE_ICE_DUST))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crystallize/blue_ice"));
+        CrystallizeRecipeBuilder.crystallizeRecipe(OccultismTags.Items.OTHERSTONE_DUST, OccultismBlocks.OTHERSTONE, 200)
+                .allowEmpty()
+                .setResultAmount(1)
+                .setMinTier(3)
+                .setIgnoreCrystallizeMultiplier(true)
+                .unlockedBy("has_otherstone_dust", has(OccultismTags.Items.OTHERSTONE_DUST))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crystallize/otherstone"));
 
         CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "sky_stones")), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/sky_stone")), 200)
                 .unlockedBy("has_sky_stone", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "sky_stones"))))
