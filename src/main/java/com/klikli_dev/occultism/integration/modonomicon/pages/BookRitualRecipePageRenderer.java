@@ -15,6 +15,8 @@ import com.klikli_dev.occultism.crafting.recipe.conditionextension.OccultismCond
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.RitualRecipeConditionDescriptionVisitor;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.registry.OccultismTags;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -26,6 +28,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
@@ -162,6 +165,27 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
         this.parentScreen.renderItemStack(guiGraphics, recipeX + 85, recipeY + 105, mouseX, mouseY, recipe.getResultItem(this.parentScreen.getMinecraft().level.registryAccess()));
 
         this.parentScreen.renderItemStack(guiGraphics, recipeX - 10, recipeY - 5, mouseX, mouseY, recipe.getRitualDummy());
+
+        if (recipe.getEntityToSummon() != null) {
+            String mob = recipe.getEntityToSummon().getDefaultLootTable().location().toString()
+                    .replace("occultism:entities/","")
+                    .replace("minecraft:entities/","")
+                    .replace("c:entities/","")
+                    .replace(":entities/","_");
+            if (!Ingredient.of(OccultismTags.makeItemTag("occultism:drop_from/" + mob)).hasNoItems())
+                this.parentScreen.renderIngredient(guiGraphics, recipeX + 85, recipeY + 95, mouseX, mouseY, Ingredient.of(OccultismTags.makeItemTag("occultism:drop_from/" + mob)));
+        }
+
+        if (recipe.getEntityTagToSummon() != null) {
+            String mob = recipe.getEntityTagToSummon().location().toString()
+                    .replace("random_animals_","")
+                    .replace("occultism:","")
+                    .replace("minecraft:","")
+                    .replace("c:","")
+                    .replace(":","_");
+            if (!Ingredient.of(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob)).hasNoItems())
+                this.parentScreen.renderIngredient(guiGraphics, recipeX + 85, recipeY + 90, mouseX, mouseY, Ingredient.of(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob)));
+        }
 
         if (recipe.getPentacle() != null) {
             guiGraphics.pose().pushPose();

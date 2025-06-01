@@ -1129,7 +1129,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Drops**: 1-3x [](item://minecraft:ender_pearl)
-                        and as 10% chance to drop a [](item://minecraft:eye_armor_trim_smithing_template)
+                        and as 10%% chance to drop a [](item://minecraft:eye_armor_trim_smithing_template)
                                 """);
 
         helper.page("ritual");
@@ -1161,7 +1161,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Drops**: 1-2x [](item://minecraft:end_stone)
-                        and as 25% chance to drop an Eye
+                        and as 25%% chance to drop an Eye
                                 """);
 
         helper.page("ritual");

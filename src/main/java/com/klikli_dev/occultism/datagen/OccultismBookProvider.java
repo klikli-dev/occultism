@@ -1921,7 +1921,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageText(),
                 """
                         **Drops**: 1-4x [](item://minecraft:phantom_membrane)
-                        and has 5% chance to drop a [](item://minecraft:wind_charge)
+                        and has 5%% chance to drop a [](item://minecraft:wind_charge)
                                 """);
 
         this.context().page("ritual");
@@ -1958,7 +1958,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageText(),
                 """
                         **Drops**: 1-3x [](item://minecraft:chorus_fruit)
-                        and as 10% to drop a [](item://minecraft:shulker_shell);
+                        and as 10%% to drop a [](item://minecraft:shulker_shell);
                                 """);
 
         this.context().page("ritual");
@@ -2055,7 +2055,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageText(),
                 """
                         **Drops**: 1-2x [](item://minecraft:shulker_shell) and
-                        as 10% chance to drop a [](item://minecraft:chorus_flower)
+                        as 10%% chance to drop a [](item://minecraft:chorus_flower)
                          or [](item://minecraft:spire_armor_trim_smithing_template);
                                 """);
 
@@ -2093,7 +2093,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageText(),
                 """
                         **Drops**: 2-4x [](item://minecraft:nautilus_shell)
-                        and as 40% to drop a [](item://minecraft:heart_of_the_sea)
+                        and as 40%% to drop a [](item://minecraft:heart_of_the_sea)
                         Also common Elder Guardian loot;
                                 """);
 
