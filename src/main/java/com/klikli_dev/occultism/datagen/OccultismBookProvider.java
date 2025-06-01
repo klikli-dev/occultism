@@ -1921,6 +1921,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.lang().add(this.context().pageText(),
                 """
                         **Drops**: 1-4x [](item://minecraft:phantom_membrane)
+                        and has 5% chance to drop a [](item://minecraft:wind_charge)
                                 """);
 
         this.context().page("ritual");
@@ -2275,7 +2276,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                          **Drops**: [](item://occultism:demonic_meat);
+                          **Drops**: 1-4x [](item://occultism:demonic_meat) and
+                          other body parts;
                         """);
 
         this.context().page("ritual");

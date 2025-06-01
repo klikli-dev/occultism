@@ -187,9 +187,11 @@ public class OccultismTags {
         public static final TagKey<Item> DROPS_POSSESSED_BREEZE = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_breeze"));
         public static final TagKey<Item> DROPS_POSSESSED_ELDER_GUARDIAN = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_elder_guardian"));
         public static final TagKey<Item> DROPS_POSSESSED_ENDERMAN = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_enderman"));
+        public static final TagKey<Item> DROPS_POSSESSED_ENDERMITE = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_endermite"));
         public static final TagKey<Item> DROPS_POSSESSED_EVOKER = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_evoker"));
         public static final TagKey<Item> DROPS_POSSESSED_GHAST = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_ghast"));
         public static final TagKey<Item> DROPS_POSSESSED_HOGLIN = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_hoglin"));
+        public static final TagKey<Item> DROPS_POSSESSED_PHANTOM = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_phantom"));
         public static final TagKey<Item> DROPS_POSSESSED_SHULKER = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_shulker"));
         public static final TagKey<Item> DROPS_POSSESSED_SKELETON = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_skeleton"));
         public static final TagKey<Item> DROPS_POSSESSED_STRONG_BREEZE = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_strong_breeze"));
@@ -197,6 +199,7 @@ public class OccultismTags {
         public static final TagKey<Item> DROPS_POSSESSED_WEAK_BREEZE = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_weak_breeze"));
         public static final TagKey<Item> DROPS_POSSESSED_WEAK_SHULKER = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_weak_shulker"));
         public static final TagKey<Item> DROPS_POSSESSED_WITCH = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_witch"));
+        public static final TagKey<Item> DROPS_POSSESSED_ZOMBIE_PIGLIN = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_zombie_piglin"));
         public static final TagKey<Item> DROPS_WILD_HUNT = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/wild_hunt_wither_skeleton"));
         public static final TagKey<Item> DROPS_WILD_HORDE_CREEPER = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/wild_horde_creeper"));
         public static final TagKey<Item> DROPS_WILD_HORDE_DROWNED = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/wild_horde_drowned"));

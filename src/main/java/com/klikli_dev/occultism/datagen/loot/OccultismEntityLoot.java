@@ -66,9 +66,20 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
         this.add(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(),
                 LootTable.lootTable().withPool(
                         LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-                                .add(LootItem.lootTableItem(Items.END_STONE)
+                                .add(LootItem.lootTableItem(Items.END_STONE).setWeight(99)
                                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 2.0F)))
-                                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))));
+                                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))
+                                .add(LootItem.lootTableItem(Items.END_STONE_BRICKS).setWeight(1)
+                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 2.0F)))
+                                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))))
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(Items.FERMENTED_SPIDER_EYE).setWeight(2)
+                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))
+                        .add(LootItem.lootTableItem(Items.SPIDER_EYE).setWeight(2)
+                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))
+                        .add(LootItem.lootTableItem(Items.ENDER_EYE).setWeight(1)
+                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))
+                        .when(LootItemRandomChanceCondition.randomChance(ConstantValue.exactly(0.25F)))));
 
         //Guaranteed ender pearl drop for enderman
         this.add(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get(),
@@ -102,11 +113,17 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
 
         //Guaranteed phantom membrane drop for phantom
         this.add(OccultismEntities.POSSESSED_PHANTOM_TYPE.get(),
-                LootTable.lootTable().withPool(
-                        LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                LootTable.lootTable()
+                        .withPool(
+                            LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                                 .add(LootItem.lootTableItem(Items.PHANTOM_MEMBRANE)
                                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 4.0F)))
-                                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))));
+                                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.5F, 2.0F)))))
+                        .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(Items.WIND_CHARGE)
+                                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))
+                                        .when(LootItemRandomChanceCondition.randomChance(ConstantValue.exactly(0.05F))))
+        );
 
         //Essence drop from wild afrit
         this.add(OccultismEntities.AFRIT_WILD_TYPE.get(),
@@ -166,7 +183,22 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                         LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                                 .add(LootItem.lootTableItem(OccultismItems.DEMONIC_MEAT)
                                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F)))
-                                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))));
+                                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))))
+                        .withPool(
+                                LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                                        .add(LootItem.lootTableItem(OccultismItems.TALLOW)
+                                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
+                                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))
+                                        .when(LootItemRandomChanceCondition.randomChance(ConstantValue.exactly(0.8F))))
+                        .withPool(
+                                LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                                        .add(LootItem.lootTableItem(Items.PORKCHOP)
+                                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F)))
+                                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))
+                                        .add(LootItem.lootTableItem(Items.ROTTEN_FLESH)
+                                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F)))
+                                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))
+                                        .when(LootItemRandomChanceCondition.randomChance(ConstantValue.exactly(0.33F)))));
 
         this.add(OccultismEntities.POSSESSED_BEE_TYPE.get(),
                 LootTable.lootTable().withPool(

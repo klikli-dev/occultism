@@ -1129,6 +1129,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Drops**: 1-3x [](item://minecraft:ender_pearl)
+                        and as 10% chance to drop a [](item://minecraft:eye_armor_trim_smithing_template)
                                 """);
 
         helper.page("ritual");
@@ -1160,7 +1161,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Drops**: 1-2x [](item://minecraft:end_stone)
-                        and as 10% chance to drop a [](item://minecraft:eye_armor_trim_smithing_template)
+                        and as 25% chance to drop an Eye
                                 """);
 
         helper.page("ritual");
@@ -2769,9 +2770,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_BREEZE, "Drop from Possessed Breeze");
         this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_ELDER_GUARDIAN, "Drop from Possessed Elder Guardian");
         this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_ENDERMAN, "Drop from Possessed Enderman");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_ENDERMITE, "Drop from Possessed Endermite");
         this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_EVOKER, "Drop from Possessed Evoker");
         this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_GHAST, "Drop from Possessed Ghast");
         this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_HOGLIN, "Drop from Possessed Hoglin");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_PHANTOM, "Drop from Possessed Phantom");
         this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_SHULKER, "Drop from Possessed Shulker");
         this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_SKELETON, "Drop from Possessed Skeleton");
         this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_STRONG_BREEZE, "Drop from Possessed Strong Breeze");
@@ -2779,6 +2782,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_WEAK_BREEZE, "Drop from Possessed Weak Breeze");
         this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_WEAK_SHULKER, "Drop from Possessed Weak Shulker");
         this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_WITCH, "Drop from Possessed Witch");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_ZOMBIE_PIGLIN, "Drop from Possessed Zombified Piglin");
         this.addItemTag(OccultismTags.Items.DROPS_WILD_HUNT, "Drop from Wild Hunt");
         this.addItemTag(OccultismTags.Items.DROPS_WILD_HORDE_CREEPER, "Drop from Wild Horde Creeper");
         this.addItemTag(OccultismTags.Items.DROPS_WILD_HORDE_DROWNED, "Drop from Wild Horde Drowned");

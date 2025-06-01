@@ -495,6 +495,13 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
             .add(Items.ENDER_PEARL)
             .add(Items.EYE_ARMOR_TRIM_SMITHING_TEMPLATE);
 
+        this.tag(OccultismTags.Items.DROPS_POSSESSED_ENDERMITE)
+                .add(Items.END_STONE)
+                .add(Items.END_STONE_BRICKS)
+                .add(Items.FERMENTED_SPIDER_EYE)
+                .add(Items.SPIDER_EYE)
+                .add(Items.ENDER_EYE);
+
         this.tag(OccultismTags.Items.DROPS_POSSESSED_EVOKER)
             .add(Items.TOTEM_OF_UNDYING)
             .add(Items.OMINOUS_BOTTLE)
@@ -511,6 +518,10 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
             .add(Items.SNOUT_ARMOR_TRIM_SMITHING_TEMPLATE)
             .add(Items.PIGLIN_BANNER_PATTERN)
             .add(Items.NETHER_BRICK);
+
+        this.tag(OccultismTags.Items.DROPS_POSSESSED_PHANTOM)
+                .add(Items.PHANTOM_MEMBRANE)
+                .add(Items.WIND_CHARGE);
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_SHULKER)
             .add(Items.SHULKER_SHELL)
@@ -551,6 +562,12 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
             .add(Items.EXPERIENCE_BOTTLE)
             .add(Items.OMINOUS_BOTTLE)
             .add(Items.HONEY_BOTTLE);
+
+        this.tag(OccultismTags.Items.DROPS_POSSESSED_ZOMBIE_PIGLIN)
+                .add(OccultismItems.DEMONIC_MEAT.get())
+                .add(OccultismItems.TALLOW.get())
+                .add(Items.PORKCHOP)
+                .add(Items.ROTTEN_FLESH);
 
         this.tag(OccultismTags.Items.DROPS_WILD_HUNT)
                 .add(Items.WITHER_SKELETON_SKULL)
