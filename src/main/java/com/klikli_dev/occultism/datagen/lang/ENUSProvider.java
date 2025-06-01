@@ -2784,6 +2784,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.DROPS_WILD_HORDE_DROWNED, "Drop from Wild Horde Drowned");
         this.addItemTag(OccultismTags.Items.DROPS_WILD_HORDE_HUSK, "Drop from Wild Horde Husk");
         this.addItemTag(OccultismTags.Items.DROPS_WILD_HORDE_SILVERFISH, "Drop from Wild Horde Silverfish");
+        this.addItemTag(OccultismTags.Items.RANDOM_SPAWN_COMMON, "Can spawn as Common Random Animal");
+        this.addItemTag(OccultismTags.Items.RANDOM_SPAWN_RIDEABLE, "Can spawn as Rideable Random Animal");
+        this.addItemTag(OccultismTags.Items.RANDOM_SPAWN_SMALL, "Can spawn as Small Random Animal");
+        this.addItemTag(OccultismTags.Items.RANDOM_SPAWN_SPECIAL, "Can spawn as Special Random Animal");
+        this.addItemTag(OccultismTags.Items.RANDOM_SPAWN_WATER, "Can spawn as Water Random Animal");
+        this.addItemTag(OccultismTags.Items.RANDOM_SPAWN_VILLAGER, "Can spawn as Random Villager");
     }
 
     private void addItemTag(ResourceLocation resourceLocation, String string) {

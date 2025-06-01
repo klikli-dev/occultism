@@ -1,0 +1,10 @@
+{
+  "values": [
+    "minecraft:chicken_spawn_egg",
+    "minecraft:cow_spawn_egg",
+    "minecraft:pig_spawn_egg",
+    "minecraft:sheep_spawn_egg",
+    "minecraft:squid_spawn_egg",
+    "minecraft:wolf_spawn_egg"
+  ]
+}

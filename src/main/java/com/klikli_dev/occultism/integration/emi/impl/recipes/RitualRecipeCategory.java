@@ -79,12 +79,20 @@ public class RitualRecipeCategory implements EmiRecipe {
                     outputs.add(EmiStack.of(egg));
                 }
             }
-            extraItems(recipe.getEntityToSummon().getDefaultLootTable().toString()
-                    .replace("ResourceKey[minecraft:loot_table / ","")
+            extraItems(recipe.getEntityToSummon().getDefaultLootTable().location().toString()
                     .replace("occultism:entities/","")
                     .replace("minecraft:entities/","")
-                    .replace(":entities/","_")
-                    .replace("]",""), outputs);
+                    .replace("c:entities","")
+                    .replace(":entities/","_"), outputs);
+        }
+
+        if(recipe.getEntityTagToSummon()!=null){
+            extraSummons(recipe.getEntityTagToSummon().location().toString()
+                    .replace("random_animals_","")
+                    .replace("occultism:","")
+                    .replace("minecraft:","")
+                    .replace("c:","")
+                    .replace(":","_"), outputs);
         }
 
         if(recipe.getRitualType().toString().contains("repair")){
@@ -108,8 +116,13 @@ public class RitualRecipeCategory implements EmiRecipe {
     }
 
     public void extraItems(String mob, List<EmiStack> list){
-        if (!EmiIngredient.of(OccultismTags.makeItemTag("occultism:drop_from_" + mob)).getEmiStacks().isEmpty())
-            list.addAll(EmiIngredient.of(OccultismTags.makeItemTag("occultism:drop_from_" + mob)).getEmiStacks());
+        if (!EmiIngredient.of(OccultismTags.makeItemTag("occultism:drop_from/" + mob)).getEmiStacks().isEmpty())
+            list.addAll(EmiIngredient.of(OccultismTags.makeItemTag("occultism:drop_from/" + mob)).getEmiStacks());
+    }
+
+    public void extraSummons(String mobList, List<EmiStack> listStack){
+        if (!EmiIngredient.of(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mobList)).getEmiStacks().isEmpty())
+            listStack.addAll(EmiIngredient.of(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mobList)).getEmiStacks());
     }
 
     @Override
@@ -233,14 +246,26 @@ public class RitualRecipeCategory implements EmiRecipe {
             });
 
             List<EmiStack> drops = new ArrayList<>();
-            extraItems(recipe.getEntityToSummon().getDefaultLootTable().toString()
-                    .replace("ResourceKey[minecraft:loot_table / ","")
+            extraItems(recipe.getEntityToSummon().getDefaultLootTable().location().toString()
                     .replace("occultism:entities/","")
                     .replace("minecraft:entities/","")
-                    .replace(":entities/","_")
-                    .replace("]",""), drops);
+                    .replace("c:entities/","")
+                    .replace(":entities/","_"), drops);
             if(!drops.getFirst().isEmpty()) {
                 widgetHolder.addSlot(EmiIngredient.of(drops), 110, 52);
+            }
+        }
+
+        if(recipe.getEntityTagToSummon()!=null){
+            List<EmiStack> eggs = new ArrayList<>();
+            extraSummons(recipe.getEntityTagToSummon().location().toString()
+                    .replace("random_animals_","")
+                    .replace("occultism:","")
+                    .replace("minecraft:","")
+                    .replace("c:","")
+                    .replace(":","_"), eggs);
+            if(!eggs.getFirst().isEmpty()) {
+                widgetHolder.addSlot(EmiIngredient.of(eggs), 110, 52);
             }
         }
 

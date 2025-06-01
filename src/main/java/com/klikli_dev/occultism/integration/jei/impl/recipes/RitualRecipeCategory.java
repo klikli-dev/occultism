@@ -195,15 +195,25 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
                     .addItemStack(recipe.value().getRitualDummy());
         }
         if (recipe.value().getEntityToSummon() != null){
-            String mob = recipe.value().getEntityToSummon().getDefaultLootTable().toString()
-                    .replace("ResourceKey[minecraft:loot_table / ","")
+            String mob = recipe.value().getEntityToSummon().getDefaultLootTable().location().toString()
                     .replace("occultism:entities/","")
                     .replace("minecraft:entities/","")
-                    .replace(":entities/","_")
-                    .replace("]","");
-            if (!Ingredient.of(OccultismTags.makeItemTag("occultism:drop_from_" + mob)).hasNoItems())
+                    .replace("c:entities/","")
+                    .replace(":entities/","_");
+            if (!Ingredient.of(OccultismTags.makeItemTag("occultism:drop_from/" + mob)).hasNoItems())
                 builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 25)
-                    .addIngredients(Ingredient.of(OccultismTags.makeItemTag("occultism:drop_from_" + mob)));
+                    .addIngredients(Ingredient.of(OccultismTags.makeItemTag("occultism:drop_from/" + mob)));
+        }
+        if (recipe.value().getEntityTagToSummon() != null){
+            String mob = recipe.value().getEntityTagToSummon().location().toString()
+                    .replace("random_animals_","")
+                    .replace("occultism:","")
+                    .replace("minecraft:","")
+                    .replace("c:","")
+                    .replace(":","_");
+            if (!Ingredient.of(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob)).hasNoItems())
+                builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 25)
+                        .addIngredients(Ingredient.of(OccultismTags.makeItemTag("occultism:random_spawn_from/" + mob)));
         }
 
         //draw output golden bowl

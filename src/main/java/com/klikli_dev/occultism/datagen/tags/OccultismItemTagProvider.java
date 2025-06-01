@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -312,6 +313,9 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         // Possessed mobs loots
         this.addMobLoot(provider);
 
+        //Random spawn egg
+        this.addRandomEggs(provider);
+
         // Crops
         this.tag(OccultismTags.Items.DATURA_CROP).add(OccultismItems.DATURA.get()).replace(false);
         this.tag(Tags.Items.CROPS).addTags(OccultismTags.Items.DATURA_CROP).replace(false);
@@ -603,6 +607,60 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .add(Items.RAISER_ARMOR_TRIM_SMITHING_TEMPLATE)
                 .add(Items.HOST_ARMOR_TRIM_SMITHING_TEMPLATE)
                 .add(Items.WAYFINDER_ARMOR_TRIM_SMITHING_TEMPLATE);
+    }
+
+    private void addRandomEggs(HolderLookup.Provider provider) {
+        this.tag(OccultismTags.Items.RANDOM_SPAWN_COMMON)
+                .add(Items.CHICKEN_SPAWN_EGG)
+                .add(Items.COW_SPAWN_EGG)
+                .add(Items.PIG_SPAWN_EGG)
+                .add(Items.SHEEP_SPAWN_EGG)
+                .add(Items.SQUID_SPAWN_EGG)
+                .add(Items.WOLF_SPAWN_EGG);
+        this.tag(OccultismTags.Items.RANDOM_SPAWN_RIDEABLE)
+                .add(Items.PIG_SPAWN_EGG)
+                .add(Items.CAMEL_SPAWN_EGG)
+                .add(Items.DONKEY_SPAWN_EGG)
+                .add(Items.HORSE_SPAWN_EGG)
+                .add(Items.SKELETON_HORSE_SPAWN_EGG)
+                .add(Items.ZOMBIE_HORSE_SPAWN_EGG)
+                .add(Items.LLAMA_SPAWN_EGG)
+                .add(Items.TRADER_LLAMA_SPAWN_EGG)
+                .add(Items.MULE_SPAWN_EGG)
+                .add(Items.STRIDER_SPAWN_EGG);
+        this.tag(OccultismTags.Items.RANDOM_SPAWN_SMALL)
+                .add(Items.ALLAY_SPAWN_EGG)
+                .add(Items.BAT_SPAWN_EGG)
+                .add(Items.BEE_SPAWN_EGG)
+                .add(Items.CAT_SPAWN_EGG)
+                .add(Items.FOX_SPAWN_EGG)
+                .add(Items.OCELOT_SPAWN_EGG)
+                .add(Items.PARROT_SPAWN_EGG)
+                .add(Items.RABBIT_SPAWN_EGG);
+        this.tag(OccultismTags.Items.RANDOM_SPAWN_SPECIAL)
+                .add(Items.ARMADILLO_SPAWN_EGG)
+                .add(Items.IRON_GOLEM_SPAWN_EGG)
+                .add(Items.MOOSHROOM_SPAWN_EGG)
+                .add(Items.PANDA_SPAWN_EGG)
+                .add(Items.POLAR_BEAR_SPAWN_EGG)
+                .add(Items.GOAT_SPAWN_EGG)
+                .add(Items.SNIFFER_SPAWN_EGG);
+        this.tag(OccultismTags.Items.RANDOM_SPAWN_WATER)
+                .add(Items.AXOLOTL_SPAWN_EGG)
+                .add(Items.FROG_SPAWN_EGG)
+                .add(Items.DOLPHIN_SPAWN_EGG)
+                .add(Items.SALMON_SPAWN_EGG)
+                .add(Items.COD_SPAWN_EGG)
+                .add(Items.TROPICAL_FISH_SPAWN_EGG)
+                .add(Items.PUFFERFISH_SPAWN_EGG)
+                .add(Items.SQUID_SPAWN_EGG)
+                .add(Items.SNOW_GOLEM_SPAWN_EGG)
+                .add(Items.GLOW_SQUID_SPAWN_EGG)
+                .add(Items.TADPOLE_SPAWN_EGG)
+                .add(Items.TURTLE_SPAWN_EGG);;
+        this.tag(OccultismTags.Items.RANDOM_SPAWN_VILLAGER)
+                .add(Items.VILLAGER_SPAWN_EGG)
+                .add(Items.WANDERING_TRADER_SPAWN_EGG);
     }
 
     private TagKey<Item> cTag(String path) {
