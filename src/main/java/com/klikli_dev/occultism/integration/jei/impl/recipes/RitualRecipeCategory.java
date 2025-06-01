@@ -31,6 +31,7 @@ import com.klikli_dev.occultism.crafting.recipe.conditionextension.RitualRecipeC
 import com.klikli_dev.occultism.integration.jei.impl.JeiRecipeTypes;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.GuiGraphicsExt;
 import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -52,6 +53,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.List;
@@ -191,6 +193,17 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
             //if not, we instead render our ritual dummy item, just like in the corner
             builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 5)
                     .addItemStack(recipe.value().getRitualDummy());
+        }
+        if (recipe.value().getEntityToSummon() != null){
+            String mob = recipe.value().getEntityToSummon().getDefaultLootTable().toString()
+                    .replace("ResourceKey[minecraft:loot_table / ","")
+                    .replace("occultism:entities/","")
+                    .replace("minecraft:entities/","")
+                    .replace(":entities/","_")
+                    .replace("]","");
+            if (!Ingredient.of(OccultismTags.makeItemTag("occultism:drop_from_" + mob)).hasNoItems())
+                builder.addSlot(RecipeIngredientRole.OUTPUT, this.ritualCenterX + this.recipeOutputOffsetX, this.ritualCenterY - 25)
+                    .addIngredients(Ingredient.of(OccultismTags.makeItemTag("occultism:drop_from_" + mob)));
         }
 
         //draw output golden bowl

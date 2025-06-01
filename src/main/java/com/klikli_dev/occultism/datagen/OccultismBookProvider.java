@@ -1601,9 +1601,9 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         var entryMap = ModonomiconAPI.get().getEntryMap();
         entryMap.setMap(
-                "________I_A_B_J_M_N_C______", //The Places follow the tier progression
+                "________I_A_B_J_P_L_K______", //The Places follow the tier progression
                 "___________________________",
-                "_______D_G_E_F_P_L_K_______",
+                "_______D_G_E_F_Q_M_N_C_____",
                 "___________________________",
                 "___r_o_____________________",
                 "___________________________",
@@ -1650,6 +1650,9 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
         var possessWeakShulker = this.makePossessWeakShulkerEntry(entryMap, 'J');
         possessWeakShulker.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
+        var possessBlaze = this.makePossessBlazeEntry(entryMap, 'Q');
+        possessBlaze.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
         var possessZombiePiglin = this.makePossessZombiePiglinEntry(entryMap, 'P');
         possessZombiePiglin.withParent(BookEntryParentModel.create(overview.getId()))
@@ -1732,6 +1735,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         possessWarden,
                         possessHoglin,
                         possessWitch,
+                        possessBlaze,
                         possessWitherSkeleton,
                         hordeHusk,
                         hordeDrowned,
@@ -1852,7 +1856,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        **Drops**: 1-3x [](item://minecraft:ghast_tear)
+                        **Drops**: 1-3x [](item://minecraft:ghast_tear) and
+                        1-4x [](item://minecraft:gunpowder)
                                 """);
 
         this.context().page("ritual");
@@ -1977,6 +1982,66 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 );
     }
 
+    private BookEntryModel makePossessBlazeEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("possess_blaze");
+        this.lang().add(this.context().entryName(), "Possessed Blaze");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.create()
+                .withEntityId("occultism:possessed_blaze")
+                .withScale(1f)
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        **Drops**: 2-6x [](item://minecraft:blaze_rod), 0-13x [](item://minecraft:blaze_powder)
+                        and nether-related items (check next page);
+                                """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_blaze"));
+
+        this.context().page("description");
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        In this ritual a [#](%1$s)Blaze[#]() is spawned with energy of [#](%1$s)The Nether[#]() and immediately 
+                        possessed by the summoned [#](%1$s)Djinni[#](). The [#](%1$s)Possessed Blaze[#]() is immune to water and snowball! 
+                        \\                        
+                        Extra Drops:
+                        \\
+                        Always one of [](item://minecraft:nether_wart), [](item://minecraft:crimson_fungus), [](item://minecraft:warped_fungus), 
+                        [](item://minecraft:red_mushroom), [](item://minecraft:brown_mushroom), [](item://minecraft:crimson_roots), 
+                        [](item://minecraft:warped_roots), [](item://minecraft:weeping_vines), [](item://minecraft:twisting_vines);                         
+                        """.formatted(COLOR_PURPLE));
+
+        this.context().page("description2");
+        var description2 = BookTextPageModel.create()
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        Usually one of [](item://minecraft:netherrack), [](item://minecraft:nether_quartz_ore), [](item://minecraft:crimson_nylium),
+                        [](item://minecraft:warped_nylium), [](item://minecraft:nether_wart_block), [](item://minecraft:warped_wart_block);
+                        \\
+                        Generally one of [](item://minecraft:soul_sand), [](item://minecraft:soul_soil), [](item://minecraft:basalt), 
+                        [](item://minecraft:blackstone), [](item://minecraft:gravel), [](item://minecraft:bone_block), [](item://minecraft:gilded_blackstone);
+                        Sometimes one of [](item://minecraft:glowstone_dust), [](item://minecraft:magma_block), [](item://minecraft:glowstone), [](item://minecraft:shroomlight);
+                        \\
+                        Occasionally one of [](item://minecraft:obsidian), [](item://minecraft:crying_obsidian), [](item://minecraft:ancient_debris);
+                        """.formatted(COLOR_PURPLE));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.BLAZE_ROD)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description,
+                        description2
+                );
+    }
+
     private BookEntryModel makePossessShulkerEntry(CategoryEntryMap entryMap, char icon) {
         this.context().entry("possess_shulker");
         this.lang().add(this.context().entryName(), "Possessed Shulker");
@@ -1988,7 +2053,9 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        **Drops**: 1-2x [](item://minecraft:shulker_shell);
+                        **Drops**: 1-2x [](item://minecraft:shulker_shell) and
+                        as 10% chance to drop a [](item://minecraft:chorus_flower)
+                         or [](item://minecraft:spire_armor_trim_smithing_template);
                                 """);
 
         this.context().page("ritual");

@@ -79,7 +79,12 @@ public class RitualRecipeCategory implements EmiRecipe {
                     outputs.add(EmiStack.of(egg));
                 }
             }
-            extraItems(recipe.getEntityToSummon().getDefaultLootTable().toString(), outputs);
+            extraItems(recipe.getEntityToSummon().getDefaultLootTable().toString()
+                    .replace("ResourceKey[minecraft:loot_table / ","")
+                    .replace("occultism:entities/","")
+                    .replace("minecraft:entities/","")
+                    .replace(":entities/","_")
+                    .replace("]",""), outputs);
         }
 
         if(recipe.getRitualType().toString().contains("repair")){
@@ -103,127 +108,8 @@ public class RitualRecipeCategory implements EmiRecipe {
     }
 
     public void extraItems(String mob, List<EmiStack> list){
-        if(mob.contains("possessed_breeze")) {
-            list.add(EmiStack.of(Items.BREEZE_ROD));
-            list.add(EmiStack.of(Items.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE));
-            list.add(EmiStack.of(Items.GUSTER_BANNER_PATTERN));
-            list.add(EmiStack.of(Items.MUSIC_DISC_PRECIPICE));
-        }
-        if(mob.contains("possessed_elder_guardian")) {
-            list.add(EmiStack.of(Items.NAUTILUS_SHELL));
-            list.add(EmiStack.of(Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE));
-            list.add(EmiStack.of(Items.TIDE_ARMOR_TRIM_SMITHING_TEMPLATE));
-            list.add(EmiStack.of(Items.WET_SPONGE));
-            list.add(EmiStack.of(Items.TROPICAL_FISH));
-            list.add(EmiStack.of(Items.COD));
-            list.add(EmiStack.of(Items.SALMON));
-            list.add(EmiStack.of(Items.PUFFERFISH));
-            list.add(EmiStack.of(Items.COOKED_COD));
-            list.add(EmiStack.of(Items.COOKED_SALMON));
-            list.add(EmiStack.of(Items.PRISMARINE_SHARD));
-            list.add(EmiStack.of(Items.PRISMARINE_CRYSTALS));
-        }
-        if(mob.contains("possessed_enderman")) {
-            list.add(EmiStack.of(Items.EYE_ARMOR_TRIM_SMITHING_TEMPLATE));
-        }
-        if(mob.contains("possessed_evoker")) {
-            list.add(EmiStack.of(Items.OMINOUS_BOTTLE));
-            list.add(EmiStack.of(Items.VEX_ARMOR_TRIM_SMITHING_TEMPLATE));
-            list.add(EmiStack.of(Items.SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE));
-        }
-        if(mob.contains("possessed_ghast")) {
-            list.add(EmiStack.of(Items.GUNPOWDER));
-        }
-        if(mob.contains("possessed_hoglin")) {
-            list.add(EmiStack.of(Items.NETHERITE_SCRAP));
-            list.add(EmiStack.of(Items.SNOUT_ARMOR_TRIM_SMITHING_TEMPLATE));
-            list.add(EmiStack.of(Items.PIGLIN_BANNER_PATTERN));
-            list.add(EmiStack.of(Items.NETHER_BRICK));
-        }
-        if(mob.contains("possessed_shulker")) {
-            list.add(EmiStack.of(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE));
-        }
-        if(mob.contains("possessed_skeleton")) {
-            list.add(EmiStack.of(Items.BONE));
-            list.add(EmiStack.of(Items.ARROW));
-        }
-        if(mob.contains("possessed_strong_breeze")) {
-            list.add(EmiStack.of(Items.FLOW_BANNER_PATTERN));
-            list.add(EmiStack.of(Items.FLOW_POTTERY_SHERD));
-            list.add(EmiStack.of(Items.FLOW_ARMOR_TRIM_SMITHING_TEMPLATE));
-            list.add(EmiStack.of(Items.MUSIC_DISC_CREATOR));
-        }
-        if(mob.contains("possessed_warden")) {
-            list.add(EmiStack.of(Items.WARD_ARMOR_TRIM_SMITHING_TEMPLATE));
-            list.add(EmiStack.of(Items.SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE));
-            list.add(EmiStack.of(Items.MUSIC_DISC_OTHERSIDE));
-            list.add(EmiStack.of(Items.DISC_FRAGMENT_5));
-        }
-        if(mob.contains("possessed_weak_breeze")) {
-            list.add(EmiStack.of(Items.OMINOUS_BOTTLE));
-            list.add(EmiStack.of(Items.MUSIC_DISC_CREATOR_MUSIC_BOX));
-            list.add(EmiStack.of(Items.SCRAPE_POTTERY_SHERD));
-            list.add(EmiStack.of(Items.GUSTER_POTTERY_SHERD));
-        }
-        if(mob.contains("possessed_weak_shulker")) {
-            list.add(EmiStack.of(Items.SHULKER_SHELL));
-        }
-        if(mob.contains("possessed_witch")) {
-            list.add(EmiStack.of(Items.OMINOUS_BOTTLE));
-            list.add(EmiStack.of(Items.HONEY_BOTTLE));
-            list.add(EmiStack.of(Items.POTION));
-        }
-        if(mob.contains("wild_hunt")) {
-            list.add(EmiStack.of(Items.RIB_ARMOR_TRIM_SMITHING_TEMPLATE));
-            list.add(EmiStack.of(Items.COAL));
-            list.add(EmiStack.of(Items.BONE));
-            list.add(EmiStack.of(Items.ARROW));
-        }
-        if(mob.contains("horde_creeper")) {
-            list.add(EmiStack.of(Items.MUSIC_DISC_13));
-            list.add(EmiStack.of(Items.MUSIC_DISC_BLOCKS));
-            list.add(EmiStack.of(Items.MUSIC_DISC_CHIRP));
-            list.add(EmiStack.of(Items.MUSIC_DISC_FAR));
-            list.add(EmiStack.of(Items.MUSIC_DISC_MALL));
-            list.add(EmiStack.of(Items.MUSIC_DISC_MELLOHI));
-            list.add(EmiStack.of(Items.MUSIC_DISC_STAL));
-            list.add(EmiStack.of(Items.MUSIC_DISC_STRAD));
-            list.add(EmiStack.of(Items.MUSIC_DISC_WARD));
-            list.add(EmiStack.of(Items.MUSIC_DISC_11));
-            list.add(EmiStack.of(Items.MUSIC_DISC_WAIT));
-        }
-        if(mob.contains("horde_drowned")) {
-            list.add(EmiStack.of(Items.TRIDENT));
-            list.add(EmiStack.of(Items.TURTLE_EGG));
-            list.add(EmiStack.of(Items.SHELTER_POTTERY_SHERD));
-            list.add(EmiStack.of(Items.SNORT_POTTERY_SHERD));
-            list.add(EmiStack.of(Items.ANGLER_POTTERY_SHERD));
-            list.add(EmiStack.of(Items.PLENTY_POTTERY_SHERD));
-            list.add(EmiStack.of(Items.BLADE_POTTERY_SHERD));
-            list.add(EmiStack.of(Items.EXPLORER_POTTERY_SHERD));
-            list.add(EmiStack.of(Items.MOURNER_POTTERY_SHERD));
-        }
-        if(mob.contains("horde_husk")) {
-            list.add(EmiStack.of(Items.SKULL_POTTERY_SHERD));
-            list.add(EmiStack.of(Items.ARCHER_POTTERY_SHERD));
-            list.add(EmiStack.of(Items.PRIZE_POTTERY_SHERD));
-            list.add(EmiStack.of(Items.MINER_POTTERY_SHERD));
-            list.add(EmiStack.of(Items.BREWER_POTTERY_SHERD));
-            list.add(EmiStack.of(Items.ARMS_UP_POTTERY_SHERD));
-        }
-        if(mob.contains("horde_silverfish")) {
-            list.add(EmiStack.of(Items.HEART_POTTERY_SHERD));
-            list.add(EmiStack.of(Items.SHEAF_POTTERY_SHERD));
-            list.add(EmiStack.of(Items.DANGER_POTTERY_SHERD));
-            list.add(EmiStack.of(Items.BURN_POTTERY_SHERD));
-            list.add(EmiStack.of(Items.HOWL_POTTERY_SHERD));
-            list.add(EmiStack.of(Items.FRIEND_POTTERY_SHERD));
-            list.add(EmiStack.of(Items.HEARTBREAK_POTTERY_SHERD));
-            list.add(EmiStack.of(Items.SHAPER_ARMOR_TRIM_SMITHING_TEMPLATE));
-            list.add(EmiStack.of(Items.RAISER_ARMOR_TRIM_SMITHING_TEMPLATE));
-            list.add(EmiStack.of(Items.HOST_ARMOR_TRIM_SMITHING_TEMPLATE));
-            list.add(EmiStack.of(Items.WAYFINDER_ARMOR_TRIM_SMITHING_TEMPLATE));
-        }
+        if (!EmiIngredient.of(OccultismTags.makeItemTag("occultism:drop_from_" + mob)).getEmiStacks().isEmpty())
+            list.addAll(EmiIngredient.of(OccultismTags.makeItemTag("occultism:drop_from_" + mob)).getEmiStacks());
     }
 
     @Override
@@ -347,8 +233,13 @@ public class RitualRecipeCategory implements EmiRecipe {
             });
 
             List<EmiStack> drops = new ArrayList<>();
-            extraItems(recipe.getEntityToSummon().getDefaultLootTable().toString(), drops);
-            if(!drops.isEmpty()) {
+            extraItems(recipe.getEntityToSummon().getDefaultLootTable().toString()
+                    .replace("ResourceKey[minecraft:loot_table / ","")
+                    .replace("occultism:entities/","")
+                    .replace("minecraft:entities/","")
+                    .replace(":entities/","_")
+                    .replace("]",""), drops);
+            if(!drops.getFirst().isEmpty()) {
                 widgetHolder.addSlot(EmiIngredient.of(drops), 110, 52);
             }
         }
