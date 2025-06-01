@@ -700,6 +700,23 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.chicken")
                 .entityToSacrifice(OccultismTags.Entities.CHICKEN)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_bee"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                        makeLoreSpawnEgg(Items.BLAZE_ROD, "item.occultism.ritual_dummy.possess_blaze"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_POSSESS_BLAZE.get()),
+                        60,
+                        RITUAL_SUMMON,
+                        PENTACLE_POSSESS_DJINNI,
+                        Ingredient.of(Items.FIRE_CHARGE),
+                        Ingredient.of(Items.FIREWORK_STAR),
+                        Ingredient.of(Items.TORCH),
+                        Ingredient.of(ItemTags.CANDLES),
+                        Ingredient.of(Tags.Items.INGOTS_GOLD),
+                        Ingredient.of(Tags.Items.INGOTS_COPPER))
+                .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .entityToSummon(OccultismEntities.POSSESSED_BLAZE_TYPE.get())
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.chicken")
+                .entityToSacrifice(OccultismTags.Entities.CHICKEN)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_blaze"));
 
         //Foliot
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),

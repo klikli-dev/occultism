@@ -339,6 +339,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WARDEN, "Possessed Warden Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_HOGLIN, "Possessed Hoglin Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WITCH, "Possessed Witch Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_BLAZE, "Possessed Blaze Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ZOMBIE_PIGLIN, "Possessed Zombified Piglin Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_BEE, "Possessed Bee Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_GOAT_OF_MERCY, "Goat of Mercy Spawn Egg");
@@ -535,6 +536,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.POSSESSED_WARDEN, "Possessed Warden");
         this.addEntityType(OccultismEntities.POSSESSED_HOGLIN, "Possessed Hoglin");
         this.addEntityType(OccultismEntities.POSSESSED_WITCH, "Possessed Witch");
+        this.addEntityType(OccultismEntities.POSSESSED_BLAZE, "Possessed Blaze");
         this.addEntityType(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN, "Possessed Zombified Piglin");
         this.addEntityType(OccultismEntities.POSSESSED_BEE, "Possessed Bee");
         this.addEntityType(OccultismEntities.GOAT_OF_MERCY, "Goat of Mercy");
@@ -1158,6 +1160,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Drops**: 1-2x [](item://minecraft:end_stone)
+                        and as 10% chance to drop a [](item://minecraft:eye_armor_trim_smithing_template)
                                 """);
 
         helper.page("ritual");
@@ -2535,6 +2538,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_BEE, "Summon Possessed Bee", "Djinni", "The Possessed Bee will drop cursed honey.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_GHAST, "Summon Possessed Ghast", "Djinni", "The Possessed Ghast will always drop at least one ghast tear when killed.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_WEAK_SHULKER, "Summon Possessed Weak Shulker", "Djinni", "The Possessed Weak Shulker will drop at least one chorus fruit when killed and can drop shulker shell.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_BLAZE, "Summon Possessed Blaze", "Djinni", "The Possessed Blaze will drop at least two blaze rods and various nether-related items, including blocks, plants, and (very rarely) ancient debris.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ZOMBIE_PIGLIN, "Summon Possessed Zombified Piglin", "Afrit", "The Possessed Zombified Piglin will drop demonic meat.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_WARDEN, "Summon Possessed Warden", "Afrit", "The Possessed Warden will always drop at least six echo shard and can drop anothers ancient stuff (smithing templates and discs) when killed.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ELDER_GUARDIAN, "Summon Possessed Elder Guardian", "Afrit", "The Possessed Elder Guardian will drop at least one nautilus shell when killed, also can drop heart of the sea and the common drops.");
@@ -2760,6 +2764,26 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.PENTACLE_MATERIALS, "Pentacle Materials");
         this.addItemTag(OccultismTags.Items.TOOLS_CHALK, "Chalks");
         this.addItemTag(OccultismTags.Items.CLAY, "Clay");
+
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_BLAZE, "Drop from Possessed Blaze");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_BREEZE, "Drop from Possessed Breeze");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_ELDER_GUARDIAN, "Drop from Possessed Elder Guardian");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_ENDERMAN, "Drop from Possessed Enderman");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_EVOKER, "Drop from Possessed Evoker");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_GHAST, "Drop from Possessed Ghast");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_HOGLIN, "Drop from Possessed Hoglin");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_SHULKER, "Drop from Possessed Shulker");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_SKELETON, "Drop from Possessed Skeleton");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_STRONG_BREEZE, "Drop from Possessed Strong Breeze");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_WARDEN, "Drop from Possessed Warden");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_WEAK_BREEZE, "Drop from Possessed Weak Breeze");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_WEAK_SHULKER, "Drop from Possessed Weak Shulker");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_WITCH, "Drop from Possessed Witch");
+        this.addItemTag(OccultismTags.Items.DROPS_WILD_HUNT, "Drop from Wild Hunt");
+        this.addItemTag(OccultismTags.Items.DROPS_WILD_HORDE_CREEPER, "Drop from Wild Horde Creeper");
+        this.addItemTag(OccultismTags.Items.DROPS_WILD_HORDE_DROWNED, "Drop from Wild Horde Drowned");
+        this.addItemTag(OccultismTags.Items.DROPS_WILD_HORDE_HUSK, "Drop from Wild Horde Husk");
+        this.addItemTag(OccultismTags.Items.DROPS_WILD_HORDE_SILVERFISH, "Drop from Wild Horde Silverfish");
     }
 
     private void addItemTag(ResourceLocation resourceLocation, String string) {

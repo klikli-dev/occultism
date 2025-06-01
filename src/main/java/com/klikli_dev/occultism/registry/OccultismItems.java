@@ -437,6 +437,8 @@ public class OccultismItems {
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE, 0xb5b3a3, 0x4b4d60, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_WITCH = ITEMS.register("spawn_egg/possessed_witch",
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_WITCH_TYPE, 0x280000, 0x346828, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_BLAZE = ITEMS.register("spawn_egg/possessed_blaze",
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_BLAZE_TYPE, 0xe8a700, 0xb4af58, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_ZOMBIE_PIGLIN = ITEMS.register("spawn_egg/possessed_zombie_piglin",
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE, 0xdb8a8a, 0x6a8c46, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_BEE = ITEMS.register("spawn_egg/possessed_bee",
@@ -576,6 +578,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_BEE = ITEMS.register("ritual_dummy/possess_bee", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_GHAST = ITEMS.register("ritual_dummy/possess_ghast", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_WEAK_SHULKER = ITEMS.register("ritual_dummy/possess_weak_shulker", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_BLAZE = ITEMS.register("ritual_dummy/possess_blaze", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_ZOMBIE_PIGLIN = ITEMS.register("ritual_dummy/possess_zombie_piglin", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_WARDEN = ITEMS.register("ritual_dummy/possess_warden", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_ELDER_GUARDIAN = ITEMS.register("ritual_dummy/possess_elder_guardian", () -> new DummyTooltipItem(defaultProperties()));

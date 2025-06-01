@@ -1,0 +1,305 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:blaze_rod"
+        }
+      ],
+      "functions": [
+        {
+          "add": false,
+          "count": {
+            "type": "minecraft:uniform",
+            "max": 6.0,
+            "min": 2.0
+          },
+          "function": "minecraft:set_count"
+        },
+        {
+          "count": {
+            "type": "minecraft:uniform",
+            "max": 2.0,
+            "min": 0.0
+          },
+          "enchantment": "minecraft:looting",
+          "function": "minecraft:enchanted_count_increase"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:blaze_powder"
+        }
+      ],
+      "functions": [
+        {
+          "add": false,
+          "count": {
+            "type": "minecraft:uniform",
+            "max": 13.0,
+            "min": 0.0
+          },
+          "function": "minecraft:set_count"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:nether_wart",
+          "weight": 30
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:crimson_fungus",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:warped_fungus",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:red_mushroom",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:brown_mushroom",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:crimson_roots",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:warped_roots",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:weeping_vines",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:twisting_vines",
+          "weight": 5
+        }
+      ],
+      "functions": [
+        {
+          "count": {
+            "type": "minecraft:uniform",
+            "max": 3.0,
+            "min": 1.0
+          },
+          "enchantment": "minecraft:looting",
+          "function": "minecraft:enchanted_count_increase"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:empty",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:netherrack",
+          "weight": 45
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:nether_quartz_ore",
+          "weight": 25
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:crimson_nylium",
+          "weight": 9
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:warped_nylium",
+          "weight": 9
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:nether_wart_block"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:warped_wart_block"
+        }
+      ],
+      "functions": [
+        {
+          "count": {
+            "type": "minecraft:uniform",
+            "max": 1.0,
+            "min": 0.0
+          },
+          "enchantment": "minecraft:looting",
+          "function": "minecraft:enchanted_count_increase"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:empty",
+          "weight": 25
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:soul_sand",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:soul_soil",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:basalt",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:blackstone",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gravel",
+          "weight": 9
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bone_block",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gilded_blackstone"
+        }
+      ],
+      "functions": [
+        {
+          "count": {
+            "type": "minecraft:uniform",
+            "max": 1.0,
+            "min": 0.0
+          },
+          "enchantment": "minecraft:looting",
+          "function": "minecraft:enchanted_count_increase"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:empty",
+          "weight": 50
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:glowstone_dust",
+          "weight": 25
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:magma_block",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:glowstone",
+          "weight": 9
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:shroomlight"
+        }
+      ],
+      "functions": [
+        {
+          "count": {
+            "type": "minecraft:uniform",
+            "max": 1.0,
+            "min": 0.0
+          },
+          "enchantment": "minecraft:looting",
+          "function": "minecraft:enchanted_count_increase"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:empty",
+          "weight": 75
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:obsidian",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:crying_obsidian",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:ancient_debris"
+        }
+      ],
+      "functions": [
+        {
+          "count": 1.0,
+          "enchantment": "minecraft:looting",
+          "function": "minecraft:enchanted_count_increase"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "occultism:entities/possessed_blaze"
+}
