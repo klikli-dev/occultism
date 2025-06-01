@@ -588,6 +588,10 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                     //Pop activation item back into level
                     Containers.dropItemStack(this.level, this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ(),
                             handler.extractItem(0, 1, false));
+                    for (ItemStack consumed : consumedIngredients) {
+                        Containers.dropItemStack(this.level, this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ(),
+                                consumed);
+                    }
                 }
             }
             this.currentRitualRecipe = null;
