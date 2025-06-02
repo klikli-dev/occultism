@@ -81,10 +81,10 @@ public abstract class RitualSatchelItem extends Item {
                 RitualSatchelContainer.SATCHEL_SIZE
         );
 
-        if (context.getItemInHand().is(OccultismItems.RITUAL_SATCHEL_T1) && !context.getLevel().getBlockState(context.getClickedPos().above()).isAir())
+        if (context.getItemInHand().is(OccultismItems.RITUAL_SATCHEL_T1) && !context.getLevel().getBlockState(context.getClickedPos().above()).canBeReplaced())
             return PlacementResult.ERROR_BLOCK_ABOVE_NOT_AIR;
 
-        if (context.getItemInHand().is(OccultismItems.RITUAL_SATCHEL_T2) && !context.getLevel().getBlockState(context.getClickedPos()).isAir())
+        if (context.getItemInHand().is(OccultismItems.RITUAL_SATCHEL_T2) && !context.getLevel().getBlockState(context.getClickedPos()).canBeReplaced())
             return PlacementResult.ERROR_BLOCK_AT_POSITION_NOT_AIR;
 
         for (int i = 0; i < inventory.getSlots(); i++) {
