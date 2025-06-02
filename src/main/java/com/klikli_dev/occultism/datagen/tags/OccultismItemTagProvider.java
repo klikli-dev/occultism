@@ -572,6 +572,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(OccultismTags.Items.DROPS_WILD_HUNT)
                 .add(Items.WITHER_SKELETON_SKULL)
                 .add(Items.RIB_ARMOR_TRIM_SMITHING_TEMPLATE)
+                .add(Items.WITHER_ROSE)
                 .add(Items.COAL)
                 .add(Items.BONE)
                 .add(Items.ARROW);

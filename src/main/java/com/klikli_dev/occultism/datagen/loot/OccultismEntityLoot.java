@@ -157,6 +157,11 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.67f, 1.0F)))
                         .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))
                 ).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(Items.WITHER_ROSE)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))
+                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))
+                                .when(LootItemRandomChanceCondition.randomChance(0.3F)))
+                ).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(Items.RIB_ARMOR_TRIM_SMITHING_TEMPLATE))
                         .when(LootItemKilledByPlayerCondition.killedByPlayer())
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.1f, 1.0F)))));

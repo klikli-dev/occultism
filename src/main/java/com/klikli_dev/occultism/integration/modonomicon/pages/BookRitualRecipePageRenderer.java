@@ -173,7 +173,7 @@ public abstract class BookRitualRecipePageRenderer<T extends Recipe<?>> extends 
                     .replace("c:entities/","")
                     .replace(":entities/","_");
             if (!Ingredient.of(OccultismTags.makeItemTag("occultism:drop_from/" + mob)).hasNoItems())
-                this.parentScreen.renderIngredient(guiGraphics, recipeX + 85, recipeY + 95, mouseX, mouseY, Ingredient.of(OccultismTags.makeItemTag("occultism:drop_from/" + mob)));
+                this.parentScreen.renderIngredient(guiGraphics, recipeX + 85, recipeY + 90, mouseX, mouseY, Ingredient.of(OccultismTags.makeItemTag("occultism:drop_from/" + mob)));
         }
 
         if (recipe.getEntityTagToSummon() != null) {
