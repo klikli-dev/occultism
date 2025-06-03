@@ -394,6 +394,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.LAPIS_DUST,"Lapis Dust");
         this.addItem(OccultismItems.MARID_ESSENCE,"Marid Essence");
         this.addItem(OccultismItems.NATURE_PASTE,"Nature Paste");
+        this.addAutoTooltip(OccultismItems.NATURE_PASTE, "Powerful and reusable bonemeal (instantly grow and affects more plants)");
         this.addItem(OccultismItems.NETHERITE_DUST,"Netherite Dust");
         this.addItem(OccultismItems.NETHERITE_SCRAP_DUST,"Netherite Scrap Dust");
         this.addItem(OccultismItems.RESEARCH_FRAGMENT_DUST,"Research Fragment Dust");

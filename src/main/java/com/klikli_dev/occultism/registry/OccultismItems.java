@@ -356,7 +356,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> GRAY_PASTE = ITEMS.register("gray_paste",
             () -> new DamageInCraftingItem(defaultProperties().durability(64)));
     public static final DeferredItem<Item> NATURE_PASTE = ITEMS.register("nature_paste",
-            () -> new Item(defaultProperties()));
+            () -> new NaturePasteItem(defaultProperties().durability(64)));
 
     //Components
     public static final DeferredItem<Item> PURIFIED_INK = ITEMS.register("purified_ink",

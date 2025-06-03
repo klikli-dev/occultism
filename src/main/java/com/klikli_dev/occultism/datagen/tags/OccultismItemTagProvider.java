@@ -218,7 +218,8 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .addTag(OccultismTags.Items.TOOLS_CHALK)
                 .addTag(OccultismTags.Items.TOOLS_KNIFE)
                 .add(OccultismItems.MINING_DIMENSION_CORE_PIECE.asItem())
-                .add(OccultismItems.GRAY_PASTE.asItem());
+                .add(OccultismItems.GRAY_PASTE.asItem())
+                .add(OccultismItems.NATURE_PASTE.asItem());
         this.tag(ItemTags.SHARP_WEAPON_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_KNIFE);
         this.tag(ItemTags.SWORD_ENCHANTABLE).addTag(OccultismTags.Items.TOOLS_KNIFE);
 
