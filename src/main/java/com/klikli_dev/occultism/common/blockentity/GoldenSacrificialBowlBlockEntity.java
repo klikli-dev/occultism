@@ -556,15 +556,17 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
             this.level.updateNeighborsAt(this.getBlockPos(), this.getBlockState().getBlock());
 
-            if (ritualRecipe.value().requiresSacrifice()) {
-                player.displayClientMessage(Component.translatable(String.format("ritual.%s.sacrifice", Occultism.MODID)), false);
-                player.displayClientMessage(Component.translatable(String.format(ritualRecipe.value().getEntityToSacrificeDisplayName())), false);
-            }
+            if (player != null) {
+                if (ritualRecipe.value().requiresSacrifice()) {
+                    player.displayClientMessage(Component.translatable(String.format("ritual.%s.sacrifice", Occultism.MODID)), false);
+                    player.displayClientMessage(Component.translatable(String.format(ritualRecipe.value().getEntityToSacrificeDisplayName())), false);
+                }
 
-            if (ritualRecipe.value().requiresItemUse()) {
-                player.displayClientMessage(Component.translatable(String.format("ritual.%s.use_item", Occultism.MODID)), false);
-                String s = ritualRecipe.value().getItemToUse().getItems()[0].getDisplayName().getString();
-                player.displayClientMessage(Component.translatable(s.substring(1,s.length()-1)), false);
+                if (ritualRecipe.value().requiresItemUse()) {
+                    player.displayClientMessage(Component.translatable(String.format("ritual.%s.use_item", Occultism.MODID)), false);
+                    String s = ritualRecipe.value().getItemToUse().getItems()[0].getDisplayName().getString();
+                    player.displayClientMessage(Component.translatable(s.substring(1, s.length() - 1)), false);
+                }
             }
         }
         return true;
