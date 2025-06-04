@@ -342,6 +342,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").addItem(OccultismItems.SPAWN_EGG_POSSESSED_WARDEN, "Яйцо призыва одержимого хранителя");
         this.lang("ru_ru").addItem(OccultismItems.SPAWN_EGG_POSSESSED_HOGLIN, "Яйцо призыва одержимого хоглина");
         this.lang("ru_ru").addItem(OccultismItems.SPAWN_EGG_POSSESSED_WITCH, "Яйцо призыва одержимой ведьмы");
+		this.lang("ru_ru").addItem(OccultismItems.SPAWN_EGG_POSSESSED_BLAZE, "Яйцо призыва одержимого всполоха");
         this.lang("ru_ru").addItem(OccultismItems.SPAWN_EGG_POSSESSED_ZOMBIE_PIGLIN, "Яйцо призыва одержимого зомбифицированного пиглина");
         this.lang("ru_ru").addItem(OccultismItems.SPAWN_EGG_POSSESSED_BEE, "Яйцо призыва одержимой пчелы");
         this.lang("ru_ru").addItem(OccultismItems.SPAWN_EGG_GOAT_OF_MERCY, "Яйцо призыва козла милосердия");
@@ -396,6 +397,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").addItem(OccultismItems.LAPIS_DUST, "Лазуритовая пыль");
         this.lang("ru_ru").addItem(OccultismItems.MARID_ESSENCE, "Сущность Марида");
         this.lang("ru_ru").addItem(OccultismItems.NATURE_PASTE, "Природная паста");
+		this.lang("ru_ru").addAutoTooltip(OccultismItems.NATURE_PASTE, "Плодотворная и многоразовая костная мука: выращивает в мгновение ока и затрагивает больше растений.");
         this.lang("ru_ru").addItem(OccultismItems.NETHERITE_DUST, "Незеритовая пыль");
         this.lang("ru_ru").addItem(OccultismItems.NETHERITE_SCRAP_DUST, "Пыль из незеритового лома");
         this.lang("ru_ru").addItem(OccultismItems.RESEARCH_FRAGMENT_DUST, "Пыль фрагмента исследования");
@@ -538,6 +540,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").addEntityType(OccultismEntities.POSSESSED_WARDEN, "Одержимый хранитель");
         this.lang("ru_ru").addEntityType(OccultismEntities.POSSESSED_HOGLIN, "Одержимый хоглин");
         this.lang("ru_ru").addEntityType(OccultismEntities.POSSESSED_WITCH, "Одержимая ведьма");
+		this.lang("ru_ru").addEntityType(OccultismEntities.POSSESSED_BLAZE, "Одержимый всполох");
         this.lang("ru_ru").addEntityType(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN, "Одержимый зомбифицированный пиглин");
         this.lang("ru_ru").addEntityType(OccultismEntities.POSSESSED_BEE, "Одержимая пчела");
         this.lang("ru_ru").addEntityType(OccultismEntities.GOAT_OF_MERCY, "Козёл милосердия");
@@ -1123,7 +1126,8 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        **Добыча**: 1-3х [](item://minecraft:ender_pearl).
+                        **Добыча**: 1-3х [](item://minecraft:ender_pearl)
+						и 10%% шанс выпадения [](item://minecraft:eye_armor_trim_smithing_template).
                                 """);
 
         helper.page("ritual");
@@ -1154,7 +1158,8 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         helper.page("entity");
         this.lang("ru_ru").add(helper.pageText(),
                 """
-                        **Добыча**: 1-2х [](item://minecraft:end_stone).
+                        **Добыча**: 1-2х [](item://minecraft:end_stone)
+						и 25%% шанс выпадения глаза.
                                 """);
 
         helper.page("ritual");
@@ -2461,153 +2466,154 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
 
         //SUMMON
         //Crusher
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRUSHER, "вызов Фолиота-дробильщика", "Фолиот", "Дробильщик — это дух, вызываемый для размельчения руды в пыль, эффективно удваивая металлопродукцию.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Примечание: некоторые рецепты требуют высокий или низкий уровень дробильщиков.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRUSHER, "вызов Джинна-дробильщика", "Джинн", "Дробильщик — это дух, вызываемый для измельчения руды в пыль, эффективно (гораздо), удваивая металлопродукцию.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Примечание: некоторые рецепты требуют высокий или низкий уровень дробильщиков.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRUSHER, "вызов Африта-дробильщика", "Африт", "Дробильщик — это дух, вызываемый для измельчения руды в пыль, эффективно (гораздо), удваивая металлопродукцию.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Примечание: некоторые рецепты требуют высокий или низкий уровень дробильщиков.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRUSHER, "вызов Марида-дробильщика", "Марид", "Дробильщик — это дух, вызываемый для измельчения руды в пыль, эффективно (гораздо), удваивая металлопродукцию.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Примечание: некоторые рецепты требуют высокий или низкий уровень дробильщиков.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRUSHER, "вызов Фолиота-дробильщика", "Фолиот", "Дробильщик — это дух, вызываемый для размельчения руды в пыль, эффективно удваивая металлопродукцию.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Примечание: некоторые рецепты требуют высокий или низкий уровень дробильщиков.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRUSHER, "вызов Джинна-дробильщика", "Джинн", "Дробильщик — это дух, вызываемый для измельчения руды в пыль, эффективно (гораздо), удваивая металлопродукцию.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Примечание: некоторые рецепты требуют высокий или низкий уровень дробильщиков.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRUSHER, "вызов Африта-дробильщика", "Африт", "Дробильщик — это дух, вызываемый для измельчения руды в пыль, эффективно (гораздо), удваивая металлопродукцию.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Примечание: некоторые рецепты требуют высокий или низкий уровень дробильщиков.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRUSHER, "вызов Марида-дробильщика", "Марид", "Дробильщик — это дух, вызываемый для измельчения руды в пыль, эффективно (гораздо), удваивая металлопродукцию.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Примечание: некоторые рецепты требуют высокий или низкий уровень дробильщиков.");
         //Smelter
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER, "вызов Фолиота-литейщика", "Фолиот", "Литейщик — это дух, вызываемый для создания рецептов печи, плавильной печи, коптильни и костра — без использования топлива, и более быстрый в зависимости от духа.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER, "вызов Джинна-литейщика", "Джинн", "Литейщик — это дух, вызываемый для создания рецептов печи, плавильной печи, коптильни и костра — без использования топлива, и более быстрый в зависимости от духа.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER, "вызов Африта-литейщика", "Африт", "Литейщик — это дух, вызываемый для создания рецептов печи, плавильной печи, коптильни и костра — без использования топлива, и более быстрый в зависимости от духа.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER, "вызов Марида-литейщика", "Марид", "Литейщик — это дух, вызываемый для создания рецептов печи, плавильной печи, коптильни и костра — без использования топлива, и более быстрый в зависимости от духа.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER, "вызов Фолиота-литейщика", "Фолиот", "Литейщик — это дух, вызываемый для создания рецептов печи, плавильной печи, коптильни и костра — без использования топлива, и более быстрый в зависимости от духа.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER, "вызов Джинна-литейщика", "Джинн", "Литейщик — это дух, вызываемый для создания рецептов печи, плавильной печи, коптильни и костра — без использования топлива, и более быстрый в зависимости от духа.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER, "вызов Африта-литейщика", "Африт", "Литейщик — это дух, вызываемый для создания рецептов печи, плавильной печи, коптильни и костра — без использования топлива, и более быстрый в зависимости от духа.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER, "вызов Марида-литейщика", "Марид", "Литейщик — это дух, вызываемый для создания рецептов печи, плавильной печи, коптильни и костра — без использования топлива, и более быстрый в зависимости от духа.");
         //Crystallize
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRYSTALLIZER, "вызов Фолиота-кристаллизатора", "Фолиот", "Кристаллизатор — это дух, вызываемый для превращения пылей от самоцветов обратно в самоцветы. Также может извлекать самоцветы из руд.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Примечание: некоторые рецепты требуют высокий или низкий уровень кристаллизаторов.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRYSTALLIZER, "вызов Джинна-кристаллизатора", "Джинн", "Кристаллизатор — это дух, вызываемый для превращения пылей от самоцветов обратно в самоцветы. Также может извлекать самоцветы из руд.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Примечание: некоторые рецепты требуют высокий или низкий уровень кристаллизаторов.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRYSTALLIZER, "вызов Африта-кристаллизатора", "Африт", "Кристаллизатор — это дух, вызываемый для превращения пылей от самоцветов обратно в самоцветы. Также может извлекать самоцветы из руд.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Примечание: некоторые рецепты требуют высокий или низкий уровень кристаллизаторов.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRYSTALLIZER, "вызов Марида-кристаллизатора", "Марид", "Кристаллизатор — это дух, вызываемый для превращения пылей от самоцветов обратно в самоцветы. Также может извлекать самоцветы из руд.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Примечание: некоторые рецепты требуют высокий или низкий уровень кристаллизаторов.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRYSTALLIZER, "вызов Фолиота-кристаллизатора", "Фолиот", "Кристаллизатор — это дух, вызываемый для превращения пылей от самоцветов обратно в самоцветы. Также может извлекать самоцветы из руд.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Примечание: некоторые рецепты требуют высокий или низкий уровень кристаллизаторов.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRYSTALLIZER, "вызов Джинна-кристаллизатора", "Джинн", "Кристаллизатор — это дух, вызываемый для превращения пылей от самоцветов обратно в самоцветы. Также может извлекать самоцветы из руд.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Примечание: некоторые рецепты требуют высокий или низкий уровень кристаллизаторов.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRYSTALLIZER, "вызов Африта-кристаллизатора", "Африт", "Кристаллизатор — это дух, вызываемый для превращения пылей от самоцветов обратно в самоцветы. Также может извлекать самоцветы из руд.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Примечание: некоторые рецепты требуют высокий или низкий уровень кристаллизаторов.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRYSTALLIZER, "вызов Марида-кристаллизатора", "Марид", "Кристаллизатор — это дух, вызываемый для превращения пылей от самоцветов обратно в самоцветы. Также может извлекать самоцветы из руд.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Примечание: некоторые рецепты требуют высокий или низкий уровень кристаллизаторов.");
         //Partner
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE, "вызов демонической жены", "Джинн", "Вызывает демоническую жену для поддержки: она будет защищать вас, помогать с готовкой и продлевать продолжительность зелья.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND, "вызов демонического мужа", "Джинн", "Вызывает демонического мужа для поддержки: он будет защищать вас, помогать с готовкой и продлевать продолжительность зелья.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE, "вызов демонической жены", "Джинн", "Вызывает демоническую жену для поддержки: она будет защищать вас, помогать с готовкой и продлевать продолжительность зелья.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND, "вызов демонического мужа", "Джинн", "Вызывает демонического мужа для поддержки: он будет защищать вас, помогать с готовкой и продлевать продолжительность зелья.");
         //One tier worker
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_LUMBERJACK, "вызов Фолиота-дровосека", "Фолиот", "Дровосек рубит близлежащие деревья на своём рабочем месте и кладёт выпавшие предметы в указанный сундук.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_OTHERSTONE_TRADER, "вызов торговца потусторонним камнем", "Фолиот", "Торговец потусторонним камнем обменивает обычный камень на потусторонний камень.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SAPLING_TRADER, "вызов торговца потусторонними саженцами", "Фолиот", "Торговец потусторонними саженцами обменивает природные потусторонние саженцы на стабильные, которые можно собрать без эффекта «Третий глаз».");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_TRANSPORT_ITEMS, "вызов Фолиота-транспортировщика", "Фолиот", "Транспортировщик будет перемещать все предметы из одного инвентаря в другой, к которому получает доступ, включая машины.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CLEANER, "вызов Фолиота-дворника", "Фолиот", "Дворник подбирает выпавшие предметы и кладёт их в указанный инвентарь.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_MANAGE_MACHINE, "вызов Джинна-станочника", "Джинн", "Станочник автоматически перемещает предметы между системой пространственного хранилища и присоединёнными инвентарями, а также машинами.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_DAY_TIME, "вызов рассвета", "Джинн", "Вызывает Джинна, устанавливающего время на полдень.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_NIGHT_TIME, "вызов сумерек", "Джинн", "Вызывает Джинна, устанавливающего время на сумерки.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CLEAR_WEATHER, "вызов безоблачного неба", "Джинн", "Вызывает Джинна, устраняющего погоду.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_RAIN_WEATHER, "вызов дождя", "Африт", "Вызывает Африта, вызывающего дождь.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_THUNDER_WEATHER, "вызов грозы", "Африт", "Вызывает Африта, вызывающего грозу.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_LUMBERJACK, "вызов Фолиота-дровосека", "Фолиот", "Дровосек рубит близлежащие деревья на своём рабочем месте и кладёт выпавшие предметы в указанный сундук.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_OTHERSTONE_TRADER, "вызов торговца потусторонним камнем", "Фолиот", "Торговец потусторонним камнем обменивает обычный камень на потусторонний камень.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SAPLING_TRADER, "вызов торговца потусторонними саженцами", "Фолиот", "Торговец потусторонними саженцами обменивает природные потусторонние саженцы на стабильные, которые можно собрать без эффекта «Третий глаз».");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_TRANSPORT_ITEMS, "вызов Фолиота-транспортировщика", "Фолиот", "Транспортировщик будет перемещать все предметы из одного инвентаря в другой, к которому получает доступ, включая машины.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CLEANER, "вызов Фолиота-дворника", "Фолиот", "Дворник подбирает выпавшие предметы и кладёт их в указанный инвентарь.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_MANAGE_MACHINE, "вызов Джинна-станочника", "Джинн", "Станочник автоматически перемещает предметы между системой пространственного хранилища и присоединёнными инвентарями, а также машинами.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_DAY_TIME, "вызов рассвета", "Джинн", "Вызывает Джинна, устанавливающего время на полдень.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_NIGHT_TIME, "вызов сумерек", "Джинн", "Вызывает Джинна, устанавливающего время на сумерки.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CLEAR_WEATHER, "вызов безоблачного неба", "Джинн", "Вызывает Джинна, устраняющего погоду.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_RAIN_WEATHER, "вызов дождя", "Африт", "Вызывает Африта, вызывающего дождь.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_THUNDER_WEATHER, "вызов грозы", "Африт", "Вызывает Африта, вызывающего грозу.");
         //Unbound
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_UNBOUND_AFRIT, "вызов незаточённого Африта", "Африт", "Вызывает незаточённого Африта, который может быть убит для получения сущности Африта.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_UNBOUND_MARID, "вызов незаточённого Марида", "Марид", "Вызывает незаточённого Марида, который может быть убит для получения сущности Марида.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_UNBOUND_AFRIT, "вызов незаточённого Африта", "Африт", "Вызывает незаточённого Африта, который может быть убит для получения сущности Африта.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_UNBOUND_MARID, "вызов незаточённого Марида", "Марид", "Вызывает незаточённого Марида, который может быть убит для получения сущности Марида.");
         //POSSESS
         //Familiar
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_BEAVER, "вызов фамильяра-бобра", "Фолиот", "Фамильяр-бобёр даёт повышенную скорость рубки хозяину, и добывает близлежащие деревья, когда вырастут из саженца.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_BLACKSMITH, "вызов фамильяра-кузнеца", "Фолиот", "Фамильяры-кузнецы берут камни, добытые хозяином и используют их для починки снаряжения.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_DEER, "вызов фамильяра-оленя", "Фолиот", "Фамильяры-олени дают эффект «Прыгучесть» хозяину.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_GREEDY, "вызов алчного фамильяра", "Фолиот", "Алчные фамильяры подбирают предметы для хозяина. Находясь в заключении перстня для фамильяра, — увеличивает дальность подбирания предметов (словно «Магнит предметов» из мода Cyclic).");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_PARROT, "вызов фамильяра-попугая", "Фолиот", "Фамильяр-попугай ведёт себя точь-в-точь как прирученные попугаи.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_UNBOUND_PARROT, "Овладение несвязанного попугая", "Фолиот", "Завладевает попугаем, который может быть приручен кем угодно, не только вызывателем.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_BAT, "вызов фамильяра-летучая мышь", "Джинн", "Фамильяры-летучие мыши дают эффект «Ночное зрение» хозяину.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_BEHOLDER, "вызов фамильяра-созерцателя", "Джинн", "Фамильяры-созерцатели подсвечивают эффектом свечения близлежащих существ и стреляют лазерными лучами во врагов.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_CHIMERA, "вызов фамильяра-химеру", "Джинн", "Фамильяры-химеры могут быть накормлены до полного роста для получения скорости атаки и урона. Как только вырастят, игроки смогут оседлать их.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_CTHULHU, "вызов фамильяра-Ктулху", "Джинн", "Фамильяры-Ктулхи дают эффект «Водное дыхание» хозяину.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_DEVIL, "вызов фамильяра-дьявола", "Джинн", "Фамильяры-дьяволы дают эффект «Огнестойкость» хозяину.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_DRAGON, "вызов фамильяра-дракона", "Джинн", "Фамильяры-драконы дают повышенное получение опыта хозяину.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_FAIRY, "вызов фамильяра-феи", "Джинн", "Фамильяр-фея оберегает от смерти других фамильяров, истощает жизненную силу своих врагов и исцеляет своего хозяина, а также его фамильяров.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_HEADLESS, "вызов фамильяра-безголового человека на крысе", "Джинн", "Фамильяры-безголовые человеки на крысе увеличивают скорость атаки против врагов хозяина, чьи головы они украли.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_MUMMY, "вызов фамильяра-мумии", "Джинн", "Фамильяр-мумия является мастером боевых искусств, сражающаяся, чтобы защитить своего хозяина.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_OTHERWORLD_BIRD, "вызов фамильяра-дрикрыла", "Джинн", "Дрикрылы дают владельцу ограниченные возможности полёта, будучи рядом.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_UNBOUND_OTHERWORLD_BIRD, "Овладение несвязанного дрикрыла", "Джинн", "Завладевает фамильяром-дрикрылом, который может быть приручен кем угодно, не только вызывателем.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_GUARDIAN, "вызов фамильяра-стража", "Африт", "Фамильяры-стражи оберегают хозяина от жестокой кончины.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_IESNIUM_GOLEM, "вызов айзниевого голема", "Марид", "Вызывает сильного и неуязвимого айзниевого голема для защиты территории.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_BEAVER, "вызов фамильяра-бобра", "Фолиот", "Фамильяр-бобёр даёт повышенную скорость рубки хозяину, и добывает близлежащие деревья, когда вырастут из саженца.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_BLACKSMITH, "вызов фамильяра-кузнеца", "Фолиот", "Фамильяры-кузнецы берут камни, добытые хозяином и используют их для починки снаряжения.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_DEER, "вызов фамильяра-оленя", "Фолиот", "Фамильяры-олени дают эффект «Прыгучесть» хозяину.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_GREEDY, "вызов алчного фамильяра", "Фолиот", "Алчные фамильяры подбирают предметы для хозяина. Находясь в заключении перстня для фамильяра, — увеличивает дальность подбирания предметов (словно «Магнит предметов» из мода Cyclic).");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_PARROT, "вызов фамильяра-попугая", "Фолиот", "Фамильяр-попугай ведёт себя точь-в-точь как прирученные попугаи.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_UNBOUND_PARROT, "Овладение несвязанного попугая", "Фолиот", "Завладевает попугаем, который может быть приручен кем угодно, не только вызывателем.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_BAT, "вызов фамильяра-летучая мышь", "Джинн", "Фамильяры-летучие мыши дают эффект «Ночное зрение» хозяину.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_BEHOLDER, "вызов фамильяра-созерцателя", "Джинн", "Фамильяры-созерцатели подсвечивают эффектом свечения близлежащих существ и стреляют лазерными лучами во врагов.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_CHIMERA, "вызов фамильяра-химеру", "Джинн", "Фамильяры-химеры могут быть накормлены до полного роста для получения скорости атаки и урона. Как только вырастят, игроки смогут оседлать их.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_CTHULHU, "вызов фамильяра-Ктулху", "Джинн", "Фамильяры-Ктулхи дают эффект «Водное дыхание» хозяину.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_DEVIL, "вызов фамильяра-дьявола", "Джинн", "Фамильяры-дьяволы дают эффект «Огнестойкость» хозяину.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_DRAGON, "вызов фамильяра-дракона", "Джинн", "Фамильяры-драконы дают повышенное получение опыта хозяину.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_FAIRY, "вызов фамильяра-феи", "Джинн", "Фамильяр-фея оберегает от смерти других фамильяров, истощает жизненную силу своих врагов и исцеляет своего хозяина, а также его фамильяров.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_HEADLESS, "вызов фамильяра-безголового человека на крысе", "Джинн", "Фамильяры-безголовые человеки на крысе увеличивают скорость атаки против врагов хозяина, чьи головы они украли.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_MUMMY, "вызов фамильяра-мумии", "Джинн", "Фамильяр-мумия является мастером боевых искусств, сражающаяся, чтобы защитить своего хозяина.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_OTHERWORLD_BIRD, "вызов фамильяра-дрикрыла", "Джинн", "Дрикрылы дают владельцу ограниченные возможности полёта, будучи рядом.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_UNBOUND_OTHERWORLD_BIRD, "Овладение несвязанного дрикрыла", "Джинн", "Завладевает фамильяром-дрикрылом, который может быть приручен кем угодно, не только вызывателем.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_GUARDIAN, "вызов фамильяра-стража", "Африт", "Фамильяры-стражи оберегают хозяина от жестокой кончины.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_IESNIUM_GOLEM, "вызов айзниевого голема", "Марид", "Вызывает сильного и неуязвимого айзниевого голема для защиты территории.");
         //Possessed
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ENDERMITE, "вызов одержимого эндермита", "Фолиот", "Одержимый эндермит сбрасывает эндерняк.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_PHANTOM, "вызов одержимого фантома", "Фолиот", "При убийстве одержимый фантом всегда сбрасывает минимум одну мембрану фантома, но его легко поймать в ловушку.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_SKELETON, "вызов одержимого скелета", "Фолиот", "При убийстве одержимый скелет становится устойчивым к дневному свету и всегда сбрасывает минимум один череп скелета.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_WITCH, "вызов одержимой ведьмы", "Фолиот", "Одержимая ведьма будет сбрасывать наполненную бутылочку.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ENDERMAN, "вызов одержимого эндермена", "Джинн", "При убийстве одержимый эндермен всегда сбрасывает минимум один эндер-жемчуг.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_BEE, "вызов одержимой пчелы", "Джинн", "Одержимая пчела будет сбрасывать проклятый мёд.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_GHAST, "вызов одержимого гаста", "Джинн", "При убийстве одержимый гаст всегда сбрасывает минимум одну слезу гаста.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_WEAK_SHULKER, "вызов одержимого слабого шалкера", "Джинн", "При убийстве одержимый слабый шалкер сбрасывает минимум один плод хоруса, кроме того, может сбросить панцирь шалкера.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ZOMBIE_PIGLIN, "вызов одержимого зомбифицированного пиглина", "Африт", "Одержимый зомбифицированный пиглин будет сбрасывать демоническое мясо.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_WARDEN, "вызов одержимого хранителя", "Африт", "При убийстве одержимый хранитель всегда сбрасывает минимум шесть осколков эха, кроме того, может сбросить другие древние вещи (кузнечные шаблоны и пластинки).");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ELDER_GUARDIAN, "вызов одержимого древнего стража", "Африт", "При убийстве одержимый древний страж сбрасывает минимум одну раковину наутилуса, кроме того, может сбросить сердце моря и обычную добычу.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_HOGLIN, "вызов одержимого хоглина", "Африт", "При убийстве у одержимого хоглина есть шанс сбросить незеритовое улучшение.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_SHULKER, "вызов одержимого шалкера", "Африт", "При убийстве одержимый шалкер всегда сбрасывает минимум один панцирь шалкера.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_GOAT, "вызов козла милосердия", "Марид", "Козёл милосердия будет сбрасывать сущность бессердечия.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ENDERMITE, "вызов одержимого эндермита", "Фолиот", "Одержимый эндермит сбрасывает эндерняк.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_PHANTOM, "вызов одержимого фантома", "Фолиот", "При убийстве одержимый фантом всегда сбрасывает минимум одну мембрану фантома, но его легко поймать в ловушку.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_SKELETON, "вызов одержимого скелета", "Фолиот", "При убийстве одержимый скелет становится устойчивым к дневному свету и всегда сбрасывает минимум один череп скелета.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_WITCH, "вызов одержимой ведьмы", "Фолиот", "Одержимая ведьма будет сбрасывать наполненную бутылочку.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ENDERMAN, "вызов одержимого эндермена", "Джинн", "При убийстве одержимый эндермен всегда сбрасывает минимум один эндер-жемчуг.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_BEE, "вызов одержимой пчелы", "Джинн", "Одержимая пчела будет сбрасывать проклятый мёд.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_GHAST, "вызов одержимого гаста", "Джинн", "При убийстве одержимый гаст всегда сбрасывает минимум одну слезу гаста.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_WEAK_SHULKER, "вызов одержимого слабого шалкера", "Джинн", "При убийстве одержимый слабый шалкер сбрасывает минимум один плод хоруса, кроме того, может сбросить панцирь шалкера.");
+		this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_BLAZE, "вызов одержимого всполоха", "Джинн", "Одержимый всполох будет сбрасывать как минимум два огненных стержня и ряд предметов, связанных с Незером, включая, в том числе, блоки, растения и, весьма редко, — древние обломки.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ZOMBIE_PIGLIN, "вызов одержимого зомбифицированного пиглина", "Африт", "Одержимый зомбифицированный пиглин будет сбрасывать демоническое мясо.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_WARDEN, "вызов одержимого хранителя", "Африт", "При убийстве одержимый хранитель всегда сбрасывает минимум шесть осколков эха, кроме того, может сбросить другие древние вещи (кузнечные шаблоны и пластинки).");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ELDER_GUARDIAN, "вызов одержимого древнего стража", "Африт", "При убийстве одержимый древний страж сбрасывает минимум одну раковину наутилуса, кроме того, может сбросить сердце моря и обычную добычу.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_HOGLIN, "вызов одержимого хоглина", "Африт", "При убийстве у одержимого хоглина есть шанс сбросить незеритовое улучшение.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_SHULKER, "вызов одержимого шалкера", "Африт", "При убийстве одержимый шалкер всегда сбрасывает минимум один панцирь шалкера.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_GOAT, "вызов козла милосердия", "Марид", "Козёл милосердия будет сбрасывать сущность бессердечия.");
         //Random
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_COMMON, "вызов случайного обычного животного", "Фолиот", "Вызывает случайное пассивное обычное животное. (Все варианты: курица, корова, свинья, овца, спрут и волк).");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_WATER, "вызов случайного водного животного", "Фолиот", "Вызывает случайное пассивное водное животное. (Все варианты: аксолотль, лягушка, дельфин, треска, лосось, тропическая рыба, иглобрюх, спрут, светящийся спрут, головастик, черепаха и снежный голем).");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SMALL, "вызов случайного малого животного", "Фолиот", "Вызывает случайное пассивное малое животное. (Все варианты: тихоня, летучая мышь, пчела, попугай, кошка, оцелот, лиса и кролик).");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SPECIAL, "вызов случайного специального животного", "Джинн", "Вызывает случайное пассивное специальное животное. (Все варианты: броненосец, муушрум, панда, белый медведь, коза, железный голем и нюхач).");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_RIDEABLE, "вызов случайного ездового животного", "Джинн", "Вызывает случайное пассивное ездовое животное. (Все варианты: свинья, верблюд, осёл, лошадь, скелет-лошадь, зомби-лошадь, лама, лама торговца, мул и лавомерка).");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_VILLAGER, "вызов крестьянина", "Джинн", "Вызывает крестьянина или странствующего торговца.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_COMMON, "вызов случайного обычного животного", "Фолиот", "Вызывает случайное пассивное обычное животное. (Все варианты: курица, корова, свинья, овца, спрут и волк).");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_WATER, "вызов случайного водного животного", "Фолиот", "Вызывает случайное пассивное водное животное. (Все варианты: аксолотль, лягушка, дельфин, треска, лосось, тропическая рыба, иглобрюх, спрут, светящийся спрут, головастик, черепаха и снежный голем).");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SMALL, "вызов случайного малого животного", "Фолиот", "Вызывает случайное пассивное малое животное. (Все варианты: тихоня, летучая мышь, пчела, попугай, кошка, оцелот, лиса и кролик).");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_SPECIAL, "вызов случайного специального животного", "Джинн", "Вызывает случайное пассивное специальное животное. (Все варианты: броненосец, муушрум, панда, белый медведь, коза, железный голем и нюхач).");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_RANDOM_ANIMAL_RIDEABLE, "вызов случайного ездового животного", "Джинн", "Вызывает случайное пассивное ездовое животное. (Все варианты: свинья, верблюд, осёл, лошадь, скелет-лошадь, зомби-лошадь, лама, лама торговца, мул и лавомерка).");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_VILLAGER, "вызов крестьянина", "Джинн", "Вызывает крестьянина или странствующего торговца.");
         //CRAFT
         //Tools
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_INFUSED_LENSES, "создание наполненных линз", "Фолиот", "Эти линзы используются для создания очков, которые дают способность видеть за пределами физического мира.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_INFUSED_PICKAXE, "создание наполненной кирки", "Джинн", "Наполняйте кирку для добычи потусторонних руд.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_SATCHEL, "создание необычайно большой наплечной сумки", "Фолиот", "Эта наплечная сумка позволяет хранить в себе куча предметов, чем позволяют её физические размеры. Это делает её полезным спутником для путешественника.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1, "создание ритуальной наплечной сумки подмастерья", "Фолиот", "Заточает Фолиота в наплечную сумку для пошаговой постройки пентаклей в пользу вызывателя.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "создание ремесленной ритуальной наплечной сумки", "Африт", "Заточает Африта в наплечную сумку для мгновенной постройки пентаклей в пользу вызывателя.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_FRAGILE_SOUL_GEM, "создание хрупкого камня души", "Фолиот", "Хрупкий камень души позволяет временно хранить живых существ. Может быть использован только один раз.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_SOUL_GEM, "создание камня души", "Джинн", "Камень души позволяет временно хранить живых существ.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_FAMILIAR_RING, "создание перстня для фамильяра", "Джинн", "Перстень для фамильяра позволяет заточать фамильяров. Перстень будет накладывать эффект фамильяра на владельца.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF, "создание посоха истинного зрения", "Марид", "Посох истинного зрения позволяет находить, видеть и взаимодействовать с потусторонним миром.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_INFUSED_LENSES, "создание наполненных линз", "Фолиот", "Эти линзы используются для создания очков, которые дают способность видеть за пределами физического мира.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_INFUSED_PICKAXE, "создание наполненной кирки", "Джинн", "Наполняйте кирку для добычи потусторонних руд.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_SATCHEL, "создание необычайно большой наплечной сумки", "Фолиот", "Эта наплечная сумка позволяет хранить в себе куча предметов, чем позволяют её физические размеры. Это делает её полезным спутником для путешественника.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1, "создание ритуальной наплечной сумки подмастерья", "Фолиот", "Заточает Фолиота в наплечную сумку для пошаговой постройки пентаклей в пользу вызывателя.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "создание ремесленной ритуальной наплечной сумки", "Африт", "Заточает Африта в наплечную сумку для мгновенной постройки пентаклей в пользу вызывателя.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_FRAGILE_SOUL_GEM, "создание хрупкого камня души", "Фолиот", "Хрупкий камень души позволяет временно хранить живых существ. Может быть использован только один раз.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_SOUL_GEM, "создание камня души", "Джинн", "Камень души позволяет временно хранить живых существ.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_FAMILIAR_RING, "создание перстня для фамильяра", "Джинн", "Перстень для фамильяра позволяет заточать фамильяров. Перстень будет накладывать эффект фамильяра на владельца.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_TRUE_SIGHT_STAFF, "создание посоха истинного зрения", "Марид", "Посох истинного зрения позволяет находить, видеть и взаимодействовать с потусторонним миром.");
         //Miners
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DIMENSIONAL_MINESHAFT, "создание пространственной шахты", "Джинн", "Позволяет духам-рудокопам входить в шахтёрское измерение и выносить обратно ресурсы.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_MINER_FOLIOT_UNSPECIALIZED, "вселение Фолиота-рудокопа", "Фолиот", "Вызывайте Фолиота-рудокопа в волшебную лампу.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_MINER_DJINNI_ORES, "вселение рудного Джинна-рудокопа.", "Джинн", "Вызывайте рудного Джинна-рудокопа в волшебную лампу.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_MINER_AFRIT_DEEPS, "вселение Африта-рудокопа для глубинносланцевой руды", "Африт", "Вызывайте Африта-рудокопа для глубинносланцевой руды в волшебную лампу.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_MINER_MARID_MASTER, "вселение мастера Марида-рудокопа", "Марид", "Вызывайте мастера Марида-рудокопа в волшебную лампу.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DIMENSIONAL_MINESHAFT, "создание пространственной шахты", "Джинн", "Позволяет духам-рудокопам входить в шахтёрское измерение и выносить обратно ресурсы.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_MINER_FOLIOT_UNSPECIALIZED, "вселение Фолиота-рудокопа", "Фолиот", "Вызывайте Фолиота-рудокопа в волшебную лампу.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_MINER_DJINNI_ORES, "вселение рудного Джинна-рудокопа.", "Джинн", "Вызывайте рудного Джинна-рудокопа в волшебную лампу.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_MINER_AFRIT_DEEPS, "вселение Африта-рудокопа для глубинносланцевой руды", "Африт", "Вызывайте Африта-рудокопа для глубинносланцевой руды в волшебную лампу.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_MINER_MARID_MASTER, "вселение мастера Марида-рудокопа", "Марид", "Вызывайте мастера Марида-рудокопа в волшебную лампу.");
         //Storage
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STORAGE_CONTROLLER_BASE, "создание основы актуатора хранилища", "Фолиот", "Основа актуатора хранилища заключает Фолиота в матрице пространственного хранилища, отвечающего за взаимодействие с предметами.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DIMENSIONAL_MATRIX, "создание пространственной матрицы", "Джинн", "Пространственная матрица — это мостик в малое пространство для хранения предметов.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER1, "создание стабилизатора хранилища 1-го уровня", "Фолиот", "Стабилизатор хранилища позволяет хранить больше предметов в средстве доступа пространственного хранилища.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER2, "создание стабилизатора хранилища 2-го уровня", "Джинн", "Стабилизатор хранилища позволяет хранить больше предметов в средстве доступа пространственного хранилища.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER3, "создание стабилизатора хранилища 3-го уровня", "Африт", "Стабилизатор хранилища позволяет хранить больше предметов в средстве доступа пространственного хранилища.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER4, "создание стабилизатора хранилища 4-го уровня", "Марид", "Стабилизатор хранилища позволяет хранить больше предметов в средстве доступа пространственного хранилища.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABLE_WORMHOLE, "создание стабильной червоточины", "Фолиот", "Стабильная червоточина позволяет получить доступ к пространственной матрице из удалённого место назначения.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STORAGE_REMOTE, "создание средства доступа к хранилищу", "Джинн", "Средство доступа к хранилищу может быть связано с актуатором хранилища для получения удалённого доступа к предметам.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STORAGE_CONTROLLER_BASE, "создание основы актуатора хранилища", "Фолиот", "Основа актуатора хранилища заключает Фолиота в матрице пространственного хранилища, отвечающего за взаимодействие с предметами.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DIMENSIONAL_MATRIX, "создание пространственной матрицы", "Джинн", "Пространственная матрица — это мостик в малое пространство для хранения предметов.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER1, "создание стабилизатора хранилища 1-го уровня", "Фолиот", "Стабилизатор хранилища позволяет хранить больше предметов в средстве доступа пространственного хранилища.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER2, "создание стабилизатора хранилища 2-го уровня", "Джинн", "Стабилизатор хранилища позволяет хранить больше предметов в средстве доступа пространственного хранилища.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER3, "создание стабилизатора хранилища 3-го уровня", "Африт", "Стабилизатор хранилища позволяет хранить больше предметов в средстве доступа пространственного хранилища.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER4, "создание стабилизатора хранилища 4-го уровня", "Марид", "Стабилизатор хранилища позволяет хранить больше предметов в средстве доступа пространственного хранилища.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABLE_WORMHOLE, "создание стабильной червоточины", "Фолиот", "Стабильная червоточина позволяет получить доступ к пространственной матрице из удалённого место назначения.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STORAGE_REMOTE, "создание средства доступа к хранилищу", "Джинн", "Средство доступа к хранилищу может быть связано с актуатором хранилища для получения удалённого доступа к предметам.");
         //Materials
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_RESEARCH_FRAGMENT_DUST, "создание пыли фрагмента исследования", "Фолиот", "Фолиот наполнит опыт в изумрудную пыль.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_NATURE_PASTE, "создание природной пасты", "Фолиот", "Смешав ингредиенты, Фолиот создаст природную пасту.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_GRAY_PASTE, "создание серой пасты", "Джинн", "Смешав ингредиенты, Джинн создаст серую пасту.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_WITHERITE_DUST, "создание визеритовой пыли", "Африт", "Африт наполнит незеритовую пыль в сущность визера.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DRAGONYST_DUST, "создание драконистовой пыли", "Марид", "Марид наполнит сущность Эндер-дракона в аметистовую пыль.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_RESEARCH_FRAGMENT_DUST, "создание пыли фрагмента исследования", "Фолиот", "Фолиот наполнит опыт в изумрудную пыль.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_NATURE_PASTE, "создание природной пасты", "Фолиот", "Смешав ингредиенты, Фолиот создаст природную пасту.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_GRAY_PASTE, "создание серой пасты", "Джинн", "Смешав ингредиенты, Джинн создаст серую пасту.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_WITHERITE_DUST, "создание визеритовой пыли", "Африт", "Африт наполнит незеритовую пыль в сущность визера.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DRAGONYST_DUST, "создание драконистовой пыли", "Марид", "Марид наполнит сущность Эндер-дракона в аметистовую пыль.");
         //Extras
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL, "создание айзниевой жертвенной миски", "Африт", "Айзниевая жертвенная миска выполняет любой ритуал за четверть расчётного времени. Остальные особенности действуют аналогично золотой жертвенной миски.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL, "создание айзниевой наковальни", "Марид", "Айзниевая наковальня является достижением по сравнению с обычной наковальней. Все её преимущества см. в справочнике душ.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL, "создание айзниевой жертвенной миски", "Африт", "Айзниевая жертвенная миска выполняет любой ритуал за четверть расчётного времени. Остальные особенности действуют аналогично золотой жертвенной миски.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL, "создание айзниевой наковальни", "Марид", "Айзниевая наковальня является достижением по сравнению с обычной наковальней. Все её преимущества см. в справочнике душ.");
         //Repair
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_REPAIR_CHALKS, "Починка мела", "Джинн", "Полностью починит мел, вселив в него Джинна.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_REPAIR_TOOLS, "Починка инструмента", "Африт", "Полностью починит инструмент, вселив в него Африта.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_REPAIR_ARMORS, "Починка брони", "Африт", "Полностью починит броню, вселив в неё Африта.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_REPAIR_MINERS, "Восстановление рудокопа", "Африт", "Продлит договор, заключив сделку с Афритом.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_REPAIR_CHALKS, "Починка мела", "Джинн", "Полностью починит мел, вселив в него Джинна.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_REPAIR_TOOLS, "Починка инструмента", "Африт", "Полностью починит инструмент, вселив в него Африта.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_REPAIR_ARMORS, "Починка брони", "Африт", "Полностью починит броню, вселив в неё Африта.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_REPAIR_MINERS, "Восстановление рудокопа", "Африт", "Продлит договор, заключив сделку с Афритом.");
         //MISC
         //Resurrect
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_RESURRECT_FAMILIAR, "Воскресение фамильяра", "Фамильяр", "Воскрешает фамильяра из осколка души.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_RESURRECT_ALLAY, "Очистка вредины в тихоню", "Фамильяр", "Очищает вредину на тихоню с помощью воскресения.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_RESURRECT_FAMILIAR, "Воскресение фамильяра", "Фамильяр", "Воскрешает фамильяра из осколка души.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_RESURRECT_ALLAY, "Очистка вредины в тихоню", "Фамильяр", "Очищает вредину на тихоню с помощью воскресения.");
         //Wild
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_HUNT, "вызов Дикой охоты", "дикая природа", "Дикая охота состоит из визер-скелетов и их прислужников, с которых большой шанс получить черепа визер-скелетов, что и с прислужников.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_CREEPER, "вызов орды криперов", "дикая природа", "Орда криперов состоит из несколько заряженных криперов, с которых выпадает много пластинок.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_DROWNED, "вызов орды утопленников", "дикая природа", "Орда утопленников состоит из несколько утопленников, с которых выпадают предметы, связанные с испытаниями океана.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_HUSK, "вызов орды кадавров", "дикая природа", "Орда кадавров состоит из несколько кадавров, с которых выпадают предметы, связанные с испытаниями пустыни.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_SILVERFISH, "вызов орды диких чешуйниц", "дикая природа", "Орда диких чешуйниц состоит из несколько чешуйниц, с которых выпадают предметы, связанные с испытаниями руин.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_WEAK_BREEZE, "вызов дикого слабого вихря", "дикая природа", "Дикий слабый вихрь будет сбрасывать ключ испытаний и предметы, связанные с камерой испытаний.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_BREEZE, "вызов дикого вихря", "дикая природа", "Дикий вихрь будет сбрасывать зловещий ключ испытаний и предметы, связанные с камерой испытаний.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_STRONG_BREEZE, "вызов дикого сильного вихря", "дикая природа", "Дикий сильный вихрь будет сбрасывать навершие булавы и предметы, связанные с камерой испытаний.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_ILLAGER, "вызов диких разбойников", "дикая природа", "Вызывает дикого заклинателя и его приспешника.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_COMMON, "вызов группы случайных обычных животных", "дикая природа", "Вызывает группу случайных пассивных обычных животных. (Все варианты: курица, корова, свинья, овца, спрут и волк).");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_WATER, "вызов группы случайных водных животных", "дикая природа", "Вызывает группу случайных пассивных водных животных. (Все варианты: аксолотль, лягушка, дельфин, треска, лосось, тропическая рыба, иглобрюх, спрут, светящийся спрут, головастик, черепаха и снежный голем).");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SMALL, "вызов группы случайных малых животных", "дикая природа", "Вызывает группу случайных пассивных малых животных. (Все варианты: тихоня, летучая мышь, пчела, попугай, кошка, оцелот, лиса и кролик).");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SPECIAL, "вызов группы случайных специальных животных", "дикая природа", "Вызывает группу случайных пассивных специальных животных. (Все варианты: свинья, верблюд, осёл, лошадь, лошадь-скелет, лошадь-зомби, лама, лама торговца, мул и лавомерка).");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_RIDEABLE, "вызов группы случайных ездовых животных", "дикая природа", "Вызывает группу случайных пассивных специальных животных. (Все варианты: броненосец, муушрум, панда, белый медведь, коза, железный голем и нюхач).");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_VILLAGER, "вызов группы крестьян", "дикая природа", "Вызывает группу крестьян и одного странствующего торговца.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_HUNT, "вызов Дикой охоты", "дикая природа", "Дикая охота состоит из визер-скелетов и их прислужников, с которых большой шанс получить черепа визер-скелетов, что и с прислужников.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_CREEPER, "вызов орды криперов", "дикая природа", "Орда криперов состоит из несколько заряженных криперов, с которых выпадает много пластинок.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_DROWNED, "вызов орды утопленников", "дикая природа", "Орда утопленников состоит из несколько утопленников, с которых выпадают предметы, связанные с испытаниями океана.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_HUSK, "вызов орды кадавров", "дикая природа", "Орда кадавров состоит из несколько кадавров, с которых выпадают предметы, связанные с испытаниями пустыни.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_SILVERFISH, "вызов орды диких чешуйниц", "дикая природа", "Орда диких чешуйниц состоит из несколько чешуйниц, с которых выпадают предметы, связанные с испытаниями руин.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_WEAK_BREEZE, "вызов дикого слабого вихря", "дикая природа", "Дикий слабый вихрь будет сбрасывать ключ испытаний и предметы, связанные с камерой испытаний.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_BREEZE, "вызов дикого вихря", "дикая природа", "Дикий вихрь будет сбрасывать зловещий ключ испытаний и предметы, связанные с камерой испытаний.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_STRONG_BREEZE, "вызов дикого сильного вихря", "дикая природа", "Дикий сильный вихрь будет сбрасывать навершие булавы и предметы, связанные с камерой испытаний.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_ILLAGER, "вызов диких разбойников", "дикая природа", "Вызывает дикого заклинателя и его приспешника.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_COMMON, "вызов группы случайных обычных животных", "дикая природа", "Вызывает группу случайных пассивных обычных животных. (Все варианты: курица, корова, свинья, овца, спрут и волк).");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_WATER, "вызов группы случайных водных животных", "дикая природа", "Вызывает группу случайных пассивных водных животных. (Все варианты: аксолотль, лягушка, дельфин, треска, лосось, тропическая рыба, иглобрюх, спрут, светящийся спрут, головастик, черепаха и снежный голем).");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SMALL, "вызов группы случайных малых животных", "дикая природа", "Вызывает группу случайных пассивных малых животных. (Все варианты: тихоня, летучая мышь, пчела, попугай, кошка, оцелот, лиса и кролик).");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_SPECIAL, "вызов группы случайных специальных животных", "дикая природа", "Вызывает группу случайных пассивных специальных животных. (Все варианты: свинья, верблюд, осёл, лошадь, лошадь-скелет, лошадь-зомби, лама, лама торговца, мул и лавомерка).");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_RANDOM_ANIMAL_RIDEABLE, "вызов группы случайных ездовых животных", "дикая природа", "Вызывает группу случайных пассивных специальных животных. (Все варианты: броненосец, муушрум, панда, белый медведь, коза, железный голем и нюхач).");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_WILD_VILLAGER, "вызов группы крестьян", "дикая природа", "Вызывает группу крестьян и одного странствующего торговца.");
         //Forge
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_BEE_NEST, "создание пчелиного гнезда", "дикая природа", "Дикие духи создадут пчелиное гнездо, более эстетичнее пчелиного улья.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_BELL, "создание колокольчика", "дикая природа", "Дикие духи создадут колокольчик.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "создание цветущего аметиста", "дикая природа", "Дикие духи создадут цветущий аметист.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_WILD_TRIM, "Кузнечный шаблон", "дикая природа", "Дикие духи создадут кузнечный шаблон.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "создание укреплённого глубинного сланца", "дикая природа", "Дикие духи создадут укреплённый глубинный сланец.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE, "создание сверхъестественного потира", "сверхъестественный", "Сверхъестественные духи создадут сверхъестественный потир, мгновенно выполняющий любые ритуалы, — вот ваш трофей!");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_RAINBOW, "создание радужного мела", "сверхъестественный", "Сверхъестественные духи создадут радужный мел, используемый вместо любого цветного мела.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_VOID, "создание пустотного мела", "сверхъестественный", "Сверхъестественные духи создадут радужный мел, применяемый вместо любого мела.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_TRINITY_GEM, "создание камня Троицы", "сверхъестественный", "Сверхъестественные духи создадут камень Троицы, усовершенствуя камень души.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE, "создание актуатора для стабилизатора пространственного хранилища", "сверхъестественный", "Сверхъестественные духи создадут стабилизированный актуатор пространственного хранилища. Работает как актуатор с максимальным количеством стабилизаторов, занимая всего один блок.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_MINER_ANCIENT_ELDRITCH, "вызов сверхъестественного древнего рудокопа", "Сверхъестественный", "Вызывайте сверхъестественного древнего рудокопа в волшебную лампу.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_BEE_NEST, "создание пчелиного гнезда", "дикая природа", "Дикие духи создадут пчелиное гнездо, более эстетичнее пчелиного улья.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_BELL, "создание колокольчика", "дикая природа", "Дикие духи создадут колокольчик.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "создание цветущего аметиста", "дикая природа", "Дикие духи создадут цветущий аметист.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_WILD_TRIM, "Кузнечный шаблон", "дикая природа", "Дикие духи создадут кузнечный шаблон.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "создание укреплённого глубинного сланца", "дикая природа", "Дикие духи создадут укреплённый глубинный сланец.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE, "создание сверхъестественного потира", "сверхъестественный", "Сверхъестественные духи создадут сверхъестественный потир, мгновенно выполняющий любые ритуалы, — вот ваш трофей!");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_RAINBOW, "создание радужного мела", "сверхъестественный", "Сверхъестественные духи создадут радужный мел, используемый вместо любого цветного мела.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_VOID, "создание пустотного мела", "сверхъестественный", "Сверхъестественные духи создадут радужный мел, применяемый вместо любого мела.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_TRINITY_GEM, "создание камня Троицы", "сверхъестественный", "Сверхъестественные духи создадут камень Троицы, усовершенствуя камень души.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE, "создание актуатора для стабилизатора пространственного хранилища", "сверхъестественный", "Сверхъестественные духи создадут стабилизированный актуатор пространственного хранилища. Работает как актуатор с максимальным количеством стабилизаторов, занимая всего один блок.");
+        this.lang("ru_ru").autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_MINER_ANCIENT_ELDRITCH, "вызов сверхъестественного древнего рудокопа", "Сверхъестественный", "Вызывайте сверхъестественного древнего рудокопа в волшебную лампу.");
     }
 
     public void autoDummyFactory(DeferredItem<Item> dummy, String name, String tier, String description) {
@@ -2748,6 +2754,35 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").addItemTag(OccultismTags.Items.PENTACLE_MATERIALS, "Материалы для пентакля");
         this.lang("ru_ru").addItemTag(OccultismTags.Items.TOOLS_CHALK, "Мелы");
 		this.lang("ru_ru").addItemTag(OccultismTags.Items.CLAY, "Глина");
+
+		this.lang("ru_ru").addItemTag(OccultismTags.Items.DROPS_POSSESSED_BLAZE, "Выпадает с одержимого всполоха");
+        this.lang("ru_ru").addItemTag(OccultismTags.Items.DROPS_POSSESSED_BREEZE, "Выпадает с одержимого вихря");
+		this.lang("ru_ru").addItemTag(OccultismTags.Items.DROPS_POSSESSED_STRONG_BREEZE, "Выпадает с одержимого сильного вихря");
+        this.lang("ru_ru").addItemTag(OccultismTags.Items.DROPS_POSSESSED_ELDER_GUARDIAN, "Выпадает с одержимого древнего стража");
+        this.lang("ru_ru").addItemTag(OccultismTags.Items.DROPS_POSSESSED_ENDERMAN, "Выпадает с одержимого эндермена");
+		this.lang("ru_ru").addItemTag(OccultismTags.Items.DROPS_POSSESSED_ENDERMITE, "Выпадает с одержимого эндермита");
+        this.lang("ru_ru").addItemTag(OccultismTags.Items.DROPS_POSSESSED_EVOKER, "Выпадает с одержимого заклинателя");
+        this.lang("ru_ru").addItemTag(OccultismTags.Items.DROPS_POSSESSED_GHAST, "Выпадает с одержимого гаста");
+        this.lang("ru_ru").addItemTag(OccultismTags.Items.DROPS_POSSESSED_HOGLIN, "Выпадает с одержимого хоглина");
+		this.lang("ru_ru").addItemTag(OccultismTags.Items.DROPS_POSSESSED_PHANTOM, "Выпадает с одержимого фантома");
+        this.lang("ru_ru").addItemTag(OccultismTags.Items.DROPS_POSSESSED_SHULKER, "Выпадает с одержимого шалкера");
+		this.lang("ru_ru").addItemTag(OccultismTags.Items.DROPS_POSSESSED_WEAK_SHULKER, "Выпадает с одержимого слабого шалкера");
+        this.lang("ru_ru").addItemTag(OccultismTags.Items.DROPS_POSSESSED_SKELETON, "Выпадает с одержимого скелета");
+        this.lang("ru_ru").addItemTag(OccultismTags.Items.DROPS_POSSESSED_WARDEN, "Выпадает с одержимого хранителя");
+        this.lang("ru_ru").addItemTag(OccultismTags.Items.DROPS_POSSESSED_WEAK_BREEZE, "Выпадает с одержимого слабого вихря");
+        this.lang("ru_ru").addItemTag(OccultismTags.Items.DROPS_POSSESSED_WITCH, "Выпадает с одержимой ведьмы");
+		this.lang("ru_ru").addItemTag(OccultismTags.Items.DROPS_POSSESSED_ZOMBIE_PIGLIN, "Выпадает с одержимого зомбифицированного пиглина");
+        this.lang("ru_ru").addItemTag(OccultismTags.Items.DROPS_WILD_HUNT, "Выпадает с дикой охоты");
+        this.lang("ru_ru").addItemTag(OccultismTags.Items.DROPS_WILD_HORDE_CREEPER, "Выпадает с дикой орды криперов");
+        this.lang("ru_ru").addItemTag(OccultismTags.Items.DROPS_WILD_HORDE_DROWNED, "Выпадает с дикой орды утопленников");
+        this.lang("ru_ru").addItemTag(OccultismTags.Items.DROPS_WILD_HORDE_HUSK, "Выпадает с дикой орды кадавров");
+        this.lang("ru_ru").addItemTag(OccultismTags.Items.DROPS_WILD_HORDE_SILVERFISH, "Выпадает с дикой орды чушейниц");
+		this.lang("ru_ru").addItemTag(OccultismTags.Items.RANDOM_SPAWN_COMMON, "Может появиться в виде случайного обычного животного");
+        this.lang("ru_ru").addItemTag(OccultismTags.Items.RANDOM_SPAWN_RIDEABLE, "Может появиться в виде случайного ездового животного");
+        this.lang("ru_ru").addItemTag(OccultismTags.Items.RANDOM_SPAWN_SMALL, "Может появиться в виде случайного малого животного");
+        this.lang("ru_ru").addItemTag(OccultismTags.Items.RANDOM_SPAWN_SPECIAL, "Может появиться в виде случайного специального животного");
+        this.lang("ru_ru").addItemTag(OccultismTags.Items.RANDOM_SPAWN_WATER, "Может появиться в виде случайного водного животного");
+        this.lang("ru_ru").addItemTag(OccultismTags.Items.RANDOM_SPAWN_VILLAGER, "Может появиться в виде случайного крестьянина");
     }
 
     private void addItemTag(ResourceLocation resourceLocation, String string) {
