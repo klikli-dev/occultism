@@ -58,6 +58,40 @@
         }
       ],
       "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:empty"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:sculk",
+          "weight": 9
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:sculk_vein",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:sculk_catalyst",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:sculk_shrieker",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:sculk_sensor",
+          "weight": 12
+        }
+      ],
+      "rolls": 1.0
     }
   ],
   "random_sequence": "occultism:entities/possessed_warden"

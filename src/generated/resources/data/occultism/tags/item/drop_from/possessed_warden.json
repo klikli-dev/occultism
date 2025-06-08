@@ -4,6 +4,11 @@
     "minecraft:ward_armor_trim_smithing_template",
     "minecraft:silence_armor_trim_smithing_template",
     "minecraft:music_disc_otherside",
-    "minecraft:disc_fragment_5"
+    "minecraft:disc_fragment_5",
+    "minecraft:sculk",
+    "minecraft:sculk_vein",
+    "minecraft:sculk_catalyst",
+    "minecraft:sculk_shrieker",
+    "minecraft:sculk_sensor"
   ]
 }

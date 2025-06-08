@@ -15,6 +15,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -546,7 +547,12 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
             .add(Items.WARD_ARMOR_TRIM_SMITHING_TEMPLATE)
             .add(Items.SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE)
             .add(Items.MUSIC_DISC_OTHERSIDE)
-            .add(Items.DISC_FRAGMENT_5);
+            .add(Items.DISC_FRAGMENT_5)
+            .add(Items.SCULK)
+            .add(Items.SCULK_VEIN)
+            .add(Items.SCULK_CATALYST)
+            .add(Items.SCULK_SHRIEKER)
+            .add(Items.SCULK_SENSOR);
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_WEAK_BREEZE)
             .add(Items.TRIAL_KEY)

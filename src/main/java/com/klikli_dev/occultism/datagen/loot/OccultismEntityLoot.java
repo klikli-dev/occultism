@@ -382,6 +382,16 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .add(EmptyLootItem.emptyItem().setWeight(10))
                                 .add(LootItem.lootTableItem(Items.DISC_FRAGMENT_5).setWeight(9))
                                 .add(LootItem.lootTableItem(Items.MUSIC_DISC_OTHERSIDE))
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(EmptyLootItem.emptyItem().setWeight(1))
+                                .add(LootItem.lootTableItem(Items.SCULK).setWeight(9))
+                                .add(LootItem.lootTableItem(Items.SCULK_VEIN).setWeight(15))
+                                .add(LootItem.lootTableItem(Items.SCULK_CATALYST).setWeight(3))
+                                .add(LootItem.lootTableItem(Items.SCULK_SHRIEKER).setWeight(6))
+                                .add(LootItem.lootTableItem(Items.SCULK_SENSOR).setWeight(12))
                 );
     }
 
