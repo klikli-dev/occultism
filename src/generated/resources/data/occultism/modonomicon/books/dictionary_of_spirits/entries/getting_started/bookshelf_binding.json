@@ -30,6 +30,17 @@
       "text": "book.occultism.dictionary_of_spirits.getting_started.bookshelf_binding.more.text",
       "title": "book.occultism.dictionary_of_spirits.getting_started.bookshelf_binding.more.title",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.getting_started.bookshelf_binding.automation.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.bookshelf_binding.automation.title",
+      "use_markdown_in_title": false
     }
   ],
   "parents": [
