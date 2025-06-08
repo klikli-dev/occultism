@@ -130,6 +130,20 @@ public class NaturePasteItem extends Item {
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
 
+        if (blockState.getBlock() instanceof SugarCaneBlock
+            || blockState.getBlock() instanceof CactusBlock) {
+            ParticleUtils.spawnParticles(level, blockpos, 15 * 3, 0.6, 1.0, true, ParticleTypes.HAPPY_VILLAGER);
+            context.getItemInHand().hurtAndBreak(1, player, player.getEquipmentSlotForItem(context.getItemInHand()));
+            level.levelEvent(1505, blockpos, 15);
+            for (int i = 0; i<(level.getMaxBuildHeight() - blockpos.getY() - 1); i++) {
+                if (level.getBlockState(blockpos.above(i)).canBeReplaced()) {
+                    level.setBlockAndUpdate(blockpos.above(i), blockState);
+                    break;
+                }
+            }
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        }
+
         if (applyBonemeal(context.getItemInHand(), level, blockpos, player)) {
             if (!level.isClientSide) {
                 context.getItemInHand().hurtAndBreak(1, player, player.getEquipmentSlotForItem(context.getItemInHand()));
