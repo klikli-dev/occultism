@@ -324,6 +324,32 @@ public abstract class Ritual {
     }
 
     /**
+     * Identifies the ritual by it's pentacle shape and ingredients.
+     *
+     * @param level              the level.
+     * @param goldenBowlPosition the position of the golden bowl.
+     * @return true if the ritual matches, false otherwise.
+     */
+    public boolean identifyAnyActivation(Level level, BlockPos goldenBowlPosition) {
+        return this.recipe.getPentacle() != null &&
+                this.areAdditionalIngredientsFulfilled(level, goldenBowlPosition, this.recipe.getIngredients()) &&
+                this.recipe.getPentacle().validate(level, goldenBowlPosition) != null;
+    }
+
+    /**
+     * Identifies the ritual by it's activation item and ingredients.
+     *
+     * @param level              the level.
+     * @param goldenBowlPosition the position of the golden bowl.
+     * @param activationItem     the item used to start the ritual.
+     * @return true if the ritual matches, false otherwise.
+     */
+    public boolean identifyAnyPentacle(Level level, BlockPos goldenBowlPosition, ItemStack activationItem) {
+        return this.recipe.getPentacle() != null && this.recipe.getActivationItem().test(activationItem) &&
+                this.areAdditionalIngredientsFulfilled(level, goldenBowlPosition, this.recipe.getIngredients());
+    }
+
+    /**
      * Consumes additional ingredients from sacrificial bowls depending on the time passed.
      *
      * @param level                          the level.

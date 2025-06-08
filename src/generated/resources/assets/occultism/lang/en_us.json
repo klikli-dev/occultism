@@ -2896,6 +2896,8 @@
   "ritual.occultism.wild_weak_breeze.finished": "Ritual completed successfully: Invoke Wild Weak Breeze.",
   "ritual.occultism.wild_weak_breeze.interrupted": "Interruption in the ritual: Invoke Wild Weak Breeze.",
   "ritual.occultism.wild_weak_breeze.started": "Starting the ritual: Invoke Wild Weak Breeze.",
+  "ritual.occultism.wrong_activation_item": "§lWrong Activation Item§r. You are trying to start the ritual with the wrong item, try:",
+  "ritual.occultism.wrong_pentacle": "§lWrong Pentacle§r. You are performing the ritual on the wrong pentacle, the correct one is:",
   "tag.block.c.ores.iesnium": "Iesnium Ore",
   "tag.block.c.ores.silver": "Silver Ore",
   "tag.block.c.storage_blocks.iesnium": "Iesnium Storage Blocks",

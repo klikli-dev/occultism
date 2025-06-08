@@ -762,6 +762,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.disabled", "This ritual is disabled on this server.");
         this.add("ritual.occultism.does_not_exist", "\u00a7lUnknown ritual\u00a7r. Make sure the pentacle & ingredients are set up correctly. If you are still unsuccessful join our discord at https://discord.gg/trE4SHRXvb");
         this.add("ritual.occultism.book_not_bound", "\u00a7lUnbound Book of Calling\u00a7r. You must craft this book with Dictionary of Spirits to bind to a spirit before starting a ritual.");
+        this.add("ritual.occultism.wrong_activation_item", "\u00a7lWrong Activation Item\u00a7r. You are trying to start the ritual with the wrong item, try:");
+        this.add("ritual.occultism.wrong_pentacle", "\u00a7lWrong Pentacle\u00a7r. You are performing the ritual on the wrong pentacle, the correct one is:");
         this.add("ritual.occultism.sacrifice", "" + ChatFormatting.WHITE + ChatFormatting.BOLD + "Perform the Sacrifice of:");
         this.add("ritual.occultism.use_item", "" + ChatFormatting.WHITE + ChatFormatting.BOLD + "Use the item:");
 

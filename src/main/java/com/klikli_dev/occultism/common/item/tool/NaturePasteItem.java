@@ -43,7 +43,7 @@ public class NaturePasteItem extends Item {
         BlockState blockState = level.getBlockState(blockpos);
         Player player = context.getPlayer();
 
-        if (blockState.getBlock() instanceof CropBlock crop) {
+        if (blockState.getBlock() instanceof CropBlock crop && !crop.isMaxAge(blockState)) {
             context.getItemInHand().hurtAndBreak(1, player, player.getEquipmentSlotForItem(context.getItemInHand()));
             level.levelEvent(1505, blockpos, 15);
             level.setBlock(blockpos, crop.getStateForAge(crop.getMaxAge()), 2);
@@ -132,12 +132,17 @@ public class NaturePasteItem extends Item {
 
         if (blockState.getBlock() instanceof SugarCaneBlock
             || blockState.getBlock() instanceof CactusBlock) {
-            ParticleUtils.spawnParticles(level, blockpos, 15 * 3, 0.6, 1.0, true, ParticleTypes.HAPPY_VILLAGER);
-            context.getItemInHand().hurtAndBreak(1, player, player.getEquipmentSlotForItem(context.getItemInHand()));
-            level.levelEvent(1505, blockpos, 15);
-            for (int i = 0; i<(level.getMaxBuildHeight() - blockpos.getY() - 1); i++) {
+            for (int i = 1; i<(level.getMaxBuildHeight() - blockpos.getY()); i++) {
                 if (level.getBlockState(blockpos.above(i)).canBeReplaced()) {
-                    level.setBlockAndUpdate(blockpos.above(i), blockState);
+                    level.setBlockAndUpdate(blockpos.above(i), blockState.getBlock().defaultBlockState());
+                    ParticleUtils.spawnParticles(level, blockpos, 15 * 3, 0.6, 1.0, true, ParticleTypes.HAPPY_VILLAGER);
+                    context.getItemInHand().hurtAndBreak(1, player, player.getEquipmentSlotForItem(context.getItemInHand()));
+                    level.levelEvent(1505, blockpos, 15);
+                    if (!blockState.canSurvive(level, blockpos.above(i))) {
+                        level.destroyBlock(blockpos.above(i), true);
+                    }
+                    break;
+                } else if (!level.getBlockState(blockpos.above(i)).getBlock().equals(blockState.getBlock())){
                     break;
                 }
             }
