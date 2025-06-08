@@ -124,16 +124,14 @@ public class SacrificialBowlBlock extends DirectionalBlock implements EntityBloc
     @Override
     protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
         if (!level.isClientSide && level.getBlockState(pos).is(this) && level.hasNeighborSignal(pos)
-                && level.getBlockEntity(pos) instanceof SacrificialBowlBlockEntity bowl
-                && level.getBlockEntity(pos.below()) instanceof ChiseledBookShelfBlockEntity bookShelf) {
-
-            if (bowl.itemStackHandler.getStackInSlot(0).getItem() instanceof GuideBookItem guide) {
+            && level.getBlockEntity(pos) instanceof SacrificialBowlBlockEntity bowl
+            && level.getBlockEntity(pos.below()) instanceof ChiseledBookShelfBlockEntity bookShelf
+            && bowl.itemStackHandler.getStackInSlot(0).getItem() instanceof GuideBookItem) {
                 for (int i = 0; i < 6; i++) {
                     if (bookShelf.getItem(i).getItem() instanceof BookOfBindingItem book) {
-                        bookShelf.setItem(i, BoundBookOfBindingRecipe.bookshelfCraft(book.getDefaultInstance(), guide.getDefaultInstance()));
+                        bookShelf.setItem(i, BoundBookOfBindingRecipe.bookshelfCraft(book.getDefaultInstance(), bowl.itemStackHandler.getStackInSlot(0)));
                     }
                 }
-            }
         }
     }
 
