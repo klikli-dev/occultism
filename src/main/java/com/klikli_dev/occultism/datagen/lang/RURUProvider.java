@@ -755,25 +755,27 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addRitualMessages() {
-        this.add("ritual.occultism.pentacle_help", "\u00a7lНедопустимый пентакль!\u00a7r\nВы, было, пытаетесь создать пентакль: %s? Отсутствует:\n%s");
-        this.add("ritual.occultism.pentacle_help_at_glue", " на позиции ");
-        this.add("ritual.occultism.pentacle_help.no_pentacle", "\u00a7lПентакль не найден!\u00a7r\nКажется, вы не начертили пентакль, или в вашем пентакле отсутствуют важные элементы. Ознакомьтесь с разделом \"Ритуал\" в справочнике душ: требуемый пентакль будет отображён на странице ритуала в качестве гиперссылки над рецептом ритуала.");
-        this.add("ritual.occultism.ritual_help", "\u00a7lНедопустимый ритуал!\u00a7r\nВы, было, пытались выполнить ритуал: \"%s\"? Отсутствуют предметы:\n%s");
-        this.add("ritual.occultism.disabled", "This ritual is disabled on this server.");
-        this.add("ritual.occultism.does_not_exist", "\u00a7lНеизвестный ритуал\u00a7r. Убедитесь, что пентакли и ингредиенты расположены правильно. Если вы до сих пор не достигли желаемого результата, присоединяйтесь к нашему Discord-серверу по ссылке https://discord.gg/trE4SHRXvb");
-        this.add("ritual.occultism.book_not_bound", "\u00a7lНесвязанная книга вызова\u00a7r. Перед началом ритуала, вы должны создать эту книгу с помощью справочника душ, для связки её с духом.");
-        this.add("ritual.occultism.sacrifice", "" + ChatFormatting.WHITE + ChatFormatting.BOLD + "Выполните жертвоприношение:");
-        this.add("ritual.occultism.use_item", "" + ChatFormatting.WHITE + ChatFormatting.BOLD + "Используйте предмет:");
+        this.lang("ru_ru").add("ritual.occultism.pentacle_help", "\u00a7lНедопустимый пентакль!\u00a7r\nВы, было, пытаетесь создать пентакль: %s? Отсутствует:\n%s");
+        this.lang("ru_ru").add("ritual.occultism.pentacle_help_at_glue", " на позиции ");
+        this.lang("ru_ru").add("ritual.occultism.pentacle_help.no_pentacle", "\u00a7lПентакль не найден!\u00a7r\nКажется, вы не начертили пентакль, или в вашем пентакле отсутствуют важные элементы. Ознакомьтесь с разделом \"Ритуал\" в справочнике душ: требуемый пентакль будет отображён на странице ритуала в качестве гиперссылки над рецептом ритуала.");
+        this.lang("ru_ru").add("ritual.occultism.ritual_help", "\u00a7lНедопустимый ритуал!\u00a7r\nВы, было, пытались выполнить ритуал: \"%s\"? Отсутствуют предметы:\n%s");
+        this.lang("ru_ru").add("ritual.occultism.disabled", "Ритуал отключён на сервере.");
+        this.lang("ru_ru").add("ritual.occultism.does_not_exist", "\u00a7lНеизвестный ритуал\u00a7r. Убедитесь, что пентакли и ингредиенты расположены правильно. Если вы до сих пор не достигли желаемого результата, присоединяйтесь к нашему Discord-серверу по ссылке https://discord.gg/trE4SHRXvb");
+        this.lang("ru_ru").add("ritual.occultism.book_not_bound", "\u00a7lНесвязанная книга вызова\u00a7r. Перед началом ритуала, вы должны создать эту книгу с помощью справочника душ, для связки её с духом.");
+		this.lang("ru_ru").add("ritual.occultism.wrong_activation_item", "\u00a7lНесоответствующий активационный предмет\u00a7r. Вы пытались начать ритуал несоответствующим предметом, попробуйте:");
+        this.lang("ru_ru").add("ritual.occultism.wrong_pentacle", "\u00a7lНесоответствующий пентакль\u00a7r. Вы проводите ритуал на несоответствующем пентакле, правильный:");
+        this.lang("ru_ru").add("ritual.occultism.sacrifice", "" + ChatFormatting.WHITE + ChatFormatting.BOLD + "Выполните жертвоприношение:");
+        this.lang("ru_ru").add("ritual.occultism.use_item", "" + ChatFormatting.WHITE + ChatFormatting.BOLD + "Используйте предмет:");
 
-        this.add("ritual.occultism.unknown.conditions", "Для этого ритуала удовлетворены не все требования.");
-        this.add("ritual.occultism.unknown.started", "Ритуал начался.");
-        this.add("ritual.occultism.unknown.finished", "Ритуал успешно завершён.");
-        this.add("ritual.occultism.unknown.interrupted", "Ритуал прерван.");
+        this.lang("ru_ru").add("ritual.occultism.unknown.conditions", "Для этого ритуала удовлетворены не все требования.");
+        this.lang("ru_ru").add("ritual.occultism.unknown.started", "Ритуал начался.");
+        this.lang("ru_ru").add("ritual.occultism.unknown.finished", "Ритуал успешно завершён.");
+        this.lang("ru_ru").add("ritual.occultism.unknown.interrupted", "Ритуал прерван.");
 
-        this.add("ritual.occultism.debug.conditions", "Для этого ритуала удовлетворены не все требования.");
-        this.add("ritual.occultism.debug.started", "Ритуал начался.");
-        this.add("ritual.occultism.debug.finished", "Ритуал успешно завершён.");
-        this.add("ritual.occultism.debug.interrupted", "Ритуал прерван.");
+        this.lang("ru_ru").add("ritual.occultism.debug.conditions", "Для этого ритуала удовлетворены не все требования.");
+        this.lang("ru_ru").add("ritual.occultism.debug.started", "Ритуал начался.");
+        this.lang("ru_ru").add("ritual.occultism.debug.finished", "Ритуал успешно завершён.");
+        this.lang("ru_ru").add("ritual.occultism.debug.interrupted", "Ритуал прерван.");
     }
 
     public void addRitualMessage(DeferredHolder<RitualFactory, RitualFactory> ritual, String key, String message) {
