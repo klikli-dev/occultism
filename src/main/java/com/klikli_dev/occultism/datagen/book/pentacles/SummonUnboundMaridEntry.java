@@ -26,11 +26,11 @@ public class SummonUnboundMaridEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
-        this.pageTitle("Abras Fortified Conjure");
+        this.pageTitle("Tibira's Attraction");
         this.pageText("""
                 **Purpose:** Summon an {0}\\
                 \\
-                **Abras Fortified Conjure** is a improved version of {1}, allowing to summon {2},
+                **Tibiras Attraction** is a improved version of {1}, allowing to summon {2},
                  however without any control of the occultist. {3} summoned by this will become
                  aggressive due to the instability of the ritual
                 """,
@@ -56,7 +56,7 @@ public class SummonUnboundMaridEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Abras' Fortified Conjure";
+        return "Bolena's Attraction";
     }
 
     @Override

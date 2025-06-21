@@ -26,15 +26,15 @@ public class PossessUnboundAfritEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
-        this.pageTitle("Abras Open Commanding Conjure");
+        this.pageTitle("Odus' Open Convocation");
         this.pageText("""
                 **Purpose:** {0} Possession\\
                 \\
-                **Abras Open Commanding Conjure** is a simplified version of {1}, allowing you to forces {2} to possess a nearby Creature without red chalk.
+                **Odus Open Convocation** is a simplified version of {1}, allowing you to forces {2} to possess a nearby Creature without red chalk.
                  Due to the very reduced power of the Pentacle it's limited in use.
                 """,
                 this.color("Unbound Afrit", ChatFormatting.DARK_PURPLE),
-                this.color("Abras Commanding Conjure", ChatFormatting.DARK_PURPLE),
+                this.color("Posuc' Convocation", ChatFormatting.DARK_PURPLE),
                 this.color("Afrit", ChatFormatting.DARK_PURPLE)
         );
 
@@ -54,7 +54,7 @@ public class PossessUnboundAfritEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Abras' Open Commanding Conjure";
+        return "Odus' Open Convocation";
     }
 
     @Override

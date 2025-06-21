@@ -26,11 +26,11 @@ public class PossessAfritEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
-        this.pageTitle("Abras Commanding Conjure");
+        this.pageTitle("Posuc's Convocation");
         this.pageText("""
                 **Purpose:** {0} Possession\\
                 \\
-                **Abras Commanding Conjure** is a modified version in the possession geometry of {1} that allows
+                **Posuc Convocation** is a modified version in the possession geometry of {1} that allows
                  possessing entities, and thus summoning familiars.
                 """,
                 this.color("Afrit", ChatFormatting.DARK_PURPLE),
@@ -57,7 +57,7 @@ public class PossessAfritEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Abras' Commanding Conjure";
+        return "Posuc's Convocation";
     }
 
     @Override

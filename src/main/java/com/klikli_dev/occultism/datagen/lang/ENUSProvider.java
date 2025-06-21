@@ -755,15 +755,16 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addRitualMessages() {
-        this.add("ritual.occultism.pentacle_help", "\u00a7lInvalid pentacle!\u00a7r\nWere you trying to create pentacle: %s? Missing:\n%s");
+        this.add("ritual.occultism.pentacle_help", "\u00a7lInvalid pentacle!\u00a7r\nWere you trying to create pentacle: \"%s\"? Missing:\n%s");
         this.add("ritual.occultism.pentacle_help_at_glue", " at position ");
         this.add("ritual.occultism.pentacle_help.no_pentacle", "\u00a7lNo pentacle found!\u00a7r\nIt seems you did not draw a pentacle, or your pentacle is missing large parts. See the \"Rituals\" section of the Dictionary of Spirits, the required Pentacle will be a clickable blue link above the ritual recipe on the ritual's page.");
         this.add("ritual.occultism.ritual_help", "\u00a7lInvalid ritual!\u00a7r\nWere you trying to perform ritual: \"%s\"? Missing items:\n%s");
         this.add("ritual.occultism.disabled", "This ritual is disabled on this server.");
-        this.add("ritual.occultism.does_not_exist", "\u00a7lUnknown ritual\u00a7r. Make sure the pentacle & ingredients are set up correctly. If you are still unsuccessful join our discord at https://discord.gg/trE4SHRXvb");
-        this.add("ritual.occultism.book_not_bound", "\u00a7lUnbound Book of Calling\u00a7r. You must craft this book with Dictionary of Spirits to bind to a spirit before starting a ritual.");
-        this.add("ritual.occultism.wrong_activation_item", "\u00a7lWrong Activation Item\u00a7r. You are trying to start the ritual with the wrong item, try:");
-        this.add("ritual.occultism.wrong_pentacle", "\u00a7lWrong Pentacle\u00a7r. You are performing the ritual on the wrong pentacle, the correct one is:");
+        this.add("ritual.occultism.does_not_exist", "\u00a7lUnknown ritual\u00a7r.\nMake sure the pentacle & ingredients are set up correctly. If you are still unsuccessful join our discord at https://discord.gg/trE4SHRXvb");
+        this.add("ritual.occultism.book_not_bound", "\u00a7lUnbound Book of Calling\u00a7r.\nYou must craft this book with Dictionary of Spirits to bind to a spirit before starting a ritual.");
+        this.add("ritual.occultism.wrong_activation_item", "\u00a7lWrong Activation Item\u00a7r.\nYou are trying to start the ritual with the wrong item, try:");
+        this.add("ritual.occultism.wrong_pentacle", "\u00a7lWrong Pentacle\u00a7r.\nYou are performing the ritual on the wrong pentacle, the correct one is:");
+        this.add("ritual.occultism.no_bowls", "\u00a7lNo Sacrificial Bowls Found.\u00a7r\nPlace the sacrificial bowls closer.");
         this.add("ritual.occultism.sacrifice", "" + ChatFormatting.WHITE + ChatFormatting.BOLD + "Perform the Sacrifice of:");
         this.add("ritual.occultism.use_item", "" + ChatFormatting.WHITE + ChatFormatting.BOLD + "Use the item:");
 
@@ -2445,14 +2446,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addPentacle("otherworld_bird", "Otherworld Bird");
         this.addPentacle("summon_foliot", "Aviar's Circle");
         this.addPentacle("summon_djinni", "Ophyx' Calling");
-        this.addPentacle("summon_unbound_afrit", "Abras' Open Conjure");
+        this.addPentacle("summon_unbound_afrit", "Kandar's Opened Conjure");
         this.addPentacle("summon_afrit", "Abras' Conjure");
-        this.addPentacle("summon_unbound_marid", "Abras' Fortified Conjure");
+        this.addPentacle("summon_unbound_marid", "Tibira's Attraction");
         this.addPentacle("summon_marid", "Fatma's Incentivized Attraction");
         this.addPentacle("possess_foliot", "Hedyrin's Lure");
         this.addPentacle("possess_djinni", "Ihagan's Enthrallment");
-        this.addPentacle("possess_unbound_afrit", "Abras' Open Commanding Conjure");
-        this.addPentacle("possess_afrit", "Abras' Commanding Conjure");
+        this.addPentacle("possess_unbound_afrit", "Odus' Open Convocation");
+        this.addPentacle("possess_afrit", "Posuc's Convocation");
         this.addPentacle("possess_marid", "Xeovrenth Adjure");
         this.addPentacle("craft_foliot", "Eziveus' Spectral Compulsion");
         this.addPentacle("craft_djinni", "Strigeor's Higher Binding");
