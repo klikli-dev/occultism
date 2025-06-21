@@ -56,7 +56,7 @@ public class SummonUnboundMaridEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Bolena's Attraction";
+        return "Tibira's Attraction";
     }
 
     @Override
