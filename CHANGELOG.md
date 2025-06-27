@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.180.1] - 2025-06-27
+### :sparkles: New Features
+- [`5ee54d1`](https://github.com/klikli-dev/occultism/commit/5ee54d1c4b1e3f40b45776b138a7e067c400d73e) - A Russian update *(PR [#1353](https://github.com/klikli-dev/occultism/pull/1353) by [@Heimdallr-1](https://github.com/Heimdallr-1))*
+
+### :bug: Bug Fixes
+- [`c86b0e0`](https://github.com/klikli-dev/occultism/commit/c86b0e0c2a3a16789f2cf59148a47a611af7df3f) - Storage chapter unlocks from binding or getting started, resolves [#1354](https://github.com/klikli-dev/occultism/pull/1354) *(PR [#1355](https://github.com/klikli-dev/occultism/pull/1355) by [@ThePixelatedCat](https://github.com/ThePixelatedCat))*
+
+### :wrench: Chores
+- [`d71d667`](https://github.com/klikli-dev/occultism/commit/d71d667b1b058c2a643c101e37e9237731d29047) - Revert "feat: A Russian update ([#1353](https://github.com/klikli-dev/occultism/pull/1353))" *(PR [#1364](https://github.com/klikli-dev/occultism/pull/1364) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.180.0] - 2025-05-18
 ### :sparkles: New Features
 - [`f3b4bbc`](https://github.com/klikli-dev/occultism/commit/f3b4bbcca4faec7b1e5a6f1b893c4e8069a7af81) - True Sight Staff and more balancing *(PR [#1341](https://github.com/klikli-dev/occultism/pull/1341) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
@@ -2042,3 +2053,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.179.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.179.1...release/v1.21.1-1.179.2
 [release/v1.21.1-1.179.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.179.2...release/v1.21.1-1.179.3
 [release/v1.21.1-1.180.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.179.3...release/v1.21.1-1.180.0
+[release/v1.21.1-1.180.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.180.0...release/v1.21.1-1.180.1
