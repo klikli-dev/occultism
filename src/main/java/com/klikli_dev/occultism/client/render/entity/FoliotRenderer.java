@@ -25,6 +25,7 @@ package com.klikli_dev.occultism.client.render.entity;
 import com.klikli_dev.occultism.client.model.entity.FoliotModel;
 import com.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.InteractionHand;
@@ -41,10 +42,8 @@ public class FoliotRenderer extends GeoEntityRenderer<FoliotEntity> {
     public FoliotRenderer(EntityRendererProvider.Context context) {
         super(context, new FoliotModel());
 
-        this.withScale(1.5f);
-
         this.addRenderLayer(new BlockAndItemGeoLayer<>(this, (bone, animatable) -> {
-            if (Objects.equals(bone.getName(), "RARM")) //right hand
+            if (Objects.equals(bone.getName(), "arm_right")) //right hand
                 return animatable.getItemInHand(InteractionHand.MAIN_HAND);
             return null;
         }, (bone, animatable) -> null) {
@@ -57,10 +56,8 @@ public class FoliotRenderer extends GeoEntityRenderer<FoliotEntity> {
             protected void renderStackForBone(PoseStack poseStack, GeoBone bone, ItemStack stack, FoliotEntity animatable, MultiBufferSource bufferSource, float partialTick, int packedLight, int packedOverlay) {
                 poseStack.pushPose();
 
-                poseStack.translate(-0.1, -0.3, 0);
-
-                final float scale = 0.4f;
-                poseStack.scale(scale, scale, scale);
+                poseStack.translate(0, -0.65, 0);
+                poseStack.mulPose(Axis.XN.rotationDegrees(90));
 
                 super.renderStackForBone(poseStack, bone, stack, animatable, bufferSource, partialTick, packedLight, packedOverlay);
                 poseStack.popPose();
