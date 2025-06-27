@@ -58,7 +58,10 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         craftingRitualsCategory.withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("pentacles/craft_foliot")));
 
         var storageCategory = this.add(this.makeStorageCategory().withSortNumber(sortNum++));
-        storageCategory.withCondition(BookEntryReadConditionModel.create().withEntry(this.modLoc("crafting_rituals/craft_storage_system")));
+        storageCategory.withCondition(BookOrConditionModel.create().withChildren(
+            BookEntryReadConditionModel.create().withEntry(this.modLoc("crafting_rituals/craft_storage_system")), 
+            BookEntryReadConditionModel.create().withEntry(this.modLoc("getting_started/storage"))
+        ));
 
         var introReadCondition = BookEntryReadConditionModel.create()
                 .withEntry(this.modLoc("getting_started/intro"));

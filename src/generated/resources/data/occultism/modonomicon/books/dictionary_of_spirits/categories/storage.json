@@ -5,8 +5,17 @@
   "background_texture_zoom_multiplier": 1.0,
   "background_width": 512,
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "crafting_rituals/craft_storage_system"
+    "type": "modonomicon:or",
+    "children": [
+      {
+        "type": "modonomicon:entry_read",
+        "entry_id": "crafting_rituals/craft_storage_system"
+      },
+      {
+        "type": "modonomicon:entry_read",
+        "entry_id": "getting_started/storage"
+      }
+    ]
   },
   "description": "",
   "display_mode": "node",
