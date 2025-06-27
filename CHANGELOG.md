@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.181.0] - 2025-06-27
+### :sparkles: New Features
+- [`36db055`](https://github.com/klikli-dev/occultism/commit/36db05522636acd9422a02de531ca42a09d747aa) - Feedbacks, seven fix, extra drops and Crystallizer *(PR [#1346](https://github.com/klikli-dev/occultism/pull/1346) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+
+
 ## [release/v1.21.1-1.180.1] - 2025-06-27
 ### :sparkles: New Features
 - [`5ee54d1`](https://github.com/klikli-dev/occultism/commit/5ee54d1c4b1e3f40b45776b138a7e067c400d73e) - A Russian update *(PR [#1353](https://github.com/klikli-dev/occultism/pull/1353) by [@Heimdallr-1](https://github.com/Heimdallr-1))*
@@ -2054,3 +2059,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.179.3]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.179.2...release/v1.21.1-1.179.3
 [release/v1.21.1-1.180.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.179.3...release/v1.21.1-1.180.0
 [release/v1.21.1-1.180.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.180.0...release/v1.21.1-1.180.1
+[release/v1.21.1-1.181.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.180.1...release/v1.21.1-1.181.0
