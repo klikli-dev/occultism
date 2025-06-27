@@ -30,6 +30,8 @@ public class TranslationKeys {
 
     public static final String JEI_CRUSHING_RECIPE_MIN_TIER = JEI + ".crushing.min_tier";
     public static final String JEI_CRUSHING_RECIPE_MAX_TIER = JEI + ".crushing.max_tier";
+    public static final String JEI_CRYSTALLIZE_RECIPE_MIN_TIER = JEI + ".crystallize.min_tier";
+    public static final String JEI_CRYSTALLIZE_RECIPE_MAX_TIER = JEI + ".crystallize.max_tier";
 
     public static final String MESSAGE_CONTAINER_ALREADY_OPEN = "messages." + Occultism.MODID + ".container_already_open";
 
@@ -42,6 +44,7 @@ public class TranslationKeys {
     public static final String RITUAL_SATCHEL_BLOCK_ABOVE_NOT_AIR = ITEM + ".ritual_satchel.block_above_not_air";
     public static final String RITUAL_SATCHEL_BLOCK_AT_POSITION_NOT_AIR = ITEM + ".ritual_satchel.block_at_position_not_air";
     public static final String RITUAL_SATCHEL_INVALID_MATCHER = ITEM + ".ritual_satchel.invalid_matcher";
+    public static final String RITUAL_SATCHEL_GLYPH_CANNOT_SURVIVE = ITEM + ".ritual_satchel.glyph_cannot_survive";
 
     public static class Condition {
         protected static final String PREFIX = "condition." + Occultism.MODID + ".";

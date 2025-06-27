@@ -82,7 +82,11 @@ public class ResurrectFamiliarRitual extends SummonRitual {
 
             Entity entity = type.create(level);
             entity.load(entityData);
-            entity.absMoveTo(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
+            if (blockEntity.getTier(blockEntity.getBlockState()) == 3) {
+                entity.absMoveTo(spawnPos.getX() + 0.5, spawnPos.getY() + 1, spawnPos.getZ() + 0.5, 0, 0);
+            } else {
+                entity.absMoveTo(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, 0, 0);
+            }
             level.addFreshEntity(entity);
 
             if (entity instanceof FamiliarEntity familiar && castingPlayer != null)

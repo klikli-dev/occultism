@@ -42,6 +42,8 @@ public class OccultismParticles {
             "spirit_fire_flame", () -> new SimpleParticleType(false));
     public static final Supplier<SimpleParticleType> RED_FIRE_FLAME = PARTICLES.register(
             "red_fire_flame", () -> new SimpleParticleType(false));
+    public static final Supplier<SimpleParticleType> BLACK_MARKER = PARTICLES.register(
+            "black_marker", () -> new SimpleParticleType(false));
 
     //NOTE: IF adding new particles, Register in ClientRegistryEventHandler.onRegisterParticleFactories
 }

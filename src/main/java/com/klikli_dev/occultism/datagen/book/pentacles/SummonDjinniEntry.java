@@ -52,6 +52,7 @@ public class SummonDjinniEntry extends EntryProvider {
         this.pageText("""
                 - [Djinni Crusher](entry://summoning_rituals/summon_crusher_t2)
                 - [Djinni Smelter](entry://summoning_rituals/summon_smelter_t2)
+                - [Djinni Crystallizer](entry://summoning_rituals/summon_crystallizer_t2)
                 - [Djinni Machine Operator](entry://summoning_rituals/summon_manage_machine)
                 - [Clear Weather](entry://summoning_rituals/weather_magic@clear)
                 - [Time Magic](entry://summoning_rituals/time_magic)

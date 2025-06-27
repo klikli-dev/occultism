@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_black_dye": {
+    "has_tag_item": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:black_dye"
+            "items": "#c:dyes/black"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_black_dye"
+      "has_tag_item"
     ]
   ],
   "rewards": {

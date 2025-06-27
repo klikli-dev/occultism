@@ -19,6 +19,33 @@
             {
               "count": {
                 "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 0.5
+              },
+              "enchantment": "minecraft:looting",
+              "function": "minecraft:enchanted_count_increase"
+            }
+          ],
+          "name": "minecraft:phantom_membrane"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "chance": 0.05,
+          "condition": "minecraft:random_chance"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
                 "max": 1.0,
                 "min": 0.0
               },
@@ -26,7 +53,7 @@
               "function": "minecraft:enchanted_count_increase"
             }
           ],
-          "name": "minecraft:phantom_membrane"
+          "name": "minecraft:wind_charge"
         }
       ],
       "rolls": 1.0

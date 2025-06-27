@@ -23,7 +23,11 @@
 package com.klikli_dev.occultism.common.block;
 
 import com.klikli_dev.occultism.common.blockentity.SacrificialBowlBlockEntity;
+import com.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
+import com.klikli_dev.occultism.common.item.tool.GuideBookItem;
+import com.klikli_dev.occultism.crafting.recipe.BoundBookOfBindingRecipe;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.StorageUtil;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -41,12 +45,15 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nullable;
@@ -112,6 +119,20 @@ public class SacrificialBowlBlock extends DirectionalBlock implements EntityBloc
             }
         }
         return ItemInteractionResult.SUCCESS;
+    }
+
+    @Override
+    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
+        if (!level.isClientSide && level.getBlockState(pos).is(this) && level.hasNeighborSignal(pos)
+            && level.getBlockEntity(pos) instanceof SacrificialBowlBlockEntity bowl
+            && level.getBlockEntity(pos.below()) instanceof ChiseledBookShelfBlockEntity bookShelf
+            && bowl.itemStackHandler.getStackInSlot(0).getItem() instanceof GuideBookItem) {
+                for (int i = 0; i < 6; i++) {
+                    if (bookShelf.getItem(i).getItem() instanceof BookOfBindingItem book) {
+                        bookShelf.setItem(i, BoundBookOfBindingRecipe.bookshelfCraft(book.getDefaultInstance(), bowl.itemStackHandler.getStackInSlot(0)));
+                    }
+                }
+        }
     }
 
 

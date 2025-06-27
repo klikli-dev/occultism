@@ -53,7 +53,7 @@ public class ChalkGlyphBlock extends Block {
     public static final IntegerProperty SIGN = IntegerProperty.create("sign", 0, 12);
     public static final int MAX_SIGN = 12;
 
-    private static final VoxelShape SHAPE = Block.box(0, 0, 0, 15, 0.04, 15);
+    private static final VoxelShape SHAPE = Block.box(1.5, 0, 1.5, 14.5, 0.04, 14.5);
 
     protected Supplier<Item> chalk;
     protected Supplier<Integer> color;

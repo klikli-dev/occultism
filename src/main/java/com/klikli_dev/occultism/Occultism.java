@@ -93,6 +93,7 @@ public class Occultism {
         modContainer.registerConfig(ModConfig.Type.STARTUP, STARTUP_CONFIG.spec);
 
         OccultismEffects.EFFECTS.register(modEventBus);
+        OccultismPotions.POTIONS.register(modEventBus);
         OccultismRecipes.RECIPE_TYPES.register(modEventBus);
         OccultismRecipes.RECIPES.register(modEventBus);
         OccultismBlocks.BLOCKS.register(modEventBus);
@@ -169,6 +170,7 @@ public class Occultism {
         event.put(OccultismEntities.POSSESSED_WARDEN_TYPE.get(), PossessedWardenEntity.createAttributes().build());
         event.put(OccultismEntities.POSSESSED_HOGLIN_TYPE.get(), PossessedHoglinEntity.createAttributes().build());
         event.put(OccultismEntities.POSSESSED_WITCH_TYPE.get(), PossessedWitchEntity.createAttributes().build());
+        event.put(OccultismEntities.POSSESSED_BLAZE_TYPE.get(), PossessedBlazeEntity.createAttributes().build());
         event.put(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get(), PossessedZombiePiglinEntity.createAttributes().build());
         event.put(OccultismEntities.POSSESSED_BEE_TYPE.get(), PossessedBeeEntity.createAttributes().build());
         event.put(OccultismEntities.GOAT_OF_MERCY_TYPE.get(), GoatOfMercyEntity.createAttributes().build());

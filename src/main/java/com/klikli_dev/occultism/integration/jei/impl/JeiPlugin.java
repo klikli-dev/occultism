@@ -69,6 +69,7 @@ public class JeiPlugin implements IModPlugin {
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new SpiritFireRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new CrushingRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new CrystallizeRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new MinerRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new RitualRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
@@ -85,6 +86,9 @@ public class JeiPlugin implements IModPlugin {
 
         var crushingRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.CRUSHING_TYPE.get());
         registration.addRecipes(JeiRecipeTypes.CRUSHING, crushingRecipes);
+
+        var crystallizeRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.CRYSTALLIZE_TYPE.get());
+        registration.addRecipes(JeiRecipeTypes.CRYSTALLIZE, crystallizeRecipes);
 
         var minerRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.MINER_TYPE.get());
         registration.addRecipes(JeiRecipeTypes.MINER, minerRecipes);
@@ -135,6 +139,14 @@ public class JeiPlugin implements IModPlugin {
                 JeiRecipeTypes.CRUSHING);
         registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRUSHER.getId())),
                 JeiRecipeTypes.CRUSHING);
+        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRYSTALLIZER.getId())),
+                JeiRecipeTypes.CRYSTALLIZE);
+        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRYSTALLIZER.getId())),
+                JeiRecipeTypes.CRYSTALLIZE);
+        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRYSTALLIZER.getId())),
+                JeiRecipeTypes.CRYSTALLIZE);
+        registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRYSTALLIZER.getId())),
+                JeiRecipeTypes.CRYSTALLIZE);
 
         registration.addRecipeCatalyst(new ItemStack(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER.getId())),
                 RecipeTypes.SMELTING);

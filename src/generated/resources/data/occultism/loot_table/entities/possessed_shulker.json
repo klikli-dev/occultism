@@ -45,6 +45,10 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:spire_armor_trim_smithing_template"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:chorus_flower"
         }
       ],
       "rolls": 1.0

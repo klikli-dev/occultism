@@ -30,10 +30,7 @@ import com.klikli_dev.occultism.common.item.DummyTooltipItem;
 import com.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.klikli_dev.occultism.common.ritual.Ritual;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
-import com.klikli_dev.occultism.registry.OccultismBlockEntities;
-import com.klikli_dev.occultism.registry.OccultismBlocks;
-import com.klikli_dev.occultism.registry.OccultismParticles;
-import com.klikli_dev.occultism.registry.OccultismRecipes;
+import com.klikli_dev.occultism.registry.*;
 import com.klikli_dev.occultism.util.EntityUtil;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.Util;
@@ -49,6 +46,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
@@ -73,6 +71,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.function.Consumer;
+
+import static com.klikli_dev.occultism.common.ritual.Ritual.SACRIFICIAL_BOWL_RANGE;
 
 public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity {
 
@@ -162,6 +162,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     private static boolean helpWithPentacle(Level level, BlockPos pos, Player player) {
         Map<BlockPos, Block> pentacleDiff = null;
         Map<BlockPos, Block> bestPentacleDiff = null;
+        Boolean hasPentacle = false;
 
         var pentacleMultiblocks = level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get())
                 .stream().map(r -> r.value().getPentacleId()).distinct().map(ModonomiconAPI.get()::getMultiblock).toList();
@@ -170,19 +171,23 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         for (var pentacle : pentacleMultiblocks) {
             pentacleDiff = getDifference(pentacle, level, pos);
             if (bestPentacleDiff == null || bestPentacleDiff.size() > pentacleDiff.size()) {
-                bestPentacleDiff = pentacleDiff;
-                bestMatch = pentacle;
+                if (pentacleDiff.isEmpty()) {
+                    hasPentacle = true;
+                } else {
+                    bestPentacleDiff = pentacleDiff;
+                    bestMatch = pentacle;
+                }
             }
         }
 
-        if (bestPentacleDiff != null && !bestPentacleDiff.isEmpty() && bestPentacleDiff.size() < 4) {
+        if (bestPentacleDiff != null && !bestPentacleDiff.isEmpty() && bestPentacleDiff.size() < 10) {
             //tell player which pentacle he was probably trying to build
             player.displayClientMessage(
                     Component.translatable("ritual." + Occultism.MODID + ".pentacle_help",
                             Component.translatable(Util.makeDescriptionId("multiblock", bestMatch.getId())), pentacleDiffToComponent(bestPentacleDiff)),
                     false);
             return true;
-        } else if (bestPentacleDiff != null && !bestPentacleDiff.isEmpty()) {
+        } else if (bestPentacleDiff != null && !bestPentacleDiff.isEmpty() && !hasPentacle) {
             //player probably doesn't have a pentacle at all
             player.displayClientMessage(
                     Component.translatable("ritual." + Occultism.MODID + ".pentacle_help.no_pentacle"), false);
@@ -213,14 +218,13 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
         var pentacleMultiblocks = level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get())
                 .stream().map(r -> r.value().getPentacleId()).distinct().map(ModonomiconAPI.get()::getMultiblock);
 
-        var pentacle = pentacleMultiblocks.filter(p -> p.validate(level, pos) != null).findFirst();
+        var pentacle = pentacleMultiblocks.filter(p -> p.validate(level, pos) != null).toList();
 
         if (pentacle.isEmpty())
             return false;
 
-
         for (var recipe : level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get())) {
-            if (recipe.value().getPentacle() != pentacle.orElseThrow())
+            if (!pentacle.contains(recipe.value().getPentacle()))
                 continue;
 
             ritualDiff = new ArrayList<>(recipe.value().getIngredients());
@@ -246,7 +250,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             }
         }
 
-        if (bestRitualDiff != null && !bestRitualDiff.isEmpty() && bestRitualDiff.size() < 4) {
+        if (bestRitualDiff != null && !bestRitualDiff.isEmpty() && bestRitualDiff.size() < 3) {
             player.displayClientMessage(
                     Component.translatable("ritual." + Occultism.MODID + ".ritual_help", Component.translatable(bestRitual.getRitual().getStartedMessage(player)), ritualDiffToComponent(bestRitualDiff)),
                     false);
@@ -414,7 +418,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                     ((ServerLevel) level)
                             .sendParticles(OccultismParticles.SPIRIT_FIRE_FLAME.get(), center.x + cos, center.y + 0.2 + cos, center.z + sin,
                                     1, 0.0, 0.0, 0.0, 0.003);
-                    if (tier == 2) {
+                    if (this.getTier(getBlockState()) == 2) {
                         double sin2 = Math.sin(gameTime + (Math.PI * 0.5)) * 0.3;
                         double cos2 = Math.cos(gameTime + (Math.PI * 0.5)) * 0.3;
                         ((ServerLevel) level)
@@ -515,15 +519,70 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                                 Component.translatable(String.format("ritual.%s.book_not_bound", Occultism.MODID)),
                                 false);
                     } else {
-                        if (!helpWithPentacle(level, pos, player)) {
-                            if (!helpWithRitual(level, pos, serverPlayer, activationItem)) {
+                        var otherActivation = this.level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get()).stream().filter(
+                                r -> r.value().getRitual().identifyAnyActivation(level, pos)
+                        ).findFirst().orElse(null);
+
+                        if (otherActivation != null) {
+                            String s = otherActivation.value().getActivationItem().getItems()[0].getDisplayName().getString();
+                            player.displayClientMessage(
+                                    Component.translatable(String.format("ritual.%s.wrong_activation_item", Occultism.MODID)),
+                                    false);
+                            player.displayClientMessage(
+                                    Component.translatable(s.substring(1, s.length() - 1))
+                                            .withStyle(otherActivation.value().getActivationItem().getItems()[0].getRarity().getStyleModifier()),
+                                    false);
+                        } else {
+                            var firstRecipe = this.level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get()).stream().findFirst();
+                            if (firstRecipe.isPresent() && firstRecipe.get().value().getRitual().getSacrificialBowls(level, pos).isEmpty()) {
+
+                                var pentacle = firstRecipe.get().value().getPentacle();
+                                var offset = pentacle.getOffset();
+                                var size = pentacle.getSize();
+                                var yBowlRangeTop = size.getY() - offset.getY() - 1;
+                                var yBowlRangeBottom = offset.getY();
+                                yBowlRangeTop++;
+                                yBowlRangeBottom++;
+                                Iterable<BlockPos> blocksToCheck = BlockPos.betweenClosed(
+                                        pos.offset(-SACRIFICIAL_BOWL_RANGE, -yBowlRangeBottom, -SACRIFICIAL_BOWL_RANGE),
+                                        pos.offset(SACRIFICIAL_BOWL_RANGE, yBowlRangeTop, SACRIFICIAL_BOWL_RANGE));
+                                for (BlockPos posCheck : blocksToCheck) {
+                                    if (level.getBlockState(posCheck).is(BlockTags.AIR)
+                                        && !level.getBlockState(posCheck.below()).is(BlockTags.AIR)
+                                        && !level.getBlockState(posCheck.below()).is(OccultismTags.Blocks.CHALK_GLYPHS) ) {
+
+                                        ((ServerLevel) level).sendParticles(OccultismParticles.BLACK_MARKER.get(),
+                                                posCheck.getX() + 0.5, posCheck.getY() + 0.1, posCheck.getZ() + 0.5,
+                                                1 ,0 ,0, 0 , 0.00);
+                                    }
+                                }
+
                                 player.displayClientMessage(
-                                        Component.translatable(String.format("ritual.%s.does_not_exist", Occultism.MODID)),
+                                        Component.translatable(String.format("ritual.%s.no_bowls", Occultism.MODID)),
                                         false);
+                            } else if (!helpWithPentacle(level, pos, player)) {
+                                var otherPentacle = this.level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get()).stream().filter(
+                                        r -> r.value().getRitual().identifyAnyPentacle(level, pos, activationItem)
+                                ).findFirst().orElse(null);
+
+                                if (otherPentacle != null) {
+                                    player.displayClientMessage(
+                                            Component.translatable(String.format("ritual.%s.wrong_pentacle", Occultism.MODID)),
+                                            false);
+                                    player.displayClientMessage(
+                                            Component.translatable(Util.makeDescriptionId("multiblock", otherPentacle.value().getPentacleId())),
+                                            false);
+                                } else {
+                                    if (!helpWithRitual(level, pos, serverPlayer, activationItem)) {
+                                        player.displayClientMessage(
+                                                Component.translatable(String.format("ritual.%s.does_not_exist", Occultism.MODID)),
+                                                false);
+                                    }
+                                }
                             }
                         }
+                        return false;
                     }
-                    return false;
                 }
             } else {
                 this.stopRitual(false);
@@ -556,15 +615,17 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
 
             this.level.updateNeighborsAt(this.getBlockPos(), this.getBlockState().getBlock());
 
-            if (ritualRecipe.value().requiresSacrifice()) {
-                player.displayClientMessage(Component.translatable(String.format("ritual.%s.sacrifice", Occultism.MODID)), false);
-                player.displayClientMessage(Component.translatable(String.format(ritualRecipe.value().getEntityToSacrificeDisplayName())), false);
-            }
+            if (player != null) {
+                if (ritualRecipe.value().requiresSacrifice()) {
+                    player.displayClientMessage(Component.translatable(String.format("ritual.%s.sacrifice", Occultism.MODID)), false);
+                    player.displayClientMessage(Component.translatable(String.format(ritualRecipe.value().getEntityToSacrificeDisplayName())), false);
+                }
 
-            if (ritualRecipe.value().requiresItemUse()) {
-                player.displayClientMessage(Component.translatable(String.format("ritual.%s.use_item", Occultism.MODID)), false);
-                String s = ritualRecipe.value().getItemToUse().getItems()[0].getDisplayName().getString();
-                player.displayClientMessage(Component.translatable(s.substring(1,s.length()-1)), false);
+                if (ritualRecipe.value().requiresItemUse()) {
+                    player.displayClientMessage(Component.translatable(String.format("ritual.%s.use_item", Occultism.MODID)), false);
+                    String s = ritualRecipe.value().getItemToUse().getItems()[0].getDisplayName().getString();
+                    player.displayClientMessage(Component.translatable(s.substring(1, s.length() - 1)), false);
+                }
             }
         }
         return true;
@@ -588,6 +649,10 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                     //Pop activation item back into level
                     Containers.dropItemStack(this.level, this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ(),
                             handler.extractItem(0, 1, false));
+                    for (ItemStack consumed : consumedIngredients) {
+                        Containers.dropItemStack(this.level, this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ(),
+                                consumed);
+                    }
                 }
             }
             this.currentRitualRecipe = null;

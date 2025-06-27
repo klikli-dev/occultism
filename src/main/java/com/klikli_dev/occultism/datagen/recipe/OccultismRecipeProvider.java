@@ -2,10 +2,7 @@ package com.klikli_dev.occultism.datagen.recipe;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.crafting.recipe.BoundBookOfBindingRecipe;
-import com.klikli_dev.occultism.datagen.recipe.builders.CrushingRecipeBuilder;
-import com.klikli_dev.occultism.datagen.recipe.builders.MinerRecipeBuilder;
-import com.klikli_dev.occultism.datagen.recipe.builders.SpiritFireRecipeBuilder;
-import com.klikli_dev.occultism.datagen.recipe.builders.SpiritTradeRecipeBuilder;
+import com.klikli_dev.occultism.datagen.recipe.builders.*;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismTags;
@@ -20,7 +17,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.concurrent.CompletableFuture;
@@ -29,6 +25,33 @@ import java.util.stream.Stream;
 public class OccultismRecipeProvider extends RecipeProvider {
     public OccultismRecipeProvider(PackOutput p_248933_, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(p_248933_, lookupProvider);
+    }
+
+    @Override
+    protected void buildRecipes(RecipeOutput pRecipeOutput, HolderLookup.Provider holderLookup) {
+        this.ritualRecipes(pRecipeOutput, holderLookup);
+        this.miningRecipes(pRecipeOutput);
+        this.spiritJobRecipes(pRecipeOutput);
+        this.craftingRecipes(pRecipeOutput);
+        woodRecipes(pRecipeOutput);
+        smeltingRecipes(pRecipeOutput);
+        oresCookingRecipes(pRecipeOutput);
+        spiritFireRecipes(pRecipeOutput);
+        stonecutterRecipes(pRecipeOutput);
+        otherflowerRecipes(pRecipeOutput);
+        grayPasteRecipes(pRecipeOutput);
+    }
+
+    private void ritualRecipes(RecipeOutput recipeOutput, HolderLookup.Provider registries) {
+        RitualRecipes.ritualRecipes(recipeOutput, registries);
+    }
+
+    private void miningRecipes(RecipeOutput pRecipeOutput) {
+        MinerRecipes.minerRecipes(pRecipeOutput);
+    }
+
+    private void spiritJobRecipes(RecipeOutput pRecipeOutput) {
+        SpiritJobRecipes.spiritJobRecipes(pRecipeOutput);
     }
 
     private static void metalRecipes(RecipeOutput pRecipeOutput) {
@@ -112,524 +135,6 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .requires(OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER)
                 .unlockedBy("has_raw_silver_block", has(OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/raw_silver_ingot_from_block"));
-        otherflowerDye(Items.WHITE_DYE, Tags.Items.DYES_WHITE, pRecipeOutput);
-        otherflowerDye(Items.LIGHT_GRAY_DYE, Tags.Items.DYES_LIGHT_GRAY, pRecipeOutput);
-        otherflowerDye(Items.GRAY_DYE, Tags.Items.DYES_GRAY, pRecipeOutput);
-        otherflowerDye(Items.BLACK_DYE, Tags.Items.DYES_BLACK, pRecipeOutput);
-        otherflowerDye(Items.BROWN_DYE, Tags.Items.DYES_BROWN, pRecipeOutput);
-        otherflowerDye(Items.RED_DYE, Tags.Items.DYES_RED, pRecipeOutput);
-        otherflowerDye(Items.ORANGE_DYE, Tags.Items.DYES_ORANGE, pRecipeOutput);
-        otherflowerDye(Items.YELLOW_DYE, Tags.Items.DYES_YELLOW, pRecipeOutput);
-        otherflowerDye(Items.LIME_DYE, Tags.Items.DYES_LIME, pRecipeOutput);
-        otherflowerDye(Items.GREEN_DYE, Tags.Items.DYES_GREEN, pRecipeOutput);
-        otherflowerDye(Items.CYAN_DYE, Tags.Items.DYES_CYAN, pRecipeOutput);
-        otherflowerDye(Items.BLUE_DYE, Tags.Items.DYES_BLUE, pRecipeOutput);
-        otherflowerDye(Items.LIGHT_BLUE_DYE, Tags.Items.DYES_LIGHT_BLUE, pRecipeOutput);
-        otherflowerDye(Items.PINK_DYE, Tags.Items.DYES_PINK, pRecipeOutput);
-        otherflowerDye(Items.MAGENTA_DYE, Tags.Items.DYES_MAGENTA, pRecipeOutput);
-        otherflowerDye(Items.PURPLE_DYE, Tags.Items.DYES_PURPLE, pRecipeOutput);
-    }
-    private static void otherflowerDye(ItemLike result, TagKey<Item> colorTag, RecipeOutput pRecipeOutput){
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, result, 3)
-                .requires(OccultismBlocks.OTHERFLOWER.asItem())
-                .requires(colorTag)
-                .unlockedBy("has_otherflower", has(OccultismBlocks.OTHERFLOWER.asItem()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
-                        "crafting/otherflower_to_" + colorTag.toString().substring(31).replace("]","_")) + "dye");
-    }
-
-    private static void blastingRecipes(RecipeOutput pRecipeOutput) {
-        SimpleCookingRecipeBuilder
-                .blasting(Ingredient.of(OccultismTags.Items.COPPER_DUST), RecipeCategory.MISC, Items.COPPER_INGOT, 0.7f, 100)
-                .unlockedBy("has_copper_dust", has(OccultismTags.Items.COPPER_DUST))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "blasting/copper_ingot_from_dust"));
-        SimpleCookingRecipeBuilder
-                .blasting(Ingredient.of(OccultismTags.Items.GOLD_DUST), RecipeCategory.MISC, Items.GOLD_INGOT, 0.7f, 100)
-                .unlockedBy("has_gold_dust", has(OccultismTags.Items.GOLD_DUST))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "blasting/gold_ingot_from_dust"));
-        SimpleCookingRecipeBuilder
-                .blasting(Ingredient.of(OccultismTags.Items.IESNIUM_ORE), RecipeCategory.MISC, OccultismItems.IESNIUM_INGOT.get(), 0.7f, 100)
-                .unlockedBy("has_iesnium_ore", has(OccultismTags.Items.IESNIUM_ORE))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "blasting/iesnium_ingot"));
-        SimpleCookingRecipeBuilder
-                .blasting(Ingredient.of(OccultismTags.Items.IESNIUM_DUST), RecipeCategory.MISC, OccultismItems.IESNIUM_INGOT.get(), 0.7f, 100)
-                .unlockedBy("has_iesnium_dust", has(OccultismTags.Items.IESNIUM_DUST))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "blasting/iesnium_ingot_from_dust"));
-        SimpleCookingRecipeBuilder
-                .blasting(Ingredient.of(OccultismTags.Items.NETHERITE_SCRAP_DUST), RecipeCategory.MISC, Items.NETHERITE_SCRAP, 0.7f, 100)
-                .unlockedBy("has_netherite_scrap_dust", has(OccultismTags.Items.NETHERITE_SCRAP_DUST))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "blasting/netherite_scrap_from_dust"));
-        SimpleCookingRecipeBuilder
-                .blasting(Ingredient.of(OccultismTags.Items.RAW_IESNIUM), RecipeCategory.MISC, OccultismItems.IESNIUM_INGOT.get(), 0.7f, 100)
-                .unlockedBy("has_raw_iesnium", has(OccultismTags.Items.RAW_IESNIUM))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "blasting/iesnium_ingot_from_raw"));
-        SimpleCookingRecipeBuilder
-                .blasting(Ingredient.of(OccultismTags.Items.IRON_DUST), RecipeCategory.MISC, Items.IRON_INGOT, 0.7f, 100)
-                .unlockedBy("has_iron_dust", has(OccultismTags.Items.IRON_DUST))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "blasting/iron_ingot_from_dust"));
-        SimpleCookingRecipeBuilder
-                .blasting(Ingredient.of(OccultismTags.Items.SILVER_ORE), RecipeCategory.MISC, OccultismItems.SILVER_INGOT.get(), 0.7f, 100)
-                .unlockedBy("has_silver_ore", has(OccultismTags.Items.SILVER_ORE))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "blasting/silver_ingot"));
-        SimpleCookingRecipeBuilder
-                .blasting(Ingredient.of(OccultismTags.Items.SILVER_DUST), RecipeCategory.MISC, OccultismItems.SILVER_INGOT.get(), 0.7f, 100)
-                .unlockedBy("has_silver_dust", has(OccultismTags.Items.SILVER_DUST))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "blasting/silver_ingot_from_dust"));
-        SimpleCookingRecipeBuilder
-                .blasting(Ingredient.of(OccultismTags.Items.RAW_SILVER), RecipeCategory.MISC, OccultismItems.SILVER_INGOT.get(), 0.7f, 100)
-                .unlockedBy("has_raw_silver", has(OccultismTags.Items.RAW_SILVER))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "blasting/silver_ingot_from_raw"));
-        SimpleCookingRecipeBuilder
-                .blasting(Ingredient.of(OccultismTags.Items.NETHERITE_DUST), RecipeCategory.MISC, Items.NETHERITE_INGOT, 0.7f, 100)
-                .unlockedBy("has_netherite_dust", has(OccultismTags.Items.NETHERITE_DUST))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "blasting/netherite_ingot_from_dust"));
-
-    }
-
-    protected static void otherStonecutter(RecipeOutput recipeOutput, ItemLike result, ItemLike material, int resultCount, boolean source) {
-        if (source) {
-            SingleItemRecipeBuilder.stonecutting(Ingredient.of(material), RecipeCategory.BUILDING_BLOCKS, result, resultCount)
-                    .unlockedBy(getHasName(material), has(material))
-                    .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "stonecutting/" + getItemName(result) + "_from_" + getItemName(material)));
-        } else {
-            SingleItemRecipeBuilder.stonecutting(Ingredient.of(material), RecipeCategory.BUILDING_BLOCKS, result, resultCount)
-                    .unlockedBy(getHasName(material), has(material))
-                    .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "stonecutting/" + getItemName(result)));
-        }
-    }
-
-    protected static void otherStonecutter(RecipeOutput recipeOutput, ItemLike result, ItemLike material, int resultCount) {
-        otherStonecutter(recipeOutput, result, material, resultCount, false);
-    }
-
-    protected static void otherStonecutter(RecipeOutput recipeOutput, ItemLike result, ItemLike material) {
-        otherStonecutter(recipeOutput, result, material, 1, false);
-    }
-
-    protected static void otherStonecutter(RecipeOutput recipeOutput, ItemLike result, ItemLike material, boolean source) {
-        otherStonecutter(recipeOutput, result, material, 1, source);
-    }
-
-    @Override
-    protected void buildRecipes(RecipeOutput pRecipeOutput, HolderLookup.Provider holderLookup) {
-        blastingRecipes(pRecipeOutput);
-        this.craftingRecipes(pRecipeOutput);
-        this.smeltingRecipes(pRecipeOutput);
-        this.crushingRecipes(pRecipeOutput);
-        this.miningRecipes(pRecipeOutput);
-        this.spiritFireRecipes(pRecipeOutput);
-        this.spiritTradeRecipes(pRecipeOutput);
-        this.ritualRecipes(pRecipeOutput, holderLookup);
-        this.stonecutterRecipes(pRecipeOutput);
-    }
-
-    private void ritualRecipes(RecipeOutput recipeOutput, HolderLookup.Provider registries) {
-        RitualRecipes.ritualRecipes(recipeOutput, registries);
-    }
-
-    private void spiritTradeRecipes(RecipeOutput pRecipeOutput) {
-        SpiritTradeRecipeBuilder.spiritTradeRecipe(Ingredient.of(OccultismTags.Items.OTHERWORLD_SAPLINGS_NATURAL), new ItemStack(OccultismBlocks.OTHERWORLD_SAPLING))
-                .unlockedBy("has_otherworld_sapling_natural", has(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/otherworld_sapling"));
-        SpiritTradeRecipeBuilder.spiritTradeRecipe(Ingredient.of(Tags.Items.STONES), new ItemStack(OccultismBlocks.OTHERSTONE.get(), 2))
-                .unlockedBy("has_stone", has(Tags.Items.STONES))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/stone_to_otherstone"));
-        SpiritTradeRecipeBuilder.spiritTradeRecipe(Ingredient.of(Tags.Items.STONES), new ItemStack(OccultismBlocks.OTHERSTONE.get(), 4))
-                .unlockedBy("has_stone", has(Tags.Items.STONES))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_trade/test"));
-
-    }
-
-    private void spiritFireRecipes(RecipeOutput pRecipeOutput) {
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(Tags.Items.FEATHERS), new ItemStack(OccultismItems.AWAKENED_FEATHER.get()))
-                .unlockedBy("has_feather", has(Tags.Items.FEATHERS))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/awakened_feather"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(Items.WRITABLE_BOOK), new ItemStack(OccultismItems.BOOK_OF_BINDING_EMPTY.get()))
-                .unlockedBy("has_writable_book", has(Items.WRITABLE_BOOK))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/book_of_binding_empty"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismItems.CHALK_YELLOW_IMPURE.get()), new ItemStack(OccultismItems.CHALK_YELLOW.get()))
-                .unlockedBy("has_chalk_yellow_impure", has(OccultismItems.CHALK_YELLOW_IMPURE.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/chalk_yellow"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismItems.CHALK_PURPLE_IMPURE.get()), new ItemStack(OccultismItems.CHALK_PURPLE.get()))
-                .unlockedBy("has_chalk_purple_impure", has(OccultismItems.CHALK_PURPLE_IMPURE.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/chalk_purple"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismItems.CHALK_RED_IMPURE.get()), new ItemStack(OccultismItems.CHALK_RED.get()))
-                .unlockedBy("has_chalk_red_impure", has(OccultismItems.CHALK_RED_IMPURE.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/chalk_red"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismItems.CHALK_WHITE_IMPURE.get()), new ItemStack(OccultismItems.CHALK_WHITE.get()))
-                .unlockedBy("has_chalk_white_impure", has(OccultismItems.CHALK_WHITE_IMPURE.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/chalk_white"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismItems.CHALK_LIGHT_GRAY_IMPURE.get()), new ItemStack(OccultismItems.CHALK_LIGHT_GRAY.get()))
-                .unlockedBy("has_chalk_light_gray_impure", has(OccultismItems.CHALK_LIGHT_GRAY_IMPURE.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/chalk_light_gray"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismItems.CHALK_GRAY_IMPURE.get()), new ItemStack(OccultismItems.CHALK_GRAY.get()))
-                .unlockedBy("has_chalk_gray_impure", has(OccultismItems.CHALK_GRAY_IMPURE.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/chalk_gray"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismItems.CHALK_BLACK_IMPURE.get()), new ItemStack(OccultismItems.CHALK_BLACK.get()))
-                .unlockedBy("has_chalk_black_impure", has(OccultismItems.CHALK_BLACK_IMPURE.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/chalk_black"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismItems.CHALK_BROWN_IMPURE.get()), new ItemStack(OccultismItems.CHALK_BROWN.get()))
-                .unlockedBy("has_chalk_brown_impure", has(OccultismItems.CHALK_BROWN_IMPURE.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/chalk_brown"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismItems.CHALK_ORANGE_IMPURE.get()), new ItemStack(OccultismItems.CHALK_ORANGE.get()))
-                .unlockedBy("has_chalk_orange_impure", has(OccultismItems.CHALK_ORANGE_IMPURE.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/chalk_orange"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismItems.CHALK_LIME_IMPURE.get()), new ItemStack(OccultismItems.CHALK_LIME.get()))
-                .unlockedBy("has_chalk_lime_impure", has(OccultismItems.CHALK_LIME_IMPURE.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/chalk_lime"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismItems.CHALK_GREEN_IMPURE.get()), new ItemStack(OccultismItems.CHALK_GREEN.get()))
-                .unlockedBy("has_chalk_green_impure", has(OccultismItems.CHALK_GREEN_IMPURE.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/chalk_green"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismItems.CHALK_CYAN_IMPURE.get()), new ItemStack(OccultismItems.CHALK_CYAN.get()))
-                .unlockedBy("has_chalk_cyan_impure", has(OccultismItems.CHALK_CYAN_IMPURE.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/chalk_cyan"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismItems.CHALK_LIGHT_BLUE_IMPURE.get()), new ItemStack(OccultismItems.CHALK_LIGHT_BLUE.get()))
-                .unlockedBy("has_chalk_light_blue_impure", has(OccultismItems.CHALK_LIGHT_BLUE_IMPURE.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/chalk_light_blue"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismItems.CHALK_BLUE_IMPURE.get()), new ItemStack(OccultismItems.CHALK_BLUE.get()))
-                .unlockedBy("has_chalk_blue_impure", has(OccultismItems.CHALK_BLUE_IMPURE.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/chalk_blue"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismItems.CHALK_MAGENTA_IMPURE.get()), new ItemStack(OccultismItems.CHALK_MAGENTA.get()))
-                .unlockedBy("has_chalk_magenta_impure", has(OccultismItems.CHALK_MAGENTA_IMPURE.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/chalk_magenta"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismItems.CHALK_PINK_IMPURE.get()), new ItemStack(OccultismItems.CHALK_PINK.get()))
-                .unlockedBy("has_chalk_pink_impure", has(OccultismItems.CHALK_PINK_IMPURE.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/chalk_pink"));
-
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(Blocks.ANDESITE), new ItemStack(OccultismBlocks.OTHERSTONE.get()))
-                .unlockedBy("has_andesite", has(Blocks.ANDESITE))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/otherstone"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismBlocks.OTHERWORLD_LOG.get()), new ItemStack(OccultismItems.OTHERWORLD_ASHES.get()))
-                .unlockedBy("has_otherworld_log", has(OccultismBlocks.OTHERWORLD_LOG.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/otherworld_ashes"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(OccultismItems.DEMONS_DREAM_ESSENCE.get()), new ItemStack(OccultismItems.OTHERWORLD_ESSENCE.get()))
-                .unlockedBy("has_demons_dream_essence", has(OccultismItems.DEMONS_DREAM_ESSENCE.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/otherworld_essence"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(Items.OAK_SAPLING), new ItemStack(OccultismBlocks.OTHERWORLD_SAPLING_NATURAL))
-                .unlockedBy("has_oak_sapling", has(Items.OAK_SAPLING))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/otherworld_sapling_natural"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(Items.BLACK_DYE), new ItemStack(OccultismItems.PURIFIED_INK.get()))
-                .unlockedBy("has_black_dye", has(Items.BLACK_DYE))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/purified_ink"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(Tags.Items.GEMS_DIAMOND), new ItemStack(OccultismItems.SPIRIT_ATTUNED_GEM.get()))
-                .unlockedBy("has_diamond", has(Tags.Items.GEMS_DIAMOND))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/spirit_attuned_gem"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(Items.BOOK), new ItemStack(OccultismItems.TABOO_BOOK.get()))
-                .unlockedBy("has_book", has(Items.BOOK))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/taboo_book"));
-        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(ItemTags.FLOWERS), new ItemStack(OccultismBlocks.OTHERFLOWER.asItem()))
-                .unlockedBy("has_flower", has(ItemTags.FLOWERS))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/otherflower"));
-    }
-
-    private void miningRecipes(RecipeOutput pRecipeOutput) {
-        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.MASTER, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/stella_arcanum")), 100)
-                .unlockedBy("has_stella_arcanum_ore", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/stella_arcanum"))))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/master/stella_arcanum"));
-        MinerRecipes.basic_resources(pRecipeOutput);
-        MinerRecipes.deeps(pRecipeOutput);
-        MinerRecipes.master_resources(pRecipeOutput);
-        MinerRecipes.ores(pRecipeOutput);
-        MinerRecipes.eldritch(pRecipeOutput);
-        MinerRecipeBuilder.minerRecipe(OccultismItems.DEBUG_WAND.get(), OccultismBlocks.OTHERSTONE.get(), 200)
-                .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
-                .allowEmpty()
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/debug_wand"));
-    }
-
-    private void crushingRecipes(RecipeOutput pRecipeOutput) {
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.Items.DATURA_CROP, OccultismTags.Items.DATURA_SEEDS, 200)
-                .unlockedBy("has_datura", has(OccultismTags.Items.DATURA_CROP))
-                .setAllowEmpty(false)
-                .setResultAmount(2)
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/datura"));
-        //Ores vanilla + occultism
-        this.crushingMetalRecipe("copper", pRecipeOutput);
-        this.crushingMetalRecipe("iron", pRecipeOutput);
-        this.crushingMetalRecipe("gold", pRecipeOutput);
-        this.crushingMetalRecipe("silver", pRecipeOutput);
-        this.crushingMetalRecipe("iesnium", pRecipeOutput);
-        //Ores common
-        this.crushingMetalRecipe("aluminum", pRecipeOutput);
-        this.crushingMetalRecipe("iridium", pRecipeOutput);
-        this.crushingMetalRecipe("lead", pRecipeOutput);
-        this.crushingMetalRecipe("nickel", pRecipeOutput);
-        this.crushingMetalRecipe("osmium", pRecipeOutput);
-        this.crushingMetalRecipe("platinum", pRecipeOutput);
-        this.crushingMetalRecipe("tin", pRecipeOutput);
-        this.crushingMetalRecipe("uranium", pRecipeOutput);
-        this.crushingMetalRecipe("zinc", pRecipeOutput);
-        //Ores specific
-        this.crushingMetalRecipe("antimony", pRecipeOutput);
-        this.crushingMetalRecipe("allthemodium", pRecipeOutput);
-        this.crushingMetalRecipe("unobtainium", pRecipeOutput);
-        this.crushingMetalRecipe("vibranium", pRecipeOutput);
-        this.crushingMetalRecipe("crimson_iron", pRecipeOutput);
-        this.crushingMetalRecipe("azure_silver", pRecipeOutput);
-        this.crushingMetalRecipe("graphite", pRecipeOutput);
-        this.crushingMetalRecipe("cobalt", pRecipeOutput);
-        this.crushingMetalRecipe("titanium", pRecipeOutput);
-        this.crushingMetalRecipe("tungsten", pRecipeOutput);
-        this.crushingMetalRecipe("pewter", pRecipeOutput);
-        this.crushingMetalRecipe("mithril", pRecipeOutput);
-        this.crushingMetalRecipe("quicksilver", pRecipeOutput);
-        //Ingots without ores
-        this.crushingIngotRecipe("adamant", pRecipeOutput);
-        this.crushingIngotRecipe("azure_electrum", pRecipeOutput);
-        this.crushingIngotRecipe("biosteel", pRecipeOutput);
-        this.crushingIngotRecipe("blaze_gold", pRecipeOutput);
-        this.crushingIngotRecipe("brass", pRecipeOutput);
-        this.crushingIngotRecipe("bronze", pRecipeOutput);
-        this.crushingIngotRecipe("constantan", pRecipeOutput);
-        this.crushingIngotRecipe("crimson_steel", pRecipeOutput);
-        this.crushingIngotRecipe("duratium", pRecipeOutput);
-        this.crushingIngotRecipe("electrum", pRecipeOutput);
-        this.crushingIngotRecipe("enderium", pRecipeOutput);
-        this.crushingIngotRecipe("energite", pRecipeOutput);
-        this.crushingIngotRecipe("hop_graphite", pRecipeOutput);
-        this.crushingIngotRecipe("invar", pRecipeOutput);
-        this.crushingIngotRecipe("lumium", pRecipeOutput);
-        this.crushingIngotRecipe("netherite", pRecipeOutput);
-        this.crushingIngotRecipe("refined_obsidian", pRecipeOutput);
-        this.crushingIngotRecipe("steel", pRecipeOutput);
-        this.crushingIngotRecipe("signalum", pRecipeOutput);
-        this.crushingIngotRecipe("tyrian_steel", pRecipeOutput);
-        this.crushingIngotRecipe("unobtainium_allthemodium_alloy", pRecipeOutput);
-        this.crushingIngotRecipe("unobtainium_vibranium_alloy", pRecipeOutput);
-        this.crushingIngotRecipe("vibranium_allthemodium_alloy", pRecipeOutput);
-        //ModernIndustrialization Ingots
-        this.crushingIngotRecipe("annealed_copper", pRecipeOutput);
-        this.crushingIngotRecipe("battery_alloy", pRecipeOutput);
-        this.crushingIngotRecipe("beryllium", pRecipeOutput);
-        this.crushingIngotRecipe("cadmium", pRecipeOutput);
-        this.crushingIngotRecipe("chromium", pRecipeOutput);
-        this.crushingIngotRecipe("cupronickel", pRecipeOutput);
-        this.crushingIngotRecipe("he_mox", pRecipeOutput);
-        this.crushingIngotRecipe("he_uranium", pRecipeOutput);
-        this.crushingIngotRecipe("kanthal", pRecipeOutput);
-        this.crushingIngotRecipe("le_mox", pRecipeOutput);
-        this.crushingIngotRecipe("le_uranium", pRecipeOutput);
-        this.crushingIngotRecipe("plutonium", pRecipeOutput);
-        this.crushingIngotRecipe("silicon", pRecipeOutput);
-        this.crushingIngotRecipe("superconductor", pRecipeOutput);
-        this.crushingIngotRecipe("uranium_235", pRecipeOutput);
-        this.crushingIngotRecipe("uranium_238", pRecipeOutput);
-        //Gems
-        this.crushingGemRecipe("dark_gem", pRecipeOutput);
-        this.crushingGemRecipe("diamond", pRecipeOutput);
-        this.crushingGemRecipe("emerald", pRecipeOutput);
-        this.crushingGemRecipe("lapis", pRecipeOutput);
-        this.crushingGemRecipe("quartz", pRecipeOutput);
-        this.crushingGemRecipe("coal", pRecipeOutput);
-        this.crushingGemRecipe("redstone", pRecipeOutput);
-        this.crushingGemRecipe("apatite", pRecipeOutput);
-        this.crushingGemRecipe("sulfur", pRecipeOutput);
-        this.crushingGemRecipe("fluorite", pRecipeOutput);
-        this.crushingGemRecipe("cinnabar", pRecipeOutput);
-        this.crushingGemRecipe("amber", pRecipeOutput);
-        this.crushingGemRecipe("certus_quartz", pRecipeOutput);
-        this.crushingGemRecipe("fluix", pRecipeOutput);
-        this.crushingGemRecipe("peridot", pRecipeOutput);
-        this.crushingGemRecipe("ruby", pRecipeOutput);
-        this.crushingGemRecipe("sapphire", pRecipeOutput);
-        this.crushingGemRecipe("topaz", pRecipeOutput);
-        this.crushingGemRecipe("arcane_crystal", pRecipeOutput);
-        this.crushingGemRecipe("amethyst", pRecipeOutput);
-        this.crushingGemRecipe("black_quartz", pRecipeOutput);
-        this.crushingGemRecipe("lignite_coal", pRecipeOutput);
-        this.crushingGemRecipe("entro", pRecipeOutput);
-
-        CrushingRecipeBuilder.crushingRecipe(Items.COAL, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/" + "coal")), 200)
-                .setAllowEmpty(false)
-                .setResultAmount(1)
-                .setIgnoreCrushingMultiplier(true)
-                .unlockedBy("has_coal", has(Items.COAL))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/coal_dust_from_tag"));
-        CrushingRecipeBuilder.crushingRecipe(Items.CHARCOAL, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/" + "charcoal")), 200)
-                .setAllowEmpty(false)
-                .setResultAmount(1)
-                .setIgnoreCrushingMultiplier(true)
-                .unlockedBy("has_charcoal", has(Items.CHARCOAL))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/charcoal_dust_from_tag"));
-        CrushingRecipeBuilder.crushingRecipe(Tags.Items.ENDER_PEARLS, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/" + "ender_pearl")), 200)
-                .setAllowEmpty(false)
-                .setResultAmount(2)
-                .unlockedBy("has_ender_pearl", has(Tags.Items.ENDER_PEARLS))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/ender_pearl_dust_from_tag"));
-        CrushingRecipeBuilder.crushingRecipe(Tags.Items.RODS_BLAZE, Items.BLAZE_POWDER, 200)
-                .allowEmpty()
-                .setResultAmount(4)
-                .unlockedBy("has_blaze_rod", has(Tags.Items.RODS_BLAZE))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/blaze_powder_from_rod"));
-        CrushingRecipeBuilder.crushingRecipe(Tags.Items.BONES, Items.BONE_MEAL, 200)
-                .allowEmpty()
-                .setResultAmount(4)
-                .unlockedBy("has_bone", has(Tags.Items.BONES))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/bone_meal_from_bone"));
-        CrushingRecipeBuilder.crushingRecipe(Tags.Items.ORES_NETHERITE_SCRAP, OccultismTags.Items.NETHERITE_SCRAP_DUST, 200)
-                .allowEmpty()
-                .setResultAmount(2)
-                .unlockedBy("has_ancient_debris", has(Tags.Items.ORES_NETHERITE_SCRAP))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID,"crushing/netherite_scrap_dust"));
-
-        CrushingRecipeBuilder.crushingRecipe(Tags.Items.OBSIDIANS, OccultismTags.Items.OBSIDIAN_DUST, 200)
-                .allowEmpty()
-                .unlockedBy("has_obsidian", has(Tags.Items.OBSIDIANS))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/obsidian_dust"));
-        CrushingRecipeBuilder.crushingRecipe(Tags.Items.END_STONES, OccultismTags.Items.END_STONE_DUST, 200)
-                .allowEmpty()
-                .unlockedBy("has_end_stone", has(Tags.Items.END_STONES))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/end_stone_dust"));
-
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.Items.OTHERSTONE, OccultismTags.Items.OTHERCOBBLESTONE, 200)
-                .unlockedBy("has_otherstone", has(OccultismTags.Items.OTHERSTONE))
-                .setAllowEmpty(false)
-                .setResultAmount(1)
-                .setIgnoreCrushingMultiplier(true)
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/othercobblestone"));
-
-        CrushingRecipeBuilder.crushingRecipe(Items.CALCITE, OccultismTags.Items.CALCITE_DUST, 200)
-                .allowEmpty()
-                .unlockedBy("has_calcite", has(Items.CALCITE))
-                .setResultAmount(1)
-                .setIgnoreCrushingMultiplier(true)
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/calcite_dust"));
-        CrushingRecipeBuilder.crushingRecipe(Items.BLACKSTONE, OccultismTags.Items.BLACKSTONE_DUST, 200)
-                .allowEmpty()
-                .unlockedBy("has_blackstone", has(Items.BLACKSTONE))
-                .setResultAmount(1)
-                .setIgnoreCrushingMultiplier(true)
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/blackstone_dust"));
-        CrushingRecipeBuilder.crushingRecipe(Items.ICE, OccultismTags.Items.ICE_DUST, 200)
-                .allowEmpty()
-                .unlockedBy("has_ice", has(Items.ICE))
-                .setResultAmount(1)
-                .setIgnoreCrushingMultiplier(true)
-                .setMinTier(2)
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/ice_dust"));
-        CrushingRecipeBuilder.crushingRecipe(Items.PACKED_ICE, OccultismTags.Items.PACKED_ICE_DUST, 200)
-                .allowEmpty()
-                .unlockedBy("has_packed_ice", has(Items.PACKED_ICE))
-                .setResultAmount(1)
-                .setIgnoreCrushingMultiplier(true)
-                .setMinTier(2)
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/packed_ice_dust"));
-        CrushingRecipeBuilder.crushingRecipe(Items.BLUE_ICE, OccultismTags.Items.BLUE_ICE_DUST, 200)
-                .allowEmpty()
-                .unlockedBy("has_blue_ice", has(Items.BLUE_ICE))
-                .setResultAmount(1)
-                .setIgnoreCrushingMultiplier(true)
-                .setMinTier(2)
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/blue_ice_dust"));
-        CrushingRecipeBuilder.crushingRecipe(Items.ECHO_SHARD, OccultismTags.Items.ECHO_DUST, 200)
-                .allowEmpty()
-                .unlockedBy("has_echo_shard", has(Items.ECHO_SHARD))
-                .setResultAmount(1)
-                .setIgnoreCrushingMultiplier(true)
-                .setMinTier(4)
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/echo_dust"));
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "sky_stones")), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/sky_stone")), 200)
-                .unlockedBy("has_sky_stone", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "sky_stones"))))
-                .setResultAmount(1)
-                .setAllowEmpty(false)
-                .setIgnoreCrushingMultiplier(true)
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/sky_stone_dust"));
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "coal_coke")), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/coal_coke")), 200)
-                .unlockedBy("has_coal_coke", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "coal_coke"))))
-                .setResultAmount(1)
-                .setAllowEmpty(false)
-                .setIgnoreCrushingMultiplier(true)
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/coal_coke_dust"));
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/salt")), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/salt")), 200)
-                .unlockedBy("has_salt_ore", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/salt"))))
-                .setResultAmount(4)
-                .setAllowEmpty(false)
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/salt_dust_from_ore"));
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/saltpeter")), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/saltpeter")), 200)
-                .unlockedBy("has_saltpeter_ore", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/saltpeter"))))
-                .setResultAmount(4)
-                .setAllowEmpty(false)
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/saltpeter_dust_from_ore"));
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/monazite")), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/monazite")), 200)
-                .unlockedBy("has_monazite_ore", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/monazite"))))
-                .setResultAmount(4)
-                .setAllowEmpty(false)
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/monazite_dust_from_ore"));
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/bauxite")), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/bauxite")), 200)
-                .unlockedBy("has_bauxite_ore", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/bauxite"))))
-                .setResultAmount(4)
-                .setAllowEmpty(false)
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/bauxite_dust_from_ore"));
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "bricks/normal")), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/brick")), 200)
-                .unlockedBy("has_brick", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "bricks/normal"))))
-                .setResultAmount(1)
-                .setAllowEmpty(false)
-                .setIgnoreCrushingMultiplier(true)
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/brick_dust"));
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "plates/carbon")), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/carbon")), 200)
-                .unlockedBy("has_carbon_plate", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "plates/carbon"))))
-                .setResultAmount(1)
-                .setAllowEmpty(false)
-                .setIgnoreCrushingMultiplier(true)
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/carbon_dust_from_plate"));
-    }
-
-    private void crushingGemRecipe(String gemName, RecipeOutput recipeOutput) {
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/" + gemName)), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/" + gemName)), 200)
-                .unlockedBy("has_" + gemName, has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/" + gemName))))
-                .setResultAmount(4)
-                .setAllowEmpty(false)
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/" + gemName + "_dust"));
-
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "gems/" + gemName)), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/" + gemName)), 200)
-                .unlockedBy("has_" + gemName + "_gem", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "gems/" + gemName))))
-                .setResultAmount(1)
-                .setAllowEmpty(false)
-                .setIgnoreCrushingMultiplier(true)
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/" + gemName + "_dust_from_gem"));
-
-    }
-
-    private void crushingIngotRecipe(String metalName, RecipeOutput recipeOutput) {
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ingots/" + metalName)), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/" + metalName)), 200)
-                .unlockedBy("has_" + metalName + "_ingot", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ingots/" + metalName))))
-                .setResultAmount(1)
-                .setAllowEmpty(false)
-                .setIgnoreCrushingMultiplier(true)
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/" + metalName + "_dust_from_ingot"));
-    }
-
-    private void crushingMetalRecipe(String metalName, RecipeOutput recipeOutput) {
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/" + metalName)), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/" + metalName)), 200)
-                .unlockedBy("has_" + metalName, has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/" + metalName))))
-                .setResultAmount(2)
-                .setAllowEmpty(false)
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/" + metalName + "_dust"));
-
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "raw_materials/" + metalName)), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/" + metalName)), 200)
-                .unlockedBy("has_raw_" + metalName, has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "raw_materials/" + metalName))))
-                .setResultAmount(2)
-                .setAllowEmpty(false)
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/" + metalName + "_dust_from_raw"));
-
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/raw_" + metalName)), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/" + metalName)), 1600)
-                .unlockedBy("has_raw_" + metalName + "_block", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/raw_" + metalName))))
-                .setResultAmount(18)
-                .setAllowEmpty(false)
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/" + metalName + "_dust_from_raw_block"));
-
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ingots/" + metalName)), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/" + metalName)), 200)
-                .unlockedBy("has_" + metalName + "_ingot", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ingots/" + metalName))))
-                .setResultAmount(1)
-                .setAllowEmpty(false)
-                .setIgnoreCrushingMultiplier(true)
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/" + metalName + "_dust_from_ingot"));
-
-        CrushingRecipeBuilder.crushingRecipe(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "clumps/" + metalName)), OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dirty_dusts/" + metalName)), 200)
-                .unlockedBy("has_clump_" + metalName, has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "clumps/" + metalName))))
-                .setResultAmount(2)
-                .setAllowEmpty(false)
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/" + metalName + "_dirty_dust_from_clump"));
     }
 
     private void craftingRecipes(RecipeOutput pRecipeOutput) {
@@ -1271,57 +776,6 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_otherstone_frame", has(OccultismItems.OTHERSTONE_FRAME.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/wormhole_frame"));
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.OTHERWORLD_WOOD.get(), 3)
-                .pattern("oo")
-                .pattern("oo")
-                .define('o', OccultismBlocks.OTHERWORLD_LOG.get())
-                .unlockedBy("has_otherworld_log", has(OccultismBlocks.OTHERWORLD_LOG.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherworld_wood"));
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.STRIPPED_OTHERWORLD_WOOD.get(), 3)
-                .pattern("oo")
-                .pattern("oo")
-                .define('o', OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get())
-                .unlockedBy("has_otherworld_log", has(OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/stripped_otherworld_wood"));
-
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.OTHERPLANKS.get(), 4)
-                .requires(OccultismTags.Items.OTHERWORLD_LOGS)
-                .unlockedBy("has_otherworld_log", has(OccultismBlocks.OTHERWORLD_LOG.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks"));
-
-        stairBuilder(OccultismBlocks.OTHERPLANKS_STAIRS.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem())).save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplans_stairs"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.OTHERPLANKS_SLAB.get(), 6)
-                .pattern("ooo").define('o', OccultismBlocks.OTHERPLANKS.get())
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_slab"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, OccultismBlocks.OTHERPLANKS_PRESSURE_PLATE.get())
-                .pattern("oo").define('o', OccultismBlocks.OTHERPLANKS.get())
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_pressure_plate"));
-        buttonBuilder(OccultismBlocks.OTHERPLANKS_BUTTON.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem())).save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplans_button"));
-        fenceBuilder(OccultismBlocks.OTHERPLANKS_FENCE.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem())).save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplans_fence"));
-        fenceGateBuilder(OccultismBlocks.OTHERPLANKS_FENCE_GATE.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem())).save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplans_fence_gate"));
-        doorBuilder(OccultismBlocks.OTHERPLANKS_DOOR.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem())).save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplans_door"));
-        trapdoorBuilder(OccultismBlocks.OTHERPLANKS_TRAPDOOR.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem())).save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplans_trapdoor"));
-        signBuilder(OccultismItems.OTHERPLANKS_SIGN, Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
-                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem())).save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplans_sign"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, OccultismItems.OTHERPLANKS_HANGING_SIGN, 6)
-                .group("hanging_sign")
-                .define('#', OccultismBlocks.STRIPPED_OTHERWORLD_LOG.asItem())
-                .define('X', Items.CHAIN)
-                .pattern("X X")
-                .pattern("###")
-                .pattern("###")
-                .unlockedBy("has_stripped_otherworld_log", has(OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_hanging_sign"));
-
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, OccultismBlocks.OTHERGLASS_NATURAL.get())
                 .pattern("nen")
                 .pattern("ege")
@@ -1331,137 +785,147 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .define('g', Tags.Items.GLASS_BLOCKS)
                 .unlockedBy("has_iesnium_nugget", has(OccultismItems.IESNIUM_NUGGET.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherglass"));
-
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, Items.OBSIDIAN)
-                .requires(OccultismItems.GRAY_PASTE)
-                .requires(OccultismTags.Items.OBSIDIAN_DUST)
-                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/obsidian"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, Items.END_STONE)
-                .requires(OccultismItems.GRAY_PASTE)
-                .requires(OccultismTags.Items.END_STONE_DUST)
-                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/end_stone"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, Items.CALCITE)
-                .requires(OccultismItems.GRAY_PASTE)
-                .requires(OccultismTags.Items.CALCITE_DUST)
-                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/calcite"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, Items.ICE)
-                .requires(OccultismItems.GRAY_PASTE)
-                .requires(OccultismTags.Items.ICE_DUST)
-                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/ice"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, Items.PACKED_ICE)
-                .requires(OccultismItems.GRAY_PASTE)
-                .requires(OccultismTags.Items.PACKED_ICE_DUST)
-                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/packed_ice"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, Items.BLUE_ICE)
-                .requires(OccultismItems.GRAY_PASTE)
-                .requires(OccultismTags.Items.BLUE_ICE_DUST)
-                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/blue_ice"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, Items.BLACKSTONE)
-                .requires(OccultismItems.GRAY_PASTE)
-                .requires(OccultismTags.Items.BLACKSTONE_DUST)
-                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/blackstone"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.EMERALD)
-                .requires(OccultismItems.GRAY_PASTE)
-                .requires(OccultismTags.Items.EMERALD_DUST)
-                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/emerald"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.LAPIS_LAZULI)
-                .requires(OccultismItems.GRAY_PASTE)
-                .requires(OccultismTags.Items.LAPIS_DUST)
-                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/lapis_lazuli"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.AMETHYST_SHARD)
-                .requires(OccultismItems.GRAY_PASTE)
-                .requires(OccultismTags.Items.AMETHYST_DUST)
-                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/amethyst_shard"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.ECHO_SHARD)
-                .requires(OccultismItems.GRAY_PASTE)
-                .requires(OccultismTags.Items.ECHO_DUST)
-                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/echo_shard"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.OTHERSTONE)
-                .requires(OccultismItems.GRAY_PASTE)
-                .requires(OccultismTags.Items.OTHERSTONE_DUST)
-                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/otherstone"));
     }
 
-    private void smeltingRecipes(RecipeOutput pRecipeOutput) {
-        SimpleCookingRecipeBuilder.smelting(Ingredient.of(OccultismBlocks.OTHERSTONE.get()), RecipeCategory.MISC, OccultismItems.BURNT_OTHERSTONE.get(), 0.15f, 200)
-                .unlockedBy("has_otherstone", has(OccultismBlocks.OTHERSTONE.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "smelting/burnt_otherstone"));
-        SimpleCookingRecipeBuilder
-                .smelting(Ingredient.of(OccultismTags.Items.COPPER_DUST), RecipeCategory.MISC, Items.COPPER_INGOT, 0.7f, 200)
-                .unlockedBy("has_copper_dust", has(OccultismTags.Items.COPPER_DUST))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "smelting/copper_ingot_from_dust"));
-        SimpleCookingRecipeBuilder
-                .smelting(Ingredient.of(OccultismTags.Items.GOLD_DUST), RecipeCategory.MISC, Items.GOLD_INGOT, 0.7f, 200)
-                .unlockedBy("has_gold_dust", has(OccultismTags.Items.GOLD_DUST))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "smelting/gold_ingot_from_dust"));
-        SimpleCookingRecipeBuilder
-                .smelting(Ingredient.of(OccultismTags.Items.IESNIUM_ORE), RecipeCategory.MISC, OccultismItems.IESNIUM_INGOT.get(), 0.7f, 200)
-                .unlockedBy("has_iesnium_ore", has(OccultismTags.Items.IESNIUM_ORE))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "smelting/iesnium_ingot"));
-        SimpleCookingRecipeBuilder
-                .smelting(Ingredient.of(OccultismTags.Items.IESNIUM_DUST), RecipeCategory.MISC, OccultismItems.IESNIUM_INGOT.get(), 0.7f, 200)
-                .unlockedBy("has_iesnium_dust", has(OccultismTags.Items.IESNIUM_DUST))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "smelting/iesnium_ingot_from_dust"));
-        SimpleCookingRecipeBuilder
-                .smelting(Ingredient.of(OccultismTags.Items.NETHERITE_SCRAP_DUST), RecipeCategory.MISC, Items.NETHERITE_SCRAP, 0.7f, 200)
-                .unlockedBy("has_netherite_scrap_dust", has(OccultismTags.Items.NETHERITE_SCRAP_DUST))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "smelting/netherite_scrap_from_dust"));
-
-        SimpleCookingRecipeBuilder
-                .smelting(Ingredient.of(OccultismTags.Items.RAW_IESNIUM), RecipeCategory.MISC, OccultismItems.IESNIUM_INGOT.get(), 0.7f, 200)
-                .unlockedBy("has_raw_iesnium", has(OccultismTags.Items.RAW_IESNIUM))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "smelting/iesnium_ingot_from_raw"));
-        SimpleCookingRecipeBuilder
-                .smelting(Ingredient.of(OccultismTags.Items.IRON_DUST), RecipeCategory.MISC, Items.IRON_INGOT, 0.7f, 200)
-                .unlockedBy("has_iron_dust", has(OccultismTags.Items.IRON_DUST))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "smelting/iron_ingot_from_dust"));
-        SimpleCookingRecipeBuilder
-                .smelting(Ingredient.of(OccultismTags.Items.SILVER_ORE), RecipeCategory.MISC, OccultismItems.SILVER_INGOT.get(), 0.7f, 200)
-                .unlockedBy("has_silver_ore", has(OccultismTags.Items.SILVER_ORE))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "smelting/silver_ingot"));
-        SimpleCookingRecipeBuilder
-                .smelting(Ingredient.of(OccultismTags.Items.SILVER_DUST), RecipeCategory.MISC, OccultismItems.SILVER_INGOT.get(), 0.7f, 200)
-                .unlockedBy("has_silver_dust", has(OccultismTags.Items.SILVER_DUST))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "smelting/silver_ingot_from_dust"));
-        SimpleCookingRecipeBuilder
-                .smelting(Ingredient.of(OccultismTags.Items.RAW_SILVER), RecipeCategory.MISC, OccultismItems.SILVER_INGOT.get(), 0.7f, 200)
-                .unlockedBy("has_raw_silver", has(OccultismTags.Items.RAW_SILVER))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "smelting/silver_ingot_from_raw"));
-        SimpleCookingRecipeBuilder
-                .smelting(Ingredient.of(OccultismBlocks.OTHERCOBBLESTONE.asItem()), RecipeCategory.MISC, OccultismBlocks.POLISHED_OTHERSTONE.asItem(), 0.5f, 200)
-                .unlockedBy("has_othercobblestone", has(OccultismBlocks.OTHERCOBBLESTONE.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "smelting/polished_otherstone"));
-        SimpleCookingRecipeBuilder
-                .smelting(Ingredient.of(OccultismBlocks.OTHERSTONE_BRICKS.asItem()), RecipeCategory.MISC, OccultismBlocks.CRACKED_OTHERSTONE_BRICKS.asItem(), 0.3f, 200)
-                .unlockedBy("has_otherstone_bricks", has(OccultismBlocks.OTHERSTONE_BRICKS.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "smelting/cracked_otherstone_bricks"));
-        SimpleCookingRecipeBuilder
-                .smelting(Ingredient.of(OccultismTags.Items.NETHERITE_DUST), RecipeCategory.MISC, Items.NETHERITE_INGOT, 0.7f, 200)
-                .unlockedBy("has_netherite_dust", has(OccultismTags.Items.NETHERITE_DUST))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "smelting/netherite_ingot_from_dust"));
-
+    private static void woodRecipes(RecipeOutput pRecipeOutput) {
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.OTHERPLANKS.get(), 4)
+                .requires(OccultismTags.Items.OTHERWORLD_LOGS)
+                .unlockedBy("has_otherworld_log", has(OccultismBlocks.OTHERWORLD_LOG.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.OTHERWORLD_WOOD.get(), 3)
+                .pattern("oo")
+                .pattern("oo")
+                .define('o', OccultismBlocks.OTHERWORLD_LOG.get())
+                .unlockedBy("has_otherworld_log", has(OccultismBlocks.OTHERWORLD_LOG.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherworld_wood"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.STRIPPED_OTHERWORLD_WOOD.get(), 3)
+                .pattern("oo")
+                .pattern("oo")
+                .define('o', OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get())
+                .unlockedBy("has_otherworld_log", has(OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/stripped_otherworld_wood"));
+        stairBuilder(OccultismBlocks.OTHERPLANKS_STAIRS.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
+                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_stairs"));
+        slabBuilder(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.OTHERPLANKS_SLAB.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
+                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_slab"));
+        pressurePlateBuilder(RecipeCategory.REDSTONE, OccultismBlocks.OTHERPLANKS_PRESSURE_PLATE.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()) )
+                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_pressure_plate"));
+        buttonBuilder(OccultismBlocks.OTHERPLANKS_BUTTON.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
+                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_button"));
+        fenceBuilder(OccultismBlocks.OTHERPLANKS_FENCE.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
+                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_fence"));
+        fenceGateBuilder(OccultismBlocks.OTHERPLANKS_FENCE_GATE.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
+                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_fence_gate"));
+        doorBuilder(OccultismBlocks.OTHERPLANKS_DOOR.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
+                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_door"));
+        trapdoorBuilder(OccultismBlocks.OTHERPLANKS_TRAPDOOR.get(), Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
+                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_trapdoor"));
+        signBuilder(OccultismItems.OTHERPLANKS_SIGN, Ingredient.of(OccultismBlocks.OTHERPLANKS.asItem()))
+                .unlockedBy("has_otherplanks", has(OccultismBlocks.OTHERPLANKS.asItem()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_sign"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, OccultismItems.OTHERPLANKS_HANGING_SIGN, 6)
+                .group("hanging_sign")
+                .define('#', OccultismBlocks.STRIPPED_OTHERWORLD_LOG.asItem())
+                .define('X', Items.CHAIN)
+                .pattern("X X")
+                .pattern("###")
+                .pattern("###")
+                .unlockedBy("has_stripped_otherworld_log", has(OccultismBlocks.STRIPPED_OTHERWORLD_LOG.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherplanks_hanging_sign"));
     }
 
-    private void stonecutterRecipes(RecipeOutput pRecipeOutput) {
+    private static void smeltingRecipes(RecipeOutput pRecipeOutput) {
+        autoSmeltingRecipe(OccultismBlocks.OTHERSTONE.asItem(), OccultismItems.BURNT_OTHERSTONE.asItem(), 0.15f, pRecipeOutput);
+        autoSmeltingRecipe(OccultismBlocks.OTHERCOBBLESTONE.asItem(), OccultismBlocks.POLISHED_OTHERSTONE.asItem(), 0.5f, pRecipeOutput);
+        autoSmeltingRecipe(OccultismBlocks.OTHERSTONE_BRICKS.asItem(), OccultismBlocks.CRACKED_OTHERSTONE_BRICKS.asItem(), 0.3f, pRecipeOutput);
+    }
+
+    protected static void autoSmeltingRecipe(Item input, Item output, Float exp, RecipeOutput pRecipeOutput){
+        SimpleCookingRecipeBuilder
+                .smelting(Ingredient.of(input), RecipeCategory.MISC, output, exp, 200)
+                .unlockedBy("has_" + input.toString().replace("occultism:",""), has(input))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "smelting/" + output.toString().replace("occultism:","")));
+    }
+
+    private static void oresCookingRecipes(RecipeOutput pRecipeOutput) {
+        doubleCookingRecipe(OccultismTags.Items.SILVER_ORE, OccultismItems.SILVER_INGOT.get(), pRecipeOutput);
+        doubleCookingRecipe(OccultismTags.Items.RAW_SILVER, OccultismItems.SILVER_INGOT.get(), pRecipeOutput);
+        doubleCookingRecipe(OccultismTags.Items.IESNIUM_ORE, OccultismItems.IESNIUM_INGOT.get(), pRecipeOutput);
+        doubleCookingRecipe(OccultismTags.Items.RAW_IESNIUM, OccultismItems.IESNIUM_INGOT.get(), pRecipeOutput);
+    }
+
+    protected static void doubleCookingRecipe(TagKey<Item> tagInput, Item output, RecipeOutput recipeOutput) {
+        String outputString = output.toString().replace("minecraft:", "").replace("occultism:", "");
+        String simpleInputString = tagInput.toString().contains("c:ores") ? "ore" : "raw";
+        String condtionString = "has_" + tagInput.toString().substring(26).replace("materials/","").replace("/","_").replace("]","");
+        SimpleCookingRecipeBuilder
+                .smelting(Ingredient.of(tagInput), RecipeCategory.MISC, output, 0.7f, 200)
+                .unlockedBy(condtionString, has(tagInput))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "smelting/" + outputString + "_from_" + simpleInputString));
+
+        SimpleCookingRecipeBuilder
+                .blasting(Ingredient.of(tagInput), RecipeCategory.MISC, output, 0.7f, 100)
+                .unlockedBy(condtionString, has(tagInput))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "blasting/" + outputString + "_from_" + simpleInputString));
+    }
+
+    private static void spiritFireRecipes(RecipeOutput pRecipeOutput) {
+        spiritfireTransmute(OccultismItems.CHALK_WHITE_IMPURE.asItem(), OccultismItems.CHALK_WHITE.asItem(), pRecipeOutput);
+        spiritfireTransmute(OccultismItems.CHALK_LIGHT_GRAY_IMPURE.asItem(), OccultismItems.CHALK_LIGHT_GRAY.asItem(), pRecipeOutput);
+        spiritfireTransmute(OccultismItems.CHALK_GRAY_IMPURE.asItem(), OccultismItems.CHALK_GRAY.asItem(), pRecipeOutput);
+        spiritfireTransmute(OccultismItems.CHALK_BLACK_IMPURE.asItem(), OccultismItems.CHALK_BLACK.asItem(), pRecipeOutput);
+        spiritfireTransmute(OccultismItems.CHALK_YELLOW_IMPURE.asItem(), OccultismItems.CHALK_YELLOW.asItem(), pRecipeOutput);
+        spiritfireTransmute(OccultismItems.CHALK_PURPLE_IMPURE.asItem(), OccultismItems.CHALK_PURPLE.asItem(), pRecipeOutput);
+        spiritfireTransmute(OccultismItems.CHALK_LIME_IMPURE.asItem(), OccultismItems.CHALK_LIME.asItem(), pRecipeOutput);
+        spiritfireTransmute(OccultismItems.CHALK_ORANGE_IMPURE.asItem(), OccultismItems.CHALK_ORANGE.asItem(), pRecipeOutput);
+        spiritfireTransmute(OccultismItems.CHALK_RED_IMPURE.asItem(), OccultismItems.CHALK_RED.asItem(), pRecipeOutput);
+        spiritfireTransmute(OccultismItems.CHALK_BLUE_IMPURE.asItem(), OccultismItems.CHALK_BLUE.asItem(), pRecipeOutput);
+        spiritfireTransmute(OccultismItems.CHALK_GREEN_IMPURE.asItem(), OccultismItems.CHALK_GREEN.asItem(), pRecipeOutput);
+        spiritfireTransmute(OccultismItems.CHALK_LIGHT_BLUE_IMPURE.asItem(), OccultismItems.CHALK_LIGHT_BLUE.asItem(), pRecipeOutput);
+        spiritfireTransmute(OccultismItems.CHALK_PINK_IMPURE.asItem(), OccultismItems.CHALK_PINK.asItem(), pRecipeOutput);
+        spiritfireTransmute(OccultismItems.CHALK_CYAN_IMPURE.asItem(), OccultismItems.CHALK_CYAN.asItem(), pRecipeOutput);
+        spiritfireTransmute(OccultismItems.CHALK_BROWN_IMPURE.asItem(), OccultismItems.CHALK_BROWN.asItem(), pRecipeOutput);
+        spiritfireTransmute(OccultismItems.CHALK_MAGENTA_IMPURE.asItem(), OccultismItems.CHALK_MAGENTA.asItem(), pRecipeOutput);
+        spiritfireTransmute(OccultismItems.DEMONS_DREAM_ESSENCE.asItem(), OccultismItems.OTHERWORLD_ESSENCE.asItem(), pRecipeOutput);
+        spiritfireTransmute(Items.OAK_SAPLING, OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.asItem(), pRecipeOutput);
+        spiritfireTransmute(Items.ANDESITE, OccultismBlocks.OTHERSTONE.asItem(), pRecipeOutput);
+        spiritfireTransmute(Tags.Items.GEMS_DIAMOND, OccultismItems.SPIRIT_ATTUNED_GEM.asItem(), pRecipeOutput);
+        spiritfireTransmute(OccultismTags.Items.OTHERWORLD_LOGS, OccultismItems.OTHERWORLD_ASHES.asItem(), pRecipeOutput);
+        spiritfireTransmute(Tags.Items.FEATHERS, OccultismItems.AWAKENED_FEATHER.asItem(), pRecipeOutput);
+        spiritfireTransmute(Tags.Items.DYES_BLACK, OccultismItems.PURIFIED_INK.asItem(), pRecipeOutput);
+        spiritfireTransmute(Items.BOOK, OccultismItems.TABOO_BOOK.asItem(), pRecipeOutput);
+        spiritfireTransmute(OccultismTags.Items.BOOKS_FOR_EMPTY, OccultismItems.BOOK_OF_BINDING_EMPTY.asItem(), pRecipeOutput);
+        spiritfireTransmute(ItemTags.FLOWERS, OccultismBlocks.OTHERFLOWER.asItem(), pRecipeOutput);
+    }
+
+    protected static void spiritfireTransmute(TagKey<Item> input, Item output, RecipeOutput pRecipeOutput){
+        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(input), new ItemStack(output))
+                .unlockedBy("has_tag_item", has(input))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/" + output.toString().replace("occultism:","")));
+    }
+
+    protected static void spiritfireTransmute(Item input, Item output, RecipeOutput pRecipeOutput){
+        SpiritFireRecipeBuilder.spiritFireRecipe(Ingredient.of(input), new ItemStack(output))
+                .unlockedBy("has_" + input.toString().replace("minecraft:","").replace("occultism:",""), has(input))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire/" + output.toString().replace("occultism:","")));
+    }
+
+    private static void stonecutterRecipes(RecipeOutput pRecipeOutput) {
         otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_SLAB, OccultismBlocks.OTHERSTONE, 2);
         otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_STAIRS, OccultismBlocks.OTHERSTONE);
         otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_WALL, OccultismBlocks.OTHERSTONE);
         otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_BRICKS, OccultismBlocks.OTHERSTONE);
-        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_BRICKS_SLAB, OccultismBlocks.OTHERSTONE, 2, true);
-        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_BRICKS_STAIRS, OccultismBlocks.OTHERSTONE, true);
-        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_BRICKS_WALL, OccultismBlocks.OTHERSTONE, true);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_BRICKS_SLAB, OccultismBlocks.OTHERSTONE, 2);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_BRICKS_STAIRS, OccultismBlocks.OTHERSTONE);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_BRICKS_WALL, OccultismBlocks.OTHERSTONE);
         otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERCOBBLESTONE_SLAB, OccultismBlocks.OTHERCOBBLESTONE, 2);
         otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERCOBBLESTONE_STAIRS, OccultismBlocks.OTHERCOBBLESTONE);
         otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERCOBBLESTONE_WALL, OccultismBlocks.OTHERCOBBLESTONE);
@@ -1471,5 +935,65 @@ public class OccultismRecipeProvider extends RecipeProvider {
         otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_BRICKS_SLAB, OccultismBlocks.OTHERSTONE_BRICKS, 2);
         otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_BRICKS_STAIRS, OccultismBlocks.OTHERSTONE_BRICKS);
         otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_BRICKS_WALL, OccultismBlocks.OTHERSTONE_BRICKS);
+    }
+
+    protected static void otherStonecutter(RecipeOutput recipeOutput, ItemLike result, ItemLike material, int resultCount) {
+            SingleItemRecipeBuilder.stonecutting(Ingredient.of(material), RecipeCategory.BUILDING_BLOCKS, result, resultCount)
+                    .unlockedBy(getHasName(material), has(material))
+                    .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "stonecutting/" + getItemName(result) + "_from_" + getItemName(material)));
+    }
+
+    protected static void otherStonecutter(RecipeOutput recipeOutput, ItemLike result, ItemLike material) {
+        otherStonecutter(recipeOutput, result, material, 1);
+    }
+
+    private static void otherflowerRecipes(RecipeOutput pRecipeOutput) {
+        otherflowerDye(Items.WHITE_DYE, Tags.Items.DYES_WHITE, pRecipeOutput);
+        otherflowerDye(Items.LIGHT_GRAY_DYE, Tags.Items.DYES_LIGHT_GRAY, pRecipeOutput);
+        otherflowerDye(Items.GRAY_DYE, Tags.Items.DYES_GRAY, pRecipeOutput);
+        otherflowerDye(Items.BLACK_DYE, Tags.Items.DYES_BLACK, pRecipeOutput);
+        otherflowerDye(Items.BROWN_DYE, Tags.Items.DYES_BROWN, pRecipeOutput);
+        otherflowerDye(Items.RED_DYE, Tags.Items.DYES_RED, pRecipeOutput);
+        otherflowerDye(Items.ORANGE_DYE, Tags.Items.DYES_ORANGE, pRecipeOutput);
+        otherflowerDye(Items.YELLOW_DYE, Tags.Items.DYES_YELLOW, pRecipeOutput);
+        otherflowerDye(Items.LIME_DYE, Tags.Items.DYES_LIME, pRecipeOutput);
+        otherflowerDye(Items.GREEN_DYE, Tags.Items.DYES_GREEN, pRecipeOutput);
+        otherflowerDye(Items.CYAN_DYE, Tags.Items.DYES_CYAN, pRecipeOutput);
+        otherflowerDye(Items.BLUE_DYE, Tags.Items.DYES_BLUE, pRecipeOutput);
+        otherflowerDye(Items.LIGHT_BLUE_DYE, Tags.Items.DYES_LIGHT_BLUE, pRecipeOutput);
+        otherflowerDye(Items.PINK_DYE, Tags.Items.DYES_PINK, pRecipeOutput);
+        otherflowerDye(Items.MAGENTA_DYE, Tags.Items.DYES_MAGENTA, pRecipeOutput);
+        otherflowerDye(Items.PURPLE_DYE, Tags.Items.DYES_PURPLE, pRecipeOutput);
+    }
+
+    protected static void otherflowerDye(ItemLike result, TagKey<Item> colorTag, RecipeOutput pRecipeOutput){
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, result, 3)
+                .requires(OccultismBlocks.OTHERFLOWER.asItem())
+                .requires(colorTag)
+                .unlockedBy("has_otherflower", has(OccultismBlocks.OTHERFLOWER.asItem()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID,
+                        "crafting/otherflower_to_" + colorTag.toString().substring(31).replace("]","_")) + "dye");
+    }
+
+    private static void grayPasteRecipes(RecipeOutput pRecipeOutput) {
+        grayPasting(OccultismTags.Items.ECHO_DUST, Items.ECHO_SHARD, RecipeCategory.MISC, pRecipeOutput);
+        grayPasting(OccultismTags.Items.LAPIS_DUST, Items.LAPIS_LAZULI, RecipeCategory.MISC, pRecipeOutput);
+        grayPasting(OccultismTags.Items.AMETHYST_DUST, Items.AMETHYST_SHARD, RecipeCategory.MISC, pRecipeOutput);
+        grayPasting(OccultismTags.Items.EMERALD_DUST, Items.EMERALD, RecipeCategory.MISC, pRecipeOutput);
+        grayPasting(OccultismTags.Items.ICE_DUST, Items.ICE, RecipeCategory.BUILDING_BLOCKS, pRecipeOutput);
+        grayPasting(OccultismTags.Items.PACKED_ICE_DUST, Items.PACKED_ICE, RecipeCategory.BUILDING_BLOCKS, pRecipeOutput);
+        grayPasting(OccultismTags.Items.BLUE_ICE_DUST, Items.BLUE_ICE, RecipeCategory.BUILDING_BLOCKS, pRecipeOutput);
+        grayPasting(OccultismTags.Items.END_STONE_DUST, Items.END_STONE, RecipeCategory.BUILDING_BLOCKS, pRecipeOutput);
+        grayPasting(OccultismTags.Items.OBSIDIAN_DUST, Items.OBSIDIAN, RecipeCategory.BUILDING_BLOCKS, pRecipeOutput);
+        grayPasting(OccultismTags.Items.CALCITE_DUST, Items.CALCITE, RecipeCategory.BUILDING_BLOCKS, pRecipeOutput);
+        grayPasting(OccultismTags.Items.BLACKSTONE_DUST, Items.BLACKSTONE, RecipeCategory.BUILDING_BLOCKS, pRecipeOutput);
+        grayPasting(OccultismTags.Items.OTHERSTONE_DUST, OccultismBlocks.OTHERSTONE.asItem(), RecipeCategory.BUILDING_BLOCKS, pRecipeOutput);
+    }
+
+    protected static void grayPasting(TagKey<Item> input, Item output, RecipeCategory category, RecipeOutput pRecipeOutput) {
+        ShapelessRecipeBuilder.shapeless(category, output)
+                .requires(OccultismItems.GRAY_PASTE).requires(input)
+                .unlockedBy("has_gray_paste", has(OccultismItems.GRAY_PASTE))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/gray_paste/" + output.toString().replace("minecraft:","").replace("occultism:","")));
     }
 }

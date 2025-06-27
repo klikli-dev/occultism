@@ -81,14 +81,15 @@ public abstract class RitualSatchelItem extends Item {
                 RitualSatchelContainer.SATCHEL_SIZE
         );
 
-        if (!context.getLevel().getBlockState(context.getClickedPos().above()).isAir())
+        if (context.getItemInHand().is(OccultismItems.RITUAL_SATCHEL_T1) && !context.getLevel().getBlockState(context.getClickedPos().above()).canBeReplaced())
             return PlacementResult.ERROR_BLOCK_ABOVE_NOT_AIR;
 
-        if (context.getItemInHand().is(OccultismItems.RITUAL_SATCHEL_T2) && !context.getLevel().getBlockState(context.getClickedPos()).isAir())
+        if (context.getItemInHand().is(OccultismItems.RITUAL_SATCHEL_T2) && !context.getLevel().getBlockState(context.getClickedPos()).canBeReplaced())
             return PlacementResult.ERROR_BLOCK_AT_POSITION_NOT_AIR;
 
         for (int i = 0; i < inventory.getSlots(); i++) {
             var stack = inventory.getStackInSlot(i);
+            var isGlyph = false;
 
             BlockState blockStateToPlace = null;
             if (stack.getItem() instanceof BlockItem blockItem) {
@@ -100,18 +101,24 @@ public abstract class RitualSatchelItem extends Item {
                 blockStateToPlace = block.getStateForPlacement(blockPlaceContext);
             } else if (stack.getItem() instanceof ChalkItem chalkItem) {
                 var chalkBlock = chalkItem.getGlyphBlock().get();
-                if (!context.getLevel().getBlockState(context.getClickedPos().below()).isAir())
                     blockStateToPlace = chalkBlock.getStateForPlacement(new BlockPlaceContext(context));
+                    isGlyph = true;
             } else if (stack.getItem() instanceof RainbowChalkItem chalkItem) {
                 var chalkBlock = chalkItem.getGlyphBlock().get();
-                if (!context.getLevel().getBlockState(context.getClickedPos().below()).isAir())
                     blockStateToPlace = chalkBlock.getStateForPlacement(new BlockPlaceContext(context));
+                    isGlyph = true;
             }
 
             if (blockStateToPlace == null)
                 continue;
 
+
             if (statePredicate.test(context.getLevel(), targetMatcher.getWorldPosition(), blockStateToPlace)) {
+                if (isGlyph && !blockStateToPlace.canSurvive(context.getLevel(), targetMatcher.getWorldPosition().above())) {
+                    if (context.getItemInHand().is(OccultismItems.RITUAL_SATCHEL_T1))
+                        return PlacementResult.ERROR_GLYPH_CANNOT_SURVIVE;
+                    continue;
+                }
                 // Simulate item use
                 stack.useOn(new UseOnContext(context.getLevel(), context.getPlayer(), context.getHand(), stack, context.getHitResult()));
                 inventory.setStackInSlot(i, stack); // Force an update of the container if the item was used up or stack size reduced.
@@ -223,7 +230,8 @@ public abstract class RitualSatchelItem extends Item {
         ERROR_INVALID_MATCHER,
         ERROR_BLOCK_ABOVE_NOT_AIR,
         ERROR_BLOCK_AT_POSITION_NOT_AIR,
-        ERROR_NO_MATCHING_BLOCK_FOUND
+        ERROR_NO_MATCHING_BLOCK_FOUND,
+        ERROR_GLYPH_CANNOT_SURVIVE
     }
 
 }

@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_otherworld_log": {
+    "has_tag_item": {
       "conditions": {
         "items": [
           {
-            "items": "occultism:otherworld_log"
+            "items": "#occultism:otherworld_logs"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_otherworld_log"
+      "has_tag_item"
     ]
   ],
   "rewards": {

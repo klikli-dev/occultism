@@ -203,6 +203,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(TranslationKeys.RITUAL_SATCHEL_BLOCK_ABOVE_NOT_AIR, "The block above the clicked position is not empty.");
         this.add(TranslationKeys.RITUAL_SATCHEL_BLOCK_AT_POSITION_NOT_AIR, "The block at the clicked position is not empty.");
         this.add(TranslationKeys.RITUAL_SATCHEL_INVALID_MATCHER, "Cannot place a block for an ANY or DISPLAY_ONLY multiblock matcher");
+        this.add(TranslationKeys.RITUAL_SATCHEL_GLYPH_CANNOT_SURVIVE, "Cannot place a glyph here.");
 
         this.addItem(OccultismItems.CHALK_YELLOW, "Yellow Chalk");
         this.addItem(OccultismItems.CHALK_PURPLE, "Purple Chalk");
@@ -221,7 +222,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.CHALK_MAGENTA, "Magenta Chalk");
         this.addItem(OccultismItems.CHALK_PINK, "Pink Chalk");
         this.addItem(OccultismItems.CHALK_RAINBOW, "Rainbow Chalk");
+        this.addAutoTooltip(OccultismItems.CHALK_RAINBOW, "Shift + Right Click in a glyph to erase");
         this.addItem(OccultismItems.CHALK_VOID, "Void Chalk");
+        this.addAutoTooltip(OccultismItems.CHALK_VOID, "Shift + Right Click in a glyph to erase");
         this.addItem(OccultismItems.CHALK_YELLOW_IMPURE, "Impure Yellow Chalk");
         this.addItem(OccultismItems.CHALK_PURPLE_IMPURE, "Impure Purple Chalk");
         this.addItem(OccultismItems.CHALK_RED_IMPURE, "Impure Red Chalk");
@@ -264,11 +267,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.DATURA_SEEDS, "Demon's Dream Seeds");
         this.addAutoTooltip(OccultismItems.DATURA_SEEDS.get(), "Plant to grow Demon's Dream Fruit.\nConsumption may allow to see beyond the veil ... it may also cause general un-wellness.");
         this.addItem(OccultismItems.DATURA, "Demon's Dream Fruit");
-        this.addAutoTooltip(OccultismItems.DATURA.get(), "Consumption may allow to see beyond the veil ... it may also cause general un-wellness.");
+        this.addAutoTooltip(OccultismItems.DATURA.get(), "Consumption may allow to see beyond the veil ... it may also cause general un-wellness. (Can grants Third Eye when eating)");
         this.addItem(OccultismItems.DEMONS_DREAM_ESSENCE, "Demon's Dream Essence");
-        this.addAutoTooltip(OccultismItems.DEMONS_DREAM_ESSENCE.get(), "Consumption allows to see beyond the veil ... and a whole lot of other effects.");
+        this.addAutoTooltip(OccultismItems.DEMONS_DREAM_ESSENCE.get(), "Consumption allows to see beyond the veil ... and a whole lot of other effects. (Grants Third Eye when eating)");
         this.addItem(OccultismItems.OTHERWORLD_ESSENCE, "Otherworld Essence");
-        this.addAutoTooltip(OccultismItems.OTHERWORLD_ESSENCE.get(), "Purified Demon's Dream Essence, no longer provides any of the negative effects.");
+        this.addAutoTooltip(OccultismItems.OTHERWORLD_ESSENCE.get(), "Purified Demon's Dream Essence, no longer provides any of the negative effects. (Grants Third Eye when eating)");
         this.addItem(OccultismItems.BEAVER_NUGGET, "Beaver Nugget");
         this.addItem(OccultismItems.SPIRIT_ATTUNED_GEM, "Spirit Attuned Gem");
         this.add("item.occultism.otherworld_sapling", "Otherworld Sapling");
@@ -308,6 +311,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.MINER_MARID_MASTER, "Master Miner Marid");
         this.addItem(OccultismItems.MINER_ANCIENT_ELDRITCH, "Eldritch Ancient Miner");
         this.addItem(OccultismItems.MINING_DIMENSION_CORE_PIECE, "Mining Dimension Core Piece");
+        this.addAutoTooltip(OccultismItems.MINING_DIMENSION_CORE_PIECE, "Very durable fuel");
         this.addItem(OccultismItems.FRAGILE_SOUL_GEM_ITEM, "Fragile Soul Gem");
         this.add(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get().getDescriptionId() + "_empty", "Fragile Empty Soul Gem");
         this.addItem(OccultismItems.SOUL_GEM_ITEM, "Soul Gem");
@@ -316,6 +320,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.TRINITY_GEM_ITEM.get().getDescriptionId() + "_empty", "Empty Trinity Gem");
         this.addItem(OccultismItems.SOUL_SHARD_ITEM, "Soul Shard");
         this.addItem(OccultismItems.SATCHEL, "Surprisingly Substantial Satchel");
+        this.addAutoTooltip(OccultismItems.SATCHEL, "Some people call it a backpack");
         this.addItem(OccultismItems.FAMILIAR_RING, "Familiar Ring");
         this.addItem(OccultismItems.SPAWN_EGG_FOLIOT, "Foliot Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_DJINNI, "Djinni Spawn Egg");
@@ -334,6 +339,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WARDEN, "Possessed Warden Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_HOGLIN, "Possessed Hoglin Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WITCH, "Possessed Witch Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_BLAZE, "Possessed Blaze Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ZOMBIE_PIGLIN, "Possessed Zombified Piglin Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_BEE, "Possessed Bee Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_GOAT_OF_MERCY, "Goat of Mercy Spawn Egg");
@@ -377,14 +383,18 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.CRUSHED_ICE,"Crushed Ice");
         this.addItem(OccultismItems.CRUSHED_PACKED_ICE,"Crushed Packed Ice");
         this.addItem(OccultismItems.CURSED_HONEY,"Cursed Honey");
+        this.addAutoTooltip(OccultismItems.CURSED_HONEY, "Grants Regeneration when eating");
         this.addItem(OccultismItems.DEMONIC_MEAT,"Demonic Meat");
+        this.addAutoTooltip(OccultismItems.DEMONIC_MEAT, "Grants Fire Resistance when eating");
         this.addItem(OccultismItems.DRAGONYST_DUST,"Dragonyst Dust");
         this.addItem(OccultismItems.ECHO_DUST,"Echo Dust");
         this.addItem(OccultismItems.EMERALD_DUST,"Emerald Dust");
         this.addItem(OccultismItems.GRAY_PASTE,"Gray Paste");
+        this.addAutoTooltip(OccultismItems.GRAY_PASTE, "Reacts with some dusts, returning to its original shape");
         this.addItem(OccultismItems.LAPIS_DUST,"Lapis Dust");
         this.addItem(OccultismItems.MARID_ESSENCE,"Marid Essence");
         this.addItem(OccultismItems.NATURE_PASTE,"Nature Paste");
+        this.addAutoTooltip(OccultismItems.NATURE_PASTE, "Powerful and reusable bonemeal (instantly grow and affects more plants)");
         this.addItem(OccultismItems.NETHERITE_DUST,"Netherite Dust");
         this.addItem(OccultismItems.NETHERITE_SCRAP_DUST,"Netherite Scrap Dust");
         this.addItem(OccultismItems.RESEARCH_FRAGMENT_DUST,"Research Fragment Dust");
@@ -527,6 +537,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.POSSESSED_WARDEN, "Possessed Warden");
         this.addEntityType(OccultismEntities.POSSESSED_HOGLIN, "Possessed Hoglin");
         this.addEntityType(OccultismEntities.POSSESSED_WITCH, "Possessed Witch");
+        this.addEntityType(OccultismEntities.POSSESSED_BLAZE, "Possessed Blaze");
         this.addEntityType(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN, "Possessed Zombified Piglin");
         this.addEntityType(OccultismEntities.POSSESSED_BEE, "Possessed Bee");
         this.addEntityType(OccultismEntities.GOAT_OF_MERCY, "Goat of Mercy");
@@ -589,6 +600,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("job.occultism.crush_tier2", "Crusher");
         this.add("job.occultism.crush_tier3", "Fast Crusher");
         this.add("job.occultism.crush_tier4", "Very Fast Crusher");
+        this.add("job.occultism.crystal_tier1", "Slow Crystallizer");
+        this.add("job.occultism.crystal_tier2", "Crystallizer");
+        this.add("job.occultism.crystal_tier3", "Fast Crystallizer");
+        this.add("job.occultism.crystal_tier4", "Very Fast Crystallizer");
         this.add("job.occultism.smelt_tier1", "Slow Smelter");
         this.add("job.occultism.smelt_tier2", "Smelter");
         this.add("job.occultism.smelt_tier3", "Fast Smelter");
@@ -673,6 +688,16 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("effect.occultism.beaver_harvest", "Beaver Harvest");
         this.add("effect.occultism.step_height", "Step Height");
 
+        //Potions
+        this.add("item.minecraft.potion.effect.third_eye_potion", "Potion of Third Eye");
+        this.add("item.minecraft.potion.effect.long_third_eye_potion", "Potion of Third Eye");
+        this.add("item.minecraft.splash_potion.effect.third_eye_potion", "Splash Potion of Third Eye");
+        this.add("item.minecraft.splash_potion.effect.long_third_eye_potion", "Splash Potion of Third Eye");
+        this.add("item.minecraft.lingering_potion.effect.third_eye_potion", "Lingering Potion of Third Eye");
+        this.add("item.minecraft.lingering_potion.effect.long_third_eye_potion", "Lingering Potion of Third Eye");
+        this.add("item.minecraft.tipped_arrow.effect.third_eye_potion", "Tipped Arrow");
+        this.add("item.minecraft.tipped_arrow.effect.long_third_eye_potion", "Tipped Arrow");
+
         //Sounds
         this.add("occultism.subtitle.chalk", "Chalk");
         this.add("occultism.subtitle.brush", "Brush");
@@ -730,13 +755,16 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addRitualMessages() {
-        this.add("ritual.occultism.pentacle_help", "\u00a7lInvalid pentacle!\u00a7r\nWere you trying to create pentacle: %s? Missing:\n%s");
+        this.add("ritual.occultism.pentacle_help", "\u00a7lInvalid pentacle!\u00a7r\nWere you trying to create pentacle: \"%s\"? Missing:\n%s");
         this.add("ritual.occultism.pentacle_help_at_glue", " at position ");
         this.add("ritual.occultism.pentacle_help.no_pentacle", "\u00a7lNo pentacle found!\u00a7r\nIt seems you did not draw a pentacle, or your pentacle is missing large parts. See the \"Rituals\" section of the Dictionary of Spirits, the required Pentacle will be a clickable blue link above the ritual recipe on the ritual's page.");
         this.add("ritual.occultism.ritual_help", "\u00a7lInvalid ritual!\u00a7r\nWere you trying to perform ritual: \"%s\"? Missing items:\n%s");
         this.add("ritual.occultism.disabled", "This ritual is disabled on this server.");
-        this.add("ritual.occultism.does_not_exist", "\u00a7lUnknown ritual\u00a7r. Make sure the pentacle & ingredients are set up correctly. If you are still unsuccessful join our discord at https://discord.gg/trE4SHRXvb");
-        this.add("ritual.occultism.book_not_bound", "\u00a7lUnbound Book of Calling\u00a7r. You must craft this book with Dictionary of Spirits to bind to a spirit before starting a ritual.");
+        this.add("ritual.occultism.does_not_exist", "\u00a7lUnknown ritual\u00a7r.\nMake sure the pentacle & ingredients are set up correctly. If you are still unsuccessful join our discord at https://discord.gg/trE4SHRXvb");
+        this.add("ritual.occultism.book_not_bound", "\u00a7lUnbound Book of Calling\u00a7r.\nYou must craft this book with Dictionary of Spirits to bind to a spirit before starting a ritual.");
+        this.add("ritual.occultism.wrong_activation_item", "\u00a7lWrong Activation Item\u00a7r.\nYou are trying to start the ritual with the wrong item, try:");
+        this.add("ritual.occultism.wrong_pentacle", "\u00a7lWrong Pentacle\u00a7r.\nYou are performing the ritual on the wrong pentacle, the correct one is:");
+        this.add("ritual.occultism.no_bowls", "\u00a7lNo Sacrificial Bowls Found.\u00a7r\nPlace the sacrificial bowls closer.");
         this.add("ritual.occultism.sacrifice", "" + ChatFormatting.WHITE + ChatFormatting.BOLD + "Perform the Sacrifice of:");
         this.add("ritual.occultism.use_item", "" + ChatFormatting.WHITE + ChatFormatting.BOLD + "Use the item:");
 
@@ -1105,6 +1133,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Drops**: 1-3x [](item://minecraft:ender_pearl)
+                        and as 10%% chance to drop a [](item://minecraft:eye_armor_trim_smithing_template)
                                 """);
 
         helper.page("ritual");
@@ -1136,6 +1165,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageText(),
                 """
                         **Drops**: 1-2x [](item://minecraft:end_stone)
+                        and as 25%% chance to drop an Eye
                                 """);
 
         helper.page("ritual");
@@ -2333,6 +2363,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     private void addJeiTranslations() {
         this.add("occultism.jei.spirit_fire", "Spiritfire");
         this.add("occultism.jei.crushing", "Crusher Spirit");
+        this.add("occultism.jei.crystallize", "Crystallizer Spirit");
         this.add("occultism.jei.miner", "Dimensional Mineshaft");
         this.add("occultism.jei.miner.chance", "Weight: %d");
         this.add("occultism.jei.ritual", "Occult Ritual");
@@ -2340,6 +2371,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         this.add(TranslationKeys.JEI_CRUSHING_RECIPE_MIN_TIER, "Min Crusher Tier: %d");
         this.add(TranslationKeys.JEI_CRUSHING_RECIPE_MAX_TIER, "Max Crusher Tier: %d");
+        this.add("jei.occultism.crushing.multiply_output", "The output is multiplied depending of the crusher tier");
+        this.add(TranslationKeys.JEI_CRYSTALLIZE_RECIPE_MIN_TIER, "Min Crystallizer Tier: %d");
+        this.add(TranslationKeys.JEI_CRYSTALLIZE_RECIPE_MAX_TIER, "Max Crystallizer Tier: %d");
+        this.add("jei.occultism.crystallize.multiply_output", "The output is multiplied depending of the crystallizer tier");
         this.add("jei.occultism.ingredient.tallow.description", "Kill animals, such as \u00a72pigs\u00a7r, \u00a72cows\u00a7r, \u00a72sheep\u00a7r, \u00a72horses\u00a7r and \u00a72lamas\u00a7r with the Butcher Knife to obtain tallow.");
         this.add("jei.occultism.ingredient.otherstone.description", "Primarily found in Otherworld Groves. Only visible while the status \u00a76Third Eye\u00a7r is active. See \u00a76Dictionary of Spirits\u00a7r for more information.");
         this.add("jei.occultism.ingredient.otherworld_log.description", "Primarily found in Otherworld Groves. Only visible while the status \u00a76Third Eye\u00a7r is active. See \u00a76Dictionary of Spirits\u00a7r for more information.");
@@ -2411,14 +2446,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addPentacle("otherworld_bird", "Otherworld Bird");
         this.addPentacle("summon_foliot", "Aviar's Circle");
         this.addPentacle("summon_djinni", "Ophyx' Calling");
-        this.addPentacle("summon_unbound_afrit", "Abras' Open Conjure");
+        this.addPentacle("summon_unbound_afrit", "Kandar's Opened Conjure");
         this.addPentacle("summon_afrit", "Abras' Conjure");
-        this.addPentacle("summon_unbound_marid", "Abras' Fortified Conjure");
+        this.addPentacle("summon_unbound_marid", "Tibira's Attraction");
         this.addPentacle("summon_marid", "Fatma's Incentivized Attraction");
         this.addPentacle("possess_foliot", "Hedyrin's Lure");
         this.addPentacle("possess_djinni", "Ihagan's Enthrallment");
-        this.addPentacle("possess_unbound_afrit", "Abras' Open Commanding Conjure");
-        this.addPentacle("possess_afrit", "Abras' Commanding Conjure");
+        this.addPentacle("possess_unbound_afrit", "Odus' Open Convocation");
+        this.addPentacle("possess_afrit", "Posuc's Convocation");
         this.addPentacle("possess_marid", "Xeovrenth Adjure");
         this.addPentacle("craft_foliot", "Eziveus' Spectral Compulsion");
         this.addPentacle("craft_djinni", "Strigeor's Higher Binding");
@@ -2455,6 +2490,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_SMELTER, "Summon Djinni Smelter", "Djinni", "The Smelter is a spirit summoned to make furnace, blast furnace, smoker and campfire recipes without using fuel and faster depending of the spirit.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_SMELTER, "Summon Afrit Smelter", "Afrit", "The Smelter is a spirit summoned to make furnace, blast furnace, smoker and campfire recipes without using fuel and faster depending of the spirit.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_SMELTER, "Summon Marid Smelter", "Marid", "The Smelter is a spirit summoned to make furnace, blast furnace, smoker and campfire recipes without using fuel and faster depending of the spirit.");
+            //Crystallizer
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_CRYSTALLIZER, "Summon Foliot Crystallizer", "Foliot", "The Crystallizer is a spirit summoned to turn gem dusts back to gems and can extract extra gems from ores.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crystallizers.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DJINNI_CRYSTALLIZER, "Summon Djinni Crystallizer", "Djinni", "The Crystallizer is a spirit summoned to turn gem dusts back to gems and can extract extra gems from ores.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crystallizers.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_CRYSTALLIZER, "Summon Afrit Crystallizer", "Afrit", "The Crystallizer is a spirit summoned to turn gem dusts back to gems and can extract extra gems from ores.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crystallizers.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_MARID_CRYSTALLIZER, "Summon Marid Crystallizer", "Marid", "The Crystallizer is a spirit summoned to turn gem dusts back to gems and can extract extra gems from ores.\n" + ChatFormatting.GRAY + ChatFormatting.ITALIC + "Note: Some recipes may require higher or lower tier crystallizers.");
             //Partner
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_WIFE, "Summon Demonic Wife", "Djinni", "Summons a Demonic Wife to support you: She will fight for you, help with cooking, and extend potion durations.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND, "Summon Demonic Husband", "Djinni", "Summons a Demonic Husband to support you: He will fight for you, help with cooking, and extend potion durations.");
@@ -2503,6 +2543,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_BEE, "Summon Possessed Bee", "Djinni", "The Possessed Bee will drop cursed honey.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_GHAST, "Summon Possessed Ghast", "Djinni", "The Possessed Ghast will always drop at least one ghast tear when killed.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_WEAK_SHULKER, "Summon Possessed Weak Shulker", "Djinni", "The Possessed Weak Shulker will drop at least one chorus fruit when killed and can drop shulker shell.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_BLAZE, "Summon Possessed Blaze", "Djinni", "The Possessed Blaze will drop at least two blaze rods and various nether-related items, including blocks, plants, and (very rarely) ancient debris.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ZOMBIE_PIGLIN, "Summon Possessed Zombified Piglin", "Afrit", "The Possessed Zombified Piglin will drop demonic meat.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_WARDEN, "Summon Possessed Warden", "Afrit", "The Possessed Warden will always drop at least six echo shard and can drop anothers ancient stuff (smithing templates and discs) when killed.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ELDER_GUARDIAN, "Summon Possessed Elder Guardian", "Afrit", "The Possessed Elder Guardian will drop at least one nautilus shell when killed, also can drop heart of the sea and the common drops.");
@@ -2659,6 +2700,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.BOOK_OF_CALLING_DJINNI, "Book of Calling Djinni");
         this.addItemTag(OccultismTags.Items.BOOK_OF_CALLING_FOLIOT, "Book of Calling Foliot");
         this.addItemTag(OccultismTags.Items.BOOKS_OF_BINDING, "Books of Binding");
+        this.addItemTag(OccultismTags.Items.BOOKS_FOR_EMPTY, "Books for Empty Binding Book");
         this.addItemTag(OccultismTags.Items.Miners.BASIC_RESOURCES, "Basic Resource Miners");
         this.addItemTag(OccultismTags.Items.Miners.DEEPS, "Deepslate Miners");
         this.addItemTag(OccultismTags.Items.Miners.MASTER, "Rare Resource Miners");
@@ -2727,6 +2769,35 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.PENTACLE_MATERIALS, "Pentacle Materials");
         this.addItemTag(OccultismTags.Items.TOOLS_CHALK, "Chalks");
         this.addItemTag(OccultismTags.Items.CLAY, "Clay");
+
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_BLAZE, "Drop from Possessed Blaze");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_BREEZE, "Drop from Possessed Breeze");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_ELDER_GUARDIAN, "Drop from Possessed Elder Guardian");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_ENDERMAN, "Drop from Possessed Enderman");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_ENDERMITE, "Drop from Possessed Endermite");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_EVOKER, "Drop from Possessed Evoker");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_GHAST, "Drop from Possessed Ghast");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_HOGLIN, "Drop from Possessed Hoglin");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_PHANTOM, "Drop from Possessed Phantom");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_SHULKER, "Drop from Possessed Shulker");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_SKELETON, "Drop from Possessed Skeleton");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_STRONG_BREEZE, "Drop from Possessed Strong Breeze");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_WARDEN, "Drop from Possessed Warden");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_WEAK_BREEZE, "Drop from Possessed Weak Breeze");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_WEAK_SHULKER, "Drop from Possessed Weak Shulker");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_WITCH, "Drop from Possessed Witch");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_ZOMBIE_PIGLIN, "Drop from Possessed Zombified Piglin");
+        this.addItemTag(OccultismTags.Items.DROPS_WILD_HUNT, "Drop from Wild Hunt");
+        this.addItemTag(OccultismTags.Items.DROPS_WILD_HORDE_CREEPER, "Drop from Wild Horde Creeper");
+        this.addItemTag(OccultismTags.Items.DROPS_WILD_HORDE_DROWNED, "Drop from Wild Horde Drowned");
+        this.addItemTag(OccultismTags.Items.DROPS_WILD_HORDE_HUSK, "Drop from Wild Horde Husk");
+        this.addItemTag(OccultismTags.Items.DROPS_WILD_HORDE_SILVERFISH, "Drop from Wild Horde Silverfish");
+        this.addItemTag(OccultismTags.Items.RANDOM_SPAWN_COMMON, "Can spawn as Common Random Animal");
+        this.addItemTag(OccultismTags.Items.RANDOM_SPAWN_RIDEABLE, "Can spawn as Rideable Random Animal");
+        this.addItemTag(OccultismTags.Items.RANDOM_SPAWN_SMALL, "Can spawn as Small Random Animal");
+        this.addItemTag(OccultismTags.Items.RANDOM_SPAWN_SPECIAL, "Can spawn as Special Random Animal");
+        this.addItemTag(OccultismTags.Items.RANDOM_SPAWN_WATER, "Can spawn as Water Random Animal");
+        this.addItemTag(OccultismTags.Items.RANDOM_SPAWN_VILLAGER, "Can spawn as Random Villager");
     }
 
     private void addItemTag(ResourceLocation resourceLocation, String string) {
@@ -2748,6 +2819,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     private void addEmiTranslations() {
         this.add("emi.category.occultism.spirit_fire", "Spirit Fire");
         this.add("emi.category.occultism.crushing", "Crushing");
+        this.add("emi.category.occultism.crystallize", "Crystallize");
         this.add("emi.category.occultism.miner", "Dimensional Mineshaft");
         this.add("emi.category.occultism.ritual", "Rituals");
         this.add("emi.occultism.item_to_use", "Item to use: %s");
@@ -2849,6 +2921,15 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("tier3CrusherOutputMultiplier", "Output multiplier for Tier 3 Crusher operations.");
         this.addConfig("tier4CrusherOutputMultiplier", "Output multiplier for Tier 4 Crusher operations.");
         this.addConfig("crusherResultPickupDelay", "Delay before items from crusher operations can be picked up.");
+        this.addConfig("tier1CrystallizerTimeMultiplier", "Time multiplier for Tier 1 Crystallizer operations.");
+        this.addConfig("tier2CrystallizerTimeMultiplier", "Time multiplier for Tier 2 Crystallizer operations.");
+        this.addConfig("tier3CrystallizerTimeMultiplier", "Time multiplier for Tier 3 Crystallizer operations.");
+        this.addConfig("tier4CrystallizerTimeMultiplier", "Time multiplier for Tier 4 Crystallizer operations.");
+        this.addConfig("tier1CrystallizerOutputMultiplier", "Output multiplier for Tier 1 Crystallizer operations.");
+        this.addConfig("tier2CrystallizerOutputMultiplier", "Output multiplier for Tier 2 Crystallizer operations.");
+        this.addConfig("tier3CrystallizerOutputMultiplier", "Output multiplier for Tier 3 Crystallizer operations.");
+        this.addConfig("tier4CrystallizerOutputMultiplier", "Output multiplier for Tier 4 Crystallizer operations.");
+        this.addConfig("crystallizerResultPickupDelay", "Delay before items from crystallizer operations can be picked up.");
         this.addConfig("tier1SmelterTimeMultiplier", "Time multiplier for Tier 1 Smelter operations.");
         this.addConfig("tier2SmelterTimeMultiplier", "Time multiplier for Tier 2 Smelter operations.");
         this.addConfig("tier3SmelterTimeMultiplier", "Time multiplier for Tier 3 Smelter operations.");

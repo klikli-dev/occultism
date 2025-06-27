@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ores_silver": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:ores/silver"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:smelting/silver_ingot_from_ore"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_ores_silver"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:smelting/silver_ingot_from_ore"
+    ]
+  }
+}

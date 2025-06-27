@@ -1,5 +1,6 @@
 {
   "type": "occultism:crushing",
+  "ignore_crushing_multiplier": true,
   "ingredient": {
     "tag": "c:end_stones"
   },

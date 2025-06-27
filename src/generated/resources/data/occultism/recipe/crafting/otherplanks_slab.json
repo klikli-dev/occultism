@@ -2,12 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "o": {
+    "#": {
       "item": "occultism:otherplanks"
     }
   },
   "pattern": [
-    "ooo"
+    "###"
   ],
   "result": {
     "count": 6,

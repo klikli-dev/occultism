@@ -5,11 +5,18 @@
       "bonus_rolls": 0.0,
       "entries": [
         {
-          "type": "minecraft:alternatives",
-          "children": [
+          "type": "minecraft:item",
+          "conditions": [
             {
-              "type": "minecraft:item",
-              "conditions": [
+              "condition": "minecraft:all_of",
+              "terms": [
+                {
+                  "block": "occultism:otherworld_leaves_natural",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "uncovered": "true"
+                  }
+                },
                 {
                   "condition": "minecraft:any_of",
                   "terms": [
@@ -36,45 +43,132 @@
                     }
                   ]
                 }
-              ],
-              "name": "occultism:otherworld_leaves_natural"
-            },
+              ]
+            }
+          ],
+          "name": "occultism:otherworld_leaves_natural"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
             {
-              "type": "minecraft:alternatives",
-              "children": [
+              "condition": "minecraft:all_of",
+              "terms": [
                 {
-                  "type": "minecraft:item",
-                  "conditions": [
+                  "block": "occultism:otherworld_leaves_natural",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "uncovered": "false"
+                  }
+                },
+                {
+                  "condition": "minecraft:any_of",
+                  "terms": [
                     {
-                      "block": "occultism:otherworld_leaves_natural",
-                      "condition": "minecraft:block_state_property",
-                      "properties": {
-                        "uncovered": "true"
+                      "condition": "minecraft:match_tool",
+                      "predicate": {
+                        "items": "minecraft:shears"
+                      }
+                    },
+                    {
+                      "condition": "minecraft:match_tool",
+                      "predicate": {
+                        "predicates": {
+                          "minecraft:enchantments": [
+                            {
+                              "enchantments": "minecraft:silk_touch",
+                              "levels": {
+                                "min": 1
+                              }
+                            }
+                          ]
+                        }
                       }
                     }
-                  ],
-                  "name": "occultism:otherworld_sapling_natural"
-                },
-                {
-                  "type": "minecraft:item",
-                  "name": "minecraft:oak_sapling"
-                }
-              ],
-              "conditions": [
-                {
-                  "condition": "minecraft:survives_explosion"
-                },
-                {
-                  "chances": [
-                    0.1,
-                    0.2,
-                    0.3,
-                    0.4
-                  ],
-                  "condition": "minecraft:table_bonus",
-                  "enchantment": "minecraft:fortune"
+                  ]
                 }
               ]
+            }
+          ],
+          "name": "minecraft:oak_leaves"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:inverted",
+          "term": {
+            "condition": "minecraft:any_of",
+            "terms": [
+              {
+                "condition": "minecraft:match_tool",
+                "predicate": {
+                  "items": "minecraft:shears"
+                }
+              },
+              {
+                "condition": "minecraft:match_tool",
+                "predicate": {
+                  "predicates": {
+                    "minecraft:enchantments": [
+                      {
+                        "enchantments": "minecraft:silk_touch",
+                        "levels": {
+                          "min": 1
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "block": "occultism:otherworld_leaves_natural",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "uncovered": "true"
+                  }
+                }
+              ],
+              "name": "occultism:otherworld_sapling_natural"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "minecraft:oak_sapling"
+            }
+          ],
+          "conditions": [
+            {
+              "condition": "minecraft:survives_explosion"
+            },
+            {
+              "chances": [
+                0.1,
+                0.2,
+                0.3,
+                0.4
+              ],
+              "condition": "minecraft:table_bonus",
+              "enchantment": "minecraft:fortune"
             }
           ]
         }

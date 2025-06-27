@@ -1,0 +1,13 @@
+{
+  "type": "occultism:crystallize",
+  "ignore_crystallize_multiplier": true,
+  "ingredient": {
+    "item": "minecraft:amethyst_cluster"
+  },
+  "min_tier": 4,
+  "result": {
+    "type": "occultism:item",
+    "count": 1,
+    "id": "minecraft:budding_amethyst"
+  }
+}

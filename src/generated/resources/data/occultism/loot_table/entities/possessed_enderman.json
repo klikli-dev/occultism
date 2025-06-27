@@ -33,20 +33,15 @@
     },
     {
       "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "chance": 0.1,
+          "condition": "minecraft:random_chance"
+        }
+      ],
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": 0.1
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
           "name": "minecraft:eye_armor_trim_smithing_template"
         }
       ],

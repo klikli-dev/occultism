@@ -37,6 +37,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -244,7 +245,7 @@ public class DivinationRodItem extends Item {
             return OccultismBlocks.IESNIUM_ORE_NATURAL.get();
         }
         //otherflower ore is linked to any flower.
-        if (Arrays.toString(state.getTags().toArray()).contains("flower")) {
+        if (state.is(BlockTags.FLOWERS)) {
             return OccultismBlocks.OTHERFLOWER_NATURAL.get();
         }
         //Otherglass are linked to end stone

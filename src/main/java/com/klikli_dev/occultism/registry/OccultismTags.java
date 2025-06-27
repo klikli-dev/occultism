@@ -158,8 +158,7 @@ public class OccultismTags {
         public static final TagKey<Item> BOOK_OF_CALLING_FOLIOT = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "books/book_of_calling_foliot"));
         public static final TagKey<Item> BOOK_OF_CALLING_DJINNI = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "books/book_of_calling_djinni"));
         public static final TagKey<Item> BOOKS_OF_BINDING = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "books/books_of_binding"));
-
-
+        public static final TagKey<Item> BOOKS_FOR_EMPTY = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "books/books_for_empty"));
         public static final TagKey<Item> MAGMA = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "magma"));
         public static final TagKey<Item> CLAY = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "clay"));
 
@@ -183,6 +182,35 @@ public class OccultismTags {
         public static final TagKey<Item> OTHERWORLD_LOGS = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "otherworld_logs"));
         public static final TagKey<Item> OTHERSTONE = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "otherstone"));
         public static final TagKey<Item> OTHERCOBBLESTONE = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "othercobblestone"));
+
+        public static final TagKey<Item> DROPS_POSSESSED_BLAZE = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_blaze"));
+        public static final TagKey<Item> DROPS_POSSESSED_BREEZE = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_breeze"));
+        public static final TagKey<Item> DROPS_POSSESSED_ELDER_GUARDIAN = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_elder_guardian"));
+        public static final TagKey<Item> DROPS_POSSESSED_ENDERMAN = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_enderman"));
+        public static final TagKey<Item> DROPS_POSSESSED_ENDERMITE = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_endermite"));
+        public static final TagKey<Item> DROPS_POSSESSED_EVOKER = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_evoker"));
+        public static final TagKey<Item> DROPS_POSSESSED_GHAST = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_ghast"));
+        public static final TagKey<Item> DROPS_POSSESSED_HOGLIN = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_hoglin"));
+        public static final TagKey<Item> DROPS_POSSESSED_PHANTOM = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_phantom"));
+        public static final TagKey<Item> DROPS_POSSESSED_SHULKER = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_shulker"));
+        public static final TagKey<Item> DROPS_POSSESSED_SKELETON = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_skeleton"));
+        public static final TagKey<Item> DROPS_POSSESSED_STRONG_BREEZE = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_strong_breeze"));
+        public static final TagKey<Item> DROPS_POSSESSED_WARDEN = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_warden"));
+        public static final TagKey<Item> DROPS_POSSESSED_WEAK_BREEZE = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_weak_breeze"));
+        public static final TagKey<Item> DROPS_POSSESSED_WEAK_SHULKER = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_weak_shulker"));
+        public static final TagKey<Item> DROPS_POSSESSED_WITCH = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_witch"));
+        public static final TagKey<Item> DROPS_POSSESSED_ZOMBIE_PIGLIN = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_zombie_piglin"));
+        public static final TagKey<Item> DROPS_WILD_HUNT = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/wild_hunt_wither_skeleton"));
+        public static final TagKey<Item> DROPS_WILD_HORDE_CREEPER = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/wild_horde_creeper"));
+        public static final TagKey<Item> DROPS_WILD_HORDE_DROWNED = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/wild_horde_drowned"));
+        public static final TagKey<Item> DROPS_WILD_HORDE_HUSK = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/wild_horde_husk"));
+        public static final TagKey<Item> DROPS_WILD_HORDE_SILVERFISH = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/wild_horde_silverfish"));
+        public static final TagKey<Item> RANDOM_SPAWN_COMMON = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "random_spawn_from/common"));
+        public static final TagKey<Item> RANDOM_SPAWN_RIDEABLE = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "random_spawn_from/rideable"));
+        public static final TagKey<Item> RANDOM_SPAWN_SMALL = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "random_spawn_from/small"));
+        public static final TagKey<Item> RANDOM_SPAWN_SPECIAL = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "random_spawn_from/special"));
+        public static final TagKey<Item> RANDOM_SPAWN_WATER = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "random_spawn_from/water"));
+        public static final TagKey<Item> RANDOM_SPAWN_VILLAGER = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "random_spawn_from/villagers"));
     }
 
     public static class Entities {
