@@ -28,6 +28,7 @@ import com.klikli_dev.modonomicon.api.multiblock.Multiblock.SimulateResult;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.item.DummyTooltipItem;
 import com.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
+import com.klikli_dev.occultism.common.item.tool.ritual_satchel.MultiBlockRitualSatchelItem;
 import com.klikli_dev.occultism.common.ritual.Ritual;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.*;
@@ -46,6 +47,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -573,6 +575,20 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                                             Component.translatable(Util.makeDescriptionId("multiblock", otherPentacle.value().getPentacleId())),
                                             false);
                                 } else {
+
+                                    if (activationItem.getItem() instanceof MultiBlockRitualSatchelItem) {
+                                        ((ServerLevel) level)
+                                                .sendParticles(ParticleTypes.HAPPY_VILLAGER, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+                                                        10, 0.3, 0.3, 0.3, 0.03);
+
+                                        level.playSound(null, getBlockPos(), OccultismSounds.POOF.get(), SoundSource.PLAYERS, 1, 3);
+
+                                        player.displayClientMessage(
+                                                Component.translatable(String.format("ritual.%s.put_in_satchel", Occultism.MODID)),
+                                                true);
+                                        return false;
+                                    }
+
                                     if (!helpWithRitual(level, pos, serverPlayer, activationItem)) {
                                         player.displayClientMessage(
                                                 Component.translatable(String.format("ritual.%s.does_not_exist", Occultism.MODID)),
