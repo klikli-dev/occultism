@@ -53,8 +53,8 @@
       "block": "minecraft:beacon"
     },
     "j": {
-      "type": "modonomicon:block",
-      "block": "minecraft:lightning_rod"
+      "type": "modonomicon:tag",
+      "tag": "#c:lightning_rods"
     },
     "k": {
       "type": "modonomicon:block",
