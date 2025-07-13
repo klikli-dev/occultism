@@ -149,7 +149,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(Blocks.LODESTONE)
                 .add(Blocks.AMETHYST_CLUSTER)
                 .add(Blocks.END_ROD)
-                .add(Blocks.LIGHTNING_ROD)
+                .addTag(OccultismTags.Blocks.LIGHTNING_RODS)
                 .add(Blocks.IRON_BARS)
                 .addOptionalTag(OccultismTags.Blocks.CHALK_GLYPHS)
                 .replace(false);
@@ -311,6 +311,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
         this.addStorageBlock(OccultismTags.Blocks.STORAGE_BLOCKS_RAW_IESNIUM, OccultismBlocks.RAW_IESNIUM_BLOCK.get());
         this.addStorageBlock(OccultismTags.Blocks.STORAGE_BLOCKS_RAW_SILVER, OccultismBlocks.RAW_SILVER_BLOCK.get());
         this.tag(OccultismTags.Blocks.MUSHROOM_BLOCKS).add(Blocks.MUSHROOM_STEM).add(Blocks.RED_MUSHROOM_BLOCK).add(Blocks.BROWN_MUSHROOM_BLOCK);
+        this.tag(OccultismTags.Blocks.LIGHTNING_RODS).add(Blocks.LIGHTNING_ROD).addOptionalTag(OccultismTags.makeBlockTag("friendsandfoes:lightning_rods"));
 
         this.tag(Tags.Blocks.FENCE_GATES_WOODEN).add(OccultismBlocks.OTHERPLANKS_FENCE_GATE.get()).replace(false);
     }
