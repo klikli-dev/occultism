@@ -574,9 +574,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                                     player.displayClientMessage(
                                             Component.translatable(Util.makeDescriptionId("multiblock", otherPentacle.value().getPentacleId())),
                                             false);
-                                } else {
-
-                                    if (activationItem.getItem() instanceof MultiBlockRitualSatchelItem) {
+                                } else if (activationItem.getItem() instanceof MultiBlockRitualSatchelItem) {
                                         ((ServerLevel) level)
                                                 .sendParticles(ParticleTypes.HAPPY_VILLAGER, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
                                                         10, 0.3, 0.3, 0.3, 0.03);
@@ -586,14 +584,10 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                                         player.displayClientMessage(
                                                 Component.translatable(String.format("ritual.%s.put_in_satchel", Occultism.MODID)),
                                                 true);
-                                        return false;
-                                    }
-
-                                    if (!helpWithRitual(level, pos, serverPlayer, activationItem)) {
-                                        player.displayClientMessage(
-                                                Component.translatable(String.format("ritual.%s.does_not_exist", Occultism.MODID)),
-                                                false);
-                                    }
+                                } else if (!helpWithRitual(level, pos, serverPlayer, activationItem)) {
+                                    player.displayClientMessage(
+                                            Component.translatable(String.format("ritual.%s.does_not_exist", Occultism.MODID)),
+                                            false);
                                 }
                             }
                         }
