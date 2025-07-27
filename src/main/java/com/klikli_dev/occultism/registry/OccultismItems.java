@@ -354,9 +354,9 @@ public class OccultismItems {
     public static final DeferredItem<Item> OTHERWORLD_ASHES = ITEMS.register("otherworld_ashes",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> GRAY_PASTE = ITEMS.register("gray_paste",
-            () -> new GrayPasteItem(defaultProperties().durability(64)));
+            () -> new DamageInCraftingItem(defaultProperties().durability(64)));
     public static final DeferredItem<Item> NATURE_PASTE = ITEMS.register("nature_paste",
-            () -> new Item(defaultProperties()));
+            () -> new NaturePasteItem(defaultProperties().durability(64)));
 
     //Components
     public static final DeferredItem<Item> PURIFIED_INK = ITEMS.register("purified_ink",
@@ -384,7 +384,7 @@ public class OccultismItems {
     public static final DeferredItem<DimensionalMatrixItem> DIMENSIONAL_MATRIX = ITEMS.register("dimensional_matrix",
             () -> new DimensionalMatrixItem(defaultProperties().component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
     public static final DeferredItem<Item> MINING_DIMENSION_CORE_PIECE = ITEMS.register("mining_dim_core",
-            () -> new Item(defaultProperties().rarity(Rarity.EPIC)
+            () -> new DamageInCraftingItem(defaultProperties().rarity(Rarity.EPIC).durability(Integer.MAX_VALUE)
                     .component(OccultismDataComponents.SPIRIT_NAME, "Something")));
 
     //Others
@@ -437,6 +437,8 @@ public class OccultismItems {
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE, 0xb5b3a3, 0x4b4d60, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_WITCH = ITEMS.register("spawn_egg/possessed_witch",
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_WITCH_TYPE, 0x280000, 0x346828, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_BLAZE = ITEMS.register("spawn_egg/possessed_blaze",
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_BLAZE_TYPE, 0xe8a700, 0xb4af58, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_ZOMBIE_PIGLIN = ITEMS.register("spawn_egg/possessed_zombie_piglin",
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE, 0xdb8a8a, 0x6a8c46, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_BEE = ITEMS.register("spawn_egg/possessed_bee",
@@ -522,7 +524,13 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_SMELTER = ITEMS.register("ritual_dummy/summon_djinni_smelter", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_AFRIT_SMELTER = ITEMS.register("ritual_dummy/summon_afrit_smelter", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_MARID_SMELTER = ITEMS.register("ritual_dummy/summon_marid_smelter", () -> new DummyTooltipItem(defaultProperties()));
-            //Partner
+            //Crystallizer
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_CRYSTALLIZER = ITEMS.register("ritual_dummy/summon_foliot_crystallizer", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DJINNI_CRYSTALLIZER = ITEMS.register("ritual_dummy/summon_djinni_crystallizer", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_AFRIT_CRYSTALLIZER = ITEMS.register("ritual_dummy/summon_afrit_crystallizer", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_MARID_CRYSTALLIZER = ITEMS.register("ritual_dummy/summon_marid_crystallizer", () -> new DummyTooltipItem(defaultProperties()));
+
+    //Partner
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DEMONIC_WIFE = ITEMS.register("ritual_dummy/summon_demonic_wife", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND = ITEMS.register("ritual_dummy/summon_demonic_husband", () -> new DummyTooltipItem(defaultProperties()));
             //One tier worker
@@ -570,6 +578,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_BEE = ITEMS.register("ritual_dummy/possess_bee", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_GHAST = ITEMS.register("ritual_dummy/possess_ghast", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_WEAK_SHULKER = ITEMS.register("ritual_dummy/possess_weak_shulker", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_BLAZE = ITEMS.register("ritual_dummy/possess_blaze", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_ZOMBIE_PIGLIN = ITEMS.register("ritual_dummy/possess_zombie_piglin", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_WARDEN = ITEMS.register("ritual_dummy/possess_warden", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_ELDER_GUARDIAN = ITEMS.register("ritual_dummy/possess_elder_guardian", () -> new DummyTooltipItem(defaultProperties()));

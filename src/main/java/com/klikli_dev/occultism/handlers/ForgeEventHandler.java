@@ -24,15 +24,32 @@ package com.klikli_dev.occultism.handlers;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismCommands;
+import com.klikli_dev.occultism.registry.OccultismEffects;
+import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.registry.OccultismPotions;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionBrewing;
+import net.minecraft.world.item.alchemy.Potions;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 
 @EventBusSubscriber(modid = Occultism.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class ForgeEventHandler {
 
     //region Static Methods
+    @SubscribeEvent
+    public static void onBrewingRecipeRegister(RegisterBrewingRecipesEvent event) {
+        PotionBrewing.Builder builder = event.getBuilder();
+
+        builder.addMix(Potions.AWKWARD, OccultismItems.OTHERWORLD_ESSENCE.asItem(), OccultismPotions.THIRD_EYE_POTION);
+        builder.addMix(OccultismPotions.THIRD_EYE_POTION, Items.REDSTONE, OccultismPotions.LONG_THIRD_EYE_POTION);
+
+        builder.addMix(Potions.NIGHT_VISION, OccultismItems.DATURA.asItem(), OccultismPotions.THIRD_EYE_POTION);
+        builder.addMix(Potions.LONG_NIGHT_VISION, OccultismItems.DATURA.asItem(), OccultismPotions.LONG_THIRD_EYE_POTION);
+    }
 
     @SubscribeEvent
     public static void registerCommands(RegisterCommandsEvent event) {

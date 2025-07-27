@@ -93,13 +93,22 @@ public class OccultismServerConfig {
         public final DoubleValue tier2CrusherOutputMultiplier;
         public final DoubleValue tier3CrusherOutputMultiplier;
         public final DoubleValue tier4CrusherOutputMultiplier;
+        public final IntValue crusherResultPickupDelay;
+        public final DoubleValue tier1CrystallizerTimeMultiplier;
+        public final DoubleValue tier2CrystallizerTimeMultiplier;
+        public final DoubleValue tier3CrystallizerTimeMultiplier;
+        public final DoubleValue tier4CrystallizerTimeMultiplier;
+        public final DoubleValue tier1CrystallizerOutputMultiplier;
+        public final DoubleValue tier2CrystallizerOutputMultiplier;
+        public final DoubleValue tier3CrystallizerOutputMultiplier;
+        public final DoubleValue tier4CrystallizerOutputMultiplier;
+        public final IntValue crystallizerResultPickupDelay;
         public final DoubleValue tier1SmelterTimeMultiplier;
         public final DoubleValue tier2SmelterTimeMultiplier;
         public final DoubleValue tier3SmelterTimeMultiplier;
         public final DoubleValue tier4SmelterTimeMultiplier;
-        public final IntValue drikwingFamiliarSlowFallingSeconds;
-        public final IntValue crusherResultPickupDelay;
         public final IntValue smelterResultPickupDelay;
+        public final IntValue drikwingFamiliarSlowFallingSeconds;
         public final IntValue blacksmithFamiliarUpgradeCost;
         public final IntValue blacksmithFamiliarUpgradeCooldown;
         public final DoubleValue blacksmithFamiliarRepairChance;
@@ -151,6 +160,48 @@ public class OccultismServerConfig {
                     builder.comment(
                                     "The multiplier to each crushing recipe's output count for Tier 4 (Marid) Crusher Spirits.")
                             .defineInRange("tier4CrusherOutputMultiplier", 3.0, 0.0, Double.MAX_VALUE);
+            this.crusherResultPickupDelay =
+                    builder.comment(
+                                    "The minimum ticks before a crusher can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
+                            .defineInRange("crusherResultPickupDelay", 20 * 3, 0, Integer.MAX_VALUE);
+
+            this.tier1CrystallizerTimeMultiplier =
+                    builder.comment(
+                                    "The multiplier to each crystallize recipe's crystallize_time for Tier 1 (Foliot) Crystallizer Spirits.")
+                            .defineInRange("tier1CrystallizerTimeMultiplier", 1.0, 0.0, Double.MAX_VALUE);
+            this.tier2CrystallizerTimeMultiplier =
+                    builder.comment(
+                                    "The multiplier to each crystallize recipe's crystallize_time for Tier 2 (Djinni) Crystallizer Spirits.")
+                            .defineInRange("tier2CrystallizerTimeMultiplier", 0.5, 0.0, Double.MAX_VALUE);
+            this.tier3CrystallizerTimeMultiplier =
+                    builder.comment(
+                                    "The multiplier to each crystallize recipe's crystallize_time for Tier 3 (Afrit) Crystallizer Spirits.")
+                            .defineInRange("tier3CrystallizerTimeMultiplier", 0.3, 0.0, Double.MAX_VALUE);
+            this.tier4CrystallizerTimeMultiplier =
+                    builder.comment(
+                                    "The multiplier to each crystallize recipe's crystallize_time for Tier 4 (Marid) Crystallizer Spirits.")
+                            .defineInRange("tier4CrystallizerTimeMultiplier", 0.1, 0.0, Double.MAX_VALUE);
+
+            this.tier1CrystallizerOutputMultiplier =
+                    builder.comment(
+                                    "The multiplier to each crystallize recipe's output count for Tier 1 (Foliot) Crystallizer Spirits.")
+                            .defineInRange("tier1CrystallizerOutputMultiplier", 1.0, 0.0, Double.MAX_VALUE);
+            this.tier2CrystallizerOutputMultiplier =
+                    builder.comment(
+                                    "The multiplier to each crystallize recipe's output count for Tier 2 (Djinni) Crystallizer Spirits.")
+                            .defineInRange("tier2CrystallizerOutputMultiplier", 1.5, 0.0, Double.MAX_VALUE);
+            this.tier3CrystallizerOutputMultiplier =
+                    builder.comment(
+                                    "The multiplier to each crystallize recipe's output count for Tier 3 (Afrit) Crystallizer Spirits.")
+                            .defineInRange("tier3CrystallizerOutputMultiplier", 2.0, 0.0, Double.MAX_VALUE);
+            this.tier4CrystallizerOutputMultiplier =
+                    builder.comment(
+                                    "The multiplier to each crystallize recipe's output count for Tier 4 (Marid) Crystallizer Spirits.")
+                            .defineInRange("tier4CrystallizerOutputMultiplier", 3.0, 0.0, Double.MAX_VALUE);
+            this.crystallizerResultPickupDelay =
+                    builder.comment(
+                                    "The minimum ticks before a crystallizer can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
+                            .defineInRange("crystallizerResultPickupDelay", 20 * 3, 0, Integer.MAX_VALUE);
 
             this.tier1SmelterTimeMultiplier =
                     builder.comment(
@@ -168,15 +219,9 @@ public class OccultismServerConfig {
                     builder.comment(
                                     "The multiplier to each smelting recipe's cooking_time for Tier 4 (Marid) Smelter Spirits.")
                             .defineInRange("tier4SmelterTimeMultiplier", 0.01, 0.0, Double.MAX_VALUE);
-
-            this.crusherResultPickupDelay =
-                    builder.comment(
-                                    "The minimum ticks before a crusher can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
-                            .defineInRange("crusherResultPickupDelay", 20 * 3, 0, Integer.MAX_VALUE);
-
             this.smelterResultPickupDelay =
                     builder.comment(
-                                    "The minimum ticks before a crusher can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
+                                    "The minimum ticks before a smelter can pick up an item it dropped. Default is 3 Seconds = 3 * 20 Ticks.")
                             .defineInRange("smelterResultPickupDelay", 20 * 3, 0, Integer.MAX_VALUE);
 
             this.blacksmithFamiliarRepairChance =

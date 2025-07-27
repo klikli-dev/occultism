@@ -22,7 +22,9 @@
 
 package com.klikli_dev.occultism.common.entity.possessed;
 
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.goat.Goat;
@@ -41,5 +43,13 @@ public class GoatOfMercyEntity extends Goat {
                 .add(Attributes.MOVEMENT_SPEED, 0.0)
                 .add(Attributes.MAX_HEALTH, 1.0);
     }
-
+    @Override
+    public boolean hurt(DamageSource source, float amount){
+        LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(this.level());
+        lightningBolt.setVisualOnly(true);
+        lightningBolt.absMoveTo(this.getX(), this.getY(), this.getZ());
+        this.level().addFreshEntity(lightningBolt);
+        amount = Integer.MAX_VALUE;
+        return super.hurt(source, amount);
+    }
 }

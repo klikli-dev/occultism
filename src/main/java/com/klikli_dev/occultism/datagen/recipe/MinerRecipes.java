@@ -26,6 +26,18 @@ public abstract class MinerRecipes extends RecipeProvider {
         super(p_248933_, lookupProvider);
     }
 
+    public static void minerRecipes(RecipeOutput pRecipeOutput) {
+        basic_resources(pRecipeOutput);
+        ores(pRecipeOutput);
+        deeps(pRecipeOutput);
+        master_resources(pRecipeOutput);
+        eldritch(pRecipeOutput);
+        MinerRecipeBuilder.minerRecipe(OccultismItems.DEBUG_WAND.get(), OccultismBlocks.OTHERSTONE.get(), 200)
+                .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
+                .allowEmpty()
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/debug_wand"));
+    }
+
     public static void ores(RecipeOutput recipeOutput) {
         makeOreRecipe("uraninite_poor", 750, recipeOutput);
         makeOreRecipe("uraninite_regular", 500, recipeOutput);
@@ -65,7 +77,7 @@ public abstract class MinerRecipes extends RecipeProvider {
         makeOreRecipe("inferium", 190, recipeOutput);
         makeOreRecipe("iolite", 200, recipeOutput);
         makeVanillaOreRecipe("iron", 750, recipeOutput);
-        makeVanillaOreRecipe("iridium", 40, recipeOutput);
+        makeOreRecipe("iridium", 40, recipeOutput);
         makeVanillaOreRecipe("lapis", 343, recipeOutput);
         makeOreRecipe("lead", 500, recipeOutput);
         makeOreRecipe("lignite_coal", 212, recipeOutput);
@@ -372,8 +384,10 @@ public abstract class MinerRecipes extends RecipeProvider {
                 .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/master/mining_dim_core"));
         MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.MASTER, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/stellarite")), 50)
                 .unlockedBy("has_miner", has(OccultismItems.MAGIC_LAMP_EMPTY.get()))
-                .allowEmpty()
                 .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/master/stellarite"));
+        MinerRecipeBuilder.minerRecipe(OccultismTags.Items.Miners.MASTER, OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/stella_arcanum")), 100)
+                .unlockedBy("has_stella_arcanum_ore", has(OccultismTags.makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "ores/stella_arcanum"))))
+                .save(consumer, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "miner/master/stella_arcanum"));
     }
 
     public static void basic_resources(RecipeOutput consumer) {

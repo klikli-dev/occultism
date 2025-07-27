@@ -130,8 +130,8 @@ public class IesniumAnvilMenu extends AnvilMenu {
                     for (Object2IntMap.Entry<Holder<Enchantment>> entry : itemenchantments.entrySet()) {
                         Holder<Enchantment> holder = entry.getKey();
                         int i2 = itemenchantments$mutable.getLevel(holder);
-                        int j2 = entry.getIntValue();
-                        j2 = i2 == j2 ? j2 + 1 : Math.max(j2, i2);
+                        int k2 = entry.getIntValue();
+                        int j2 = i2 == k2 ? k2 + 1 : Math.max(k2, i2);
                         Enchantment enchantment = holder.value();
                         // Neo: Respect IItemExtension#supportsEnchantment - we also delegate the logic for Enchanted Books to this method.
                         // Though we still allow creative players to combine any item with any enchantment in the anvil here.
@@ -152,12 +152,12 @@ public class IesniumAnvilMenu extends AnvilMenu {
                         } else {
                             flag2 = true;
                             if(ApothicEnchantingIntegration.isLoaded()) {
-                                if (j2 > ApothicEnchantingIntegration.getApothicMaxLevel(enchantment)) {
-                                    j2 = ApothicEnchantingIntegration.getApothicMaxLevel(enchantment) + 1;
+                                if (j2 > ApothicEnchantingIntegration.getApothicMaxLevel(enchantment) + 1) {
+                                    j2 = Math.max(i2,k2);
                                 }
                             } else {
-                                if (j2 > enchantment.getMaxLevel()) {
-                                    j2 = enchantment.getMaxLevel() + 1;
+                                if (j2 > enchantment.getMaxLevel() + 1) {
+                                    j2 = Math.max(i2,k2);
                                 }
                             }
                             itemenchantments$mutable.set(holder, j2);

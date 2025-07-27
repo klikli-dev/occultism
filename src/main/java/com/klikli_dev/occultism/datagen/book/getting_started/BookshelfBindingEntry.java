@@ -51,10 +51,20 @@ public class BookshelfBindingEntry extends EntryProvider {
                         Purple  ->  Djinni\\
                         Yellow  ->  Afrit\\
                         Green   ->  Marid
+                        """
+        );
+
+        this.page("automation", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Automation");
+        this.pageText("""
+                        You can automate this process placing a sacrificial bowl with {0} above the [](item://minecraft:chiseled_bookshelf).
+                        When the bowl receive a redstone signal, the books inside will be bounded.\\
+                        \\
+                        Note: Also work with copper and silver versions of the sacrificial bowl.
                         """,
-                this.entryLink("Apprentice Satchel", BindingRitualsCategory.CATEGORY_ID, ApprenticeRitualSatchelEntry.ENTRY_ID),
-                this.entryLink("Artisanal Satchel", BindingRitualsCategory.CATEGORY_ID, ApprenticeRitualSatchelEntry.ENTRY_ID),
-                this.categoryLink("Binding Rituals Category", BindingRitualsCategory.CATEGORY_ID)
+                this.color("Dictionary of Spirits", ChatFormatting.DARK_GREEN)
         );
 
     }

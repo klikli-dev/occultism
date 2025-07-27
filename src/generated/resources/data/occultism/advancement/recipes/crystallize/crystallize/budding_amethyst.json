@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_amethyst_cluster": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:amethyst_cluster"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crystallize/budding_amethyst"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_amethyst_cluster"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crystallize/budding_amethyst"
+    ]
+  }
+}

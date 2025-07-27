@@ -26,11 +26,11 @@ public class SummonUnboundAfritEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
-        this.pageTitle("Abras Open Conjure");
+        this.pageTitle("Kandar's Open Conjure");
         this.pageText("""
                 **Purpose:** Summon an {0}\\
                 \\
-                **Abras Open Conjure** is a simplified version of {1}, allowing to summon {2} without red chalk.
+                **Kandars Open Conjure** is a simplified version of {1}, allowing to summon {2} without red chalk.
                  Due to the much reduced power of the pentacle, it cannot be used to control {3},
                  and it thus can only be used to fight and kill {4}.
                 """,
@@ -57,7 +57,7 @@ public class SummonUnboundAfritEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Abras' Open Conjure";
+        return "Kandar's Open Conjure";
     }
 
     @Override

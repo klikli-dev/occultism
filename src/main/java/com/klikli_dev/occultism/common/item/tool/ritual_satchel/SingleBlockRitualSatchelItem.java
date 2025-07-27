@@ -72,6 +72,10 @@ public class SingleBlockRitualSatchelItem extends RitualSatchelItem {
                 context.getPlayer().displayClientMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_INVALID_MATCHER).withStyle(ChatFormatting.YELLOW), true);
                 yield InteractionResult.FAIL;
             }
+            case ERROR_GLYPH_CANNOT_SURVIVE -> {
+                context.getPlayer().displayClientMessage(Component.translatable(TranslationKeys.RITUAL_SATCHEL_GLYPH_CANNOT_SURVIVE).withStyle(ChatFormatting.YELLOW), true);
+                yield InteractionResult.FAIL;
+            }
             default -> InteractionResult.FAIL;
         };
     }

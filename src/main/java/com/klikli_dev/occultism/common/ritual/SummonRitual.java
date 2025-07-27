@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.common.ritual;
 
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
+import com.klikli_dev.occultism.common.entity.familiar.FamiliarEntity;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
@@ -200,6 +201,9 @@ public class SummonRitual extends Ritual {
                                             @Nullable Player castingPlayer, String spiritName, boolean setTamed) {
         if (setTamed && livingEntity instanceof TamableAnimal tamableAnimal && castingPlayer != null) {
             tamableAnimal.tame(castingPlayer);
+        }
+        if (setTamed && livingEntity instanceof FamiliarEntity familiar && castingPlayer != null) {
+            familiar.setFamiliarOwner(castingPlayer);
         }
         if (level.getBlockState(goldenBowlPosition).getBlock().equals(OccultismBlocks.ELDRITCH_CHALICE.get())) {
             livingEntity.absMoveTo(goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY() + 1, goldenBowlPosition.getZ() + 0.5,

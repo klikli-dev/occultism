@@ -125,6 +125,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
         this.tag(BlockTags.SMALL_FLOWERS).add(OccultismBlocks.OTHERFLOWER.get()).add(OccultismBlocks.OTHERFLOWER_NATURAL.get()).replace(false);
         this.tag(BlockTags.FLOWER_POTS).add(OccultismBlocks.POTTED_OTHERFLOWER.get()).replace(false);
         this.tag(BlockTags.INFINIBURN_OVERWORLD).add(OccultismBlocks.TALLOW_BLOCK.get());
+        this.tag(BlockTags.ENCHANTMENT_POWER_TRANSMITTER).addTag(OccultismTags.Blocks.CHALK_GLYPHS);
     }
 
     @Override

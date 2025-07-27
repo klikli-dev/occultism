@@ -50,6 +50,7 @@ public class SummonFoliotEntry extends EntryProvider {
         this.pageText("""
                 - [Foliot Crusher](entry://summoning_rituals/summon_crusher_t1)
                 - [Foliot Smelter](entry://summoning_rituals/summon_smelter_t1)
+                - [Foliot Crystallizer](entry://summoning_rituals/summon_crystallizer_t1)
                 - [Foliot Lumberjack](entry://summoning_rituals/summon_lumberjack)
                 - [Foliot Transporter](entry://summoning_rituals/summon_transport_items)
                 - [Foliot Janitor](entry://summoning_rituals/summon_cleaner)

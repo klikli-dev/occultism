@@ -33,6 +33,30 @@
       "title2": ""
     },
     {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:crafting/copper_sacrificial_bowl",
+      "recipe_id_2": "occultism:crafting/silver_sacrificial_bowl",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "occultism:spirit_fire"
+      },
+      "text": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.spirit_bowl.text",
+      "title": "book.occultism.dictionary_of_spirits.getting_started.ritual_prep_bowl.spirit_bowl.title"
+    },
+    {
       "type": "modonomicon:spotlight",
       "anchor": "",
       "condition": {

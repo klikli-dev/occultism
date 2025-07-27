@@ -66,7 +66,7 @@ public class RainbowGlyphBlock extends Block {
     public static final BooleanProperty CYCLE = BooleanProperty.create("cycle");
     public static final int MAX_SIGN = 12;
 
-    private static final VoxelShape SHAPE = Block.box(0, 0, 0, 15, 0.04, 15);
+    private static final VoxelShape SHAPE = Block.box(1.5, 0, 1.5, 14.5, 0.04, 14.5);
 
     protected Supplier<Item> chalk;
     protected Supplier<Integer> color;

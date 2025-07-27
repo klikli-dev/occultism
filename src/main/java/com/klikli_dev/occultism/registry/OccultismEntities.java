@@ -141,6 +141,12 @@ public class OccultismEntities {
                     .fireImmune()
                     .clientTrackingRange(16)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_witch").toString()));
+    public static final Lazy<EntityType<PossessedBlazeEntity>> POSSESSED_BLAZE_TYPE =
+            Lazy.of(() -> EntityType.Builder.of(PossessedBlazeEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.8F)
+                    .fireImmune()
+                    .clientTrackingRange(48)
+                    .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "possessed_blaze").toString()));
     public static final Lazy<EntityType<PossessedZombiePiglinEntity>> POSSESSED_ZOMBIE_PIGLIN_TYPE =
             Lazy.of(() -> EntityType.Builder.of(PossessedZombiePiglinEntity::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.95F)
@@ -328,7 +334,7 @@ public class OccultismEntities {
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "shub_niggurath_familiar").toString()));
     public static final Lazy<EntityType<BeholderFamiliarEntity>> BEHOLDER_FAMILIAR_TYPE =
             Lazy.of(() -> EntityType.Builder.of(BeholderFamiliarEntity::new, MobCategory.CREATURE)
-                    .sized(1.6F, 1.5F)
+                    .sized(0.6F, 1.8F)
                     .clientTrackingRange(8)
                     .build(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "beholder_familiar").toString()));
 
@@ -400,6 +406,8 @@ public class OccultismEntities {
             ENTITIES.register("possessed_hoglin", POSSESSED_HOGLIN_TYPE::get);
     public static final Supplier<EntityType<PossessedWitchEntity>> POSSESSED_WITCH =
             ENTITIES.register("possessed_witch", POSSESSED_WITCH_TYPE::get);
+    public static final Supplier<EntityType<PossessedBlazeEntity>> POSSESSED_BLAZE =
+            ENTITIES.register("possessed_blaze", POSSESSED_BLAZE_TYPE::get);
     public static final Supplier<EntityType<PossessedZombiePiglinEntity>> POSSESSED_ZOMBIE_PIGLIN =
             ENTITIES.register("possessed_zombie_piglin", POSSESSED_ZOMBIE_PIGLIN_TYPE::get);
     public static final Supplier<EntityType<PossessedBeeEntity>> POSSESSED_BEE =

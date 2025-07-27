@@ -966,6 +966,23 @@ public class GettingStartedCategory extends CategoryProvider {
                         You can mix a sacrificial bowl with a copper or silver ingot to create variations with the same functionality.
                         """);
 
+        this.context().page("decorative_sacrificial_bowl_recipe");
+        var decorativeSacrificialBowlRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/copper_sacrificial_bowl"))
+                .withRecipeId2(this.modLoc("crafting/silver_sacrificial_bowl"));
+
+        this.context().page("spirit_bowl");
+        var spiritBowlSpotlight = BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismBlocks.SPIRIT_FIRE.get()))
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "Bowls and Spirit Fire");
+        this.lang().add(this.context().pageText(),
+                """
+                        If you place a sacrificial bowl above a Spirit Fire or Spirit Campfire,
+                        any item inserted will instantly transform if it has a recipe in the spirit fire.\\
+                        Also work with copper or silver version of sacrificial bowl.
+                             """);
 
         this.context().page("golden_sacrificial_bowl");
         var goldenSacrificialBowlSpotlight = BookSpotlightPageModel.create()
@@ -989,6 +1006,8 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withPages(
                         sacrificialBowlSpotlight,
                         sacrificialBowlRecipe,
+                        decorativeSacrificialBowlRecipe,
+                        spiritBowlSpotlight,
                         goldenSacrificialBowlSpotlight,
                         goldenSacrificialBowlRecipe
                 );
@@ -1357,6 +1376,17 @@ public class GettingStartedCategory extends CategoryProvider {
                         Note that any rituals that summon tamed animals or familiars will summon them untamed instead.
                           """.formatted(COLOR_PURPLE));
 
+        this.context().page("upside_down_bowl");
+        var upsideDownBowlText = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "Don't let my items drop");
+        this.lang().add(this.context().pageText(),
+                """
+                    If you want to hold crafted items instead of dropping them into the world, place a sacrificial bowl facing down above the golden one.
+                    This works up to three blocks higher and can also be used with a copper or silver sacrificial bowl.
+                          """.formatted(COLOR_PURPLE));
+
         this.context().page("redstone");
         var redstoneText = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -1408,6 +1438,7 @@ public class GettingStartedCategory extends CategoryProvider {
                         pentacleLinkHint,
                         startRitualText,
                         automationText,
+                        upsideDownBowlText,
                         redstoneText,
                         cloneRedstoneText,
                         clonePlacementImage
