@@ -1,6 +1,6 @@
 {
   "parent": "occultism:block/sacrificial_bowl",
   "textures": {
-    "1": "occultism:block/otherstone_copper"
+    "1": "occultism:block/sacrificial_bowl_copper"
   }
 }
