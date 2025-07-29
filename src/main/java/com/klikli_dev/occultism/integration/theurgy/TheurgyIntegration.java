@@ -38,7 +38,7 @@ public class TheurgyIntegration {
 
             if (level.isLoaded(BlockPos.containing(to)) && level.isLoaded(BlockPos.containing(from)) && level.isClientSide) {
                 FollowProjectile aoeProjectile = new FollowProjectile(level, from, to, 255, 25, 180, 0.25f);
-                EntityUtil.spawnEntityClientSide(level, aoeProjectile);
+                EntityUtil.spawnEntityClientSide(level, aoeProjectile, true);
             }
         }
     }

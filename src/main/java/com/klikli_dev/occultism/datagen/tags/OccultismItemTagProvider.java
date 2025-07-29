@@ -49,6 +49,13 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get()).replace(false);
         this.tag(OccultismTags.Items.BOOK_OF_CALLING_DJINNI)
                 .add(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get()).replace(false);
+
+        this.tag(OccultismTags.Items.BOOKS_OF_BINDING)
+                .add(OccultismItems.BOOK_OF_BINDING_FOLIOT.get())
+                .add(OccultismItems.BOOK_OF_BINDING_DJINNI.get())
+                .add(OccultismItems.BOOK_OF_BINDING_AFRIT.get())
+                .add(OccultismItems.BOOK_OF_BINDING_MARID.get());
+
         this.tag(OccultismTags.Items.Miners.BASIC_RESOURCES).add(OccultismItems.MINER_FOLIOT_UNSPECIALIZED.get(),
                 OccultismItems.MINER_DEBUG_UNSPECIALIZED.get()).replace(false);
         this.tag(OccultismTags.Items.Miners.DEEPS).add(OccultismItems.MINER_AFRIT_DEEPS.get(), OccultismItems.MINER_MARID_MASTER.get()).replace(false);
@@ -65,6 +72,21 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
     }
 
     private void addMinecraftTags(HolderLookup.Provider provider) {
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.DICTIONARY_OF_SPIRITS.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_AFRIT.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_DJINNI.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_FOLIOT.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_MARID.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_EMPTY.get());
+
         this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(OccultismItems.INFUSED_PICKAXE.get(),OccultismItems.IESNIUM_PICKAXE.get()).replace(false);
         this.copy(BlockTags.LEAVES,ItemTags.LEAVES);
         this.copy(BlockTags.LOGS,ItemTags.LOGS);

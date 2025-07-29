@@ -30,6 +30,7 @@ import com.klikli_dev.occultism.crafting.recipe.CrushingRecipe;
 import com.klikli_dev.occultism.crafting.recipe.MinerRecipe;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.crafting.recipe.SpiritFireRecipe;
+import com.klikli_dev.occultism.integration.BoundBookRecipeMaker;
 import com.klikli_dev.occultism.integration.jei.recipes.CrushingRecipeCategory;
 import com.klikli_dev.occultism.integration.jei.recipes.MinerRecipeCategory;
 import com.klikli_dev.occultism.integration.jei.recipes.RitualRecipeCategory;
@@ -85,6 +86,7 @@ public class JeiPlugin implements IModPlugin {
         ClientLevel level = Minecraft.getInstance().level;
         RecipeManager recipeManager = level.getRecipeManager();
 
+        registration.addRecipes(RecipeTypes.CRAFTING, BoundBookRecipeMaker.createRecipes());
         List<SpiritFireRecipe> spiritFireRecipes = recipeManager.getAllRecipesFor(OccultismRecipes.SPIRIT_FIRE_TYPE.get());
         registration.addRecipes(JeiRecipeTypes.SPIRIT_FIRE, spiritFireRecipes);
 
@@ -115,9 +117,9 @@ public class JeiPlugin implements IModPlugin {
         IStackHelper stackHelper = registration.getJeiHelpers().getStackHelper();
         IRecipeTransferHandlerHelper handlerHelper = registration.getTransferHelper();
 
-        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>( StorageControllerContainer.class, handlerHelper), RecipeTypes.CRAFTING);
-        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>( StorageRemoteContainer.class, handlerHelper), RecipeTypes.CRAFTING);
-        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>( StableWormholeContainer.class, handlerHelper), RecipeTypes.CRAFTING);
+        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(StorageControllerContainer.class, handlerHelper), RecipeTypes.CRAFTING);
+        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(StorageRemoteContainer.class, handlerHelper), RecipeTypes.CRAFTING);
+        registration.addRecipeTransferHandler(new StorageControllerRecipeTransferHandler<>(StableWormholeContainer.class, handlerHelper), RecipeTypes.CRAFTING);
     }
 
     @Override

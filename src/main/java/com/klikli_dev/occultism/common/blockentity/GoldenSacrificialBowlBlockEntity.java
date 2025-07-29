@@ -415,6 +415,9 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     }
 
     public boolean activate(Level level, BlockPos pos, ServerPlayer serverPlayer, InteractionHand hand, Direction face) {
+        if(hand == InteractionHand.OFF_HAND)
+            return false; //prevent offhand activation which can actually cause interruption due to the second firing of activate
+
         if (!level.isClientSide) {
             ItemStack activationItem = serverPlayer.getItemInHand(hand);
             if (activationItem == ItemStack.EMPTY)
@@ -477,9 +480,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
             this.itemUseProvided = false;
             this.consumedIngredients.clear();
             this.remainingAdditionalIngredients = new ArrayList<>(this.currentRitualRecipe.getIngredients());
-            //place activation item in handler
             this.currentRitualRecipe.getRitual().start(this.level, this.getBlockPos(), this, player, this.itemStackHandler.getStackInSlot(0));
-
 
             MinecraftForge.EVENT_BUS.addListener(this.rightClickItemListener);
             MinecraftForge.EVENT_BUS.addListener(this.livingDeathEventListener);

@@ -70,7 +70,12 @@ public class ItemNBTUtil {
             if (job.getManagedMachine() != null)
                 ItemNBTUtil.setManagedMachine(stack, job.getManagedMachine());
         });
+    }
 
+    public static void generateBoundSpiritNameIfNone(ItemStack stack) {
+        if(!stack.hasTag() && !stack.getTag().contains(SPIRIT_NAME_TAG)) {
+            generateBoundSpiritName(stack);
+        }
     }
 
     public static void generateBoundSpiritName(ItemStack stack) {

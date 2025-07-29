@@ -54,7 +54,8 @@ public class OccultismRecipes {
 
     public static final RegistryObject<RecipeSerializer<RitualRecipe>> RITUAL = RECIPES.register("ritual",
             () -> RitualRecipe.SERIALIZER);
-
+    public static final RegistryObject<RecipeSerializer<BoundBookOfBindingRecipe>> BOOK_BINDING = RECIPES.register("crafting_special_book_binding",
+            () -> BoundBookOfBindingRecipe.SERIALIZER);
 
     static <T extends Recipe<?>> RegistryObject<RecipeType<T>> registerRecipeType(final String id) {
         return RECIPE_TYPES.register(id, () -> new RecipeType<T>() {

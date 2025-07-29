@@ -8,6 +8,7 @@ public class OccultismModonomiconConstants {
         public static final ResourceLocation SPIRIT_FIRE_RECIPE = new ResourceLocation(Occultism.MODID, "spirit_fire_recipe");
         public static final ResourceLocation SPIRIT_TRADE_RECIPE = new ResourceLocation(Occultism.MODID, "spirit_trade_recipe");
         public static final ResourceLocation RITUAL_RECIPE = new ResourceLocation(Occultism.MODID, "ritual_recipe");
+        public static final ResourceLocation BOOK_BINDING_RECIPE = new ResourceLocation(Occultism.MODID, "book_binding_recipe");
     }
 
     public static class I18n {

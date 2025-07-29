@@ -1,4 +1,5 @@
 {
+  "allow_open_book_with_invalid_links": true,
   "auto_add_read_conditions": true,
   "book_content_texture": "modonomicon:textures/gui/book_content.png",
   "book_overview_texture": "modonomicon:textures/gui/book_overview.png",

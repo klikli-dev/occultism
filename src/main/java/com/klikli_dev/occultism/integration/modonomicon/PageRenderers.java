@@ -19,6 +19,10 @@ public class PageRenderers {
                 OccultismModonomiconConstants.Page.RITUAL_RECIPE,
                 p -> new BookRitualRecipePageRenderer((BookRitualRecipePage) p) {
                 });
+        PageRendererRegistry.registerPageRenderer(
+                OccultismModonomiconConstants.Page.BOOK_BINDING_RECIPE,
+                p -> new BookBindingCraftingRecipePageRenderer((BookBindingCraftingRecipePage) p) {
+                });
     }
 
 }

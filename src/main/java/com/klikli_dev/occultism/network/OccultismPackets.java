@@ -173,6 +173,12 @@ public class OccultismPackets {
                 OccultismPacketHandler::handle);
 
         INSTANCE.registerMessage(nextID(),
+                MessageSetRecipeByTemplate.class,
+                MessageSetRecipeByTemplate::encode,
+                MessageSetRecipeByTemplate::new,
+                OccultismPacketHandler::handle);
+
+        INSTANCE.registerMessage(nextID(),
                 MessageOpenSatchel.class,
                 MessageOpenSatchel::encode,
                 MessageOpenSatchel::new,

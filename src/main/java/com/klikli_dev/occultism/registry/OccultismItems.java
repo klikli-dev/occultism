@@ -267,6 +267,9 @@ public class OccultismItems {
     public static final RegistryObject<Item> OTHERWORLD_ESSENCE = ITEMS.register("otherworld_essence",
             () -> new SpiritHealingItem(defaultProperties().food(OccultismFoods.OTHERWORLD_ESSENCE.get())));
 
+    public static final RegistryObject<Item> BEAVER_NUGGET = ITEMS.register("beaver_nugget",
+            () -> new Item(defaultProperties().food(OccultismFoods.BEAVER_NUGGET.get())));
+
     //Miner Spirits
     public static final RegistryObject<Item> MAGIC_LAMP_EMPTY = ITEMS.register("magic_lamp_empty",
             () -> new Item(defaultProperties()));
