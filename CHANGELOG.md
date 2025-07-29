@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.183.0] - 2025-07-29
+### :sparkles: New Features
+- [`77ebbee`](https://github.com/klikli-dev/occultism/commit/77ebbee4740c07dc62a19385edf4064778d0794a) - Friends and foes compatibility and a fix *(PR [#1370](https://github.com/klikli-dev/occultism/pull/1370) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+- [`c6ee949`](https://github.com/klikli-dev/occultism/commit/c6ee94949230fa237e069588dc0d36c0971de3b2) - Russian language Update *(PR [#1376](https://github.com/klikli-dev/occultism/pull/1376) by [@Heimdallr-1](https://github.com/Heimdallr-1))*
+
+### :bug: Bug Fixes
+- [`82e8efb`](https://github.com/klikli-dev/occultism/commit/82e8efb8e4ec3cd2e27ad8d631f0a5960a0277dc) - fix a translation error *(PR [#1374](https://github.com/klikli-dev/occultism/pull/1374) by [@yanxiatao](https://github.com/yanxiatao))*
+- [`52df14f`](https://github.com/klikli-dev/occultism/commit/52df14f206983bb375e478129b5de4e652cce6ca) - typo in ruru provider *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`8edff58`](https://github.com/klikli-dev/occultism/commit/8edff5809577e728aeb60ef3fd8bac27d77c0aa8) - duplicate pt_pt into pt_br *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`afe8e74`](https://github.com/klikli-dev/occultism/commit/afe8e7477497df79005acfbc5b3f99adeeaf2ce5) - run datagen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.182.0] - 2025-07-25
 ### :sparkles: New Features
 - [`bbd9b4e`](https://github.com/klikli-dev/occultism/commit/bbd9b4ebb8e7f13104bc03de73fbe5c6ce7842b2) - update russian translation *(PR [#1365](https://github.com/klikli-dev/occultism/pull/1365) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2073,3 +2087,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.180.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.180.0...release/v1.21.1-1.180.1
 [release/v1.21.1-1.181.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.180.1...release/v1.21.1-1.181.0
 [release/v1.21.1-1.182.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.181.0...release/v1.21.1-1.182.0
+[release/v1.21.1-1.183.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.182.0...release/v1.21.1-1.183.0
