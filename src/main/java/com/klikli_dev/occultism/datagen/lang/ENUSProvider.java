@@ -765,6 +765,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.wrong_activation_item", "\u00a7lWrong Activation Item\u00a7r.\nYou are trying to start the ritual with the wrong item, try:");
         this.add("ritual.occultism.wrong_pentacle", "\u00a7lWrong Pentacle\u00a7r.\nYou are performing the ritual on the wrong pentacle, the correct one is:");
         this.add("ritual.occultism.no_bowls", "\u00a7lNo Sacrificial Bowls Found.\u00a7r\nPlace the sacrificial bowls closer.");
+        this.add("ritual.occultism.put_in_satchel", "Stored pentacles in the satchel");
         this.add("ritual.occultism.sacrifice", "" + ChatFormatting.WHITE + ChatFormatting.BOLD + "Perform the Sacrifice of:");
         this.add("ritual.occultism.use_item", "" + ChatFormatting.WHITE + ChatFormatting.BOLD + "Use the item:");
 
@@ -2730,6 +2731,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM, "Raw Iesnium Storage Blocks");
         this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER, "Raw Silver Storage Blocks");
         this.addItemTag(OccultismTags.Items.MUSHROOM_BLOCKS, "Mushroom Blocks");
+        this.addItemTag(OccultismTags.Items.LIGHTNING_RODS, "Lightning Rods");
         this.addItemTag(OccultismTags.Items.TALLOW, "Tallow");
         this.addItemTag(OccultismTags.Items.METAL_AXES, "Metal Axes");
         this.addItemTag(OccultismTags.Items.MAGMA, "Magma");
