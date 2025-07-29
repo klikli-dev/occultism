@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.143.0] - 2025-07-29
+### :sparkles: New Features
+- [`d9452de`](https://github.com/klikli-dev/occultism/commit/d9452de9a283ef756acde7aeea6bf298963e9b0c) - New Crowdin updates *(PR [#1379](https://github.com/klikli-dev/occultism/pull/1379) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`8bc2e65`](https://github.com/klikli-dev/occultism/commit/8bc2e6536b53bc573788de97ee9940719d417562) - New Crowdin updates *(PR [#1380](https://github.com/klikli-dev/occultism/pull/1380) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`fa7d6cf`](https://github.com/klikli-dev/occultism/commit/fa7d6cf45c24731773728ac45341a8082198876c) - remove provider (ruru for 1.20.1 is coming from crowdin) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.142.0] - 2025-07-29
 ### :sparkles: New Features
 - [`a826058`](https://github.com/klikli-dev/occultism/commit/a8260586f1cc828362b4744ccfec0931a530b770) - New Crowdin updates *(PR [#1373](https://github.com/klikli-dev/occultism/pull/1373) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1284,3 +1293,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.141.3]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.141.2...release/v1.20.1-1.141.3
 [release/v1.20.1-1.141.4]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.141.3...release/v1.20.1-1.141.4
 [release/v1.20.1-1.142.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.141.4...release/v1.20.1-1.142.0
+[release/v1.20.1-1.143.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.142.0...release/v1.20.1-1.143.0
