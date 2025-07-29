@@ -1,7 +1,7 @@
 {
   "advancements.occultism.chalks.black.description": "Fourth Foundation",
-  "advancements.occultism.chalks.black.title": "Use the Black Chalk",
-  "advancements.occultism.chalks.blue.description": "Fourth Tier",
+  "advancements.occultism.chalks.black.title": "Use o Giz preto",
+  "advancements.occultism.chalks.blue.description": "Quarto nível",
   "advancements.occultism.chalks.blue.title": "Use the Blue Chalk",
   "advancements.occultism.chalks.brown.description": "Bait for what?",
   "advancements.occultism.chalks.brown.title": "Use the Brown Chalk",
@@ -465,7 +465,7 @@
   "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.intro.text": "Livros de Vinculação Selados são gerados com um nome de espírito aleatório. Isso confunde muitos processos de criação automatizados, que deixam de reconhecer o item como o resultado esperado da criação, pois não esperam NBT/Componentes de Dados no item.\n\\\n\\\nIsso resulta em processos de criação que ficam travados.\n",
   "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.intro.title": "O problema",
   "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.name": "Livros de Vinculação em Criação Automatizada",
-  "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.solution.text": "1. Coloque um dicionário de espíritos em uma bigorna e dê um nome a ela. Este será o nome de todos os espíritos invocados no futuro.\n2. Use este dicionário para configurar padrões de criação (se seu mod de automação precisar).\n",
+  "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.solution.text": "1. Put a dictionary of spirits into an anvil and give it a name. This will be the name of all spirits summoned in the future.\n2. Use this dictionary to configure crafting patterns (if your automation mod requires it).\n3. Use this dictionary to craft the Bound Books of Binding in the automation system. As usual, the dictionary will not be used up.\n4. All crafted books will now have the same name and will be recognized by your automation system.\n",
   "book.occultism.dictionary_of_spirits.getting_started.books_of_binding_automation.solution.title": "A solução",
   "book.occultism.dictionary_of_spirits.getting_started.books_of_calling.description": "Telling your spirits what to do",
   "book.occultism.dictionary_of_spirits.getting_started.books_of_calling.intro.text": "Books of Calling allow to control a summoned spirit, and to store it to prevent essence decay or move it more easily.\n\\\n\\\nOnly spirits that require precise instructions - such as a work area or drop-off storage - come with a book of calling.\n",
