@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.184.0] - 2025-07-29
+### :sparkles: New Features
+- [`5df9175`](https://github.com/klikli-dev/occultism/commit/5df91754ebc2aab97f4efd7ca9cbe2f20675fe27) - New Crowdin updates *(PR [#1378](https://github.com/klikli-dev/occultism/pull/1378) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`a1c4022`](https://github.com/klikli-dev/occultism/commit/a1c4022ad5d8675b251033e307d0c89163133f67) - New Crowdin updates *(PR [#1381](https://github.com/klikli-dev/occultism/pull/1381) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`93e81a7`](https://github.com/klikli-dev/occultism/commit/93e81a7dc2585989700ddf9618b2f5ab3304bfc0) - New translations en_us.json (Portuguese, Brazilian) *(PR [#1382](https://github.com/klikli-dev/occultism/pull/1382) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`6a9eed9`](https://github.com/klikli-dev/occultism/commit/6a9eed9e8bda51aba3dad18ed67ee0e8028fa201) - New Crowdin updates *(PR [#1383](https://github.com/klikli-dev/occultism/pull/1383) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`e257932`](https://github.com/klikli-dev/occultism/commit/e257932563a2def75ed485f75d633b5200b2e945) - New Crowdin updates *(PR [#1385](https://github.com/klikli-dev/occultism/pull/1385) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`1164f1c`](https://github.com/klikli-dev/occultism/commit/1164f1c0d432cc28d952008f1a951d59ec39a51d) - remove ru_ru from crowdin (currently still handled via datagen) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`33032ec`](https://github.com/klikli-dev/occultism/commit/33032ec530fd6e4653542b27ccd5da6f5ea0991a) - clean up issue with upper/lower case file duplicates *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`033a457`](https://github.com/klikli-dev/occultism/commit/033a457bdaaa6ca3b2881da7cbc8ba29ef669cf0) - move ruru to crowdin *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.183.0] - 2025-07-29
 ### :sparkles: New Features
 - [`77ebbee`](https://github.com/klikli-dev/occultism/commit/77ebbee4740c07dc62a19385edf4064778d0794a) - Friends and foes compatibility and a fix *(PR [#1370](https://github.com/klikli-dev/occultism/pull/1370) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
@@ -2088,3 +2102,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.181.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.180.1...release/v1.21.1-1.181.0
 [release/v1.21.1-1.182.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.181.0...release/v1.21.1-1.182.0
 [release/v1.21.1-1.183.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.182.0...release/v1.21.1-1.183.0
+[release/v1.21.1-1.184.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.183.0...release/v1.21.1-1.184.0
