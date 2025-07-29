@@ -172,7 +172,7 @@ public class RURUProvider extends AbstractModonomiconLanguageProvider {
         this.lang("ru_ru").addItem(OccultismItems.DEBUG_FOLIOT_CLEANER, "Вызов отладочного Фолиота-уборщика");
         this.lang("ru_ru").addItem(OccultismItems.DEBUG_FOLIOT_TRADER_ITEM, "Вызов отладочного Фолиота-торговца");
         this.lang("ru_ru").addItem(OccultismItems.DEBUG_DJINNI_MANAGE_MACHINE, "Вызов отладочного Джинна-станочника");
-        this.lang("ru_ru").addItem(OccultismItems.DEBUG_DJINNI_TEST, "Вызов отладочного тестового Джинна");\
+        this.lang("ru_ru").addItem(OccultismItems.DEBUG_DJINNI_TEST, "Вызов отладочного тестового Джинна");
         this.lang("ru_ru").addAutoTooltip(OccultismItems.DIVINATION_ROD.get(),
                 """
                         Ничего не видите?
