@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.142.0] - 2025-07-29
+### :sparkles: New Features
+- [`a826058`](https://github.com/klikli-dev/occultism/commit/a8260586f1cc828362b4744ccfec0931a530b770) - New Crowdin updates *(PR [#1373](https://github.com/klikli-dev/occultism/pull/1373) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.141.4] - 2025-03-20
 ### :bug: Bug Fixes
 - [`3551d4d`](https://github.com/klikli-dev/occultism/commit/3551d4da384e0d9da49619ad2290bb851da659db) - ritual dummies not registered as output of emi recipe category *(PR [#1321](https://github.com/klikli-dev/occultism/pull/1321) by [@Tomska95](https://github.com/Tomska95))*
@@ -1278,3 +1283,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.141.2]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.141.0...release/v1.20.1-1.141.2
 [release/v1.20.1-1.141.3]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.141.2...release/v1.20.1-1.141.3
 [release/v1.20.1-1.141.4]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.141.3...release/v1.20.1-1.141.4
+[release/v1.20.1-1.142.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.141.4...release/v1.20.1-1.142.0
