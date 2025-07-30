@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.186.0] - 2025-07-30
+### :sparkles: New Features
+- [`3d9eacc`](https://github.com/klikli-dev/occultism/commit/3d9eacc492dc43df8d92be254ae5746fe980e7d1) - New Crowdin updates *(PR [#1390](https://github.com/klikli-dev/occultism/pull/1390) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`30df5d0`](https://github.com/klikli-dev/occultism/commit/30df5d05800b265183bdb5b334aed89018f88f08) - temp rename for case change *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`dff7f06`](https://github.com/klikli-dev/occultism/commit/dff7f06c57df4ed29c786a60d9fa13c02a2f2957) - rename to lowercase *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`3b578b6`](https://github.com/klikli-dev/occultism/commit/3b578b64a3166b7e6c4bb59b37d0d4536114a338) - temp rename for case change *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`662bb80`](https://github.com/klikli-dev/occultism/commit/662bb809da53b678d762d30079796cfc552340d9) - rename to lowercase *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.185.0] - 2025-07-30
 ### :sparkles: New Features
 - [`a3ab6a1`](https://github.com/klikli-dev/occultism/commit/a3ab6a1898b38927d1ccd5f2500d4936af384885) - New Crowdin updates *(PR [#1386](https://github.com/klikli-dev/occultism/pull/1386) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2110,3 +2121,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.183.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.182.0...release/v1.21.1-1.183.0
 [release/v1.21.1-1.184.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.183.0...release/v1.21.1-1.184.0
 [release/v1.21.1-1.185.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.184.0...release/v1.21.1-1.185.0
+[release/v1.21.1-1.186.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.185.0...release/v1.21.1-1.186.0
