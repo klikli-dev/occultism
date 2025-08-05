@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.189.0] - 2025-08-05
+### :sparkles: New Features
+- [`663b8c0`](https://github.com/klikli-dev/occultism/commit/663b8c03f8ebc051f584497e471c5f84272c8660) - switch to mdg from neogradle *(PR [#1395](https://github.com/klikli-dev/occultism/pull/1395) by [@dphaldes](https://github.com/dphaldes))*
+- [`cbecc91`](https://github.com/klikli-dev/occultism/commit/cbecc91bd8decb65eee33f646672d7a559645e34) - new item and block textures by Aldahel *(PR [#1397](https://github.com/klikli-dev/occultism/pull/1397) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`99c4b53`](https://github.com/klikli-dev/occultism/commit/99c4b537926e0740dc75ac4c4dc864b555f7e644) - 3d divination rod model search animation not working *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.188.0] - 2025-08-04
 ### :sparkles: New Features
 - [`708ab5c`](https://github.com/klikli-dev/occultism/commit/708ab5ca13caa48a037d08cda47196a6777dc00b) - add new models for foliots by ratz_borkopf *(PR [#1366](https://github.com/klikli-dev/occultism/pull/1366) by [@dphaldes](https://github.com/dphaldes))*
@@ -2134,3 +2143,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.186.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.185.0...release/v1.21.1-1.186.0
 [release/v1.21.1-1.187.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.186.0...release/v1.21.1-1.187.0
 [release/v1.21.1-1.188.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.187.0...release/v1.21.1-1.188.0
+[release/v1.21.1-1.189.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.188.0...release/v1.21.1-1.189.0
