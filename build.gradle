@@ -1,7 +1,7 @@
 plugins {
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version "${neogradle_version}"
+    id 'net.neoforged.moddev' version "${mdg_version}"
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -35,33 +35,70 @@ sourceSets {
     }
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
-java.withSourcesJar()
-
-if (file('src/main/resources/META-INF/accesstransformer.cfg').exists()) {
-    minecraft.accessTransformers.file file('src/main/resources/META-INF/accesstransformer.cfg')
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+    withSourcesJar()
 }
 
-runs {
-    configureEach {
-        systemProperty 'forge.logging.markers', 'REGISTRIES'
-        systemProperty 'forge.logging.console.level', 'debug'
-        jvmArguments.addAll('-XX:+AllowEnhancedClassRedefinition', '-XX:+IgnoreUnrecognizedVMOptions')
-        modSource project.sourceSets.main
+
+
+neoForge {
+    version = project.neo_version
+
+    parchment {
+        mappingsVersion = project.parchment_mappings_version
+        minecraftVersion = project.parchment_minecraft_version
     }
 
-    client {
-        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
-        programArgument "--username=Occultism"
+    if (file('src/main/resources/META-INF/accesstransformer.cfg').exists()) {
+       accessTransformers = project.files('src/main/resources/META-INF/accesstransformer.cfg')
     }
 
-    server {
-        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
-//        programArgument '--nogui'
+
+    runs {
+
+        client {
+            client()
+
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+            programArgument "--username=Occultism"
+        }
+
+        server {
+            server()
+
+            systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
+            // programArgument '--nogui'
+        }
+
+        gameTestServer {
+            type = "gameTestServer"
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        data {
+            data()
+
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+
+        configureEach {
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            logLevel = org.slf4j.event.Level.DEBUG
+            jvmArguments.addAll('-XX:+AllowEnhancedClassRedefinition', '-XX:+IgnoreUnrecognizedVMOptions')
+        }
+
     }
 
-    data {
-        programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+    mods {
+        // define mod <-> source bindings
+        // these are used to tell the game which sources are for which mod
+        // multi mod projects should define one per mod
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
     }
 }
 
@@ -151,17 +188,20 @@ repositories {
     }
 }
 
-dependencies {
-    implementation "net.neoforged:neoforge:${neo_version}"
+// use localRuntime for running mods locally
+configurations {
+    runtimeClasspath.extendsFrom localRuntime
+}
 
+dependencies {
     //Jei
     compileOnly "mezz.jei:jei-${minecraft_version_major}-common-api:${jei_version}"
     compileOnly "mezz.jei:jei-${minecraft_version_major}-neoforge-api:${jei_version}"
-//    runtimeOnly "mezz.jei:jei-${minecraft_version_major}-neoforge:${jei_version}"
+//    localRuntime "mezz.jei:jei-${minecraft_version_major}-neoforge:${jei_version}"
 
     //curios
     compileOnly ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version_major}:api") {transitive=false}
-    runtimeOnly ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version_major}") {transitive=false}
+    localRuntime ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version_major}") {transitive=false}
 
     //geckolib
     implementation ("software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}") {transitive=false}
@@ -178,28 +218,28 @@ dependencies {
 
     //theurgy
     compileOnly ("com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}") {transitive=false}
-    runtimeOnly ("com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}") {transitive=false}
+    localRuntime ("com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}") {transitive=false}
 
     // emi
     compileOnly ("dev.emi:emi-neoforge:${emi_version}:api") {transitive=false}
-    runtimeOnly ("dev.emi:emi-neoforge:${emi_version}") {transitive=false}
+    localRuntime ("dev.emi:emi-neoforge:${emi_version}") {transitive=false}
 
     //runtime only helper mods for dev env, placed in ./runtime-mods, example: Hwyla-forge-1.10.11-B78_1.16.2.jar
-    //runtimeOnly "ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2"
+    //localRuntime "ignoredvalue:Hwyla:forge-1.10.11-B78_1.16.2"
 
     //alltheores - for recipe testing
     //enable once available for 1.20
-    //runtimeOnly "curse.maven:alltheores-405593:xyz" //
+    //localRuntime "curse.maven:alltheores-405593:xyz" //
     implementation "curse.maven:jade-324717:${jade_id}"
     //PerViamInvenire - for AI integration testing
-    //runtimeOnly "curse.maven:perviaminvenire-449945:xyz" //
+    //localRuntime "curse.maven:perviaminvenire-449945:xyz" //
     //enable once available for 1.20
-    //runtimeOnly "com.ldtteam:per_viam_invenire:1.19.3-XYZ-RELEASE:universal"
+    //localRuntime "com.ldtteam:per_viam_invenire:1.19.3-XYZ-RELEASE:universal"
 
     //Apothic Enchanting
     compileOnly ("dev.shadowsoffire:ApothicEnchanting:${minecraft_version}-${apothic_enchanting_version}") {transitive=false}
     //need more dependencies, so it doesn't run here
-    //runtimeOnly ("dev.shadowsoffire:ApothicEnchanting:${minecraft_version}-${apothic_enchanting_version}") {transitive=false}
+    //localRuntime ("dev.shadowsoffire:ApothicEnchanting:${minecraft_version}-${apothic_enchanting_version}") {transitive=false}
 }
 
 processResources {
