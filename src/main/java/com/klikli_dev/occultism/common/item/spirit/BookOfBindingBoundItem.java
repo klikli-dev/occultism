@@ -72,4 +72,9 @@ public class BookOfBindingBoundItem extends Item {
         ItemNBTUtil.generateBoundSpiritNameIfNone(stack);
         super.onCraftedPostProcess(stack, level);
     }
+
+    @Override
+    public boolean isFoil(ItemStack stack) {
+        return true;
+    }
 }
