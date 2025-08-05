@@ -51,22 +51,14 @@ import java.util.stream.Stream;
 
 public class GoldenSacrificialBowlBlock extends Block implements EntityBlock {
 
-    private static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 2.3, 12);
+    private static final VoxelShape SHAPE = Block.box(3, 2, 3, 13, 8, 13);
     private static final VoxelShape SHAPE_TROPHY = Stream.of(
-            Block.box(6, 0, 6, 10, 1, 10),
-            Block.box(5, 0, 7, 11, 1, 9),
-            Block.box(7, 0, 5, 9, 1, 11),
-            Block.box(7.5, 1, 7.5, 8.5, 6, 8.5),
-            Block.box(6, 6, 6, 10, 7, 10),
-            Block.box(5, 6, 7, 11, 7, 9),
-            Block.box(7, 6, 5, 9, 7, 11),
-            Block.box(5, 7, 5, 11, 10, 11),
-            Block.box(4, 7, 7, 12, 10, 9),
-            Block.box(7, 7, 4, 9, 10, 12),
-            Block.box(5, 10, 4, 11, 15, 12),
-            Block.box(4, 10, 5, 12, 15, 11),
-            Block.box(3, 10, 6, 13, 15, 10),
-            Block.box(6, 10, 3, 10, 15, 13)
+            Block.box(5, 0, 5, 11, 1, 11),
+            Block.box(6, 1, 6, 10, 2, 10),
+            Block.box(7, 2, 7, 9, 5, 9),
+            Block.box(6, 5, 6, 10, 6, 10),
+            Block.box(5, 6, 5, 11, 12, 11),
+            Block.box(4.5, 12, 4.5, 11.5, 13, 11.5)
     ).reduce((v1, v2) -> {
         return Shapes.join(v1, v2, BooleanOp.OR);
     }).get();

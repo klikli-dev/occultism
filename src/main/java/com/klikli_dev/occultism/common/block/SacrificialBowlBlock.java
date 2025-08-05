@@ -62,7 +62,7 @@ public class SacrificialBowlBlock extends DirectionalBlock implements EntityBloc
 
     public static final MapCodec<SacrificialBowlBlock> CODEC = simpleCodec(SacrificialBowlBlock::new);
 
-    private static final DirectionalBlockShape SHAPE = new DirectionalBlockShape(8, 8, 2.3f);
+    private static final DirectionalBlockShape SHAPE = new DirectionalBlockShape(10, 10, 6f, 8, 2f);
 
     public SacrificialBowlBlock(Properties properties) {
         super(properties);
