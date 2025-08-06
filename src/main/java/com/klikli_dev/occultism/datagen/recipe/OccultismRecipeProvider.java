@@ -531,10 +531,11 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/dictionary_of_spirits"));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, OccultismItems.DIVINATION_ROD.get())
+                .pattern(" g ")
                 .pattern("xyx")
-                .pattern("x x")
-                .pattern(" x ")
-                .define('x', Tags.Items.RODS_WOODEN)
+                .pattern(" g ")
+                .define('g', Tags.Items.INGOTS_GOLD)
+                .define('x', Tags.Items.GLASS_BLOCKS)
                 .define('y', OccultismItems.SPIRIT_ATTUNED_GEM.get())
                 .unlockedBy("has_spirit_attuned_gem", has(OccultismItems.SPIRIT_ATTUNED_GEM.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/divination_rod"));
