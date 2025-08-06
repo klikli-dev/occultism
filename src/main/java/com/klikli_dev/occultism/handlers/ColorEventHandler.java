@@ -24,7 +24,10 @@ package com.klikli_dev.occultism.handlers;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
+import com.klikli_dev.occultism.common.item.tool.ChalkItem;
+import com.klikli_dev.occultism.config.OccultismClientConfig;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.world.item.BlockItem;
@@ -122,6 +125,71 @@ public class ColorEventHandler {
                             return blockColors.getColor(blockstate, null, null, tintIndex);
                         }, //oak leaves color
                         OccultismBlocks.OTHERWORLD_LEAVES_NATURAL.get());
+
+        event.getItemColors()
+                .register((stack, tintIndex) ->
+                                0xFF000000 + Occultism.CLIENT_CONFIG.visuals.blackChalkGlyphColor.get(),
+                        OccultismItems.CHALK_BLACK.get(), OccultismItems.CHALK_BLACK_IMPURE.get());
+        event.getItemColors()
+                .register((stack, tintIndex) ->
+                                0xFF000000 + Occultism.CLIENT_CONFIG.visuals.blueChalkGlyphColor.get(),
+                        OccultismItems.CHALK_BLUE.get(), OccultismItems.CHALK_BLUE_IMPURE.get());
+        event.getItemColors()
+                .register((stack, tintIndex) ->
+                                0xFF000000 + Occultism.CLIENT_CONFIG.visuals.brownChalkGlyphColor.get(),
+                        OccultismItems.CHALK_BROWN.get(), OccultismItems.CHALK_BROWN_IMPURE.get());
+        event.getItemColors()
+                .register((stack, tintIndex) ->
+                                0xFF000000 + Occultism.CLIENT_CONFIG.visuals.cyanChalkGlyphColor.get(),
+                        OccultismItems.CHALK_CYAN.get(), OccultismItems.CHALK_CYAN_IMPURE.get());
+        event.getItemColors()
+                .register((stack, tintIndex) ->
+                                0xFF000000 + Occultism.CLIENT_CONFIG.visuals.yellowChalkGlyphColor.get(),
+                        OccultismItems.CHALK_YELLOW.get(), OccultismItems.CHALK_YELLOW_IMPURE.get());
+        event.getItemColors()
+                .register((stack, tintIndex) ->
+                                0xFF000000 + Occultism.CLIENT_CONFIG.visuals.grayChalkGlyphColor.get(),
+                        OccultismItems.CHALK_GRAY.get(), OccultismItems.CHALK_GRAY_IMPURE.get());
+        event.getItemColors()
+                .register((stack, tintIndex) ->
+                                0xFF000000 + Occultism.CLIENT_CONFIG.visuals.greenChalkGlyphColor.get(),
+                        OccultismItems.CHALK_GREEN.get(), OccultismItems.CHALK_GREEN_IMPURE.get());
+        event.getItemColors()
+                .register((stack, tintIndex) ->
+                                0xFF000000 + Occultism.CLIENT_CONFIG.visuals.lightBlueChalkGlyphColor.get(),
+                        OccultismItems.CHALK_LIGHT_BLUE.get(), OccultismItems.CHALK_LIGHT_BLUE_IMPURE.get());
+        event.getItemColors()
+                .register((stack, tintIndex) ->
+                                0xFF000000 + Occultism.CLIENT_CONFIG.visuals.lightGrayChalkGlyphColor.get(),
+                        OccultismItems.CHALK_LIGHT_GRAY.get(), OccultismItems.CHALK_LIGHT_GRAY_IMPURE.get());
+        event.getItemColors()
+                .register((stack, tintIndex) ->
+                                0xFF000000 + Occultism.CLIENT_CONFIG.visuals.limeChalkGlyphColor.get(),
+                        OccultismItems.CHALK_LIME.get(), OccultismItems.CHALK_LIME_IMPURE.get());
+        event.getItemColors()
+                .register((stack, tintIndex) ->
+                                0xFF000000 + Occultism.CLIENT_CONFIG.visuals.magentaChalkGlyphColor.get(),
+                        OccultismItems.CHALK_MAGENTA.get(), OccultismItems.CHALK_MAGENTA_IMPURE.get());
+        event.getItemColors()
+                .register((stack, tintIndex) ->
+                                0xFF000000 + Occultism.CLIENT_CONFIG.visuals.orangeChalkGlyphColor.get(),
+                        OccultismItems.CHALK_ORANGE.get(), OccultismItems.CHALK_ORANGE_IMPURE.get());
+        event.getItemColors()
+                .register((stack, tintIndex) ->
+                                0xFF000000 + Occultism.CLIENT_CONFIG.visuals.pinkChalkGlyphColor.get(),
+                        OccultismItems.CHALK_PINK.get(), OccultismItems.CHALK_PINK_IMPURE.get());
+        event.getItemColors()
+                .register((stack, tintIndex) ->
+                                0xFF000000 + Occultism.CLIENT_CONFIG.visuals.purpleChalkGlyphColor.get(),
+                        OccultismItems.CHALK_PURPLE.get(), OccultismItems.CHALK_PURPLE_IMPURE.get());
+        event.getItemColors()
+                .register((stack, tintIndex) ->
+                                0xFF000000 + Occultism.CLIENT_CONFIG.visuals.redChalkGlyphColor.get(),
+                        OccultismItems.CHALK_RED.get(), OccultismItems.CHALK_RED_IMPURE.get());
+        event.getItemColors()
+                .register((stack, tintIndex) ->
+                                0xFF000000 + Occultism.CLIENT_CONFIG.visuals.whiteChalkGlyphColor.get(),
+                        OccultismItems.CHALK_WHITE.get(), OccultismItems.CHALK_WHITE_IMPURE.get());
 
         Occultism.LOGGER.info("Item color registration complete.");
     }
