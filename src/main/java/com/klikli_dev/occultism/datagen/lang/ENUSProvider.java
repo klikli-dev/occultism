@@ -1794,7 +1794,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("entity");
         this.add(helper.pageText(),
                 """
-                        **Provides**: [#](%1$s)Water Breathing[#](), [#](%1$s)General Coolness[#]()
+                        **Provides**: [#](%1$s)Water Breathing[#](), [#](%1$s)General Coolness[#]() and [#](%1$s)Prismarine conversion[#]()
                                """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
@@ -1804,8 +1804,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageTitle(), "Description");
         this.add(helper.pageText(),
                 """
+                        Give a [](item://minecraft:lapis_lazuli) to transform in a [](item://minecraft:prismarine_shard).\\
+                        \\
                         **Upgrade Behaviour**\\
-                        When upgraded by a blacksmith familiar, it will act as a mobile light source.
+                        When upgraded by a blacksmith familiar, it will act as a mobile light source.\\
+                        You receive more prismarine per lapis.         
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_shub_niggurath");
@@ -2659,6 +2662,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("dialog.occultism.fairy.no_upgrade", "A Blacksmith Familiar needs to upgrade the Fairy before breathing like a dragon!");
         this.add("dialog.occultism.devil.sin_on_cooldown", "Another will be available after: %s ticks!");
         this.add("dialog.occultism.devil.no_upgrade", "A Blacksmith Familiar needs to upgrade the Devil before sinning!");
+        this.add("dialog.occultism.cthulhu.prismarine_on_cooldown", "Wait the great wave... The power of ocean is charging!");
     }
 
     private void addModonomiconIntegration() {

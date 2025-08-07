@@ -609,7 +609,10 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .add(Items.PLENTY_POTTERY_SHERD)
                 .add(Items.BLADE_POTTERY_SHERD)
                 .add(Items.EXPLORER_POTTERY_SHERD)
-                .add(Items.MOURNER_POTTERY_SHERD);
+                .add(Items.MOURNER_POTTERY_SHERD)
+                .add(Items.COPPER_INGOT)
+                .add(Items.PRISMARINE_SHARD)
+                .add(Items.PRISMARINE_CRYSTALS);
 
         this.tag(OccultismTags.Items.DROPS_WILD_HORDE_HUSK)
                 .add(Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE)

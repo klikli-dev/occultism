@@ -449,6 +449,15 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .add(LootItem.lootTableItem(Items.EXPLORER_POTTERY_SHERD).setWeight(1))
                                 .add(LootItem.lootTableItem(Items.MOURNER_POTTERY_SHERD).setWeight(1))
                                 .add(LootItem.lootTableItem(Items.PLENTY_POTTERY_SHERD).setWeight(1))
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(UniformGenerator.between(1.0F,2.0F))
+                                .add(EmptyLootItem.emptyItem().setWeight(2))
+                                .add(LootItem.lootTableItem(Items.COPPER_INGOT).setWeight(3))
+                                .add(LootItem.lootTableItem(Items.PRISMARINE_SHARD).setWeight(6))
+                                .add(LootItem.lootTableItem(Items.PRISMARINE_CRYSTALS))
+                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, ConstantValue.exactly(1.0F)))
                 );
     }
     public LootTable.Builder creeperLootTable(){
