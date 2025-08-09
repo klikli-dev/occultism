@@ -47,52 +47,52 @@ public class ColorEventHandler {
     public static void onRegisterBlockColorHandlers(RegisterColorHandlersEvent.Block event) {
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_WHITE.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_WHITE.get());
+                        OccultismBlocks.CHALK_GLYPH_WHITE.get(), OccultismBlocks.LARGE_CANDLE_WHITE.get());
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_YELLOW.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_YELLOW.get());
+                        OccultismBlocks.CHALK_GLYPH_YELLOW.get(), OccultismBlocks.LARGE_CANDLE_YELLOW.get());
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_PURPLE.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_PURPLE.get());
+                        OccultismBlocks.CHALK_GLYPH_PURPLE.get(), OccultismBlocks.LARGE_CANDLE_PURPLE.get());
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_RED.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_RED.get());
+                        OccultismBlocks.CHALK_GLYPH_RED.get(), OccultismBlocks.LARGE_CANDLE_RED.get());
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY.get());
+                        OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY.get(), OccultismBlocks.LARGE_CANDLE_LIGHT_GRAY.get());
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_GRAY.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_GRAY.get());
+                        OccultismBlocks.CHALK_GLYPH_GRAY.get(), OccultismBlocks.LARGE_CANDLE_GRAY.get());
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_BLACK.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_BLACK.get());
+                        OccultismBlocks.CHALK_GLYPH_BLACK.get(), OccultismBlocks.LARGE_CANDLE_BLACK.get());
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_BROWN.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_BROWN.get());
+                        OccultismBlocks.CHALK_GLYPH_BROWN.get(), OccultismBlocks.LARGE_CANDLE_BROWN.get());
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_ORANGE.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_ORANGE.get());
+                        OccultismBlocks.CHALK_GLYPH_ORANGE.get(), OccultismBlocks.LARGE_CANDLE_ORANGE.get());
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_LIME.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_LIME.get());
+                        OccultismBlocks.CHALK_GLYPH_LIME.get(), OccultismBlocks.LARGE_CANDLE_LIME.get());
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_GREEN.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_GREEN.get());
+                        OccultismBlocks.CHALK_GLYPH_GREEN.get(), OccultismBlocks.LARGE_CANDLE_GREEN.get());
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_CYAN.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_CYAN.get());
+                        OccultismBlocks.CHALK_GLYPH_CYAN.get(), OccultismBlocks.LARGE_CANDLE_CYAN.get());
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_LIGHT_BLUE.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_LIGHT_BLUE.get());
+                        OccultismBlocks.CHALK_GLYPH_LIGHT_BLUE.get(), OccultismBlocks.LARGE_CANDLE_LIGHT_BLUE.get());
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_BLUE.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_BLUE.get());
+                        OccultismBlocks.CHALK_GLYPH_BLUE.get(), OccultismBlocks.LARGE_CANDLE_BLUE.get());
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_MAGENTA.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_MAGENTA.get());
+                        OccultismBlocks.CHALK_GLYPH_MAGENTA.get(), OccultismBlocks.LARGE_CANDLE_MAGENTA.get());
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_PINK.get().getColor(),
-                        OccultismBlocks.CHALK_GLYPH_PINK.get());
+                        OccultismBlocks.CHALK_GLYPH_PINK.get(), OccultismBlocks.LARGE_CANDLE_PINK.get());
 
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_RAINBOW.get().getColor(state),
@@ -132,67 +132,67 @@ public class ColorEventHandler {
         event.getItemColors()
                 .register((stack, tintIndex) ->
                                 0xFF000000 + Occultism.CLIENT_CONFIG.visuals.blackChalkGlyphColor.get(),
-                        OccultismItems.CHALK_BLACK.get(), OccultismItems.CHALK_BLACK_IMPURE.get());
+                        OccultismItems.CHALK_BLACK.get(), OccultismItems.CHALK_BLACK_IMPURE.get(), OccultismBlocks.LARGE_CANDLE_BLACK.asItem());
         event.getItemColors()
                 .register((stack, tintIndex) ->
                                 0xFF000000 + Occultism.CLIENT_CONFIG.visuals.blueChalkGlyphColor.get(),
-                        OccultismItems.CHALK_BLUE.get(), OccultismItems.CHALK_BLUE_IMPURE.get());
+                        OccultismItems.CHALK_BLUE.get(), OccultismItems.CHALK_BLUE_IMPURE.get(), OccultismBlocks.LARGE_CANDLE_BLUE.asItem());
         event.getItemColors()
                 .register((stack, tintIndex) ->
                                 0xFF000000 + Occultism.CLIENT_CONFIG.visuals.brownChalkGlyphColor.get(),
-                        OccultismItems.CHALK_BROWN.get(), OccultismItems.CHALK_BROWN_IMPURE.get());
+                        OccultismItems.CHALK_BROWN.get(), OccultismItems.CHALK_BROWN_IMPURE.get(), OccultismBlocks.LARGE_CANDLE_BROWN.asItem());
         event.getItemColors()
                 .register((stack, tintIndex) ->
                                 0xFF000000 + Occultism.CLIENT_CONFIG.visuals.cyanChalkGlyphColor.get(),
-                        OccultismItems.CHALK_CYAN.get(), OccultismItems.CHALK_CYAN_IMPURE.get());
+                        OccultismItems.CHALK_CYAN.get(), OccultismItems.CHALK_CYAN_IMPURE.get(), OccultismBlocks.LARGE_CANDLE_CYAN.asItem());
         event.getItemColors()
                 .register((stack, tintIndex) ->
                                 0xFF000000 + Occultism.CLIENT_CONFIG.visuals.yellowChalkGlyphColor.get(),
-                        OccultismItems.CHALK_YELLOW.get(), OccultismItems.CHALK_YELLOW_IMPURE.get());
+                        OccultismItems.CHALK_YELLOW.get(), OccultismItems.CHALK_YELLOW_IMPURE.get(), OccultismBlocks.LARGE_CANDLE_YELLOW.asItem());
         event.getItemColors()
                 .register((stack, tintIndex) ->
                                 0xFF000000 + Occultism.CLIENT_CONFIG.visuals.grayChalkGlyphColor.get(),
-                        OccultismItems.CHALK_GRAY.get(), OccultismItems.CHALK_GRAY_IMPURE.get());
+                        OccultismItems.CHALK_GRAY.get(), OccultismItems.CHALK_GRAY_IMPURE.get(), OccultismBlocks.LARGE_CANDLE_GRAY.asItem());
         event.getItemColors()
                 .register((stack, tintIndex) ->
                                 0xFF000000 + Occultism.CLIENT_CONFIG.visuals.greenChalkGlyphColor.get(),
-                        OccultismItems.CHALK_GREEN.get(), OccultismItems.CHALK_GREEN_IMPURE.get());
+                        OccultismItems.CHALK_GREEN.get(), OccultismItems.CHALK_GREEN_IMPURE.get(), OccultismBlocks.LARGE_CANDLE_GREEN.asItem());
         event.getItemColors()
                 .register((stack, tintIndex) ->
                                 0xFF000000 + Occultism.CLIENT_CONFIG.visuals.lightBlueChalkGlyphColor.get(),
-                        OccultismItems.CHALK_LIGHT_BLUE.get(), OccultismItems.CHALK_LIGHT_BLUE_IMPURE.get());
+                        OccultismItems.CHALK_LIGHT_BLUE.get(), OccultismItems.CHALK_LIGHT_BLUE_IMPURE.get(), OccultismBlocks.LARGE_CANDLE_LIGHT_BLUE.asItem());
         event.getItemColors()
                 .register((stack, tintIndex) ->
                                 0xFF000000 + Occultism.CLIENT_CONFIG.visuals.lightGrayChalkGlyphColor.get(),
-                        OccultismItems.CHALK_LIGHT_GRAY.get(), OccultismItems.CHALK_LIGHT_GRAY_IMPURE.get());
+                        OccultismItems.CHALK_LIGHT_GRAY.get(), OccultismItems.CHALK_LIGHT_GRAY_IMPURE.get(), OccultismBlocks.LARGE_CANDLE_LIGHT_GRAY.asItem());
         event.getItemColors()
                 .register((stack, tintIndex) ->
                                 0xFF000000 + Occultism.CLIENT_CONFIG.visuals.limeChalkGlyphColor.get(),
-                        OccultismItems.CHALK_LIME.get(), OccultismItems.CHALK_LIME_IMPURE.get());
+                        OccultismItems.CHALK_LIME.get(), OccultismItems.CHALK_LIME_IMPURE.get(), OccultismBlocks.LARGE_CANDLE_LIME.asItem());
         event.getItemColors()
                 .register((stack, tintIndex) ->
                                 0xFF000000 + Occultism.CLIENT_CONFIG.visuals.magentaChalkGlyphColor.get(),
-                        OccultismItems.CHALK_MAGENTA.get(), OccultismItems.CHALK_MAGENTA_IMPURE.get());
+                        OccultismItems.CHALK_MAGENTA.get(), OccultismItems.CHALK_MAGENTA_IMPURE.get(), OccultismBlocks.LARGE_CANDLE_MAGENTA.asItem());
         event.getItemColors()
                 .register((stack, tintIndex) ->
                                 0xFF000000 + Occultism.CLIENT_CONFIG.visuals.orangeChalkGlyphColor.get(),
-                        OccultismItems.CHALK_ORANGE.get(), OccultismItems.CHALK_ORANGE_IMPURE.get());
+                        OccultismItems.CHALK_ORANGE.get(), OccultismItems.CHALK_ORANGE_IMPURE.get(), OccultismBlocks.LARGE_CANDLE_ORANGE.asItem());
         event.getItemColors()
                 .register((stack, tintIndex) ->
                                 0xFF000000 + Occultism.CLIENT_CONFIG.visuals.pinkChalkGlyphColor.get(),
-                        OccultismItems.CHALK_PINK.get(), OccultismItems.CHALK_PINK_IMPURE.get());
+                        OccultismItems.CHALK_PINK.get(), OccultismItems.CHALK_PINK_IMPURE.get(), OccultismBlocks.LARGE_CANDLE_PINK.asItem());
         event.getItemColors()
                 .register((stack, tintIndex) ->
                                 0xFF000000 + Occultism.CLIENT_CONFIG.visuals.purpleChalkGlyphColor.get(),
-                        OccultismItems.CHALK_PURPLE.get(), OccultismItems.CHALK_PURPLE_IMPURE.get());
+                        OccultismItems.CHALK_PURPLE.get(), OccultismItems.CHALK_PURPLE_IMPURE.get(), OccultismBlocks.LARGE_CANDLE_PURPLE.asItem());
         event.getItemColors()
                 .register((stack, tintIndex) ->
                                 0xFF000000 + Occultism.CLIENT_CONFIG.visuals.redChalkGlyphColor.get(),
-                        OccultismItems.CHALK_RED.get(), OccultismItems.CHALK_RED_IMPURE.get());
+                        OccultismItems.CHALK_RED.get(), OccultismItems.CHALK_RED_IMPURE.get(), OccultismBlocks.LARGE_CANDLE_RED.asItem());
         event.getItemColors()
                 .register((stack, tintIndex) ->
                                 0xFF000000 + Occultism.CLIENT_CONFIG.visuals.whiteChalkGlyphColor.get(),
-                        OccultismItems.CHALK_WHITE.get(), OccultismItems.CHALK_WHITE_IMPURE.get());
+                        OccultismItems.CHALK_WHITE.get(), OccultismItems.CHALK_WHITE_IMPURE.get(), OccultismBlocks.LARGE_CANDLE_WHITE.asItem());
 
         Occultism.LOGGER.info("Item color registration complete.");
     }

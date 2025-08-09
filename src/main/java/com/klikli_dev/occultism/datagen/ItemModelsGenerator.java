@@ -58,6 +58,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
         this.registerItemFromBlock();
         this.registerItemMiners();
         this.registerItemChalks();
+        this.registerItemCandles();
 
         this.registerItemGenerated(this.name(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get()),"book_of_calling_manage_machine");
         this.registerItemGenerated(this.name(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get()),"book_of_calling_cleaner");
@@ -222,22 +223,6 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismBlocks.IESNIUM_ORE.asItem()),
                 this.name(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.asItem()),
                 this.name(OccultismBlocks.LARGE_CANDLE.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_WHITE.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_LIGHT_GRAY.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_GRAY.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_BLACK.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_BROWN.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_RED.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_ORANGE.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_YELLOW.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_LIME.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_GREEN.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_CYAN.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_BLUE.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_LIGHT_BLUE.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_PINK.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_MAGENTA.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_PURPLE.asItem()),
                 this.name(OccultismBlocks.OTHERCOBBLESTONE.asItem()),
                 this.name(OccultismBlocks.OTHERCOBBLESTONE_SLAB.asItem()),
                 this.name(OccultismBlocks.OTHERCOBBLESTONE_STAIRS.asItem()),
@@ -351,6 +336,29 @@ public class ItemModelsGenerator extends ItemModelProvider {
         }
     }
 
-
+    private void registerItemCandles() {
+        String[] items = {
+            this.name(OccultismBlocks.LARGE_CANDLE_WHITE.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_LIGHT_GRAY.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_GRAY.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_BLACK.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_BROWN.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_RED.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_ORANGE.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_YELLOW.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_LIME.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_GREEN.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_CYAN.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_BLUE.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_LIGHT_BLUE.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_PINK.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_MAGENTA.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_PURPLE.asItem()),
+        };
+        for (String item : items){
+            this.getBuilder(item)
+                    .parent(new ModelFile.UncheckedModelFile(this.modLoc("block/" + "large_candle_white")));
+        }
+    }
 
 }
