@@ -497,6 +497,8 @@
   "book.occultism.dictionary_of_spirits.getting_started.candle.name": "Candles",
   "book.occultism.dictionary_of_spirits.getting_started.candle.tallow.text": "Key ingredient for large candles. Kill large animals like pigs, cows or sheep with a [](item://occultism:butcher_knife)\nto harvest [](item://occultism:tallow).\n",
   "book.occultism.dictionary_of_spirits.getting_started.chalks.description": "Better chalks for better rituals!",
+  "book.occultism.dictionary_of_spirits.getting_started.chalks.fire.text": "Right-clicking on Spirit Fire with a Chalk will change the color of the flames.\\\n\\\nDye dye dye, its muffin time.\n",
+  "book.occultism.dictionary_of_spirits.getting_started.chalks.fire.title": "Colored Spirit Fire",
   "book.occultism.dictionary_of_spirits.getting_started.chalks.intro.text": "For more advanced rituals the basic [White Chalk](entry://occultism:dictionary_of_spirits/getting_started/ritual_prep_chalk) is not sufficient. Instead chalks made from more arcane materials are required.\n",
   "book.occultism.dictionary_of_spirits.getting_started.chalks.intro.title": "More Chalks",
   "book.occultism.dictionary_of_spirits.getting_started.chalks.more.text": "Follow the progression in [Pentacle page](category://pentacles) to get the 16 chalks and do all pentacles,\n",

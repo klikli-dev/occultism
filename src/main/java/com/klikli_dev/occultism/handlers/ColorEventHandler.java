@@ -100,6 +100,9 @@ public class ColorEventHandler {
         event.getBlockColors()
                 .register((state, light, pos, tintIndex) -> OccultismBlocks.CHALK_GLYPH_VOID.get().getColor(state),
                         OccultismBlocks.CHALK_GLYPH_VOID.get());
+        event.getBlockColors()
+                .register((state, light, pos, tintIndex) -> (int) OccultismBlocks.SPIRIT_FIRE.get().getColor(state, tintIndex),
+                        OccultismBlocks.SPIRIT_FIRE.get());
 
         //Otherworld leaves have a colored texture, so return white tint;
         //but while covered the oak leaves need their vanilla tint
