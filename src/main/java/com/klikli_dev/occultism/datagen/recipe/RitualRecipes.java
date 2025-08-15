@@ -1322,10 +1322,12 @@ public abstract class RitualRecipes extends RecipeProvider {
                         60,
                         RITUAL_CRAFT,
                         PENTACLE_CRAFT_FOLIOT,
-                        Ingredient.of(OccultismItems.WORMHOLE_FRAME.get()),
+                        Ingredient.of(OccultismItems.OTHERSTONE_FRAME.get()),
                         Ingredient.of(Tags.Items.ENDER_PEARLS),
                         Ingredient.of(Tags.Items.GEMS_QUARTZ),
-                        Ingredient.of(Tags.Items.GEMS_QUARTZ))
+                        Ingredient.of(Tags.Items.GEMS_QUARTZ),
+                        Ingredient.of(Tags.Items.INGOTS_GOLD),
+                        Ingredient.of(Tags.Items.INGOTS_GOLD))
                 .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_stable_wormhole"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),

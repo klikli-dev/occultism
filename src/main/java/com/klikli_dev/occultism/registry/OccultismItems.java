@@ -375,8 +375,6 @@ public class OccultismItems {
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> OTHERSTONE_FRAME = ITEMS.register("otherstone_frame",
             () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> WORMHOLE_FRAME = ITEMS.register("wormhole_frame",
-            () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> OTHERSTONE_TABLET = ITEMS.register("otherstone_tablet",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> STORAGE_REMOTE_INERT = ITEMS.register("storage_remote_inert",

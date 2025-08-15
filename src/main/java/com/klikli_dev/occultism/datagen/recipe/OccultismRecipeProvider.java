@@ -768,15 +768,6 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_otherstone_tablet", has(OccultismItems.OTHERSTONE_TABLET.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/storage_remote_inert"));
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, OccultismItems.WORMHOLE_FRAME.get())
-                .pattern(" g ")
-                .pattern("gog")
-                .pattern(" g ")
-                .define('g', Tags.Items.INGOTS_GOLD)
-                .define('o', OccultismItems.OTHERSTONE_FRAME.get())
-                .unlockedBy("has_otherstone_frame", has(OccultismItems.OTHERSTONE_FRAME.get()))
-                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/wormhole_frame"));
-
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, OccultismBlocks.OTHERGLASS_NATURAL.get())
                 .pattern("nen")
                 .pattern("ege")

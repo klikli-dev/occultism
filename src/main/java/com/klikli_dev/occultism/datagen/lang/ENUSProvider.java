@@ -282,7 +282,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.TALLOW, "Tallow");
         this.addItem(OccultismItems.OTHERSTONE_FRAME, "Otherstone Frame");
         this.addItem(OccultismItems.OTHERSTONE_TABLET, "Otherstone Tablet");
-        this.addItem(OccultismItems.WORMHOLE_FRAME, "Wormhole Frame");
         this.addItem(OccultismItems.IRON_DUST, "Iron Dust");
         this.addItem(OccultismItems.OBSIDIAN_DUST, "Obsidian Dust");
         this.addItem(OccultismItems.CRUSHED_END_STONE, "Crushed End Stone");
