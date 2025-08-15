@@ -101,6 +101,7 @@ public class PossessedEvokerEntity extends Evoker {
             entity.absMoveTo(this.getBlockX() + offsetX, this.getBlockY() + 1.5, this.getBlockZ() + offsetZ,
                     level.getRandom().nextInt(360), 0);
             entity.setCustomName(Component.literal(TextUtil.generateName()));
+            entity.setHealth(10);
             level.addFreshEntity(entity);
         }
 
