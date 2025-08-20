@@ -577,6 +577,27 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .add(Items.PORKCHOP)
                 .add(Items.ROTTEN_FLESH);
 
+        this.tag(OccultismTags.Items.DROPS_POSSESSED_GUARDIAN)
+                .add(Items.SEA_PICKLE)
+                .add(Items.KELP)
+                .add(Items.TUBE_CORAL)
+                .add(Items.BRAIN_CORAL)
+                .add(Items.BUBBLE_CORAL)
+                .add(Items.FIRE_CORAL)
+                .add(Items.HORN_CORAL)
+                .add(Items.TUBE_CORAL_BLOCK)
+                .add(Items.BRAIN_CORAL_BLOCK)
+                .add(Items.BUBBLE_CORAL_BLOCK)
+                .add(Items.FIRE_CORAL_BLOCK)
+                .add(Items.HORN_CORAL_BLOCK)
+                .add(Items.TUBE_CORAL_FAN)
+                .add(Items.BRAIN_CORAL_FAN)
+                .add(Items.BUBBLE_CORAL_FAN)
+                .add(Items.FIRE_CORAL_FAN)
+                .add(Items.HORN_CORAL_FAN)
+                .add(Items.PRISMARINE_SHARD)
+                .add(Items.PRISMARINE_CRYSTALS);
+
         this.tag(OccultismTags.Items.DROPS_WILD_HUNT)
                 .add(Items.WITHER_SKELETON_SKULL)
                 .add(Items.RIB_ARMOR_TRIM_SMITHING_TEMPLATE)

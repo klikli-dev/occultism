@@ -63,6 +63,7 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
         this.add(OccultismEntities.POSSESSED_BREEZE_TYPE.get(), this.breezeTable());
         this.add(OccultismEntities.POSSESSED_STRONG_BREEZE_TYPE.get(), this.strongBreezeTable());
         this.add(OccultismEntities.POSSESSED_EVOKER_TYPE.get(), this.evokerTable());
+        this.add(OccultismEntities.POSSESSED_GUARDIAN_TYPE.get(), this.guardianLootTable());
         this.add(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get(),
                 LootTable.lootTable().withPool(
                         LootPool.lootPool().setRolls(ConstantValue.exactly(1))
@@ -678,6 +679,62 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                                 .add(LootItem.lootTableItem(Items.CRYING_OBSIDIAN).setWeight(4))
                                 .add(LootItem.lootTableItem(Items.ANCIENT_DEBRIS).setWeight(1))
                                 .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries,ConstantValue.exactly(1)))
+                );
+    }
+
+    public LootTable.Builder guardianLootTable(){
+        return LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(Items.SEA_PICKLE).setWeight(9))
+                                .add(LootItem.lootTableItem(Items.KELP).setWeight(1))
+                                .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.registries, 0.8F, 0.1F))
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(Items.TUBE_CORAL_BLOCK))
+                                .add(LootItem.lootTableItem(Items.BRAIN_CORAL_BLOCK))
+                                .add(LootItem.lootTableItem(Items.BUBBLE_CORAL_BLOCK))
+                                .add(LootItem.lootTableItem(Items.FIRE_CORAL_BLOCK))
+                                .add(LootItem.lootTableItem(Items.HORN_CORAL_BLOCK))
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(Items.TUBE_CORAL))
+                                .add(LootItem.lootTableItem(Items.BRAIN_CORAL))
+                                .add(LootItem.lootTableItem(Items.BUBBLE_CORAL))
+                                .add(LootItem.lootTableItem(Items.FIRE_CORAL))
+                                .add(LootItem.lootTableItem(Items.HORN_CORAL))
+                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0,1)))
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(Items.TUBE_CORAL_FAN))
+                                .add(LootItem.lootTableItem(Items.BRAIN_CORAL_FAN))
+                                .add(LootItem.lootTableItem(Items.BUBBLE_CORAL_FAN))
+                                .add(LootItem.lootTableItem(Items.FIRE_CORAL_FAN))
+                                .add(LootItem.lootTableItem(Items.HORN_CORAL_FAN))
+                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, ConstantValue.exactly(1)))
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(
+                                        LootItem.lootTableItem(Items.PRISMARINE_SHARD)
+                                                .setWeight(2)
+                                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
+                                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))
+                                )
+                                .add(
+                                        LootItem.lootTableItem(Items.PRISMARINE_CRYSTALS)
+                                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))
+                                )
+                                .add(EmptyLootItem.emptyItem().setWeight(3))
                 );
     }
 }
