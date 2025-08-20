@@ -22,13 +22,14 @@
 
 package com.klikli_dev.occultism.common.entity.possessed.horde;
 
+import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.level.Level;
 
-public class WildHordeSilverfishEntity extends Silverfish {
+public class WildHordeSilverfishEntity extends Silverfish implements PossessedMob {
 
     public WildHordeSilverfishEntity(EntityType<? extends Silverfish> type,
                                      Level worldIn) {
@@ -46,4 +47,9 @@ public class WildHordeSilverfishEntity extends Silverfish {
         return false;
     }
     //endregion Static Methods
+
+    @Override
+    public EntityType basedMob(){
+        return EntityType.SILVERFISH;
+    }
 }

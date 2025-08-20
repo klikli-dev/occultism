@@ -33,7 +33,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
-public class PossessedHoglinEntity extends Hoglin {
+public class PossessedHoglinEntity extends Hoglin implements PossessedMob{
 
     public PossessedHoglinEntity(EntityType<? extends Hoglin> type,
                                       Level worldIn) {
@@ -54,5 +54,10 @@ public class PossessedHoglinEntity extends Hoglin {
         this.setBaby(false); //force possessed hoglins to be adult to avoid non-dropping ones ...
 
         return result;
+    }
+
+    @Override
+    public EntityType basedMob(){
+        return EntityType.HOGLIN;
     }
 }

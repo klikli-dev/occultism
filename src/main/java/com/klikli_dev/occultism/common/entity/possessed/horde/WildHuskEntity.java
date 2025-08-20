@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.common.entity.possessed.horde;
 
+import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
@@ -34,7 +35,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.Optional;
 
-public class WildHuskEntity extends Husk {
+public class WildHuskEntity extends Husk implements PossessedMob {
 
     protected Optional<PossessedStrongBreezeEntity> master = Optional.empty();
 
@@ -83,4 +84,9 @@ public class WildHuskEntity extends Husk {
         return false;
     }
     //endregion Static Methods
+
+    @Override
+    public EntityType basedMob(){
+        return EntityType.HUSK;
+    }
 }

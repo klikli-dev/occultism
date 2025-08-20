@@ -35,7 +35,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.Objects;
 
-public class PossessedBlazeEntity extends Blaze {
+public class PossessedBlazeEntity extends Blaze implements PossessedMob{
 
     public PossessedBlazeEntity(EntityType<? extends Blaze> type,
                                 Level worldIn) {
@@ -74,4 +74,9 @@ public class PossessedBlazeEntity extends Blaze {
         return false;
     }
     //endregion Static Methods
+
+    @Override
+    public EntityType basedMob(){
+        return EntityType.BLAZE;
+    }
 }

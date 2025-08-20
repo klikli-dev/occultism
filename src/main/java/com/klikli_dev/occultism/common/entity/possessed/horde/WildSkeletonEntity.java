@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.common.entity.possessed.horde;
 
+import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
@@ -34,7 +35,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.Optional;
 
-public class WildSkeletonEntity extends Skeleton {
+public class WildSkeletonEntity extends Skeleton implements PossessedMob {
 
     protected Optional<PossessedWeakBreezeEntity> master = Optional.empty();
 
@@ -86,5 +87,10 @@ public class WildSkeletonEntity extends Skeleton {
     @Override
     protected boolean isSunBurnTick() {
         return false;
+    }
+
+    @Override
+    public EntityType basedMob(){
+        return EntityType.SKELETON;
     }
 }

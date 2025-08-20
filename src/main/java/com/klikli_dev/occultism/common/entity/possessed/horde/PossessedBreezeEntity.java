@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.common.entity.possessed.horde;
 
+import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.TextUtil;
@@ -46,7 +47,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PossessedBreezeEntity extends Breeze {
+public class PossessedBreezeEntity extends Breeze implements PossessedMob {
 
     List<WildSpiderEntity> minionsA = new ArrayList<>();
     List<WildStrayEntity> minionsB = new ArrayList<>();
@@ -152,5 +153,10 @@ public class PossessedBreezeEntity extends Breeze {
     }
     public void notifyMinionDeath(WildCaveSpiderEntity minion) {
         this.minionsC.remove(minion);
+    }
+
+    @Override
+    public EntityType basedMob(){
+        return EntityType.BREEZE;
     }
 }

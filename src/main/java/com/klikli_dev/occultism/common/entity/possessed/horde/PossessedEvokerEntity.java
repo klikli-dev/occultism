@@ -22,7 +22,7 @@
 
 package com.klikli_dev.occultism.common.entity.possessed.horde;
 
-import com.klikli_dev.occultism.registry.OccultismEntities;
+import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.DifficultyInstance;
@@ -38,7 +38,7 @@ import net.neoforged.neoforge.event.EventHooks;
 
 import javax.annotation.Nullable;
 
-public class PossessedEvokerEntity extends Evoker {
+public class PossessedEvokerEntity extends Evoker implements PossessedMob {
 
     public PossessedEvokerEntity(EntityType<? extends Evoker> type,
                                  Level worldIn) {
@@ -113,4 +113,9 @@ public class PossessedEvokerEntity extends Evoker {
         return false;
     }
     //endregion Static Methods
+
+    @Override
+    public EntityType basedMob(){
+        return EntityType.EVOKER;
+    }
 }

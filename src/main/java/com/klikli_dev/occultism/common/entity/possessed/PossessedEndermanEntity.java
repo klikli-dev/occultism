@@ -27,7 +27,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.level.Level;
 
-public class PossessedEndermanEntity extends EnderMan {
+public class PossessedEndermanEntity extends EnderMan implements PossessedMob {
 
     public PossessedEndermanEntity(EntityType<? extends EnderMan> type,
                                    Level worldIn) {
@@ -44,4 +44,9 @@ public class PossessedEndermanEntity extends EnderMan {
         return false;
     }
     //endregion Static Methods
+
+    @Override
+    public EntityType basedMob(){
+        return EntityType.ENDERMAN;
+    }
 }

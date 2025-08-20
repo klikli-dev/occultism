@@ -39,7 +39,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class PossessedBeeEntity extends Bee {
+public class PossessedBeeEntity extends Bee implements PossessedMob{
 
     private static final int MAX_BEES_PER_TIME = 10; // Maximum bees allowed
     private static final long TIME_WINDOW_TICKS = 20 * 60; // Time window in ticks (60 ticks = 1 minute in Minecraft)
@@ -122,5 +122,10 @@ public class PossessedBeeEntity extends Bee {
             }
             return super.hurt(source, amount);
         }
+    }
+
+    @Override
+    public EntityType basedMob(){
+        return EntityType.BEE;
     }
 }
