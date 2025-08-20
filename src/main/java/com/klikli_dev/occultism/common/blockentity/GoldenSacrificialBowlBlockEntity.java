@@ -536,7 +536,8 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                                     false);
                         } else {
                             var firstRecipe = this.level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get()).stream().findFirst();
-                            if (firstRecipe.isPresent() && firstRecipe.get().value().getRitual().getSacrificialBowls(level, pos).isEmpty()) {
+                            if (firstRecipe.isPresent() && firstRecipe.get().value().getRitual().getSacrificialBowls(level, pos).isEmpty()
+                                    && !(activationItem.getItem() instanceof MultiBlockRitualSatchelItem)) {
 
                                 var pentacle = firstRecipe.get().value().getPentacle();
                                 var offset = pentacle.getOffset();

@@ -67,6 +67,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.RAW_SILVER_BLOCK.get())
                 .add(OccultismBlocks.IESNIUM_BLOCK.get())
                 .add(OccultismBlocks.RAW_IESNIUM_BLOCK.get())
+                .add(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get())
                 .add(OccultismBlocks.SPIRIT_LANTERN.get())
                 .add(OccultismBlocks.OTHERCOBBLESTONE.get())
                 .add(OccultismBlocks.OTHERCOBBLESTONE_STAIRS.get())
