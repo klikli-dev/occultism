@@ -1604,9 +1604,9 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         var entryMap = ModonomiconAPI.get().getEntryMap();
         entryMap.setMap(
-                "________I_A_B_J_P_L_K______", //The Places follow the tier progression
+                "________I_A_B_J_P_L_K_C____", //The Places follow the tier progression
                 "___________________________",
-                "_______D_G_E_F_Q_M_N_C_____",
+                "_______D_G_E_F_Q_R_M_N_____",
                 "___________________________",
                 "___r_o_____________________",
                 "___________________________",
@@ -1659,6 +1659,9 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessDjinniID));
         var possessZombiePiglin = this.makePossessZombiePiglinEntry(entryMap, 'P');
         possessZombiePiglin.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(possessUnboundAfritID));
+        var possessGuardian = this.makePossessGuardianEntry(entryMap, 'R');
+        possessGuardian.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(possessUnboundAfritID));
         var possessWarden = this.makePossessWardenEntry(entryMap, 'M');
         possessWarden.withParent(BookEntryParentModel.create(overview.getId()))
@@ -1750,6 +1753,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         possessStrongBreeze,
                         mercyGoat,
                         possessZombiePiglin,
+                        possessGuardian,
                         possessBee,
                         possessUnboundOtherworldBird,
                         possessUnboundParrot,
@@ -2091,7 +2095,7 @@ public class OccultismBookProvider extends SingleBookSubProvider {
         this.context().page("entity");
         var entity = BookEntityPageModel.create()
                 .withEntityId("occultism:possessed_elder_guardian")
-                .withScale(0.5f)
+                .withScale(0.7f)
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
@@ -2301,6 +2305,49 @@ public class OccultismBookProvider extends SingleBookSubProvider {
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.DEMONIC_MEAT)
+                .withLocation(entryMap.get(icon))
+                .withPages(
+                        entity,
+                        ritual,
+                        description
+                );
+    }
+
+    private BookEntryModel makePossessGuardianEntry(CategoryEntryMap entryMap, char icon) {
+        this.context().entry("possess_guardian");
+        this.lang().add(this.context().entryName(), "Possessed Guardian");
+
+        this.context().page("entity");
+        var entity = BookEntityPageModel.create()
+                .withEntityId("occultism:possessed_guardian")
+                .withScale(0.6f)
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                          **Drops**: Every coral, prismarine and some sea plants;
+                        """);
+
+        this.context().page("ritual");
+        var ritual = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/possess_guardian"));
+
+        this.context().page("description");
+        var description = BookTextPageModel.create()
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        In this ritual an [#](%1$s)afrit[#]() will possess a [#](%1$s)Guardian[#](), 
+                        harvesting energy from warm seas, corals are infused into the guardian's internal structure.\\ 
+                        \\
+                         Drops:
+                          + [](item://minecraft:sea_pickle) or [](item://minecraft:kelp);
+                          + [](item://minecraft:tube_coral), [](item://minecraft:brain_coral), [](item://minecraft:bubble_coral),
+                          [](item://minecraft:fire_coral), [](item://minecraft:horn_coral) (all also in block and fan version)
+                          + [](item://minecraft:prismarine_shard), [](item://minecraft:prismarine_crystals);
+                        """.formatted(COLOR_PURPLE));
+
+        return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
+                .withIcon(Items.TUBE_CORAL)
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         entity,

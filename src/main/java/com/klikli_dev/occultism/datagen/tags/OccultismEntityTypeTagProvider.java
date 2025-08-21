@@ -292,8 +292,6 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.POSSESSED_WEAK_BREEZE_TYPE.get())
                 .add(OccultismEntities.POSSESSED_BREEZE_TYPE.get())
                 .add(OccultismEntities.POSSESSED_STRONG_BREEZE_TYPE.get());
-        this.tag(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)
-                .add(OccultismEntities.POSSESSED_BLAZE_TYPE.get());
         this.tag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
                 .add(OccultismEntities.WILD_STRAY_TYPE.get());
         this.tag(EntityTypeTags.FROG_FOOD)

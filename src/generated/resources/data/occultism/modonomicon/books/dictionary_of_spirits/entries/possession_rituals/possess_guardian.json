@@ -4,14 +4,14 @@
   "category": "possession_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/possess_afrit"
+    "entry_id": "pentacles/possess_unbound_afrit"
   },
   "description": "",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:echo_shard"
+    "item": "minecraft:tube_coral"
   },
-  "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_warden.name",
+  "name": "book.occultism.dictionary_of_spirits.possession_rituals.possess_guardian.name",
   "pages": [
     {
       "type": "modonomicon:entity",
@@ -20,12 +20,12 @@
         "type": "modonomicon:none"
       },
       "default_rotation": -45.0,
-      "entity_id": "occultism:possessed_warden",
+      "entity_id": "occultism:possessed_guardian",
       "name": "",
       "offset": 0.0,
       "rotate": true,
-      "scale": 1.0,
-      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_warden.entity.text"
+      "scale": 0.6,
+      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_guardian.entity.text"
     },
     {
       "type": "occultism:ritual_recipe",
@@ -33,7 +33,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/possess_warden",
+      "recipe_id_1": "occultism:ritual/possess_guardian",
       "text": "",
       "title1": "",
       "title2": ""
@@ -45,7 +45,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_warden.description.text",
+      "text": "book.occultism.dictionary_of_spirits.possession_rituals.possess_guardian.description.text",
       "title": "",
       "use_markdown_in_title": false
     }
@@ -60,6 +60,6 @@
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": -1,
-  "x": 6,
+  "x": 4,
   "y": -3
 }
