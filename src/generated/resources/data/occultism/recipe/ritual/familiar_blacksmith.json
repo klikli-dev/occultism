@@ -6,7 +6,7 @@
   "duration": 45,
   "entity_to_sacrifice": {
     "display_name": "ritual.occultism.sacrifice.zombies",
-    "tag": "c:zombies"
+    "tag": "minecraft:zombies"
   },
   "entity_to_summon": "occultism:blacksmith_familiar",
   "ingredients": [
