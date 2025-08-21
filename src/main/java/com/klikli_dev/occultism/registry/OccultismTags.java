@@ -108,6 +108,7 @@ public class OccultismTags {
 
         public static final TagKey<Item> MUSHROOM_BLOCKS = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "mushroom_blocks"));
         public static final TagKey<Item> LIGHTNING_RODS = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "lightning_rods"));
+        public static final TagKey<Item> TUBE_CORALS = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "tube_corals"));
         // Dusts
         public static final TagKey<Item> COPPER_DUST=makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/copper"));
         public static final TagKey<Item> END_STONE_DUST=makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/end_stone"));

@@ -358,6 +358,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM, OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER).replace(false);
         this.copy(OccultismTags.Blocks.MUSHROOM_BLOCKS, OccultismTags.Items.MUSHROOM_BLOCKS);
         this.copy(OccultismTags.Blocks.LIGHTNING_RODS, OccultismTags.Items.LIGHTNING_RODS);
+        this.tag(OccultismTags.Items.TUBE_CORALS).add(Items.TUBE_CORAL).add(Items.TUBE_CORAL_FAN);
 
         // Metal Axes Tag
         this.tag(OccultismTags.Items.METAL_AXES).add(Items.IRON_AXE, Items.GOLDEN_AXE, Items.DIAMOND_AXE, Items.NETHERITE_AXE).replace(false);
