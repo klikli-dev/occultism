@@ -6,11 +6,11 @@ import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -27,7 +27,6 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
@@ -47,7 +46,10 @@ import java.util.Optional;
 public class DemonicPartner extends TamableAnimal {
 
     private static final EntityDataAccessor<Boolean> IS_LYING = SynchedEntityData.defineId(DemonicPartner.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Long> HEART_TIME = SynchedEntityData.defineId(DemonicPartner.class, EntityDataSerializers.LONG);
     protected Optional<RecipeHolder<SmokingRecipe>> lastRecipe = Optional.empty();
+    protected static final int HEART_INTERVAL = 20 * 60 * 10;
+    protected long lastHeartTime;
 
     protected DemonicPartner(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -93,7 +95,25 @@ public class DemonicPartner extends TamableAnimal {
 
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        builder.define(IS_LYING, false);
+        builder.define(IS_LYING, false).define(HEART_TIME, (long) 0);
+    }
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.entityData.set(HEART_TIME, compound.getLong("heartLastTime"));
+    }
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putLong("heartLastTime", this.getHeartTime());
+    }
+
+    private void setHeartTime(long b) {
+        this.entityData.set(HEART_TIME, b);
+    }
+
+    private long getHeartTime() {
+        return this.entityData.get(HEART_TIME);
     }
 
     public boolean isLying() {
@@ -158,7 +178,21 @@ public class DemonicPartner extends TamableAnimal {
             return willInteract ? InteractionResult.CONSUME : InteractionResult.PASS;
         }
 
-        if (this.isTame()) {
+        if (this.isTame() && this.isOwnedBy(pPlayer)) {
+
+            if (itemstack.is(OccultismItems.CURSED_HONEY.asItem())) {
+                long time =  this.getHeartTime() + HEART_INTERVAL - this.level().getGameTime();
+                if (time < 0) {
+                    this.setHeartTime(this.level().getGameTime());
+                    this.lastHeartTime = this.level().getGameTime();
+                    itemstack.shrink(1);
+                    ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(OccultismItems.SWEET_HONEY_HEART.asItem()));
+                } else {
+                    pPlayer.displayClientMessage(Component.translatable("dialog.occultism.partner.heart_on_cooldown", time), true);
+                }
+                return InteractionResult.SUCCESS;
+            }
+
             var effects = itemstack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
             if (effects.hasEffects()) {
                 for (var instance : effects.getAllEffects()) {
@@ -224,7 +258,7 @@ public class DemonicPartner extends TamableAnimal {
 
             //sit/stand
             InteractionResult interactionresult = super.mobInteract(pPlayer, pHand);
-            if ((!interactionresult.consumesAction() || this.isBaby()) && this.isOwnedBy(pPlayer) && itemstack.isEmpty()) {
+            if ((!interactionresult.consumesAction() || this.isBaby()) && itemstack.isEmpty()) {
                 this.setOrderedToSit(!this.isOrderedToSit());
                 this.jumping = false;
                 this.navigation.stop();

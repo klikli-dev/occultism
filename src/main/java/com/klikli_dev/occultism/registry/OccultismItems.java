@@ -278,6 +278,8 @@ public class OccultismItems {
             () -> new Item(defaultProperties().food(OccultismFoods.BEAVER_NUGGET.get())));
     public static final DeferredItem<Item> CURSED_HONEY = ITEMS.register("cursed_honey",
             () -> new Item(defaultProperties().food(OccultismFoods.CURSED_HONEY.get())));
+    public static final DeferredItem<Item> SWEET_HONEY_HEART = ITEMS.register("sweet_honey_heart",
+            () -> new Item(defaultProperties().food(OccultismFoods.SWEET_HONEY_HEART.get())));
     public static final DeferredItem<Item> DEMONIC_MEAT = ITEMS.register("demonic_meat",
             () -> new Item(defaultProperties().food(OccultismFoods.DEMONIC_MEAT.get()).rarity(Rarity.UNCOMMON)));
 

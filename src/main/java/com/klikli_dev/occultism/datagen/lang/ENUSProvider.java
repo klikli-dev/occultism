@@ -384,6 +384,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.CRUSHED_PACKED_ICE,"Crushed Packed Ice");
         this.addItem(OccultismItems.CURSED_HONEY,"Cursed Honey");
         this.addAutoTooltip(OccultismItems.CURSED_HONEY, "Grants Regeneration when eating");
+        this.addItem(OccultismItems.SWEET_HONEY_HEART,"Sweet-Honey-Heart");
+        this.addAutoTooltip(OccultismItems.SWEET_HONEY_HEART,  ChatFormatting.WHITE + "Made with love, sugar and evilness\n"+ ChatFormatting.GRAY + "Grants a great Absorption when eating\n" + ChatFormatting.DARK_PURPLE + "Get it giving a Cursed Honey to a Demonic Partner");
         this.addItem(OccultismItems.DEMONIC_MEAT,"Demonic Meat");
         this.addAutoTooltip(OccultismItems.DEMONIC_MEAT, "Grants Fire Resistance when eating");
         this.addItem(OccultismItems.DRAGONYST_DUST,"Dragonyst Dust");
@@ -2665,6 +2667,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("dialog.occultism.devil.sin_on_cooldown", "Another will be available after: %s ticks!");
         this.add("dialog.occultism.devil.no_upgrade", "A Blacksmith Familiar needs to upgrade the Devil before sinning!");
         this.add("dialog.occultism.cthulhu.prismarine_on_cooldown", "Wait the great wave... The power of ocean is charging!");
+        this.add("dialog.occultism.partner.heart_on_cooldown", "Oh dear, I need more time to do this again. (Next in: %s ticks)");
     }
 
     private void addModonomiconIntegration() {

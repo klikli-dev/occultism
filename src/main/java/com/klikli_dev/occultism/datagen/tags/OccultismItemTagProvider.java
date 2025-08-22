@@ -343,6 +343,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .add(OccultismItems.OTHERWORLD_ESSENCE.get())
                 .add(OccultismItems.BEAVER_NUGGET.get())
                 .add(OccultismItems.CURSED_HONEY.get())
+                .add(OccultismItems.SWEET_HONEY_HEART.get())
                 .add(OccultismItems.DEMONIC_MEAT.get())
                 .replace(false);
         this.tag(ItemTags.MEAT)

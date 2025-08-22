@@ -191,6 +191,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismBlocks.SPIRIT_CAMPFIRE.asItem()),
                 this.name(OccultismBlocks.SPIRIT_LANTERN.asItem()),
                 this.name(OccultismItems.STORAGE_REMOTE_INERT.get()),
+                this.name(OccultismItems.SWEET_HONEY_HEART.get()),
                 this.name(OccultismItems.TABOO_BOOK.get()),
                 this.name(OccultismItems.TALLOW.get()),
                 this.name(OccultismItems.WITHERITE_DUST.get())
