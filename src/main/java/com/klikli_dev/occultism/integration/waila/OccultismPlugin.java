@@ -5,7 +5,6 @@ import com.klikli_dev.occultism.common.block.GoldenSacrificialBowlBlock;
 import com.klikli_dev.occultism.common.block.otherworld.IOtherworldBlock;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.util.CuriosUtil;
-
 import snownee.jade.api.*;
 
 @WailaPlugin

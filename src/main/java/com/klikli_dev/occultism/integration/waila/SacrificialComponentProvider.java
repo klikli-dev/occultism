@@ -1,7 +1,6 @@
 package com.klikli_dev.occultism.integration.waila;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.client.misc.ClientPentacleManager;
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
@@ -13,7 +12,6 @@ import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
-import snownee.jade.api.ui.IElement;
 
 public class SacrificialComponentProvider implements IBlockComponentProvider {
 public static SacrificialComponentProvider INSTANCE;

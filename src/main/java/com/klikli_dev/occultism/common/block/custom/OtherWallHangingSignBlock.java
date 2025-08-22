@@ -1,7 +1,6 @@
 package com.klikli_dev.occultism.common.block.custom;
 
 import com.klikli_dev.occultism.common.blockentity.OtherHangingSignBlockEntity;
-import com.klikli_dev.occultism.common.blockentity.OtherSignBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.WallHangingSignBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;

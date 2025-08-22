@@ -26,9 +26,6 @@ import com.klikli_dev.occultism.client.model.entity.MaridUnboundModel;
 import com.klikli_dev.occultism.common.entity.spirit.MaridUnboundEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
-import software.bernie.geckolib.renderer.layer.AutoGlowingGeoLayer;
-
-import java.util.Objects;
 
 public class MaridUnboundRenderer extends GeoEntityRenderer<MaridUnboundEntity> {
 

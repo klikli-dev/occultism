@@ -22,10 +22,8 @@
 
 package com.klikli_dev.occultism.common.item.storage;
 
-import com.klikli_dev.occultism.common.container.satchel.AbstractSatchelContainer;
 import com.klikli_dev.occultism.common.container.satchel.SatchelInventory;
 import com.klikli_dev.occultism.common.container.satchel.StorageSatchelContainer;
-import com.klikli_dev.occultism.registry.OccultismContainers;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.network.chat.Component;

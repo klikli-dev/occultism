@@ -45,9 +45,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class MinerRecipeCategory implements IRecipeCategory<RecipeHolder<MinerRecipe>> {

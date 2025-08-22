@@ -23,11 +23,9 @@
 package com.klikli_dev.occultism.network.messages;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.common.container.satchel.AbstractSatchelContainer;
 import com.klikli_dev.occultism.common.container.satchel.StorageSatchelContainer;
 import com.klikli_dev.occultism.common.item.storage.SatchelItem;
 import com.klikli_dev.occultism.network.IMessage;
-import com.klikli_dev.occultism.registry.OccultismContainers;
 import com.klikli_dev.occultism.util.CuriosUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
