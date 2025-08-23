@@ -26,7 +26,6 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.storage.ServerLevelData;
 
 import java.util.function.Supplier;
 

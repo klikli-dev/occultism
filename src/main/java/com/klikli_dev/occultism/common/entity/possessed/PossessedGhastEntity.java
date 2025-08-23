@@ -27,7 +27,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.level.Level;
 
-public class PossessedGhastEntity extends Ghast {
+public class PossessedGhastEntity extends Ghast implements PossessedMob {
     public PossessedGhastEntity(EntityType<? extends Ghast> type,
                                 Level level) {
         super(type, level);
@@ -40,5 +40,10 @@ public class PossessedGhastEntity extends Ghast {
     @Override
     protected boolean shouldDespawnInPeaceful() {
         return false;
+    }
+
+    @Override
+    public EntityType basedMob(){
+        return EntityType.GHAST;
     }
 }

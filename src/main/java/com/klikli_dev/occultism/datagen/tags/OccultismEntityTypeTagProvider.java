@@ -7,6 +7,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -22,6 +23,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
         this.addCommonTags();
+        this.addVanillaTags();
         this.addOccultismTags(pProvider);
         this.addPerViamInvenireTags(pProvider);
     }
@@ -83,6 +85,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.POSSESSED_WITCH_TYPE.get())
                 .add(OccultismEntities.POSSESSED_BLAZE_TYPE.get())
                 .add(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get())
+                .add(OccultismEntities.POSSESSED_GUARDIAN_TYPE.get())
                 .add(OccultismEntities.POSSESSED_BEE_TYPE.get())
                 .add(OccultismEntities.GOAT_OF_MERCY_TYPE.get())
                 .add(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get())
@@ -224,7 +227,6 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
         this.tag(OccultismTags.Entities.SPIDERS).add(EntityType.SPIDER).add(EntityType.CAVE_SPIDER).replace(false);
         this.tag(OccultismTags.Entities.SQUID).add(EntityType.SQUID).add(EntityType.GLOW_SQUID).replace(false);
         this.tag(OccultismTags.Entities.VILLAGERS).add(EntityType.VILLAGER).add(EntityType.WANDERING_TRADER).replace(false);
-        this.tag(OccultismTags.Entities.ZOMBIES).add(EntityType.ZOMBIE).add(EntityType.ZOMBIE_VILLAGER).add(EntityType.HUSK).add(EntityType.DROWNED).add(OccultismEntities.WILD_ZOMBIE_TYPE.get()).add(OccultismEntities.WILD_HUSK_TYPE.get()).add(OccultismEntities.WILD_HORDE_DROWNED.get()).add(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get()).replace(false);
         this.tag(OccultismTags.Entities.CAMEL).add(EntityType.CAMEL).replace(false);
         this.tag(OccultismTags.Entities.DOLPHIN).add(EntityType.DOLPHIN).replace(false);
         this.tag(OccultismTags.Entities.WOLFS).add(EntityType.WOLF).replace(false);
@@ -235,5 +237,182 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
         this.tag(OccultismTags.Entities.ALLAY).add(EntityType.ALLAY).replace(false);
         this.tag(OccultismTags.Entities.WARDEN).add(EntityType.WARDEN).add(OccultismEntities.POSSESSED_WARDEN_TYPE.get()).replace(false);
         this.tag(OccultismTags.Entities.RAVAGER).add(EntityType.RAVAGER).replace(false);
+    }
+
+    private void addVanillaTags() {
+        this.tag(EntityTypeTags.AQUATIC)
+                .add(OccultismEntities.POSSESSED_GUARDIAN_TYPE.get())
+                .add(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE.get());
+        this.tag(EntityTypeTags.ARTHROPOD)
+                .add(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get())
+                .add(OccultismEntities.POSSESSED_BEE_TYPE.get())
+                .add(OccultismEntities.WILD_HORDE_SILVERFISH.get())
+                .add(OccultismEntities.WILD_SILVERFISH.get())
+                .add(OccultismEntities.WILD_SPIDER_TYPE.get())
+                .add(OccultismEntities.WILD_CAVE_SPIDER_TYPE.get());
+        this.tag(EntityTypeTags.AXOLOTL_ALWAYS_HOSTILES)
+                .add(OccultismEntities.POSSESSED_GUARDIAN_TYPE.get())
+                .add(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE.get())
+                .add(OccultismEntities.WILD_HORDE_DROWNED_TYPE.get());
+        this.tag(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
+                .add(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get())
+                .add(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get())
+                .add(OccultismEntities.WILD_SKELETON_TYPE.get())
+                .add(OccultismEntities.POSSESSED_SKELETON_TYPE.get())
+                .add(OccultismEntities.POSSESSED_PHANTOM_TYPE.get())
+                .add(OccultismEntities.POSSESSED_GUARDIAN_TYPE.get())
+                .add(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE.get())
+                .add(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get())
+                .add(OccultismEntities.WILD_HORDE_HUSK_TYPE.get())
+                .add(OccultismEntities.WILD_HUSK_TYPE.get())
+                .add(OccultismEntities.WILD_HORDE_DROWNED_TYPE.get())
+                .add(OccultismEntities.WILD_ZOMBIE_TYPE.get())
+                .add(OccultismEntities.WILD_BOGGED_TYPE.get())
+                .add(OccultismEntities.WILD_STRAY_TYPE.get());
+        this.tag(EntityTypeTags.CAN_TURN_IN_BOATS)
+                .add(OccultismEntities.POSSESSED_WEAK_BREEZE_TYPE.get())
+                .add(OccultismEntities.POSSESSED_BREEZE_TYPE.get())
+                .add(OccultismEntities.POSSESSED_STRONG_BREEZE_TYPE.get());
+        this.tag(EntityTypeTags.DEFLECTS_PROJECTILES)
+                .add(OccultismEntities.POSSESSED_WEAK_BREEZE_TYPE.get())
+                .add(OccultismEntities.POSSESSED_BREEZE_TYPE.get())
+                .add(OccultismEntities.POSSESSED_STRONG_BREEZE_TYPE.get());
+        this.tag(EntityTypeTags.DISMOUNTS_UNDERWATER)
+                .add(OccultismEntities.WILD_SPIDER_TYPE.get());
+        this.tag(EntityTypeTags.FALL_DAMAGE_IMMUNE)
+                .add(OccultismEntities.POSSESSED_GHAST_TYPE.get())
+                .add(OccultismEntities.POSSESSED_PHANTOM_TYPE.get())
+                .add(OccultismEntities.POSSESSED_SHULKER_TYPE.get())
+                .add(OccultismEntities.POSSESSED_WEAK_SHULKER_TYPE.get())
+                .add(OccultismEntities.POSSESSED_BLAZE_TYPE.get())
+                .add(OccultismEntities.POSSESSED_BEE_TYPE.get())
+                .add(OccultismEntities.OTHERWORLD_BIRD_TYPE.get())
+                .add(OccultismEntities.BAT_FAMILIAR_TYPE.get())
+                .add(OccultismEntities.IESNIUM_GOLEM_TYPE.get())
+                .add(OccultismEntities.POSSESSED_WEAK_BREEZE_TYPE.get())
+                .add(OccultismEntities.POSSESSED_BREEZE_TYPE.get())
+                .add(OccultismEntities.POSSESSED_STRONG_BREEZE_TYPE.get());
+        this.tag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
+                .add(OccultismEntities.WILD_STRAY_TYPE.get());
+        this.tag(EntityTypeTags.FROG_FOOD)
+                .add(OccultismEntities.WILD_SLIME_TYPE.get());
+        this.tag(EntityTypeTags.IGNORES_POISON_AND_REGEN)
+                .add(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get())
+                .add(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get())
+                .add(OccultismEntities.WILD_SKELETON_TYPE.get())
+                .add(OccultismEntities.POSSESSED_SKELETON_TYPE.get())
+                .add(OccultismEntities.POSSESSED_PHANTOM_TYPE.get())
+                .add(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get())
+                .add(OccultismEntities.WILD_HORDE_HUSK_TYPE.get())
+                .add(OccultismEntities.WILD_HUSK_TYPE.get())
+                .add(OccultismEntities.WILD_HORDE_DROWNED_TYPE.get())
+                .add(OccultismEntities.WILD_ZOMBIE_TYPE.get())
+                .add(OccultismEntities.WILD_BOGGED_TYPE.get())
+                .add(OccultismEntities.WILD_STRAY_TYPE.get());
+        this.tag(EntityTypeTags.ILLAGER)
+                .add(OccultismEntities.POSSESSED_EVOKER_TYPE.get());
+        this.tag(EntityTypeTags.ILLAGER_FRIENDS)
+                .add(OccultismEntities.POSSESSED_EVOKER_TYPE.get());
+        this.tag(EntityTypeTags.INVERTED_HEALING_AND_HARM)
+                .add(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get())
+                .add(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get())
+                .add(OccultismEntities.WILD_SKELETON_TYPE.get())
+                .add(OccultismEntities.POSSESSED_SKELETON_TYPE.get())
+                .add(OccultismEntities.POSSESSED_PHANTOM_TYPE.get())
+                .add(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get())
+                .add(OccultismEntities.WILD_HORDE_HUSK_TYPE.get())
+                .add(OccultismEntities.WILD_HUSK_TYPE.get())
+                .add(OccultismEntities.WILD_HORDE_DROWNED_TYPE.get())
+                .add(OccultismEntities.WILD_ZOMBIE_TYPE.get())
+                .add(OccultismEntities.WILD_BOGGED_TYPE.get())
+                .add(OccultismEntities.WILD_STRAY_TYPE.get());
+        this.tag(EntityTypeTags.NO_ANGER_FROM_WIND_CHARGE)
+                .add(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get())
+                .add(OccultismEntities.WILD_SKELETON_TYPE.get())
+                .add(OccultismEntities.POSSESSED_SKELETON_TYPE.get())
+                .add(OccultismEntities.WILD_HORDE_HUSK_TYPE.get())
+                .add(OccultismEntities.WILD_HUSK_TYPE.get())
+                .add(OccultismEntities.POSSESSED_WEAK_BREEZE_TYPE.get())
+                .add(OccultismEntities.POSSESSED_BREEZE_TYPE.get())
+                .add(OccultismEntities.POSSESSED_STRONG_BREEZE_TYPE.get())
+                .add(OccultismEntities.WILD_ZOMBIE_TYPE.get())
+                .add(OccultismEntities.WILD_SPIDER_TYPE.get())
+                .add(OccultismEntities.WILD_CAVE_SPIDER_TYPE.get())
+                .add(OccultismEntities.WILD_SLIME_TYPE.get())
+                .add(OccultismEntities.WILD_BOGGED_TYPE.get())
+                .add(OccultismEntities.WILD_STRAY_TYPE.get());
+        this.tag(EntityTypeTags.NOT_SCARY_FOR_PUFFERFISH)
+                .add(OccultismEntities.POSSESSED_GUARDIAN_TYPE.get())
+                .add(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE.get());
+        this.tag(EntityTypeTags.NON_CONTROLLING_RIDER)
+                .add(OccultismEntities.WILD_SLIME_TYPE.get());
+        this.tag(EntityTypeTags.POWDER_SNOW_WALKABLE_MOBS)
+                .add(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get())
+                .add(OccultismEntities.WILD_HORDE_SILVERFISH.get())
+                .add(OccultismEntities.WILD_SILVERFISH.get());
+        this.tag(EntityTypeTags.SENSITIVE_TO_BANE_OF_ARTHROPODS)
+                .add(OccultismEntities.POSSESSED_ENDERMITE_TYPE.get())
+                .add(OccultismEntities.POSSESSED_BEE_TYPE.get())
+                .add(OccultismEntities.WILD_HORDE_SILVERFISH.get())
+                .add(OccultismEntities.WILD_SILVERFISH.get())
+                .add(OccultismEntities.WILD_SPIDER_TYPE.get())
+                .add(OccultismEntities.WILD_CAVE_SPIDER_TYPE.get());
+        this.tag(EntityTypeTags.SENSITIVE_TO_IMPALING)
+                .add(OccultismEntities.POSSESSED_GUARDIAN_TYPE.get())
+                .add(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE.get());
+        this.tag(EntityTypeTags.SENSITIVE_TO_SMITE)
+                .add(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get())
+                .add(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get())
+                .add(OccultismEntities.WILD_SKELETON_TYPE.get())
+                .add(OccultismEntities.POSSESSED_SKELETON_TYPE.get())
+                .add(OccultismEntities.POSSESSED_PHANTOM_TYPE.get())
+                .add(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get())
+                .add(OccultismEntities.WILD_HORDE_HUSK_TYPE.get())
+                .add(OccultismEntities.WILD_HUSK_TYPE.get())
+                .add(OccultismEntities.WILD_HORDE_DROWNED_TYPE.get())
+                .add(OccultismEntities.WILD_ZOMBIE_TYPE.get())
+                .add(OccultismEntities.WILD_BOGGED_TYPE.get())
+                .add(OccultismEntities.WILD_STRAY_TYPE.get());
+        this.tag(EntityTypeTags.SKELETONS)
+                .add(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get())
+                .add(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get())
+                .add(OccultismEntities.WILD_SKELETON_TYPE.get())
+                .add(OccultismEntities.POSSESSED_SKELETON_TYPE.get())
+                .add(OccultismEntities.WILD_BOGGED_TYPE.get())
+                .add(OccultismEntities.WILD_STRAY_TYPE.get());
+        this.tag(EntityTypeTags.UNDEAD)
+                .add(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get())
+                .add(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get())
+                .add(OccultismEntities.WILD_SKELETON_TYPE.get())
+                .add(OccultismEntities.POSSESSED_SKELETON_TYPE.get())
+                .add(OccultismEntities.POSSESSED_PHANTOM_TYPE.get())
+                .add(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get())
+                .add(OccultismEntities.WILD_HORDE_HUSK_TYPE.get())
+                .add(OccultismEntities.WILD_HUSK_TYPE.get())
+                .add(OccultismEntities.WILD_HORDE_DROWNED_TYPE.get())
+                .add(OccultismEntities.WILD_ZOMBIE_TYPE.get())
+                .add(OccultismEntities.WILD_BOGGED_TYPE.get())
+                .add(OccultismEntities.WILD_STRAY_TYPE.get());
+        this.tag(EntityTypeTags.WITHER_FRIENDS)
+                .add(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get())
+                .add(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get())
+                .add(OccultismEntities.WILD_SKELETON_TYPE.get())
+                .add(OccultismEntities.POSSESSED_SKELETON_TYPE.get())
+                .add(OccultismEntities.POSSESSED_PHANTOM_TYPE.get())
+                .add(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get())
+                .add(OccultismEntities.WILD_HORDE_HUSK_TYPE.get())
+                .add(OccultismEntities.WILD_HUSK_TYPE.get())
+                .add(OccultismEntities.WILD_HORDE_DROWNED_TYPE.get())
+                .add(OccultismEntities.WILD_ZOMBIE_TYPE.get())
+                .add(OccultismEntities.WILD_BOGGED_TYPE.get())
+                .add(OccultismEntities.WILD_STRAY_TYPE.get());
+        this.tag(EntityTypeTags.ZOMBIES)
+                .add(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE.get())
+                .add(OccultismEntities.WILD_HORDE_HUSK_TYPE.get())
+                .add(OccultismEntities.WILD_HUSK_TYPE.get())
+                .add(OccultismEntities.WILD_HORDE_DROWNED_TYPE.get())
+                .add(OccultismEntities.WILD_ZOMBIE_TYPE.get());
+
+
     }
 }

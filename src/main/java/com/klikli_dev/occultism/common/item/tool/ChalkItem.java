@@ -24,13 +24,11 @@ package com.klikli_dev.occultism.common.item.tool;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.block.ChalkGlyphBlock;
-import com.klikli_dev.occultism.config.OccultismServerConfig;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

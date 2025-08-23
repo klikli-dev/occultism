@@ -22,13 +22,14 @@
 
 package com.klikli_dev.occultism.common.entity.possessed.horde;
 
+import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.level.Level;
 
-public class WildHordeDrownedEntity extends Drowned {
+public class WildHordeDrownedEntity extends Drowned implements PossessedMob {
 
     public WildHordeDrownedEntity(EntityType<? extends Drowned> type,
                                   Level worldIn) {
@@ -56,4 +57,9 @@ public class WildHordeDrownedEntity extends Drowned {
         return false;
     }
     //endregion Static Methods
+
+    @Override
+    public EntityType basedMob(){
+        return EntityType.DROWNED;
+    }
 }

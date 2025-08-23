@@ -28,7 +28,7 @@ import net.minecraft.world.entity.monster.Phantom;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.Level;
 
-public class PossessedPhantomEntity extends Phantom {
+public class PossessedPhantomEntity extends Phantom implements PossessedMob{
 
     public PossessedPhantomEntity(EntityType<? extends Phantom> type,
                                   Level worldIn) {
@@ -50,4 +50,9 @@ public class PossessedPhantomEntity extends Phantom {
         return false;
     }
     //endregion Static Methods
+
+    @Override
+    public EntityType basedMob(){
+        return EntityType.PHANTOM;
+    }
 }

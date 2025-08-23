@@ -31,7 +31,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.Level;
 
-public class PossessedZombiePiglinEntity extends Zombie {
+public class PossessedZombiePiglinEntity extends Zombie implements PossessedMob{
 
     public PossessedZombiePiglinEntity(EntityType<? extends PossessedZombiePiglinEntity> type,
                                        Level worldIn) {
@@ -84,5 +84,10 @@ public class PossessedZombiePiglinEntity extends Zombie {
     @Override
     protected SoundEvent getDeathSound() {
         return SoundEvents.ZOMBIFIED_PIGLIN_DEATH;
+    }
+
+    @Override
+    public EntityType basedMob(){
+        return EntityType.ZOMBIFIED_PIGLIN;
     }
 }

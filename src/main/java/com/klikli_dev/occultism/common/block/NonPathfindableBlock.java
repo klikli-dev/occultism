@@ -40,9 +40,10 @@ public class NonPathfindableBlock extends Block {
     }
 
     private static final VoxelShape SHAPE = Stream.of(
-            Block.box(0, 0, 0, 16, 4, 16),
-            Block.box(4, 4, 4, 12, 12, 12),
-            Block.box(2, 12, 2, 14, 16, 14)
+            Block.box(1, 0, 1, 15, 2, 15),
+            Block.box(2, 2, 2, 14, 3, 14),
+            Block.box(3, 3, 3, 13, 14, 13),
+            Block.box(2, 14, 2, 14, 16, 14)
     ).reduce((v1, v2) -> {
         return Shapes.join(v1, v2, BooleanOp.OR);
     }).get();

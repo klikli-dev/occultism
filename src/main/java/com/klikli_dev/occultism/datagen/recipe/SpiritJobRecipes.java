@@ -14,7 +14,6 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -93,6 +92,12 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
                 .setAllowEmpty(false)
                 .setIgnoreCrystallizeMultiplier(true)
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crystallize/echo_shard"));
+        CrystallizeRecipeBuilder.crystallizeRecipe(Items.PRISMARINE_SHARD, Items.PRISMARINE_CRYSTALS, 200)
+                .unlockedBy("has_prismarine_shard", has(Items.PRISMARINE_SHARD))
+                .setResultAmount(1)
+                .setMinTier(2)
+                .setAllowEmpty(false)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crystallize/prismarine_crystal"));
     }
 
     private static void blockProcessRecipes(RecipeOutput pRecipeOutput) {

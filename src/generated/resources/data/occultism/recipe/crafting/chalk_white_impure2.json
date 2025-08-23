@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "x": {
+      "tag": "c:dusts/otherworld_wood"
+    },
+    "y": {
+      "tag": "c:dusts/otherstone"
+    }
+  },
+  "pattern": [
+    "xy",
+    "xy",
+    "xy"
+  ],
+  "result": {
+    "count": 1,
+    "id": "occultism:chalk_white_impure"
+  }
+}

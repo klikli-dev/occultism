@@ -2,17 +2,20 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
+    "g": {
+      "tag": "c:ingots/gold"
+    },
     "x": {
-      "tag": "c:rods/wooden"
+      "tag": "c:glass_blocks"
     },
     "y": {
       "item": "occultism:spirit_attuned_gem"
     }
   },
   "pattern": [
+    " g ",
     "xyx",
-    "x x",
-    " x "
+    " g "
   ],
   "result": {
     "count": 1,

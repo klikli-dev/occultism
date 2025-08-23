@@ -54,8 +54,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.Tags;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.List;
 
 public class DivinationRodItem extends Item {

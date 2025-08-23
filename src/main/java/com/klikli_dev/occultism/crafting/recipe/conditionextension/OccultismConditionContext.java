@@ -12,7 +12,6 @@ import net.neoforged.neoforge.common.conditions.ICondition;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 
 public interface OccultismConditionContext extends ICondition.IContext {

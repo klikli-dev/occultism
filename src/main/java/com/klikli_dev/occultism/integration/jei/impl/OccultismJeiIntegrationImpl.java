@@ -5,7 +5,6 @@
 package com.klikli_dev.occultism.integration.jei.impl;
 
 import com.google.common.base.Strings;
-import com.klikli_dev.modonomicon.platform.Services;
 import com.klikli_dev.occultism.integration.jei.OccultismJeiIntegration;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.neoforged.fml.ModList;

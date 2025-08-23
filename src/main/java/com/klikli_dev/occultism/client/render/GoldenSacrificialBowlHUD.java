@@ -1,6 +1,5 @@
 package com.klikli_dev.occultism.client.render;
 
-import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.client.misc.ClientPentacleManager;
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -10,10 +9,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.fml.ModList;
-import snownee.jade.Jade;
 
 public class GoldenSacrificialBowlHUD implements LayeredDraw.Layer {
     private static final GoldenSacrificialBowlHUD instance = new GoldenSacrificialBowlHUD();

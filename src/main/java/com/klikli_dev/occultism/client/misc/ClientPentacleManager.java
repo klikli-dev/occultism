@@ -3,13 +3,12 @@ package com.klikli_dev.occultism.client.misc;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
-import com.mojang.authlib.minecraft.client.MinecraftClient;
+import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.ChatFormatting;
 
 import java.util.ArrayList;
 import java.util.List;

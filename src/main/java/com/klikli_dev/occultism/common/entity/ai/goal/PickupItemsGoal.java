@@ -25,13 +25,13 @@ package com.klikli_dev.occultism.common.entity.ai.goal;
 import com.google.common.base.Predicate;
 import com.klikli_dev.occultism.common.entity.ai.EntitySorter;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.ItemStackHandler;
+
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;

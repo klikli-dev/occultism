@@ -41,37 +41,15 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
-import java.util.stream.Stream;
 
 public class DimensionalMineshaftBlock extends Block implements EntityBlock {
 
-    private static final VoxelShape SHAPE = Stream.of(
-            Block.box(10, 0, 6, 16, 1, 10),
-            Block.box(0, 0, 6, 6, 1, 10),
-            Block.box(0, 0, 10, 16, 1, 16),
-            Block.box(0, 0, 0, 16, 1, 6),
-            Block.box(10, 1, 6, 15, 2, 10),
-            Block.box(2, 2, 6, 6, 3, 10),
-            Block.box(1, 1, 6, 6, 2, 10),
-            Block.box(10, 2, 6, 14, 3, 10),
-            Block.box(10, 3, 6, 13, 4, 10),
-            Block.box(1, 1, 10, 15, 2, 15),
-            Block.box(1, 1, 1, 15, 2, 6),
-            Block.box(2, 2, 10, 14, 3, 14),
-            Block.box(3, 3, 10, 13, 4, 13),
-            Block.box(3, 3, 3, 13, 4, 6),
-            Block.box(2, 2, 2, 14, 3, 6),
-            Block.box(3, 3, 6, 6, 4, 10),
-            Block.box(6, 0, 6, 10, 3, 10)
-    ).reduce((v1, v2) -> {
-        return Shapes.join(v1, v2, BooleanOp.OR);
-    }).get();
+    private static final VoxelShape SHAPE =
+            Block.box(4, 0, 4, 12, 7, 12);
 
     public DimensionalMineshaftBlock(Properties properties) {
         super(properties);

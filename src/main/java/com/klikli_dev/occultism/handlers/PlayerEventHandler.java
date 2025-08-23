@@ -53,6 +53,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+
 import java.util.List;
 
 @EventBusSubscriber(modid = Occultism.MODID, bus = EventBusSubscriber.Bus.GAME)
@@ -76,7 +77,8 @@ public class PlayerEventHandler {
                     item -> item.getItem().getItem() == OccultismItems.DATURA.get());
             if (!list.isEmpty()) {
                 //if there is datura, check if we can edit the target face
-                BlockPos pos = event.getPos().relative(event.getFace());
+                Level level = event.getLevel();
+                BlockPos pos = level.getBlockState(event.getPos()).canBeReplaced() ? event.getPos(): event.getPos().relative(event.getFace());
                 if (!event.getEntity().mayUseItemAt(pos, event.getFace(), event.getItemStack())) {
                     return;
                 }
@@ -84,9 +86,8 @@ public class PlayerEventHandler {
                 //consume all datura
                 list.forEach(e -> e.remove(Entity.RemovalReason.DISCARDED));
 
-                Level level = event.getLevel();
                 //if there is air, place block and play sound
-                if (level.isEmptyBlock(pos)) {
+                if (level.getBlockState(pos).canBeReplaced()) {
                     //sound based on the item used
                     SoundEvent soundEvent =
                             isFlintAndSteel ? SoundEvents.FLINTANDSTEEL_USE : SoundEvents.FIRECHARGE_USE;
@@ -94,15 +95,14 @@ public class PlayerEventHandler {
                             SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.4F + 0.8F);
 
                     level.setBlock(pos, OccultismBlocks.SPIRIT_FIRE.get().defaultBlockState(), 11);
-                }
 
-                //now handle used item
-                if (isFlintAndSteel) {
-                    event.getItemStack().hurtAndBreak(1, event.getEntity(), LivingEntity.getSlotForHand(event.getHand()));
-                } else if (isFireCharge) {
-                    event.getItemStack().shrink(1);
+                    //now handle used item
+                    if (isFlintAndSteel) {
+                        event.getItemStack().hurtAndBreak(1, event.getEntity(), LivingEntity.getSlotForHand(event.getHand()));
+                    } else if (isFireCharge) {
+                        event.getItemStack().shrink(1);
+                    }
                 }
-
                 //finally, cancel original event to prevent real action and show use animation
                 event.setCanceled(true);
                 event.getEntity().swing(InteractionHand.MAIN_HAND);

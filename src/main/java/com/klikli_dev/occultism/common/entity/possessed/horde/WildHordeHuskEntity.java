@@ -22,13 +22,14 @@
 
 package com.klikli_dev.occultism.common.entity.possessed.horde;
 
+import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Husk;
 import net.minecraft.world.level.Level;
 
-public class WildHordeHuskEntity extends Husk {
+public class WildHordeHuskEntity extends Husk implements PossessedMob {
 
     public WildHordeHuskEntity(EntityType<? extends Husk> type,
                                Level worldIn) {
@@ -55,4 +56,9 @@ public class WildHordeHuskEntity extends Husk {
         return false;
     }
     //endregion Static Methods
+
+    @Override
+    public EntityType basedMob(){
+        return EntityType.HUSK;
+    }
 }

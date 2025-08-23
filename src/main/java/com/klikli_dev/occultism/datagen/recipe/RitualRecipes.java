@@ -11,6 +11,7 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -620,6 +621,22 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.pigs")
                 .entityToSacrifice(OccultismTags.Entities.PIGS)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_zombie_piglin"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
+                        makeLoreSpawnEgg(OccultismItems.SPAWN_EGG_POSSESSED_GUARDIAN.get(), "item.occultism.ritual_dummy.possess_guardian"),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_POSSESS_GUARDIAN.get()),
+                        90,
+                        RITUAL_SUMMON,
+                        PENTACLE_POSSESS_UNBOUND_AFRIT,
+                        Ingredient.of(Items.TROPICAL_FISH),
+                        Ingredient.of(Items.SEAGRASS),
+                        Ingredient.of(Tags.Items.STORAGE_BLOCKS_LAPIS),
+                        Ingredient.of(Items.TURTLE_SCUTE),
+                        Ingredient.of(Tags.Items.BUCKETS_WATER))
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .entityToSummon(OccultismEntities.POSSESSED_GUARDIAN_TYPE.get())
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.fish")
+                .entityToSacrifice(OccultismTags.Entities.FISH)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/possess_guardian"));
 
         //Djinni
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
@@ -1076,7 +1093,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Tags.Items.STONES))
                 .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
                 .entityToSummon(OccultismEntities.BLACKSMITH_FAMILIAR_TYPE.get())
-                .entityToSacrifice(OccultismTags.Entities.ZOMBIES)
+                .entityToSacrifice(EntityTypeTags.ZOMBIES)
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.zombies")
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/familiar_blacksmith"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
@@ -1108,7 +1125,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Items.HOPPER))
                 .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
                 .entityToSummon(OccultismEntities.GREEDY_FAMILIAR_TYPE.get())
-                .entityToSacrifice(OccultismTags.Entities.ZOMBIES)
+                .entityToSacrifice(EntityTypeTags.ZOMBIES)
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.zombies")
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/familiar_greedy"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
@@ -1322,10 +1339,12 @@ public abstract class RitualRecipes extends RecipeProvider {
                         60,
                         RITUAL_CRAFT,
                         PENTACLE_CRAFT_FOLIOT,
-                        Ingredient.of(OccultismItems.WORMHOLE_FRAME.get()),
+                        Ingredient.of(OccultismItems.OTHERSTONE_FRAME.get()),
                         Ingredient.of(Tags.Items.ENDER_PEARLS),
                         Ingredient.of(Tags.Items.GEMS_QUARTZ),
-                        Ingredient.of(Tags.Items.GEMS_QUARTZ))
+                        Ingredient.of(Tags.Items.GEMS_QUARTZ),
+                        Ingredient.of(Tags.Items.INGOTS_GOLD),
+                        Ingredient.of(Tags.Items.INGOTS_GOLD))
                 .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_stable_wormhole"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),

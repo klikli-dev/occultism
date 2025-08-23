@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.common.item;
 
 import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEntity;
-import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -36,7 +35,6 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Item class to represent rituals as items with tooltip - enables JEI search for rituals

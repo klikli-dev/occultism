@@ -27,7 +27,6 @@ import com.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
 import com.klikli_dev.occultism.common.item.tool.GuideBookItem;
 import com.klikli_dev.occultism.crafting.recipe.BoundBookOfBindingRecipe;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
-import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.util.StorageUtil;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -48,12 +47,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nullable;
@@ -62,7 +59,7 @@ public class SacrificialBowlBlock extends DirectionalBlock implements EntityBloc
 
     public static final MapCodec<SacrificialBowlBlock> CODEC = simpleCodec(SacrificialBowlBlock::new);
 
-    private static final DirectionalBlockShape SHAPE = new DirectionalBlockShape(8, 8, 2.3f);
+    private static final DirectionalBlockShape SHAPE = new DirectionalBlockShape(10, 10, 6f, 8, 2f);
 
     public SacrificialBowlBlock(Properties properties) {
         super(properties);

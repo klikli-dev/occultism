@@ -71,6 +71,18 @@
       "use_markdown_in_title": false
     },
     {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "occultism:sweet_honey_heart"
+      },
+      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.demonic_partner.heart.text",
+      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.demonic_partner.heart.title"
+    },
+    {
       "type": "modonomicon:entity",
       "anchor": "",
       "condition": {

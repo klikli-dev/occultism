@@ -30,7 +30,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.level.Level;
 
-public class GoatOfMercyEntity extends Goat {
+public class GoatOfMercyEntity extends Goat implements PossessedMob {
 
     public GoatOfMercyEntity(EntityType<? extends Goat> type,
                              Level worldIn) {
@@ -51,5 +51,9 @@ public class GoatOfMercyEntity extends Goat {
         this.level().addFreshEntity(lightningBolt);
         amount = Integer.MAX_VALUE;
         return super.hurt(source, amount);
+    }
+    @Override
+    public EntityType basedMob(){
+        return EntityType.GOAT;
     }
 }

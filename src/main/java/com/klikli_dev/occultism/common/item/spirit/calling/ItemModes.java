@@ -1,8 +1,5 @@
 package com.klikli_dev.occultism.common.item.spirit.calling;
 
-import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.common.item.spirit.BookOfCallingItem;
-
 import java.util.HashMap;
 import java.util.Map;
 

@@ -1550,6 +1550,18 @@ public class GettingStartedCategory extends CategoryProvider {
                        Follow the progression in [Pentacle page](category://pentacles) to get the 16 chalks and do all pentacles,
                        """);
 
+        this.context().page("fire");
+        var fire = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "Colored Spirit Fire");
+        this.lang().add(this.context().pageText(),
+                """
+                       Right-clicking on Spirit Fire with a Chalk will change the color of the flames.\\
+                       \\
+                       Dye dye dye, its muffin time.
+                       """);
+
         //no text
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
@@ -1557,7 +1569,8 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         intro,
-                        more
+                        more,
+                        fire
                 );
     }
 

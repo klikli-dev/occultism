@@ -30,12 +30,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.fml.LogicalSide;
-import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.fml.util.thread.EffectiveSide;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class BookOfBindingBoundItem extends Item {
@@ -71,5 +67,10 @@ public class BookOfBindingBoundItem extends Item {
     public void onCraftedPostProcess(ItemStack stack, Level level) {
         ItemNBTUtil.generateBoundSpiritNameIfNone(stack);
         super.onCraftedPostProcess(stack, level);
+    }
+
+    @Override
+    public boolean isFoil(ItemStack stack) {
+        return true;
     }
 }

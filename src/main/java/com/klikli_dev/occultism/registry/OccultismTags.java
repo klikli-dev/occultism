@@ -108,6 +108,7 @@ public class OccultismTags {
 
         public static final TagKey<Item> MUSHROOM_BLOCKS = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "mushroom_blocks"));
         public static final TagKey<Item> LIGHTNING_RODS = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "lightning_rods"));
+        public static final TagKey<Item> TUBE_CORALS = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "tube_corals"));
         // Dusts
         public static final TagKey<Item> COPPER_DUST=makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/copper"));
         public static final TagKey<Item> END_STONE_DUST=makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/end_stone"));
@@ -202,6 +203,7 @@ public class OccultismTags {
         public static final TagKey<Item> DROPS_POSSESSED_WEAK_SHULKER = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_weak_shulker"));
         public static final TagKey<Item> DROPS_POSSESSED_WITCH = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_witch"));
         public static final TagKey<Item> DROPS_POSSESSED_ZOMBIE_PIGLIN = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_zombie_piglin"));
+        public static final TagKey<Item> DROPS_POSSESSED_GUARDIAN = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/possessed_guardian"));
         public static final TagKey<Item> DROPS_WILD_HUNT = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/wild_hunt_wither_skeleton"));
         public static final TagKey<Item> DROPS_WILD_HORDE_CREEPER = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/wild_horde_creeper"));
         public static final TagKey<Item> DROPS_WILD_HORDE_DROWNED = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "drop_from/wild_horde_drowned"));
@@ -222,7 +224,6 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> PIGS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "pigs"));
         public static final TagKey<EntityType<?>> COWS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "cows"));
         public static final TagKey<EntityType<?>> VILLAGERS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "villagers"));
-        public static final TagKey<EntityType<?>> ZOMBIES = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "zombies"));
         public static final TagKey<EntityType<?>> BATS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "bats"));
         public static final TagKey<EntityType<?>> BEES = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "bees"));
         public static final TagKey<EntityType<?>> SNOW_GOLEM=makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "golems/snow"));

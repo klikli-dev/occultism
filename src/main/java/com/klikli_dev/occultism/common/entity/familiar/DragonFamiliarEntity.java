@@ -48,6 +48,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
+
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;

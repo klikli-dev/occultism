@@ -1,0 +1,190 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance_with_enchanted_bonus",
+          "enchanted_chance": {
+            "type": "minecraft:linear",
+            "base": 0.90000004,
+            "per_level_above_first": 0.1
+          },
+          "enchantment": "minecraft:looting",
+          "unenchanted_chance": 0.8
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:sea_pickle",
+          "weight": 9
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:kelp"
+        }
+      ],
+      "functions": [
+        {
+          "add": false,
+          "count": {
+            "type": "minecraft:uniform",
+            "max": 2.0,
+            "min": 0.0
+          },
+          "function": "minecraft:set_count"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:tube_coral_block"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:brain_coral_block"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bubble_coral_block"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:fire_coral_block"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:horn_coral_block"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:tube_coral"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:brain_coral"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bubble_coral"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:fire_coral"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:horn_coral"
+        }
+      ],
+      "functions": [
+        {
+          "count": {
+            "type": "minecraft:uniform",
+            "max": 1.0,
+            "min": 0.0
+          },
+          "enchantment": "minecraft:looting",
+          "function": "minecraft:enchanted_count_increase"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:tube_coral_fan"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:brain_coral_fan"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bubble_coral_fan"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:fire_coral_fan"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:horn_coral_fan"
+        }
+      ],
+      "functions": [
+        {
+          "count": 1.0,
+          "enchantment": "minecraft:looting",
+          "function": "minecraft:enchanted_count_increase"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 0.0
+              },
+              "function": "minecraft:set_count"
+            },
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 1.0,
+                "min": 0.0
+              },
+              "enchantment": "minecraft:looting",
+              "function": "minecraft:enchanted_count_increase"
+            }
+          ],
+          "name": "minecraft:prismarine_shard",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 1.0,
+                "min": 0.0
+              },
+              "enchantment": "minecraft:looting",
+              "function": "minecraft:enchanted_count_increase"
+            }
+          ],
+          "name": "minecraft:prismarine_crystals"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 3
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "occultism:entities/possessed_guardian"
+}

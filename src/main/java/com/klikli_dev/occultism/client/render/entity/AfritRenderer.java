@@ -24,7 +24,6 @@ package com.klikli_dev.occultism.client.render.entity;
 
 import com.klikli_dev.occultism.client.model.entity.AfritModel;
 import com.klikli_dev.occultism.common.entity.spirit.AfritEntity;
-import com.klikli_dev.occultism.common.entity.spirit.MaridEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

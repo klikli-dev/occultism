@@ -116,35 +116,35 @@ public class StandardBlockStateProvider extends BlockStateProvider {
         this.simpleBlock(OccultismBlocks.LARGE_CANDLE_WHITE.get(),
                 this.models().getExistingFile(this.modLoc("block/large_candle_white")));
         this.simpleBlock(OccultismBlocks.LARGE_CANDLE_LIGHT_GRAY.get(),
-                this.models().getExistingFile(this.modLoc("block/large_candle_light_gray")));
+                this.models().getExistingFile(this.modLoc("block/large_candle_white")));
         this.simpleBlock(OccultismBlocks.LARGE_CANDLE_GRAY.get(),
-                this.models().getExistingFile(this.modLoc("block/large_candle_gray")));
+                this.models().getExistingFile(this.modLoc("block/large_candle_white")));
         this.simpleBlock(OccultismBlocks.LARGE_CANDLE_BLACK.get(),
-                this.models().getExistingFile(this.modLoc("block/large_candle_black")));
+                this.models().getExistingFile(this.modLoc("block/large_candle_white")));
         this.simpleBlock(OccultismBlocks.LARGE_CANDLE_BROWN.get(),
-                this.models().getExistingFile(this.modLoc("block/large_candle_brown")));
+                this.models().getExistingFile(this.modLoc("block/large_candle_white")));
         this.simpleBlock(OccultismBlocks.LARGE_CANDLE_RED.get(),
-                this.models().getExistingFile(this.modLoc("block/large_candle_red")));
+                this.models().getExistingFile(this.modLoc("block/large_candle_white")));
         this.simpleBlock(OccultismBlocks.LARGE_CANDLE_ORANGE.get(),
-                this.models().getExistingFile(this.modLoc("block/large_candle_orange")));
+                this.models().getExistingFile(this.modLoc("block/large_candle_white")));
         this.simpleBlock(OccultismBlocks.LARGE_CANDLE_YELLOW.get(),
-                this.models().getExistingFile(this.modLoc("block/large_candle_yellow")));
+                this.models().getExistingFile(this.modLoc("block/large_candle_white")));
         this.simpleBlock(OccultismBlocks.LARGE_CANDLE_LIME.get(),
-                this.models().getExistingFile(this.modLoc("block/large_candle_lime")));
+                this.models().getExistingFile(this.modLoc("block/large_candle_white")));
         this.simpleBlock(OccultismBlocks.LARGE_CANDLE_GREEN.get(),
-                this.models().getExistingFile(this.modLoc("block/large_candle_green")));
+                this.models().getExistingFile(this.modLoc("block/large_candle_white")));
         this.simpleBlock(OccultismBlocks.LARGE_CANDLE_CYAN.get(),
-                this.models().getExistingFile(this.modLoc("block/large_candle_cyan")));
+                this.models().getExistingFile(this.modLoc("block/large_candle_white")));
         this.simpleBlock(OccultismBlocks.LARGE_CANDLE_BLUE.get(),
-                this.models().getExistingFile(this.modLoc("block/large_candle_blue")));
+                this.models().getExistingFile(this.modLoc("block/large_candle_white")));
         this.simpleBlock(OccultismBlocks.LARGE_CANDLE_LIGHT_BLUE.get(),
-                this.models().getExistingFile(this.modLoc("block/large_candle_light_blue")));
+                this.models().getExistingFile(this.modLoc("block/large_candle_white")));
         this.simpleBlock(OccultismBlocks.LARGE_CANDLE_PINK.get(),
-                this.models().getExistingFile(this.modLoc("block/large_candle_pink")));
+                this.models().getExistingFile(this.modLoc("block/large_candle_white")));
         this.simpleBlock(OccultismBlocks.LARGE_CANDLE_MAGENTA.get(),
-                this.models().getExistingFile(this.modLoc("block/large_candle_magenta")));
+                this.models().getExistingFile(this.modLoc("block/large_candle_white")));
         this.simpleBlock(OccultismBlocks.LARGE_CANDLE_PURPLE.get(),
-                this.models().getExistingFile(this.modLoc("block/large_candle_purple")));
+                this.models().getExistingFile(this.modLoc("block/large_candle_white")));
     }
 
     protected void generateStableWormholeState(Block block) {

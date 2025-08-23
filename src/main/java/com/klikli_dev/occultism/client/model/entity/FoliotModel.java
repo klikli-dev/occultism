@@ -23,15 +23,8 @@
 package com.klikli_dev.occultism.client.model.entity;
 
 import com.klikli_dev.occultism.Occultism;
-import com.klikli_dev.occultism.common.entity.job.SpiritJobFactory;
 import com.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
-import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.model.DefaultedEntityGeoModel;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 
 public class FoliotModel extends DefaultedJobEntityModel<FoliotEntity> {
