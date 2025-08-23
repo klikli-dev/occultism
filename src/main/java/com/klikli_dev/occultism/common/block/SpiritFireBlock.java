@@ -28,7 +28,6 @@ import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismRecipes;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import com.klikli_dev.occultism.util.Math3DUtil;
-import com.klikli_dev.theurgy.content.render.Color;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -114,7 +113,7 @@ public class SpiritFireBlock extends BaseFireBlock {
 
     public int getColor(BlockState state, int i) {
 
-        return i == 1 ? Color.mixColors(this.getColor(state, 0), 0xFFFFFF, 0.4F) : switch (state.getValue(COLOR).getNumber()) {
+        return i == 1 ? mixColors(this.getColor(state, 0), 0xFFFFFF, 0.4F) : switch (state.getValue(COLOR).getNumber()) {
             case 1 -> Occultism.CLIENT_CONFIG.visuals.lightGrayChalkGlyphColor.get();
             case 2 -> Occultism.CLIENT_CONFIG.visuals.grayChalkGlyphColor.get();
             case 3 -> Occultism.CLIENT_CONFIG.visuals.blackChalkGlyphColor.get();
@@ -209,5 +208,23 @@ public class SpiritFireBlock extends BaseFireBlock {
     public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
         BlockPos below = pos.below();
         return worldIn.getBlockState(below).isFaceSturdy(worldIn, pos, Direction.UP);
+    }
+
+    // Remove Theurgy dependency
+    private static int mixColors(int color1, int color2, float w) {
+        int a1 = (color1 >> 24);
+        int r1 = (color1 >> 16) & 0xFF;
+        int g1 = (color1 >> 8) & 0xFF;
+        int b1 = color1 & 0xFF;
+        int a2 = (color2 >> 24);
+        int r2 = (color2 >> 16) & 0xFF;
+        int g2 = (color2 >> 8) & 0xFF;
+        int b2 = color2 & 0xFF;
+
+        return
+                ((int) (a1 + (a2 - a1) * w) << 24) +
+                        ((int) (r1 + (r2 - r1) * w) << 16) +
+                        ((int) (g1 + (g2 - g1) * w) << 8) +
+                        ((int) (b1 + (b2 - b1) * w) << 0);
     }
 }
