@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.148.0] - 2025-08-23
+### :sparkles: New Features
+- [`c7e7bef`](https://github.com/klikli-dev/occultism/commit/c7e7bef83d0ded86a760d8e73c7075313bb0b180) - New translations en_us.json (French) *(PR [#1405](https://github.com/klikli-dev/occultism/pull/1405) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`22baa24`](https://github.com/klikli-dev/occultism/commit/22baa24f0fb7d14c4a00918e6dd6e5a1e32986e3) - New translations en_us.json (Chinese Traditional) *(PR [#1407](https://github.com/klikli-dev/occultism/pull/1407) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.147.0] - 2025-08-01
 ### :sparkles: New Features
 - [`21a3735`](https://github.com/klikli-dev/occultism/commit/21a3735efb744603da3295e6e7369b3649efdaea) - New translations en_us.json (Russian) *(PR [#1392](https://github.com/klikli-dev/occultism/pull/1392) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1327,3 +1333,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.145.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.144.0...release/v1.20.1-1.145.0
 [release/v1.20.1-1.146.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.145.0...release/v1.20.1-1.146.0
 [release/v1.20.1-1.147.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.146.0...release/v1.20.1-1.147.0
+[release/v1.20.1-1.148.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.147.0...release/v1.20.1-1.148.0
