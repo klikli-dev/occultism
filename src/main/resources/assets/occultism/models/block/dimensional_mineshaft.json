@@ -4,7 +4,8 @@
 	"texture_size": [32, 32],
 	"render_type": "cutout",	
 	"textures": {
-		"3": "occultism:block/lamp"
+		"3": "occultism:block/lamp",
+		"particle": "occultism:block/lamp"
 	},
 	"elements": [
 		{

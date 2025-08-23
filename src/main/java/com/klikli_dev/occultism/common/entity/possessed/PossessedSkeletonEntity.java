@@ -28,7 +28,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.level.Level;
 
-public class PossessedSkeletonEntity extends Skeleton {
+public class PossessedSkeletonEntity extends Skeleton implements PossessedMob{
 
     public PossessedSkeletonEntity(EntityType<? extends Skeleton> type,
                                    Level worldIn) {
@@ -52,4 +52,9 @@ public class PossessedSkeletonEntity extends Skeleton {
         return false;
     }
     //endregion Static Methods
+
+    @Override
+    public EntityType basedMob(){
+        return EntityType.SKELETON;
+    }
 }

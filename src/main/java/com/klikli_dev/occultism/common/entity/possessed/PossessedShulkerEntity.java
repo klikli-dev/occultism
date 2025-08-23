@@ -28,7 +28,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.level.Level;
 
-public class PossessedShulkerEntity extends Shulker {
+public class PossessedShulkerEntity extends Shulker implements PossessedMob{
 
     public PossessedShulkerEntity(EntityType<? extends Shulker> type,
                                   Level worldIn) {
@@ -46,4 +46,9 @@ public class PossessedShulkerEntity extends Shulker {
         return false;
     }
     //endregion Static Methods
+
+    @Override
+    public EntityType basedMob(){
+        return EntityType.SHULKER;
+    }
 }

@@ -28,7 +28,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.ElderGuardian;
 import net.minecraft.world.level.Level;
 
-public class PossessedElderGuardianEntity extends ElderGuardian {
+public class PossessedElderGuardianEntity extends ElderGuardian implements PossessedMob {
 
     public PossessedElderGuardianEntity(EntityType<? extends ElderGuardian> type,
                                         Level worldIn) {
@@ -46,4 +46,9 @@ public class PossessedElderGuardianEntity extends ElderGuardian {
         return false;
     }
     //endregion Static Methods
+
+    @Override
+    public EntityType basedMob(){
+        return EntityType.ELDER_GUARDIAN;
+    }
 }

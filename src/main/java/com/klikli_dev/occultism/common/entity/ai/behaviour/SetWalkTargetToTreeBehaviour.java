@@ -3,8 +3,8 @@ package com.klikli_dev.occultism.common.entity.ai.behaviour;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.OccultismConstants;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import com.klikli_dev.occultism.network.messages.MessageSelectBlock;
 import com.klikli_dev.occultism.network.Networking;
+import com.klikli_dev.occultism.network.messages.MessageSelectBlock;
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -17,6 +17,7 @@ import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraft.world.phys.Vec3;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
 import net.tslat.smartbrainlib.util.BrainUtils;
+
 import java.util.HashSet;
 import java.util.List;
 

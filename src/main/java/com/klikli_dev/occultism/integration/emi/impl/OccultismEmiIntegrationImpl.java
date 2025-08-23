@@ -5,9 +5,7 @@
 package com.klikli_dev.occultism.integration.emi.impl;
 
 import com.klikli_dev.occultism.integration.emi.OccultismEmiIntegration;
-import com.klikli_dev.occultism.integration.jei.impl.JeiPlugin;
 import dev.emi.emi.api.EmiApi;
-import mezz.jei.api.runtime.IJeiRuntime;
 import net.neoforged.fml.ModList;
 
 public class OccultismEmiIntegrationImpl implements OccultismEmiIntegration {

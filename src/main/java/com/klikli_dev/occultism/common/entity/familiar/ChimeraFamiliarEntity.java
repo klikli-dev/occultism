@@ -28,7 +28,6 @@ import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.common.entity.ai.goal.OwnerHurtByTargetGoal;
 import com.klikli_dev.occultism.common.entity.ai.goal.OwnerHurtTargetGoal;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
-import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;

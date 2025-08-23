@@ -6,7 +6,7 @@
   "duration": 60,
   "ingredients": [
     {
-      "item": "occultism:wormhole_frame"
+      "item": "occultism:otherstone_frame"
     },
     {
       "tag": "c:ender_pearls"
@@ -16,6 +16,12 @@
     },
     {
       "tag": "c:gems/quartz"
+    },
+    {
+      "tag": "c:ingots/gold"
+    },
+    {
+      "tag": "c:ingots/gold"
     }
   ],
   "pentacle_id": "occultism:craft_foliot",

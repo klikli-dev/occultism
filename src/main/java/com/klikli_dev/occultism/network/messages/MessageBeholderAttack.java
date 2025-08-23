@@ -25,7 +25,6 @@ package com.klikli_dev.occultism.network.messages;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.entity.familiar.BeholderFamiliarEntity;
 import com.klikli_dev.occultism.network.IMessage;
-import com.klikli_dev.theurgy.network.messages.MessageAddWires;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;

@@ -8,14 +8,10 @@ package com.klikli_dev.occultism.integration.modonomicon.pages;
 
 import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookRecipePageModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 
 public class BookBindingCraftingRecipePageModel extends BookRecipePageModel<BookBindingCraftingRecipePageModel> {
 

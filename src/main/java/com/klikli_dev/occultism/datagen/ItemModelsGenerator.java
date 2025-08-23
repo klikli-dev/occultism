@@ -57,6 +57,8 @@ public class ItemModelsGenerator extends ItemModelProvider {
         this.registerItemHandheld();
         this.registerItemFromBlock();
         this.registerItemMiners();
+        this.registerItemChalks();
+        this.registerItemCandles();
 
         this.registerItemGenerated(this.name(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get()),"book_of_calling_manage_machine");
         this.registerItemGenerated(this.name(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get()),"book_of_calling_cleaner");
@@ -128,38 +130,6 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismItems.BOOK_OF_BINDING_MARID.get()),
                 this.name(OccultismItems.BRUSH.get()),
                 this.name(OccultismItems.BURNT_OTHERSTONE.get()),
-                this.name(OccultismItems.CHALK_BLACK.get()),
-                this.name(OccultismItems.CHALK_BLACK_IMPURE.get()),
-                this.name(OccultismItems.CHALK_BLUE.get()),
-                this.name(OccultismItems.CHALK_BLUE_IMPURE.get()),
-                this.name(OccultismItems.CHALK_BROWN.get()),
-                this.name(OccultismItems.CHALK_BROWN_IMPURE.get()),
-                this.name(OccultismItems.CHALK_CYAN.get()),
-                this.name(OccultismItems.CHALK_CYAN_IMPURE.get()),
-                this.name(OccultismItems.CHALK_YELLOW.get()),
-                this.name(OccultismItems.CHALK_YELLOW_IMPURE.get()),
-                this.name(OccultismItems.CHALK_GRAY.get()),
-                this.name(OccultismItems.CHALK_GRAY_IMPURE.get()),
-                this.name(OccultismItems.CHALK_GREEN.get()),
-                this.name(OccultismItems.CHALK_GREEN_IMPURE.get()),
-                this.name(OccultismItems.CHALK_LIGHT_BLUE.get()),
-                this.name(OccultismItems.CHALK_LIGHT_BLUE_IMPURE.get()),
-                this.name(OccultismItems.CHALK_LIGHT_GRAY.get()),
-                this.name(OccultismItems.CHALK_LIGHT_GRAY_IMPURE.get()),
-                this.name(OccultismItems.CHALK_LIME.get()),
-                this.name(OccultismItems.CHALK_LIME_IMPURE.get()),
-                this.name(OccultismItems.CHALK_MAGENTA.get()),
-                this.name(OccultismItems.CHALK_MAGENTA_IMPURE.get()),
-                this.name(OccultismItems.CHALK_ORANGE.get()),
-                this.name(OccultismItems.CHALK_ORANGE_IMPURE.get()),
-                this.name(OccultismItems.CHALK_PINK.get()),
-                this.name(OccultismItems.CHALK_PINK_IMPURE.get()),
-                this.name(OccultismItems.CHALK_PURPLE.get()),
-                this.name(OccultismItems.CHALK_PURPLE_IMPURE.get()),
-                this.name(OccultismItems.CHALK_RED.get()),
-                this.name(OccultismItems.CHALK_RED_IMPURE.get()),
-                this.name(OccultismItems.CHALK_WHITE.get()),
-                this.name(OccultismItems.CHALK_WHITE_IMPURE.get()),
                 this.name(OccultismItems.CHALK_RAINBOW.get()),
                 this.name(OccultismItems.CHALK_VOID.get()),
                 this.name(OccultismItems.COPPER_DUST.get()),
@@ -221,6 +191,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismBlocks.SPIRIT_CAMPFIRE.asItem()),
                 this.name(OccultismBlocks.SPIRIT_LANTERN.asItem()),
                 this.name(OccultismItems.STORAGE_REMOTE_INERT.get()),
+                this.name(OccultismItems.SWEET_HONEY_HEART.get()),
                 this.name(OccultismItems.TABOO_BOOK.get()),
                 this.name(OccultismItems.TALLOW.get()),
                 this.name(OccultismItems.WITHERITE_DUST.get())
@@ -253,22 +224,6 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismBlocks.IESNIUM_ORE.asItem()),
                 this.name(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.asItem()),
                 this.name(OccultismBlocks.LARGE_CANDLE.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_WHITE.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_LIGHT_GRAY.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_GRAY.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_BLACK.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_BROWN.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_RED.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_ORANGE.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_YELLOW.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_LIME.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_GREEN.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_CYAN.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_BLUE.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_LIGHT_BLUE.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_PINK.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_MAGENTA.asItem()),
-                this.name(OccultismBlocks.LARGE_CANDLE_PURPLE.asItem()),
                 this.name(OccultismBlocks.OTHERCOBBLESTONE.asItem()),
                 this.name(OccultismBlocks.OTHERCOBBLESTONE_SLAB.asItem()),
                 this.name(OccultismBlocks.OTHERCOBBLESTONE_STAIRS.asItem()),
@@ -328,6 +283,82 @@ public class ItemModelsGenerator extends ItemModelProvider {
             this.getBuilder(item)
                     .parent(new ModelFile.UncheckedModelFile("item/generated"))
                     .texture("layer0", this.modLoc("item/magic_lamp"));
+        }
+    }
+
+    private void registerItemChalks() {
+        String[] items = {
+                this.name(OccultismItems.CHALK_BLACK.get()),
+                this.name(OccultismItems.CHALK_BLUE.get()),
+                this.name(OccultismItems.CHALK_BROWN.get()),
+                this.name(OccultismItems.CHALK_CYAN.get()),
+                this.name(OccultismItems.CHALK_YELLOW.get()),
+                this.name(OccultismItems.CHALK_GRAY.get()),
+                this.name(OccultismItems.CHALK_GREEN.get()),
+                this.name(OccultismItems.CHALK_LIGHT_BLUE.get()),
+                this.name(OccultismItems.CHALK_LIGHT_GRAY.get()),
+                this.name(OccultismItems.CHALK_LIME.get()),
+                this.name(OccultismItems.CHALK_MAGENTA.get()),
+                this.name(OccultismItems.CHALK_ORANGE.get()),
+                this.name(OccultismItems.CHALK_PINK.get()),
+                this.name(OccultismItems.CHALK_PURPLE.get()),
+                this.name(OccultismItems.CHALK_RED.get()),
+                this.name(OccultismItems.CHALK_WHITE.get())
+        };
+        for (String item : items){
+            this.getBuilder(item)
+                    .parent(new ModelFile.UncheckedModelFile("item/generated"))
+                    .texture("layer0", this.modLoc("item/chalk_base"));
+        }
+
+        String[] itemsImpure = {
+                this.name(OccultismItems.CHALK_BLACK_IMPURE.get()),
+                this.name(OccultismItems.CHALK_BLUE_IMPURE.get()),
+                this.name(OccultismItems.CHALK_BROWN_IMPURE.get()),
+                this.name(OccultismItems.CHALK_CYAN_IMPURE.get()),
+                this.name(OccultismItems.CHALK_YELLOW_IMPURE.get()),
+                this.name(OccultismItems.CHALK_GRAY_IMPURE.get()),
+                this.name(OccultismItems.CHALK_GREEN_IMPURE.get()),
+                this.name(OccultismItems.CHALK_LIGHT_BLUE_IMPURE.get()),
+                this.name(OccultismItems.CHALK_LIGHT_GRAY_IMPURE.get()),
+                this.name(OccultismItems.CHALK_LIME_IMPURE.get()),
+                this.name(OccultismItems.CHALK_MAGENTA_IMPURE.get()),
+                this.name(OccultismItems.CHALK_ORANGE_IMPURE.get()),
+                this.name(OccultismItems.CHALK_PINK_IMPURE.get()),
+                this.name(OccultismItems.CHALK_PURPLE_IMPURE.get()),
+                this.name(OccultismItems.CHALK_RED_IMPURE.get()),
+                this.name(OccultismItems.CHALK_WHITE_IMPURE.get())
+        };
+        for (String item : itemsImpure){
+            this.getBuilder(item)
+                    .parent(new ModelFile.UncheckedModelFile("item/generated"))
+                    .texture("layer0", this.modLoc("item/chalk_base"))
+                    .texture("layer1", this.modLoc("item/chalk_base_impure"));
+        }
+    }
+
+    private void registerItemCandles() {
+        String[] items = {
+            this.name(OccultismBlocks.LARGE_CANDLE_WHITE.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_LIGHT_GRAY.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_GRAY.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_BLACK.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_BROWN.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_RED.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_ORANGE.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_YELLOW.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_LIME.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_GREEN.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_CYAN.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_BLUE.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_LIGHT_BLUE.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_PINK.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_MAGENTA.asItem()),
+            this.name(OccultismBlocks.LARGE_CANDLE_PURPLE.asItem()),
+        };
+        for (String item : items){
+            this.getBuilder(item)
+                    .parent(new ModelFile.UncheckedModelFile(this.modLoc("block/" + "large_candle_white")));
         }
     }
 

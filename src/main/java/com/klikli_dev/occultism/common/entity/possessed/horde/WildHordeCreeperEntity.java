@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.common.entity.possessed.horde;
 
+import com.klikli_dev.occultism.common.entity.possessed.PossessedMob;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -30,7 +31,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.level.Level;
 
-public class WildHordeCreeperEntity extends Creeper {
+public class WildHordeCreeperEntity extends Creeper implements PossessedMob {
 
     public WildHordeCreeperEntity(EntityType<? extends Creeper> type,
                                   Level worldIn) {
@@ -60,5 +61,10 @@ public class WildHordeCreeperEntity extends Creeper {
     @Override
     public boolean isPowered() {
         return true;
+    }
+
+    @Override
+    public EntityType basedMob(){
+        return EntityType.CREEPER;
     }
 }

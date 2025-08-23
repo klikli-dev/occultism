@@ -25,12 +25,9 @@ package com.klikli_dev.occultism.common.item.spirit;
 import com.klikli_dev.occultism.common.entity.job.LumberjackJob;
 import com.klikli_dev.occultism.common.item.spirit.calling.ItemMode;
 import com.klikli_dev.occultism.common.item.spirit.calling.ItemModes;
-import net.minecraft.world.item.ItemStack;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class BookOfCallingLumberjackItem extends BookOfCallingItem {
 

@@ -6,7 +6,7 @@
     64
   ],
   "textures": {
-    "0": "occultism:block/otherstone",
+    "0": "occultism:block/polished_otherstone",
     "1": "occultism:block/otherstone_copper",
     "particle": "occultism:block/otherstone"
   },

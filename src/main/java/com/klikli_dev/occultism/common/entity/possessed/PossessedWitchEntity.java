@@ -28,7 +28,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.level.Level;
 
-public class PossessedWitchEntity extends Witch {
+public class PossessedWitchEntity extends Witch implements PossessedMob {
 
     public PossessedWitchEntity(EntityType<? extends Witch> type,
                                 Level worldIn) {
@@ -52,4 +52,9 @@ public class PossessedWitchEntity extends Witch {
         return false;
     }
     //endregion Static Methods
+
+    @Override
+    public EntityType basedMob(){
+        return EntityType.WITCH;
+    }
 }

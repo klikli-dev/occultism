@@ -28,7 +28,10 @@ import com.klikli_dev.occultism.common.item.DummyTooltipItem;
 import com.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.klikli_dev.occultism.common.item.debug.*;
 import com.klikli_dev.occultism.common.item.spirit.*;
-import com.klikli_dev.occultism.common.item.storage.*;
+import com.klikli_dev.occultism.common.item.storage.DimensionalMatrixItem;
+import com.klikli_dev.occultism.common.item.storage.SatchelItem;
+import com.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
+import com.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
 import com.klikli_dev.occultism.common.item.tool.BrushItem;
 import com.klikli_dev.occultism.common.item.tool.*;
 import com.klikli_dev.occultism.common.item.tool.ritual_satchel.MultiBlockRitualSatchelItem;
@@ -278,6 +281,8 @@ public class OccultismItems {
             () -> new Item(defaultProperties().food(OccultismFoods.BEAVER_NUGGET.get())));
     public static final DeferredItem<Item> CURSED_HONEY = ITEMS.register("cursed_honey",
             () -> new Item(defaultProperties().food(OccultismFoods.CURSED_HONEY.get())));
+    public static final DeferredItem<Item> SWEET_HONEY_HEART = ITEMS.register("sweet_honey_heart",
+            () -> new Item(defaultProperties().food(OccultismFoods.SWEET_HONEY_HEART.get())));
     public static final DeferredItem<Item> DEMONIC_MEAT = ITEMS.register("demonic_meat",
             () -> new Item(defaultProperties().food(OccultismFoods.DEMONIC_MEAT.get()).rarity(Rarity.UNCOMMON)));
 
@@ -375,8 +380,6 @@ public class OccultismItems {
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> OTHERSTONE_FRAME = ITEMS.register("otherstone_frame",
             () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> WORMHOLE_FRAME = ITEMS.register("wormhole_frame",
-            () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> OTHERSTONE_TABLET = ITEMS.register("otherstone_tablet",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> STORAGE_REMOTE_INERT = ITEMS.register("storage_remote_inert",
@@ -443,6 +446,8 @@ public class OccultismItems {
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN_TYPE, 0xdb8a8a, 0x6a8c46, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_BEE = ITEMS.register("spawn_egg/possessed_bee",
             () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_BEE_TYPE, 0xd6b03c, 0x060606, defaultProperties()));
+    public static final DeferredItem<Item> SPAWN_EGG_POSSESSED_GUARDIAN = ITEMS.register("spawn_egg/possessed_guardian",
+            () -> new DeferredSpawnEggItem(OccultismEntities.POSSESSED_GUARDIAN_TYPE, 0x70978a, 0xff9233, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_GOAT_OF_MERCY = ITEMS.register("spawn_egg/possessed_goat",
             () -> new DeferredSpawnEggItem(OccultismEntities.GOAT_OF_MERCY_TYPE, 0xa0a0a0, 0x835432, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_WILD_HUNT_SKELETON = ITEMS.register("spawn_egg/wild_hunt_skeleton",
@@ -580,6 +585,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_WEAK_SHULKER = ITEMS.register("ritual_dummy/possess_weak_shulker", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_BLAZE = ITEMS.register("ritual_dummy/possess_blaze", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_ZOMBIE_PIGLIN = ITEMS.register("ritual_dummy/possess_zombie_piglin", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_GUARDIAN = ITEMS.register("ritual_dummy/possess_guardian", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_WARDEN = ITEMS.register("ritual_dummy/possess_warden", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_ELDER_GUARDIAN = ITEMS.register("ritual_dummy/possess_elder_guardian", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_POSSESS_HOGLIN = ITEMS.register("ritual_dummy/possess_hoglin", () -> new DummyTooltipItem(defaultProperties()));

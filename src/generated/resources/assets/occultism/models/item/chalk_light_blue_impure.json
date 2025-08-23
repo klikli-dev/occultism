@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "occultism:item/chalk_light_blue_impure"
+    "layer0": "occultism:item/chalk_base",
+    "layer1": "occultism:item/chalk_base_impure"
   }
 }

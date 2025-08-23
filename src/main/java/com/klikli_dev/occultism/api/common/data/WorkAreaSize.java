@@ -31,7 +31,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.util.StringRepresentable;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.IntFunction;
 

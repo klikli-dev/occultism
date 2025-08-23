@@ -28,7 +28,6 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.blockentity.IStorageController;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
 import com.klikli_dev.occultism.integration.emi.impl.EmiHelper;
-import com.klikli_dev.occultism.integration.emi.impl.StorageControllerEMIRecipeHandler;
 import com.klikli_dev.occultism.network.IMessage;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.util.StorageUtil;

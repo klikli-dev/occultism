@@ -23,17 +23,9 @@
 package com.klikli_dev.occultism.common.effect;
 
 import com.klikli_dev.occultism.Occultism;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.LivingEntity;
-import net.neoforged.neoforge.client.extensions.common.IClientMobEffectExtensions;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.function.Consumer;
 
 public class ThirdEyeEffect extends MobEffect {
 

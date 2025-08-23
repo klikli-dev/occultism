@@ -27,7 +27,6 @@ import com.klikli_dev.occultism.common.entity.ai.target.BlockPosMoveTarget;
 import com.klikli_dev.occultism.common.entity.ai.target.EntityMoveTarget;
 import com.klikli_dev.occultism.common.entity.ai.target.IMoveTarget;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-
 import com.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -38,8 +37,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
+
 import java.util.EnumSet;
 import java.util.Optional;
 import java.util.UUID;

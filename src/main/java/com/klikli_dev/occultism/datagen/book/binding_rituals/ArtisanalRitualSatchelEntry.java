@@ -65,8 +65,7 @@ public class ArtisanalRitualSatchelEntry extends EntryProvider {
                         1. {0} to open the satchel and place chalks, candles, crystals, skulls and other items needed for rituals.
                         2. Using this book, use the "eye" icon to preview the pentacle you want to set up in the world.
                         3. {1} with this book to anchor the preview pentacle in the spot where you want to set it up.
-                        4. {2} with the satchel on a previewed chalk mark or block to automatically place it.
-                        5. Repeat until the pentacle is complete.
+                        4. {1} with the satchel on a previewed chalk mark or block to automatically place all previewed blocks, since have the materials inside.
                         """,
                 this.color("Shift-Right-Click", ChatFormatting.GREEN),
                 this.color("Right-Click", ChatFormatting.GREEN)

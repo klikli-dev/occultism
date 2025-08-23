@@ -33,13 +33,11 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 public class TraderJob extends SpiritJob {
 

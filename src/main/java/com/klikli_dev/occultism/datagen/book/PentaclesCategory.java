@@ -1,12 +1,10 @@
 package com.klikli_dev.occultism.datagen.book;
 
+import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryParentModel;
-import com.klikli_dev.modonomicon.api.datagen.book.condition.BookAdvancementConditionModel;
-import com.klikli_dev.modonomicon.api.datagen.book.condition.BookAndConditionModel;
+import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookEntryReadConditionModel;
 import com.klikli_dev.occultism.datagen.OccultismBookProvider;
-import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
-import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.occultism.datagen.book.pentacles.*;
 
 public class PentaclesCategory extends CategoryProvider {

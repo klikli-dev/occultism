@@ -23,7 +23,10 @@
 package com.klikli_dev.occultism.common.blockentity;
 
 import com.klikli_dev.occultism.common.block.SpiritFireBlock;
-import com.klikli_dev.occultism.registry.*;
+import com.klikli_dev.occultism.registry.OccultismBlockEntities;
+import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.registry.OccultismRecipes;
+import com.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;

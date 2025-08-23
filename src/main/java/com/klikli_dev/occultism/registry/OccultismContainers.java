@@ -27,12 +27,12 @@ import com.klikli_dev.occultism.common.blockentity.DimensionalMineshaftBlockEnti
 import com.klikli_dev.occultism.common.blockentity.StableWormholeBlockEntity;
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
 import com.klikli_dev.occultism.common.container.DimensionalMineshaftContainer;
+import com.klikli_dev.occultism.common.container.satchel.AbstractSatchelContainer;
 import com.klikli_dev.occultism.common.container.satchel.RitualSatchelT1Container;
 import com.klikli_dev.occultism.common.container.satchel.RitualSatchelT2Container;
 import com.klikli_dev.occultism.common.container.satchel.StorageSatchelContainer;
 import com.klikli_dev.occultism.common.container.spirit.SpiritContainer;
 import com.klikli_dev.occultism.common.container.spirit.SpiritTransporterContainer;
-import com.klikli_dev.occultism.common.container.satchel.AbstractSatchelContainer;
 import com.klikli_dev.occultism.common.container.storage.StableWormholeContainer;
 import com.klikli_dev.occultism.common.container.storage.StorageControllerContainer;
 import com.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;

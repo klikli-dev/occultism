@@ -30,9 +30,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -47,6 +51,8 @@ import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
@@ -54,7 +60,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -67,6 +75,8 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
     public float riderRot, riderRot0, riderLimbSwingAmount, riderLimbSwing;
     private BlockPos lightPos, lightPos0;
     private int lightTimer;
+    protected static final int PRISMARINE_INTERVAL = 20 * 3;
+    protected long lastPrismarineTime;
 
     public CthulhuFamiliarEntity(EntityType<? extends CthulhuFamiliarEntity> type, Level level) {
         super(type, level);
@@ -94,6 +104,33 @@ public class CthulhuFamiliarEntity extends FamiliarEntity {
         if (this.hasHat())
             OccultismAdvancements.FAMILIAR.get().trigger(owner, FamiliarTrigger.Type.RARE_VARIANT);
         super.setFamiliarOwner(owner);
+    }
+
+    @Override
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        ItemStack itemstack = pPlayer.getItemInHand(pHand);
+        if (this.getOwner() == pPlayer) {
+
+            if (itemstack.is(Tags.Items.GEMS_LAPIS)) {
+                if (this.level().getGameTime() > this.lastPrismarineTime + PRISMARINE_INTERVAL) {
+                    if (this.hasBlacksmithUpgrade()) {
+                        this.lastPrismarineTime = this.level().getGameTime();
+                        itemstack.shrink(1);
+                        ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(Items.PRISMARINE_SHARD, RandomSource.create().nextInt(1,5)));
+                    } else {
+                        this.lastPrismarineTime = this.level().getGameTime();
+                        itemstack.shrink(1);
+                        ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(Items.PRISMARINE_SHARD));
+                    }
+                } else {
+                    pPlayer.displayClientMessage(Component.translatable("dialog.occultism.cthulhu.prismarine_on_cooldown"), true);
+                }
+                //even if we don't give a breath we return success, otherwise we make the familiar change sitting position
+                return InteractionResult.sidedSuccess(this.level().isClientSide);
+            }
+
+        }
+        return super.mobInteract(pPlayer, pHand);
     }
 
     @Override

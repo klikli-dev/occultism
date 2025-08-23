@@ -25,7 +25,6 @@ package com.klikli_dev.occultism.common.entity.spirit;
 import com.klikli_dev.occultism.registry.OccultismEntities;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.TextUtil;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.DifficultyInstance;
@@ -42,6 +41,7 @@ import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.neoforged.neoforge.event.EventHooks;
+
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;

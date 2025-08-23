@@ -49,7 +49,7 @@
 		{
 			"name": "portal",
 			"from": [5, 12.001, 5],
-			"to": [11, 12.001, 11],
+			"to": [11, 12.003, 11],
 			"rotation": {"angle": 0, "axis": "y", "origin": [5, 12, 5]},
 			"faces": {
 				"north": {"uv": [0, 0, 6, 0], "texture": "#2"},

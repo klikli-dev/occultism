@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.common.entity.job;
 
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;

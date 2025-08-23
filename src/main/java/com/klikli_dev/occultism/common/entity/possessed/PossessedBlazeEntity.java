@@ -22,20 +22,14 @@
 
 package com.klikli_dev.occultism.common.entity.possessed;
 
-import net.minecraft.core.HolderSet;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Blaze;
-import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.level.Level;
 
-import java.util.Objects;
-
-public class PossessedBlazeEntity extends Blaze {
+public class PossessedBlazeEntity extends Blaze implements PossessedMob{
 
     public PossessedBlazeEntity(EntityType<? extends Blaze> type,
                                 Level worldIn) {
@@ -74,4 +68,9 @@ public class PossessedBlazeEntity extends Blaze {
         return false;
     }
     //endregion Static Methods
+
+    @Override
+    public EntityType basedMob(){
+        return EntityType.BLAZE;
+    }
 }

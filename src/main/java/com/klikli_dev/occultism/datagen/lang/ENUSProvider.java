@@ -30,7 +30,10 @@ import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.common.ritual.RitualFactory;
 import com.klikli_dev.occultism.datagen.OccultismAdvancementSubProvider;
 import com.klikli_dev.occultism.integration.modonomicon.OccultismModonomiconConstants.I18n;
-import com.klikli_dev.occultism.registry.*;
+import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.registry.OccultismEntities;
+import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.data.PackOutput;
@@ -282,7 +285,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.TALLOW, "Tallow");
         this.addItem(OccultismItems.OTHERSTONE_FRAME, "Otherstone Frame");
         this.addItem(OccultismItems.OTHERSTONE_TABLET, "Otherstone Tablet");
-        this.addItem(OccultismItems.WORMHOLE_FRAME, "Wormhole Frame");
         this.addItem(OccultismItems.IRON_DUST, "Iron Dust");
         this.addItem(OccultismItems.OBSIDIAN_DUST, "Obsidian Dust");
         this.addItem(OccultismItems.CRUSHED_END_STONE, "Crushed End Stone");
@@ -341,6 +343,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_WITCH, "Possessed Witch Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_BLAZE, "Possessed Blaze Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_ZOMBIE_PIGLIN, "Possessed Zombified Piglin Spawn Egg");
+        this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_GUARDIAN, "Possessed Guardian Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_POSSESSED_BEE, "Possessed Bee Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_GOAT_OF_MERCY, "Goat of Mercy Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_WILD_HUNT_SKELETON, "Wild Hunt Skeleton Spawn Egg");
@@ -384,6 +387,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.CRUSHED_PACKED_ICE,"Crushed Packed Ice");
         this.addItem(OccultismItems.CURSED_HONEY,"Cursed Honey");
         this.addAutoTooltip(OccultismItems.CURSED_HONEY, "Grants Regeneration when eating");
+        this.addItem(OccultismItems.SWEET_HONEY_HEART,"Sweet-Honey-Heart");
+        this.addAutoTooltip(OccultismItems.SWEET_HONEY_HEART,  ChatFormatting.WHITE + "Made with love, sugar and evilness\n"+ ChatFormatting.GRAY + "Grants a great Absorption when eating\n" + ChatFormatting.DARK_PURPLE + "Get it giving a Cursed Honey to a Demonic Partner");
         this.addItem(OccultismItems.DEMONIC_MEAT,"Demonic Meat");
         this.addAutoTooltip(OccultismItems.DEMONIC_MEAT, "Grants Fire Resistance when eating");
         this.addItem(OccultismItems.DRAGONYST_DUST,"Dragonyst Dust");
@@ -539,6 +544,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addEntityType(OccultismEntities.POSSESSED_WITCH, "Possessed Witch");
         this.addEntityType(OccultismEntities.POSSESSED_BLAZE, "Possessed Blaze");
         this.addEntityType(OccultismEntities.POSSESSED_ZOMBIE_PIGLIN, "Possessed Zombified Piglin");
+        this.addEntityType(OccultismEntities.POSSESSED_GUARDIAN, "Possessed Guardian");
         this.addEntityType(OccultismEntities.POSSESSED_BEE, "Possessed Bee");
         this.addEntityType(OccultismEntities.GOAT_OF_MERCY, "Goat of Mercy");
         this.addEntityType(OccultismEntities.WILD_HUNT_SKELETON, "Wild Hunt Skeleton");
@@ -1794,7 +1800,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         helper.page("entity");
         this.add(helper.pageText(),
                 """
-                        **Provides**: [#](%1$s)Water Breathing[#](), [#](%1$s)General Coolness[#]()
+                        **Provides**: [#](%1$s)Water Breathing[#](), [#](%1$s)General Coolness[#]() and [#](%1$s)Prismarine conversion[#]()
                                """.formatted(COLOR_PURPLE));
 
         helper.page("ritual");
@@ -1804,8 +1810,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageTitle(), "Description");
         this.add(helper.pageText(),
                 """
+                        Give a [](item://minecraft:lapis_lazuli) to transform in a [](item://minecraft:prismarine_shard).\\
+                        \\
                         **Upgrade Behaviour**\\
-                        When upgraded by a blacksmith familiar, it will act as a mobile light source.
+                        When upgraded by a blacksmith familiar, it will act as a mobile light source.\\
+                        You receive more prismarine per lapis.         
                            """.formatted(COLOR_PURPLE));
 
         helper.entry("familiar_shub_niggurath");
@@ -2512,8 +2521,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_RAIN_WEATHER, "Summoning of Rain", "Afrit", "Summons an Afrit that creates rain.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_AFRIT_THUNDER_WEATHER, "Summoning of Thunderstorm", "Afrit", "Summons an Afrit that creates a thunderstorm.");
             //Unbound
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_UNBOUND_AFRIT, "Summon Unbound Afrit", "Afrit", "Summons an Unbound Afrit that can be killed to obtain Afrit Essence.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_UNBOUND_MARID, "Summon Unbound Marid", "Marid", "Summons an Unbound Marid that can be killed to obtain Marid Essence.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_UNBOUND_AFRIT, "Summon Unbound Afrit", "Afrit (Unbound)", "Summons an Unbound Afrit that can be killed to obtain Afrit Essence.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_SUMMON_UNBOUND_MARID, "Summon Unbound Marid", "Marid (Unbound)", "Summons an Unbound Marid that can be killed to obtain Marid Essence.");
         //POSSESS
             //Familiar
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FAMILIAR_BEAVER, "Summon Beaver Familiar", "Foliot", "The Beaver familiar provides increased woodcutting speed to their masters and harvests nearby trees when they grow from a sapling.");
@@ -2545,7 +2554,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_GHAST, "Summon Possessed Ghast", "Djinni", "The Possessed Ghast will always drop at least one ghast tear when killed.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_WEAK_SHULKER, "Summon Possessed Weak Shulker", "Djinni", "The Possessed Weak Shulker will drop at least one chorus fruit when killed and can drop shulker shell.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_BLAZE, "Summon Possessed Blaze", "Djinni", "The Possessed Blaze will drop at least two blaze rods and various nether-related items, including blocks, plants, and (very rarely) ancient debris.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ZOMBIE_PIGLIN, "Summon Possessed Zombified Piglin", "Afrit", "The Possessed Zombified Piglin will drop demonic meat.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ZOMBIE_PIGLIN, "Summon Possessed Zombified Piglin", "Afrit (Unbound)", "The Possessed Zombified Piglin will drop demonic meat.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_GUARDIAN, "Summon Possessed Guardian", "Afrit (Unbound)", "The Possessed Guardian will drop stuff from coral reef.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_WARDEN, "Summon Possessed Warden", "Afrit", "The Possessed Warden will always drop at least six echo shard and can drop anothers ancient stuff (smithing templates and discs) when killed.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_ELDER_GUARDIAN, "Summon Possessed Elder Guardian", "Afrit", "The Possessed Elder Guardian will drop at least one nautilus shell when killed, also can drop heart of the sea and the common drops.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_POSSESS_HOGLIN, "Summon Possessed Hoglin", "Afrit", "The Possessed Hoglin has a chance to drop smithing template of netherite upgrade when killed.");
@@ -2659,6 +2669,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("dialog.occultism.fairy.no_upgrade", "A Blacksmith Familiar needs to upgrade the Fairy before breathing like a dragon!");
         this.add("dialog.occultism.devil.sin_on_cooldown", "Another will be available after: %s ticks!");
         this.add("dialog.occultism.devil.no_upgrade", "A Blacksmith Familiar needs to upgrade the Devil before sinning!");
+        this.add("dialog.occultism.cthulhu.prismarine_on_cooldown", "Wait the great wave... The power of ocean is charging!");
+        this.add("dialog.occultism.partner.heart_on_cooldown", "Oh dear, I need more time to do this again. (Next in: %s ticks)");
     }
 
     private void addModonomiconIntegration() {
@@ -2731,6 +2743,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM, "Raw Iesnium Storage Blocks");
         this.addItemTag(OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER, "Raw Silver Storage Blocks");
         this.addItemTag(OccultismTags.Items.MUSHROOM_BLOCKS, "Mushroom Blocks");
+        this.addItemTag(OccultismTags.Items.TUBE_CORALS, "Tube Coral");
         this.addItemTag(OccultismTags.Items.LIGHTNING_RODS, "Lightning Rods");
         this.addItemTag(OccultismTags.Items.TALLOW, "Tallow");
         this.addItemTag(OccultismTags.Items.METAL_AXES, "Metal Axes");
@@ -2789,6 +2802,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_WEAK_SHULKER, "Drop from Possessed Weak Shulker");
         this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_WITCH, "Drop from Possessed Witch");
         this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_ZOMBIE_PIGLIN, "Drop from Possessed Zombified Piglin");
+        this.addItemTag(OccultismTags.Items.DROPS_POSSESSED_GUARDIAN, "Drop from Possessed Guardian");
         this.addItemTag(OccultismTags.Items.DROPS_WILD_HUNT, "Drop from Wild Hunt");
         this.addItemTag(OccultismTags.Items.DROPS_WILD_HORDE_CREEPER, "Drop from Wild Horde Creeper");
         this.addItemTag(OccultismTags.Items.DROPS_WILD_HORDE_DROWNED, "Drop from Wild Horde Drowned");

@@ -28,7 +28,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.level.Level;
 
-public class PossessedWardenEntity extends Warden {
+public class PossessedWardenEntity extends Warden implements PossessedMob{
 
     public PossessedWardenEntity(EntityType<? extends Warden> type,
                                  Level worldIn) {
@@ -47,5 +47,10 @@ public class PossessedWardenEntity extends Warden {
     @Override
     protected boolean shouldDespawnInPeaceful() {
         return false;
+    }
+
+    @Override
+    public EntityType basedMob(){
+        return EntityType.WARDEN;
     }
 }

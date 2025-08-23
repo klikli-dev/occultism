@@ -1,7 +1,6 @@
 package com.klikli_dev.occultism.common.entity.ai.behaviour;
 
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
-
 import com.klikli_dev.occultism.registry.OccultismMemoryTypes;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import com.mojang.datafixers.util.Pair;
@@ -15,6 +14,7 @@ import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
 import net.tslat.smartbrainlib.util.BrainUtils;
+
 import java.util.List;
 
 public class PickupItemBehaviour<E extends SpiritEntity> extends ExtendedBehaviour<E> {

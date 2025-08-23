@@ -33,9 +33,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.fml.ModList;
-import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforgespi.language.IModInfo;
 import org.apache.commons.lang3.text.WordUtils;
+
 import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Locale;

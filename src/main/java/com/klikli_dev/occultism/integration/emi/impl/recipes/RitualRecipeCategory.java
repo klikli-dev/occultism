@@ -8,7 +8,9 @@ import com.klikli_dev.occultism.crafting.recipe.conditionextension.OccultismCond
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.RitualRecipeConditionDescriptionVisitor;
 import com.klikli_dev.occultism.integration.emi.impl.OccultismEmiPlugin;
 import com.klikli_dev.occultism.integration.emi.impl.render.ItemWidget;
-import com.klikli_dev.occultism.registry.*;
+import com.klikli_dev.occultism.registry.OccultismBlocks;
+import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.registry.OccultismTags;
 import com.mojang.datafixers.util.Pair;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
@@ -26,7 +28,6 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;

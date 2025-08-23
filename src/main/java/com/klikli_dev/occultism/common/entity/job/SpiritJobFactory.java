@@ -25,7 +25,6 @@ package com.klikli_dev.occultism.common.entity.job;
 import com.klikli_dev.occultism.client.entities.SpiritJobClient;
 import com.klikli_dev.occultism.common.entity.spirit.SpiritEntity;
 import com.klikli_dev.occultism.registry.OccultismSpiritJobs;
-import net.minecraft.resources.ResourceLocation;
 
 import java.util.function.Function;
 

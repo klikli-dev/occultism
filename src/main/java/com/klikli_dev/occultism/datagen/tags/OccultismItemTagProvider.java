@@ -11,11 +11,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -343,6 +341,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .add(OccultismItems.OTHERWORLD_ESSENCE.get())
                 .add(OccultismItems.BEAVER_NUGGET.get())
                 .add(OccultismItems.CURSED_HONEY.get())
+                .add(OccultismItems.SWEET_HONEY_HEART.get())
                 .add(OccultismItems.DEMONIC_MEAT.get())
                 .replace(false);
         this.tag(ItemTags.MEAT)
@@ -358,6 +357,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 OccultismTags.Items.STORAGE_BLOCK_RAW_IESNIUM, OccultismTags.Items.STORAGE_BLOCK_RAW_SILVER).replace(false);
         this.copy(OccultismTags.Blocks.MUSHROOM_BLOCKS, OccultismTags.Items.MUSHROOM_BLOCKS);
         this.copy(OccultismTags.Blocks.LIGHTNING_RODS, OccultismTags.Items.LIGHTNING_RODS);
+        this.tag(OccultismTags.Items.TUBE_CORALS).add(Items.TUBE_CORAL).add(Items.TUBE_CORAL_FAN);
 
         // Metal Axes Tag
         this.tag(OccultismTags.Items.METAL_AXES).add(Items.IRON_AXE, Items.GOLDEN_AXE, Items.DIAMOND_AXE, Items.NETHERITE_AXE).replace(false);
@@ -577,6 +577,27 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .add(Items.PORKCHOP)
                 .add(Items.ROTTEN_FLESH);
 
+        this.tag(OccultismTags.Items.DROPS_POSSESSED_GUARDIAN)
+                .add(Items.SEA_PICKLE)
+                .add(Items.KELP)
+                .add(Items.TUBE_CORAL)
+                .add(Items.BRAIN_CORAL)
+                .add(Items.BUBBLE_CORAL)
+                .add(Items.FIRE_CORAL)
+                .add(Items.HORN_CORAL)
+                .add(Items.TUBE_CORAL_BLOCK)
+                .add(Items.BRAIN_CORAL_BLOCK)
+                .add(Items.BUBBLE_CORAL_BLOCK)
+                .add(Items.FIRE_CORAL_BLOCK)
+                .add(Items.HORN_CORAL_BLOCK)
+                .add(Items.TUBE_CORAL_FAN)
+                .add(Items.BRAIN_CORAL_FAN)
+                .add(Items.BUBBLE_CORAL_FAN)
+                .add(Items.FIRE_CORAL_FAN)
+                .add(Items.HORN_CORAL_FAN)
+                .add(Items.PRISMARINE_SHARD)
+                .add(Items.PRISMARINE_CRYSTALS);
+
         this.tag(OccultismTags.Items.DROPS_WILD_HUNT)
                 .add(Items.WITHER_SKELETON_SKULL)
                 .add(Items.RIB_ARMOR_TRIM_SMITHING_TEMPLATE)
@@ -609,7 +630,10 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .add(Items.PLENTY_POTTERY_SHERD)
                 .add(Items.BLADE_POTTERY_SHERD)
                 .add(Items.EXPLORER_POTTERY_SHERD)
-                .add(Items.MOURNER_POTTERY_SHERD);
+                .add(Items.MOURNER_POTTERY_SHERD)
+                .add(Items.COPPER_INGOT)
+                .add(Items.PRISMARINE_SHARD)
+                .add(Items.PRISMARINE_CRYSTALS);
 
         this.tag(OccultismTags.Items.DROPS_WILD_HORDE_HUSK)
                 .add(Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE)
