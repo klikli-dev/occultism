@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.190.0] - 2025-08-23
+### :sparkles: New Features
+- [`4c08a2b`](https://github.com/klikli-dev/occultism/commit/4c08a2b4ef041ea128c6f53067fd6b274fe65df0) - More items to new style + ways to get prismarine and corals *(PR [#1399](https://github.com/klikli-dev/occultism/pull/1399) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+  - :arrow_lower_right: *addresses issue [#1398](https://github.com/klikli-dev/occultism/issues/1398) opened by [@Lightcx](https://github.com/Lightcx)*
+  - :arrow_lower_right: *addresses issue [#1402](https://github.com/klikli-dev/occultism/issues/1402) opened by [@ZHAY10086](https://github.com/ZHAY10086)*
+- [`a987842`](https://github.com/klikli-dev/occultism/commit/a9878421c7ec21a7bc098c9df817c0fa6f6bd66d) - Chinese localization update *(PR [#1403](https://github.com/klikli-dev/occultism/pull/1403) by [@ZHAY10086](https://github.com/ZHAY10086))*
+- [`53dd5b2`](https://github.com/klikli-dev/occultism/commit/53dd5b20e67e97143b278c254c302340f8f79965) - New Crowdin updates *(PR [#1406](https://github.com/klikli-dev/occultism/pull/1406) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.189.0] - 2025-08-05
 ### :sparkles: New Features
 - [`663b8c0`](https://github.com/klikli-dev/occultism/commit/663b8c03f8ebc051f584497e471c5f84272c8660) - switch to mdg from neogradle *(PR [#1395](https://github.com/klikli-dev/occultism/pull/1395) by [@dphaldes](https://github.com/dphaldes))*
@@ -2144,3 +2153,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.187.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.186.0...release/v1.21.1-1.187.0
 [release/v1.21.1-1.188.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.187.0...release/v1.21.1-1.188.0
 [release/v1.21.1-1.189.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.188.0...release/v1.21.1-1.189.0
+[release/v1.21.1-1.190.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.189.0...release/v1.21.1-1.190.0
