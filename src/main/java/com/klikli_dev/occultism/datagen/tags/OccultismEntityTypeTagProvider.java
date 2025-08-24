@@ -212,7 +212,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
         this.tag(OccultismTags.Entities.BATS).add(EntityType.BAT).add(OccultismEntities.BAT_FAMILIAR_TYPE.get()).replace(false);
         this.tag(OccultismTags.Entities.BEES).add(EntityType.BEE).add(OccultismEntities.POSSESSED_BEE_TYPE.get()).replace(false);
         this.tag(OccultismTags.Entities.CHICKEN).add(EntityType.CHICKEN).replace(false);
-        this.tag(OccultismTags.Entities.COWS).add(EntityType.COW).replace(false);
+        this.tag(OccultismTags.Entities.COWS).add(EntityType.COW).add(EntityType.MOOSHROOM).replace(false);
         this.tag(OccultismTags.Entities.DONKEYS).add(EntityType.DONKEY).replace(false);
         this.tag(OccultismTags.Entities.FISH).add(EntityType.COD).add(EntityType.SALMON).add(EntityType.TROPICAL_FISH).add(EntityType.PUFFERFISH).replace(false);
         this.tag(OccultismTags.Entities.GOATS).add(EntityType.GOAT).add(OccultismEntities.GOAT_OF_MERCY_TYPE.get()).add(OccultismEntities.GOAT_FAMILIAR_TYPE.get()).replace(false);
