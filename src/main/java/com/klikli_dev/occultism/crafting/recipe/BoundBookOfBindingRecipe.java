@@ -82,8 +82,23 @@ public class BoundBookOfBindingRecipe extends CustomRecipe {
             return ItemStack.EMPTY;
 
         var customName = dictionaryOfSpirits.get(DataComponents.CUSTOM_NAME);
-        if (customName != null) {
-            ItemNBTUtil.setBoundSpiritName(boundBook, customName.getString());
+        var akashicName = dictionaryOfSpirits.getComponents().filter(comp -> comp.toString().contains("akashictome:og_display_name"));
+        if (!akashicName.isEmpty()) {
+            String s = akashicName.stream().findFirst().get().value().toString();
+            if (s.startsWith("translation")){
+                ItemNBTUtil.generateBoundSpiritName(boundBook);
+            } else {
+                ItemNBTUtil.setBoundSpiritName(boundBook, s.substring(8, s.length()-1));
+            }
+        } else if (customName != null) {
+            String s = customName.getContents().toString();
+            if (s.equals("translation{key='eccentrictome.name', args=[translation{key='book.occultism.dictionary_of_spirits.name', args=[]}[style={color=green}]]}")) {
+                ItemNBTUtil.generateBoundSpiritName(boundBook);
+            } else if (s.startsWith("translation{key='eccentrictome.name', args=[literal{") && s.endsWith("}[style={color=green}]]}")) {
+                ItemNBTUtil.setBoundSpiritName(boundBook, s.substring(52, s.length() - 24));
+            } else {
+                ItemNBTUtil.setBoundSpiritName(boundBook, customName.getString());
+            }
         } else {
             ItemNBTUtil.generateBoundSpiritName(boundBook);
         }
@@ -110,8 +125,23 @@ public class BoundBookOfBindingRecipe extends CustomRecipe {
     public static ItemStack bookshelfCraft(ItemStack book, ItemStack dictionary) {
         var boundBook = getBoundBookFromBook(book);
         var customName = dictionary.get(DataComponents.CUSTOM_NAME);
-        if (customName != null) {
-            ItemNBTUtil.setBoundSpiritName(boundBook, customName.getString());
+        var akashicName = dictionary.getComponents().filter(comp -> comp.toString().contains("akashictome:og_display_name"));
+        if (!akashicName.isEmpty()) {
+            String s = akashicName.stream().findFirst().get().value().toString();
+            if (s.startsWith("translation")){
+                ItemNBTUtil.generateBoundSpiritName(boundBook);
+            } else {
+                ItemNBTUtil.setBoundSpiritName(boundBook, s.substring(8, s.length()-1));
+            }
+        } else if (customName != null) {
+            String s = customName.getContents().toString();
+            if (s.equals("translation{key='eccentrictome.name', args=[translation{key='book.occultism.dictionary_of_spirits.name', args=[]}[style={color=green}]]}")) {
+                ItemNBTUtil.generateBoundSpiritName(boundBook);
+            } else if (s.startsWith("translation{key='eccentrictome.name', args=[literal{") && s.endsWith("}[style={color=green}]]}")) {
+                ItemNBTUtil.setBoundSpiritName(boundBook, s.substring(52, s.length() - 24));
+            } else {
+                ItemNBTUtil.setBoundSpiritName(boundBook, customName.getString());
+            }
         } else {
             ItemNBTUtil.generateBoundSpiritName(boundBook);
         }
