@@ -26,6 +26,7 @@ import com.klikli_dev.occultism.common.blockentity.GoldenSacrificialBowlBlockEnt
 import com.klikli_dev.occultism.common.entity.familiar.FamiliarEntity;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import com.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.core.BlockPos;
@@ -86,5 +87,9 @@ public class FamiliarRitual extends SummonRitual {
                 this.spawnEntity(familiar, level);
             }
         }
+        ItemStack flame = OccultismItems.FLAME_AUTOMATION.toStack();
+        ItemNBTUtil.setBoundSpiritName(flame,
+                this.recipe.getRitualDummy().toString().substring(2).replace("occultism:ritual_dummy/",""));
+        this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, flame, false);
     }
 }

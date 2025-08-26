@@ -624,8 +624,8 @@ public abstract class Ritual {
      * @param castingPlayer      the player starting the ritual.
      * @param stack              the result stack to drop.
      */
-    public void dropResult(Level level, BlockPos goldenBowlPosition, GoldenSacrificialBowlBlockEntity blockEntity,
-                           @Nullable Player castingPlayer, ItemStack stack) {
+    public void dropResult(Level level, BlockPos goldenBowlPosition, @Nullable GoldenSacrificialBowlBlockEntity blockEntity,
+                           @Nullable Player castingPlayer, ItemStack stack, boolean realDrop) {
 
         if (level.getBlockEntity(goldenBowlPosition.above()) instanceof SacrificialBowlBlockEntity sacrificialBowlBlockEntity
                 && sacrificialBowlBlockEntity.getBlockState().getValue(BlockStateProperties.FACING) == Direction.DOWN
@@ -639,7 +639,7 @@ public abstract class Ritual {
                 && sacrificialBowlBlockEntity.getBlockState().getValue(BlockStateProperties.FACING) == Direction.DOWN
                 && sacrificialBowlBlockEntity.itemStackHandler.getStackInSlot(0).isEmpty()) {
             sacrificialBowlBlockEntity.itemStackHandler.setStackInSlot(0, stack);
-        } else {
+        } else if (realDrop) {
             double angle = level.random.nextDouble() * Math.PI * 2;
             ItemEntity entity = new ItemEntity(level, goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY() + 0.75,
                     goldenBowlPosition.getZ() + 0.5, stack);

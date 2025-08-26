@@ -217,10 +217,15 @@ public class DivinationRodItem extends Item {
     }
 
     public Block getOtherBlock(BlockState state, boolean isCreative, ItemStack stack) {
-        //otherstone ore is linked to andesite.
+        //Otherstone ore is linked to andesite.
         if (state.getBlock() == Blocks.ANDESITE || state.getBlock() == OccultismBlocks.OTHERSTONE_NATURAL.get()
                 || state.getBlock() == OccultismBlocks.OTHERSTONE.get()) {
             return OccultismBlocks.OTHERSTONE_NATURAL.get();
+        }
+        //Otherrock ore is linked to diorite.
+        if (state.getBlock() == Blocks.DIORITE || state.getBlock() == OccultismBlocks.OTHERROCK_NATURAL.get()
+                || state.getBlock() == OccultismBlocks.OTHERROCK.get()) {
+            return OccultismBlocks.OTHERROCK_NATURAL.get();
         }
         //Otherworld logs are linked to oak logs.
         if (state.getBlock() == Blocks.OAK_LOG || state.getBlock() == OccultismBlocks.OTHERWORLD_LOG_NATURAL.get()

@@ -1183,6 +1183,19 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_iesnium_sacrificial_bowl"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
+                        new ItemStack(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.asItem()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_DARK_IESNIUM_SACRIFICIAL_BOWL.get()),
+                        300,
+                        RITUAL_CRAFT,
+                        PENTACLE_CRAFT_AFRIT,
+                        Ingredient.of(OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL.asItem()),
+                        Ingredient.of(OccultismItems.RESEARCH_FRAGMENT_DUST),
+                        Ingredient.of(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.asItem()),
+                        Ingredient.of(OccultismTags.Items.STORAGE_BLOCK_IESNIUM),
+                        Ingredient.of(OccultismItems.AFRIT_ESSENCE.get()))
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_dark_iesnium_sacrificial_bowl"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
                         new ItemStack(OccultismItems.WITHERITE_DUST.get(), 3),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_WITHERITE_DUST.get()),
                         150,
@@ -1924,7 +1937,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.goats")
                 .entityToSacrifice(OccultismTags.Entities.GOATS)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_bell"));
-        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.asItem()),
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.asItem()),
                         new ItemStack(OccultismBlocks.ELDRITCH_CHALICE.asItem()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE.get()),
                         780,
@@ -1946,6 +1959,28 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.ravager")
                 .entityToSacrifice(OccultismTags.Entities.RAVAGER)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_eldritch_chalice"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.asItem()),
+                        new ItemStack(OccultismBlocks.CELESTIAL_CHALICE.asItem()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_CELESTIAL_CHALICE.get()),
+                        780,
+                        RITUAL_CRAFT,
+                        PENTACLE_CONTACT_ELDRITCH_SPIRIT,
+                        Ingredient.of(Items.HEAVY_CORE),
+                        Ingredient.of(Items.BELL),
+                        Ingredient.of(Items.SOUL_LANTERN),
+                        Ingredient.of(Items.CHORUS_FLOWER),
+                        Ingredient.of(Tags.Items.STORAGE_BLOCKS_NETHERITE),
+                        Ingredient.of(Items.SPONGE),
+                        Ingredient.of(Items.REINFORCED_DEEPSLATE),
+                        Ingredient.of(Items.RESPAWN_ANCHOR),
+                        Ingredient.of(OccultismTags.Items.STORAGE_BLOCK_IESNIUM),
+                        Ingredient.of(Items.END_STONE_BRICKS),
+                        Ingredient.of(Items.SCULK_CATALYST),
+                        Ingredient.of(Items.BUDDING_AMETHYST))
+                .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.ravager")
+                .entityToSacrifice(OccultismTags.Entities.RAVAGER)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_celestial_chalice"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.DIMENSIONAL_MATRIX),
                         new ItemStack(OccultismBlocks.STORAGE_CONTROLLER_STABILIZED.asItem()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE.get()),

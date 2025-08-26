@@ -35,6 +35,7 @@ import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 /**
@@ -48,8 +49,60 @@ public class StandardBlockStateProvider extends BlockStateProvider {
         super(gen, Occultism.MODID, exFileHelper);
     }
 
+    private void registerCubesBlockAndItem() {
+        Block[] blocks = {
+                OccultismBlocks.CHISELED_OTHERROCK_BRICKS.get(),
+                OccultismBlocks.CHISELED_OTHERSTONE_BRICKS.get(),
+                OccultismBlocks.CRACKED_OTHERROCK_BRICKS.get(),
+                OccultismBlocks.CRACKED_OTHERSTONE_BRICKS.get(),
+                OccultismBlocks.IESNIUM_BLOCK.get(),
+                OccultismBlocks.IESNIUM_ORE.get(),
+                OccultismBlocks.OTHERCOBBLEROCK.get(),
+                OccultismBlocks.OTHERCOBBLESTONE.get(),
+                OccultismBlocks.OTHERPLANKS.get(),
+                OccultismBlocks.OTHERROCK.get(),
+                OccultismBlocks.OTHERSTONE.get(),
+                OccultismBlocks.OTHERROCK_BRICKS.get(),
+                OccultismBlocks.OTHERSTONE_BRICKS.get(),
+                OccultismBlocks.POLISHED_OTHERROCK.get(),
+                OccultismBlocks.POLISHED_OTHERSTONE.get(),
+                OccultismBlocks.RAW_IESNIUM_BLOCK.get(),
+                OccultismBlocks.RAW_SILVER_BLOCK.get(),
+                OccultismBlocks.SILVER_BLOCK.get(),
+                OccultismBlocks.SILVER_ORE.get(),
+                OccultismBlocks.SILVER_ORE_DEEPSLATE.get(),
+                OccultismBlocks.TALLOW_BLOCK.get()
+        };
+        for (Block block : blocks){
+            this.simpleBlockWithItem(block, cubeAll(block));
+        }
+    }
+
+    private void registerDirectionalBlock() {
+
+        DeferredBlock[] blocks = {
+                OccultismBlocks.DARK_SACRIFICIAL_BOWL,
+                OccultismBlocks.DARK_COPPER_SACRIFICIAL_BOWL,
+                OccultismBlocks.DARK_SILVER_SACRIFICIAL_BOWL,
+                OccultismBlocks.SACRIFICIAL_BOWL,
+                OccultismBlocks.COPPER_SACRIFICIAL_BOWL,
+                OccultismBlocks.SILVER_SACRIFICIAL_BOWL,
+                OccultismBlocks.STORAGE_STABILIZER_TIER0,
+                OccultismBlocks.STORAGE_STABILIZER_TIER1,
+                OccultismBlocks.STORAGE_STABILIZER_TIER2,
+                OccultismBlocks.STORAGE_STABILIZER_TIER3,
+                OccultismBlocks.STORAGE_STABILIZER_TIER4
+        };
+        for (DeferredBlock block : blocks){
+            this.directionalBlock((Block) block.get(),
+                    this.models().getExistingFile(this.modLoc(block.getKey().location().getPath())));
+        }
+    }
+
     @Override
     protected void registerStatesAndModels() {
+        registerCubesBlockAndItem();
+        registerDirectionalBlock();
         //Generate blockstates for the glyphs
         OccultismBlocks.BLOCKS.getEntries().stream()
                 .map(DeferredHolder::get)
@@ -69,22 +122,6 @@ public class StandardBlockStateProvider extends BlockStateProvider {
                 this.models().getExistingFile(this.modLoc("block/storage_controller_stabilized")));
         this.models().withExistingParent("item/storage_controller_stabilized", this.modLoc("block/storage_controller_stabilized"));
         this.generateStableWormholeState(OccultismBlocks.STABLE_WORMHOLE.get());
-        this.directionalBlock(OccultismBlocks.SACRIFICIAL_BOWL.get(),
-                this.models().getExistingFile(this.modLoc("block/sacrificial_bowl")));
-        this.directionalBlock(OccultismBlocks.COPPER_SACRIFICIAL_BOWL.get(),
-                this.models().getExistingFile(this.modLoc("block/copper_sacrificial_bowl")));
-        this.directionalBlock(OccultismBlocks.SILVER_SACRIFICIAL_BOWL.get(),
-                this.models().getExistingFile(this.modLoc("block/silver_sacrificial_bowl")));
-        this.directionalBlock(OccultismBlocks.STORAGE_STABILIZER_TIER0.get(),
-                this.models().getExistingFile(this.modLoc("block/storage_stabilizer_tier0")));
-        this.directionalBlock(OccultismBlocks.STORAGE_STABILIZER_TIER1.get(),
-                this.models().getExistingFile(this.modLoc("block/storage_stabilizer_tier1")));
-        this.directionalBlock(OccultismBlocks.STORAGE_STABILIZER_TIER2.get(),
-                this.models().getExistingFile(this.modLoc("block/storage_stabilizer_tier2")));
-        this.directionalBlock(OccultismBlocks.STORAGE_STABILIZER_TIER3.get(),
-                this.models().getExistingFile(this.modLoc("block/storage_stabilizer_tier3")));
-        this.directionalBlock(OccultismBlocks.STORAGE_STABILIZER_TIER4.get(),
-                this.models().getExistingFile(this.modLoc("block/storage_stabilizer_tier4")));
 
         stairsBlock(((StairBlock) OccultismBlocks.OTHERPLANKS_STAIRS.get()), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
         fenceBlock(((FenceBlock) OccultismBlocks.OTHERPLANKS_FENCE.get()), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
@@ -95,6 +132,7 @@ public class StandardBlockStateProvider extends BlockStateProvider {
         buttonBlock(((ButtonBlock) OccultismBlocks.OTHERPLANKS_BUTTON.get()), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
 
         stairsBlock(((StairBlock) OccultismBlocks.OTHERSTONE_STAIRS.get()), blockTexture(OccultismBlocks.OTHERSTONE.get()));
+        slabBlock(((SlabBlock) OccultismBlocks.OTHERSTONE_SLAB.get()), blockTexture(OccultismBlocks.OTHERSTONE.get()), blockTexture(OccultismBlocks.OTHERSTONE.get()));
         wallBlock(((WallBlock) OccultismBlocks.OTHERSTONE_WALL.get()), blockTexture(OccultismBlocks.OTHERSTONE.get()));
         pressurePlateBlock(((PressurePlateBlock) OccultismBlocks.OTHERSTONE_PRESSURE_PLATE.get()), blockTexture(OccultismBlocks.OTHERSTONE.get()));
         buttonBlock(((ButtonBlock) OccultismBlocks.OTHERSTONE_BUTTON.get()), blockTexture(OccultismBlocks.OTHERSTONE.get()));
@@ -110,6 +148,24 @@ public class StandardBlockStateProvider extends BlockStateProvider {
         stairsBlock(((StairBlock) OccultismBlocks.OTHERSTONE_BRICKS_STAIRS.get()), blockTexture(OccultismBlocks.OTHERSTONE_BRICKS.get()));
         slabBlock(((SlabBlock) OccultismBlocks.OTHERSTONE_BRICKS_SLAB.get()), blockTexture(OccultismBlocks.OTHERSTONE_BRICKS.get()), blockTexture(OccultismBlocks.OTHERSTONE_BRICKS.get()));
         wallBlock(((WallBlock) OccultismBlocks.OTHERSTONE_BRICKS_WALL.get()), blockTexture(OccultismBlocks.OTHERSTONE_BRICKS.get()));
+
+        stairsBlock(((StairBlock) OccultismBlocks.OTHERROCK_STAIRS.get()), blockTexture(OccultismBlocks.OTHERROCK.get()));
+        slabBlock(((SlabBlock) OccultismBlocks.OTHERROCK_SLAB.get()), blockTexture(OccultismBlocks.OTHERROCK.get()), blockTexture(OccultismBlocks.OTHERROCK.get()));
+        wallBlock(((WallBlock) OccultismBlocks.OTHERROCK_WALL.get()), blockTexture(OccultismBlocks.OTHERROCK.get()));
+        pressurePlateBlock(((PressurePlateBlock) OccultismBlocks.OTHERROCK_PRESSURE_PLATE.get()), blockTexture(OccultismBlocks.OTHERROCK.get()));
+        buttonBlock(((ButtonBlock) OccultismBlocks.OTHERROCK_BUTTON.get()), blockTexture(OccultismBlocks.OTHERROCK.get()));
+
+        stairsBlock(((StairBlock) OccultismBlocks.OTHERCOBBLEROCK_STAIRS.get()), blockTexture(OccultismBlocks.OTHERCOBBLEROCK.get()));
+        slabBlock(((SlabBlock) OccultismBlocks.OTHERCOBBLEROCK_SLAB.get()), blockTexture(OccultismBlocks.OTHERCOBBLEROCK.get()), blockTexture(OccultismBlocks.OTHERCOBBLEROCK.get()));
+        wallBlock(((WallBlock) OccultismBlocks.OTHERCOBBLEROCK_WALL.get()), blockTexture(OccultismBlocks.OTHERCOBBLEROCK.get()));
+
+        stairsBlock(((StairBlock) OccultismBlocks.POLISHED_OTHERROCK_STAIRS.get()), blockTexture(OccultismBlocks.POLISHED_OTHERROCK.get()));
+        slabBlock(((SlabBlock) OccultismBlocks.POLISHED_OTHERROCK_SLAB.get()), blockTexture(OccultismBlocks.POLISHED_OTHERROCK.get()), blockTexture(OccultismBlocks.POLISHED_OTHERROCK.get()));
+        wallBlock(((WallBlock) OccultismBlocks.POLISHED_OTHERROCK_WALL.get()), blockTexture(OccultismBlocks.POLISHED_OTHERROCK.get()));
+
+        stairsBlock(((StairBlock) OccultismBlocks.OTHERROCK_BRICKS_STAIRS.get()), blockTexture(OccultismBlocks.OTHERROCK_BRICKS.get()));
+        slabBlock(((SlabBlock) OccultismBlocks.OTHERROCK_BRICKS_SLAB.get()), blockTexture(OccultismBlocks.OTHERROCK_BRICKS.get()), blockTexture(OccultismBlocks.OTHERROCK_BRICKS.get()));
+        wallBlock(((WallBlock) OccultismBlocks.OTHERROCK_BRICKS_WALL.get()), blockTexture(OccultismBlocks.OTHERROCK_BRICKS.get()));
 
         this.simpleBlock(OccultismBlocks.LARGE_CANDLE.get(),
                 this.models().getExistingFile(this.modLoc("block/large_candle")));

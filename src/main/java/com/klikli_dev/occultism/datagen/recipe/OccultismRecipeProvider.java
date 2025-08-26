@@ -565,6 +565,14 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .define('b', OccultismBlocks.SACRIFICIAL_BOWL.get())
                 .unlockedBy("has_sacrificial_bowl", has(OccultismBlocks.SACRIFICIAL_BOWL.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/golden_sacrificial_bowl"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL.get())
+                .pattern("ggg")
+                .pattern("gbg")
+                .pattern("ggg")
+                .define('g', Tags.Items.INGOTS_GOLD)
+                .define('b', OccultismBlocks.DARK_SACRIFICIAL_BOWL.get())
+                .unlockedBy("has_dark_sacrificial_bowl", has(OccultismBlocks.DARK_SACRIFICIAL_BOWL.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/dark_golden_sacrificial_bowl"));
 
 
         // Iesnium tool
@@ -691,6 +699,69 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_otherstone_bricks_slab", has(OccultismBlocks.OTHERSTONE_BRICKS_SLAB.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/chiseled_otherstone_bricks"));
 
+        stairBuilder(OccultismBlocks.OTHERROCK_STAIRS.get(), Ingredient.of(OccultismBlocks.OTHERROCK.asItem()))
+                .unlockedBy("has_otherrock", has(OccultismBlocks.OTHERROCK.asItem())).save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherrock_stairs"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.OTHERROCK_SLAB.get(), 6)
+                .pattern("ooo").define('o', OccultismBlocks.OTHERROCK.get())
+                .unlockedBy("has_otherrock", has(OccultismBlocks.OTHERROCK.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherrock_slab"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, OccultismBlocks.OTHERROCK_PRESSURE_PLATE.get())
+                .pattern("oo").define('o', OccultismBlocks.OTHERROCK.get())
+                .unlockedBy("has_otherrock", has(OccultismBlocks.OTHERROCK.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherrock_pressure_plate"));
+        buttonBuilder(OccultismBlocks.OTHERROCK_BUTTON.get(), Ingredient.of(OccultismBlocks.OTHERROCK.asItem()))
+                .unlockedBy("has_otherrock", has(OccultismBlocks.OTHERROCK.asItem())).save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherrock_button"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.OTHERROCK_WALL.get(), 6)
+                .pattern("ooo").pattern("ooo").define('o', OccultismBlocks.OTHERROCK.get())
+                .unlockedBy("has_otherrock", has(OccultismBlocks.OTHERROCK.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherrock_wall"));
+
+        stairBuilder(OccultismBlocks.OTHERCOBBLEROCK_STAIRS.get(), Ingredient.of(OccultismBlocks.OTHERCOBBLEROCK.asItem()))
+                .unlockedBy("has_othercobblerock", has(OccultismBlocks.OTHERCOBBLEROCK.asItem())).save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/othercobblerock_stairs"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.OTHERCOBBLEROCK_SLAB.get(), 6)
+                .pattern("ooo").define('o', OccultismBlocks.OTHERCOBBLEROCK.get())
+                .unlockedBy("has_othercobblerock", has(OccultismBlocks.OTHERCOBBLEROCK.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/othercobblerock_slab"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.OTHERCOBBLEROCK_WALL.get(), 6)
+                .pattern("ooo").pattern("ooo").define('o', OccultismBlocks.OTHERCOBBLEROCK.get())
+                .unlockedBy("has_othercobblerock", has(OccultismBlocks.OTHERCOBBLEROCK.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/othercobblerock_wall"));
+
+        stairBuilder(OccultismBlocks.POLISHED_OTHERROCK_STAIRS.get(), Ingredient.of(OccultismBlocks.POLISHED_OTHERROCK.asItem()))
+                .unlockedBy("has_polished_otherrock", has(OccultismBlocks.POLISHED_OTHERROCK.asItem())).save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/polished_otherrock_stairs"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.POLISHED_OTHERROCK_SLAB.get(), 6)
+                .pattern("ooo").define('o', OccultismBlocks.POLISHED_OTHERROCK.get())
+                .unlockedBy("has_polished_otherrock", has(OccultismBlocks.OTHERROCK.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/polished_otherrock_slab"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.POLISHED_OTHERROCK_WALL.get(), 6)
+                .pattern("ooo").pattern("ooo").define('o', OccultismBlocks.POLISHED_OTHERROCK.get())
+                .unlockedBy("has_polished_otherrock", has(OccultismBlocks.POLISHED_OTHERROCK.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/polished_otherrock_wall"));
+
+        stairBuilder(OccultismBlocks.OTHERROCK_BRICKS_STAIRS.get(), Ingredient.of(OccultismBlocks.OTHERROCK_BRICKS.asItem()))
+                .unlockedBy("has_otherrock_bricks", has(OccultismBlocks.OTHERROCK_BRICKS.asItem())).save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherrock_bricks_stairs"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.OTHERROCK_BRICKS_SLAB.get(), 6)
+                .pattern("ooo").define('o', OccultismBlocks.OTHERROCK_BRICKS.get())
+                .unlockedBy("has_otherrock_bricks", has(OccultismBlocks.OTHERROCK_BRICKS.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherrock_bricks_slab"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.OTHERROCK_BRICKS_WALL.get(), 6)
+                .pattern("ooo").pattern("ooo").define('o', OccultismBlocks.OTHERROCK_BRICKS.get())
+                .unlockedBy("has_otherrock_bricks", has(OccultismBlocks.OTHERROCK_BRICKS.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherrock_bricks_wall"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.OTHERROCK_BRICKS.get(), 4)
+                .pattern("oo")
+                .pattern("oo")
+                .define('o', OccultismBlocks.OTHERROCK.get())
+                .unlockedBy("has_otherrock", has(OccultismBlocks.OTHERROCK.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/otherrock_bricks"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.CHISELED_OTHERROCK_BRICKS.get())
+                .pattern("o")
+                .pattern("o")
+                .define('o', OccultismBlocks.OTHERROCK_BRICKS_SLAB.get())
+                .unlockedBy("has_otherrock_bricks_slab", has(OccultismBlocks.OTHERROCK_BRICKS_SLAB.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/chiseled_otherrock_bricks"));
+
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, OccultismItems.OTHERSTONE_TABLET.get())
                 .pattern("sss")
                 .pattern("sss")
@@ -715,6 +786,22 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .requires(OccultismTags.Items.SILVER_INGOT)
                 .unlockedBy("has_sacrificial_bowl", has(OccultismBlocks.SACRIFICIAL_BOWL.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/silver_sacrificial_bowl"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, OccultismBlocks.DARK_SACRIFICIAL_BOWL.get())
+                .pattern("o o")
+                .pattern("ooo")
+                .define('o', OccultismBlocks.OTHERROCK.get())
+                .unlockedBy("has_otherrock", has(OccultismBlocks.OTHERROCK.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/dark_sacrificial_bowl"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismBlocks.DARK_COPPER_SACRIFICIAL_BOWL.get())
+                .requires(OccultismBlocks.DARK_SACRIFICIAL_BOWL.asItem())
+                .requires(Tags.Items.INGOTS_COPPER)
+                .unlockedBy("has_dark_sacrificial_bowl", has(OccultismBlocks.DARK_SACRIFICIAL_BOWL.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/dark_copper_sacrificial_bowl"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismBlocks.DARK_SILVER_SACRIFICIAL_BOWL.get())
+                .requires(OccultismBlocks.DARK_SACRIFICIAL_BOWL.asItem())
+                .requires(OccultismTags.Items.SILVER_INGOT)
+                .unlockedBy("has_dark_sacrificial_bowl", has(OccultismBlocks.DARK_SACRIFICIAL_BOWL.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/dark_silver_sacrificial_bowl"));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get())
                 .pattern("gg")
@@ -854,9 +941,14 @@ public class OccultismRecipeProvider extends RecipeProvider {
     }
 
     private static void smeltingRecipes(RecipeOutput pRecipeOutput) {
-        autoSmeltingRecipe(OccultismBlocks.OTHERSTONE.asItem(), OccultismItems.BURNT_OTHERSTONE.asItem(), 0.15f, pRecipeOutput);
-        autoSmeltingRecipe(OccultismBlocks.OTHERCOBBLESTONE.asItem(), OccultismBlocks.POLISHED_OTHERSTONE.asItem(), 0.5f, pRecipeOutput);
+        autoSmeltingRecipe(OccultismBlocks.OTHERCOBBLESTONE.asItem(), OccultismBlocks.OTHERSTONE.asItem(), 0.5f, pRecipeOutput);
+        autoSmeltingRecipe(OccultismBlocks.OTHERSTONE.asItem(), OccultismBlocks.POLISHED_OTHERSTONE.asItem(), 0.5f, pRecipeOutput);
+        autoSmeltingRecipe(OccultismBlocks.POLISHED_OTHERSTONE.asItem(), OccultismItems.BURNT_OTHERSTONE.asItem(), 0.15f, pRecipeOutput);
         autoSmeltingRecipe(OccultismBlocks.OTHERSTONE_BRICKS.asItem(), OccultismBlocks.CRACKED_OTHERSTONE_BRICKS.asItem(), 0.3f, pRecipeOutput);
+
+        autoSmeltingRecipe(OccultismBlocks.OTHERCOBBLEROCK.asItem(), OccultismBlocks.OTHERROCK.asItem(), 0.5f, pRecipeOutput);
+        autoSmeltingRecipe(OccultismBlocks.OTHERROCK.asItem(), OccultismBlocks.POLISHED_OTHERROCK.asItem(), 0.5f, pRecipeOutput);
+        autoSmeltingRecipe(OccultismBlocks.OTHERROCK_BRICKS.asItem(), OccultismBlocks.CRACKED_OTHERROCK_BRICKS.asItem(), 0.3f, pRecipeOutput);
     }
 
     protected static void autoSmeltingRecipe(Item input, Item output, Float exp, RecipeOutput pRecipeOutput){
@@ -908,6 +1000,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
         spiritfireTransmute(OccultismItems.DEMONS_DREAM_ESSENCE.asItem(), OccultismItems.OTHERWORLD_ESSENCE.asItem(), pRecipeOutput);
         spiritfireTransmute(Items.OAK_SAPLING, OccultismBlocks.OTHERWORLD_SAPLING_NATURAL.asItem(), pRecipeOutput);
         spiritfireTransmute(Items.ANDESITE, OccultismBlocks.OTHERSTONE.asItem(), pRecipeOutput);
+        spiritfireTransmute(Items.DIORITE, OccultismBlocks.OTHERROCK.asItem(), pRecipeOutput);
         spiritfireTransmute(Tags.Items.GEMS_DIAMOND, OccultismItems.SPIRIT_ATTUNED_GEM.asItem(), pRecipeOutput);
         spiritfireTransmute(OccultismTags.Items.OTHERWORLD_LOGS, OccultismItems.OTHERWORLD_ASHES.asItem(), pRecipeOutput);
         spiritfireTransmute(Tags.Items.FEATHERS, OccultismItems.AWAKENED_FEATHER.asItem(), pRecipeOutput);
@@ -946,6 +1039,23 @@ public class OccultismRecipeProvider extends RecipeProvider {
         otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_BRICKS_SLAB, OccultismBlocks.OTHERSTONE_BRICKS, 2);
         otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_BRICKS_STAIRS, OccultismBlocks.OTHERSTONE_BRICKS);
         otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERSTONE_BRICKS_WALL, OccultismBlocks.OTHERSTONE_BRICKS);
+
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERROCK_SLAB, OccultismBlocks.OTHERROCK, 2);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERROCK_STAIRS, OccultismBlocks.OTHERROCK);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERROCK_WALL, OccultismBlocks.OTHERROCK);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERROCK_BRICKS, OccultismBlocks.OTHERROCK);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERROCK_BRICKS_SLAB, OccultismBlocks.OTHERROCK, 2);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERROCK_BRICKS_STAIRS, OccultismBlocks.OTHERROCK);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERROCK_BRICKS_WALL, OccultismBlocks.OTHERROCK);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERCOBBLEROCK_SLAB, OccultismBlocks.OTHERCOBBLEROCK, 2);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERCOBBLEROCK_STAIRS, OccultismBlocks.OTHERCOBBLEROCK);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERCOBBLEROCK_WALL, OccultismBlocks.OTHERCOBBLEROCK);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.POLISHED_OTHERROCK_SLAB, OccultismBlocks.POLISHED_OTHERROCK, 2);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.POLISHED_OTHERROCK_STAIRS, OccultismBlocks.POLISHED_OTHERROCK);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.POLISHED_OTHERROCK_WALL, OccultismBlocks.POLISHED_OTHERROCK);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERROCK_BRICKS_SLAB, OccultismBlocks.OTHERROCK_BRICKS, 2);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERROCK_BRICKS_STAIRS, OccultismBlocks.OTHERROCK_BRICKS);
+        otherStonecutter(pRecipeOutput, OccultismBlocks.OTHERROCK_BRICKS_WALL, OccultismBlocks.OTHERROCK_BRICKS);
     }
 
     protected static void otherStonecutter(RecipeOutput recipeOutput, ItemLike result, ItemLike material, int resultCount) {

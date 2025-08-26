@@ -606,7 +606,7 @@ public class PentacleProvider implements DataProvider {
         }
 
         private MappingBuilder ground() {
-            return this.display('*', OccultismBlocks.OTHERSTONE).display('+', () -> Blocks.STONE);
+            return this.display('*', OccultismBlocks.OTHERSTONE).display('+', OccultismBlocks.OTHERROCK);
         }
 
 

@@ -103,7 +103,8 @@ public class GoldenSacrificialBowlBlock extends Block implements EntityBlock {
     @Override
     @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-        if (state.getBlock().equals(OccultismBlocks.ELDRITCH_CHALICE.get()))
+        if (state.getBlock().equals(OccultismBlocks.ELDRITCH_CHALICE.get())
+                || state.getBlock().equals(OccultismBlocks.CELESTIAL_CHALICE.get()))
             return SHAPE_TROPHY;
 
         return SHAPE;

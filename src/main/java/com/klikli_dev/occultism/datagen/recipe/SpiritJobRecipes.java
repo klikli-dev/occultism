@@ -107,6 +107,12 @@ public abstract class SpiritJobRecipes extends RecipeProvider {
                 .setResultAmount(1)
                 .setIgnoreCrushingMultiplier(true)
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/othercobblestone"));
+        CrushingRecipeBuilder.crushingRecipe(OccultismBlocks.OTHERROCK.asItem(), OccultismBlocks.OTHERCOBBLEROCK.asItem(), 20)
+                .unlockedBy("has_otherrock", has(OccultismBlocks.OTHERROCK.asItem()))
+                .setAllowEmpty(false)
+                .setResultAmount(1)
+                .setIgnoreCrushingMultiplier(true)
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crushing/othercobblerock"));
         CrushingRecipeBuilder.crushingRecipe(Tags.Items.OBSIDIANS, OccultismTags.Items.OBSIDIAN_DUST, 200)
                 .allowEmpty()
                 .setResultAmount(1)
