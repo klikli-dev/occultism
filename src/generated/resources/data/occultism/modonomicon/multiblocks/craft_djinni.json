@@ -7,7 +7,7 @@
     },
     "+": {
       "type": "modonomicon:display",
-      "display": "minecraft:stone"
+      "display": "occultism:otherrock"
     },
     "0": {
       "type": "modonomicon:tag",

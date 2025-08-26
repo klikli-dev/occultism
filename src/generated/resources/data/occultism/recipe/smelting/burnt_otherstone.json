@@ -4,7 +4,7 @@
   "cookingtime": 200,
   "experience": 0.15,
   "ingredient": {
-    "item": "occultism:otherstone"
+    "item": "occultism:polished_otherstone"
   },
   "result": {
     "count": 1,

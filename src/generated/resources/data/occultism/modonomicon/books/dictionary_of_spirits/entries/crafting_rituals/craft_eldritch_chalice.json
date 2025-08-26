@@ -35,6 +35,29 @@
       "text": "",
       "title1": "",
       "title2": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "occultism:celestial_chalice"
+      },
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_eldritch_chalice.spotlight2.text",
+      "title": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/misc_celestial_chalice",
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_eldritch_chalice.ritual2.text",
+      "title1": "",
+      "title2": ""
     }
   ],
   "parents": [

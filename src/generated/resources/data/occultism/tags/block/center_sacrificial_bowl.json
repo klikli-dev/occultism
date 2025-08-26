@@ -2,6 +2,9 @@
   "values": [
     "occultism:golden_sacrificial_bowl",
     "occultism:iesnium_sacrificial_bowl",
+    "occultism:dark_golden_sacrificial_bowl",
+    "occultism:dark_iesnium_sacrificial_bowl",
+    "occultism:celestial_chalice",
     "occultism:eldritch_chalice"
   ]
 }

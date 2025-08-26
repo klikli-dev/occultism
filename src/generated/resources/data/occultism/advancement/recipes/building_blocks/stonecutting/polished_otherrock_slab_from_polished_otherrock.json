@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_polished_otherrock": {
+      "conditions": {
+        "items": [
+          {
+            "items": "occultism:polished_otherrock"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:stonecutting/polished_otherrock_slab_from_polished_otherrock"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_polished_otherrock"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:stonecutting/polished_otherrock_slab_from_polished_otherrock"
+    ]
+  }
+}
