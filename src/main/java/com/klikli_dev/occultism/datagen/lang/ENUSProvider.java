@@ -2776,6 +2776,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.MUSHROOM_BLOCKS, "Mushroom Blocks");
         this.addItemTag(OccultismTags.Items.TUBE_CORALS, "Tube Coral");
         this.addItemTag(OccultismTags.Items.LIGHTNING_RODS, "Lightning Rods");
+        this.addItemTag(OccultismTags.Items.ENCHANTING_TABLES, "Enchanting Tables");
         this.addItemTag(OccultismTags.Items.TALLOW, "Tallow");
         this.addItemTag(OccultismTags.Items.METAL_AXES, "Metal Axes");
         this.addItemTag(OccultismTags.Items.MAGMA, "Magma");

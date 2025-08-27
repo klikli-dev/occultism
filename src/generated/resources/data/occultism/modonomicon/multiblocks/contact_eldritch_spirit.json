@@ -69,8 +69,8 @@
       "tag": "#c:lightning_rods"
     },
     "k": {
-      "type": "modonomicon:block",
-      "block": "minecraft:enchanting_table"
+      "type": "modonomicon:tag",
+      "tag": "#c:enchanting_tables"
     },
     "l": {
       "type": "modonomicon:block",

@@ -10,7 +10,7 @@
     "occultism:spirit_attuned_crystal",
     "#minecraft:candles",
     "#c:glass_panes",
-    "minecraft:enchanting_table",
+    "#c:enchanting_tables",
     "minecraft:beacon",
     "minecraft:lodestone",
     "minecraft:amethyst_cluster",

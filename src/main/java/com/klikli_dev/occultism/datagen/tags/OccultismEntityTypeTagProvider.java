@@ -255,6 +255,8 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE.get())
                 .add(OccultismEntities.WILD_HORDE_DROWNED_TYPE.get());
         this.tag(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
+                .add(OccultismEntities.BEAVER_FAMILIAR_TYPE.get())
+                .add(OccultismEntities.CTHULHU_FAMILIAR_TYPE.get())
                 .add(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get())
                 .add(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get())
                 .add(OccultismEntities.WILD_SKELETON_TYPE.get())

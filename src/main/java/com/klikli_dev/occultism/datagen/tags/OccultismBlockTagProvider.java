@@ -5,6 +5,8 @@ import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -181,7 +183,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get())
                 .addTag(BlockTags.CANDLES)
                 .addTag(Tags.Blocks.GLASS_PANES)
-                .add(Blocks.ENCHANTING_TABLE)
+                .addTag(OccultismTags.Blocks.ENCHANTING_TABLES)
                 .add(Blocks.BEACON)
                 .add(Blocks.LODESTONE)
                 .add(Blocks.AMETHYST_CLUSTER)
@@ -352,6 +354,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
         this.addStorageBlock(OccultismTags.Blocks.STORAGE_BLOCKS_RAW_SILVER, OccultismBlocks.RAW_SILVER_BLOCK.get());
         this.tag(OccultismTags.Blocks.MUSHROOM_BLOCKS).add(Blocks.MUSHROOM_STEM).add(Blocks.RED_MUSHROOM_BLOCK).add(Blocks.BROWN_MUSHROOM_BLOCK);
         this.tag(OccultismTags.Blocks.LIGHTNING_RODS).add(Blocks.LIGHTNING_ROD).addOptionalTag(OccultismTags.makeBlockTag("friendsandfoes:lightning_rods"));
+        this.tag(OccultismTags.Blocks.ENCHANTING_TABLES).add(Blocks.ENCHANTING_TABLE);
 
         this.tag(Tags.Blocks.FENCE_GATES_WOODEN).add(OccultismBlocks.OTHERPLANKS_FENCE_GATE.get()).replace(false);
     }

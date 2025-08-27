@@ -601,7 +601,7 @@ public class PentacleProvider implements DataProvider {
                     .tag('h', Tags.Blocks.GLASS_PANES)
                     .block('i', () -> Blocks.BEACON)
                     .tag('j', OccultismTags.Blocks.LIGHTNING_RODS)
-                    .block('k', () -> Blocks.ENCHANTING_TABLE)
+                    .tag('k', OccultismTags.Blocks.ENCHANTING_TABLES)
                     .block('l', () -> Blocks.IRON_BARS);
         }
 
