@@ -391,6 +391,17 @@ public class GettingStartedCategory extends CategoryProvider {
                         An easier way to obtain [](item://occultism:otherstone) than via divination.
                               """);
 
+        this.context().page("otherrock_recipe");
+        var otherrockRecipe = BookSpiritFireRecipePageModel.create()
+                .withRecipeId1(this.modLoc("spirit_fire/otherrock"))
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        Otherrock is a variation of [](item://occultism:otherstone),
+                         you can use it for decoration and making sacrificial bowls,
+                          but it does not work as a base for chalks or dimensional storage.
+                                """);
+
         this.context().page("otherworld_sapling_natural_recipe");
         var otherworldSaplingNaturalRecipe = BookSpiritFireRecipePageModel.create()
                 .withRecipeId1(this.modLoc("spirit_fire/otherworld_sapling_natural"))
@@ -429,6 +440,7 @@ public class GettingStartedCategory extends CategoryProvider {
                         spiritFireScreenshot,
                         mainUses,
                         otherstoneRecipe,
+                        otherrockRecipe,
                         otherworldSaplingNaturalRecipe,
                         otherworldAshesRecipe,
                         gemRecipe,
