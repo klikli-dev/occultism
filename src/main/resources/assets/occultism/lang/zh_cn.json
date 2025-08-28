@@ -470,7 +470,7 @@
   "book.occultism.dictionary_of_spirits.getting_started.third_eye.otherworld_goggles.text": "[这副眼镜](entry://occultism:dictionary_of_spirits/crafting_rituals/craft_otherworld_goggles)允许使用者看到更多异界方块，但并不能让使用者获得这些材料。低阶的材料可以通过使用[魔鬼之梦](entry://occultism:dictionary_of_spirits/getting_started/demons_dream)获取，但更高级的材料需要特殊工具。\n",
   "book.occultism.dictionary_of_spirits.name": "魔灵全典",
   "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.golden_chalk.text": "Golden chalk is used for binding runes, which allow to infuse a spirit into an item, or make it possess a living being.\n",
-  "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.golden_chalk_uses.text": "",
+  "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.golden_chalk_uses.text": "- [埃兹维斯的灵体驱策](entry://occultism:dictionary_of_spirits/pentacles/craft_foliot)\n- [海德林诱惑术](entry://occultism:dictionary_of_spirits/pentacles/possess_foliot)\n- [斯特里格的高等束缚](entry://occultism:dictionary_of_spirits/pentacles/craft_djinni)\n- [伊哈根奴役术](entry://occultism:dictionary_of_spirits/pentacles/possess_djinni)\n- [塞维拉永囚咒](entry://occultism:dictionary_of_spirits/pentacles/craft_afrit)\n- [修菲斯的倒转之塔](entry://occultism:dictionary_of_spirits/pentacles/craft_marid)\n",
   "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.golden_chalk_uses.title": "金色粉笔的用途",
   "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.intro.text": "粉笔主要用于画出五芒星符文以及定义五芒星形状。不同类型的粉笔有不同作用，详细请见后面几页。\n\\\n\\\n符文形状的差异纯粹是装饰性的，并不影响仪式。\n",
   "book.occultism.dictionary_of_spirits.pentacles.chalk_uses.intro.title": "粉笔的种类",
