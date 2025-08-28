@@ -45,6 +45,7 @@ public class TranslationKeys {
     public static final String RITUAL_SATCHEL_BLOCK_AT_POSITION_NOT_AIR = ITEM + ".ritual_satchel.block_at_position_not_air";
     public static final String RITUAL_SATCHEL_INVALID_MATCHER = ITEM + ".ritual_satchel.invalid_matcher";
     public static final String RITUAL_SATCHEL_GLYPH_CANNOT_SURVIVE = ITEM + ".ritual_satchel.glyph_cannot_survive";
+    public static final String RITUAL_SATCHEL_WILL_BREAK_ITEM = ITEM + ".ritual_satchel.will_break_item";
 
     public static class Condition {
         protected static final String PREFIX = "condition." + Occultism.MODID + ".";
