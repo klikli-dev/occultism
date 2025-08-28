@@ -73,8 +73,8 @@
       "tag": "#c:enchanting_tables"
     },
     "l": {
-      "type": "modonomicon:block",
-      "block": "minecraft:iron_bars"
+      "type": "modonomicon:tag",
+      "tag": "#c:iron_bars"
     }
   },
   "pattern": [

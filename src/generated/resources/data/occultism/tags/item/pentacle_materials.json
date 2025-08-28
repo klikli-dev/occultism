@@ -20,7 +20,7 @@
     "minecraft:amethyst_cluster",
     "minecraft:end_rod",
     "#c:lightning_rods",
-    "minecraft:iron_bars",
+    "#c:iron_bars",
     {
       "id": "#occultism:chalk_glyphs",
       "required": false

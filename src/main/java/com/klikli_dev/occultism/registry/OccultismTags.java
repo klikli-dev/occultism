@@ -86,6 +86,7 @@ public class OccultismTags {
         public static final TagKey<Block> MUSHROOM_BLOCKS = makeBlockTag(ResourceLocation.fromNamespaceAndPath("c", "mushroom_blocks"));
         public static final TagKey<Block> LIGHTNING_RODS = makeBlockTag(ResourceLocation.fromNamespaceAndPath("c", "lightning_rods"));
         public static final TagKey<Block> ENCHANTING_TABLES = makeBlockTag(ResourceLocation.fromNamespaceAndPath("c", "enchanting_tables"));
+        public static final TagKey<Block> IRON_BARS = makeBlockTag(ResourceLocation.fromNamespaceAndPath("c", "iron_bars"));
     }
 
     public static class Items {
@@ -110,6 +111,7 @@ public class OccultismTags {
         public static final TagKey<Item> MUSHROOM_BLOCKS = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "mushroom_blocks"));
         public static final TagKey<Item> LIGHTNING_RODS = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "lightning_rods"));
         public static final TagKey<Item> ENCHANTING_TABLES = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "enchanting_tables"));
+        public static final TagKey<Item> IRON_BARS = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "iron_bars"));
         public static final TagKey<Item> TUBE_CORALS = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "tube_corals"));
         // Dusts
         public static final TagKey<Item> COPPER_DUST=makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "dusts/copper"));
