@@ -298,7 +298,7 @@
   "book.occultism.dictionary_of_spirits.getting_started.candle.intro.text": "蜡烛可为仪式提供稳定度，是几乎所有五芒星阵的重要组成部分。\n**大号蜡烛可提供等同于书架的附魔等级。**\n\\\n\\\n也可用Minecraft原版以及其他模组的蜡烛，来替换神秘学模组的蜡烛。\n",
   "book.occultism.dictionary_of_spirits.getting_started.candle.name": "蜡烛",
   "book.occultism.dictionary_of_spirits.getting_started.candle.tallow.text": "制作大号蜡烛的关键材料。使用[](item://occultism:butcher_knife)\n击杀猪、牛或羊这类的大型动物，来获得[](item://occultism:tallow)。\n",
-  "book.occultism.dictionary_of_spirits.getting_started.chalks.afrit_essence.text": "为了获得制作[](item://occultism:chalk_red)必需的[#](ad03fc)火灵[#]()的灵髓，你需要[召唤并击杀一个未约束火灵](entry://summoning_rituals/afrit_essence)。\n",
+  "book.occultism.dictionary_of_spirits.getting_started.chalks.afrit_essence.text": "要获得制作[](item://occultism:chalk_red)必需的[#](ad03fc)火灵[#]()的灵髓，你需要[召唤并击杀一个未受缚的火灵](entry://summoning_rituals/afrit_essence)。\n",
   "book.occultism.dictionary_of_spirits.getting_started.chalks.description": "粉笔好，仪式才好！",
   "book.occultism.dictionary_of_spirits.getting_started.chalks.impure_purple_chalk_recipe.text": "You do not need to visit the [#](ad03fc)The End[#]() to obtain Endstone. You can summon a [Possessed Endermite](entry://possession_rituals/possess_endermite) which has a high chance to drop it.\n",
   "book.occultism.dictionary_of_spirits.getting_started.chalks.intro.text": "对于更高级的仪式，最基础的[白色粉笔](entry://occultism:dictionary_of_spirits/getting_started/ritual_prep_chalk)是不够的。你需要一些用更多奥术材料制成的粉笔。\n",
