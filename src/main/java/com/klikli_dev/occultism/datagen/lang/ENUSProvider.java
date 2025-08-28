@@ -104,6 +104,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get().getDescriptionId() + ".tooltip", "Can be used to summon the afrit %s");
         this.add(OccultismItems.BOOK_OF_BINDING_MARID.get().getDescriptionId() + ".tooltip", "This book has not been bound to a marid yet.");
         this.add(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get().getDescriptionId() + ".tooltip", "Can be used to summon the marid %s");
+        this.addTooltip(OccultismItems.FLAME_AUTOMATION.get(), "%s");
+        this.addAutoTooltip(OccultismItems.FLAME_AUTOMATION.get(), "Obtained when completing a ritual without an output item if there is an upside-down sacrificial bowl within three blocks above of the central sacrificial bowl.");
 
         this.add("item.occultism.book_of_calling_foliot" + ".tooltip", "Foliot %s");
         this.add("item.occultism.book_of_calling_foliot" + ".tooltip_dead", "%s has left this plane of existence.");
@@ -207,6 +209,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(TranslationKeys.RITUAL_SATCHEL_BLOCK_AT_POSITION_NOT_AIR, "The block at the clicked position is not empty.");
         this.add(TranslationKeys.RITUAL_SATCHEL_INVALID_MATCHER, "Cannot place a block for an ANY or DISPLAY_ONLY multiblock matcher");
         this.add(TranslationKeys.RITUAL_SATCHEL_GLYPH_CANNOT_SURVIVE, "Cannot place a glyph here.");
+        this.add(TranslationKeys.RITUAL_SATCHEL_WILL_BREAK_ITEM, "Some item is breaking, repair it!");
 
         this.addItem(OccultismItems.CHALK_YELLOW, "Yellow Chalk");
         this.addItem(OccultismItems.CHALK_PURPLE, "Purple Chalk");
@@ -262,6 +265,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS, "Book of Calling: Foliot Transporter");
         this.addItem(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER, "Book of Calling: Foliot Janitor");
         this.addItem(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE, "Book of Calling: Djinni Machine Operator");
+        this.addItem(OccultismItems.FLAME_AUTOMATION, "Flame of Automation");
         this.addItem(OccultismItems.STORAGE_REMOTE, "Storage Accessor");
         this.addItem(OccultismItems.STORAGE_REMOTE_INERT, "Inert Storage Accessor");
         this.addItem(OccultismItems.DIMENSIONAL_MATRIX, "Dimensional Crystal Matrix");
@@ -432,10 +436,36 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.CRACKED_OTHERSTONE_BRICKS, "Cracked Otherstone Bricks");
         this.addBlock(OccultismBlocks.OTHERSTONE_PEDESTAL, "Otherstone Pedestal");
         this.addBlock(OccultismBlocks.OTHERSTONE_PEDESTAL_SILVER, "Silver Otherstone Pedestal");
+        this.addBlock(OccultismBlocks.OTHERROCK, "Otherrock");
+        this.addBlock(OccultismBlocks.OTHERROCK_STAIRS, "Otherrock Stairs");
+        this.addBlock(OccultismBlocks.OTHERROCK_SLAB, "Otherrock Slab");
+        this.addBlock(OccultismBlocks.OTHERROCK_PRESSURE_PLATE, "Otherrock Pressure Plate");
+        this.addBlock(OccultismBlocks.OTHERROCK_BUTTON, "Otherrock Button");
+        this.addBlock(OccultismBlocks.OTHERROCK_WALL, "Otherrock Wall");
+        this.addBlock(OccultismBlocks.OTHERCOBBLEROCK, "Othercobblerock");
+        this.addBlock(OccultismBlocks.OTHERCOBBLEROCK_STAIRS, "Othercobblerock Stairs");
+        this.addBlock(OccultismBlocks.OTHERCOBBLEROCK_SLAB, "Othercobblerock Slab");
+        this.addBlock(OccultismBlocks.OTHERCOBBLEROCK_WALL, "Othercobblerock Wall");
+        this.addBlock(OccultismBlocks.POLISHED_OTHERROCK, "Polished Otherrock");
+        this.addBlock(OccultismBlocks.POLISHED_OTHERROCK_STAIRS, "Polished Otherrock Stairs");
+        this.addBlock(OccultismBlocks.POLISHED_OTHERROCK_SLAB, "Polished Otherrock Slab");
+        this.addBlock(OccultismBlocks.POLISHED_OTHERROCK_WALL, "Polished Otherrock Wall");
+        this.addBlock(OccultismBlocks.OTHERROCK_BRICKS, "Otherrock Bricks");
+        this.addBlock(OccultismBlocks.OTHERROCK_BRICKS_STAIRS, "Otherrock Bricks Stairs");
+        this.addBlock(OccultismBlocks.OTHERROCK_BRICKS_SLAB, "Otherrock Bricks Slab");
+        this.addBlock(OccultismBlocks.OTHERROCK_BRICKS_WALL, "Otherrock Bricks Wall");
+        this.addBlock(OccultismBlocks.CHISELED_OTHERROCK_BRICKS, "Chiseled Otherrock Bricks");
+        this.addBlock(OccultismBlocks.CRACKED_OTHERROCK_BRICKS, "Cracked Otherrock Bricks");
         this.addBlock(OccultismBlocks.SACRIFICIAL_BOWL, "Sacrificial Bowl");
         this.addBlock(OccultismBlocks.COPPER_SACRIFICIAL_BOWL, "Copper Sacrificial Bowl");
         this.addBlock(OccultismBlocks.SILVER_SACRIFICIAL_BOWL, "Silver Sacrificial Bowl");
         this.addBlock(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL, "Golden Sacrificial Bowl");
+        this.addBlock(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL, "Iesnium Sacrificial Bowl");
+        this.addBlock(OccultismBlocks.DARK_SACRIFICIAL_BOWL, "Dark Sacrificial Bowl");
+        this.addBlock(OccultismBlocks.DARK_COPPER_SACRIFICIAL_BOWL, "Dark Copper Sacrificial Bowl");
+        this.addBlock(OccultismBlocks.DARK_SILVER_SACRIFICIAL_BOWL, "Dark Silver Sacrificial Bowl");
+        this.addBlock(OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL, "Dark Golden Sacrificial Bowl");
+        this.addBlock(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL, "Dark Iesnium Sacrificial Bowl");
         this.addBlock(OccultismBlocks.CHALK_GLYPH_WHITE, "White Chalk Glyph");
         this.addBlock(OccultismBlocks.CHALK_GLYPH_YELLOW, "Yellow Chalk Glyph");
         this.addBlock(OccultismBlocks.CHALK_GLYPH_PURPLE, "Purple Chalk Glyph");
@@ -508,7 +538,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.IESNIUM_ORE, "Iesnium Ore");
         this.addBlock(OccultismBlocks.SILVER_BLOCK, "Block of Silver");
         this.addBlock(OccultismBlocks.IESNIUM_BLOCK, "Block of Iesnium");
-        this.addBlock(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL, "Iesnium Sacrificial Bowl");
         this.addBlock(OccultismBlocks.RAW_SILVER_BLOCK, "Block of Raw Silver");
         this.addBlock(OccultismBlocks.RAW_IESNIUM_BLOCK, "Block of Raw Iesnium");
         this.addBlock(OccultismBlocks.DIMENSIONAL_MINESHAFT, "Dimensional Mineshaft");
@@ -519,6 +548,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.SPIRIT_CAMPFIRE, "Spirit Campfire");
         this.addBlock(OccultismBlocks.SPIRIT_TORCH, "Spirit Torch"); //spirit wall torch automatically uses the same translation
         this.addBlock(OccultismBlocks.ELDRITCH_CHALICE, "Eldritch Chalice");
+        this.addBlock(OccultismBlocks.CELESTIAL_CHALICE, "Celestial Chalice");
     }
 
     private void addEntities() {
@@ -2602,6 +2632,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DRAGONYST_DUST, "Craft Dragonyst Dust", "Marid", "A Marid will infuse ender dragon essence in the amethyst dust.");
             //Extras
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL, "Craft Iesnium Sacrificial Bowl", "Afrit", "The Iesnium Sacrificial Bowl performs any ritual in only a quarter of the normal time. All other things will works like the Golden Sacrificial Bowl.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DARK_IESNIUM_SACRIFICIAL_BOWL, "Craft Dark Iesnium Sacrificial Bowl", "Afrit", "The Dark Iesnium Sacrificial Bowl performs any ritual in only a quarter of the normal time. All other things will works like the Dark Golden Sacrificial Bowl.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL, "Craft Iesnium Anvil", "Marid", "The iesnium anvil is an improvement on the common anvil, see all the advantages in the dictionary.");
             //Repair
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_REPAIR_CHALKS, "Repair Chalk", "Djinni", "Fully repair chalk by infusing it with a Djinni.");
@@ -2634,6 +2665,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_BUDDING_AMETHYST, "Forge Budding Amethyst", "Wild", "Wild Spirits will forge a Budding Amethyst.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_WILD_TRIM, "Forge Wild Armor Trim Smithing Template", "Wild", "Wild Spirits will forge a Wild Armor Trim Smithing Template.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "Forge Reinforced Deepslate", "Wild", "Wild Spirits will forge a Reinforced Deepslate.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CELESTIAL_CHALICE, "Forge Celestial Chalice", "Eldritch", "Eldritch Spirits will forge an Celestial Chalice, that performs any ritual instantly. Here is your trophy.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE, "Forge Eldritch Chalice", "Eldritch", "Eldritch Spirits will forge an Eldritch Chalice, that performs any ritual instantly. Here is your trophy.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_RAINBOW, "Forge Rainbow Chalk", "Eldritch", "Eldritch Spirits will forge a rainbow chalk, substitute any colored chalk.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_VOID, "Forge Void Chalk", "Eldritch", "Eldritch Spirits will forge a rainbow chalk, substitute any chalk.");
@@ -2745,6 +2777,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.MUSHROOM_BLOCKS, "Mushroom Blocks");
         this.addItemTag(OccultismTags.Items.TUBE_CORALS, "Tube Coral");
         this.addItemTag(OccultismTags.Items.LIGHTNING_RODS, "Lightning Rods");
+        this.addItemTag(OccultismTags.Items.ENCHANTING_TABLES, "Enchanting Tables");
         this.addItemTag(OccultismTags.Items.TALLOW, "Tallow");
         this.addItemTag(OccultismTags.Items.METAL_AXES, "Metal Axes");
         this.addItemTag(OccultismTags.Items.MAGMA, "Magma");

@@ -38,6 +38,19 @@ public class IesniumSacrificialBowlEntry extends EntryProvider {
                 .withRecipeId1(this.modLoc("ritual/craft_iesnium_sacrificial_bowl"))
         );
         //no text
+
+        this.page("spotlight2", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.asItem()))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        For players who are on the path of otherrock, there is also the dark version.
+                        """
+        );
+
+        this.page("ritual2", () -> BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_dark_iesnium_sacrificial_bowl"))
+        );
+        //no text
     }
 
     @Override

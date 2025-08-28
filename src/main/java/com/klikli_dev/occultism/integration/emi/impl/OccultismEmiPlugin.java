@@ -36,7 +36,10 @@ public class OccultismEmiPlugin implements EmiPlugin {
     public static final EmiStack SPIRIT_FIRE = EmiStack.of(OccultismItems.SPIRIT_FIRE.get());
     public static final EmiStack DIMENSIONAL_MINESHAFT = EmiStack.of(OccultismBlocks.DIMENSIONAL_MINESHAFT.get());
     public static final EmiStack GOLDEN_SACRIFICIAL_BOWL = EmiStack.of(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get());
+    public static final EmiStack DARK_GOLDEN_SACRIFICIAL_BOWL = EmiStack.of(OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL.get());
     public static final EmiStack IESNIUM_SACRIFICIAL_BOWL = EmiStack.of(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get());
+    public static final EmiStack DARK_IESNIUM_SACRIFICIAL_BOWL = EmiStack.of(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.get());
+    public static final EmiStack CELESTIAL_CHALICE = EmiStack.of(OccultismBlocks.CELESTIAL_CHALICE.get());
     public static final EmiStack ELDRITCH_CHALICE = EmiStack.of(OccultismBlocks.ELDRITCH_CHALICE.get());
     public static final ResourceLocation EMI_WIDGETS = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/emi/widgets.png");
     public static final EmiRecipeCategory SPIRIT_FIRE_CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "spirit_fire"),SPIRIT_FIRE, new EmiTexture(EMI_WIDGETS, 0, 0, 16, 16));
@@ -75,7 +78,10 @@ public class OccultismEmiPlugin implements EmiPlugin {
 
         emiRegistry.addCategory(RITUAL_CATEGORY);
         emiRegistry.addWorkstation(RITUAL_CATEGORY, GOLDEN_SACRIFICIAL_BOWL);
+        emiRegistry.addWorkstation(RITUAL_CATEGORY, DARK_GOLDEN_SACRIFICIAL_BOWL);
         emiRegistry.addWorkstation(RITUAL_CATEGORY, IESNIUM_SACRIFICIAL_BOWL);
+        emiRegistry.addWorkstation(RITUAL_CATEGORY, DARK_IESNIUM_SACRIFICIAL_BOWL);
+        emiRegistry.addWorkstation(RITUAL_CATEGORY, CELESTIAL_CHALICE);
         emiRegistry.addWorkstation(RITUAL_CATEGORY, ELDRITCH_CHALICE);
 
         emiRegistry.addWorkstation(VanillaEmiRecipeCategories.SMELTING, EmiStack.of(new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(OccultismItems.RITUAL_DUMMY_SUMMON_FOLIOT_SMELTER.getId())))));

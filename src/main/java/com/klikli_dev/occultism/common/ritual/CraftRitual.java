@@ -49,6 +49,6 @@ public class CraftRitual extends Ritual {
                 goldenBowlPosition.getY() + 0.5, goldenBowlPosition.getZ() + 0.5, 1, 0, 0, 0, 0);
 
         ItemStack result = this.recipe.getResultItem(level.registryAccess()).copy();
-        this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, result);
+        this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, result, true);
     }
 }

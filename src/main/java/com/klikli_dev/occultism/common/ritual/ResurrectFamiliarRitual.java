@@ -27,8 +27,10 @@ import com.klikli_dev.occultism.common.entity.familiar.FamiliarEntity;
 import com.klikli_dev.occultism.common.entity.spirit.demonicpartner.DemonicPartner;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
+import com.klikli_dev.occultism.registry.OccultismItems;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import com.klikli_dev.occultism.util.EntityUtil;
+import com.klikli_dev.occultism.util.ItemNBTUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
@@ -95,5 +97,9 @@ public class ResurrectFamiliarRitual extends SummonRitual {
             if (entity instanceof DemonicPartner partner && castingPlayer != null)
                 partner.setOwnerUUID(castingPlayer.getUUID());
         }
+        ItemStack flame = OccultismItems.FLAME_AUTOMATION.toStack();
+        ItemNBTUtil.setBoundSpiritName(flame,
+                this.recipe.getRitualDummy().toString().substring(2).replace("occultism:ritual_dummy/",""));
+        this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, flame, false);
     }
 }

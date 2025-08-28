@@ -391,6 +391,17 @@ public class GettingStartedCategory extends CategoryProvider {
                         An easier way to obtain [](item://occultism:otherstone) than via divination.
                               """);
 
+        this.context().page("otherrock_recipe");
+        var otherrockRecipe = BookSpiritFireRecipePageModel.create()
+                .withRecipeId1(this.modLoc("spirit_fire/otherrock"))
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                        Otherrock is a variation of [](item://occultism:otherstone),
+                         you can use it for decoration and making sacrificial bowls,
+                          but it does not work as a base for chalks or dimensional storage.
+                                """);
+
         this.context().page("otherworld_sapling_natural_recipe");
         var otherworldSaplingNaturalRecipe = BookSpiritFireRecipePageModel.create()
                 .withRecipeId1(this.modLoc("spirit_fire/otherworld_sapling_natural"))
@@ -429,6 +440,7 @@ public class GettingStartedCategory extends CategoryProvider {
                         spiritFireScreenshot,
                         mainUses,
                         otherstoneRecipe,
+                        otherrockRecipe,
                         otherworldSaplingNaturalRecipe,
                         otherworldAshesRecipe,
                         gemRecipe,
@@ -1387,6 +1399,16 @@ public class GettingStartedCategory extends CategoryProvider {
                     This works up to three blocks higher and can also be used with a copper or silver sacrificial bowl.
                           """.formatted(COLOR_PURPLE));
 
+        this.context().page("automation_flame");
+        var automationFlameText = BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismItems.FLAME_AUTOMATION.get()))
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageText(),
+                """
+                    The setup of upside-down bowl, also produce [](item://occultism:flame_of_automation) when the ritual don't has an item as output.
+                    For example, this can be used to automate spirit summoning and possessing, as a return to your system (it will come with the NBT of the ritual performed).
+                          """.formatted(COLOR_PURPLE));
+
         this.context().page("redstone");
         var redstoneText = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -1439,6 +1461,7 @@ public class GettingStartedCategory extends CategoryProvider {
                         startRitualText,
                         automationText,
                         upsideDownBowlText,
+                        automationFlameText,
                         redstoneText,
                         cloneRedstoneText,
                         clonePlacementImage

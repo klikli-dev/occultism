@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_othercobblerock": {
+      "conditions": {
+        "items": [
+          {
+            "items": "occultism:othercobblerock"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:stonecutting/othercobblerock_wall_from_othercobblerock"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_othercobblerock"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:stonecutting/othercobblerock_wall_from_othercobblerock"
+    ]
+  }
+}

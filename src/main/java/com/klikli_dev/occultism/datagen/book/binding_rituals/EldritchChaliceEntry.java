@@ -37,6 +37,20 @@ public class EldritchChaliceEntry extends EntryProvider {
                 .withRecipeId1(this.modLoc("ritual/misc_eldritch_chalice"))
         );
         //no text
+
+        this.page("spotlight2", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismBlocks.CELESTIAL_CHALICE.asItem()))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        Also in the Celestial version.
+                        """
+        );
+
+        this.page("ritual2", () -> BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/misc_celestial_chalice"))
+                .withText(this.context.pageText())
+        );
+        //no text
     }
 
     @Override

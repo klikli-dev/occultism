@@ -92,15 +92,12 @@ public class SummonRitual extends Ritual {
      */
     public void finishBookOfCallingSetup(ItemStack bookOfCalling, SpiritEntity spirit, @Nullable Player player) {
         ItemNBTUtil.setSpiritEntityUUID(bookOfCalling, spirit.getUUID());
+        ItemNBTUtil.setBoundSpiritName(bookOfCalling, spirit.getName().getString());
 
         if(player != null)
-        ItemHandlerHelper.giveItemToPlayer(player, bookOfCalling);
+            ItemHandlerHelper.giveItemToPlayer(player, bookOfCalling);
         else {
-            ItemEntity entityitem = new ItemEntity(spirit.level(), spirit.getX(), spirit.getY() + 0.5, spirit.getZ(), bookOfCalling);
-            entityitem.setPickUpDelay(40);
-            entityitem.setDeltaMovement(entityitem.getDeltaMovement().multiply(0, 1, 0));
-
-            spirit.level().addFreshEntity(entityitem);
+            this.dropResult(spirit.level(), spirit.blockPosition(), null, null, bookOfCalling, true);
         }
     }
 
@@ -160,6 +157,10 @@ public class SummonRitual extends Ritual {
                     this.finishBookOfCallingSetup(result, (SpiritEntity) living, castingPlayer);
             }
         }
+        ItemStack flame = OccultismItems.FLAME_AUTOMATION.toStack();
+        ItemNBTUtil.setBoundSpiritName(flame,
+                this.recipe.getRitualDummy().toString().substring(2).replace("occultism:ritual_dummy/",""));
+        this.dropResult(level, goldenBowlPosition, blockEntity, castingPlayer, flame, false);
     }
 
     protected EntityType<?> getEntityToSummon(Level level){
@@ -205,7 +206,8 @@ public class SummonRitual extends Ritual {
         if (setTamed && livingEntity instanceof FamiliarEntity familiar && castingPlayer != null) {
             familiar.setFamiliarOwner(castingPlayer);
         }
-        if (level.getBlockState(goldenBowlPosition).getBlock().equals(OccultismBlocks.ELDRITCH_CHALICE.get())) {
+        if (level.getBlockState(goldenBowlPosition).getBlock().equals(OccultismBlocks.ELDRITCH_CHALICE.get())
+                || level.getBlockState(goldenBowlPosition).getBlock().equals(OccultismBlocks.CELESTIAL_CHALICE.get())) {
             livingEntity.absMoveTo(goldenBowlPosition.getX() + 0.5, goldenBowlPosition.getY() + 1, goldenBowlPosition.getZ() + 0.5,
                     level.random.nextInt(360), 0);
         } else {

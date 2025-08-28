@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "uncovered=true": {
+      "model": "occultism:block/otherrock"
+    },
+    "uncovered=false": {
+      "model": "minecraft:block/diorite"
+    }
+  }
+}

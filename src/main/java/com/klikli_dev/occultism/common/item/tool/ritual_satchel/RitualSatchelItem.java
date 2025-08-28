@@ -114,6 +114,11 @@ public abstract class RitualSatchelItem extends Item {
 
 
             if (statePredicate.test(context.getLevel(), targetMatcher.getWorldPosition(), blockStateToPlace)) {
+                if (stack.getMaxDamage() - stack.getDamageValue() == 1) {
+                    if (context.getItemInHand().is(OccultismItems.RITUAL_SATCHEL_T1))
+                        return PlacementResult.ERROR_WILL_BREAK_ITEM;
+                    continue;
+                }
                 if (isGlyph && !blockStateToPlace.canSurvive(context.getLevel(), targetMatcher.getWorldPosition().above())) {
                     if (context.getItemInHand().is(OccultismItems.RITUAL_SATCHEL_T1))
                         return PlacementResult.ERROR_GLYPH_CANNOT_SURVIVE;
@@ -231,7 +236,8 @@ public abstract class RitualSatchelItem extends Item {
         ERROR_BLOCK_ABOVE_NOT_AIR,
         ERROR_BLOCK_AT_POSITION_NOT_AIR,
         ERROR_NO_MATCHING_BLOCK_FOUND,
-        ERROR_GLYPH_CANNOT_SURVIVE
+        ERROR_GLYPH_CANNOT_SURVIVE,
+        ERROR_WILL_BREAK_ITEM
     }
 
 }

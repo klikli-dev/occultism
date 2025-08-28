@@ -123,6 +123,18 @@
       "use_markdown_in_title": false
     },
     {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "occultism:flame_of_automation"
+      },
+      "text": "book.occultism.dictionary_of_spirits.getting_started.first_ritual.automation_flame.text",
+      "title": ""
+    },
+    {
       "type": "modonomicon:text",
       "anchor": "",
       "condition": {

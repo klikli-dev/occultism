@@ -35,6 +35,29 @@
       "text": "",
       "title1": "",
       "title2": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "occultism:dark_iesnium_sacrificial_bowl"
+      },
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.craft_iesnium_sacrificial_bowl.spotlight2.text",
+      "title": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/craft_dark_iesnium_sacrificial_bowl",
+      "text": "",
+      "title1": "",
+      "title2": ""
     }
   ],
   "parents": [

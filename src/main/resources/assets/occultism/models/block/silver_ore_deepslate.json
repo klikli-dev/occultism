@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "occultism:block/silver_ore_deepslate"
-  }
-}

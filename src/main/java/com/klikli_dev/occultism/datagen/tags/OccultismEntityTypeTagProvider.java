@@ -212,7 +212,7 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
         this.tag(OccultismTags.Entities.BATS).add(EntityType.BAT).add(OccultismEntities.BAT_FAMILIAR_TYPE.get()).replace(false);
         this.tag(OccultismTags.Entities.BEES).add(EntityType.BEE).add(OccultismEntities.POSSESSED_BEE_TYPE.get()).replace(false);
         this.tag(OccultismTags.Entities.CHICKEN).add(EntityType.CHICKEN).replace(false);
-        this.tag(OccultismTags.Entities.COWS).add(EntityType.COW).replace(false);
+        this.tag(OccultismTags.Entities.COWS).add(EntityType.COW).add(EntityType.MOOSHROOM).replace(false);
         this.tag(OccultismTags.Entities.DONKEYS).add(EntityType.DONKEY).replace(false);
         this.tag(OccultismTags.Entities.FISH).add(EntityType.COD).add(EntityType.SALMON).add(EntityType.TROPICAL_FISH).add(EntityType.PUFFERFISH).replace(false);
         this.tag(OccultismTags.Entities.GOATS).add(EntityType.GOAT).add(OccultismEntities.GOAT_OF_MERCY_TYPE.get()).add(OccultismEntities.GOAT_FAMILIAR_TYPE.get()).replace(false);
@@ -255,6 +255,8 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.POSSESSED_ELDER_GUARDIAN_TYPE.get())
                 .add(OccultismEntities.WILD_HORDE_DROWNED_TYPE.get());
         this.tag(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
+                .add(OccultismEntities.BEAVER_FAMILIAR_TYPE.get())
+                .add(OccultismEntities.CTHULHU_FAMILIAR_TYPE.get())
                 .add(OccultismEntities.WILD_HUNT_WITHER_SKELETON_TYPE.get())
                 .add(OccultismEntities.WILD_HUNT_SKELETON_TYPE.get())
                 .add(OccultismEntities.WILD_SKELETON_TYPE.get())

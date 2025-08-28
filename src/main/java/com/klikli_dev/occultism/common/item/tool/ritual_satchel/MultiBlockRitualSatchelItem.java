@@ -52,7 +52,10 @@ public class MultiBlockRitualSatchelItem extends RitualSatchelItem {
         //non-preview golden sacrifical bowl means we try to collect the ritual pentacle.
         if (context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get())
                 ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get())
-                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.ELDRITCH_CHALICE.get()))
+                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL.get())
+                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.get())
+                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.ELDRITCH_CHALICE.get())
+                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.CELESTIAL_CHALICE.get()))
             return InteractionResult.SUCCESS;
 
         return super.useOnClientSide(context);
@@ -120,7 +123,10 @@ public class MultiBlockRitualSatchelItem extends RitualSatchelItem {
     protected InteractionResult useOnServerSide(UseOnContext context) {
         if (context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get())
                 ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get())
-                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.ELDRITCH_CHALICE.get()))
+                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL.get())
+                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.get())
+                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.ELDRITCH_CHALICE.get())
+                ||context.getLevel().getBlockState(context.getClickedPos()).is(OccultismBlocks.CELESTIAL_CHALICE.get()))
             return this.collectPentacle(context);
 
         var targetPentacle = this.targetPentacles().get(context.getPlayer().getUUID());

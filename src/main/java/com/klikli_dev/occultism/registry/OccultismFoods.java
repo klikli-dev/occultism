@@ -60,7 +60,7 @@ public class OccultismFoods {
                     .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 5 * 20, 1), 1.0f).build());
     public static final Lazy<FoodProperties> SWEET_HONEY_HEART = Lazy.of(
             () ->  new FoodProperties.Builder().nutrition(5).saturationModifier(1.1F)
-                    .effect(() -> new MobEffectInstance(MobEffects.ABSORPTION, Integer.MAX_VALUE, 9), 1.0f).build());
+                    .effect(() -> new MobEffectInstance(MobEffects.ABSORPTION, Integer.MAX_VALUE, 9, false, false, false), 1.0f).build());
     public static final Lazy<FoodProperties> DEMONIC_MEAT = Lazy.of(
             () ->  new FoodProperties.Builder().nutrition(11).saturationModifier(0.1F)
                     .effect(() -> new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 3 * 60 * 20, 1), 1.0f).build());

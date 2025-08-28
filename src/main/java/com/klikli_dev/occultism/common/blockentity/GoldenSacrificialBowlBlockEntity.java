@@ -334,13 +334,16 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     public int getTier(BlockState pBlockState){
         Block blockBowl = pBlockState.getBlock();
 
-        if (blockBowl.equals(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get()))
+        if (blockBowl.equals(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.get())
+                || blockBowl.equals(OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL.get()))
             return 1;
 
-        if (blockBowl.equals(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get()))
+        if (blockBowl.equals(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.get())
+                || blockBowl.equals(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.get()))
             return 2;
 
-        if (blockBowl.equals(OccultismBlocks.ELDRITCH_CHALICE.get()))
+        if (blockBowl.equals(OccultismBlocks.ELDRITCH_CHALICE.get())
+                || blockBowl.equals(OccultismBlocks.CELESTIAL_CHALICE.get()))
             return 3;
 
         return 0;
