@@ -182,10 +182,8 @@ public abstract class RitualSatchelItem extends Item {
         );
         for (int i = 0; i < inventory.getSlots(); i++) {
             var item = inventory.getStackInSlot(i);
-            if (this.getMaxDamage(item) > 0) {
-                if ((float) this.getDamage(item) / (float) this.getMaxDamage(item) > 0.6f) {
-                    return false;
-                }
+            if (item.getMaxDamage() - item.getDamageValue() == 1) {
+                return false;
             }
         }
         return true;
