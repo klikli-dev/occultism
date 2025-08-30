@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_otherstone": {
+    "has_otherrock": {
       "conditions": {
         "items": [
           {
-            "items": "occultism:otherstone"
+            "items": "occultism:otherrock"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "occultism:crafting/otherstone_tablet"
+        "recipe": "occultism:crafting/otherstone_tablet2"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_otherstone"
+      "has_otherrock"
     ]
   ],
   "rewards": {
     "recipes": [
-      "occultism:crafting/otherstone_tablet"
+      "occultism:crafting/otherstone_tablet2"
     ]
   }
 }
