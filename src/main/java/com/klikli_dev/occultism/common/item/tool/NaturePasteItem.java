@@ -1,5 +1,7 @@
 package com.klikli_dev.occultism.common.item.tool;
 
+import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -10,6 +12,7 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -20,6 +23,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -42,9 +46,22 @@ public class NaturePasteItem extends Item {
         BlockPos blockpos = context.getClickedPos();
         BlockState blockState = level.getBlockState(blockpos);
         Player player = context.getPlayer();
+        ItemStack item = player.getItemInHand(InteractionHand.MAIN_HAND);
+
+        if (blockState.is(Tags.Blocks.ORES) && !blockState.is(OccultismTags.Blocks.BLOCKED_PASTE)
+                && player.getItemInHand(InteractionHand.OFF_HAND).getItem() == OccultismItems.GRAY_PASTE.asItem()) {
+            level.destroyBlock(blockpos, true);
+            level.setBlock(blockpos, blockState, 4);
+            item.hurtAndBreak(1, player, player.getEquipmentSlotForItem(item));
+            player.getItemInHand(InteractionHand.OFF_HAND)
+                    .hurtAndBreak(8, player, player.getEquipmentSlotForItem(player.getItemInHand(InteractionHand.OFF_HAND)));
+            ParticleUtils.spawnParticles(level, blockpos, 15 * 5, 0.9, 1.0, true, ParticleTypes.HAPPY_VILLAGER);
+            level.levelEvent(1505, blockpos, 15);
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        }
 
         if (blockState.getBlock() instanceof CropBlock crop && !crop.isMaxAge(blockState)) {
-            context.getItemInHand().hurtAndBreak(1, player, player.getEquipmentSlotForItem(context.getItemInHand()));
+            item.hurtAndBreak(1, player, player.getEquipmentSlotForItem(item));
             level.levelEvent(1505, blockpos, 15);
             level.setBlock(blockpos, crop.getStateForAge(crop.getMaxAge()), 2);
             return InteractionResult.sidedSuccess(level.isClientSide);
@@ -64,12 +81,12 @@ public class NaturePasteItem extends Item {
                 }
             }
             level.levelEvent(1505, blockpos, 15);
-            context.getItemInHand().hurtAndBreak(1, player, player.getEquipmentSlotForItem(context.getItemInHand()));
+            item.hurtAndBreak(1, player, player.getEquipmentSlotForItem(item));
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
 
         if (blockState.getBlock() instanceof SweetBerryBushBlock) {
-            context.getItemInHand().hurtAndBreak(1, player, player.getEquipmentSlotForItem(context.getItemInHand()));
+            item.hurtAndBreak(1, player, player.getEquipmentSlotForItem(item));
             level.levelEvent(1505, blockpos, 15);
             level.setBlock(blockpos, blockState.setValue(AGE_3, 3), 2);
             return InteractionResult.sidedSuccess(level.isClientSide);
@@ -77,7 +94,7 @@ public class NaturePasteItem extends Item {
 
         if (blockState.getBlock() instanceof MangrovePropaguleBlock) {
             if (blockState.getValue(AGE_4) != 4) {
-                context.getItemInHand().hurtAndBreak(1, player, player.getEquipmentSlotForItem(context.getItemInHand()));
+                item.hurtAndBreak(1, player, player.getEquipmentSlotForItem(item));
                 level.levelEvent(1505, blockpos, 15);
                 level.setBlockAndUpdate(blockpos, blockState.setValue(AGE_4, 4));
                 return InteractionResult.sidedSuccess(level.isClientSide);
@@ -88,7 +105,7 @@ public class NaturePasteItem extends Item {
 
         if (blockState.getBlock() instanceof SaplingBlock sapling && !level.isClientSide) {
             ServerLevel serverLevel = (ServerLevel) level;
-            context.getItemInHand().hurtAndBreak(1, player, player.getEquipmentSlotForItem(context.getItemInHand()));
+            item.hurtAndBreak(1, player, player.getEquipmentSlotForItem(item));
             BlockState blockState1 = blockState.setValue(STAGE, 1);
             sapling.advanceTree(serverLevel, blockpos, blockState1, RandomSource.create());
             level.levelEvent(1505, blockpos, 15);
@@ -99,18 +116,18 @@ public class NaturePasteItem extends Item {
                 || blockState.getBlock() instanceof MushroomBlock
                 || blockState.getBlock() instanceof AzaleaBlock) {
             //Force growth
-            context.getItemInHand().hurtAndBreak(1, player, player.getEquipmentSlotForItem(context.getItemInHand()));
+            item.hurtAndBreak(1, player, player.getEquipmentSlotForItem(item));
             level.levelEvent(1505, blockpos, 15);
             for (int test = 0; test < 100; test++) {
-                if (!(applyBonemeal(context.getItemInHand(), level, blockpos, player))) {
-                    context.getItemInHand().hurtAndBreak(1, player, player.getEquipmentSlotForItem(context.getItemInHand()));
+                if (!(applyBonemeal(item, level, blockpos, player))) {
+                    item.hurtAndBreak(1, player, player.getEquipmentSlotForItem(item));
                     return InteractionResult.sidedSuccess(level.isClientSide);
                 }
             }
         }
 
         if (blockState.getBlock() instanceof NetherWartBlock && blockState.getValue(AGE_3) != 3) {
-            context.getItemInHand().hurtAndBreak(1, player, player.getEquipmentSlotForItem(context.getItemInHand()));
+            item.hurtAndBreak(1, player, player.getEquipmentSlotForItem(item));
             level.levelEvent(1505, blockpos, 15);
             level.setBlockAndUpdate(blockpos, blockState.setValue(AGE_3, 3));
             ParticleUtils.spawnParticleInBlock(level, blockpos, 15, ParticleTypes.HAPPY_VILLAGER);
@@ -119,7 +136,7 @@ public class NaturePasteItem extends Item {
 
         if (blockState.getBlock() instanceof VineBlock) {
             ParticleUtils.spawnParticles(level, blockpos, 15 * 3, 0.3, 1.0, true, ParticleTypes.HAPPY_VILLAGER);
-            context.getItemInHand().hurtAndBreak(1, player, player.getEquipmentSlotForItem(context.getItemInHand()));
+            item.hurtAndBreak(1, player, player.getEquipmentSlotForItem(item));
             level.levelEvent(1505, blockpos, 15);
             if (!level.isClientSide) {
                 ServerLevel serverLevel = (ServerLevel) level;
@@ -136,7 +153,7 @@ public class NaturePasteItem extends Item {
                 if (level.getBlockState(blockpos.above(i)).canBeReplaced()) {
                     level.setBlockAndUpdate(blockpos.above(i), blockState.getBlock().defaultBlockState());
                     ParticleUtils.spawnParticles(level, blockpos, 15 * 3, 0.6, 1.0, true, ParticleTypes.HAPPY_VILLAGER);
-                    context.getItemInHand().hurtAndBreak(1, player, player.getEquipmentSlotForItem(context.getItemInHand()));
+                    item.hurtAndBreak(1, player, player.getEquipmentSlotForItem(item));
                     level.levelEvent(1505, blockpos, 15);
                     if (!blockState.canSurvive(level, blockpos.above(i))) {
                         level.destroyBlock(blockpos.above(i), true);
@@ -149,9 +166,9 @@ public class NaturePasteItem extends Item {
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
 
-        if (applyBonemeal(context.getItemInHand(), level, blockpos, player)) {
+        if (applyBonemeal(item, level, blockpos, player)) {
             if (!level.isClientSide) {
-                context.getItemInHand().hurtAndBreak(1, player, player.getEquipmentSlotForItem(context.getItemInHand()));
+                item.hurtAndBreak(1, player, player.getEquipmentSlotForItem(item));
                 player.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
                 level.levelEvent(1505, blockpos, 15);
             }
@@ -159,11 +176,11 @@ public class NaturePasteItem extends Item {
         } else {
             BlockState blockstate = level.getBlockState(blockpos);
             boolean flag = blockstate.isFaceSturdy(level, blockpos, context.getClickedFace());
-            if (flag && growWaterPlant(context.getItemInHand(), level, blockpos.relative(context.getClickedFace()), context.getClickedFace())) {
+            if (flag && growWaterPlant(item, level, blockpos.relative(context.getClickedFace()), context.getClickedFace())) {
                 if (!level.isClientSide) {
                     player.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
                     level.levelEvent(1505, blockpos, 15);
-                    context.getItemInHand().hurtAndBreak(1, player, player.getEquipmentSlotForItem(context.getItemInHand()));
+                    item.hurtAndBreak(1, player, player.getEquipmentSlotForItem(item));
                 }
                 return InteractionResult.sidedSuccess(level.isClientSide);
             } else {
