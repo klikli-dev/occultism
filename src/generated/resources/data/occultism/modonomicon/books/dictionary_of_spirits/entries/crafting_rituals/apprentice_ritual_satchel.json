@@ -4,7 +4,7 @@
   "category": "crafting_rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "pentacles/craft_djinni"
+    "entry_id": "pentacles/craft_foliot"
   },
   "description": "book.occultism.dictionary_of_spirits.crafting_rituals.apprentice_ritual_satchel.description",
   "hide_while_locked": false,

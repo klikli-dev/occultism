@@ -159,6 +159,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismItems.IESNIUM_NUGGET.get()),
                 this.name(OccultismItems.INFUSED_LENSES.get()),
                 this.name(OccultismItems.IRON_DUST.get()),
+                this.name(OccultismItems.KNOWLEDGE_TABLET.get()),
                 this.name(OccultismItems.LAPIS_DUST.get()),
                 this.name(OccultismItems.LENS_FRAME.get()),
                 this.name(OccultismItems.LENSES.get()),

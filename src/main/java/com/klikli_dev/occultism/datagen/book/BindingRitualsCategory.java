@@ -33,7 +33,7 @@ public class BindingRitualsCategory extends CategoryProvider {
                 "___________________________",
                 "_______b_u_t_ĝ_ğ_h_c_______",
                 "___________________________",
-                "_______d___A_g_Č_é_________",
+                "_______d___A_g_Č_é_ã_______",
                 "___________________________",
                 "___9_0_______________y____",
                 "___________________________",
@@ -111,11 +111,9 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftSatchel = this.add(this.makeCraftSatchelEntry(this.entryMap, 'g'));
         craftSatchel.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
-
         var apprenticeRitualSatchel = this.add(new ApprenticeRitualSatchelEntry(this).generate('ĝ'));
         apprenticeRitualSatchel.withParent(craftSatchel)
-                .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
-
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
         var artisanalRitualSatchel = this.add(new ArtisanalRitualSatchelEntry(this).generate('ğ'));
         artisanalRitualSatchel.withParent(apprenticeRitualSatchel)
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftAfritID));
@@ -131,6 +129,10 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftTrinityGem = this.add(new TrinityGemEntry(this).generate('Ť'));
         craftTrinityGem.withParent(BookEntryParentModel.create(craftSoulGem.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
+
+        var craftKnowledgeTablet = this.add(new KnowledgeTabletEntry(this).generate('ã'));
+        craftKnowledgeTablet.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
 
         var craftIesniumSacrificialBowl = this.add(new IesniumSacrificialBowlEntry(this).generate('u'));
         craftIesniumSacrificialBowl.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))

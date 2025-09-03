@@ -149,6 +149,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.SATCHEL.get().getDescriptionId() + ".tooltip", "%s is bound to this satchel.");
         this.add(OccultismItems.RITUAL_SATCHEL_T1.get().getDescriptionId() + ".tooltip", "%s is bound to this satchel.");
         this.add(OccultismItems.RITUAL_SATCHEL_T2.get().getDescriptionId() + ".tooltip", "%s is bound to this satchel.");
+        this.add(OccultismItems.KNOWLEDGE_TABLET.get().getDescriptionId() + ".tooltip", "%s is bound to this tablet.\n Stored XP: %s");
 
         this.add(OccultismItems.SOUL_SHARD_ITEM.get().getDescriptionId() + ".tooltip_filled", "Contains the soul of a %s.\nCan be used to resurrect it.");
         this.add(OccultismItems.SOUL_SHARD_ITEM.get().getDescriptionId() + ".tooltip_empty", "Dropped by a Familiar after their untimely death. Can be used to resurrect it.");
@@ -210,6 +211,15 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(TranslationKeys.RITUAL_SATCHEL_INVALID_MATCHER, "Cannot place a block for an ANY or DISPLAY_ONLY multiblock matcher");
         this.add(TranslationKeys.RITUAL_SATCHEL_GLYPH_CANNOT_SURVIVE, "Cannot place a glyph here.");
         this.add(TranslationKeys.RITUAL_SATCHEL_WILL_BREAK_ITEM, "Some item is breaking, repair it!");
+
+        this.addItem(OccultismItems.KNOWLEDGE_TABLET, "Knowledge Tablet");
+        this.addAutoTooltip(OccultismItems.KNOWLEDGE_TABLET.get(),
+                """
+                        Right-Click to store all your experience points.
+                        Shift-Right-Click to receive all stored experience points.
+                        A small tax may apply due to numerical approximations.
+                        """
+        );
 
         this.addItem(OccultismItems.CHALK_YELLOW, "Yellow Chalk");
         this.addItem(OccultismItems.CHALK_PURPLE, "Purple Chalk");
@@ -2605,6 +2615,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_SATCHEL, "Craft Surprisingly Substantial Satchel", "Foliot", "This satchels allows to store more items than it's size would indicate, making it a practical traveller's companion.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1, "Craft Apprentice Ritual Satchel", "Foliot", "Binds a Foliot into a satchel to build pentacles step-by-step for the summoner.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "Craft Artisanal Ritual Satchel", "Afrit", "Binds an Afrit into a satchel to build pentacles all at once for the summoner.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_KNOWLEDGE_TABLET, "Craft Knowledge Tablet", "Foliot", "Binds a Foliot into a tablet to store experience points.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_FRAGILE_SOUL_GEM, "Craft Fragile Soul Gem", "Foliot", "The Fragile Soul Gem allows the temporary storage of living beings. It can only be used once.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_SOUL_GEM, "Craft Soul Gem", "Djinni", "The Soul Gem allows the temporary storage of living beings.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_FAMILIAR_RING, "Craft Familiar Ring", "Djinni", "The Familiar Ring allows to store familiars. The ring will apply the familiar effect to the wearer.");

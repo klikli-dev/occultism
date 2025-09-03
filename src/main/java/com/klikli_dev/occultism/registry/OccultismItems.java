@@ -88,6 +88,11 @@ public class OccultismItems {
                     .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
                     .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
             ));
+    public static final DeferredItem<KnowledgeTabletItem> KNOWLEDGE_TABLET = ITEMS.register("knowledge_tablet",
+            () -> new KnowledgeTabletItem(defaultProperties()
+                    .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
+                    .component(OccultismDataComponents.STORED_XP, 0)
+            ));
     public static final DeferredItem<StorageRemoteItem> STORAGE_REMOTE = ITEMS.register("storage_remote",
             () -> new StorageRemoteItem(defaultProperties().stacksTo(1)));
     public static final DeferredItem<SoulGemItem> FRAGILE_SOUL_GEM_ITEM = ITEMS.register("fragile_soul_gem",
@@ -606,6 +611,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_SATCHEL = ITEMS.register("ritual_dummy/craft_satchel", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1 = ITEMS.register("ritual_dummy/craft_ritual_satchel_t1", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2 = ITEMS.register("ritual_dummy/craft_ritual_satchel_t2", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_KNOWLEDGE_TABLET = ITEMS.register("ritual_dummy/craft_knowledge_tablet", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_FRAGILE_SOUL_GEM = ITEMS.register("ritual_dummy/craft_fragile_soul_gem", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_SOUL_GEM = ITEMS.register("ritual_dummy/craft_soul_gem", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_FAMILIAR_RING = ITEMS.register("ritual_dummy/craft_familiar_ring", () -> new DummyTooltipItem(defaultProperties()));
@@ -778,6 +784,7 @@ public class OccultismItems {
                 || item == SATCHEL.get()
                 || item == RITUAL_SATCHEL_T1.get()
                 || item == RITUAL_SATCHEL_T2.get()
+                || item == KNOWLEDGE_TABLET.get()
                 || item == FAMILIAR_RING.get()
                 || item == INFUSED_PICKAXE.get()
                 || item == MINER_FOLIOT_UNSPECIALIZED.get()

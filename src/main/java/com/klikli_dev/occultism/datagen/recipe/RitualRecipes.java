@@ -1263,22 +1263,6 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(OccultismTags.Items.SILVER_INGOT))
                 .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_infused_pickaxe"));
-        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
-                        new ItemStack(OccultismItems.RITUAL_SATCHEL_T1.get()),
-                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1.get()),
-                        150,
-                        RITUAL_CRAFT_WITH_SPIRIT_NAME,
-                        PENTACLE_CRAFT_FOLIOT,
-                        Ingredient.of(Items.HOPPER),
-                        Ingredient.of(Items.DISPENSER),
-                        Ingredient.of(ItemTags.WOOL),
-                        Ingredient.of(ItemTags.WOOL),
-                        Ingredient.of(Tags.Items.LEATHERS),
-                        Ingredient.of(Tags.Items.LEATHERS),
-                        Ingredient.of(Tags.Items.STRINGS),
-                        Ingredient.of(OccultismTags.Items.SILVER_INGOT))
-                .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_ritual_satchel_t1"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
                         new ItemStack(OccultismItems.SOUL_GEM_ITEM.get()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_SOUL_GEM.get()),
@@ -1321,6 +1305,34 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_gray_paste"));
 
         //Foliot
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
+                        new ItemStack(OccultismItems.RITUAL_SATCHEL_T1.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1.get()),
+                        60,
+                        RITUAL_CRAFT_WITH_SPIRIT_NAME,
+                        PENTACLE_CRAFT_FOLIOT,
+                        Ingredient.of(Items.HOPPER),
+                        Ingredient.of(Items.DISPENSER),
+                        Ingredient.of(ItemTags.WOOL),
+                        Ingredient.of(ItemTags.WOOL),
+                        Ingredient.of(Tags.Items.LEATHERS),
+                        Ingredient.of(Tags.Items.LEATHERS),
+                        Ingredient.of(Tags.Items.STRINGS),
+                        Ingredient.of(OccultismTags.Items.SILVER_INGOT))
+                .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_ritual_satchel_t1"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
+                        new ItemStack(OccultismItems.KNOWLEDGE_TABLET.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_KNOWLEDGE_TABLET.get()),
+                        60,
+                        RITUAL_CRAFT_WITH_SPIRIT_NAME,
+                        PENTACLE_CRAFT_FOLIOT,
+                        Ingredient.of(OccultismItems.OTHERSTONE_TABLET),
+                        Ingredient.of(OccultismTags.Items.RESEARCH_DUST),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+                        Ingredient.of(Tags.Items.ENDER_PEARLS))
+                .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_knowledge_tablet"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                         new ItemStack(OccultismItems.INFUSED_LENSES.get()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_INFUSED_LENSES.get()),
