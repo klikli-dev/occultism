@@ -628,14 +628,17 @@ public abstract class Ritual {
                            @Nullable Player castingPlayer, ItemStack stack, boolean realDrop) {
 
         if (level.getBlockEntity(goldenBowlPosition.above()) instanceof SacrificialBowlBlockEntity sacrificialBowlBlockEntity
+                && sacrificialBowlBlockEntity.getBlockState().hasProperty(BlockStateProperties.FACING)
                 && sacrificialBowlBlockEntity.getBlockState().getValue(BlockStateProperties.FACING) == Direction.DOWN
                 && sacrificialBowlBlockEntity.itemStackHandler.getStackInSlot(0).isEmpty()) {
             sacrificialBowlBlockEntity.itemStackHandler.setStackInSlot(0, stack);
         } else if (level.getBlockEntity(goldenBowlPosition.above(2)) instanceof SacrificialBowlBlockEntity sacrificialBowlBlockEntity
+                && sacrificialBowlBlockEntity.getBlockState().hasProperty(BlockStateProperties.FACING)
                 && sacrificialBowlBlockEntity.getBlockState().getValue(BlockStateProperties.FACING) == Direction.DOWN
                 && sacrificialBowlBlockEntity.itemStackHandler.getStackInSlot(0).isEmpty()) {
             sacrificialBowlBlockEntity.itemStackHandler.setStackInSlot(0, stack);
         } else if (level.getBlockEntity(goldenBowlPosition.above(3)) instanceof SacrificialBowlBlockEntity sacrificialBowlBlockEntity
+                && sacrificialBowlBlockEntity.getBlockState().hasProperty(BlockStateProperties.FACING)
                 && sacrificialBowlBlockEntity.getBlockState().getValue(BlockStateProperties.FACING) == Direction.DOWN
                 && sacrificialBowlBlockEntity.itemStackHandler.getStackInSlot(0).isEmpty()) {
             sacrificialBowlBlockEntity.itemStackHandler.setStackInSlot(0, stack);
