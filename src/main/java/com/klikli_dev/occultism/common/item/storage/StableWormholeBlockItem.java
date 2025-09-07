@@ -100,8 +100,7 @@ public class StableWormholeBlockItem extends BlockItem {
             GlobalBlockPos globalPos = pStack.get(OccultismDataComponents.LINKED_STORAGE_CONTROLLER);
 
             String formattedPosition =
-                    ChatFormatting.GOLD.toString() + ChatFormatting.BOLD + globalPos.getPos().toString() +
-                            ChatFormatting.RESET;
+                    ChatFormatting.GOLD.toString() + ChatFormatting.BOLD + globalPos.toString() + ChatFormatting.RESET;
             pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip.linked", formattedPosition));
         } else {
             pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip.unlinked"));
