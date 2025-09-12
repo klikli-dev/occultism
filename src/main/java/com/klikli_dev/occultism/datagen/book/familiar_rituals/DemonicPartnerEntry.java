@@ -69,7 +69,7 @@ public class DemonicPartnerEntry extends EntryProvider {
                 \\
                 \\
                 Right-Click with a potion to get the effect for a significantly longer time,
-                 instant potions will be two level stronger.
+                 instant potions will be two levels stronger.
                 """);
 
         this.page("familiar", () -> BookTextPageModel.create()

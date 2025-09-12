@@ -1,0 +1,1408 @@
+{
+  "variants": {
+    "exit_rotation_x=0,exit_rotation_y=0,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=0,exit_rotation_y=0,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=0,exit_rotation_y=0,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=0,exit_rotation_y=0,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=0,exit_rotation_y=0,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=0,exit_rotation_y=0,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=0,exit_rotation_y=1,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=0,exit_rotation_y=1,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=0,exit_rotation_y=1,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=0,exit_rotation_y=1,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=0,exit_rotation_y=1,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=0,exit_rotation_y=1,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=0,exit_rotation_y=2,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=0,exit_rotation_y=2,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=0,exit_rotation_y=2,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=0,exit_rotation_y=2,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=0,exit_rotation_y=2,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=0,exit_rotation_y=2,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=0,exit_rotation_y=3,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=0,exit_rotation_y=3,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=0,exit_rotation_y=3,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=0,exit_rotation_y=3,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=0,exit_rotation_y=3,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=0,exit_rotation_y=3,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=0,exit_rotation_y=4,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=0,exit_rotation_y=4,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=0,exit_rotation_y=4,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=0,exit_rotation_y=4,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=0,exit_rotation_y=4,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=0,exit_rotation_y=4,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=0,exit_rotation_y=5,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=0,exit_rotation_y=5,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=0,exit_rotation_y=5,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=0,exit_rotation_y=5,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=0,exit_rotation_y=5,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=0,exit_rotation_y=5,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=0,exit_rotation_y=6,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=0,exit_rotation_y=6,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=0,exit_rotation_y=6,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=0,exit_rotation_y=6,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=0,exit_rotation_y=6,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=0,exit_rotation_y=6,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=0,exit_rotation_y=7,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=0,exit_rotation_y=7,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=0,exit_rotation_y=7,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=0,exit_rotation_y=7,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=0,exit_rotation_y=7,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=0,exit_rotation_y=7,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=0,exit_rotation_y=8,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=0,exit_rotation_y=8,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=0,exit_rotation_y=8,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=0,exit_rotation_y=8,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=0,exit_rotation_y=8,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=0,exit_rotation_y=8,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=1,exit_rotation_y=0,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=1,exit_rotation_y=0,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=1,exit_rotation_y=0,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=1,exit_rotation_y=0,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=1,exit_rotation_y=0,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=1,exit_rotation_y=0,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=1,exit_rotation_y=1,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=1,exit_rotation_y=1,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=1,exit_rotation_y=1,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=1,exit_rotation_y=1,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=1,exit_rotation_y=1,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=1,exit_rotation_y=1,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=1,exit_rotation_y=2,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=1,exit_rotation_y=2,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=1,exit_rotation_y=2,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=1,exit_rotation_y=2,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=1,exit_rotation_y=2,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=1,exit_rotation_y=2,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=1,exit_rotation_y=3,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=1,exit_rotation_y=3,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=1,exit_rotation_y=3,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=1,exit_rotation_y=3,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=1,exit_rotation_y=3,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=1,exit_rotation_y=3,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=1,exit_rotation_y=4,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=1,exit_rotation_y=4,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=1,exit_rotation_y=4,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=1,exit_rotation_y=4,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=1,exit_rotation_y=4,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=1,exit_rotation_y=4,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=1,exit_rotation_y=5,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=1,exit_rotation_y=5,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=1,exit_rotation_y=5,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=1,exit_rotation_y=5,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=1,exit_rotation_y=5,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=1,exit_rotation_y=5,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=1,exit_rotation_y=6,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=1,exit_rotation_y=6,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=1,exit_rotation_y=6,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=1,exit_rotation_y=6,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=1,exit_rotation_y=6,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=1,exit_rotation_y=6,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=1,exit_rotation_y=7,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=1,exit_rotation_y=7,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=1,exit_rotation_y=7,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=1,exit_rotation_y=7,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=1,exit_rotation_y=7,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=1,exit_rotation_y=7,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=1,exit_rotation_y=8,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=1,exit_rotation_y=8,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=1,exit_rotation_y=8,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=1,exit_rotation_y=8,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=1,exit_rotation_y=8,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=1,exit_rotation_y=8,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=2,exit_rotation_y=0,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=2,exit_rotation_y=0,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=2,exit_rotation_y=0,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=2,exit_rotation_y=0,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=2,exit_rotation_y=0,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=2,exit_rotation_y=0,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=2,exit_rotation_y=1,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=2,exit_rotation_y=1,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=2,exit_rotation_y=1,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=2,exit_rotation_y=1,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=2,exit_rotation_y=1,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=2,exit_rotation_y=1,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=2,exit_rotation_y=2,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=2,exit_rotation_y=2,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=2,exit_rotation_y=2,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=2,exit_rotation_y=2,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=2,exit_rotation_y=2,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=2,exit_rotation_y=2,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=2,exit_rotation_y=3,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=2,exit_rotation_y=3,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=2,exit_rotation_y=3,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=2,exit_rotation_y=3,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=2,exit_rotation_y=3,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=2,exit_rotation_y=3,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=2,exit_rotation_y=4,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=2,exit_rotation_y=4,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=2,exit_rotation_y=4,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=2,exit_rotation_y=4,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=2,exit_rotation_y=4,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=2,exit_rotation_y=4,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=2,exit_rotation_y=5,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=2,exit_rotation_y=5,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=2,exit_rotation_y=5,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=2,exit_rotation_y=5,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=2,exit_rotation_y=5,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=2,exit_rotation_y=5,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=2,exit_rotation_y=6,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=2,exit_rotation_y=6,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=2,exit_rotation_y=6,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=2,exit_rotation_y=6,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=2,exit_rotation_y=6,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=2,exit_rotation_y=6,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=2,exit_rotation_y=7,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=2,exit_rotation_y=7,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=2,exit_rotation_y=7,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=2,exit_rotation_y=7,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=2,exit_rotation_y=7,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=2,exit_rotation_y=7,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=2,exit_rotation_y=8,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=2,exit_rotation_y=8,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=2,exit_rotation_y=8,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=2,exit_rotation_y=8,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=2,exit_rotation_y=8,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=2,exit_rotation_y=8,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=3,exit_rotation_y=0,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=3,exit_rotation_y=0,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=3,exit_rotation_y=0,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=3,exit_rotation_y=0,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=3,exit_rotation_y=0,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=3,exit_rotation_y=0,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=3,exit_rotation_y=1,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=3,exit_rotation_y=1,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=3,exit_rotation_y=1,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=3,exit_rotation_y=1,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=3,exit_rotation_y=1,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=3,exit_rotation_y=1,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=3,exit_rotation_y=2,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=3,exit_rotation_y=2,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=3,exit_rotation_y=2,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=3,exit_rotation_y=2,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=3,exit_rotation_y=2,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=3,exit_rotation_y=2,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=3,exit_rotation_y=3,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=3,exit_rotation_y=3,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=3,exit_rotation_y=3,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=3,exit_rotation_y=3,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=3,exit_rotation_y=3,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=3,exit_rotation_y=3,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=3,exit_rotation_y=4,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=3,exit_rotation_y=4,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=3,exit_rotation_y=4,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=3,exit_rotation_y=4,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=3,exit_rotation_y=4,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=3,exit_rotation_y=4,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=3,exit_rotation_y=5,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=3,exit_rotation_y=5,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=3,exit_rotation_y=5,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=3,exit_rotation_y=5,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=3,exit_rotation_y=5,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=3,exit_rotation_y=5,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=3,exit_rotation_y=6,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=3,exit_rotation_y=6,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=3,exit_rotation_y=6,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=3,exit_rotation_y=6,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=3,exit_rotation_y=6,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=3,exit_rotation_y=6,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=3,exit_rotation_y=7,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=3,exit_rotation_y=7,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=3,exit_rotation_y=7,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=3,exit_rotation_y=7,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=3,exit_rotation_y=7,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=3,exit_rotation_y=7,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=3,exit_rotation_y=8,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=3,exit_rotation_y=8,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=3,exit_rotation_y=8,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=3,exit_rotation_y=8,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=3,exit_rotation_y=8,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=3,exit_rotation_y=8,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=4,exit_rotation_y=0,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=4,exit_rotation_y=0,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=4,exit_rotation_y=0,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=4,exit_rotation_y=0,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=4,exit_rotation_y=0,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=4,exit_rotation_y=0,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=4,exit_rotation_y=1,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=4,exit_rotation_y=1,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=4,exit_rotation_y=1,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=4,exit_rotation_y=1,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=4,exit_rotation_y=1,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=4,exit_rotation_y=1,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=4,exit_rotation_y=2,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=4,exit_rotation_y=2,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=4,exit_rotation_y=2,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=4,exit_rotation_y=2,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=4,exit_rotation_y=2,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=4,exit_rotation_y=2,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=4,exit_rotation_y=3,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=4,exit_rotation_y=3,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=4,exit_rotation_y=3,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=4,exit_rotation_y=3,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=4,exit_rotation_y=3,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=4,exit_rotation_y=3,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=4,exit_rotation_y=4,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=4,exit_rotation_y=4,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=4,exit_rotation_y=4,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=4,exit_rotation_y=4,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=4,exit_rotation_y=4,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=4,exit_rotation_y=4,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=4,exit_rotation_y=5,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=4,exit_rotation_y=5,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=4,exit_rotation_y=5,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=4,exit_rotation_y=5,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=4,exit_rotation_y=5,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=4,exit_rotation_y=5,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=4,exit_rotation_y=6,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=4,exit_rotation_y=6,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=4,exit_rotation_y=6,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=4,exit_rotation_y=6,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=4,exit_rotation_y=6,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=4,exit_rotation_y=6,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=4,exit_rotation_y=7,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=4,exit_rotation_y=7,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=4,exit_rotation_y=7,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=4,exit_rotation_y=7,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=4,exit_rotation_y=7,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=4,exit_rotation_y=7,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=4,exit_rotation_y=8,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=4,exit_rotation_y=8,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=4,exit_rotation_y=8,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=4,exit_rotation_y=8,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=4,exit_rotation_y=8,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=4,exit_rotation_y=8,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=5,exit_rotation_y=0,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=5,exit_rotation_y=0,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=5,exit_rotation_y=0,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=5,exit_rotation_y=0,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=5,exit_rotation_y=0,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=5,exit_rotation_y=0,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=5,exit_rotation_y=1,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=5,exit_rotation_y=1,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=5,exit_rotation_y=1,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=5,exit_rotation_y=1,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=5,exit_rotation_y=1,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=5,exit_rotation_y=1,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=5,exit_rotation_y=2,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=5,exit_rotation_y=2,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=5,exit_rotation_y=2,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=5,exit_rotation_y=2,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=5,exit_rotation_y=2,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=5,exit_rotation_y=2,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=5,exit_rotation_y=3,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=5,exit_rotation_y=3,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=5,exit_rotation_y=3,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=5,exit_rotation_y=3,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=5,exit_rotation_y=3,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=5,exit_rotation_y=3,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=5,exit_rotation_y=4,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=5,exit_rotation_y=4,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=5,exit_rotation_y=4,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=5,exit_rotation_y=4,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=5,exit_rotation_y=4,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=5,exit_rotation_y=4,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=5,exit_rotation_y=5,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=5,exit_rotation_y=5,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=5,exit_rotation_y=5,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=5,exit_rotation_y=5,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=5,exit_rotation_y=5,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=5,exit_rotation_y=5,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=5,exit_rotation_y=6,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=5,exit_rotation_y=6,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=5,exit_rotation_y=6,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=5,exit_rotation_y=6,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=5,exit_rotation_y=6,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=5,exit_rotation_y=6,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=5,exit_rotation_y=7,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=5,exit_rotation_y=7,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=5,exit_rotation_y=7,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=5,exit_rotation_y=7,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=5,exit_rotation_y=7,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=5,exit_rotation_y=7,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    },
+    "exit_rotation_x=5,exit_rotation_y=8,facing=down": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 180
+    },
+    "exit_rotation_x=5,exit_rotation_y=8,facing=east": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 90
+    },
+    "exit_rotation_x=5,exit_rotation_y=8,facing=north": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90
+    },
+    "exit_rotation_x=5,exit_rotation_y=8,facing=south": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 180
+    },
+    "exit_rotation_x=5,exit_rotation_y=8,facing=up": {
+      "model": "occultism:block/entity_wormhole"
+    },
+    "exit_rotation_x=5,exit_rotation_y=8,facing=west": {
+      "model": "occultism:block/entity_wormhole",
+      "x": 90,
+      "y": 270
+    }
+  }
+}
