@@ -5,6 +5,8 @@ import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -355,6 +357,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
         this.tag(OccultismTags.Blocks.LIGHTNING_RODS).add(Blocks.LIGHTNING_ROD).addOptionalTag(OccultismTags.makeBlockTag("friendsandfoes:lightning_rods"));
         this.tag(OccultismTags.Blocks.ENCHANTING_TABLES).add(Blocks.ENCHANTING_TABLE);
         this.tag(OccultismTags.Blocks.IRON_BARS).add(Blocks.IRON_BARS);
+
 
         this.tag(Tags.Blocks.FENCE_GATES_WOODEN).add(OccultismBlocks.OTHERPLANKS_FENCE_GATE.get()).replace(false);
     }

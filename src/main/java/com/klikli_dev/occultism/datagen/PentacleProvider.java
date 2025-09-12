@@ -603,6 +603,7 @@ public class PentacleProvider implements DataProvider {
                     .tag('j', OccultismTags.Blocks.LIGHTNING_RODS)
                     .tag('k', OccultismTags.Blocks.ENCHANTING_TABLES)
                     .tag('l', OccultismTags.Blocks.IRON_BARS);
+
         }
 
         private MappingBuilder ground() {

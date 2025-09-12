@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.191.0] - 2025-08-29
+### :sparkles: New Features
+- [`fe70963`](https://github.com/klikli-dev/occultism/commit/fe7096331af7f7f32075c007e4af01dc3fb57b4b) - New Crowdin updates *(PR [#1412](https://github.com/klikli-dev/occultism/pull/1412) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.190.1] - 2025-08-28
+### :bug: Bug Fixes
+- [`fb8782b`](https://github.com/klikli-dev/occultism/commit/fb8782ba47c172962c6b95fbf190949be9fc2ed2) - Fix 1409 and 1411, Akashic/Eccentric Tome compatibility, Otherrock and Flame of Automation *(PR [#1410](https://github.com/klikli-dev/occultism/pull/1410) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+
+
 ## [release/v1.21.1-1.190.0] - 2025-08-23
 ### :sparkles: New Features
 - [`4c08a2b`](https://github.com/klikli-dev/occultism/commit/4c08a2b4ef041ea128c6f53067fd6b274fe65df0) - More items to new style + ways to get prismarine and corals *(PR [#1399](https://github.com/klikli-dev/occultism/pull/1399) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
@@ -2154,3 +2164,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.188.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.187.0...release/v1.21.1-1.188.0
 [release/v1.21.1-1.189.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.188.0...release/v1.21.1-1.189.0
 [release/v1.21.1-1.190.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.189.0...release/v1.21.1-1.190.0
+[release/v1.21.1-1.190.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.190.0...release/v1.21.1-1.190.1
+[release/v1.21.1-1.191.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.190.1...release/v1.21.1-1.191.0
