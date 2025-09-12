@@ -1,8 +1,9 @@
 {
+	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
+	"render_type": "cutout",
 	"texture_size": [32, 32],
-	"render_type": "cutout",	
 	"textures": {
 		"3": "occultism:block/lamp",
 		"particle": "occultism:block/lamp"
@@ -74,9 +75,9 @@
 			}
 		},
 		{
-			"from": [-0.32503, 1.38687, 8],
-			"to": [4.67497, 6.38687, 8.005],
-			"rotation": {"angle": 22.5, "axis": "z", "origin": [2.67497, 3.38687, 6]},
+			"from": [-1.07503, 1.38687, 8],
+			"to": [3.92497, 6.38687, 8.005],
+			"rotation": {"angle": 0, "axis": "z", "origin": [2.67497, 3.38687, 6]},
 			"faces": {
 				"north": {"uv": [6.5, 6.5, 9, 9], "texture": "#3"},
 				"east": {"uv": [0, 0, 0.5, 2.5], "texture": "#3"},

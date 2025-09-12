@@ -46,8 +46,11 @@ public class DimensionalMineshaftEntry extends EntryProvider {
         this.pageTitle("Operation");
         this.pageText("""
                         The dimensional mineshaft will discard any items it cannot store, so it is important
-                        to regularly empty the mineshaft, either manually, with hoppers or using a transporter spirit.
-                         Spirits in lamps can be **inserted** from the top, all other sides can be used to **extract** items.
+                        to regularly empty the mineshaft, either manually, with hoppers or using a transporter spirit.\\
+                        Interactions per side:
+                        + Top -> lamp slot;
+                        + Bottom -> ores slots;
+                        + Other -> all slots;
                         """
         );
 
