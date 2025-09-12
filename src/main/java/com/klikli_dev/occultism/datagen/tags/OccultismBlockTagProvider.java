@@ -5,8 +5,6 @@ import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -70,6 +68,7 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.STORAGE_STABILIZER_TIER3.get())
                 .add(OccultismBlocks.STORAGE_STABILIZER_TIER4.get())
                 .add(OccultismBlocks.STABLE_WORMHOLE.get())
+                .add(OccultismBlocks.ENTITY_WORMHOLE.get())
                 .add(OccultismBlocks.DIMENSIONAL_MINESHAFT.get())
                 .add(OccultismBlocks.SILVER_ORE.get())
                 .add(OccultismBlocks.SILVER_ORE_DEEPSLATE.get())

@@ -91,7 +91,8 @@ public class StandardBlockStateProvider extends BlockStateProvider {
                 OccultismBlocks.STORAGE_STABILIZER_TIER1,
                 OccultismBlocks.STORAGE_STABILIZER_TIER2,
                 OccultismBlocks.STORAGE_STABILIZER_TIER3,
-                OccultismBlocks.STORAGE_STABILIZER_TIER4
+                OccultismBlocks.STORAGE_STABILIZER_TIER4,
+                OccultismBlocks.ENTITY_WORMHOLE
         };
         for (DeferredBlock block : blocks){
             this.directionalBlock((Block) block.get(),

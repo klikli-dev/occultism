@@ -587,6 +587,13 @@ public class OccultismBlocks {
                             .sound(SoundType.STONE).noCollission()
                             .strength(2f, 2).noOcclusion()), false, LootTableType.CUSTOM);
 
+    public static final DeferredBlock<EntityWormholeBlock> ENTITY_WORMHOLE =
+            register("entity_wormhole", () -> new EntityWormholeBlock(
+                    Block.Properties.of()
+                            .mapColor(MapColor.STONE)
+                            .sound(SoundType.STONE).strength(1.5f, 30)
+                            .noOcclusion()));
+
     public static final DeferredBlock<DimensionalMineshaftBlock> DIMENSIONAL_MINESHAFT =
             register("dimensional_mineshaft", () -> new DimensionalMineshaftBlock(
                     Block.Properties.of().sound(SoundType.STONE)

@@ -31,13 +31,13 @@ public class BindingRitualsCategory extends CategoryProvider {
                 "___________________________",
                 "_______e_x_p_q_r_Ť_________",
                 "___________________________",
-                "_______b_u_t_ĝ_ğ_h_c_______",
+                "_____ᑬ_b_u_t_ĝ_ğ_h_c_______",
                 "___________________________",
-                "_______d___A_g_Č_é_ã_______",
+                "_______d___A_g_ã_é_Ж_______",
                 "___________________________",
-                "___9_0_______________y____",
+                "___9_0________________y____",
                 "___________________________",
-                "_______f_z_w_v_s_B_H______",
+                "_______f_z_w_v_s_B_H_Č_____",
                 "___________________________",
                 "_______F_a_m_i_j_k_l_______",
                 "___________________________",
@@ -133,6 +133,12 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftKnowledgeTablet = this.add(new KnowledgeTabletEntry(this).generate('ã'));
         craftKnowledgeTablet.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
+        var craftVitalityCompass = this.add(new VitalityCompassEntry(this).generate('Ж'));
+        craftVitalityCompass.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
+        var craftEntityWormhole = this.add(new EntityWormholeEntry(this).generate('ᑬ'));
+        craftEntityWormhole.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftInfusedPickaxe.getId()));
 
         var craftIesniumSacrificialBowl = this.add(new IesniumSacrificialBowlEntry(this).generate('u'));
         craftIesniumSacrificialBowl.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))

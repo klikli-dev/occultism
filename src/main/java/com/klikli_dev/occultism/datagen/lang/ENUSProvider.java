@@ -91,6 +91,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get().getDescriptionId() + ".message.entity_type_denied", "Fragile soul gems cannot contain this type of being.");
         this.add(OccultismItems.SOUL_GEM_ITEM.get().getDescriptionId() + ".message.entity_type_denied", "Soul gems cannot contain this type of being.");
         this.add(OccultismItems.TRINITY_GEM_ITEM.get().getDescriptionId() + ".message.entity_type_denied", "Trinity gems cannot contain this type of being.");
+        this.add(OccultismItems.VITALITY_COMPASS.get().getDescriptionId() + ".message.target_linked", "Vitality Compass linked to %s.");
+        this.add(OccultismItems.VITALITY_COMPASS.get().getDescriptionId() + ".message.target_blocked", "This entity cannot be linked to vitality compass.");
     }
 
     public void addItemTooltips() {
@@ -120,6 +122,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.FAMILIAR_RING.get().getDescriptionId() + ".tooltip", "Occupied by the familiar %s\n%s");
         this.add(OccultismItems.FAMILIAR_RING.get().getDescriptionId() + ".tooltip.familiar_type", "[Type: %s]");
         this.add(OccultismItems.FAMILIAR_RING.get().getDescriptionId() + ".tooltip.empty", "Does not contain any familiar.");
+        this.add(OccultismItems.VITALITY_COMPASS.get().getDescriptionId() + ".tooltip", "Looking for %s");
 
         this.add("item.minecraft.diamond_sword.occultism_spirit_tooltip", "%s is bound to this sword. May your foes tremor before its glory.");
 
@@ -340,6 +343,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SATCHEL, "Surprisingly Substantial Satchel");
         this.addAutoTooltip(OccultismItems.SATCHEL, "Some people call it a backpack");
         this.addItem(OccultismItems.FAMILIAR_RING, "Familiar Ring");
+        this.addItem(OccultismItems.VITALITY_COMPASS, "Vitality Compass");
         this.addItem(OccultismItems.SPAWN_EGG_FOLIOT, "Foliot Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_DJINNI, "Djinni Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_AFRIT, "Afrit Spawn Egg");
@@ -505,6 +509,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER3, "Tier 3 Dimensional Storage Stabilizer");
         this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER4, "Tier 4 Dimensional Storage Stabilizer");
         this.addBlock(OccultismBlocks.STABLE_WORMHOLE, "Stable Wormhole");
+        this.addBlock(OccultismBlocks.ENTITY_WORMHOLE, "Entity Wormhole");
         this.addBlock(OccultismBlocks.DATURA, "Demon's Dream");
         this.addBlock(OccultismBlocks.OTHERFLOWER, "Otherflower");
         this.addBlock(OccultismBlocks.OTHERWORLD_SAPLING, "Otherworld Sapling");
@@ -2618,6 +2623,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1, "Craft Apprentice Ritual Satchel", "Foliot", "Binds a Foliot into a satchel to build pentacles step-by-step for the summoner.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "Craft Artisanal Ritual Satchel", "Afrit", "Binds an Afrit into a satchel to build pentacles all at once for the summoner.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_KNOWLEDGE_TABLET, "Craft Knowledge Tablet", "Foliot", "Binds a Foliot into a tablet to store experience points.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_VITALITY_COMPASS, "Craft Vitality Compass", "Foliot", "Create a compass that can be linked to living entities to locate them.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_FRAGILE_SOUL_GEM, "Craft Fragile Soul Gem", "Foliot", "The Fragile Soul Gem allows the temporary storage of living beings. It can only be used once.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_SOUL_GEM, "Craft Soul Gem", "Djinni", "The Soul Gem allows the temporary storage of living beings.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_FAMILIAR_RING, "Craft Familiar Ring", "Djinni", "The Familiar Ring allows to store familiars. The ring will apply the familiar effect to the wearer.");
@@ -2643,7 +2649,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_GRAY_PASTE, "Craft Gray Paste", "Djinni", "A Djinni will craft the gray paste mixing ingredients.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_WITHERITE_DUST, "Craft Witherite Dust", "Afrit", "An Afrit will infuse netherite dust with wither essence.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DRAGONYST_DUST, "Craft Dragonyst Dust", "Marid", "A Marid will infuse ender dragon essence in the amethyst dust.");
-            //Extras
+            //Blocks
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE, "Craft Entity Wormhole", "Djinni", "The Entity Wormhole is a basic teleportation device. Link with a compass to teleport player, mobs or items when touch this small portal.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL, "Craft Iesnium Sacrificial Bowl", "Afrit", "The Iesnium Sacrificial Bowl performs any ritual in only a quarter of the normal time. All other things will works like the Golden Sacrificial Bowl.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DARK_IESNIUM_SACRIFICIAL_BOWL, "Craft Dark Iesnium Sacrificial Bowl", "Afrit", "The Dark Iesnium Sacrificial Bowl performs any ritual in only a quarter of the normal time. All other things will works like the Dark Golden Sacrificial Bowl.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL, "Craft Iesnium Anvil", "Marid", "The iesnium anvil is an improvement on the common anvil, see all the advantages in the dictionary.");
@@ -3031,6 +3038,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("minerEfficiency", "Efficient miners");
         this.addConfig("minerFortune", "Fortune miners");
         this.addConfig("unbreakableChalks", "Unbreakable Chalks");
+        this.addConfig("maxDistanceRTP", "Max Distance RTP");
     }
 
     private void addConfig(String key, String name) {

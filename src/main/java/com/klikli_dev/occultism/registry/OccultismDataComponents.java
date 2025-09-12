@@ -223,4 +223,10 @@ public class OccultismDataComponents {
             .networkSynchronized(ByteBufCodecs.VAR_INT)
             .cacheEncoding()
     );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> COMPASS_ANGLE = DATA_COMPONENTS.registerComponentType("angle", builder -> builder
+            .persistent(Codec.FLOAT)
+            .networkSynchronized(ByteBufCodecs.FLOAT)
+            .cacheEncoding()
+    );
 }

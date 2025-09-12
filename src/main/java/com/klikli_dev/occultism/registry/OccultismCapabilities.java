@@ -60,14 +60,22 @@ public class OccultismCapabilities {
 
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
+                OccultismBlockEntities.ENTITY_WORMHOLE.get(),
+                (blockEntity, side) -> {
+                    return blockEntity.itemStackHandler;
+                }
+        );
+
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
                 OccultismBlockEntities.DIMENSIONAL_MINESHAFT.get(),
                 (blockEntity, side) -> {
-                    if (side == null)
-                        return blockEntity.combinedHandler;
+                    if (side == Direction.DOWN)
+                        return blockEntity.outputHandler;
                     else if (side == Direction.UP)
                         return blockEntity.inputHandler;
                     else
-                        return blockEntity.outputHandler;
+                        return blockEntity.combinedHandler;
                 }
 
         );

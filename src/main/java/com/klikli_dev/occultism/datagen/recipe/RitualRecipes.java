@@ -1303,7 +1303,18 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Tags.Items.DYES_GRAY))
                 .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_gray_paste"));
-
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                        new ItemStack(OccultismBlocks.ENTITY_WORMHOLE.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE.get()),
+                        150,
+                        RITUAL_CRAFT,
+                        PENTACLE_CRAFT_DJINNI,
+                        Ingredient.of(OccultismItems.OTHERSTONE_FRAME.get()),
+                        Ingredient.of(Tags.Items.ENDER_PEARLS),
+                        Ingredient.of(Tags.Items.OBSIDIANS_CRYING),
+                        Ingredient.of(OccultismTags.Items.IESNIUM_INGOT))
+                .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_entity_wormhole"));
         //Foliot
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                         new ItemStack(OccultismItems.RITUAL_SATCHEL_T1.get()),
@@ -1412,6 +1423,18 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(Tags.Items.SEEDS))
                 .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_nature_paste"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
+                        new ItemStack(OccultismItems.VITALITY_COMPASS.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_VITALITY_COMPASS.get()),
+                        60,
+                        RITUAL_CRAFT,
+                        PENTACLE_CRAFT_FOLIOT,
+                        Ingredient.of(Tags.Items.GEMS_AMETHYST),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM),
+                        Ingredient.of(Items.COMPASS),
+                        Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM))
+                .unlockedBy("has_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_vitality_compass"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                         new ItemStack(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_FRAGILE_SOUL_GEM.get()),
