@@ -88,6 +88,7 @@ public class OccultismTags {
         public static final TagKey<Block> ENCHANTING_TABLES = makeBlockTag(ResourceLocation.fromNamespaceAndPath("c", "enchanting_tables"));
         public static final TagKey<Block> IRON_BARS = makeBlockTag(ResourceLocation.fromNamespaceAndPath("c", "iron_bars"));
         public static final TagKey<Block> BLOCKED_PASTE = makeBlockTag(ResourceLocation.fromNamespaceAndPath("c", "blocked_for_paste_replicate"));
+    }
 
     public static class Items {
 
