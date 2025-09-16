@@ -30,6 +30,7 @@ import com.klikli_dev.occultism.common.container.storage.StorageControllerContai
 import com.klikli_dev.occultism.common.misc.ItemStackKey;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSetRecipeByTemplate;
+import dev.emi.emi.api.recipe.EmiPlayerInventory;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.recipe.handler.EmiCraftContext;
@@ -41,6 +42,7 @@ import dev.emi.emi.api.widget.Widget;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
@@ -233,6 +235,15 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
             list.add(handler.getSlot(i));
         }
         return list;
+    }
+
+    @Override
+    public EmiPlayerInventory getInventory(AbstractContainerScreen<T> screen) {
+        List<EmiStack> sources = new ArrayList<>(getInputSources(screen.getMenu()).stream().map(Slot::getItem).map(EmiStack::of).toList());
+        if(Occultism.CLIENT_CONFIG.misc.enableEMISync.get()) {
+            sources.addAll(screen.getMenu().getClientStorageCache().stacks().stream().map(EmiStack::of).toList());
+        }
+        return new EmiPlayerInventory(sources);
     }
 
     @Override
