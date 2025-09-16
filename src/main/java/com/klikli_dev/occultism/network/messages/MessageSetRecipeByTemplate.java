@@ -55,15 +55,17 @@ public class MessageSetRecipeByTemplate implements IMessage {
 
     private @Nullable ResourceLocation recipeId;
     private NonNullList<ItemStack> ingredientTemplates;
+    private int recipeAmount;
 
     public MessageSetRecipeByTemplate(RegistryFriendlyByteBuf buf) {
         this.decode(buf);
     }
 
     public MessageSetRecipeByTemplate(@Nullable ResourceLocation recipeId,
-                                      NonNullList<ItemStack> ingredientTemplates) {
+                                      NonNullList<ItemStack> ingredientTemplates, int recipeAmount) {
         this.recipeId = recipeId;
         this.ingredientTemplates = ingredientTemplates;
+        this.recipeAmount = recipeAmount;
     }
 
     @Override
@@ -82,31 +84,40 @@ public class MessageSetRecipeByTemplate implements IMessage {
 
         var ingredients = this.getDesiredIngredients(player);
 
-        for (int slot = 0; slot < 9; slot++) {
-            var ingredient = ingredients.get(slot);
-            if (ingredient.isEmpty()) {
-                continue;
-            }
+        for(int i=0;i<recipeAmount;i++) {
+            for (int slot = 0; slot < 9; slot++) {
+                var ingredient = ingredients.get(slot);
+                if (ingredient.isEmpty()) {
+                    continue;
+                }
 
-            //attempt to get the desired stack from the player inventory
-            ItemStack extractedStack = StorageUtil
-                    .extractItem(new PlayerMainInvWrapper(player.getInventory()), ingredient,
-                            1, true);
-            if (!extractedStack.isEmpty() && craftMatrix.getItem(slot).isEmpty()) {
-                //if we found the desired stack, extract it for real and place it in the matrix
-                StorageUtil.extractItem(new PlayerMainInvWrapper(player.getInventory()), ingredient, 1, false);
-                craftMatrix.setItem(slot, extractedStack);
-                continue;
-            }
+                //attempt to get the desired stack from the player inventory
+                ItemStack extractedStack = StorageUtil
+                        .extractItem(new PlayerMainInvWrapper(player.getInventory()), ingredient,
+                                1, true);
+                if (!extractedStack.isEmpty()) {
+                    //if we found the desired stack, extract it for real and place it in the matrix
+                    StorageUtil.extractItem(new PlayerMainInvWrapper(player.getInventory()), ingredient, 1, false);
+                    if(ItemStack.isSameItemSameComponents(craftMatrix.getItem(slot), extractedStack))
+                        craftMatrix.getItem(slot).setCount(craftMatrix.getItem(slot).getCount()+1);
+                    else
+                        craftMatrix.setItem(slot, extractedStack);
+                    continue;
+                }
 
-            //if we did not find anything in the player inventory, get it from the network now
-            var stack = storageController.getOneOfMostCommonItem(ingredient, false);
-            if (!stack.isEmpty() && craftMatrix.getItem(slot).isEmpty()) {
-                //if extraction was successful, place it in the matrix
-                craftMatrix.setItem(slot, stack);
-                continue;
-            }
+                //if we did not find anything in the player inventory, get it from the network now
+                var stack = storageController.getItemStack(ingredient, 1, false);
+                //var stack = storageController.getOneOfMostCommonItem(ingredient, false);
+                if (!stack.isEmpty()) {
+                    //if extraction was successful, place it in the matrix
+                    if(ItemStack.isSameItemSameComponents(craftMatrix.getItem(slot), stack))
+                        craftMatrix.getItem(slot).setCount(craftMatrix.getItem(slot).getCount()+1);
+                    else
+                        craftMatrix.setItem(slot, stack);
+                    continue;
+                }
 
+            }
         }
         //sync to client
         container.updateCraftingSlots(true);
@@ -119,12 +130,14 @@ public class MessageSetRecipeByTemplate implements IMessage {
         buf.writeNullable(this.recipeId, FriendlyByteBuf::writeResourceLocation);
 
         ItemStack.OPTIONAL_LIST_STREAM_CODEC.encode(buf, this.ingredientTemplates);
+        buf.writeInt(this.recipeAmount);
     }
 
     @Override
     public void decode(RegistryFriendlyByteBuf buf) {
         this.recipeId = buf.readNullable(FriendlyByteBuf::readResourceLocation);
         this.ingredientTemplates = NonNullList.copyOf(ItemStack.OPTIONAL_LIST_STREAM_CODEC.decode(buf));
+        this.recipeAmount = buf.readInt();
     }
 
     @Override

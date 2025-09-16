@@ -105,7 +105,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
         return result;
     }
 
-    public static void performTransfer(StorageControllerContainerBase menu, @Nullable ResourceLocation recipeId, Recipe<?> recipe) {
+    public static void performTransfer(StorageControllerContainerBase menu, @Nullable ResourceLocation recipeId, Recipe<?> recipe, int amount) {
 
         // We send the items in the recipe in any case to serve as a fallback in case the recipe is transient
         var templateItems = findGoodTemplateItems(recipe, menu);
@@ -117,7 +117,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
             recipeId = null;
         }
 
-        Networking.sendToServer(new MessageSetRecipeByTemplate(recipeId, templateItems));
+        Networking.sendToServer(new MessageSetRecipeByTemplate(recipeId, templateItems,amount));
     }
 
     private static NonNullList<ItemStack> findGoodTemplateItems(Recipe<?> recipe, StorageControllerContainerBase menu) {
@@ -268,10 +268,11 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
         return StandardRecipeHandler.super.canCraft(recipe, context);
     }
 
-    protected Result transferRecipe(T menu, RecipeHolder<?> holder, EmiRecipe emiRecipe, boolean doTransfer) {
+    protected Result transferRecipe(T menu, RecipeHolder<?> holder, EmiRecipe emiRecipe,EmiCraftContext<T> context, boolean doTransfer) {
 
         var recipeId = holder != null ? holder.id() : null;
         var recipe = holder != null ? holder.value() : null;
+        var amount = context.getAmount();
 
         boolean craftingRecipe = this.isCraftingRecipe(recipe, emiRecipe);
         if (!craftingRecipe) {
@@ -301,7 +302,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
                 return new Result.PartiallyCraftable(missingSlots);
             }
         } else {
-            performTransfer(menu, recipeId, recipe);
+            performTransfer(menu, recipeId, recipe, amount);
         }
 
         // No error
@@ -332,7 +333,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
 
         var holder = this.getRecipeHolder(context.getScreenHandler().player.level(), emiRecipe);
 
-        var result = this.transferRecipe(menu, holder, emiRecipe, doTransfer);
+        var result = this.transferRecipe(menu, holder, emiRecipe,context, doTransfer);
         if (result instanceof Result.Success && doTransfer) {
             Minecraft.getInstance().setScreen(context.getScreen());
         }
