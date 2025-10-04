@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.192.0] - 2025-10-04
+### :sparkles: New Features
+- [`694bc28`](https://github.com/klikli-dev/occultism/commit/694bc28992f33c05820caab530fff7dd30178ec6) - Knowledge Tablet and feedbacks *(PR [#1418](https://github.com/klikli-dev/occultism/pull/1418) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+  - :arrow_lower_right: *addresses issue [#1420](https://github.com/klikli-dev/occultism/issues/1420) opened by [@Seegras](https://github.com/Seegras)*
+- [`7dfe1c6`](https://github.com/klikli-dev/occultism/commit/7dfe1c61ed2c90301530543c76be323e06aa511a) - add ability for EMI to see inside storage , fixing [#1422](https://github.com/klikli-dev/occultism/pull/1422) *(PR [#1426](https://github.com/klikli-dev/occultism/pull/1426) by [@GaeaKat](https://github.com/GaeaKat))*
+- [`699e73c`](https://github.com/klikli-dev/occultism/commit/699e73c659c7ff571bffbb7ee0b74056a3027317) - New Crowdin updates *(PR [#1430](https://github.com/klikli-dev/occultism/pull/1430) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`c195454`](https://github.com/klikli-dev/occultism/commit/c195454fa75dab8f9793c3747123406d0b471474) - [#1429](https://github.com/klikli-dev/occultism/pull/1429) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`25b2024`](https://github.com/klikli-dev/occultism/commit/25b20243c72b1e7094019d535636a700d873cb22) - [#1394](https://github.com/klikli-dev/occultism/pull/1394) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.191.0] - 2025-08-29
 ### :sparkles: New Features
 - [`fe70963`](https://github.com/klikli-dev/occultism/commit/fe7096331af7f7f32075c007e4af01dc3fb57b4b) - New Crowdin updates *(PR [#1412](https://github.com/klikli-dev/occultism/pull/1412) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2166,3 +2178,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.190.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.189.0...release/v1.21.1-1.190.0
 [release/v1.21.1-1.190.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.190.0...release/v1.21.1-1.190.1
 [release/v1.21.1-1.191.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.190.1...release/v1.21.1-1.191.0
+[release/v1.21.1-1.192.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.191.0...release/v1.21.1-1.192.0
