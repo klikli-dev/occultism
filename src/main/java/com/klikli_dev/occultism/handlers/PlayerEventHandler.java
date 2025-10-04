@@ -51,6 +51,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
@@ -58,6 +59,10 @@ import java.util.List;
 
 @EventBusSubscriber(modid = Occultism.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class PlayerEventHandler {
+
+    private static final ItemAbility LIGHT_FIRE = ItemAbility.get("light_fire");
+    private static final ItemAbility LIGHT_CAMPFIRE = ItemAbility.get("light_campfire");
+
     //region Static Methods
     @SubscribeEvent
     public static void onPlayerRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
@@ -69,7 +74,9 @@ public class PlayerEventHandler {
     private static void spiritFire(PlayerInteractEvent.RightClickBlock event) {
         boolean isFlintAndSteel = event.getItemStack().getItem() == Items.FLINT_AND_STEEL;
         boolean isFireCharge = event.getItemStack().getItem() == Items.FIRE_CHARGE;
-        if (isFlintAndSteel || isFireCharge) {
+        boolean canLightFire = event.getItemStack().canPerformAction(LIGHT_FIRE) || event.getItemStack().canPerformAction(LIGHT_CAMPFIRE);
+
+        if (isFlintAndSteel || isFireCharge || canLightFire) {
             //find if there is any datura
             AABB box = new AABB(-1, -1, -1, 1, 1, 1)
                     .move(Math3DUtil.center(event.getPos()));
