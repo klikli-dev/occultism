@@ -24,6 +24,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 import java.util.List;
 
 public class VitalityCompassItem extends Item {
+
     private final CompassWobble wobbleRandom = new CompassWobble();
     public static final float NOT_FOUND = 0;
 
@@ -120,7 +121,6 @@ public class VitalityCompassItem extends Item {
         return value * 1327217883;
     }
 
-    @OnlyIn(Dist.CLIENT)
     static class CompassWobble {
         double rotation;
         private double deltaRotation;
