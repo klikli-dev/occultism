@@ -44,6 +44,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.JukeboxBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -52,13 +53,19 @@ import java.util.List;
 
 @Mod.EventBusSubscriber(modid = Occultism.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class PlayerEventHandler {
+
+    private static final ToolAction LIGHT_FIRE = ToolAction.get("light_fire");
+    private static final ToolAction LIGHT_CAMPFIRE = ToolAction.get("light_campfire");
+
     //region Static Methods
     @SubscribeEvent
     public static void onPlayerRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         dancingFamiliars(event);
         boolean isFlintAndSteel = event.getItemStack().getItem() == Items.FLINT_AND_STEEL;
         boolean isFireCharge = event.getItemStack().getItem() == Items.FIRE_CHARGE;
-        if (isFlintAndSteel || isFireCharge) {
+        boolean canLightFire = event.getItemStack().canPerformAction(LIGHT_FIRE) || event.getItemStack().canPerformAction(LIGHT_CAMPFIRE);
+
+        if (isFlintAndSteel || isFireCharge || canLightFire) {
             //find if there is any datura
             AABB box = new AABB(-1, -1, -1, 1, 1, 1)
                     .move(Math3DUtil.center(event.getPos()));
