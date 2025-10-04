@@ -30,6 +30,7 @@ import com.klikli_dev.occultism.common.container.storage.StorageControllerContai
 import com.klikli_dev.occultism.common.misc.ItemStackKey;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSetRecipeByTemplate;
+import dev.emi.emi.api.recipe.EmiPlayerInventory;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.recipe.handler.EmiCraftContext;
@@ -41,6 +42,7 @@ import dev.emi.emi.api.widget.Widget;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
@@ -103,7 +105,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
         return result;
     }
 
-    public static void performTransfer(StorageControllerContainerBase menu, @Nullable ResourceLocation recipeId, Recipe<?> recipe) {
+    public static void performTransfer(StorageControllerContainerBase menu, @Nullable ResourceLocation recipeId, Recipe<?> recipe, int amount) {
 
         // We send the items in the recipe in any case to serve as a fallback in case the recipe is transient
         var templateItems = findGoodTemplateItems(recipe, menu);
@@ -115,7 +117,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
             recipeId = null;
         }
 
-        Networking.sendToServer(new MessageSetRecipeByTemplate(recipeId, templateItems));
+        Networking.sendToServer(new MessageSetRecipeByTemplate(recipeId, templateItems,amount));
     }
 
     private static NonNullList<ItemStack> findGoodTemplateItems(Recipe<?> recipe, StorageControllerContainerBase menu) {
@@ -236,6 +238,15 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
     }
 
     @Override
+    public EmiPlayerInventory getInventory(AbstractContainerScreen<T> screen) {
+        List<EmiStack> sources = new ArrayList<>(getInputSources(screen.getMenu()).stream().map(Slot::getItem).map(EmiStack::of).toList());
+        if(Occultism.CLIENT_CONFIG.misc.enableEMISync.get()) {
+            sources.addAll(screen.getMenu().getClientStorageCache().stacks().stream().map(EmiStack::of).toList());
+        }
+        return new EmiPlayerInventory(sources);
+    }
+
+    @Override
     public List<Slot> getCraftingSlots(T handler) {
         List<Slot> list = Lists.newArrayList();
         for (int i = 1; i < 10; i++) {
@@ -257,10 +268,11 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
         return StandardRecipeHandler.super.canCraft(recipe, context);
     }
 
-    protected Result transferRecipe(T menu, RecipeHolder<?> holder, EmiRecipe emiRecipe, boolean doTransfer) {
+    protected Result transferRecipe(T menu, RecipeHolder<?> holder, EmiRecipe emiRecipe,EmiCraftContext<T> context, boolean doTransfer) {
 
         var recipeId = holder != null ? holder.id() : null;
         var recipe = holder != null ? holder.value() : null;
+        var amount = context.getAmount();
 
         boolean craftingRecipe = this.isCraftingRecipe(recipe, emiRecipe);
         if (!craftingRecipe) {
@@ -290,7 +302,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
                 return new Result.PartiallyCraftable(missingSlots);
             }
         } else {
-            performTransfer(menu, recipeId, recipe);
+            performTransfer(menu, recipeId, recipe, amount);
         }
 
         // No error
@@ -321,7 +333,7 @@ public class StorageControllerEMIRecipeHandler<T extends StorageControllerContai
 
         var holder = this.getRecipeHolder(context.getScreenHandler().player.level(), emiRecipe);
 
-        var result = this.transferRecipe(menu, holder, emiRecipe, doTransfer);
+        var result = this.transferRecipe(menu, holder, emiRecipe,context, doTransfer);
         if (result instanceof Result.Success && doTransfer) {
             Minecraft.getInstance().setScreen(context.getScreen());
         }
