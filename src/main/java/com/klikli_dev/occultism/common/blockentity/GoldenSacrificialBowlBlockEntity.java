@@ -89,6 +89,7 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
     public int currentTime;
     public int tier;
     public boolean ritualActive;
+    public long lastFailedRecipeCheckTime = -1;
 
     public Consumer<RightClickItem> rightClickItemListener;
     public Consumer<LivingDeathEvent> livingDeathEventListener;
@@ -123,12 +124,29 @@ public class GoldenSacrificialBowlBlockEntity extends SacrificialBowlBlockEntity
                 if (GoldenSacrificialBowlBlockEntity.this.getCurrentRitualRecipe() != null)
                     return stack;
 
+                // Check if we should decline inserts due to recent failed recipe check
+                if (GoldenSacrificialBowlBlockEntity.this.lastFailedRecipeCheckTime >= 0) {
+                    long currentTime = GoldenSacrificialBowlBlockEntity.this.level.getGameTime();
+                    long timeSinceLastFail = currentTime - GoldenSacrificialBowlBlockEntity.this.lastFailedRecipeCheckTime;
+                    // Decline inserts for 5 seconds (100 ticks at 20 tps)
+                    if (timeSinceLastFail < 100) {
+                        return stack;
+                    }
+                }
+
                 var ritualRecipe = GoldenSacrificialBowlBlockEntity.this.level.getRecipeManager().getAllRecipesFor(OccultismRecipes.RITUAL_TYPE.get()).stream().filter(
                         r -> r.value().matches(GoldenSacrificialBowlBlockEntity.this.level, GoldenSacrificialBowlBlockEntity.this.getBlockPos(), stack)
                 ).findFirst().orElse(null);
 
-                if (ritualRecipe == null)
+                if (ritualRecipe == null) {
+                    // Recipe check failed, record the time to prevent future checks for 5 seconds
+                    // we even have to do this on simulate, because before a real insert a hopper or pipe simulates - and that alone would cause more recipe checks.
+//                    if (!simulate) {
+                        GoldenSacrificialBowlBlockEntity.this.lastFailedRecipeCheckTime = GoldenSacrificialBowlBlockEntity.this.level.getGameTime();
+//                    }
+
                     return stack;
+                }
 
                 var insertResult = super.insertItem(slot, stack, simulate);
                 var activationItemStack = this.getStackInSlot(0);
