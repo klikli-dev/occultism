@@ -2,14 +2,20 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
+    "a": {
+      "tag": "c:dusts/otherworld_wood"
+    },
+    "g": {
+      "tag": "c:ingots/gold"
+    },
     "s": {
-      "item": "occultism:otherstone_slab"
+      "item": "occultism:otherstone"
     }
   },
   "pattern": [
-    "sss",
-    "sss",
-    "sss"
+    "aga",
+    "gsg",
+    "aga"
   ],
   "result": {
     "count": 1,

@@ -47,6 +47,10 @@ public class OccultismBlockEntities {
                     OccultismBlocks.SACRIFICIAL_BOWL.get(), OccultismBlocks.COPPER_SACRIFICIAL_BOWL.get(), OccultismBlocks.SILVER_SACRIFICIAL_BOWL.get(),
                     OccultismBlocks.DARK_SACRIFICIAL_BOWL.get(), OccultismBlocks.DARK_COPPER_SACRIFICIAL_BOWL.get(), OccultismBlocks.DARK_SILVER_SACRIFICIAL_BOWL.get()).build(null));
 
+    public static final Supplier<BlockEntityType<EntityWormholeBlockEntity>> ENTITY_WORMHOLE = BLOCK_ENTITIES.register(
+            "entity_wormhole", () -> BlockEntityType.Builder.of(EntityWormholeBlockEntity::new,
+                    OccultismBlocks.ENTITY_WORMHOLE.get()).build(null));
+
     public static final Supplier<BlockEntityType<GoldenSacrificialBowlBlockEntity>> GOLDEN_SACRIFICIAL_BOWL =
             BLOCK_ENTITIES.register(
                     "golden_sacrificial_bowl", () -> BlockEntityType.Builder.of(GoldenSacrificialBowlBlockEntity::new,

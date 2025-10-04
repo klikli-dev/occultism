@@ -1740,7 +1740,9 @@ public class GettingStartedCategory extends CategoryProvider {
         this.lang().add(this.context().pageTitle(), "Processing");
         this.lang().add(this.context().pageText(),
                 """
-                        Iesnium Ore, after mining, can be smelted directly into ingots, or placed down. When placed, it will not turn back into it's netherrack form. Consequently it can also be mined with any pickaxe then. This visible form of the Ore, when mined, will drop [](item://occultism:raw_iesnium).
+                        Iesnium ore, when mined, will drop [](item://occultism:raw_iesnium) that can be smelted directly into ingots.
+                        Like common ores, this is affected by Fortune and Silk Touch. If mined with silk, it will drop
+                         a stabilized version of Iesnium Ore, which can be mined with any pickaxe when placed back on the ground.
                              """.formatted(COLOR_PURPLE));
 
         this.context().page("uses");

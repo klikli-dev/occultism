@@ -283,6 +283,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get());
 
         this.tag(ItemTags.SMALL_FLOWERS).add(OccultismBlocks.OTHERFLOWER.asItem()).add(OccultismBlocks.OTHERFLOWER_NATURAL.asItem()).replace(false);
+        this.tag(ItemTags.COMPASSES).add(OccultismItems.VITALITY_COMPASS.asItem());
     }
 
     private void addCommonTags(HolderLookup.Provider provider) {
@@ -358,6 +359,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.copy(OccultismTags.Blocks.MUSHROOM_BLOCKS, OccultismTags.Items.MUSHROOM_BLOCKS);
         this.copy(OccultismTags.Blocks.LIGHTNING_RODS, OccultismTags.Items.LIGHTNING_RODS);
         this.copy(OccultismTags.Blocks.ENCHANTING_TABLES, OccultismTags.Items.ENCHANTING_TABLES);
+        this.copy(OccultismTags.Blocks.IRON_BARS, OccultismTags.Items.IRON_BARS);
         this.tag(OccultismTags.Items.TUBE_CORALS).add(Items.TUBE_CORAL).add(Items.TUBE_CORAL_FAN);
 
         // Metal Axes Tag

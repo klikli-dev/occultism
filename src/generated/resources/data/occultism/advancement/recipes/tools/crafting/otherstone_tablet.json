@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_otherstone_slab": {
+    "has_otherstone": {
       "conditions": {
         "items": [
           {
-            "items": "occultism:otherstone_slab"
+            "items": "occultism:otherstone"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_otherstone_slab"
+      "has_otherstone"
     ]
   ],
   "rewards": {

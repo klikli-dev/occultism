@@ -35,6 +35,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ItemModelsGenerator extends ItemModelProvider {
     public ItemModelsGenerator(PackOutput packOutput, ExistingFileHelper existingFileHelper) {
@@ -59,6 +60,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
         this.registerItemMiners();
         this.registerItemChalks();
         this.registerItemCandles();
+        this.registerVitalityCompass();
 
         this.registerItemGenerated(this.name(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get()),"book_of_calling_manage_machine");
         this.registerItemGenerated(this.name(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get()),"book_of_calling_cleaner");
@@ -159,6 +161,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismItems.IESNIUM_NUGGET.get()),
                 this.name(OccultismItems.INFUSED_LENSES.get()),
                 this.name(OccultismItems.IRON_DUST.get()),
+                this.name(OccultismItems.KNOWLEDGE_TABLET.get()),
                 this.name(OccultismItems.LAPIS_DUST.get()),
                 this.name(OccultismItems.LENS_FRAME.get()),
                 this.name(OccultismItems.LENSES.get()),
@@ -195,7 +198,8 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismItems.SWEET_HONEY_HEART.get()),
                 this.name(OccultismItems.TABOO_BOOK.get()),
                 this.name(OccultismItems.TALLOW.get()),
-                this.name(OccultismItems.WITHERITE_DUST.get())
+                this.name(OccultismItems.WITHERITE_DUST.get()),
+                this.name(OccultismItems.WORMHOLE_PORTAL.get())
         };
         for (String item : items){
             this.registerItemGenerated(item, item);
@@ -382,4 +386,12 @@ public class ItemModelsGenerator extends ItemModelProvider {
         }
     }
 
+    private void registerVitalityCompass() {
+        for (int i = 0; i < 32; i++) {
+            this.getBuilder("occultism:item/vitality_compass/compass" + String.format(Locale.ROOT, "_%02d", i))
+                    .parent(new ModelFile.UncheckedModelFile("minecraft:item/generated"))
+                    .texture("layer0", this.modLoc("item/vitality_compass/compass_base"))
+                    .texture("layer1", this.modLoc("item/vitality_compass/compass" + String.format(Locale.ROOT, "_%02d", i)));
+        }
+    }
 }

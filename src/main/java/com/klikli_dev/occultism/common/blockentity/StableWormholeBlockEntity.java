@@ -107,10 +107,14 @@ public class StableWormholeBlockEntity extends NetworkedBlockEntity implements I
         return Component.literal(BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(this.getType()).getPath());
     }
 
+    public boolean controllerLoaded() {
+        return BlockEntityUtil.isLoaded(this.level, this.linkedStorageControllerPosition);
+    }
+
     @Override
     public IStorageController getLinkedStorageController() {
         if (this.linkedStorageControllerPosition != null) {
-            if (!BlockEntityUtil.isLoaded(this.level, this.linkedStorageControllerPosition)) {
+            if (!controllerLoaded()) {
                 //if the target pos is not loaded we exit early to prevent accidentally clearing the linked storage controller position
                 return null;
             }

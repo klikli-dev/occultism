@@ -2,20 +2,23 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "b": {
-      "tag": "minecraft:stone_buttons"
+    "a": {
+      "item": "occultism:spirit_attuned_gem"
     },
-    "g": {
-      "tag": "c:ingots/gold"
+    "i": {
+      "tag": "c:nuggets/iesnium"
+    },
+    "s": {
+      "tag": "c:ingots/silver"
     },
     "t": {
       "item": "occultism:otherstone_tablet"
     }
   },
   "pattern": [
-    "gtg",
-    "bgb",
-    "bbb"
+    "iai",
+    "iti",
+    "isi"
   ],
   "result": {
     "count": 1,

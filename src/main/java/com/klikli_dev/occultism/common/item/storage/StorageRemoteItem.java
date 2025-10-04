@@ -28,6 +28,7 @@ import com.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.util.BlockEntityUtil;
 import com.klikli_dev.occultism.util.CuriosUtil;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -130,10 +131,14 @@ public class StorageRemoteItem extends Item implements MenuProvider {
     public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
         super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
 
-        pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip"));
         if (pStack.has(OccultismDataComponents.LINKED_STORAGE_CONTROLLER)) {
-            GlobalBlockPos pos = pStack.get(OccultismDataComponents.LINKED_STORAGE_CONTROLLER);
-            pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip.linked", pos.toString()));
+            GlobalBlockPos globalPos = pStack.get(OccultismDataComponents.LINKED_STORAGE_CONTROLLER);
+
+            String formattedPosition =
+                    ChatFormatting.GOLD.toString() + ChatFormatting.BOLD + globalPos.toString() + ChatFormatting.RESET;
+            pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip.linked", formattedPosition));
+        } else {
+            pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip.unlinked"));
         }
     }
 

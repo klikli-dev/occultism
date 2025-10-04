@@ -197,7 +197,7 @@ public class DemonicPartner extends TamableAnimal {
             if (effects.hasEffects()) {
                 for (var instance : effects.getAllEffects()) {
                     if (instance.getEffect().value().isInstantenous()) {
-                        instance.getEffect().value().applyInstantenousEffect(this, this, pPlayer, instance.getAmplifier(), 1.0D);
+                        instance.getEffect().value().applyInstantenousEffect(this, this, pPlayer, instance.getAmplifier() + 2, 1.0D);
                     } else {
                         pPlayer.addEffect(new MobEffectInstance(instance.getEffect(), instance.getDuration() * 5, instance.getAmplifier(), instance.isAmbient(), instance.isVisible()));
                     }

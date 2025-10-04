@@ -32,14 +32,12 @@ import com.klikli_dev.occultism.client.gui.storage.StableWormholeGui;
 import com.klikli_dev.occultism.client.gui.storage.StorageControllerGui;
 import com.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
 import com.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
-import com.klikli_dev.occultism.client.itemproperties.DivinationRodItemPropertyGetter;
-import com.klikli_dev.occultism.client.itemproperties.SoulGemItemPropertyGetter;
-import com.klikli_dev.occultism.client.itemproperties.StableWormholeBlockItemPropertyGetter;
-import com.klikli_dev.occultism.client.itemproperties.StorageRemoteItemPropertyGetter;
+import com.klikli_dev.occultism.client.itemproperties.*;
 import com.klikli_dev.occultism.client.keybindings.BackpackKeyConflictContext;
 import com.klikli_dev.occultism.client.keybindings.StorageRemoteKeyConflictContext;
 import com.klikli_dev.occultism.client.model.entity.*;
 import com.klikli_dev.occultism.client.render.GoldenSacrificialBowlHUD;
+import com.klikli_dev.occultism.client.render.blockentity.EntityWormholeRenderer;
 import com.klikli_dev.occultism.client.render.blockentity.SacrificialBowlRenderer;
 import com.klikli_dev.occultism.client.render.blockentity.StorageControllerGeoRenderer;
 import com.klikli_dev.occultism.client.render.entity.*;
@@ -227,6 +225,7 @@ public class ClientSetupEventHandler {
         BlockEntityRenderers.register(OccultismBlockEntities.GOLDEN_SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
         BlockEntityRenderers.register(OccultismBlockEntities.OTHERPLANKS_SIGN.get(), SignRenderer::new);
         BlockEntityRenderers.register(OccultismBlockEntities.OTHERPLANKS_HANGING_SIGN.get(), HangingSignRenderer::new);
+        BlockEntityRenderers.register(OccultismBlockEntities.ENTITY_WORMHOLE.get(), EntityWormholeRenderer::new);
 
         registerItemModelProperties(event);
 
@@ -295,6 +294,8 @@ public class ClientSetupEventHandler {
                     ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "linked"), new StorageRemoteItemPropertyGetter());
             ItemProperties.register(OccultismItems.STABLE_WORMHOLE.get(),
                     ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "linked"), new StableWormholeBlockItemPropertyGetter());
+            ItemProperties.register(OccultismItems.VITALITY_COMPASS.get(),
+                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "angle"), new VitalityCompassItemPropertyGetter());
 
             Occultism.LOGGER.debug("Registered Item Properties");
         });

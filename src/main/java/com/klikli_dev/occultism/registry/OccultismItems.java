@@ -88,6 +88,11 @@ public class OccultismItems {
                     .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
                     .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
             ));
+    public static final DeferredItem<KnowledgeTabletItem> KNOWLEDGE_TABLET = ITEMS.register("knowledge_tablet",
+            () -> new KnowledgeTabletItem(defaultProperties()
+                    .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
+                    .component(OccultismDataComponents.STORED_XP, 0)
+            ));
     public static final DeferredItem<StorageRemoteItem> STORAGE_REMOTE = ITEMS.register("storage_remote",
             () -> new StorageRemoteItem(defaultProperties().stacksTo(1)));
     public static final DeferredItem<SoulGemItem> FRAGILE_SOUL_GEM_ITEM = ITEMS.register("fragile_soul_gem",
@@ -98,7 +103,9 @@ public class OccultismItems {
             () -> new SoulGemItem(defaultProperties().stacksTo(1).rarity(Rarity.EPIC)));
     public static final DeferredItem<Item> FAMILIAR_RING = ITEMS.register("familiar_ring",
             () -> new FamiliarRingItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
-
+    public static final DeferredItem<Item> VITALITY_COMPASS = ITEMS.register("vitality_compass",
+            () -> new VitalityCompassItem(defaultProperties().stacksTo(1)
+                    .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
     //Books of Binding
     public static final DeferredItem<BookOfBindingItem> BOOK_OF_BINDING_EMPTY = ITEMS.register(
             "book_of_binding_empty", () -> new BookOfBindingItem(defaultProperties().stacksTo(16)));
@@ -606,6 +613,8 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_SATCHEL = ITEMS.register("ritual_dummy/craft_satchel", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1 = ITEMS.register("ritual_dummy/craft_ritual_satchel_t1", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2 = ITEMS.register("ritual_dummy/craft_ritual_satchel_t2", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_KNOWLEDGE_TABLET = ITEMS.register("ritual_dummy/craft_knowledge_tablet", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_VITALITY_COMPASS = ITEMS.register("ritual_dummy/craft_vitality_compass", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_FRAGILE_SOUL_GEM = ITEMS.register("ritual_dummy/craft_fragile_soul_gem", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_SOUL_GEM = ITEMS.register("ritual_dummy/craft_soul_gem", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_FAMILIAR_RING = ITEMS.register("ritual_dummy/craft_familiar_ring", () -> new DummyTooltipItem(defaultProperties()));
@@ -631,7 +640,8 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_GRAY_PASTE = ITEMS.register("ritual_dummy/craft_gray_paste", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_WITHERITE_DUST = ITEMS.register("ritual_dummy/craft_witherite_dust", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DRAGONYST_DUST = ITEMS.register("ritual_dummy/craft_dragonyst_dust", () -> new DummyTooltipItem(defaultProperties()));
-            //Extras
+            //Blocks
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE = ITEMS.register("ritual_dummy/craft_entity_wormhole", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL = ITEMS.register("ritual_dummy/craft_iesnium_sacrificial_bowl", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DARK_IESNIUM_SACRIFICIAL_BOWL = ITEMS.register("ritual_dummy/craft_dark_iesnium_sacrificial_bowl", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL = ITEMS.register("ritual_dummy/craft_iesnium_anvil", () -> new DummyTooltipItem(defaultProperties()));
@@ -715,6 +725,8 @@ public class OccultismItems {
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> PENTACLE_MISC = ITEMS.register("pentacle_misc",
             () -> new Item(defaultProperties()));
+    public static final DeferredItem<Item> WORMHOLE_PORTAL = ITEMS.register("entity_wormhole_portal",
+            () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> ADVANCEMENT_ICON =
             ITEMS.register("advancement_icon", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> REPAIR_ICON =
@@ -749,6 +761,7 @@ public class OccultismItems {
                 || item == REPAIR_ICON.get()
                 || item == RESURRECT_ICON.get()
                 || item == MYSTERIOUS_EGG_ICON.get()
+                || item == WORMHOLE_PORTAL.asItem()
         )
             return true;
 
@@ -778,7 +791,9 @@ public class OccultismItems {
                 || item == SATCHEL.get()
                 || item == RITUAL_SATCHEL_T1.get()
                 || item == RITUAL_SATCHEL_T2.get()
+                || item == KNOWLEDGE_TABLET.get()
                 || item == FAMILIAR_RING.get()
+                || item == VITALITY_COMPASS.get()
                 || item == INFUSED_PICKAXE.get()
                 || item == MINER_FOLIOT_UNSPECIALIZED.get()
                 || item == MINER_DJINNI_ORES.get()

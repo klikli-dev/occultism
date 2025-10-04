@@ -79,6 +79,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.book_of_calling" + ".message_no_managed_machine", "Set a managed machine before setting an extract location %s");
 
         this.add(OccultismItems.STABLE_WORMHOLE.get().getDescriptionId() + ".message.set_storage_controller", "Linked the stable wormhole to this storage actuator.");
+        this.add(OccultismItems.STABLE_WORMHOLE.get().getDescriptionId() + ".message.not_loaded", "Chunk for storage actuator not loaded!");
         this.add(OccultismItems.STORAGE_REMOTE.get().getDescriptionId() + ".message.not_loaded", "Chunk for storage actuator not loaded!");
         this.add(OccultismItems.STORAGE_REMOTE.get().getDescriptionId() + ".message.linked", "Linked storage remote to actuator.");
         this.add(OccultismItems.DIVINATION_ROD.get().getDescriptionId() + ".message.no_linked_block", "The divination rod is not attuned to any material.");
@@ -90,6 +91,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.FRAGILE_SOUL_GEM_ITEM.get().getDescriptionId() + ".message.entity_type_denied", "Fragile soul gems cannot contain this type of being.");
         this.add(OccultismItems.SOUL_GEM_ITEM.get().getDescriptionId() + ".message.entity_type_denied", "Soul gems cannot contain this type of being.");
         this.add(OccultismItems.TRINITY_GEM_ITEM.get().getDescriptionId() + ".message.entity_type_denied", "Trinity gems cannot contain this type of being.");
+        this.add(OccultismItems.VITALITY_COMPASS.get().getDescriptionId() + ".message.target_linked", "Vitality Compass linked to %s.");
+        this.add(OccultismItems.VITALITY_COMPASS.get().getDescriptionId() + ".message.target_blocked", "This entity cannot be linked to vitality compass.");
     }
 
     public void addItemTooltips() {
@@ -119,15 +122,17 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.FAMILIAR_RING.get().getDescriptionId() + ".tooltip", "Occupied by the familiar %s\n%s");
         this.add(OccultismItems.FAMILIAR_RING.get().getDescriptionId() + ".tooltip.familiar_type", "[Type: %s]");
         this.add(OccultismItems.FAMILIAR_RING.get().getDescriptionId() + ".tooltip.empty", "Does not contain any familiar.");
+        this.add(OccultismItems.VITALITY_COMPASS.get().getDescriptionId() + ".tooltip", "Looking for %s");
 
         this.add("item.minecraft.diamond_sword.occultism_spirit_tooltip", "%s is bound to this sword. May your foes tremor before its glory.");
 
         this.add(OccultismItems.STABLE_WORMHOLE.get().getDescriptionId() + ".tooltip.unlinked", "Not linked to a storage actuator.");
         this.add(OccultismItems.STABLE_WORMHOLE.get().getDescriptionId() + ".tooltip.linked", "Linked to storage actuator at %s.");
         this.add(OccultismItems.STORAGE_REMOTE.get().getDescriptionId() + ".tooltip", "Access a storage network remotely.");
+        this.add(OccultismItems.STORAGE_REMOTE.get().getDescriptionId() + ".tooltip.linked", "Bound to %s.");
+        this.add(OccultismItems.STORAGE_REMOTE.get().getDescriptionId() + ".tooltip.unlinked", "Not linked to a storage actuator.");
         this.add("block.occultism.otherglass.auto_tooltip", "Wear Otherworld Goggles to see it once placed");
 
-        this.add(OccultismItems.STORAGE_REMOTE.get().getDescriptionId() + ".tooltip.linked", "Bound to %s.");
         this.add(OccultismItems.DIVINATION_ROD.get().getDescriptionId() + ".tooltip.no_linked_block", "Not attuned to any material.");
         this.add(OccultismItems.DIVINATION_ROD.get().getDescriptionId() + ".tooltip.linked_block", "Attuned to %s.");
         this.add(OccultismItems.TRUE_SIGHT_STAFF.get().getDescriptionId() + ".tooltip.no_linked_block", "Not attuned to any material.");
@@ -149,6 +154,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.SATCHEL.get().getDescriptionId() + ".tooltip", "%s is bound to this satchel.");
         this.add(OccultismItems.RITUAL_SATCHEL_T1.get().getDescriptionId() + ".tooltip", "%s is bound to this satchel.");
         this.add(OccultismItems.RITUAL_SATCHEL_T2.get().getDescriptionId() + ".tooltip", "%s is bound to this satchel.");
+        this.add(OccultismItems.KNOWLEDGE_TABLET.get().getDescriptionId() + ".tooltip", "%s is bound to this tablet.\n Stored XP: %s");
 
         this.add(OccultismItems.SOUL_SHARD_ITEM.get().getDescriptionId() + ".tooltip_filled", "Contains the soul of a %s.\nCan be used to resurrect it.");
         this.add(OccultismItems.SOUL_SHARD_ITEM.get().getDescriptionId() + ".tooltip_empty", "Dropped by a Familiar after their untimely death. Can be used to resurrect it.");
@@ -188,7 +194,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         A basic ritual satchel that can place ritual circles block by block.
                         Right-Click a preview block to place it out of the satchel.
                         Shift-Right-Click to open the satchel and add ritual ingredients.
-                        If an item inside has less than 40% of durability the glint effect will stop.
+                        An item with durability will be used until only 1 durability remains, which will stop the glint effect.
                         """
         );
         this.addItem(OccultismItems.RITUAL_SATCHEL_T2, "Artisanal Ritual Satchel");
@@ -198,7 +204,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         Right-Click any preview block to place all preview blocks out of the satchel.
                         Shift-Right-Click to open the satchel and add ritual ingredients.
                         Right-Click a Golden Bowl to remove the ritual circle and collect the ingredients.
-                        If an item inside has less than 40% of durability the glint effect will stop.
+                        An item with durability will be used until only 1 durability remains, which will stop the glint effect.
                         """
         );
 
@@ -210,6 +216,15 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(TranslationKeys.RITUAL_SATCHEL_INVALID_MATCHER, "Cannot place a block for an ANY or DISPLAY_ONLY multiblock matcher");
         this.add(TranslationKeys.RITUAL_SATCHEL_GLYPH_CANNOT_SURVIVE, "Cannot place a glyph here.");
         this.add(TranslationKeys.RITUAL_SATCHEL_WILL_BREAK_ITEM, "Some item is breaking, repair it!");
+
+        this.addItem(OccultismItems.KNOWLEDGE_TABLET, "Knowledge Tablet");
+        this.addAutoTooltip(OccultismItems.KNOWLEDGE_TABLET.get(),
+                """
+                        Right-Click to store all your experience points.
+                        Shift-Right-Click to receive all stored experience points.
+                        A small tax may apply due to numerical approximations.
+                        """
+        );
 
         this.addItem(OccultismItems.CHALK_YELLOW, "Yellow Chalk");
         this.addItem(OccultismItems.CHALK_PURPLE, "Purple Chalk");
@@ -288,7 +303,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.BUTCHER_KNIFE, "Butcher Knife");
         this.addItem(OccultismItems.TALLOW, "Tallow");
         this.addItem(OccultismItems.OTHERSTONE_FRAME, "Otherstone Frame");
-        this.addItem(OccultismItems.OTHERSTONE_TABLET, "Otherstone Tablet");
+        this.addItem(OccultismItems.OTHERSTONE_TABLET, "Otherworldly Tablet");
         this.addItem(OccultismItems.IRON_DUST, "Iron Dust");
         this.addItem(OccultismItems.OBSIDIAN_DUST, "Obsidian Dust");
         this.addItem(OccultismItems.CRUSHED_END_STONE, "Crushed End Stone");
@@ -328,6 +343,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.SATCHEL, "Surprisingly Substantial Satchel");
         this.addAutoTooltip(OccultismItems.SATCHEL, "Some people call it a backpack");
         this.addItem(OccultismItems.FAMILIAR_RING, "Familiar Ring");
+        this.addItem(OccultismItems.VITALITY_COMPASS, "Vitality Compass");
         this.addItem(OccultismItems.SPAWN_EGG_FOLIOT, "Foliot Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_DJINNI, "Djinni Spawn Egg");
         this.addItem(OccultismItems.SPAWN_EGG_AFRIT, "Afrit Spawn Egg");
@@ -493,6 +509,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER3, "Tier 3 Dimensional Storage Stabilizer");
         this.addBlock(OccultismBlocks.STORAGE_STABILIZER_TIER4, "Tier 4 Dimensional Storage Stabilizer");
         this.addBlock(OccultismBlocks.STABLE_WORMHOLE, "Stable Wormhole");
+        this.addBlock(OccultismBlocks.ENTITY_WORMHOLE, "Entity Wormhole");
         this.addBlock(OccultismBlocks.DATURA, "Demon's Dream");
         this.addBlock(OccultismBlocks.OTHERFLOWER, "Otherflower");
         this.addBlock(OccultismBlocks.OTHERWORLD_SAPLING, "Otherworld Sapling");
@@ -2605,6 +2622,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_SATCHEL, "Craft Surprisingly Substantial Satchel", "Foliot", "This satchels allows to store more items than it's size would indicate, making it a practical traveller's companion.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1, "Craft Apprentice Ritual Satchel", "Foliot", "Binds a Foliot into a satchel to build pentacles step-by-step for the summoner.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2, "Craft Artisanal Ritual Satchel", "Afrit", "Binds an Afrit into a satchel to build pentacles all at once for the summoner.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_KNOWLEDGE_TABLET, "Craft Knowledge Tablet", "Foliot", "Binds a Foliot into a tablet to store experience points.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_VITALITY_COMPASS, "Craft Vitality Compass", "Foliot", "Create a compass that can be linked to living entities to locate them.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_FRAGILE_SOUL_GEM, "Craft Fragile Soul Gem", "Foliot", "The Fragile Soul Gem allows the temporary storage of living beings. It can only be used once.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_SOUL_GEM, "Craft Soul Gem", "Djinni", "The Soul Gem allows the temporary storage of living beings.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_FAMILIAR_RING, "Craft Familiar Ring", "Djinni", "The Familiar Ring allows to store familiars. The ring will apply the familiar effect to the wearer.");
@@ -2630,7 +2649,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_GRAY_PASTE, "Craft Gray Paste", "Djinni", "A Djinni will craft the gray paste mixing ingredients.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_WITHERITE_DUST, "Craft Witherite Dust", "Afrit", "An Afrit will infuse netherite dust with wither essence.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DRAGONYST_DUST, "Craft Dragonyst Dust", "Marid", "A Marid will infuse ender dragon essence in the amethyst dust.");
-            //Extras
+            //Blocks
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE, "Craft Entity Wormhole", "Djinni", "The Entity Wormhole is a basic teleportation device. Link with a compass to teleport player, mobs or items when touch this small portal.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL, "Craft Iesnium Sacrificial Bowl", "Afrit", "The Iesnium Sacrificial Bowl performs any ritual in only a quarter of the normal time. All other things will works like the Golden Sacrificial Bowl.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DARK_IESNIUM_SACRIFICIAL_BOWL, "Craft Dark Iesnium Sacrificial Bowl", "Afrit", "The Dark Iesnium Sacrificial Bowl performs any ritual in only a quarter of the normal time. All other things will works like the Dark Golden Sacrificial Bowl.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL, "Craft Iesnium Anvil", "Marid", "The iesnium anvil is an improvement on the common anvil, see all the advantages in the dictionary.");
@@ -2778,6 +2798,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.TUBE_CORALS, "Tube Coral");
         this.addItemTag(OccultismTags.Items.LIGHTNING_RODS, "Lightning Rods");
         this.addItemTag(OccultismTags.Items.ENCHANTING_TABLES, "Enchanting Tables");
+        this.addItemTag(OccultismTags.Items.IRON_BARS, "Iron bars");
         this.addItemTag(OccultismTags.Items.TALLOW, "Tallow");
         this.addItemTag(OccultismTags.Items.METAL_AXES, "Metal Axes");
         this.addItemTag(OccultismTags.Items.MAGMA, "Magma");
@@ -3017,6 +3038,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("minerEfficiency", "Efficient miners");
         this.addConfig("minerFortune", "Fortune miners");
         this.addConfig("unbreakableChalks", "Unbreakable Chalks");
+        this.addConfig("maxDistanceRTP", "Max Distance RTP");
     }
 
     private void addConfig(String key, String name) {

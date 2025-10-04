@@ -46,16 +46,26 @@ public class CraftFoliotEntry extends EntryProvider {
         );
         this.pageTitle("Uses");
         this.pageText("""
+                - [Research Fragment Dust](entry://pentacles/lime_chalk)
+                - [Nature Paste](entry://pentacles/green_chalk)
                 - [Infused Lenses](entry://crafting_rituals/craft_otherworld_goggles)
+                - [Fragile Soul Gem](entry://crafting_rituals/fragile_soul_gem)
+                - [Knowledge Tablet](entry://crafting_rituals/knowledge_tablet)
+                - [Foliot Miner](entry://crafting_rituals/craft_foliot_miner)
+                """
+        );
+
+        this.page("uses2", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+        );
+        this.pageTitle("Uses");
+        this.pageText("""
                 - [Surprisingsly Substantial Satchel](entry://crafting_rituals/craft_satchel)
+                - [Apprentice Ritual Satchel](entry://crafting_rituals/apprentice_ritual_satchel)
                 - [Storage Actuator Base](entry://crafting_rituals/craft_storage_controller_base)
                 - [Stable Wormhole](entry://crafting_rituals/craft_stable_wormhole)
                 - [Storage Stabilizer Tier 1](entry://crafting_rituals/craft_stabilizer_tier1)
-                - [Foliot Miner](entry://crafting_rituals/craft_foliot_miner)
-                - [Apprentice Ritual Satchel](entry://crafting_rituals/apprentice_ritual_satchel)
-                - [Fragile Soul Gem](entry://crafting_rituals/fragile_soul_gem)
-                - [Research Fragment Dust](entry://pentacles/lime_chalk)
-                - [Nature Paste](entry://pentacles/green_chalk)
                 """
         );
 

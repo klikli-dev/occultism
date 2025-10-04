@@ -13,6 +13,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -214,6 +215,18 @@ public class OccultismDataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> OTHERWORLD_TOOL_TIER = DATA_COMPONENTS.registerComponentType("otherworld_tool_tier", builder -> builder
             .persistent(Codec.INT)
             .networkSynchronized(ByteBufCodecs.INT)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> STORED_XP =  DATA_COMPONENTS.registerComponentType("stored_xp", builder -> builder
+            .persistent(ExtraCodecs.POSITIVE_INT)
+            .networkSynchronized(ByteBufCodecs.VAR_INT)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> COMPASS_ANGLE = DATA_COMPONENTS.registerComponentType("angle", builder -> builder
+            .persistent(Codec.FLOAT)
+            .networkSynchronized(ByteBufCodecs.FLOAT)
             .cacheEncoding()
     );
 }

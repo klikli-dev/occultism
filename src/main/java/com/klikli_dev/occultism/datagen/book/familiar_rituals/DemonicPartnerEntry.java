@@ -68,7 +68,8 @@ public class DemonicPartnerEntry extends EntryProvider {
                 Right-Click with any cookable food and they will use their magic to cook it.
                 \\
                 \\
-                Right-Click with a potion to get the effect for a significantly longer time.
+                Right-Click with a potion to get the effect for a significantly longer time,
+                 instant potions will be two levels stronger.
                 """);
 
         this.page("familiar", () -> BookTextPageModel.create()

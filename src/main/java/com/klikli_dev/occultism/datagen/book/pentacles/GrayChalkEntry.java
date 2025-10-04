@@ -61,6 +61,18 @@ public class GrayChalkEntry extends EntryProvider {
                         """
         );
 
+        this.page("ore_dupe", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+        );
+        this.pageTitle("Growing ores");
+        this.pageText("""
+                        The property of interacting with dusts can be combined with the powers of the [](item://occultism:nature_paste),
+                         holding the [](item://occultism:gray_paste) in the off-hand will allow you to interact with
+                         some minerals, making them grow and extracting extra resources from them.
+                        """
+        );
+
         this.page("recipe_impure", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/chalk_gray_impure"))
         );

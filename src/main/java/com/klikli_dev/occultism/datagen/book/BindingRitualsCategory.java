@@ -31,13 +31,13 @@ public class BindingRitualsCategory extends CategoryProvider {
                 "___________________________",
                 "_______e_x_p_q_r_Ť_________",
                 "___________________________",
-                "_______b_u_t_ĝ_ğ_h_c_______",
+                "_____ᑬ_b_u_t_ĝ_ğ_h_c_______",
                 "___________________________",
-                "_______d___A_g_Č_é_________",
+                "_______d___A_g_ã_é_Ж_______",
                 "___________________________",
-                "___9_0_______________y____",
+                "___9_0________________y____",
                 "___________________________",
-                "_______f_z_w_v_s_B_H______",
+                "_______f_z_w_v_s_B_H_Č_____",
                 "___________________________",
                 "_______F_a_m_i_j_k_l_______",
                 "___________________________",
@@ -111,11 +111,9 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftSatchel = this.add(this.makeCraftSatchelEntry(this.entryMap, 'g'));
         craftSatchel.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
-
         var apprenticeRitualSatchel = this.add(new ApprenticeRitualSatchelEntry(this).generate('ĝ'));
         apprenticeRitualSatchel.withParent(craftSatchel)
-                .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
-
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
         var artisanalRitualSatchel = this.add(new ArtisanalRitualSatchelEntry(this).generate('ğ'));
         artisanalRitualSatchel.withParent(apprenticeRitualSatchel)
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftAfritID));
@@ -131,6 +129,16 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftTrinityGem = this.add(new TrinityGemEntry(this).generate('Ť'));
         craftTrinityGem.withParent(BookEntryParentModel.create(craftSoulGem.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
+
+        var craftKnowledgeTablet = this.add(new KnowledgeTabletEntry(this).generate('ã'));
+        craftKnowledgeTablet.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
+        var craftVitalityCompass = this.add(new VitalityCompassEntry(this).generate('Ж'));
+        craftVitalityCompass.withParent(BookEntryParentModel.create(overview.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
+        var craftEntityWormhole = this.add(new EntityWormholeEntry(this).generate('ᑬ'));
+        craftEntityWormhole.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftInfusedPickaxe.getId()));
 
         var craftIesniumSacrificialBowl = this.add(new IesniumSacrificialBowlEntry(this).generate('u'));
         craftIesniumSacrificialBowl.withParent(BookEntryParentModel.create(craftInfusedPickaxe.getId()))

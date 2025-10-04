@@ -245,4 +245,15 @@ public class ItemNBTUtil {
     public static Optional<SpiritEntity> getSpiritEntity(ItemStack itemStack) {
         return EntityUtil.getEntityByUuiDGlobal(getSpiritEntityUUID(itemStack)).map(e -> (SpiritEntity) e);
     }
+
+    public static int getStoredXP(ItemStack stack) {
+        if (!stack.has(OccultismDataComponents.STORED_XP))
+            setStoredXP(stack, 0);
+
+        return stack.get(OccultismDataComponents.STORED_XP);
+    }
+
+    public static void setStoredXP(ItemStack stack, int value) {
+        stack.set(OccultismDataComponents.STORED_XP, value);
+    }
 }

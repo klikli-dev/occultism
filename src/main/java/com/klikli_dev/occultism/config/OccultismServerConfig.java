@@ -52,6 +52,7 @@ public class OccultismServerConfig {
         public final BooleanValue minerEfficiency;
         public final BooleanValue minerFortune;
         public final BooleanValue unbreakableChalks;
+        public final IntValue maxDistanceRTP;
 
         public ItemSettings(ModConfigSpec.Builder builder) {
             builder.comment("Item Settings").push("items");
@@ -81,6 +82,11 @@ public class OccultismServerConfig {
                                     "Don't damage chalks on use"
                             )
                             .define("unbreakableChalks", false);
+            this.maxDistanceRTP =
+                    builder.comment(
+                                    "Maximum distance the Entity Wormhole random teleport (RTP) feature can reach."
+                            )
+                            .defineInRange("maxDistanceRTP", 4096, 0, Integer.MAX_VALUE);
 
             builder.pop();
         }
