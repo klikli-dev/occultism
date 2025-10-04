@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.192.1] - 2025-10-04
+### :bug: Bug Fixes
+- [`7619b51`](https://github.com/klikli-dev/occultism/commit/7619b519376d7d901a4c5b4e9bf27a4e95eacb72) - removing client only from compass wobble, fixes [#1432](https://github.com/klikli-dev/occultism/pull/1432) *(PR [#1433](https://github.com/klikli-dev/occultism/pull/1433) by [@GaeaKat](https://github.com/GaeaKat))*
+
+
 ## [release/v1.21.1-1.192.0] - 2025-10-04
 ### :sparkles: New Features
 - [`694bc28`](https://github.com/klikli-dev/occultism/commit/694bc28992f33c05820caab530fff7dd30178ec6) - Knowledge Tablet and feedbacks *(PR [#1418](https://github.com/klikli-dev/occultism/pull/1418) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
@@ -2179,3 +2184,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.190.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.190.0...release/v1.21.1-1.190.1
 [release/v1.21.1-1.191.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.190.1...release/v1.21.1-1.191.0
 [release/v1.21.1-1.192.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.191.0...release/v1.21.1-1.192.0
+[release/v1.21.1-1.192.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.192.0...release/v1.21.1-1.192.1
