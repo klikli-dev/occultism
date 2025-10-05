@@ -46,7 +46,7 @@ public class NaturePasteItem extends Item {
         BlockPos blockpos = context.getClickedPos();
         BlockState blockState = level.getBlockState(blockpos);
         Player player = context.getPlayer();
-        ItemStack item = player.getItemInHand(InteractionHand.MAIN_HAND);
+        ItemStack item = player.getItemInHand(context.getHand());
 
         if (blockState.is(Tags.Blocks.ORES) && !blockState.is(OccultismTags.Blocks.BLOCKED_PASTE)
                 && player.getItemInHand(InteractionHand.OFF_HAND).getItem() == OccultismItems.GRAY_PASTE.asItem()) {
