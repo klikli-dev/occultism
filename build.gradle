@@ -114,7 +114,7 @@ repositories {
         }
     }
     maven {
-        name = "JEI and AlmostUnified"
+        name = "JEI, AlmostUnified"
         url = 'https://maven.blamejared.com/'
         content {
             includeGroup "mezz.jei"
@@ -197,9 +197,9 @@ configurations {
 
 dependencies {
     //Jei
-    compileOnly "mezz.jei:jei-${minecraft_version_major}-common-api:${jei_version}"
-    compileOnly "mezz.jei:jei-${minecraft_version_major}-neoforge-api:${jei_version}"
-//    localRuntime "mezz.jei:jei-${minecraft_version_major}-neoforge:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+    //localRuntime "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     //curios
     compileOnly ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version_major}:api") {transitive=false}
@@ -248,6 +248,8 @@ dependencies {
     compileOnly("dev.engine-room.flywheel:flywheel-neoforge-api-${minecraft_version}:${flywheel_version}")
     runtimeOnly("dev.engine-room.flywheel:flywheel-neoforge-${minecraft_version}:${flywheel_version}")
     implementation("com.tterrag.registrate:Registrate:${registrate_version}")
+
+    runtimeOnly("curse.maven:immersive-engineering-231951:${ie_id}")
 }
 
 processResources {
