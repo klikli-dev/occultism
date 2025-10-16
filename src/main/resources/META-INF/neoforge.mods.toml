@@ -92,3 +92,15 @@ modId = "emi"
 type = "optional"
 versionRange = "${emi_version_range}"
 side = "BOTH"
+
+[[dependencies.occultism]]
+modId = "create"
+type = "optional"
+versionRange = "${create_version_range}"
+side = "BOTH"
+
+[[dependencies.occultism]]
+modId = "immersiveengineering"
+type = "optional"
+versionRange = "${ie_version_range}"
+side = "BOTH"

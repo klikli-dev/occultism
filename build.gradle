@@ -114,7 +114,7 @@ repositories {
         }
     }
     maven {
-        name = "JEI and AlmostUnified"
+        name = "JEI, AlmostUnified"
         url = 'https://maven.blamejared.com/'
         content {
             includeGroup "mezz.jei"
@@ -183,6 +183,8 @@ repositories {
             includeGroup "dev.shadowsoffire"
         }
     }
+    maven { url = "https://maven.createmod.net" } // Create, Ponder, Flywheel
+    maven { url = "https://maven.ithundxr.dev/snapshots" } // Registrate
     flatDir {
         dirs 'lib'
     }
@@ -195,9 +197,9 @@ configurations {
 
 dependencies {
     //Jei
-    compileOnly "mezz.jei:jei-${minecraft_version_major}-common-api:${jei_version}"
-    compileOnly "mezz.jei:jei-${minecraft_version_major}-neoforge-api:${jei_version}"
-//    localRuntime "mezz.jei:jei-${minecraft_version_major}-neoforge:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+    //localRuntime "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     //curios
     compileOnly ("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version_major}:api") {transitive=false}
@@ -240,6 +242,14 @@ dependencies {
     compileOnly ("dev.shadowsoffire:ApothicEnchanting:${minecraft_version}-${apothic_enchanting_version}") {transitive=false}
     //need more dependencies, so it doesn't run here
     //localRuntime ("dev.shadowsoffire:ApothicEnchanting:${minecraft_version}-${apothic_enchanting_version}") {transitive=false}
+
+    implementation("com.simibubi.create:create-${minecraft_version}:${create_version}:slim") { transitive = false }
+    implementation("net.createmod.ponder:Ponder-NeoForge-${minecraft_version}:${ponder_version}")
+    compileOnly("dev.engine-room.flywheel:flywheel-neoforge-api-${minecraft_version}:${flywheel_version}")
+    runtimeOnly("dev.engine-room.flywheel:flywheel-neoforge-${minecraft_version}:${flywheel_version}")
+    implementation("com.tterrag.registrate:Registrate:${registrate_version}")
+
+    runtimeOnly("curse.maven:immersive-engineering-231951:${ie_id}")
 }
 
 processResources {

@@ -31,3 +31,7 @@ src/generated/resources/.cache/
 
 # local flatDir maven repo
 lib/
+
+# vscode
+.vscode/
+.vscode/launch.json
