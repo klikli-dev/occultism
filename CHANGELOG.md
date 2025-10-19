@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.153.0] - 2025-10-19
+### :sparkles: New Features
+- [`f9a3efd`](https://github.com/klikli-dev/occultism/commit/f9a3efd2c654bb7b5715a858f1034adba7af8918) - New translations en_us.json (Chinese Simplified) *(PR [#1440](https://github.com/klikli-dev/occultism/pull/1440) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`a2dd0d7`](https://github.com/klikli-dev/occultism/commit/a2dd0d7e2f7aea2c301cac483f07f01ab7d5a154) - restore custom guide book item methods that are not available in modonomicon base *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`5c7206d`](https://github.com/klikli-dev/occultism/commit/5c7206d7d53f86676b2163db70e3269229d0fe21) - use modonomicon custom item base *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.152.1] - 2025-10-04
 ### :bug: Bug Fixes
 - [`8f9cd93`](https://github.com/klikli-dev/occultism/commit/8f9cd93c2ff9fe4867baea522bd228c68fb38e9d) - [#1394](https://github.com/klikli-dev/occultism/pull/1394) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1365,3 +1376,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.151.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.150.0...release/v1.20.1-1.151.0
 [release/v1.20.1-1.152.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.151.0...release/v1.20.1-1.152.0
 [release/v1.20.1-1.152.1]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.152.0...release/v1.20.1-1.152.1
+[release/v1.20.1-1.153.0]: https://github.com/klikli-dev/occultism/compare/release/v1.20.1-1.152.1...release/v1.20.1-1.153.0
