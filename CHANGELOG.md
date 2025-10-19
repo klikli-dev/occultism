@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.194.0] - 2025-10-19
+### :sparkles: New Features
+- [`df19e8b`](https://github.com/klikli-dev/occultism/commit/df19e8baefea97ebddf12fdf4bb1b84c8cf9f23b) - New translations en_us.json (Chinese Simplified) *(PR [#1439](https://github.com/klikli-dev/occultism/pull/1439) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.193.0] - 2025-10-16
 ### :sparkles: New Features
 - [`47ef06d`](https://github.com/klikli-dev/occultism/commit/47ef06d3f1113a30d097af560dfb05801ac50846) - IE and Create sawing recipes *(PR [#1438](https://github.com/klikli-dev/occultism/pull/1438) by [@ThePixelatedCat](https://github.com/ThePixelatedCat))*
@@ -2198,3 +2203,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.192.1]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.192.0...release/v1.21.1-1.192.1
 [release/v1.21.1-1.192.2]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.192.1...release/v1.21.1-1.192.2
 [release/v1.21.1-1.193.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.192.2...release/v1.21.1-1.193.0
+[release/v1.21.1-1.194.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.193.0...release/v1.21.1-1.194.0
