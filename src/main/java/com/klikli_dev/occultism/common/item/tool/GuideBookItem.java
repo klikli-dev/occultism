@@ -22,9 +22,14 @@
 
 package com.klikli_dev.occultism.common.item.tool;
 
+import com.klikli_dev.modonomicon.api.ModonomiconConstants;
 import com.klikli_dev.modonomicon.item.ModonomiconCustomItemBase;
 import com.klikli_dev.occultism.Occultism;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import org.jetbrains.annotations.Nullable;
 
 public class GuideBookItem extends ModonomiconCustomItemBase {
 
@@ -33,5 +38,27 @@ public class GuideBookItem extends ModonomiconCustomItemBase {
     public GuideBookItem(Properties properties) {
         super(DICTIONARY_OF_SPIRITS, properties);
         this.craftingRemainingItem = this;
+    }
+
+    @Override
+    public ItemStack getCraftingRemainingItem(ItemStack itemStack) {
+        return itemStack.copy();
+    }
+
+
+    public ItemStack getCreativeModeTabDisplayStack() {
+        ItemStack stack = new ItemStack(this);
+
+        CompoundTag cmp = new CompoundTag();
+        cmp.putString(ModonomiconConstants.Nbt.ITEM_BOOK_ID_TAG, DICTIONARY_OF_SPIRITS.toString());
+        stack.setTag(cmp);
+
+        return stack;
+    }
+
+    @Override
+    public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
+        stack.getOrCreateTag().putString(ModonomiconConstants.Nbt.ITEM_BOOK_ID_TAG, DICTIONARY_OF_SPIRITS.toString());
+        return super.initCapabilities(stack, nbt);
     }
 }
