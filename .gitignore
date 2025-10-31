@@ -35,3 +35,4 @@ lib/
 # vscode
 .vscode/
 .vscode/launch.json
+.kilocode/
