@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.196.0] - 2025-11-03
+### :sparkles: New Features
+- [`ed06844`](https://github.com/klikli-dev/occultism/commit/ed06844c6aca6b0488ebf6bb02edfe99bcad668d) - add remaining new item and block textures *(PR [#1443](https://github.com/klikli-dev/occultism/pull/1443) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.195.0] - 2025-11-01
 ### :sparkles: New Features
 - [`7abd717`](https://github.com/klikli-dev/occultism/commit/7abd71720b1f78343ad0c9f44e46abc4720c3357) - New Crowdin updates *(PR [#1442](https://github.com/klikli-dev/occultism/pull/1442) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2210,3 +2215,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.193.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.192.2...release/v1.21.1-1.193.0
 [release/v1.21.1-1.194.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.193.0...release/v1.21.1-1.194.0
 [release/v1.21.1-1.195.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.194.0...release/v1.21.1-1.195.0
+[release/v1.21.1-1.196.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.195.0...release/v1.21.1-1.196.0
