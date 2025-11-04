@@ -680,7 +680,11 @@ public class OccultismBlocks {
             if (name.contains("natural")) {
                 OccultismItems.ITEMS.register(name, () -> new OccultismBlockItem(object.get(), new Item.Properties()));
             } else {
-                OccultismItems.ITEMS.register(name, () -> new BlockItem(object.get(), new Item.Properties().rarity(rarity)));
+                if (rarity == Rarity.COMMON) {
+                    OccultismItems.ITEMS.register(name, () -> new BlockItem(object.get(), new Item.Properties().rarity(rarity)));
+                } else {
+                    OccultismItems.ITEMS.register(name, () -> new BlockItem(object.get(), new Item.Properties().rarity(rarity).fireResistant()));
+                }
             }
         }
 
