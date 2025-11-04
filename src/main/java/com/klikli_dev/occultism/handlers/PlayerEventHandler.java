@@ -26,6 +26,7 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.advancement.FamiliarTrigger;
 import com.klikli_dev.occultism.common.entity.familiar.IFamiliar;
 import com.klikli_dev.occultism.common.item.spirit.BookOfBindingItem;
+import com.klikli_dev.occultism.common.item.tool.SoulGemItem;
 import com.klikli_dev.occultism.crafting.recipe.BoundBookOfBindingRecipe;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
@@ -54,11 +55,12 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.entity.PartEntity;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 import java.util.List;
 
-@EventBusSubscriber(modid = Occultism.MODID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = Occultism.MODID)
 public class PlayerEventHandler {
 
     private static final ItemAbility LIGHT_FIRE = ItemAbility.get("light_fire");
@@ -179,33 +181,19 @@ public class PlayerEventHandler {
 
     @SubscribeEvent
     public static void onPlayerRightClickEntity(PlayerInteractEvent.EntityInteract event) {
-        if (event.getItemStack().getItem() == OccultismItems.SOUL_GEM_ITEM.get() &&
-                event.getTarget() instanceof LivingEntity) {
+        ItemStack stack = event.getItemStack();
+        if (stack.getItem() instanceof SoulGemItem soulGemItem) {
             //called from here to bypass sitting entity's sit command.
-            if (OccultismItems.SOUL_GEM_ITEM.get()
-                    .interactLivingEntity(event.getItemStack(), event.getEntity(),
-                            (LivingEntity) event.getTarget(),
-                            event.getHand()) == InteractionResult.SUCCESS) {
+            if (event.getTarget() instanceof LivingEntity livingEntity
+                    && soulGemItem.interactLivingEntity(stack, event.getEntity(),
+                        livingEntity, event.getHand()) == InteractionResult.SUCCESS) {
                 event.setCanceled(true);
             }
-        }
-        if (event.getItemStack().getItem() == OccultismItems.FRAGILE_SOUL_GEM_ITEM.get() &&
-                event.getTarget() instanceof LivingEntity) {
-            //called from here to bypass sitting entity's sit command.
-            if (OccultismItems.FRAGILE_SOUL_GEM_ITEM.get()
-                    .interactLivingEntity(event.getItemStack(), event.getEntity(),
-                            (LivingEntity) event.getTarget(),
-                            event.getHand()) == InteractionResult.SUCCESS) {
-                event.setCanceled(true);
-            }
-        }
-        if (event.getItemStack().getItem() == OccultismItems.TRINITY_GEM_ITEM.get() &&
-                event.getTarget() instanceof LivingEntity) {
-            //called from here to bypass sitting entity's sit command.
-            if (OccultismItems.TRINITY_GEM_ITEM.get()
-                    .interactLivingEntity(event.getItemStack(), event.getEntity(),
-                            (LivingEntity) event.getTarget(),
-                            event.getHand()) == InteractionResult.SUCCESS) {
+            //force for multipart entities
+            if (event.getTarget() instanceof PartEntity<?> partEntity
+                    && partEntity.getParent() instanceof LivingEntity livingEntity
+                    && soulGemItem.interactLivingEntity(stack, event.getEntity(),
+                        livingEntity, event.getHand()) == InteractionResult.SUCCESS) {
                 event.setCanceled(true);
             }
         }
