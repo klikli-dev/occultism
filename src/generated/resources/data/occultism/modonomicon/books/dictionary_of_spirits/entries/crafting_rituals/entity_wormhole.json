@@ -79,6 +79,18 @@
       "text": "book.occultism.dictionary_of_spirits.crafting_rituals.entity_wormhole.exit_pitch.text",
       "title": "book.occultism.dictionary_of_spirits.crafting_rituals.entity_wormhole.exit_pitch.title",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "minecraft:fishing_rod"
+      },
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.entity_wormhole.fishing.text",
+      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.entity_wormhole.fishing.title"
     }
   ],
   "parents": [

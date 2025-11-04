@@ -3044,6 +3044,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("minerFortune", "Fortune miners");
         this.addConfig("unbreakableChalks", "Unbreakable Chalks");
         this.addConfig("maxDistanceRTP", "Max Distance RTP");
+        this.addConfig("maxTryRTP", "Max Attempts to RTP");
     }
 
     private void addConfig(String key, String name) {
