@@ -48,7 +48,13 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:chorus_flower"
+          "name": "minecraft:chorus_flower",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:chorus_fruit",
+          "weight": 4
         }
       ],
       "rolls": 1.0

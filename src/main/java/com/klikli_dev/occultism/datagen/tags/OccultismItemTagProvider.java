@@ -521,6 +521,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(OccultismTags.Items.DROPS_POSSESSED_SHULKER)
             .add(Items.SHULKER_SHELL)
             .add(Items.CHORUS_FLOWER)
+            .add(Items.CHORUS_FRUIT)
             .add(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE);
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_SKELETON)

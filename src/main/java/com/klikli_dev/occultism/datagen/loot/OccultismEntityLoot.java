@@ -346,11 +346,9 @@ public class OccultismEntityLoot extends EntityLootSubProvider {
                 .withPool(
                         LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1.0F))
-                                .add(
-                                        LootItem.lootTableItem(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE)
-                                ).add(
-                                        LootItem.lootTableItem(Items.CHORUS_FLOWER)
-                                )
+                                .add(LootItem.lootTableItem(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE).setWeight(1))
+                                .add(LootItem.lootTableItem(Items.CHORUS_FLOWER).setWeight(2))
+                                .add(LootItem.lootTableItem(Items.CHORUS_FRUIT).setWeight(4))
                                 .when(LootItemRandomChanceCondition.randomChance(0.1F))
                 );
     }
