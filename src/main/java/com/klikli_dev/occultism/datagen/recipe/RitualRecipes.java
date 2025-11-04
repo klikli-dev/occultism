@@ -37,6 +37,8 @@ public abstract class RitualRecipes extends RecipeProvider {
     private static final ResourceLocation RITUAL_CRAFT = OccultismRituals.CRAFT.getId();
     private static final ResourceLocation RITUAL_CRAFT_MINER_SPIRIT = OccultismRituals.CRAFT_MINER_SPIRIT.getId();
     private static final ResourceLocation RITUAL_REPAIR = OccultismRituals.REPAIR.getId();
+    private static final ResourceLocation RITUAL_UNBREAKABLE = OccultismRituals.UNBREAKABLE.getId();
+    private static final ResourceLocation RITUAL_UPGRADE = OccultismRituals.UPGRADE.getId();
     // Pentacle IDs
     private static final ResourceLocation PENTACLE_SUMMON_FOLIOT = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_foliot");
     private static final ResourceLocation PENTACLE_SUMMON_DJINNI = ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "summon_djinni");
@@ -96,6 +98,7 @@ public abstract class RitualRecipes extends RecipeProvider {
         repairRituals(recipeOutput);
         randomRituals(recipeOutput);
         contactRituals(recipeOutput);
+        upgradeRituals(recipeOutput);
     }
 
     private static void summonRituals(RecipeOutput recipeOutput, HolderLookup.Provider registries) {
@@ -2032,26 +2035,6 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.ravager")
                 .entityToSacrifice(OccultismTags.Entities.RAVAGER)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_celestial_chalice"));
-        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.DIMENSIONAL_MATRIX),
-                        new ItemStack(OccultismBlocks.STORAGE_CONTROLLER_STABILIZED.asItem()),
-                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE.get()),
-                        780,
-                        RITUAL_CRAFT,
-                        PENTACLE_CONTACT_ELDRITCH_SPIRIT,
-                        Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER4.asItem()),
-                        Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER4.asItem()),
-                        Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER4.asItem()),
-                        Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER4.asItem()),
-                        Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER4.asItem()),
-                        Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER4.asItem()),
-                        Ingredient.of(OccultismBlocks.STORAGE_CONTROLLER_BASE),
-                        Ingredient.of(OccultismTags.Items.ECHO_DUST),
-                        Ingredient.of(OccultismTags.Items.ECHO_DUST),
-                        Ingredient.of(OccultismTags.Items.ECHO_DUST))
-                .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
-                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.humans")
-                .entityToSacrifice(OccultismTags.Entities.HUMANS)
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_stabilized_storage"));
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BRUSH),
                         new ItemStack(OccultismItems.CHALK_RAINBOW.get()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_RAINBOW.get()),
@@ -2324,5 +2307,42 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .unlockedBy("has_spirit_attuned_gem", has(OccultismItems.SPIRIT_ATTUNED_GEM))
                 .summonNumber(3)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/wild_random_animal_special"));
+    }
+
+    private static void upgradeRituals(RecipeOutput recipeOutput) {
+        //Individual
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()),
+                        new ItemStack(OccultismItems.RITUAL_SATCHEL_T2.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_UPGRADE_RITUAL_SATCHEL),
+                        180,
+                        RITUAL_UPGRADE,
+                        PENTACLE_CRAFT_AFRIT,
+                        Ingredient.of(OccultismItems.RITUAL_SATCHEL_T1),
+                        Ingredient.of(OccultismItems.AFRIT_ESSENCE),
+                        Ingredient.of(Tags.Items.ENDER_PEARLS),
+                        Ingredient.of(Tags.Items.ENDER_PEARLS),
+                        Ingredient.of(Tags.Items.ENDER_PEARLS),
+                        Ingredient.of(Tags.Items.ENDER_PEARLS))
+                .unlockedBy("has_bound_afrit", has(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_upgrade_ritual_satchel"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismTags.Items.ECHO_DUST),
+                        new ItemStack(OccultismBlocks.STORAGE_CONTROLLER_STABILIZED.asItem()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE.get()),
+                        780,
+                        RITUAL_UPGRADE,
+                        PENTACLE_CONTACT_ELDRITCH_SPIRIT,
+                        Ingredient.of(OccultismBlocks.STORAGE_CONTROLLER),
+                        Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER4.asItem()),
+                        Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER4.asItem()),
+                        Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER4.asItem()),
+                        Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER4.asItem()),
+                        Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER4.asItem()),
+                        Ingredient.of(OccultismBlocks.STORAGE_STABILIZER_TIER4.asItem()),
+                        Ingredient.of(OccultismTags.Items.ECHO_DUST),
+                        Ingredient.of(OccultismTags.Items.ECHO_DUST))
+                .unlockedBy("has_bound_marid", has(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get()))
+                .entityToSacrificeDisplayName("ritual.occultism.sacrifice.humans")
+                .entityToSacrifice(OccultismTags.Entities.HUMANS)
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_stabilized_storage"));
     }
 }

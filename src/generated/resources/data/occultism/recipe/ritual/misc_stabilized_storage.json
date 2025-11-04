@@ -1,7 +1,7 @@
 {
   "type": "occultism:ritual",
   "activation_item": {
-    "item": "occultism:dimensional_matrix"
+    "tag": "c:dusts/echo"
   },
   "duration": 780,
   "entity_to_sacrifice": {
@@ -10,7 +10,7 @@
   },
   "ingredients": [
     {
-      "item": "occultism:storage_stabilizer_tier4"
+      "item": "occultism:storage_controller"
     },
     {
       "item": "occultism:storage_stabilizer_tier4"
@@ -28,10 +28,7 @@
       "item": "occultism:storage_stabilizer_tier4"
     },
     {
-      "item": "occultism:storage_controller_base"
-    },
-    {
-      "tag": "c:dusts/echo"
+      "item": "occultism:storage_stabilizer_tier4"
     },
     {
       "tag": "c:dusts/echo"
@@ -49,5 +46,5 @@
     "count": 1,
     "id": "occultism:ritual_dummy/misc_stabilized_storage"
   },
-  "ritual_type": "occultism:craft"
+  "ritual_type": "occultism:upgrade"
 }
