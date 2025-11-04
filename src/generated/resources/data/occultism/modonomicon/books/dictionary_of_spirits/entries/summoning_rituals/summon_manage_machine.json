@@ -67,6 +67,17 @@
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.book_of_calling.text",
       "title1": "",
       "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.usage.text",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_manage_machine.usage.title",
+      "use_markdown_in_title": false
     }
   ],
   "parents": [

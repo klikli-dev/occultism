@@ -1419,6 +1419,19 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
                         """.formatted(COLOR_PURPLE));
 
+        this.context().page("usage");
+        var usage = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "Usage");
+        this.lang().add(this.context().pageText(),
+                """
+                        Use the book of calling to set the extract and insert location of the transporter.
+                        \\
+                        \\
+                        See [Books of Calling](entry://getting_started/books_of_calling) for more information.
+                           """);
+
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(Items.MINECART)
                 .withLocation(entryMap.get(icon))
@@ -1428,7 +1441,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         spirit_inventories,
                         itemFilters,
                         ritual,
-                        bookOfCalling
+                        bookOfCalling,
+                        usage
                 );
     }
 
@@ -1483,6 +1497,19 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
                         """.formatted(COLOR_PURPLE));
 
+        this.context().page("usage");
+        var usage = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+        this.lang().add(this.context().pageTitle(), "Usage");
+        this.lang().add(this.context().pageText(),
+                """
+                        Use the book of calling to set the work area and deposit location of the janitor.
+                        \\
+                        \\
+                        See [Books of Calling](entry://getting_started/books_of_calling) for more information.
+                           """);
+
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismItems.BRUSH.get())
                 .withLocation(entryMap.get(icon))
@@ -1491,7 +1518,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         intro2,
                         tip,
                         ritual,
-                        bookOfCalling
+                        bookOfCalling,
+                        usage
                 );
     }
 
@@ -1520,6 +1548,11 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                 .withRecipeId1(this.modLoc("crafting/book_of_calling_djinni_manage_machine"))
                 .withText(this.context().pageText());
 
+        this.context().page("usage");
+        var usage = BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText());
+
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(Items.LEVER)
                 .withLocation(entryMap.get(icon))
@@ -1528,7 +1561,8 @@ public class OccultismBookProvider extends SingleBookSubProvider {
                         tutorial,
                         tutorial2,
                         ritual,
-                        bookOfCalling
+                        bookOfCalling,
+                        usage
                 );
     }
 

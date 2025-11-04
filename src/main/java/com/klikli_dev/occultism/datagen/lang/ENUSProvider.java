@@ -1045,6 +1045,16 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                         [#](%1$s)Shift-right-click[#]() the spirit with the crafted book to assign it.
                         """.formatted(COLOR_PURPLE));
 
+        helper.page("usage");
+        this.add(helper.pageTitle(), "Usage");
+        this.add(helper.pageText(),
+                """
+                        Use the book of calling to set the actuator, managed machine and extract locations of the machine operator.
+                        \\
+                        \\
+                        See [Books of Calling](entry://getting_started/books_of_calling) for more information.
+                           """);
+
         helper.entry("trade_spirits");
         this.add(helper.entryName(), "Trade Spirits");
 
