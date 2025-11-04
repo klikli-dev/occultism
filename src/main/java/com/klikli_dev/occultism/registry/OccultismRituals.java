@@ -79,6 +79,12 @@ public class OccultismRituals {
     public static final DeferredHolder<RitualFactory, RitualFactory> REPAIR =
             RITUAL_FACTORIES.register("repair",
                     () -> new RitualFactory(RepairRitual::new));
+    public static final DeferredHolder<RitualFactory, RitualFactory> UNBREAKABLE =
+            RITUAL_FACTORIES.register("unbreakable",
+                    () -> new RitualFactory(UnbreakableRitual::new));
+    public static final DeferredHolder<RitualFactory, RitualFactory> UPGRADE =
+            RITUAL_FACTORIES.register("upgrade",
+                    () -> new RitualFactory(UpgradeRitual::new));
 
     //Other
     public static final DeferredHolder<RitualFactory, RitualFactory> COMMAND =
