@@ -30,7 +30,8 @@ public class StabilizedStorageEntry extends EntryProvider {
                          this block will helps occult masters twist space, placing the stabilizers in the same
                          position as the actuator in some extra-planar dimension invisible even to the best eyes.\\
                          By default this item receives one bonus stabilizer tier 4\\
-                         Other external stabilizers do not affect this block.
+                         Other external stabilizers do not affect this block.\\
+                         The recipe keep items inside!
                         """,
                 this.color("Eldritch Spirits", ChatFormatting.DARK_PURPLE)
         );

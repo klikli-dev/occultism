@@ -26,17 +26,6 @@
       "title": ""
     },
     {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.artisanal_ritual_satchel.about.text",
-      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.artisanal_ritual_satchel.about.title",
-      "use_markdown_in_title": false
-    },
-    {
       "type": "occultism:ritual_recipe",
       "anchor": "",
       "condition": {
@@ -46,6 +35,39 @@
       "text": "",
       "title1": "",
       "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.artisanal_ritual_satchel.upgrade.text",
+      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.artisanal_ritual_satchel.upgrade.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/craft_upgrade_ritual_satchel",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.crafting_rituals.artisanal_ritual_satchel.about.text",
+      "title": "book.occultism.dictionary_of_spirits.crafting_rituals.artisanal_ritual_satchel.about.title",
+      "use_markdown_in_title": false
     },
     {
       "type": "modonomicon:text",
