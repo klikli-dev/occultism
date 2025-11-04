@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.197.0] - 2025-11-04
+### :sparkles: New Features
+- [`6ceffa5`](https://github.com/klikli-dev/occultism/commit/6ceffa521c704cf5689738d48c45a9473b373d42) - **omnibus**: Farmer Spirit and fixes *(PR [#1445](https://github.com/klikli-dev/occultism/pull/1445) by [@Eqis-Edu](https://github.com/Eqis-Edu))*
+
+
 ## [release/v1.21.1-1.196.0] - 2025-11-03
 ### :sparkles: New Features
 - [`ed06844`](https://github.com/klikli-dev/occultism/commit/ed06844c6aca6b0488ebf6bb02edfe99bcad668d) - add remaining new item and block textures *(PR [#1443](https://github.com/klikli-dev/occultism/pull/1443) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -2216,3 +2221,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.194.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.193.0...release/v1.21.1-1.194.0
 [release/v1.21.1-1.195.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.194.0...release/v1.21.1-1.195.0
 [release/v1.21.1-1.196.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.195.0...release/v1.21.1-1.196.0
+[release/v1.21.1-1.197.0]: https://github.com/klikli-dev/occultism/compare/release/v1.21.1-1.196.0...release/v1.21.1-1.197.0
