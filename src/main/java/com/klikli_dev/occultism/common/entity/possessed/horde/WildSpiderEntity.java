@@ -80,7 +80,7 @@ public class WildSpiderEntity extends Spider implements PossessedMob {
 
     @Override
     protected boolean shouldDespawnInPeaceful() {
-        return false;
+        return true;
     }
     //endregion Static Methods
 

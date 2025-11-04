@@ -89,7 +89,7 @@ public class WildSlimeEntity extends Slime implements PossessedMob {
 
     @Override
     protected boolean shouldDespawnInPeaceful() {
-        return false;
+        return true;
     }
 
     @Override

@@ -81,7 +81,7 @@ public class WildSilverfishEntity extends Silverfish implements PossessedMob {
 
     @Override
     protected boolean shouldDespawnInPeaceful() {
-        return false;
+        return true;
     }
     //endregion Static Methods
 
