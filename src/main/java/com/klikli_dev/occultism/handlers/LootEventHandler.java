@@ -46,7 +46,7 @@ import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 
-@EventBusSubscriber(modid = Occultism.MODID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = Occultism.MODID)
 public class LootEventHandler {
 
     @SubscribeEvent
@@ -95,8 +95,8 @@ public class LootEventHandler {
     @SubscribeEvent
     public static void breakSpecialBlocks(BlockEvent.BreakEvent event) {
         Player player = event.getPlayer();
-        //if (player.isCreative())
-        //        return;
+        if (player.isCreative())
+            return;
 
         event.getState().getTags().forEach(blockTagKey -> {
             if (blockTagKey.equals(OccultismTags.Blocks.OTHERWORLD_COLLECTS)) {
@@ -107,13 +107,12 @@ public class LootEventHandler {
                     Level level = (Level) event.getLevel();
                     BlockPos pos = event.getPos();
                     ItemEntity itementity = new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(),
-                            event.getState().getBlock().asItem().getDefaultInstance());
+                            new ItemStack(event.getState().getBlock()));
                     level.addFreshEntity(itementity);
                     level.setBlock(pos, Blocks.AIR.defaultBlockState(), 1);
                     event.setCanceled(true);
                 }
             }
         });
-
     }
 }

@@ -114,25 +114,25 @@ public class OccultismSpiritJobs {
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier1CrystallizerTimeMultiplier.get().floatValue(),
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier1CrystallizerOutputMultiplier.get().floatValue(),
                     () -> 1
-            ), SpiritJobClient.create("crusher")));
+            ), SpiritJobClient.create("crystallizer")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> CRYSTAL_TIER2 = JOBS.register("crystal_tier2",
             () -> new SpiritJobFactory((entity) -> new CrystallizerJob(entity,
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier2CrystallizerTimeMultiplier.get().floatValue(),
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier2CrystallizerOutputMultiplier.get().floatValue(),
                     () -> 2
-            ), SpiritJobClient.create("crusher")));
+            ), SpiritJobClient.create("crystallizer")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> CRYSTAL_TIER3 = JOBS.register("crystal_tier3",
             () -> new SpiritJobFactory((entity) -> new CrystallizerJob(entity,
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier3CrystallizerTimeMultiplier.get().floatValue(),
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier3CrystallizerOutputMultiplier.get().floatValue(),
                     () -> 3
-            ), SpiritJobClient.create("crusher")));
+            ), SpiritJobClient.create("crystallizer")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> CRYSTAL_TIER4 = JOBS.register("crystal_tier4",
             () -> new SpiritJobFactory((entity) -> new CrystallizerJob(entity,
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier4CrystallizerTimeMultiplier.get().floatValue(),
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier4CrystallizerOutputMultiplier.get().floatValue(),
                     () -> 4
-            ), SpiritJobClient.create("crusher")));
+            ), SpiritJobClient.create("crystallizer")));
 
     //Weather Jobs
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> CLEAR_WEATHER = JOBS.register("clear_weather",
