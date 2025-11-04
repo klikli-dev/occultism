@@ -280,6 +280,12 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_book_of_binding_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/book_of_calling_foliot_lumberjack"));
 
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.BOOK_OF_CALLING_FOLIOT_FARMER.get())
+                .requires(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get())
+                .requires(ItemTags.VILLAGER_PLANTABLE_SEEDS)
+                .unlockedBy("has_book_of_binding_bound_foliot", has(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/book_of_calling_foliot_farmer"));
+
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get())
                 .requires(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get())
                 .requires(Tags.Items.CHESTS)

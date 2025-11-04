@@ -1002,7 +1002,7 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        Once everything has been set up and you are ready to start, this special sacrificial bowl is used to activate the ritual by [#](%1$s)right-clicking[#]() it with the activation item,
+                        Once everything has been set up and you are ready to start, this special ritual bowl is used to activate the ritual by [#](%1$s)right-clicking[#]() it with the activation item,
                         usually a [Book of Binding](entry://getting_started/books_of_binding).
                              """.formatted(COLOR_PURPLE));
 
@@ -1333,7 +1333,7 @@ public class GettingStartedCategory extends CategoryProvider {
                 .withText(this.context().pageText());
         this.lang().add(this.context().pageText(),
                 """
-                        Possible locations for the sacrificial bowls.
+                        Some possible locations for the sacrificial bowls.
                           """.formatted(COLOR_PURPLE));
 
         this.context().page("ritual_text");
@@ -1384,7 +1384,7 @@ public class GettingStartedCategory extends CategoryProvider {
         this.lang().add(this.context().pageTitle(), "Automatic Rituals");
         this.lang().add(this.context().pageText(),
                 """
-                        Instead of right-clicking the golden sacrificial bowl with the final ingredient, you can also use a Hopper or any type of pipe to insert the item into the bowl. The ritual will start automatically.\\
+                        Instead of right-clicking the golden ritual bowl with the final ingredient, you can also use a Hopper or any type of pipe to insert the item into the bowl. The ritual will start automatically.\\
                         Note that any rituals that summon tamed animals or familiars will summon them untamed instead.
                           """.formatted(COLOR_PURPLE));
 

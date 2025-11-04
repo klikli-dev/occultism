@@ -8,7 +8,6 @@ import com.klikli_dev.occultism.TranslationKeys;
 import com.klikli_dev.occultism.common.container.satchel.RitualSatchelContainer;
 import com.klikli_dev.occultism.common.container.satchel.SatchelInventory;
 import com.klikli_dev.occultism.common.item.tool.ChalkItem;
-import com.klikli_dev.occultism.common.item.tool.RainbowChalkItem;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSendPreviewedPentacle;
 import com.klikli_dev.occultism.registry.OccultismItems;
@@ -100,11 +99,7 @@ public abstract class RitualSatchelItem extends Item {
 
                 blockStateToPlace = block.getStateForPlacement(blockPlaceContext);
             } else if (stack.getItem() instanceof ChalkItem chalkItem) {
-                var chalkBlock = chalkItem.getGlyphBlock().get();
-                    blockStateToPlace = chalkBlock.getStateForPlacement(new BlockPlaceContext(context));
-                    isGlyph = true;
-            } else if (stack.getItem() instanceof RainbowChalkItem chalkItem) {
-                var chalkBlock = chalkItem.getGlyphBlock().get();
+                var chalkBlock = chalkItem.getGlyphBlock();
                     blockStateToPlace = chalkBlock.getStateForPlacement(new BlockPlaceContext(context));
                     isGlyph = true;
             }

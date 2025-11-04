@@ -65,6 +65,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
         this.registerItemGenerated(this.name(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get()),"book_of_calling_manage_machine");
         this.registerItemGenerated(this.name(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get()),"book_of_calling_cleaner");
         this.registerItemGenerated(this.name(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get()),"book_of_calling_lumberjack");
+        this.registerItemGenerated(this.name(OccultismItems.BOOK_OF_CALLING_FOLIOT_FARMER.get()),"book_of_calling_farmer");
         this.registerItemGenerated(this.name(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get()),"book_of_calling_transport_items");
 
         this.registerItemGenerated(this.name(OccultismItems.PENTACLE_SUMMON.get()),"ritual_dummy_summon");

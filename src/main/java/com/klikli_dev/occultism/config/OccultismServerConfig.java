@@ -53,6 +53,7 @@ public class OccultismServerConfig {
         public final BooleanValue minerFortune;
         public final BooleanValue unbreakableChalks;
         public final IntValue maxDistanceRTP;
+        public final IntValue maxTryRTP;
 
         public ItemSettings(ModConfigSpec.Builder builder) {
             builder.comment("Item Settings").push("items");
@@ -87,6 +88,11 @@ public class OccultismServerConfig {
                                     "Maximum distance the Entity Wormhole random teleport (RTP) feature can reach."
                             )
                             .defineInRange("maxDistanceRTP", 4096, 0, Integer.MAX_VALUE);
+            this.maxTryRTP =
+                    builder.comment(
+                                    "Maximum number of attempts to find a safe place for the RTP."
+                            )
+                            .defineInRange("maxTryRTP", 99, 0, Integer.MAX_VALUE);
 
             builder.pop();
         }

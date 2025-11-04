@@ -69,6 +69,7 @@ public class SummonRitual extends Ritual {
         ItemStack result = this.recipe.getResultItem(registryAccess).copy();
         if (result.getItem() == OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get()
             || result.getItem() == OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get()
+            || result.getItem() == OccultismItems.BOOK_OF_CALLING_FOLIOT_FARMER.get()
             || result.getItem() == OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get()
             || result.getItem() == OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get()) {
             //should never happen, but apparently there is a scenario where it does (item cheated in with non jei?)

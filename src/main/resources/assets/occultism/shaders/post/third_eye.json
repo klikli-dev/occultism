@@ -52,12 +52,12 @@
       ]
     },
     {
-      "name": "deconverge",
+      "name": "occultism:deconverge",
       "intarget": "a",
       "outtarget": "c"
     },
     {
-      "name": "phosphor",
+      "name": "occultism:phosphor",
       "intarget": "c",
       "outtarget": "swap",
       "auxtargets": [

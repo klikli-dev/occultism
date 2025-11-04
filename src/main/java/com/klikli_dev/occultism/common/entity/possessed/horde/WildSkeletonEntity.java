@@ -81,7 +81,7 @@ public class WildSkeletonEntity extends Skeleton implements PossessedMob {
 
     @Override
     protected boolean shouldDespawnInPeaceful() {
-        return false;
+        return true;
     }
     //endregion Static Methods
     @Override

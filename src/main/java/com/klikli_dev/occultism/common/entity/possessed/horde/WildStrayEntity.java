@@ -81,7 +81,7 @@ public class WildStrayEntity extends Stray implements PossessedMob {
 
     @Override
     protected boolean shouldDespawnInPeaceful() {
-        return false;
+        return true;
     }
     //endregion Static Methods
     @Override

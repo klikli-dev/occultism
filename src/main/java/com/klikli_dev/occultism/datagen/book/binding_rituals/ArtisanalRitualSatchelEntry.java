@@ -36,6 +36,26 @@ public class ArtisanalRitualSatchelEntry extends EntryProvider {
                 this.color("Foliot", ChatFormatting.DARK_PURPLE)
         );
 
+        this.page("crafting", () -> BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_ritual_satchel_t2"))
+        );
+        //no text
+
+        this.page("upgrade", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Already have ritual satchel?");
+        this.pageText("""
+                You can use this alternative recipe to upgrade the {0}, keeping the items inside!
+                """,
+                this.itemLink(OccultismItems.RITUAL_SATCHEL_T1)
+        );
+
+        this.page("upgrading", () -> BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_upgrade_ritual_satchel"))
+        );
+        //no text
+
         this.page("about", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
@@ -51,11 +71,6 @@ public class ArtisanalRitualSatchelEntry extends EntryProvider {
                 this.color("Right-Clicking", ChatFormatting.GREEN),
                 this.itemLink(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL)
         );
-
-        this.page("crafting", () -> BookRitualRecipePageModel.create()
-                .withRecipeId1(this.modLoc("ritual/craft_ritual_satchel_t2"))
-        );
-        //no text
 
         this.page("usage_drawing", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

@@ -119,6 +119,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
 
         this.tag(OccultismTags.Items.BOOK_OF_CALLING_FOLIOT)
                 .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get())
+                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_FARMER.get())
                 .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get())
                 .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get()).replace(false);
         this.tag(OccultismTags.Items.BOOK_OF_CALLING_DJINNI)
@@ -143,6 +144,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .add(OccultismItems.BOOK_OF_BINDING_AFRIT.get())
                 .add(OccultismItems.BOOK_OF_BINDING_MARID.get())
                 .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get())
+                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_FARMER.get())
                 .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get())
                 .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get())
                 .add(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get());
@@ -183,6 +185,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
                 .add(OccultismItems.CHALK_VOID.get())
                 .replace(false);
 
+        this.tag(OccultismTags.Items.START_SPIRIT_FIRE).add(OccultismItems.DATURA.get());
         this.copy(OccultismTags.Blocks.OTHERWORLD_SAPLINGS, OccultismTags.Items.OTHERWORLD_SAPLINGS);
         this.copy(OccultismTags.Blocks.OTHERWORLD_SAPLINGS_NATURAL, OccultismTags.Items.OTHERWORLD_SAPLINGS_NATURAL);
         this.tag(OccultismTags.Items.TOOLS_KNIFE).add(OccultismItems.BUTCHER_KNIFE.get()).replace(false);
@@ -194,21 +197,23 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
     }
 
     private void addMinecraftTags(HolderLookup.Provider provider) {
-        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.DICTIONARY_OF_SPIRITS.get());
-        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_AFRIT.get());
-        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get());
-        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_DJINNI.get());
-        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get());
-        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_FOLIOT.get());
-        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get());
-        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_MARID.get());
-        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get());
-        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get());
-        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get());
-        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get());
-        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get());
-        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.BOOK_OF_BINDING_EMPTY.get());
-        this.tag(ItemTags.BOOKSHELF_BOOKS).add(OccultismItems.TABOO_BOOK.get());
+        this.tag(ItemTags.BOOKSHELF_BOOKS)
+                .add(OccultismItems.DICTIONARY_OF_SPIRITS.get())
+                .add(OccultismItems.BOOK_OF_BINDING_AFRIT.get())
+                .add(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get())
+                .add(OccultismItems.BOOK_OF_BINDING_DJINNI.get())
+                .add(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get())
+                .add(OccultismItems.BOOK_OF_BINDING_FOLIOT.get())
+                .add(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get())
+                .add(OccultismItems.BOOK_OF_BINDING_MARID.get())
+                .add(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get())
+                .add(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get())
+                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get())
+                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get())
+                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_FARMER.get())
+                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get())
+                .add(OccultismItems.BOOK_OF_BINDING_EMPTY.get())
+                .add(OccultismItems.TABOO_BOOK.get());
 
         this.tag(ItemTags.MINING_ENCHANTABLE).addTag(OccultismTags.Items.Miners.MINERS);
         this.tag(ItemTags.MINING_LOOT_ENCHANTABLE).addTag(OccultismTags.Items.Miners.MINERS);
@@ -265,22 +270,6 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
         this.tag(ItemTags.PICKAXES).add(OccultismItems.INFUSED_PICKAXE.get(), OccultismItems.IESNIUM_PICKAXE.get()).replace(false);
         this.tag(this.cTag("tools/knife")).add(OccultismItems.BUTCHER_KNIFE.get()).replace(false);
-
-        this.tag(ItemTags.BOOKSHELF_BOOKS)
-                .replace(false)
-                .add(OccultismItems.DICTIONARY_OF_SPIRITS.get())
-                .add(OccultismItems.BOOK_OF_BINDING_FOLIOT.get())
-                .add(OccultismItems.BOOK_OF_BINDING_DJINNI.get())
-                .add(OccultismItems.BOOK_OF_BINDING_AFRIT.get())
-                .add(OccultismItems.BOOK_OF_BINDING_MARID.get())
-                .add(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get())
-                .add(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get())
-                .add(OccultismItems.BOOK_OF_BINDING_BOUND_AFRIT.get())
-                .add(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get())
-                .add(OccultismItems.BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get())
-                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_CLEANER.get())
-                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get())
-                .add(OccultismItems.BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get());
 
         this.tag(ItemTags.SMALL_FLOWERS).add(OccultismBlocks.OTHERFLOWER.asItem()).add(OccultismBlocks.OTHERFLOWER_NATURAL.asItem()).replace(false);
         this.tag(ItemTags.COMPASSES).add(OccultismItems.VITALITY_COMPASS.asItem());
@@ -532,6 +521,7 @@ public class OccultismItemTagProvider extends ItemTagsProvider {
         this.tag(OccultismTags.Items.DROPS_POSSESSED_SHULKER)
             .add(Items.SHULKER_SHELL)
             .add(Items.CHORUS_FLOWER)
+            .add(Items.CHORUS_FRUIT)
             .add(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE);
 
         this.tag(OccultismTags.Items.DROPS_POSSESSED_SKELETON)

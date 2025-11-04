@@ -22,18 +22,29 @@
 
 package com.klikli_dev.occultism.common.blockentity;
 
+import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.common.block.EntityWormholeBlock;
 import com.klikli_dev.occultism.registry.OccultismBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.FishingHook;
+import net.minecraft.world.item.FishingRodItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
+@EventBusSubscriber(modid = Occultism.MODID)
 public class EntityWormholeBlockEntity extends NetworkedBlockEntity {
 
     public long lastChangeTime;
@@ -76,7 +87,7 @@ public class EntityWormholeBlockEntity extends NetworkedBlockEntity {
             @Override
             protected void onContentsChanged(
                     int slot) {
-                if (!EntityWormholeBlockEntity.this.level.isClientSide) {
+                if (EntityWormholeBlockEntity.this.level != null && !EntityWormholeBlockEntity.this.level.isClientSide) {
                     EntityWormholeBlockEntity.this.lastChangeTime = EntityWormholeBlockEntity.this.level
                             .getGameTime();
                     EntityWormholeBlockEntity.this.markNetworkDirty();
@@ -100,5 +111,22 @@ public class EntityWormholeBlockEntity extends NetworkedBlockEntity {
         compound.put("inventory", this.itemStackHandler.serializeNBT(provider));
         compound.putLong("lastChangeTime", this.lastChangeTime);
         return compound;
+    }
+
+    @SubscribeEvent
+    public static void entityWormholeFishing(PlayerInteractEvent.RightClickItem event) {
+        Player player = event.getEntity();
+        ItemStack stack = event.getItemStack();
+        FishingHook hook = player.fishing;
+
+        if (!event.isCanceled() && !event.getLevel().isClientSide()
+                && stack.getItem() instanceof FishingRodItem
+                && hook != null && hook.getHookedIn() == null
+                && hook.getDeltaMovement().equals(Vec3.ZERO)) {
+            BlockState state = event.getLevel().getBlockState(hook.blockPosition());
+            if (state.getBlock() instanceof EntityWormholeBlock wormhole) {
+                wormhole.pullEntity((ServerLevel) event.getLevel(), hook.blockPosition(), state);
+            }
+        }
     }
 }

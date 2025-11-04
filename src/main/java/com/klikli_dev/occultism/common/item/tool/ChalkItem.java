@@ -35,27 +35,26 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.function.Supplier;
+import java.util.Objects;
 
 public class ChalkItem extends Item {
-    Supplier<ChalkGlyphBlock> glyphBlock;
+    ChalkGlyphBlock glyphBlock;
 
-    public ChalkItem(Properties properties, Supplier<ChalkGlyphBlock> glyphBlock) {
+    public ChalkItem(Properties properties, ChalkGlyphBlock glyphBlock) {
         super(properties);
         this.glyphBlock = glyphBlock;
     }
 
-    public Supplier<ChalkGlyphBlock> getGlyphBlock() {
+    public ChalkGlyphBlock getGlyphBlock() {
         return this.glyphBlock;
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext context) {
+    public @NotNull InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
-        BlockState state = level.getBlockState(pos);
         Player player = context.getPlayer();
         boolean isReplacing = level.getBlockState(pos).canBeReplaced(new BlockPlaceContext(context));
 
@@ -63,20 +62,22 @@ public class ChalkItem extends Item {
             //only place if player clicked at a top face
             //only if the block can be placed or is replacing an existing block
             if ((context.getClickedFace() == Direction.UP
-                    && this.glyphBlock.get().canSurvive(level.getBlockState(pos.above()), level, pos.above())) || isReplacing) {
+                    && this.glyphBlock.canSurvive(level.getBlockState(pos.above()), level, pos.above())) || isReplacing) {
                 ItemStack heldChalk = context.getItemInHand();
                 BlockPos placeAt = isReplacing ? pos : pos.above();
 
-                boolean isSameChalkType = level.getBlockState(placeAt).getBlock() == this.glyphBlock.get();
+                boolean isSameChalkType = level.getBlockState(placeAt).getBlock() == this.glyphBlock;
                 level.setBlockAndUpdate(placeAt,
-                        this.glyphBlock.get().getStateForPlacement(new BlockPlaceContext(context)));
+                        Objects.requireNonNull(this.glyphBlock.getStateForPlacement(new BlockPlaceContext(context))));
 
-                level.playSound(null, pos, OccultismSounds.CHALK.get(), SoundSource.PLAYERS, 0.5f,
-                        1 + 0.5f * player.getRandom().nextFloat());
+                if (player != null) {
+                    level.playSound(null, pos, OccultismSounds.CHALK.get(), SoundSource.PLAYERS, 0.5f,
+                            1 + 0.5f * player.getRandom().nextFloat());
 
-                // do not consume durability if creative, or if same kind of chalk (= cycle through sings)
-                if (!player.isCreative() && !isSameChalkType && !Occultism.SERVER_CONFIG.itemSettings.unbreakableChalks.getAsBoolean())
-                    heldChalk.hurtAndBreak(1, player, player.getEquipmentSlotForItem(heldChalk));
+                    // do not consume durability if creative, or if same kind of chalk (= cycle through sings)
+                    if (!player.isCreative() && !isSameChalkType && !Occultism.SERVER_CONFIG.itemSettings.unbreakableChalks.getAsBoolean())
+                        heldChalk.hurtAndBreak(1, player, player.getEquipmentSlotForItem(heldChalk));
+                }
             }
         }
         return InteractionResult.SUCCESS;

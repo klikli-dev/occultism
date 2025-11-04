@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.registry;
 
 import com.klikli_dev.occultism.Occultism;
+import com.klikli_dev.occultism.common.entity.ai.sensor.NearestCropSensor;
 import com.klikli_dev.occultism.common.entity.ai.sensor.NearestJobItemSensor;
 import com.klikli_dev.occultism.common.entity.ai.sensor.NearestTreeSensor;
 import com.klikli_dev.occultism.common.entity.ai.sensor.UnreachableTreeWalkTargetSensor;
@@ -37,6 +38,8 @@ public class OccultismSensors {
 
     public static final Supplier<SensorType<NearestTreeSensor<?>>> NEAREST_TREE = SENSORS.register("nearest_tree",
             () -> new SensorType<>(NearestTreeSensor::new));
+    public static final Supplier<SensorType<NearestCropSensor<?>>> NEAREST_CROP = SENSORS.register("nearest_crop",
+            () -> new SensorType<>(NearestCropSensor::new));
 
     public static final Supplier<SensorType<UnreachableTreeWalkTargetSensor<?>>> UNREACHABLE_WALK_TARGET = SENSORS.register("unreachable_walk_target",
             () -> new SensorType<>(UnreachableTreeWalkTargetSensor::new));

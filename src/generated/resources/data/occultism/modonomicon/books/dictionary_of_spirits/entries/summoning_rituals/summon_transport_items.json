@@ -78,6 +78,17 @@
       "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.book_of_calling.text",
       "title1": "",
       "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.usage.text",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_transport_items.usage.title",
+      "use_markdown_in_title": false
     }
   ],
   "parents": [
@@ -90,6 +101,6 @@
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": -1,
-  "x": -2,
+  "x": 0,
   "y": -4
 }

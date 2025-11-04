@@ -94,6 +94,12 @@ versionRange = "${emi_version_range}"
 side = "BOTH"
 
 [[dependencies.occultism]]
+modId = "apothic_enchanting"
+type = "optional"
+versionRange = "${apothic_enchanting_version_range}"
+side = "BOTH"
+
+[[dependencies.occultism]]
 modId = "create"
 type = "optional"
 versionRange = "${create_version_range}"

@@ -10,12 +10,12 @@ import com.klikli_dev.occultism.integration.modonomicon.pages.BookRitualRecipePa
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class EntityWormholeEntry extends EntryProvider {
 
     public static final String ENTRY_ID = "entity_wormhole";
-
 
     public EntityWormholeEntry(CategoryProvider parent) {
         super(parent);
@@ -47,10 +47,9 @@ public class EntityWormholeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Set destination");
         this.pageText("""
-                        To set the destination, you\'ll need a compass. Right-click to place it and shift+right-click to remove it.
+                        To set the destination, you''ll need a compass. Right-click to place it and shift+right-click to remove it.
                         + A standard compass takes you to the world spawn;
                         + A compass attached to a lodestone takes you to the top of it. (After placing it in the wormhole, the lodestone can be broken);
-                        + A compass renamed \"RTP\" acts as a Random Teleport;
                         """
         );
 
@@ -59,10 +58,15 @@ public class EntityWormholeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Other compasses");
         this.pageText("""
+                        + A compass renamed "{0}" teleport for your personal spawn point;
+                        + A compass renamed "{1}" acts as a Random Teleport;
+                        \\
                         Alternatively, you can use special compasses:
                         + [](item://minecraft:recovery_compass) teleports to the location of your last death, works only for players;
                         + [](item://occultism:vitality_compass) teleports to the linked creature, it needs to be in a loaded chunk;
-                        """
+                        """,
+                this.color("HOME", ChatFormatting.DARK_PURPLE),
+                this.color("RTP", ChatFormatting.DARK_PURPLE)
         );
 
         this.page("exit_yaw", () -> BookTextPageModel.create()
@@ -88,6 +92,18 @@ public class EntityWormholeEntry extends EntryProvider {
                         + Diamond -> Tilted Up
                         + Gold -> Straight Up
                         """
+        );
+
+        this.page("fishing", () -> BookSpotlightPageModel.create()
+                .withItem(Items.FISHING_ROD)
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Get over here!");
+        this.pageText("""
+                        If the wormhole contains an {0}, you can use a fishing rod to pull the linked
+                         entity into the portal, the hook needs to stop in the portal before you pull.
+                        """,
+                this.entryLink("Vitality Compass", "crafting_rituals", "vitality_compass")
         );
     }
 

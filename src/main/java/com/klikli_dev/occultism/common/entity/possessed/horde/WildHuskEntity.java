@@ -81,7 +81,7 @@ public class WildHuskEntity extends Husk implements PossessedMob {
 
     @Override
     protected boolean shouldDespawnInPeaceful() {
-        return false;
+        return true;
     }
     //endregion Static Methods
 

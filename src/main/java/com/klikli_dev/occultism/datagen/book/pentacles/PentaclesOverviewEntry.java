@@ -38,7 +38,7 @@ public class PentaclesOverviewEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("");
         this.pageText("""
-                        Each pentacle consists of a central golden sacrificial bowl, surrounding runes of various colors
+                        Each pentacle consists of a central golden ritual bowl, surrounding runes of various colors
                          and occult paraphernalia that improve the intended effect in various ways.\\
                         \\
                         They act both as a device to call on the entity, an amplifier for the summoner's commanding power

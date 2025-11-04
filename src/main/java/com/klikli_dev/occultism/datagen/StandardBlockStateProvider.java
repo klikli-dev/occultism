@@ -107,7 +107,7 @@ public class StandardBlockStateProvider extends BlockStateProvider {
         //Generate blockstates for the glyphs
         OccultismBlocks.BLOCKS.getEntries().stream()
                 .map(DeferredHolder::get)
-                .filter(block -> block instanceof ChalkGlyphBlock)
+                .filter(block -> block instanceof ChalkGlyphBlock && !(block instanceof RainbowGlyphBlock))
                 .forEach(this::generateGlyphBlockState);
         OccultismBlocks.BLOCKS.getEntries().stream()
                 .map(DeferredHolder::get)
@@ -247,7 +247,7 @@ public class StandardBlockStateProvider extends BlockStateProvider {
                 .forAllStatesExcept(state -> {
                     //this is called for every state combination
                     //create a child model for each glyph texture option
-                    int sign = state.getValue(RainbowGlyphBlock.SIGN);
+                    int sign = state.getValue(ChalkGlyphBlock.SIGN);
                     ModelFile subModel = this.models().getBuilder("block/chalk_glyph/" + sign).parent(parent)
                             .texture("texture", this.modLoc("block/chalk_glyph/" + sign));
 
