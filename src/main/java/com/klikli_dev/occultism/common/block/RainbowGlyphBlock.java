@@ -26,53 +26,36 @@ import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.Tags;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-public class RainbowGlyphBlock extends Block {
-    /**
-     * The glyph sign (the typeface)
-     */
-    public static final IntegerProperty SIGN = IntegerProperty.create("sign", 0, 12);
+public class RainbowGlyphBlock extends ChalkGlyphBlock {
     public static final IntegerProperty COLOR = IntegerProperty.create("color", 0, 15);
     public static final BooleanProperty CYCLE = BooleanProperty.create("cycle");
-    public static final int MAX_SIGN = 12;
-
-    private static final VoxelShape SHAPE = Block.box(1.5, 0, 1.5, 14.5, 0.04, 14.5);
 
     protected Supplier<Item> chalk;
     protected Supplier<Integer> color;
     protected Boolean cycle;
 
     public RainbowGlyphBlock(Properties properties, Boolean cycle, Supplier<Item> chalk) {
-        super(properties);
+        super(properties, Occultism.CLIENT_CONFIG.visuals.whiteChalkGlyphColor, chalk);
         this.chalk = chalk;
         this.cycle = cycle;
         this.registerDefaultState(
@@ -108,48 +91,6 @@ public class RainbowGlyphBlock extends Block {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
-                                boolean isMoving) {
-        if (!this.canSurvive(state, worldIn, pos)) {
-            worldIn.removeBlock(pos, false);
-        }
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
-    public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
-        return true;
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
-    public boolean canBeReplaced(BlockState state, Fluid fluid) {
-        return true;
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
-    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
-        BlockPos down = pos.below();
-        BlockState downState = worldIn.getBlockState(down);
-        return downState.isFaceSturdy(worldIn, down, Direction.UP) && state.canBeReplaced();
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-        return SHAPE;
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
-    public VoxelShape getCollisionShape(BlockState state, BlockGetter worldIn, BlockPos pos,
-                                        CollisionContext context) {
-        return Shapes.empty();
-    }
-
-    @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockPos pos = context.getClickedPos();
         int sign = context.getLevel().getRandom().nextInt(MAX_SIGN + 1);
@@ -170,25 +111,14 @@ public class RainbowGlyphBlock extends Block {
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(COLOR, CYCLE, SIGN, BlockStateProperties.HORIZONTAL_FACING);
+        builder.add(COLOR, CYCLE);
         super.createBlockStateDefinition(builder);
     }
 
     @Override
-    public ItemStack getCloneItemStack(LevelReader pLevel, BlockPos pPos, BlockState pState) {
-        if (BuiltInRegistries.ITEM.containsValue(this.getChalk()))//fix for startup crash related to patchouli getting pick block too early
-            return new ItemStack(this.getChalk());
-        return ItemStack.EMPTY;
-    }
-
-    @Override
-    public @Nullable PathType getBlockPathType(BlockState state, BlockGetter level, BlockPos pos, @Nullable Mob mob) {
-        return PathType.OPEN;
-    }
-    @Override
-    protected ItemInteractionResult useItemOn(
-            ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult
-    ) {
+    protected @NotNull ItemInteractionResult useItemOn(
+            @NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos,
+            Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hitResult) {
         if (player.getAbilities().mayBuild) {
             if (stack.getItem().equals(OccultismItems.SPIRIT_ATTUNED_GEM.get())) {
                 if (state.getValue(CYCLE)) {
@@ -252,9 +182,9 @@ public class RainbowGlyphBlock extends Block {
         return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
     }
 
-    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource rand) {
+    public void animateTick(BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource rand) {
         if (state.getValue(CYCLE)) {
-            Integer nextColor = state.getValue(COLOR) + 1;
+            int nextColor = state.getValue(COLOR) + 1;
             if (nextColor == 16 && state.getBlock().equals(OccultismBlocks.CHALK_GLYPH_VOID.get())){nextColor = 0;} //return to white
             if (nextColor == 16 && state.getBlock().equals(OccultismBlocks.CHALK_GLYPH_RAINBOW.get())){nextColor = 4;} //return to red
             level.setBlockAndUpdate(pos, state.setValue(COLOR, nextColor));
