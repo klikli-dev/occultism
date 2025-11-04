@@ -6,14 +6,17 @@ import com.klikli_dev.occultism.util.Math3DUtil;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.behavior.EntityTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.tslat.smartbrainlib.api.core.behaviour.ExtendedBehaviour;
 import net.tslat.smartbrainlib.util.BrainUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -28,7 +31,7 @@ public class PickupItemBehaviour<E extends SpiritEntity> extends ExtendedBehavio
     );
 
     @Override
-    protected boolean checkExtraStartConditions(ServerLevel level, E entity) {
+    protected boolean checkExtraStartConditions(@NotNull ServerLevel level, @NotNull E entity) {
         var jobItem = BrainUtils.getMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
         return Math3DUtil.withinAxisDistances(entity.position(), jobItem.position(),
                 PickupItemBehaviour.PICKUP_XZ_RANGE_SQUARE,
@@ -49,6 +52,12 @@ public class PickupItemBehaviour<E extends SpiritEntity> extends ExtendedBehavio
         if (ItemHandlerHelper.insertItemStacked(handler, duplicate, true).getCount() < duplicate.getCount()) {
             ItemStack remaining = ItemHandlerHelper.insertItemStacked(handler, duplicate, false);
             jobItem.getItem().setCount(remaining.getCount());
+        }
+        for (ItemEntity e : entity.level().getEntitiesOfClass(ItemEntity.class, jobItem.getBoundingBox().inflate(3), Entity::isAlive)) {
+            if (ItemHandlerHelper.insertItemStacked(handler, e.getItem().copy(), true).getCount() <= 64) {
+                ItemStack remains = ItemHandlerHelper.insertItemStacked(handler, e.getItem().copy(), false);
+                e.getItem().setCount(remains.getCount());
+            }
         }
 
         BrainUtils.clearMemory(entity, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);

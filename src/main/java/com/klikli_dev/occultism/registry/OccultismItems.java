@@ -131,6 +131,10 @@ public class OccultismItems {
             ITEMS.register("book_of_calling_foliot_lumberjack",
                     () -> new BookOfCallingLumberjackItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
                             TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
+    public static final DeferredItem<BookOfCallingFarmerItem> BOOK_OF_CALLING_FOLIOT_FARMER =
+            ITEMS.register("book_of_calling_foliot_farmer",
+                    () -> new BookOfCallingFarmerItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
+                            TranslationKeys.BOOK_OF_CALLING_GENERIC + "_foliot"));
     public static final DeferredItem<BookOfCallingTransportItems> BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS =
             ITEMS.register("book_of_calling_foliot_transport_items",
                     () -> new BookOfCallingTransportItems(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN),
@@ -548,6 +552,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_DEMONIC_HUSBAND = ITEMS.register("ritual_dummy/summon_demonic_husband", () -> new DummyTooltipItem(defaultProperties()));
             //One tier worker
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_LUMBERJACK = ITEMS.register("ritual_dummy/summon_foliot_lumberjack", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_FARMER = ITEMS.register("ritual_dummy/summon_foliot_farmer", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_OTHERSTONE_TRADER = ITEMS.register("ritual_dummy/summon_foliot_otherstone_trader", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_SAPLING_TRADER = ITEMS.register("ritual_dummy/summon_foliot_sapling_trader", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_SUMMON_FOLIOT_TRANSPORT_ITEMS = ITEMS.register("ritual_dummy/summon_foliot_transport_items", () -> new DummyTooltipItem(defaultProperties()));
@@ -696,6 +701,8 @@ public class OccultismItems {
             () -> new DebugWandItem(defaultProperties().stacksTo(1)));
     public static final DeferredItem<Item> DEBUG_FOLIOT_LUMBERJACK = ITEMS.register("debug_foliot_lumberjack",
             () -> new SummonFoliotLumberjackItem(defaultProperties().stacksTo(1)));
+    public static final DeferredItem<Item> DEBUG_FOLIOT_FARMER = ITEMS.register("debug_foliot_farmer",
+            () -> new SummonFoliotFarmerItem(defaultProperties().stacksTo(1)));
     public static final DeferredItem<Item> DEBUG_FOLIOT_TRANSPORT_ITEMS =
             ITEMS.register("debug_foliot_transport_items",
                     () -> new SummonFoliotTransportItemsItem(defaultProperties().stacksTo(1)));
@@ -784,6 +791,7 @@ public class OccultismItems {
                 || item == BOOK_OF_BINDING_BOUND_AFRIT.get()
                 || item == BOOK_OF_BINDING_BOUND_MARID.get()
                 || item == BOOK_OF_CALLING_FOLIOT_LUMBERJACK.get()
+                || item == BOOK_OF_CALLING_FOLIOT_FARMER.get()
                 || item == BOOK_OF_CALLING_FOLIOT_TRANSPORT_ITEMS.get()
                 || item == BOOK_OF_CALLING_FOLIOT_CLEANER.get()
                 || item == BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get()

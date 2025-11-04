@@ -9,9 +9,9 @@
   "description": "",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:iron_axe"
+    "item": "minecraft:iron_hoe"
   },
-  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.name",
+  "name": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_farmer.name",
   "pages": [
     {
       "type": "modonomicon:text",
@@ -20,19 +20,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.intro.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.intro.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.prerequisites.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.prerequisites.title",
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_farmer.intro.text",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_farmer.intro.title",
       "use_markdown_in_title": false
     },
     {
@@ -41,7 +30,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:ritual/summon_foliot_lumberjack",
+      "recipe_id_1": "occultism:ritual/summon_foliot_farmer",
       "text": "",
       "title1": "",
       "title2": ""
@@ -52,8 +41,8 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "occultism:crafting/book_of_calling_foliot_lumberjack",
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.book_of_calling.text",
+      "recipe_id_1": "occultism:crafting/book_of_calling_foliot_farmer",
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_farmer.book_of_calling.text",
       "title1": "",
       "title2": ""
     },
@@ -64,8 +53,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.usage.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.usage.title",
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_farmer.usage.text",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_farmer.usage.title",
       "use_markdown_in_title": false
     },
     {
@@ -75,8 +64,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.usage2.text",
-      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_lumberjack.usage2.title",
+      "text": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_farmer.usage2.text",
+      "title": "book.occultism.dictionary_of_spirits.summoning_rituals.summon_farmer.usage2.title",
       "use_markdown_in_title": false
     }
   ],
@@ -90,6 +79,6 @@
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": -1,
-  "x": -2,
+  "x": -4,
   "y": -4
 }

@@ -22,6 +22,10 @@ public class OccultismMemoryTypes {
     public static final Supplier<MemoryModuleType<WalkTarget>> LAST_TREE_WALK_TARGET = MEMORY_MODULE_TYPES.register("last_tree_walk_target", () -> new MemoryModuleType<>(Optional.empty()));
     public static final Supplier<MemoryModuleType<Boolean>> NO_TREE_IN_WORK_AREA = MEMORY_MODULE_TYPES.register("no_tree_in_work_area", () -> new MemoryModuleType<>(Optional.empty()));
     public static final Supplier<MemoryModuleType<Set<BlockPos>>> NON_TREE_LOGS = MEMORY_MODULE_TYPES.register("non_tree_logs", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<BlockPos>> NEAREST_CROP = MEMORY_MODULE_TYPES.register("nearest_crop", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<WalkTarget>> LAST_CROP_WALK_TARGET = MEMORY_MODULE_TYPES.register("last_crop_walk_target", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Boolean>> NO_CROP_IN_WORK_AREA = MEMORY_MODULE_TYPES.register("no_crop_in_work_area", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Set<BlockPos>>> NON_CROP = MEMORY_MODULE_TYPES.register("non_crop", () -> new MemoryModuleType<>(Optional.empty()));
 
     public static final Supplier<MemoryModuleType<BlockPos>> WORK_AREA_CENTER = MEMORY_MODULE_TYPES.register("work_area_center", () -> new MemoryModuleType<>(Optional.empty()));
 
@@ -32,6 +36,7 @@ public class OccultismMemoryTypes {
     public static final Supplier<MemoryModuleType<Set<BlockPos>>> UNREACHABLE_WALK_TARGETS = MEMORY_MODULE_TYPES.register("unreachable_walk_targets", () -> new MemoryModuleType<>(Optional.empty()));
 
     public static final Supplier<MemoryModuleType<Set<BlockPos>>> UNREACHABLE_TREES = MEMORY_MODULE_TYPES.register("unreachable_trees", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Set<BlockPos>>> UNREACHABLE_CROPS = MEMORY_MODULE_TYPES.register("unreachable_crops", () -> new MemoryModuleType<>(Optional.empty()));
 
     public static final Supplier<MemoryModuleType<BlockPos>> DEPOSIT_POSITION = MEMORY_MODULE_TYPES.register("deposit_position", () -> new MemoryModuleType<>(Optional.empty()));
 

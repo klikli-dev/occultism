@@ -41,6 +41,8 @@ public class OccultismSpiritJobs {
 
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> LUMBERJACK = JOBS.register("lumberjack",
             () -> new SpiritJobFactory(LumberjackJob::new, SpiritJobClient.create("lumberjack")));
+    public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> FARMER = JOBS.register("farmer",
+            () -> new SpiritJobFactory(FarmerJob::new, SpiritJobClient.create("farmer")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> MANAGE_MACHINE = JOBS.register("manage_machine",
             () -> new SpiritJobFactory(ManageMachineJob::new, SpiritJobClient.create("machine_manager")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> TRANSPORT_ITEMS = JOBS.register("transport_items",
