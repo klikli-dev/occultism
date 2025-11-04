@@ -825,7 +825,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("ritual.occultism.wrong_activation_item", "\u00a7lWrong Activation Item\u00a7r.\nYou are trying to start the ritual with the wrong item, try:");
         this.add("ritual.occultism.wrong_pentacle", "\u00a7lWrong Pentacle\u00a7r.\nYou are performing the ritual on the wrong pentacle, the correct one is:");
         this.add("ritual.occultism.no_bowls", "\u00a7lNo Sacrificial Bowls Found.\u00a7r\nFirst, place the sacrificial bowls near the pentacle, the black dots show possible locations. It accepts the otherstone and otherrock versions, in pure, copper and silver variations.");
-        this.add("ritual.occultism.empty_bowls", "\u00a7lAll Nearby Sacrificial Bowls is Empty.\u00a7r\nPlace all the ingredients in the sacrificial bowls before the activation item, middle item of the recipe is the last and placed in this ritual bowl.");
+        this.add("ritual.occultism.empty_bowls", "\u00a7lAll Nearby Sacrificial Bowls are Empty.\u00a7r\nPlace all the ingredients in the sacrificial bowls before the activation item, middle item of the recipe is the last and placed in this ritual bowl.");
         this.add("ritual.occultism.put_in_satchel", "Stored pentacles in the satchel");
         this.add("ritual.occultism.sacrifice", "" + ChatFormatting.WHITE + ChatFormatting.BOLD + "Perform the Sacrifice of:");
         this.add("ritual.occultism.use_item", "" + ChatFormatting.WHITE + ChatFormatting.BOLD + "Use the item:");
