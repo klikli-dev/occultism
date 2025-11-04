@@ -15,7 +15,6 @@ public class EldritchChaliceEntry extends EntryProvider {
 
     public static final String ENTRY_ID = "craft_eldritch_chalice";
 
-
     public EldritchChaliceEntry(CategoryProvider parent) {
         super(parent);
     }
@@ -28,7 +27,7 @@ public class EldritchChaliceEntry extends EntryProvider {
         this.pageText("""
                         Forging an [](item://occultism:eldritch_chalice) is one service provide by {0}, this block will
                          helps occult masters twist time, performing any ritual instantly.\\
-                         All other things will works like the Golden or Iesnium Sacrificial Bowl.
+                         All other things will works like the Golden or Iesnium Ritual Bowl.
                         """,
                 this.color("Eldritch Spirits", ChatFormatting.DARK_PURPLE)
         );

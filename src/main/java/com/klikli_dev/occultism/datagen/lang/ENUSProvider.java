@@ -108,7 +108,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(OccultismItems.BOOK_OF_BINDING_MARID.get().getDescriptionId() + ".tooltip", "This book has not been bound to a marid yet.");
         this.add(OccultismItems.BOOK_OF_BINDING_BOUND_MARID.get().getDescriptionId() + ".tooltip", "Can be used to summon the marid %s");
         this.addTooltip(OccultismItems.FLAME_AUTOMATION.get(), "%s");
-        this.addAutoTooltip(OccultismItems.FLAME_AUTOMATION.get(), "Obtained when completing a ritual without an output item if there is an upside-down sacrificial bowl within three blocks above of the central sacrificial bowl.");
+        this.addAutoTooltip(OccultismItems.FLAME_AUTOMATION.get(), "Obtained when completing a ritual without an output item if there is an upside-down sacrificial bowl within three blocks above of the central ritual bowl.");
 
         this.add("item.occultism.book_of_calling_foliot" + ".tooltip", "Foliot %s");
         this.add("item.occultism.book_of_calling_foliot" + ".tooltip_dead", "%s has left this plane of existence.");
@@ -477,13 +477,17 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlock(OccultismBlocks.SACRIFICIAL_BOWL, "Sacrificial Bowl");
         this.addBlock(OccultismBlocks.COPPER_SACRIFICIAL_BOWL, "Copper Sacrificial Bowl");
         this.addBlock(OccultismBlocks.SILVER_SACRIFICIAL_BOWL, "Silver Sacrificial Bowl");
-        this.addBlock(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL, "Golden Sacrificial Bowl");
-        this.addBlock(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL, "Iesnium Sacrificial Bowl");
+        this.addBlock(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL, "Golden Ritual Bowl");
+        this.addAutoTooltip(OccultismBlocks.GOLDEN_SACRIFICIAL_BOWL.asItem(), ChatFormatting.RED + "This block is a central bowl, use exactly one in the pentacle.");
+        this.addBlock(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL, "Iesnium Ritual Bowl");
+        this.addAutoTooltip(OccultismBlocks.IESNIUM_SACRIFICIAL_BOWL.asItem(), ChatFormatting.RED + "This block is a central bowl, use exactly one in the pentacle.");
         this.addBlock(OccultismBlocks.DARK_SACRIFICIAL_BOWL, "Dark Sacrificial Bowl");
         this.addBlock(OccultismBlocks.DARK_COPPER_SACRIFICIAL_BOWL, "Dark Copper Sacrificial Bowl");
         this.addBlock(OccultismBlocks.DARK_SILVER_SACRIFICIAL_BOWL, "Dark Silver Sacrificial Bowl");
-        this.addBlock(OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL, "Dark Golden Sacrificial Bowl");
-        this.addBlock(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL, "Dark Iesnium Sacrificial Bowl");
+        this.addBlock(OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL, "Dark Golden Ritual Bowl");
+        this.addAutoTooltip(OccultismBlocks.DARK_GOLDEN_SACRIFICIAL_BOWL.asItem(), ChatFormatting.RED + "This block is a central bowl, use exactly one in the pentacle.");
+        this.addBlock(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL, "Dark Iesnium Ritual Bowl");
+        this.addAutoTooltip(OccultismBlocks.DARK_IESNIUM_SACRIFICIAL_BOWL.asItem(), ChatFormatting.RED + "This block is a central bowl, use exactly one in the pentacle.");
         this.addBlock(OccultismBlocks.CHALK_GLYPH_WHITE, "White Chalk Glyph");
         this.addBlock(OccultismBlocks.CHALK_GLYPH_YELLOW, "Yellow Chalk Glyph");
         this.addBlock(OccultismBlocks.CHALK_GLYPH_PURPLE, "Purple Chalk Glyph");
@@ -879,7 +883,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                 """
                         Rituals always follow the same steps:
                         - Draw the pentacle.
-                        - Place a golden bowl.
+                        - Place a golden ritual bowl.
                         - Place sacrificial bowls.
                         - Put ingredients in bowls.
                         - [#](%1$s)Right-click[#]()the golden bowl with the activation item.
@@ -890,7 +894,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageTitle(), "Additional Requirements");
         this.add(helper.pageText(),
                 """
-                        If a ritual shows grey particles above the golden sacrificial bowl, then additional requirements as described in the ritual's page need to be fulfilled. Once all requirements are fulfilled, the ritual will show purple particles and start to consume the items in the sacrificial bowls.
+                        If a ritual shows grey particles above the golden ritual bowl, then additional requirements as described in the ritual's page need to be fulfilled. Once all requirements are fulfilled, the ritual will show purple particles and start to consume the items in the sacrificial bowls.
                         """);
 
         helper.entry("item_use");
@@ -913,7 +917,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add(helper.pageTitle(), "Sacrifices");
         this.add(helper.pageText(),
                 """
-                        Some rituals require the sacrifice of a living being to provide the necessary energy to summon the spirit. Sacrifices are described on the ritual's page under the "Sacrifice" subheading. To perform a sacrifice, kill an animal within 8 blocks of the golden sacrificial bowl. Only kills by players count as sacrifice!
+                        Some rituals require the sacrifice of a living being to provide the necessary energy to summon the spirit. Sacrifices are described on the ritual's page under the "Sacrifice" subheading. To perform a sacrifice, kill an animal within 8 blocks of the golden ritual bowl. Only kills by players count as sacrifice!
                          """);
 
         helper.entry("summoning_rituals");
@@ -2666,8 +2670,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DRAGONYST_DUST, "Craft Dragonyst Dust", "Marid", "A Marid will infuse ender dragon essence in the amethyst dust.");
             //Blocks
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE, "Craft Entity Wormhole", "Djinni", "The Entity Wormhole is a basic teleportation device. Link with a compass to teleport player, mobs or items when touch this small portal.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL, "Craft Iesnium Sacrificial Bowl", "Afrit", "The Iesnium Sacrificial Bowl performs any ritual in only a quarter of the normal time. All other things will works like the Golden Sacrificial Bowl.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DARK_IESNIUM_SACRIFICIAL_BOWL, "Craft Dark Iesnium Sacrificial Bowl", "Afrit", "The Dark Iesnium Sacrificial Bowl performs any ritual in only a quarter of the normal time. All other things will works like the Dark Golden Sacrificial Bowl.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL, "Craft Iesnium Ritual Bowl", "Afrit", "The Iesnium Ritual Bowl performs any ritual in only a quarter of the normal time. All other things will works like the Golden Ritual Bowl.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DARK_IESNIUM_SACRIFICIAL_BOWL, "Craft Dark Iesnium Ritual Bowl", "Afrit", "The Dark Iesnium Ritual Bowl performs any ritual in only a quarter of the normal time. All other things will works like the Dark Golden Ritual Bowl.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL, "Craft Iesnium Anvil", "Marid", "The iesnium anvil is an improvement on the common anvil, see all the advantages in the dictionary.");
             //Repair
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_REPAIR_CHALKS, "Repair Chalk", "Djinni", "Fully repair chalk by infusing it with a Djinni.");
@@ -3102,7 +3106,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("occultism.waila.marid","Marid");
         this.add("occultism.waila.marid_age","Marid: %s seconds left");
         this.add("config.jade.plugin_occultism.foliot", "Spirits Info");
-        this.add("config.jade.plugin_occultism.sacrificial", "Sacrificial Bowl Info");
+        this.add("config.jade.plugin_occultism.sacrificial", "Ritual Bowl Info");
 
     }
 }

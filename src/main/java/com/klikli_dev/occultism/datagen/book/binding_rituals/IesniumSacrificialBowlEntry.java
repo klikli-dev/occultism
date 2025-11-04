@@ -15,7 +15,6 @@ public class IesniumSacrificialBowlEntry extends EntryProvider {
 
     public static final String ENTRY_ID = "craft_iesnium_sacrificial_bowl";
 
-
     public IesniumSacrificialBowlEntry(CategoryProvider parent) {
         super(parent);
     }
@@ -29,7 +28,7 @@ public class IesniumSacrificialBowlEntry extends EntryProvider {
                         The [](item://occultism:iesnium_sacrificial_bowl) is an {0} infusion 
                          that helps expert occultists save time,
                          performing any ritual in only a quarter of the normal time.
-                         All other things will works like the Golden Sacrificial Bowl.
+                         All other things will works like the Golden Ritual Bowl.
                         """,
                 this.color("Afrit", ChatFormatting.DARK_PURPLE)
         );
@@ -55,7 +54,7 @@ public class IesniumSacrificialBowlEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Iesnium Sacrificial Bowl";
+        return "Iesnium Ritual Bowl";
     }
 
     @Override
