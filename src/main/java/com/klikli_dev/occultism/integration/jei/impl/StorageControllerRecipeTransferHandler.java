@@ -24,17 +24,22 @@ package com.klikli_dev.occultism.integration.jei.impl;
 
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.api.common.container.IStorageControllerContainer;
+import com.klikli_dev.occultism.common.container.storage.StorageControllerContainerBase;
 import com.klikli_dev.occultism.network.Networking;
 import com.klikli_dev.occultism.network.messages.MessageSetRecipe;
 import com.klikli_dev.occultism.network.messages.MessageSetRecipeByID;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.gui.ingredient.IRecipeSlotView;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
@@ -45,8 +50,11 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -135,14 +143,77 @@ public class StorageControllerRecipeTransferHandler<T extends AbstractContainerM
 //            return this.handlerHelper.createUserErrorWithTooltip(Component.translatable("jei." + Occultism.MODID + "error.invalid_type"));
 //        }
 
-        //if recipe is in recipe manager send by id, otherwise fallback to ingredient list
-        if (doTransfer) {
-            if (player.getCommandSenderWorld().getRecipeManager().byKey(recipe.id()).isPresent()) {
-                Networking.sendToServer(new MessageSetRecipeByID(recipe.id()));
-            } else {
-                Networking.sendToServer(new MessageSetRecipe(this.recipeToNbt(container, recipeSlots)));
+        if (container instanceof StorageControllerContainerBase menu) {
+            List<IRecipeSlotView> missing = new ArrayList<>();
+            List<IRecipeSlotView> views = recipeSlots.getSlotViews();
+            List<List<ItemStack>> inputs = new ArrayList<>();
+            var reservedGridAmounts = new Object2IntOpenHashMap<>();
+
+            for (IRecipeSlotView view : views) {
+                if (view.getRole() == RecipeIngredientRole.INPUT || view.getRole() == RecipeIngredientRole.CATALYST) {
+                    List<ItemStack> possibleStacks = view.getItemStacks().toList();
+                    if (possibleStacks.isEmpty()) {
+                        inputs.add(List.of());
+                        continue;
+                    }
+
+                    inputs.add(possibleStacks);
+
+                    boolean found = false;
+                    for (ItemStack stack : possibleStacks) {
+                        if (stack != null && player.getInventory().findSlotMatchingItem(stack) != -1) {
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (!found) {
+                        for (ItemStack stack : possibleStacks) {
+                            if (menu.hasIngredient(Ingredient.of(stack), reservedGridAmounts)) {
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!found) {
+                        missing.add(view);
+                    }
+
+                }
+            }
+
+            //if recipe is in recipe manager send by id, otherwise fallback to ingredient list
+            if (doTransfer) {
+                if (player.getCommandSenderWorld().getRecipeManager().byKey(recipe.id()).isPresent()) {
+                    Networking.sendToServer(new MessageSetRecipeByID(recipe.id()));
+                } else {
+                    Networking.sendToServer(new MessageSetRecipe(this.recipeToNbt(container, recipeSlots)));
+                }
+            }
+            if (!missing.isEmpty()) {
+                return new TransferWarning(handlerHelper.createUserErrorForMissingSlots(Component.translatable("jei." + Occultism.MODID + ".error.recipe_no_items"), missing));
             }
         }
         return null;
+    }
+
+    private static class TransferWarning implements IRecipeTransferError {
+        private final IRecipeTransferError parent;
+
+        public TransferWarning(IRecipeTransferError parent) {
+            this.parent = parent;
+        }
+
+        @Override
+        public @NotNull Type getType() {
+            return Type.COSMETIC;
+        }
+
+        @Override
+        public void showError(@NotNull GuiGraphics matrixStack, int mouseX, int mouseY, @NotNull IRecipeSlotsView recipeLayout, int recipeX,
+                              int recipeY) {
+            this.parent.showError(matrixStack, mouseX, mouseY, recipeLayout, recipeX, recipeY);
+        }
     }
 }
