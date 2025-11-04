@@ -30,6 +30,7 @@ import com.klikli_dev.occultism.crafting.recipe.BoundBookOfBindingRecipe;
 import com.klikli_dev.occultism.registry.OccultismAdvancements;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismItems;
+import com.klikli_dev.occultism.registry.OccultismTags;
 import com.klikli_dev.occultism.util.Math3DUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -81,7 +82,7 @@ public class PlayerEventHandler {
             AABB box = new AABB(-1, -1, -1, 1, 1, 1)
                     .move(Math3DUtil.center(event.getPos()));
             List<ItemEntity> list = event.getLevel().getEntitiesOfClass(ItemEntity.class, box,
-                    item -> item.getItem().getItem() == OccultismItems.DATURA.get());
+                    item -> item.getItem().is(OccultismTags.Items.START_SPIRIT_FIRE));
             if (!list.isEmpty()) {
                 //if there is datura, check if we can edit the target face
                 Level level = event.getLevel();

@@ -2764,6 +2764,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addBlockTag(OccultismTags.Blocks.OTHERWORLD_COLLECTS, "Otherworld can collect");
 
         // Item tags
+        this.addItemTag(OccultismTags.Items.START_SPIRIT_FIRE, "Can Start Spirit Fire");
         this.addItemTag(OccultismTags.Items.OTHERWORLD_SAPLINGS, "Otherworld Saplings");
         this.addItemTag(OccultismTags.Items.OTHERWORLD_SAPLINGS_NATURAL, "Otherworld Saplings Natural");
         this.addItemTag(OccultismTags.Items.BOOK_OF_CALLING_DJINNI, "Book of Calling Djinni");
