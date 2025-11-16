@@ -668,7 +668,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         //this.add\("\1", "\2"\);
 
         this.add(TranslationKeys.HUD_NO_PENTACLE_FOUND, "No valid pentacle found.");
-        this.add(TranslationKeys.HUD_PENTACLE_FOUND, "Current Pentacle: %s");
+        this.add(TranslationKeys.HUD_PENTACLE_FOUND, "Current Pentacles:");
 
         this.add(TranslationKeys.MESSAGE_CONTAINER_ALREADY_OPEN, "This container is already opened by another player, wait until they close it.");
 
@@ -3023,6 +3023,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("divinationRodHighlightAllResults", "Divination Rod Highlight All Results");
         this.addConfig("divinationRodScanRange", "Divination Rod Scan Range");
         this.addConfig("disableSpiritFireSuccessSound", "Disable Spirit Fire Success Sound");
+        this.addConfig("pentagramInBowlInfoCount", "Max pentacles names per page");
+        this.addConfig("pentagramInBowlInfoTicks", "Ticks to change current pentacles");
 
         this.addConfig("storage", "Storage Settings");
         this.addConfig("stabilizerTier1AdditionalMaxItemTypes", "Stabilizer Tier 1 Additional Max Item Types");
