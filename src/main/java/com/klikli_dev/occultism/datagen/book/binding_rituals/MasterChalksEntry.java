@@ -15,7 +15,6 @@ public class MasterChalksEntry extends EntryProvider {
 
     public static final String ENTRY_ID = "craft_master_chalks";
 
-
     public MasterChalksEntry(CategoryProvider parent) {
         super(parent);
     }
@@ -27,10 +26,11 @@ public class MasterChalksEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("""
                         Forging the [](item://occultism:chalk_rainbow) is a service provided by an {0}.
-                        This chalk can replace any non-foundation chalk, with extra features.
+                        This chalk can replace any chalk, with extra features.
                         1. Use a [](item://occultism:spirit_attuned_gem) to toggle the random color changes or
                         use any dye to set the color of glyph, items will not be consumed.
                         2. Use this chalk in a glyph while crouched will erase the glyph, acting as a [](item://occultism:brush).
+                        3. Hold a dye in your other hand to define the color when placing the glyph.
                         """,
                 this.color("Eldritch Spirit", ChatFormatting.DARK_PURPLE)
         );
@@ -44,7 +44,8 @@ public class MasterChalksEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("""
                         Forging the [](item://occultism:chalk_void) is a service provided by an {0}.
-                        This chalk can replace any chalk and has the same abilities as the [](item://occultism:chalk_rainbow).
+                        This chalk has the same abilities as the [](item://occultism:chalk_rainbow)
+                         but the color flickering is white to black.
                         """,
                 this.color("Eldritch Spirit", ChatFormatting.DARK_PURPLE)
         );

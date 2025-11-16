@@ -150,8 +150,8 @@ public class OccultismBlocks {
     public static final DeferredBlock<RainbowGlyphBlock> CHALK_GLYPH_RAINBOW = register("chalk_glyph_rainbow",
             () -> new RainbowGlyphBlock(GLYPH_PROPERTIES, true, OccultismItems.CHALK_RAINBOW),
             false, LootTableType.EMPTY);
-    public static final DeferredBlock<RainbowGlyphBlock> CHALK_GLYPH_VOID = register("chalk_glyph_void",
-            () -> new RainbowGlyphBlock(GLYPH_PROPERTIES, false, OccultismItems.CHALK_VOID),
+    public static final DeferredBlock<VoidGlyphBlock> CHALK_GLYPH_VOID = register("chalk_glyph_void",
+            () -> new VoidGlyphBlock(GLYPH_PROPERTIES, true, OccultismItems.CHALK_VOID),
             false, LootTableType.EMPTY);
 
     //Resources

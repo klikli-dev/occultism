@@ -203,10 +203,10 @@ public class OccultismItems {
 
     public static final DeferredItem<Item> CHALK_RAINBOW = ITEMS.register("chalk_rainbow",
             () -> new ChalkItem(defaultProperties().stacksTo(1).rarity(Rarity.EPIC).fireResistant(),
-                    OccultismBlocks.CHALK_GLYPH_RAINBOW.get()));
+                    OccultismBlocks.CHALK_GLYPH_RAINBOW.get(), true));
     public static final DeferredItem<Item> CHALK_VOID = ITEMS.register("chalk_void",
             () -> new ChalkItem(defaultProperties().stacksTo(1).rarity(Rarity.EPIC).fireResistant(),
-                    OccultismBlocks.CHALK_GLYPH_VOID.get()));
+                    OccultismBlocks.CHALK_GLYPH_VOID.get(), true));
 
     public static final DeferredItem<Item> CHALK_WHITE_IMPURE = ITEMS.register("chalk_white_impure",
             () -> new Item(defaultProperties()));

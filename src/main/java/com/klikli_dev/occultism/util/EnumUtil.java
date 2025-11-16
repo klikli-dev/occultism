@@ -22,6 +22,7 @@
 
 package com.klikli_dev.occultism.util;
 
+import com.klikli_dev.occultism.Occultism;
 import net.minecraft.core.Direction;
 
 public class EnumUtil {
@@ -38,5 +39,25 @@ public class EnumUtil {
         return Direction.values()[(currentValue.ordinal() + 1) % Direction.values().length];
     }
 
+    public static int getConfiguredColor(int i) {
+        return switch (i) {
+            case 1 -> Occultism.CLIENT_CONFIG.visuals.lightGrayChalkGlyphColor.get();
+            case 2 -> Occultism.CLIENT_CONFIG.visuals.grayChalkGlyphColor.get();
+            case 3 -> Occultism.CLIENT_CONFIG.visuals.blackChalkGlyphColor.get();
+            case 4 -> Occultism.CLIENT_CONFIG.visuals.brownChalkGlyphColor.get();
+            case 5 -> Occultism.CLIENT_CONFIG.visuals.redChalkGlyphColor.get();
+            case 6 -> Occultism.CLIENT_CONFIG.visuals.orangeChalkGlyphColor.get();
+            case 7 -> Occultism.CLIENT_CONFIG.visuals.yellowChalkGlyphColor.get();
+            case 8 -> Occultism.CLIENT_CONFIG.visuals.limeChalkGlyphColor.get();
+            case 9 -> Occultism.CLIENT_CONFIG.visuals.greenChalkGlyphColor.get();
+            case 10 -> Occultism.CLIENT_CONFIG.visuals.cyanChalkGlyphColor.get();
+            case 11 -> Occultism.CLIENT_CONFIG.visuals.lightBlueChalkGlyphColor.get();
+            case 12 -> Occultism.CLIENT_CONFIG.visuals.blueChalkGlyphColor.get();
+            case 13 -> Occultism.CLIENT_CONFIG.visuals.purpleChalkGlyphColor.get();
+            case 14 -> Occultism.CLIENT_CONFIG.visuals.magentaChalkGlyphColor.get();
+            case 15 -> Occultism.CLIENT_CONFIG.visuals.pinkChalkGlyphColor.get();
+            default -> Occultism.CLIENT_CONFIG.visuals.whiteChalkGlyphColor.get();
+        };
+    }
     //endregion Static Methods
 }

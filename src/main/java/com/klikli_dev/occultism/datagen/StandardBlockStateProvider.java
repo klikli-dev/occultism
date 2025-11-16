@@ -25,11 +25,12 @@ package com.klikli_dev.occultism.datagen;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.common.block.ChalkGlyphBlock;
 import com.klikli_dev.occultism.common.block.RainbowGlyphBlock;
+import com.klikli_dev.occultism.common.block.VoidGlyphBlock;
 import com.klikli_dev.occultism.common.block.storage.StableWormholeBlock;
 import com.klikli_dev.occultism.registry.OccultismBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
@@ -115,12 +116,10 @@ public class StandardBlockStateProvider extends BlockStateProvider {
         //Generate blockstates for the glyphs
         OccultismBlocks.BLOCKS.getEntries().stream()
                 .map(DeferredHolder::get)
-                .filter(block -> block instanceof ChalkGlyphBlock && !(block instanceof RainbowGlyphBlock))
+                .filter(block -> block instanceof ChalkGlyphBlock && !(block instanceof RainbowGlyphBlock || block instanceof VoidGlyphBlock))
                 .forEach(this::generateGlyphBlockState);
-        OccultismBlocks.BLOCKS.getEntries().stream()
-                .map(DeferredHolder::get)
-                .filter(block -> block instanceof RainbowGlyphBlock)
-                .forEach(this::generateRainbowGlyphBlockState);
+        this.generateRainbowGlyphBlockState(OccultismBlocks.CHALK_GLYPH_RAINBOW.get());
+        this.generateVoidGlyphBlockState(OccultismBlocks.CHALK_GLYPH_VOID.get());
         this.simpleBlock(OccultismBlocks.STORAGE_CONTROLLER.get(),
                 this.models().getExistingFile(this.modLoc("block/storage_controller")));
         this.models().withExistingParent("item/storage_controller", this.modLoc("block/storage_controller"));
@@ -142,49 +141,49 @@ public class StandardBlockStateProvider extends BlockStateProvider {
         this.generateStableWormholeState(OccultismBlocks.STABLE_WORMHOLE.get());
         this.generateStableWormholeStateDark(OccultismBlocks.STABLE_WORMHOLE_DARK.get());
 
-        stairsBlock(((StairBlock) OccultismBlocks.OTHERPLANKS_STAIRS.get()), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
-        fenceBlock(((FenceBlock) OccultismBlocks.OTHERPLANKS_FENCE.get()), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
-        fenceGateBlock(((FenceGateBlock) OccultismBlocks.OTHERPLANKS_FENCE_GATE.get()), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
-        doorBlockWithRenderType(((DoorBlock) OccultismBlocks.OTHERPLANKS_DOOR.get()), modLoc("block/otherplanks_door_bottom"), modLoc("block/otherplanks_door_top"), "cutout");
-        trapdoorBlockWithRenderType(((TrapDoorBlock) OccultismBlocks.OTHERPLANKS_TRAPDOOR.get()), modLoc("block/otherplanks_trapdoor"), true, "cutout");
-        pressurePlateBlock(((PressurePlateBlock) OccultismBlocks.OTHERPLANKS_PRESSURE_PLATE.get()), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
-        buttonBlock(((ButtonBlock) OccultismBlocks.OTHERPLANKS_BUTTON.get()), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
+        stairsBlock(OccultismBlocks.OTHERPLANKS_STAIRS.get(), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
+        fenceBlock(OccultismBlocks.OTHERPLANKS_FENCE.get(), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
+        fenceGateBlock(OccultismBlocks.OTHERPLANKS_FENCE_GATE.get(), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
+        doorBlockWithRenderType(OccultismBlocks.OTHERPLANKS_DOOR.get(), modLoc("block/otherplanks_door_bottom"), modLoc("block/otherplanks_door_top"), "cutout");
+        trapdoorBlockWithRenderType(OccultismBlocks.OTHERPLANKS_TRAPDOOR.get(), modLoc("block/otherplanks_trapdoor"), true, "cutout");
+        pressurePlateBlock(OccultismBlocks.OTHERPLANKS_PRESSURE_PLATE.get(), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
+        buttonBlock(OccultismBlocks.OTHERPLANKS_BUTTON.get(), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
 
-        stairsBlock(((StairBlock) OccultismBlocks.OTHERSTONE_STAIRS.get()), blockTexture(OccultismBlocks.OTHERSTONE.get()));
-        slabBlock(((SlabBlock) OccultismBlocks.OTHERSTONE_SLAB.get()), blockTexture(OccultismBlocks.OTHERSTONE.get()), blockTexture(OccultismBlocks.OTHERSTONE.get()));
-        wallBlock(((WallBlock) OccultismBlocks.OTHERSTONE_WALL.get()), blockTexture(OccultismBlocks.OTHERSTONE.get()));
-        pressurePlateBlock(((PressurePlateBlock) OccultismBlocks.OTHERSTONE_PRESSURE_PLATE.get()), blockTexture(OccultismBlocks.OTHERSTONE.get()));
-        buttonBlock(((ButtonBlock) OccultismBlocks.OTHERSTONE_BUTTON.get()), blockTexture(OccultismBlocks.OTHERSTONE.get()));
+        stairsBlock(OccultismBlocks.OTHERSTONE_STAIRS.get(), blockTexture(OccultismBlocks.OTHERSTONE.get()));
+        slabBlock(OccultismBlocks.OTHERSTONE_SLAB.get(), blockTexture(OccultismBlocks.OTHERSTONE.get()), blockTexture(OccultismBlocks.OTHERSTONE.get()));
+        wallBlock(OccultismBlocks.OTHERSTONE_WALL.get(), blockTexture(OccultismBlocks.OTHERSTONE.get()));
+        pressurePlateBlock(OccultismBlocks.OTHERSTONE_PRESSURE_PLATE.get(), blockTexture(OccultismBlocks.OTHERSTONE.get()));
+        buttonBlock(OccultismBlocks.OTHERSTONE_BUTTON.get(), blockTexture(OccultismBlocks.OTHERSTONE.get()));
 
-        stairsBlock(((StairBlock) OccultismBlocks.OTHERCOBBLESTONE_STAIRS.get()), blockTexture(OccultismBlocks.OTHERCOBBLESTONE.get()));
-        slabBlock(((SlabBlock) OccultismBlocks.OTHERCOBBLESTONE_SLAB.get()), blockTexture(OccultismBlocks.OTHERCOBBLESTONE.get()), blockTexture(OccultismBlocks.OTHERCOBBLESTONE.get()));
-        wallBlock(((WallBlock) OccultismBlocks.OTHERCOBBLESTONE_WALL.get()), blockTexture(OccultismBlocks.OTHERCOBBLESTONE.get()));
+        stairsBlock(OccultismBlocks.OTHERCOBBLESTONE_STAIRS.get(), blockTexture(OccultismBlocks.OTHERCOBBLESTONE.get()));
+        slabBlock(OccultismBlocks.OTHERCOBBLESTONE_SLAB.get(), blockTexture(OccultismBlocks.OTHERCOBBLESTONE.get()), blockTexture(OccultismBlocks.OTHERCOBBLESTONE.get()));
+        wallBlock(OccultismBlocks.OTHERCOBBLESTONE_WALL.get(), blockTexture(OccultismBlocks.OTHERCOBBLESTONE.get()));
 
-        stairsBlock(((StairBlock) OccultismBlocks.POLISHED_OTHERSTONE_STAIRS.get()), blockTexture(OccultismBlocks.POLISHED_OTHERSTONE.get()));
-        slabBlock(((SlabBlock) OccultismBlocks.POLISHED_OTHERSTONE_SLAB.get()), blockTexture(OccultismBlocks.POLISHED_OTHERSTONE.get()), blockTexture(OccultismBlocks.POLISHED_OTHERSTONE.get()));
-        wallBlock(((WallBlock) OccultismBlocks.POLISHED_OTHERSTONE_WALL.get()), blockTexture(OccultismBlocks.POLISHED_OTHERSTONE.get()));
+        stairsBlock(OccultismBlocks.POLISHED_OTHERSTONE_STAIRS.get(), blockTexture(OccultismBlocks.POLISHED_OTHERSTONE.get()));
+        slabBlock(OccultismBlocks.POLISHED_OTHERSTONE_SLAB.get(), blockTexture(OccultismBlocks.POLISHED_OTHERSTONE.get()), blockTexture(OccultismBlocks.POLISHED_OTHERSTONE.get()));
+        wallBlock(OccultismBlocks.POLISHED_OTHERSTONE_WALL.get(), blockTexture(OccultismBlocks.POLISHED_OTHERSTONE.get()));
 
-        stairsBlock(((StairBlock) OccultismBlocks.OTHERSTONE_BRICKS_STAIRS.get()), blockTexture(OccultismBlocks.OTHERSTONE_BRICKS.get()));
-        slabBlock(((SlabBlock) OccultismBlocks.OTHERSTONE_BRICKS_SLAB.get()), blockTexture(OccultismBlocks.OTHERSTONE_BRICKS.get()), blockTexture(OccultismBlocks.OTHERSTONE_BRICKS.get()));
-        wallBlock(((WallBlock) OccultismBlocks.OTHERSTONE_BRICKS_WALL.get()), blockTexture(OccultismBlocks.OTHERSTONE_BRICKS.get()));
+        stairsBlock(OccultismBlocks.OTHERSTONE_BRICKS_STAIRS.get(), blockTexture(OccultismBlocks.OTHERSTONE_BRICKS.get()));
+        slabBlock(OccultismBlocks.OTHERSTONE_BRICKS_SLAB.get(), blockTexture(OccultismBlocks.OTHERSTONE_BRICKS.get()), blockTexture(OccultismBlocks.OTHERSTONE_BRICKS.get()));
+        wallBlock(OccultismBlocks.OTHERSTONE_BRICKS_WALL.get(), blockTexture(OccultismBlocks.OTHERSTONE_BRICKS.get()));
 
-        stairsBlock(((StairBlock) OccultismBlocks.OTHERROCK_STAIRS.get()), blockTexture(OccultismBlocks.OTHERROCK.get()));
-        slabBlock(((SlabBlock) OccultismBlocks.OTHERROCK_SLAB.get()), blockTexture(OccultismBlocks.OTHERROCK.get()), blockTexture(OccultismBlocks.OTHERROCK.get()));
-        wallBlock(((WallBlock) OccultismBlocks.OTHERROCK_WALL.get()), blockTexture(OccultismBlocks.OTHERROCK.get()));
-        pressurePlateBlock(((PressurePlateBlock) OccultismBlocks.OTHERROCK_PRESSURE_PLATE.get()), blockTexture(OccultismBlocks.OTHERROCK.get()));
-        buttonBlock(((ButtonBlock) OccultismBlocks.OTHERROCK_BUTTON.get()), blockTexture(OccultismBlocks.OTHERROCK.get()));
+        stairsBlock(OccultismBlocks.OTHERROCK_STAIRS.get(), blockTexture(OccultismBlocks.OTHERROCK.get()));
+        slabBlock(OccultismBlocks.OTHERROCK_SLAB.get(), blockTexture(OccultismBlocks.OTHERROCK.get()), blockTexture(OccultismBlocks.OTHERROCK.get()));
+        wallBlock(OccultismBlocks.OTHERROCK_WALL.get(), blockTexture(OccultismBlocks.OTHERROCK.get()));
+        pressurePlateBlock(OccultismBlocks.OTHERROCK_PRESSURE_PLATE.get(), blockTexture(OccultismBlocks.OTHERROCK.get()));
+        buttonBlock(OccultismBlocks.OTHERROCK_BUTTON.get(), blockTexture(OccultismBlocks.OTHERROCK.get()));
 
-        stairsBlock(((StairBlock) OccultismBlocks.OTHERCOBBLEROCK_STAIRS.get()), blockTexture(OccultismBlocks.OTHERCOBBLEROCK.get()));
-        slabBlock(((SlabBlock) OccultismBlocks.OTHERCOBBLEROCK_SLAB.get()), blockTexture(OccultismBlocks.OTHERCOBBLEROCK.get()), blockTexture(OccultismBlocks.OTHERCOBBLEROCK.get()));
-        wallBlock(((WallBlock) OccultismBlocks.OTHERCOBBLEROCK_WALL.get()), blockTexture(OccultismBlocks.OTHERCOBBLEROCK.get()));
+        stairsBlock(OccultismBlocks.OTHERCOBBLEROCK_STAIRS.get(), blockTexture(OccultismBlocks.OTHERCOBBLEROCK.get()));
+        slabBlock(OccultismBlocks.OTHERCOBBLEROCK_SLAB.get(), blockTexture(OccultismBlocks.OTHERCOBBLEROCK.get()), blockTexture(OccultismBlocks.OTHERCOBBLEROCK.get()));
+        wallBlock(OccultismBlocks.OTHERCOBBLEROCK_WALL.get(), blockTexture(OccultismBlocks.OTHERCOBBLEROCK.get()));
 
-        stairsBlock(((StairBlock) OccultismBlocks.POLISHED_OTHERROCK_STAIRS.get()), blockTexture(OccultismBlocks.POLISHED_OTHERROCK.get()));
-        slabBlock(((SlabBlock) OccultismBlocks.POLISHED_OTHERROCK_SLAB.get()), blockTexture(OccultismBlocks.POLISHED_OTHERROCK.get()), blockTexture(OccultismBlocks.POLISHED_OTHERROCK.get()));
-        wallBlock(((WallBlock) OccultismBlocks.POLISHED_OTHERROCK_WALL.get()), blockTexture(OccultismBlocks.POLISHED_OTHERROCK.get()));
+        stairsBlock(OccultismBlocks.POLISHED_OTHERROCK_STAIRS.get(), blockTexture(OccultismBlocks.POLISHED_OTHERROCK.get()));
+        slabBlock(OccultismBlocks.POLISHED_OTHERROCK_SLAB.get(), blockTexture(OccultismBlocks.POLISHED_OTHERROCK.get()), blockTexture(OccultismBlocks.POLISHED_OTHERROCK.get()));
+        wallBlock(OccultismBlocks.POLISHED_OTHERROCK_WALL.get(), blockTexture(OccultismBlocks.POLISHED_OTHERROCK.get()));
 
-        stairsBlock(((StairBlock) OccultismBlocks.OTHERROCK_BRICKS_STAIRS.get()), blockTexture(OccultismBlocks.OTHERROCK_BRICKS.get()));
-        slabBlock(((SlabBlock) OccultismBlocks.OTHERROCK_BRICKS_SLAB.get()), blockTexture(OccultismBlocks.OTHERROCK_BRICKS.get()), blockTexture(OccultismBlocks.OTHERROCK_BRICKS.get()));
-        wallBlock(((WallBlock) OccultismBlocks.OTHERROCK_BRICKS_WALL.get()), blockTexture(OccultismBlocks.OTHERROCK_BRICKS.get()));
+        stairsBlock(OccultismBlocks.OTHERROCK_BRICKS_STAIRS.get(), blockTexture(OccultismBlocks.OTHERROCK_BRICKS.get()));
+        slabBlock(OccultismBlocks.OTHERROCK_BRICKS_SLAB.get(), blockTexture(OccultismBlocks.OTHERROCK_BRICKS.get()), blockTexture(OccultismBlocks.OTHERROCK_BRICKS.get()));
+        wallBlock(OccultismBlocks.OTHERROCK_BRICKS_WALL.get(), blockTexture(OccultismBlocks.OTHERROCK_BRICKS.get()));
 
         this.simpleBlock(OccultismBlocks.LARGE_CANDLE.get(),
                 this.models().getExistingFile(this.modLoc("block/large_candle")));
@@ -293,5 +292,26 @@ public class StandardBlockStateProvider extends BlockStateProvider {
                                     .toYRot())
                             .build();
                 }, RainbowGlyphBlock.COLOR);
+    }
+
+    protected void generateVoidGlyphBlockState(Block block) {
+        ModelFile.ExistingModelFile parent = this.models()
+                .getExistingFile(this.modLoc("block/chalk_glyph/chalk_glyph"));
+        this.getVariantBuilder(block)
+                .forAllStatesExcept(state -> {
+                    //this is called for every state combination
+                    //create a child model for each glyph texture option
+                    int sign = state.getValue(ChalkGlyphBlock.SIGN);
+                    ModelFile subModel = this.models().getBuilder("block/chalk_glyph/" + sign).parent(parent)
+                            .texture("texture", this.modLoc("block/chalk_glyph/" + sign));
+
+                    return ConfiguredModel.builder()
+                            //load the child model
+                            .modelFile(subModel)
+                            //
+                            .rotationY((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING)
+                                    .toYRot())
+                            .build();
+                }, VoidGlyphBlock.COLOR);
     }
 }

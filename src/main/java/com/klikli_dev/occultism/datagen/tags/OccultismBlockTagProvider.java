@@ -259,21 +259,25 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.CELESTIAL_CHALICE.get())
                 .add(OccultismBlocks.ELDRITCH_CHALICE.get()).replace(false);
         this.tag(OccultismTags.Blocks.FOUNDATION_GLYPHS_ANY)
+                .add(OccultismBlocks.CHALK_GLYPH_RAINBOW.get())
                 .add(OccultismBlocks.CHALK_GLYPH_VOID.get())
                 .add(OccultismBlocks.CHALK_GLYPH_WHITE.get())
                 .add(OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY.get())
                 .add(OccultismBlocks.CHALK_GLYPH_GRAY.get())
                 .add(OccultismBlocks.CHALK_GLYPH_BLACK.get()).replace(false);
         this.tag(OccultismTags.Blocks.FOUNDATION_GLYPHS_NO_WHITE)
+                .add(OccultismBlocks.CHALK_GLYPH_RAINBOW.get())
                 .add(OccultismBlocks.CHALK_GLYPH_VOID.get())
                 .add(OccultismBlocks.CHALK_GLYPH_LIGHT_GRAY.get())
                 .add(OccultismBlocks.CHALK_GLYPH_GRAY.get())
                 .add(OccultismBlocks.CHALK_GLYPH_BLACK.get()).replace(false);
         this.tag(OccultismTags.Blocks.FOUNDATION_GLYPHS_DARK)
+                .add(OccultismBlocks.CHALK_GLYPH_RAINBOW.get())
                 .add(OccultismBlocks.CHALK_GLYPH_VOID.get())
                 .add(OccultismBlocks.CHALK_GLYPH_GRAY.get())
                 .add(OccultismBlocks.CHALK_GLYPH_BLACK.get()).replace(false);
         this.tag(OccultismTags.Blocks.GLYPHS_BLACK)
+                .add(OccultismBlocks.CHALK_GLYPH_RAINBOW.get())
                 .add(OccultismBlocks.CHALK_GLYPH_VOID.get())
                 .add(OccultismBlocks.CHALK_GLYPH_BLACK.get()).replace(false);
         this.tag(OccultismTags.Blocks.GLYPHS_RED)

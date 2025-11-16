@@ -249,9 +249,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItem(OccultismItems.CHALK_MAGENTA, "Magenta Chalk");
         this.addItem(OccultismItems.CHALK_PINK, "Pink Chalk");
         this.addItem(OccultismItems.CHALK_RAINBOW, "Rainbow Chalk");
-        this.addAutoTooltip(OccultismItems.CHALK_RAINBOW, "Shift + Right Click in a glyph to erase");
+        this.addAutoTooltip(OccultismItems.CHALK_RAINBOW, "Shift + Right Click in a glyph to erase.\nIt can take on the appearance of any colored glyph.");
         this.addItem(OccultismItems.CHALK_VOID, "Void Chalk");
-        this.addAutoTooltip(OccultismItems.CHALK_VOID, "Shift + Right Click in a glyph to erase");
+        this.addAutoTooltip(OccultismItems.CHALK_VOID, "Shift + Right Click in a glyph to erase.\nIt can take on the appearance of any foundation glyph.");
         this.addItem(OccultismItems.CHALK_YELLOW_IMPURE, "Impure Yellow Chalk");
         this.addItem(OccultismItems.CHALK_PURPLE_IMPURE, "Impure Purple Chalk");
         this.addItem(OccultismItems.CHALK_RED_IMPURE, "Impure Red Chalk");
@@ -2741,8 +2741,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_REINFORCED_DEEPSLATE, "Forge Reinforced Deepslate", "Wild", "Wild Spirits will forge a Reinforced Deepslate.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CELESTIAL_CHALICE, "Forge Celestial Chalice", "Eldritch", "Eldritch Spirits will forge an Celestial Chalice, that performs any ritual instantly. Here is your trophy.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_ELDRITCH_CHALICE, "Forge Eldritch Chalice", "Eldritch", "Eldritch Spirits will forge an Eldritch Chalice, that performs any ritual instantly. Here is your trophy.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_RAINBOW, "Forge Rainbow Chalk", "Eldritch", "Eldritch Spirits will forge a rainbow chalk, substitute any colored chalk.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_VOID, "Forge Void Chalk", "Eldritch", "Eldritch Spirits will forge a rainbow chalk, substitute any chalk.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_RAINBOW, "Forge Rainbow Chalk", "Eldritch", "Eldritch Spirits will forge a rainbow chalk, substitute any chalk.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_VOID, "Forge Void Chalk", "Eldritch", "Eldritch Spirits will forge a void chalk, substitute any chalk.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_TRINITY_GEM, "Forge Trinity Gem", "Eldritch", "Eldritch Spirits will forge a trinity gem, upgrading a soul gem.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE, "Forge Stabilized Dimensional Storage Actuator", "Eldritch", "Eldritch Spirits will forge a Stabilized Dimensional Storage Actuator, works as an actuator with maximum stabilizers in only one block. This recipe keep the items inside the actuator.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_FORGE_STABILIZED_STORAGE_DARK, "Forge Dark Stabilized Dimensional Storage Actuator", "Eldritch", "Eldritch Spirits will forge a Dark Stabilized Dimensional Storage Actuator, works as an actuator with maximum stabilizers in only one block. This recipe keep the items inside the actuator.");

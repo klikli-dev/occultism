@@ -40,6 +40,12 @@ public class OccultismRecipeProvider extends RecipeProvider {
         stonecutterRecipes(pRecipeOutput);
         otherflowerRecipes(pRecipeOutput);
         grayPasteRecipes(pRecipeOutput);
+
+        //TODO: remove in next major version, now is for players that already make void can return to rainbow
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, OccultismItems.CHALK_RAINBOW, 1)
+                .requires(OccultismItems.CHALK_VOID)
+                .unlockedBy("has_chalk_void", has(OccultismItems.CHALK_VOID))
+                .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/change_rainbow_to_void"));
     }
 
     private void ritualRecipes(RecipeOutput recipeOutput, HolderLookup.Provider registries) {

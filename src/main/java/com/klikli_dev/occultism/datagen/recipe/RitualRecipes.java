@@ -2187,7 +2187,7 @@ public abstract class RitualRecipes extends RecipeProvider {
                 .entityToSacrificeDisplayName("ritual.occultism.sacrifice.sheep")
                 .entityToSacrifice(OccultismTags.Entities.SHEEP)
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/misc_chalk_rainbow"));
-        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.CHALK_RAINBOW),
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BRUSH),
                         new ItemStack(OccultismItems.CHALK_VOID.get()),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_FORGE_CHALK_VOID.get()),
                         780,

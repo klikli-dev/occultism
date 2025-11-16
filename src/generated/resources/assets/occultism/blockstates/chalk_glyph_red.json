@@ -20,6 +20,10 @@
       "model": "occultism:block/chalk_glyph/12",
       "y": 270
     },
+    "facing=east,sign=13": {
+      "model": "occultism:block/chalk_glyph/13",
+      "y": 270
+    },
     "facing=east,sign=2": {
       "model": "occultism:block/chalk_glyph/2",
       "y": 270
@@ -72,6 +76,10 @@
       "model": "occultism:block/chalk_glyph/12",
       "y": 180
     },
+    "facing=north,sign=13": {
+      "model": "occultism:block/chalk_glyph/13",
+      "y": 180
+    },
     "facing=north,sign=2": {
       "model": "occultism:block/chalk_glyph/2",
       "y": 180
@@ -119,6 +127,9 @@
     "facing=south,sign=12": {
       "model": "occultism:block/chalk_glyph/12"
     },
+    "facing=south,sign=13": {
+      "model": "occultism:block/chalk_glyph/13"
+    },
     "facing=south,sign=2": {
       "model": "occultism:block/chalk_glyph/2"
     },
@@ -161,6 +172,10 @@
     },
     "facing=west,sign=12": {
       "model": "occultism:block/chalk_glyph/12",
+      "y": 90
+    },
+    "facing=west,sign=13": {
+      "model": "occultism:block/chalk_glyph/13",
       "y": 90
     },
     "facing=west,sign=2": {

@@ -46,15 +46,15 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-public class RainbowGlyphBlock extends ChalkGlyphBlock {
-    public static final IntegerProperty COLOR = IntegerProperty.create("color", 4, 15);
+public class VoidGlyphBlock extends ChalkGlyphBlock {
+    public static final IntegerProperty COLOR = IntegerProperty.create("color", 0, 3);
     public static final BooleanProperty CYCLE = BooleanProperty.create("cycle");
 
     protected Supplier<Item> chalk;
     protected Supplier<Integer> color;
     protected Boolean cycle;
 
-    public RainbowGlyphBlock(Properties properties, Boolean cycle, Supplier<Item> chalk) {
+    public VoidGlyphBlock(Properties properties, Boolean cycle, Supplier<Item> chalk) {
         super(properties, Occultism.CLIENT_CONFIG.visuals.whiteChalkGlyphColor, chalk);
         this.chalk = chalk;
         this.cycle = cycle;
@@ -77,7 +77,7 @@ public class RainbowGlyphBlock extends ChalkGlyphBlock {
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockPos pos = context.getClickedPos();
         int sign = context.getLevel().getRandom().nextInt(MAX_SIGN + 1);
-        int cor = RandomSource.create().nextIntBetweenInclusive(4,15);
+        int cor = RandomSource.create().nextIntBetweenInclusive(0,3);
         boolean cc = this.cycle;
         BlockState current = context.getLevel().getBlockState(pos);
         if (current.getBlock() == this) {
@@ -90,18 +90,10 @@ public class RainbowGlyphBlock extends ChalkGlyphBlock {
             ItemStack stack = context.getHand().equals(InteractionHand.MAIN_HAND) ?
                     player.getItemInHand(InteractionHand.OFF_HAND) :
                     player.getItemInHand(InteractionHand.MAIN_HAND) ;
-            if (stack.is(Tags.Items.DYES_BROWN)) {cor = 4; cc = false;}
-            else if (stack.is(Tags.Items.DYES_RED)) {cor = 5; cc = false;}
-            else if (stack.is(Tags.Items.DYES_ORANGE)) {cor = 6; cc = false;}
-            else if (stack.is(Tags.Items.DYES_YELLOW)) {cor = 7; cc = false;}
-            else if (stack.is(Tags.Items.DYES_LIME)) {cor = 8; cc = false;}
-            else if (stack.is(Tags.Items.DYES_GREEN)) {cor = 9; cc = false;}
-            else if (stack.is(Tags.Items.DYES_CYAN)) {cor = 10; cc = false;}
-            else if (stack.is(Tags.Items.DYES_LIGHT_BLUE)) {cor = 11; cc = false;}
-            else if (stack.is(Tags.Items.DYES_BLUE)) {cor = 12; cc = false;}
-            else if (stack.is(Tags.Items.DYES_PURPLE)) {cor = 13; cc = false;}
-            else if (stack.is(Tags.Items.DYES_MAGENTA)) {cor = 14; cc = false;}
-            else if (stack.is(Tags.Items.DYES_PINK)) {cor = 15; cc = false;}
+            if (stack.is(Tags.Items.DYES_WHITE)) {cor = 0; cc = false;}
+            else if (stack.is(Tags.Items.DYES_LIGHT_GRAY)) {cor = 1; cc = false;}
+            else if (stack.is(Tags.Items.DYES_GRAY)) {cor = 2; cc = false;}
+            else if (stack.is(Tags.Items.DYES_BLACK)) {cor = 3; cc = false;}
             else if (stack.is(OccultismItems.SPIRIT_ATTUNED_GEM)) {cc = false;}
         }
         return this.defaultBlockState().setValue(COLOR, cor).setValue(CYCLE, cc).setValue(SIGN, sign)
@@ -126,41 +118,17 @@ public class RainbowGlyphBlock extends ChalkGlyphBlock {
                     level.setBlockAndUpdate(pos, state.setValue(CYCLE, true));
                 }
                 return ItemInteractionResult.sidedSuccess(level.isClientSide);
-            } else if (stack.getTags().toList().contains(Tags.Items.DYES_BROWN)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 4));
+            } else if (stack.getTags().toList().contains(Tags.Items.DYES_WHITE)) {
+                level.setBlockAndUpdate(pos, state.setValue(COLOR, 0));
                 return ItemInteractionResult.sidedSuccess(level.isClientSide);
-            } else if (stack.getTags().toList().contains(Tags.Items.DYES_RED)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 5));
+            } else if (stack.getTags().toList().contains(Tags.Items.DYES_LIGHT_GRAY)) {
+                level.setBlockAndUpdate(pos, state.setValue(COLOR, 1));
                 return ItemInteractionResult.sidedSuccess(level.isClientSide);
-            } else if (stack.getTags().toList().contains(Tags.Items.DYES_ORANGE)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 6));
+            } else if (stack.getTags().toList().contains(Tags.Items.DYES_GRAY)) {
+                level.setBlockAndUpdate(pos, state.setValue(COLOR, 2));
                 return ItemInteractionResult.sidedSuccess(level.isClientSide);
-            } else if (stack.getTags().toList().contains(Tags.Items.DYES_YELLOW)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 7));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
-            } else if (stack.getTags().toList().contains(Tags.Items.DYES_LIME)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 8));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
-            } else if (stack.getTags().toList().contains(Tags.Items.DYES_GREEN)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 9));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
-            } else if (stack.getTags().toList().contains(Tags.Items.DYES_CYAN)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 10));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
-            } else if (stack.getTags().toList().contains(Tags.Items.DYES_LIGHT_BLUE)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 11));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
-            } else if (stack.getTags().toList().contains(Tags.Items.DYES_BLUE)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 12));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
-            } else if (stack.getTags().toList().contains(Tags.Items.DYES_PURPLE)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 13));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
-            } else if (stack.getTags().toList().contains(Tags.Items.DYES_MAGENTA)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 14));
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
-            } else if (stack.getTags().toList().contains(Tags.Items.DYES_PINK)) {
-                level.setBlockAndUpdate(pos, state.setValue(COLOR, 15));
+            } else if (stack.getTags().toList().contains(Tags.Items.DYES_BLACK)) {
+                level.setBlockAndUpdate(pos, state.setValue(COLOR, 3));
                 return ItemInteractionResult.sidedSuccess(level.isClientSide);
             }
         }
@@ -169,7 +137,7 @@ public class RainbowGlyphBlock extends ChalkGlyphBlock {
 
     public void animateTick(BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource rand) {
         if (state.getValue(CYCLE)) {
-            int nextColor = state.getValue(COLOR) == 15 ? 4 : state.getValue(COLOR) + 1;
+            int nextColor = state.getValue(COLOR) == 3 ? 0 : state.getValue(COLOR) + 1;
             level.setBlockAndUpdate(pos, state.setValue(COLOR, nextColor));
         }
     }

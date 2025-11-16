@@ -23,7 +23,6 @@
 package com.klikli_dev.occultism.common.item.tool;
 
 import com.klikli_dev.occultism.common.block.ChalkGlyphBlock;
-import com.klikli_dev.occultism.common.block.RainbowGlyphBlock;
 import com.klikli_dev.occultism.registry.OccultismSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
@@ -31,6 +30,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 public class BrushItem extends Item {
 
@@ -39,12 +39,12 @@ public class BrushItem extends Item {
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext context) {
+    public @NotNull InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
         if (!level.isClientSide) {
             //only remove chalks
-            if (level.getBlockState(pos).getBlock() instanceof ChalkGlyphBlock || level.getBlockState(pos).getBlock() instanceof RainbowGlyphBlock) {
+            if (level.getBlockState(pos).getBlock() instanceof ChalkGlyphBlock) {
                 level.removeBlock(pos, false);
                 level.playSound(null, pos, OccultismSounds.BRUSH.get(), SoundSource.PLAYERS, 0.5f,
                         1 + 0.5f * context.getPlayer().getRandom().nextFloat());

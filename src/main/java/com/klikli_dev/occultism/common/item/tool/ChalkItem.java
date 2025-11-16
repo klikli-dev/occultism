@@ -41,10 +41,18 @@ import java.util.Objects;
 
 public class ChalkItem extends Item {
     ChalkGlyphBlock glyphBlock;
+    boolean isBrush;
 
     public ChalkItem(Properties properties, ChalkGlyphBlock glyphBlock) {
         super(properties);
         this.glyphBlock = glyphBlock;
+        this.isBrush = false;
+    }
+
+    public ChalkItem(Properties properties, ChalkGlyphBlock glyphBlock, boolean brush) {
+        super(properties);
+        this.glyphBlock = glyphBlock;
+        this.isBrush = brush;
     }
 
     public ChalkGlyphBlock getGlyphBlock() {
@@ -59,6 +67,14 @@ public class ChalkItem extends Item {
         boolean isReplacing = level.getBlockState(pos).canBeReplaced(new BlockPlaceContext(context));
 
         if (!level.isClientSide) {
+            if (this.isBrush && player != null && player.isCrouching()){ //brush job
+                if (level.getBlockState(pos).getBlock() instanceof ChalkGlyphBlock) {
+                    level.removeBlock(pos, false);
+                    level.playSound(null, pos, OccultismSounds.BRUSH.get(), SoundSource.PLAYERS, 0.5f,
+                            1 + 0.5f * Objects.requireNonNull(context.getPlayer()).getRandom().nextFloat());
+                    return InteractionResult.SUCCESS;
+                }
+            }
             //only place if player clicked at a top face
             //only if the block can be placed or is replacing an existing block
             if ((context.getClickedFace() == Direction.UP
