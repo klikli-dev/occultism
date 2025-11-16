@@ -92,7 +92,15 @@ public class StandardBlockStateProvider extends BlockStateProvider {
                 OccultismBlocks.STORAGE_STABILIZER_TIER2,
                 OccultismBlocks.STORAGE_STABILIZER_TIER3,
                 OccultismBlocks.STORAGE_STABILIZER_TIER4,
-                OccultismBlocks.ENTITY_WORMHOLE
+                OccultismBlocks.STORAGE_STABILIZER_TIER5,
+                OccultismBlocks.ENTITY_WORMHOLE,
+                OccultismBlocks.STORAGE_STABILIZER_TIER0_DARK,
+                OccultismBlocks.STORAGE_STABILIZER_TIER1_DARK,
+                OccultismBlocks.STORAGE_STABILIZER_TIER2_DARK,
+                OccultismBlocks.STORAGE_STABILIZER_TIER3_DARK,
+                OccultismBlocks.STORAGE_STABILIZER_TIER4_DARK,
+                OccultismBlocks.STORAGE_STABILIZER_TIER5_DARK,
+                OccultismBlocks.ENTITY_WORMHOLE_DARK
         };
         for (DeferredBlock block : blocks){
             this.directionalBlock((Block) block.get(),
@@ -116,13 +124,23 @@ public class StandardBlockStateProvider extends BlockStateProvider {
         this.simpleBlock(OccultismBlocks.STORAGE_CONTROLLER.get(),
                 this.models().getExistingFile(this.modLoc("block/storage_controller")));
         this.models().withExistingParent("item/storage_controller", this.modLoc("block/storage_controller"));
+        this.simpleBlock(OccultismBlocks.STORAGE_CONTROLLER_DARK.get(),
+                this.models().getExistingFile(this.modLoc("block/storage_controller_dark")));
+        this.models().withExistingParent("item/storage_controller_dark", this.modLoc("block/storage_controller_dark"));
         this.simpleBlock(OccultismBlocks.STORAGE_CONTROLLER_BASE.get(),
                 this.models().getExistingFile(this.modLoc("block/storage_controller_base")));
         this.models().withExistingParent("item/storage_controller_base", this.modLoc("block/storage_controller_base"));
+        this.simpleBlock(OccultismBlocks.STORAGE_CONTROLLER_BASE_DARK.get(),
+                this.models().getExistingFile(this.modLoc("block/storage_controller_base_dark")));
+        this.models().withExistingParent("item/storage_controller_base_dark", this.modLoc("block/storage_controller_base_dark"));
         this.simpleBlock(OccultismBlocks.STORAGE_CONTROLLER_STABILIZED.get(),
                 this.models().getExistingFile(this.modLoc("block/storage_controller_stabilized")));
         this.models().withExistingParent("item/storage_controller_stabilized", this.modLoc("block/storage_controller_stabilized"));
+        this.simpleBlock(OccultismBlocks.STORAGE_CONTROLLER_STABILIZED_DARK.get(),
+                this.models().getExistingFile(this.modLoc("block/storage_controller_stabilized_dark")));
+        this.models().withExistingParent("item/storage_controller_stabilized_dark", this.modLoc("block/storage_controller_stabilized_dark"));
         this.generateStableWormholeState(OccultismBlocks.STABLE_WORMHOLE.get());
+        this.generateStableWormholeStateDark(OccultismBlocks.STABLE_WORMHOLE_DARK.get());
 
         stairsBlock(((StairBlock) OccultismBlocks.OTHERPLANKS_STAIRS.get()), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
         fenceBlock(((FenceBlock) OccultismBlocks.OTHERPLANKS_FENCE.get()), blockTexture(OccultismBlocks.OTHERPLANKS.get()));
@@ -208,6 +226,22 @@ public class StandardBlockStateProvider extends BlockStateProvider {
         ModelFile.ExistingModelFile linkedModel = this.models().getExistingFile(this.modLoc("block/stable_wormhole"));
         ModelFile.ExistingModelFile unlinkedModel = this.models().getExistingFile(
                 this.modLoc("block/stable_wormhole_unlinked"));
+        this.getVariantBuilder(block)
+                .forAllStates(state -> {
+                    Direction dir = state.getValue(BlockStateProperties.FACING);
+                    return ConfiguredModel.builder()
+                            .modelFile(state.getValue(StableWormholeBlock.LINKED) ? linkedModel : unlinkedModel)
+                            .rotationX(dir == Direction.DOWN ? 180 : dir.getAxis().isHorizontal() ? 90 : 0)
+                            .rotationY(dir.getAxis().isVertical() ? 0 :
+                                    (((int) dir.toYRot()) + 180) % 360)
+                            .build();
+                });
+    }
+
+    protected void generateStableWormholeStateDark(Block block) {
+        ModelFile.ExistingModelFile linkedModel = this.models().getExistingFile(this.modLoc("block/stable_wormhole_dark"));
+        ModelFile.ExistingModelFile unlinkedModel = this.models().getExistingFile(
+                this.modLoc("block/stable_wormhole_dark_unlinked"));
         this.getVariantBuilder(block)
                 .forAllStates(state -> {
                     Direction dir = state.getValue(BlockStateProperties.FACING);

@@ -39,9 +39,9 @@ public class BindingRitualsCategory extends CategoryProvider {
                 "___________________________",
                 "_______f_z_w_v_s_B_H_Č_____",
                 "___________________________",
-                "_______F_a_m_i_j_k_l_______",
+                "_______F_a_m_i_j_k_l_á_____",
                 "___________________________",
-                "_________n_____o___ç_______",
+                "_________n_____o_____ç_____",
                 "___________________________"
         };
     }
@@ -98,6 +98,9 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftStabilizerTier4 = this.add(this.makeCraftStabilizerTier4Entry(this.entryMap, 'l'));
         craftStabilizerTier4.withParent(BookEntryParentModel.create(craftStabilizerTier3.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftMaridID));
+        var craftStabilizerTier5 = this.add(new StabilizerTier5Entry(this).generate('á'));
+        craftStabilizerTier5.withParent(BookEntryParentModel.create(craftStabilizerTier4.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
 
         var craftStableWormhole = this.add(this.makeCraftStableWormholeEntry(this.entryMap, 'm'));
         craftStableWormhole.withParent(BookEntryParentModel.create(craftStorageControllerBase.getId()));
@@ -169,7 +172,7 @@ public class BindingRitualsCategory extends CategoryProvider {
         craftEldritchChalice.withParent(BookEntryParentModel.create(craftIesniumSacrificialBowl.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
         var craftStabilizedStorage = this.add(new StabilizedStorageEntry(this).generate('ç'));
-        craftStabilizedStorage.withParent(BookEntryParentModel.create(craftStabilizerTier4.getId()))
+        craftStabilizedStorage.withParent(BookEntryParentModel.create(craftStabilizerTier5.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(contactEldritchID));
 
         var craftMasterChalks = this.add(new MasterChalksEntry(this).generate('Č'));
@@ -292,12 +295,23 @@ public class BindingRitualsCategory extends CategoryProvider {
         var ritual = BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/craft_storage_controller_base"));
 
+        this.context().page("spotlight_dark");
+        var spotlight_dark = BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismBlocks.STORAGE_CONTROLLER_BASE_DARK.get()))
+                .withText(this.context().pageText());
+
+        this.context().page("ritual_dark");
+        var ritual_dark = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_storage_controller_base_dark"));
+
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.STORAGE_CONTROLLER_BASE.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         spotlight,
-                        ritual
+                        ritual,
+                        spotlight_dark,
+                        ritual_dark
                 );
     }
 
@@ -312,13 +326,17 @@ public class BindingRitualsCategory extends CategoryProvider {
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier1"));
+        this.context().page("ritual_dark");
+        var ritual_dark = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier1_dark"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.STORAGE_STABILIZER_TIER1.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         spotlight,
-                        ritual
+                        ritual,
+                        ritual_dark
                 );
     }
 
@@ -333,13 +351,17 @@ public class BindingRitualsCategory extends CategoryProvider {
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier2"));
+        this.context().page("ritual_dark");
+        var ritual_dark = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier2_dark"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.STORAGE_STABILIZER_TIER2.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         spotlight,
-                        ritual
+                        ritual,
+                        ritual_dark
                 );
     }
 
@@ -354,13 +376,17 @@ public class BindingRitualsCategory extends CategoryProvider {
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier3"));
+        this.context().page("ritual_dark");
+        var ritual_dark = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier3_dark"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.STORAGE_STABILIZER_TIER3.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         spotlight,
-                        ritual
+                        ritual,
+                        ritual_dark
                 );
     }
 
@@ -375,13 +401,17 @@ public class BindingRitualsCategory extends CategoryProvider {
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier4"));
+        this.context().page("ritual_dark");
+        var ritual_dark = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_stabilizer_tier4_dark"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.STORAGE_STABILIZER_TIER4.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         spotlight,
-                        ritual
+                        ritual,
+                        ritual_dark
                 );
     }
 
@@ -396,13 +426,17 @@ public class BindingRitualsCategory extends CategoryProvider {
         this.context().page("ritual");
         var ritual = BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/craft_stable_wormhole"));
+        this.context().page("ritual_dark");
+        var ritual_dark = BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_stable_wormhole_dark"));
 
         return BookEntryModel.create(this.modLoc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withIcon(OccultismBlocks.STABLE_WORMHOLE.get())
                 .withLocation(entryMap.get(icon))
                 .withPages(
                         spotlight,
-                        ritual
+                        ritual,
+                        ritual_dark
                 );
     }
 
@@ -654,6 +688,11 @@ public class BindingRitualsCategory extends CategoryProvider {
         var ritual = BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/craft_infused_lenses"));
 
+        this.context().page("frame_recipe");
+        var frameRecipe = BookCraftingRecipePageModel.create()
+                .withRecipeId1(this.modLoc("crafting/lens_frame"))
+                .withRecipeId2(this.modLoc("crafting/lens_frame_alt"));
+
         this.context().page("goggles_recipe");
         var gogglesRecipe = BookCraftingRecipePageModel.create()
                 .withRecipeId1(this.modLoc("crafting/goggles"));
@@ -668,6 +707,7 @@ public class BindingRitualsCategory extends CategoryProvider {
                         lensesMore,
                         lensesRecipe,
                         ritual,
+                        frameRecipe,
                         gogglesRecipe
                 );
     }

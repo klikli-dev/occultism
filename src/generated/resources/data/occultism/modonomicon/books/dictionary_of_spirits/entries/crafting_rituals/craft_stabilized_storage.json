@@ -35,18 +35,29 @@
       "text": "",
       "title1": "",
       "title2": ""
+    },
+    {
+      "type": "occultism:ritual_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "occultism:ritual/misc_stabilized_storage_dark",
+      "text": "",
+      "title1": "",
+      "title2": ""
     }
   ],
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "crafting_rituals/craft_stabilizer_tier4",
+      "entry": "crafting_rituals/stabilizer_tier5",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 38,
-  "x": 6,
+  "sort_number": 39,
+  "x": 8,
   "y": 6
 }

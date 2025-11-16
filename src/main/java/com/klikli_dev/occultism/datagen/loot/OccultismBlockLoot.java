@@ -117,8 +117,29 @@ public class OccultismBlockLoot extends BlockLootSubProvider {
                 OccultismDataComponents.CRAFTING_MATRIX.get(),
                 OccultismDataComponents.ORDER_STACK.get()
         );
+        this.dropSelfWithComponents(OccultismBlocks.STORAGE_CONTROLLER_DARK.get(),
+                OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS.get(),
+                OccultismDataComponents.SORT_DIRECTION.get(),
+                OccultismDataComponents.SORT_TYPE.get(),
+                OccultismDataComponents.CRAFTING_MATRIX.get(),
+                OccultismDataComponents.ORDER_STACK.get()
+        );
+        this.dropSelfWithComponents(OccultismBlocks.STORAGE_CONTROLLER_STABILIZED_DARK.get(),
+                OccultismDataComponents.STORAGE_CONTROLLER_CONTENTS.get(),
+                OccultismDataComponents.SORT_DIRECTION.get(),
+                OccultismDataComponents.SORT_TYPE.get(),
+                OccultismDataComponents.CRAFTING_MATRIX.get(),
+                OccultismDataComponents.ORDER_STACK.get()
+        );
 
         this.dropSelfWithComponents(OccultismBlocks.STABLE_WORMHOLE.get(),
+                OccultismDataComponents.LINKED_STORAGE_CONTROLLER.get(),
+                OccultismDataComponents.SORT_DIRECTION.get(),
+                OccultismDataComponents.SORT_TYPE.get(),
+                OccultismDataComponents.CRAFTING_MATRIX.get(),
+                OccultismDataComponents.ORDER_STACK.get()
+        );
+        this.dropSelfWithComponents(OccultismBlocks.STABLE_WORMHOLE_DARK.get(),
                 OccultismDataComponents.LINKED_STORAGE_CONTROLLER.get(),
                 OccultismDataComponents.SORT_DIRECTION.get(),
                 OccultismDataComponents.SORT_TYPE.get(),

@@ -50,6 +50,7 @@ public class CraftFoliotEntry extends EntryProvider {
                 - [Nature Paste](entry://pentacles/green_chalk)
                 - [Infused Lenses](entry://crafting_rituals/craft_otherworld_goggles)
                 - [Fragile Soul Gem](entry://crafting_rituals/fragile_soul_gem)
+                - [Vitality Compass](entry://crafting_rituals/vitality_compass)
                 - [Knowledge Tablet](entry://crafting_rituals/knowledge_tablet)
                 - [Foliot Miner](entry://crafting_rituals/craft_foliot_miner)
                 """

@@ -5,8 +5,6 @@ import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.klikli_dev.occultism.registry.OccultismTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -48,8 +46,9 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.OTHERROCK_SLAB.get())
                 .add(OccultismBlocks.OTHERROCK_PRESSURE_PLATE.get())
                 .add(OccultismBlocks.OTHERSTONE_PEDESTAL.get())
-                .add(OccultismBlocks.OTHERSTONE_PEDESTAL_SILVER.get())
+                .add(OccultismBlocks.OTHERROCK_PEDESTAL.get())
                 .add(OccultismBlocks.STORAGE_CONTROLLER_BASE.get())
+                .add(OccultismBlocks.STORAGE_CONTROLLER_BASE_DARK.get())
                 .add(OccultismBlocks.SACRIFICIAL_BOWL.get())
                 .add(OccultismBlocks.COPPER_SACRIFICIAL_BOWL.get())
                 .add(OccultismBlocks.SILVER_SACRIFICIAL_BOWL.get())
@@ -69,8 +68,19 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.STORAGE_STABILIZER_TIER2.get())
                 .add(OccultismBlocks.STORAGE_STABILIZER_TIER3.get())
                 .add(OccultismBlocks.STORAGE_STABILIZER_TIER4.get())
+                .add(OccultismBlocks.STORAGE_STABILIZER_TIER5.get())
                 .add(OccultismBlocks.STABLE_WORMHOLE.get())
                 .add(OccultismBlocks.ENTITY_WORMHOLE.get())
+                .add(OccultismBlocks.STORAGE_CONTROLLER_DARK.get())
+                .add(OccultismBlocks.STORAGE_CONTROLLER_STABILIZED_DARK.get())
+                .add(OccultismBlocks.STORAGE_STABILIZER_TIER0_DARK.get())
+                .add(OccultismBlocks.STORAGE_STABILIZER_TIER1_DARK.get())
+                .add(OccultismBlocks.STORAGE_STABILIZER_TIER2_DARK.get())
+                .add(OccultismBlocks.STORAGE_STABILIZER_TIER3_DARK.get())
+                .add(OccultismBlocks.STORAGE_STABILIZER_TIER4_DARK.get())
+                .add(OccultismBlocks.STORAGE_STABILIZER_TIER5_DARK.get())
+                .add(OccultismBlocks.STABLE_WORMHOLE_DARK.get())
+                .add(OccultismBlocks.ENTITY_WORMHOLE_DARK.get())
                 .add(OccultismBlocks.DIMENSIONAL_MINESHAFT.get())
                 .add(OccultismBlocks.SILVER_ORE.get())
                 .add(OccultismBlocks.SILVER_ORE_DEEPSLATE.get())
@@ -322,7 +332,14 @@ public class OccultismBlockTagProvider extends BlockTagsProvider {
                 .add(OccultismBlocks.STORAGE_STABILIZER_TIER1.get())
                 .add(OccultismBlocks.STORAGE_STABILIZER_TIER2.get())
                 .add(OccultismBlocks.STORAGE_STABILIZER_TIER3.get())
-                .add(OccultismBlocks.STORAGE_STABILIZER_TIER4.get()).replace(false);
+                .add(OccultismBlocks.STORAGE_STABILIZER_TIER4.get())
+                .add(OccultismBlocks.STORAGE_STABILIZER_TIER5.get())
+                .add(OccultismBlocks.STORAGE_STABILIZER_TIER0_DARK.get())
+                .add(OccultismBlocks.STORAGE_STABILIZER_TIER1_DARK.get())
+                .add(OccultismBlocks.STORAGE_STABILIZER_TIER2_DARK.get())
+                .add(OccultismBlocks.STORAGE_STABILIZER_TIER3_DARK.get())
+                .add(OccultismBlocks.STORAGE_STABILIZER_TIER4_DARK.get())
+                .add(OccultismBlocks.STORAGE_STABILIZER_TIER5_DARK.get());
         this.tag(OccultismTags.Blocks.TREE_SOIL).addTags(BlockTags.DIRT).replace(false);
         this.tag(OccultismTags.Blocks.WORLDGEN_BLACKLIST).add(Blocks.END_PORTAL, Blocks.END_PORTAL_FRAME).replace(false);
         this.tag(OccultismTags.Blocks.OTHERWORLD_LOGS)

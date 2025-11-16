@@ -15,7 +15,6 @@ public class StabilizedStorageEntry extends EntryProvider {
 
     public static final String ENTRY_ID = "craft_stabilized_storage";
 
-
     public StabilizedStorageEntry(CategoryProvider parent) {
         super(parent);
     }
@@ -29,7 +28,7 @@ public class StabilizedStorageEntry extends EntryProvider {
                         Forging the [](item://occultism:storage_controller_stabilized) is one service provide by {0},
                          this block will helps occult masters twist space, placing the stabilizers in the same
                          position as the actuator in some extra-planar dimension invisible even to the best eyes.\\
-                         By default this item receives one bonus stabilizer tier 4\\
+                         By default this item receives two bonus stabilizer tier 5\\
                          Other external stabilizers do not affect this block.\\
                          The recipe keep items inside!
                         """,
@@ -38,6 +37,10 @@ public class StabilizedStorageEntry extends EntryProvider {
 
         this.page("ritual", () -> BookRitualRecipePageModel.create()
                 .withRecipeId1(this.modLoc("ritual/misc_stabilized_storage"))
+        );
+        //no text
+        this.page("ritual_dark", () -> BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/misc_stabilized_storage_dark"))
         );
         //no text
     }

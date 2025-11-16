@@ -40,7 +40,6 @@ import com.klikli_dev.occultism.common.item.tool.ritual_satchel.SingleBlockRitua
 import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
@@ -94,7 +93,8 @@ public class OccultismItems {
                     .component(OccultismDataComponents.STORED_XP, 0)
             ));
     public static final DeferredItem<StorageRemoteItem> STORAGE_REMOTE = ITEMS.register("storage_remote",
-            () -> new StorageRemoteItem(defaultProperties().stacksTo(1)));
+            () -> new StorageRemoteItem(defaultProperties().stacksTo(1)
+                    .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)));
     public static final DeferredItem<SoulGemItem> FRAGILE_SOUL_GEM_ITEM = ITEMS.register("fragile_soul_gem",
             () -> new SoulGemItem(defaultProperties().stacksTo(1)));
     public static final DeferredItem<SoulGemItem> SOUL_GEM_ITEM = ITEMS.register("soul_gem",
@@ -392,7 +392,10 @@ public class OccultismItems {
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> OTHERSTONE_FRAME = ITEMS.register("otherstone_frame",
             () -> new Item(defaultProperties()));
-    public static final DeferredItem<Item> OTHERSTONE_TABLET = ITEMS.register("otherstone_tablet",
+    public static final DeferredItem<Item> OTHERROCK_FRAME = ITEMS.register("otherrock_frame",
+            () -> new Item(defaultProperties()));
+    //TODO: change id in next major version
+    public static final DeferredItem<Item> OTHERWORLDLY_TABLET = ITEMS.register("otherstone_tablet",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<Item> STORAGE_REMOTE_INERT = ITEMS.register("storage_remote_inert",
             () -> new Item(defaultProperties()));
@@ -411,6 +414,8 @@ public class OccultismItems {
             ITEMS.register("spirit_fire", () -> new BlockItem(OccultismBlocks.SPIRIT_FIRE.get(), defaultProperties()));
     public static final DeferredItem<StableWormholeBlockItem> STABLE_WORMHOLE = ITEMS.register("stable_wormhole",
             () -> new StableWormholeBlockItem(OccultismBlocks.STABLE_WORMHOLE.get(), defaultProperties())); //not work if auto-gen
+    public static final DeferredItem<StableWormholeBlockItem> STABLE_WORMHOLE_DARK = ITEMS.register("stable_wormhole_dark",
+            () -> new StableWormholeBlockItem(OccultismBlocks.STABLE_WORMHOLE_DARK.get(), defaultProperties())); //not work if auto-gen
 
     //Deco Block Items
     public static final DeferredItem<Item> SPIRIT_TORCH = ITEMS.register("spirit_torch",
@@ -520,8 +525,6 @@ public class OccultismItems {
             () -> new DeferredSpawnEggItem(OccultismEntities.MUMMY_FAMILIAR_TYPE, 0xcbb76a, 0xe0d4a3, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_BEAVER_FAMILIAR = ITEMS.register("spawn_egg/familiar_beaver",
             () -> new DeferredSpawnEggItem(OccultismEntities.BEAVER_FAMILIAR_TYPE, 0x824a2b, 0xdd9973, defaultProperties()));
-    public static final DeferredItem<Item> SPAWN_EGG_PARROT_FAMILIAR = ITEMS.register("spawn_egg/familiar_parrot",
-            () -> new DeferredSpawnEggItem(() -> EntityType.PARROT, 894731, 16711680, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_DEMONIC_WIFE = ITEMS.register("spawn_egg/demonic_wife",
             () -> new DeferredSpawnEggItem(OccultismEntities.DEMONIC_WIFE, 0xf2f0d7, 0xa01d1d, defaultProperties()));
     public static final DeferredItem<Item> SPAWN_EGG_DEMONIC_HUSBAND = ITEMS.register("spawn_egg/demonic_husband",
@@ -633,12 +636,18 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_MINER_MARID_MASTER = ITEMS.register("ritual_dummy/craft_miner_marid_master", () -> new DummyTooltipItem(defaultProperties()));
             //Storage
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STORAGE_CONTROLLER_BASE = ITEMS.register("ritual_dummy/craft_storage_controller_base", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STORAGE_CONTROLLER_BASE_DARK = ITEMS.register("ritual_dummy/craft_storage_controller_base_dark", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DIMENSIONAL_MATRIX = ITEMS.register("ritual_dummy/craft_dimensional_matrix", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER1 = ITEMS.register("ritual_dummy/craft_stabilizer_tier1", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER2 = ITEMS.register("ritual_dummy/craft_stabilizer_tier2", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER3 = ITEMS.register("ritual_dummy/craft_stabilizer_tier3", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER4 = ITEMS.register("ritual_dummy/craft_stabilizer_tier4", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER1_DARK = ITEMS.register("ritual_dummy/craft_stabilizer_tier1_dark", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER2_DARK = ITEMS.register("ritual_dummy/craft_stabilizer_tier2_dark", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER3_DARK = ITEMS.register("ritual_dummy/craft_stabilizer_tier3_dark", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER4_DARK = ITEMS.register("ritual_dummy/craft_stabilizer_tier4_dark", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABLE_WORMHOLE = ITEMS.register("ritual_dummy/craft_stable_wormhole", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABLE_WORMHOLE_DARK = ITEMS.register("ritual_dummy/craft_stable_wormhole_dark", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STORAGE_REMOTE = ITEMS.register("ritual_dummy/craft_storage_remote", () -> new DummyTooltipItem(defaultProperties()));
             //Materials
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RESEARCH_FRAGMENT_DUST = ITEMS.register("ritual_dummy/craft_research_fragment_dust", () -> new DummyTooltipItem(defaultProperties()));
@@ -648,6 +657,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DRAGONYST_DUST = ITEMS.register("ritual_dummy/craft_dragonyst_dust", () -> new DummyTooltipItem(defaultProperties()));
             //Blocks
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE = ITEMS.register("ritual_dummy/craft_entity_wormhole", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_ENTITY_WORMHOLE_DARK = ITEMS.register("ritual_dummy/craft_entity_wormhole_dark", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_IESNIUM_SACRIFICIAL_BOWL = ITEMS.register("ritual_dummy/craft_iesnium_sacrificial_bowl", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_DARK_IESNIUM_SACRIFICIAL_BOWL = ITEMS.register("ritual_dummy/craft_dark_iesnium_sacrificial_bowl", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_IESNIUM_ANVIL = ITEMS.register("ritual_dummy/craft_iesnium_anvil", () -> new DummyTooltipItem(defaultProperties()));
@@ -688,8 +698,10 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_CHALK_VOID = ITEMS.register("ritual_dummy/misc_chalk_void", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_TRINITY_GEM = ITEMS.register("ritual_dummy/misc_trinity_gem", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_STABILIZED_STORAGE = ITEMS.register("ritual_dummy/misc_stabilized_storage", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_STABILIZED_STORAGE_DARK = ITEMS.register("ritual_dummy/misc_stabilized_storage_dark", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_FORGE_MINER_ANCIENT_ELDRITCH = ITEMS.register("ritual_dummy/misc_miner_ancient_eldritch", () -> new DummyTooltipItem(defaultProperties()));
-
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER5 = ITEMS.register("ritual_dummy/misc_stabilizer_tier5", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_STABILIZER_TIER5_DARK = ITEMS.register("ritual_dummy/misc_stabilizer_tier5_dark", () -> new DummyTooltipItem(defaultProperties()));
     // CUSTOM
     public static final DeferredItem<Item> RITUAL_DUMMY_CUSTOM_SUMMON = ITEMS.register("ritual_dummy/custom_ritual_summon", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CUSTOM_POSSESS = ITEMS.register("ritual_dummy/custom_ritual_possess", () -> new DummyTooltipItem(defaultProperties()));
@@ -801,6 +813,7 @@ public class OccultismItems {
                 || item == RITUAL_SATCHEL_T1.get()
                 || item == RITUAL_SATCHEL_T2.get()
                 || item == KNOWLEDGE_TABLET.get()
+                || item == STORAGE_REMOTE.get()
                 || item == FAMILIAR_RING.get()
                 || item == VITALITY_COMPASS.get()
                 || item == INFUSED_PICKAXE.get()

@@ -336,14 +336,13 @@ public class OccultismServerConfig {
         public final IntValue stabilizerTier1AdditionalMaxItemTypes;
         public final LongValue stabilizerTier1AdditionalMaxTotalItemCount;
         public final IntValue stabilizerTier2AdditionalMaxItemTypes;
-
         public final LongValue stabilizerTier2AdditionalMaxTotalItemCount;
         public final IntValue stabilizerTier3AdditionalMaxItemTypes;
-
         public final LongValue stabilizerTier3AdditionalMaxTotalItemCount;
         public final IntValue stabilizerTier4AdditionalMaxItemTypes;
-
         public final LongValue stabilizerTier4AdditionalMaxTotalItemCount;
+        public final IntValue stabilizerTier5AdditionalMaxItemTypes;
+        public final LongValue stabilizerTier5AdditionalMaxTotalItemCount;
         public final IntValue controllerMaxItemTypes;
         public final LongValue controllerMaxTotalItemCount;
         public final IntValue stabilizedControllerStabilizers;
@@ -375,6 +374,12 @@ public class OccultismServerConfig {
             this.stabilizerTier4AdditionalMaxTotalItemCount =
                     builder.comment("The amount by which the stabilizer increases the maximum total item count the controller can hold. This is not per slot but the total amount of all items combined.")
                             .defineInRange("stabilizerTier4AdditionalMaxTotalItemCount", 4096 * 1000L, 0, Long.MAX_VALUE);
+            this.stabilizerTier5AdditionalMaxItemTypes =
+                    builder.comment("The amount of slots the storage stabilizer tier 5 provides.")
+                            .defineInRange("stabilizerTier5AdditionalMaxItemTypes", 1024, 0, Integer.MAX_VALUE);
+            this.stabilizerTier5AdditionalMaxTotalItemCount =
+                    builder.comment("The amount by which the stabilizer increases the maximum total item count the controller can hold. This is not per slot but the total amount of all items combined.")
+                            .defineInRange("stabilizerTier5AdditionalMaxTotalItemCount", 8192 * 1000L, 0, Long.MAX_VALUE);
             this.controllerMaxItemTypes =
                     builder.comment("The amount of slots the storage actuator provides.")
                             .defineInRange("controllerMaxItemTypes", 128, 0, Integer.MAX_VALUE);
@@ -382,13 +387,11 @@ public class OccultismServerConfig {
                     builder.comment("The stack size the storage actuator uses.")
                             .defineInRange("controllerMaxTotalItemCount", 256 * 1000L, 0, Long.MAX_VALUE);
             this.stabilizedControllerStabilizers =
-                    builder.comment("The amount of stabilizers tier 4 in the stabilized storage actuator. (Don't auto change the recipe)")
-                            .defineInRange("stabilizedControllerStabilizers", 7, 0, Integer.MAX_VALUE);
+                    builder.comment("The amount of stabilizers tier 5 in the stabilized storage actuator. (Don't auto change the recipe)")
+                            .defineInRange("stabilizedControllerStabilizers", 8, 0, Integer.MAX_VALUE);
             this.unlinkWormholeOnBreak =
                     builder.comment(
-                                    "True to use the configured controllerStackSize for all items, instead of the stack sizes provided by " +
-                                            "item type (such as 16 for ender pearls, 64 for iron ingot). WARNING: Setting this to " +
-                                            "false may have a negative impact on performance.")
+                                    "True to unlink the wormhole when break (so it doesn't function as a cheaper Storage Accessor).")
                             .define("unlinkWormholeOnBreak", false);
             builder.pop();
         }

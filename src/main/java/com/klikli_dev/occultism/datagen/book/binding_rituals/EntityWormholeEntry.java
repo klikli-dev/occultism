@@ -42,6 +42,20 @@ public class EntityWormholeEntry extends EntryProvider {
         );
         //no text
 
+        this.page("spotlight_dark", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(OccultismBlocks.ENTITY_WORMHOLE_DARK.asItem()))
+                .withText(this.context().pageText()));
+        this.pageText("""
+                        You can also choose the {0} version if you want.
+                        """,
+                this.itemLink(OccultismBlocks.OTHERROCK)
+        );
+
+        this.page("ritual_dark", () -> BookRitualRecipePageModel.create()
+                .withRecipeId1(this.modLoc("ritual/craft_entity_wormhole_dark"))
+        );
+        //no text
+
         this.page("destination", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));

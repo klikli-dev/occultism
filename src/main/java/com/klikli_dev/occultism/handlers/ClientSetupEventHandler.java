@@ -84,7 +84,7 @@ import org.lwjgl.glfw.GLFW;
 import java.util.HashMap;
 import java.util.Map;
 
-@EventBusSubscriber(modid = Occultism.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = Occultism.MODID, value = Dist.CLIENT)
 public class ClientSetupEventHandler {
 
     public static final KeyMapping KEY_BACKPACK =
@@ -293,6 +293,8 @@ public class ClientSetupEventHandler {
             ItemProperties.register(OccultismItems.STORAGE_REMOTE.get(),
                     ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "linked"), new StorageRemoteItemPropertyGetter());
             ItemProperties.register(OccultismItems.STABLE_WORMHOLE.get(),
+                    ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "linked"), new StableWormholeBlockItemPropertyGetter());
+            ItemProperties.register(OccultismItems.STABLE_WORMHOLE_DARK.get(),
                     ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "linked"), new StableWormholeBlockItemPropertyGetter());
             ItemProperties.register(OccultismItems.VITALITY_COMPASS.get(),
                     ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "angle"), new VitalityCompassItemPropertyGetter());

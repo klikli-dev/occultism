@@ -29,7 +29,7 @@ public class TrinityGemEntry extends EntryProvider {
                         Forging the [](item://occultism:trinity_gem) is a service provided by an {0}.
                         This gem is upgraded version of [](item://occultism:soul_gem) created with
                         3 distinct essences, 3 powerful dusts and 3 iesnium dusts.
-                        The trinity gem has a smaller entity blacklist (none by default).
+                        The trinity gem has an empty entity blacklist (by default).
                         """,
                 this.color("Eldritch Spirit", ChatFormatting.DARK_PURPLE)
         );

@@ -86,7 +86,8 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
     public static final int MAX_STABILIZER_DISTANCE = 5;
 
     protected static final List<DeferredBlock<? extends Block>> BLOCK_BLACKLIST = Stream.of(
-            OccultismBlocks.STORAGE_CONTROLLER, OccultismBlocks.STORAGE_CONTROLLER_STABILIZED).collect(Collectors.toList());
+            OccultismBlocks.STORAGE_CONTROLLER, OccultismBlocks.STORAGE_CONTROLLER_STABILIZED,
+            OccultismBlocks.STORAGE_CONTROLLER_DARK, OccultismBlocks.STORAGE_CONTROLLER_STABILIZED_DARK).collect(Collectors.toList());
     private final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
     public Map<Integer, ItemStack> matrix = new HashMap<>();
     public ItemStack orderStack = ItemStack.EMPTY;
@@ -124,7 +125,7 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
         int additionalMaxItemTypes = 0;
         long additionalTotalItemCount = 0;
         List<BlockPos> stabilizerLocations = this.findValidStabilizers();
-        if (this.getBlockState().getBlock().equals(OccultismBlocks.STORAGE_CONTROLLER.get())) {
+        if (this.getBlockState().getBlock().equals(OccultismBlocks.STORAGE_CONTROLLER.get()) || this.getBlockState().getBlock().equals(OccultismBlocks.STORAGE_CONTROLLER_DARK.get()) ) {
             for (BlockPos pos : stabilizerLocations) {
                 additionalMaxItemTypes += this.getAdditionalMaxItemTypesForStabilizer(this.level.getBlockState(pos));
                 additionalTotalItemCount += this.getAdditionalMaxTotalItemCountForStabilizer(this.level.getBlockState(pos));
@@ -132,8 +133,8 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
             this.setStorageLimits(Occultism.SERVER_CONFIG.storage.controllerMaxItemTypes.get() + additionalMaxItemTypes,
                     Occultism.SERVER_CONFIG.storage.controllerMaxTotalItemCount.get() + additionalTotalItemCount);
         } else {
-            this.setStorageLimits(Occultism.SERVER_CONFIG.storage.controllerMaxItemTypes.get() + Occultism.SERVER_CONFIG.storage.stabilizedControllerStabilizers.get() * Occultism.SERVER_CONFIG.storage.stabilizerTier4AdditionalMaxItemTypes.get(),
-                    Occultism.SERVER_CONFIG.storage.controllerMaxTotalItemCount.get() + Occultism.SERVER_CONFIG.storage.stabilizedControllerStabilizers.get() * Occultism.SERVER_CONFIG.storage.stabilizerTier4AdditionalMaxTotalItemCount.get());
+            this.setStorageLimits(Occultism.SERVER_CONFIG.storage.controllerMaxItemTypes.get() + Occultism.SERVER_CONFIG.storage.stabilizedControllerStabilizers.get() * Occultism.SERVER_CONFIG.storage.stabilizerTier5AdditionalMaxItemTypes.get(),
+                    Occultism.SERVER_CONFIG.storage.controllerMaxTotalItemCount.get() + Occultism.SERVER_CONFIG.storage.stabilizedControllerStabilizers.get() * Occultism.SERVER_CONFIG.storage.stabilizerTier5AdditionalMaxTotalItemCount.get());
         }
     }
 
@@ -159,27 +160,31 @@ public class StorageControllerBlockEntity extends NetworkedBlockEntity implement
 
     protected int getAdditionalMaxItemTypesForStabilizer(BlockState state) {
         Block block = state.getBlock();
-        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER1.get())
+        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER1.get() || block == OccultismBlocks.STORAGE_STABILIZER_TIER1_DARK.get())
             return Occultism.SERVER_CONFIG.storage.stabilizerTier1AdditionalMaxItemTypes.get();
-        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER2.get())
+        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER2.get() || block == OccultismBlocks.STORAGE_STABILIZER_TIER2_DARK.get())
             return Occultism.SERVER_CONFIG.storage.stabilizerTier2AdditionalMaxItemTypes.get();
-        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER3.get())
+        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER3.get() || block == OccultismBlocks.STORAGE_STABILIZER_TIER3_DARK.get())
             return Occultism.SERVER_CONFIG.storage.stabilizerTier3AdditionalMaxItemTypes.get();
-        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER4.get())
+        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER4.get() || block == OccultismBlocks.STORAGE_STABILIZER_TIER4_DARK.get())
             return Occultism.SERVER_CONFIG.storage.stabilizerTier4AdditionalMaxItemTypes.get();
+        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER5.get() || block == OccultismBlocks.STORAGE_STABILIZER_TIER5_DARK.get())
+            return Occultism.SERVER_CONFIG.storage.stabilizerTier5AdditionalMaxItemTypes.get();
         return 0;
     }
 
     protected long getAdditionalMaxTotalItemCountForStabilizer(BlockState state) {
         Block block = state.getBlock();
-        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER1.get())
+        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER1.get() || block == OccultismBlocks.STORAGE_STABILIZER_TIER1_DARK.get())
             return Occultism.SERVER_CONFIG.storage.stabilizerTier1AdditionalMaxTotalItemCount.get();
-        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER2.get())
+        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER2.get() || block == OccultismBlocks.STORAGE_STABILIZER_TIER2_DARK.get())
             return Occultism.SERVER_CONFIG.storage.stabilizerTier2AdditionalMaxTotalItemCount.get();
-        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER3.get())
+        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER3.get() || block == OccultismBlocks.STORAGE_STABILIZER_TIER3_DARK.get())
             return Occultism.SERVER_CONFIG.storage.stabilizerTier3AdditionalMaxTotalItemCount.get();
-        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER4.get())
+        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER4.get() || block == OccultismBlocks.STORAGE_STABILIZER_TIER4_DARK.get())
             return Occultism.SERVER_CONFIG.storage.stabilizerTier4AdditionalMaxTotalItemCount.get();
+        if (block == OccultismBlocks.STORAGE_STABILIZER_TIER5.get() || block == OccultismBlocks.STORAGE_STABILIZER_TIER5_DARK.get())
+            return Occultism.SERVER_CONFIG.storage.stabilizerTier5AdditionalMaxTotalItemCount.get();
         return 0;
     }
 

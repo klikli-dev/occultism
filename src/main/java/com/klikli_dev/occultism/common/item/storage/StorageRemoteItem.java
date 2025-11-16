@@ -28,6 +28,8 @@ import com.klikli_dev.occultism.common.container.storage.StorageRemoteContainer;
 import com.klikli_dev.occultism.registry.OccultismDataComponents;
 import com.klikli_dev.occultism.util.BlockEntityUtil;
 import com.klikli_dev.occultism.util.CuriosUtil;
+import com.klikli_dev.occultism.util.ItemNBTUtil;
+import com.klikli_dev.occultism.util.TextUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -130,6 +132,7 @@ public class StorageRemoteItem extends Item implements MenuProvider {
     @Override
     public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
         super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+        pTooltipComponents.add(Component.translatable(this.getDescriptionId() + ".tooltip.spirit", TextUtil.formatDemonName(ItemNBTUtil.getBoundSpiritName(pStack))));
 
         if (pStack.has(OccultismDataComponents.LINKED_STORAGE_CONTROLLER)) {
             GlobalBlockPos globalPos = pStack.get(OccultismDataComponents.LINKED_STORAGE_CONTROLLER);

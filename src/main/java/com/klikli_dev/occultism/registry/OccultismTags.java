@@ -223,6 +223,7 @@ public class OccultismTags {
     }
 
     public static class Entities {
+        //Entity Tags
         public static final TagKey<EntityType<?>> AXOLOTL = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "axolotls"));
         public static final TagKey<EntityType<?>> CHICKEN = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "chickens"));
         public static final TagKey<EntityType<?>> PARROTS = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "parrots"));
@@ -254,7 +255,8 @@ public class OccultismTags {
         public static final TagKey<EntityType<?>> RAVAGER = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "ravagers"));
         public static final TagKey<EntityType<?>> VEX = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "vex"));
         public static final TagKey<EntityType<?>> ALLAY = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "allay"));
-        //Entity Tags
+        public static final TagKey<EntityType<?>> ENDERMEN = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "endermen"));
+        public static final TagKey<EntityType<?>> SHULKER = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath("c", "shulkers"));
         public static final TagKey<EntityType<?>> FRAGILE_SOUL_GEM_DENY_LIST = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "fragile_soul_gem_deny_list"));
         public static final TagKey<EntityType<?>> SOUL_GEM_DENY_LIST = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "soul_gem_deny_list"));
         public static final TagKey<EntityType<?>> TRINITY_GEM_DENY_LIST = makeEntityTypeTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "trinity_gem_deny_list"));

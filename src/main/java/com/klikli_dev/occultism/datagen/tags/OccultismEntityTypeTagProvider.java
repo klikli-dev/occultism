@@ -105,7 +105,6 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
                 .add(OccultismEntities.OTHERWORLD_BIRD_TYPE.get())
                 .add(OccultismEntities.GREEDY_FAMILIAR_TYPE.get())
                 .add(OccultismEntities.BAT_FAMILIAR_TYPE.get())
-                .add(EntityType.PARROT)
                 .add(OccultismEntities.DEER_FAMILIAR_TYPE.get())
                 .add(OccultismEntities.CTHULHU_FAMILIAR_TYPE.get())
                 .add(OccultismEntities.DEVIL_FAMILIAR_TYPE.get())
@@ -237,6 +236,8 @@ public class OccultismEntityTypeTagProvider extends EntityTypeTagsProvider {
         this.tag(OccultismTags.Entities.ALLAY).add(EntityType.ALLAY).replace(false);
         this.tag(OccultismTags.Entities.WARDEN).add(EntityType.WARDEN).add(OccultismEntities.POSSESSED_WARDEN_TYPE.get()).replace(false);
         this.tag(OccultismTags.Entities.RAVAGER).add(EntityType.RAVAGER).replace(false);
+        this.tag(OccultismTags.Entities.ENDERMEN).add(EntityType.ENDERMAN).add(OccultismEntities.POSSESSED_ENDERMAN_TYPE.get()).replace(false);
+        this.tag(OccultismTags.Entities.SHULKER).add(EntityType.SHULKER).add(OccultismEntities.POSSESSED_WEAK_SHULKER_TYPE.get()).add(OccultismEntities.POSSESSED_SHULKER_TYPE.get()).replace(false);
     }
 
     private void addVanillaTags() {

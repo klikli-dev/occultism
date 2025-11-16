@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_otherrock": {
+      "conditions": {
+        "items": [
+          {
+            "items": "occultism:otherrock"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crafting/otherrock_frame"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_otherrock"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crafting/otherrock_frame"
+    ]
+  }
+}

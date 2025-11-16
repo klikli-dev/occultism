@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_stabilizer_tier4": {
+      "conditions": {
+        "items": [
+          {
+            "items": "occultism:storage_stabilizer_tier4"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:ritual/misc_stabilizer_tier5"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_stabilizer_tier4"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:ritual/misc_stabilizer_tier5"
+    ]
+  }
+}

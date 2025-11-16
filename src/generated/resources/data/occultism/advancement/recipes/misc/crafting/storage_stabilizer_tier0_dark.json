@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_otherrock_pedestal": {
+      "conditions": {
+        "items": [
+          {
+            "items": "occultism:otherstone_pedestal_silver"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "occultism:crafting/storage_stabilizer_tier0_dark"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_otherrock_pedestal"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "occultism:crafting/storage_stabilizer_tier0_dark"
+    ]
+  }
+}

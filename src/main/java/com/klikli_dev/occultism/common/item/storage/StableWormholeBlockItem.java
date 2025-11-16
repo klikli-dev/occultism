@@ -54,7 +54,7 @@ public class StableWormholeBlockItem extends BlockItem {
         super.verifyComponentsAfterLoad(pStack);
 
         if(pStack.has(OccultismDataComponents.LINKED_STORAGE_CONTROLLER))
-            pStack.set(DataComponents.RARITY, Rarity.RARE);
+            pStack.set(DataComponents.RARITY, Rarity.UNCOMMON);
         else
             pStack.set(DataComponents.RARITY, Rarity.COMMON);
     }

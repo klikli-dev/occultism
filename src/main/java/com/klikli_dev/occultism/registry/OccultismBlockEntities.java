@@ -36,11 +36,12 @@ public class OccultismBlockEntities {
 
     public static final Supplier<BlockEntityType<StorageControllerBlockEntity>> STORAGE_CONTROLLER = BLOCK_ENTITIES.register(
             "storage_controller", () -> BlockEntityType.Builder.of(StorageControllerBlockEntity::new,
-                    OccultismBlocks.STORAGE_CONTROLLER.get(), OccultismBlocks.STORAGE_CONTROLLER_STABILIZED.get()).build(null));
+                    OccultismBlocks.STORAGE_CONTROLLER.get(), OccultismBlocks.STORAGE_CONTROLLER_STABILIZED.get(),
+                    OccultismBlocks.STORAGE_CONTROLLER_DARK.get(), OccultismBlocks.STORAGE_CONTROLLER_STABILIZED_DARK.get()).build(null));
 
     public static final Supplier<BlockEntityType<StableWormholeBlockEntity>> STABLE_WORMHOLE = BLOCK_ENTITIES.register(
             "stable_wormhole", () -> BlockEntityType.Builder.of(StableWormholeBlockEntity::new,
-                    OccultismBlocks.STABLE_WORMHOLE.get()).build(null));
+                    OccultismBlocks.STABLE_WORMHOLE.get(), OccultismBlocks.STABLE_WORMHOLE_DARK.get()).build(null));
 
     public static final Supplier<BlockEntityType<SacrificialBowlBlockEntity>> SACRIFICIAL_BOWL = BLOCK_ENTITIES.register(
             "sacrificial_bowl", () -> BlockEntityType.Builder.of(SacrificialBowlBlockEntity::new,
@@ -49,7 +50,7 @@ public class OccultismBlockEntities {
 
     public static final Supplier<BlockEntityType<EntityWormholeBlockEntity>> ENTITY_WORMHOLE = BLOCK_ENTITIES.register(
             "entity_wormhole", () -> BlockEntityType.Builder.of(EntityWormholeBlockEntity::new,
-                    OccultismBlocks.ENTITY_WORMHOLE.get()).build(null));
+                    OccultismBlocks.ENTITY_WORMHOLE.get(), OccultismBlocks.ENTITY_WORMHOLE_DARK.get()).build(null));
 
     public static final Supplier<BlockEntityType<GoldenSacrificialBowlBlockEntity>> GOLDEN_SACRIFICIAL_BOWL =
             BLOCK_ENTITIES.register(

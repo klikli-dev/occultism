@@ -136,6 +136,8 @@ public class CuriosUtil {
     public static ItemStack getStorageRemoteCurio(Player player) {
         ICuriosItemHandler curiosHandler = player.getCapability(CuriosCapability.INVENTORY);
         ItemStack hasStorageRemote = ItemStack.EMPTY;
+        if (curiosHandler == null)
+            return hasStorageRemote;
         for (ICurioStacksHandler curiosStackshandler : curiosHandler.getCurios().values()) {
             IDynamicStackHandler stackHandler = curiosStackshandler.getStacks();
             for (int i = 0; i < stackHandler.getSlots(); i++) {

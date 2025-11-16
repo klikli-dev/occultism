@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "include": [
+                "occultism:linked_storage_controller",
+                "occultism:sort_direction",
+                "occultism:sort_type",
+                "occultism:crafting_matrix",
+                "occultism:order_stack"
+              ],
+              "source": "block_entity"
+            }
+          ],
+          "name": "occultism:stable_wormhole_dark"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "occultism:blocks/stable_wormhole_dark"
+}
