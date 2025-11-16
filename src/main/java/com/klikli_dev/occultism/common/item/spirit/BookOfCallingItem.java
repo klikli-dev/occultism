@@ -183,8 +183,8 @@ public class BookOfCallingItem extends Item implements IHandleItemMode {
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target,
                                                   InteractionHand hand) {
 
-        //Ignore anything that is not a spirit
-        if (!(target instanceof SpiritEntity targetSpirit))
+        //Ignore anything that is not a spirit owned by the player
+        if (!(target instanceof SpiritEntity targetSpirit) || !targetSpirit.isOwnedBy(player))
             return InteractionResult.PASS;
 
         if (target.level().isClientSide)
