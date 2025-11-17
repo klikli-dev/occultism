@@ -64,9 +64,10 @@ public class OccultismItems {
     public static final DeferredItem<InfusedPickaxeItem> INFUSED_PICKAXE = ITEMS.register("infused_pickaxe",
             () -> new InfusedPickaxeItem(OccultismTiers.SPIRIT_ATTUNED, defaultProperties()
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
-                    .attributes(PickaxeItem.createAttributes(Tiers.DIAMOND, 1.0F, -2.8F))));
+                    .attributes(PickaxeItem.createAttributes(OccultismTiers.SPIRIT_ATTUNED, 1.0F, -2.8F))));
     public static final DeferredItem<OtherworldPickaxeItem> IESNIUM_PICKAXE = ITEMS.register("iesnium_pickaxe",
-            () -> new OtherworldPickaxeItem(OccultismTiers.IESNIUM, defaultProperties().attributes(PickaxeItem.createAttributes(Tiers.DIAMOND, 1.0F, -2.8F))));
+            () -> new OtherworldPickaxeItem(OccultismTiers.IESNIUM, defaultProperties()
+                    .attributes(PickaxeItem.createAttributes(OccultismTiers.IESNIUM, 1.0F, -2.8F))));
     public static final DeferredItem<OtherworldGogglesItem> OTHERWORLD_GOGGLES = ITEMS.register("otherworld_goggles",
             () -> new OtherworldGogglesItem(ArmorMaterials.IRON,
                     ArmorItem.Type.HELMET, defaultProperties().stacksTo(1)));

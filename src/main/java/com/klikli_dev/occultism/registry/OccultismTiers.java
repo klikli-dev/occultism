@@ -34,8 +34,8 @@ import net.minecraft.world.level.block.Block;
 import java.util.function.Supplier;
 
 public enum OccultismTiers implements Tier {
-    SPIRIT_ATTUNED(Tiers.DIAMOND, BlockTags.INCORRECT_FOR_DIAMOND_TOOL, Tiers.STONE.getUses(), 8.0F, 3.0F, 10, () -> Ingredient.of(Items.DIAMOND)),
-    IESNIUM(Tiers.DIAMOND, BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1561, 8.0F, 3.0F, 10, () -> Ingredient.of(Items.DIAMOND));
+    SPIRIT_ATTUNED(Tiers.DIAMOND, BlockTags.INCORRECT_FOR_DIAMOND_TOOL, Tiers.STONE.getUses(), 9.0F, 3.0F, 22, () -> Ingredient.of(OccultismItems.SPIRIT_ATTUNED_GEM)),
+    IESNIUM(Tiers.DIAMOND, BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1561, 10.0F, 4.0F, 24, () -> Ingredient.of(OccultismItems.IESNIUM_INGOT));
 
     private final Tiers vanillaTier;
     private final TagKey<Block> incorrectBlocksForDrops;
