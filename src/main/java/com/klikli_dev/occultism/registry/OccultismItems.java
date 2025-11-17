@@ -63,7 +63,7 @@ public class OccultismItems {
             () -> new SwordItem(Tiers.IRON, defaultProperties().attributes(SwordItem.createAttributes(Tiers.IRON, 3, -2.4F))));
     public static final DeferredItem<InfusedPickaxeItem> INFUSED_PICKAXE = ITEMS.register("infused_pickaxe",
             () -> new InfusedPickaxeItem(OccultismTiers.SPIRIT_ATTUNED, defaultProperties()
-                    .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
+                    .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
                     .attributes(PickaxeItem.createAttributes(Tiers.DIAMOND, 1.0F, -2.8F))));
     public static final DeferredItem<OtherworldPickaxeItem> IESNIUM_PICKAXE = ITEMS.register("iesnium_pickaxe",
             () -> new OtherworldPickaxeItem(OccultismTiers.IESNIUM, defaultProperties().attributes(PickaxeItem.createAttributes(Tiers.DIAMOND, 1.0F, -2.8F))));
@@ -73,23 +73,23 @@ public class OccultismItems {
     public static final DeferredItem<SatchelItem> SATCHEL = ITEMS.register("satchel",
             () -> new SatchelItem(defaultProperties().stacksTo(1)
                     .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
-                    .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
+                    .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
             ));
     public static final DeferredItem<SingleBlockRitualSatchelItem> RITUAL_SATCHEL_T1 = ITEMS.register("ritual_satchel_t1",
             () -> new SingleBlockRitualSatchelItem(defaultProperties()
                     .stacksTo(1)
                     .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
-                    .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
+                    .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
             ));
     public static final DeferredItem<MultiBlockRitualSatchelItem> RITUAL_SATCHEL_T2 = ITEMS.register("ritual_satchel_t2",
             () -> new MultiBlockRitualSatchelItem(defaultProperties()
                     .stacksTo(1).rarity(Rarity.UNCOMMON).fireResistant()
                     .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
-                    .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
+                    .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
             ));
     public static final DeferredItem<KnowledgeTabletItem> KNOWLEDGE_TABLET = ITEMS.register("knowledge_tablet",
             () -> new KnowledgeTabletItem(defaultProperties()
-                    .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")
+                    .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
                     .component(OccultismDataComponents.STORED_XP, 0)
             ));
     public static final DeferredItem<StorageRemoteItem> STORAGE_REMOTE = ITEMS.register("storage_remote",
@@ -102,10 +102,10 @@ public class OccultismItems {
     public static final DeferredItem<SoulGemItem> TRINITY_GEM_ITEM = ITEMS.register("trinity_gem",
             () -> new SoulGemItem(defaultProperties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
     public static final DeferredItem<Item> FAMILIAR_RING = ITEMS.register("familiar_ring",
-            () -> new FamiliarRingItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
+            () -> new FamiliarRingItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)));
     public static final DeferredItem<Item> VITALITY_COMPASS = ITEMS.register("vitality_compass",
             () -> new VitalityCompassItem(defaultProperties().stacksTo(1)
-                    .component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
+                    .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)));
     //Books of Binding
     public static final DeferredItem<BookOfBindingItem> BOOK_OF_BINDING_EMPTY = ITEMS.register(
             "book_of_binding_empty", () -> new BookOfBindingItem(defaultProperties().stacksTo(16)));
@@ -400,7 +400,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> STORAGE_REMOTE_INERT = ITEMS.register("storage_remote_inert",
             () -> new Item(defaultProperties()));
     public static final DeferredItem<DimensionalMatrixItem> DIMENSIONAL_MATRIX = ITEMS.register("dimensional_matrix",
-            () -> new DimensionalMatrixItem(defaultProperties().component(OccultismDataComponents.SPIRIT_NAME, "(Not yet known)")));
+            () -> new DimensionalMatrixItem(defaultProperties().component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)));
     public static final DeferredItem<Item> MINING_DIMENSION_CORE_PIECE = ITEMS.register("mining_dim_core",
             () -> new DamageInCraftingItem(defaultProperties().rarity(Rarity.RARE).fireResistant().durability(Integer.MAX_VALUE)
                     .component(OccultismDataComponents.SPIRIT_NAME, "Something")));

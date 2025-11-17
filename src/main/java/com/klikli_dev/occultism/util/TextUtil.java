@@ -44,7 +44,7 @@ import java.util.Random;
 
 public class TextUtil {
 
-    public static final String SPIRIT_NAME_NOT_YET_KNOWN = "(Not yet known)";
+    public static final String SPIRIT_NAME_NOT_YET_KNOWN = ChatFormatting.OBFUSCATED + "(NotYetKnown)";
     private static final Map<String, String> MOD_NAME_TO_ID = new HashMap<>();
 
     //KliKli: Obvious :)
