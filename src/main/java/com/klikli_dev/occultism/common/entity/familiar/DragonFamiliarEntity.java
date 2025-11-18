@@ -265,8 +265,9 @@ public class DragonFamiliarEntity extends FamiliarEntity {
 
     @Override
     public Iterable<MobEffectInstance> getFamiliarEffects() {
+        int i = this.hasBlacksmithUpgrade() ? 1 : 0;
         return ImmutableList.of(new MobEffectInstance(OccultismEffects.DRAGON_GREED, 300,
-                this.greedyTimer > 0 ? 1 : 0, false, false));
+                this.greedyTimer > 0 ? 1+i : i, false, false));
     }
 
     public float getEyeColorR(float partialTicks) {

@@ -1866,6 +1866,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
                 """
                         To upgrade other familiars the blacksmith needs to be given iron ingots or blocks by [#](%1$s)right-clicking[#]() it.
                         \\
+                        When the blacksmith upgrades a familiar, a message appears in the action bar, an anvil sound is emitted, and a star appears at the end of the familiar's name.
                         \\
                         Upgraded familiars provide additional effects.
                            """.formatted(COLOR_PURPLE));
@@ -2523,6 +2524,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
     }
 
     private void addFamiliarSettingsMessages() {
+        this.add("message.occultism.familiar.upgraded", "%s receive an upgrade!");
         this.add("message.occultism.familiar.otherworld_bird.enabled", "Ring Effect - Drikwing: Enabled");
         this.add("message.occultism.familiar.otherworld_bird.disabled", "Ring Effect - Drikwing: Disabled");
         this.add("message.occultism.familiar.greedy_familiar.enabled", "Ring Effect - Greedy: Enabled");
