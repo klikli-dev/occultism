@@ -27,10 +27,13 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SmokingRecipe;
@@ -60,7 +63,7 @@ public class DemonicPartner extends TamableAnimal {
     }
 
     @Override
-    protected void dropFromLootTable(DamageSource pDamageSource, boolean pAttackedRecently) {
+    protected void dropFromLootTable(@NotNull DamageSource pDamageSource, boolean pAttackedRecently) {
         super.dropFromLootTable(pDamageSource, pAttackedRecently);
 
         var owner = this.getOwner();
@@ -75,7 +78,7 @@ public class DemonicPartner extends TamableAnimal {
         var entityData = new CompoundTag();
                 var id = this.getEncodeId();
         if(id != null)
-        entityData.putString("id", id);
+            entityData.putString("id", id);
         entityData = this.saveWithoutId(entityData);
 
         shard.set(DataComponents.ENTITY_DATA, CustomData.of(entityData));
@@ -85,25 +88,25 @@ public class DemonicPartner extends TamableAnimal {
             ItemHandlerHelper.giveItemToPlayer(player, shard);
         }
         else {
-            ItemEntity entityitem = new ItemEntity(this.level(), this.getX(), this.getY() + 0.5, this.getZ(), shard);
-            entityitem.setPickUpDelay(5);
-            entityitem.setDeltaMovement(entityitem.getDeltaMovement().multiply(0, 1, 0));
+            ItemEntity entityItem = new ItemEntity(this.level(), this.getX(), this.getY() + 0.5, this.getZ(), shard);
+            entityItem.setPickUpDelay(5);
+            entityItem.setDeltaMovement(entityItem.getDeltaMovement().multiply(0, 1, 0));
 
-            this.level().addFreshEntity(entityitem);
+            this.level().addFreshEntity(entityItem);
         }
     }
 
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(@NotNull SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(IS_LYING, false).define(HEART_TIME, (long) 0);
     }
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.entityData.set(HEART_TIME, compound.getLong("heartLastTime"));
     }
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putLong("heartLastTime", this.getHeartTime());
     }
@@ -139,7 +142,7 @@ public class DemonicPartner extends TamableAnimal {
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel pLevel, @NotNull AgeableMob pOtherParent) {
         return null;
     }
 
@@ -170,7 +173,7 @@ public class DemonicPartner extends TamableAnimal {
     }
 
     @Override
-    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+    public @NotNull InteractionResult mobInteract(Player pPlayer, @NotNull InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
 
         if (this.level().isClientSide) {
@@ -205,7 +208,33 @@ public class DemonicPartner extends TamableAnimal {
 
                 if (!pPlayer.isCreative()) {
                     itemstack.shrink(1);
-                    ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(Items.GLASS_BOTTLE));
+                    if (itemstack.getCraftingRemainingItem().isEmpty()) {
+                        ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(Items.GLASS_BOTTLE));
+                    } else {
+                        ItemHandlerHelper.giveItemToPlayer(pPlayer, itemstack.getCraftingRemainingItem());
+                    }
+                }
+
+                return InteractionResult.SUCCESS;
+            }
+
+            var effectsStew = itemstack.getOrDefault(DataComponents.SUSPICIOUS_STEW_EFFECTS, SuspiciousStewEffects.EMPTY);
+            if (!effectsStew.effects().isEmpty()) {
+                //Spoiler: int buff = hasCrown() ? 1 : 0;
+                for (var instance : effectsStew.effects()) {
+                    if (instance.effect().value().isInstantenous()) {
+                        instance.effect().value().applyInstantenousEffect(this, this, pPlayer, 1 /*+ buff*/, 1.0D);
+                    } else {
+                        pPlayer.addEffect(new MobEffectInstance(instance.effect(), instance.duration() * (50 /*+ 25*buff*/), 0 /*buff*/, false, false));
+                    }
+                }
+                //Double nutrition
+                pPlayer.getFoodData().eat(Foods.SUSPICIOUS_STEW);
+                pPlayer.getFoodData().eat(Foods.SUSPICIOUS_STEW);
+
+                if (!pPlayer.isCreative()) {
+                    itemstack.shrink(1);
+                    ItemHandlerHelper.giveItemToPlayer(pPlayer, new ItemStack(Items.BOWL));
                 }
 
                 return InteractionResult.SUCCESS;
@@ -247,7 +276,8 @@ public class DemonicPartner extends TamableAnimal {
 
             //heal with food
             if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
-                this.heal((float) itemstack.getFoodProperties(this).nutrition());
+                FoodProperties foodProperties = itemstack.getFoodProperties(this);
+                this.heal(foodProperties != null ? (float)foodProperties.nutrition() : 1.0F);
                 if (!pPlayer.isCreative()) {
                     itemstack.shrink(1);
                 }
@@ -290,7 +320,7 @@ public class DemonicPartner extends TamableAnimal {
     }
 
     @Override
-    public boolean doHurtTarget(Entity pEntity) {
+    public boolean doHurtTarget(@NotNull Entity pEntity) {
         boolean flag = super.doHurtTarget(pEntity);
 
         pEntity.setRemainingFireTicks(2 * 20);
