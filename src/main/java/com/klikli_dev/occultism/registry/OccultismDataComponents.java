@@ -115,6 +115,12 @@ public class OccultismDataComponents {
             .cacheEncoding()
     );
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> SPIRIT_JOB = DATA_COMPONENTS.registerComponentType("spirit_job", builder -> builder
+            .persistent(Codec.STRING)
+            .networkSynchronized(ByteBufCodecs.STRING_UTF8)
+            .cacheEncoding()
+    );
+
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> ITEM_MODE = DATA_COMPONENTS.registerComponentType("item_mode", builder -> builder
             .persistent(Codec.INT)
             .networkSynchronized(ByteBufCodecs.INT)

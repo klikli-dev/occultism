@@ -256,4 +256,14 @@ public class ItemNBTUtil {
     public static void setStoredXP(ItemStack stack, int value) {
         stack.set(OccultismDataComponents.STORED_XP, value);
     }
+
+    public static void setSpiritJob(ItemStack stack, String name) {
+        stack.set(OccultismDataComponents.SPIRIT_JOB, name);
+    }
+
+    public static String getSpiritJob(ItemStack stack) {
+        if (!stack.has(OccultismDataComponents.SPIRIT_JOB))
+            setSpiritJob(stack, "");
+        return stack.get(OccultismDataComponents.SPIRIT_JOB);
+    }
 }

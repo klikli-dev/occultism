@@ -628,8 +628,8 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern("sis")
                 .pattern(" ss")
                 .define('s', OccultismTags.Items.SILVER_INGOT)
-                .define('i', OccultismTags.Items.IESNIUM_INGOT)
-                .unlockedBy("has_silver_ingot", has(OccultismTags.Items.SILVER_INGOT))
+                .define('i', OccultismItems.SPIRIT_ATTUNED_GEM)
+                .unlockedBy("has_spirit_attuned_gem", has(OccultismItems.SPIRIT_ATTUNED_GEM))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/magic_lamp_empty"));
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, OccultismItems.OTHERSTONE_FRAME.get())

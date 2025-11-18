@@ -244,8 +244,8 @@ public class OccultismItems {
 
 
     //Miner Spirits
-    public static final DeferredItem<Item> MAGIC_LAMP_EMPTY = ITEMS.register("magic_lamp_empty",
-            () -> new Item(defaultProperties()));
+    public static final DeferredItem<MagicLampItem> MAGIC_LAMP_EMPTY = ITEMS.register("magic_lamp_empty",
+            () -> new MagicLampItem(defaultProperties().stacksTo(1).component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)));
 
     public static final DeferredItem<MinerSpiritItem> MINER_FOLIOT_UNSPECIALIZED = ITEMS.register("miner_foliot_unspecialized",
             () -> new MinerSpiritItem(defaultProperties()
@@ -818,6 +818,7 @@ public class OccultismItems {
                 || item == FAMILIAR_RING.get()
                 || item == VITALITY_COMPASS.get()
                 || item == INFUSED_PICKAXE.get()
+                || item == MAGIC_LAMP_EMPTY.get()
                 || item == MINER_FOLIOT_UNSPECIALIZED.get()
                 || item == MINER_DJINNI_ORES.get()
                 || item == MINER_AFRIT_DEEPS.get()
