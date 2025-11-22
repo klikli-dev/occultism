@@ -9,6 +9,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.ITooltip;
@@ -35,9 +36,11 @@ public class SacrificialComponentProvider implements IBlockComponentProvider {
                             .withStyle(ChatFormatting.RED));
                 }
                 if (!goldenSacrificialBowlBlockEntity.itemUseFulfilled()) {
+                    ItemStack[] stacks = goldenSacrificialBowlBlockEntity.currentRitualRecipe.value().getItemToUse().getItems();
+                    int index = stacks.length == 1 ? 0 : (int) (System.currentTimeMillis() / 1000) % stacks.length;
                     iTooltip.add(Component.translatable("occultism.waila.no_item_use").withStyle(ChatFormatting.RED));
                     iTooltip.add(Component.empty().append("-> ")
-                            .append(Component.translatable(recipe.getItemToUse().getItems()[0].getDisplayName().getString()))
+                            .append(Component.translatable(recipe.getItemToUse().getItems()[index].getDisplayName().getString()))
                             .withStyle(ChatFormatting.RED));
                 }
                 return;
