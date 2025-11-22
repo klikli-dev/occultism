@@ -794,10 +794,14 @@ public class OccultismItems {
     }
 
     public static boolean laterCreativeModTab(Item item) {
-        return item.toString().contains("ritual_dummy")
-                || item.toString().contains("debug")
-                || item.toString().contains("spawn_egg")
-                || item == FLAME_AUTOMATION.get();
+        return item.toString().contains("debug")
+                || item instanceof DummyTooltipItem
+                || item instanceof DeferredSpawnEggItem
+                || item instanceof StableWormholeBlockItem
+                || item == FLAME_AUTOMATION.get()
+                || item == SPIRIT_TORCH.get()
+                || item == OTHERPLANKS_SIGN.get()
+                || item == OTHERPLANKS_HANGING_SIGN.get();
     }
 
     public static boolean shouldPregenerateSpiritName(Item item) {
