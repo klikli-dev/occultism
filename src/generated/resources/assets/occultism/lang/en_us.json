@@ -1392,7 +1392,7 @@
   "emi.category.occultism.miner": "Dimensional Mineshaft",
   "emi.category.occultism.ritual": "Rituals",
   "emi.category.occultism.spirit_fire": "Spirit Fire",
-  "emi.occultism.item_to_use": "Item to use: %s",
+  "emi.occultism.item_to_use": "Item to use after ritual start",
   "emi.occultism.ritual_duration": "%s seconds",
   "entity.occultism.afrit": "Afrit",
   "entity.occultism.afrit_wild": "Unbound Afrit",

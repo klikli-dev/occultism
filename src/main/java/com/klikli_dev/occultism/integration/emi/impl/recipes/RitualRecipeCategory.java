@@ -223,12 +223,13 @@ public class RitualRecipeCategory implements EmiRecipe {
 
         if(recipe.requiresItemUse()) {
             var infoSlot = this.infoTextSlots.get(infoTextIndex++);
-            ItemWidget itemToUse = new ItemWidget(EmiStack.of(recipe.getItemToUse().getItems()[0]),infoSlot.getFirst(), infoSlot.getSecond() + infotextY);
-            itemToUse.tooltip((mouseX, mouseY) ->
+            SlotWidget itemToUse = new SlotWidget(EmiIngredient.of(Ingredient.of(recipe.getItemToUse().getItems())),infoSlot.getFirst(), infoSlot.getSecond() + infotextY);
+            itemToUse.drawBack(false);
+            itemToUse.appendTooltip(t ->
             {
                 List<ClientTooltipComponent> tooltip = new ArrayList<>();
-                tooltip.add(new ClientTextTooltip(Component.translatable("emi.occultism.item_to_use", Component.translatable(recipe.getItemToUse().getItems()[0].getDescriptionId())).getVisualOrderText()));
-                return tooltip;
+                tooltip.add(new ClientTextTooltip(Component.translatable("emi.occultism.item_to_use").getVisualOrderText()));
+                return tooltip.getFirst();
             });
 
             widgetHolder.add(itemToUse);
