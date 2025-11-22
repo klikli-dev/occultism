@@ -38,6 +38,7 @@ import com.klikli_dev.occultism.client.keybindings.StorageRemoteKeyConflictConte
 import com.klikli_dev.occultism.client.model.entity.*;
 import com.klikli_dev.occultism.client.render.GoldenSacrificialBowlHUD;
 import com.klikli_dev.occultism.client.render.blockentity.EntityWormholeRenderer;
+import com.klikli_dev.occultism.client.render.blockentity.GoldenSacrificialBowlRenderer;
 import com.klikli_dev.occultism.client.render.blockentity.SacrificialBowlRenderer;
 import com.klikli_dev.occultism.client.render.blockentity.StorageControllerGeoRenderer;
 import com.klikli_dev.occultism.client.render.entity.*;
@@ -222,7 +223,7 @@ public class ClientSetupEventHandler {
         //Register Tile Entity Renderers
         BlockEntityRenderers.register(OccultismBlockEntities.STORAGE_CONTROLLER.get(), StorageControllerGeoRenderer::new);
         BlockEntityRenderers.register(OccultismBlockEntities.SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
-        BlockEntityRenderers.register(OccultismBlockEntities.GOLDEN_SACRIFICIAL_BOWL.get(), SacrificialBowlRenderer::new);
+        BlockEntityRenderers.register(OccultismBlockEntities.GOLDEN_SACRIFICIAL_BOWL.get(), GoldenSacrificialBowlRenderer::new);
         BlockEntityRenderers.register(OccultismBlockEntities.OTHERPLANKS_SIGN.get(), SignRenderer::new);
         BlockEntityRenderers.register(OccultismBlockEntities.OTHERPLANKS_HANGING_SIGN.get(), HangingSignRenderer::new);
         BlockEntityRenderers.register(OccultismBlockEntities.ENTITY_WORMHOLE.get(), EntityWormholeRenderer::new);
