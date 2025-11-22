@@ -71,6 +71,11 @@ public class RitualRecipeCategory implements EmiRecipe {
     }
 
     @Override
+    public List<EmiIngredient> getCatalysts() {
+        return List.of(EmiIngredient.of(recipe.getItemToUse()));
+    }
+
+    @Override
     public List<EmiStack> getOutputs() {
         List<EmiStack> outputs = new ArrayList<>();
         outputs.add(EmiStack.of(recipe.getResultItem(Minecraft.getInstance().level.registryAccess())));
