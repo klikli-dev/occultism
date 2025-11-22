@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.client.render.entity;
 
 import com.klikli_dev.occultism.client.model.entity.AfritModel;
+import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowingGeoLayer;
 import com.klikli_dev.occultism.common.entity.spirit.AfritEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -32,7 +33,6 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
-import software.bernie.geckolib.renderer.layer.AutoGlowingGeoLayer;
 import software.bernie.geckolib.renderer.layer.BlockAndItemGeoLayer;
 
 import java.util.Objects;
@@ -42,7 +42,7 @@ public class AfritRenderer extends GeoEntityRenderer<AfritEntity> {
     public AfritRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new AfritModel());
 
-        this.addRenderLayer(new AutoGlowingGeoLayer<>(this));
+        this.addRenderLayer(new ConditionalGlowingGeoLayer<>(this));
         this.addRenderLayer(new BlockAndItemGeoLayer<>(this, (bone, animatable) -> {
             if (Objects.equals(bone.getName(), "bone")) //left hand
                 return animatable.getItemInHand(InteractionHand.MAIN_HAND);

@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.client.render.entity;
 
 import com.klikli_dev.occultism.client.model.entity.MaridUnboundModel;
+import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowingGeoLayer;
 import com.klikli_dev.occultism.common.entity.spirit.MaridUnboundEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
@@ -32,5 +33,6 @@ public class MaridUnboundRenderer extends GeoEntityRenderer<MaridUnboundEntity> 
     public MaridUnboundRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new MaridUnboundModel());
 
+        this.addRenderLayer(new ConditionalGlowingGeoLayer<>(this));
     }
 }

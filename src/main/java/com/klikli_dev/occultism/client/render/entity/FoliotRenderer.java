@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.client.render.entity;
 
 import com.klikli_dev.occultism.client.model.entity.FoliotModel;
+import com.klikli_dev.occultism.client.render.entity.glowlayer.ConditionalGlowingGeoLayer;
 import com.klikli_dev.occultism.common.entity.spirit.FoliotEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -42,6 +43,7 @@ public class FoliotRenderer extends GeoEntityRenderer<FoliotEntity> {
     public FoliotRenderer(EntityRendererProvider.Context context) {
         super(context, new FoliotModel());
 
+        this.addRenderLayer(new ConditionalGlowingGeoLayer<>(this));
         this.addRenderLayer(new BlockAndItemGeoLayer<>(this, (bone, animatable) -> {
             if (Objects.equals(bone.getName(), "arm_right")) //right hand
                 return animatable.getItemInHand(InteractionHand.MAIN_HAND);
