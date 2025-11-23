@@ -23,6 +23,7 @@
 package com.klikli_dev.occultism.integration.jei.impl.recipes;
 
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
+import com.klikli_dev.modonomicon.client.render.MultiblockPreviewRenderer;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionWrapperFactory;
@@ -37,6 +38,9 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.inputs.IJeiInputHandler;
+import mezz.jei.api.gui.inputs.IJeiUserInput;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
@@ -46,6 +50,7 @@ import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
@@ -63,6 +68,8 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
 
     private final IDrawable background;
     private final IDrawable arrow;
+    private final IDrawable eye;
+    private final IDrawable goldenEye;
     private final IDrawable checklist;
     private final Component localizedName;
     private final String pentacle;
@@ -83,6 +90,10 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
 //        this.sacrificialBowl.getOrCreateTag().putBoolean("RenderFull", true);
         this.arrow = guiHelper.createDrawable(
                 ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/arrow.png"), 0, 0, 64, 46);
+        this.eye = guiHelper.createDrawable(
+                ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/eye.png"), 0, 0, 16, 16);
+        this.goldenEye = guiHelper.createDrawable(
+                ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/eye.png"), 16, 0, 16, 16);
 
         this.checklist = guiHelper.drawableBuilder(
                 ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "textures/gui/jei/checklist.png"), 0, 0, 64, 64).setTextureSize(64, 64).build();
@@ -261,6 +272,8 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
     public void draw(RecipeHolder<RitualRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
         this.arrow.draw(guiGraphics, this.ritualCenterX + this.recipeOutputOffsetX - 20, this.ritualCenterY);
+
+        this.eye.draw(guiGraphics, 2, background.getHeight()-18);
         RenderSystem.disableBlend();
 
         int infotextY = 0;
@@ -314,5 +327,38 @@ public class RitualRecipeCategory implements IRecipeCategory<RecipeHolder<Ritual
                         infoTextX, infotextY);
             }
         }
+    }
+
+    @Override
+    public void createRecipeExtras(IRecipeExtrasBuilder builder, RecipeHolder<RitualRecipe> recipe, IFocusGroup focuses) {
+        builder.addInputHandler(new IJeiInputHandler() {
+            @Override
+            public ScreenRectangle getArea() {
+                return new ScreenRectangle(0, 0, background.getHeight(), background.getWidth());
+            }
+
+            @Override
+            public boolean handleInput(double mouseX, double mouseY, IJeiUserInput input) {
+                if (mouseX > 4 && mouseX < 16 && mouseY > background.getHeight() - 16 && mouseY < background.getHeight() - 4
+                        && recipe.value().getPentacleId() != null) {
+                    var pentacle = ModonomiconAPI.get().getMultiblock(recipe.value().getPentacleId());
+
+                    Minecraft.getInstance().setScreen(null);
+                    MultiblockPreviewRenderer.setMultiblock(pentacle,
+                            Component.translatable(Util.makeDescriptionId("multiblock", pentacle.getId())), true);
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public  void handleMouseMoved(double mouseX, double mouseY) {
+                if (mouseX > 4 && mouseX < 16 && mouseY > background.getHeight() - 16 && mouseY < background.getHeight() - 4) {
+                    builder.addDrawable(goldenEye, 2, background.getHeight()-18);
+                } else {
+                    builder.addDrawable(eye, 2, background.getHeight()-18);
+                }
+            }
+        });
     }
 }

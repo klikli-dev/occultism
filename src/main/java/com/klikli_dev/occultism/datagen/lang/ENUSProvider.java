@@ -2698,7 +2698,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_MINER_MARID_MASTER, "Infuse Marid Master Miner", "Marid", "Summon Marid Master Miner into a magic lamp.");
             //Storage
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STORAGE_CONTROLLER_BASE, "Craft Storage Actuator Base", "Foliot", "The Storage Actuator Base imprisons a Foliot responsible for interacting with items in a dimensional storage matrix.");
-        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STORAGE_CONTROLLER_BASE_DARK, "Craft Storage Actuator Base", "Foliot", "The Dark Storage Actuator Base imprisons a Foliot responsible for interacting with items in a dimensional storage matrix.");
+        this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STORAGE_CONTROLLER_BASE_DARK, "Craft Dark Storage Actuator Base", "Foliot", "The Dark Storage Actuator Base imprisons a Foliot responsible for interacting with items in a dimensional storage matrix.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_DIMENSIONAL_MATRIX, "Craft Dimensional Matrix", "Djinni", "The Dimensional Matrix is the entry point to a small dimension used for storing items.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER1, "Craft Storage Stabilizer Tier 1", "Foliot", "The Storage Stabilizer allows to store more items in the dimensional storage accessor.");
         this.autoDummyFactory(OccultismItems.RITUAL_DUMMY_CRAFT_STABILIZER_TIER2, "Craft Storage Stabilizer Tier 2", "Djinni", "The Storage Stabilizer allows to store more items in the dimensional storage accessor.");

@@ -1,6 +1,7 @@
 package com.klikli_dev.occultism.integration.emi.impl.recipes;
 
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
+import com.klikli_dev.modonomicon.client.render.MultiblockPreviewRenderer;
 import com.klikli_dev.occultism.Occultism;
 import com.klikli_dev.occultism.crafting.recipe.RitualRecipe;
 import com.klikli_dev.occultism.crafting.recipe.conditionextension.ConditionWrapperFactory;
@@ -205,7 +206,14 @@ public class RitualRecipeCategory implements EmiRecipe {
 
         if (pentacle != null) {
             var pentacleName = Minecraft.getInstance().font.split(Component.translatable(Util.makeDescriptionId("multiblock", pentacle.getId())), 150);
-
+            widgetHolder.addButton(this.getDisplayWidth() + 5, 2, 12, 12, 244, 0,
+                    OccultismEmiPlugin.EMI_WIDGETS, () -> true,
+                    (mouseX, mouseY, button) -> {
+                        Minecraft.getInstance().setScreen(null);
+                        MultiblockPreviewRenderer.setMultiblock(pentacle,
+                                Component.translatable(Util.makeDescriptionId("multiblock", pentacle.getId())), true);
+                    }
+            );
             for (var line : pentacleName) {
                 widgetHolder.addText(line, getDisplayWidth() / 2, infotextY, -1, true).horizontalAlign(TextWidget.Alignment.CENTER);
                 infotextY += Minecraft.getInstance().font.lineHeight;
