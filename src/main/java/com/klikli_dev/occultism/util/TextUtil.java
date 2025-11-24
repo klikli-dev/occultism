@@ -119,6 +119,16 @@ public class TextUtil {
     }
 
     /**
+     * Formats the given spirit name in bold and dark purple.
+     *
+     * @param name the name to format.
+     * @return the formatted name.
+     */
+    public static String formatPlayerName(String name) {
+        return ChatFormatting.DARK_PURPLE.toString() + ChatFormatting.BOLD + name + ChatFormatting.RESET;
+    }
+
+    /**
      * Formats the given spirit name in bold and gold.
      *
      * @param name the name to format.

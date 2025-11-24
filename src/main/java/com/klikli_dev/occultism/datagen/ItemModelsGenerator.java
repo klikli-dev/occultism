@@ -151,6 +151,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismItems.DEMONS_DREAM_ESSENCE.get()),
 //                this.name(OccultismItems.DICTIONARY_OF_SPIRITS.get()), -> now a blockbench model
                 this.name(OccultismItems.DRAGONYST_DUST.get()),
+                this.name(OccultismItems.ENDER_SATCHEL.get()),
                 this.name(OccultismItems.ECHO_DUST.get()),
                 this.name(OccultismItems.EMERALD_DUST.get()),
                 this.name(OccultismItems.FLAME_AUTOMATION.get()),

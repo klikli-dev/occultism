@@ -235,4 +235,16 @@ public class OccultismDataComponents {
             .networkSynchronized(ByteBufCodecs.FLOAT)
             .cacheEncoding()
     );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<UUID>> LINKED_PLAYER_UUID = DATA_COMPONENTS.registerComponentType("linked_player_uuid", builder -> builder
+            .persistent(OccultismExtraCodecs.UUID)
+            .networkSynchronized(OccultismExtraStreamCodecs.UUID)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> LINKED_PLAYER_NAME = DATA_COMPONENTS.registerComponentType("linked_player_name", builder -> builder
+            .persistent(Codec.STRING)
+            .networkSynchronized(ByteBufCodecs.STRING_UTF8)
+            .cacheEncoding()
+    );
 }

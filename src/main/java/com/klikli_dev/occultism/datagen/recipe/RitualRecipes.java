@@ -1346,6 +1346,20 @@ public abstract class RitualRecipes extends RecipeProvider {
                         Ingredient.of(OccultismTags.Items.IESNIUM_INGOT))
                 .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_entity_wormhole_dark"));
+        RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()),
+                        new ItemStack(OccultismItems.ENDER_SATCHEL.get()),
+                        makeRitualDummy(OccultismItems.RITUAL_DUMMY_CRAFT_ENDER_SATCHEL.get()),
+                        150,
+                        RITUAL_CRAFT_WITH_SPIRIT_NAME,
+                        PENTACLE_CRAFT_DJINNI,
+                        Ingredient.of(Tags.Items.CHESTS_ENDER),
+                        Ingredient.of(Tags.Items.LEATHERS),
+                        Ingredient.of(Tags.Items.LEATHERS),
+                        Ingredient.of(Tags.Items.STRINGS),
+                        Ingredient.of(OccultismTags.Items.SILVER_INGOT),
+                        Ingredient.of(Tags.Items.INGOTS_GOLD))
+                .unlockedBy("has_bound_djinni", has(OccultismItems.BOOK_OF_BINDING_BOUND_DJINNI.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "ritual/craft_ender_satchel"));
         //Foliot
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismItems.BOOK_OF_BINDING_BOUND_FOLIOT.get()),
                         new ItemStack(OccultismItems.RITUAL_SATCHEL_T1.get()),
@@ -1832,7 +1846,7 @@ public abstract class RitualRecipes extends RecipeProvider {
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Tags.Items.TOOLS),
                         makeLoreSpawnEgg(OccultismItems.REPAIR_ICON.get(), "item.occultism.ritual_dummy.repair_tools"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_REPAIR_TOOLS.get()),
-                        60,
+                        30,
                         RITUAL_REPAIR,
                         PENTACLE_CRAFT_AFRIT,
                         Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE),
@@ -1845,7 +1859,7 @@ public abstract class RitualRecipes extends RecipeProvider {
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(Tags.Items.ARMORS),
                         makeLoreSpawnEgg(OccultismItems.REPAIR_ICON.get(), "item.occultism.ritual_dummy.repair_armors"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_REPAIR_ARMORS.get()),
-                        60,
+                        30,
                         RITUAL_REPAIR,
                         PENTACLE_CRAFT_AFRIT,
                         Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE),
@@ -1858,7 +1872,7 @@ public abstract class RitualRecipes extends RecipeProvider {
         RitualRecipeBuilder.ritualRecipeBuilder(Ingredient.of(OccultismTags.Items.Miners.MINERS),
                         makeLoreSpawnEgg(OccultismItems.REPAIR_ICON.get(), "item.occultism.ritual_dummy.repair_miners"),
                         makeRitualDummy(OccultismItems.RITUAL_DUMMY_REPAIR_MINERS.get()),
-                        60,
+                        30,
                         RITUAL_REPAIR,
                         PENTACLE_CRAFT_AFRIT,
                         Ingredient.of(OccultismItems.OTHERWORLD_ESSENCE),

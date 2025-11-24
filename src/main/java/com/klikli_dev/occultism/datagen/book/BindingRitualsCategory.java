@@ -33,7 +33,7 @@ public class BindingRitualsCategory extends CategoryProvider {
                 "___________________________",
                 "_____ᑬ_b_u_t_ĝ_ğ_h_c_______",
                 "___________________________",
-                "_______d___A_g_ã_é_Ж_______",
+                "_______d___A_g_ģ_é_Ж_ã_____",
                 "___________________________",
                 "___9_0________________y____",
                 "___________________________",
@@ -114,6 +114,9 @@ public class BindingRitualsCategory extends CategoryProvider {
         var craftSatchel = this.add(this.makeCraftSatchelEntry(this.entryMap, 'g'));
         craftSatchel.withParent(BookEntryParentModel.create(overview.getId()))
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));
+        var craftEnderSatchel = this.add(new EnderSatchelEntry(this).generate('ģ'));
+        craftEnderSatchel.withParent(BookEntryParentModel.create(craftSatchel.getId()))
+                .withCondition(BookEntryReadConditionModel.create().withEntry(craftDjinniID));
         var apprenticeRitualSatchel = this.add(new ApprenticeRitualSatchelEntry(this).generate('ĝ'));
         apprenticeRitualSatchel.withParent(craftSatchel)
                 .withCondition(BookEntryReadConditionModel.create().withEntry(craftFoliotID));

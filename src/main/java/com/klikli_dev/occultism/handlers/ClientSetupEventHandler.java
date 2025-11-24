@@ -34,6 +34,7 @@ import com.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
 import com.klikli_dev.occultism.client.gui.storage.StorageRemoteGui;
 import com.klikli_dev.occultism.client.itemproperties.*;
 import com.klikli_dev.occultism.client.keybindings.BackpackKeyConflictContext;
+import com.klikli_dev.occultism.client.keybindings.EnderBagKeyConflictContext;
 import com.klikli_dev.occultism.client.keybindings.StorageRemoteKeyConflictContext;
 import com.klikli_dev.occultism.client.model.entity.*;
 import com.klikli_dev.occultism.client.render.GoldenSacrificialBowlHUD;
@@ -91,7 +92,9 @@ public class ClientSetupEventHandler {
     public static final KeyMapping KEY_BACKPACK =
             new KeyMapping("key.occultism.backpack", BackpackKeyConflictContext.INSTANCE,
                     InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_B), "key.occultism.category");
-
+    public static final KeyMapping KEY_ENDER_BAG =
+            new KeyMapping("key.occultism.ender_bag", EnderBagKeyConflictContext.INSTANCE,
+                    InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_V), "key.occultism.category");
     public static final KeyMapping KEY_STORAGE_REMOTE =
             new KeyMapping("key.occultism.storage_remote", StorageRemoteKeyConflictContext.INSTANCE,
                     InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_N), "key.occultism.category");
@@ -200,6 +203,7 @@ public class ClientSetupEventHandler {
     @SubscribeEvent
     public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
         event.register(KEY_BACKPACK);
+        event.register(KEY_ENDER_BAG);
         event.register(KEY_STORAGE_REMOTE);
 
         keysFamiliars = new HashMap<>();

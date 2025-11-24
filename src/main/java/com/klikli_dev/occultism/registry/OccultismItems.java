@@ -29,10 +29,7 @@ import com.klikli_dev.occultism.common.item.FlameAutomationItem;
 import com.klikli_dev.occultism.common.item.armor.OtherworldGogglesItem;
 import com.klikli_dev.occultism.common.item.debug.*;
 import com.klikli_dev.occultism.common.item.spirit.*;
-import com.klikli_dev.occultism.common.item.storage.DimensionalMatrixItem;
-import com.klikli_dev.occultism.common.item.storage.SatchelItem;
-import com.klikli_dev.occultism.common.item.storage.StableWormholeBlockItem;
-import com.klikli_dev.occultism.common.item.storage.StorageRemoteItem;
+import com.klikli_dev.occultism.common.item.storage.*;
 import com.klikli_dev.occultism.common.item.tool.BrushItem;
 import com.klikli_dev.occultism.common.item.tool.*;
 import com.klikli_dev.occultism.common.item.tool.ritual_satchel.MultiBlockRitualSatchelItem;
@@ -74,6 +71,10 @@ public class OccultismItems {
     public static final DeferredItem<SatchelItem> SATCHEL = ITEMS.register("satchel",
             () -> new SatchelItem(defaultProperties().stacksTo(1)
                     .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
+                    .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
+            ));
+    public static final DeferredItem<EnderSatchelItem> ENDER_SATCHEL = ITEMS.register("ender_satchel",
+            () -> new EnderSatchelItem(defaultProperties().stacksTo(1)
                     .component(OccultismDataComponents.SPIRIT_NAME, TextUtil.SPIRIT_NAME_NOT_YET_KNOWN)
             ));
     public static final DeferredItem<SingleBlockRitualSatchelItem> RITUAL_SATCHEL_T1 = ITEMS.register("ritual_satchel_t1",
@@ -621,6 +622,7 @@ public class OccultismItems {
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_INFUSED_LENSES = ITEMS.register("ritual_dummy/craft_infused_lenses", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_INFUSED_PICKAXE = ITEMS.register("ritual_dummy/craft_infused_pickaxe", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_SATCHEL = ITEMS.register("ritual_dummy/craft_satchel", () -> new DummyTooltipItem(defaultProperties()));
+    public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_ENDER_SATCHEL = ITEMS.register("ritual_dummy/craft_ender_satchel", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T1 = ITEMS.register("ritual_dummy/craft_ritual_satchel_t1", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_RITUAL_SATCHEL_T2 = ITEMS.register("ritual_dummy/craft_ritual_satchel_t2", () -> new DummyTooltipItem(defaultProperties()));
     public static final DeferredItem<Item> RITUAL_DUMMY_CRAFT_UPGRADE_RITUAL_SATCHEL = ITEMS.register("ritual_dummy/craft_upgrade_ritual_satchel", () -> new DummyTooltipItem(defaultProperties()));
@@ -815,6 +817,7 @@ public class OccultismItems {
                 || item == BOOK_OF_CALLING_FOLIOT_CLEANER.get()
                 || item == BOOK_OF_CALLING_DJINNI_MANAGE_MACHINE.get()
                 || item == DIMENSIONAL_MATRIX.get()
+                || item == ENDER_SATCHEL.get()
                 || item == SATCHEL.get()
                 || item == RITUAL_SATCHEL_T1.get()
                 || item == RITUAL_SATCHEL_T2.get()
