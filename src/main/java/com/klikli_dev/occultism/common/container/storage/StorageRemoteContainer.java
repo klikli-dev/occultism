@@ -89,7 +89,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
 
     @Override
     protected void setupPlayerHotbar() {
-        int hotbarTop = 232;
+        int hotbarTop = 18*3 + 7 + 18*3 + 4;
         int hotbarLeft = 8 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
         for (int i = 0; i < 9; i++) {
             if (i == this.selectedSlot) {
@@ -119,7 +119,7 @@ public class StorageRemoteContainer extends StorageControllerContainerBase {
 
     @Override
     protected void setupPlayerInventorySlots() {
-        int playerInventoryTop = 174;
+        int playerInventoryTop = 18*3 + 7;
         int playerInventoryLeft = 8 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
 
         for (int i = 0; i < 3; i++) {

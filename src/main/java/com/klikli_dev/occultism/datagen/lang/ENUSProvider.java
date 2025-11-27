@@ -829,6 +829,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("gui.occultism.spirit.transporter.tag_filter", "Enter the tags to filter for separated by \";\".\nE.g.: \"c:ores;*logs*\".\nUse \"*\" to match any character, e.g. \"*ore*\" to match ore tags from any mod. To filter for items, prefix the item id with \"item:\", E.g.: \"item:minecraft:chest\".");
 
         // Storage Controller GUI
+        this.add("gui.occultism.storage_controller.display.rows", "Change rows quantity.");
         this.add("gui.occultism.storage_controller.space_info_label", "%d/%d");
         this.add("gui.occultism.storage_controller.space_info_label_new", "%s%% filled");
         this.add("gui.occultism.storage_controller.space_info_label_types", "%s%% of types");

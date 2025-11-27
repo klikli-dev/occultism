@@ -22,7 +22,6 @@
 
 package com.klikli_dev.occultism.common.container.storage;
 
-import com.klikli_dev.occultism.client.gui.storage.StorageControllerGuiBase;
 import com.klikli_dev.occultism.common.blockentity.StorageControllerBlockEntity;
 import com.klikli_dev.occultism.common.misc.StorageControllerCraftingInventory;
 import com.klikli_dev.occultism.network.Networking;
@@ -57,14 +56,6 @@ public class StorageControllerContainer extends StorageControllerContainerBase {
         this.setupPlayerHotbar();  //player hotbar is slots 48-56
 
         this.slotsChanged(this.matrix);
-    }
-
-    @Override
-    protected void setupPlayerHotbar() {
-        int hotbarTop = 232;
-        int hotbarLeft = 8 + StorageControllerGuiBase.ORDER_AREA_OFFSET;
-        for (int i = 0; i < 9; i++)
-            this.addSlot(new Slot(this.playerInventory, i, hotbarLeft + i * 18, hotbarTop));
     }
 
     @Override
