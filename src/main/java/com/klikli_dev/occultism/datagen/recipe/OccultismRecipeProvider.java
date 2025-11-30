@@ -518,7 +518,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern("xy")
                 .pattern("xy")
                 .pattern("xy")
-                .define('x', OccultismTags.Items.OTHERSTONE_DUST)
+                .define('x', OccultismTags.Items.CHALK_BASE_DUST)
                 .define('y', OccultismTags.Items.OTHERWORLD_WOOD_DUST)
                 .unlockedBy("has_ashes", has(OccultismItems.OTHERWORLD_ASHES.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/chalk_white_impure"));
@@ -526,7 +526,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
                 .pattern("xy")
                 .pattern("xy")
                 .pattern("xy")
-                .define('y', OccultismTags.Items.OTHERSTONE_DUST)
+                .define('y', OccultismTags.Items.CHALK_BASE_DUST)
                 .define('x', OccultismTags.Items.OTHERWORLD_WOOD_DUST)
                 .unlockedBy("has_ashes", has(OccultismItems.OTHERWORLD_ASHES.get()))
                 .save(pRecipeOutput, ResourceLocation.fromNamespaceAndPath(Occultism.MODID, "crafting/chalk_white_impure2"));
@@ -999,6 +999,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
         autoSmeltingRecipe(OccultismBlocks.OTHERCOBBLESTONE.asItem(), OccultismBlocks.OTHERSTONE.asItem(), 0.5f, pRecipeOutput);
         autoSmeltingRecipe(OccultismBlocks.OTHERSTONE.asItem(), OccultismBlocks.POLISHED_OTHERSTONE.asItem(), 0.5f, pRecipeOutput);
         autoSmeltingRecipe(OccultismBlocks.POLISHED_OTHERSTONE.asItem(), OccultismItems.BURNT_OTHERSTONE.asItem(), 0.15f, pRecipeOutput);
+        autoSmeltingRecipe(OccultismBlocks.POLISHED_OTHERROCK.asItem(), OccultismItems.BURNT_OTHERROCK.asItem(), 0.15f, pRecipeOutput);
         autoSmeltingRecipe(OccultismBlocks.OTHERSTONE_BRICKS.asItem(), OccultismBlocks.CRACKED_OTHERSTONE_BRICKS.asItem(), 0.3f, pRecipeOutput);
 
         autoSmeltingRecipe(OccultismBlocks.OTHERCOBBLEROCK.asItem(), OccultismBlocks.OTHERROCK.asItem(), 0.5f, pRecipeOutput);
@@ -1164,6 +1165,7 @@ public class OccultismRecipeProvider extends RecipeProvider {
         grayPasting(OccultismTags.Items.CALCITE_DUST, Items.CALCITE, RecipeCategory.BUILDING_BLOCKS, pRecipeOutput);
         grayPasting(OccultismTags.Items.BLACKSTONE_DUST, Items.BLACKSTONE, RecipeCategory.BUILDING_BLOCKS, pRecipeOutput);
         grayPasting(OccultismTags.Items.OTHERSTONE_DUST, OccultismBlocks.OTHERSTONE.asItem(), RecipeCategory.BUILDING_BLOCKS, pRecipeOutput);
+        grayPasting(OccultismTags.Items.OTHERROCK_DUST, OccultismBlocks.OTHERROCK.asItem(), RecipeCategory.BUILDING_BLOCKS, pRecipeOutput);
     }
 
     protected static void grayPasting(TagKey<Item> input, Item output, RecipeCategory category, RecipeOutput pRecipeOutput) {

@@ -132,6 +132,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
                 this.name(OccultismItems.BOOK_OF_BINDING_FOLIOT.get()),
                 this.name(OccultismItems.BOOK_OF_BINDING_MARID.get()),
                 this.name(OccultismItems.BRUSH.get()),
+                this.name(OccultismItems.BURNT_OTHERROCK.get()),
                 this.name(OccultismItems.BURNT_OTHERSTONE.get()),
                 this.name(OccultismItems.CHALK_RAINBOW.get()),
                 this.name(OccultismItems.CHALK_VOID.get()),

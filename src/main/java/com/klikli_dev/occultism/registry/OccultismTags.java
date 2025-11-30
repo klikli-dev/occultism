@@ -140,6 +140,8 @@ public class OccultismTags {
         public static final TagKey<Item> RESEARCH_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/research"));
         public static final TagKey<Item> WITHERITE_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/witherite"));
         public static final TagKey<Item> OTHERSTONE_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/otherstone"));
+        public static final TagKey<Item> OTHERROCK_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/otherrock"));
+        public static final TagKey<Item> CHALK_BASE_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath(Occultism.MODID,"dusts/chalk_base"));
         public static final TagKey<Item> OTHERWORLD_WOOD_DUST = makeItemTag(ResourceLocation.fromNamespaceAndPath("c","dusts/otherworld_wood"));
 
         public static final TagKey<Item> DATURA_CROP = makeItemTag(ResourceLocation.fromNamespaceAndPath("c", "crops/datura"));

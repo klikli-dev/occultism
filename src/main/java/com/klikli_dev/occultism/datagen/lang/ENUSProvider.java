@@ -322,6 +322,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("item.occultism.otherworld_sapling_natural", "Unstable Otherworld Sapling");
         this.addItem(OccultismItems.OTHERWORLD_ASHES, "Otherworld Ashes");
         this.addItem(OccultismItems.BURNT_OTHERSTONE, "Burnt Otherstone");
+        this.addItem(OccultismItems.BURNT_OTHERROCK, "Burnt Otherrock");
         this.addItem(OccultismItems.BUTCHER_KNIFE, "Butcher Knife");
         this.addItem(OccultismItems.TALLOW, "Tallow");
         this.addItem(OccultismItems.OTHERSTONE_FRAME, "Otherstone Frame");
@@ -2899,6 +2900,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addItemTag(OccultismTags.Items.RESEARCH_DUST,"Research Dust");
         this.addItemTag(OccultismTags.Items.WITHERITE_DUST,"Witherite Dust");
         this.addItemTag(OccultismTags.Items.OTHERSTONE_DUST,"Otherstone Dust");
+        this.addItemTag(OccultismTags.Items.OTHERROCK_DUST,"Otherrock Dust");
+        this.addItemTag(OccultismTags.Items.CHALK_BASE_DUST,"Chalk Base Dust");
         this.addItemTag(OccultismTags.Items.OTHERWORLD_WOOD_DUST,"Otherworld Wood Dust");
         this.addItemTag(OccultismTags.Items.OCCULTISM_CANDLES,"Occultism Candles");
         this.addItemTag(OccultismTags.Items.Miners.MINERS,"Dimensional Miners");
