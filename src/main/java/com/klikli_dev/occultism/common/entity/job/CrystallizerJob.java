@@ -62,6 +62,7 @@ public class CrystallizerJob extends SpiritJob {
     protected Supplier<Float> crystallizeTimeMultiplier;
     protected Supplier<Float> outputMultiplier;
     protected Supplier<Integer> tier;
+    protected Supplier<Integer> operationCount;
 
     protected Optional<RecipeHolder<CrystallizeRecipe>> currentRecipe = Optional.empty();
     protected PickupItemsGoal pickupItemsGoal;
@@ -69,11 +70,12 @@ public class CrystallizerJob extends SpiritJob {
     protected List<Ingredient> itemsToPickUp = new ArrayList<>();
 
 
-    public CrystallizerJob(SpiritEntity entity, Supplier<Float> crystallizeTimeMultiplier, Supplier<Float> outputMultiplier, Supplier<Integer> tier) {
+    public CrystallizerJob(SpiritEntity entity, Supplier<Float> crystallizeTimeMultiplier, Supplier<Float> outputMultiplier, Supplier<Integer> operationCount, Supplier<Integer> tier) {
         super(entity);
         this.crystallizeTimeMultiplier = crystallizeTimeMultiplier;
         this.outputMultiplier = outputMultiplier;
         this.tier = tier;
+        this.operationCount = operationCount;
     }
 
     @Override
@@ -154,10 +156,11 @@ public class CrystallizerJob extends SpiritJob {
                     float outputMultiplier = this.outputMultiplier.get();
                     if (this.currentRecipe.get().value().getIgnoreCrystallizeMultiplier())
                         outputMultiplier = 1;
-                    result.setCount((int) (result.getCount() * outputMultiplier));
+                    int a = Math.min(this.operationCount.get(), handHeld.getCount());
+                    result.setCount((int) (result.getCount() * a * outputMultiplier));
                     ItemStack inputCopy = handHeld.copy();
-                    inputCopy.setCount(1);
-                    handHeld.shrink(1);
+                    inputCopy.setCount(a);
+                    handHeld.shrink(a);
 
                     this.onCrystallize(inputCopy, result);
                     var event = new CrystallizerJobEvent(this.entity, inputCopy, result);

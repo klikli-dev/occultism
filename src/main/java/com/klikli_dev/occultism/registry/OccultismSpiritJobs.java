@@ -71,66 +71,78 @@ public class OccultismSpiritJobs {
             () -> new SpiritJobFactory((entity) -> new CrusherJob(entity,
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier1CrusherTimeMultiplier.get().floatValue(),
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier1CrusherOutputMultiplier.get().floatValue(),
+                    Occultism.SERVER_CONFIG.spiritJobs.tier1CrusherOperationCount::getAsInt,
                     () -> 1
             ), SpiritJobClient.create("crusher")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> CRUSH_TIER2 = JOBS.register("crush_tier2",
             () -> new SpiritJobFactory((entity) -> new CrusherJob(entity,
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier2CrusherTimeMultiplier.get().floatValue(),
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier2CrusherOutputMultiplier.get().floatValue(),
+                    Occultism.SERVER_CONFIG.spiritJobs.tier2CrusherOperationCount::getAsInt,
                     () -> 2
             ), SpiritJobClient.create("crusher")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> CRUSH_TIER3 = JOBS.register("crush_tier3",
             () -> new SpiritJobFactory((entity) -> new CrusherJob(entity,
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier3CrusherTimeMultiplier.get().floatValue(),
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier3CrusherOutputMultiplier.get().floatValue(),
+                    Occultism.SERVER_CONFIG.spiritJobs.tier3CrusherOperationCount::getAsInt,
                     () -> 3
             ), SpiritJobClient.create("crusher")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> CRUSH_TIER4 = JOBS.register("crush_tier4",
             () -> new SpiritJobFactory((entity) -> new CrusherJob(entity,
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier4CrusherTimeMultiplier.get().floatValue(),
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier4CrusherOutputMultiplier.get().floatValue(),
+                    Occultism.SERVER_CONFIG.spiritJobs.tier4CrusherOperationCount::getAsInt,
                     () -> 4
             ), SpiritJobClient.create("crusher")));
     //Smelting Jobs
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> SMELT_TIER1 = JOBS.register("smelt_tier1",
             () -> new SpiritJobFactory((entity) -> new SmelterJob(entity,
-                    () -> Occultism.SERVER_CONFIG.spiritJobs.tier1SmelterTimeMultiplier.get().floatValue()
+                    () -> Occultism.SERVER_CONFIG.spiritJobs.tier1SmelterTimeMultiplier.get().floatValue(),
+                    Occultism.SERVER_CONFIG.spiritJobs.tier1SmelterOperationCount::getAsInt
             ), SpiritJobClient.create("smelter")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> SMELT_TIER2 = JOBS.register("smelt_tier2",
             () -> new SpiritJobFactory((entity) -> new SmelterJob(entity,
-                    () -> Occultism.SERVER_CONFIG.spiritJobs.tier2SmelterTimeMultiplier.get().floatValue()
+                    () -> Occultism.SERVER_CONFIG.spiritJobs.tier2SmelterTimeMultiplier.get().floatValue(),
+                    () -> Occultism.SERVER_CONFIG.spiritJobs.tier2SmelterOperationCount.getAsInt()
             ), SpiritJobClient.create("smelter")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> SMELT_TIER3 = JOBS.register("smelt_tier3",
             () -> new SpiritJobFactory((entity) -> new SmelterJob(entity,
-                    () -> Occultism.SERVER_CONFIG.spiritJobs.tier3SmelterTimeMultiplier.get().floatValue()
+                    () -> Occultism.SERVER_CONFIG.spiritJobs.tier3SmelterTimeMultiplier.get().floatValue(),
+                    () -> Occultism.SERVER_CONFIG.spiritJobs.tier3SmelterOperationCount.getAsInt()
             ), SpiritJobClient.create("smelter")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> SMELT_TIER4 = JOBS.register("smelt_tier4",
             () -> new SpiritJobFactory((entity) -> new SmelterJob(entity,
-                    () -> Occultism.SERVER_CONFIG.spiritJobs.tier4SmelterTimeMultiplier.get().floatValue()
+                    () -> Occultism.SERVER_CONFIG.spiritJobs.tier4SmelterTimeMultiplier.get().floatValue(),
+                    () -> Occultism.SERVER_CONFIG.spiritJobs.tier4SmelterOperationCount.getAsInt()
             ), SpiritJobClient.create("smelter")));
     //Crystallize jobs
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> CRYSTAL_TIER1 = JOBS.register("crystal_tier1",
             () -> new SpiritJobFactory((entity) -> new CrystallizerJob(entity,
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier1CrystallizerTimeMultiplier.get().floatValue(),
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier1CrystallizerOutputMultiplier.get().floatValue(),
+                    () -> Occultism.SERVER_CONFIG.spiritJobs.tier1CrusherOperationCount.getAsInt(),
                     () -> 1
             ), SpiritJobClient.create("crystallizer")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> CRYSTAL_TIER2 = JOBS.register("crystal_tier2",
             () -> new SpiritJobFactory((entity) -> new CrystallizerJob(entity,
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier2CrystallizerTimeMultiplier.get().floatValue(),
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier2CrystallizerOutputMultiplier.get().floatValue(),
+                    () -> Occultism.SERVER_CONFIG.spiritJobs.tier2CrystallizerOperationCount.getAsInt(),
                     () -> 2
             ), SpiritJobClient.create("crystallizer")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> CRYSTAL_TIER3 = JOBS.register("crystal_tier3",
             () -> new SpiritJobFactory((entity) -> new CrystallizerJob(entity,
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier3CrystallizerTimeMultiplier.get().floatValue(),
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier3CrystallizerOutputMultiplier.get().floatValue(),
+                    () -> Occultism.SERVER_CONFIG.spiritJobs.tier3CrystallizerOperationCount.getAsInt(),
                     () -> 3
             ), SpiritJobClient.create("crystallizer")));
     public static final DeferredHolder<SpiritJobFactory, SpiritJobFactory> CRYSTAL_TIER4 = JOBS.register("crystal_tier4",
             () -> new SpiritJobFactory((entity) -> new CrystallizerJob(entity,
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier4CrystallizerTimeMultiplier.get().floatValue(),
                     () -> Occultism.SERVER_CONFIG.spiritJobs.tier4CrystallizerOutputMultiplier.get().floatValue(),
+                    () -> Occultism.SERVER_CONFIG.spiritJobs.tier4CrystallizerOperationCount.getAsInt(),
                     () -> 4
             ), SpiritJobClient.create("crystallizer")));
 

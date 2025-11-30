@@ -3042,6 +3042,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         this.addConfig("misc", "Misc Settings");
         this.addConfig("syncJeiSearch", "Sync JEI Search");
+        this.addConfig("syncEMISearch", "Sync EMI Search");
+        this.addConfig("storageRows", "Number of rows in the storage system");
         this.addConfig("divinationRodHighlightAllResults", "Divination Rod Highlight All Results");
         this.addConfig("divinationRodScanRange", "Divination Rod Scan Range");
         this.addConfig("disableSpiritFireSuccessSound", "Disable Spirit Fire Success Sound");
@@ -3073,6 +3075,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("tier1CrusherOutputMultiplier", "Output multiplier for Tier 1 Crusher operations.");
         this.addConfig("tier2CrusherOutputMultiplier", "Output multiplier for Tier 2 Crusher operations.");
         this.addConfig("tier3CrusherOutputMultiplier", "Output multiplier for Tier 3 Crusher operations.");
+        this.addConfig("tier1CrusherOperationCount", "Recipes done per operations for Tier 1 Crusher.");
+        this.addConfig("tier2CrusherOperationCount", "Recipes done per operations for Tier 2 Crusher.");
+        this.addConfig("tier3CrusherOperationCount", "Recipes done per operations for Tier 3 Crusher.");
+        this.addConfig("tier4CrusherOperationCount", "Recipes done per operations for Tier 4 Crusher.");
         this.addConfig("tier4CrusherOutputMultiplier", "Output multiplier for Tier 4 Crusher operations.");
         this.addConfig("crusherResultPickupDelay", "Delay before items from crusher operations can be picked up.");
         this.addConfig("tier1CrystallizerTimeMultiplier", "Time multiplier for Tier 1 Crystallizer operations.");
@@ -3083,11 +3089,19 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.addConfig("tier2CrystallizerOutputMultiplier", "Output multiplier for Tier 2 Crystallizer operations.");
         this.addConfig("tier3CrystallizerOutputMultiplier", "Output multiplier for Tier 3 Crystallizer operations.");
         this.addConfig("tier4CrystallizerOutputMultiplier", "Output multiplier for Tier 4 Crystallizer operations.");
+        this.addConfig("tier1CrystallizerOperationCount", "Recipes done per operations for Tier 1 Crystallizer.");
+        this.addConfig("tier2CrystallizerOperationCount", "Recipes done per operations for Tier 2 Crystallizer.");
+        this.addConfig("tier3CrystallizerOperationCount", "Recipes done per operations for Tier 3 Crystallizer.");
+        this.addConfig("tier4CrystallizerOperationCount", "Recipes done per operations for Tier 4 Crystallizer.");
         this.addConfig("crystallizerResultPickupDelay", "Delay before items from crystallizer operations can be picked up.");
         this.addConfig("tier1SmelterTimeMultiplier", "Time multiplier for Tier 1 Smelter operations.");
         this.addConfig("tier2SmelterTimeMultiplier", "Time multiplier for Tier 2 Smelter operations.");
         this.addConfig("tier3SmelterTimeMultiplier", "Time multiplier for Tier 3 Smelter operations.");
         this.addConfig("tier4SmelterTimeMultiplier", "Time multiplier for Tier 4 Smelter operations.");
+        this.addConfig("tier1SmelterOperationCount", "Recipes done per operations for Tier 1 Smelter.");
+        this.addConfig("tier2SmelterOperationCount", "Recipes done per operations for Tier 2 Smelter.");
+        this.addConfig("tier3SmelterOperationCount", "Recipes done per operations for Tier 3 Smelter.");
+        this.addConfig("tier4SmelterOperationCount", "Recipes done per operations for Tier 4 Smelter.");
         this.addConfig("smelterResultPickupDelay", "Delay before items from smelter operations can be picked up.");
         this.addConfig("blacksmithFamiliarRepairChance", "Chance for Blacksmith Familiar to repair an item each tick.");
         this.addConfig("blacksmithFamiliarUpgradeCost", "Cost in experience levels for upgrading items with Blacksmith Familiar.");
