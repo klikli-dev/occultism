@@ -786,6 +786,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
         this.add("effect.occultism.bat_lifesteal", "Lifesteal");
         this.add("effect.occultism.beaver_harvest", "Beaver Harvest");
         this.add("effect.occultism.step_height", "Step Height");
+        this.add("effect.occultism.pumpkin_head", "Pumpkin Head");
 
         //Potions
         this.add("item.minecraft.potion.effect.third_eye_potion", "Potion of Third Eye");

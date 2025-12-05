@@ -62,7 +62,7 @@ import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
 import java.util.List;
 
-@EventBusSubscriber(modid = Occultism.MODID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = Occultism.MODID)
 public class FamiliarEventHandler {
 
     @SubscribeEvent
@@ -178,14 +178,8 @@ public class FamiliarEventHandler {
 
     @SubscribeEvent
     public static void headlessEndermanEvent(EnderManAngerEvent event) {
-
-        if (!FamiliarUtil.isFamiliarEnabled(event.getPlayer(), OccultismEntities.HEADLESS_FAMILIAR.get()))
-            return;
-
-        if (!FamiliarUtil.hasFamiliar(event.getPlayer(), OccultismEntities.HEADLESS_FAMILIAR.get(), FamiliarEntity::hasBlacksmithUpgrade))
-            return;
-
-        event.setCanceled(true);
+        if (event.getPlayer().hasEffect(OccultismEffects.PUMPKIN_HEAD))
+            event.setCanceled(true);
     }
 
     private static void headlessStealHead(LivingDeathEvent event) {
