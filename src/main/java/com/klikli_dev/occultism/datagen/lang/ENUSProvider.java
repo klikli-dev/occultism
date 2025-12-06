@@ -3046,7 +3046,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider {
 
         this.addConfig("misc", "Misc Settings");
         this.addConfig("syncJeiSearch", "Sync JEI Search");
-        this.addConfig("syncEMISearch", "Sync EMI Search");
+        this.addConfig("enableEMISync", "Sync EMI Search");
         this.addConfig("storageRows", "Number of rows in the storage system");
         this.addConfig("divinationRodHighlightAllResults", "Divination Rod Highlight All Results");
         this.addConfig("divinationRodScanRange", "Divination Rod Scan Range");
