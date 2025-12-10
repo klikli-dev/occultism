@@ -301,14 +301,17 @@ public class OccultismBlocks {
     public static final DeferredBlock<LeavesBlock> OTHERWORLD_LEAVES =
             register("otherworld_leaves", () -> new LeavesBlock(
                     Block.Properties.of()
-                            .mapColor(MapColor.PLANT)
-                            .sound(SoundType.GRASS)
-                            .strength(0.2f).randomTicks().noOcclusion()), true, LootTableType.CUSTOM);
+                            .mapColor(MapColor.PLANT).sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)
+                            .strength(0.2F).randomTicks().noOcclusion().ignitedByLava().isValidSpawn(Blocks::ocelotOrParrot)
+                            .isSuffocating((state, level, pos) -> false).isViewBlocking((state, level, pos) -> false)
+                            .isRedstoneConductor((state, level, pos) -> false)), true, LootTableType.CUSTOM);
     public static final DeferredBlock<OtherworldLeavesNaturalBlock> OTHERWORLD_LEAVES_NATURAL =
             register("otherworld_leaves_natural", () -> new OtherworldLeavesNaturalBlock(
                     Block.Properties.of()
-                            .mapColor(MapColor.PLANT).sound(SoundType.GRASS)
-                            .strength(0.2f).randomTicks().noOcclusion()), true, LootTableType.CUSTOM);
+                            .mapColor(MapColor.PLANT).sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)
+                            .strength(0.2F).randomTicks().noOcclusion().ignitedByLava().isValidSpawn(Blocks::ocelotOrParrot)
+                            .isSuffocating((state, level, pos) -> false).isViewBlocking((state, level, pos) -> false)
+                            .isRedstoneConductor((state, level, pos) -> false)), true, LootTableType.CUSTOM);
     public static final DeferredBlock<Block> OTHERWORLD_LOG_NATURAL =
             register("otherworld_log_natural", () -> new OtherworldLogNaturalBlock(Block.Properties.of()
                     .mapColor((state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.WOOD : MapColor.COLOR_PURPLE).strength(2.0f), OccultismBlocks.STRIPPED_OTHERWORLD_LOG_NATURAL), true, LootTableType.OTHERWORLD_BLOCK);
